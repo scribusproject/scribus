@@ -5276,6 +5276,7 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		PageItem *nextItem = currItem;
+		nextItem->itemText.selectAll();
 		while (nextItem != 0)
 		{
 			if (nextItem->prevInChain() != 0)
@@ -5285,7 +5286,6 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 		}
 		while (nextItem != 0)
 		{
-			nextItem->itemText.selectAll();
 			nextItem->HasSel = true;
 			nextItem = nextItem->nextInChain();
 		}

@@ -1075,6 +1075,32 @@ bool StoryText::selected(int pos) const
 	;
 }
 
+
+int StoryText::selectWord(int pos)
+{
+	//Double click in a frame to select a word
+
+	int a = pos;
+	while(a > 0)
+	{
+		if (text(a-1).isLetterOrNumber())
+			--a;
+		else
+			break;
+	}
+	int b = pos;
+	while(b < length())
+	{
+		if (text(b).isLetterOrNumber())
+			++b;
+		else
+			break;
+	}
+	select(a, b - a);
+	return a;
+}
+
+
 void StoryText::select(int pos, uint len, bool on)
 {
 	if (pos < 0)
@@ -1114,6 +1140,36 @@ void StoryText::select(int pos, uint len, bool on)
 	}
 	
 //	qDebug("new selection: %d - %d", selFirst, selLast);
+}
+
+void StoryText::extendSelection(int oldPos, int newPos)
+{
+	if (selFirst <= selLast)
+	{
+		// have selection
+		if (selLast == oldPos - 1)
+		{
+			selLast = newPos - 1;
+			return;
+		}
+		else if (selFirst == oldPos)
+		{
+			selFirst = newPos;
+			return;
+		}
+		// can't extend, fall through
+	}
+	// no previous selection
+	if (newPos > oldPos)
+	{
+		selFirst = oldPos;
+		selLast = newPos - 1;
+	}
+	else
+	{
+		selFirst = newPos;
+		selLast = oldPos - 1;
+	}
 }
 
 void StoryText::selectAll()
@@ -1216,6 +1272,8 @@ int StoryText::screenToPosition(FPoint coord) const
 			maxx = xpos;
 		if (xpos + 1.0 > coord.x()) // allow 1pt after end of line
 			return ls.lastItem + 1;
+		else if (coord.x() <= ls.x + ls.width) // last line of paragraph?
+			return ls.lastItem;
 		else if (xpos < ls.x + 0.01 && maxx >= coord.x()) // check for empty line
 			return ls.firstItem;
 	}

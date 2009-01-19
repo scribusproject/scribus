@@ -242,7 +242,21 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m_view->stopDragTimer();
 	PageItem *currItem = 0;
-	if (!(GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame()))
+	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame())
+	{
+		//CB if annotation, open the annotation dialog
+		if (currItem->isAnnotation())
+		{
+			m_view->requestMode(submodeAnnotProps);
+		}
+		//otherwise, select between the whitespace
+		else
+		{	//Double click in a frame to select a word
+			oldCp = currItem->CPos;
+			currItem->CPos = currItem->itemText.selectWord(currItem->CPos);
+		}
+	}
+	else
 	{
 		mousePressEvent(m);
 		return;
@@ -917,13 +931,14 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				return;
 			}
 			//<<CB Add in shift select to text frames
-			if (m->modifiers() & Qt::ShiftModifier)
+			if (m->modifiers() & Qt::ShiftModifier && currItem->itemText.lengthOfSelection() > 0)
 			{
-				int dir=1;
-				if (oldCp>currItem->CPos)
-					dir=-1;
-				currItem->asTextFrame()->ExpandSel(dir, oldP);
-				oldCp = oldP;
+				if (currItem->CPos < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
+					oldP = currItem->itemText.startOfSelection();
+				else 
+					oldP = currItem->itemText.endOfSelection();
+				currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
+				oldCp = currItem->CPos;
 			}
 			else //>>CB
 			{

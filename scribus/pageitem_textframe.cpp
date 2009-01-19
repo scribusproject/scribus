@@ -3186,119 +3186,56 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 //   PageItem *currItem text item to be processed
 //   inc < 0 for left key > 0 for right key
 //  if value is +/-1 work on slection
-//  if value is +/-2 refresh if text under cursor is selected
+//  if value is +/-2 refresh if text under cursor is selected -- not used
 
 void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 {
-	int len = itemText.length();
-	bool rightSel = false; // assume left right and actual char not selected
-	bool leftSel  = false;
-	bool actSel   = false;
-	bool selMode  = false;
-
-	if ( dir == -1 || dir == 1 )
-		selMode = true;
+	int start = itemText.startOfSelection();
+	int end = itemText.endOfSelection();
+	if (oldPos >= end && CPos < start)
+	{
+		itemText.deselectAll();
+		itemText.select(CPos, start - CPos);
+	}
+	else if (oldPos <= start && CPos > end)
+	{
+		itemText.deselectAll();
+		itemText.select(end, CPos - end);
+	}
 	else
+		itemText.extendSelection(oldPos, CPos);
+	HasSel = (itemText.lengthOfSelection() > 0);
+	if (HasSel)
 	{
-		if ( dir > 0 )
-			dir = 1;
-		else
-			dir = -1;
-	}
-   // show for selection of previous, actual and next character
-	if ( itemText.lengthOfSelection() > 0 ) /* selection already present */
-	{
-		if (dir > 0 && oldPos < len) // -> key
-		{
-			if ( oldPos == 0 )
-				leftSel = false;
-			else
-				leftSel = itemText.selected(oldPos-1);
-			actSel = itemText.selected(oldPos);
-			rightSel = false; // not relevant
-		}
-		else if ( dir > 0 && oldPos == len) // -> key
-		{
-			return;
-		}
-		else if ( dir < 0 && oldPos > 0 ) // <- key
-		{
-			actSel = itemText.selected(oldPos-1);
-			leftSel = false; // not relevant
-			if ( oldPos < len  )
-				rightSel = itemText.selected(oldPos);
-			else
-				rightSel = false;
-		}
-		else if ( dir < 0 && oldPos == 0 ) // <- key
-		{
-         return;
-		}
-		if ( selMode && !(leftSel||actSel||rightSel) )
-		{
-         // selected outside from concerned range
-			itemText.deselectAll();
-			HasSel = false;
-			//CB Replace with direct call for now //emit HasNoTextSel();
-			m_Doc->scMW()->DisableTxEdit();
-		}
-		else if ( !selMode )
-		{
-			if (leftSel||actSel||rightSel)
-				update();
-		}
-	}
-	if ( !selMode )
-		return;
-   // no selection
-	if ( !HasSel )
-	{
-		HasSel = true;
 		//CB Replace with direct call for now //emit HasTextSel();
 		m_Doc->scMW()->EnableTxEdit();
-		leftSel = true;
-		rightSel = true;
-	}
-	int start;
-	int end;
-	int sel;
-	if (dir == 1) // ->  key
-	{
-		start = oldPos;
-		end   = CPos;
-		sel = leftSel == true;
+		
 	}
 	else
 	{
-		start = CPos;
-		end   = oldPos;
-		sel = rightSel == true;
-	}
-	itemText.select(start, end-start, sel);
-	if ( ! sel )
 		//CB Replace with direct call for now //emit  HasNoTextSel();
 		m_Doc->scMW()->DisableTxEdit();
-
-	cursorBiasBackward = (dir < 0);
+	}
+	cursorBiasBackward = (oldPos > CPos);
 
 	update();
 }
 
 void PageItem_TextFrame::deselectAll()
 {
-	PageItem *item = this;
-	while( item->prevInChain() )
-		item=item->prevInChain();
-
-	while ( item )
+	if ( itemText.lengthOfSelection() > 0 )
 	{
-		if ( item->itemText.lengthOfSelection() > 0 )
+		itemText.deselectAll();
+		PageItem *item = this;
+		while( item->prevInChain() )
+			item=item->prevInChain();
+
+		while ( item )
 		{
-			item->itemText.deselectAll();
-			update();
 			item->HasSel = false;
+			item = item->nextInChain();
 		}
-		item = item->nextInChain();
+		update();
 	}
 	//CB Replace with direct call for now //emit HasNoTextSel();
 	m_Doc->scMW()->DisableTxEdit();
