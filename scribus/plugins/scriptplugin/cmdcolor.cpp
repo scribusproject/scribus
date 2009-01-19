@@ -218,6 +218,61 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (strcmp(Name, "") == 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Color name cannot be an empty string.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	QString col = QString::fromUtf8(Name);
+	if (ScCore->primaryMainWindow()->doc->PageColors.contains(col))
+	{
+		return PyBool_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->PageColors[col].isSpotColor()));
+	}
+	else
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+// 	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setspotcolor(PyObject * /*self*/, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int enable;
+
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &enable))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (strcmp(Name, "") == 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Color name cannot be an empty string.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	QString col = QString::fromUtf8(Name);
+	if (ScCore->primaryMainWindow()->doc->PageColors.contains(col))
+	{
+		ScCore->primaryMainWindow()->doc->PageColors[col].setSpotColor(static_cast<bool>(enable));
+	}
+	else
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	Py_RETURN_NONE;
+}
+
+
+
 /*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -226,5 +281,5 @@ void cmdcolordocswarnings()
     QStringList s;
     s << scribus_colornames__doc__ << scribus_getcolor__doc__ << scribus_getcolorasrgb__doc__;
     s << scribus_setcolor__doc__ << scribus_newcolor__doc__ << scribus_delcolor__doc__;
-    s << scribus_replcolor__doc__;
+	s << scribus_replcolor__doc__ << scribus_isspotcolor__doc__ << scribus_setspotcolor__doc__;
 }

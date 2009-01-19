@@ -107,5 +107,34 @@ May raise ValueError if an invalid color name is specified.\n\
 /** Replaces color with the 2nd one. */
 PyObject *scribus_replcolor(PyObject * /*self*/, PyObject* args);
 
+
+/*! docstring */
+PyDoc_STRVAR(scribus_isspotcolor__doc__,
+QT_TR_NOOP("isSpotColor(\"name\") -> bool\n\
+\n\
+Returns True if the color \"name\" is a spot color.\n\
+See also setSpotColor()\n\
+\n\
+May raise NotFoundError if a named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Replaces color with the 2nd one. */
+PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args);
+
+
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setspotcolor__doc__,
+QT_TR_NOOP("setSpotColor(\"name\", spot)\n\
+\n\
+Set the color \"name\" as a spot color if spot parameter is True.\n\
+See also isSpotColor()\n\
+\n\
+May raise NotFoundError if a named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Replaces color with the 2nd one. */
+PyObject *scribus_setspotcolor(PyObject * /*self*/, PyObject* args);
+
 #endif
 
