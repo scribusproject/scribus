@@ -49,6 +49,12 @@
 <dd><code>getLineColor(["name"]) -&gt; string</code>
 <p>Returns the name of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
 
+<dt><a name="-getTextDistances"><strong>getTextDistances</strong></a>(...)</dt>
+<dd><code>getTextDistances(["name"]) -&gt; tuple</code>
+<p>Returns the text distances of the text frame "name" expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If "name"
+is not given the currently selected item is used.</p></dd>
+
 <dt><a name="-getTextLength"><strong>getTextLength</strong></a>(...)</dt>
 <dd><code>getTextLength(["name"]) -&gt; integer</code>
 <p>Returns the length of the text in the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
@@ -123,6 +129,13 @@
 <dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
 <dd><code>setTextColor("color", ["name"])</code>
 <p>Sets the text color of the text frame "name" to the color "color". If there is some text selected only the selected text is changed. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextDistances"><strong>setTextDistances</strong></a>(...)</dt>
+<dd><code>setTextDistances(left, right, top, bottom, ["name"])</code>
+<p>Sets the text distances of the text frame "name" to the values "left"
+"right", "top" and "bottom". If "name" is not given the currently
+selected item is used.</p>
+<p>May throw ValueError if any of the distances are out of bounds (must be positive).</p></dd>
 
 <dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
 <dd><code>setTextShade(shade, ["name"])</code>

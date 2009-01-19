@@ -38,10 +38,24 @@
 <dd><code>getColorNames() -&gt; list</code>
 <p>Returns a list containing the names of all defined colors in the document. If no document is open, returns a list of the default document colors.</p></dd>
 
+<dt><a name="-isSpotColor"><strong>isSpotColor</strong></a>(...)</dt>
+<dd><code>isSpotColor("name") -&gt; bool</code>
+<p>Returns True if the color "name" is a spot color.</p>
+<p>See also setSpotColor()</p>
+<p>May raise NotFoundError if a named color wasn't found.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
+
 <dt><a name="-replaceColor"><strong>replaceColor</strong></a>(...)</dt>
 <dd><code>replaceColor("name", "replace")</code>
 <p>Every occurence of the color "name" is replaced by the color "replace".</p>
 <p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if a named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-setSpotColor"><strong>setSpotColor</strong></a>(...)</dt>
+<dd><code>setSpotColor("name", spot)</code>
+<p>Set the color "name" as a spot color if spot parameter is True.</p>
+<p>See also isSpotColor().</p>
+<p>May raise NotFoundError if a named color wasn't found.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
 
 </dl>
 
