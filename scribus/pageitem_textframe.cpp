@@ -2401,16 +2401,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 			    double xcoZli = selX + hls->glyph.xoffset;
 			    desc = - charStyleS.font().descent(charStyleS.fontSize() / 10.0);
 			    asce = charStyleS.font().ascent(charStyleS.fontSize() / 10.0);
-			    wide = hls->glyph.xadvance;
+			    wide = hls->glyph.wide();
 			    QRectF scr;
 			    if (hl->ch == SpecialChars::OBJECT)
 			    {
 				double ww = (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
 				double hh = (hls->embedded.getItem()->gHeight + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleV;
-				scr = QRectF(xcoZli, ls.y - hh, ww+1, hh);
+				scr = QRectF(xcoZli, ls.y - hh, ww , hh);
 			    }
 			    else
-				scr = QRectF(xcoZli, ls.y + hls->glyph.yoffset - asce * hls->glyph.scaleV, wide+1, (asce+desc) * (hls->glyph.scaleV));
+				scr = QRectF(xcoZli, ls.y + hls->glyph.yoffset - asce * hls->glyph.scaleV, wide , (asce+desc) * (hls->glyph.scaleV));
 			    selectedFrame |=  scr;
 			}
 		    }

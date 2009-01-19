@@ -1321,7 +1321,10 @@ FRect StoryText::boundingBox(int pos, uint len) const
 					finalw = (object(pos)->gWidth + object(pos)->lineWidth()) * item(pos)->glyph.scaleH;
 				else
 					finalw = item(pos)->glyph.wide();
-				result.setRect(xpos, ls.y - ls.ascent, pos < length()? finalw : 1, ls.ascent + ls.descent);
+				const CharStyle& cs(charStyle(pos));
+				double desc = -cs.font().descent(cs.fontSize() / 10.0);
+				double asce = cs.font().ascent(cs.fontSize() / 10.0);
+				result.setRect(xpos, ls.y - asce, pos < length()? finalw : 1, desc+asce);
 			}
 			return result;
 		}
