@@ -4,12 +4,20 @@
 """
 ABOUT THIS SCRIPT:
 
-ColorChart.py allows a user to create color charts with all the colors of a given scribus document. 
-It generates a color field for each color and a description of the color, containing the color name, the CMYK values and the RGB values.
+ColorChart.py allows a user to create color charts with all
+the colors of a given scribus document.
+It generates a color field for each color and a description
+of the color, containing the color name, the CMYK values and
+the RGB values.
 
-If there is a document opened in scribus, ColorChart uses this document as color source and creates a new document with the color chart.
-If there is no document opened in scribus, ColorChart displays a file open dialog to allow the user to chose a scribus file to generate a colorchart of.
-You will be asked to give a name for the color chart. This name will be displayed in the pages headlines.
+If there is a document opened in scribus, ColorChart uses this
+document as color source and creates a new document with the
+color chart.
+If there is no document opened in scribus, ColorChart displays
+a file open dialog to allow the user to chose a scribus file
+to generate a colorchart of.
+You will be asked to give a name for the color chart. This name
+will be displayed in the pages headlines.
 ############################
 
 LICENSE:
@@ -71,7 +79,7 @@ def drawHeaderFooter(pagetitle):
     leftMargin=pageMargins[1]
     rightMargin=pageMargins[2]
     bottomMargin=pageMargins[3]
-    
+
     #create textbox and insert text for header
     textbox=scribus.createText(leftMargin, topMargin,  pageWidth-leftMargin-rightMargin, HEADERSIZE)
     #set proper font size and alignment
@@ -80,7 +88,7 @@ def drawHeaderFooter(pagetitle):
     #load the string into the textbox
     headerstring=pagetitle
     scribus.insertText(headerstring, 0, textbox)
-    
+
     #create textbox and insert text for footer
     textbox=scribus.createText(leftMargin, pageHeight-bottomMargin-FOOTERSIZE,  pageWidth-leftMargin-rightMargin, FOOTERSIZE)
     #set proper font size and alignment
@@ -89,6 +97,17 @@ def drawHeaderFooter(pagetitle):
     #load the string into the textbox
     footerstring="Created using ColorChart.py V %s script for Scribus by Sebastian Stetter - http://www.sebastianstetter.de" % str(__version__)
     scribus.insertText(footerstring, 0, textbox)
+
+
+def getSpotColors():
+    """ Get spot colors from an original document.
+        Must be called after getColorsFromDocument().
+    """
+    ret = {}
+    for color in scribus.getColorNames():
+        ret[color] = scribus.isSpotColor(color)
+    return ret
+
 
 def getColorsFromDocument():
     """gets colors from opend document. if there is no document, display dialog to chose a file. returns a list[name,c,m,y,k]"""
@@ -130,6 +149,7 @@ def getColorsFromDocument():
 def prepareDocument():
     """creates the new document, sets up colors """
     colorList = getColorsFromDocument()
+    spotDict = getSpotColors()
     scribus.statusMessage("Preparing new document...")
     scribus.newDocument(scribus.PAPER_A4,  (15,15,  20, 20),  scribus.PORTRAIT, 1, scribus.UNIT_POINTS,  scribus.PAGE_1, 0, 1) 
     scribus.setUnit(scribus.UNIT_MILLIMETERS)
@@ -137,7 +157,7 @@ def prepareDocument():
     cols = scribus.getColorNames()
     for col in cols:
         scribus.deleteColor(col, "None")
-    
+
     #create our new colors
     for color in colorList:
         cname=color[0]
@@ -146,7 +166,9 @@ def prepareDocument():
         y = int(color[3])
         k = int(color[4])
         scribus.defineColor(cname,  c, m, y, k )
-    
+        if spotDict.has_key(cname):
+            scribus.setSpotColor(cname, spotDict[cname])
+
     #get the pageTitle form user and store it in PageTitle
     global pageTitle
     pageTitle=scribus.valueDialog("ColorChart by Sebastian Stetter", "Please enter document title", "Scribus COLOR CHART")
@@ -191,7 +213,8 @@ def rgbhex(r,g,b):
 
 
 def drawColor(colorname, h, v, width,  height): #h horizontal position, v vertical position
-    """draws a color chart field with its caption for the given colorname at the h and v position"""
+    """draws a color chart field with its caption for the given colorname at the h and v position
+    """
     #get cmyk values and convert them to 0 - 255 values
     color = scribus.getColor(colorname)
     c= int(round(color[0]/2.55))
@@ -206,7 +229,11 @@ def drawColor(colorname, h, v, width,  height): #h horizontal position, v vertic
     #get webcolor
     webcolor=rgbhex(r, g, b)
     #but String for Textbox together
-    colorstring="%s\nC %i, M %i, Y %i, K %i, \nR %i, G %i, B %i \nRGB: %s" %(colorname, c, m, y, k, r, g, b,  webcolor)
+    colorDisplay = colorname
+    if scribus.isSpotColor(colorname):
+        colorDisplay += " (Spot Color)"
+    colorstring="%s\nC %i, M %i, Y %i, K %i, \nR %i, G %i, B %i \nRGB: %s" %(colorDisplay, c, m, y, k, r, g, b,  webcolor)
+
     #draw rectangle and set colors
     rect=scribus.createRect(h, v, width,  height)
     scribus.setFillColor(colorname, rect)
@@ -222,7 +249,6 @@ def drawColor(colorname, h, v, width,  height): #h horizontal position, v vertic
     scribus.setTextAlignment(scribus.ALIGN_LEFT, textbox)
     #load the string into the textbox
     scribus.insertText(colorstring, 0, textbox)
-    
 
 
 def createChart():
@@ -238,20 +264,19 @@ def createChart():
     leftMargin=pageMargins[1]
     rightMargin=pageMargins[2]
     bottomMargin=pageMargins[3]
-    
-    
+
     #color field dimensions
     colorFieldWidth= pageWidth - leftMargin - rightMargin - (TEXT_BOX_WIDTH+HSPACE) #50+5 is the with of the textbox plus the space between textbox and colorfield
-    
+
     #how much space does one field use?
     vSpaceUsedByField = COLOR_FIELD_HEIGHT+VSPACE
-    
+
     #how much space is available per row?
     vSpaceAvailable=pageHeight-topMargin-bottomMargin-HEADERSIZE-FOOTERSIZE
-    
+
     #counts the colorFields created for a page. reset this variable after creation of new page
     colorFieldCounter=0
-    
+
     #get list of all colors in document
     colorList = scribus.getColorNames()
     #prepare the progressbar
@@ -266,12 +291,12 @@ def createChart():
     for color in colorList:
         if (vSpaceUsedByField * (colorFieldCounter+1)) <= vSpaceAvailable:
             # when there is enought space left draw a color field...
-            
+
             #calculate Position for new colorField
             h=leftMargin
             v=topMargin + (vSpaceUsedByField * colorFieldCounter)+HEADERSIZE
             #draw the colorField
-            drawColor(color, h, v,  colorFieldWidth, COLOR_FIELD_HEIGHT )
+            drawColor(color, h, v,  colorFieldWidth, COLOR_FIELD_HEIGHT)
             colorFieldCounter = colorFieldCounter+1
             #update progressbar
             stepCompleted = stepCompleted+1
@@ -283,28 +308,21 @@ def createChart():
             colorFieldCounter = 0
             h=leftMargin
             v=topMargin + (vSpaceUsedByField * colorFieldCounter)+HEADERSIZE
-            drawColor(color, h, v,  colorFieldWidth, COLOR_FIELD_HEIGHT )
+            drawColor(color, h, v,  colorFieldWidth, COLOR_FIELD_HEIGHT)
             colorFieldCounter = colorFieldCounter+1
 
             #update progressbar
             stepCompleted = stepCompleted+1
             scribus.progressSet(stepCompleted)
-    
+
     #make shure pages are redrawn
     scribus.setRedraw(True)
-
-        
-
-
-
 
 
 def main(argv):
     """just invokes createChart() and displays a message after the chart is finished."""
     createChart()
     scribus.messageBox("ColorChart Script by Sebastian Stetter", "Your chart has been created, but not saved, yet!\nThanks for using ColorChart and Scribus!")
-
-    
 
 
 def main_wrapper(argv):
