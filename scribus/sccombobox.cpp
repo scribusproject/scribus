@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 /// use listbox instead of popupmenu for combo boxes
 class ScMacStyle : public QMacStyle {
-	virtual int ScMacStyle::styleHint(StyleHint sh, 
+	virtual int styleHint(StyleHint sh, 
 	                                  const QStyleOption * so, 
 					  const QWidget * w, 
 	                                  QStyleHintReturn * r) const
