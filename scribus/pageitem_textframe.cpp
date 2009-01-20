@@ -2259,68 +2259,68 @@ void PageItem_TextFrame::invalidateLayout()
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
 {
-    // 	qDebug()<<"PageItem_TextFrame::DrawObj_Item"<<this<<invalid;
-    if(invalid)
-	layout();
-    if (invalid)
-	return;
-    QMatrix pf2;
-    QPoint pt1, pt2;
-    double wide, lineCorr;
-    QChar chstr0;
-    ScText *hl;
-    QString cachedStroke = "";
-    QString cachedFill = "";
-    double cachedFillShade = -1;
-    double cachedStrokeShade = -1;
-    QString actStroke = "";
-    QString actFill = "";
-    double actFillShade = -1;
-    double actStrokeShade = -1;
-    QColor cachedFillQ;
-    QColor cachedStrokeQ;
-    //	QValueList<ParagraphStyle::TabRecord> tTabValues;
-    double desc, asce, tabDist;
-    //	tTabValues.clear();
-    p->save();
-    //	QRect e2;
-    if (isEmbedded)
-    {
-	//		e2 = cullingArea;
-    }
-    else
-    {
-	//		e2 = QRect(qRound(cullingArea.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(cullingArea.y()  / sc + m_Doc->minCanvasCoordinate.y()),
-	//				   qRound(cullingArea.width() / sc), qRound(cullingArea.height() / sc));
-	pf2.translate(Xpos, Ypos);
-    }
-
-    pf2.rotate(Rot);
-    if (!m_Doc->layerOutline(LayerNr))
-    {
-	if ((fillColor() != CommonStrings::None) || (GrType != 0))
-	{
-	    p->setupPolygon(&PoLine);
-	    p->fillPath();
-	}
-    }
-    if (lineColor() != CommonStrings::None)
-	lineCorr = m_lineWidth / 2.0;
-    else
-	lineCorr = 0;
-    if ((isAnnotation()) && (annotation().Type() == 2) && (!Pfile.isEmpty()) && (PicAvail) && (PicArt) && (annotation().UseIcons()))
-    {
+// 	qDebug()<<"PageItem_TextFrame::DrawObj_Item"<<this<<invalid;
+	if(invalid)
+		layout();
+	if (invalid)
+		return;
+	QMatrix pf2;
+	QPoint pt1, pt2;
+	double wide, lineCorr;
+	QChar chstr0;
+	ScText *hl;
+	QString cachedStroke = "";
+	QString cachedFill = "";
+	double cachedFillShade = -1;
+	double cachedStrokeShade = -1;
+	QString actStroke = "";
+	QString actFill = "";
+	double actFillShade = -1;
+	double actStrokeShade = -1;
+	QColor cachedFillQ;
+	QColor cachedStrokeQ;
+//	QValueList<ParagraphStyle::TabRecord> tTabValues;
+	double desc, asce, tabDist;
+//	tTabValues.clear();
 	p->save();
-	p->setupPolygon(&PoLine);
-	p->setClipPath();
-	p->scale(LocalScX, LocalScY);
-	p->translate(LocalX*LocalScX, LocalY*LocalScY);
-	if (pixm.width() > 0 && pixm.height() > 0)
-	    p->drawImage(pixm.qImagePtr());
-	p->restore();
-    }
-    /* Experimental Addition to display an Image as Background */
-    /*
+//	QRect e2;
+	if (isEmbedded)
+	{
+//		e2 = cullingArea;
+	}
+	else
+	{
+//		e2 = QRect(qRound(cullingArea.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(cullingArea.y()  / sc + m_Doc->minCanvasCoordinate.y()), 
+//				   qRound(cullingArea.width() / sc), qRound(cullingArea.height() / sc));
+		pf2.translate(Xpos, Ypos);
+	}
+
+	pf2.rotate(Rot);
+	if (!m_Doc->layerOutline(LayerNr))
+	{
+		if ((fillColor() != CommonStrings::None) || (GrType != 0))
+		{
+			p->setupPolygon(&PoLine);
+			p->fillPath();
+		}
+	}
+	if (lineColor() != CommonStrings::None)
+		lineCorr = m_lineWidth / 2.0;
+	else
+		lineCorr = 0;
+	if ((isAnnotation()) && (annotation().Type() == 2) && (!Pfile.isEmpty()) && (PicAvail) && (PicArt) && (annotation().UseIcons()))
+	{
+		p->save();
+		p->setupPolygon(&PoLine);
+		p->setClipPath();
+		p->scale(LocalScX, LocalScY);
+		p->translate(LocalX*LocalScX, LocalY*LocalScY);
+		if (pixm.width() > 0 && pixm.height() > 0)
+			p->drawImage(pixm.qImagePtr());
+		p->restore();
+	}
+/* Experimental Addition to display an Image as Background */
+/*
 	else if ((!Pfile.isEmpty()) && (PicAvail) && (PicArt))
 	{
 		p->save();
@@ -2349,192 +2349,162 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 		p->restore();
 	}
 */
-    if (itemText.length() != 0)
-    {
-	//		qDebug("drawing textframe: len=%d", itemText.length());
-	if (imageFlippedH())
+	if (itemText.length() != 0)
 	{
-	    p->translate(Width, 0);
-	    p->scale(-1, 1);
-	    pf2.translate(Width, 0);
-	    pf2.scale(-1, 1);
-	}
-	if (imageFlippedV())
-	{
-	    p->translate(0, Height);
-	    p->scale(1, -1);
-	    pf2.translate(0, Height);
-	    pf2.scale(1, -1);
-	}
-	uint tabCc = 0;
-	assert( firstInFrame() >= 0 );
-	assert( lastInFrame() < itemText.length() );
-	LineSpec ls;
-	for (uint ll=0; ll < itemText.lines(); ++ll)
-	{
-	    ls = itemText.line(ll);
-	    tabDist = ls.x;
-	    double CurX = ls.x;
-
-	    // Draw text selection rectangles
-	    QRectF selectedFrame;
-	    QList<QRectF> sFList;
-	    double selX = ls.x;
-	    for (int as = ls.firstItem; as <= qMin(ls.lastItem, itemText.length()); ++as)
-	    {
-		bool selecteds = itemText.selected(as);
-		ScText *hls = itemText.item(as);
-		if(selecteds)
+//		qDebug("drawing textframe: len=%d", itemText.length());
+		if (imageFlippedH())
 		{
-		    const CharStyle& charStyleS(itemText.charStyle(as));
-		    if(((as > ls.firstItem) && (charStyleS != itemText.charStyle(as-1)))
-			|| ((!selectedFrame.isNull()) && (hls->ch == SpecialChars::OBJECT)))
+			p->translate(Width, 0);
+			p->scale(-1, 1);
+			pf2.translate(Width, 0);
+			pf2.scale(-1, 1);
+		}
+		if (imageFlippedV())
+		{
+			p->translate(0, Height);
+			p->scale(1, -1);
+			pf2.translate(0, Height);
+			pf2.scale(1, -1);
+		}
+		uint tabCc = 0;
+		assert( firstInFrame() >= 0 );
+		assert( lastInFrame() < itemText.length() );
+		LineSpec ls;
+		for (uint ll=0; ll < itemText.lines(); ++ll)
+		{
+			ls = itemText.line(ll);
+			tabDist = ls.x;
+			double CurX = ls.x;
+//			p->setLineWidth(0);
+//			p->setBrush(Qt::yellow);
+//			p->drawRect(ls.x, ls.y-ls.ascent, ls.width, ls.ascent);
+//			p->setBrush(Qt::red);
+//			p->drawRect(ls.x, ls.y, ls.width, ls.descent);
+			
+			QColor tmp;
+			for (int a = ls.firstItem; a <= qMin(ls.lastItem, itemText.length()); ++a)
 			{
-			sFList << selectedFrame;
-			selectedFrame = QRectF();
-		    }
-		    if (!m_Doc->RePos)
-		    {
-			if (((selecteds && Select) || ((NextBox != 0 || BackBox != 0) && selecteds))
-			    && (m_Doc->appMode == modeEdit))
-			    {
-			    double xcoZli = selX + hls->glyph.xoffset;
-			    desc = - charStyleS.font().descent(charStyleS.fontSize() / 10.0);
-			    asce = charStyleS.font().ascent(charStyleS.fontSize() / 10.0);
-			    wide = hls->glyph.wide();
-			    QRectF scr;
-			    if (hl->ch == SpecialChars::OBJECT)
-			    {
-				double ww = (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
-				double hh = (hls->embedded.getItem()->gHeight + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleV;
-				scr = QRectF(xcoZli, ls.y - hh, ww , hh);
-			    }
-			    else
-				scr = QRectF(xcoZli, ls.y + hls->glyph.yoffset - asce * hls->glyph.scaleV, wide , (asce+desc) * (hls->glyph.scaleV));
-			    selectedFrame |=  scr;
+				hl = itemText.item(a);
+				const CharStyle& charStyle(itemText.charStyle(a));
+				double chs = charStyle.fontSize() * hl->glyph.scaleV;
+				bool selected = itemText.selected(a);
+				if (charStyle.effects() & ScStyle_StartOfLine)
+					tabCc = 0;
+				chstr0 = hl->ch;
+				actFill = charStyle.fillColor();
+				actFillShade = charStyle.fillShade();
+				if (actFill != CommonStrings::None)
+				{
+					p->setFillMode(ScPainter::Solid);
+					if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
+					{
+						SetQColor(&tmp, actFill, actFillShade);
+						p->setBrush(tmp);
+						cachedFillQ = tmp;
+						cachedFill = actFill;
+						cachedFillShade = actFillShade;
+					}
+					else
+						p->setBrush(cachedFillQ);
+				}
+				else
+					p->setFillMode(ScPainter::None);
+				if (charStyle.effects() & ScStyle_DropCap)
+				{
+					const ParagraphStyle& style(itemText.paragraphStyle(a));
+					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+						chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
+					else
+					{
+						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+							chs = qRound(10 * ((style.lineSpacing() * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
+						else
+						{
+							double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0);
+							chs = qRound(10 * ((currasce * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
+						}
+					}
+				}
+				if (chstr0 == SpecialChars::TAB)
+					tabCc++;
+				// paint selection
+				if (!m_Doc->RePos)
+				{
+					double xcoZli = CurX + hl->glyph.xoffset;
+					desc = - charStyle.font().descent(charStyle.fontSize() / 10.0);
+					asce = charStyle.font().ascent(charStyle.fontSize() / 10.0);
+					if (((selected && Select) || ((NextBox != 0 || BackBox != 0) && selected)) && (m_Doc->appMode == modeEdit))
+					{
+						wide = hl->glyph.xadvance;
+						p->setFillMode(1);
+						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::Highlight));
+						p->setLineWidth(0);
+//						if ((a > 0) && (QChar(hl->glyph.glyph) == SpecialChars::TAB))
+//						{
+//							xcoZli = CurX + itemText.item(a-1)->glyph.xoffset + itemText.charStyle(a-1).font().charWidth(itemText.text(a-1), itemText.charStyle(a-1).fontSize() / 10.0);
+//							wide = CurX + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
+//						}
+						if (!m_Doc->RePos)
+						{
+							if (hl->ch == SpecialChars::OBJECT)
+							{
+								double ww = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+								double hh = (hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleV;
+								p->drawRect(xcoZli, ls.y - hh, ww+1, hh);
+							}
+							else
+								p->drawRect(xcoZli, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV, wide+1, (asce+desc) * (hl->glyph.scaleV));
+						}
+						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
+					}
+					// FIXME temporary solution to have at least something like a cursor
+		/*			if ((a == CPos-1) && (m_Doc->appMode == modeEdit))
+					{
+						p->setPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+						p->drawLine(FPoint(xcoZli+hl->glyph.xadvance+1, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), FPoint(xcoZli+hl->glyph.xadvance+1, ls.y + hl->glyph.yoffset));
+					}
+		*/
+					actStroke = charStyle.strokeColor();
+					actStrokeShade = charStyle.strokeShade();
+					if (actStroke != CommonStrings::None)
+					{
+						if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
+						{
+							SetQColor(&tmp, actStroke, actStrokeShade);
+							p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+							cachedStrokeQ = tmp;
+							cachedStroke = actStroke;
+							cachedStrokeShade = actStrokeShade;
+						}
+						else
+							p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					}
+					// paint glyphs
+					if (cullingArea.intersects(pf2.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
+					{
+						p->save();
+						p->translate(CurX, ls.y);
+						if (hl->ch == SpecialChars::OBJECT)
+							DrawObj_Embedded(p, cullingArea, charStyle, hl->embedded.getItem());
+						else
+							drawGlyphs(p, charStyle, hl->glyph);
+						p->restore();
+					}
+					if (hl->ch == SpecialChars::OBJECT)
+						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+					else
+						CurX += hl->glyph.wide();
+				}
+				tabDist = CurX;
 			}
-		    }
 		}
-		if (hls->ch == SpecialChars::OBJECT)
-		    selX += (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
-		else
-		    selX += hls->glyph.wide();
-	    }
-	    if(!selectedFrame.isNull())
-		sFList << selectedFrame;
-	    p->save();
-	    p->setFillMode(1);
-	    p->setBrush(qApp->palette().color(QPalette::Active, QPalette::Highlight));
-	    p->setLineWidth(0);
-	    // TODO - I dunno why but scpainter does not accept
-	    // to actually set the pen to 0? As a wa,
-	    // we set its color same as brush: "à malin, malin et demi!".
-	    p->setPen(qApp->palette().color(QPalette::Active, QPalette::Highlight));
-	    for(int sfc(0);sfc < sFList.count();++sfc)
-		p->drawRect(sFList[sfc].x(), sFList[sfc].y(), sFList[sfc].width(), sFList[sfc].height());
-	    p->restore();
-	    //	End of selection
-
-	    QColor tmp;
-	    for (int a = ls.firstItem; a <= qMin(ls.lastItem, itemText.length()); ++a)
-	    {
-		hl = itemText.item(a);
-		const CharStyle& charStyle(itemText.charStyle(a));
-		double chs = charStyle.fontSize() * hl->glyph.scaleV;
-		bool selected = itemText.selected(a);
-		if (charStyle.effects() & ScStyle_StartOfLine)
-		    tabCc = 0;
-		chstr0 = hl->ch;
-		actFill = charStyle.fillColor();
-		actFillShade = charStyle.fillShade();
-		if (actFill != CommonStrings::None)
-		{
-		    p->setFillMode(ScPainter::Solid);
-		    if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
-		    {
-			SetQColor(&tmp, actFill, actFillShade);
-			p->setBrush(tmp);
-			cachedFillQ = tmp;
-			cachedFill = actFill;
-			cachedFillShade = actFillShade;
-		    }
-		    else
-			p->setBrush(cachedFillQ);
-		}
-		else
-		    p->setFillMode(ScPainter::None);
-		if (charStyle.effects() & ScStyle_DropCap)
-		{
-		    const ParagraphStyle& style(itemText.paragraphStyle(a));
-		    if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-			chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
-		    else
-		    {
-			if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-			    chs = qRound(10 * ((style.lineSpacing() * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
-			else
-			{
-			    double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-			    chs = qRound(10 * ((currasce * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
-			}
-		    }
-		}
-		if (chstr0 == SpecialChars::TAB)
-		    tabCc++;
-
-		if (!m_Doc->RePos)
-		{
-		    desc = - charStyle.font().descent(charStyle.fontSize() / 10.0);
-		    asce = charStyle.font().ascent(charStyle.fontSize() / 10.0);
-		    if (((selected && Select) || ((NextBox != 0 || BackBox != 0) && selected)) && (m_Doc->appMode == modeEdit))
-		    {
-			// set text color to highlight if its selected
-			p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
-		    }
-
-		    actStroke = charStyle.strokeColor();
-		    actStrokeShade = charStyle.strokeShade();
-		    if (actStroke != CommonStrings::None)
-		    {
-			if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
-			{
-			    SetQColor(&tmp, actStroke, actStrokeShade);
-			    p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			    cachedStrokeQ = tmp;
-			    cachedStroke = actStroke;
-			    cachedStrokeShade = actStrokeShade;
-			}
-			else
-			    p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		    }
-		    // paint glyphs
-		    if (cullingArea.intersects(pf2.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
-		    {
-			p->save();
-			p->translate(CurX, ls.y);
-			if (hl->ch == SpecialChars::OBJECT)
-			    DrawObj_Embedded(p, cullingArea, charStyle, hl->embedded.getItem());
-			else
-			    drawGlyphs(p, charStyle, hl->glyph);
-			p->restore();
-		    }
-		    if (hl->ch == SpecialChars::OBJECT)
-			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
-		    else
-			CurX += hl->glyph.wide();
-		}
-		tabDist = CurX;
-	    }
-
-
 	}
-//	else {
-//	    //		qDebug("skipping textframe: len=%d", itemText.count());
-//	}
+	else {
+//		qDebug("skipping textframe: len=%d", itemText.count());
+	}
 
-	//	pf2.end();
+//	pf2.end();
 	p->restore();
-    }
 }
 
 
