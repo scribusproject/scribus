@@ -2268,7 +2268,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 	QPoint pt1, pt2;
 	double wide, lineCorr;
 	QChar chstr0;
-	ScText *hl;
 	QString cachedStroke = "";
 	QString cachedFill = "";
 	double cachedFillShade = -1;
@@ -2379,19 +2378,23 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 			// Draw text selection rectangles
 			QRectF selectedFrame;
 			QList<QRectF> sFList;
+			bool previousWasObject(false);
 			double selX = ls.x;
+			ScText *hls = 0;
 			for (int as = ls.firstItem; as <= qMin(ls.lastItem, itemText.length()); ++as)
 			{
 				bool selecteds = itemText.selected(as);
-				ScText *hls = itemText.item(as);
+				hls = itemText.item(as);
 				if(selecteds)
 				{
 					const CharStyle& charStyleS(itemText.charStyle(as));
 					if(((as > ls.firstItem) && (charStyleS != itemText.charStyle(as-1)))
-						|| ((!selectedFrame.isNull()) && (hls->ch == SpecialChars::OBJECT)))
+						|| ((!selectedFrame.isNull()) && (hls->ch == SpecialChars::OBJECT))
+					    || previousWasObject)
 					{
 						sFList << selectedFrame;
 						selectedFrame = QRectF();
+						previousWasObject = false;
 					}
 					if (!m_Doc->RePos)
 					{
@@ -2403,11 +2406,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 							asce = charStyleS.font().ascent(charStyleS.fontSize() / 10.0);
 							wide = hls->glyph.wide();
 							QRectF scr;
-							if (hl->ch == SpecialChars::OBJECT)
+							if (hls->ch == SpecialChars::OBJECT)
 							{
 							double ww = (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
 							double hh = (hls->embedded.getItem()->gHeight + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleV;
 							scr = QRectF(xcoZli, ls.y - hh, ww , hh);
+							previousWasObject = true;
 							}
 							else
 							scr = QRectF(xcoZli, ls.y + hls->glyph.yoffset - asce * hls->glyph.scaleV, wide , (asce+desc) * (hls->glyph.scaleV));
@@ -2436,6 +2440,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 			//	End of selection
 
 			QColor tmp;
+			ScText *hl = 0;
 			for (int a = ls.firstItem; a <= qMin(ls.lastItem, itemText.length()); ++a)
 			{
 				hl = itemText.item(a);
