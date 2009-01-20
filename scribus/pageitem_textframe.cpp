@@ -2408,13 +2408,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 							QRectF scr;
 							if (hls->ch == SpecialChars::OBJECT)
 							{
-							double ww = (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
-							double hh = (hls->embedded.getItem()->gHeight + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleV;
-							scr = QRectF(xcoZli, ls.y - hh, ww , hh);
-							previousWasObject = true;
+								double ww = (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
+								double hh = (hls->embedded.getItem()->gHeight + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleV;
+								scr = QRectF(xcoZli, ls.y - hh, ww , hh);
+								previousWasObject = true;
 							}
 							else
-							scr = QRectF(xcoZli, ls.y + hls->glyph.yoffset - asce * hls->glyph.scaleV, wide , (asce+desc) * (hls->glyph.scaleV));
+								scr = QRectF(xcoZli, ls.y + hls->glyph.yoffset - asce * hls->glyph.scaleV, wide , (asce+desc) * (hls->glyph.scaleV));
 							selectedFrame |=  scr;
 						}
 					}
