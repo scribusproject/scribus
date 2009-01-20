@@ -260,6 +260,17 @@ ADD_DEFINITIONS("-DTEMPLATEDIR=\\\"${CMAKE_INSTALL_PREFIX}/${TEMPLATEDIR}\\\"")
 SET(DESKTOPDIR "share/applications/")
 ADD_DEFINITIONS("-DDESKTOPDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}\\\"")
 
+# APPLICATION_DATA_DIR
+# It allows specify the user configuration directory in the compile time.
+# Example: I want to use special ~/.scribus135svn config directory for my trunk
+#          cmake -DAPPLICATION_DATA_DIR=.scribus135svn ...
+IF (APPLICATION_DATA_DIR)
+    MESSAGE(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of \".scribus\"")
+    ADD_DEFINITIONS("-DAPPLICATION_DATA_DIR=\\\"${APPLICATION_DATA_DIR}\\\"")
+ELSE (APPLICATION_DATA_DIR)
+    MESSAGE(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
+ENDIF (APPLICATION_DATA_DIR)
+
 #LIB LOCATION - lib or lib64 normally
 #LIB
 IF(WANT_LIB64)
