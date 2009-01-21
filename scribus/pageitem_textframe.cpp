@@ -2844,12 +2844,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ExpandSel(1, oldPos);
 				}
 				else 
-					if (CPos > lastInFrame() && NextBox != 0)
+					if ((itemText.lines() > 0) && (oldPos >= itemText.line(itemText.lines()-1).firstItem) && (CPos >= lastInFrame()) && (NextBox != 0))
 					{
 						if (NextBox->frameDisplays(CPos))
 						{
 							view->Deselect(true);
-							NextBox->CPos = CPos;
+							// we position the cursor at the beginning of the next frame
+							// TODO position at the right place in next frame
+							NextBox->CPos = lastInFrame() + 1;
 							view->SelectItemNr(NextBox->ItemNr);
 						}
 					}
@@ -2895,9 +2897,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ExpandSel(-1, oldPos);
 				}
 				else
-					if (CPos == firstInFrame() && BackBox != 0)
+					if ((itemText.lines() > 0) && (oldPos <= itemText.line(0).lastItem) && (CPos == firstInFrame()) && (BackBox != 0))
 					{
 						view->Deselect(true);
+						// TODO position at the right place in previous frame
 						BackBox->CPos = BackBox->lastInFrame();
 						view->SelectItemNr(BackBox->ItemNr);
 					}
