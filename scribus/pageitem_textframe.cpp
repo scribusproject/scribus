@@ -2962,23 +2962,23 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ((CPos > 0) && (CPos >= lastInFrame()))
+		if ((CPos > 0) && (CPos >= lastInFrame())) // I do not see how its possible, may be dead code - pm
 		{
 			CPos = lastInFrame();
-			if (itemText.charStyle(CPos-1).effects() & ScStyle_SuppressSpace)
-			{
-				--CPos;
-				while ((CPos > 0) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace))
+//			if (itemText.charStyle(CPos-1).effects() & ScStyle_SuppressSpace)
+//			{
+//				--CPos;
+				while ((CPos > 1) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace) && (itemText.charStyle(CPos - 1).effects() & ScStyle_SuppressSpace))
 				{
 					--CPos;
 					if (CPos == 0)
 						break;
 				}
-			}
+//			}
 		}
 		else
 		{
-			while ((CPos > 0) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace))
+			while ((CPos > 1) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace) && (itemText.charStyle(CPos - 1).effects() & ScStyle_SuppressSpace))
 			{
 				--CPos;
 				if (CPos == 0)
