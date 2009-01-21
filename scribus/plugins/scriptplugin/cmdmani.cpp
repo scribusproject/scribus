@@ -49,8 +49,32 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	item->setImageXYScale(x, y);
 	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
+	ScCore->primaryMainWindow()->doc->updatePic();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double x, y;
+	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+	if (! item->asImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	double newScaleX = x / item->pixm.imgInfo.xres * 72.0;
+	double newScaleY = y / item->pixm.imgInfo.yres * 72.0;
+	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(newScaleX, newScaleY); //CB why when this is done above?
 	ScCore->primaryMainWindow()->doc->updatePic();
 //	Py_INCREF(Py_None);
 //	return Py_None;

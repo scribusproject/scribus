@@ -406,6 +406,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("savePageAsEPS"), scribus_savepageeps, METH_VARARGS, tr(scribus_savepageeps__doc__)},
 	{const_cast<char*>("scaleGroup"), scribus_scalegroup, METH_VARARGS, tr(scribus_scalegroup__doc__)},
 	{const_cast<char*>("scaleImage"), scribus_scaleimage, METH_VARARGS, tr(scribus_scaleimage__doc__)},
+	{const_cast<char*>("setImageScale"), scribus_setimagescale, METH_VARARGS, tr(scribus_setimagescale__doc__)},
 	{const_cast<char*>("selectionCount"), (PyCFunction)scribus_selcount, METH_NOARGS, tr(scribus_selcount__doc__)},
 	{const_cast<char*>("selectObject"), scribus_selectobj, METH_VARARGS, tr(scribus_selectobj__doc__)},
 	{const_cast<char*>("selectText"), scribus_selecttext, METH_VARARGS, tr(scribus_selecttext__doc__)},

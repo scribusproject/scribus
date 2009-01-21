@@ -158,6 +158,19 @@ PyObject *scribus_loadimage(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_scaleimage__doc__,
 QT_TR_NOOP("scaleImage(x, y [, \"name\"])\n\
 \n\
+Sets the internal scaling factors of the picture in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used. A number of 1\n\
+means 100 %. Note : deprecated, use setImageScale() instead.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame\n\
+"));
+/*! Scale Image. */
+PyObject *scribus_scaleimage(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setimagescale__doc__,
+QT_TR_NOOP("setImageScale(x, y [, \"name\"])\n\
+\n\
 Sets the scaling factors of the picture in the image frame \"name\".\n\
 If \"name\" is not given the currently selected item is used. A number of 1\n\
 means 100 %.\n\
@@ -165,7 +178,7 @@ means 100 %.\n\
 May raise WrongFrameTypeError if the target frame is not an image frame\n\
 "));
 /*! Scale Image. */
-PyObject *scribus_scaleimage(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setimagescale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_lockobject__doc__,
