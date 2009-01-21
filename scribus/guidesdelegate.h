@@ -42,6 +42,7 @@ class GuidesDelegate : public QItemDelegate
 		void unitChange(int docUnitDecimals);
 		void setDoc(ScribusDoc * doc);
 
+	// protected due const in createEditor
 	protected:
 		ScribusDoc *m_doc;
 };

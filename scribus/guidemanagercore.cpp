@@ -379,14 +379,22 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	if (!m_page || ScCore->primaryMainWindow()->guidePalette->pageNr() < 0)
 		return;
 
+	// real painting margins including bleeds
+	double verticalFrom = 0.0 - doc->bleeds.Top;
+	double verticalTo = m_page->height() + doc->bleeds.Bottom;
+	double horizontalFrom = 0.0 - doc->bleeds.Left;
+	double horizontalTo = m_page->width() + doc->bleeds.Right;
+
 	// all standard
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 	for (it = verticalStdG.begin(); it != verticalStdG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= m_page->width())
-			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
+// 		if ((*it) >= 0 && (*it) <= m_page->width())
+// 			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
+		p->drawLine(FPoint((*it), verticalFrom), FPoint((*it), verticalTo));
 	for (it = horizontalStdG.begin(); it != horizontalStdG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= m_page->height())
-			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
+// 		if ((*it) >= 0 && (*it) <= m_page->height())
+// 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
+		p->drawLine(FPoint(horizontalFrom, (*it)), FPoint(horizontalTo, (*it)));
 	// highlight selected standards
 	if (ScCore->primaryMainWindow()->guidePalette->currentIndex() == 0
 		   && m_page->pageNr() == ScCore->primaryMainWindow()->guidePalette->pageNr())
@@ -394,12 +402,14 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 		Guides highlight = ScCore->primaryMainWindow()->guidePalette->selectedVerticals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
-			if ((*it) >= 0 && (*it) <= m_page->width())
-				p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
+// 			if ((*it) >= 0 && (*it) <= m_page->width())
+// 				p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
+			p->drawLine(FPoint((*it), verticalFrom), FPoint((*it), verticalTo));
 		highlight = ScCore->primaryMainWindow()->guidePalette->selectedHorizontals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
-			if ((*it) >= 0 && (*it) <= m_page->height())
-				p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
+// 			if ((*it) >= 0 && (*it) <= m_page->height())
+// 				p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
+			p->drawLine(FPoint(horizontalFrom, (*it)), FPoint(horizontalTo, (*it)));
 	}
 	// all auto
 	if (ScCore->primaryMainWindow()->guidePalette->currentIndex() == 1)
@@ -409,11 +419,13 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 
 	for (it = verticalAutoG.begin(); it != verticalAutoG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= m_page->width())
-			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
+// 		if ((*it) >= 0 && (*it) <= m_page->width())
+// 			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
+		p->drawLine(FPoint((*it), verticalFrom), FPoint((*it), verticalTo));
 	for (it = horizontalAutoG.begin(); it != horizontalAutoG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= m_page->height())
-			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
+// 		if ((*it) >= 0 && (*it) <= m_page->height())
+// 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
+		p->drawLine(FPoint(horizontalFrom, (*it)), FPoint(horizontalTo, (*it)));
 }
 
 int GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType type)
