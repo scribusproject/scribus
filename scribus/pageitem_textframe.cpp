@@ -2968,7 +2968,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (itemText.charStyle(CPos-1).effects() & ScStyle_SuppressSpace)
 			{
 				--CPos;
-				while ((CPos > 1) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace) && (itemText.charStyle(CPos - 1).effects() & ScStyle_SuppressSpace))
+				while ((CPos > 0) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace))
 				{
 					--CPos;
 					if (CPos == 0)
@@ -2978,7 +2978,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		else
 		{
-			while ((CPos > 1) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace) && (itemText.charStyle(CPos - 1).effects() & ScStyle_SuppressSpace))
+			while ((CPos > 0) && (itemText.charStyle(CPos).effects() & ScStyle_SuppressSpace))
 			{
 				--CPos;
 				if (CPos == 0)
