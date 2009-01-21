@@ -2489,6 +2489,9 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
+		view->previewQualitySwitcher->blockSignals(true);
+		view->previewQualitySwitcher->setCurrentIndex(doc->toolSettings.lowResType);
+		view->previewQualitySwitcher->blockSignals(false);
 	}
 	propertiesPalette->Fonts->RebuildList(doc);
 	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
@@ -7483,6 +7486,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	bool oldShowPageShadow = prefsManager->showPageShadow();
 	int oldGUIFontSize     = prefsManager->guiFontSize();
 	double oldDisplayScale = prefsManager->displayScale();
+	int oldImageQuality = prefsManager->applicationPrefs()->toolSettings.lowResType;
+
 	dia->updatePreferences();
 	prefsManager->SavePrefs();
 	DocDir = prefsManager->documentDir();
@@ -7513,6 +7518,11 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	ScCore->getCMSProfiles(false);
 	ScCore->recheckGS();
 	prefsManager->applyLoadedShortCuts();
+
+	int newImageQuality = prefsManager->appPrefs.toolSettings.lowResType;
+	if (oldImageQuality != newImageQuality)
+		view->previewQualitySwitcher->setCurrentIndex(newImageQuality);
+
 	QWidgetList windows = wsp->windowList();
 	bool shadowChanged = oldShowPageShadow != prefsManager->showPageShadow();
 	if (!windows.isEmpty())

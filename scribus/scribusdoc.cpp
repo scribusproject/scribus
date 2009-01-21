@@ -7040,6 +7040,50 @@ void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
 	}
 }
 
+void ScribusDoc::allItems_ChangePreviewResolution(int id)
+{
+	
+	bool found=false;
+	
+	for (int c=0; c<DocItems.count(); ++c)
+	{
+		PageItem *currItem = DocItems.at(c);
+		if (currItem!=NULL)
+			if (currItem->asImageFrame())
+			{
+				currItem->pixm.imgInfo.lowResType = id;
+				if (!found)
+					found=true;
+			}		
+	}
+	for (int c=0; c<MasterItems.count(); ++c)
+	{
+		PageItem *currItem = MasterItems.at(c);
+		if (currItem!=NULL)
+			if (currItem->asImageFrame())
+			{
+				currItem->pixm.imgInfo.lowResType = id;
+				if (!found)
+					found=true;
+			}
+	}
+	for (int c=0; c<FrameItems.count(); ++c)
+	{
+		PageItem *currItem = FrameItems.at(c);
+		if (currItem!=NULL)
+			if (currItem->asImageFrame())
+			{
+				currItem->pixm.imgInfo.lowResType = id;
+				if (!found)
+					found=true;
+			}
+	}
+	
+	if (!found) //No image frames in the current selection!
+		return;
+	recalcPicturesRes();
+	changed();
+}
 
 void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 {

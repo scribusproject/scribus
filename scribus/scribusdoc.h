@@ -1127,6 +1127,12 @@ public slots:
 	void itemSelection_ToggleImageShown();
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ChangePreviewResolution(int id);
+
+	/*! \brief Change display quality of all images in document.
+	\author  OssiLehtinen
+	*/
+	void allItems_ChangePreviewResolution(int id);
+
 	void itemSelection_ClearItem(Selection* customSelection=0);
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
 	void itemSelection_DeleteItem(Selection* customSelection=0, bool forceDeletion=false);

@@ -60,6 +60,7 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->setMargin(0);
 	statusFrameLayout->setSpacing(0);
 	m_View->unitSwitcher->setParent(statusFrame);
+	m_View->previewQualitySwitcher->setParent(statusFrame);
 	m_View->layerMenu->setParent(statusFrame);
 	m_View->zoomOutToolbarButton->setParent(statusFrame);
 	m_View->zoomDefaultToolbarButton->setParent(statusFrame);
@@ -70,6 +71,7 @@ void ScribusWin::setView(ScribusView* newView)
 	m_View->previewToolbarButton->setParent(statusFrame);
 	m_View->visualMenu->setParent(statusFrame);
 	statusFrameLayout->addWidget(m_View->unitSwitcher);
+	statusFrameLayout->addWidget(m_View->previewQualitySwitcher);
 	statusFrameLayout->addWidget(m_View->zoomSpinBox);
 	statusFrameLayout->addWidget(m_View->zoomOutToolbarButton);
 	statusFrameLayout->addWidget(m_View->zoomDefaultToolbarButton);

@@ -199,6 +199,15 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	int maxUindex = unitGetMaxIndex() - 2;
 	for (int i = 0; i <= maxUindex; ++i)
 		unitSwitcher->addItem(unitGetStrFromIndex(i));
+	previewQualitySwitcher = new QComboBox( this );
+	previewQualitySwitcher->setFocusPolicy(Qt::NoFocus);
+	previewQualitySwitcher->setFont(fo);
+	previewQualitySwitcher->addItem(tr("High"));
+	previewQualitySwitcher->addItem(tr("Normal"));
+	previewQualitySwitcher->addItem(tr("Low"));
+// 	setCurrentComboItem(previewQualitySwitcher, tr("Normal"));
+	previewQualitySwitcher->setCurrentIndex(Prefs->toolSettings.lowResType);
+
 	zoomSpinBox = new ScrSpinBox( 10, 3200, this, 6 );
 	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
@@ -318,6 +327,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+	connect(previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
 	connect(previewToolbarButton, SIGNAL(clicked()), this, SLOT(togglePreview()));
 	connect(cmsToolbarButton, SIGNAL(clicked()), this, SLOT(toggleCMS()));
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
@@ -358,6 +368,7 @@ void ScribusView::languageChange()
 	previewToolbarButton->setToolTip("");
 	layerMenu->setToolTip( tr("Select the current layer"));
 	unitSwitcher->setToolTip( tr("Select the current unit"));
+	previewQualitySwitcher->setToolTip( tr("Select the image preview quality"));
 	visualMenu->setToolTip("");
 	cmsToolbarButton->setToolTip( tr("Enable/disable Color Management"));
 	idCmsAdjustMenu->setText( tr("Configure CMS..."));
@@ -2815,6 +2826,12 @@ void ScribusView::ChgUnit(int art)
 	unitChange();
 	vertRuler->repaint();
 	horizRuler->repaint();
+}
+
+void ScribusView::changePreviewQuality(int index)
+{
+	Doc->allItems_ChangePreviewResolution(index);
+	DrawNew();
 }
 
 void ScribusView::GotoPa(int Seite)

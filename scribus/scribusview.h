@@ -129,6 +129,7 @@ public:
 #endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
+	QComboBox *previewQualitySwitcher; //Menu for image preview quality
 	QComboBox *visualMenu;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc * const Doc;
@@ -285,6 +286,14 @@ public slots: // Public slots
 	void GotoLa(int l);
 	void GotoPage(int Seite);
 	void ChgUnit(int art);
+
+	/*! \brief Change canvas preview quality for image items.
+	Called by previewQualitySwitcher (signal).
+	See void ScribusDoc::allItems_ChangePreviewResolution(int id)
+	for changing itself
+	*/
+	void changePreviewQuality(int index);
+
 	void SetCPo(double x, double y);
 	void SetCCPo(double x, double y);
 	void editExtendedImageProperties();
