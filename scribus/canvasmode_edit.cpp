@@ -109,92 +109,82 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 }
 
 
-void CanvasMode_Edit::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
+void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textframe )
 {
-	double dx, dy, dy1;
-//	FRect dbgBox;
-// 	qDebug()<<"textframe->CPos"<<textframe->CPos<<textframe->itemText.length()<<textframe->lastInFrame();
-	if (textframe->CPos > textframe->itemText.length())
+	if ( m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2 )
 	{
-		textframe->CPos = textframe->itemText.length();
-	}
-	if (textframe->lastInFrame() >= signed(textframe->itemText.nrOfItems()) 
-		|| textframe->itemText.length() == 0)
-	{
-		dx = 0;
-		dy = 0;
-		dy1 = textframe->itemText.defaultStyle().charStyle().fontSize() / 10.0;
-	}
-	else if ( textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
-			  || ((textframe->CPos >= textframe->itemText.length()) && (textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP)) )
-	{
-		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)));
-//		x = static_cast<int>(bbox.x() + bbox.width());
-////		x = static_cast<int>(bbox.x() + textframe->itemText.item(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
-//		y = static_cast<int>(bbox.y());
-		dx = bbox.x();
-		dy = bbox.y();
-		if (bbox.height() <= 2)
-			dy1 = bbox.y() + textframe->itemText.defaultStyle().charStyle().fontSize() / 30.0;
-		else
-			dy1 = bbox.y() + bbox.height();
-	}
-	else
-	{
-		// qDebug()<<textframe->CPos; // ??? if the qDebug is active, it prevents a segfault 
-		// where qMin(textframe->CPos, textframe->itemText.length()-1) returns something unitilialized (like "157286912")
-		// an intermediate var fixes it as well, weird.
-		int minIdx(qMin(textframe->CPos, textframe->itemText.length()-1));
-		FRect bbox = textframe->itemText.boundingBox(qMax(0,minIdx));
-//		x = static_cast<int>(bbox.x());
-//		y = static_cast<int>(bbox.y());
-		dx = bbox.x();
-		dy = bbox.y();
-//		dbgBox = bbox;
-		if (bbox.height() <= 2) 
-			dy1 = bbox.y() + textframe->itemText.charStyle(textframe->CPos).fontSize() / 30.0; // curious about this "constant" :) - pm
-		else
-			dy1 = bbox.y() + bbox.height();
-	}
-	//handle Right to Left writing
-	if(textframe->reversed())
-	{
-		dx=textframe->width()-dx;
-	}
-
-	p->save();
-	p->translate(textframe->xPos(), textframe->yPos());
-	p->rotate(textframe->rotation());
-//	p->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	if (m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2)
-	{
-//		qDebug() << "blink";
 		m_cursorVisible = !m_cursorVisible;
 		m_blinkTime.restart();
 	}
-//	else
-//		qDebug() << "no blink" << m_blinkTime.elapsed() ;
-	if (m_cursorVisible)
+	if ( m_cursorVisible )
 	{
-		QPen cPen(ScColorEngine::getRGBColor(m_doc->PageColors[textframe->itemText.charStyle(textframe->CPos).fillColor()], m_doc ), 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		p->setPen(cPen);
-		p->setRenderHint(QPainter::Antialiasing, true);
+		double dx, dy, dy1;
+		QPen cPen ( Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
+
+		// normalize Current Position
+		textframe->CPos = qMax ( 0,qMin ( textframe->CPos, textframe->itemText.length() ) );
+		int textCursorPos ( textframe->CPos );
+
+		if ( textframe->lastInFrame() >= signed ( textframe->itemText.nrOfItems() )
+		        || textframe->itemText.length() == 0 )
+		{
+			dx = 0;
+			dy = 0;
+			dy1 = textframe->itemText.defaultStyle().charStyle().fontSize() / 10.0;
+
+			cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.defaultStyle().charStyle().fillColor() ], m_doc ) );
+		}
+		else if ( textCursorPos > textframe->lastInFrame() )
+		{
+			// Happens often when typing directly into frame.
+			// And the cursor curses nothing, vertigo.
+			textCursorPos = textframe->lastInFrame();
+			FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+			dx = bbox.x();
+			dy = bbox.y();
+			dx += textframe->itemText.item ( textCursorPos )->glyph.wide();
+			if ( bbox.height() <= 2 )
+				dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
+			else
+				dy1 = bbox.y() + bbox.height();
+
+			cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.charStyle ( textCursorPos ).fillColor() ], m_doc ) );
+		}
+		else
+		{
+			FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+			dx = bbox.x();
+			dy = bbox.y();
+			if ( bbox.height() <= 2 )
+				dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
+			else
+				dy1 = bbox.y() + bbox.height();
+
+			cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.charStyle ( textCursorPos ).fillColor() ], m_doc ) );
+		}
+		//handle Right to Left writing
+		if ( textframe->reversed() )
+		{
+			dx=textframe->width()-dx;
+		}
+
+		p->save();
+		p->translate ( textframe->xPos(), textframe->yPos() );
+		p->rotate ( textframe->rotation() );
+
+
+		p->setPen ( cPen );
+		p->setRenderHint ( QPainter::Antialiasing, true );
 		// avoid displaying the cursor on the frameborder
-		dx = qMax((cPen.widthF() / 2.0), dx);
+		dx = qMax ( ( cPen.widthF() / 2.0 ), dx );
 
-		dy =  qMin( qMax(dy,0.0) , textframe->height() );
-		dy1 = qMin( qMax(dy1,0.0), textframe->height() );
+		dy =  qMin ( qMax ( dy,0.0 ) , textframe->height() );
+		dy1 = qMin ( qMax ( dy1,0.0 ), textframe->height() );
 
-		p->drawLine(QLineF(dx,dy,dx,dy1));
+		p->drawLine ( QLineF ( dx,dy,dx,dy1 ) );
 
-//		cPen.setColor(Qt::red);
-//		cPen.setWidthF(1.0);
-//		cPen.setCosmetic(true);
-//		p->setPen(cPen);
-//		p->drawRect(QRectF(dbgBox.x(),dbgBox.y(),dbgBox.width(),dbgBox.height()));
-		
+		p->restore();
 	}
-	p->restore();
 }
 
 void CanvasMode_Edit::enterEvent(QEvent *)
