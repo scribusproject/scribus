@@ -3225,7 +3225,12 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 {
 	int start = itemText.startOfSelection();
-	int end = itemText.endOfSelection();
+	// itemText.endOfSelection can return -1 in some case, which results in a crash
+	// when calling itemText.select(end, CPos - end).
+	// as I do not know where it is checked for negative value, just work around by
+	// preventing it to be less than 0 here.
+	int end = qMax(0,itemText.endOfSelection());
+	
 	if (oldPos >= end && CPos < start)
 	{
 		itemText.deselectAll();
@@ -3237,7 +3242,9 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 		itemText.select(end, CPos - end);
 	}
 	else
+	{
 		itemText.extendSelection(oldPos, CPos);
+	}
 	HasSel = (itemText.lengthOfSelection() > 0);
 	if (HasSel)
 	{
