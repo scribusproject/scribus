@@ -20,7 +20,12 @@
 	
 <dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
 <dd><code><a href="#-scaleImage">scaleImage</a>(x, y [, "nom"])</code>
-<p>D&eacute;finit les facteurs de redimensionnement de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Un nombre de 1 signifie 100 %.</p>
+<p>D&eacute;finit les facteurs de redimensionnement internes de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Un nombre de 1 signifie 100 %. Les facteurs de redimensionnement internes sont diff&eacute;rents des valeurs indiqu&eacute;es dans la palette des propri&eacute;t&eacute;s. Note : d&eacute;pr&eacute;ci&eacute;e, veuillez utiliser setImageScale().</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
+
+<dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
+<dd><code><a href="#-setImageScale">setImageScale</a>(x, y [, "nom"])</code>
+<p>D&eacute;finit les facteurs de redimensionnement de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Un nombre de 1 signifie 100 %. Les facteurs de redimensionnement sont &eacute;gaux aux valeurs indiqu&eacute;es dans la palette des propri&eacute;t&eacute;s.</p>
 <p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
 
 <dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
