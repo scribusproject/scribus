@@ -1,12 +1,11 @@
 [Desktop Entry]
-Name=Scribus (Stable)
 Type=Application
-MimeType=application/vnd.scribus;
-Comment=Graphic Page Layout and Publication (Stable)
+Name=Scribus
 Name[ar]=سكريبس
 Name[fa]=اسکریباس
 Name[lo]=ສະຄຣີບັດສ໌
 Name[ta]=ஸ்கிரிபஸ்
+Comment=Graphic Page Layout and Publication (Stable)
 GenericName=Page Layout (Stable)
 GenericName[af]=Werkskerm Publisering
 GenericName[bg]=Издателска програма
@@ -48,13 +47,17 @@ GenericName[xh]=Upapasho lwe Desktop
 GenericName[zh_CN]=桌面出版
 GenericName[zh_TW]=桌面出版
 GenericName[zu]=Ukushicilelwa kwe-Desktop
-TryExec=scribus
 Exec=scribus %f
-Terminal=false
 Icon=scribus
-X-StandardInstall=false
-Categories=Graphics;Publishing;Qt;
+Terminal=false
+MimeType=application/vnd.scribus;
+Categories=Qt;Publishing;Graphics;
 StartupWMClass=scribus
+X-AppInstall-Package=scribus
+X-AppInstall-Section=main
+StartupNotify=false
 X-KDE-SubstituteUID=false
 X-KDE-Username=
-
+[X-Property::X-KDE-NativeExtension]
+Type=QString
+Value=.sla
