@@ -29,6 +29,13 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
+// readable constants for QTreeWidgetItem column ids
+#define COLUMN_ITEM 0
+#define COLUMN_PROBLEM 1
+#define COLUMN_LAYER 2
+#define COLUMN_INFO 3
+
+
 static const unsigned char image0_data[] =
     {
         0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d,
@@ -120,7 +127,14 @@ static const unsigned char image2_data[] =
         0x42, 0x60, 0x82
     };
 
-CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 ), m_Doc(0)
+CheckDocument::CheckDocument( QWidget* parent, bool modal )
+	: ScrPaletteBase( parent, "checkDocument", modal, 0 ),
+	m_Doc(0),
+// 	globalGraveError(false),
+	pageGraveError(false),
+	itemError(false),
+	minResDPI(0),
+	maxResDPI(0)
 {
 	QPixmap img;
 	img.loadFromData( image0_data, sizeof( image0_data ), "PNG" );
@@ -141,12 +155,15 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	curCheckProfile = new ScComboBox( this );
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
+
 	reportDisplay = new QTreeWidget( this );
-	reportDisplay->setColumnCount(2);
+// 	reportDisplay->setColumnCount(2);
 	reportDisplay->header()->setClickable( false );
 	reportDisplay->header()->setMovable( false );
 	reportDisplay->setSortingEnabled(false);
+	reportDisplay->setAlternatingRowColors(true);
 	checkDocumentLayout->addWidget( reportDisplay );
+
 	layout2 = new QHBoxLayout;
 	layout2->setMargin(0);
 	layout2->setSpacing(5);
@@ -225,441 +242,312 @@ void CheckDocument::clearErrorList()
 	masterPageItemMap.clear();
 }
 
+void CheckDocument::buildItem(QTreeWidgetItem * item,
+							   PreflightError errorType,
+							   PageItem * pageItem)
+{
+	Q_ASSERT_X(item != 0, "CheckDocument::buildItem",
+				"No reference to QTreeWidgetItem item");
+	Q_ASSERT_X(pageItem != 0, "CheckDocument::buildItem",
+				"No reference to PageItem pageItem");
+
+	switch (errorType)
+	{
+		case MissingGlyph:
+			item->setText(COLUMN_PROBLEM, missingGlyph);
+			item->setIcon(COLUMN_ITEM, graveError );
+// 			globalGraveError = true;
+			pageGraveError = true;
+			itemError = true;
+			break;
+		case TextOverflow:
+			item->setText(COLUMN_PROBLEM, textOverflow);
+			item->setIcon(COLUMN_ITEM, onlyWarning );
+			break;
+		case ObjectNotOnPage:
+			item->setText(COLUMN_PROBLEM, notOnPage);
+			item->setIcon(COLUMN_ITEM, onlyWarning );
+			break;
+		case MissingImage:
+			if (pageItem->externalFile().isEmpty())
+			{
+				item->setText(COLUMN_PROBLEM, emptyImg);
+				item->setIcon(COLUMN_ITEM, onlyWarning );
+			}
+			else
+			{
+				item->setText(COLUMN_PROBLEM, missingImg);
+				item->setIcon(COLUMN_ITEM, graveError );
+// 				globalGraveError = true;
+				pageGraveError = true;
+			}
+			break;
+		case ImageDPITooLow:
+		{
+			int xres = qRound(72.0 / pageItem->imageXScale());
+			int yres = qRound(72.0 / pageItem->imageYScale());
+			item->setText(COLUMN_PROBLEM, lowDPI.arg(minResDPI).arg(xres).arg(yres));
+			item->setIcon(COLUMN_ITEM, onlyWarning );
+			break;
+		}
+		case ImageDPITooHigh:
+		{
+			int xres = qRound(72.0 / pageItem->imageXScale());
+			int yres = qRound(72.0 / pageItem->imageYScale());
+			item->setText(COLUMN_PROBLEM, highDPI.arg(maxResDPI).arg(xres).arg(yres));
+			item->setIcon(COLUMN_ITEM, onlyWarning );
+			break;
+		}
+		case Transparency:
+			item->setText(COLUMN_PROBLEM, transpar);
+			item->setIcon(COLUMN_ITEM, graveError );
+// 			globalGraveError = true;
+			pageGraveError = true;
+			itemError = true;
+			break;
+		case PDFAnnotField:
+			item->setText(COLUMN_PROBLEM, annot);
+			item->setIcon(COLUMN_ITEM, onlyWarning );
+			break;
+		case PlacedPDF:
+			item->setText(COLUMN_PROBLEM, rasterPDF);
+			item->setIcon(COLUMN_ITEM, onlyWarning );
+			break;
+		case ImageIsGIF:
+			item->setText(COLUMN_PROBLEM, isGIF);
+			item->setIcon(COLUMN_ITEM, onlyWarning);
+			//errorText->setToolTip( isGIFtoolTip);
+			break;
+		case WrongFontInAnnotation:
+			item->setText(COLUMN_PROBLEM, WrongFont);
+			item->setIcon(COLUMN_ITEM, graveError );
+// 			globalGraveError = true;
+			pageGraveError = true;
+			itemError = true;
+			break;
+		default:
+			break;
+	};
+	// additional informations
+	item->setText(COLUMN_LAYER, m_Doc->Layers.at(pageItem->LayerNr).Name);
+	item->setData(COLUMN_LAYER, Qt::DecorationRole, m_Doc->Layers.at(pageItem->LayerNr).markerColor);
+	if (pageItem->asTextFrame())
+	{
+		int l = pageItem->itemText.length();
+		// preview of the text
+		item->setText(COLUMN_INFO, pageItem->itemText.text(0, l > 20 ? 20 : l));
+	}
+	else if (pageItem->asImageFrame())
+		item->setText(COLUMN_INFO, pageItem->externalFile());
+}
+
 void CheckDocument::buildErrorList(ScribusDoc *doc)
 {
-	bool resultError = false;
+// 	bool resultError = false;
 	m_Doc = doc;
-	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
+	disconnect(curCheckProfile, SIGNAL(activated(const QString&)),
+	           this, SLOT(newScan(const QString&)));
 	curCheckProfile->clear();
 	clearErrorList();
 
 	if (m_Doc==0)
 		return;
 
+	minResDPI = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
+	maxResDPI = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);
+	
 	CheckerPrefsList::Iterator it;
 	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
 	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
 		curCheckProfile->addItem(it.key());
 	setCurrentComboItem(curCheckProfile, doc->curCheckProfile);
 
-	int minRes = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
-	int maxRes = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);
-	int xres, yres;
-
-	QTreeWidgetItem * item = new QTreeWidgetItem( reportDisplay );
-	item->setText( 0, tr( "Document" ) );
-	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0) && (doc->docLayerErrors.count() == 0))
+	if ((doc->docItemErrors.count() == 0)
+		 && (doc->masterItemErrors.count() == 0)
+		 && (doc->docLayerErrors.count() == 0))
 	{
-		item->setIcon( 0, noErrors );
-		item->setText( 1, tr( "No Problems found" ) );
+		QTreeWidgetItem * documentItem = new QTreeWidgetItem( reportDisplay );
+		documentItem->setText(COLUMN_ITEM, tr( "Document" ) );
+		documentItem->setIcon(COLUMN_ITEM, noErrors );
+		documentItem->setText(COLUMN_PROBLEM, tr( "No Problems found" ) );
 		ignoreErrors->setText( tr("OK"));
 	}
 	else
 	{
-		resultError = true;
+// 		resultError = true;
 		bool hasError = false;
-		bool hasGraveError = false;
-		QTreeWidgetItem * pagep = 0;
+// 		globalGraveError = false;
+		itemError = false;
+// 		QTreeWidgetItem * pagep = 0;
+		// LAYERS **********************************************8
+		QTreeWidgetItem * layerItem = new QTreeWidgetItem(reportDisplay);
+		layerItem->setText(COLUMN_ITEM, tr("Layers"));
+
 		if (doc->docLayerErrors.count() != 0)
 		{
-			QMap<int, errorCodes>::Iterator it01;
-			for (it01 = doc->docLayerErrors.begin(); it01 != doc->docLayerErrors.end(); ++it01)
+			QMap<int, errorCodes>::Iterator docLayerErrorsIt;
+			errorCodes::Iterator layerErrorsIt;
+
+			for (docLayerErrorsIt = doc->docLayerErrors.begin();
+				 docLayerErrorsIt != doc->docLayerErrors.end();
+				 ++docLayerErrorsIt)
 			{
-				QTreeWidgetItem * layer = new QTreeWidgetItem( item, pagep );
-				errorCodes::Iterator it03;
-				for (it03 = it01.value().begin(); it03 != it01.value().end(); ++it03)
+				QTreeWidgetItem * layer = new QTreeWidgetItem(layerItem);//, pagep );
+				for (layerErrorsIt = docLayerErrorsIt.value().begin();
+					 layerErrorsIt != docLayerErrorsIt.value().end(); ++layerErrorsIt)
 				{
 					QTreeWidgetItem * errorText = new QTreeWidgetItem( layer, 0 );
-					switch (it03.key())
+					switch (layerErrorsIt.key())
 					{
 						case Transparency:
-							errorText->setText(0, tr("Transparency used"));
+							errorText->setText(COLUMN_ITEM, tr("Transparency used"));
 							break;
 						case BlendMode:
-							errorText->setText(0, tr("Blendmode used"));
+							errorText->setText(COLUMN_ITEM, tr("Blendmode used"));
 							break;
 						default:
 							break;
 					}
-					errorText->setIcon( 0, graveError );
+					errorText->setIcon(COLUMN_ITEM, graveError );
 				}
-				layer->setText(0, QString( tr("Layer \"%1\"")).arg(doc->layerName(it01.key())));
-				layer->setIcon( 0, graveError );
-				pagep = layer;
-				hasGraveError = true;
+				layer->setText(COLUMN_ITEM,tr("Layer \"%1\"").arg(doc->layerName(docLayerErrorsIt.key())));
+				layer->setIcon(COLUMN_ITEM, graveError );
+				layer->setText(COLUMN_PROBLEM, tr("Issue(s): %1").arg(doc->docLayerErrors[docLayerErrorsIt.key()].count()));
+				layer->setExpanded(true);
+// 				pagep = layer;
+// 				globalGraveError = true;
 			}
+			layerItem->setExpanded(true);
 		}
-		for (int a = 0; a < static_cast<int>(doc->MasterPages.count()); ++a)
+		// END of LAYERS
+
+		// Master Pages *****************************************************
+		QTreeWidgetItem * masterPageRootItem = new QTreeWidgetItem(reportDisplay);
+		masterPageRootItem->setText(COLUMN_ITEM, tr("Master Pages"));
+		int mpErrorCount = 0;
+
+		for (int mPage = 0; mPage < doc->MasterPages.count(); ++mPage)
 		{
 			QString tmp;
 			hasError = false;
 			bool pageGraveError = false;
-			QTreeWidgetItem * page = new QTreeWidgetItem( item, pagep );
-			masterPageMap.insert(page, doc->MasterPages.at(a)->pageName());
-			pagep = page;
-			QMap<int, errorCodes>::Iterator it2;
-			for (it2 = doc->masterItemErrors.begin(); it2 != doc->masterItemErrors.end(); ++it2)
+			QTreeWidgetItem * page = new QTreeWidgetItem( masterPageRootItem);//, pagep );
+			masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
+// 			pagep = page;
+			QMap<int, errorCodes>::Iterator masterItemErrorsIt;
+			for (masterItemErrorsIt = doc->masterItemErrors.begin();
+				 masterItemErrorsIt != doc->masterItemErrors.end();
+				 ++masterItemErrorsIt)
 			{
-				if ((doc->MasterItems.at(it2.key())->OwnPage == a) || (doc->MasterItems.at(it2.key())->OnMasterPage == doc->MasterPages.at(a)->pageName()))
+				if ((doc->MasterItems.at(masterItemErrorsIt.key())->OwnPage == mPage)
+					|| (doc->MasterItems.at(masterItemErrorsIt.key())->OnMasterPage == doc->MasterPages.at(mPage)->pageName()))
 				{
 					hasError = true;
-					bool itemError = false;
-					QTreeWidgetItem * object = new QTreeWidgetItem( page, 0 );
-					masterPageItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
-					object->setText(0, doc->MasterItems.at(it2.key())->itemName());
+					QTreeWidgetItem * object = new QTreeWidgetItem( page);
+					masterPageItemMap.insert(object, doc->MasterItems.at(masterItemErrorsIt.key())->ItemNr);
+					object->setText(COLUMN_ITEM, doc->MasterItems.at(masterItemErrorsIt.key())->itemName());
 					errorCodes::Iterator it3;
-					if (it2.value().count() == 1)
+					if (masterItemErrorsIt.value().count() == 1)
 					{
-						it3 = it2.value().begin();
-						switch (it3.key())
-						{
-						case MissingGlyph:
-							object->setText(1, missingGlyph);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
-							break;
-						case TextOverflow:
-							object->setText(1, textOverflow);
-							break;
-						case ObjectNotOnPage:
-							object->setText(1, notOnPage);
-							break;
-						case MissingImage:
-							if (doc->MasterItems.at(it2.key())->externalFile().isEmpty())
-								object->setText(1, emptyImg);
-							else
-							{
-								object->setText(1, missingImg);
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-							}
-							break;
-						case ImageDPITooLow:
-							xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
-							yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
-							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-							break;
-						case ImageDPITooHigh:
-							xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
-							yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
-							object->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-							break;
-						case Transparency:
-							object->setText(1, transpar);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
-							break;
-						case PDFAnnotField:
-							object->setText(1, annot);
-							break;
-						case PlacedPDF:
-							object->setText(1, rasterPDF);
-							break;
-						case ImageIsGIF:
-							object->setText(1, isGIF);
-							//object->setToolTip( isGIFtoolTip);
-							break;
-						case WrongFontInAnnotation:
-							object->setText(1, WrongFont);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
-							break;
-						default:
-							break;
-						}
+						it3 = masterItemErrorsIt.value().begin();
+						buildItem(object, it3.key(), doc->MasterItems.at(masterItemErrorsIt.key()));
 					}
 					else
 					{
-						for (it3 = it2.value().begin(); it3 != it2.value().end(); ++it3)
+						for (it3 = masterItemErrorsIt.value().begin(); it3 != masterItemErrorsIt.value().end(); ++it3)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
-							switch (it3.key())
-							{
-							case MissingGlyph:
-								errorText->setText(1, missingGlyph);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-								break;
-							case TextOverflow:
-								errorText->setText(1, textOverflow);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ObjectNotOnPage:
-								errorText->setText(1, notOnPage);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case MissingImage:
-								if (doc->MasterItems.at(it2.key())->externalFile().isEmpty())
-								{
-									errorText->setText(1, emptyImg);
-									errorText->setIcon( 0, onlyWarning );
-								}
-								else
-								{
-									errorText->setText(1, missingImg);
-									errorText->setIcon( 0, graveError );
-									hasGraveError = true;
-									pageGraveError = true;
-									itemError = true;
-								}
-								break;
-							case ImageDPITooLow:
-								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
-								yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
-								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ImageDPITooHigh:
-								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
-								yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
-								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case Transparency:
-								errorText->setText(1, transpar);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-								break;
-							case PDFAnnotField:
-								errorText->setText(1, annot);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case PlacedPDF:
-								errorText->setText(1, rasterPDF);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ImageIsGIF:
-								errorText->setText(1, isGIF);
-								errorText->setIcon(0, onlyWarning);
-								//errorText->setToolTip( isGIFtoolTip);
-								break;
-							case WrongFontInAnnotation:
-								errorText->setText(1, WrongFont);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-								break;
-							default:
-								break;
-							}
+							buildItem(errorText, it3.key(), doc->MasterItems.at(masterItemErrorsIt.key()));
 						}
 						object->setExpanded( true );
 					}
 					if (itemError)
-						object->setIcon( 0, graveError );
+						object->setIcon(COLUMN_ITEM, graveError );
 					else
-						object->setIcon( 0, onlyWarning );
+						object->setIcon(COLUMN_ITEM, onlyWarning );
+				}
+			}
+			if (hasError)
+			{
+				++mpErrorCount;
+				if (pageGraveError)
+					page->setIcon(COLUMN_ITEM, graveError );
+				else
+					page->setIcon(COLUMN_ITEM, onlyWarning );
+				page->setExpanded( true );
+			}
+			else
+				page->setIcon(COLUMN_ITEM, noErrors );
+			page->setText(COLUMN_ITEM, doc->MasterPages.at(mPage)->pageName());
+		}
+		masterPageRootItem->setExpanded(true);
+		masterPageRootItem->setText(COLUMN_PROBLEM, tr("Issue(s): %1").arg(mpErrorCount));
+		// END of MASTER PAGES
+
+		// PAGES ********************************8
+		for (int aPage = 0; aPage < doc->DocPages.count(); ++aPage)
+		{
+			QString tmp;
+			hasError = false;
+			bool pageGraveError = false;
+			QTreeWidgetItem * page = new QTreeWidgetItem( reportDisplay);//, pagep );
+			pageMap.insert(page, aPage);
+// 			pagep = page;
+			QMap<int, errorCodes>::Iterator docItemErrorsIt;
+			for (docItemErrorsIt = doc->docItemErrors.begin();
+				 docItemErrorsIt != doc->docItemErrors.end();
+				 ++docItemErrorsIt)
+			{
+				if (doc->DocItems.at(docItemErrorsIt.key())->OwnPage == aPage)
+				{
+					hasError = true;
+					itemError = false;
+					QTreeWidgetItem * object = new QTreeWidgetItem(page);
+					object->setText(COLUMN_ITEM, doc->DocItems.at(docItemErrorsIt.key())->itemName());
+					itemMap.insert(object, doc->DocItems.at(docItemErrorsIt.key())->ItemNr);
+					errorCodes::Iterator it3;
+					if (docItemErrorsIt.value().count() == 1)
+					{
+						it3 = docItemErrorsIt.value().begin();
+						buildItem(object, it3.key(), doc->DocItems.at(docItemErrorsIt.key()));
+					}
+					else
+					{
+						for (it3 = docItemErrorsIt.value().begin(); it3 != docItemErrorsIt.value().end(); ++it3)
+						{
+							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
+							buildItem(errorText, it3.key(), doc->DocItems.at(docItemErrorsIt.key()));
+						}
+						object->setExpanded( true );
+					}
+					if (itemError)
+						object->setIcon(COLUMN_ITEM, graveError );
+					else
+						object->setIcon(COLUMN_ITEM, onlyWarning );
 				}
 			}
 			if (hasError)
 			{
 				if (pageGraveError)
-					page->setIcon( 0, graveError );
+					page->setIcon(COLUMN_ITEM, graveError );
 				else
-					page->setIcon( 0, onlyWarning );
+					page->setIcon(COLUMN_ITEM, onlyWarning );
 				page->setExpanded( true );
 			}
 			else
 				page->setIcon( 0, noErrors );
-			page->setText(0, doc->MasterPages.at(a)->pageName());
+			page->setText(COLUMN_ITEM, tr("Page ")+tmp.setNum(aPage+1));
 		}
-		for (int a = 0; a < static_cast<int>(doc->DocPages.count()); ++a)
-		{
-			QString tmp;
-			hasError = false;
-			bool pageGraveError = false;
-			QTreeWidgetItem * page = new QTreeWidgetItem( item, pagep );
-			pageMap.insert(page, a);
-			pagep = page;
-			QMap<int, errorCodes>::Iterator it2;
-			for (it2 = doc->docItemErrors.begin(); it2 != doc->docItemErrors.end(); ++it2)
-			{
-				if (doc->DocItems.at(it2.key())->OwnPage == a)
-				{
-					hasError = true;
-					bool itemError = false;
-					QTreeWidgetItem * object = new QTreeWidgetItem( page, 0 );
-					object->setText(0, doc->DocItems.at(it2.key())->itemName());
-					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
-					errorCodes::Iterator it3;
-					if (it2.value().count() == 1)
-					{
-						it3 = it2.value().begin();
-						switch (it3.key())
-						{
-						case MissingGlyph:
-							object->setText(1, missingGlyph);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
-							break;
-						case TextOverflow:
-							object->setText(1, textOverflow);
-							break;
-						case ObjectNotOnPage:
-							object->setText(1, notOnPage);
-							break;
-						case MissingImage:
-							if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
-								object->setText(1, emptyImg);
-							else
-							{
-								object->setText(1, missingImg);
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-							}
-							break;
-						case ImageDPITooLow:
-							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-							break;
-						case ImageDPITooHigh:
-							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-							object->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-							break;
-						case Transparency:
-							object->setText(1, transpar);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
-							break;
-						case PDFAnnotField:
-							object->setText(1, annot);
-							break;
-						case PlacedPDF:
-							object->setText(1, rasterPDF);
-							break;
-						case ImageIsGIF:
-							object->setText(1, isGIF);
-							//object->setToolTip( isGIFtoolTip);
-							break;
-						case WrongFontInAnnotation:
-							object->setText(1, WrongFont);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
-							break;
-						default:
-							break;
-						}
-					}
-					else
-					{
-						for (it3 = it2.value().begin(); it3 != it2.value().end(); ++it3)
-						{
-							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
-							switch (it3.key())
-							{
-							case MissingGlyph:
-								errorText->setText(1, missingGlyph);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-								break;
-							case TextOverflow:
-								errorText->setText(1, textOverflow);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ObjectNotOnPage:
-								errorText->setText(1, notOnPage);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case MissingImage:
-								if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
-								{
-									errorText->setText(1, emptyImg);
-									errorText->setIcon( 0, onlyWarning );
-								}
-								else
-								{
-									errorText->setText(1, missingImg);
-									errorText->setIcon( 0, graveError );
-									hasGraveError = true;
-									pageGraveError = true;
-									itemError = true;
-								}
-								break;
-							case ImageDPITooLow:
-								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ImageDPITooHigh:
-								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case Transparency:
-								errorText->setText(1, transpar);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-								break;
-							case PDFAnnotField:
-								errorText->setText(1, annot);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case PlacedPDF:
-								errorText->setText(1, rasterPDF);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ImageIsGIF:
-								errorText->setText(1, isGIF);
-								errorText->setIcon(0, onlyWarning);
-								//errorText->setToolTip( isGIFtoolTip);
-								break;
-							case WrongFontInAnnotation:
-								errorText->setText(1, WrongFont);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
-								break;
-							default:
-								break;
-							}
-						}
-						object->setExpanded( true );
-					}
-					if (itemError)
-						object->setIcon( 0, graveError );
-					else
-						object->setIcon( 0, onlyWarning );
-				}
-			}
-			if (hasError)
-			{
-				if (pageGraveError)
-					page->setIcon( 0, graveError );
-				else
-					page->setIcon( 0, onlyWarning );
-				page->setExpanded( true );
-			}
-			else
-				page->setIcon( 0, noErrors );
-			page->setText(0, tr("Page ")+tmp.setNum(a+1));
-		}
-		QMap<int, errorCodes>::Iterator it2;
+		// END of PAGES
+
+		// FREE ITEMS **********************************************8888
+		QMap<int, errorCodes>::Iterator freeItemsErrorsIt;
 		bool hasfreeItems = false;
-		for (it2 = doc->docItemErrors.begin(); it2 != doc->docItemErrors.end(); ++it2)
+		for (freeItemsErrorsIt = doc->docItemErrors.begin();
+			 freeItemsErrorsIt != doc->docItemErrors.end();
+			 ++freeItemsErrorsIt)
 		{
-			if (doc->DocItems.at(it2.key())->OwnPage == -1)
+			if (doc->DocItems.at(freeItemsErrorsIt.key())->OwnPage == -1)
 			{
 				hasfreeItems = true;
 				break;
@@ -669,181 +557,66 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			bool hasError = false;
 			bool pageGraveError = false;
-			QTreeWidgetItem * page = new QTreeWidgetItem( item, pagep );
-			pagep = page;
-			for (it2 = doc->docItemErrors.begin(); it2 != doc->docItemErrors.end(); ++it2)
+			QTreeWidgetItem * freeItem = new QTreeWidgetItem( reportDisplay);//, pagep );
+// 			pagep = page;
+			for (freeItemsErrorsIt = doc->docItemErrors.begin();
+				 freeItemsErrorsIt != doc->docItemErrors.end();
+				 ++freeItemsErrorsIt)
 			{
-				if (doc->DocItems.at(it2.key())->OwnPage == -1)
+				if (doc->DocItems.at(freeItemsErrorsIt.key())->OwnPage == -1)
 				{
 					hasError = true;
-					QTreeWidgetItem * object = new QTreeWidgetItem( page, 0 );
-					object->setText(0, doc->DocItems.at(it2.key())->itemName());
-					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
+					QTreeWidgetItem * object = new QTreeWidgetItem(freeItem);
+					object->setText(0, doc->DocItems.at(freeItemsErrorsIt.key())->itemName());
+					itemMap.insert(object, doc->DocItems.at(freeItemsErrorsIt.key())->ItemNr);
 					errorCodes::Iterator it3;
-					if (it2.value().count() == 1)
+					if (freeItemsErrorsIt.value().count() == 1)
 					{
-						it3 = it2.value().begin();
-						switch (it3.key())
-						{
-						case MissingGlyph:
-							object->setText(1, missingGlyph);
-							hasGraveError = true;
-							pageGraveError = true;
-							break;
-						case TextOverflow:
-							object->setText(1, textOverflow);
-							break;
-						case ObjectNotOnPage:
-// 							object->setText(1, notOnPage);
-							break;
-						case MissingImage:
-							if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
-								object->setText(1, emptyImg);
-							else
-							{
-								object->setText(1, missingImg);
-								hasGraveError = true;
-								pageGraveError = true;
-							}
-							break;
-						case ImageDPITooLow:
-							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-							break;
-						case ImageDPITooHigh:
-							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-							object->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-							break;
-						case Transparency:
-							object->setText(1, transpar);
-							hasGraveError = true;
-							pageGraveError = true;
-							break;
-						case PDFAnnotField:
-							object->setText(1, annot);
-							break;
-						case PlacedPDF:
-							object->setText(1, rasterPDF);
-							break;
-						case ImageIsGIF:
-							object->setText(1, isGIF);
-							//object->setToolTip( isGIFtoolTip);
-							break;
-						case WrongFontInAnnotation:
-							object->setText(1, WrongFont);
-							hasGraveError = true;
-							pageGraveError = true;
-							break;
-						default:
-							break;
-						}
+						it3 = freeItemsErrorsIt.value().begin();
+						buildItem(object, it3.key(), doc->DocItems.at(freeItemsErrorsIt.key()));
 					}
 					else
 					{
-						for (it3 = it2.value().begin(); it3 != it2.value().end(); ++it3)
+						for (it3 = freeItemsErrorsIt.value().begin(); it3 != freeItemsErrorsIt.value().end(); ++it3)
 						{
-							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
-							switch (it3.key())
-							{
-							case MissingGlyph:
-								errorText->setText(1, missingGlyph);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								break;
-							case TextOverflow:
-								errorText->setText(1, textOverflow);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ObjectNotOnPage:
-								errorText->setText(1, notOnPage);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case MissingImage:
-								if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
-								{
-									errorText->setText(1, emptyImg);
-									errorText->setIcon( 0, onlyWarning );
-								}
-								else
-								{
-									errorText->setText(1, missingImg);
-									errorText->setIcon( 0, graveError );
-									hasGraveError = true;
-									pageGraveError = true;
-								}
-								break;
-							case ImageDPITooLow:
-								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ImageDPITooHigh:
-								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
-								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
-								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case Transparency:
-								errorText->setText(1, transpar);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								break;
-							case PDFAnnotField:
-								errorText->setText(1, annot);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case PlacedPDF:
-								errorText->setText(1, rasterPDF);
-								errorText->setIcon( 0, onlyWarning );
-								break;
-							case ImageIsGIF:
-								errorText->setText(1, isGIF);
-								errorText->setIcon(0, onlyWarning);
-								//errorText->setToolTip( isGIFtoolTip);
-								break;
-							case WrongFontInAnnotation:
-								errorText->setText(1, WrongFont);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								break;
-							default:
-								break;
-							}
+							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
+							buildItem(errorText, it3.key(), doc->DocItems.at(freeItemsErrorsIt.key()));
 						}
 						object->setExpanded( true );
 					}
 					if (pageGraveError)
-						object->setIcon( 0, graveError );
+						object->setIcon(COLUMN_ITEM, graveError );
 					else
-						object->setIcon( 0, onlyWarning );
+						object->setIcon(COLUMN_ITEM, onlyWarning );
 				}
 			}
 			if (hasError)
 			{
 				if (pageGraveError)
-					page->setIcon( 0, graveError );
+					freeItem->setIcon(COLUMN_ITEM, graveError );
 				else
-					page->setIcon( 0, onlyWarning );
-				page->setExpanded( true );
+					freeItem->setIcon(COLUMN_ITEM, onlyWarning );
+				freeItem->setExpanded( true );
 			}
 			else
-				page->setIcon( 0, noErrors );
-			page->setText(0, tr("Free Objects"));
+				freeItem->setIcon(COLUMN_ITEM, noErrors );
+			freeItem->setText(COLUMN_ITEM, tr("Free Objects"));
 		}
-		if (hasGraveError)
-			item->setIcon( 0, graveError );
-		else
-			item->setIcon( 0, onlyWarning );
-		item->setText( 1, tr( "Problems found" ) );
-		item->setExpanded( true );
+		// END of FREE ITEMS
+
+// 		if (globalGraveError)
+// 			documentItem->setIcon(COLUMN_ITEM, graveError );
+// 		else
+// 			documentItem->setIcon(COLUMN_ITEM, onlyWarning );
+// 		documentItem->setText(COLUMN_PROBLEM, tr( "Problems found" ) );
+// 		documentItem->setExpanded( true );
 		ignoreErrors->setText( tr("&Ignore Errors"));
 	}
+
+	reportDisplay->resizeColumnToContents(COLUMN_ITEM);
+	reportDisplay->resizeColumnToContents(COLUMN_PROBLEM);
+	reportDisplay->resizeColumnToContents(COLUMN_LAYER);
+	reportDisplay->resizeColumnToContents(COLUMN_INFO);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
 }
@@ -862,9 +635,10 @@ void CheckDocument::languageChange()
 {
 	setWindowTitle( tr( "Preflight Verifier" ) );
 	QStringList headerLabels;
-	headerLabels.append( tr("Items"));
-	headerLabels.append( tr("Problems"));
+	headerLabels << tr("Items") << tr("Problems")
+	             << tr("Layer") << tr("Information");
 	reportDisplay->setHeaderLabels(headerLabels);
+	reportDisplay->setColumnCount(headerLabels.count());
 
 	textLabel1->setText( tr("Current Profile:"));
 	ignoreErrors->setText( tr("&Ignore Errors"));
@@ -879,8 +653,8 @@ void CheckDocument::languageChange()
 	notOnPage = tr("Object is not on a Page");
 	missingImg = tr("Missing Image");
 	emptyImg = tr("Empty Image Frame");
-	lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
-	highDPI = tr("Image resolution above %1 DPI, currently %2 x %3 DPI");
+	lowDPI = tr("Image resolution below %1 DPI,\ncurrently %2 x %3 DPI");
+	highDPI = tr("Image resolution above %1 DPI,\ncurrently %2 x %3 DPI");
 	transpar = tr("Object has transparency");
 	annot = tr("Object is a PDF Annotation or Field");
 	rasterPDF = tr("Object is a placed PDF");

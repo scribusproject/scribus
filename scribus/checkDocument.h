@@ -19,6 +19,7 @@ class QVBoxLayout;
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
+#include "scribusstructs.h"
 
 class ScribusDoc;
 class ScComboBox;
@@ -43,7 +44,15 @@ public:
 
 	/*! \brief Clean the list view tree and reset the P.V. attributes. */
 	void clearErrorList();
-	/*! \brief Get all possible errors for given document
+	/*! \brief Get all possible errors for given document.
+	It walks through all errors filled in DocumentChecker::checkDocument()
+	to create a tree structure of error items:
+	- some item e.g. page
+	- - page item - its error if there is only one error
+	- - another item
+	- - - error 1
+	- - - warning X etc.
+	- another item...
 	\param doc a reference to the ScribusDoc */
 	void buildErrorList(ScribusDoc *doc);
 	/*! \brief Enable/disable "ignore" button and noButton property
@@ -129,6 +138,28 @@ private:
 	QTreeWidget* reportDisplay;
 	QPushButton* ignoreErrors;
 	QPushButton* reScan;
+
+// 	bool globalGraveError;
+	bool pageGraveError;
+	bool itemError;
+
+	int minResDPI;
+	int maxResDPI;
+
+	/*! \brief Create content of QTreeWidgetItem based on error type
+	and pageItem state.
+	\param item a reference to current QTreeWidgetItem to fill the data
+	\param errorType type of PreflightError value. There is one big switch/case.
+	\param pageItem data for item are taken here.
+	Available columns of item:
+		1) items' group or item name
+		2) detailed problem text
+		3) membersip in layer
+		4) beginning of the text (textframes) or image path (imageframe)
+	*/
+	void buildItem(QTreeWidgetItem * item,
+					PreflightError errorType,
+					PageItem * pageItem);
 };
 
 #endif // CHECKDOCUMENT_H
