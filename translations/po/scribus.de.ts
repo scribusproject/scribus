@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -11516,29 +11517,32 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
         <location filename="../../scribus/canvas.cpp" line="2252"/>
         <source>X: %1
 Y: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1
+Y: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2243"/>
         <source>X: %1</source>
-        <translation type="unfinished">X: %1 %2 {1?}</translation>
+        <translation>X: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2245"/>
         <source>Y: %1</source>
-        <translation type="unfinished">Y: %1 %2 {1?}</translation>
+        <translation>Y: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2260"/>
         <source>Length: %1
 Angle: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Länge: %1
+Winkel: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2262"/>
         <source>Width: %1
 Height: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite: %1
+Höhe: %2</translation>
     </message>
 </context>
 <context>
@@ -11546,12 +11550,12 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1822"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1852"/>
         <source>Open</source>
-        <translation type="unfinished">Öffnen</translation>
+        <translation>Öffnen</translation>
     </message>
 </context>
 <context>
