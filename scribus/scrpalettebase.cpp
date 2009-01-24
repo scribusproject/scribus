@@ -201,8 +201,8 @@ void ScrPaletteBase::show()
 				vwidth = qMax( gStrut.width(), scr.width() - vleft );
 			if ( vheight >= scr.height() )
 				vheight = qMax( gStrut.height(), scr.height() - vtop );
-//			qDebug(QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
-//				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name()));
+//			qDebug() << QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
+//				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name());
 //			setGeometry(vleft, vtop, vwidth, vheight);
 			resize(vwidth, vheight);
 			move(vleft, vtop);

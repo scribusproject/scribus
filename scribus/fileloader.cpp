@@ -101,7 +101,7 @@ int FileLoader::TestFile()
 	{
 		if ((*it).nameMatch.indexIn("."+ext)!=-1)
 		{
-//  			qDebug(QString("Match :%1: :.%2: on %3").arg((*it).nameMatch.pattern()).arg(ext).arg((*it).trName));
+//  		qDebug() << QString("Match :%1: :.%2: on %3").arg((*it).nameMatch.pattern()).arg(ext).arg((*it).trName);
 			if ((*it).plug!=0)
 			{
 				if ((*it).plug->fileSupported(0, FileName))
@@ -113,7 +113,7 @@ int FileLoader::TestFile()
 			}
 		}
 // 		else
-// 			qDebug(QString("No Match :%1: :.%2: on %3").arg((*it).nameMatch.pattern()).arg(ext).arg((*it).trName));
+// 			qDebug() << QString("No Match :%1: :.%2: on %3").arg((*it).nameMatch.pattern()).arg(ext).arg((*it).trName);
 	}
 	
 // 	if (ret==-1)

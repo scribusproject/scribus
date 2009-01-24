@@ -25,7 +25,7 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleContext(NULL), cstyleContextIs
 {
 	setParent("");
 	cstyleContext.setDefaultStyle( &cstyle );
-//	qDebug(QString("ParagraphStyle() %1 pcontext %2 ccontext %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(context())).arg(reinterpret_cast<uint>(defaultStyle()->context())));
+//	qDebug() << QString("ParagraphStyle() %1 pcontext %2 ccontext %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(context())).arg(reinterpret_cast<uint>(defaultStyle()->context()));
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = attr_DEFAULT; \
 	inh_##attr_NAME = true;
@@ -43,7 +43,7 @@ ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), csty
 	else
 		cstyle.setContext(other.charStyle().context());
 	cstyleContext.setDefaultStyle( &cstyle );
-//	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
+//	qDebug() << QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this));
 	other.validate();
 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -55,7 +55,7 @@ ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), csty
 
 ParagraphStyle::~ParagraphStyle()
 {
-//	qDebug(QString("~ParagraphStyle %1").arg(reinterpret_cast<uint>(this)));
+//	qDebug() << QString("~ParagraphStyle %1").arg(reinterpret_cast<uint>(this));
 }
 	
 
@@ -137,7 +137,7 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 void ParagraphStyle::setContext(const StyleContext* context)
 {
 	Style::setContext(context);
-//	qDebug(QString("ParagraphStyle::setContext(%1) parent=%2").arg((unsigned long int)context).arg((unsigned long int)oth));
+//	qDebug() << QString("ParagraphStyle::setContext(%1) parent=%2").arg((unsigned long int)context).arg((unsigned long int)oth);
 	repairImplicitCharStyleInheritance();
 }
 
@@ -167,7 +167,7 @@ void ParagraphStyle::update(const StyleContext* context)
 	cstyleContext.invalidate();
 
 	const ParagraphStyle * oth = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
-//	qDebug(QString("ParagraphStyle::update(%1) parent=%2").arg((unsigned long int)context).arg((unsigned long int)oth));
+//	qDebug() << QString("ParagraphStyle::update(%1) parent=%2").arg((unsigned long int)context).arg((unsigned long int)oth);
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		if (inh_##attr_NAME) \

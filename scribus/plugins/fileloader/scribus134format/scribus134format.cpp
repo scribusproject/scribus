@@ -1488,7 +1488,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem * Itn = m_Doc->DocItems.at(lc.value());
 				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
-					qDebug("scribus134format: corruption in linked textframes detected");
+					qDebug() << "scribus134format: corruption in linked textframes detected";
 					continue;
 				}
 				Its->link(Itn);
@@ -1507,7 +1507,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem * Itn = m_Doc->MasterItems.at(lc.value());
 				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
-					qDebug("scribus134format: corruption in linked textframes detected");
+					qDebug() << "scribus134format: corruption in linked textframes detected";
 					continue;
 				}
 				Its->link(Itn);
@@ -1825,7 +1825,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		}
 		else if (ch == SpecialChars::SHYPHEN && pos > 0)
 		{
-//			qDebug(QString("scribus134format: SHYPHEN at %1").arg(pos));
+//			qDebug() << QString("scribus134format: SHYPHEN at %1").arg(pos);
 			ScText* lastItem = obj->itemText.item(pos-1);
 			// double SHY means user provided SHY, single SHY is automatic one
 			if (lastItem->effects() & ScStyle_HyphenationPossible)
@@ -1841,10 +1841,10 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		else {
 			obj->itemText.insertChars(pos, QString(ch));
 		}
-//		qDebug(QString("style at %1: %2 ^ %3 = %4 (%5)").arg(pos).arg((uint)newStyle.effects()).arg((uint)last->Style.effects()).arg((uint)(newStyle.effects() ^ last->Style.effects())).arg(newStyle != last->Style));
+//		qDebug() << QString("style at %1: %2 ^ %3 = %4 (%5)").arg(pos).arg((uint)newStyle.effects()).arg((uint)last->Style.effects()).arg((uint)(newStyle.effects() ^ last->Style.effects())).arg(newStyle != last->Style);
 		if (newStyle != last->Style) // || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
 		{  // FIXME StyleFlag operator== ignores hyphen flag
-//			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
+//			qDebug() << QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString());
 			obj->itemText.setCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = newStyle;
 			last->StyleStart = pos;
@@ -1857,7 +1857,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			}
 			if (calign >= 0)
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
-//			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
+//			qDebug() << QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign);
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}
@@ -2234,14 +2234,14 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
-		qDebug(QString("scribus134format: invalid arrow index: %").arg(startArrowIndex).toAscii().constData());
+		qDebug() << QString("scribus134format: invalid arrow index: %").arg(startArrowIndex);
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
 	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
-		qDebug(QString("scribus134format: invalid arrow index: %").arg(endArrowIndex).toAscii().constData());
+		qDebug() << QString("scribus134format: invalid arrow index: %").arg(endArrowIndex);
 		endArrowIndex = 0;
 	}
 	currItem->setEndArrowIndex(endArrowIndex);
@@ -3254,7 +3254,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
 					if (Itn->prevInChain() || Its->nextInChain()) 
 					{
-						qDebug("scribus134format: corruption in linked textframes detected");
+						qDebug() << "scribus134format: corruption in linked textframes detected";
 						continue;
 					}
 					Its->link(Itn);
@@ -3275,7 +3275,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
 					if (Itn->prevInChain() || Its->nextInChain())
 					{
-						qDebug("scribus134format: corruption in linked textframes detected");
+						qDebug() << "scribus134format: corruption in linked textframes detected";
 						continue;
 					}
 					Its->link(Itn);

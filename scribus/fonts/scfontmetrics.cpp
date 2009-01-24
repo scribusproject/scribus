@@ -474,7 +474,7 @@ void readAdobeGlyphNames()
 	for (uint i=0; table[i]; ++i) {
 		if (pattern.indexIn(table[i]) >= 0) {
 			FT_ULong unicode = pattern.cap(2).toULong(0, 16);
-			qDebug(QString("reading glyph name %1 for unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2)).toLocal8Bit());
+			qDebug() << QString("reading glyph name %1 for unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2));
 			adobeGlyphNames.insert(unicode, pattern.cap(1));
 		}
 	}
@@ -527,7 +527,7 @@ double Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 			uint cr = FT_Get_Char_Index(face, c2);
 			FT_Error error = FT_Get_Kerning(face, cl, cr, FT_KERNING_UNSCALED, &delta);
 			if (error) {
-				qDebug(QString("Error %2 when accessing kerning pair for font %1").arg(scFace->scName()).arg(error));
+				qDebug() << QString("Error %2 when accessing kerning pair for font %1").arg(scFace->scName()).arg(error);
 			}
 			else {
 				double uniEM = static_cast<double>(face->units_per_EM);
@@ -535,7 +535,7 @@ double Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 			}
 		}
 		else {
-			qDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(scFace->scName()));
+			qDebug() << QString("Font %1 has no kerning pairs (according to Freetype)").arg(scFace->scName());
 		}
 		return width;
 	}

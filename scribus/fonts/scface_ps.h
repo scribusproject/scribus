@@ -183,7 +183,7 @@ class ScFace_pfb : public ScFace_postscript
 			}
 			else 
 			{
-				qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
+				qDebug("%s", QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
 				return false;
 			}
 		}
@@ -213,7 +213,7 @@ class ScFace_pfa : public ScFace_postscript
 				str.append(bb);
 				return true; 
 			}
-			qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
+			qDebug("%s", QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
 			return false;
 		}
 };

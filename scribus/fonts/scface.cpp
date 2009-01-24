@@ -296,7 +296,7 @@ double ScFace::charWidth(QChar ch, double size, QChar ch2) const
 		double width = glyphWidth(gl1, size);
 		if (gl2 != 0)
 			width += glyphKerning(gl1, gl2, size);
-//		qDebug(QString("scface::glyphkerning: %1_%2 = %3 (%4, %5)").arg(ch).arg(ch2).arg(glyphKerning(gl1, gl2,size)).arg(gl1).arg(gl2));
+//		qDebug() << QString("scface::glyphkerning: %1_%2 = %3 (%4, %5)").arg(ch).arg(ch2).arg(glyphKerning(gl1, gl2,size)).arg(gl1).arg(gl2);
 		return width;
 	}
 }

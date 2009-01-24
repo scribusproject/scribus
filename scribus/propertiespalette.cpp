@@ -4858,13 +4858,13 @@ bool PropertiesPalette::userActionOn()
 
 void PropertiesPalette::spinboxStartUserAction()
 {
-//	qDebug("sniffer: spinbox start action");
+//	qDebug("%s", "sniffer: spinbox start action");
 	_userActionOn = true;
 }
 
 void PropertiesPalette::spinboxFinishUserAction()
 {
-//	qDebug("sniffer: spinbox finish action");
+//	qDebug("%s", "sniffer: spinbox finish action");
 	_userActionOn = false;
 
 	for (int i = 0; i < doc->m_Selection->count(); ++i)
@@ -5507,7 +5507,7 @@ void PropertiesPalette::flop(int radioFlop)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning || !HaveDoc || !HaveItem)
 		return;
-// 	qDebug(QString("rF %1").arg(radioFlop).toAscii());
+// 	qDebug("%s", QString("rF %1").arg(radioFlop).toAscii());
 	if( radioFlop == 0)
 		CurItem->setFirstLineOffset(FLOPRealGlyphHeight);
 	else if( radioFlop == 1)

@@ -72,7 +72,7 @@ class CollectColor_body : public Action_body
 	
 	void end (const Xml_string& tagname)
 	{
-//		qDebug(QString("collect %1").arg(tagname));
+//		qDebug() << QString("collect %1").arg(tagname);
 		Collection* coll = this->dig->lookup<Collection>("<collection>");
 		ScColor* color = this->dig->top<ScColor>();
 		coll->collectColor(m_name, *color);
@@ -93,7 +93,7 @@ class CollectMultiLine_body : public Action_body
 	
 	void end (const Xml_string& tagname)
 	{
-//		qDebug(QString("collect %1").arg(tagname));
+//		qDebug() << QString("collect %1").arg(tagname);
 		Collection* coll  = this->dig->lookup<Collection>("<collection>");
 		multiLine*  mline = this->dig->top<multiLine>();
 		coll->collectLineStyle(m_name, *mline);
@@ -113,7 +113,7 @@ class CollectSingleLine_body : public Action_body
 	
 	void end (const Xml_string& tagname)
 	{
-//		qDebug(QString("collect %1").arg(tagname));
+//		qDebug() << QString("collect %1").arg(tagname);
 //		Collection* coll  = this->dig->lookup<Collection>("<collection>");
 		multiLine*  mline = this->dig->lookup<multiLine>("<multiline>");
 		SingleLine* sline = this->dig->top<SingleLine>();
@@ -305,9 +305,9 @@ Selection Serializer::importCollection()
 {
 	Collection* coll = lookup<Collection>("<collection>");
 	Selection result( &m_Doc, false);
-//	qDebug(QString("deserialize: collection %1 doc %2").arg((ulong)coll).arg((ulong)&m_Doc));
+//	qDebug() << QString("deserialize: collection %1 doc %2").arg((ulong)coll).arg((ulong)&m_Doc);
 	if (coll == NULL)
-		qDebug("deserialize: no objects collected");
+		qDebug() << "deserialize: no objects collected";
 	else
 	{
 		QMap<QString,QString> newNames;
@@ -343,10 +343,10 @@ Selection Serializer::importCollection()
 			{
 				QString oldName = coll->pstyles[i].name();
 				int oldIndex = m_Doc.paragraphStyles().find(oldName);
-//				qDebug(QString("comparing %1 (old %2 new %3): parent '%4'='%5' cstyle %6 equiv %7").arg(oldName).arg(oldIndex).arg(i)
+//				qDebug() << QString("comparing %1 (old %2 new %3): parent '%4'='%5' cstyle %6 equiv %7").arg(oldName).arg(oldIndex).arg(i)
 //					   .arg(oldIndex>=0? m_Doc.paragraphStyle(oldName).parent() : "?").arg(coll->pstyles[i].parent())
 //					   .arg(oldIndex>=0? m_Doc.paragraphStyle(oldName).charStyle() == coll->pstyles[i].charStyle() : false)
-//					   .arg(oldIndex>=0? m_Doc.paragraphStyle(oldName).equiv(coll->pstyles[i]) : false));
+//					   .arg(oldIndex>=0? m_Doc.paragraphStyle(oldName).equiv(coll->pstyles[i]) : false);
 			
 				if (oldIndex >= 0 && coll->pstyles[i] == m_Doc.paragraphStyle(oldName) )
 					continue;

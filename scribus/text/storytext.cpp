@@ -21,7 +21,7 @@ pageitem.cpp  -  description
 *                                                                         *
 ***************************************************************************/
 
-
+//#include <QDebug>
 //FIXME: this include must go to sctextstruct.h !
 #include <QList>
 #include <cassert>  //added to make Fedora-5 happy
@@ -118,12 +118,12 @@ StoryText StoryText::copy() const
 	StoryText result(doc);
 	*(result.d) = *d;
 	return result;
-//	qDebug(QString("StoryText::copy:"));
+//	qDebug() << QString("StoryText::copy:");
 	QListIterator<ScText*> it( *(result.d) );
 	ScText* elem;
 	while ( it.hasNext() ) {
 		elem = it.next();
-//		qDebug(QString("\tchar '%1' size %2 (orig %3)").arg(elem->ch).arg(elem->fontSize()).arg(charStyle(i++).fontSize()));
+//		qDebug() << QString("\tchar '%1' size %2 (orig %3)").arg(elem->ch).arg(elem->fontSize()).arg(charStyle(i++).fontSize());
 	}
 	
 	return result;
@@ -342,7 +342,7 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 		d->insert(pos + i, item);
 		d->len++;
 		if (item->ch == SpecialChars::PARSEP) {
-//			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
+//			qDebug() << QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name());
 			insertParSep(pos + i);
 		}
 	}
@@ -447,7 +447,7 @@ void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 			d->at(i)->setEffects(d->at(i)->effects() & ~ScStyle_HyphenationPossible);
 		}
 	}
-//	qDebug(QString("st: %1").arg(dump));
+//	qDebug() << QString("st: %1").arg(dump);
 	invalidate(pos, pos + len);
 }
 
@@ -539,11 +539,11 @@ const CharStyle & StoryText::charStyle(int pos) const
 	assert(pos <= length());
 
 	if (length() == 0) {
-//		qDebug("storytext::charstyle: default");
+//		qDebug() << "storytext::charstyle: default";
 		return defaultStyle().charStyle();
 	}
 	else if (pos == length()) {
-		qDebug("storytext::charstyle: access at end of text %i", pos);
+		qDebug() << "storytext::charstyle: access at end of text %i", pos;
 		--pos;
 	}
 	if (text(pos) == SpecialChars::PARSEP)
@@ -584,7 +584,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 //		current->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 	}
 	else {
-//		qDebug(QString("using parstyle at %1").arg(pos));
+//		qDebug() << QString("using parstyle at %1").arg(pos);
 	}
 	assert (that->d->at(pos)->parstyle);
 	return *that->d->at(pos)->parstyle;
@@ -605,10 +605,10 @@ void StoryText::setDefaultStyle(const ParagraphStyle& style)
 	d->defaultStyle.setContext( oldPContext );
 //	d->defaultStyle.setName( "storydefault" ); // DONT TRANSLATE
 //	d->defaultStyle.charStyle().setName( "cstorydefault" ); // DONT TRANSLATE
-//	qDebug(QString("defstyle %1 context %2 defcstyle %3 ccontext %4 newcontext %5")
+//	qDebug() << QString("defstyle %1 context %2 defcstyle %3 ccontext %4 newcontext %5")
 //		   .arg((uint)&d->defaultStyle,16).arg((uint)oldPContext,16)
 //		   .arg((uint)&d->defaultStyle.charStyle(),16).arg((uint)oldCContext,16)
-//		   .arg((uint)d->defaultStyle.charStyle().context(),16));
+//		   .arg((uint)d->defaultStyle.charStyle().context(),16);
 //	d->defaultStyle.charStyle().setContext( oldCContext );
 	invalidateAll();
 }
@@ -688,12 +688,12 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 //			d->at(i)->parstyle->charStyle().setName( "cpara(applyStyle)" ); // DONT TRANSLATE
 //			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 		}
-//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
+//		qDebug() << QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos);
 		d->at(i)->parstyle->applyStyle(style);
 	}
 	else {
 		// not happy about this but inserting a new PARSEP makes more trouble
-//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
+//		qDebug() << QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos);
 		d->trailingStyle.applyStyle(style);
 	}
 	invalidate(pos, qMin(i, length()));
@@ -720,12 +720,12 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 //			d->at(i)->parstyle->charStyle().setName( "cpara(eraseStyle)" ); // DONT TRANSLATE
 //			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 		}
-		//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
+		//		qDebug() << QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos);
 		d->at(i)->parstyle->eraseStyle(style);
 	}
 	else {
 		// not happy about this but inserting a new PARSEP makes more trouble
-		//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
+		//		qDebug() << QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos);
 		d->trailingStyle.eraseStyle(style);
 	}
 	invalidate(pos, qMin(i, length()));
@@ -1257,12 +1257,12 @@ int StoryText::screenToPosition(FPoint coord) const
 	for (unsigned int i=0; i < lines(); ++i)
 	{
 		LineSpec ls = line(i);
-//		qDebug(QString("screenToPosition: (%1,%2) -> y %3 - %4 + %5").arg(coord.x()).arg(coord.y()).arg(ls.y).arg(ls.ascent).arg(ls.descent));
+//		qDebug() << QString("screenToPosition: (%1,%2) -> y %3 - %4 + %5").arg(coord.x()).arg(coord.y()).arg(ls.y).arg(ls.ascent).arg(ls.descent);
 		if (ls.y + ls.descent < coord.y())
 			continue;
 		double xpos = ls.x;
 		for (int j = ls.firstItem; j <= ls.lastItem; ++j) {
-//				qDebug(QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide()));
+//				qDebug() << QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide());
 			double width = item(j)->glyph.wide();
 			xpos += width;
 			if (xpos >= coord.x())
@@ -1616,7 +1616,7 @@ class ApplyStyle_body : public Action_body
 public:
 	void end(const Xml_string& tag) 
 	{
-		qDebug("storytext desaxe: apply style");
+		qDebug() << "storytext desaxe: apply style";
 		StoryText* story = this->dig->top<StoryText>(1);
 		ParagraphStyle* obj = this->dig->top<ParagraphStyle>(0);
 		story->applyStyle(-1, *obj);
@@ -1637,7 +1637,7 @@ public:
 	
 	void end(const Xml_string& tag) 
 	{
-		qDebug("storytext desaxe: apply charstyle");
+		qDebug() << "storytext desaxe: apply charstyle";
 		if (tag == CharStyle::saxxDefaultElem)
 		{
 			StoryText* story = this->dig->top<StoryText>(1);
@@ -1691,7 +1691,7 @@ public:
 		if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
-//			qDebug(QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle));
+//			qDebug() << QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle);
 			lastPos = story->length();
 			if (lastPos > 0) {
 				story->insertChars(-1, SpecialChars::PARSEP);
@@ -1710,13 +1710,13 @@ public:
 			if (lastStyle)
 				delete lastStyle;
 			lastStyle = this->dig->top<ParagraphStyle>(0);
-//			qDebug(QString("endstyle: %1 %2 %3").arg("?").arg(lastPos).arg((ulong)lastStyle));
+//			qDebug() << QString("endstyle: %1 %2 %3").arg("?").arg(lastPos).arg((ulong)lastStyle);
 		}
 		else if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
 			int len = story->length();
-//			qDebug(QString("endpar: %1 %2 %3 %4").arg(len).arg(lastPos).arg((ulong)lastStyle).arg(lastStyle? lastStyle->parent() : QString()));
+//			qDebug() << QString("endpar: %1 %2 %3 %4").arg(len).arg(lastPos).arg((ulong)lastStyle).arg(lastStyle? lastStyle->parent() : QString());
 			if (len > lastPos && lastStyle)
 			{
 				story->applyStyle(lastPos, *lastStyle);
@@ -1748,7 +1748,7 @@ public:
 	
 	void begin(const Xml_string& tag, Xml_attr attr)
 	{
-//		qDebug(QString("spanaction: begin %1").arg(tag));
+//		qDebug() << QString("spanaction: begin %1").arg(tag);
 		if (tag == "span")
 		{
 			StoryText* story = this->dig->top<StoryText>();
@@ -1762,7 +1762,7 @@ public:
 	void end(const Xml_string& tag) 
 	{
 		if (tag == CharStyle::saxxDefaultElem)
-//			qDebug(QString("spanaction: end %1").arg(tag));
+//			qDebug() << QString("spanaction: end %1").arg(tag);
 		{
 			if (lastStyle)
 				delete lastStyle;

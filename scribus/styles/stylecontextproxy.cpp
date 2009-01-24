@@ -13,17 +13,18 @@
 *                                                                         *
 ***************************************************************************/
 
+//#include <QDebug>
+
 #include "style.h"
 #include "stylecontextproxy.h"
-
 
 const Style* StyleContextProxy::resolve(const QString& name) const
 {
 	const StyleContext* context = m_default->context();
 	//	if (!name.isEmpty())
-	//		qDebug(QString("resolve %4 %3 -%1- %2").arg(name)
+	//		qDebug() << QString("resolve %4 %3 -%1- %2").arg(name)
 	//			   .arg(reinterpret_cast<uint>(context),16).arg(reinterpret_cast<uint>(this),16)
-	//			   .arg(m_default->name()));
+	//			   .arg(m_default->name());
 	
 	if (name.isEmpty() || ! context)
 		return m_default;

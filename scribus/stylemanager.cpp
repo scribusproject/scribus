@@ -801,7 +801,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 					continue;
 				else 
 				{
-					qDebug(QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(m_item->typeName()).arg(styles[i].first).toLatin1().constData());
+					qDebug() << QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(m_item->typeName()).arg(styles[i].first);
 					sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
 				}
 			}
@@ -1175,7 +1175,7 @@ void StyleManager::slotDocSelectionChanged()
 
 void StyleManager::slotDocStylesChanged()
 {
-	qDebug("slotDocStylesChanged()");
+	qDebug() << "slotDocStylesChanged()";
 }
 
 // QPair.first == QString::null if nothing is selected or if

@@ -329,7 +329,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 {
 	if (selection_.count() != 1)
 	{
-		qDebug(QString("SMLineStyle::nameChanged #selection=%1").arg(selection_.count()).toLatin1().constData());
+		qDebug() << QString("SMLineStyle::nameChanged #selection=%1").arg(selection_.count());
 		return;
 	}
 	QString oldName = selection_.begin().key();

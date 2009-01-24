@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QList>
@@ -165,7 +166,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		}
 		catch(PoDoFo::PdfError& e)
 		{
-			qDebug("PoDoFo error while reading page size!");
+			qDebug("%s", "PoDoFo error while reading page size!");
 			e.PrintErrorMsg();
 		}
 	}
@@ -329,7 +330,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 /*#else
-				qDebug("psimport: leaving items on page");
+				qDebug() << "psimport: leaving items on page";
 #endif*/
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
@@ -442,7 +443,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 			docDir = docContext->get("docsopen", ".");		
 		exportFi.setFile(docDir + "/" + exportFi.baseName());
 	}
-	//qDebug(QString("using export path %1").arg(exportFi.absFilePath()));
+	//qDebug() << QString("using export path %1").arg(exportFi.absFilePath());
 	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(exportFi.absoluteFilePath())) );
 	args.append( pfad2 );
 	args.append( QDir::convertSeparators(fn) );
@@ -456,7 +457,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	if (ret != 0 && !cancel)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
-		qDebug("Ghostscript diagnostics:\n");
+		qDebug("%s", "Ghostscript diagnostics:\n");
 		QFile diag(errFile);
 		if (diag.open(QIODevice::ReadOnly) && !diag.atEnd() ) {
 			char buf[121];
@@ -466,7 +467,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 			diag.close();
 		}
 		else {
-			qDebug("-- no output --");
+			qDebug("%s", "-- no output --");
 		}
 		if (progressDialog)
 			progressDialog->close();
@@ -926,9 +927,9 @@ bool EPSPlug::Image(QString vals)
 			diag.close();
 			}
 		else {
-			qDebug("-- no output --");
+			qDebug("%s", "-- no output --");
 		}
-		qDebug("Failed file was:\n");
+		qDebug("%s", "Failed file was:\n");
 		QFile dat(rawfile);
 		if (dat.open(QIODevice::ReadOnly)) {
 			char buf[121];
@@ -941,7 +942,7 @@ bool EPSPlug::Image(QString vals)
 			dat.close();
 		}
 		else {
-			qDebug("-- empty --");
+			qDebug("%s", "-- empty --");
 		}
 	}
 	QFile::remove(rawfile);

@@ -29,7 +29,7 @@ void Style::setContext(const StyleContext* context)
 		m_contextversion = -1;
 		assert( !m_context || m_context->checkConsistency() );
 	}
-	//qDebug(QString("setContext of %2 context %1").arg(reinterpret_cast<uint>(m_context),16).arg(reinterpret_cast<uint>(this),16));
+	//qDebug() << QString("setContext of %2 context %1").arg(reinterpret_cast<uint>(m_context),16).arg(reinterpret_cast<uint>(this),16);
 }
 
 void Style::setDefaultStyle(bool ids)
@@ -70,7 +70,7 @@ void Style::validate() const
 
 const Style* Style::parentStyle() const 
 { 
-	//qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_context),16));
+	//qDebug() << QString("follow %1").arg(reinterpret_cast<uint>(m_context),16);
 	if (m_isDefaultStyle)
 		return NULL;
 	const Style * par = m_context ? m_context->resolve(m_parent) : NULL;

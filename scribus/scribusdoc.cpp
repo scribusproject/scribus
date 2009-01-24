@@ -3459,7 +3459,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		default:
-//			qDebug("unknown item type");
+//			qDebug() << "unknown item type";
 			assert (false);
 	}
 	Q_CHECK_PTR(newItem);
@@ -9400,7 +9400,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 			double gx, gy, gh, gw;
 			m_Selection->setGroupRect();
 			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-//			qDebug("doc, emit w&h, when was this used?");
+//			qDebug() << "doc, emit w&h, when was this used?";
 			emit widthAndHeight(gw, gh);
 		}
 	}
@@ -9424,7 +9424,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 		double newRot=xy2Deg(mx - currItem->xPos(), my - currItem->yPos());
 		//CB Hmm should work, doesnt. (constraining on the first point of a line) FIXME
 		//if (constrainRotation)
-		//	qDebug(QString("%1").arg(constrainAngle(newRot)));
+		//	qDebug() << QString("%1").arg(constrainAngle(newRot)));
 		currItem->setRotation(newRot);
 		currItem->setWidthHeight(sqrt(pow(mx - currItem->xPos(),2)+pow(my - currItem->yPos(),2)), 1.0);
 		currItem->updateClip();

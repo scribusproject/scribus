@@ -629,7 +629,7 @@ void SEditor::loadItemText(PageItem *currItem)
 		SelCharStart = currItem->CPos;
 	SelCharStart -= currItem->itemText.startOfParagraph(SelParaStart);
 	StoredSel = false;
-	//qDebug("SE::loadItemText: cursor");
+	//qDebug() << "SE::loadItemText: cursor";
 //	setCursorPosition(SelParaStart, SelCharStart);
 	emit setProps(SelParaStart, SelCharStart);
 	SelParaStart = 0;
@@ -645,7 +645,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	updateAll();
 	if (StyledText.length() != 0)
 		emit setProps(0, 0);
-	//qDebug("SE::loadText: cursor");
+	//qDebug() << "SE::loadText: cursor";
 	textCursor().setPosition(0);
 }
 
@@ -960,7 +960,7 @@ void SEditor::paste()
 		}
 	}
 	setUpdatesEnabled(false);
-	//qDebug("SE::paste: cursor");
+	//qDebug() << "SE::paste: cursor";
 //	setCursorPosition(currentPara, currentCharPos);
 	QTextCursor tCursor = textCursor();
 	tCursor.setPosition(pos + advanceLen);
@@ -2701,7 +2701,7 @@ bool StoryEditor::Do_new()
 	Editor->clear();
 	Editor->setUndoRedoEnabled(false);
 	Editor->setUndoRedoEnabled(true);
-	//qDebug("SE::Do_new: cursor");
+	//qDebug() << "SE::Do_new: cursor";
 	Editor->textCursor().setPosition(0);
 	seActions["fileRevert"]->setEnabled(false);
 	seActions["editCopy"]->setEnabled(false);
@@ -2930,11 +2930,11 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 		int cursorPos = Editor->textCursor().position();
 		int scrollPos = Editor->verticalScrollBar()->value();
 
-/*		qDebug(QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
+/*		qDebug() << QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
 			   .arg(pa)
 			   .arg(Editor->StyledText.startOfParagraph(pa))
 			   .arg(newStyle.parent())
-			   .arg(newStyle.hasParent()));
+			   .arg(newStyle.hasParent());
 */
 		int paraStart= Editor->StyledText.startOfParagraph(pa);
 		if (name.isEmpty()) // erase parent style
@@ -2986,7 +2986,7 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		//qDebug("SE::changeStyleSB: cursor");
+		//qDebug() << "SE::changeStyleSB: cursor";
 		Editor->textCursor().setPosition(0);
 		updateProps(0, 0);
 	}

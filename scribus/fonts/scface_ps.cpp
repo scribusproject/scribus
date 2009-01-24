@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 
@@ -95,19 +96,19 @@ bool ScFace_postscript::loadFontMetrics(FT_Face face, const QString& fontPath) c
 			metricsFile = fontMetrics.at(i);
 			if (FT_Attach_File(face, metricsFile.toLocal8Bit().constData()))
 			{
-				qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath).arg(metricsFile).toLatin1().constData());
+				qDebug() << QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath).arg(metricsFile);
 				brokenMetric = true;
 			}
 			else
 			{
 				if (brokenMetric)
-					qDebug(QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFile).arg(metricsFile).toLatin1().constData());
+					qDebug() << QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFile).arg(metricsFile);
 				metricsFound = true;
 				break;
 			}
 		}
 	}
 	else
-		qDebug(QObject::tr("No metrics found for font %1, ignoring font").arg(fontPath).toLatin1().constData());
+		qDebug() << QObject::tr("No metrics found for font %1, ignoring font").arg(fontPath);
 	return metricsFound;
 }

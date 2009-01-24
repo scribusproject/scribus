@@ -38,13 +38,13 @@ public:
 	StyleContext() 
 	: m_version(0), m_cnt(0)
 	{
-//		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
+//		qDebug() << QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level);
 	}
 
 	StyleContext(const StyleContext& o) 
 	: m_version(o.m_version), m_cnt(0)
 	{
-//		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
+//		qDebug() << QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level);
 	}
 
 

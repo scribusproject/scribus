@@ -184,10 +184,10 @@ void FtFace::loadGlyph(uint gl) const
 		double height = double(face->glyph->metrics.height) / m_uniEM;
 		GRec.bbox_ascent = double(face->glyph->metrics.horiBearingY) / m_uniEM;
 		GRec.bbox_descent = height - GRec.bbox_ascent;
-//		qDebug(QString("glyphmetrics %1: EM %2 bearing (%3,%4) size (%5,%6) advance %7 bbox (%8,%9)")
+//		qDebug() << QString("glyphmetrics %1: EM %2 bearing (%3,%4) size (%5,%6) advance %7 bbox (%8,%9)")
 //			   .arg(gl).arg(m_uniEM).arg(face->glyph->metrics.horiBearingX).arg(face->glyph->metrics.horiBearingY)
 //			   .arg(face->glyph->metrics.width).arg(face->glyph->metrics.height).arg(face->glyph->metrics.horiAdvance)
-//			   .arg(w).arg(height));
+//			   .arg(w).arg(height);
 
 		double x, y;
 		bool error = false;

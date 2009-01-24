@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QImage>
 #include <QColor>
+//#include <QDebug>
 #include <QFontInfo>
 #include <QList>
 #include <QByteArray>
@@ -1718,7 +1719,7 @@ void PSLib::PS_Error(const QString& message)
 {
 	ErrorMessage = message;
 	if (!ScCore->usingGUI())
-		qDebug(message.toLocal8Bit().data());
+		qDebug("%s", message.toLocal8Bit().data());
 }
 
 void PSLib::PS_Error_ImageDataWriteFailure(void)
@@ -3448,7 +3449,7 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
-//	qDebug(QString("pslib setTextSt: ownPage=%1 pageNr=%2 OnMasterPage=%3;").arg(ite->OwnPage).arg(pg->pageNr()).arg(ite->OnMasterPage));
+//	qDebug() << QString("pslib setTextSt: ownPage=%1 pageNr=%2 OnMasterPage=%3;").arg(ite->OwnPage).arg(pg->pageNr()).arg(ite->OnMasterPage);
 	int tabCc = 0;
 	int savedOwnPage = ite->OwnPage;
 	double tabDist = ite->textToFrameDistLeft();

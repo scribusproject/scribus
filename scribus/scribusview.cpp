@@ -2281,7 +2281,7 @@ void ScribusView::PasteToPage()
 
 void ScribusView::resizeEvent ( QResizeEvent * event )
 {
-// 	qDebug("ScribusView::resizeEvent");
+// 	qDebug() << "ScribusView::resizeEvent";
 	QScrollArea::resizeEvent(event);
 	horizRuler->setGeometry(m_vhRulerHW, 1, width()-m_vhRulerHW-1, m_vhRulerHW);
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);

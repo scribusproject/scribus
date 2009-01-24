@@ -2025,7 +2025,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		else if (pDataLoader->issuedErrorMsg())
 		{
 			QString msg = pDataLoader->getMessage();
-			qWarning( msg.toLocal8Bit().data() );
+			qWarning("%s", msg.toLocal8Bit().data() );
 		}
 		return false;
 	}
@@ -2438,7 +2438,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	else if (pDataLoader->issuedErrorMsg())
 	{
 		QString msg = pDataLoader->getMessage();
-		qWarning( msg.toLocal8Bit().data() );
+		qWarning("%s", msg.toLocal8Bit().data() );
 	}
 	return true;
 }

@@ -442,8 +442,8 @@ void ScribusMainWindow::initKeyboardShortcuts()
 			prefsManager->setKeyEntry(it.key(), it.value()->cleanMenuText(), accelerator,0);
 		}
 		//else
-		//	qDebug(it.key());
-		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.value()->cleanMenuText()).arg(QString(it.data()->accel())));
+		//	qDebug() << it.key();
+		//qDebug() << QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.value()->cleanMenuText()).arg(QString(it.data()->accel()));
 	}
 }
 
@@ -4023,7 +4023,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
 //				view->GroupOnPage(ite);
-//			qDebug(QString("load M: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
+//			qDebug() << QString("load M: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
 			ite->layout();
 		}
 //		RestoreBookMarks();
@@ -4040,7 +4040,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->OwnPage = doc->OnPage(ite);
 			*/
 			//view->setRedrawBounding(ite);
-//			qDebug(QString("load D: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
+//			qDebug() << QString("load D: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
 			if(ite->nextInChain() == NULL)
 				ite->layout();
 /*			if (doc->OldBM)
@@ -4057,7 +4057,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		for (int azz=0; azz<doc->FrameItems.count(); ++azz)
 		{
 			PageItem *ite = doc->FrameItems.at(azz);
-//			qDebug(QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
+//			qDebug() << QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
 			if(ite->nextInChain() == NULL)
 				ite->layout();
 		}
@@ -4872,7 +4872,7 @@ void ScribusMainWindow::slotEditCut()
 			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
-//			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
+//			qDebug() << QString("call serializer: %1").arg((ulong) & (doc->m_Selection));
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
 			std::string xml(xmlString.str());
 			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
@@ -5144,7 +5144,7 @@ void ScribusMainWindow::slotEditPaste()
 						//		pg = doc->Pages->at(doc->Pages->count() - 1);
 						//	if (pg)
 						//		pastedObjects.itemAt(i)->moveBy(x - pg->xOffset(), y - pg->yOffset(), true);
-							qDebug(QString("move pasted: %1 %2,%3 + %4,%5").arg((ulong)pastedObjects.itemAt(i)).arg(x).arg(y).arg(pastedObjects.itemAt(i)->xPos()).arg(pastedObjects.itemAt(i)->yPos()));
+							qDebug() << QString("move pasted: %1 %2,%3 + %4,%5").arg((ulong)pastedObjects.itemAt(i)).arg(x).arg(y).arg(pastedObjects.itemAt(i)->xPos()).arg(pastedObjects.itemAt(i)->yPos());
 							pastedObjects.itemAt(i)->moveBy(x, y, true);
 						}
 					*/

@@ -582,7 +582,7 @@ public:
 	void begin(const Xml_string& tag, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
-//		qDebug(QString("Store: %1 <- %2").arg(tag).arg(typeid(obj).name()));
+//		qDebug() << QString("Store: %1 <- %2").arg(tag).arg(typeid(obj).name());
 		this->dig->template store<Obj_Type>(m_name, obj);
 	}
 

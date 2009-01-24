@@ -957,7 +957,7 @@ void PageItem::setCornerRadius(double newRadius)
  */
 void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 {
-// 	qDebug("PageItem::DrawObj");
+// 	qDebug << "PageItem::DrawObj";
 	double sc;
 	if (!m_Doc->DoDrawing)
 	{
@@ -1936,7 +1936,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		glyph = style.font().char2CMap(QChar('-'));
 	
 	if (glyph >= ScFace::CONTROL_GLYPHS || (style.effects() & ScStyle_SuppressSpace)) {
-//		qDebug(QString("drawGlyphs: skipping %1").arg(glyph));
+//		qDebug("drawGlyphs: skipping %d", glyph);
 		// all those are empty
 		if (glyphs.more)
 		{
@@ -1984,7 +1984,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		{
 			if (glyph == 0)
 			{
-//				qDebug(QString("glyph 0: (%1,%2) * %3 %4 + %5").arg(glyphs.xoffset).arg(glyphs.yoffset).arg(glyphs.scaleH).arg(glyphs.scaleV).arg(glyphs.xadvance));
+//				qDebug() << QString("glyph 0: (%1,%2) * %3 %4 + %5").arg(glyphs.xoffset).arg(glyphs.yoffset).arg(glyphs.scaleH).arg(glyphs.scaleV).arg(glyphs.xadvance));
 			}
 			p->save();
 			p->translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
@@ -2005,9 +2005,9 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 //			double	b = gly.point(0).y();
 //			double	c = gly.point(3).x();
 //			double	d = gly.point(3).y();
-//			qDebug(QString("drawglyphs: %1 (%2,%3) (%4,%5) scaled %6,%7 trans %8,%9")
+//			qDebug() << QString("drawglyphs: %1 (%2,%3) (%4,%5) scaled %6,%7 trans %8,%9")
 //				   .arg(gly.size()).arg(a).arg(b).arg(c).arg(d)
-//				   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy()));
+//				   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy());
 			p->setupPolygon(&gly, true);
 			if (m_Doc->layerOutline(LayerNr))
 			{
@@ -2066,7 +2066,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			p->restore();
 		}
 		else {
-//			qDebug(QString("drawGlyphs: empty glyph %1").arg(glyph));
+//			qDebug() << "drawGlyphs: empty glyph" << glyph;
 		}
 		if ((style.effects() & ScStyle_Strikethrough) && (style.strokeColor() != CommonStrings::None))
 		{

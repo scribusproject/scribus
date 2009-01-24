@@ -467,7 +467,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if (!m_Doc->masterPageMode())
 					{
 						const long long itemID = scribus12itemID(pageItem++, pageNo);
-//						qDebug(QString("1.2 remap: %1 -> %2 [%3 on page %4]").arg(itemID).arg(m_Doc->Items->count()).arg(pageItem-1).arg(pageNo));
+//						qDebug() << QString("1.2 remap: %1 -> %2 [%3 on page %4]").arg(itemID).arg(m_Doc->Items->count()).arg(pageItem-1).arg(pageNo);
 						itemRemap[itemID] = m_Doc->Items->count();
 						if (obj.tagName()=="PAGEOBJECT")
 						{
@@ -717,7 +717,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		QMap<int,long long>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-//			qDebug(QString("1.2 textframe links: %1->%2[%3]").arg(lc.key()).arg(itemRemap[lc.data()]).arg(lc.data()));
+//			qDebug() << QString("1.2 textframe links: %1->%2[%3]").arg(lc.key()).arg(itemRemap[lc.data()]).arg(lc.data());
 			PageItem *Its = m_Doc->Items->at(lc.key());
 			PageItem *Itn = m_Doc->Items->at(itemRemap[lc.value()]);
 			assert(Its && Its->asTextFrame());
@@ -1087,16 +1087,16 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		obj->itemText.insertChars(pos, QString(ch));
 
 		if (style != last->Style) {
-			//	qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
+			//	qDebug() << QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString());
 			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = style;
 			last->StyleStart = pos;
 		}
 
 		if (ch == SpecialChars::PARSEP || cxx+1 == tmp2.length()) {
-//			qDebug(QString("scribus12 para: %1 %2 %3 %4").arg(ab)
+//			qDebug() << QString("scribus12 para: %1 %2 %3 %4").arg(ab)
 //				   .arg(ab < signed(DoVorl.size())? DoVorl[ab] : QString("./."))
-//				   .arg(VorLFound).arg(DoVorl.size()));
+//				   .arg(VorLFound).arg(DoVorl.size());
 			ParagraphStyle pstyle;
 			if (ab < 5) {
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(ab));
@@ -1113,7 +1113,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 
 bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString /*renamedPageName*/)
 {
-//	qDebug(QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber));
+//	qDebug() << QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber);
 	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0)
 	{
 		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0);

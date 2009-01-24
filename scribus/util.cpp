@@ -955,7 +955,7 @@ void printBacktrace ( int nFrames )
 			else
 				name = mName;
 			QString bts ( "[ScBT] %1. %2" );
-			qDebug ( bts.arg( i ).arg( name ).toUtf8() );
+			qDebug ("%s", bts.arg( i ).arg( name ).toUtf8().data() );
 		}
 		free ( messages );
 	}

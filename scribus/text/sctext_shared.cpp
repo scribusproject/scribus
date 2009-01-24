@@ -18,7 +18,7 @@ ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(),
 	defaultStyle.setContext( pstyles );
 	trailingStyle.setContext( &pstyleContext );
 //		defaultStyle.charStyle().setContext( cstyles );
-//		qDebug(QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles)));
+//		qDebug() << QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles));
 }
 		
 
@@ -43,7 +43,7 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) : QList<ScText*>(),
 	}
 	len = count();
 	replaceCharStyleContextInParagraph(len,  trailingStyle.charStyleContext() );
-//		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
+//		qDebug() << QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other));
 }
 
 void ScText_Shared::clear()
@@ -72,26 +72,26 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 			append(elem2);
 			if (elem2->parstyle) {
 				elem2->parstyle->setContext( & pstyleContext );
-//					qDebug(QString("StoryText::copy: * %1 align=%2").arg(elem2->parstyle->parent())
+//					qDebug() << QString("StoryText::copy: * %1 align=%2").arg(elem2->parstyle->parent())
 //						   .arg(elem2->parstyle->alignment())
 //						   .arg((uint)elem2->parstyle->context()));
-					//				elem2->parstyle->charStyle().setContext( defaultStyle.charStyleContext() );
+					//				elem2->parstyle->charStyle().setContext( defaultStyle.charStyleContext());
 				replaceCharStyleContextInParagraph(count()-1, elem2->parstyle->charStyleContext());
 			}
 		}
 		len = count();
 		pstyleContext.invalidate();
-//			qDebug(QString("StoryText::copy: %1 align=%2 %3").arg(trailingStyle.parentStyle()->name())
-//				   .arg(trailingStyle.alignment()).arg((uint)trailingStyle.context()));
+//			qDebug() << QString("StoryText::copy: %1 align=%2 %3").arg(trailingStyle.parentStyle()->name())
+//				   .arg(trailingStyle.alignment()).arg((uint)trailingStyle.context());
 		replaceCharStyleContextInParagraph(len,  trailingStyle.charStyleContext());
 	}
-//			qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
+//			qDebug() << QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other));
 	return *this;
 }
 
 ScText_Shared::~ScText_Shared() 
 {
-//		qDebug(QString("~ScText_Shared() %1").arg(reinterpret_cast<uint>(this)));
+//		qDebug() << QString("~ScText_Shared() %1").arg(reinterpret_cast<uint>(this));
 	while(!this->isEmpty())
 		delete this->takeFirst(); 
 }

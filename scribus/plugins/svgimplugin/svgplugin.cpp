@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QList>
@@ -14,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QTemporaryFile>
 #include <cmath>
-#include <QDebug>
 #include "color.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
@@ -1134,7 +1134,7 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 	else if(!isIgnorableNodeName(STag) )
 	{
 		// warn if unsupported SVG feature are encountered
-		qDebug(QString("unsupported SVG feature: %1").arg(STag).toLocal8Bit().constData());
+		qDebug() << QString("unsupported SVG feature: %1").arg(STag);
 		unsupported = true;
 	}
 	return GElements;
@@ -2168,7 +2168,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	}
 	else if( !isIgnorableNodeName(command) )
 	{
-		qDebug(QString("unsupported SVG feature: %1").arg(command).toLocal8Bit().constData());
+		qDebug() << QString("unsupported SVG feature: %1").arg(command);
 		unsupported = true;
 	}
 }

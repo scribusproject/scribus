@@ -1323,7 +1323,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				int len = fon.length();
 				if (Options.Compress)
 					fon = CompressStr(&fon);
-				//qDebug(QString("sfnt data: size=%1 before=%2 compressed=%3").arg(bb.size()).arg(len).arg(fon.length()));
+				//qDebug() << QString("sfnt data: size=%1 before=%2 compressed=%3").arg(bb.size()).arg(len).arg(fon.length());
 				PutDoc("<<\n/Length "+QString::number(fon.length()+1)+"\n");
 				PutDoc("/Length1 "+QString::number(len)+"\n");
 				if (Options.Compress)
@@ -1409,7 +1409,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						nglyphs = gli.key();
 				}
 				++nglyphs;
-//				qDebug(QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(AllFonts[it.key()].maxGlyph()));
+//				qDebug() << QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(AllFonts[it.key()].maxGlyph());
 				uint FontDes = fontDescriptor;
 				uint Fcc = nglyphs / 224;
 				if ((nglyphs % 224) != 0)
@@ -3312,14 +3312,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	output.resize(0);
 	if (!pattern)
 	{
-//		qDebug(QString("pdflib process item: pagename=%1 ownpage=%2 pagenr=%3 changedMP=%4").arg(pag->pageName()).arg(ite->OwnPage).arg(pag->pageNr()).arg(ite->ChangedMasterItem));
-//		qDebug(QString("pdflib process item: x=%1 x2=%2 y=%3 y2=%4 w=%5 w2=%6 h1=%7 h2=%8 ilw=%9").arg(x).arg(x2).arg(y).arg(y2).arg(w).arg(w2).arg(h1).arg(h2).arg(ilw));
+//		qDebug() << QString("pdflib process item: pagename=%1 ownpage=%2 pagenr=%3 changedMP=%4").arg(pag->pageName()).arg(ite->OwnPage).arg(pag->pageNr()).arg(ite->ChangedMasterItem);
+//		qDebug() << QString("pdflib process item: x=%1 x2=%2 y=%3 y2=%4 w=%5 w2=%6 h1=%7 h2=%8 ilw=%9").arg(x).arg(x2).arg(y).arg(y2).arg(w).arg(w2).arg(h1).arg(h2).arg(ilw);
 		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 		{
 			output = tmp;
 			return true;
 		}
-//		qDebug("bb test done");
+//		qDebug() << "bb test done";
 		if (ite->ChangedMasterItem)
 		{
 			output = tmp;
@@ -3350,7 +3350,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	{
 		if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
 		{
-//			qDebug("Q exit");
+//			qDebug() << "Q exit";
 			tmp += "Q\n";
 			output = tmp;
 			return true;
@@ -3487,10 +3487,10 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			break;
 		case PageItem::TextFrame:
-//			qDebug("case TextFrame");
+//			qDebug() << "case TextFrame";
 			if ((ite->isAnnotation()) && (Options.Version != PDFOptions::PDFVersion_X3))
 			{
-//				qDebug("Annotation");
+//				qDebug() << "Annotation";
 				if (!PDF_Annotation(ite, PNr))
 					return false;
 				break;
@@ -6541,7 +6541,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	}
 	catch(PoDoFo::PdfError& e)
 	{
-		qDebug("PoDoFo error!");
+		qDebug() << "PoDoFo error!";
 		e.PrintErrorMsg();
 		assert (false);
 		return false;
@@ -6709,7 +6709,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			isEmbeddedPDF = true;
 		}
 		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
-			qDebug()<< "Failed to embed the PDF file";
+			qDebug() << "Failed to embed the PDF file";
 		// no embedded PDF:
 		if (!imageLoaded)
 		{ 
@@ -7689,7 +7689,7 @@ void PDFLibCore::PDF_Error(const QString& errorMsg)
 {
 	ErrorMessage = errorMsg;
 	if (!ScCore->usingGUI())
-		qDebug(errorMsg.toLocal8Bit().data());
+		qDebug("%s", errorMsg.toLocal8Bit().data());
 }
 
 void PDFLibCore::PDF_Error_WriteFailure(void)
