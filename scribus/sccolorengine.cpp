@@ -56,19 +56,8 @@ ScColor ScColorEngine::convertToModel(const ScColor& color, const ScribusDoc* do
 void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RGBColor& rgb)
 {
 	colorModel    model = color.getColorModel();
-	cmsHTRANSFORM transRGB;
-	bool doTrans = false;
-	if (doc)
-	{
-		transRGB = doc->stdTransRGB;
-		doTrans = doc->HasCMS;
-	}
-	else
-	{
-		transRGB = ScCore->defaultCMYKToRGBTrans;
-		doTrans = true;
-	}
-	if (ScCore->haveCMS() && transRGB && doTrans)
+	cmsHTRANSFORM transRGB = doc ? doc->stdTransRGB : ScCore->defaultCMYKToRGBTrans;
+	if (ScCore->haveCMS() && transRGB)
 	{
 		if (model == colorModelRGB)
 		{
