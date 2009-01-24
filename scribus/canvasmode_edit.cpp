@@ -118,6 +118,23 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 	}
 	if ( m_cursorVisible )
 	{
+		// Debug
+// 		QString dbgString;
+// 		int lif(qMax(textframe->CPos , textframe->lastInFrame()));
+// 		for(int ti(textframe->firstInFrame());ti < lif; ++ti)
+// 		{
+// 			if(ti == textframe->CPos )
+// 			{
+// 				dbgString += "["+QString::number(textframe->CPos)+"]";
+// 			}
+// 			dbgString += textframe->itemText.text(ti);
+// 		}
+// 		dbgString +="]"+QString::number(textframe->lastInFrame())+"[";
+// 		qDebug()<<"==============================================================";
+// 		qDebug()<<textframe->CPos<<textframe->lastInFrame();
+// 		qDebug()<<dbgString;
+// 		qDebug()<<"==============================================================";
+		// end debug
 		double dx, dy, dy1;
 		QPen cPen ( Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
 
@@ -139,15 +156,35 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 			// Happens often when typing directly into frame.
 			// And the cursor curses nothing, vertigo.
 			textCursorPos = textframe->lastInFrame();
-			FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
-			dx = bbox.x();
-			dy = bbox.y();
-			dx += textframe->itemText.item ( textCursorPos )->glyph.wide();
-			if ( bbox.height() <= 2 )
-				dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
+			if(textframe->itemText.text(textCursorPos) == SpecialChars::PARSEP)
+			{
+				// The cursor must be moved to the beginning of the next line
+				FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+				double lineSpacing(textframe->itemText.paragraphStyle(textCursorPos).lineSpacing());
+				dx = 0.0;
+				dy = bbox.y();
+				
+				if ( bbox.height() <= 2 )
+					dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
+				else
+					dy1 = bbox.y() + bbox.height();
+				
+				dy  += lineSpacing;
+				dy1 += lineSpacing;
+			}
 			else
-				dy1 = bbox.y() + bbox.height();
-
+			{
+				textCursorPos = textframe->lastInFrame();
+				FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+				dx = bbox.x();
+				dy = bbox.y();
+				dx += textframe->itemText.item ( textCursorPos )->glyph.wide();
+				if ( bbox.height() <= 2 )
+					dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
+				else
+					dy1 = bbox.y() + bbox.height();
+	
+			}
 			cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.charStyle ( textCursorPos ).fillColor() ], m_doc ) );
 		}
 		else
