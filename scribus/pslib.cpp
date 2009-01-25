@@ -1025,6 +1025,7 @@ void PSLib::PS_newpath()
 void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades)
 {
 	bool first = true;
+	bool oneSameSpot = false;
 	bool oneSpot1 = false;
 	bool oneSpot2 = false;
 	bool twoSpot = false;
@@ -1037,6 +1038,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 	PutStream("eoclip\n");
 	for (int c = 0; c < Colors.count()-1; ++c)
 	{
+		oneSameSpot = false;
 		oneSpot1 = false;
 		oneSpot2 = false;
 		twoSpot = false;
@@ -1050,13 +1052,13 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 		{
 			if (spotMap.contains(colorNames[c]))
 				oneSpot1 = true;
-			else if  (spotMap.contains(colorNames[c+1]))
+			if  (spotMap.contains(colorNames[c+1]))
 				oneSpot2 = true;
-			if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+			if (oneSpot1 && oneSpot2)
 			{
-				oneSpot1 = false;
-				oneSpot2 = false;
-				twoSpot = true;
+				oneSameSpot = (colorNames[c] == colorNames[c+1]);
+				oneSpot1 = oneSpot2 = false;
+				twoSpot  = true;
 			}
 			if (((!oneSpot1) && (!oneSpot2) && (!twoSpot)) || (!useSpotColors) || (GraySc))
 			{
@@ -1068,7 +1070,11 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 			else
 			{
 				PutStream("/ColorSpace [ /DeviceN [");
-				if (oneSpot1)
+				if (oneSameSpot)
+				{
+					PutStream(" ("+spot1+") ]\n");
+				}
+				else if (oneSpot1)
 				{
 					PutStream(" /Cyan /Magenta /Yellow /Black ("+spot1+") ]\n");
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
@@ -1086,28 +1092,38 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 				}
 				PutStream("/DeviceCMYK\n");
 				PutStream("{\n");
-				if (twoSpot)
+				if (oneSameSpot)
+				{
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+					PutStream("{\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n}\n");
+				}
+				else if (twoSpot)
 				{
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
 					cmykValues.getValues(cc, mc, yc, kc);
 					PutStream("exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub exch pop 5 -1 roll\n");
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c+1]], m_Doc, cmykValues);
 					cmykValues.getValues(cc, mc, yc, kc);
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n");
 				}
 				else
 				{
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n");
 				}
 				PutStream("} ]\n");
 			}
@@ -1144,7 +1160,12 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 		{
 			if (useSpotColors)
 			{
-				if (oneSpot1)
+				if (oneSameSpot)
+				{
+					PutStream("/C1 ["+ToStr(colorShades[c] / 100.0)+"]\n");
+					PutStream("/C0 ["+ToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (oneSpot1)
 				{
 					PutStream("/C1 [0 0 0 0 "+ToStr(colorShades[c] / 100.0)+"]\n");
 					PutStream("/C0 ["+Colors[c+1]+" 0 ]\n");
@@ -1183,6 +1204,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades)
 {
 	bool first = true;
+	bool oneSameSpot = false;
 	bool oneSpot1 = false;
 	bool oneSpot2 = false;
 	bool twoSpot = false;
@@ -1195,6 +1217,7 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 	PutStream("eoclip\n");
 	for (int c = 0; c < Colors.count()-1; ++c)
 	{
+		oneSameSpot = false;
 		oneSpot1 = false;
 		oneSpot2 = false;
 		twoSpot = false;
@@ -1209,13 +1232,13 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 		{
 			if (spotMap.contains(colorNames[c]))
 				oneSpot1 = true;
-			else if  (spotMap.contains(colorNames[c+1]))
+			if (spotMap.contains(colorNames[c+1]))
 				oneSpot2 = true;
-			if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+			if (oneSpot1 && oneSpot2)
 			{
-				oneSpot1 = false;
-				oneSpot2 = false;
-				twoSpot = true;
+				oneSameSpot = (colorNames[c] == colorNames[c+1]);
+				oneSpot1 = oneSpot2 = false;
+				twoSpot  = true;
 			}
 			if (((!oneSpot1) && (!oneSpot2) && (!twoSpot)) || (!useSpotColors) || (GraySc))
 			{
@@ -1227,7 +1250,11 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 			else
 			{
 				PutStream("/ColorSpace [ /DeviceN [");
-				if (oneSpot1)
+				if (oneSameSpot)
+				{
+					PutStream(" ("+spot1+") ]\n");
+				}
+				else if (oneSpot1)
 				{
 					PutStream(" /Cyan /Magenta /Yellow /Black ("+spot1+") ]\n");
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
@@ -1245,28 +1272,38 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 				}
 				PutStream("/DeviceCMYK\n");
 				PutStream("{\n");
-				if (twoSpot)
+				if (oneSameSpot)
+				{
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+					PutStream("{\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n}\n");
+				}
+				else if (twoSpot)
 				{
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
 					cmykValues.getValues(cc, mc, yc, kc);
 					PutStream("exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub exch\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub exch pop 5 -1 roll\n");
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c+1]], m_Doc, cmykValues);
 					cmykValues.getValues(cc, mc, yc, kc);
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n");
 				}
 				else
 				{
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n");
 				}
 				PutStream("} ]\n");
 			}
@@ -1304,7 +1341,12 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 		{
 			if (useSpotColors)
 			{
-				if (oneSpot1)
+				if (oneSameSpot)
+				{
+					PutStream("/C0 ["+ToStr(colorShades[c] / 100.0)+"]\n");
+					PutStream("/C1 ["+ToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (oneSpot1)
 				{
 					PutStream("/C0 [0 0 0 0 "+ToStr(colorShades[c] / 100.0)+"]\n");
 					PutStream("/C1 ["+Colors[c+1]+" 0 ]\n");
