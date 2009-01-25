@@ -155,7 +155,7 @@ private:
 		1) items' group or item name
 		2) detailed problem text
 		3) membersip in layer
-		4) beginning of the text (textframes) or image path (imageframe)
+		4) beginning of the text (textframes) or image path (imageframe) (removed)
 	*/
 	void buildItem(QTreeWidgetItem * item,
 					PreflightError errorType,

@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #define COLUMN_ITEM 0
 #define COLUMN_PROBLEM 1
 #define COLUMN_LAYER 2
-#define COLUMN_INFO 3
+// #define COLUMN_INFO 3
 
 
 static const unsigned char image0_data[] =
@@ -331,14 +331,14 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 	// additional informations
 	item->setText(COLUMN_LAYER, m_Doc->Layers.at(pageItem->LayerNr).Name);
 	item->setData(COLUMN_LAYER, Qt::DecorationRole, m_Doc->Layers.at(pageItem->LayerNr).markerColor);
-	if (pageItem->asTextFrame())
-	{
-		int l = pageItem->itemText.length();
-		// preview of the text
-		item->setText(COLUMN_INFO, pageItem->itemText.text(0, l > 20 ? 20 : l));
-	}
-	else if (pageItem->asImageFrame())
-		item->setText(COLUMN_INFO, pageItem->externalFile());
+// 	if (pageItem->asTextFrame())
+// 	{
+// 		int l = pageItem->itemText.length();
+// 		// preview of the text
+// 		item->setText(COLUMN_INFO, pageItem->itemText.text(0, l > 20 ? 20 : l));
+// 	}
+// 	else if (pageItem->asImageFrame())
+// 		item->setText(COLUMN_INFO, pageItem->externalFile());
 }
 
 void CheckDocument::buildErrorList(ScribusDoc *doc)
@@ -616,7 +616,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	reportDisplay->resizeColumnToContents(COLUMN_ITEM);
 	reportDisplay->resizeColumnToContents(COLUMN_PROBLEM);
 	reportDisplay->resizeColumnToContents(COLUMN_LAYER);
-	reportDisplay->resizeColumnToContents(COLUMN_INFO);
+// 	reportDisplay->resizeColumnToContents(COLUMN_INFO);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
 }
@@ -636,7 +636,7 @@ void CheckDocument::languageChange()
 	setWindowTitle( tr( "Preflight Verifier" ) );
 	QStringList headerLabels;
 	headerLabels << tr("Items") << tr("Problems")
-	             << tr("Layer") << tr("Information");
+	             << tr("Layer");// << tr("Information");
 	reportDisplay->setHeaderLabels(headerLabels);
 	reportDisplay->setColumnCount(headerLabels.count());
 
