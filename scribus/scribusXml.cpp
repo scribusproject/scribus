@@ -612,6 +612,8 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("FLOP"	,item->firstLineOffset());
 	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 	{
+		writer.writeAttribute("ImageRes", item->pixm.imgInfo.lowResType);
+		writer.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
 		if (item->isInlineImage)
 		{
 			writer.writeAttribute("PFILE", "");
@@ -1121,6 +1123,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	bool inlineF = false;
 	QByteArray inlineImageData;
 	QString inlineImageExt;
+	int lowResType = 1;
+	int actualPageNumber = 0;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1144,6 +1148,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			groupsLastItem     = attrAsInt (attrs, "groupsLastItem", 0);
 			itemOwnLink        = attrAsInt (attrs, "OwnLINK", 0);
 			itemClip           = attrAsString(attrs, "ImageClip", "");
+			lowResType         = attrAsInt (attrs, "ImageRes", 1);
+			actualPageNumber   = attrAsInt (attrs, "Pagenumber", 0);
 			inlineF = attrAsBool(attrs, "isInlineImage", false);
 			inlineImageData.resize(0);
 			QString dat = attrAsString(attrs, "ImageData", "");
@@ -1326,7 +1332,9 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			Neu->effectsInUse = imageEffects;
 			Neu->pixm.imgInfo.RequestProps = loadRequests;
 			Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
-			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
+			Neu->pixm.imgInfo.lowResType = lowResType;
+			Neu->pixm.imgInfo.actualPageNumber = actualPageNumber;
+			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0) || (doc->toolSettings.lowResType != lowResType))
 				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
 			if (Neu->pixm.imgInfo.PDSpathData.contains(itemClip))
 			{
@@ -1433,6 +1441,8 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	bool inlineF = false;
 	QByteArray inlineImageData;
 	QString inlineImageExt;
+	int lowResType = 1;
+	int actualPageNumber = 0;
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1449,6 +1459,8 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			lastStyles = LastStyles();
 			GetItemProps(attrs1, &OB, fileDir, newVersion);
 			patClipPath    = attrs1.value("ImageClip").toString();
+			lowResType         = attrAsInt (attrs, "ImageRes", 1);
+			actualPageNumber   = attrAsInt (attrs, "Pagenumber", 0);
 			inlineF = attrAsBool(attrs, "isInlineImage", false);
 			inlineImageData.resize(0);
 			QString dat = attrAsString(attrs, "ImageData", "");
@@ -1606,7 +1618,9 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			Neu->effectsInUse = imageEffects;
 			Neu->pixm.imgInfo.RequestProps = loadRequests;
 			Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
-			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
+			Neu->pixm.imgInfo.lowResType = lowResType;
+			Neu->pixm.imgInfo.actualPageNumber = actualPageNumber;
+			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0) || (doc->toolSettings.lowResType != lowResType))
 				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
 			if (Neu->pixm.imgInfo.PDSpathData.contains(patClipPath))
 			{
