@@ -5675,10 +5675,10 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
 					cmykValues.getValues(cc, mc, yc, kc);
 				}
-				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n}\n";
+				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll 1.0 exch sub mul 1.0 exch sub 5 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)  +" mul 1.0 exch sub 5 -1 roll 1.0 exch sub mul 1.0 exch sub 4 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)  +" mul 1.0 exch sub 4 -1 roll 1.0 exch sub mul 1.0 exch sub 3 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)  +" mul 1.0 exch sub 3 -1 roll 1.0 exch sub mul 1.0 exch sub 2 1 roll pop\n}\n";
 			}
 			PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
 			PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");

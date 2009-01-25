@@ -1122,10 +1122,10 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 				}
 				else
 				{
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll 1.0 exch sub mul 1.0 exch sub 5 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll 1.0 exch sub mul 1.0 exch sub 4 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll 1.0 exch sub mul 1.0 exch sub 3 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll 1.0 exch sub mul 1.0 exch sub 2 1 roll pop\n");
 				}
 				PutStream("} ]\n");
 			}
@@ -1304,10 +1304,10 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 				}
 				else
 				{
-					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n");
+					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll 1.0 exch sub mul 1.0 exch sub 5 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll 1.0 exch sub mul 1.0 exch sub 4 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll 1.0 exch sub mul 1.0 exch sub 3 1 roll\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll 1.0 exch sub mul 1.0 exch sub 2 1 roll pop\n");
 				}
 				PutStream("} ]\n");
 			}
