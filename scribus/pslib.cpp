@@ -1066,6 +1066,8 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 					PutStream("/ColorSpace /DeviceGray\n");
 				else
 					PutStream("/ColorSpace /DeviceCMYK\n");
+				// #7654 : Necessary when printing spot colors to grayscale
+				oneSpot1 = oneSpot2 = oneSameSpot = twoSpot = false;
 			}
 			else
 			{
@@ -1246,6 +1248,8 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 					PutStream("/ColorSpace /DeviceGray\n");
 				else
 					PutStream("/ColorSpace /DeviceCMYK\n");
+				// #7654 : Necessary when printing spot colors to grayscale
+				oneSpot1 = oneSpot2 = oneSameSpot = twoSpot = false;
 			}
 			else
 			{
