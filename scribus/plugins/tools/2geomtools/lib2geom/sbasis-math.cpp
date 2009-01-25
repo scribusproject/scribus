@@ -37,7 +37,6 @@
 #include "sbasis-math.h"
 //#define ZERO 1e-3
 
-
 #include <cstdio>
 #include <cmath>
 #include "angle.h"
