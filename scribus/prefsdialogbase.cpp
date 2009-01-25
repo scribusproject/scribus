@@ -38,7 +38,8 @@ OptionListWidget::OptionListWidget(QWidget* parent) : QListWidget(parent)
 	setDragDropMode(QAbstractItemView::NoDragDrop);
 	setResizeMode(QListView::Adjust);
 	setSelectionMode(QAbstractItemView::SingleSelection);
-	setFocusPolicy(Qt::NoFocus);
+// #6930: This breaks focus on OSX, makes scrolling in this widget ugly for user data on the panes
+//	setFocusPolicy(Qt::NoFocus);
 	setIconSize(QSize(32, 32));
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	clear();
