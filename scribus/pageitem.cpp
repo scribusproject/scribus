@@ -435,7 +435,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	else if (m_Doc->toolSettings.dPen != CommonStrings::None)
 		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 	else
-		fill_gradient.addStop(m_Doc->PageColors["Black"].getRGBColor(), 0.0, 0.5, 1.0, "Black", 100);
+		fill_gradient.addStop(m_Doc->PageColors["Black"].getRGBColor(), 1.0, 0.5, 1.0, "Black", 100);
 	Language = m_Doc->Language;
 	Cols = m_Doc->toolSettings.dCols;
 	ColGap = m_Doc->toolSettings.dGap;
