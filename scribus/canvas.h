@@ -188,6 +188,8 @@ public:
 	void displayXYHUD(QPoint m, double x, double y);
 	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
 	
+	void setupEditHRuler(PageItem * item);
+	
 private:
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);

@@ -19,6 +19,7 @@
 
 #include "canvas.h"
 #include "canvasmode.h"
+#include "hruler.h"
 #include "page.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
@@ -2260,6 +2261,33 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 		QToolTip::showText(m + QPoint(5, 5), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, SC_DEGREES, true, true)), this);
 	else
 		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
+}
+
+void Canvas::setupEditHRuler(PageItem * item)
+{
+	// code taken from ScribusMainWindow::HaveNewSel
+	m_view->horizRuler->setItem(item);
+	if (item->lineColor() != CommonStrings::None)
+		m_view->horizRuler->lineCorr = item->lineWidth() / 2.0;
+	else
+		m_view->horizRuler->lineCorr = 0;
+	m_view->horizRuler->ColGap = item->ColGap;
+	m_view->horizRuler->Cols = item->Cols;
+	m_view->horizRuler->Extra = item->textToFrameDistLeft();
+	m_view->horizRuler->RExtra = item->textToFrameDistRight();
+	m_view->horizRuler->First = item->currentStyle().firstIndent();
+	m_view->horizRuler->Indent = item->currentStyle().leftMargin();
+	double columnWidth = (item->width() - (item->columnGap() * (item->columns() - 1))
+				- item->textToFrameDistLeft() - item->textToFrameDistLeft()
+				- 2*m_view->horizRuler->lineCorr) / item->columns();
+	m_view->horizRuler->RMargin = columnWidth - item->currentStyle().rightMargin();
+	if (item->imageFlippedH() || (item->reversed()))
+		m_view->horizRuler->Revers = true;
+	else
+		m_view->horizRuler->Revers = false;
+	m_view->horizRuler->ItemPosValid = true;
+	m_view->horizRuler->TabValues = item->currentStyle().tabValues();
+	m_view->horizRuler->repaint();
 }
 
 

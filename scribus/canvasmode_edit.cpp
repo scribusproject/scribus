@@ -145,8 +145,8 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 		if ( textframe->lastInFrame() >= signed ( textframe->itemText.nrOfItems() )
 		        || textframe->itemText.length() == 0 )
 		{
-			dx = 0;
-			dy = 0;
+			dx = textframe->textToFrameDistLeft();
+			dy = textframe->textToFrameDistTop();
 			dy1 = textframe->itemText.defaultStyle().charStyle().fontSize() / 10.0;
 
 			cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.defaultStyle().charStyle().fillColor() ], m_doc ) );
@@ -161,7 +161,22 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 				// The cursor must be moved to the beginning of the next line
 				FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
 				double lineSpacing(textframe->itemText.paragraphStyle(textCursorPos).lineSpacing());
-				dx = 0.0;
+				
+				// take care if cursor is not in first column
+				int curCol(1);
+				double ccPos(textframe->itemText.boundingBox ( textCursorPos ).x());
+				double leftOffset(textframe->textToFrameDistLeft());
+				for(int ci(1); ci <= textframe->columns(); ++ci)
+				{
+					double cLeft(((ci-1) * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
+					double cRight((ci * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
+					if((cLeft <= ccPos) && (ccPos <= cRight))
+					{
+						curCol = ci;
+						break;
+					}
+				}
+				dx = (textframe->columnWidth() * (curCol - 1)) + (textframe->columnGap() * (curCol - 1))  + leftOffset;
 				dy = bbox.y();
 				
 				if ( bbox.height() <= 2 )
@@ -179,10 +194,11 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 				// At first we need to know in which column the cursor is.
 				int curCol(1);
 				double ccPos(textframe->itemText.boundingBox ( textCursorPos ).x());
+				double leftOffset(textframe->textToFrameDistLeft());
 				for(int ci(1); ci <= textframe->columns(); ++ci)
 				{
-					double cLeft(((ci-1) * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()));
-					double cRight((ci * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()));
+					double cLeft(((ci-1) * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
+					double cRight((ci * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
 					if((cLeft <= ccPos) && (ccPos <= cRight))
 					{
 						curCol = ci;
@@ -191,8 +207,8 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 				}
 				if(textframe->columns() > curCol)
 				{
-					dx = (textframe->columnWidth() * curCol) + (textframe->columnGap() * curCol);
-					dy = 0.0;
+					dx = (textframe->columnWidth() * curCol) + (textframe->columnGap() * curCol)  + leftOffset;
+					dy = textframe->textToFrameDistTop();
 					dy1 = textframe->itemText.boundingBox ( textCursorPos ).height();
 				}
 				else // there is no column after the current column
@@ -297,6 +313,11 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	{
 		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
+	}
+	PageItem * it(0);
+	if(GetItem(&it))
+	{
+		m_canvas->setupEditHRuler(it);
 	}
 }
 
@@ -973,7 +994,9 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				{
 					currItem = m_doc->m_Selection->itemAt(0);
 					if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+					{
 						m_view->requestMode(modeEdit);
+					}
 					else
 					{
 						m_view->requestMode(submodePaintingDone);
@@ -1052,7 +1075,9 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 			{
 				currItem = m_doc->m_Selection->itemAt(0);
 				if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+				{
 					m_view->requestMode(modeEdit);
+				}
 				else
 				{
 					m_view->requestMode(submodePaintingDone);

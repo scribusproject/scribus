@@ -204,7 +204,9 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 					m_view->requestMode(modeEdit);
  			}
  			else if (currItem->itemType() == PageItem::TextFrame)
+			{
  				m_view->requestMode(modeEdit);
+			}
 			else
 				m_view->requestMode(modeEditClip);				
 		}
