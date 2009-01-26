@@ -172,9 +172,43 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 				dy  += lineSpacing;
 				dy1 += lineSpacing;
 			}
+			else if((textframe->itemText.text(textCursorPos) == SpecialChars::COLBREAK))
+			{
+				// A bit tricky :)
+				// We want to position the cursor at the beginning of the next column, if any.
+				// At first we need to know in which column the cursor is.
+				int curCol(1);
+				double ccPos(textframe->itemText.boundingBox ( textCursorPos ).x());
+				for(int ci(1); ci <= textframe->columns(); ++ci)
+				{
+					double cLeft(((ci-1) * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()));
+					double cRight((ci * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()));
+					if((cLeft <= ccPos) && (ccPos <= cRight))
+					{
+						curCol = ci;
+						break;
+					}
+				}
+				if(textframe->columns() > curCol)
+				{
+					dx = (textframe->columnWidth() * curCol) + (textframe->columnGap() * curCol);
+					dy = 0.0;
+					dy1 = textframe->itemText.boundingBox ( textCursorPos ).height();
+				}
+				else // there is no column after the current column
+				{
+					FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+					dx = bbox.x();
+					dy = bbox.y();
+					dx += textframe->itemText.item ( textCursorPos )->glyph.wide();
+					if ( bbox.height() <= 2 )
+						dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
+					else
+						dy1 = bbox.y() + bbox.height();
+				}
+			}
 			else
 			{
-				textCursorPos = textframe->lastInFrame();
 				FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
 				dx = bbox.x();
 				dy = bbox.y();
