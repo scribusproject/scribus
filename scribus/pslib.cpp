@@ -1098,11 +1098,10 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 				{
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
 					cmykValues.getValues(cc, mc, yc, kc);
-					PutStream("{\n");
 					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
 					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
 					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n}\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n");
 				}
 				else if (twoSpot)
 				{
@@ -1280,11 +1279,10 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 				{
 					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
 					cmykValues.getValues(cc, mc, yc, kc);
-					PutStream("{\n");
 					PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
 					PutStream("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
 					PutStream("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
-					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n}\n");
+					PutStream("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n");
 				}
 				else if (twoSpot)
 				{
