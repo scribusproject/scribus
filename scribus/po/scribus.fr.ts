@@ -4192,7 +4192,7 @@ vous avez des photos dans votre composition.</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
-        <translation>Couleur quadrichromique</translation>
+        <translation>Couleur de repèrage</translation>
     </message>
     <message>
         <source>New</source>
