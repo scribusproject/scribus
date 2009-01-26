@@ -147,7 +147,7 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 		{
 			dx = textframe->textToFrameDistLeft();
 			dy = textframe->textToFrameDistTop();
-			dy1 = textframe->itemText.defaultStyle().charStyle().fontSize() / 10.0;
+			dy1 = textframe->textToFrameDistTop() + (textframe->itemText.defaultStyle().charStyle().fontSize() / 10.0);
 
 			cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.defaultStyle().charStyle().fillColor() ], m_doc ) );
 		}
@@ -209,7 +209,7 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 				{
 					dx = (textframe->columnWidth() * curCol) + (textframe->columnGap() * curCol)  + leftOffset;
 					dy = textframe->textToFrameDistTop();
-					dy1 = textframe->itemText.boundingBox ( textCursorPos ).height();
+					dy1 = textframe->textToFrameDistTop() + textframe->itemText.boundingBox ( textCursorPos ).height();
 				}
 				else // there is no column after the current column
 				{
