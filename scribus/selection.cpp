@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusdoc.h"
 #include "selection.h"
+#include <QDebug>
 
 Selection::Selection(QObject* parent)
 	: QObject(parent),
@@ -257,18 +258,50 @@ bool Selection::removeFirst()
 
 bool Selection::removeItem(PageItem *item)
 {
+    bool removeOk(false);
 	if (!m_SelList.isEmpty() && m_SelList.contains(item))
 	{
-		bool removeOk=(m_SelList.removeAll(item)==1);
-		if (removeOk)
+		bool itemIsGroup(item->Groups.count() > 0);
+		if(itemIsGroup)
 		{
-			if (m_isGUISelection)
+			QList<PageItem*> gItems;
+			foreach(PageItem *pi, m_SelList)
 			{
-				item->setSelected(false);
-				item->disconnectFromGUI();
+				if(!pi->groups().isEmpty() && !item->groups().isEmpty())
+				{
+					if(pi->groups().top() == item->groups().top())
+						gItems << pi;
+				}
 			}
-			item->isSingleSel = false;
+			foreach(PageItem *gi, gItems)
+			{
+				removeOk=(m_SelList.removeAll(gi)==1);
+				if (removeOk)
+				{
+					if (m_isGUISelection)
+					{
+						gi->setSelected(false);
+						gi->disconnectFromGUI();
+					}
+					gi->isSingleSel = false;
+				}
+			}
 		}
+		else // regular item
+		{
+			removeOk=(m_SelList.removeAll(item)==1);
+			if (removeOk)
+			{
+				if (m_isGUISelection)
+				{
+					item->setSelected(false);
+					item->disconnectFromGUI();
+				}
+				item->isSingleSel = false;
+			}
+		}
+
+
 		if (m_SelList.isEmpty())
 			m_hasGroupSelection=false;
 		else if (m_isGUISelection)
@@ -278,7 +311,7 @@ bool Selection::removeItem(PageItem *item)
 		}
 		return removeOk;
 	}
-	return false;
+	return removeOk;
 }
 
 PageItem* Selection::takeItem(int itemIndex)
@@ -492,4 +525,5 @@ void Selection::sendSignals(bool guiConnect)
 		m_sigSelectionIsMultiple = false;
 	}
 }
+
 
