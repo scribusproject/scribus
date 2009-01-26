@@ -4156,7 +4156,7 @@ void ScribusMainWindow::slotGetContent()
 				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
 				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				doc->LoadPict(fileName, currItem->ItemNr, true, true);
+				doc->LoadPict(fileName, currItem->ItemNr, false, true);
 				//view->AdjustPictScale(currItem, false);
 				//false was ignored anyway
 				currItem->AdjustPictScale();

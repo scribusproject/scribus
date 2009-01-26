@@ -4659,7 +4659,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			effectsInUse.append(ef);
 		}
 		pixm.applyEffect(effectsInUse, m_Doc->PageColors, false);
-		if (reload)
+//		if (reload)
 			pixm.imgInfo.lowResType = lowResTypeBack;
 		if (pixm.imgInfo.lowResType != 0)
 		{
