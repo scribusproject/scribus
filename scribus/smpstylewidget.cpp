@@ -25,7 +25,8 @@ static bool isEqual(double a, double b)
 SMPStyleWidget::SMPStyleWidget() : QWidget()
 {
 	setupUi(this);
-
+	//Not used yet
+	optMarginCheckLeftProtruding->setVisible(false);
 	lineSpacingLabel->setPixmap(loadIcon("linespacing2.png"));
 	spaceAboveLabel->setPixmap( loadIcon("above.png") );
 	spaceBelowLabel->setPixmap( loadIcon("below.png") );

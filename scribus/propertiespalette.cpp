@@ -911,8 +911,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 //	optMarginCombo = new QComboBox(OptMargins);
 //	OptMarginsLayout->addWidget( optMarginCombo);
 
-	optMarginCheckLeftProtruding = new QCheckBox(OptMargins);
-	optMarginCheckLeftProtruding->setObjectName(QString::fromUtf8("optMarginCheckLeftProtruding"));
+//	optMarginCheckLeftProtruding = new QCheckBox(OptMargins);
+//	optMarginCheckLeftProtruding->setObjectName(QString::fromUtf8("optMarginCheckLeftProtruding"));
 	optMarginCheckRightProtruding = new QCheckBox(OptMargins);
 	optMarginCheckRightProtruding->setObjectName(QString::fromUtf8("optMarginCheckRightProtruding"));
 	optMarginCheckLeftHangPunct = new QCheckBox(OptMargins);
@@ -922,13 +922,13 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	optMarginResetButton = new QPushButton(OptMargins);
 	optMarginResetButton->setObjectName(QString::fromUtf8("optMarginResetButton"));
 
-	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
+//	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
 	optMarginCheckRightProtruding->setText( tr("Right Protruding") );
 	optMarginCheckLeftHangPunct->setText( tr("Left Hanging Punctuation") );
 	optMarginCheckRightHangPunct->setText( tr("Right Hanging Punctuation") );
 	optMarginResetButton->setText( tr("Reset") );
 
-	OptMarginsLayout->addWidget(optMarginCheckLeftProtruding);
+//	OptMarginsLayout->addWidget(optMarginCheckLeftProtruding);
 	OptMarginsLayout->addWidget(optMarginCheckRightProtruding);
 	OptMarginsLayout->addWidget(optMarginCheckLeftHangPunct);
 	OptMarginsLayout->addWidget(optMarginCheckRightHangPunct);
@@ -1592,7 +1592,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
 //	connect(optMarginCombo, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
-	connect(optMarginCheckLeftProtruding, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
+//	connect(optMarginCheckLeftProtruding, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
 	connect(optMarginCheckRightProtruding, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
 	connect(optMarginCheckLeftHangPunct, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
 	connect(optMarginCheckRightHangPunct, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
@@ -3102,7 +3102,7 @@ void PropertiesPalette::setOpticalMargins(int i)
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	int omt(ParagraphStyle::OM_None);
-	if (optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
+//	if (optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
 	if (optMarginCheckRightProtruding->isChecked()) omt+=ParagraphStyle::OM_RightProtruding;
 	if (optMarginCheckLeftHangPunct->isChecked()) omt+=ParagraphStyle::OM_LeftHangingPunct;
 	if (optMarginCheckRightHangPunct->isChecked()) omt+=ParagraphStyle::OM_RightHangingPunct;
@@ -4981,7 +4981,7 @@ void PropertiesPalette::languageChange()
 //// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightHangPunct );
 //	optMarginCombo->addItem( CommonStrings::trOpticalMarginsDefault );
 //	optMarginCombo->setCurrentIndex(c);
-	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
+//	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
 	optMarginCheckRightProtruding->setText( tr("Right Protruding") );
 	optMarginCheckLeftHangPunct->setText( tr("Left Hanging Punctuation") );
 	optMarginCheckRightHangPunct->setText( tr("Right Hanging Punctuation") );
