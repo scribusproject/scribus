@@ -1902,7 +1902,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
-						if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
+						if ((ite->PictureIsAvailable) && (!ite->Pfile.isEmpty()))
 						{
 							if (!PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender, &tmpOut))
 								return false;
@@ -3452,7 +3452,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
 			if (ite->imageFlippedV())
 				tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
-			if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
+			if ((ite->PictureIsAvailable) && (!ite->Pfile.isEmpty()))
 			{
 				if (!PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender, &tmpOut))
 					return false;

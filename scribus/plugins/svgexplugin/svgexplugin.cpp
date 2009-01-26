@@ -516,7 +516,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 		ob1.setAttribute("style", fill);
 		ob.appendChild(ob1);
 	}
-	if ((Item->PicAvail) && (!Item->Pfile.isEmpty()))
+	if ((Item->PictureIsAvailable) && (!Item->Pfile.isEmpty()))
 	{
 		QDomElement ob2 = docu.createElement("clipPath");
 		ob2.setAttribute("id", "Clip"+IToStr(ClipCount));

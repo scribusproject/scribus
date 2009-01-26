@@ -120,7 +120,7 @@ PageItem::PageItem(const PageItem & other)
 	EmProfile(other.EmProfile),
 	IRender(other.IRender),
 
-	PicAvail(other.PicAvail),
+	PictureIsAvailable(other.PictureIsAvailable),
 	OrigW(other.OrigW),
 	OrigH(other.OrigH),
 	BBoxX(other.BBoxX),
@@ -372,7 +372,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	oldOwnPage = OwnPage;
 	savedOwnPage = OwnPage;
 	PicArt = true;
-	PicAvail = false;
+	PictureIsAvailable = false;
 	m_PrintEnabled = true;
 	isBookmark = false;
 	m_isAnnotation = false;
@@ -4466,7 +4466,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (!pixm.LoadPicture(filename, pixm.imgInfo.actualPageNumber, cms, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy, showMsg))
 	{
 		Pfile = fi.absoluteFilePath();
-		PicAvail = false;
+		PictureIsAvailable = false;
 //		PicArt = false;
 		return false;
 	}
@@ -4483,7 +4483,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		}
 		double xres = pixm.imgInfo.xres;
 		double yres = pixm.imgInfo.yres;
-		PicAvail = true;
+		PictureIsAvailable = true;
 //		PicArt = true;
 		
 		if (Pfile != filename)
@@ -4535,7 +4535,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		else
 			IProfile = pixm.imgInfo.profileName;
 	}
-	if (PicAvail)
+	if (PictureIsAvailable)
 	{
 		if ((pixm.imgInfo.colorspace == ColorSpaceDuotone) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
 		{

@@ -2172,8 +2172,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		if (CurItem->asImageFrame())
 		{
 			updateCmsList();
-			EditEffects->setShown(CurItem->PicAvail && CurItem->isRaster);
-			EditPSDProps->setShown(CurItem->PicAvail && CurItem->pixm.imgInfo.valid);
+			EditEffects->setShown(CurItem->PictureIsAvailable && CurItem->isRaster);
+			EditPSDProps->setShown(CurItem->PictureIsAvailable && CurItem->pixm.imgInfo.valid);
 			setter = CurItem->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);

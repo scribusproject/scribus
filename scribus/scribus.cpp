@@ -2817,20 +2817,20 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	charPalette->setEnabled(false, 0);
-	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PicAvail || currItem->asLatexFrame()));
-	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
-	scrActions["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail);
-	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->pixm.imgInfo.valid);
+	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PictureIsAvailable || currItem->asLatexFrame()));
+	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && !currItem->isTableItem);
+	scrActions["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
+	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->pixm.imgInfo.valid);
 	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", SelectedType==PageItem::ImageFrame);
 	scrActions["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && isRaster);
-	scrActions["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail);
+	scrActions["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
+	scrActions["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->isRaster);
 	scrActions["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && currItem->asLatexFrame());
 	if (SelectedType!=PageItem::ImageFrame)
 	{
@@ -4227,7 +4227,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 		if (currItem->itemType() == PageItem::ImageFrame)
 		{
 			int t = QMessageBox::Yes;
-			if (currItem->PicAvail)
+			if (currItem->PictureIsAvailable)
 				t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to replace your existing image?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 			if (t == QMessageBox::Yes)
 			{
@@ -4459,7 +4459,7 @@ bool ScribusMainWindow::DoFileClose()
 	for (int a = 0; a < doc->DocItems.count(); ++a)
 	{
 		PageItem *currItem = doc->DocItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
 		{
@@ -4470,7 +4470,7 @@ bool ScribusMainWindow::DoFileClose()
 	for (int a = 0; a < doc->MasterItems.count(); ++a)
 	{
 		PageItem *currItem = doc->MasterItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
 		{
@@ -4481,7 +4481,7 @@ bool ScribusMainWindow::DoFileClose()
 	for (int a = 0; a < doc->FrameItems.count(); ++a)
 	{
 		PageItem *currItem = doc->FrameItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
 		{
@@ -4496,7 +4496,7 @@ bool ScribusMainWindow::DoFileClose()
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
-			if (currItem->PicAvail)
+			if (currItem->PictureIsAvailable)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
 			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
 			{
@@ -9022,7 +9022,7 @@ void ScribusMainWindow::callImageEditor()
 			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>", 1, 0, 0);
 			return;
 		}
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 		{
 			int index;
 			QString imEditor;
@@ -9404,7 +9404,7 @@ void ScribusMainWindow::slotEditCopyContents()
 		if (currItem->itemType()==PageItem::ImageFrame)
 		{
 			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
-			if (imageItem->PicAvail)
+			if (imageItem->PictureIsAvailable)
 			{
 				contentsBuffer.sourceType = PageItem::ImageFrame;
 				contentsBuffer.contentsFileName = imageItem->Pfile;
@@ -9432,7 +9432,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 		{
 			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
 			int t=QMessageBox::Yes;
-			if (imageItem->PicAvail)
+			if (imageItem->PictureIsAvailable)
 				t = QMessageBox::warning(this, CommonStrings::trWarning,
 										tr("Do you really want to replace your existing image?"),
 										QMessageBox::Yes | QMessageBox::No, QMessageBox::No);

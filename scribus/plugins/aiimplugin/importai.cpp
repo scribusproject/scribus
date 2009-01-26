@@ -2011,7 +2011,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		TIFFClose(tif);
 	}
 	m_Doc->LoadPict(imgName, z);
-	if (ite->PicAvail)
+	if (ite->PictureIsAvailable)
 		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		ite->setLocked(itemLocked);

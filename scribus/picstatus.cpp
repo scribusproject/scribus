@@ -93,7 +93,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	p.setPen(Qt::NoPen);
 	p.setBrush(b);
 	p.drawRect(12, 12, 104, 104);
-	if (item->PicAvail)
+	if (item->PictureIsAvailable && QFile::exists(item->externalFile()))
 	{
 		QImage im2 = item->pixm.scaled(104, 104, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		p.drawImage((104 - im2.width()) / 2 + 12, (104 - im2.height()) / 2 + 12, im2);
@@ -255,7 +255,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 				displayPage->setText(QString::number(currItem->OwnPage + 1));
 		}
 		displayObjekt->setText(currItem->itemName());
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 		{
 			QFileInfo fi = QFileInfo(currItem->Pfile);
 			QString ext = fi.suffix().toLower();
@@ -401,7 +401,7 @@ bool PicStatus::loadPict(const QString & newFilePath)
 	// Hack to fool the LoadPict function
 	currItem->Pfile = newFilePath;
 	m_Doc->LoadPict(newFilePath, currItem->ItemNr, true);
-	return currItem->PicAvail;
+	return currItem->PictureIsAvailable;
 }
 
 void PicStatus::SearchPic()

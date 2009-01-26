@@ -175,7 +175,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	imgValid = true;
 
 	//Save state and restore afterwards
-	bool do_update = PicAvail;
+	bool do_update = PictureIsAvailable;
 	double scaleX = 72.0, scaleY = 72.0, offX = 0.0, offY = 0.0;
 	if (do_update) {
 		scaleX = LocalScX * pixm.imgInfo.xres;
@@ -538,7 +538,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	actionList << "itemPreviewNormal";
 	actionList << "itemUpdateImage";
 	actionList << "editEditRenderSource";
-	if (PicAvail)
+	if (PictureIsAvailable)
 	{
 		/*if (!isTableItem)
 			actionList << "itemAdjustFrameToImage";*/

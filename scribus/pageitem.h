@@ -421,8 +421,8 @@ public:
 	QString cmsProfile() const { return IProfile; }
 	void setCmsProfile(QString val) { IProfile = val; }
 	
-  /** Bild verfuegbar */
-	bool PicAvail;
+	/*! Flag to hiold image file availability */
+	bool PictureIsAvailable;
 	int OrigW;
 	int OrigH;
   /** BoundigBox-X */

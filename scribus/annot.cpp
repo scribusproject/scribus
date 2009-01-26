@@ -1244,7 +1244,7 @@ void Annot::RemoveNIcon()
 {
 	NiconPrev->clear();
 	item->Pfile = "";
-	item->PicAvail = false;
+	item->PictureIsAvailable = false;
 	IconNR->setEnabled(false);
 }
 
@@ -1298,7 +1298,7 @@ void Annot::GetNIcon()
 		pmI1=QPixmap::fromImage(item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
-		item->PicAvail = true;
+		item->PictureIsAvailable = true;
 		int w = item->pixm.width();
 		int h = item->pixm.height();
 		double sw = item->width() / w;

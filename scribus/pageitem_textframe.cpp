@@ -2307,7 +2307,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 		lineCorr = m_lineWidth / 2.0;
 	else
 		lineCorr = 0;
-	if ((isAnnotation()) && (annotation().Type() == 2) && (!Pfile.isEmpty()) && (PicAvail) && (PicArt) && (annotation().UseIcons()))
+	if ((isAnnotation()) && (annotation().Type() == 2) && (!Pfile.isEmpty()) && (PictureIsAvailable) && (PicArt) && (annotation().UseIcons()))
 	{
 		p->save();//SA2
 		p->setupPolygon(&PoLine);
@@ -2320,7 +2320,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 	}
 	/* Experimental Addition to display an Image as Background */
 	/*
-	else if ((!Pfile.isEmpty()) && (PicAvail) && (PicArt))
+	else if ((!Pfile.isEmpty()) && (PictureIsAvailable) && (PicArt))
 	{
 		p->save();
 		if (imageClip.size() != 0)

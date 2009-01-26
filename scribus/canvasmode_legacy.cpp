@@ -311,7 +311,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 			{
 				if (currItem->Pfile.isEmpty())
 					m_view->requestMode(submodeLoadPic);
-				else if (!currItem->PicAvail)
+				else if (!currItem->PictureIsAvailable)
 					m_view->requestMode(submodeStatusPic);
 				else if (currItem->imageShown())
 					m_view->requestMode(modeEdit);

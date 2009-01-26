@@ -217,7 +217,7 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_AP->scrActions["editEditWithImageEditor"]);
 		if (selectedItemCount==1 && currItem->asImageFrame())
 		{
-			if (currItem->PicAvail)
+			if (currItem->PictureIsAvailable)
 			{
 				if (!currItem->isTableItem)
 					m_AP->scrActions["itemAdjustFrameToImage"]->setEnabled(true);

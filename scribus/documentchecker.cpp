@@ -104,7 +104,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(ObjectNotOnPage, 0);
 		if (currItem->asImageFrame())
 		{
-		 	if ((!currItem->PicAvail) && (checkerSettings.checkPictures))
+		 	if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 				itemError.insert(MissingImage, 0);
 			else
 			{
@@ -222,7 +222,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(ObjectNotOnPage, 0);
 		if (currItem->asImageFrame())
 		{
-		 	if ((!currItem->PicAvail) && (checkerSettings.checkPictures))
+		 	if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 				itemError.insert(MissingImage, 0);
 			else
 			{

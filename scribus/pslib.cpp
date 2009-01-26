@@ -443,7 +443,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
-			if ((item->asImageFrame()) && (item->PicAvail) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!sep) && (farb))
+			if ((item->asImageFrame()) && (item->PictureIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!sep) && (farb))
 			{
 				if (!PS_ImageData(item, item->Pfile, item->itemName(), item->IProfile, item->UseEmbedded, ic))
 					return false;
@@ -1960,7 +1960,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
-						if ((optimization == OptimizeSize) && it->asImageFrame() && it->PicAvail && (!it->Pfile.isEmpty()) && it->printEnabled() && (!sep) && farb)
+						if ((optimization == OptimizeSize) && it->asImageFrame() && it->PictureIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!sep) && farb)
 						{
 							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 							if (errorOccured) break;
@@ -2320,7 +2320,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_translate(0, -c->height());
 				PS_scale(1, -1);
 			}
-			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
+			if ((c->PictureIsAvailable) && (!c->Pfile.isEmpty()))
 			{
 				bool imageOk = false;
 				PS_translate(0, -c->BBoxH*c->imageYScale());

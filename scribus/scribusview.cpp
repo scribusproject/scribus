@@ -3001,7 +3001,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 					currItem = page->FromMaster.at(a);
 					if (currItem->asImageFrame())
 					{
-						if (currItem->PicAvail)
+						if (currItem->PictureIsAvailable)
 						{
 							if (currItem->pixm.imgInfo.lowResType != 0)
 							{
@@ -3029,7 +3029,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 					{
 						if (currItem->asImageFrame())
 						{
-							if (currItem->PicAvail)
+							if (currItem->PictureIsAvailable)
 							{
 								if (currItem->pixm.imgInfo.lowResType != 0)
 								{

@@ -2031,7 +2031,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		if (currItem->asLatexFrame())
 		{
 			PageItem_LatexFrame *latexitem = currItem->asLatexFrame();
-			currItem->PicAvail = true;
+			currItem->PictureIsAvailable = true;
 			currItem->invalid = true;
 			IT = obj->firstChild();
 			while(!IT.isNull())

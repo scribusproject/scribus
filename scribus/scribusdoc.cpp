@@ -3827,7 +3827,7 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 {
 	if (!reload)
 	{
-		if ((ScCore->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
+		if ((ScCore->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PictureIsAvailable))
 		{
 			ScCore->fileWatcher->removeFile(pageItem->Pfile);
 			if (pageItem->tempImageFile != NULL)
@@ -4975,7 +4975,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 		for (uint i=0; i < docItemCount; ++i)
 		{
 			it = Items->at(i);
-			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
+			if ((it->itemType() == PageItem::ImageFrame) && (it->PictureIsAvailable))
 			{
 				if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 				{
@@ -6318,7 +6318,7 @@ void ScribusDoc::updatePict(QString name)
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
@@ -6331,7 +6331,7 @@ void ScribusDoc::updatePict(QString name)
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
@@ -6344,7 +6344,7 @@ void ScribusDoc::updatePict(QString name)
 	for (int a = 0; a <FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
@@ -6361,7 +6361,7 @@ void ScribusDoc::updatePict(QString name)
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
-			if ((currItem->PicAvail) && (currItem->Pfile == name))
+			if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 			{
 				bool fho = currItem->imageFlippedH();
 				bool fvo = currItem->imageFlippedV();
@@ -6385,7 +6385,7 @@ void ScribusDoc::updatePictDir(QString name)
 		PageItem *currItem = DocItems.at(a);
 		if (currItem->asImageFrame())
 		{
-			if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+			if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
 			{
 				QFileInfo fi(currItem->Pfile);
 				if (fi.absolutePath() == name)
@@ -6409,7 +6409,7 @@ void ScribusDoc::updatePictDir(QString name)
 		PageItem *currItem = MasterItems.at(a);
 		if (currItem->asImageFrame())
 		{
-			if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+			if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
 			{
 				QFileInfo fi(currItem->Pfile);
 				if (fi.absolutePath() == name)
@@ -6433,7 +6433,7 @@ void ScribusDoc::updatePictDir(QString name)
 		PageItem *currItem = FrameItems.at(a);
 		if (currItem->asImageFrame())
 		{
-			if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+			if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
 			{
 				QFileInfo fi(currItem->Pfile);
 				if (fi.absolutePath() == name)
@@ -6461,7 +6461,7 @@ void ScribusDoc::updatePictDir(QString name)
 			PageItem *currItem = pa.items.at(o);
 			if (currItem->asImageFrame())
 			{
-				if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+				if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
 				{
 					QFileInfo fi(currItem->Pfile);
 					if (fi.absolutePath() == name)
@@ -6496,19 +6496,19 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 		  cc++;
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 			cc++;
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 			cc++;
 	}
 	QStringList patterns = docPatterns.keys();
@@ -6518,7 +6518,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
-			if (currItem->PicAvail)
+			if (currItem->PictureIsAvailable)
 				cc++;
 		}
 	}
@@ -6526,7 +6526,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
@@ -6544,7 +6544,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
@@ -6562,7 +6562,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	for (int a = 0; a < FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
-		if (currItem->PicAvail)
+		if (currItem->PictureIsAvailable)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
@@ -6583,7 +6583,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
-			if (currItem->PicAvail)
+			if (currItem->PictureIsAvailable)
 			{
 				bool fho = currItem->imageFlippedH();
 				bool fvo = currItem->imageFlippedV();
@@ -6612,27 +6612,27 @@ void ScribusDoc::removePict(QString name)
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 		{
-			currItem->PicAvail = false;
+			currItem->PictureIsAvailable = false;
 			currItem->pixm = ScImage();
 		}
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 		{
-			currItem->PicAvail = false;
+			currItem->PictureIsAvailable = false;
 			currItem->pixm = ScImage();
 		}
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 		{
-			currItem->PicAvail = false;
+			currItem->PictureIsAvailable = false;
 			currItem->pixm = ScImage();
 		}
 	}
@@ -6643,9 +6643,9 @@ void ScribusDoc::removePict(QString name)
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
-			if ((currItem->PicAvail) && (currItem->Pfile == name))
+			if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
 			{
-				currItem->PicAvail = false;
+				currItem->PictureIsAvailable = false;
 				currItem->pixm = ScImage();
 			}
 		}
@@ -6677,7 +6677,7 @@ void ScribusDoc::updatePic()
 				} else if (m_Selection->itemAt(i)->asImageFrame())
 				{
 					PageItem *currItem = m_Selection->itemAt(i);
-					if (currItem->PicAvail)
+					if (currItem->PictureIsAvailable)
 					{
 						int fho = currItem->imageFlippedH();
 						int fvo = currItem->imageFlippedV();
@@ -7098,7 +7098,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			currItem = itemSelection->itemAt(i);
 			if (currItem->asImageFrame())
 			{
-				if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
+				if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable))
 					ScCore->fileWatcher->removeFile(currItem->Pfile);
 			}
 			else
@@ -7174,7 +7174,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = delItems.last();
-		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
+		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable)))
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
 		{
@@ -10065,7 +10065,7 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 			PageItem *currItem = itemSelection->itemAt(i);
 			if (currItem!=NULL)
 			{
-				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
+				if (currItem->asImageFrame() && currItem->PictureIsAvailable && !currItem->isTableItem)
 				{
 					if (!activeTransaction)
 						activeTransaction = new UndoTransaction(undoManager->beginTransaction(selectedItemCount == 1 ?
@@ -10115,7 +10115,7 @@ void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelectio
 			PageItem *currItem = itemSelection->itemAt(i);
 			if (currItem!=NULL)
 			{
-				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
+				if (currItem->asImageFrame() && currItem->PictureIsAvailable && !currItem->isTableItem)
 					currItem->setImageScalingMode(false, true);
 			}
 		}

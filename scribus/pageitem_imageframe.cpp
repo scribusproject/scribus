@@ -85,14 +85,14 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/, double sc)
 			else
 			{
 				//If we are missing our image, draw a red cross in the frame
-				if ((!PicArt) || (!PicAvail))
+				if ((!PicArt) || (!PictureIsAvailable))
 				{
 					if ((Frame) && (m_Doc->guidesSettings.framesShown))
 					{
 						p->setBrush(Qt::white);
 						QString htmlText = "";
 						QFileInfo fi = QFileInfo(Pfile);
-						if (PicAvail)
+						if (PictureIsAvailable)
 						{
 							p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							if (isInlineImage)
@@ -156,7 +156,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/, double sc)
 void PageItem_ImageFrame::clearContents()
 {
 	effectsInUse.clear();
-	PicAvail = false;
+	PictureIsAvailable = false;
 	Pfile = "";
 	pixm = ScImage();
 
@@ -285,7 +285,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 	infoCT->setText( tr("Image"));
 	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignHCenter );
 	
-	if (PicAvail)
+	if (PictureIsAvailable)
 	{
 		fileT = new QLabel(infoGroup);
 		oPpiT = new QLabel(infoGroup);
@@ -368,7 +368,7 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 		case 10:
 			menu->addSeparator();
 			menu->addAction(actions["fileImportImage"]);
-			if (PicAvail)
+			if (PictureIsAvailable)
 			{
 				if (!isTableItem)
 					menu->addAction(actions["itemAdjustFrameToImage"]);
@@ -378,7 +378,7 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 				menu->addAction(actions["itemUpdateImage"]);
 			}
 			createContextMenu(menu, 11);
-			if (PicAvail && isRaster)
+			if (PictureIsAvailable && isRaster)
 			{
 				menu->addAction(actions["styleImageEffects"]);
 				menu->addAction(actions["editEditWithImageEditor"]);
@@ -405,16 +405,16 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 				menu->addAction(actions["itemConvertToPolygon"]);
 		break;
 		case 40:
-			if (PicAvail)
+			if (PictureIsAvailable)
 				menu->addAction(actions["editCopyContents"]);
 			if (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame)
 			{
 				menu->addAction(actions["editPasteContents"]);
 				menu->addAction(actions["editPasteContentsAbs"]);
 			}
-			if (PicAvail)
+			if (PictureIsAvailable)
 				menu->addAction(actions["editClearContents"]);
-			return (PicAvail) || (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame);
+			return (PictureIsAvailable) || (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame);
 		default:
 			return false;
 	}
@@ -431,7 +431,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 	actionList << "itemPreviewLow";
 	actionList << "itemPreviewNormal";
 
-	if (PicAvail)
+	if (PictureIsAvailable)
 	{
 		if (!isTableItem)
 			actionList << "itemAdjustFrameToImage";
@@ -463,7 +463,7 @@ QString PageItem_ImageFrame::infoDescription()
 	QString htmlText;
 	htmlText.append( tr("Image") + "<br/>");
 	
-	if (PicAvail)
+	if (PictureIsAvailable)
 	{
 		QFileInfo fi = QFileInfo(Pfile);
 		if (isInlineImage)
