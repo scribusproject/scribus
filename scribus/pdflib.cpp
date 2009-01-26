@@ -4184,9 +4184,10 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 {
 	QString tmp("");
 	bool first = true;
+	bool oneSameSpot = false;
 	bool oneSpot1 = false;
 	bool oneSpot2 = false;
-	bool twoSpot = false;
+	bool twoSpot  = false;
 	bool spotMode = false;
 	int cc, mc, yc, kc;
 	double w = currItem->width();
@@ -4196,9 +4197,10 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 	uint colorsCountm1=Colors.count()-1;
 	for (uint c = 0; c < colorsCountm1; ++c)
 	{
+		oneSameSpot = false;
 		oneSpot1 = false;
 		oneSpot2 = false;
-		twoSpot = false;
+		twoSpot  = false;
 		spotMode = false;
 		QString spot1 = colorNames[c].simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
 		QString spot2 = colorNames[c+1].simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
@@ -4294,13 +4296,13 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 				{
 					if (spotMap.contains(colorNames[c]))
 						oneSpot1 = true;
-					else if  (spotMap.contains(colorNames[c+1]))
+					if (spotMap.contains(colorNames[c+1]))
 						oneSpot2 = true;
-					if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+					if (oneSpot1 && oneSpot2)
 					{
-						oneSpot1 = false;
-						oneSpot2 = false;
-						twoSpot = true;
+						oneSameSpot = (colorNames[c] == colorNames[c+1]);
+						oneSpot1 = oneSpot2 = false;
+						twoSpot  = true;
 					}
 					if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!Options.UseSpotColors)) 
 						PutDoc("/ColorSpace /DeviceCMYK\n");
@@ -4308,7 +4310,9 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 					{
 						spotMode = true;
 						PutDoc("/ColorSpace [ /DeviceN [");
-						if (oneSpot1)
+						if (oneSameSpot)
+							PutDoc(" /"+spot1+ "]\n");
+						else if (oneSpot1)
 							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot1+" ]\n");
 						else if (oneSpot2)
 							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot2+" ]\n");
@@ -4343,7 +4347,12 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
 			if (Options.UseSpotColors)
 			{
-				if (oneSpot1)
+				if (oneSameSpot)
+				{
+					PutDoc("/C1 ["+FToStr(colorShades[c] / 100.0)+"]\n");
+					PutDoc("/C0 ["+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (oneSpot1)
 				{
 					PutDoc("/C1 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
 					PutDoc("/C0 ["+Colors[c+1]+" 0 ]\n");
@@ -4391,7 +4400,12 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
 			if (Options.UseSpotColors)
 			{
-				if (oneSpot1)
+				if (oneSameSpot)
+				{
+					PutDoc("/C0 ["+FToStr(colorShades[c] / 100.0)+"]\n");
+					PutDoc("/C1 ["+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (oneSpot1)
 				{
 					PutDoc("/C0 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
 					PutDoc("/C1 ["+Colors[c+1]+" 0 ]\n");
@@ -4425,20 +4439,30 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			StartObj(ObjCounter);
 			ObjCounter++;
 			PutDoc("<<\n/FunctionType 4\n");
-			if (twoSpot)
+			if (oneSameSpot)
+			{
+				PutDoc("/Domain [0.0 1.0]\n");
+				doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				colorDesc = "{\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n}\n";
+			}
+			else if (twoSpot)
 			{
 				PutDoc("/Domain [0.0 1.0 0.0 1.0]\n");
 				doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
 				colorDesc = "{\nexch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub exch pop 5 -1 roll\n";
 				doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n}\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n}\n";
 			}
 			else
 			{
@@ -4447,10 +4471,10 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 					doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
 				else
 					doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
-				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n}\n";
+				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll 1.0 exch sub mul 1.0 exch sub 5 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)  +" mul 1.0 exch sub 5 -1 roll 1.0 exch sub mul 1.0 exch sub 4 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)  +" mul 1.0 exch sub 4 -1 roll 1.0 exch sub mul 1.0 exch sub 3 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)  +" mul 1.0 exch sub 3 -1 roll 1.0 exch sub mul 1.0 exch sub 2 1 roll pop\n}\n";
 			}
 			PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
 			PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
