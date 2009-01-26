@@ -790,6 +790,15 @@ QString getDashString(int dashtype, double linewidth)
 	return dashString;
 }
 
+void getDashArray(int dashtype, double linewidth, QVector<float> &m_array) {
+   QVector<double> tmp;
+   getDashArray(dashtype, linewidth, tmp);
+   m_array.clear();
+   for (int i = 0; i < tmp.count(); ++i) {
+   m_array << static_cast<float>(tmp[i]);
+  }
+}
+
 void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
 {
 	m_array.clear();

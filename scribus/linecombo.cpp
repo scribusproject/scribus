@@ -51,7 +51,7 @@ void LineCombo::updateList()
 QPixmap LineCombo::createIcon(int type)
 {
 	QPen pen;
-	QVector<double> m_array;
+	QVector<qreal> m_array;
 	QPixmap pmap(73, 7);
 	pmap.fill(Qt::transparent);
 	QPainter p;
