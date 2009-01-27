@@ -4695,7 +4695,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
 						}
 					}
-					tmp2 += "s\n";
+					tmp2 += "h s\n";
 				}
 				tmp2 += "Q\n";
 			}
@@ -4704,7 +4704,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 		{
 			if (style.strokeColor() != CommonStrings::None)
 			{
-				if ((style.effects() & ScStyle_Underline) || (style.effects() & ScStyle_Strikethrough))
+				if ((style.effects() & ScStyle_Underline) || (style.effects() & ScStyle_Strikethrough) || (style.effects() & ScStyle_Outline))
 					tmp2 += StrokeColor;
 			}
 			if (style.fillColor() != CommonStrings::None)
@@ -4725,10 +4725,86 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 					tmp += StrokeColor;
 				if (style.fillColor() != CommonStrings::None)
 					tmp += FillColor;
-				if (style.effects() & 4)
-					tmp += FToStr(tsz * style.outlineWidth() / 10000.0) + (style.fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
+				if ((Options.SubsetList.contains(style.font().replacementName())) && (style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None))
+				{
+					tmp2 += "q\n";
+					tmp2 += FToStr((tsz * style.outlineWidth() / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
+					if (ite->itemType() == PageItem::PathText)
+					{
+						QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
+						QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
+						if (ite->textPathFlipped)
+							trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+						if (ite->textPathType == 0)
+							trafo *= QMatrix(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY);
+						else if (ite->textPathType == 1)
+							trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
+						tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
+					}
+					if (!ite->asPathText())
+					{
+						if (ite->reversed())
+						{
+							double wid = style.font().charWidth(chstr, style.fontSize()) * (hl->glyph.scaleH);
+							tmp2 += "1 0 0 1 "+FToStr(x+hl->glyph.xoffset)+" "+FToStr((y+hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (style.baselineOffset() / 1000.0)))+" cm\n";
+							tmp2 += "-1 0 0 1 0 0 cm\n";
+							tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
+							tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 0 cm\n";
+						}
+						else
+						{
+							tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr((y+hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (style.baselineOffset() / 1000.0)))+" cm\n";
+						}
+					}
+					else
+					{
+						if (ite->BaseOffs != 0)
+							tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
+						tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(tsz / 10.0)+" cm\n";
+					}
+					if (hl->glyph.scaleV != 1.0)
+						tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->glyph.scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
+					tmp2 += FToStr(qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1))+" 0 0 cm\n";
+					FPointArray gly = style.font().glyphOutline(glyph);
+					QMatrix mat;
+					mat.scale(0.1, 0.1);
+					gly.map(mat);
+					bool nPath = true;
+					FPoint np;
+					if (gly.size() > 3)
+					{
+						for (uint poi=0; poi<gly.size()-3; poi += 4)
+						{
+							if (gly.point(poi).x() > 900000)
+							{
+								tmp2 += "h\n";
+								nPath = true;
+								continue;
+							}
+							if (nPath)
+							{
+								np = gly.point(poi);
+								tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
+								nPath = false;
+							}
+							np = gly.point(poi+1);
+							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+							np = gly.point(poi+3);
+							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+							np = gly.point(poi+2);
+							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
+						}
+					}
+					tmp2 += "h s\n";
+					tmp2 += "Q\n";
+				}
 				else
-					tmp += "0 Tr\n";
+				{
+					if (style.effects() & 4)
+						tmp += FToStr(tsz * style.outlineWidth() / 10000.0) + (style.fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
+					else
+						tmp += "0 Tr\n";
+				}
 				if (!ite->asPathText())
 				{
 					if (ite->reversed())
