@@ -20,18 +20,23 @@ class QVBoxLayout;
 class ScribusDoc;
 class ScribusView;
 
+
+/*! \brief A dialog to manage/edit Master Pages
+*/
 class SCRIBUS_API MasterPagesPalette : public QDialog
 {
 	Q_OBJECT
 
 public:
-	MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName);
+	MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc,
+						ScribusView *pCurrentView, QString masterPageName);
 	~MasterPagesPalette() {};
 	void closeEvent(QCloseEvent *closeEvent);
 	void updateMasterPageList(void);
 	void updateMasterPageList(QString MasterPageName);
 
 public slots:
+	void languageChange();
 	void selectMasterPage(QString name);
 
 protected slots:

@@ -64,8 +64,10 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	masterPageListBox = new QListWidget( this );
 	masterPageListBox->clear();
 	masterPageListBox->setMinimumSize( QSize( 100, 240 ) );
+	masterPageListBox->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	masterPagesLayout->addWidget( masterPageListBox );
 
+	languageChange();
 
 	if (masterPageName.isEmpty())
 		sMuster = currentDoc->MasterNames.begin().key();
@@ -76,17 +78,23 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 
 	setMinimumSize(sizeHint());
 
-	duplicateButton->setToolTip( tr( "Duplicate the selected master page" ) );
-	deleteButton->setToolTip( tr( "Delete the selected master page" ) );
-	newButton->setToolTip( tr( "Add a new master page" ) );
-	importButton->setToolTip( tr( "Import master pages from another document" ) );
 	// signals and slots connections
 	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateMasterPage()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newMasterPage()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(importPage()));
-	connect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectMasterPage(QListWidgetItem*)));
-	connect(masterPageListBox, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(renameMasterPage( QListWidgetItem*)));
+	connect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)),
+			 this, SLOT(selectMasterPage(QListWidgetItem*)));
+	connect(masterPageListBox, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+			 this, SLOT(renameMasterPage( QListWidgetItem*)));
+}
+
+void MasterPagesPalette::languageChange()
+{
+	duplicateButton->setToolTip( tr( "Duplicate the selected master page" ) );
+	deleteButton->setToolTip( tr( "Delete the selected master page" ) );
+	newButton->setToolTip( tr( "Add a new master page" ) );
+	importButton->setToolTip( tr( "Import master pages from another document" ) );
 }
 
 void MasterPagesPalette::reject()
@@ -103,20 +111,31 @@ void MasterPagesPalette::closeEvent(QCloseEvent *closeEvent)
 
 void MasterPagesPalette::deleteMasterPage()
 {
-	if ((sMuster == CommonStrings::masterPageNormal) || (sMuster == CommonStrings::trMasterPageNormal) || (sMuster == CommonStrings::trMasterPageNormalLeft) || (sMuster == CommonStrings::trMasterPageNormalMiddle) || (sMuster == CommonStrings::trMasterPageNormalRight))
-		return;
-	QString extraWarn = "";
-	for (int i=0; i < currentDoc->DocPages.count(); ++i )
+	// allow to delete multiple pages in one step
+	foreach (QListWidgetItem * delItem, masterPageListBox->selectedItems())
 	{
-		if (currentDoc->DocPages[i]->MPageNam == sMuster)
-			extraWarn = tr("This master page is used at least once in the document.");
-	}
-	int exit = QMessageBox::warning(this,
-	                              CommonStrings::trWarning,
-	                              tr("Do you really want to delete this master page?")+"\n"+extraWarn,
-	                              QMessageBox::Yes | QMessageBox::No);
-	if (exit == QMessageBox::Yes)
-	{
+		sMuster = delItem->text();
+
+		if ((sMuster == CommonStrings::masterPageNormal)
+			|| (sMuster == CommonStrings::trMasterPageNormal)
+			|| (sMuster == CommonStrings::trMasterPageNormalLeft)
+			|| (sMuster == CommonStrings::trMasterPageNormalMiddle)
+			|| (sMuster == CommonStrings::trMasterPageNormalRight))
+			continue;
+
+		QString extraWarn = "";
+		for (int i=0; i < currentDoc->DocPages.count(); ++i )
+		{
+			if (currentDoc->DocPages[i]->MPageNam == sMuster)
+				extraWarn = tr("This master page is used at least once in the document.");
+		}
+		int exit = QMessageBox::warning(this,
+									CommonStrings::trWarning,
+									tr("Do you really want to delete this master page?")+"\n"+extraWarn,
+									QMessageBox::Yes | QMessageBox::No);
+		if (exit != QMessageBox::Yes)
+			continue;
+
 		if (currentDoc->appMode == modeEditClip)
 			currentView->requestMode(submodeEndNodeEdit);
 		currentDoc->scMW()->DeletePage2(currentDoc->MasterNames[sMuster]);
@@ -125,12 +144,12 @@ void MasterPagesPalette::deleteMasterPage()
 		currentDoc->rebuildMasterNames();
 		// Fix up any pages that refer to the deleted master page
 		currentDoc->replaceMasterPage(sMuster);
-
-		QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
-		sMuster = it.key();
-		updateMasterPageList(sMuster);
-		//currentDoc->MasterPages = currentDoc->Pages;
 	}
+
+	// set the 1st MP for the other slots
+	QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
+	sMuster = it.key();
+	updateMasterPageList(sMuster);
 }
 
 void MasterPagesPalette::duplicateMasterPage()
