@@ -4728,7 +4728,40 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	setUsesAutomaticTextFrames(false);
 	Page* from = DocPages.at(pageNumberToCopy);
 	Page* lastDest = NULL;
-	int GrMax = GroupCounter;
+
+	uint oldItems = Items->count();
+	QStringList itemBuffer;
+	m_Selection->clear();
+	m_Selection->delaySignalsOn();
+	if (oldItems>0)
+	{
+		ScLayers::iterator it;
+		if (Layers.count()!= 0)
+		{
+			int currActiveLayer = activeLayer();
+			for (it = Layers.begin(); it != Layers.end(); ++it)
+			{
+				setActiveLayer((*it).LNr);
+				for (uint ite = 0; ite < oldItems; ++ite)
+				{
+					PageItem *itemToCopy = Items->at(ite);
+					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
+						m_Selection->addItem(itemToCopy, true);
+				}
+				if (m_Selection->count() != 0)
+				{
+					ScriXmlDoc *ss = new ScriXmlDoc();
+					itemBuffer.append(ss->WriteElem(this, view(), m_Selection));
+					m_Selection->clear();
+					delete ss;
+				}
+			}
+			setActiveLayer(currActiveLayer);
+		}
+	}
+	m_Selection->delaySignalsOff();
+
+
 	for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
 	{
 		//For multiple insertions we can insert in the same place
@@ -4778,38 +4811,27 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		}
 		// FIXME: stop using m_View
 		m_View->reformPages();
-		uint oldItems = Items->count();
-		m_Selection->clear();
-		m_Selection->delaySignalsOn();
-		if (oldItems>0)
+		if (itemBuffer.count() > 0)
 		{
+			int lcount = 0;
 			ScLayers::iterator it;
 			if (Layers.count()!= 0)
 			{
 				int currActiveLayer = activeLayer();
 				for (it = Layers.begin(); it != Layers.end(); ++it)
 				{
-					setActiveLayer((*it).LNr);
-					for (uint ite = 0; ite < oldItems; ++ite)
-					{
-						PageItem *itemToCopy = Items->at(ite);
-						if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
-							m_Selection->addItem(itemToCopy, true);
-					}
-					if (m_Selection->count() != 0)
+					if (lcount < itemBuffer.count())
 					{
 						ScriXmlDoc *ss = new ScriXmlDoc();
-						ss->ReadElemToLayer(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).LNr);
-						m_Selection->clear();
+						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).LNr);
 						delete ss;
 					}
+					lcount++;
 				}
 				setActiveLayer(currActiveLayer);
 			}
 		}
-		m_Selection->delaySignalsOff();
 		from->guides.copy(&destination->guides);
-		GroupCounter = GrMax + 1;
 	}
 	setUsesAutomaticTextFrames(autoText);
 	addPageToSection(existingPage, whereToInsert, copyCount);
