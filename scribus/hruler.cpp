@@ -504,6 +504,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		p.eraseRect(QRect(QPoint(qRound((Pos+Extra)*sc), 1), QPoint(qRound((EndPos-RExtra)*sc), 15)));
 		p.drawLine(qRound((Pos+Extra)*sc), 16, qRound((EndPos-RExtra)*sc), 16);
 		p.save();
+		p.setRenderHints(QPainter::Antialiasing,true);
 		if (Revers)
 		{
 			p.translate(qRound((Pos)*sc), 0);
@@ -803,6 +804,27 @@ void Hruler::setItem(PageItem * item)
 		ItemPos -= currDoc->currentPage()->xOffset();
 		ItemEndPos -= currDoc->currentPage()->xOffset();
 	}
+	
+	if (item->lineColor() != CommonStrings::None)
+		lineCorr = item->lineWidth() / 2.0;
+	else
+		lineCorr = 0;
+	ColGap = item->ColGap;
+	Cols = item->Cols;
+	Extra = item->textToFrameDistLeft();
+	RExtra = item->textToFrameDistRight();
+	First = item->currentStyle().firstIndent();
+	Indent = item->currentStyle().leftMargin();
+	double columnWidth = (item->width() - (item->columnGap() * (item->columns() - 1))
+				- item->textToFrameDistLeft() - item->textToFrameDistLeft()
+				- 2*lineCorr) / item->columns();
+	RMargin = columnWidth - item->currentStyle().rightMargin();
+	if (item->imageFlippedH() || (item->reversed()))
+		Revers = true;
+	else
+		Revers = false;
+	ItemPosValid = true;
+	TabValues = item->currentStyle().tabValues();
 }
 
 void Hruler::UpdateTabList()

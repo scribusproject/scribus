@@ -1539,37 +1539,14 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 							if (!m_viewMode.linkedFramesToShow.contains(nextItem))
 								m_viewMode.linkedFramesToShow.append(nextItem);
 						}
-						/* FIXME:av
+						/* FIXME:av -
+						what to fix exactly? - pm
+						*/
 						if ((m_doc->appMode == modeEdit) && (currItem->isSelected()) && (currItem->itemType() == PageItem::TextFrame))
 						{
-							//CB 230305 Stop redrawing the horizontal ruler if it hasnt changed when typing text!!!
-							if ((qRound(horizRuler->ItemPos*10000) != qRound((currItem->xPos())*10000)) || (qRound(horizRuler->ItemEndPos*10000) != qRound(((currItem->xPos()+currItem->width()) )*10000)))
-							{
-								horizRuler->setItem(currItem);
-								if (currItem->lineColor() != CommonStrings::None)
-									horizRuler->lineCorr = currItem->lineWidth() / 2.0;
-								else
-									horizRuler->lineCorr = 0;
-								horizRuler->ColGap = currItem->ColGap;
-								horizRuler->Cols = currItem->Cols;
-								horizRuler->Extra = currItem->textToFrameDistLeft();
-								horizRuler->RExtra = currItem->textToFrameDistRight();
-								horizRuler->First = currItem->currentStyle().firstIndent();
-								horizRuler->Indent = currItem->currentStyle().leftMargin();
-								double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1)) 
-									- currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft() 
-									- 2*horizRuler->lineCorr) / currItem->columns();
-								horizRuler->RMargin = columnWidth - currItem->currentStyle().rightMargin();
-								if (currItem->imageFlippedH() || (currItem->reversed()))
-									horizRuler->Revers = true;
-								else
-									horizRuler->Revers = false;
-								horizRuler->ItemPosValid = true;
-								horizRuler->TabValues = currItem->currentStyle().tabValues();
-								horizRuler->update();
-							}
+						
+							setupEditHRuler(currItem);
 						}
-						*/
 					}
 					if (groupStack.count() != 0)
 					{
@@ -2263,30 +2240,41 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
-void Canvas::setupEditHRuler(PageItem * item)
+void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 {
-	// code taken from ScribusMainWindow::HaveNewSel
+	static QString rulerItemRef;
+	static double rulerDumbHash(0.0);
+	
+	if( (rulerItemRef != item->itemName()) 
+		   || forceAndReset )
+	{
+		rulerItemRef = item->itemName();
+		rulerDumbHash = 0.0;
+	}
+	
+	double controlHash(0.0);
+	controlHash = item->xPos() 
+			+ item->yPos()				* 1.0
+			+ item->ColGap 				* 2.0
+			+ item->Cols 				* 3.0
+			+ item->textToFrameDistLeft()		* 4.0 
+			+ item->textToFrameDistRight()		* 5.0
+			+ item->currentStyle().firstIndent()	* 6.0
+			+ item->currentStyle().leftMargin()	* 7.0
+			+ item->width()				* 8.0
+			+ item->currentStyle().rightMargin()	* 9.0
+			+ (item->imageFlippedH() ? 32.32 : 13.13);
+	
+	foreach(const ParagraphStyle::TabRecord& tabrec, item->currentStyle().tabValues())
+	{
+		controlHash += tabrec.tabPosition;
+	}
+// 	qDebug()<<"Canvas::setupEditHRuler"<<rulerItemRef<<controlHash<<rulerDumbHash;
+	if(controlHash == rulerDumbHash)
+		return;
+	
+	rulerDumbHash = controlHash;
 	m_view->horizRuler->setItem(item);
-	if (item->lineColor() != CommonStrings::None)
-		m_view->horizRuler->lineCorr = item->lineWidth() / 2.0;
-	else
-		m_view->horizRuler->lineCorr = 0;
-	m_view->horizRuler->ColGap = item->ColGap;
-	m_view->horizRuler->Cols = item->Cols;
-	m_view->horizRuler->Extra = item->textToFrameDistLeft();
-	m_view->horizRuler->RExtra = item->textToFrameDistRight();
-	m_view->horizRuler->First = item->currentStyle().firstIndent();
-	m_view->horizRuler->Indent = item->currentStyle().leftMargin();
-	double columnWidth = (item->width() - (item->columnGap() * (item->columns() - 1))
-				- item->textToFrameDistLeft() - item->textToFrameDistLeft()
-				- 2*m_view->horizRuler->lineCorr) / item->columns();
-	m_view->horizRuler->RMargin = columnWidth - item->currentStyle().rightMargin();
-	if (item->imageFlippedH() || (item->reversed()))
-		m_view->horizRuler->Revers = true;
-	else
-		m_view->horizRuler->Revers = false;
-	m_view->horizRuler->ItemPosValid = true;
-	m_view->horizRuler->TabValues = item->currentStyle().tabValues();
 	m_view->horizRuler->repaint();
 }
 

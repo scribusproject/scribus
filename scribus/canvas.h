@@ -188,7 +188,7 @@ public:
 	void displayXYHUD(QPoint m, double x, double y);
 	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
 	
-	void setupEditHRuler(PageItem * item);
+	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	
 private:
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);

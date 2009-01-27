@@ -317,7 +317,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	PageItem * it(0);
 	if(GetItem(&it))
 	{
-		m_canvas->setupEditHRuler(it);
+		m_canvas->setupEditHRuler(it, true);
 	}
 }
 
