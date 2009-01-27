@@ -274,7 +274,25 @@ void Hyphenator::slotHyphenate(PageItem* it)
 					if (!hasHyphen)
 						it->itemText.hyphenateWord(startC + firstC, found.length(), NULL);
 					else if (Automatic)
+					{
+						if (specialWords.contains(found2))
+						{
+							outs = specialWords.value(found2);
+							uint ii = 1;
+							for (i = 1; i < outs.length()-1; ++i)
+							{
+								QChar cht = outs[i];
+								if (cht == '-')
+									buffer[ii-1] = 1;
+								else
+								{
+									buffer[ii] = 0;
+									++ii;
+								}
+							}
+						}
 						it->itemText.hyphenateWord(startC + firstC, found.length(), buffer);
+					}
 					else
 					{
 						if (specialWords.contains(found2))
