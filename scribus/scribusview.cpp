@@ -2416,8 +2416,8 @@ void ScribusView::setRulerPos(int x, int y)
 //	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
 	horizRuler->offs += 0*Doc->minCanvasCoordinate.x()  - Doc->rulerXoffset;
 	vertRuler->offs += 0*Doc->minCanvasCoordinate.y()  - Doc->rulerYoffset;
-	horizRuler->repaint();
-	vertRuler->repaint();
+	horizRuler->update();
+	vertRuler->update();
 //	evSpon = true;
 	QString newStatusBarText(" ");
 	if ((verticalScrollBar()->isSliderDown()) || (horizontalScrollBar()->isSliderDown()))
@@ -2824,8 +2824,8 @@ void ScribusView::ChgUnit(int art)
 {
 	emit changeUN(art);
 	unitChange();
-	vertRuler->repaint();
-	horizRuler->repaint();
+	vertRuler->update();
+	horizRuler->update();
 }
 
 void ScribusView::changePreviewQuality(int index)

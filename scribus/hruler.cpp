@@ -747,7 +747,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
 		p.drawPolygon(cr);
 #endif
-	p.end();
+		p.end();
 	}
 }
 

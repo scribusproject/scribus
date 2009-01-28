@@ -2275,7 +2275,7 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	
 	rulerDumbHash = controlHash;
 	m_view->horizRuler->setItem(item);
-	m_view->horizRuler->repaint();
+	m_view->horizRuler->update();
 }
 
 

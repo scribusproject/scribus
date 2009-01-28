@@ -2844,7 +2844,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["insertSampleText"]->setEnabled(false);
 
 	view->horizRuler->ItemPosValid = false;
-	view->horizRuler->repaint();
+	view->horizRuler->update();
 	switch (SelectedType)
 	{
 	case -1: // None
@@ -2994,7 +2994,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 				view->horizRuler->Revers = false;
 			view->horizRuler->ItemPosValid = true;
 			view->horizRuler->TabValues = currItem->currentStyle().tabValues();
-			view->horizRuler->repaint();
+			view->horizRuler->update();
 		}
 		else
 		{
@@ -6294,7 +6294,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
 			view->horizRuler->ItemPosValid = false;
-			view->horizRuler->repaint();
+			view->horizRuler->update();
 		}
 		if (mode == modeEdit)
 		{
