@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "scribuscore.h"
 
 #include "units.h"
 #include "util.h"
@@ -25,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QTextStream>
 #include <QApplication>
+#include <QMessageBox>
 
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
@@ -744,6 +746,12 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	setCurrentComboItem(m_View->unitSwitcher, unitGetStrFromIndex(m_Doc->unitIndex()));
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(DOC.childNodes().count());
+
+	QMessageBox::warning(ScCore->primaryMainWindow(),
+						  CommonStrings::trWarning,
+						  tr("You have opened a file produced by Scribus 1.2.x.\n"
+						     "If you save it in this version, it will no longer be readable by older Scribus versions."));
+	
 	return true;
 //end old ReadDoc
 	

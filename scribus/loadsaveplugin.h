@@ -24,7 +24,7 @@ class FileFormat;
 #include "scribusdoc.h"
 #include "scribusview.h"
 
-/*
+/*!
  * @brief Superclass for all file import/export/load/save plugins
  *
  * This class provides the interface common to all file load/save/import/export

@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_text.h"
 #include "scgzfile.h"
+#include "scribuscore.h"
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
@@ -29,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QTextStream>
 #include <QApplication>
+#include <QMessageBox>
 
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
@@ -1131,6 +1133,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(DOC.childNodes().count());
+
+	QMessageBox::warning(ScCore->primaryMainWindow(),
+						  CommonStrings::trWarning,
+						  tr("You have opened a file produced by Scribus 1.3.3.x.\n"
+						     "If you save it in this version, it will no longer be readable by older Scribus versions."));
+
 	return true;
 // 	return false;
 }
