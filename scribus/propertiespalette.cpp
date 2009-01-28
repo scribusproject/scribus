@@ -1681,6 +1681,22 @@ void PropertiesPalette::SelTab(int t)
 		if (t == idImageItem)
 			imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
 	}
+	// fix for #5991: Property Palette text input box focus stays even when on another tab
+	// Disable widgets in all pages except current one - PV
+	bool enable;
+	for (int i = 0; i < TabStack->count(); ++i)
+	{
+		enable = (i == t);
+		foreach (QObject * o, TabStack->widget(i)->children())
+		{
+			// Layouts, boxes etc aren't widgets at all
+			// so let's skip them silently...
+			QWidget * w = qobject_cast<QWidget*>(o);
+			if (w)
+				w->setEnabled(enable);
+		}
+	}
+
 }
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
