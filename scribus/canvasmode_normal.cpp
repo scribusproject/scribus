@@ -253,19 +253,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-	{
-		m_ScMW->setAppMode(modePanning);
-	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modePanning))
-	{
-		double sc = m_canvas->scale();
-		int scroX = qRound((mousePointDoc.x() - m_mouseCurrentPoint.x()) * sc);
-		int scroY = qRound((mousePointDoc.y() - m_mouseCurrentPoint.y()) * sc);
-		m_view->scrollBy(-scroX, -scroY);
-		m_mouseCurrentPoint = mousePointDoc;
-		return;
-	}
+	commonMouseMove(m);
 	m_mouseCurrentPoint = mousePointDoc;
 	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
 	{
@@ -619,7 +607,8 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (m->modifiers() & Qt::ControlModifier)
+			m_view->DrawNew();
 		return;
 	}
 

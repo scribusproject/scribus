@@ -55,7 +55,8 @@ public:
 
 private:
 
-	double Mxp, Myp, Dxp, Dyp, SeRx, SeRy;
+//	double Mxp, Myp, Dxp, Dyp;
+	double SeRx, SeRy;
 	ScribusMainWindow* m_ScMW;
 	bool m_cursorVisible;
 	bool m_lastPosWasOverGuide;

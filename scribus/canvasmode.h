@@ -39,6 +39,7 @@ class  Canvas;
 struct CanvasViewMode;
 class  ScribusDoc;
 class  ScribusView;
+class ScribusMainWindow;
 class  PageItem;
 class PageItemPreview;
 
@@ -133,8 +134,11 @@ protected:
 	ScribusView * const m_view;	
 	Canvas * const m_canvas;
 	ScribusDoc * const m_doc;
+	double Mxp, Myp, Dxp, Dyp;
 	
 	void setResizeCursor(int how, double rot = 0.0);
+	void commonMouseMove(QMouseEvent *m);
+	void commonDrawControls(QPainter* p);
 	
 	private:
 		QMap<QString,QPen> m_pen;

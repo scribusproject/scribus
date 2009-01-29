@@ -168,12 +168,8 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 		}
 	}
 */
-	
-	if (m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-	{
-		m_view->requestMode(modePanning);
-	}
 
+	commonMouseMove(m);
 	
 	if (m_MouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))
 	{
@@ -289,7 +285,8 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (m->modifiers() & Qt::ControlModifier)
+			m_view->DrawNew();
 		return;
 	}
 	if (m->button() != Qt::LeftButton)

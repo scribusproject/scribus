@@ -222,11 +222,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	}
 */
 	
-	if (m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-	{
-		m_view->requestMode(modePanning);
-	}
-
+	commonMouseMove(m);
 	
 	if (inItemCreation)
 	{
@@ -316,7 +312,8 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (m->modifiers() & Qt::ControlModifier)
+			m_view->DrawNew();
 		return;
 	}
 	if (m->button() == Qt::RightButton)

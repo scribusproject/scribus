@@ -57,15 +57,7 @@ inline bool CanvasMode_CopyProperties::GetItem(PageItem** pi)
 
 void CanvasMode_CopyProperties::drawControls(QPainter* p)
 {
-//	qDebug() << "CanvasMode_CopyProperties::drawControls";
-	if (m_canvas->m_viewMode.operItemMoving)
-	{
-		drawOutline(p);
-	}
-	else
-	{
-		drawSelection(p);
-	}
+	commonDrawControls(p);
 }
 
 void CanvasMode_CopyProperties::enterEvent(QEvent *)
@@ -121,31 +113,10 @@ void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
 	m->accept();
-
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-	{
-		if (m_doc->appMode != modePanning)
-			m_ScMW->setAppMode(modePanning);
-	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modePanning))
-	{
-		double sc = m_canvas->scale();
-		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
-		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
-		m_view->scrollBy(-scroX, -scroY);
-		Mxp = mousePointDoc.x();
-		Myp = mousePointDoc.y();
-		return;
-	}
+	commonMouseMove(m);
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
-//		double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-//		double newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
 		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 		if (!m_view->redrawMarker->isVisible())
@@ -180,7 +151,8 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (m->modifiers() & Qt::ControlModifier)
+			m_view->DrawNew();
 		return;
 	}
 	if (m->button() != Qt::LeftButton)

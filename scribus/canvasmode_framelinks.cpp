@@ -66,15 +66,7 @@ inline bool CanvasMode_FrameLinks::GetItem(PageItem** pi)
 
 void CanvasMode_FrameLinks::drawControls(QPainter* p)
 {
-//	qDebug() << "CanvasMode_FrameLinks::drawControls";
-	if (m_canvas->m_viewMode.operItemMoving)
-	{
-		drawOutline(p);
-	}
-	else
-	{
-		drawSelection(p);
-	}
+	commonDrawControls(p);
 }
 
 void CanvasMode_FrameLinks::enterEvent(QEvent *)
@@ -129,30 +121,11 @@ void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	m->accept();
+	commonMouseMove(m);
 
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-	{
-		if (m_doc->appMode != modePanning)
-		{
-			m_oldAppMode = m_doc->appMode;
-			m_ScMW->setAppMode(modePanning);
-		}
-	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modePanning))
-	{
-		double sc = m_canvas->scale();
-		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
-		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
-		m_view->scrollBy(-scroX, -scroY);
-		Mxp = mousePointDoc.x();
-		Myp = mousePointDoc.y();
-		return;
-	}
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		SeRx = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -198,7 +171,8 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (m->modifiers() & Qt::ControlModifier)
+			m_view->DrawNew();
 		return;
 	}
 	switch (m_doc->appMode)

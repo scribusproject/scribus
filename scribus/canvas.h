@@ -86,6 +86,7 @@ public:
 	Canvas(ScribusDoc* doc, ScribusView* parent);
 	
 	friend class ScribusView; // for now...
+	friend class CanvasMode;
 	friend class LegacyMode;
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;

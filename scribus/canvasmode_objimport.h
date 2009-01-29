@@ -57,7 +57,7 @@ private:
 	QMimeData* m_mimeData;
 	ScribusMainWindow* m_ScMW;
 	int        m_oldAppMode;
-	double     Mxp, Myp;
+//	double     Mxp, Myp;
 };
 
 

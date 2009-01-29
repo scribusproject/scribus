@@ -58,7 +58,7 @@ private:
 	int frameResizeHandle;
 	int RotMode;
 	int dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
+//	double Mxp, Myp, Dxp, Dyp;
 	int GxM, GyM;
 	double SeRx, SeRy;
 	bool MoveGX, MoveGY;

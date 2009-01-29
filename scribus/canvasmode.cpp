@@ -37,6 +37,7 @@
 #include "selection.h"
 #include "scpainter.h"
 #include "scresizecursor.h"
+#include "scribus.h"
 #include "scribusview.h"
 #include "util_icon.h"
 
@@ -617,4 +618,32 @@ void CanvasMode::setResizeCursor(int how, double rot)
 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 			break;
 	}
+}
+
+void CanvasMode::commonMouseMove(QMouseEvent *m)
+{
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
+	{
+		if (m_doc->appMode != modePanning)
+			m_view->m_ScMW->setAppMode(modePanning);
+	}
+	if ((m_canvas->m_viewMode.m_MouseButtonPressed || m_view->MidButt) && (m_doc->appMode == modePanning))
+	{
+		double sc = m_canvas->scale();
+		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
+		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
+		m_view->scrollBy(-scroX, -scroY);
+		Mxp = mousePointDoc.x();
+		Myp = mousePointDoc.y();
+		return;
+	}
+}
+
+void CanvasMode::commonDrawControls(QPainter* p)
+{
+	if (m_canvas->m_viewMode.operItemMoving)
+		drawOutline(p);
+	else
+		drawSelection(p);
 }

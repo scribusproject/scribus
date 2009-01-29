@@ -63,7 +63,7 @@ private:
 	int  Cp, oldCp;
 	int  frameResizeHandle;
 	int  dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
+//	double Mxp, Myp, Dxp, Dyp;
 	double SeRx, SeRy;
 	ScribusMainWindow* m_ScMW;
 	ResizeGesture* resizeGesture;

@@ -59,15 +59,7 @@ CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view)
 
 void CanvasMode_Magnifier::drawControls(QPainter* p)
 {
-//	qDebug() << "CanvasMode_Magnifier::drawControls";
-	if (m_canvas->m_viewMode.operItemMoving)
-	{
-		drawOutline(p);
-	}
-	else
-	{
-		drawSelection(p);
-	}
+	commonDrawControls(p);
 }
 
 void CanvasMode_Magnifier::enterEvent(QEvent *)
@@ -130,26 +122,7 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
 	m->accept();
-//	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
-//				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
-
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-	{
-		m_ScMW->setAppMode(modePanning);
-	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modePanning))
-	{
-		double sc = m_canvas->scale();
-		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
-		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
-		m_view->scrollBy(-scroX, -scroY);
-//		Mxp = static_cast<int>((m->x()-scroX)/sc);
-//		Myp = static_cast<int>((m->y()-scroY)/sc);
-		Mxp = mousePointDoc.x();
-		Myp = mousePointDoc.y();
-		return;
-	}
+	commonMouseMove(m);
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -191,7 +164,8 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (m->modifiers() & Qt::ControlModifier)
+			m_view->DrawNew();
 		return;
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;

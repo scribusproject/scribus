@@ -214,7 +214,8 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (m->modifiers() & Qt::ControlModifier)
+			m_view->DrawNew();
 		return;
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
