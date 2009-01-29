@@ -2382,7 +2382,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	currItem->annotation().setVis(obj->attribute("ANVIS", "0").toInt());
 	currItem->annotation().setIsChk(static_cast<bool>(obj->attribute("ANCHK", "0").toInt()));
 	currItem->annotation().setAAact(static_cast<bool>(obj->attribute("ANAA", "0").toInt()));
-	currItem->annotation().setHTML(static_cast<bool>(obj->attribute("ANHTML", "0").toInt()));
+	currItem->annotation().setHTML(obj->attribute("ANHTML", "0").toInt());
 	currItem->annotation().setUseIcons(static_cast<bool>(obj->attribute("ANICON", "0").toInt()));
 	currItem->annotation().setChkStil(obj->attribute("ANCHKS", "0").toInt());
 	currItem->annotation().setMaxChar(obj->attribute("ANMC", "-1").toInt());

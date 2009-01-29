@@ -673,10 +673,26 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3bLayout->addWidget( SubURL );
 	if (item->annotation().ActionType() == 3)
 		SubURL->setText(item->annotation().Action());
-	SubAsHtml = new QCheckBox( Frame3b );
-	SubAsHtml->setChecked(item->annotation().HTML());
-	SubAsHtml->setText( tr( "Submit Data as HTML" ) );
-	Frame3bLayout->addWidget( SubAsHtml );
+//	SubAsHtml = new QCheckBox( Frame3b );
+//	SubAsHtml->setChecked(item->annotation().HTML());
+//	SubAsHtml->setText( tr( "Submit Data as HTML" ) );
+//	Frame3bLayout->addWidget( SubAsHtml );
+
+	SubText2 = new QLabel( Frame3b );
+	SubText2->setText( tr( "Submit format:" ) );
+	Frame3bLayout->addWidget( SubText2 );
+	SelAsHtml = new QComboBox( Frame3b );
+	QString tmp_selhtml[]={tr("FDF"), tr("HTML"), tr("XFDF"), tr("PDF")};
+	//QString tmp_selhtml[]={"FDF", "HTML", "XFDF", "PDF"};
+	size_t array_selhtml = sizeof(tmp_selhtml) / sizeof(*tmp_selhtml);
+	/* PFJ - 28/02/04 - Altered from uint to int and var name */
+	for (uint propogate2 = 0; propogate2 < array_selhtml; ++propogate2)
+		SelAsHtml->addItem(tmp_selhtml[propogate2]);
+	SelAsHtml->setEditable(false);
+	SelAsHtml->setCurrentIndex(item->annotation().HTML());
+	Frame3bLayout->addWidget( SelAsHtml );
+
+
 	QSpacerItem* spacerSu = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Frame3bLayout->addItem( spacerSu);
 	Fram2->addWidget( Frame3b );
@@ -1981,7 +1997,8 @@ void Annot::SetVals()
 		case 3:
 			item->annotation().setActionType(3);
 			item->annotation().setAction(SubURL->text().simplified());
-			item->annotation().setHTML(SubAsHtml->isChecked());
+			item->annotation().setHTML(SelAsHtml->currentIndex());
+//			item->annotation().setHTML(SubAsHtml->isChecked());
 			break;
 		case 4:
 			item->annotation().setActionType(4);
@@ -2165,7 +2182,8 @@ void Annot::SetActTyp(int it)
 	case 3:
 		Fram2->setCurrentIndex(3);
 		SubURL->setText(item->annotation().Action());
-		SubAsHtml->setChecked(item->annotation().HTML());
+//		SubAsHtml->setChecked(item->annotation().HTML());
+		SelAsHtml->setCurrentIndex(item->annotation().HTML());
 		break;
 	case 2:
 		Fram2->setCurrentIndex(2);

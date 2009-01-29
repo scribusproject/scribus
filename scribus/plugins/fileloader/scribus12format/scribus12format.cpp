@@ -886,7 +886,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->m_annotation.setVis(obj->attribute("ANVIS", "0").toInt());
 	OB->m_annotation.setIsChk(static_cast<bool>(obj->attribute("ANCHK", "0").toInt()));
 	OB->m_annotation.setAAact(static_cast<bool>(obj->attribute("ANAA", "0").toInt()));
-	OB->m_annotation.setHTML(static_cast<bool>(obj->attribute("ANHTML", "0").toInt()));
+	OB->m_annotation.setHTML(obj->attribute("ANHTML", "0").toInt());
 	OB->m_annotation.setUseIcons(static_cast<bool>(obj->attribute("ANICON", "0").toInt()));
 	OB->m_annotation.setChkStil(obj->attribute("ANCHKS", "0").toInt());
 	OB->m_annotation.setMaxChar(obj->attribute("ANMC", "-1").toInt());

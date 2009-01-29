@@ -184,7 +184,9 @@ public:
 	QFrame* Frame3b;
 	QLabel* SubText1;
 	QLineEdit* SubURL;
-	QCheckBox* SubAsHtml;
+//	QCheckBox* SubAsHtml;
+	QLabel* SubText2;
+	QComboBox* SelAsHtml;
 	QFrame* Frame3c;
 	QLabel* SubText1a;
 	QLineEdit* SubURLa;
