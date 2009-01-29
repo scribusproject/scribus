@@ -111,6 +111,8 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 
 void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textframe )
 {
+	if(textframe->lastInFrame() < 0)
+		return;
 	if ( m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2 )
 	{
 		m_cursorVisible = !m_cursorVisible;
