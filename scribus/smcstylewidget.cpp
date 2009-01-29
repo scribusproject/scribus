@@ -82,6 +82,7 @@ void SMCStyleWidget::languageChange()
 	fontFace_->setToolTip(       tr("Font Face"));
 	fontSize_->setToolTip(       tr("Font Size"));
 	tracking_->setToolTip(       tr("Tracking"));
+	widthSpaceSpin->setToolTip(  tr("Default width for space"));
 	baselineOffset_->setToolTip( tr("Baseline Offset"));
 	fontHScale_->setToolTip(     tr("Horizontal Scaling"));
 	fontVScale_->setToolTip(     tr("Vertical Scaling"));
@@ -93,6 +94,7 @@ void SMCStyleWidget::languageChange()
 
 	fontSizeLabel_->setToolTip(fontSize_->toolTip());
 	trackingLabel_->setToolTip(tracking_->toolTip());
+	widthSpaceLabel->setToolTip(widthSpaceSpin->toolTip());
 	baselineOffsetLabel_->setToolTip(baselineOffset_->toolTip());
 	hscaleLabel_->setToolTip(fontHScale_->toolTip());
 	vscaleLabel_->setToolTip(fontVScale_->toolTip());
@@ -111,6 +113,7 @@ void SMCStyleWidget::languageChange()
 // 	fontHScale_->setSuffix( tr(" %"));
 // 	baselineOffset_->setSuffix( tr(" %"));
 // 	tracking_->setSuffix( tr(" %"));
+	widthSpaceLabel->setText(tr("Space Width"));
 	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
 }
 
@@ -174,6 +177,9 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 
 		tracking_->setValue(cstyle->tracking() / 10.0, cstyle->isInhTracking());
 		tracking_->setParentValue(parent->tracking() / 10.0);
+		
+		widthSpaceSpin->setValue(cstyle->wordTracking() * 100.0 ,cstyle->isInhTracking());
+		widthSpaceSpin->setParentValue(parent->wordTracking() * 100.0);
 
 		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhFeatures());
 		effects_->setParentItem(static_cast<int>(parent->effects())); // FIXME
@@ -200,6 +206,7 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		fontVScale_->setValue(cstyle->scaleV() / 10.0);
 		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0);
 		tracking_->setValue(cstyle->tracking() / 10.0);
+		widthSpaceSpin->setValue(cstyle->wordTracking() * 100.0);
 		effects_->setStyle(static_cast<int>(cstyle->effects()));
 		fillShade_->setValue(qRound(cstyle->fillShade()));
 		strokeShade_->setValue(qRound(cstyle->strokeShade()));
@@ -392,6 +399,22 @@ void SMCStyleWidget::showSizeAndPosition(const QList<CharStyle*> &cstyles)
 		tracking_->clear();
 	else
 		tracking_->setValue(d / 10.0);
+	
+	d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->wordTracking() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->wordTracking();
+	}
+	if (d == -30000)
+		widthSpaceSpin->clear();
+	else
+		widthSpaceSpin->setValue(d * 100.0);
 }
 
 void SMCStyleWidget::showEffects(const QList<CharStyle*> &cstyles)

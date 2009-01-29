@@ -544,6 +544,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
 	connect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
 	connect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	connect(pwidget_->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)),
@@ -613,6 +614,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
 	disconnect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
 	disconnect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	disconnect(pwidget_->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)),
@@ -1283,6 +1285,28 @@ void SMParagraphStyle::slotTracking()
 	}
 }
 
+void SMParagraphStyle::slotWordTracking()
+{
+	if (pwidget_->cpage->widthSpaceSpin->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->charStyle().resetWordTracking();
+	else
+	{
+		double a, b, value;
+		int c;
+		pwidget_->cpage->widthSpaceSpin->getValues(&a, &b, &c, &value);
+		value = value / 100.0;
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->charStyle().setWordTracking(value);
+	}
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
 void SMParagraphStyle::slotBaselineOffset()
 {
 	if (pwidget_->cpage->baselineOffset_->useParentValue())
@@ -1835,6 +1859,7 @@ void SMCharacterStyle::setupConnections()
 	connect(page_->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
 	connect(page_->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
 	connect(page_->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	connect(page_->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(page_->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(page_->parentCombo, SIGNAL(activated(const QString&)),
@@ -1871,6 +1896,7 @@ void SMCharacterStyle::removeConnections()
 	disconnect(page_->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
 	disconnect(page_->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
 	disconnect(page_->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	disconnect(page_->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(page_->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(page_->parentCombo, SIGNAL(activated(const QString&)),
@@ -2174,6 +2200,29 @@ void SMCharacterStyle::slotTracking()
 		value = value * 10;
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setTracking(qRound(value));
+	}
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotWordTracking()
+{
+	if (page_->widthSpaceSpin->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetWordTracking();
+	else
+	{
+		double a, b, value;
+		int c;
+
+		page_->widthSpaceSpin->getValues(&a, &b, &c, &value);
+		value = value / 100.0;
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setWordTracking(value);
 	}
 
 	if (!selectionIsDirty_)

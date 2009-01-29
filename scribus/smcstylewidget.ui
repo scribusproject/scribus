@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
-    <height>456</height>
+    <width>366</width>
+    <height>478</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -15,16 +15,7 @@
      <property name="spacing" >
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
      <item>
@@ -34,6 +25,9 @@
        </property>
        <property name="wordWrap" >
         <bool>false</bool>
+       </property>
+       <property name="buddy" >
+        <cstring>parentCombo</cstring>
        </property>
       </widget>
      </item>
@@ -84,6 +78,9 @@
           <property name="text" >
            <string/>
           </property>
+          <property name="buddy" >
+           <cstring>fontSize_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -107,6 +104,9 @@
           <property name="text" >
            <string/>
           </property>
+          <property name="buddy" >
+           <cstring>tracking_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -123,11 +123,37 @@
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="widthSpaceLabel" >
+          <property name="text" >
+           <string>TextLabel</string>
+          </property>
+          <property name="buddy" >
+           <cstring>widthSpaceSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMScrSpinBox" name="widthSpaceSpin" >
+          <property name="suffix" >
+           <string> %</string>
+          </property>
+          <property name="minimum" >
+           <number>1</number>
+          </property>
+          <property name="maximum" >
+           <number>199</number>
+          </property>
+          <property name="value" >
+           <number>100</number>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer>
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
@@ -163,7 +189,7 @@
           <property name="sizeType" >
            <enum>QSizePolicy::Expanding</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>20</width>
             <height>40</height>
@@ -181,7 +207,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::MinimumExpanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>300</width>
           <height>0</height>
@@ -211,6 +237,9 @@
           <property name="text" >
            <string>TextLabel</string>
           </property>
+          <property name="buddy" >
+           <cstring>fontHScale_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -236,6 +265,9 @@
           </property>
           <property name="text" >
            <string>TextLabel</string>
+          </property>
+          <property name="buddy" >
+           <cstring>fontVScale_</cstring>
           </property>
          </widget>
         </item>
@@ -263,6 +295,9 @@
           <property name="text" >
            <string>TextLabel</string>
           </property>
+          <property name="buddy" >
+           <cstring>baselineOffset_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -283,7 +318,7 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
@@ -300,6 +335,9 @@
           <property name="text" >
            <string>Language:</string>
           </property>
+          <property name="buddy" >
+           <cstring>language_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -310,7 +348,7 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
@@ -328,7 +366,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::MinimumExpanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>300</width>
           <height>0</height>
@@ -358,6 +396,9 @@
           <property name="text" >
            <string>TextLabel</string>
           </property>
+          <property name="buddy" >
+           <cstring>fillColor_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -374,6 +415,9 @@
           <property name="text" >
            <string>TextLabel</string>
           </property>
+          <property name="buddy" >
+           <cstring>fillShade_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -388,7 +432,7 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
@@ -411,6 +455,9 @@
           <property name="text" >
            <string>TextLabel</string>
           </property>
+          <property name="buddy" >
+           <cstring>strokeColor_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -427,6 +474,9 @@
           <property name="text" >
            <string>TextLabel</string>
           </property>
+          <property name="buddy" >
+           <cstring>strokeShade_</cstring>
+          </property>
          </widget>
         </item>
         <item>
@@ -441,7 +491,7 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
@@ -459,7 +509,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::MinimumExpanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>72</width>
           <height>0</height>

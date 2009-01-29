@@ -100,6 +100,7 @@ private slots:
 	void slotScaleH();
 	void slotScaleV();
 	void slotTracking();
+	void slotWordTracking();
 	void slotBaselineOffset();
 	void slotFont(QString s);
 	void slotParentChanged(const QString &parent);
@@ -165,6 +166,7 @@ private slots:
 	void slotScaleH();
 	void slotScaleV();
 	void slotTracking();
+	void slotWordTracking();
 	void slotBaselineOffset();
 	void slotFont(QString s);
 	void slotParentChanged(const QString &parent);
