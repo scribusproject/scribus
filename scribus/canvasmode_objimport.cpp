@@ -119,7 +119,7 @@ void CanvasMode_ObjImport::mouseMoveEvent(QMouseEvent *m)
 	
 	m->accept();
 
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
+	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
 	{
 		if (m_doc->appMode != modePanning)
 		{
