@@ -137,8 +137,9 @@ void SMPStyleWidget::languageChange()
 	tabWidget->setTabText(1, tr("Character Style"));
 	
 	minSpaceLabel->setText(tr("Min. Space Width:"));
-	minGlyphExtLabel->setText(tr("Max. Glyph Compression:"));
-	maxGlyphExtLabel->setText(tr("Max. Glyph Extension:"));
+	glyphExtensionLabel->setText(tr("Glyph Extension"));
+	minGlyphExtLabel->setText(tr("Min:", "Glyph Extension"));
+	maxGlyphExtLabel->setText(tr("Max:", "Glyph Extension"));
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
