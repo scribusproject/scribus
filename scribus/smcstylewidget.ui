@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>366</width>
+    <width>378</width>
     <height>478</height>
    </rect>
   </property>
@@ -124,8 +124,14 @@
         </item>
         <item>
          <widget class="QLabel" name="widthSpaceLabel" >
-          <property name="text" >
-           <string>TextLabel</string>
+          <property name="minimumSize" >
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="textInteractionFlags" >
+           <set>Qt::NoTextInteraction</set>
           </property>
           <property name="buddy" >
            <cstring>widthSpaceSpin</cstring>

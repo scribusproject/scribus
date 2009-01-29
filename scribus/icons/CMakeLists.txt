@@ -166,6 +166,7 @@ scribus.png
 shade.png
 shadow.png
 shortwords.png
+spacewidth.png
 spiral.png
 spline.png
 spline16.png

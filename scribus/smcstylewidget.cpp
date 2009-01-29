@@ -26,6 +26,8 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget()
 // 	tracking_->setMinimum(-300.0);
 // 	tracking_->setMaximum(300.0);
 // 	tracking_->setSuffix( tr( " %" ) );
+	
+	widthSpaceLabel->setPixmap( loadIcon("spacewidth.png") );
 
 	baselineOffsetLabel_->setPixmap( loadIcon("textbase.png") );
 // 	baselineOffset_->setMinimum(-100.0);
@@ -113,7 +115,6 @@ void SMCStyleWidget::languageChange()
 // 	fontHScale_->setSuffix( tr(" %"));
 // 	baselineOffset_->setSuffix( tr(" %"));
 // 	tracking_->setSuffix( tr(" %"));
-	widthSpaceLabel->setText(tr("Space Width"));
 	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
 }
 
