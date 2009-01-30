@@ -478,7 +478,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 */
 		return;
 	}
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))
 	{
 		//newX = m->x();

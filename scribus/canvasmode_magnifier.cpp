@@ -122,7 +122,8 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
 	m->accept();
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());

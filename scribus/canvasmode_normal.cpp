@@ -253,7 +253,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	m_mouseCurrentPoint = mousePointDoc;
 	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
 	{

@@ -222,7 +222,8 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	}
 */
 	
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	
 	if (inItemCreation)
 	{

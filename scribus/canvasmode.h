@@ -137,7 +137,7 @@ protected:
 	double Mxp, Myp, Dxp, Dyp;
 	
 	void setResizeCursor(int how, double rot = 0.0);
-	void commonMouseMove(QMouseEvent *m);
+	bool commonMouseMove(QMouseEvent *m);
 	void commonDrawControls(QPainter* p);
 	
 	private:

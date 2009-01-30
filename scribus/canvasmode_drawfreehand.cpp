@@ -169,7 +169,8 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 	}
 */
 
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	
 	if (m_MouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))
 	{

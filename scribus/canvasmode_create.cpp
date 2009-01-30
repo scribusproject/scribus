@@ -228,7 +228,8 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	if (GetItem(&currItem))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());

@@ -368,7 +368,8 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 	QRect tx;
 	bool erf = false;
 	m->accept();
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	if (GetItem(&currItem))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());

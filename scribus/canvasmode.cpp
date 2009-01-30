@@ -620,7 +620,7 @@ void CanvasMode::setResizeCursor(int how, double rot)
 	}
 }
 
-void CanvasMode::commonMouseMove(QMouseEvent *m)
+bool CanvasMode::commonMouseMove(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
@@ -636,8 +636,9 @@ void CanvasMode::commonMouseMove(QMouseEvent *m)
 		m_view->scrollBy(-scroX, -scroY);
 		Mxp = mousePointDoc.x();
 		Myp = mousePointDoc.y();
-		return;
+		return true;
 	}
+	return false;
 }
 
 void CanvasMode::commonDrawControls(QPainter* p)

@@ -114,7 +114,8 @@ void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
 void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 {
 	m->accept();
-	commonMouseMove(m);
+	if (commonMouseMove(m))
+		return;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
