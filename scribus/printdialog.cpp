@@ -110,6 +110,8 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 		prefs->set("CurrentPrn", PrintDest->currentText());
 		DateiT->setEnabled(true);
 		LineEdit1->setEnabled(true);
+		if (!PDatei.isEmpty())
+			LineEdit1->setText(QDir::toNativeSeparators(PDatei));
 		ToolButton1->setEnabled(true);
 	}
 
