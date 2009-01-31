@@ -39,7 +39,7 @@ class Annotation
 						An_Fo_act(""), An_Bl_act(""), An_K_act(""), An_F_act(""), An_V_act(""), An_C_act(""),
 						AnToolTip(""), AnRollOver(""), AnDown(""), AnBColor(""), An_Extern(""), AnBsty(0),
 						AnBwid(1), AnFeed(1), AnZiel(0), AnFlag(0), AnMaxChar(-1), AnVis(0), AnChkStil(0),
-						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(false), AnUseIcons(false),
+						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(0), AnUseIcons(false),
 						AnIPlace(1), AnScaleW(0), AnFormat(0)
 		{
 		}
@@ -74,7 +74,7 @@ class Annotation
 		void setFormat(int newFormat) { AnFormat=newFormat; }
 		void setIsChk(bool newIsChk) { AnIsChk=newIsChk; }
 		void setAAact(bool newAAct) { AnAAact=newAAct; }
-		void setHTML(bool newHTML) { AnHTML=newHTML; }
+		void setHTML(int newHTML) { AnHTML=newHTML; }
 		void setUseIcons(bool newUseIcons) { AnUseIcons=newUseIcons; }
 		void setIPlace(int newIPlace) { AnIPlace=newIPlace; }
 		void setScaleW(int newScaleW) { AnScaleW=newScaleW; }
@@ -108,7 +108,7 @@ class Annotation
 		int Format() const { return AnFormat; }
 		bool IsChk() const { return AnIsChk; }
 		bool AAact() const { return AnAAact; }
-		bool HTML() const { return AnHTML; }
+		int HTML() const { return AnHTML; }
 		bool UseIcons() const { return AnUseIcons; }
 		int IPlace() const { return AnIPlace; }
 		int ScaleW() const { return AnScaleW; }
@@ -142,7 +142,7 @@ class Annotation
 		int AnFont;
 		bool AnIsChk;
 		bool AnAAact;
-		bool AnHTML;
+		int AnHTML;
 		bool AnUseIcons;
 		int AnIPlace;
 		int AnScaleW;

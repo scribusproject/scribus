@@ -4268,8 +4268,8 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation>Enviar a URL:</translation>
     </message>
     <message>
-        <source>Submit Data as HTML</source>
-        <translation>Enviar datos como HTML</translation>
+        <source>Submit format</source>
+        <translation>Formato de envío</translation>
     </message>
     <message>
         <source>Import Data from:</source>

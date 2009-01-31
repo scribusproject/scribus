@@ -570,10 +570,19 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3bLayout->addWidget( SubURL );
 	if (item->annotation().ActionType() == 3)
 		SubURL->setText(item->annotation().Action());
-	SubAsHtml = new QCheckBox( Frame3b, "UseCurr" );
-	SubAsHtml->setChecked(item->annotation().HTML());
-	SubAsHtml->setText( tr( "Submit Data as HTML" ) );
-	Frame3bLayout->addWidget( SubAsHtml );
+	SubText2 = new QLabel( Frame3b, "SubText2" );
+	SubText2->setText( tr( "Submit format:" ) );
+	Frame3bLayout->addWidget( SubText2 );
+	SelAsHtml = new QComboBox( true, Frame3b, "SelAsHtml" );
+	QString tmp_selhtml[]={tr("FDF"), tr("HTML"), tr("XFDF"), tr("PDF")};
+	//QString tmp_selhtml[]={"FDF", "HTML", "XFDF", "PDF"};
+	size_t array_selhtml = sizeof(tmp_selhtml) / sizeof(*tmp_selhtml);
+	/* PFJ - 28/02/04 - Altered from uint to int and var name */
+	for (uint propogate2 = 0; propogate2 < array_selhtml; ++propogate2)
+		SelAsHtml->insertItem(tmp_selhtml[propogate2]);
+	SelAsHtml->setEditable(false);
+	SelAsHtml->setCurrentItem(item->annotation().HTML());
+	Frame3bLayout->addWidget( SelAsHtml );
 	QSpacerItem* spacerSu = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Frame3bLayout->addItem( spacerSu);
 	Fram2->addWidget( Frame3b , 4);
@@ -1886,7 +1895,7 @@ void Annot::SetVals()
 		case 3:
 			item->annotation().setActionType(3);
 			item->annotation().setAction(SubURL->text().stripWhiteSpace());
-			item->annotation().setHTML(SubAsHtml->isChecked());
+			item->annotation().setHTML(SelAsHtml->currentItem());
 			break;
 		case 4:
 			item->annotation().setActionType(4);
@@ -2067,7 +2076,7 @@ void Annot::SetActTyp(int it)
 	case 3:
 		Fram2->raiseWidget(4);
 		SubURL->setText(item->annotation().Action());
-		SubAsHtml->setChecked(item->annotation().HTML());
+		SelAsHtml->setCurrentItem(item->annotation().HTML());
 		break;
 	case 2:
 		Fram2->raiseWidget(3);

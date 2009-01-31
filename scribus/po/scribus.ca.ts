@@ -5138,8 +5138,8 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation>Enviar a URL:</translation>
     </message>
     <message>
-        <source>Submit Data as HTML</source>
-        <translation>Enviar Dades com HTML</translation>
+        <source>Submit format</source>
+        <translation>Format d'enviament</translation>
     </message>
     <message>
         <source>Import Data from:</source>
