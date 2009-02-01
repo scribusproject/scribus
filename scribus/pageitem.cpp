@@ -709,7 +709,9 @@ bool PageItem::frameOverflows() const
 	/*return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);*/
 	return ( NextBox == NULL )
 	       && ( static_cast<int> ( firstChar ) < itemText.length() )
-	       && ( firstChar < MaxChars )
+		   // Fix #7766 : scribus.textOverflows() returns 0 if there is no place for the overflow mark
+	       /*&& ( firstChar < MaxChars )*/
+		   && ( firstChar <= MaxChars )
 	       && ( itemText.length() > static_cast<int> ( MaxChars ) );
 #else
 	return false; // FIXME:NLS
