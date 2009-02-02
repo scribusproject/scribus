@@ -59,6 +59,7 @@ struct CanvasViewMode
 	bool operItemResizing;
 	bool operItemResizeInEditMode;
 	bool operItemSelecting;
+	bool operTextSelecting;
 	QPolygon redrawPolygon;
 	QList<PageItemPointer> linkedFramesToShow;
 	

@@ -196,7 +196,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		Mpressed = false;
 		return;
 	}
-	if (ItemPosValid)
+	if (ItemPosValid && currItem)
 	{
 		if ((m->y() < height()) && (m->y() > 0))
 		{
@@ -237,6 +237,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				default:
 					break;
 			}
+			currItem->update();
 		}
 		else
 		{

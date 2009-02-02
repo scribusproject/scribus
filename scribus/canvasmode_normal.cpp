@@ -1192,7 +1192,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			m_canvas->update();
 		}
 		else
-			currItem->update();
+// 			currItem->update();
+			m_canvas->update();
 		
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)

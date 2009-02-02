@@ -742,7 +742,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			t1 = t.elapsed();
 			t.start();
 #endif
-			if ((m_viewMode.forceRedraw) && (!bufferFilled))
+			if ((m_viewMode.forceRedraw || m_viewMode.operTextSelecting) && (!bufferFilled))
 			{
 //				qDebug() << "Canvas::paintEvent: forceRedraw=" << m_viewMode.forceRedraw << "bufferFilled=" << bufferFilled;
 				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
@@ -862,6 +862,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 	m_viewMode.forceRedraw = false;
 	m_viewMode.operItemSelecting = false;
+	m_viewMode.operTextSelecting = false;
 }
 
 
@@ -1521,8 +1522,10 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 						else
 						{
-							if (m_viewMode.forceRedraw)
-								currItem->invalidateLayout();
+							// I comment it because the "view" should not
+							// alter the "data". And it really prevents optimisation - pm
+// 							if (m_viewMode.forceRedraw)
+// 								currItem->invalidateLayout();
 							currItem->DrawObj(painter, cullingArea);
 						}
 //						currItem->Redrawn = true;

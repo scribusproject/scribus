@@ -6337,7 +6337,8 @@ void ScribusMainWindow::setAppMode(int mode)
 				scrActions["editClearContents"]->setEnabled(currItem->HasSel);
 				scrActions["editSearchReplace"]->setEnabled(true);
 
-				currItem->update();
+				// Why the hell do you want to update the item here? - pm
+// 				currItem->update();
 			}
 		}
 		int docSelectionCount=doc->m_Selection->count();

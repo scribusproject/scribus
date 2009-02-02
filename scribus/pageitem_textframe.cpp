@@ -2236,8 +2236,6 @@ NoRoom:
 
 void PageItem_TextFrame::invalidateLayout()
 {
-// 	printBacktrace(8);
-// 	qDebug("PageItem_TextFrame::invalidateLayout");
 	const bool wholeChain = true;
 	this->invalid = true;
 	if (wholeChain)
@@ -2259,7 +2257,6 @@ void PageItem_TextFrame::invalidateLayout()
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
 {
-    // 	qDebug()<<"PageItem_TextFrame::DrawObj_Item"<<this<<invalid;
 	if(invalid)
 		layout();
 	if (invalid)
@@ -2348,6 +2345,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 		p->restore();
 	}
 */
+	
 	if (itemText.length() != 0)
 	{
 		//		qDebug("drawing textframe: len=%d", itemText.length());
@@ -3023,8 +3021,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ( itemText.lengthOfSelection() > 0 )
-			update();
+// 		if ( itemText.lengthOfSelection() > 0 )
+// 			update();
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_Delete:
@@ -3124,10 +3122,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			invalid = true;
 //			Tinput = true;
 //			view->RefreshItem(this);
+			// I would thinkit had to be triggered by itemText.insertChars but it seems not - pm
+			update();
 		}
 		break;
 	}
-	update();
+// 	update();
 //	view->slotDoCurs(true);
 	if ((kk == Qt::Key_Left) || (kk == Qt::Key_Right) || (kk == Qt::Key_Up) || (kk == Qt::Key_Down))
 	{
@@ -3259,7 +3259,9 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 	}
 	cursorBiasBackward = (oldPos > CPos);
 
-	update();
+// 	layoutWeakLock = true;
+// 	update();
+	m_Doc->regionsChanged()->update(getBoundingRect());
 }
 
 void PageItem_TextFrame::deselectAll()
@@ -3276,7 +3278,8 @@ void PageItem_TextFrame::deselectAll()
 			item->HasSel = false;
 			item = item->nextInChain();
 		}
-		update();
+// 		update();
+		m_Doc->regionsChanged()->update(getBoundingRect());
 	}
 	//CB Replace with direct call for now //emit HasNoTextSel();
 	m_Doc->scMW()->DisableTxEdit();

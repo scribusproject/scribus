@@ -385,7 +385,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
 				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
 		//		m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-				currItem->update();
+// 				currItem->update();
 				Mxp = newX;
 				Myp = newY;
 				m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
@@ -409,12 +409,16 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						currItem->HasSel = true;
 					}
 				}
-				currItem->update();
+// 				currItem->update();
 				if(currItem->HasSel)
+				{
 					m_ScMW->EnableTxEdit();
+					m_canvas->m_viewMode.operTextSelecting = true;
+				}
 				else
 					m_ScMW->DisableTxEdit();
 			}
+			m_canvas->update();
 		}
 		//Operations run here:
 		//Item resize, esp after creating a new one
@@ -1042,7 +1046,8 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					if (ScMimeData::clipboardHasScribusText())
 						m_ScMW->slotEditPaste();
 				}
-				currItem->update();
+// 				currItem->update();
+				m_canvas->update();
 			}
 		}
 		else if (!currItem->asImageFrame() || 
@@ -1455,15 +1460,16 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 			}
 		}
 
-		currItem->update();
+// 		currItem->update();
+		m_canvas->update();
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
-			for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
-			{
-				PageItem *bb = m_doc->m_Selection->itemAt(aa);
-				bb->update();
-			}
+// 			for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
+// 			{
+// 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
+// 				bb->update();
+// 			}
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
