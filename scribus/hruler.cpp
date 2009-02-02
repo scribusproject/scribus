@@ -710,24 +710,22 @@ void Hruler::paintEvent(QPaintEvent *e)
 		static bool initpix = true;
 		if (initpix) {
 			initpix = false;
-			p.begin( &pix );
-			p.setBrush( BACKGROUND );
-			p.drawRect( 0, 0, 4*SCALE, 16*SCALE );
+			QPainter pp( &pix );
+			pp.setBrush( BACKGROUND );
+			pp.drawRect( 0, 0, 4*SCALE, 16*SCALE );
 	
-			p.setPen(Qt::red);
-			p.setBrush(Qt::red);
+			pp.setPen(Qt::red);
+			pp.setBrush(Qt::red);
 			cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
-			p.drawPolygon(cr);
-			p.end();
+			pp.drawPolygon(cr);
 		}
 		// draw pixmap
-		p.resetMatrix();
+		p.save();
 		p.translate(-currView->contentsX(), 0);
 		p.scale(1.0/SCALE, 1.0/(SCALE+1));
 		p.drawPixmap((where-2)*SCALE, 1, pix);
-		p.end();
+		p.restore();
 		// restore marks
-		p.begin(this);
 		p.setBrush(Qt::black);
 		p.setPen(Qt::black);
 		p.setFont(font());
@@ -748,8 +746,8 @@ void Hruler::paintEvent(QPaintEvent *e)
 		cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
 		p.drawPolygon(cr);
 #endif
-		p.end();
 	}
+	p.end();
 }
 
 
