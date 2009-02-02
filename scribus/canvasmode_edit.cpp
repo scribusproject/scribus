@@ -364,7 +364,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 	PageItem *currItem;
 	QPoint np, np2, mop;
 	FPoint npf, npf2;
-	QPainter p;
 	QRect tx;
 	bool erf = false;
 	m->accept();
@@ -624,7 +623,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 									QMatrix pm;
 									m_canvas->Transform(currItem, pm);
 									m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(qRound(currItem->width()), qRound(currItem->height())))));
-//									p.end();
 								}
 								break;
 							}
@@ -922,7 +920,6 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 // 	double Rxpd = 0;
 // 	double Rypd = 0;
 	PageItem *currItem;
-	QPainter p;
 	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;

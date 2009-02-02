@@ -200,7 +200,6 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	PageItem *currItem;
 	QPoint np, np2, mop;
 	FPoint npf, npf2;
-	QPainter p;
 	QRect tx;
 	m->accept();
 	m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
@@ -284,7 +283,6 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	double Rxpd = 0;
 	double Rypd = 0;
 	PageItem *currItem;
-	QPainter p;
 //	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;

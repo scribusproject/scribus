@@ -198,7 +198,6 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	double Rxp = 0,  Ryp = 0;
 	double Rxpd = 0, Rypd = 0;
 	PageItem *currItem;
-	QPainter p;
 	m_canvas->PaintSizeRect(QRect());
 	QRect tx;
 	QMatrix pm;
@@ -390,7 +389,6 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	
 	double newX, newY;
 	PageItem *currItem;
-	QPainter p;
 	QRect tx;
 	m->accept();
 
