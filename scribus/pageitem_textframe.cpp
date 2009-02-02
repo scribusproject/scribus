@@ -3082,6 +3082,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
+		update();
 //		view->RefreshItem(this);
 		break;
 	default:
@@ -3094,6 +3095,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			CPos += 1;
 //			Tinput = true;
 //			view->RefreshItem(this);
+			update();
 			break;
 		}
 		if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
