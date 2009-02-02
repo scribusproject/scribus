@@ -1820,6 +1820,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			}
 		}
 	}
+	delete painter;
 	QBuffer buffer;
 	buffer.open(QIODevice::WriteOnly);
 	retImg.save(&buffer, "PNG");
