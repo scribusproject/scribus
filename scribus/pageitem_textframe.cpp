@@ -3032,6 +3032,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
+				update();
 //				view->RefreshItem(this);
 			}
 			keyRepeat = false;
@@ -3046,6 +3047,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (itemText.lengthOfSelection() == 0)
 			itemText.select(CPos, 1, true);
 		deleteSelectedTextFromFrame();
+		update();
 //		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
