@@ -2764,6 +2764,7 @@ void PageItem::setTextFlowMode(TextFlowMode mode)
 		undoManager->action(this, ss);
 	}
 	textFlowModeVal = mode;
+	m_Doc->pagesChanged()->update(m_Doc->DocPages.at(OwnPage));
 }
 
 void PageItem::convertTo(ItemType newType)
