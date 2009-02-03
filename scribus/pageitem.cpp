@@ -2768,19 +2768,13 @@ void PageItem::setTextFlowMode(TextFlowMode mode)
 	if(!m_Doc->isLoading())
 	{
 		// items which can be under us. We are looking for items without considering
-		// OwnPage as it said unreliable if an item not clearly on a page.
-		QList<PageItem*> pList;
+		// OwnPage as it said unreliable if an item not clearly on a page.	
+		QRectF baseRect(getBoundingRect());
 		for(int idx = ItemNr-1; idx >= 0 ; --idx)
 		{
-				pList << m_Doc->Items->at(idx);
-		}
-		
-		QRectF baseRect(getBoundingRect());
-		for(int idx(0); idx < pList.count(); ++idx)
-		{
-			QRectF uRect(pList.at(idx)->getBoundingRect());
+			QRectF uRect(m_Doc->Items->at(idx)->getBoundingRect());
 			if(baseRect.intersects(uRect))
-				pList.at(idx)->update();
+				m_Doc->Items->at(idx)->update();
 		}
 	}
 }
