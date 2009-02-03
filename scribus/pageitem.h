@@ -873,7 +873,13 @@ public:
 	 * @sa PageItem::setTextFlowMode()
 	 */
 	bool textFlowUsesImageClipping() const { return (textFlowModeVal == TextFlowUsesImageClipping); }
-
+	
+	/**
+	 * @brief To be called carefully because it eventually triggers a relayout of long text frames strings, but necesarily when you change the document.
+	 * @param allItems While you generally want to check for items below, it can happen that you want to update full range of text frames (e.g. when shuffle items order). Default to false.
+	 */
+	void checkTextFlowInteractions(bool allItems = false);
+	
 	/** @brief Get the frame type
 	 *
 	 * @attention The whole concept of frame types is due for some radical

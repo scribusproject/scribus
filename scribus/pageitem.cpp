@@ -2765,16 +2765,27 @@ void PageItem::setTextFlowMode(TextFlowMode mode)
 	}
 	textFlowModeVal = mode;
 	
+	checkTextFlowInteractions();
+}
+
+void PageItem::checkTextFlowInteractions(bool allItems)
+{	
 	if(!m_Doc->isLoading())
 	{
-		// items which can be under us. We are looking for items without considering
-		// OwnPage as it said unreliable if an item not clearly on a page.	
 		QRectF baseRect(getBoundingRect());
-		for(int idx = ItemNr-1; idx >= 0 ; --idx)
+		for(int idx = (allItems ? m_Doc->Items->count()-1 : ItemNr-1); idx >= 0 ; --idx)
 		{
-			QRectF uRect(m_Doc->Items->at(idx)->getBoundingRect());
-			if(baseRect.intersects(uRect))
-				m_Doc->Items->at(idx)->update();
+			if(idx != ItemNr) // avoids itself
+			{
+				if(m_Doc->Items->at(idx)->asTextFrame()) // do not bother with no text frames
+				{
+					QRectF uRect(m_Doc->Items->at(idx)->getBoundingRect());
+					if(baseRect.intersects(uRect))
+					{
+						m_Doc->Items->at(idx)->update();
+					}
+				}
+			}
 		}
 	}
 }
@@ -2867,21 +2878,36 @@ void PageItem::setLayer(int layerId)
 
 void PageItem::checkChanges(bool force)
 {
+	bool spreadChanges(false);
 	// has the item been resized
 	if (force || ((oldWidth != Width || oldHeight != Height) && shouldCheck()))
+	{
 		resizeUndoAction();
+		spreadChanges = (textFlowMode() != TextFlowDisabled );
+	}
 	// has the item been rotated
 	if (force || ((oldRot != Rot) && (shouldCheck())))
+	{
 		rotateUndoAction();
+		spreadChanges = (textFlowMode() != TextFlowDisabled );
+	}
 	// has the item been moved
 	if (force || ((oldXpos != Xpos || oldYpos != Ypos) && shouldCheck()))
+	{
 		moveUndoAction();
+		spreadChanges = (textFlowMode() != TextFlowDisabled );
+	}
 	// has the item's image been moved
 	if (force || ((oldLocalX != LocalX || oldLocalY != LocalY) && shouldCheck()))
 		changeImageOffsetUndoAction();
 	// has the item's image been scaled
 	if (force || ((oldLocalScX != LocalScX || oldLocalScY != LocalScY) && shouldCheck()))
 		changeImageScaleUndoAction();
+	
+	if(spreadChanges)
+	{
+		checkTextFlowInteractions();
+	}
 }
 
 bool PageItem::shouldCheck()

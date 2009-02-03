@@ -3768,7 +3768,10 @@ void ScribusDoc::renumberItemsInListOrder( )
 {
 	int itemsCount=Items->count();
 	for (int i = 0; i < itemsCount; ++i)
+	{
 		Items->at(i)->ItemNr = i;
+		Items->at(i)->checkTextFlowInteractions(true);
+	}
 }
 
 
@@ -7154,6 +7157,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	if (selectedItemCount == 0)
 		return;
 	QList<PageItem*> delItems;
+	QList<PageItem*> textInteractionItems;// text frames possibly interested in removal of selected items
 	PageItem *currItem;
 	uint offs = 0;
 	QString tooltip = Um::ItemsInvolved + "\n";
@@ -7178,8 +7182,22 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 				return;
 			}
 		}
+		if(currItem->textFlowMode() != PageItem::TextFlowDisabled)
+		{
+			for(int tIdx(currItem->ItemNr - 1);tIdx >= 0;--tIdx)
+			{
+				if( (Items->at(tIdx)->asTextFrame())
+					&& (!itemSelection->containsItem(Items->at(tIdx)))
+					&& (currItem->getBoundingRect().intersects(Items->at(tIdx)->getBoundingRect()))
+					&& (!textInteractionItems.contains(Items->at(tIdx))) )
+				{
+					textInteractionItems.append( Items->at(tIdx) );
+				}
+			}
+		}
 		tooltip += "\t" + currItem->getUName() + "\n";
 		delItems.append(itemSelection->takeItem(offs));
+		
 	}
 	if (delItems.count() == 0)
 	{
@@ -7249,6 +7267,12 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	}
 	// JG resetting ElemToLink fixes #5629
 	ElemToLink = NULL;
+	
+	foreach(PageItem* tii, textInteractionItems)
+	{
+		tii->update();
+	}
+	
 	regionsChanged()->update(QRectF());
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	//CB FIXME remove this and tree.h too
