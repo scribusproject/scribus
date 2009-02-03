@@ -2764,7 +2764,25 @@ void PageItem::setTextFlowMode(TextFlowMode mode)
 		undoManager->action(this, ss);
 	}
 	textFlowModeVal = mode;
-	m_Doc->pagesChanged()->update(m_Doc->DocPages.at(OwnPage));
+	
+	if(!m_Doc->isLoading())
+	{
+		// items which can be under us. We are looking for items without considering
+		// OwnPage as it said unreliable if an item not clearly on a page.
+		QList<PageItem*> pList;
+		for(int idx = ItemNr-1; idx >= 0 ; --idx)
+		{
+				pList << m_Doc->Items->at(idx);
+		}
+		
+		QRectF baseRect(getBoundingRect());
+		for(int idx(0); idx < pList.count(); ++idx)
+		{
+			QRectF uRect(pList.at(idx)->getBoundingRect());
+			if(baseRect.intersects(uRect))
+				pList.at(idx)->update();
+		}
+	}
 }
 
 void PageItem::convertTo(ItemType newType)
@@ -3399,6 +3417,20 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 		textFlowModeVal = oldMode;
 	else
 		textFlowModeVal = newMode;
+	
+	QList<PageItem*> pList;
+	for(int idx = ItemNr-1; idx >= 0 ; --idx)
+	{
+		pList << m_Doc->Items->at(idx);
+	}
+		
+	QRectF baseRect(getBoundingRect());
+	for(int idx(0); idx < pList.count(); ++idx)
+	{
+		QRectF uRect(pList.at(idx)->getBoundingRect());
+		if(baseRect.intersects(uRect))
+			pList.at(idx)->update();
+	}
 }
 
 void PageItem::restoreImageScaleType(SimpleState *state, bool isUndo)

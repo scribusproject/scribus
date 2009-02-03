@@ -479,9 +479,10 @@ PageItem * Canvas::itemUnderItem(PageItem * item) const
 	
 	for(int idx =  m_doc->Items->indexOf(item)-1; idx >= 0 ; --idx)
 	{
-		PageItem* ti(m_doc->Items->at(idx));
-		if(ti->OwnPage == item->OwnPage)
-			pList << ti;
+		// take in account this bad news: "do not trust OwnPage"
+// 		PageItem* ti(m_doc->Items->at(idx));
+// 		if(ti->OwnPage == item->OwnPage)
+			pList << m_doc->Items->at(idx);
 	}
 	
 	QRectF baseRect(item->getBoundingRect());
