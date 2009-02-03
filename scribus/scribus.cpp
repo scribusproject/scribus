@@ -1447,8 +1447,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		/** Now if we have an item selected
 		 * - In normal mode we can:
 		 * -- Use backspace or delete to delete the item
-		 * -- Use PageUp to raise an item
-		 * -- Use PageDown to lower an item
+		 * -- Use itemRaise action shortcut to raise an item (actionmanager.cpp connect, no code here)
+		 * -- Use itemLower action shortcut to lower an item (actionmanager.cpp connect, no code here)
 		 * -- Use the arrow keys to move an item or group around for !inches:
 		 		With no meta, by 1.0 unit
 		 		Ctrl, by 10.0 units
@@ -1517,6 +1517,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case Qt::Key_Delete:
 					doc->itemSelection_DeleteItem();
 					break;
+					/* CB: Stop using inflexible hardcoded keys here, actions for lower/raise work without this
+						per note above with shortcuts.
 				case Qt::Key_PageUp:
 					if (!currItem->locked())
 					{
@@ -1529,6 +1531,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						view->LowerItem();
 					}
 					break;
+					*/
 				case Qt::Key_Left:
 					if (!currItem->locked())
 					{
