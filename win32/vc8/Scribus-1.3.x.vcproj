@@ -1604,6 +1604,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\smradiobutton.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\smreplacedia.cpp"
 				>
 			</File>
@@ -11091,6 +11095,10 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\smradiobutton.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\smreplacedia.h"
