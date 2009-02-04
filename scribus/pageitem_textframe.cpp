@@ -68,6 +68,8 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
 	unicodeInputString = "";
+	
+	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
 }
 
 PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
@@ -77,6 +79,8 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
 	unicodeInputString = "";
+	
+	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
 }
 
 static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
@@ -3540,4 +3544,9 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 QString PageItem_TextFrame::infoDescription()
 {
 	return QString();
+}
+
+void PageItem_TextFrame::slotInvalidateLayout()
+{
+	invalidateLayout();
 }

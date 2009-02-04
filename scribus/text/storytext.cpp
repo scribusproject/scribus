@@ -1234,6 +1234,7 @@ void StoryText::invalidate(int firstItem, int endItem)
 		if (par)
 			par->charStyleContext()->invalidate();
 	}
+	emit changed();
 }
 
 

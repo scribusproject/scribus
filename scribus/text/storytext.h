@@ -195,7 +195,8 @@ public slots:
 	/// call this if some logical style changes (redos shaping and layout)
  	void invalidateAll();
 
-
+	signals:
+		void changed();
 
 public:
 // physical view

@@ -103,6 +103,9 @@ private:
 	void setShadow();
 	QString currentShadow;
 	QMap<QString,StoryText> shadows;
+	
+private slots:
+	void slotInvalidateLayout();
 };
 
 #endif
