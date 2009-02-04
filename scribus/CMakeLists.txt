@@ -556,6 +556,7 @@ SET(SCRIBUS_SOURCES
   smlinestyle.cpp
   smlinestylewidget.cpp
   smpstylewidget.cpp
+  smradiobutton.cpp
   smreplacedia.cpp
   smsccombobox.cpp
   smscrspinbox.cpp

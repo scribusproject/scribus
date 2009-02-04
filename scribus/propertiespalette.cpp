@@ -913,25 +913,33 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 
 //	optMarginCheckLeftProtruding = new QCheckBox(OptMargins);
 //	optMarginCheckLeftProtruding->setObjectName(QString::fromUtf8("optMarginCheckLeftProtruding"));
-	optMarginCheckRightProtruding = new QCheckBox(OptMargins);
-	optMarginCheckRightProtruding->setObjectName(QString::fromUtf8("optMarginCheckRightProtruding"));
-	optMarginCheckLeftHangPunct = new QCheckBox(OptMargins);
-	optMarginCheckLeftHangPunct->setObjectName(QString::fromUtf8("optMarginCheckLeftHangPunct"));
-	optMarginCheckRightHangPunct = new QCheckBox(OptMargins);
-	optMarginCheckRightHangPunct->setObjectName(QString::fromUtf8("optMarginCheckRightHangPunct"));
+	optMarginRadioNone = new QRadioButton(OptMargins);
+	optMarginRadioNone->setObjectName(QString::fromUtf8("optMarginRadioNone"));
+	
+	optMarginRadioBoth = new QRadioButton(OptMargins);
+	optMarginRadioBoth->setObjectName(QString::fromUtf8("optMarginRadioBoth"));
+	
+	optMarginRadioLeft = new QRadioButton(OptMargins);
+	optMarginRadioLeft->setObjectName(QString::fromUtf8("optMarginRadioLeft"));
+	
+	optMarginRadioRight = new QRadioButton(OptMargins);
+	optMarginRadioRight->setObjectName(QString::fromUtf8("optMarginRadioRight"));
+	
 	optMarginResetButton = new QPushButton(OptMargins);
 	optMarginResetButton->setObjectName(QString::fromUtf8("optMarginResetButton"));
 
 //	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
-	optMarginCheckRightProtruding->setText( tr("Right Protruding") );
-	optMarginCheckLeftHangPunct->setText( tr("Left Hanging Punctuation") );
-	optMarginCheckRightHangPunct->setText( tr("Right Hanging Punctuation") );
+	optMarginRadioNone->setText( tr("None","optical margins") );
+	optMarginRadioBoth->setText( tr("Both Sides","optical margins") );
+	optMarginRadioLeft->setText( tr("Left Only","optical margins") );
+	optMarginRadioRight->setText( tr("Right Only","optical margins") );
 	optMarginResetButton->setText( tr("Reset") );
 
 //	OptMarginsLayout->addWidget(optMarginCheckLeftProtruding);
-	OptMarginsLayout->addWidget(optMarginCheckRightProtruding);
-	OptMarginsLayout->addWidget(optMarginCheckLeftHangPunct);
-	OptMarginsLayout->addWidget(optMarginCheckRightHangPunct);
+	OptMarginsLayout->addWidget(optMarginRadioNone);
+	OptMarginsLayout->addWidget(optMarginRadioBoth);
+	OptMarginsLayout->addWidget(optMarginRadioLeft);
+	OptMarginsLayout->addWidget(optMarginRadioRight);
 	OptMarginsLayout->addWidget(optMarginResetButton);
 
 	OptMarginsItem = TextTree->addWidget( tr("Optical Margins"), OptMargins);
@@ -1593,9 +1601,10 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
 //	connect(optMarginCombo, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
 //	connect(optMarginCheckLeftProtruding, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
-	connect(optMarginCheckRightProtruding, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
-	connect(optMarginCheckLeftHangPunct, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
-	connect(optMarginCheckRightHangPunct, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
+	connect(optMarginRadioNone, SIGNAL(clicked()), this, SLOT(setOpticalMargins()) );
+	connect(optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(setOpticalMargins()) );
+	connect(optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(setOpticalMargins()) );
+	connect(optMarginRadioRight, SIGNAL(clicked()), this, SLOT(setOpticalMargins()) );
 //	connect(optMarginResetButton, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
 
 
@@ -1959,6 +1968,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		// but it’s a PageItem prop. and as such should be set without considering
 		// the frame type.
 		setFlop(CurItem->firstLineOffset());
+		
+		// Style
+		updateStyle(i2->currentStyle());
+		
 		connect(dGap, SIGNAL(valueChanged(double)), this, SLOT(NewGap()));
 		connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
 	}
@@ -3059,6 +3072,9 @@ void PropertiesPalette::updateStyle(const ParagraphStyle& newCurrent)
 	normWordTrackingSpinBox->setValue(newCurrent.charStyle().wordTracking() * 100.0);
 	minGlyphExtSpinBox->setValue(newCurrent.minGlyphExtension() * 100.0);
 	maxGlyphExtSpinBox->setValue(newCurrent.maxGlyphExtension() * 100.0);
+	
+	updateOpticalMargins(newCurrent);
+	
 	HaveItem = tmp;
 	
 	
@@ -3113,17 +3129,31 @@ void PropertiesPalette::setCharStyle(const QString& name)
 	HaveItem = tmp;
 }
 
-void PropertiesPalette::setOpticalMargins(int i)
+void PropertiesPalette::setOpticalMargins()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	int omt(ParagraphStyle::OM_None);
 //	if (optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
-	if (optMarginCheckRightProtruding->isChecked()) omt+=ParagraphStyle::OM_RightProtruding;
-	if (optMarginCheckLeftHangPunct->isChecked()) omt+=ParagraphStyle::OM_LeftHangingPunct;
-	if (optMarginCheckRightHangPunct->isChecked()) omt+=ParagraphStyle::OM_RightHangingPunct;
+	if (optMarginRadioBoth->isChecked()) omt =ParagraphStyle::OM_Default;
+	else if (optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
+	else if (optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
 
 	doc->itemSelection_SetOpticalMargins(omt);
+}
+
+void PropertiesPalette::updateOpticalMargins(const ParagraphStyle & pStyle)
+{
+	
+	ParagraphStyle::OpticalMarginType omt(static_cast<ParagraphStyle::OpticalMarginType>(pStyle.opticalMargins()));
+	if (omt == ParagraphStyle::OM_Default)
+		optMarginRadioBoth->setChecked(true);
+	else if (omt == ParagraphStyle::OM_LeftHangingPunct)
+		optMarginRadioLeft->setChecked(true);
+	else if (omt == ParagraphStyle::OM_RightHangingPunct)
+		optMarginRadioRight->setChecked(true);
+	else
+		optMarginRadioNone->setChecked(true);
 }
 
 void PropertiesPalette::setMinWordTracking()
@@ -4998,9 +5028,13 @@ void PropertiesPalette::languageChange()
 //	optMarginCombo->addItem( CommonStrings::trOpticalMarginsDefault );
 //	optMarginCombo->setCurrentIndex(c);
 //	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
-	optMarginCheckRightProtruding->setText( tr("Right Protruding") );
-	optMarginCheckLeftHangPunct->setText( tr("Left Hanging Punctuation") );
-	optMarginCheckRightHangPunct->setText( tr("Right Hanging Punctuation") );
+// 	optMarginCheckRightProtruding->setText( tr("Right Protruding") );
+// 	optMarginCheckLeftHangPunct->setText( tr("Left Hanging Punctuation") );
+// 	optMarginCheckRightHangPunct->setText( tr("Right Hanging Punctuation") );
+	optMarginRadioNone->setText( tr("None","optical margins") );
+	optMarginRadioBoth->setText( tr("Both Sides","optical margins") );
+	optMarginRadioLeft->setText( tr("Left Only","optical margins") );
+	optMarginRadioRight->setText( tr("Right Only","optical margins") );
 	optMarginResetButton->setText( tr("Reset") );
 	wordTrackingLabel->setText( tr("Word Tracking"));
 	minWordTrackingLabel->setText( tr("Min:"));
@@ -5533,4 +5567,5 @@ void PropertiesPalette::flop(int radioFlop)
 	CurItem->update();
 	emit DocChanged();
 }
+
 

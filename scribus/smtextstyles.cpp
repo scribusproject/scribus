@@ -494,10 +494,10 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 //	connect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
-	connect(pwidget_->optMarginCheckLeftProtruding , SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
-	connect(pwidget_->optMarginCheckRightProtruding, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
-	connect(pwidget_->optMarginCheckLeftHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
-	connect(pwidget_->optMarginCheckRightHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	connect(pwidget_->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	connect(pwidget_->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	connect(pwidget_->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	connect(pwidget_->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
 	connect(pwidget_, SIGNAL(useParentOptMargins()), this, SLOT(slotParentOpticalMargin()));
 	
 	connect(pwidget_->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
@@ -567,10 +567,10 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 //	disconnect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
-	disconnect(pwidget_->optMarginCheckLeftProtruding , SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
-	disconnect(pwidget_->optMarginCheckRightProtruding, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
-	disconnect(pwidget_->optMarginCheckLeftHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
-	disconnect(pwidget_->optMarginCheckRightHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	disconnect(pwidget_->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(pwidget_->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(pwidget_->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(pwidget_->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
 	
 	disconnect(pwidget_->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
 	disconnect(pwidget_->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
@@ -739,7 +739,7 @@ void SMParagraphStyle::slotOpticalMargin(int i)
 //	}
 }
 
-void SMParagraphStyle::slotOpticalMarginSelector(int i)
+void SMParagraphStyle::slotOpticalMarginSelector()
 {
 	int omt(ParagraphStyle::OM_None);
 	if (false)//(pwidget_->optMarginCombo->useParentValue())
@@ -747,10 +747,10 @@ void SMParagraphStyle::slotOpticalMarginSelector(int i)
 	}
 	else
 	{
-		if (pwidget_->optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
-		if (pwidget_->optMarginCheckRightProtruding->isChecked()) omt+=ParagraphStyle::OM_RightProtruding;
-		if (pwidget_->optMarginCheckLeftHangPunct->isChecked()) omt+=ParagraphStyle::OM_LeftHangingPunct;
-		if (pwidget_->optMarginCheckRightHangPunct->isChecked()) omt+=ParagraphStyle::OM_RightHangingPunct;
+// 		if (pwidget_->optMarginRadioNone->isChecked()) omt = aragraphStyle::OM_None;
+		if (pwidget_->optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
+		else if (pwidget_->optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
+		else if (pwidget_->optMarginRadioBoth->isChecked()) omt = ParagraphStyle::OM_Default;
 
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setOpticalMargins(omt);

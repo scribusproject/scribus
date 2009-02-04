@@ -1021,6 +1021,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
 			}
+			currItem->emitAllToGUI();
 			if (m->button() == Qt::MidButton)
 			{
 				m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -1043,8 +1044,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					if (ScMimeData::clipboardHasScribusText())
 						m_ScMW->slotEditPaste();
 				}
-// 				currItem->update();
-				m_canvas->update();
+				currItem->update();
 			}
 		}
 		else if (!currItem->asImageFrame() || 

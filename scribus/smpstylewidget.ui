@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>639</width>
-    <height>531</height>
+    <width>714</width>
+    <height>533</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -370,34 +370,6 @@
               <property name="fieldGrowthPolicy" >
                <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
               </property>
-              <item row="0" column="1" >
-               <widget class="SMCheckBox" name="optMarginCheckLeftProtruding" >
-                <property name="text" >
-                 <string>Left Protruding</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1" >
-               <widget class="SMCheckBox" name="optMarginCheckRightProtruding" >
-                <property name="text" >
-                 <string>Right Protruding</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1" >
-               <widget class="SMCheckBox" name="optMarginCheckLeftHangPunct" >
-                <property name="text" >
-                 <string>Left Hanging Punctuation</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1" >
-               <widget class="SMCheckBox" name="optMarginCheckRightHangPunct" >
-                <property name="text" >
-                 <string>Right Hanging Punctuation</string>
-                </property>
-               </widget>
-              </item>
               <item row="4" column="1" >
                <layout class="QHBoxLayout" name="horizontalLayout_4" >
                 <item>
@@ -415,6 +387,37 @@
                  </widget>
                 </item>
                </layout>
+              </item>
+              <item row="0" column="1" >
+               <widget class="SMRadioButton" name="optMarginRadioNone" >
+                <property name="text" >
+                 <string>None</string>
+                </property>
+                <property name="checked" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1" >
+               <widget class="SMRadioButton" name="optMarginRadioBoth" >
+                <property name="text" >
+                 <string>Both Sides</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1" >
+               <widget class="SMRadioButton" name="optMarginRadioLeft" >
+                <property name="text" >
+                 <string>Left Only</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1" >
+               <widget class="SMRadioButton" name="optMarginRadioRight" >
+                <property name="text" >
+                 <string>Right Only</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -705,9 +708,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SMCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header location="global" >smcheckbox.h</header>
+   <class>SMRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header>smradiobutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

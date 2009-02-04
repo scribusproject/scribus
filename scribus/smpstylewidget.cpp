@@ -26,7 +26,7 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 {
 	setupUi(this);
 	//Not used yet
-	optMarginCheckLeftProtruding->setVisible(false);
+// 	optMarginCheckLeftProtruding->setVisible(false);
 	lineSpacingLabel->setPixmap(loadIcon("linespacing2.png"));
 	spaceAboveLabel->setPixmap( loadIcon("above.png") );
 	spaceBelowLabel->setPixmap( loadIcon("below.png") );
@@ -698,24 +698,45 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 
 	if (parent==NULL)
 	{
-		optMarginCheckLeftProtruding->setChecked(om & ParagraphStyle::OM_LeftProtruding);
-		optMarginCheckRightProtruding->setChecked(om & ParagraphStyle::OM_RightProtruding);
-		optMarginCheckLeftHangPunct->setChecked(om & ParagraphStyle::OM_LeftHangingPunct);
-		optMarginCheckRightHangPunct->setChecked(om & ParagraphStyle::OM_RightHangingPunct);
+		if(om == ParagraphStyle::OM_Default)
+			optMarginRadioBoth->setChecked(true);
+		else if(om == ParagraphStyle::OM_LeftHangingPunct)
+			optMarginRadioLeft->setChecked(true);
+		else if(om == ParagraphStyle::OM_RightHangingPunct)
+			optMarginRadioRight->setChecked(true);
+		else
+			optMarginRadioNone->setChecked(true);
 	}
 	else
 	{
 		optMarginParentButton->setShown(!inhO);
 
-		optMarginCheckLeftProtruding->setChecked(om & ParagraphStyle::OM_LeftProtruding, (om & ParagraphStyle::OM_LeftProtruding)==(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding));
-		optMarginCheckRightProtruding->setChecked(om & ParagraphStyle::OM_RightProtruding, (om & ParagraphStyle::OM_RightProtruding)==(parent->opticalMargins() & ParagraphStyle::OM_RightProtruding));
-		optMarginCheckLeftHangPunct->setChecked(om & ParagraphStyle::OM_LeftHangingPunct, (om & ParagraphStyle::OM_LeftHangingPunct)==(parent->opticalMargins() & ParagraphStyle::OM_LeftHangingPunct));
-		optMarginCheckRightHangPunct->setChecked(om & ParagraphStyle::OM_RightHangingPunct, (om & ParagraphStyle::OM_RightHangingPunct)==(parent->opticalMargins() & ParagraphStyle::OM_RightHangingPunct));
-
-		optMarginCheckLeftProtruding->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding);
-		optMarginCheckRightProtruding->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_RightProtruding);
-		optMarginCheckLeftHangPunct->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_LeftHangingPunct);
-		optMarginCheckRightHangPunct->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_RightHangingPunct);
+		if(om == ParagraphStyle::OM_Default)
+			optMarginRadioBoth->setChecked(true,
+				(parent->opticalMargins() == ParagraphStyle::OM_Default));
+		else if(om == ParagraphStyle::OM_LeftHangingPunct)
+			optMarginRadioLeft->setChecked(true,
+				(parent->opticalMargins() == ParagraphStyle::OM_LeftHangingPunct));
+		else if(om == ParagraphStyle::OM_RightHangingPunct)
+			optMarginRadioRight->setChecked(true,
+				(parent->opticalMargins() == ParagraphStyle::OM_RightHangingPunct));
+		else
+			optMarginRadioNone->setChecked(true,
+				(parent->opticalMargins() == ParagraphStyle::OM_None));
+		
+		optMarginRadioBoth->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_Default);
+		optMarginRadioLeft->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_LeftHangingPunct);
+		optMarginRadioRight->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_RightHangingPunct);
+		optMarginRadioNone->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_None);
+// 		optMarginCheckLeftProtruding->setChecked(om & ParagraphStyle::OM_LeftProtruding, (om & ParagraphStyle::OM_LeftProtruding)==(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding));
+// 		optMarginCheckRightProtruding->setChecked(om & ParagraphStyle::OM_RightProtruding, (om & ParagraphStyle::OM_RightProtruding)==(parent->opticalMargins() & ParagraphStyle::OM_RightProtruding));
+// 		optMarginCheckLeftHangPunct->setChecked(om & ParagraphStyle::OM_LeftHangingPunct, (om & ParagraphStyle::OM_LeftHangingPunct)==(parent->opticalMargins() & ParagraphStyle::OM_LeftHangingPunct));
+// 		optMarginCheckRightHangPunct->setChecked(om & ParagraphStyle::OM_RightHangingPunct, (om & ParagraphStyle::OM_RightHangingPunct)==(parent->opticalMargins() & ParagraphStyle::OM_RightHangingPunct));
+// 
+// 		optMarginCheckLeftProtruding->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding);
+// 		optMarginCheckRightProtruding->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_RightProtruding);
+// 		optMarginCheckLeftHangPunct->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_LeftHangingPunct);
+// 		optMarginCheckRightHangPunct->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_RightHangingPunct);
 //		optMarginCheckLeftProtruding->setFont(false);
 //		optMarginCheckRightProtruding->setFont(false);
 //		optMarginCheckLeftHangPunct->setFont(false);
@@ -742,10 +763,11 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 
 void SMPStyleWidget::slotDefaultOpticalMargins()
 {
-	optMarginCheckLeftProtruding->setChecked(false);
-	optMarginCheckRightProtruding->setChecked(true);
-	optMarginCheckLeftHangPunct->setChecked(true);
-	optMarginCheckRightHangPunct->setChecked(true);
+// 	optMarginCheckLeftProtruding->setChecked(false);
+// 	optMarginCheckRightProtruding->setChecked(true);
+// 	optMarginCheckLeftHangPunct->setChecked(true);
+// 	optMarginCheckRightHangPunct->setChecked(true);
+	optMarginRadioNone->setChecked(true);
 	if (hasParent_)
 		optMarginParentButton->show();
 }

@@ -211,7 +211,8 @@ public slots:
 	void setAli(int e);
 	void setParStyle(const QString& name);
 	void setCharStyle(const QString& name);
-	void setOpticalMargins(int);
+	void setOpticalMargins();
+	void updateOpticalMargins(const ParagraphStyle& pStyle);
 	void setMinWordTracking();
 	void setNormWordTracking();
 	void setMinGlyphExtension();
@@ -535,10 +536,10 @@ protected:
 	ColorCombo* TxFill;
 	ScComboBox* blendMode;
 //	QComboBox *optMarginCombo;
-	QCheckBox *optMarginCheckLeftProtruding;
-	QCheckBox *optMarginCheckRightProtruding;
-	QCheckBox *optMarginCheckLeftHangPunct;
-	QCheckBox *optMarginCheckRightHangPunct;
+	QRadioButton *optMarginRadioNone;
+	QRadioButton *optMarginRadioBoth;
+	QRadioButton *optMarginRadioLeft;
+	QRadioButton *optMarginRadioRight;
 	QPushButton *optMarginResetButton;
 
 	QListWidget* StyledLine;
