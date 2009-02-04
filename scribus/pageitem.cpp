@@ -2775,7 +2775,7 @@ void PageItem::checkTextFlowInteractions(bool allItems)
 		QRectF baseRect(getBoundingRect());
 		for(int idx = (allItems ? m_Doc->Items->count()-1 : ItemNr-1); idx >= 0 ; --idx)
 		{
-			if(idx != ItemNr) // avoids itself
+			if(idx != static_cast<int>(ItemNr)) // avoids itself
 			{
 				if(m_Doc->Items->at(idx)->asTextFrame()) // do not bother with no text frames
 				{

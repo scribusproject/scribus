@@ -402,7 +402,7 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 
 	if (it->HasSel)
 	{
-		int start = it->itemText.startOfSelection();
+//		int start = it->itemText.startOfSelection();
 		it->itemText.hyphenateWord(it->itemText.startOfSelection(), it->itemText.lengthOfSelection(), NULL);
 	}
 	else {
