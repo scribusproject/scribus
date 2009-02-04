@@ -238,7 +238,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->m_annotation.setVis   (attrAsInt(attrs, "ANVIS", 0));
 	OB->m_annotation.setIsChk (attrAsBool(attrs, "ANCHK", false));
 	OB->m_annotation.setAAact (attrAsBool(attrs, "ANAA", false));
-	OB->m_annotation.setHTML  (attrAsBool(attrs, "ANHTML", false));
+	OB->m_annotation.setHTML  (attrAsInt(attrs, "ANHTML", 0));
 	OB->m_annotation.setUseIcons(attrAsBool(attrs, "ANICON", false));
 	OB->m_annotation.setChkStil (attrAsInt(attrs, "ANCHKS", 0));
 	OB->m_annotation.setMaxChar (attrAsInt(attrs, "ANMC", -1));
