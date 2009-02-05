@@ -4806,12 +4806,12 @@ void ScribusMainWindow::slotFileQuit()
 	close();
 }
 
-
+/*
 static bool hasXMLRootElem(const QString& buffer, const QString& elemtag)
 {
 	return buffer.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0;
 }
-
+*/
 
 void ScribusMainWindow::slotEditCut()
 {
@@ -7636,6 +7636,8 @@ void ScribusMainWindow::doPrintPreview()
 			prefsManager->appPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
 			prefsManager->appPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
 			prefsManager->appPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
+			prefsManager->appPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
+			prefsManager->appPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
 		}
 //		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
 		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));

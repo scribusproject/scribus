@@ -344,6 +344,8 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_M = true;
 	appPrefs.PrPr_Y = true;
 	appPrefs.PrPr_K = true;
+	appPrefs.PrPr_InkCoverage = false;
+	appPrefs.PrPr_InkThreshold = 250;
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
 	appPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
@@ -1485,6 +1487,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Pr.setAttribute("Magenta", static_cast<int>(appPrefs.PrPr_M));
 	dc8Pr.setAttribute("Yellow", static_cast<int>(appPrefs.PrPr_Y));
 	dc8Pr.setAttribute("Black", static_cast<int>(appPrefs.PrPr_K));
+	dc8Pr.setAttribute("InkCoverage", static_cast<int>(appPrefs.PrPr_InkCoverage));
+	dc8Pr.setAttribute("InkThreshold", appPrefs.PrPr_InkThreshold);
 	elem.appendChild(dc8Pr);
 	QDomElement dc8Ex = docu.createElement("EXTERNAL");
 	dc8Ex.setAttribute("GIMP", imageEditorExecutable());
@@ -2092,6 +2096,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PrPr_M = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
 			appPrefs.PrPr_Y = static_cast<bool>(dc.attribute("Yellow", "1").toInt());
 			appPrefs.PrPr_K = static_cast<bool>(dc.attribute("Black", "1").toInt());
+			appPrefs.PrPr_InkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
+			appPrefs.PrPr_InkThreshold = dc.attribute("InkThreshold", "250").toInt();
 		}
 		if (dc.tagName()=="EXTERNAL")
 		{

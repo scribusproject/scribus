@@ -237,6 +237,8 @@ struct ApplicationPrefs
 	bool PrPr_M;
 	bool PrPr_Y;
 	bool PrPr_K;
+	bool PrPr_InkCoverage;
+	int PrPr_InkThreshold;
 	QString gs_exe;
 	bool gs_AntiAliasText;
 	bool gs_AntiAliasGraphics;

@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QFile>
 #include <QTextStream>
+#include <QSpinBox>
 
 #include <cstdlib>
 #include "pslib.h"
@@ -146,6 +147,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		QStringList spots = usedSpots.keys();
 
 		Table = new QTableWidget(spots.count()+4, 2, devTitle );
+		inkMax = (spots.count()+4) * 255;
 		Table->setHorizontalHeaderItem(0, new QTableWidgetItem(QIcon(loadIcon("16/show-object.png")), ""));
 		Table->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
 		QHeaderView *header = Table->horizontalHeader();
@@ -199,6 +201,28 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		}
 		Layout2->addWidget(Table);
 		tbWidth = Table->columnWidth(1);
+
+		EnableInkCover = new QCheckBox(devTitle);
+		EnableInkCover->setText( tr("Display Ink Coverage"));
+		EnableInkCover->setChecked(prefsManager->appPrefs.PrPr_InkCoverage);
+		EnableInkCover->setEnabled( postscriptPreview );
+		Layout2->addWidget(EnableInkCover);
+		connect(EnableInkCover, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
+		Layout7 = new QHBoxLayout;
+		Layout7->setSpacing(3);
+		Layout7->setMargin(0);
+		ThresLabel = new QLabel( tr("Threshold:"), devTitle);
+		Layout7->addWidget(ThresLabel);
+		CoverThresholdValue = new QSpinBox(devTitle);
+		CoverThresholdValue->setSuffix( tr(" %"));
+		CoverThresholdValue->setMaximum(600);
+		CoverThresholdValue->setMinimum(10);
+		CoverThresholdValue->setSingleStep(10);
+		CoverThresholdValue->setValue(prefsManager->appPrefs.PrPr_InkThreshold);
+		CoverThresholdValue->setEnabled(false);
+		connect(CoverThresholdValue, SIGNAL(valueChanged(int)), this, SLOT(ToggleCMYK_Colour()));
+		Layout7->addWidget(CoverThresholdValue);
+		Layout2->addLayout(Layout7);
 	}
 	else
 	{
@@ -415,7 +439,11 @@ void PPreview::ToggleCMYK()
 {
 	bool c = EnableCMYK->isChecked() ? true : false;
 	if (HaveTiffSep)
+	{
 		Table->setEnabled(c);
+		EnableInkCover->setEnabled(c);
+		CoverThresholdValue->setEnabled(c);
+	}
 	else
 	{
 		EnableCMYK_C->setEnabled(c);
@@ -430,6 +458,13 @@ void PPreview::ToggleCMYK()
 
 void PPreview::ToggleCMYK_Colour()
 {
+	if (HaveTiffSep)
+	{
+		if ((EnableCMYK->isChecked()) && (EnableInkCover->isChecked()))
+			CoverThresholdValue->setEnabled(true);
+		else
+			CoverThresholdValue->setEnabled(false);
+	}
 	if (EnableCMYK->isChecked())
 		Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
@@ -778,6 +813,31 @@ void PPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
 	}
 }
 
+void PPreview::blendImagesSumUp(QImage &target, ScImage &scsource)
+{
+	QImage source = scsource.qImage(); // FIXME: this will not work once qImage always returns ARGB!
+	//FIXME: if source and target have different sizesomething went wrong.
+	// eg. loadPicture() failed and returned a 1x1 image
+	int h = qMin(target.height(),source.height());
+	int w = qMin(target.width(),source.width());
+	int cyan;
+	for (int y=0; y < h; ++y )
+	{
+		uint *p = (QRgb *)target.scanLine( y );
+		QRgb *pq = (QRgb *)source.scanLine( y );
+		for (int x=0; x < w; ++x )
+		{
+			cyan = 255 - qRed(*pq);
+			if (cyan != 0)
+			{
+				*p += cyan;
+			}
+			p++;
+			pq++;
+		}
+	}
+}
+
 QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;
@@ -848,7 +908,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					imageLoadError(Bild, Seite);
 					return Bild;
 				}
-				blendImages(image, im, ScColor(255, 0, 0, 0));
+				if (EnableInkCover->isChecked())
+					blendImagesSumUp(image, im);
+				else
+					blendImages(image, im, ScColor(255, 0, 0, 0));
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
@@ -861,7 +924,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					imageLoadError(Bild, Seite);
 					return Bild;
 				}
-				blendImages(image, im, ScColor(0, 255, 0, 0));
+				if (EnableInkCover->isChecked())
+					blendImagesSumUp(image, im);
+				else
+					blendImages(image, im, ScColor(0, 255, 0, 0));
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
@@ -874,7 +940,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					imageLoadError(Bild, Seite);
 					return Bild;
 				}
-				blendImages(image, im, ScColor(0, 0, 255, 0));
+				if (EnableInkCover->isChecked())
+					blendImagesSumUp(image, im);
+				else
+					blendImages(image, im, ScColor(0, 0, 255, 0));
 			}
 			if (!sepsToFileNum.isEmpty())
 			{
@@ -893,7 +962,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 							imageLoadError(Bild, Seite);
 							return Bild;
 						}
-						blendImages(image, im, doc->PageColors[sepit.key()]);
+						if (EnableInkCover->isChecked())
+							blendImagesSumUp(image, im);
+						else
+							blendImages(image, im, doc->PageColors[sepit.key()]);
 					}
 				}
 			}
@@ -909,55 +981,84 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					imageLoadError(Bild, Seite);
 					return Bild;
 				}
-				blendImages(image, im, ScColor(0, 0, 0, 255));
+				if (EnableInkCover->isChecked())
+					blendImagesSumUp(image, im);
+				else
+					blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
-			if (doc->HasCMS)
+			if (EnableInkCover->isChecked())
 			{
-				QRgb alphaFF = qRgba(0,0,0,255);
-				QRgb alphaOO = qRgba(255,255,255,0);
-				cmsHTRANSFORM transCMYK = cmsCreateTransform(doc->DocPrinterProf, (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1)), doc->DocOutputProf, TYPE_BGRA_8, INTENT_RELATIVE_COLORIMETRIC, cmsFLAGS_LOWRESPRECALC);
-				for( int yi=0; yi < h2; ++yi )
-				{
-					LPBYTE ptr = image.scanLine( yi );
-					cmsDoTransform(transCMYK, ptr, ptr, image.width());
-					QRgb *q = (QRgb *) ptr;
-					for (int xi = 0; xi < image.width(); xi++, q++)
-					{
-						if (AliasTr->isChecked())
-						{
-							cyan = qRed(*q);
-							magenta = qGreen(*q);
-							yellow = qBlue(*q);
-							if	((cyan == 255) && (magenta == 255) && (yellow == 255))
-								*q = alphaOO;
-							else
-								*q |= alphaFF;
-						}
-						else
-							*q |= alphaFF;
-					}
-				}
-				cmsDeleteTransform (transCMYK);
-			}
-			else
-			{
+				uint limitVal = (CoverThresholdValue->value() * 255) / 100;
 				for( int yi=0; yi < h2; ++yi )
 				{
 					QRgb *q = (QRgb*)(image.scanLine( yi ));
 					for(int xi=0; xi < w; ++xi )
 					{
-						cyan = qRed(*q);
-						magenta = qGreen(*q);
-						yellow = qBlue(*q);
-						black = qAlpha(*q);
-						if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
-							*q = qRgba(255-qMin(255, cyan+black), 255-qMin(255,magenta+black), 255-qMin(255,yellow+black), 255);
-						else
+						uint greyVal = *q;
+						if (greyVal != 0)
 						{
-							if (!AliasTr->isChecked())
-								*q = qRgba(255, 255, 255, 255);
+							int col = qMin(255 - static_cast<int>(((greyVal * 128) / inkMax) * 2), 255);
+							if ((*q > 0) && (*q < limitVal))
+								*q = qRgba(col, col, col, 255);
+							else
+								*q = qRgba(col, 0, 0, 255);
 						}
+						else
+							*q = qRgba(255, 255, 255, 255);
 						q++;
+					}
+				}
+			}
+			else
+			{
+				if (doc->HasCMS)
+				{
+					QRgb alphaFF = qRgba(0,0,0,255);
+					QRgb alphaOO = qRgba(255,255,255,0);
+					cmsHTRANSFORM transCMYK = cmsCreateTransform(doc->DocPrinterProf, (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1)), doc->DocOutputProf, TYPE_BGRA_8, INTENT_RELATIVE_COLORIMETRIC, cmsFLAGS_LOWRESPRECALC);
+					for( int yi=0; yi < h2; ++yi )
+					{
+						LPBYTE ptr = image.scanLine( yi );
+						cmsDoTransform(transCMYK, ptr, ptr, image.width());
+						QRgb *q = (QRgb *) ptr;
+						for (int xi = 0; xi < image.width(); xi++, q++)
+						{
+							if (AliasTr->isChecked())
+							{
+								cyan = qRed(*q);
+								magenta = qGreen(*q);
+								yellow = qBlue(*q);
+								if	((cyan == 255) && (magenta == 255) && (yellow == 255))
+									*q = alphaOO;
+								else
+									*q |= alphaFF;
+							}
+							else
+								*q |= alphaFF;
+						}
+					}
+					cmsDeleteTransform (transCMYK);
+				}
+				else
+				{
+					for( int yi=0; yi < h2; ++yi )
+					{
+						QRgb *q = (QRgb*)(image.scanLine( yi ));
+						for(int xi=0; xi < w; ++xi )
+						{
+							cyan = qRed(*q);
+							magenta = qGreen(*q);
+							yellow = qBlue(*q);
+							black = qAlpha(*q);
+							if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
+								*q = qRgba(255-qMin(255, cyan+black), 255-qMin(255,magenta+black), 255-qMin(255,yellow+black), 255);
+							else
+							{
+								if (!AliasTr->isChecked())
+									*q = qRgba(255, 255, 255, 255);
+							}
+							q++;
+						}
 					}
 				}
 			}

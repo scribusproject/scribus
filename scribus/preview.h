@@ -19,6 +19,7 @@ class QScrollArea;
 class QLabel;
 class QPushButton;
 class QComboBox;
+class QSpinBox;
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -59,6 +60,7 @@ public:
 	int RenderPreview(int Seite, int Res);
 	int RenderPreviewSep(int Seite, int Res);
 	void blendImages(QImage &target, ScImage &source, ScColor col);
+	void blendImagesSumUp(QImage &target, ScImage &scsource);
 	static bool usePostscriptPreview(QString printerName, PrintEngine engine);
 	/*!
 	\author Franz Schmid
@@ -83,6 +85,9 @@ public:
 	QCheckBox* spotColors;
 	QCheckBox* useGray;
 	QCheckBox* UseICC;
+	QCheckBox* EnableInkCover;
+	QSpinBox* CoverThresholdValue;
+	QLabel* ThresLabel;
 	QScrollArea* Anzeige;
 	QLabel* Anz;
 	QGroupBox* devTitle;
@@ -101,6 +106,7 @@ public:
 	int SMode;
 	int GsMajor;
 	int GsMinor;
+	int inkMax;
 	bool CMode;
 	bool GsAl;
 	bool Trans;
@@ -157,6 +163,7 @@ protected:
 	QVBoxLayout* Layout2;
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout6;
+	QHBoxLayout* Layout7;
 	QVBoxLayout* settingsBarLayout;
 	PrefsManager *prefsManager;
 
