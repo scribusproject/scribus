@@ -724,7 +724,7 @@ void SearchReplace::slotDoReplace()
 				se->newTxStyle(REffVal->getStyle());
 			if (RText->isChecked())
 			{
-				disconnect(se->Editor, SIGNAL(cursorPositionChanged(int, int)), se, SLOT(updateProps(int, int)));
+				disconnect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
 				int SelStart, SelEnd;
 				SelStart = se->Editor->textCursor().selectionStart();
 				SelEnd = se->Editor->textCursor().selectionEnd();
@@ -734,7 +734,7 @@ void SearchReplace::slotDoReplace()
 				se->Editor->textCursor().removeSelectedText();
 //FIXME				se->Editor->setStyle(se->Editor->CurrentStyle);
 				se->Editor->insertPlainText(RTextVal->text());
-				connect(se->Editor, SIGNAL(cursorPositionChanged(int, int)), se, SLOT(updateProps(int, int)));
+				connect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
 //				se->newAlign(se->Editor->currentParaStyle);
 			}
 		}
