@@ -992,7 +992,7 @@ PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (i == NULL)
 		return NULL;
-	if (i->asTextFrame())
+	if (!i->asTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't get info from a non-text frame", "python error").toLocal8Bit().constData());
 		return NULL;
