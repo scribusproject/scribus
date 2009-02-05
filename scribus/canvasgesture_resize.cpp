@@ -126,8 +126,8 @@ void ResizeGesture::drawControls(QPainter* p)
 	{
 		p->save();
 //		p->translate(m_bounds.topLeft() - m_origBounds.topLeft());
-		drawOutline(p, qAbs(m_bounds.width()) / qMax(qAbs(m_origBounds.width()), 1.0), 
-					qAbs(m_bounds.height()) / qMax(qAbs(m_origBounds.height()), 1.0),
+		drawOutline(p, qAbs(m_bounds.width()) / qMax(qAbs(m_origBounds.width()), static_cast<float>(1.0)), 
+					qAbs(m_bounds.height()) / qMax(qAbs(m_origBounds.height()), static_cast<float>(1.0)),
 					m_bounds.left() - m_origBounds.left(),
 					m_bounds.top() - m_origBounds.top());
 		p->restore();
