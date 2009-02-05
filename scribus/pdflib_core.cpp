@@ -6054,8 +6054,28 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 				if (ite->annotation().ActionType() == 3)
 				{
 					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F "+ EncString("("+ite->annotation().Action()+")",annotationObj)+" >>\n");
-					if (ite->annotation().HTML())
-						PutDoc("/Flags 4");
+//					if (ite->annotation().HTML())
+//						PutDoc("/Flags 4");
+					switch (ite->annotation().HTML()) 
+					{
+					case 1:
+					  // HTML
+					  PutDoc("/Flags 4"); // bit 3 on
+					  break;
+					case 2:
+					  // XFDF
+					  PutDoc("/Flags 64"); // bit 6 on
+					  break;
+					case 3:
+					  // PDF
+					  PutDoc("/Flags 512"); // bit 9 on
+					  break;
+					case 0:
+					default:
+					  // FDF
+					  // bit 3 off
+					  break;
+					}
 					PutDoc(">>\n");
 				}
 				if (ite->annotation().ActionType() == 1)
