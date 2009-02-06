@@ -111,6 +111,8 @@ void MasterPagesPalette::closeEvent(QCloseEvent *closeEvent)
 
 void MasterPagesPalette::deleteMasterPage()
 {
+	bool forceDelete = false;
+
 	// allow to delete multiple pages in one step
 	foreach (QListWidgetItem * delItem, masterPageListBox->selectedItems())
 	{
@@ -124,17 +126,26 @@ void MasterPagesPalette::deleteMasterPage()
 			continue;
 
 		QString extraWarn = "";
-		for (int i=0; i < currentDoc->DocPages.count(); ++i )
+
+		if (!forceDelete)
 		{
-			if (currentDoc->DocPages[i]->MPageNam == sMuster)
-				extraWarn = tr("This master page is used at least once in the document.");
+			for (int i=0; i < currentDoc->DocPages.count(); ++i )
+			{
+				if (currentDoc->DocPages[i]->MPageNam == sMuster)
+					extraWarn = tr("This master page is used at least once in the document.");
+			}
+			int exit = QMessageBox::warning(this,
+										CommonStrings::trWarning,
+										tr("Do you really want to delete master page \"%1\"?").arg(sMuster)+"\n"+extraWarn,
+										QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Abort);
+
+			if (exit == QMessageBox::YesToAll)
+				forceDelete = true;
+			if (exit == QMessageBox::No)
+				continue;
+			if (exit == QMessageBox::Abort)
+				break;
 		}
-		int exit = QMessageBox::warning(this,
-									CommonStrings::trWarning,
-									tr("Do you really want to delete this master page?")+"\n"+extraWarn,
-									QMessageBox::Yes | QMessageBox::No);
-		if (exit != QMessageBox::Yes)
-			continue;
 
 		if (currentDoc->appMode == modeEditClip)
 			currentView->requestMode(submodeEndNodeEdit);
