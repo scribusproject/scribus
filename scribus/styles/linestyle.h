@@ -33,7 +33,7 @@ public:
 #undef ATTRDEF
     };
 	
-    LineStyle(double width, const QString& color, double shade=100) : Style(), lineStyleProxy(this)  {
+    LineStyle(qreal width, const QString& color, qreal shade=100) : Style(), lineStyleProxy(this)  {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
