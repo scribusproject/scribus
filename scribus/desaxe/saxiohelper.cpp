@@ -97,18 +97,15 @@ Xml_string toXMLString(double val)
 	return QString::number(val);
 }
 
-
-double parseDouble(const Xml_string& str)
-{
-	return str.toDouble();
-}
-
-
 Xml_string toXMLString(float val)
 {
 	return QString::number(val);
 }
 
+double parseDouble(const Xml_string& str)
+{
+	return str.toDouble();
+}
 
 float parseFloat(const Xml_string& str)
 {
@@ -143,6 +140,14 @@ Xml_string toXMLString(const QList<double>& doublelist)
 	return result;
 }
 
+Xml_string toXMLString(const QList<float>& floatlist)
+{
+	QString result = "";
+	QList<float>::const_iterator dax;
+	for (dax = floatlist.begin(); dax != floatlist.end(); ++dax)
+		result += toXMLString(*dax) + " ";
+	return result;
+}
 
 QList<double> parseDoubleList(const Xml_string& str)
 {
@@ -162,6 +167,14 @@ Xml_string toXMLString(const QVector<double>& doublelist)
 	return result;
 }
 
+Xml_string toXMLString(const QVector<float>& floatlist)
+{
+	QString result = "";
+	QVector<float>::const_iterator dax;
+	for (dax = floatlist.begin(); dax != floatlist.end(); ++dax)
+		result += toXMLString(*dax) + " ";
+	return result;
+}
 
 QVector<double> parseDoubleVector(const Xml_string& str)
 {
