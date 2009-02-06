@@ -144,6 +144,8 @@ public slots:
 	\brief If CMYK preview is enabled, create a new preview with the new CMYK plate settings
 	*/
 	void ToggleCMYK_Colour();
+	void doSpotTable(int row);
+	void toggleAllfromHeader();
 	/*!
 	\author Petr Vanek
 	\date 09/03/2005

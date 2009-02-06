@@ -153,7 +153,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		QHeaderView *header = Table->horizontalHeader();
 		header->setStretchLastSection(true);
 		header->setMovable(false);
-		header->setClickable(false);
+//		header->setClickable(false);
 		header->setResizeMode(QHeaderView::Fixed);
 		Table->setColumnWidth(0, 24);
 		Table->verticalHeader()->hide();
@@ -219,10 +219,15 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		CoverThresholdValue->setMinimum(10);
 		CoverThresholdValue->setSingleStep(10);
 		CoverThresholdValue->setValue(prefsManager->appPrefs.PrPr_InkThreshold);
-		CoverThresholdValue->setEnabled(false);
+		if ((EnableCMYK->isChecked()) && (EnableInkCover->isChecked()))
+			CoverThresholdValue->setEnabled(true);
+		else
+			CoverThresholdValue->setEnabled(false);
 		connect(CoverThresholdValue, SIGNAL(valueChanged(int)), this, SLOT(ToggleCMYK_Colour()));
 		Layout7->addWidget(CoverThresholdValue);
 		Layout2->addLayout(Layout7);
+		connect(Table, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(doSpotTable(int)));
+		connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllfromHeader()));
 	}
 	else
 	{
@@ -468,6 +473,37 @@ void PPreview::ToggleCMYK_Colour()
 	if (EnableCMYK->isChecked())
 		Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
+}
+
+void PPreview::doSpotTable(int row)
+{
+	if (HaveTiffSep)
+	{
+		QMap<QString, QCheckBox*> ::Iterator sepit;
+		for (sepit = flagsVisible.begin(); sepit != flagsVisible.end(); ++sepit)
+		{
+			sepit.value()->setChecked(false);
+		}
+		((QCheckBox*)(Table->cellWidget(row, 0)))->setChecked(true);
+		if (EnableCMYK->isChecked())
+			Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+		Anz->resize(Anz->pixmap()->size());
+	}
+}
+
+void PPreview::toggleAllfromHeader()
+{
+	if (HaveTiffSep)
+	{
+		QMap<QString, QCheckBox*> ::Iterator sepit;
+		for (sepit = flagsVisible.begin(); sepit != flagsVisible.end(); ++sepit)
+		{
+			sepit.value()->setChecked(true);
+		}
+		if (EnableCMYK->isChecked())
+			Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+		Anz->resize(Anz->pixmap()->size());
+	}
 }
 
 void PPreview::scaleBox_valueChanged(int value)
