@@ -137,13 +137,13 @@ void MasterPagesPalette::deleteMasterPage()
 			int exit = QMessageBox::warning(this,
 										CommonStrings::trWarning,
 										tr("Do you really want to delete master page \"%1\"?").arg(sMuster)+"\n"+extraWarn,
-										QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Abort);
+										QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Cancel);
 
 			if (exit == QMessageBox::YesToAll)
 				forceDelete = true;
 			if (exit == QMessageBox::No)
 				continue;
-			if (exit == QMessageBox::Abort)
+			if (exit == QMessageBox::Cancel)
 				break;
 		}
 
