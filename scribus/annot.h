@@ -239,7 +239,7 @@ public slots:
 	void HandleCalc();
 	void SetCalc();
 	void SetFoScript ( int it );
-	void SetCo ( double x, double y );
+	void SetCo ( qreal x, qreal y );
 	void SetPg ( int v );
 	void SetCross();
 	void SetVals();

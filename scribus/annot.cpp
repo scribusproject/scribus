@@ -1751,7 +1751,7 @@ void Annot::SetFoScript(int it)
 	item->annotation().setFormat(it);
 }
 
-void Annot::SetCo(double x, double y)
+void Annot::SetCo(qreal x, qreal y)
 {
 	SpinBox21->setValue(static_cast<int>(x*Breite));
 	SpinBox31->setValue(static_cast<int>(y*Hoehe));

@@ -65,7 +65,7 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 public slots:
-	void setGuide(int, double);
+	void setGuide(int, qreal);
 
 protected:
 	ScribusView *currView;
@@ -106,9 +106,9 @@ private:
 	ScribusDoc::AlignTo currAlignTo;
 	QList<AlignObjs> *alignObjects;
 	ScribusDoc *currDoc;
-	double unitRatio;
+	qreal unitRatio;
 	int guideDirection;
-	double guidePosition;
+	qreal guidePosition;
 	QString guideInfoText, guideInfoTextNone;
 	void enableGuideButtons();
 	

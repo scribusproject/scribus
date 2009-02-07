@@ -30,7 +30,7 @@ public slots:
 	void selForm(int a);
 
 signals:
-	void FormSel(int, int, double *);
+	void FormSel(int, int, qreal *);
 
 protected:
 	AutoformButtonGroup* buttonGroup1;

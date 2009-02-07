@@ -68,7 +68,7 @@ public:
 	int MaxSeite;
 
 public slots:
-	void SetCo(double x, double y);
+	void SetCo(qreal x, qreal y);
 	void SetPg(int v);
 	void SetCross();
 	void SetVals();

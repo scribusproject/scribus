@@ -27,7 +27,7 @@ void Autoforms::selForm(int a)
 //	Men->hide();
 	setIcon(QIcon(buttonGroup1->getIconPixmap(a)));
 	int n;
-	double *AutoShapes = buttonGroup1->getShapeData(a, &n);
+	qreal *AutoShapes = buttonGroup1->getShapeData(a, &n);
 	emit FormSel(a, n, AutoShapes);
 }
 

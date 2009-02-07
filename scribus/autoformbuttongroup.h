@@ -27,7 +27,7 @@ public:
 	AutoformButtonGroup( QWidget* parent );
 	~AutoformButtonGroup() {};
 	void addShape(QMenu* menu, int shapenum);
-	double* getShapeData(int a, int *n);
+	qreal* getShapeData(int a, int *n);
 	QPixmap getIconPixmap(int nr, int pixmapSize=22);
 	virtual void changeEvent(QEvent *e);
 /*	QButtonGroup* buttonGroup;
@@ -92,7 +92,7 @@ private slots:
 	void toggleJigSaw(bool visible);
 */
 signals:
-	void FormSel(int, int, double *);
+	void FormSel(int, int, qreal *);
 	void buttonClicked(int);
 
 protected:

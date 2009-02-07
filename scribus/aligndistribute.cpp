@@ -411,7 +411,7 @@ void AlignDistributePalette::alignToChanged(int newAlignTo)
 	enableGuideButtons();
 }
 
-void AlignDistributePalette::setGuide(int direction, double position)
+void AlignDistributePalette::setGuide(int direction, qreal position)
 {
 	//direction 0=H, 1=V
 // 	qDebug()<<"AlignDistributePalette::setGuide("<<direction<<""<<position<<")";
