@@ -28,8 +28,8 @@ class ScFace;
 class Scribusdoc;
 
 int SCRIBUS_API setBestEncoding(FT_Face face);
-FPointArray SCRIBUS_API traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
-FPointArray SCRIBUS_API traceGlyph(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
+FPointArray SCRIBUS_API traceChar(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err);
+FPointArray SCRIBUS_API traceGlyph(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err);
 QPixmap SCRIBUS_API FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force = false);
 //QPixmap SCRIBUS_API fontSamples(const ScFace& fnt, int s, QString ts, QColor back);
 bool SCRIBUS_API GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList);

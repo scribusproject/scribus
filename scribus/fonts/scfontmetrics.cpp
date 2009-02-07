@@ -53,7 +53,7 @@ FT_Outline_Funcs OutlineMethods =
     };
 
 
-const double FTSCALE = 64.0;
+const qreal FTSCALE = 64.0;
 
 
 int setBestEncoding(FT_Face face)
@@ -165,7 +165,7 @@ int setBestEncoding(FT_Face face)
 	return retVal;
 }
 
-FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, double *x, double *y, bool *err)
+FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, qreal *x, qreal *y, bool *err)
 {
 	bool error = false;
 	//AV: not threadsave, but tracechar is only used in ReadMetrics() and fontSample()
@@ -210,7 +210,7 @@ FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, double *x, dou
 }
 
 
-FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err)
+FPointArray traceChar(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err)
 {
 	bool error = false;
 	FT_UInt glyphIndex;
@@ -229,22 +229,22 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 {
 	FT_Face face;
 	FT_Library library;
-	double x, y, ymax;
+	qreal x, y, ymax;
 	bool error;
 	int  pen_x;
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
 	error = FT_New_Face( library, QFile::encodeName(fnt.fontFilePath()), fnt.faceIndex(), &face );
 	int encode = setBestEncoding(face);
-	double uniEM = static_cast<double>(face->units_per_EM);
+	qreal uniEM = static_cast<qreal>(face->units_per_EM);
 
-	double m_descent = face->descender / uniEM;
-	double m_height = face->height / uniEM;
+	qreal m_descent = face->descender / uniEM;
+	qreal m_height = face->height / uniEM;
 	if (m_height == 0)
 		m_height = (face->bbox.yMax - face->bbox.yMin) / uniEM;
 
 	int h = qRound(m_height * s) + 1;
-	double a = m_descent * s + 1;
+	qreal a = m_descent * s + 1;
 	int w = qRound((face->bbox.xMax - face->bbox.xMin) / uniEM) * s * (ts.length()+1);
 	if (w < 1)
 		w = s * (ts.length()+1);
@@ -258,7 +258,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	p->setFillMode(1);
 	p->setLineWidth(0.0);
 //	p->setBrush(back);
-//	p->drawRect(0.0, 0.0, static_cast<double>(w), static_cast<double>(h));
+//	p->drawRect(0.0, 0.0, static_cast<qreal>(w), static_cast<qreal>(h));
 	p->setBrush(Qt::black);
 	FPointArray gly;
 	uint dv;
@@ -279,7 +279,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 				break;
 			if (gly.size() > 3)
 			{
-				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
+				gly.translate(static_cast<qreal>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
 				ymax = qMax(ymax, gp.y());
 				p->setupPolygon(&gly);
@@ -300,7 +300,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 			gly = traceChar(face, dv, s, &x, &y, &error);
 			if (gly.size() > 3)
 			{
-				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
+				gly.translate(static_cast<qreal>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
 				ymax = qMax(ymax, gp.y());
 				p->setupPolygon(&gly);
@@ -414,8 +414,8 @@ bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 
 static int traceMoveto( FT_Vector *to, FPointArray *composite )
 {
-	double tox = ( to->x / FTSCALE );
-	double toy = ( to->y / FTSCALE );
+	qreal tox = ( to->x / FTSCALE );
+	qreal toy = ( to->y / FTSCALE );
 	if (!FirstM)
 	{
 		composite->addPoint(firstP);
@@ -432,8 +432,8 @@ static int traceMoveto( FT_Vector *to, FPointArray *composite )
 
 static int traceLineto( FT_Vector *to, FPointArray *composite )
 {
-	double tox = ( to->x / FTSCALE );
-	double toy = ( to->y / FTSCALE );
+	qreal tox = ( to->x / FTSCALE );
+	qreal toy = ( to->y / FTSCALE );
 	if ( !composite->hasLastQuadPoint(tox, toy, tox, toy, tox, toy, tox, toy))
 		composite->addQuadPoint(tox, toy, tox, toy, tox, toy, tox, toy);
 	return 0;
@@ -441,10 +441,10 @@ static int traceLineto( FT_Vector *to, FPointArray *composite )
 
 static int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *composite )
 {
-	double x1 = ( control->x / FTSCALE );
-	double y1 = ( control->y / FTSCALE );
-	double x2 = ( to->x / FTSCALE );
-	double y2 = ( to->y / FTSCALE );
+	qreal x1 = ( control->x / FTSCALE );
+	qreal y1 = ( control->y / FTSCALE );
+	qreal x2 = ( to->x / FTSCALE );
+	qreal y2 = ( to->y / FTSCALE );
 	if ( !composite->hasLastQuadPoint(x2, y2, x1, y1, x2, y2, x2, y2))
 		composite->addQuadPoint(x2, y2, x1, y1, x2, y2, x2, y2);
 	return 0;
@@ -452,12 +452,12 @@ static int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray 
 
 static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *composite )
 {
-	double x1 = ( p->x / FTSCALE );
-	double y1 = ( p->y / FTSCALE );
-	double x2 = ( q->x / FTSCALE );
-	double y2 = ( q->y / FTSCALE );
-	double x3 = ( to->x / FTSCALE );
-	double y3 = ( to->y / FTSCALE );
+	qreal x1 = ( p->x / FTSCALE );
+	qreal y1 = ( p->y / FTSCALE );
+	qreal x2 = ( q->x / FTSCALE );
+	qreal y2 = ( q->y / FTSCALE );
+	qreal x3 = ( to->x / FTSCALE );
+	qreal y3 = ( to->y / FTSCALE );
 	if ( !composite->hasLastQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3) )
 	{
 		composite->setPoint(composite->size()-1, FPoint(x1, y1));
@@ -505,14 +505,14 @@ QString adobeGlyphName(FT_ULong charcode)
 }
 
 /*
-double Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
+qreal Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 {
-	double width;
+	qreal width;
 	FT_Vector  delta;
 	FT_Face      face;
 	uint c1 = ch.at(0).unicode();
 	uint c2 = ch2.at(0).unicode();
-	double size10=Size/10.0;
+	qreal size10=Size/10.0;
 	if (scFace->canRender(ch[0]))
 	{
 		width = scFace->charWidth(ch[0])*size10;
@@ -530,7 +530,7 @@ double Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 				qDebug() << QString("Error %2 when accessing kerning pair for font %1").arg(scFace->scName()).arg(error);
 			}
 			else {
-				double uniEM = static_cast<double>(face->units_per_EM);
+				qreal uniEM = static_cast<qreal>(face->units_per_EM);
 				width += delta.x / uniEM * size10;
 			}
 		}
@@ -543,9 +543,9 @@ double Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 		return size10;
 }
 
-double RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
+qreal RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 {
-	double w, ww;
+	qreal w, ww;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
 	if (scFace->canRender(ch.at(0)))
@@ -554,8 +554,8 @@ double RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
-			double uniEM = static_cast<double>(face->units_per_EM);
-			w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / uniEM * (Size / 10.0);
+			qreal uniEM = static_cast<qreal>(face->units_per_EM);
+			w = (face->glyph->metrics.width + fabs((qreal)face->glyph->metrics.horiBearingX)) / uniEM * (Size / 10.0);
 			ww = face->glyph->metrics.horiAdvance / uniEM * (Size / 10.0);
 			return qMax(ww, w);
 		}
@@ -563,12 +563,12 @@ double RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
 
 	}
-	return static_cast<double>(Size / 10.0);
+	return static_cast<qreal>(Size / 10.0);
 }
 
-double RealCHeight(ScribusDoc *, ScFace* scFace, QString ch, int Size)
+qreal RealCHeight(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 {
-	double w;
+	qreal w;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
 	if (scFace->canRender(ch.at(0)))
@@ -577,7 +577,7 @@ double RealCHeight(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
-			double uniEM = static_cast<double>(face->units_per_EM);
+			qreal uniEM = static_cast<qreal>(face->units_per_EM);
 			w = face->glyph->metrics.height / uniEM * (Size / 10.0);
 		}
 		else {
@@ -587,12 +587,12 @@ double RealCHeight(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 		return w;
 	}
 	else
-		return static_cast<double>(Size / 10.0);
+		return static_cast<qreal>(Size / 10.0);
 }
 
-double RealCAscent(ScribusDoc *, ScFace* scFace, QString ch, int Size)
+qreal RealCAscent(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 {
-	double w;
+	qreal w;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
 	if (scFace->canRender(ch.at(0)))
@@ -601,7 +601,7 @@ double RealCAscent(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (! error) {
-			double uniEM = static_cast<double>(face->units_per_EM);
+			qreal uniEM = static_cast<qreal>(face->units_per_EM);
 			w = face->glyph->metrics.horiBearingY / uniEM * (Size / 10.0);
 		}
 		else {
@@ -611,13 +611,13 @@ double RealCAscent(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 		return w;
 	}
 	else
-		return static_cast<double>(Size / 10.0);
+		return static_cast<qreal>(Size / 10.0);
 }
 
-double RealFHeight(ScribusDoc *, ScFace* scFace, int Size)
+qreal RealFHeight(ScribusDoc *, ScFace* scFace, int Size)
 {
 	FT_Face face = scFace->ftFace();
-	double uniEM = static_cast<double>(face->units_per_EM);
+	qreal uniEM = static_cast<qreal>(face->units_per_EM);
 	return face->height / uniEM * (Size / 10.0);
 }
 */

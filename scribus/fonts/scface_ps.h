@@ -83,7 +83,7 @@ class ScFace_postscript : public FtFace
 					continue;
 				}
 				++goodGlyph;
-				double ww = face->glyph->metrics.horiAdvance / uniEM;
+				qreal ww = face->glyph->metrics.horiAdvance / uniEM;
 				if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
 					isStroked = true;
 				error = false;

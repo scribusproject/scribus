@@ -24,9 +24,9 @@ virtual:      dispatch to constituents, handle embedding (-)
 
 
 struct GlyphMetrics {
-	double width;
-	double ascent;
-	double descent;
+	qreal width;
+	qreal ascent;
+	qreal descent;
 };
 
 
@@ -77,11 +77,11 @@ public:
 	
 	struct GlyphData { 
 		FPointArray Outlines;
-		double x;
-		double y;
-		double bbox_width;
-		double bbox_ascent;
-		double bbox_descent;
+		qreal x;
+		qreal y;
+		qreal bbox_width;
+		qreal bbox_ascent;
+		qreal bbox_descent;
 		bool broken;
 		GlyphData() : Outlines(), x(0), y(0), bbox_width(1), bbox_ascent(1), bbox_descent(0), broken(true) {}
 	};
@@ -126,7 +126,7 @@ public:
 		Status cachedStatus;
 		
 		// caches
-		mutable QMap<uint,double>    m_glyphWidth;
+		mutable QMap<uint,qreal>    m_glyphWidth;
 		mutable QMap<uint,GlyphData> m_glyphOutline;
 		mutable QMap<uint, uint>     m_cMap;
 		
@@ -153,32 +153,32 @@ public:
 		virtual void loadGlyph(uint /*gl*/) const {}
 
 		// dummy implementations
-		virtual double ascent(double sz)           const { return sz; }
+		virtual qreal ascent(qreal sz)           const { return sz; }
 		virtual QString ascentAsString()    const { return "0" ; }
 		virtual QString descentAsString()    const { return "0"; }
 		virtual QString capHeightAsString()    const { return "0"; }
 		virtual QString FontBBoxAsString()    const { return "0 0 0 0"; }
 		virtual QString ItalicAngleAsString()    const { return "0"; }
-		virtual double descent(double /*sz*/)          const { return 0.0; }
-		virtual double xHeight(double sz)          const { return sz; }
-		virtual double capHeight(double sz)        const { return sz; }
-		virtual double height(double sz)           const { return sz; }
-		virtual double strikeoutPos(double sz)     const { return sz / 2; }
-		virtual double underlinePos(double /*sz*/)     const { return -1.0; }
-		virtual double strokeWidth(double /*sz*/)      const { return 0.1; }
-		virtual double maxAdvanceWidth(double sz)  const { return sz; }
+		virtual qreal descent(qreal /*sz*/)          const { return 0.0; }
+		virtual qreal xHeight(qreal sz)          const { return sz; }
+		virtual qreal capHeight(qreal sz)        const { return sz; }
+		virtual qreal height(qreal sz)           const { return sz; }
+		virtual qreal strikeoutPos(qreal sz)     const { return sz / 2; }
+		virtual qreal underlinePos(qreal /*sz*/)     const { return -1.0; }
+		virtual qreal strokeWidth(qreal /*sz*/)      const { return 0.1; }
+		virtual qreal maxAdvanceWidth(qreal sz)  const { return sz; }
 		virtual uint   char2CMap(QChar /*ch*/)         const { return 0; }
-		virtual double glyphKerning(uint gl1, uint gl2, double sz) const;
-		virtual QMap<QString,QString> fontDictionary(double sz=1.0) const;
-		virtual GlyphMetrics glyphBBox(uint gl, double sz) const;
+		virtual qreal glyphKerning(uint gl1, uint gl2, qreal sz) const;
+		virtual QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
+		virtual GlyphMetrics glyphBBox(uint gl, qreal sz) const;
 		virtual bool EmbedFont(QString &/*str*/)       const { return false; }
 		virtual void RawData(QByteArray & /*bb*/)      const {}
 		virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const;
 
 		// these use the cache:
-		virtual double      glyphWidth(uint gl, double sz)   const;
-		virtual FPointArray glyphOutline(uint gl, double sz) const; 
-		virtual FPoint      glyphOrigin (uint gl, double sz) const;
+		virtual qreal      glyphWidth(uint gl, qreal sz)   const;
+		virtual FPointArray glyphOutline(uint gl, qreal sz) const; 
+		virtual FPoint      glyphOrigin (uint gl, qreal sz) const;
 		
 	};
 		
@@ -301,48 +301,48 @@ public:
 	QString variant()  const { return m->variant; }
 	
 	// font metrics
-	double ascent(double sz=1.0)          const { return m->ascent(sz); }
+	qreal ascent(qreal sz=1.0)          const { return m->ascent(sz); }
 	QString ascentAsString()    const { return m->ascentAsString() ; }
 	QString descentAsString()    const { return m->descentAsString() ; }
 	QString capHeightAsString()    const { return m->capHeightAsString() ; }
 	QString FontBBoxAsString()    const { return m->FontBBoxAsString() ; }
 	QString ItalicAngleAsString()    const { return m->ItalicAngleAsString() ; }
-	double descent(double sz=1.0)         const { return m->descent(sz); }
-	double xHeight(double sz=1.0)         const { return m->xHeight(sz); }
-	double capHeight(double sz=1.0)       const { return m->capHeight(sz); }
-	double height(double sz=1.0)          const { return m->height(sz); }
-	double strikeoutPos(double sz=1.0)    const { return m->strikeoutPos(sz); }
-	double underlinePos(double sz=1.0)    const { return m->underlinePos(sz); }
-	double strokeWidth(double sz=1.0)     const { return m->strokeWidth(sz); }
-	double maxAdvanceWidth(double sz=1.0) const { return m->maxAdvanceWidth(sz); }
+	qreal descent(qreal sz=1.0)         const { return m->descent(sz); }
+	qreal xHeight(qreal sz=1.0)         const { return m->xHeight(sz); }
+	qreal capHeight(qreal sz=1.0)       const { return m->capHeight(sz); }
+	qreal height(qreal sz=1.0)          const { return m->height(sz); }
+	qreal strikeoutPos(qreal sz=1.0)    const { return m->strikeoutPos(sz); }
+	qreal underlinePos(qreal sz=1.0)    const { return m->underlinePos(sz); }
+	qreal strokeWidth(qreal sz=1.0)     const { return m->strokeWidth(sz); }
+	qreal maxAdvanceWidth(qreal sz=1.0) const { return m->maxAdvanceWidth(sz); }
 	
 	/// deprecated
-	QString stemV(double sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
+	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
 	
 	/// deprecated
-	QString italicAngle(double sz=1.0)      const { return fontDictionary(sz)["/ItalicAngle"]; }
+	QString italicAngle(qreal sz=1.0)      const { return fontDictionary(sz)["/ItalicAngle"]; }
 	
 	/// deprecated
-	QString fontBBox(double sz=1.0)         const { return fontDictionary(sz)["/FontBBox"]; }
+	QString fontBBox(qreal sz=1.0)         const { return fontDictionary(sz)["/FontBBox"]; }
 
 	/// returns a map of values used for font dictionaries in PS/PDF
-	QMap<QString,QString> fontDictionary(double sz=1.0) const { return m->fontDictionary(sz); }	
+	QMap<QString,QString> fontDictionary(qreal sz=1.0) const { return m->fontDictionary(sz); }	
 	// glyph interface
 	
 	/// returns the glyphs normal advance width at size 'sz'
-	double glyphWidth(uint gl, double sz=1.0) const { return m->glyphWidth(gl, sz); }
+	qreal glyphWidth(uint gl, qreal sz=1.0) const { return m->glyphWidth(gl, sz); }
 
 	/// returns the glyph kerning between 'gl1' and 'gl2' at size 'sz'
-	double glyphKerning(uint gl1, uint gl2, double sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
+	qreal glyphKerning(uint gl1, uint gl2, qreal sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
 
 	/// returns the glyphs bounding box at size 'sz', ie. the area where this glyph will produce marks
-	GlyphMetrics glyphBBox(uint gl, double sz=1.0) const { return m->glyphBBox(gl, sz); }
+	GlyphMetrics glyphBBox(uint gl, qreal sz=1.0) const { return m->glyphBBox(gl, sz); }
 
 	/// returns the glyph's outline as a cubic Bezier path
-	FPointArray glyphOutline(uint gl, double sz=1.0) const { return m->glyphOutline(gl, sz); }
+	FPointArray glyphOutline(uint gl, qreal sz=1.0) const { return m->glyphOutline(gl, sz); }
 
 	/// returns the glyph's origin FIXME: what's that exactly?
-	FPoint glyphOrigin(uint gl, double sz=1.0)    const { return m->glyphOrigin(gl, sz); }
+	FPoint glyphOrigin(uint gl, qreal sz=1.0)    const { return m->glyphOrigin(gl, sz); }
 	
 	// char interface
 
@@ -353,19 +353,19 @@ public:
 	uint char2CMap(QChar ch)   const;
 
 	/// returns the combined glyph width and kerning for 'ch' if followed by 'ch2'
-	double charWidth(QChar ch, double sz=1.0, QChar ch2 = QChar(0)) const;
+	qreal charWidth(QChar ch, qreal sz=1.0, QChar ch2 = QChar(0)) const;
 	
 	/// deprecated, see glyphBBox()
-	double realCharWidth(QChar ch, double sz=1.0) const { return glyphBBox(char2CMap(ch),sz).width; }
+	qreal realCharWidth(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).width; }
 	
 	/// deprecated, see glyphBBox()
-	double realCharHeight(QChar ch, double sz=1.0) const { GlyphMetrics gm=glyphBBox(char2CMap(ch),sz); return gm.ascent + gm.descent; }
+	qreal realCharHeight(QChar ch, qreal sz=1.0) const { GlyphMetrics gm=glyphBBox(char2CMap(ch),sz); return gm.ascent + gm.descent; }
 	
 	/// deprecated, see glyphBBox()
-	double realCharAscent(QChar ch, double sz=1.0) const { return glyphBBox(char2CMap(ch),sz).ascent; }
+	qreal realCharAscent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).ascent; }
 	
 	/// deprecated, see glyphBBox()
-	double realCharDescent(QChar ch, double sz=1.0) const { return glyphBBox(char2CMap(ch),sz).descent; }
+	qreal realCharDescent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).descent; }
 	
 private:
 		

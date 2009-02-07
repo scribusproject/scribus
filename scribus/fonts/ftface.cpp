@@ -85,7 +85,7 @@ void FtFace::load() const
 	const_cast<FtFace*>(this)->isStroked = false;
 	m_encoding = 0;
 	
-	m_uniEM = static_cast<double>(m_face->units_per_EM);
+	m_uniEM = static_cast<qreal>(m_face->units_per_EM);
 
 	m_descent = m_face->descender / m_uniEM;
 	m_ascent = m_face->ascender / m_uniEM;
@@ -178,18 +178,18 @@ void FtFace::loadGlyph(uint gl) const
 		m_glyphWidth[gl] = 1;
 	}
 	else {
-		double ww = double(face->glyph->metrics.horiAdvance) / m_uniEM;
-		double w  = (face->glyph->metrics.width + qAbs(double(face->glyph->metrics.horiBearingX))) / m_uniEM;
+		qreal ww = qreal(face->glyph->metrics.horiAdvance) / m_uniEM;
+		qreal w  = (face->glyph->metrics.width + qAbs(qreal(face->glyph->metrics.horiBearingX))) / m_uniEM;
 		GRec.bbox_width = qMax(w, ww);
-		double height = double(face->glyph->metrics.height) / m_uniEM;
-		GRec.bbox_ascent = double(face->glyph->metrics.horiBearingY) / m_uniEM;
+		qreal height = qreal(face->glyph->metrics.height) / m_uniEM;
+		GRec.bbox_ascent = qreal(face->glyph->metrics.horiBearingY) / m_uniEM;
 		GRec.bbox_descent = height - GRec.bbox_ascent;
 //		qDebug() << QString("glyphmetrics %1: EM %2 bearing (%3,%4) size (%5,%6) advance %7 bbox (%8,%9)")
 //			   .arg(gl).arg(m_uniEM).arg(face->glyph->metrics.horiBearingX).arg(face->glyph->metrics.horiBearingY)
 //			   .arg(face->glyph->metrics.width).arg(face->glyph->metrics.height).arg(face->glyph->metrics.horiAdvance)
 //			   .arg(w).arg(height);
 
-		double x, y;
+		qreal x, y;
 		bool error = false;
 		error = FT_Set_Char_Size( face, 0, 10, 72, 72 );
 		if (error)
@@ -213,11 +213,11 @@ void FtFace::loadGlyph(uint gl) const
 }
 
 
-double FtFace::glyphKerning(uint gl, uint gl2, double size) const
+qreal FtFace::glyphKerning(uint gl, uint gl2, qreal size) const
 {
 	FT_Vector  delta;
 	FT_Face    face = ftFace();
-	double result = 0;
+	qreal result = 0;
 	/****
 		Ok, this looks like a regression between Freetype 2.1.9 -> 2.1.10.
 		Ignoring the value of FT_HAS_KERNING for now -- AV
@@ -239,15 +239,15 @@ double FtFace::glyphKerning(uint gl, uint gl2, double size) const
 }
 
 /*
-GlyphMetrics FtFace::glyphBBox (uint gl, double sz) const
+GlyphMetrics FtFace::glyphBBox (uint gl, qreal sz) const
 {
 	FT_Face    face = ftFace();
 	GlyphMetrics result;
 	FT_Error error = FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 	if (!error) {
-		double w  = (face->glyph->metrics.width + QABS((double)face->glyph->metrics.horiBearingX)) / m_uniEM * sz;
+		qreal w  = (face->glyph->metrics.width + QABS((qreal)face->glyph->metrics.horiBearingX)) / m_uniEM * sz;
 		result.width = qMax(w, face->glyph->metrics.horiAdvance / m_uniEM * sz);
-		double height = face->glyph->metrics.height / m_uniEM * sz;
+		qreal height = face->glyph->metrics.height / m_uniEM * sz;
 		result.ascent = face->glyph->metrics.horiBearingY / m_uniEM * sz;
 		result.descent = height - result.ascent;
 	}

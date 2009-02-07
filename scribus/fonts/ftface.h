@@ -57,15 +57,15 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	virtual ~FtFace();
 	
 	// font metrics
-	double ascent(double sz=1.0)    const { return m_ascent * sz; }
-	double descent(double sz=1.0)   const { return m_descent * sz; }
-	double xHeight(double sz=1.0)   const { return m_xHeight * sz; }
-	double capHeight(double sz=1.0) const { return m_capHeight * sz; }
-	double height(double sz=1.0)    const { return m_height * sz; }
-	double strikeoutPos(double sz=1.0)    const { return m_strikeoutPos * sz; }
-	double underlinePos(double sz=1.0)    const { return m_underlinePos * sz; }
-	double strokeWidth(double /*sz*/)     const { return m_strokeWidth; }
-	double maxAdvanceWidth(double sz=1.0) const { return m_maxAdvanceWidth * sz; }
+	qreal ascent(qreal sz=1.0)    const { return m_ascent * sz; }
+	qreal descent(qreal sz=1.0)   const { return m_descent * sz; }
+	qreal xHeight(qreal sz=1.0)   const { return m_xHeight * sz; }
+	qreal capHeight(qreal sz=1.0) const { return m_capHeight * sz; }
+	qreal height(qreal sz=1.0)    const { return m_height * sz; }
+	qreal strikeoutPos(qreal sz=1.0)    const { return m_strikeoutPos * sz; }
+	qreal underlinePos(qreal sz=1.0)    const { return m_underlinePos * sz; }
+	qreal strokeWidth(qreal /*sz*/)     const { return m_strokeWidth; }
+	qreal maxAdvanceWidth(qreal sz=1.0) const { return m_maxAdvanceWidth * sz; }
 	QString ascentAsString()    const { return Ascent; }
 	QString descentAsString()    const { return Descender; }
 	QString capHeightAsString()    const { return CapHeight; }
@@ -73,12 +73,12 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	QString ItalicAngleAsString()    const { return ItalicAngle; }
 	
 	
-//FIXME	QMap<QString,QString> fontDictionary(double sz=1.0)      const;
+//FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0)      const;
 	
 	uint         char2CMap(QChar ch)                         const;
 
-	double       glyphKerning (uint gl1, uint gl2, double sz) const;
-//	GlyphMetrics glyphBBox (uint gl,               double sz) const;
+	qreal       glyphKerning (uint gl1, uint gl2, qreal sz) const;
+//	GlyphMetrics glyphBBox (uint gl,               qreal sz) const;
 
 	void RawData   (QByteArray & bb)            const;
 	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;
@@ -101,16 +101,16 @@ protected:
 
 	mutable int m_encoding;
 	
-	mutable double m_uniEM;
-	mutable double m_ascent;
-	mutable double m_descent;
-	mutable double m_height;
-	mutable double m_xHeight;
-	mutable double m_capHeight;
-	mutable double m_maxAdvanceWidth;
-	mutable double m_underlinePos;
-	mutable double m_strikeoutPos;
-	mutable double m_strokeWidth;
+	mutable qreal m_uniEM;
+	mutable qreal m_ascent;
+	mutable qreal m_descent;
+	mutable qreal m_height;
+	mutable qreal m_xHeight;
+	mutable qreal m_capHeight;
+	mutable qreal m_maxAdvanceWidth;
+	mutable qreal m_underlinePos;
+	mutable qreal m_strikeoutPos;
+	mutable qreal m_strokeWidth;
 	
 };
 

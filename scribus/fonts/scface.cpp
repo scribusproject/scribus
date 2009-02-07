@@ -29,7 +29,7 @@ ScFace::ScFaceData::ScFaceData() :
 {
 }
 
-double ScFace::ScFaceData::glyphKerning(uint /*gl1*/, uint /*gl2*/, double /*sz*/) const 
+qreal ScFace::ScFaceData::glyphKerning(uint /*gl1*/, uint /*gl2*/, qreal /*sz*/) const 
 { 
 	return 0.0; 
 }
@@ -41,13 +41,13 @@ bool ScFace::ScFaceData::glyphNames(QMap<uint, std::pair<QChar, QString> >& /*gL
 }
 
 
-QMap<QString,QString> ScFace::ScFaceData::fontDictionary(double /*sz*/) const
+QMap<QString,QString> ScFace::ScFaceData::fontDictionary(qreal /*sz*/) const
 {
 	return QMap<QString, QString>();
 }
 
 
-GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, double sz) const
+GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, qreal sz) const
 {
 	GlyphMetrics res;
 	if (gl == 0 || gl >= CONTROL_GLYPHS)
@@ -67,7 +67,7 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, double sz) const
 }
 
 
-double ScFace::ScFaceData::glyphWidth(uint gl, double size) const
+qreal ScFace::ScFaceData::glyphWidth(uint gl, qreal size) const
 {
 	if (gl >= CONTROL_GLYPHS)
 		return 0.0;
@@ -80,7 +80,7 @@ double ScFace::ScFaceData::glyphWidth(uint gl, double size) const
 }
 
 
-FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const 
+FPointArray ScFace::ScFaceData::glyphOutline(uint gl, qreal sz) const 
 { 
 	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
@@ -103,7 +103,7 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const
 }
 
 
-FPoint ScFace::ScFaceData::glyphOrigin(uint gl, double sz) const 
+FPoint ScFace::ScFaceData::glyphOrigin(uint gl, qreal sz) const 
 {
 	if (gl == 0 || gl >= CONTROL_GLYPHS)
 		return FPoint(0,0);
@@ -284,7 +284,7 @@ bool ScFace::canRender(QChar ch) const
 }
 
 
-double ScFace::charWidth(QChar ch, double size, QChar ch2) const
+qreal ScFace::charWidth(QChar ch, qreal size, QChar ch2) const
 {
 	if (!canRender(ch)) // calls loadGlyph()
 		return size;
@@ -293,7 +293,7 @@ double ScFace::charWidth(QChar ch, double size, QChar ch2) const
 	else {
 		uint gl1 = char2CMap(ch);
 		uint gl2 = char2CMap(ch2);
-		double width = glyphWidth(gl1, size);
+		qreal width = glyphWidth(gl1, size);
 		if (gl2 != 0)
 			width += glyphKerning(gl1, gl2, size);
 //		qDebug() << QString("scface::glyphkerning: %1_%2 = %3 (%4, %5)").arg(ch).arg(ch2).arg(glyphKerning(gl1, gl2,size)).arg(gl1).arg(gl2);
