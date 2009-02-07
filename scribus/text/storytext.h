@@ -57,15 +57,15 @@ class ResourceCollection;
 
 struct LineSpec 
 {
-	double x;
-	double y;
-	double width;
-	double ascent;
-	double descent;
+	qreal x;
+	qreal y;
+	qreal width;
+	qreal ascent;
+	qreal descent;
 	
 	int firstItem;
 	int lastItem;
-	double naturalWidth;
+	qreal naturalWidth;
 };
 
 /**
@@ -121,8 +121,8 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	int prevCharPos(int c);
 	int nextWordPos(int c);
 	int prevWordPos(int c);
-	int nextLinePos(int c, double oldX);
-	int prevLinePos(int c, double oldX);
+	int nextLinePos(int c, qreal oldX);
+	int prevLinePos(int c, qreal oldX);
 	int nextFramePos(int c);
 	int prevFramePos(int c);
 	
@@ -264,7 +264,7 @@ private:
 	int firstFrameItem, lastFrameItem;
 	QList<LineSpec> m_lines;
 	bool m_validLayout;
-	double m_magicX;
+	qreal m_magicX;
 	int m_lastMagicPos;
 
 	QString textWithSmartHyphens (int pos, uint len) const;

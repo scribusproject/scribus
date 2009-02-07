@@ -48,9 +48,9 @@
 
   A size is specified by a width and a height.
 
-  The coordinate type is double (defined in \c <qwindowdefs.h> as \c double).
-  The minimum value of double is double_MIN (-2147483648) and the maximum
-  value is double_MAX (2147483647).
+  The coordinate type is qreal (defined in \c <qwindowdefs.h> as \c qreal).
+  The minimum value of qreal is qreal_MIN (-2147483648) and the maximum
+  value is qreal_MAX (2147483647).
 
   The size can be set in the constructor and changed with setWidth()
   and setHeight(), or using operator+=(), operator-=(), operator*=()
@@ -74,7 +74,7 @@
 */
 
 /*!
-  \fn FSize::FSize( double w, double h )
+  \fn FSize::FSize( qreal w, qreal h )
   Constructs a size with width \a w and height \a h.
 */
 
@@ -97,25 +97,25 @@
 */
 
 /*!
-  \fn double FSize::width() const
+  \fn qreal FSize::width() const
   Returns the width.
   \sa height()
 */
 
 /*!
-  \fn double FSize::height() const
+  \fn qreal FSize::height() const
   Returns the height.
   \sa width()
 */
 
 /*!
-  \fn void FSize::setWidth( double w )
+  \fn void FSize::setWidth( qreal w )
   Sets the width to \a w.
   \sa width(), setHeight()
 */
 
 /*!
-  \fn void FSize::setHeight( double h )
+  \fn void FSize::setHeight( qreal h )
   Sets the height to \a h.
   \sa height(), setWidth()
 */
@@ -126,7 +126,7 @@
 
 void FSize::transpose()
 {
-    double tmp = wd;
+    qreal tmp = wd;
     wd = ht;
     ht = tmp;
 }
@@ -173,16 +173,16 @@ void FSize::transpose()
     // t3 is (60, 72)
     \endcode
 */
-void FSize::scale( double w, double h, Qt::AspectRatioMode mode )
+void FSize::scale( qreal w, qreal h, Qt::AspectRatioMode mode )
 {
     if ( mode == Qt::IgnoreAspectRatio ) {
-	wd = (double)w;
-	ht = (double)h;
+	wd = (qreal)w;
+	ht = (qreal)h;
     } else {
 	bool useHeight = TRUE;
-	double w0 = width();
-	double h0 = height();
-	double rw = h * w0 / h0;
+	qreal w0 = width();
+	qreal h0 = height();
+	qreal rw = h * w0 / h0;
 
 	if ( mode == Qt::KeepAspectRatio ) {
 	    useHeight = ( rw <= w );
@@ -191,11 +191,11 @@ void FSize::scale( double w, double h, Qt::AspectRatioMode mode )
 	}
 
 	if ( useHeight ) {
-	    wd = (double)rw;
-	    ht = (double)h;
+	    wd = (qreal)rw;
+	    ht = (qreal)h;
 	} else {
-	    wd = (double)w;
-	    ht = (double)( w * h0 / w0 );
+	    wd = (qreal)w;
+	    ht = (qreal)( w * h0 / w0 );
 	}
     }
 }
@@ -211,7 +211,7 @@ void FSize::scale( const FSize &s, Qt::AspectRatioMode mode )
 }
 
 /*!
-  \fn double &FSize::rwidth()
+  \fn qreal &FSize::rwidth()
   Returns a reference to the width.
 
   Using a reference makes it possible to directly manipulate the width.
@@ -226,7 +226,7 @@ void FSize::scale( const FSize &s, Qt::AspectRatioMode mode )
 */
 
 /*!
-  \fn double &FSize::rheight()
+  \fn qreal &FSize::rheight()
   Returns a reference to the height.
 
   Using a reference makes it possible to directly manipulate the height.
@@ -267,13 +267,13 @@ void FSize::scale( const FSize &s, Qt::AspectRatioMode mode )
 */
 
 /*!
-  \fn FSize &FSize::operator*=( double c )
+  \fn FSize &FSize::operator*=( qreal c )
   Multiplies both the width and height by \a c and returns a reference to
   the size.
 */
 
 /*!
-  \overload FSize &FSize::operator*=( double c )
+  \overload FSize &FSize::operator*=( qreal c )
 
   Multiplies both the width and height by \a c and returns a reference to
   the size.
@@ -307,37 +307,37 @@ void FSize::scale( const FSize &s, Qt::AspectRatioMode mode )
 */
 
 /*!
-  \fn const FSize operator*( const FSize &s, double c )
+  \fn const FSize operator*( const FSize &s, qreal c )
   \relates FSize
   Multiplies \a s by \a c and returns the result.
 */
 
 /*!
-  \overload const FSize operator*( double c, const FSize &s )
+  \overload const FSize operator*( qreal c, const FSize &s )
   \relates FSize
   Multiplies \a s by \a c and returns the result.
 */
 
 /*!
-  \overload const FSize operator*( const FSize &s, double c )
+  \overload const FSize operator*( const FSize &s, qreal c )
   \relates FSize
   Multiplies \a s by \a c and returns the result.
 */
 
 /*!
-  \overload const FSize operator*( double c, const FSize &s )
+  \overload const FSize operator*( qreal c, const FSize &s )
   \relates FSize
   Multiplies \a s by \a c and returns the result.
 */
 
 /*!
-  \fn FSize &FSize::operator/=( double c )
+  \fn FSize &FSize::operator/=( qreal c )
   Divides both the width and height by \a c and returns a reference to the
   size.
 */
 
 /*!
-  \fn FSize &FSize::operator/=( double c )
+  \fn FSize &FSize::operator/=( qreal c )
   \overload
   Divides both the width and height by \a c and returns a reference to the
   size.
@@ -346,13 +346,13 @@ void FSize::scale( const FSize &s, Qt::AspectRatioMode mode )
 */
 
 /*!
-  \fn const FSize operator/( const FSize &s, double c )
+  \fn const FSize operator/( const FSize &s, qreal c )
   \relates FSize
   Divides \a s by \a c and returns the result.
 */
 
 /*!
-  \fn const FSize operator/( const FSize &s, double c )
+  \fn const FSize operator/( const FSize &s, qreal c )
   \relates FSize
   \overload
   Divides \a s by \a c and returns the result.

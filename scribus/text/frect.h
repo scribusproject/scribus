@@ -53,31 +53,31 @@ public:
     FRect()	{ x1 = y1 = 0; x2 = y2 = -1; }
     FRect( FPoint &topleft, FPoint &bottomright );
     FRect( FPoint &topleft, FSize &size );
-    FRect( double left, double top, double width, double height );
+    FRect( qreal left, qreal top, qreal width, qreal height );
 
     bool   isNull()	const;
     bool   isEmpty()	const;
     bool   isValid()	const;
     FRect  normalize()	const;
 
-    double	   left()	const;
-    double	   top()	const;
-    double	   right()	const;
-    double	   bottom()	const;
+    qreal	   left()	const;
+    qreal	   top()	const;
+    qreal	   right()	const;
+    qreal	   bottom()	const;
 
-    double &rLeft();
-    double &rTop();
-    double &rRight();
-    double &rBottom();
+    qreal &rLeft();
+    qreal &rTop();
+    qreal &rRight();
+    qreal &rBottom();
 
-    double	   x()		const;
-    double	   y()		const;
-    void   setLeft( double pos );
-    void   setTop( double pos );
-    void   setRight( double pos );
-    void   setBottom( double pos );
-    void   setX( double x );
-    void   setY( double y );
+    qreal	   x()		const;
+    qreal	   y()		const;
+    void   setLeft( qreal pos );
+    void   setTop( qreal pos );
+    void   setRight( qreal pos );
+    void   setBottom( qreal pos );
+    void   setX( qreal x );
+    void   setY( qreal y );
 
     void   setTopLeft( FPoint &p );
     void   setBottomRight( FPoint &p );
@@ -90,29 +90,29 @@ public:
     FPoint bottomLeft()	 const;
     FPoint center()	 const;
 
-    void   rect( double *x, double *y, double *w, double *h ) const;
-    void   coords( double *x1, double *y1, double *x2, double *y2 ) const;
+    void   rect( qreal *x, qreal *y, qreal *w, qreal *h ) const;
+    void   coords( qreal *x1, qreal *y1, qreal *x2, qreal *y2 ) const;
 
-    void   moveLeft( double pos );
-    void   moveTop( double pos );
-    void   moveRight( double pos );
-    void   moveBottom( double pos );
+    void   moveLeft( qreal pos );
+    void   moveTop( qreal pos );
+    void   moveRight( qreal pos );
+    void   moveBottom( qreal pos );
     void   moveTopLeft( FPoint &p );
     void   moveBottomRight( FPoint &p );
     void   moveTopRight( FPoint &p );
     void   moveBottomLeft( FPoint &p );
     void   moveCenter( FPoint &p );
-    void   moveBy( double dx, double dy );
+    void   moveBy( qreal dx, qreal dy );
 
-    void   setRect( double x, double y, double w, double h );
-    void   setCoords( double x1, double y1, double x2, double y2 );
-    void   addCoords( double x1, double y1, double x2, double y2 );
+    void   setRect( qreal x, qreal y, qreal w, qreal h );
+    void   setCoords( qreal x1, qreal y1, qreal x2, qreal y2 );
+    void   addCoords( qreal x1, qreal y1, qreal x2, qreal y2 );
 
     FSize  size()	const;
-    double	   width()	const;
-    double	   height()	const;
-    void   setWidth( double w );
-    void   setHeight( double h );
+    qreal	   width()	const;
+    qreal	   height()	const;
+    void   setWidth( qreal w );
+    void   setHeight( qreal h );
     void   setSize( const FSize &s );
 
     FRect  operator|(const FRect &r) const;
@@ -121,8 +121,8 @@ public:
     FRect&  operator&=(const FRect &r);
 
     bool   contains( FPoint &p, bool proper=FALSE ) const;
-    bool   contains( double x, double y ) const; // inline methods, _don't_ merge these
-    bool   contains( double x, double y, bool proper ) const;
+    bool   contains( qreal x, qreal y ) const; // inline methods, _don't_ merge these
+    bool   contains( qreal x, qreal y, bool proper ) const;
     bool   contains( const FRect &r, bool proper=FALSE ) const;
     FRect  unite( const FRect &r ) const;
     FRect  intersect( const FRect &r ) const;
@@ -133,13 +133,13 @@ public:
 
 private:
 #if defined(Q_WS_X11) || defined(Q_OS_TEMP)
-    friend void qt_setCoords( FRect *r, double xp1, double yp1, double xp2, double yp2 );
+    friend void qt_setCoords( FRect *r, qreal xp1, qreal yp1, qreal xp2, qreal yp2 );
 #endif
 
-    double x1;
-    double y1;
-    double x2;
-    double y2;
+    qreal x1;
+    qreal y1;
+    qreal x2;
+    qreal y2;
 
 };
 
@@ -159,12 +159,12 @@ bool operator!=( const FRect &, const FRect & );
   FRect inline member functions
  *****************************************************************************/
 
-inline FRect::FRect( double left, double top, double width, double height )
+inline FRect::FRect( qreal left, qreal top, qreal width, qreal height )
 {
-    x1 = (double)left;
-    y1 = (double)top;
-    x2 = (double)(left+width-1);
-    y2 = (double)(top+height-1);
+    x1 = (qreal)left;
+    y1 = (qreal)top;
+    x2 = (qreal)(left+width-1);
+    y2 = (qreal)(top+height-1);
 }
 
 inline bool FRect::isNull() const
@@ -176,53 +176,53 @@ inline bool FRect::isEmpty() const
 inline bool FRect::isValid() const
 { return x1 <= x2 && y1 <= y2; }
 
-inline double FRect::left() const
+inline qreal FRect::left() const
 { return x1; }
 
-inline double FRect::top() const
+inline qreal FRect::top() const
 { return y1; }
 
-inline double FRect::right() const
+inline qreal FRect::right() const
 { return x2; }
 
-inline double FRect::bottom() const
+inline qreal FRect::bottom() const
 { return y2; }
 
-inline double &FRect::rLeft()
+inline qreal &FRect::rLeft()
 { return x1; }
 
-inline double & FRect::rTop()
+inline qreal & FRect::rTop()
 { return y1; }
 
-inline double & FRect::rRight()
+inline qreal & FRect::rRight()
 { return x2; }
 
-inline double & FRect::rBottom()
+inline qreal & FRect::rBottom()
 { return y2; }
 
-inline double FRect::x() const
+inline qreal FRect::x() const
 { return x1; }
 
-inline double FRect::y() const
+inline qreal FRect::y() const
 { return y1; }
 
-inline void FRect::setLeft( double pos )
-{ x1 = (double)pos; }
+inline void FRect::setLeft( qreal pos )
+{ x1 = (qreal)pos; }
 
-inline void FRect::setTop( double pos )
-{ y1 = (double)pos; }
+inline void FRect::setTop( qreal pos )
+{ y1 = (qreal)pos; }
 
-inline void FRect::setRight( double pos )
-{ x2 = (double)pos; }
+inline void FRect::setRight( qreal pos )
+{ x2 = (qreal)pos; }
 
-inline void FRect::setBottom( double pos )
-{ y2 = (double)pos; }
+inline void FRect::setBottom( qreal pos )
+{ y2 = (qreal)pos; }
 
-inline void FRect::setX( double x )
-{ x1 = (double)x; }
+inline void FRect::setX( qreal x )
+{ x1 = (qreal)x; }
 
-inline void FRect::setY( double y )
-{ y1 = (double)y; }
+inline void FRect::setY( qreal y )
+{ y1 = (qreal)y; }
 
 inline FPoint FRect::topLeft() const
 { return FPoint(x1, y1); }
@@ -239,16 +239,16 @@ inline FPoint FRect::bottomLeft() const
 inline FPoint FRect::center() const
 { return FPoint((x1+x2)/2, (y1+y2)/2); }
 
-inline double FRect::width() const
+inline qreal FRect::width() const
 { return  x2 - x1 + 1; }
 
-inline double FRect::height() const
+inline qreal FRect::height() const
 { return  y2 - y1 + 1; }
 
 inline FSize FRect::size() const
 { return FSize(x2-x1+1, y2-y1+1); }
 
-inline bool FRect::contains( double x, double y, bool proper ) const
+inline bool FRect::contains( qreal x, qreal y, bool proper ) const
 {
     if ( proper )
         return x > x1 && x < x2 &&
@@ -258,7 +258,7 @@ inline bool FRect::contains( double x, double y, bool proper ) const
                y >= y1 && y <= y2;
 }
 
-inline bool FRect::contains( double x, double y ) const
+inline bool FRect::contains( qreal x, qreal y ) const
 {
     return x >= x1 && x <= x2 &&
 	   y >= y1 && y <= y2;

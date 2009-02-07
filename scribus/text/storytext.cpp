@@ -380,7 +380,7 @@ void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeig
 		bool insert = true; 
 		if (ch == SpecialChars::SHYPHEN && index > 0) {
 			ScText* lastItem = this->item(index - 1);
-			// double SHY means user provided SHY, single SHY is automatic one
+			// qreal SHY means user provided SHY, single SHY is automatic one
 			if (lastItem->effects() & ScStyle_HyphenationPossible)
 				lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);
 			else
@@ -984,7 +984,7 @@ int StoryText::prevLine(int pos)
 			if (i == 0)
 				return startOfLine(pos);
 			// find current xpos
-			double xpos = 0.0;
+			qreal xpos = 0.0;
 			for (int j = ls.firstItem; j < pos; ++j)
 				xpos += item(j)->glyph.wide();
 			if (pos != m_lastMagicPos || xpos > m_magicX)
@@ -1018,7 +1018,7 @@ int StoryText::nextLine(int pos)
 			if (i+1 == m_lines.count())
 				return endOfLine(pos);
 			// find current xpos
-			double xpos = 0.0;
+			qreal xpos = 0.0;
 			for (int j = ls.firstItem; j < pos; ++j)
 				xpos += item(j)->glyph.wide();
 			if (pos != m_lastMagicPos || xpos > m_magicX)
@@ -1254,17 +1254,17 @@ void StoryText::validate()
 
 int StoryText::screenToPosition(FPoint coord) const
 {
-	double maxx = coord.x() - 1.0;
+	qreal maxx = coord.x() - 1.0;
 	for (unsigned int i=0; i < lines(); ++i)
 	{
 		LineSpec ls = line(i);
 //		qDebug() << QString("screenToPosition: (%1,%2) -> y %3 - %4 + %5").arg(coord.x()).arg(coord.y()).arg(ls.y).arg(ls.ascent).arg(ls.descent);
 		if (ls.y + ls.descent < coord.y())
 			continue;
-		double xpos = ls.x;
+		qreal xpos = ls.x;
 		for (int j = ls.firstItem; j <= ls.lastItem; ++j) {
 //				qDebug() << QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide());
-			double width = item(j)->glyph.wide();
+			qreal width = item(j)->glyph.wide();
 			xpos += width;
 			if (xpos >= coord.x())
 				return xpos - width/2 > coord.x() ? j : j+1;
@@ -1309,7 +1309,7 @@ FRect StoryText::boundingBox(int pos, uint len) const
 			}
 			else */
 			{
-				double xpos = ls.x;
+				qreal xpos = ls.x;
 				for (int j = ls.firstItem; j < pos; ++j)
 				{
 					if (item(j)->ch == SpecialChars::OBJECT)
@@ -1317,14 +1317,14 @@ FRect StoryText::boundingBox(int pos, uint len) const
 					else
 						xpos += item(j)->glyph.wide();
 				}
-				double finalw = 1;
+				qreal finalw = 1;
 				if (item(pos)->ch == SpecialChars::OBJECT)
 					finalw = (object(pos)->gWidth + object(pos)->lineWidth()) * item(pos)->glyph.scaleH;
 				else
 					finalw = item(pos)->glyph.wide();
 				const CharStyle& cs(charStyle(pos));
-				double desc = -cs.font().descent(cs.fontSize() / 10.0);
-				double asce = cs.font().ascent(cs.fontSize() / 10.0);
+				qreal desc = -cs.font().descent(cs.fontSize() / 10.0);
+				qreal asce = cs.font().ascent(cs.fontSize() / 10.0);
 				result.setRect(xpos, ls.y - asce, pos < length()? finalw : 1, desc+asce);
 			}
 			return result;
@@ -1538,7 +1538,7 @@ public:
 					obj->insertChars(obj->length(), txt.mid(lastPos, toInsert));
 				len = obj->length();
 				ScText* lastItem = obj->item(len-1);
-				// double SHY means user provided SHY, single SHY is automatic one
+				// qreal SHY means user provided SHY, single SHY is automatic one
 				if (lastItem->effects() & ScStyle_HyphenationPossible)
 				{
 					lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);

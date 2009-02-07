@@ -54,33 +54,33 @@ public:
     };
 
     FSize();
-    FSize( double w, double h );
+    FSize( qreal w, qreal h );
 
     bool isNull() const;
     bool isEmpty() const;
     bool isValid() const;
 
-    double width() const;
-    double height() const;
-    void setWidth( double w );
-    void setHeight( double h );
+    qreal width() const;
+    qreal height() const;
+    void setWidth( qreal w );
+    void setHeight( qreal h );
     void transpose();
 
-    void scale( double w, double h, Qt::AspectRatioMode mode );
+    void scale( qreal w, qreal h, Qt::AspectRatioMode mode );
     void scale( const FSize &s, Qt::AspectRatioMode mode );
 
     FSize expandedTo( const FSize & ) const;
     FSize boundedTo( const FSize & ) const;
 
-    double &rwidth();
-    double &rheight();
+    qreal &rwidth();
+    qreal &rheight();
 
     FSize &operator+=( const FSize & );
     FSize &operator-=( const FSize & );
     FSize &operator*=( int c );
-    FSize &operator*=( double c );
+    FSize &operator*=( qreal c );
     FSize &operator/=( int c );
-    FSize &operator/=( double c );
+    FSize &operator/=( qreal c );
 
     friend inline bool operator==( const FSize &, const FSize & );
     friend inline bool operator!=( const FSize &, const FSize & );
@@ -88,16 +88,16 @@ public:
     friend inline const FSize operator-( const FSize &, const FSize & );
     friend inline const FSize operator*( const FSize &, int );
     friend inline const FSize operator*( int, const FSize & );
-    friend inline const FSize operator*( const FSize &, double );
-    friend inline const FSize operator*( double, const FSize & );
+    friend inline const FSize operator*( const FSize &, qreal );
+    friend inline const FSize operator*( qreal, const FSize & );
     friend inline const FSize operator/( const FSize &, int );
-    friend inline const FSize operator/( const FSize &, double );
+    friend inline const FSize operator/( const FSize &, qreal );
 
 private:
     static void warningDivByZero();
 
-    double wd;
-    double ht;
+    qreal wd;
+    qreal ht;
 };
 
 
@@ -116,8 +116,8 @@ private:
 inline FSize::FSize()
 { wd = ht = -1; }
 
-inline FSize::FSize( double w, double h )
-{ wd=(double)w; ht=(double)h; }
+inline FSize::FSize( qreal w, qreal h )
+{ wd=(qreal)w; ht=(qreal)h; }
 
 inline bool FSize::isNull() const
 { return wd==0 && ht==0; }
@@ -128,22 +128,22 @@ inline bool FSize::isEmpty() const
 inline bool FSize::isValid() const
 { return wd>=0 && ht>=0; }
 
-inline double FSize::width() const
+inline qreal FSize::width() const
 { return wd; }
 
-inline double FSize::height() const
+inline qreal FSize::height() const
 { return ht; }
 
-inline void FSize::setWidth( double w )
-{ wd=(double)w; }
+inline void FSize::setWidth( qreal w )
+{ wd=(qreal)w; }
 
-inline void FSize::setHeight( double h )
-{ ht=(double)h; }
+inline void FSize::setHeight( qreal h )
+{ ht=(qreal)h; }
 
-inline double &FSize::rwidth()
+inline qreal &FSize::rwidth()
 { return wd; }
 
-inline double &FSize::rheight()
+inline qreal &FSize::rheight()
 { return ht; }
 
 inline FSize &FSize::operator+=( const FSize &s )
@@ -153,10 +153,10 @@ inline FSize &FSize::operator-=( const FSize &s )
 { wd-=s.wd; ht-=s.ht; return *this; }
 
 inline FSize &FSize::operator*=( int c )
-{ wd*=(double)c; ht*=(double)c; return *this; }
+{ wd*=(qreal)c; ht*=(qreal)c; return *this; }
 
-inline FSize &FSize::operator*=( double c )
-{ wd=(double)(wd*c); ht=(double)(ht*c); return *this; }
+inline FSize &FSize::operator*=( qreal c )
+{ wd=(qreal)(wd*c); ht=(qreal)(ht*c); return *this; }
 
 inline bool operator==( const FSize &s1, const FSize &s2 )
 { return s1.wd == s2.wd && s1.ht == s2.ht; }
@@ -176,11 +176,11 @@ inline const FSize operator*( const FSize &s, int c )
 inline const FSize operator*( int c, const FSize &s )
 {  return FSize(s.wd*c, s.ht*c); }
 
-inline const FSize operator*( const FSize &s, double c )
-{ return FSize((double)(s.wd*c), (double)(s.ht*c)); }
+inline const FSize operator*( const FSize &s, qreal c )
+{ return FSize((qreal)(s.wd*c), (qreal)(s.ht*c)); }
 
-inline const FSize operator*( double c, const FSize &s )
-{ return FSize((double)(s.wd*c), (double)(s.ht*c)); }
+inline const FSize operator*( qreal c, const FSize &s )
+{ return FSize((qreal)(s.wd*c), (qreal)(s.ht*c)); }
 
 inline FSize &FSize::operator/=( int c )
 {
@@ -188,17 +188,17 @@ inline FSize &FSize::operator/=( int c )
     if ( c == 0 )
 	warningDivByZero();
 #endif
-    wd/=(double)c; ht/=(double)c;
+    wd/=(qreal)c; ht/=(qreal)c;
     return *this;
 }
 
-inline FSize &FSize::operator/=( double c )
+inline FSize &FSize::operator/=( qreal c )
 {
 #if defined(QT_CHECK_MATH)
     if ( c == 0.0 )
 	warningDivByZero();
 #endif
-    wd=(double)(wd/c); ht=(double)(ht/c);
+    wd=(qreal)(wd/c); ht=(qreal)(ht/c);
     return *this;
 }
 
@@ -211,13 +211,13 @@ inline const FSize operator/( const FSize &s, int c )
     return FSize(s.wd/c, s.ht/c);
 }
 
-inline const FSize operator/( const FSize &s, double c )
+inline const FSize operator/( const FSize &s, qreal c )
 {
 #if defined(QT_CHECK_MATH)
     if ( c == 0.0 )
 	FSize::warningDivByZero();
 #endif
-    return FSize((double)(s.wd/c), (double)(s.ht/c));
+    return FSize((qreal)(s.wd/c), (qreal)(s.ht/c));
 }
 
 inline FSize FSize::expandedTo( const FSize & otherSize ) const

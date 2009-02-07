@@ -51,9 +51,9 @@
     a bottom-right corner, but it is normally expressed as an
     upper-left corner and a size.
 
-    The coordinate type is double (defined in \c qwindowdefs.h as \c
-    int). The minimum value of double is double_MIN (-2147483648) and
-    the maximum value is  double_MAX (2147483647).
+    The coordinate type is qreal (defined in \c qwindowdefs.h as \c
+    int). The minimum value of qreal is qreal_MIN (-2147483648) and
+    the maximum value is  qreal_MAX (2147483647).
 
     Note that the size (width and height) of a rectangle might be
     different from what you are used to. If the top-left corner and
@@ -105,10 +105,10 @@
 
 FRect::FRect( FPoint &topLeft, FPoint &bottomRight )
 {
-    x1 = (double)topLeft.x();
-    y1 = (double)topLeft.y();
-    x2 = (double)bottomRight.x();
-    y2 = (double)bottomRight.y();
+    x1 = (qreal)topLeft.x();
+    y1 = (qreal)topLeft.y();
+    x2 = (qreal)bottomRight.x();
+    y2 = (qreal)bottomRight.y();
 }
 
 /*!
@@ -118,14 +118,14 @@ FRect::FRect( FPoint &topLeft, FPoint &bottomRight )
 
 FRect::FRect( FPoint &topLeft, FSize &size )
 {
-    x1 = (double)topLeft.x();
-    y1 = (double)topLeft.y();
-    x2 = (double)(x1+size.width());
-    y2 = (double)(y1+size.height());
+    x1 = (qreal)topLeft.x();
+    y1 = (qreal)topLeft.y();
+    x2 = (qreal)(x1+size.width());
+    y2 = (qreal)(y1+size.height());
 }
 
 /*!
-    \fn FRect::FRect( double left, double top, double width, double height )
+    \fn FRect::FRect( qreal left, qreal top, qreal width, qreal height )
 
     Constructs a rectangle with the \a top, \a left corner and \a
     width and \a height.
@@ -218,7 +218,7 @@ FRect FRect::normalize() const
 
 
 /*!
-    \fn double FRect::left() const
+    \fn qreal FRect::left() const
 
     Returns the left coordinate of the rectangle. Identical to x().
 
@@ -226,7 +226,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double FRect::top() const
+    \fn qreal FRect::top() const
 
     Returns the top coordinate of the rectangle. Identical to y().
 
@@ -234,7 +234,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double FRect::right() const
+    \fn qreal FRect::right() const
 
     Returns the right coordinate of the rectangle.
 
@@ -242,7 +242,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double FRect::bottom() const
+    \fn qreal FRect::bottom() const
 
     Returns the bottom coordinate of the rectangle.
 
@@ -250,7 +250,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double &FRect::rLeft()
+    \fn qreal &FRect::rLeft()
 
     Returns a reference to the left coordinate of the rectangle.
 
@@ -258,7 +258,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double &FRect::rTop()
+    \fn qreal &FRect::rTop()
 
     Returns a reference to the top coordinate of the rectangle.
 
@@ -266,7 +266,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double &FRect::rRight()
+    \fn qreal &FRect::rRight()
 
     Returns a reference to the right coordinate of the rectangle.
 
@@ -274,7 +274,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double &FRect::rBottom()
+    \fn qreal &FRect::rBottom()
 
     Returns a reference to the bottom coordinate of the rectangle.
 
@@ -282,7 +282,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double FRect::x() const
+    \fn qreal FRect::x() const
 
     Returns the left coordinate of the rectangle. Identical to left().
 
@@ -290,7 +290,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn double FRect::y() const
+    \fn qreal FRect::y() const
 
     Returns the top coordinate of the rectangle. Identical to top().
 
@@ -298,7 +298,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn void FRect::setLeft( double pos )
+    \fn void FRect::setLeft( qreal pos )
 
     Sets the left edge of the rectangle to \a pos. May change the
     width, but will never change the right edge of the rectangle.
@@ -309,7 +309,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn void FRect::setTop( double pos )
+    \fn void FRect::setTop( qreal pos )
 
     Sets the top edge of the rectangle to \a pos. May change the
     height, but will never change the bottom edge of the rectangle.
@@ -320,7 +320,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn void FRect::setRight( double pos )
+    \fn void FRect::setRight( qreal pos )
 
     Sets the right edge of the rectangle to \a pos. May change the
     width, but will never change the left edge of the rectangle.
@@ -329,7 +329,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn void FRect::setBottom( double pos )
+    \fn void FRect::setBottom( qreal pos )
 
     Sets the bottom edge of the rectangle to \a pos. May change the
     height, but will never change the top edge of the rectangle.
@@ -338,7 +338,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn void FRect::setX( double x )
+    \fn void FRect::setX( qreal x )
 
     Sets the x position of the rectangle (its left end) to \a x. May
     change the width, but will never change the right edge of the
@@ -350,7 +350,7 @@ FRect FRect::normalize() const
 */
 
 /*!
-    \fn void FRect::setY( double y )
+    \fn void FRect::setY( qreal y )
 
     Sets the y position of the rectangle (its top) to \a y. May change
     the height, but will never change the bottom edge of the
@@ -461,7 +461,7 @@ void FRect::setBottomLeft( FPoint &p )
     \sa setRect(), coords()
 */
 
-void FRect::rect( double *x, double *y, double *w, double *h ) const
+void FRect::rect( qreal *x, qreal *y, qreal *w, qreal *h ) const
 {
     *x = x1;
     *y = y1;
@@ -476,7 +476,7 @@ void FRect::rect( double *x, double *y, double *w, double *h ) const
     \sa setCoords(), rect()
 */
 
-void FRect::coords( double *xp1, double *yp1, double *xp2, double *yp2 ) const
+void FRect::coords( qreal *xp1, qreal *yp1, qreal *xp2, qreal *yp2 ) const
 {
     *xp1 = x1;
     *yp1 = y1;
@@ -491,10 +491,10 @@ void FRect::coords( double *xp1, double *yp1, double *xp2, double *yp2 ) const
 
     \sa left(), setLeft(), moveTop(), moveRight(), moveBottom()
 */
-void FRect::moveLeft( double pos )
+void FRect::moveLeft( qreal pos )
 {
-    x2 += (double)(pos - x1);
-    x1 = (double)pos;
+    x2 += (qreal)(pos - x1);
+    x1 = (qreal)pos;
 }
 
 /*!
@@ -504,10 +504,10 @@ void FRect::moveLeft( double pos )
     \sa top(), setTop(), moveLeft(), moveRight(), moveBottom()
 */
 
-void FRect::moveTop( double pos )
+void FRect::moveTop( qreal pos )
 {
-    y2 += (double)(pos - y1);
-    y1 = (double)pos;
+    y2 += (qreal)(pos - y1);
+    y1 = (qreal)pos;
 }
 
 /*!
@@ -517,10 +517,10 @@ void FRect::moveTop( double pos )
     \sa right(), setRight(), moveLeft(), moveTop(), moveBottom()
 */
 
-void FRect::moveRight( double pos )
+void FRect::moveRight( qreal pos )
 {
-    x1 += (double)(pos - x2);
-    x2 = (double)pos;
+    x1 += (qreal)(pos - x2);
+    x2 = (qreal)pos;
 }
 
 /*!
@@ -530,10 +530,10 @@ void FRect::moveRight( double pos )
     \sa bottom(), setBottom(), moveLeft(), moveTop(), moveRight()
 */
 
-void FRect::moveBottom( double pos )
+void FRect::moveBottom( qreal pos )
 {
-    y1 += (double)(pos - y2);
-    y2 = (double)pos;
+    y1 += (qreal)(pos - y2);
+    y2 = (qreal)pos;
 }
 
 /*!
@@ -598,10 +598,10 @@ void FRect::moveBottomLeft( FPoint &p )
 
 void FRect::moveCenter( FPoint &p )
 {
-    double w = x2 - x1;
-    double h = y2 - y1;
-    x1 = (double)(p.x() - w/2);
-    y1 = (double)(p.y() - h/2);
+    qreal w = x2 - x1;
+    qreal h = y2 - y1;
+    x1 = (qreal)(p.x() - w/2);
+    y1 = (qreal)(p.y() - h/2);
     x2 = x1 + w;
     y2 = y1 + h;
 }
@@ -615,12 +615,12 @@ void FRect::moveCenter( FPoint &p )
     \sa moveTopLeft()
 */
 
-void FRect::moveBy( double dx, double dy )
+void FRect::moveBy( qreal dx, qreal dy )
 {
-    x1 += (double)dx;
-    y1 -= (double)dy;
-    x2 += (double)dx;
-    y2 -= (double)dy;
+    x1 += (qreal)dx;
+    y1 -= (qreal)dy;
+    x2 += (qreal)dx;
+    y2 -= (qreal)dy;
 }
 
 /*!
@@ -630,12 +630,12 @@ void FRect::moveBy( double dx, double dy )
     \sa rect(), setCoords()
 */
 
-void FRect::setRect( double x, double y, double w, double h )
+void FRect::setRect( qreal x, qreal y, qreal w, qreal h )
 {
-    x1 = (double)x;
-    y1 = (double)y;
-    x2 = (double)(x+w);
-    y2 = (double)(y+h);
+    x1 = (qreal)x;
+    y1 = (qreal)y;
+    x2 = (qreal)(x+w);
+    y2 = (qreal)(y+h);
 }
 
 /*!
@@ -646,12 +646,12 @@ void FRect::setRect( double x, double y, double w, double h )
     \sa coords(), setRect()
 */
 
-void FRect::setCoords( double xp1, double yp1, double xp2, double yp2 )
+void FRect::setCoords( qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
 {
-    x1 = (double)xp1;
-    y1 = (double)yp1;
-    x2 = (double)xp2;
-    y2 = (double)yp2;
+    x1 = (qreal)xp1;
+    y1 = (qreal)yp1;
+    x2 = (qreal)xp2;
+    y2 = (qreal)yp2;
 }
 
 /*!
@@ -659,12 +659,12 @@ void FRect::setCoords( double xp1, double yp1, double xp2, double yp2 )
     existing coordinates of the rectangle.
 */
 
-void FRect::addCoords( double xp1, double yp1, double xp2, double yp2 )
+void FRect::addCoords( qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
 {
-    x1 += (double)xp1;
-    y1 += (double)yp1;
-    x2 += (double)xp2;
-    y2 += (double)yp2;
+    x1 += (qreal)xp1;
+    y1 += (qreal)yp1;
+    x2 += (qreal)xp2;
+    y2 += (qreal)yp2;
 }
 
 /*!
@@ -676,7 +676,7 @@ void FRect::addCoords( double xp1, double yp1, double xp2, double yp2 )
 */
 
 /*!
-    \fn double FRect::width() const
+    \fn qreal FRect::width() const
 
     Returns the width of the rectangle. The width includes both the
     left and right edges, i.e. width = right - left + 1.
@@ -685,7 +685,7 @@ void FRect::addCoords( double xp1, double yp1, double xp2, double yp2 )
 */
 
 /*!
-    \fn double FRect::height() const
+    \fn qreal FRect::height() const
 
     Returns the height of the rectangle. The height includes both the
     top and bottom edges, i.e. height = bottom - top + 1.
@@ -700,9 +700,9 @@ void FRect::addCoords( double xp1, double yp1, double xp2, double yp2 )
     \sa width(), setLeft(), setRight(), setSize()
 */
 
-void FRect::setWidth( double w )
+void FRect::setWidth( qreal w )
 {
-    x2 = (double)(x1 + w);
+    x2 = (qreal)(x1 + w);
 }
 
 /*!
@@ -712,9 +712,9 @@ void FRect::setWidth( double w )
     \sa height(), setTop(), setBottom(), setSize()
 */
 
-void FRect::setHeight( double h )
+void FRect::setHeight( qreal h )
 {
-    y2 = (double)(y1 + h);
+    y2 = (qreal)(y1 + h);
 }
 
 /*!
@@ -726,8 +726,8 @@ void FRect::setHeight( double h )
 
 void FRect::setSize( const FSize &s )
 {
-    x2 = (double)(s.width() +x1);
-    y2 = (double)(s.height()+y1);
+    x2 = (qreal)(s.width() +x1);
+    y2 = (qreal)(s.height()+y1);
 }
 
 /*!
@@ -749,7 +749,7 @@ bool FRect::contains( FPoint &p, bool proper ) const
 }
 
 /*!
-    \overload bool FRect::contains( double x, double y, bool proper ) const
+    \overload bool FRect::contains( qreal x, qreal y, bool proper ) const
 
     Returns TRUE if the point \a x, \a y is inside this rectangle;
     otherwise returns FALSE.
@@ -759,7 +759,7 @@ bool FRect::contains( FPoint &p, bool proper ) const
 */
 
 /*!
-    \overload bool FRect::contains( double x, double y ) const
+    \overload bool FRect::contains( qreal x, qreal y ) const
 
     Returns TRUE if the point \a x, \a y is inside this rectangle;
     otherwise returns FALSE.
