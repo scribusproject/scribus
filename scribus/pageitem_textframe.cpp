@@ -1470,7 +1470,9 @@ void PageItem_TextFrame::layout()
 
 
 			// remember possible break
-			if ( (SpecialChars::isBreakingSpace(hl->ch) || hl->ch == SpecialChars::TAB) && !outs)
+			// #5783 : comment out "&& !outs" as this make it possible to perform a line break
+			// before a space which contradicts unicode line breaking rules
+			if ( (SpecialChars::isBreakingSpace(hl->ch) || hl->ch == SpecialChars::TAB) /*&& !outs*/)
 			{
 				if ( a == firstInFrame() || !SpecialChars::isBreakingSpace(itemText.text(a-1)) )
 				{
