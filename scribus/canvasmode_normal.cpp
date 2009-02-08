@@ -1351,6 +1351,7 @@ void CanvasMode_Normal::importToPage()
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
+	FPoint pastePoint = m_mouseCurrentPoint;
 	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -1382,9 +1383,9 @@ void CanvasMode_Normal::importToPage()
 		m_doc->useRaster = false;
 		m_doc->SnapGuides = false;
 		if (fi.suffix().toLower() == "sce")
-			m_ScMW->slotElemRead(fileName, m_mouseCurrentPoint.x(), m_mouseCurrentPoint.y(), true, false, m_doc, m_doc->view());
+			m_ScMW->slotElemRead(fileName, pastePoint.x(), pastePoint.y(), true, false, m_doc, m_doc->view());
 		else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
-			m_ScMW->slotElemRead(fileName, m_mouseCurrentPoint.x(), m_mouseCurrentPoint.y(), false, true, m_doc, m_doc->view());
+			m_ScMW->slotElemRead(fileName, pastePoint.x(), pastePoint.y(), false, true, m_doc, m_doc->view());
 		else
 		{
 			FileLoader *fileLoader = new FileLoader(fileName);
@@ -1400,7 +1401,7 @@ void CanvasMode_Normal::importToPage()
 			{
 				double x2, y2, w, h;
 				m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-				m_doc->moveGroup(m_mouseCurrentPoint.x() - x2, m_mouseCurrentPoint.y() - y2);
+				m_doc->moveGroup(pastePoint.x() - x2, pastePoint.y() - y2);
 				m_ScMW->propertiesPalette->updateColorList();
 				m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 				m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
