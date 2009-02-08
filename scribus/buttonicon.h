@@ -47,8 +47,8 @@ public:
 	int IcPlace;
 	int IcScaleW;
 	int IcScaleH;
-	double IcPlaceX;
-	double IcPlaceY;
+	qreal IcPlaceX;
+	qreal IcPlaceY;
 
 private slots:
 	void MoveIconY(int y);
