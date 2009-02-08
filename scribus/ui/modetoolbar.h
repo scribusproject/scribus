@@ -57,7 +57,7 @@ public:
 
 public slots:
 	void GetPolyProps();
-	void SelShape(int s, int c, double *vals);
+	void SelShape(int s, int c, qreal *vals);
 	void languageChange();
 		
 protected:

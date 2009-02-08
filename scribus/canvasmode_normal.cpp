@@ -263,8 +263,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			if (!guideMoveGesture)
 			{
 				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-				connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
-					m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
+				connect(guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
 			}
 			if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
 			{
@@ -1025,8 +1024,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			if (!guideMoveGesture)
 			{
 				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-				connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
-					m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
+				connect(guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
 			}
 			if ( (!m_doc->GuideLock) && (guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
 			{
@@ -1234,8 +1232,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		if (!guideMoveGesture)
 		{
 			guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-			connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
-				m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
+			connect(guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
 		}
 		if ( (!m_doc->GuideLock) && (guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
 		{

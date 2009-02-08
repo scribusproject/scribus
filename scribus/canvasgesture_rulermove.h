@@ -90,7 +90,7 @@ private:
 	void movePoint(QMouseEvent *m);
 	
 	signals:
-		void guideInfo(int /*direction*/, double /*position*/);
+		void guideInfo(int /*direction*/, qreal /*position*/);
 };
 
 

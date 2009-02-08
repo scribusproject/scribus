@@ -84,7 +84,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsEyeDropper"]);
 
 	languageChange();
-	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
+	connect(Rechteck, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
 }
 
 void ModeToolBar::GetPolyProps()
@@ -95,7 +95,7 @@ void ModeToolBar::GetPolyProps()
 	delete dia;
 }
 
-void ModeToolBar::SelShape(int s, int c, double *vals)
+void ModeToolBar::SelShape(int s, int c, qreal *vals)
 {
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
 //	insertShapeButtonMenu->hide();

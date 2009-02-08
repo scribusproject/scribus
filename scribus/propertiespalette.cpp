@@ -1546,9 +1546,9 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(textFlowOptionsB , SIGNAL(buttonClicked(int)), this, SLOT(DoFlow()));
 	connect(textFlowOptionsB2, SIGNAL(buttonClicked(int)), this, SLOT(DoFlow()));
 
-	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
+	connect(SCustom, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(MakeIrre(int, int, qreal *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(handleShapeEdit()));
-	connect(SCustom2, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
+	connect(SCustom2, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(MakeIrre(int, int, qreal *)));
 	connect(EditShape2, SIGNAL(clicked()), this, SLOT(handleShapeEdit2()));
 	connect(dGap, SIGNAL(valueChanged(double)), this, SLOT(NewGap()));
 	connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
@@ -4319,7 +4319,7 @@ void PropertiesPalette::DoFlow()
 	}
 }
 
-void PropertiesPalette::MakeIrre(int f, int c, double *vals)
+void PropertiesPalette::MakeIrre(int f, int c, qreal *vals)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;

@@ -457,7 +457,7 @@ signals:
 	//void EditGuides();
 	void MousePos(double, double);
 	void callGimp();
-	void signalGuideInformation(int, double);
+	void signalGuideInformation(int, qreal);
 };
 
 

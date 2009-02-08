@@ -2224,7 +2224,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	if (requiresGUI && view!=NULL)
 	{
 		actionManager->disconnectNewViewActions();
-		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+		disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 	}
 	ScribusView* tempView = new ScribusView(w, this, tempDoc);
 	if (requiresGUI)
@@ -2255,7 +2255,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		wsp->addWindow(w);
 		connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-		connect(tempView, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+		connect(tempView, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 		//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	}
 	//Independent finishing tasks after tempDoc setup
@@ -2378,7 +2378,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	if (view!=NULL)
 	{
 		actionManager->disconnectNewViewActions();
-		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+		disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 		if (ScCore->usingGUI())
 		{
 			disconnect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), 0, 0);
@@ -2390,7 +2390,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
-	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	connect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 	if (ScCore->usingGUI())
 	{
 		connect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), propertiesPalette, SLOT( setMultipleSelection(bool)));
@@ -4433,7 +4433,7 @@ bool ScribusMainWindow::DoFileClose()
 		storyEditor->close();
 	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
-	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 	/*CB currently unused
 	if (doc->viewCount > 1)
 	{
