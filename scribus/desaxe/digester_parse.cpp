@@ -46,6 +46,25 @@ public:
 		dig->chars(ch);
 		return true;
 	}
+
+	bool error(const QXmlParseException& exception)
+	{
+		qDebug("error : line %d, column %d, %s\n", exception.lineNumber(), exception.columnNumber(), exception.message().toLocal8Bit().data());
+		return true;
+	}
+
+	bool fatalError(const QXmlParseException& exception)
+	{
+		qDebug("fatal error : line %d, column %d, %s\n", exception.lineNumber(), exception.columnNumber(), exception.message().toLocal8Bit().data());
+		return true;
+	}
+
+	bool warning(const QXmlParseException& exception)
+	{
+		qDebug("warning : line %d, column %d, %s\n", exception.lineNumber(), exception.columnNumber(), exception.message().toLocal8Bit().data());
+		return true;
+	}
+
 private:
 	Digester * dig;
 };
@@ -57,6 +76,7 @@ void Digester::parseFile(const Xml_string& filename)
 	QXmlInputSource source( &xmlFile );
 	QXmlSimpleReader reader;
 	reader.setContentHandler( &handler );
+	reader.setErrorHandler( &handler );
 	reader.parse( source );
 }
 
@@ -67,6 +87,7 @@ void Digester::parseMemory(const char* data, unsigned int length)
 	source.setData(QString::fromUtf8(data, length));
 	QXmlSimpleReader reader;
 	reader.setContentHandler( &handler );
+	reader.setErrorHandler( &handler );
 	reader.parse( source );
 }
 
