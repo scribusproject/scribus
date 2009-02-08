@@ -248,7 +248,7 @@ inline void MassObservable<OBSERVED>::updateNow(UpdateMemento* what)
 	{
 		obs->changed(memento->m_data);
 	}
-	changedSignal->emitSignal(memento->m_data);
+	changedSignal->emitSignal(QVariant::fromValue(memento->m_data));
 	delete memento;
 }
 
@@ -282,7 +282,7 @@ inline bool MassObservable<OBSERVED>::connectObserver(QObject* o, const char* sl
 {
 	OBSERVED dummy;
 	Private_Init(dummy);
-	return changedSignal->connectSignal(dummy, o, slot);
+	return changedSignal->connectSignal(QVariant::fromValue(dummy), o, slot);
 }
 
 template<class OBSERVED>
@@ -290,7 +290,7 @@ inline bool MassObservable<OBSERVED>::disconnectObserver(QObject* o, const char*
 {
 	OBSERVED dummy;
 	Private_Init(dummy);
-	return changedSignal->disconnectSignal(dummy, o, slot);
+	return changedSignal->disconnectSignal(QVariant::fromValue(dummy), o, slot);
 }
 
 

@@ -77,4 +77,6 @@ protected:
 	mutable int m_cnt;
 };
 
+Q_DECLARE_METATYPE(StyleContext*);
+
 #endif

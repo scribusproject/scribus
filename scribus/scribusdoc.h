@@ -1200,4 +1200,6 @@ public slots:
 	void removePict(QString name);
 };
 
+Q_DECLARE_METATYPE(ScribusDoc*);
+
 #endif

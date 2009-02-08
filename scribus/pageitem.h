@@ -1315,4 +1315,6 @@ signals:
 	void imageOffsetScale(double, double, double, double);
 };
 
+Q_DECLARE_METATYPE(PageItem*);
+
 #endif

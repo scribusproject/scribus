@@ -110,4 +110,6 @@ protected:
 	QString m_pageSectionNumber;
 };
 
+Q_DECLARE_METATYPE(Page*);
+
 #endif
