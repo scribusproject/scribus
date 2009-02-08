@@ -77,8 +77,14 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 		++i;
 		if (Xml_data(it).isNull())
 			m_stream << " " << fromXMLString(Xml_key(it)) << "=\"\"";
-		else 
-			m_stream << " " << fromXMLString(Xml_key(it)) << "=\"" << fromXMLString(Xml_data(it)) << "\"";
+		else
+		{
+			QString txt(Xml_data(it));
+			txt.replace("&", "&amp;");
+			txt.replace("<", "&lt;");
+			txt.replace(">", "&gt;"); 
+			m_stream << " " << fromXMLString(Xml_key(it)) << "=\"" << fromXMLString(txt) << "\"";
+		}
 	}
 	pendingEmptyTag = true;
 	++m_indentLevel;
