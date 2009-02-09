@@ -287,7 +287,11 @@ QString ScPaths::getApplicationDataDir(void)
 #ifdef APPLICATION_DATA_DIR
 	return QDir::homePath() + "/" + APPLICATION_DATA_DIR + "/";
 #else
-	return (QDir::homePath() + "/.scribus/");
+	#ifdef Q_OS_MAC
+		return (QDir::homePath() + "/Library/Preferences/Scribus/");
+	#else
+		return (QDir::homePath() + "/.scribus/");
+	#endif
 #endif
 }
 

@@ -713,7 +713,7 @@ QString PrefsManager::setupPreferencesLocation()
 	QString Pff = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	QFileInfo Pffi = QFileInfo(Pff);
 	QString PrefsPfad;
-	//If we are using ~/.scribus
+	//If we are using the ScPaths default prefs location
 	if (Pffi.exists())
 	{
 		if (Pffi.isDir())
@@ -721,7 +721,7 @@ QString PrefsManager::setupPreferencesLocation()
 		else
 			PrefsPfad = QDir::homePath();
 	}
-	else // Move to using ~/.scribus/scribus.* from ~/.scribus.*
+	else // Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	{
 		QDir prefsDirectory = QDir();
 		prefsDirectory.mkdir(Pff);

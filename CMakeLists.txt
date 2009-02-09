@@ -265,7 +265,7 @@ ADD_DEFINITIONS("-DDESKTOPDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}\\\"")
 # Example: I want to use special ~/.scribus135svn config directory for my trunk
 #          cmake -DAPPLICATION_DATA_DIR=.scribus135svn ...
 IF (APPLICATION_DATA_DIR)
-    MESSAGE(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of \".scribus\"")
+	MESSAGE(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of the platform default.")
     ADD_DEFINITIONS("-DAPPLICATION_DATA_DIR=\\\"${APPLICATION_DATA_DIR}\\\"")
 ELSE (APPLICATION_DATA_DIR)
     MESSAGE(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
