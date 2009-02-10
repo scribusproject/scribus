@@ -216,8 +216,9 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		CoverThresholdValue = new QSpinBox(devTitle);
 		CoverThresholdValue->setSuffix( tr(" %"));
 		CoverThresholdValue->setMaximum(600);
-		CoverThresholdValue->setMinimum(10);
+		CoverThresholdValue->setMinimum(0);
 		CoverThresholdValue->setSingleStep(10);
+		CoverThresholdValue->setSpecialValueText( tr("None"));
 		CoverThresholdValue->setValue(prefsManager->appPrefs.PrPr_InkThreshold);
 		if ((EnableCMYK->isChecked()) && (EnableInkCover->isChecked()))
 			CoverThresholdValue->setEnabled(true);
@@ -1033,14 +1034,26 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						uint greyVal = *q;
 						if (greyVal != 0)
 						{
-							int col = qMin(255 - static_cast<int>(((greyVal * 128) / inkMax) * 2), 255);
-							if ((*q > 0) && (*q < limitVal))
-								*q = qRgba(col, col, col, 255);
+							if (limitVal == 0)
+							{
+								QColor tmpC;
+								tmpC.setHsv((greyVal * 359) / inkMax, 255, 255);
+								*q = tmpC.rgba();
+							}
 							else
-								*q = qRgba(col, 0, 0, 255);
+							{
+								int col = qMin(255 - static_cast<int>(((greyVal * 128) / inkMax) * 2), 255);
+								if ((*q > 0) && (*q < limitVal))
+									*q = qRgba(col, col, col, 255);
+								else
+									*q = qRgba(col, 0, 0, 255);
+							}
 						}
 						else
-							*q = qRgba(255, 255, 255, 255);
+						{
+							if (!AliasTr->isChecked())
+								*q = qRgba(255, 255, 255, 255);
+						}
 						q++;
 					}
 				}
