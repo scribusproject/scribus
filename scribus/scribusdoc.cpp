@@ -9434,6 +9434,11 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		currItem->updateClip();
 	}
 //	currItem->updateGradientVectors();
+	if (!loading)
+	{
+		QRectF newR(currItem->getBoundingRect());
+		invalidateRegion(newR.unite(oldR));
+	}
 	if ((redraw) && (!loading))
 	{
 		QRectF newR(currItem->getBoundingRect());
