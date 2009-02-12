@@ -129,6 +129,8 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 	{
 		if (m_doc->appMode != modePanning)
 		{
+			Mxp = mousePointDoc.x();
+			Myp = mousePointDoc.y();
 			m_oldAppMode = m_doc->appMode;
 			m_ScMW->setAppMode(modePanning);
 		}
@@ -139,8 +141,6 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
 		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
 		m_view->scrollBy(-scroX, -scroY);
-		Mxp = mousePointDoc.x();
-		Myp = mousePointDoc.y();
 		return;
 	}
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))

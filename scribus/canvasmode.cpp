@@ -626,7 +626,11 @@ bool CanvasMode::commonMouseMove(QMouseEvent *m)
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
 	{
 		if (m_doc->appMode != modePanning)
+		{
+			Mxp = mousePointDoc.x();
+			Myp = mousePointDoc.y();
 			m_view->m_ScMW->setAppMode(modePanning);
+		}
 	}
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed || m_view->MidButt) && (m_doc->appMode == modePanning))
 	{
@@ -634,8 +638,6 @@ bool CanvasMode::commonMouseMove(QMouseEvent *m)
 		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
 		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
 		m_view->scrollBy(-scroX, -scroY);
-		Mxp = mousePointDoc.x();
-		Myp = mousePointDoc.y();
 		return true;
 	}
 	return false;

@@ -2151,6 +2151,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			m_view->redrawMarker->show();
 			break;
 		case modePanning:
+			Mxp = mousePointDoc.x(); //m->x();
+			Myp = mousePointDoc.y(); //m->y();
 			break;
 		case modeMeasurementTool:
 			m_canvas->setRenderModeFillBuffer();
