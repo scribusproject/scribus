@@ -1,6 +1,7 @@
 import os
 import re
 import MachO
+from distutils.dir_util import copy_tree
 from datetime import datetime
 	
 
@@ -67,6 +68,19 @@ def ingest(bundle, exceptions=[], strippedFrameworks=[]):
 		else:
 			stripFW = fix.Location in strippedFrameworks
 			executables.extend(fix.moveLibrary(bundle, stripFW, log))
+
+	# step 3.5: copy aspell dictionaries, hacked for aspell via macports for now, #7371
+	aspellsrcpath = "/opt/local/share/aspell"
+	if os.path.exists(aspellsrcpath):
+		aspelldestpath = os.path.join(bundle, "Contents/share/aspell")
+		if not os.path.exists(aspelldestpath):
+			log.append(">> mkdir " + aspelldestpath)
+			os.makedirs(aspelldestpath, 0755)      
+		if os.path.exists(aspelldestpath):
+			log.append(">> copying aspell dictionaries")
+			print "copying aspell dictionaries"
+			copy_tree(aspellsrcpath, aspelldestpath)
+
 	# step 4: fix all executables
 	for exe in executables:
 		exe.applyFixes(fixes, log)
