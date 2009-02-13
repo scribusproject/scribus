@@ -67,7 +67,8 @@ public:
 	static QString getUserDocumentDir(void);
 	/** @brief Return path to directory used for temporary files*/
 	static QString getTempFileDir(void);
-
+	/** @brief Return path to Contents OSX subdirectory*/
+	QString bundleDir(void) const;
 
 protected:
 	/** @brief Constructor. Use ScPaths::instance() instead. */

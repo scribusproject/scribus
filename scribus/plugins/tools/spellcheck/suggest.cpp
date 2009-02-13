@@ -6,6 +6,8 @@
   license (GPL+exception) is in place.
 */
 #include "suggest.h"
+#include "scpaths.h"
+#include <QFileInfo>
 /*!
 \brief Delimiter between different components of formatted strings for aspell dictionary entries.
  */
@@ -134,6 +136,12 @@ void Speller::Aspell::Suggest::setConfig() throw( std::invalid_argument )
 		setConfigOpt( "lang", flang );
 		setConfigOpt( "jargon", fjargon );
 		setConfigOpt( "encoding", fencoding );
+#ifdef ASPELLRELATIVEDICTDIR
+		QString location(ScPaths::instance().bundleDir()+"/Contents/"+ASPELLRELATIVEDICTDIR);
+		QFileInfo fi(location);
+		if (fi.exists())
+			setConfigOpt( "dict-dir", (location.toStdString()));
+#endif
 	}
 	catch( const std::invalid_argument& err )
 	{
