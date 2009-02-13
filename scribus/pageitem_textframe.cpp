@@ -269,7 +269,7 @@ static void fillInTabLeaders(StoryText & itemText, LineSpec & curLine)
 {
 	// fill in tab leaders
 	double xPos = curLine.x;
-	for (int ti= curLine.firstItem; ti < curLine.lastItem; ++ti)
+	for (int ti= curLine.firstItem; ti <= curLine.lastItem; ++ti)
 	{
 		ScText * hl = itemText.item(ti);
 		if (hl->ch == SpecialChars::TAB) 
