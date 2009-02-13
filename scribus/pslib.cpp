@@ -2248,7 +2248,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
-
+	double colLeft = tabDist;
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
 		hl = ite->itemText.at(d);
@@ -2263,7 +2263,10 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 		else
 			tTabValues = Doc->docParagraphStyles[hl->cab].TabValues;
 		if (hl->cstyle & 16384)
+		{
+			tabDist = colLeft;
 			tabCc = 0;
+		}
 		if ((hl->ch == QChar(9)) && (tTabValues.count() != 0))
 		{
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))

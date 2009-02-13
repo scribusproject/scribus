@@ -3218,6 +3218,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		tabDist += ite->lineWidth() / 2.0;
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "BT\n";
+	double colLeft = tabDist;
 	// Loop over each character (!) in the pageItem...
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
@@ -3233,7 +3234,10 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		else
 			tTabValues = doc.docParagraphStyles[hl->cab].TabValues;
 		if (hl->cstyle & 16384)
+		{
+			tabDist = colLeft;
 			tabCc = 0;
+		}
 		if ((hl->ch == QChar(9)) && (tTabValues.count() != 0))
 		{
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
