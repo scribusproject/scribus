@@ -427,6 +427,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setFont"), scribus_setfont, METH_VARARGS, tr(scribus_setfont__doc__)},
 	{const_cast<char*>("setFontSize"), scribus_setfontsize, METH_VARARGS, tr(scribus_setfontsize__doc__)},
 	{const_cast<char*>("setGradientFill"), scribus_setgradfill, METH_VARARGS, tr(scribus_setgradfill__doc__)},
+	{const_cast<char*>("setGradientStop"), scribus_setgradstop, METH_VARARGS, tr(scribus_setgradstop__doc__)},
 	{const_cast<char*>("setHGuides"), scribus_setHguides, METH_VARARGS, tr(scribus_setHguides__doc__)},
 	{const_cast<char*>("setInfo"), scribus_setinfo, METH_VARARGS, tr(scribus_setinfo__doc__)},
 	{const_cast<char*>("setLayerPrintable"), scribus_layerprint, METH_VARARGS, tr(scribus_layerprint__doc__)},

@@ -24,6 +24,17 @@ available types (FILL_<type>).\n\
 PyObject *scribus_setgradfill(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setgradstop__doc__,
+QT_TR_NOOP("setGradientStop(\"color\", shade, opacity, ramppoint, [\"name\"])\n\
+\n\
+Set or add a gradient stop to the gradient fill of the object \"name\" at position ramppoint.\n\
+Color descriptions are the same as for setFillColor() and setFillShade(). setGradientFill()\n\
+must have been called previously for the gradient fill to be visible.\n\
+"));
+/*! Set gradient */
+PyObject *scribus_setgradstop(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setfillcolor__doc__,
 QT_TR_NOOP("setFillColor(\"color\", [\"name\"])\n\
 \n\

@@ -18,6 +18,11 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
+	if ((shade1 < 0) || (shade1 > 100) || (shade2 < 0) || (shade2 > 100))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == NULL)
 		return NULL;
@@ -77,8 +82,43 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 	//ScCore->primaryMainWindow()->view->updateGradientVectors(currItem);
 	currItem->updateGradientVectors();
 	currItem->update();
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setgradstop(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	char *Color1;
+	int  shade1;
+	double rampPoint, opacity;
+	if (!PyArg_ParseTuple(args, "esidd|es", "utf-8", &Color1, &shade1, &opacity, &rampPoint, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((shade1 < 0) || (shade1 > 100))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	if ((rampPoint < 0.0) || (rampPoint > 1.0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Ramp point out of bounds, must be 0 <= rampPoint <= 1.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	if ((opacity < 0.0) || (opacity > 1.0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Opacity out of bounds, must be 0 <= transparency <= 1.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	if (currItem == NULL)
+		return NULL;
+	QColor tmp;
+	QString c1 = QString::fromUtf8(Color1);
+	currItem->SetQColor(&tmp, c1, shade1);
+	currItem->fill_gradient.setStop(tmp, rampPoint, 0.5, opacity, c1, shade1);
+	currItem->updateGradientVectors();
+	currItem->update();
 	Py_RETURN_NONE;
 }
 
@@ -94,8 +134,6 @@ PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillColor(QString::fromUtf8(Color));
- //	Py_INCREF(Py_None);
- //	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -116,8 +154,6 @@ PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillTransparency(1.0 - w);
- //	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -138,8 +174,6 @@ PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillBlendmode(w);
- //	Py_INCREF(Py_None);
- //	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -155,8 +189,6 @@ PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineColor(QString::fromUtf8(Color));
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -177,8 +209,6 @@ PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setLineTransparency(1.0 - w);
- //	Py_INCREF(Py_None);
- //	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -199,8 +229,6 @@ PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setLineBlendmode(w);
- //	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -221,8 +249,6 @@ PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setLineWidth(w);
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -243,8 +269,6 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineShade(w);
- //	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -265,8 +289,6 @@ PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillShade(w);
- //	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -282,8 +304,6 @@ PyObject *scribus_setlinejoin(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->PLineJoin = Qt::PenJoinStyle(w);
- //	Py_INCREF(Py_None);
- //	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -299,8 +319,6 @@ PyObject *scribus_setlineend(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->PLineEnd = Qt::PenCapStyle(w);
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -316,8 +334,6 @@ PyObject *scribus_setlinestyle(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->PLineArt = Qt::PenStyle(w);
- //	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -342,8 +358,6 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	currItem->SetFrameRound();
 	ScCore->primaryMainWindow()->doc->setRedrawBounding(currItem);
 	ScCore->primaryMainWindow()->view->SetFrameRounded();
- //	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -364,8 +378,6 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	currItem->NamedLStyle = QString::fromUtf8(Style);
- //	Py_INCREF(Py_None);
-// 	return Py_None;
 	Py_RETURN_NONE;
 }
 
@@ -375,12 +387,12 @@ PV */
 void cmdsetpropdocwarnings()
 {
 	QStringList s;
-	s << scribus_setgradfill__doc__  << scribus_setfillcolor__doc__
-	  << scribus_setfilltrans__doc__ << scribus_setfillblend__doc__
-	  << scribus_setlinecolor__doc__ << scribus_setlinetrans__doc__
-	  << scribus_setlineblend__doc__ << scribus_setlinewidth__doc__
-	  << scribus_setlineshade__doc__ << scribus_setlinejoin__doc__
-	  << scribus_setlineend__doc__   << scribus_setlinestyle__doc__
-	  << scribus_setfillshade__doc__ << scribus_setcornerrad__doc__
-	  <<  scribus_setmultiline__doc__;
+	s << scribus_setgradfill__doc__  << scribus_setgradstop__doc__
+	  << scribus_setfillcolor__doc__ << scribus_setfilltrans__doc__ 
+	  << scribus_setfillblend__doc__ << scribus_setlinecolor__doc__ 
+	  << scribus_setlinetrans__doc__ << scribus_setlineblend__doc__ 
+	  << scribus_setlinewidth__doc__ << scribus_setlineshade__doc__ 
+	  << scribus_setlinejoin__doc__  << scribus_setlineend__doc__   
+	  << scribus_setlinestyle__doc__ << scribus_setfillshade__doc__ 
+	  << scribus_setcornerrad__doc__ <<  scribus_setmultiline__doc__;
 }

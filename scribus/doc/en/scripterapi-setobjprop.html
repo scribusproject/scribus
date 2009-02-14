@@ -52,6 +52,10 @@
 <dd><code>setGradientFill(type, "color1", shade1, "color2", shade2, ["name"])</code>
 <p>Sets the gradient fill of the object "name" to type. Color descriptions are the same as for <a href="#-setFillColor">setFillColor</a>() and <a href="#-setFillShade">setFillShade</a>(). See the constants for available types (FILL_&lt;type&gt;).</p></dd>
 
+<dt><a name="-setGradientStop"><strong>setGradientStop</strong></a>(...)</dt>
+<dd><code>setGradientStop("color", shade, opacity, ramppoint, ["name"])</code>
+<p>Set or add a gradient stop to the gradient fill of the object \"name\" at position ramppoint. Color descriptions are the same as for <a href="#-setFillColor">setFillColor</a>() and <a href="#-setFillShade">setFillShade</a>(). setGradientFill() must have been called previously for the gradient fill to be visible.</p></dd>
+
 <dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
 <dd><code>setLineEnd(endtype, ["name"])</code>
 <p>Sets the line cap style of the object "name" to the style "cap". If "name" is not given the currently selected item is used. There are predefined constants for "cap" - CAP_&lt;type&gt;.</p></dd>

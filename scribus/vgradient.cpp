@@ -142,6 +142,20 @@ VGradient::addStop( const QColor &color, double rampPoint, double midPoint, doub
 	inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
 }
 
+void 
+VGradient::setStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
+{
+	for (int i = 0; i < m_colorStops.count(); ++i)
+	{
+		if (m_colorStops.at(i)->rampPoint == rampPoint)
+		{
+			delete m_colorStops.takeAt(i);
+			break;
+		}
+	}
+	addStop(color, rampPoint, midPoint, opa, name, shade);
+}
+
 void VGradient::removeStop( VColorStop& colorstop )
 {
 	int n = m_colorStops.indexOf(&colorstop);
