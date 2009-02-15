@@ -124,7 +124,7 @@ public:
 	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
-	QToolButton *cmsToolbarButton;
+	QPushButton *cmsToolbarButton;
 	QPushButton *previewToolbarButton;
 #endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view

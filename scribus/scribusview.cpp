@@ -252,18 +252,18 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	previewToolbarButton = new QPushButton(this);
+	cmsToolbarButton = new QPushButton(this);
 	cmsToolbarButton->setFocusPolicy(Qt::NoFocus);
 	cmsToolbarButton->setDefault( false );
 	cmsToolbarButton->setAutoDefault( false );
 	cmsToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	cmsToolbarButton->setPixmap(loadIcon("cmsOn.png"));
+	cmsToolbarButton->setIcon(loadIcon("cmsOn.png"));
 	previewToolbarButton = new QPushButton(this);
 	previewToolbarButton->setFocusPolicy(Qt::NoFocus);
 	previewToolbarButton->setDefault( false );
 	previewToolbarButton->setAutoDefault( false );
 	previewToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	previewToolbarButton->setPixmap(loadIcon("previewOn.png"));
+	previewToolbarButton->setIcon(loadIcon("previewOn.png"));
 #endif
 	cmsAdjustMenu = new QMenu();
 	idCmsAdjustMenu = cmsAdjustMenu->addAction( "Configure CMS...", this, SLOT(adjustCMS()));
