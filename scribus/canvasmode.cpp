@@ -17,6 +17,7 @@
 #include "canvasmode.h"
 
 #include "canvas.h"
+#include "canvasgesture_pan.h"
 #include "canvasmode_copyproperties.h"
 #include "canvasmode_create.h"
 #include "canvasmode_drawbezier.h"
@@ -27,9 +28,10 @@
 #include "canvasmode_legacy.h"
 #include "canvasmode_magnifier.h"
 #include "canvasmode_measurements.h"
-#include "canvasmode_objimport.h"
 #include "canvasmode_nodeedit.h"
 #include "canvasmode_normal.h"
+#include "canvasmode_objimport.h"
+#include "canvasmode_panning.h"
 #include "canvasmode_rotate.h"
 #ifdef GESTURE_FRAME_PREVIEW
 #include "pageitempreview.h"
@@ -48,7 +50,8 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	QObject(),
 	m_view(view),
 	m_canvas(view->m_canvas),
-	m_doc(view->Doc)
+	m_doc(view->Doc),
+	m_panGesture(NULL)
 {
 	m_pen["outline"]	= QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["outline"].setCosmetic(true);
@@ -68,7 +71,11 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_brush["handle"]	= Qt::red;
 }
 
-
+CanvasMode::~CanvasMode()
+{
+	if (m_panGesture)
+		delete m_panGesture;
+}
 
 CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 {
@@ -125,6 +132,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeImportObject:
 			result = new CanvasMode_ObjImport(view);
+			break;
+		case modePanning:
+			result = new CanvasMode_Panning(view);
 			break;
 		case modeRotation:
 			result = new CanvasMode_Rotate(view);
@@ -625,19 +635,12 @@ bool CanvasMode::commonMouseMove(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
 	{
-		if (m_doc->appMode != modePanning)
+		if (!m_panGesture)
 		{
-			Mxp = mousePointDoc.x();
-			Myp = mousePointDoc.y();
-			m_view->m_ScMW->setAppMode(modePanning);
+			m_panGesture = new PanGesture(this);
 		}
-	}
-	if ((m_canvas->m_viewMode.m_MouseButtonPressed || m_view->MidButt) && (m_doc->appMode == modePanning))
-	{
-		double sc = m_canvas->scale();
-		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
-		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
-		m_view->scrollBy(-scroX, -scroY);
+		m_view->startGesture(m_panGesture);
+		m_panGesture->mousePressEvent(m); // Not an error, this is used to register current canvas point
 		return true;
 	}
 	return false;

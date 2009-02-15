@@ -1086,12 +1086,6 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
-	if (m_doc->appMode == modePanning)
-	{
-		if ((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-			m_ScMW->setAppMode(modeNormal);
-		return;
-	}
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());

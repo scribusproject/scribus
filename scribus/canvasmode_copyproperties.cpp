@@ -204,11 +204,6 @@ void CanvasMode_CopyProperties::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
-	if (m_doc->appMode == modePanning)
-	{
-		m_ScMW->setAppMode(modeCopyProperties);
-		return;
-	}
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());

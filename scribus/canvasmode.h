@@ -37,11 +37,12 @@ class QPainter;
 
 class  Canvas;
 struct CanvasViewMode;
+class  PanGesture;
 class  ScribusDoc;
 class  ScribusView;
-class ScribusMainWindow;
+class  ScribusMainWindow;
 class  PageItem;
-class PageItemPreview;
+class  PageItemPreview;
 
 /** These aren't real appmodes but open a new window or override behaviour for a short time */
 enum SubMode
@@ -127,14 +128,14 @@ public:
 	/** main canvas modes dont have a delegate */
 	virtual CanvasMode* delegate() { return 0; }
 	ScribusView* view() const { return m_view; }
-	virtual ~CanvasMode() {}
+	virtual ~CanvasMode();
 	
 
 protected:
 	ScribusView * const m_view;	
 	Canvas * const m_canvas;
 	ScribusDoc * const m_doc;
-	double Mxp, Myp, Dxp, Dyp;
+	PanGesture * m_panGesture;
 	
 	void setResizeCursor(int how, double rot = 0.0);
 	bool commonMouseMove(QMouseEvent *m);

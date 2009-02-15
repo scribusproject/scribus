@@ -199,11 +199,6 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
-	if (m_doc->appMode == modePanning)
-	{
-		m_ScMW->setAppMode(modeMagnifier);
-		return;
-	}
 	if (m_doc->appMode == modeMagnifier)
 	{
 		double sc = m_canvas->scale();

@@ -616,6 +616,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_panning.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_rotate.cpp"
 				>
 			</File>
@@ -2998,6 +3002,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_objimport.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_panning.h"
 				>
 			</File>
 			<File

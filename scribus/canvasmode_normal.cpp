@@ -745,11 +745,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
-	if (m_doc->appMode == modePanning)
-	{
-		m_ScMW->setAppMode(modeNormal);
-		return;
-	}
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
 		createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());

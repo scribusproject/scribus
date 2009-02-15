@@ -125,24 +125,8 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 	
 	m->accept();
 
-	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
-	{
-		if (m_doc->appMode != modePanning)
-		{
-			Mxp = mousePointDoc.x();
-			Myp = mousePointDoc.y();
-			m_oldAppMode = m_doc->appMode;
-			m_ScMW->setAppMode(modePanning);
-		}
-	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modePanning))
-	{
-		double sc = m_canvas->scale();
-		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
-		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
-		m_view->scrollBy(-scroX, -scroY);
+	if (commonMouseMove(m))
 		return;
-	}
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		SeRx = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -270,11 +254,6 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
-	if (m_doc->appMode == modePanning)
-	{
-		m_ScMW->setAppMode(m_oldAppMode);
-		return;
-	}
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());

@@ -313,6 +313,7 @@ SET(SCRIBUS_SOURCES
   buttonicon.cpp
   canvas.cpp
   canvasgesture_linemove.cpp
+  canvasgesture_pan.cpp
   canvasgesture_rectselect.cpp
   canvasgesture_resize.cpp
   canvasgesture_rulermove.cpp
@@ -330,6 +331,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_nodeedit.cpp
   canvasmode_normal.cpp
   canvasmode_objimport.cpp
+  canvasmode_panning.cpp
   canvasmode_rotate.cpp
   charselect.cpp
   charselectenhanced.cpp
