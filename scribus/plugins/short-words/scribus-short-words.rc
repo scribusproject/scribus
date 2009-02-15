@@ -73,15 +73,19 @@ fr= €,« , », :, $, ;, !, ?,
 
 #  Slovak short words START here
 ## hanging conjunctions (TeX ~)
-sk=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,do ,Do ,Ku ,ku ,Na ,na ,
-sk=Nad ,nad ,Od ,od ,Po ,po ,Pod ,pod ,Pre ,pre ,Pred ,pred ,Pri ,pri ,So ,so ,
-sk=Zo ,zo ,Vo ,vo ,Za ,za ,
+sk=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,a ,do ,Do ,Ku ,ku ,Na ,na ,
+sk=Nad ,nad ,Od ,od ,Po ,po ,Pod ,pod ,Pre ,pre ,Pred ,pred ,Pri ,pri ,
+sk=So ,so ,Zo ,zo ,Vo ,vo ,Za ,za ,
 ## physics and math
-sk= kg, g, km, m, cm, mm, l, hl, s, %, Gb, Mb, Kb,
-## misc chars - needs to update "dagger etc."
-sk= § , & , $, Sk, *, €,
+sk= t, kg, g, mg, km, m, cm, mm, ha, l, hl, s, %, Gb, Mb, Kb,
+sk= cl, dl, min, Min., h, s, Hz, kHz, KHz, MHz, kW, m/s, km/h,
+## misc chars 
+sk= § , & , $, Sk, *, €, :, EUR, £, CHF,
 ## academic titles
-sk=ing. ,Ing. ,Dr. ,dr. ,mudr. ,Mudr. ,mgr. ,Mgr. ,Phd. ,PhDr. ,
+sk=akad. ,Akad. ,arch. ,Arch. ,art. ,Bc. ,doc. ,Doc. ,Dr. ,Ing. ,JUDr. ,
+sk=Mgr. ,MUDr. ,MVDr. ,PaedDr. ,PharmDr. ,PHDr. ,PhMr. ,prof. ,Prof. ,
+sk=RNDr. ,RSDr. ,ThDr. ,ThLic. ,
+sk= ArtD., CSc., DrSc., PhD.,
 #  Slovak short words - THE END
 
 
