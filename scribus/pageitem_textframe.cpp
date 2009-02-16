@@ -3094,8 +3094,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //		view->RefreshItem(this);
 		break;
 	default:
+		bool doUpdate = false;
 		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000))
+		{
 			deleteSelectedTextFromFrame();
+			doUpdate = true;
+		}
 		//if ((kk == Qt::Key_Tab) || ((kk == Qt::Key_Return) && (buttonState & Qt::ShiftButton)))
 		if (kk == Qt::Key_Tab)
 		{
@@ -3103,10 +3107,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			CPos += 1;
 //			Tinput = true;
 //			view->RefreshItem(this);
-			update();
-			break;
+			doUpdate = true;
 		}
-		if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
+		else if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
 		{
 			itemText.insertChars(CPos, uc, true);
 			CPos += 1;
@@ -3132,9 +3135,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			invalid = true;
 //			Tinput = true;
 //			view->RefreshItem(this);
-			// I would thinkit had to be triggered by itemText.insertChars but it seems not - pm
-			update();
+			doUpdate = true;
 		}
+		if (doUpdate) update();
 		break;
 	}
 // 	update();
