@@ -38,6 +38,8 @@ SET(SCRIBUS_UI_SRC
   measurementsbase.ui
   multipleduplicate.ui
   multiprogressdialog.ui
+  nftdialog.ui
+  nftwidget.ui
   pageitemattributes.ui
   patterndialog.ui
   picsearch.ui
