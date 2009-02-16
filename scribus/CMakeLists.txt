@@ -169,6 +169,8 @@ SET(SCRIBUS_MOC_CLASSES
   navigator.h
   newfile.h
   newtemp.h
+  nftdialog.h
+  nftwidget.h
   nodeeditpalette.h
   observable.h
   oneclick.h
@@ -434,6 +436,11 @@ SET(SCRIBUS_SOURCES
   navigator.cpp
   newfile.cpp
   newtemp.cpp
+  nftdialog.cpp
+  nftwidget.cpp
+  nftrcreader.cpp
+  nftsettings.cpp
+  nfttemplate.cpp
   nodeeditpalette.cpp
   observable.cpp
   oneclick.cpp
