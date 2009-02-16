@@ -18,6 +18,6 @@ ADD_SUBDIRECTORY(wmfimplugin)
 ADD_SUBDIRECTORY(xfigimplugin)
 # ADD_SUBDIRECTORY(imposition)
 ADD_SUBDIRECTORY(tools)
-ADD_SUBDIRECTORY(picbrowser)
+#ADD_SUBDIRECTORY(picbrowser)
 
 # ADD_SUBDIRECTORY(myplugin)
