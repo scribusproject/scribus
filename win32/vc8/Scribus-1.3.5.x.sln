@@ -22,11 +22,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fontpreview-1.3.5.x", "font
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "newfromtemplate-1.3.5.x", "newfromtemplate\newfromtemplate-1.3.x.vcproj", "{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pixmapexport-1.3.5.x", "pixmapexport\pixmapexport-1.3.x.vcproj", "{BCDD9765-B310-44EB-890A-1704A1D18619}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
@@ -231,14 +226,6 @@ Global
 		{C8FA9789-CA9A-4256-B4BB-C4ED97CBADEF}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{C8FA9789-CA9A-4256-B4BB-C4ED97CBADEF}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{C8FA9789-CA9A-4256-B4BB-C4ED97CBADEF}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
-		{279BFBB5-0E6B-4B2A-80DC-5E6BF7ED5698}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 		{BCDD9765-B310-44EB-890A-1704A1D18619}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
 		{BCDD9765-B310-44EB-890A-1704A1D18619}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
 		{BCDD9765-B310-44EB-890A-1704A1D18619}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
