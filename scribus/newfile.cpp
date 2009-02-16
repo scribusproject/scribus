@@ -87,7 +87,7 @@ const QSize PageLayoutsWidget::minimumSizeHint()
 	return QSize(maxX, maxY);
 }
 
-NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) : QDialog( parent )
+NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QString lang, QString templateDir ) : QDialog( parent )
 {
 	setModal(true);
 	prefsManager=PrefsManager::instance();
@@ -108,6 +108,9 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	if (startUp)
 	{
 		tabWidget->addTab(newDocFrame, tr("&New Document"));
+		createNewFromTempPage();
+		nftGui->setupSettings(lang, templateDir);
+		tabWidget->addTab(newFromTempFrame, tr("New &from Template"));
 		createOpenDocPage();
 		tabWidget->addTab(openDocFrame, tr("Open &Existing Document"));
 		recentDocList=recentDocs;
@@ -160,7 +163,10 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	connect(layoutsView, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 	if (startUp)
+	{
+		connect(nftGui, SIGNAL(leaveOK()), this, SLOT(ExitOK()));
 		connect(recentDocListBox, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(recentDocListBox_doubleClicked()));
+	}
 
 // 	setMinimumSize(minimumSizeHint());
 //  	setMaximumSize(minimumSizeHint());
@@ -329,6 +335,14 @@ void NewDoc::createNewDocPage()
 	NewDocLayout->addWidget( marginGroup, 1, 0 );
 	NewDocLayout->addWidget( optionsGroupBox, 1, 1 );
 	NewDocLayout->addWidget( pageSizeGroupBox, 0, 0, 1, 2);
+}
+
+void NewDoc::createNewFromTempPage()
+{
+	newFromTempFrame = new QFrame(this);
+	verticalLayout = new QVBoxLayout(newFromTempFrame);
+	nftGui = new nftwidget(newFromTempFrame);
+	verticalLayout->addWidget(nftGui);
 }
 
 void NewDoc::createOpenDocPage()

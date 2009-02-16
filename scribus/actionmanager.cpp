@@ -103,6 +103,8 @@ void ActionManager::initFileMenuActions()
 	//File Menu
 	name="fileNew";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-new.png"), loadIcon("22/document-new.png"), "", defaultKey(name), mainWindow));
+	name="fileNewFromTemplate";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="fileOpen";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-open.png"), loadIcon("22/document-open.png"), "", defaultKey(name), mainWindow));
 	name="fileClose";
@@ -151,6 +153,7 @@ void ActionManager::initFileMenuActions()
 	//Connect our signals and slots
 	//File Menu
 	connect( (*scrActions)["fileNew"], SIGNAL(triggered()), mainWindow, SLOT(slotFileNew()) );
+	connect( (*scrActions)["fileNewFromTemplate"], SIGNAL(triggered()), mainWindow, SLOT(newFileFromTemplate()) );
 	connect( (*scrActions)["fileOpen"], SIGNAL(triggered()), mainWindow, SLOT(slotDocOpen()) );
 	connect( (*scrActions)["fileClose"], SIGNAL(triggered()), mainWindow, SLOT(slotFileClose()) );
 	connect( (*scrActions)["filePrint"], SIGNAL(triggered()), mainWindow, SLOT(slotFilePrint()) );
@@ -1252,6 +1255,7 @@ void ActionManager::languageChange()
 
 	//File Menu
 	(*scrActions)["fileNew"]->setTexts( tr("&New"));
+	(*scrActions)["fileNewFromTemplate"]->setTexts( tr("New &from Template..."));
 	(*scrActions)["fileOpen"]->setTexts( tr("&Open..."));
 	(*scrActions)["fileClose"]->setTexts( tr("&Close"));
 	(*scrActions)["fileSave"]->setTexts( tr("&Save"));
@@ -1569,6 +1573,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.clear();
 
 	defKeys.insert("fileNew", QKeySequence::New);
+	defKeys.insert("fileNewFromTemplate", Qt::CTRL+Qt::ALT+Qt::Key_N);
 	defKeys.insert("fileOpen", QKeySequence::Open);
 	defKeys.insert("fileClose", QKeySequence::Close);
 	defKeys.insert("fileSave", QKeySequence::Save);
@@ -1732,7 +1737,7 @@ void ActionManager::createDefaultMenus()
 	
 	QVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus.begin();
 	//File
-	itmenu->second << "fileNew" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
+	itmenu->second << "fileNew" << "fileNewFromTemplate" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
 	itmenu->second << "fileImportText" << "fileImportText2" << "fileImportAppendText" << "fileImportImage" << "fileImportVector" << "fileExportText" << "fileExportAsEPS" << "fileExportAsPDF";
 	itmenu->second << "fileDocSetup" << "filePreferences" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;

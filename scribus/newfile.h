@@ -24,6 +24,7 @@ class QPushButton;
 #include "scribusstructs.h"
 
 #include "customfdialog.h"
+#include "nftwidget.h"
 
 class PrefsManager;
 class MarginWidget;
@@ -55,9 +56,10 @@ class SCRIBUS_API NewDoc : public QDialog
 	Q_OBJECT
 
 public:
-	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false );
+	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, QString lang = "", QString templateDir = "" );
 	~NewDoc() {};
 	void createNewDocPage();
+	void createNewFromTempPage();
 	void createOpenDocPage();
 	void createRecentDocPage();
 	void setSize(QString gr);
@@ -96,6 +98,8 @@ public:
 #else
 	CustomFDialog *fileDialog;
 #endif
+	QFrame* newFromTempFrame;
+	nftwidget *nftGui;
 	QFrame* recentDocFrame;
 	QListWidget* recentDocListBox;
 	QPushButton* OKButton;
@@ -143,6 +147,7 @@ protected:
 	QFormLayout* optionsGroupBoxLayout;
 	QVBoxLayout* openDocLayout;
 	QVBoxLayout* recentDocLayout;
+	QVBoxLayout *verticalLayout;
 	PrefsManager* prefsManager;
 	QStringList recentDocList;
 };

@@ -289,6 +289,7 @@ public slots:
 	void manageMasterPagesEnd();
 	/** \brief generate a new document in the current view */
 	bool slotFileNew();
+	void newFileFromTemplate();
 	bool slotPageImport();
 	bool loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
 

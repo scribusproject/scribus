@@ -132,6 +132,10 @@ for which a new license (GPL+exception) is in place.
 #include "multipleduplicate.h"
 #include "newfile.h"
 #include "newtemp.h"
+#include "nfttemplate.h"
+#include "nftdialog.h"
+#include "ui_nftdialog.h"
+#include "nftwidget.h"
 #include "nodeeditpalette.h"
 #include "outlinepalette.h"
 #include "page.h"
@@ -592,6 +596,7 @@ void ScribusMainWindow::initMenuBar()
 	RecentDocs.clear();
 	scrMenuMgr->createMenu("File", ActionManager::defaultMenuNameEntryTranslated("File"));
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
+	scrMenuMgr->addMenuItem(scrActions["fileNewFromTemplate"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
 	recentFileMenuName="FileOpenRecent";
 	scrMenuMgr->createMenu(recentFileMenuName, tr("Open &Recent"), "File");
@@ -1973,7 +1978,7 @@ void ScribusMainWindow::startUpDialog()
 {
 	bool docSet = false;
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
-	NewDoc* dia = new NewDoc(this, RecentDocs, true);
+	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (dia->exec())
 	{
 		if (dia->tabSelected == 0)
@@ -2013,25 +2018,34 @@ void ScribusMainWindow::startUpDialog()
 			doc->setModified(false);
 			updateActiveWindowCaption(doc->DocName);
 		}
+		else if (dia->tabSelected == 1)
+		{
+			if (loadDoc(QDir::cleanPath(dia->nftGui->currentDocumentTemplate->file)))
+			{
+				doc->hasName = false;
+				UndoManager::instance()->renameStack(dia->nftGui->currentDocumentTemplate->name);
+				doc->DocName = dia->nftGui->currentDocumentTemplate->name;
+				updateActiveWindowCaption(QObject::tr("Document Template: ") + dia->nftGui->currentDocumentTemplate->name);
+				QDir::setCurrent(PrefsManager::instance()->documentDir());
+				removeRecent(QDir::cleanPath(dia->nftGui->currentDocumentTemplate->file));
+			}
+		}
+		else if (dia->tabSelected == 2)
+		{
+			QString fileName(dia->selectedFile);
+			if (!fileName.isEmpty())
+			{
+				docContext->set("docsopen", fileName.left(fileName.lastIndexOf("/")));
+				loadDoc(fileName);
+			}
+		}
 		else
 		{
-			if (dia->tabSelected == 1)
+			if (dia->recentDocListBox->currentItem() != NULL)
 			{
-				QString fileName(dia->selectedFile);
+				QString fileName(dia->recentDocListBox->currentItem()->text());
 				if (!fileName.isEmpty())
-				{
-					docContext->set("docsopen", fileName.left(fileName.lastIndexOf("/")));
-					loadDoc(fileName);
-				}
-			}
-			else
-			{
-				if (dia->recentDocListBox->currentItem() != NULL)
-				{
-					QString fileName(dia->recentDocListBox->currentItem()->text());
-					if (!fileName.isEmpty())
-						loadRecent(QDir::fromNativeSeparators(fileName));
-				}
+					loadRecent(QDir::fromNativeSeparators(fileName));
 			}
 		}
 	}
@@ -2281,6 +2295,26 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	}
 	undoManager->setUndoEnabled(true);
 	return tempDoc;
+}
+
+void ScribusMainWindow::newFileFromTemplate()
+{
+	nftdialog* nftdia = new nftdialog(this, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	if (nftdia->exec())
+	{
+		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		if (loadDoc(QDir::cleanPath(nftdia->nftGui->currentDocumentTemplate->file)))
+		{
+			doc->hasName = false;
+			UndoManager::instance()->renameStack(nftdia->nftGui->currentDocumentTemplate->name);
+			doc->DocName = nftdia->nftGui->currentDocumentTemplate->name;
+			updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->nftGui->currentDocumentTemplate->name);
+			QDir::setCurrent(PrefsManager::instance()->documentDir());
+			removeRecent(QDir::cleanPath(nftdia->nftGui->currentDocumentTemplate->file));
+		}
+		qApp->changeOverrideCursor(Qt::ArrowCursor);
+	}
+	delete nftdia;
 }
 
 void ScribusMainWindow::newView()
@@ -2578,6 +2612,7 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["pageCopyToMasterPage"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
+		scrActions["fileNewFromTemplate"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(false);
 		scrActions["fileClose"]->setEnabled(false);
@@ -2596,6 +2631,7 @@ void ScribusMainWindow::SwitchWin()
 		scrMenuMgr->setMenuEnabled("Page", true);
 		scrActions["editMasterPages"]->setEnabled(true);
 		scrActions["fileNew"]->setEnabled(true);
+		scrActions["fileNewFromTemplate"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(true);
 		scrActions["fileClose"]->setEnabled(true);
 		scrActions["fileSave"]->setEnabled(true);
@@ -8170,6 +8206,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["pageCopyToMasterPage"]->setEnabled(false);
 			scrActions["editMasterPages"]->setEnabled(false);
 			scrActions["fileNew"]->setEnabled(false);
+			scrActions["fileNewFromTemplate"]->setEnabled(false);
 			scrActions["fileOpen"]->setEnabled(false);
 			scrActions["fileClose"]->setEnabled(false);
 			scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
@@ -8197,6 +8234,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	slotSelect();
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["fileNew"]->setEnabled(true);
+	scrActions["fileNewFromTemplate"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
 	scrActions["fileSave"]->setEnabled(true);
