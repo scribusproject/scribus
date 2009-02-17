@@ -8388,11 +8388,7 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
 	{
-		if (ss->contains("GROUP"))
-			restoreGrouping(ss, isUndo);
-		else if (ss->contains("UNGROUP"))
-			restoreUngrouping(ss, isUndo);
-		else if (ss->contains("ADD_PAGE"))
+		if (ss->contains("ADD_PAGE"))
 			restoreAddPage(ss, isUndo);
 		else if (ss->contains("DELETE_PAGE"))
 			restoreDeletePage(ss, isUndo);

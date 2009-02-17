@@ -1257,7 +1257,11 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	if (ss)
 	{
 		bool layersUndo=false;
-		if (ss->contains("GUIDE_LOCK"))
+		if (ss->contains("GROUP"))
+			restoreGrouping(ss, isUndo);
+		else if (ss->contains("UNGROUP"))
+			restoreUngrouping(ss, isUndo);
+		else if (ss->contains("GUIDE_LOCK"))
 		{
 			if (isUndo)
 				GuideLock = !ss->getBool("GUIDE_LOCK");
@@ -1341,6 +1345,91 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	}
 }
 
+void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
+{
+	double x, y, w, h;
+	Selection tmpSelection(this, false);
+	int itemCount = state->getInt("itemcount");
+	m_Selection->setGroupRect();
+	m_Selection->getGroupRect(&x, &y, &w, &h);
+	m_Selection->delaySignalsOn();
+	m_Selection->clear();
+	for (int i = 0; i < itemCount; ++i)
+	{
+		int itemNr = getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
+		if (Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
+			tmpSelection.addItem(Items->at(itemNr));
+	}
+	if (isUndo)
+	{
+		uint docSelectionCount=tmpSelection.count();
+		PageItem *currItem;
+		uint lowestItem = 999999;
+		for (uint a=0; a<docSelectionCount; ++a)
+		{
+			currItem = tmpSelection.itemAt(a);
+			lowestItem = qMin(lowestItem, currItem->ItemNr);
+		}
+		if ((lowestItem > 0) && (Items->at(lowestItem-1)->Groups.count() != 0))
+		{
+			if (Items->at(lowestItem-1)->Groups.top() == m_Selection->itemAt(0)->Groups.top())
+			{
+				tmpSelection.addItem(Items->at(lowestItem-1), true);
+			}
+		}
+		itemSelection_UnGroupObjects(&tmpSelection);
+	}
+	else
+		itemSelection_GroupObjects(false, false, &tmpSelection);
+	QRectF rect(x, y , w, h);
+	regionsChanged()->update(rect.adjusted(-10, -10, 20, 20));
+	m_Selection->delaySignalsOff();
+}
+
+void ScribusDoc::restoreUngrouping(SimpleState *state, bool isUndo)
+{
+	double x, y, w, h;
+	Selection tmpSelection(this, false);
+	int itemCount = state->getInt("itemcount");
+	m_Selection->setGroupRect();
+	m_Selection->getGroupRect(&x, &y, &w, &h);
+	m_Selection->delaySignalsOn();
+	m_Selection->clear();
+	for (int i = 0; i < itemCount; ++i)
+	{
+		int itemNr = getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
+		if (Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
+		{
+			if (isUndo)
+				Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
+			tmpSelection.addItem(Items->at(itemNr));
+		}
+	}
+	if (isUndo)
+		itemSelection_GroupObjects(false, false, &tmpSelection);
+	else
+	{
+		uint docSelectionCount=m_Selection->count();
+		PageItem *currItem;
+		uint lowestItem = 999999;
+		for (uint a=0; a<docSelectionCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			lowestItem = qMin(lowestItem, currItem->ItemNr);
+		}
+		if ((lowestItem > 0) && (Items->at(lowestItem-1)->Groups.count() != 0))
+		{
+			if (Items->at(lowestItem-1)->Groups.top() == m_Selection->itemAt(0)->Groups.top())
+			{
+				tmpSelection.addItem(Items->at(lowestItem-1));
+			}
+		}
+		itemSelection_UnGroupObjects(&tmpSelection);
+	}
+	QRectF rect(x, y , w, h);
+	regionsChanged()->update(rect.adjusted(-10, -10, 20, 20));
+	m_Selection->delaySignalsOff();
+}
 
 void ScribusDoc::setName(const QString& name)
 {
