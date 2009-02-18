@@ -50,7 +50,7 @@ class ScFace_postscript : public FtFace
 			if (!face)
 			{
 				const_cast<ScFace_postscript*>(this)->usable = false;
-				qDebug("%s", QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontFile).toLatin1().constData());
+				qDebug("%s", QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontFile).toLocal8Bit().constData());
 				return;
 			}
 			if (loadFontMetrics(face, fontFile))
