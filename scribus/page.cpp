@@ -216,6 +216,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
 		m_Doc->scMW()->nodePalette->EndEdit();
+	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
 		if (m_Doc->m_Selection->findItem(ite)!=-1)
@@ -243,6 +244,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		update();
 	}
 	m_Doc->setMasterPageMode(oldMPMode);
+	m_Doc->m_Selection->delaySignalsOff();
 }
 
 void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
@@ -255,6 +257,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
 		m_Doc->scMW()->nodePalette->EndEdit();
+	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
 		//CB #3373 reinsert at old position and renumber items
@@ -282,6 +285,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		m_Doc->m_Selection->clear();
 		*/
 	}
+	m_Doc->m_Selection->delaySignalsOff();
 	m_Doc->setMasterPageMode(oldMPMode);
 }
 
