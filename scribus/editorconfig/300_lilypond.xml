@@ -1,11 +1,28 @@
 <editorsettings description="LilyPond" icon="lilypond.png">
-	<executable command="lilypond --png" />
-	<imagefile extension=".png"/>
-	<empty-frame-text>
-		{
-		c' e' g' e'
-		}
-	</empty-frame-text>
-	<preamble></preamble>
-	<postamble></postamble>
+<executable command="lilypond --pdf" />
+<imagefile extension=".pdf"/>
+<empty-frame-text>
+{
+ c' e' g' e'
+}
+</empty-frame-text>
+<preamble>
+\paper{
+paper-width =  $scribus_width$\pt
+paper-height = $scribus_height$\pt
+left-margin = 0
+right-margin = 0
+line-width = $scribus_width$\pt
+indent = 0
+top-margin = 0
+page-top-space = 0
+head-separation = 0
+bottom-margin = 0
+oddFooterMarkup=##f
+oddHeaderMarkup=##f
+bookTitleMarkup = ##f
+scoreTitleMarkup = ##f
+}
+</preamble>
+<postamble></postamble>
 </editorsettings>
