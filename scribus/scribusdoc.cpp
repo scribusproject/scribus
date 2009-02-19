@@ -1372,7 +1372,7 @@ void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
 		}
 		if ((lowestItem > 0) && (Items->at(lowestItem-1)->Groups.count() != 0))
 		{
-			if (Items->at(lowestItem-1)->Groups.top() == m_Selection->itemAt(0)->Groups.top())
+			if (Items->at(lowestItem-1)->Groups.top() == tmpSelection.itemAt(0)->Groups.top())
 			{
 				tmpSelection.addItem(Items->at(lowestItem-1), true);
 			}
@@ -1409,17 +1409,17 @@ void ScribusDoc::restoreUngrouping(SimpleState *state, bool isUndo)
 		itemSelection_GroupObjects(false, false, &tmpSelection);
 	else
 	{
-		uint docSelectionCount=m_Selection->count();
+		uint docSelectionCount=tmpSelection.count();
 		PageItem *currItem;
 		uint lowestItem = 999999;
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
-			currItem = m_Selection->itemAt(a);
+			currItem = tmpSelection.itemAt(a);
 			lowestItem = qMin(lowestItem, currItem->ItemNr);
 		}
 		if ((lowestItem > 0) && (Items->at(lowestItem-1)->Groups.count() != 0))
 		{
-			if (Items->at(lowestItem-1)->Groups.top() == m_Selection->itemAt(0)->Groups.top())
+			if (Items->at(lowestItem-1)->Groups.top() == tmpSelection.itemAt(0)->Groups.top())
 			{
 				tmpSelection.addItem(Items->at(lowestItem-1));
 			}
