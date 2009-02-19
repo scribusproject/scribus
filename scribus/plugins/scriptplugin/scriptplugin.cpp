@@ -458,6 +458,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setTextAlignment"), scribus_setalign, METH_VARARGS, tr(scribus_setalign__doc__)},
 	{const_cast<char*>("setTextColor"), scribus_settextfill, METH_VARARGS, tr(scribus_settextfill__doc__)},
 	{const_cast<char*>("setText"), scribus_setboxtext, METH_VARARGS, tr(scribus_setboxtext__doc__)},
+	{const_cast<char*>("setTextScalingH"), scribus_settextscalingh, METH_VARARGS, tr(scribus_settextscalingh__doc__)},
+	{const_cast<char*>("setTextScalingV"), scribus_settextscalingv, METH_VARARGS, tr(scribus_settextscalingv__doc__)},
 	{const_cast<char*>("setTextShade"), scribus_settextshade, METH_VARARGS, tr(scribus_settextshade__doc__)},
 	{const_cast<char*>("setTextStroke"), scribus_settextstroke, METH_VARARGS, tr(scribus_settextstroke__doc__)},
 	{const_cast<char*>("setUnit"), scribus_setunit, METH_VARARGS, tr(scribus_setunit__doc__)},

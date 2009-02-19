@@ -284,6 +284,26 @@ selected item is used.\n\
 PyObject *scribus_settextstroke(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_settextscalingv__doc__,
+QT_TR_NOOP("setTextScalingV(scale, [\"name\"])\n\
+\n\
+Sets the vertical character scaling of the object \"name\" to \"scale\" in percent.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set text shde */
+PyObject *scribus_settextscalingv(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_settextscalingh__doc__,
+QT_TR_NOOP("setTextScalingH(scale, [\"name\"])\n\
+\n\
+Sets the horizontal character scaling of the object \"name\" to \"scale\" in percent.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set text shde */
+PyObject *scribus_settextscalingh(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_settextshade__doc__,
 QT_TR_NOOP("setTextShade(shade, [\"name\"])\n\
 \n\

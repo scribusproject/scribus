@@ -443,6 +443,16 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing on a non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
+	
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	if (i->HasSel)
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->doc->itemSelection_SetLineSpacing(w);
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
+		
 //	i->setLineSpacing(w);
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -683,6 +693,77 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 //	return Py_None;
 	Py_RETURN_NONE;
 }
+
+
+PyObject *scribus_settextscalingh(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double sc;
+	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (sc < 10)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Character scaling out of bounds, must be >= 10","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	if (i->HasSel)
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->doc->itemSelection_SetScaleH(qRound(sc * 10));
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
+		
+	Py_RETURN_NONE;
+}
+
+
+PyObject *scribus_settextscalingv(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double sc;
+	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (sc < 10)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Character scaling out of bounds, must be >= 10","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	if (i->HasSel)
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->doc->itemSelection_SetScaleV(qRound(sc * 10));
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
+		
+	Py_RETURN_NONE;
+}
+
 
 PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 {

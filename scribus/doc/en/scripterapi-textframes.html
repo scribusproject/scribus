@@ -126,16 +126,24 @@ is not given the currently selected item is used.</p></dd>
 <p>Sets the text alignment of the text frame "name" to the specified alignment. If "name" is not given the currently selected item is used. "align" should be one of the ALIGN_ constants defined in this module - see dir(scribus).</p>
 <p>May throw ValueError for an invalid alignment constant.</p></dd>
 
-<dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
-<dd><code>setTextColor("color", ["name"])</code>
-<p>Sets the text color of the text frame "name" to the color "color". If there is some text selected only the selected text is changed. If "name" is not given the currently selected item is used.</p></dd>
-
 <dt><a name="-setTextDistances"><strong>setTextDistances</strong></a>(...)</dt>
 <dd><code>setTextDistances(left, right, top, bottom, ["name"])</code>
 <p>Sets the text distances of the text frame "name" to the values "left"
 "right", "top" and "bottom". If "name" is not given the currently
 selected item is used.</p>
 <p>May throw ValueError if any of the distances are out of bounds (must be positive).</p></dd>
+
+<dt><a name="-setTextScalingH"><strong>setTextScalingH</strong></a>(...)</dt>
+<dd><code>setTextScalingH(scale, ["name"]))</code>
+<p>Sets the horizontal character scaling of the object "name" to "scale" in percent. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextScalingV"><strong>setTextScalingV</strong></a>(...)</dt>
+<dd><code>setTextScalingV(scale, ["name"]))</code>
+<p>Sets the vertical character scaling of the object "name" to "scale" in percent. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
+<dd><code>setTextColor("color", ["name"])</code>
+<p>Sets the text color of the text frame "name" to the color "color". If there is some text selected only the selected text is changed. If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
 <dd><code>setTextShade(shade, ["name"])</code>
