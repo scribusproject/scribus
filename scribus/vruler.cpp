@@ -170,8 +170,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 		if (initpix)
 		{
 			initpix = false;
-			QPainter pp;
-			pp.begin( &pix );
+			QPainter pp( &pix );
 			pp.setBrush( BACKGROUND );
 			pp.drawRect( 0, 0, 16*SCALE, 4*SCALE );
 	
@@ -179,7 +178,6 @@ void Vruler::paintEvent(QPaintEvent *e)
 			pp.setBrush(Qt::red);
 			cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
 			pp.drawPolygon(cr);
-			pp.end();
 		}
 		// draw pixmap
 		p.save();
