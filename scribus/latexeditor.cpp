@@ -242,6 +242,11 @@ void LatexEditor::initialize()
 	dpiSpinBox->setValue(frame->dpi());
 	stateChanged(frame->state());
 	messagesTextEdit->setPlainText(frame->output());
+	disconnect(programComboBox, SIGNAL(activated(int)), this, SLOT(applicationChanged()));
+	int ind = programComboBox->findData(frame->configFile());
+	if (ind != -1)
+		programComboBox->setCurrentIndex(ind);
+	connect(programComboBox, SIGNAL(activated(int)), this, SLOT(applicationChanged()));
 }
 
 void LatexEditor::apply(bool force)
@@ -287,6 +292,7 @@ void LatexEditor::applicationChanged()
 		frame->setConfigFile(newConfig);
 		updateConfigFile();
 		frame->rerunApplication(true);
+		sourceTextEdit->setPlainText(frame->formula());
 	}
 }
 
