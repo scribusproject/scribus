@@ -159,7 +159,7 @@ void StyleManager::languageChange()
 	m_rightClickPopup->addSeparator();
 	m_rcpEditId = m_rightClickPopup->addAction( tr("Edit"), this, SLOT(slotEdit()));
 	m_rcpCloneId = m_rightClickPopup->addAction( tr("Clone"), this, SLOT(slotClone()));
-	m_rcpToScrapId = m_rightClickPopup->addAction( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
+//	m_rcpToScrapId = m_rightClickPopup->addAction( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
 	m_rightClickPopup->addSeparator();
 	m_rcpDeleteId = m_rightClickPopup->addAction( tr("Delete"), this, SLOT(slotDelete()));
 }
@@ -587,7 +587,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcpDeleteId->setEnabled(true);
 		m_rcpEditId->setEnabled(true);
 		m_rcpCloneId->setEnabled(true);
-		m_rcpToScrapId->setEnabled(true);
+//		m_rcpToScrapId->setEnabled(true);
 		m_rcStyle = item->text(0);
 		m_rcType = m_styleClassesPS[item->rootName()];
 		loadType(m_styleClassesPS[item->rootName()]);
@@ -600,7 +600,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcpDeleteId->setEnabled(false);
 		m_rcpEditId->setEnabled(false);
 		m_rcpCloneId->setEnabled(false);
-		m_rcpToScrapId->setEnabled(false);
+//		m_rcpToScrapId->setEnabled(false);
 		m_rcType = m_styleClassesPS[item->text(0)];
 		loadType(m_rcType);
 	}
@@ -612,7 +612,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcpDeleteId->setEnabled(false);
 		m_rcpEditId->setEnabled(false);
 		m_rcpCloneId->setEnabled(false);
-		m_rcpToScrapId->setEnabled(false);
+//		m_rcpToScrapId->setEnabled(false);
 	}
 
 	m_rightClickPopup->exec(styleView->mapToGlobal(point));
