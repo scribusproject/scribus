@@ -258,6 +258,7 @@ void ReformDoc::updateDocumentSettings()
 		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
 			pp->initialMargins=updatedMargins;
+			pp->marginPreset=currDoc->marginPreset;
 		}
 		else
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
@@ -273,6 +274,7 @@ void ReformDoc::updateDocumentSettings()
 				pp->initialMargins.Bottom == mp->initialMargins.Bottom)
 			{
 				pp->initialMargins=updatedMargins;
+				pp->marginPreset=currDoc->marginPreset;
 			}
 		}
 	}
@@ -291,6 +293,7 @@ void ReformDoc::updateDocumentSettings()
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
 		{
 			pp->initialMargins=updatedMargins;
+			pp->marginPreset=currDoc->marginPreset;
 		}
 		pp->setXOffset(currDoc->scratch.Left);
 		pp->setYOffset(currDoc->scratch.Top);
