@@ -2129,6 +2129,9 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			activFromApp = true;
 			if (currItem!=NULL)
 			{
+				//set to false otherwise some dialog properties wont be set correctly
+				if (currItem->itemText.length() == 0)
+					firstSet = false; 
 				disconnectSignals();
 				Editor->setUndoRedoEnabled(false);
 				Editor->setUndoRedoEnabled(true);
@@ -2149,6 +2152,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 //				EditorBar->doMove(0, Editor->contentsY());
 				EditorBar->setRepaint(true);
 				EditorBar->doRepaint();
+				updateProps(0, 0);
 				connectSignals();
 			}
 		}
