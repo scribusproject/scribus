@@ -200,6 +200,17 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTrans
 	return "";
 }
 
+const QString LanguageManager::getLangFromTransLang(QString lang)
+{
+	QMap<QString, langPair>::Iterator it;
+	for (it=langList.begin();it!=langList.end();++it)
+	{
+		if (it.value().second==lang)
+			return it.value().first;
+	}
+	return "";
+}
+
 const QString LanguageManager::getTransLangFromLang(QString lang)
 {
 	QMap<QString, langPair>::Iterator it;

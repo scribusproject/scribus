@@ -34,6 +34,7 @@ or documentation
 #include <QToolTip>
 
 #include "commonstrings.h"
+#include "langmgr.h"
 
 SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 {
@@ -84,7 +85,7 @@ bool SWDialog::useStyleLang()
 
 QString SWDialog::lang()
 {
-	return languageComboBox->currentText();
+	return LanguageManager::instance()->getLangFromTransLang(languageComboBox->currentText());
 }
 
 void SWDialog::savePrefs()

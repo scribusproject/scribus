@@ -45,6 +45,7 @@ public:
 	
 	const QString getLangFromAbbrev(QString, bool getTranslated=true);
 	const QString getAbbrevFromLang(QString, bool getFromTranslated=true, bool useInstalled=true);
+	const QString getLangFromTransLang(QString lang);
 	const QString getTransLangFromLang(QString lang);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
