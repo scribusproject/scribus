@@ -22,7 +22,6 @@ or documentation
 #define RC_PATH QDir::convertSeparators(ScPaths::instance().shareDir() + "/plugins/scribus-short-words.rc")
 #define RC_PATH_USR QDir::convertSeparators(ScPaths::getApplicationDataDir() + "/scribus-short-words.rc")
 
-#define UNBREAKABLE_SPACE QString(QChar(29))
 #define SPACE QChar(' ')
 
 #endif
