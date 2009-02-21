@@ -221,6 +221,43 @@ void ResizeGesture::doResize(bool scaleContent)
 			}
 			currItem->setImageXYScale(imgScX, imgScY);
 		}
+		// We do not want to scale the text of a linked frame
+		// as it would alter text in other frames of the string
+		else if((currItem->itemType() == PageItem::TextFrame) 
+				       && (currItem->nextInChain() == 0) 
+				       && (currItem->prevInChain() == 0) 
+				       && scaleContent)
+		{
+			double divX = (currItem->width() != 0) ? currItem->width() : 1.0;
+			double divY = (currItem->height() != 0) ? currItem->height() : 1.0;
+			double txtScX = (newBounds.width() - m_extraWidth) / divX;
+			double txtScY = (newBounds.height() - m_extraHeight) / divY;
+			if (currItem->itemText.length() != 0)
+			{
+				for (int aa = 0; aa < currItem->itemText.length(); ++aa)
+				{
+#if 0 // hard to decide if it’s batter to scale or to change font size
+					currItem->itemText.item(aa)->setScaleV(
+							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleV()*txtScY), 4000), 100));
+#else
+					currItem->itemText.item(aa)->setFontSize(
+							qMax(qMin(currItem->itemText.item(aa)->fontSize() * txtScY, 4000.0), 1.0));
+#endif
+					currItem->itemText.item(aa)->setScaleH(
+							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleH() * txtScX), 4000), 100));
+
+					// We need to scale the linespacing _only once_ per paragraph.
+					if((aa == 0) 
+						|| ( SpecialChars::isBreak(currItem->itemText.itemText(aa - 1).at(0))))
+					{
+						ParagraphStyle ps(currItem->itemText.paragraphStyle(aa));
+						double oldLS(currItem->itemText.paragraphStyle(aa).lineSpacing());
+						ps.setLineSpacing(qMax(qRound(oldLS * txtScY), 1));
+						currItem->itemText.setStyle(aa,ps);
+					}
+				}
+			}
+		}
 		currItem->setXYPos(newBounds.x() + m_extraX, newBounds.y() + m_extraY);
 		currItem->setWidth(newBounds.width() - m_extraWidth);
 		currItem->setHeight(newBounds.height() - m_extraHeight);
