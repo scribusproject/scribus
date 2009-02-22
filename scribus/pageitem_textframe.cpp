@@ -395,6 +395,7 @@ struct LineControl {
 		line.descent = 0;
 		line.width = 0;
 		line.naturalWidth = 0;
+		line.colLeft = colLeft;
 		breakIndex = -1;
 		breakXPos = 0;
 		maxShrink = 0;

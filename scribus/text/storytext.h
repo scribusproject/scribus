@@ -62,6 +62,7 @@ struct LineSpec
 	qreal width;
 	qreal ascent;
 	qreal descent;
+	qreal colLeft;
 	
 	int firstItem;
 	int lastItem;

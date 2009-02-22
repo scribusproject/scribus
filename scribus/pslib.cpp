@@ -3509,7 +3509,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 
 	for (uint ll=0; ll < ite->itemText.lines(); ++ll) {
 		LineSpec ls = ite->itemText.line(ll);
-		colLeft = tabDist = ls.x;
+		colLeft = ls.colLeft;
+		tabDist = ls.x;
 		double CurX = ls.x;
 
 		for (int d = ls.firstItem; d <= ls.lastItem; ++d)
