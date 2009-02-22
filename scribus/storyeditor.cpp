@@ -665,6 +665,8 @@ void SEditor::insertUpdate(int position, int len)
 	++blockContentsChangeHook;
 	setUpdatesEnabled(false);
 	this->blockSignals(true);
+	//prevent layout of QTextDocument while updating
+	this->textCursor().beginEditBlock();
 	int cursorPos = textCursor().position();
 	int scrollPos = verticalScrollBar()->value();
 	int end  = qMin(StyledText.length(), position + len);
@@ -766,6 +768,7 @@ void SEditor::insertUpdate(int position, int len)
 	tCursor.setPosition(cursorPos);
 	setTextCursor(tCursor);
 	verticalScrollBar()->setValue(scrollPos);
+	this->textCursor().endEditBlock();
 	this->blockSignals(false);
 	setUpdatesEnabled(true);
 	--blockContentsChangeHook;
