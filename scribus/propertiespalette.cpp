@@ -1676,20 +1676,6 @@ void PropertiesPalette::SelTab(int t)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem) && (t == idColorsItem))
-	{
-		Cpal->setActGradient(CurItem->GrType);
-		updateColorSpecialGradient();
-		Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
-		Cpal->gradEdit->Preview->updateDisplay();
-	}
-	if ((HaveDoc) && (HaveItem))
-	{
-		if (t == idShapeItem)
-			DCol->setMaximum(qMax(qRound(CurItem->width() / qMax(CurItem->ColGap, 10.0)), 1));
-		if (t == idImageItem)
-			imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
-	}
 	// fix for #5991: Property Palette text input box focus stays even when on another tab
 	// Disable widgets in all pages except current one - PV
 	bool enable;
@@ -1705,7 +1691,131 @@ void PropertiesPalette::SelTab(int t)
 				w->setEnabled(enable);
 		}
 	}
-
+	// now restore the dis-/enabled settings of the current tab
+	if ((HaveDoc) && (HaveItem))
+	{
+		bool setter;
+		if (t == idXYZItem)
+		{
+			if ((CurItem->isTableItem) && (CurItem->isSingleSel))
+			{
+				setter = true;
+				Xpos->setEnabled(false);
+				Ypos->setEnabled(false);
+				Rotation->setEnabled(false);
+			}
+			else
+				setter = false;
+			LayerGroup->setEnabled(!setter);
+			if ((CurItem->itemType() == PageItem::Line) && LMode)
+				Rotation->setEnabled(false);
+			else
+				Rotation->setEnabled(!((CurItem->isTableItem) && (CurItem->isSingleSel)));
+			if (CurItem->asLine())
+			{
+				keepFrameWHRatioButton->setEnabled(false);
+				Height->setEnabled(LMode && !CurItem->locked());
+			}
+			else
+			{
+				Height->setEnabled(true);
+				keepFrameWHRatioButton->setEnabled(true);
+			}
+			DoGroup->setEnabled(false);
+			DoUnGroup->setEnabled(false);
+			if (doc->m_Selection->count() > 1)
+			{
+				bool isGroup = true;
+				int firstElem = -1;
+				if (CurItem->Groups.count() != 0)
+					firstElem = CurItem->Groups.top();
+				for (int bx = 0; bx < doc->m_Selection->count(); ++bx)
+				{
+					if (doc->m_Selection->itemAt(bx)->Groups.count() != 0)
+					{
+						if (doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
+							isGroup = false;
+					}
+					else
+						isGroup = false;
+				}
+				if (!isGroup)
+					DoGroup->setEnabled(true);
+				else
+				{
+					if (CurItem->isGroupControl)
+						NameEdit->setEnabled(true);
+				}
+				if ((CurItem->Groups.count() != 0) && (isGroup))
+					DoUnGroup->setEnabled(true);
+			}
+		}
+		else if (t == idShapeItem)
+		{
+			DCol->setMaximum(qMax(qRound(CurItem->width() / qMax(CurItem->ColGap, 10.0)), 1));
+			if (((CurItem->asTextFrame()) || (CurItem->asImageFrame())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
+				RoundRect->setEnabled(true);
+			else
+				RoundRect->setEnabled ((CurItem->asPolygon()) &&  (!CurItem->ClipEdited)  && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)));
+		}
+		else if (t == idImageItem)
+		{
+			imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
+			setter = CurItem->ScaleType;
+			if (CurItem->asLatexFrame())
+			{
+				FreeScale->setEnabled(false);
+				FrameScale->setEnabled(false);
+				Aspect->setEnabled(false);
+				imageXScaleSpinBox->setEnabled(false);
+				imageYScaleSpinBox->setEnabled(false);
+				imgDpiX->setEnabled(false);
+				imgDpiY->setEnabled(false);
+			}
+			else
+			{
+				imageXScaleSpinBox->setEnabled(setter);
+				imageYScaleSpinBox->setEnabled(setter);
+				imgDpiX->setEnabled(setter);
+				imgDpiY->setEnabled(setter);
+				Aspect->setEnabled(!setter);
+				FreeScale->setEnabled(true);
+				FrameScale->setEnabled(true);
+			}
+			imageXOffsetSpinBox->setEnabled(setter);
+			imageYOffsetSpinBox->setEnabled(setter);
+		}
+		else if (t == idLineItem)
+		{
+			if ((CurItem->asLine()) || (CurItem->asPolyLine()))
+			{
+				startArrow->setEnabled(true);
+				endArrow->setEnabled(true);
+			}
+			else
+			{
+				startArrow->setEnabled(false);
+				endArrow->setEnabled(false);
+			}
+			if (CurItem->NamedLStyle.isEmpty())
+				setter = true;
+			else
+				setter = false;
+			LStyle->setEnabled(setter);
+			LSize->setEnabled(setter);
+			LJoinStyle->setEnabled(setter);
+			LEndStyle->setEnabled(setter);
+		}
+		else if (t == idColorsItem)
+		{
+			Cpal->setActGradient(CurItem->GrType);
+			updateColorSpecialGradient();
+			Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
+			Cpal->gradEdit->Preview->updateDisplay();
+			KnockOut->setChecked(!CurItem->doOverprint);
+			Overprint->setChecked(CurItem->doOverprint);
+		}
+	}
 }
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
