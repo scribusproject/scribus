@@ -329,8 +329,12 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			break;
 	};
 	// additional informations
-	item->setText(COLUMN_LAYER, m_Doc->Layers.at(pageItem->LayerNr).Name);
-	item->setData(COLUMN_LAYER, Qt::DecorationRole, m_Doc->Layers.at(pageItem->LayerNr).markerColor);
+	const ScLayer* layer = m_Doc->Layers.layerByNumber(pageItem->LayerNr);
+	if (layer)
+	{
+		item->setText(COLUMN_LAYER, layer->Name);
+		item->setData(COLUMN_LAYER, Qt::DecorationRole, layer->markerColor);
+	}
 // 	if (pageItem->asTextFrame())
 // 	{
 // 		int l = pageItem->itemText.length();
