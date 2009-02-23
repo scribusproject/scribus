@@ -367,6 +367,8 @@ INSTALL(FILES
 22/close.png
 22/color-picker.png
 22/combobox.png
+22/dialog-error.png
+22/dialog-warning.png
 22/distribute-horizontal-center.png
 22/distribute-horizontal-equal.png
 22/distribute-horizontal-left.png

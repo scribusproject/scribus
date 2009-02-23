@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #define COLUMN_LAYER 2
 // #define COLUMN_INFO 3
 
-
+/*
 static const unsigned char image0_data[] =
     {
         0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d,
@@ -126,7 +126,7 @@ static const unsigned char image2_data[] =
         0xe8, 0xa9, 0x58, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae,
         0x42, 0x60, 0x82
     };
-
+*/
 CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	: ScrPaletteBase( parent, "checkDocument", modal, 0 ),
 	m_Doc(0),
@@ -136,6 +136,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	minResDPI(0),
 	maxResDPI(0)
 {
+/*
 	QPixmap img;
 	img.loadFromData( image0_data, sizeof( image0_data ), "PNG" );
 	graveError = img;
@@ -143,6 +144,10 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	onlyWarning = img;
 	img.loadFromData( image2_data, sizeof( image2_data ), "PNG" );
 	noErrors = img;
+*/
+	graveError = loadIcon("22/dialog-error.png");
+	onlyWarning = loadIcon("22/dialog-warning.png");
+	noErrors = loadIcon("ok.png");
 	checkDocumentLayout = new QVBoxLayout( this );
 	checkDocumentLayout->setMargin(5);
 	checkDocumentLayout->setSpacing(5);
@@ -434,7 +439,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			QString tmp;
 			hasError = false;
-			bool pageGraveError = false;
+			pageGraveError = false;
 			QTreeWidgetItem * page = new QTreeWidgetItem( masterPageRootItem);//, pagep );
 			masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
 // 			pagep = page;
@@ -493,7 +498,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			QString tmp;
 			hasError = false;
-			bool pageGraveError = false;
+			pageGraveError = false;
 			QTreeWidgetItem * page = new QTreeWidgetItem( reportDisplay);//, pagep );
 			pageMap.insert(page, aPage);
 // 			pagep = page;
