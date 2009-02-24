@@ -293,10 +293,10 @@ QColor ScColorEngine::getShadeColor(const ScColor& color, const ScribusDoc* doc,
 QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc* doc, double level)
 {
 	QColor tmp;
-	bool doGC = false;
-	if (doc)
-		doGC = doc->Gamut;
-	
+	bool doGC = doc ? doc->Gamut : false;
+	bool cmsUse = doc ? doc->HasCMS : false;
+	bool softProof = doc ? doc->SoftProofing : false;
+
 	if (color.getColorModel() == colorModelRGB)
 	{
 		RGBColor rgb;
@@ -306,7 +306,7 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 		getShadeColorRGB(color, doc, rgb, level);
 		// Match 133x behavior for rgb grey until we are able to make rgb profiled output
 		// (RGB greys map to cmyk greys)
-		if ( rgb.r == rgb.g && rgb.g == rgb.b )
+		if ((cmsUse && softProof) && (rgb.r == rgb.g && rgb.g == rgb.b))
 		{
 			doGC = false;
 			CMYKColor cmyk;
