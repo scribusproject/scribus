@@ -505,12 +505,15 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 //	qDebug() << "start gesture" << typeid(*m_canvasMode).name()
 //			<< "---->"
 //			<< typeid(*gesture).name();
-	m_canvasMode->deactivate(true);
-	gesture->setDelegate(m_canvasMode);
-	m_canvasMode = gesture;
-	m_canvasMode->activate(false);
-	if (Doc->appMode != modeEditClip)
-		m_canvas->repaint();
+	if (m_canvasMode != gesture)
+	{
+		m_canvasMode->deactivate(true);
+		gesture->setDelegate(m_canvasMode);
+		m_canvasMode = gesture;
+		m_canvasMode->activate(false);
+		if (Doc->appMode != modeEditClip)
+			m_canvas->repaint();
+	}
 }
 
 void ScribusView::stopGesture()
