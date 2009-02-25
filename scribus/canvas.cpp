@@ -2218,13 +2218,20 @@ void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
 	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
 		return;
 	double gx = val;
-	if (m_doc->guidesSettings.rulerMode)
-		gx -= m_doc->currentPage()->xOffset();
-	gx -= m_doc->rulerXoffset;
 	if (isX)
+	{
+		if (m_doc->guidesSettings.rulerMode)
+			gx -= m_doc->currentPage()->xOffset();
+		gx -= m_doc->rulerXoffset;
 		QToolTip::showText(m + QPoint(5, 5), tr("X: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
+	}
 	else
+	{
+		if (m_doc->guidesSettings.rulerMode)
+			gx -= m_doc->currentPage()->yOffset();
+		gx -= m_doc->rulerYoffset;
 		QToolTip::showText(m + QPoint(5, 5), tr("Y: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
+	}
 }
 
 void Canvas::displayXYHUD(QPoint m, double x, double y)
