@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "aspellpluginimpl.h"
 #include "pageitem_textframe.h"
-#include "specialchars.h"
+#include "text/specialchars.h"
 #include "util.h"
 #include <QMessageBox>
 
