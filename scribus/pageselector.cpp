@@ -106,10 +106,10 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	PageCombo->setEditable(true);
 	PageCombo->setDuplicatesEnabled( false );
 	PageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
-	QString tmp;
+	QString tmp(tr( "%1 of %2" ));
 	for (int a = 0; a < LastPG; ++a)
 	{
-		PageCombo->addItem(tmp.setNum(a+1));
+		PageCombo->addItem(tmp.arg(a+1).arg(LastPG));
 	}
 	PageCombo->setValidator(m_validator);
 	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
@@ -204,12 +204,12 @@ void PageSelector::setMaximum(int a)
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->clear();
 	LastPG = a;
-	QString tmp;
+	QString tmp(tr( "%1 of %2" ));
 //	v->setTop(LastPG);
 	m_validator->setRange(1, LastPG);
 	for (int b = 0; b < LastPG; ++b)
 	{
-		PageCombo->addItem(tmp.setNum(b+1));
+		PageCombo->addItem(tmp.arg(b+1).arg(LastPG));
 	}
 	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(APage).arg(LastPG));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
