@@ -148,7 +148,6 @@ public:
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
-	void mouseReleaseEvent(QMouseEvent *m);
 	void setTBvals(PageItem *currItem);
 	void ShowSubs();
 	void applyNewMaster(QString name);

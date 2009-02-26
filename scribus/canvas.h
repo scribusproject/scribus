@@ -92,6 +92,7 @@ public:
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
+	friend class CanvasMode_EyeDropper;
 	friend class CanvasMode_FrameLinks;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;

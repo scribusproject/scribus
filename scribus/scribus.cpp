@@ -6487,10 +6487,6 @@ void ScribusMainWindow::setAppMode(int mode)
 			slotStoryEditor();
 			slotSelect();
 		}
-		if (mode == modeEyeDropper)
-			grabMouse();
-		else
-			releaseMouse();
 		if (mode == modeCopyProperties)
 		{
 			if (doc->m_Selection->count() != 0)
@@ -9180,85 +9176,6 @@ void ScribusMainWindow::generateTableOfContents()
 {
 	if (HaveDoc)
 		tocGenerator->generateDefault();
-}
-
-void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
-{
-	bool sendToSuper=true;
-	if (HaveDoc)
-	{
-		if (doc->appMode == modeEyeDropper)
-		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			releaseMouse();
-			sendToSuper=false;
-			QPixmap pm = QPixmap::grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
-			QImage i = pm.toImage();
-			QColor selectedColor=i.pixel(0, 0);
-			bool found=false;
-			ColorList::Iterator it;
-			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-			{
-				if (selectedColor== ScColorEngine::getRGBColor(it.value(), doc))
-				{
-					found=true;
-					break;
-				}
-			}
-			QString colorName=QString::null;
-			if (found)
-				colorName=it.key();
-			else
-			{
-				bool ok;
-				bool nameFound=false;
-				QString questionString="<qt>"+ tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
-				do
-				{
-					colorName = QInputDialog::getText(this, tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok);
-					if (ok)
-					{
-						if (doc->PageColors.contains(colorName))
-							questionString="<qt>"+ tr("The name you have selected already exists. Please enter a different name for this new color.")+"</qt>";
-						else
-							nameFound=true;
-					}
-				} while (!nameFound && ok);
-				if ( ok && !colorName.isEmpty() )
-				{
-					ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
-					doc->PageColors[colorName]=newColor;
-					propertiesPalette->updateColorList();
-				}
-				else
-					colorName=QString::null;
-			}
-			uint docSelectionCount=doc->m_Selection->count();
-			if (!colorName.isNull() && docSelectionCount > 0)
-			{
-				for (uint i = 0; i < docSelectionCount; ++i)
-				{
-					PageItem *currItem=doc->m_Selection->itemAt(i);
-					if (currItem!=NULL)
-					{
-						if ((m->modifiers() & Qt::ControlModifier) && (currItem->asTextFrame() || currItem->asPathText()))
-							doc->itemSelection_SetFillColor(colorName); //Text colour
-						else
-						if (m->modifiers() & Qt::AltModifier) //Line colour
-							doc->itemSelection_SetItemPen(colorName);
-						else
-							doc->itemSelection_SetItemBrush(colorName); //Fill colour
-					}
-				}
-			}
-			//propertiesPalette->Cpal->SetColors(ScMW->doc->PageColors);
-			//propertiesPalette->updateCList();
-			slotSelect();
-		}
-	}
-	if (sendToSuper)
-		QMainWindow::mouseReleaseEvent(m);
-
 }
 
 void ScribusMainWindow::insertSampleText()

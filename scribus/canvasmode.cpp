@@ -24,6 +24,7 @@
 #include "canvasmode_drawfreehand.h"
 #include "canvasmode_edit.h"
 #include "canvasmode_editgradient.h"
+#include "canvasmode_eyedropper.h"
 #include "canvasmode_framelinks.h"
 #include "canvasmode_legacy.h"
 #include "canvasmode_magnifier.h"
@@ -120,6 +121,12 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 		case modeInsertPDFLinkAnnotation:
 			result = new CreateMode(view);
 			break;
+		case modeEyeDropper:
+			result = new CanvasMode_EyeDropper(view);
+			break;
+		case modeImportObject:
+			result = new CanvasMode_ObjImport(view);
+			break;
 		case modeLinkFrames:
 		case modeUnlinkFrames:
 			result = new CanvasMode_FrameLinks(view);
@@ -129,9 +136,6 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeMeasurementTool:
 			result = new MeasurementsMode(view);
-			break;
-		case modeImportObject:
-			result = new CanvasMode_ObjImport(view);
 			break;
 		case modePanning:
 			result = new CanvasMode_Panning(view);

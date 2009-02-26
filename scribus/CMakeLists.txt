@@ -326,6 +326,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_create.cpp
   canvasmode_drawbezier.cpp
   canvasmode_drawfreehand.cpp
+  canvasmode_eyedropper.cpp
   canvasmode_framelinks.cpp
   canvasmode_edit.cpp
   canvasmode_editgradient.cpp
