@@ -1005,46 +1005,49 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				m_view->requestMode(modeNormal);
 				return;
 			}
-			//<<CB Add in shift select to text frames
-			if (m->modifiers() & Qt::ShiftModifier && currItem->itemText.lengthOfSelection() > 0)
+			if (m->button() != Qt::RightButton)
 			{
-				if (currItem->CPos < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
-					oldP = currItem->itemText.startOfSelection();
-				else 
-					oldP = currItem->itemText.endOfSelection();
-				currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
-				oldCp = currItem->CPos;
-			}
-			else //>>CB
-			{
-				oldCp = currItem->CPos;
-				currItem->itemText.deselectAll();
-				currItem->HasSel = false;
-			}
-			currItem->emitAllToGUI();
-			if (m->button() == Qt::MidButton)
-			{
-				m_canvas->m_viewMode.m_MouseButtonPressed = false;
-				m_view->MidButt = false;
-				QString cc;
-				cc = QApplication::clipboard()->text(QClipboard::Selection);
-				if (cc.isNull())
-					cc = QApplication::clipboard()->text(QClipboard::Clipboard);
-				if (!cc.isNull())
+				//<<CB Add in shift select to text frames
+				if (m->modifiers() & Qt::ShiftModifier && currItem->itemText.lengthOfSelection() > 0)
 				{
-					// K.I.S.S.:
-					currItem->itemText.insertChars(0, cc, true);
-					if (m_doc->docHyphenator->AutoCheck)
-						m_doc->docHyphenator->slotHyphenate(currItem);
-					m_ScMW->BookMarkTxT(currItem);
-					//							m_ScMW->outlinePalette->BuildTree();
+					if (currItem->CPos < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
+						oldP = currItem->itemText.startOfSelection();
+					else 
+						oldP = currItem->itemText.endOfSelection();
+					currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
+					oldCp = currItem->CPos;
 				}
-				else
+				else //>>CB
 				{
-					if (ScMimeData::clipboardHasScribusText())
-						m_ScMW->slotEditPaste();
+					oldCp = currItem->CPos;
+					currItem->itemText.deselectAll();
+					currItem->HasSel = false;
 				}
-				currItem->update();
+				currItem->emitAllToGUI();
+				if (m->button() == Qt::MidButton)
+				{
+					m_canvas->m_viewMode.m_MouseButtonPressed = false;
+					m_view->MidButt = false;
+					QString cc;
+					cc = QApplication::clipboard()->text(QClipboard::Selection);
+					if (cc.isNull())
+						cc = QApplication::clipboard()->text(QClipboard::Clipboard);
+					if (!cc.isNull())
+					{
+						// K.I.S.S.:
+						currItem->itemText.insertChars(0, cc, true);
+						if (m_doc->docHyphenator->AutoCheck)
+							m_doc->docHyphenator->slotHyphenate(currItem);
+						m_ScMW->BookMarkTxT(currItem);
+						//							m_ScMW->outlinePalette->BuildTree();
+					}
+					else
+					{
+						if (ScMimeData::clipboardHasScribusText())
+							m_ScMW->slotEditPaste();
+					}
+					currItem->update();
+				}
 			}
 		}
 		else if (!currItem->asImageFrame() || 
