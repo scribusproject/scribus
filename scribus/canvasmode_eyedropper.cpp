@@ -123,8 +123,6 @@ void CanvasMode_EyeDropper::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_EyeDropper::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
@@ -136,11 +134,6 @@ void CanvasMode_EyeDropper::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 {
-#ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
-#endif // GESTURE_FRAME_PREVIEW
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();

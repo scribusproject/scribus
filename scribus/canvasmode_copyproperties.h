@@ -20,8 +20,6 @@
 #include "fpointarray.h"
 
 class PageItem;
-class PageItem_TextFrame;
-class QTimer;
 class ScribusMainWindow;
 class ScribusView;
 

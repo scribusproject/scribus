@@ -16,14 +16,8 @@
 #ifndef CANVAS_MODE_EYEDROPPER_H
 #define CANVAS_MODE_EYEDROPPER_H
 
-#include <QObject>
-
 #include "canvasmode.h"
-#include "fpointarray.h"
 
-class PageItem;
-class PageItem_TextFrame;
-class QTimer;
 class ScribusMainWindow;
 class ScribusView;
 
