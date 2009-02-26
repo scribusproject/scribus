@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "aspellpluginimpl.h"
 #include "pageitem_textframe.h"
+#include "specialchars.h"
 #include "util.h"
 #include <QMessageBox>
 
@@ -126,16 +127,27 @@ void AspellPluginImpl::activateSpellGUI(bool active)
 //__________________________________________________________________________
 void AspellPluginImpl::nextWord()
 {
+	QChar ch;
 	QString wordBoundaries = QString(" .,:;\"'!?\n");
 	uint len = fFrame->itemText.length();
-	while (fpos < len && wordBoundaries.indexOf(fFrame->itemText.text(fpos)) >= 0)
+	while (fpos < len)
 	{
-		++fpos;
+		ch = fFrame->itemText.text(fpos);
+		if ((wordBoundaries.indexOf(ch) >= 0) || ch.isSpace() || SpecialChars::isBreak(ch))
+		{
+			++fpos;
+		}
+		break;
 	}
 	int pa = fpos;
 	int pe = 0;
-	while (fpos < len && wordBoundaries.indexOf(fFrame->itemText.text(fpos)) < 0)
+	while (fpos < len)
 	{
+		ch = fFrame->itemText.text(fpos);
+		if ((wordBoundaries.indexOf(ch) >= 0) || ch.isSpace() || SpecialChars::isBreak(ch))
+		{
+			break;
+		}
 		++fpos;
 	}
 	pe = fpos;
