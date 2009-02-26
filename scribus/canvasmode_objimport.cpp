@@ -102,6 +102,11 @@ void CanvasMode_ObjImport::activate(bool fromGesture)
 void CanvasMode_ObjImport::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_ObjImport::deactivate" << forGesture;
+	if (m_mimeData)
+	{
+		delete m_mimeData;
+		m_mimeData = NULL;
+	}
 	m_view->redrawMarker->hide();
 }
 
