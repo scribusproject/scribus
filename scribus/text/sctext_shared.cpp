@@ -114,6 +114,7 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 			break;
 		value(i)->setContext(newContext);
 	}
+#ifndef NDEBUG // skip assertions if we aren't debugging
 	// we are done here but will do a sanity check:
 	// assert that all chars point to the following parstyle
 	QListIterator<ScText*> it( *this );
@@ -145,5 +146,6 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 	}
 	if ( lastContext )
 		assert( lastContext == trailingStyle.charStyleContext() );
+#endif
 }
 
