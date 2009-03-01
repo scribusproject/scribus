@@ -104,22 +104,25 @@ public:
 	QListWidget* recentDocListBox;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
-	double unitRatio;
-	int Orient;
-	int precision;
-	int choosenLayout;
-	double pageWidth;
-	double pageHeight;
-	double Dist;
-	QString unitSuffix;
-	QString selectedFile;
-	int unitIndex;
-	int tabSelected;
-	bool onStartup;
-	double bleedBottom;
-	double bleedTop;
-	double bleedLeft;
-	double bleedRight;
+
+	bool onStartup(void) const { return m_onStartup;}
+	int  tabSelected(void) const { return m_tabSelected;}
+	QString selectedFile(void) const { return m_selectedFile; }
+
+	int    unitIndex(void)   const { return m_unitIndex;}
+	QString unitSuffix(void) const { return m_unitSuffix;}
+	double unitRatio(void)   const { return m_unitRatio; }
+
+	int    orientation(void) const { return m_orientation;} 
+	int    precision(void) const { return m_precision;}
+	int    choosenLayout(void) const { return m_choosenLayout;}
+	double pageWidth(void) const { return m_pageWidth;}
+	double pageHeight(void) const { return m_pageHeight;}
+	double distance(void) const { return m_distance;}
+	double bleedBottom(void) const { return m_bleedBottom;}
+	double bleedTop(void)    const { return m_bleedTop;}
+	double bleedLeft(void)   const { return m_bleedLeft;}
+	double bleedRight(void)  const { return m_bleedRight;}
 
 public slots:
 	void setHeight(double v);
@@ -127,12 +130,12 @@ public slots:
 	void selectItem(uint nr);
 	void itemSelected(QListWidgetItem* ic);
 	void handleAutoFrame();
-	void setDist(double v);
+	void setDistance(double v);
 	void setUnit(int u);
 	void ExitOK();
-	void setOrien(int ori);
-	void setPGsize(const QString &);
-	void setDS(int layout);
+	void setOrientation(int ori);
+	void setPageSize(const QString &);
+	void setDocLayout(int layout);
 	/*! Opens document on doubleclick
 	\author Petr Vanek <petr@yarpen.cz>
 	*/
@@ -150,6 +153,23 @@ protected:
 	QVBoxLayout *verticalLayout;
 	PrefsManager* prefsManager;
 	QStringList recentDocList;
+
+	double m_unitRatio;
+	int m_orientation;
+	int m_precision;
+	int m_choosenLayout;
+	double m_pageWidth;
+	double m_pageHeight;
+	double m_distance;
+	QString m_unitSuffix;
+	QString m_selectedFile;
+	int m_unitIndex;
+	int m_tabSelected;
+	bool m_onStartup;
+	double m_bleedBottom;
+	double m_bleedTop;
+	double m_bleedLeft;
+	double m_bleedRight;
 };
 
 #endif // NEWDOC_H

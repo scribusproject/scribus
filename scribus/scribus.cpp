@@ -1981,21 +1981,21 @@ void ScribusMainWindow::startUpDialog()
 	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (dia->exec())
 	{
-		if (dia->tabSelected == 0)
+		if (dia->tabSelected() == 0)
 		{
-			int facingPages = dia->choosenLayout;
+			int facingPages = dia->choosenLayout();
 			int firstPage = dia->firstPage->currentIndex();
 			docSet = dia->startDocSetup->isChecked();
 			double topMargin = dia->marginGroup->top();
 			double bottomMargin = dia->marginGroup->bottom();
 			double leftMargin = dia->marginGroup->left();
 			double rightMargin = dia->marginGroup->right();
-			double columnDistance = dia->Dist;
-			double pageWidth = dia->pageWidth;
-			double pageHeight = dia->pageHeight;
+			double columnDistance = dia->distance();
+			double pageWidth = dia->pageWidth();
+			double pageHeight = dia->pageHeight();
 			double numberCols = dia->numberOfCols->value();
 			bool autoframes = dia->autoTextFrame->isChecked();
-			int orientation = dia->Orient;
+			int orientation = dia->orientation();
 			int pageCount=dia->pageCountSpinBox->value();
 			QString pagesize;
 			if (dia->pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
@@ -2007,10 +2007,10 @@ void ScribusMainWindow::startUpDialog()
 			}
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset());
 			doc->pageSets[facingPages].FirstPage = firstPage;
-			doc->bleeds.Bottom = dia->bleedBottom;
-			doc->bleeds.Top = dia->bleedTop;
-			doc->bleeds.Left = dia->bleedLeft;
-			doc->bleeds.Right = dia->bleedRight;
+			doc->bleeds.Bottom = dia->bleedBottom();
+			doc->bleeds.Top = dia->bleedTop();
+			doc->bleeds.Left = dia->bleedLeft();
+			doc->bleeds.Right = dia->bleedRight();
 			HaveNewDoc();
 			doc->reformPages(true);
 			// Don's disturb user with "save?" dialog just after new doc
@@ -2018,21 +2018,22 @@ void ScribusMainWindow::startUpDialog()
 			doc->setModified(false);
 			updateActiveWindowCaption(doc->DocName);
 		}
-		else if (dia->tabSelected == 1)
+		else if (dia->tabSelected() == 1)
 		{
-			if (loadDoc(QDir::cleanPath(dia->nftGui->currentDocumentTemplate->file)))
+			QString fileName = QDir::cleanPath(dia->selectedFile());
+			if (!fileName.isEmpty() && loadDoc(fileName))
 			{
 				doc->hasName = false;
 				UndoManager::instance()->renameStack(dia->nftGui->currentDocumentTemplate->name);
 				doc->DocName = dia->nftGui->currentDocumentTemplate->name;
 				updateActiveWindowCaption(QObject::tr("Document Template: ") + dia->nftGui->currentDocumentTemplate->name);
 				QDir::setCurrent(PrefsManager::instance()->documentDir());
-				removeRecent(QDir::cleanPath(dia->nftGui->currentDocumentTemplate->file));
+				removeRecent(fileName);
 			}
 		}
-		else if (dia->tabSelected == 2)
+		else if (dia->tabSelected() == 2)
 		{
-			QString fileName = QDir::fromNativeSeparators(dia->selectedFile);
+			QString fileName = dia->selectedFile();
 			if (!fileName.isEmpty())
 			{
 				QFileInfo fi(fileName);
@@ -2042,12 +2043,9 @@ void ScribusMainWindow::startUpDialog()
 		}
 		else
 		{
-			if (dia->recentDocListBox->currentItem() != NULL)
-			{
-				QString fileName(dia->recentDocListBox->currentItem()->text());
-				if (!fileName.isEmpty())
-					loadRecent(QDir::fromNativeSeparators(fileName));
-			}
+			QString fileName = dia->selectedFile();
+			if (!fileName.isEmpty())
+				loadRecent(fileName);
 		}
 	}
 	prefsManager->setShowStartupDialog(!dia->startUpDialog->isChecked());
@@ -2066,19 +2064,19 @@ bool ScribusMainWindow::slotFileNew()
 	NewDoc* dia = new NewDoc(this, RecentDocs);
 	if (dia->exec())
 	{
-		int facingPages = dia->choosenLayout;
+		int facingPages = dia->choosenLayout();
 		int firstPage = dia->firstPage->currentIndex();
 		docSet = dia->startDocSetup->isChecked();
 		double topMargin = dia->marginGroup->top();
 		double bottomMargin = dia->marginGroup->bottom();
 		double leftMargin = dia->marginGroup->left();
 		double rightMargin = dia->marginGroup->right();
-		double columnDistance = dia->Dist;
-		double pageWidth = dia->pageWidth;
-		double pageHeight = dia->pageHeight;
+		double columnDistance = dia->distance();
+		double pageWidth = dia->pageWidth();
+		double pageHeight = dia->pageHeight();
 		double numberCols = dia->numberOfCols->value();
 		bool autoframes = dia->autoTextFrame->isChecked();
-		int orientation = dia->Orient;
+		int orientation = dia->orientation();
 		int pageCount=dia->pageCountSpinBox->value();
 		QString pagesize;
 		if (dia->pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
@@ -2091,10 +2089,10 @@ bool ScribusMainWindow::slotFileNew()
 		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset()))
 		{
 			doc->pageSets[facingPages].FirstPage = firstPage;
-			doc->bleeds.Bottom = dia->bleedBottom;
-			doc->bleeds.Top = dia->bleedTop;
-			doc->bleeds.Left = dia->bleedLeft;
-			doc->bleeds.Right = dia->bleedRight;
+			doc->bleeds.Bottom = dia->bleedBottom();
+			doc->bleeds.Top = dia->bleedTop();
+			doc->bleeds.Left = dia->bleedLeft();
+			doc->bleeds.Right = dia->bleedRight();
 			mainWindowStatusLabel->setText( tr("Ready"));
 			HaveNewDoc();
 			doc->reformPages(true);
