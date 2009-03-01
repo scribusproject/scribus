@@ -239,12 +239,14 @@ void ResizeGesture::doResize(bool scaleContent)
 #if 0 // hard to decide if it’s batter to scale or to change font size
 					currItem->itemText.item(aa)->setScaleV(
 							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleV()*txtScY), 4000), 100));
+					currItem->itemText.item(aa)->setScaleH(
+							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleH() * txtScX), 4000), 100));
 #else
 					currItem->itemText.item(aa)->setFontSize(
 							qMax(qMin(currItem->itemText.item(aa)->fontSize() * txtScY, 4000.0), 1.0));
-#endif
 					currItem->itemText.item(aa)->setScaleH(
-							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleH() * txtScX), 4000), 100));
+							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleH() * txtScX / txtScY), 4000), 100));
+#endif
 
 					// We need to scale the linespacing _only once_ per paragraph.
 					if((aa == 0) 
