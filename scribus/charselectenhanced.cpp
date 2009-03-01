@@ -442,8 +442,10 @@ void CharSelectEnhanced::delEdit()
 
 void CharSelectEnhanced::insChar()
 {
-	if (!insertButton->hasFocus())
-		return;
+	// #7810 : won't work as insertButton->hasFocus()
+	// always return false on OSX
+	/*if (!insertButton->hasFocus())
+		return;*/
 	emit insertSpecialChars(chToIns);
 	delEdit();
 }
