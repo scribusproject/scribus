@@ -542,9 +542,9 @@ void NewDoc::ExitOK()
 #if QT_VERSION  >= 0x040300
 		QStringList files = fileDialog->selectedFiles();
 		if (files.count() != 0)
-			selectedFile = files[0];
+			selectedFile = QDir::fromNativeSeparators(files[0]);
 #else
-		selectedFile = fileDialog->selectedFile();
+		selectedFile = QDir::fromNativeSeparators(fileDialog->selectedFile());
 #endif
 	}
 	else

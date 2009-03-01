@@ -443,7 +443,7 @@ QString CustomFDialog::selectedFile()
 {
 	QStringList sel = fileDialog->selectedFiles();
 	if (!sel.isEmpty())
-		return sel[0];
+		return QDir::fromNativeSeparators(sel[0]);
 	return QString();
 }
 

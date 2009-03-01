@@ -2032,10 +2032,11 @@ void ScribusMainWindow::startUpDialog()
 		}
 		else if (dia->tabSelected == 2)
 		{
-			QString fileName(dia->selectedFile);
+			QString fileName = QDir::fromNativeSeparators(dia->selectedFile);
 			if (!fileName.isEmpty())
 			{
-				docContext->set("docsopen", fileName.left(fileName.lastIndexOf("/")));
+				QFileInfo fi(fileName);
+				docContext->set("docsopen", fi.absolutePath());
 				loadDoc(fileName);
 			}
 		}
@@ -3630,7 +3631,8 @@ bool ScribusMainWindow::slotDocOpen()
 	if (fileName.isEmpty())
 		// User cancelled
 		return false;
-	docContext->set("docsopen", fileName.left(fileName.lastIndexOf("/")));
+	QFileInfo fi(fileName);
+	docContext->set("docsopen", fi.absolutePath());
 	return loadDoc(fileName);
 }
 
