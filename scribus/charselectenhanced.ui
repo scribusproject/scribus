@@ -173,6 +173,9 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
        <property name="text" >
         <string>&amp;Insert</string>
        </property>
+       <property name="autoDefault" >
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -182,6 +185,9 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
        </property>
        <property name="text" >
         <string>C&amp;lear</string>
+       </property>
+       <property name="autoDefault" >
+        <bool>false</bool>
        </property>
       </widget>
      </item>
