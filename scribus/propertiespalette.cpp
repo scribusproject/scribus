@@ -2019,7 +2019,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 
-	SelTab(0);
+	SelTab(TabStack->currentIndex());
 
 	HaveItem = false;
 	CurItem = i;
