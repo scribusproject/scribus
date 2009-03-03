@@ -117,7 +117,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	PageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 	
-	PageCount = new QLabel(PageCountString.arg(LastPG),this);
+	PageCount = new QLabel(PageCountString.arg(LastPG), this);
 	PageSelectorLayout->addWidget(PageCount);
 			
 	Forward->setIcon(QIcon(loadIcon("16/go-next.png")));
@@ -158,6 +158,11 @@ void PageSelector::focusPolicy(Qt::FocusPolicy policy)
 	PageCombo->setFocusPolicy(policy);
 }
 
+void PageSelector::setFont ( const QFont &fo )
+{
+	PageCount->setFont(fo);
+	QWidget::setFont(fo);
+}
 
 void PageSelector::GotoPgE(int a)
 {
@@ -266,7 +271,7 @@ void PageSelector::languageChange()
 	Forward->setToolTip(tr("Go to the next page"));
 	Last->setToolTip(tr("Go to the last page"));
 	PageCombo->setToolTip(tr("Select the current page"));
-	PageCountString =  tr("of %1", "number of pages in document");
+	PageCountString =  tr(" of %1", "number of pages in document");
 	PageCount->setText(PageCountString.arg(LastPG));
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	setCurrentComboItem(PageCombo, QString::number(APage));

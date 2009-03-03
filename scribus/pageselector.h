@@ -34,6 +34,7 @@ public:
 	
 	bool hasFocus();
 	void focusPolicy(Qt::FocusPolicy policy);
+	void setFont ( const QFont & );
 
 #if OPTION_USE_QTOOLBUTTON
 	QToolButton* Start;
