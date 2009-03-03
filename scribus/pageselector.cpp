@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #else
     #include <QPushButton>
 #endif
+#include <QLabel>
 #include <QToolTip>
 #include <QRegExp>
 #include <QPixmap>
@@ -58,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 
 PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 {
+	PageCountString = "%1" ;
 	LastPG = maxPg;
 	APage = 1;
 	PageSelectorLayout = new QHBoxLayout( this );
@@ -106,16 +108,18 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	PageCombo->setEditable(true);
 	PageCombo->setDuplicatesEnabled( false );
 	PageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
-	QString tmp(tr( "%1 of %2" ));
 	for (int a = 0; a < LastPG; ++a)
 	{
-		PageCombo->addItem(tmp.arg(a+1).arg(LastPG));
+		PageCombo->addItem(QString::number(a+1));
 	}
 	PageCombo->setValidator(m_validator);
-	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
+	PageCombo->setMinimumSize(fontMetrics().width( "999" )+20, 20);
 	PageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 	
+	PageCount = new QLabel(PageCountString.arg(LastPG),this);
+	PageSelectorLayout->addWidget(PageCount);
+			
 	Forward->setIcon(QIcon(loadIcon("16/go-next.png")));
 	Forward->setFocusPolicy(Qt::NoFocus);
 	Forward->setAutoRepeat(true);
@@ -180,7 +184,7 @@ void PageSelector::GotoPg(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->setCurrentIndex(a);
-	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(a+1).arg(LastPG));
+	setCurrentComboItem(PageCombo, QString::number(a+1));
 	APage = a+1;
 	Back->setEnabled(true);
 	Start->setEnabled(true);
@@ -204,14 +208,14 @@ void PageSelector::setMaximum(int a)
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->clear();
 	LastPG = a;
-	QString tmp(tr( "%1 of %2" ));
 //	v->setTop(LastPG);
 	m_validator->setRange(1, LastPG);
 	for (int b = 0; b < LastPG; ++b)
 	{
-		PageCombo->addItem(tmp.arg(b+1).arg(LastPG));
+		PageCombo->addItem(QString::number(b+1));
 	}
-	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(APage).arg(LastPG));
+	setCurrentComboItem(PageCombo, QString::number(APage));
+	PageCount->setText(PageCountString.arg(LastPG));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 
@@ -257,13 +261,15 @@ void PageSelector::changeEvent(QEvent *e)
 
 void PageSelector::languageChange()
 {
-	Start->setToolTip("Go to the first page");
-	Back->setToolTip("Go to the previous page");
-	Forward->setToolTip("Go to the next page");
-	Last->setToolTip("Go to the last page");
-	PageCombo->setToolTip("Select the current page");
+	Start->setToolTip(tr("Go to the first page"));
+	Back->setToolTip(tr("Go to the previous page"));
+	Forward->setToolTip(tr("Go to the next page"));
+	Last->setToolTip(tr("Go to the last page"));
+	PageCombo->setToolTip(tr("Select the current page"));
+	PageCountString =  tr("of %1", "number of pages in document");
+	PageCount->setText(PageCountString.arg(LastPG));
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(APage).arg(LastPG));
+	setCurrentComboItem(PageCombo, QString::number(APage));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 

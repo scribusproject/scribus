@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 class QEvent;
 class QHBoxLayout;
+class QLabel;
 class QLineEdit;
 class QPushButton;
 class QToolButton;
@@ -67,6 +68,8 @@ private slots:
 
 protected:
 	QHBoxLayout* PageSelectorLayout;
+	QLabel *PageCount;
+	QString PageCountString;
 
 signals:
 	void GotoPage(int);
