@@ -7,21 +7,21 @@ for which a new license (GPL+exception) is in place.
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
 
+#include <QSplashScreen>
 #include <QPixmap>
-#include <QWidget>
-#include <QMouseEvent>
+#include <QString>
 #include "scribusapi.h"
 
 
 //! \brief Scribus splash screen
-class SCRIBUS_API SplashScreen : public QWidget
+class SCRIBUS_API SplashScreen : public QSplashScreen
 {
 public:
 	/*!
 	\author Franz Schmid
 	\brief Constructor for SplashScreen
 	 */
-	SplashScreen();
+    SplashScreen ( const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = 0 );
 	~SplashScreen() {};
 	/*!
 	\author Franz Schmid
@@ -29,23 +29,6 @@ public:
 	\param message const QString& message to display as actions are performed on startup when SplashScreen is displayed.
 	*/
 	void setStatus( const QString &message );
-	/*!
-	\author Franz Schmid
-	\brief Repaints the splashscreen when status is changed in SplashScreen::setStatus
-	*/
-	void repaint();
-
-protected:
-	/*!
-	\author Franz Schmid
-	\brief When mouse is clicked the splashscreen is hidden
-	Hide splash on click
-	\param e QMouseEvent pointer
-	 */
-	void mousePressEvent( QMouseEvent * e);
-
-private:
-	QPixmap pix;
 };
 
 #endif

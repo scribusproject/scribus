@@ -6,8 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QDebug>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPalette>
 #include <QPixmap>
 #include <QRegExp>
 
@@ -17,33 +19,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-SplashScreen::SplashScreen() : QWidget( 0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool | Qt::SplashScreen)
+SplashScreen::SplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QSplashScreen( pixmap, f)
 {
-	pix = loadIcon("Splash.png", true);
-	Q_ASSERT(!pix.isNull());
-	if (pix.isNull()) {
-		pix = QPixmap(360, 200);
-		pix.fill(Qt::darkGray);
-	}
-	QPalette palette;
-	palette.setBrush(backgroundRole(), QBrush(pix));
-	setPalette(palette);
-	resize( pix.size() );
-	QRect scr = QApplication::desktop()->screenGeometry();
-	move( scr.center() - rect().center() );
-	show();
-	repaint();
-}
 
-void SplashScreen::mousePressEvent( QMouseEvent * )
-{
-	hide();
-}
-
-void SplashScreen::repaint()
-{
-	QWidget::repaint();
-	QApplication::flush();
 }
 
 void SplashScreen::setStatus( const QString &message )
@@ -60,8 +38,7 @@ void SplashScreen::setStatus( const QString &message )
 			f = 0;
 		}
 	}
-	QPixmap textPix(pix);
-	QPainter painter( &textPix);// Qt4, this );
+
 #if defined _WIN32
 	QFont font("Lucida Sans Unicode", 9);
 #elif defined(__INNOTEK_LIBC__)
@@ -73,14 +50,7 @@ void SplashScreen::setStatus( const QString &message )
 	if (!font.exactMatch())
 		font.setFamily("Bitstream Vera Sans");
 #endif
-	painter.setFont(font);
-//	painter.setPen(QColor(236,233,216));
-	painter.setPen(Qt::white);
-	//painter.setRasterOp(NotROP);
-	painter.drawText( 315, textPix.height()-8, tmp );
-	painter.end();
-	QPalette palette;
-	palette.setBrush(backgroundRole(), QBrush(textPix));
-	setPalette(palette);
-	repaint();
+
+	setFont(font);
+	showMessage ( tmp, Qt::AlignRight | Qt::AlignBottom, Qt::white );
 }

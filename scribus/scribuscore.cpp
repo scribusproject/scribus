@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "splash.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_icon.h"
 #include "util_cms.h"
 #include "util_ghostscript.h"
 
@@ -235,7 +236,10 @@ void ScribusCore::initSplash(bool showSplash)
 {
 	if (showSplash)
 	{
-		m_SplashScreen = new SplashScreen();
+        QPixmap pix = loadIcon("Splash.png", true);
+        m_SplashScreen = new SplashScreen(pix, Qt::WindowStaysOnTopHint);
+        if (m_SplashScreen != NULL)
+            m_SplashScreen->show();
 		if (m_SplashScreen != NULL && m_SplashScreen->isVisible())
 			setSplashStatus(QObject::tr("Initializing..."));
 	}
@@ -246,10 +250,7 @@ void ScribusCore::initSplash(bool showSplash)
 void ScribusCore::setSplashStatus(const QString& newText)
 {
 	if (m_SplashScreen != NULL)
-	{
-		m_SplashScreen->setStatus( newText );
-		qApp->processEvents();
-	}
+        m_SplashScreen->setStatus( newText );
 }
 
 void ScribusCore::showSplash(bool shown)
