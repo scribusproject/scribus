@@ -1831,11 +1831,13 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		p->setPen(m_doc->guidesSettings.margColor);
 		if (m_doc->marginColored)
 		{
+			p->setFillMode(ScPainter::Solid);
 			p->setBrush(m_doc->guidesSettings.margColor);
 			p->drawRect(0, 0, pageWidth, page->Margins.Top);
 			p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
 			p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
 			p->drawRect(pageWidth - page->Margins.Right, page->Margins.Top, page->Margins.Right, pageHeight-page->Margins.Top);
+			p->setFillMode(ScPainter::None);
 		}
 //		p->setPen(m_doc->guidesSettings.margColor);
 		p->setFillMode(ScPainter::None);
