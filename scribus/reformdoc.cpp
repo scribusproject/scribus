@@ -145,6 +145,7 @@ void ReformDoc::restoreDefaults()
 	tabView->gapHorizontal->setValue(currDoc->GapHorizontal); // * unitRatio);
 	tabView->gapVertical->setValue(currDoc->GapVertical); // * unitRatio);
 	tabView->setPaperColor(currDoc->papColor);
+	tabView->setMarginColored(currDoc->marginColored);
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
 	tabTypo->restoreDefaults(&currDoc->typographicSettings);

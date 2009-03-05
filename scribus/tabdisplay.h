@@ -30,6 +30,7 @@ class SCRIBUS_API TabDisplay : public QWidget, public Ui::TabDisplay
 		//! \brief Hide non-needed widgets for ReformDoc widget
 		void setDocSetupMode();
 		void setPaperColor(QColor neu);
+		void setMarginColored(bool colored);
 
 		double DisScale;
 		QColor colorPaper;

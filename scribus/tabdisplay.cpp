@@ -180,6 +180,11 @@ void TabDisplay::setPaperColor(QColor neu)
 	}
 }
 
+void TabDisplay::setMarginColored(bool colored)
+{
+	checkUnprintable->setChecked(colored);
+}
+
 void TabDisplay::restoreDisScale()
 {
 	disconnect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
