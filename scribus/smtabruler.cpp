@@ -66,7 +66,6 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 	parentButton_->hide();
 	Tabruler::setTabs(Tabs, dEin);
 	Tabruler::repaint();
-	QString ein = unitGetSuffixFromIndex(dEin);
 	if (dEin == 2)
 	{
 		first_->setDecimals(10000);
@@ -74,10 +73,10 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 		right_->setDecimals(10000);
 		tabData->setDecimals(10000);
 	} // TODO else What's the decimal for other dEins?
-	first_->setSuffix(ein);
-	left_->setSuffix(ein);
-	right_->setSuffix(ein);
-	tabData->setSuffix(ein);
+	first_->setNewUnit(dEin);
+	left_->setNewUnit(dEin);
+	right_->setNewUnit(dEin);
+	tabData->setNewUnit(dEin);
 }
 
 void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue)
@@ -92,7 +91,6 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin, bool i
 		parentButton_->show();
 	Tabruler::setTabs(Tabs, dEin);
 	Tabruler::repaint();
-	QString ein = unitGetSuffixFromIndex(dEin);
 	if (dEin == 2)
 	{
 		first_->setDecimals(10000);
@@ -100,10 +98,10 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin, bool i
 		right_->setDecimals(10000);
 		tabData->setDecimals(10000);
 	} // TODO else What's the decimal for other dEins?
-	first_->setSuffix(ein);
-	left_->setSuffix(ein);
-	right_->setSuffix(ein);
-	tabData->setSuffix(ein);
+	first_->setNewUnit(dEin);
+	left_->setNewUnit(dEin);
+	right_->setNewUnit(dEin);
+	tabData->setNewUnit(dEin);
 
 	connect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	connect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
