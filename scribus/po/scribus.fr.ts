@@ -203,31 +203,6 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
-
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
-color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
-&quot;None&quot; - transparent.
-
-deleteColor works on the default document colors if there is no document open.
-In that case, &quot;replace&quot;, if specified, has no effect.
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
-
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
 
 Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
@@ -1662,6 +1637,51 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextDistances([&quot;name&quot;]) -&gt; tuple
+
+Returns the text distances of the text frame &quot;name&quot; expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
+
+Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
+&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw ValueError if any of the distances are out of bounds (must be positive).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3261,7 +3281,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>Envoyer les données en HTML</translation>
+        <translation type="obsolete">Envoyer les données en HTML</translation>
     </message>
     <message>
         <source>Import Data from:</source>
@@ -3482,6 +3502,26 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Fichiers PDF (*.pdf);;Tous les fichiers (*)</translation>
+    </message>
+    <message>
+        <source>Submit format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XFDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
     </message>
 </context>
 <context>
@@ -6176,6 +6216,14 @@ failed!</source>
     <message>
         <source>Auto</source>
         <translation>Automatique</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Mise à l&apos;échelle de la largeur des caractères</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Mise à l&apos;échelle de la hauteur des caractères</translation>
     </message>
 </context>
 <context>
@@ -9341,6 +9389,10 @@ arr&amp;ondis :</translation>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>Exporter les objets de la page courante :</translation>
+    </message>
+    <message>
+        <source>A write error occured, please check available disk space</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12611,6 +12663,25 @@ Liens externes
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text distances of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text distances out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -17477,11 +17548,11 @@ Erreur : %2 ligne : %3, colonne : %4</translation>
     </message>
     <message>
         <source>remove match</source>
-        <translation>effacer l&apos;occurence</translation>
+        <translation>effacer l&apos;occurrence</translation>
     </message>
     <message>
         <source>do not remove match</source>
-        <translation>ne pas effacer l&apos;occurence</translation>
+        <translation>ne pas effacer l&apos;occurrence</translation>
     </message>
     <message>
         <source>words</source>
@@ -17513,7 +17584,7 @@ Erreur : %2 ligne : %3, colonne : %4</translation>
     </message>
     <message>
         <source>all instances of</source>
-        <translation>toutes les occurences de</translation>
+        <translation>toutes les occurrences de</translation>
     </message>
     <message>
         <source>all paragraphs</source>

@@ -531,7 +531,7 @@ Może zwrócić błąd ValueError, jeśli zostanie podana błędna nazwa koloru.
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+Deletes the color &quot;name&quot;. Every occurrence of that color is replaced by the
 color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
 &quot;None&quot; - transparent.
 
@@ -541,7 +541,7 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation>deleteColor(&quot;nazwa&quot;, &quot;nowy&quot;)
+        <translation type="obsolete">deleteColor(&quot;nazwa&quot;, &quot;nowy&quot;)
 
 Usuwa kolor &quot;nazwa&quot;. Każde wystąpienie tego koloru zastąpione zostanie
 kolorem &quot;nowy&quot;. Jeśli kolor &quot;nowy&quot; nie zostanie podany, użyty zostanie 
@@ -556,12 +556,12 @@ Może zwrócić błąd ValueError, jeśli zostanie podana błędna nazwa koloru.
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+Every occurrence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
 
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation>replaceColor(&quot;nazwa&quot;, &quot;nowy&quot;)
+        <translation type="obsolete">replaceColor(&quot;nazwa&quot;, &quot;nowy&quot;)
 
 Każde wystąpienie koloru &quot;nazwa&quot; zastąpione zostanie kolorem &quot;nowy&quot;.
 
@@ -2334,6 +2334,51 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextDistances([&quot;name&quot;]) -&gt; tuple
+
+Returns the text distances of the text frame &quot;name&quot; expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
+
+Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
+&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw ValueError if any of the distances are out of bounds (must be positive).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -4242,7 +4287,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>Wyślij dane jako HTML</translation>
+        <translation type="obsolete">Wyślij dane jako HTML</translation>
     </message>
     <message>
         <source>Import Data from:</source>
@@ -4481,6 +4526,26 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
         <source>None</source>
         <comment>action</comment>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Submit format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XFDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
     </message>
 </context>
 <context>
@@ -7712,6 +7777,14 @@ nie powiodła się!</translation>
     <message>
         <source>Auto</source>
         <translation>Auto</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Skalowanie szerokości znaków</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Wysokość skalowania znaków</translation>
     </message>
 </context>
 <context>
@@ -11537,6 +11610,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>Eksportowanie obiektów na aktualnej stronie:</translation>
+    </message>
+    <message>
+        <source>A write error occured, please check available disk space</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15461,6 +15538,25 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text distances of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text distances out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>

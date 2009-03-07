@@ -720,7 +720,7 @@ m = Magenta (малиновий), y = Yellow (жовтий) та k = Black (чо
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+Deletes the color &quot;name&quot;. Every occurrence of that color is replaced by the
 color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
 &quot;None&quot; - transparent.
 
@@ -730,7 +730,7 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+        <translation type="obsolete">deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
 Видаляє колір &quot;name&quot;. Кожний приклад цього кольору заміняється на колір
 &quot;replace&quot;. Якщо &quot;replace&quot; не вказано, то використовується колір &quot;None&quot; - прозорість.
@@ -744,12 +744,12 @@ deleteColor змінює стандартні кольори при відсут
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+Every occurrence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
 
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+        <translation type="obsolete">replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
 Кожний приклад кольору &quot;name&quot; заміняється на колір &quot;replace&quot;.
 
@@ -2763,6 +2763,51 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getTextDistances([&quot;name&quot;]) -&gt; tuple
+
+Returns the text distances of the text frame &quot;name&quot; expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
+
+Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
+&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw ValueError if any of the distances are out of bounds (must be positive).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -4267,7 +4312,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>Послати дані як HTML</translation>
+        <translation type="obsolete">Послати дані як HTML</translation>
     </message>
     <message>
         <source>Import Data from:</source>
@@ -4586,6 +4631,26 @@ If &quot;name&quot; is not given the currently selected item is used.
         <source>None</source>
         <comment>action</comment>
         <translation>Нічого</translation>
+    </message>
+    <message>
+        <source>Submit format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XFDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
     </message>
 </context>
 <context>
@@ -7291,6 +7356,14 @@ failed!</source>
     <message>
         <source>Auto</source>
         <translation>Автоматично</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Масштабування ширини знаків</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Масштабування висоти знаків</translation>
     </message>
 </context>
 <context>
@@ -10489,6 +10562,10 @@ Scribus.</translation>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>Експортування об&apos;єктів з активної сторінки:</translation>
+    </message>
+    <message>
+        <source>A write error occured, please check available disk space</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13802,6 +13879,25 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text distances of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text distances out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>

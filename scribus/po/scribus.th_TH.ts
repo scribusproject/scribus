@@ -695,7 +695,7 @@ May raise ValueError if an invalid colour name is specified.
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+Deletes the color &quot;name&quot;. Every occurrence of that color is replaced by the
 color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
 &quot;None&quot; - transparent.
 
@@ -705,9 +705,9 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">deleteColor(&quot;name&quot;, &quot;replace&quot;)
+        <translation type="obsolete">deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
-Deletes the colour &quot;name&quot;. Every occurence of that colour is replaced by the
+Deletes the colour &quot;name&quot;. Every occurrence of that colour is replaced by the
 colour &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the colour
 &quot;None&quot; - transparent.
 
@@ -721,14 +721,14 @@ May raise ValueError if an invalid colour name is specified.
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+Every occurrence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
 
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">replaceColor(&quot;name&quot;, &quot;replace&quot;)
+        <translation type="obsolete">replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
-Every occurence of the colour &quot;name&quot; is replaced by the colour &quot;replace&quot;.
+Every occurrence of the colour &quot;name&quot; is replaced by the colour &quot;replace&quot;.
 
 May raise NotFoundError if a named colour wasn&apos;t found.
 May raise ValueError if an invalid colour name is specified.
@@ -2646,6 +2646,83 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextDistances([&quot;name&quot;]) -&gt; tuple
+
+Returns the text distances of the text frame &quot;name&quot; expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
+
+Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
+&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw ValueError if any of the distances are out of bounds (must be positive).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2825,7 +2902,7 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>รายการข้อความ
+        <translation type="obsolete">รายการข้อความ
 </translation>
     </message>
     <message>
@@ -2908,6 +2985,18 @@ Missing library support is indicated by a *</translation>
         <source>Tango Project Icons:</source>
         <translation type="unfinished">โปรเจคสัญลักษณ์แทงโก้
 </translation>
+    </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3416,7 +3505,7 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Thumbnails</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
@@ -3604,7 +3693,7 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation type="unfinished">จัดการรูปภาพ</translation>
+        <translation type="obsolete">จัดการรูปภาพ</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3908,6 +3997,14 @@ Missing library support is indicated by a *</translation>
     <message>
         <source>Show Text Frame Columns</source>
         <translation type="unfinished">แสดงกรอบข้อความคอลัมน์</translation>
+    </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4580,7 +4677,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation type="unfinished">ยอมรับข้อมูล HTML</translation>
+        <translation type="obsolete">ยอมรับข้อมูล HTML</translation>
     </message>
     <message>
         <source>Import Data from:</source>
@@ -4820,6 +4917,26 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
         <comment>action</comment>
         <translation type="unfinished">None</translation>
     </message>
+    <message>
+        <source>Submit format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XFDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -5055,10 +5172,6 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
         <translation type="unfinished">2 หลัก</translation>
     </message>
     <message>
-        <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
         <translation type="unfinished">ลักษณะค่าของตัวเลข, หลัก และสัญลักษณ์ต่างๆ</translation>
     </message>
@@ -5089,6 +5202,10 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <message>
         <source>Barcode incomplete</source>
         <translation type="unfinished">รหัส ไม่สมบูรณ์</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5575,11 +5692,11 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation type="unfinished">รูป อาร์จีบี </translation>
+        <translation type="obsolete">รูป อาร์จีบี </translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation type="unfinished">รูป ซีเอ็มวายเค</translation>
+        <translation type="obsolete">รูป ซีเอ็มวายเค</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -5587,6 +5704,14 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5721,6 +5846,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5967,6 +6097,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>&amp;Ignore Errors</source>
         <translation type="unfinished">ละทิ้งข้อผิดพลาด</translation>
+    </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6544,6 +6678,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>December</source>
         <translation type="unfinished">ธันวาคม</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7361,7 +7499,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พารามิเตอร์</translation>
     </message>
     <message>
         <source>Relationship</source>
@@ -7598,7 +7736,7 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Advanced Options</translation>
     </message>
     <message>
         <source>Preview...</source>
@@ -7907,6 +8045,14 @@ failed!</source>
     <message>
         <source>Auto</source>
         <translation type="unfinished">อัตโนมัติ</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8319,6 +8465,10 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Paths</source>
         <translation type="unfinished">พาธ</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Close</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -8369,6 +8519,10 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Colorspace:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8627,10 +8781,10 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">ปล.</translation>
+        <translation type="obsolete">ปล.</translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8748,7 +8902,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">เค้าโครงตัวอักษร</translation>
+        <translation type="obsolete">เค้าโครงตัวอักษร</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -8821,6 +8975,10 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9309,7 +9467,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">ปล.</translation>
+        <translation type="obsolete">ปล.</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -10662,7 +10820,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation type="unfinished">สามารถ หรือไม่สามารถ พิมพ์วัตถุ</translation>
+        <translation type="obsolete">สามารถ หรือไม่สามารถ พิมพ์วัตถุ</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -11121,6 +11279,10 @@ Corners:</source>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -11170,7 +11332,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation type="unfinished">pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -11213,6 +11375,10 @@ Please choose another.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="unfinished">ชื่อ%1 ไม่ได้มีอันเดียว กรุณาเลือกชื่ออื่น</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -11769,6 +11935,14 @@ otherwise Coordinates are relative to the Object.</translation>
         <source>Value to Enlarge or Shrink By</source>
         <translation type="unfinished">แสดงค่าของภาพขาย หรือ ย่อขนาดภาพโดย</translation>
     </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OODPlug</name>
@@ -11800,6 +11974,10 @@ otherwise Coordinates are relative to the Object.</translation>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation type="unfinished">เปิดออฟฟิต.โออาร์จี วาดภาพ 1.x</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12652,6 +12830,10 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <source>Exporting Items on Current Page:</source>
         <translation type="unfinished">ส่งออกจำนวนหนึ่งบนหน้ากระดาษ</translation>
     </message>
+    <message>
+        <source>A write error occured, please check available disk space</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -13234,11 +13416,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">การจัดวางหน้า</translation>
+        <translation type="obsolete">การจัดวางหน้า</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation type="unfinished">หน้าแรก</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13417,7 +13603,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Goto</source>
-        <translation type="unfinished">ไปยัง</translation>
+        <translation type="obsolete">ไปยัง</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -13461,7 +13647,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="unfinished">จัดการรูป</translation>
+        <translation type="obsolete">จัดการรูป</translation>
     </message>
     <message>
         <source>Cancel Search</source>
@@ -13482,6 +13668,14 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation type="unfinished">ไม่มีรูปชื่อนี้ 1เปอร์เซ็ฯต์ ล้มเหลว</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14713,7 +14907,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">แสดงรูปภาพ</translation>
+        <translation type="obsolete">แสดงรูปภาพ</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -14809,7 +15003,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">กลับไปแสดงรูปภาพเปิดหรือปิด</translation>
+        <translation type="obsolete">กลับไปแสดงรูปภาพเปิดหรือปิด</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
@@ -14875,6 +15069,14 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -14936,15 +15138,11 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="unfinished">พีดีเอฟ 1.3</translation>
+        <translation type="obsolete">พีดีเอฟ 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="unfinished">พีดีเอฟ 1.4</translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">พีดีเอฟ 1.4</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -15043,10 +15241,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Script Console</source>
         <translation type="unfinished">Script Console</translation>
     </message>
@@ -15081,6 +15275,12 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>Save Current Output</source>
         <translation type="unfinished">บันทึกส่งออกปัจจุบัน</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17362,6 +17562,55 @@ is not exhaustive due to exceptions from called functions.
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text distances of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text distances out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text distances on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17687,7 +17936,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">แสดงรูปภาพ</translation>
+        <translation type="obsolete">แสดงรูปภาพ</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -17779,7 +18028,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">กลับไปแสดงรูปภาพเปิดหรือปิด</translation>
+        <translation type="obsolete">กลับไปแสดงรูปภาพเปิดหรือปิด</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -17796,6 +18045,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Adjusting Colors</source>
         <translation type="unfinished">ปรับสี</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19664,7 +19921,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -19915,6 +20172,11 @@ Vertical shift: %3</source>
         <source>Liga&amp;ture</source>
         <translation type="unfinished">อักษรควบ</translation>
     </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -20010,6 +20272,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -20059,7 +20325,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="unfinished">รูปภาพ</translation>
+        <translation type="obsolete">รูปภาพ</translation>
     </message>
     <message>
         <source>File: </source>
@@ -20119,7 +20385,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="unfinished">พิมพ์: </translation>
+        <translation type="obsolete">พิมพ์: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -20180,6 +20446,14 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation type="unfinished">สารบัญ</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Image</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20789,7 +21063,7 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>&amp;Insert Special...</source>
-        <translation type="unfinished">แทรกแบบพิเศษ...</translation>
+        <translation type="obsolete">แทรกแบบพิเศษ...</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
@@ -20954,7 +21228,7 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Subscript</translation>
     </message>
     <message>
         <source>Superscript</source>
@@ -21156,6 +21430,10 @@ never ask your confirmation again</translation>
     <message>
         <source>Destination Frame:</source>
         <translation type="unfinished">จุดหมายเฟลม</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21380,11 +21658,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Distance within which an object will snap to your placed guides</translation>
+        <translation type="obsolete">Distance within which an object will snap to your placed guides</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Radius of the area where Scribus will allow you to grab an objects handles</translation>
+        <translation type="obsolete">Radius of the area where Scribus will allow you to grab an objects handles</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -21428,6 +21706,14 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21570,11 +21856,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="unfinished">ฝังตัวอักษรทั้งหมด</translation>
+        <translation type="obsolete">ฝังตัวอักษรทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished">&amp;ซับเซตตัวอักษรทั้งหมด</translation>
+        <translation type="obsolete">&amp;ซับเซตตัวอักษรทั้งหมด</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -21598,7 +21884,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished">ตัวอักษรซับเซต:</translation>
+        <translation type="obsolete">ตัวอักษรซับเซต:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -21714,7 +22000,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished">ใจความบนกระดาษทั้งหมด</translation>
+        <translation type="obsolete">ใจความบนกระดาษทั้งหมด</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -21726,7 +22012,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">หน้าเลย์เอ้าท์</translation>
+        <translation type="obsolete">หน้าเลย์เอ้าท์</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -21957,10 +22243,6 @@ never ask your confirmation again</translation>
         <translation type="unfinished">PDF/X-&amp;3</translation>
     </message>
     <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show page previews of each page listed above.</source>
         <translation type="unfinished">แสดงเค้าโครงหน้ากระดาษของหน้าบางส่วนในรายการด้านบน</translation>
     </message>
@@ -22185,6 +22467,34 @@ when PDF document is opened:</source>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -22318,7 +22628,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">สเกลรูปภาพไปยังขนาดเฟลม</translation>
+        <translation type="obsolete">สเกลรูปภาพไปยังขนาดเฟลม</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -22366,7 +22676,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="unfinished">คุณสมบัติรูปภาพเฟลม</translation>
+        <translation type="obsolete">คุณสมบัติรูปภาพเฟลม</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -22410,7 +22720,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished">Picture frames allow pictures to scale to any size</translation>
+        <translation type="obsolete">Picture frames allow pictures to scale to any size</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -22426,15 +22736,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished">รูปภาพ ในรูปเฟลมมีสเกลขนาดของเฟลม</translation>
+        <translation type="obsolete">รูปภาพ ในรูปเฟลมมีสเกลขนาดของเฟลม</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished">คุณสมบัติแต่แรกรักษาสเกลรูปภาพอัตโนมัติ </translation>
+        <translation type="obsolete">คุณสมบัติแต่แรกรักษาสเกลรูปภาพอัตโนมัติ </translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="unfinished">เติมสีของเฟลมรูปภาพ</translation>
+        <translation type="obsolete">เติมสีของเฟลมรูปภาพ</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -22494,6 +22804,35 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22612,7 +22951,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation type="unfinished">จุด</translation>
+        <translation type="obsolete">จุด</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -22668,7 +23007,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">ไม่มี</translation>
+        <translation type="obsolete">ไม่มี</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -22696,6 +23035,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23614,6 +23962,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Import Text Only</source>
         <translation type="unfinished">นำเข้าข้อความอย่างเดียว</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -713,7 +713,7 @@ Pode provocar un ValueError se se especifica un nome de cor non válido.</transl
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+Deletes the color &quot;name&quot;. Every occurrence of that color is replaced by the
 color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
 &quot;None&quot; - transparent.
 
@@ -723,7 +723,7 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation>deleteColor(&quot;nome&quot;,&quot;substituta&quot;)
+        <translation type="obsolete">deleteColor(&quot;nome&quot;,&quot;substituta&quot;)
 
 Limpa o &quot;nome&quot; da cor. Toda aparición da cor substituése pola &quot;substituta&quot;.
 Se non se especifica, &quot;substituta&quot; pasa a ser a cor &quot;Nengunha&quot; - transparente.
@@ -737,12 +737,12 @@ Pode provocar un ValueError se se especifica un nome de cor non válido.</transl
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+Every occurrence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
 
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation>replaceColor(&quot;name&quot;, &quot;substituta&quot;)
+        <translation type="obsolete">replaceColor(&quot;name&quot;, &quot;substituta&quot;)
 
 Toda aparición da cor &quot;nome&quot; substitúese pola cor &quot;substituta&quot;.
 
@@ -3852,6 +3852,51 @@ Scroll the document in main GUI window by x and y.
 Despraza o documento na xanela principal da GUI por x e y.
 </translation>
     </message>
+    <message>
+        <source>getTextDistances([&quot;name&quot;]) -&gt; tuple
+
+Returns the text distances of the text frame &quot;name&quot; expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
+
+Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
+&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw ValueError if any of the distances are out of bounds (must be positive).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AIPlug</name>
@@ -6339,7 +6384,7 @@ que llo pida o seu impresor.</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>Enviar os Datos como HTML</translation>
+        <translation type="obsolete">Enviar os Datos como HTML</translation>
     </message>
     <message>
         <source>Import Data from:</source>
@@ -6596,6 +6641,26 @@ resalte</translation>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
         <translation type="obsolete">Imaxes (*.tif *.png *.jpg *.xpm);;%1;;Todos os Ficheiros (*)</translation>
+    </message>
+    <message>
+        <source>Submit format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XFDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
     </message>
 </context>
 <context>
@@ -11620,6 +11685,14 @@ O erro foi:
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished">Clicar e manter para seleccionar o modo de espaciamento da liña.</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Anchura de ampliación dos caracteres</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Escala da altura dos caracteres</translation>
     </message>
 </context>
 <context>
@@ -18778,6 +18851,10 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     <message>
         <source>Date:</source>
         <translation type="obsolete">Data:</translation>
+    </message>
+    <message>
+        <source>A write error occured, please check available disk space</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26583,6 +26660,25 @@ En consecuencia, pode que a imaxe non sexa correcta</translation>
     </message>
     <message>
         <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text distances of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text distances out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
