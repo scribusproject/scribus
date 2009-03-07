@@ -1,5 +1,7 @@
 Scribus - 1.3.3.13svn
 =====================
+- 0007788: [Printing] Tab fill characters don't all print (jghali) - closed.
+- 0007775: [Story Editor / Text Frames] Text gets sometimes corrupted when edited, saved and then reopened (subik) - closed.
 - 0007151: [Story Editor / Text Frames] Story editor mess up when inserting characters from menu or character palette (jghali) - resolved.
 - 0007141: [Import / Export] png export depends on the preview resolution (fschmid) - resolved.
 - 0007641: [General] Error when loading file (jghali) - closed.

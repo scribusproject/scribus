@@ -54,9 +54,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "28";
-	QString BUILD_MONTH = CommonStrings::december;
-	QString BUILD_YEAR = "2008";
+	QString BUILD_DAY = "07";
+	QString BUILD_MONTH = CommonStrings::march;
+	QString BUILD_YEAR = "2009";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
 	QString BUILD_NAME = "";
@@ -172,6 +172,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
 											"<tr><td>Eirik Øverby</td><td>ltning@anduin.net</td></tr>" +
 											"<tr><td>Kevin Young</td><td>k.young@youngscomputing.com</td></tr>" +
+											"<tr><td></td><td></td></tr>" +
+											"<tr><td>Greg Pittman</td><td>gregory_pittman@att.net</td></tr>" +
 											"<tr><td></td><td></td></tr>" +
 
 											"<tr><td><b>" + tr("Mac OS&#174; X Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +
