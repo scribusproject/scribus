@@ -221,9 +221,8 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	Reduce->setAutoRepeat(true);
 	gridLayout1->addWidget(Reduce, 2, 1, 1, 1);
 
-	scaleDistance = new ScrSpinBox( 1, 16777215, this, 2);
-	scaleDistance->setValue(10);
-	scaleDistance->setSuffix("");
+	scaleDistance = new ScrSpinBox( 1, 16777215, this, 0);
+	scaleDistance->setValues(-16777215, 16777215, 2, 30);
 	gridLayout1->addWidget(scaleDistance, 2, 2, 1, 1);
 	vboxLayout->addLayout(gridLayout1);
 
@@ -944,14 +943,8 @@ void NodePalette::unitChange()
 {
 	if (doc==0)
 		return;
-	double oldRatio = unitRatio;
 	unitRatio = doc->unitRatio();
-	double maxVal=16777215 * unitRatio;
-	double minVal=-16777215 * unitRatio;
-	double newScaleDistance = scaleDistance->value() * unitRatio / oldRatio;
-	scaleDistance->setSuffix( unitGetSuffixFromIndex(doc->unitIndex()) );
-	int decimals = unitGetPrecisionFromIndex(doc->unitIndex());
-	scaleDistance->setValues( minVal, maxVal, decimals, newScaleDistance );
+	scaleDistance->setNewUnit(doc->unitIndex());
 }
 
 ScribusDoc* NodePalette::currentDocument() const
