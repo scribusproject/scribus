@@ -237,13 +237,8 @@ void AlignDistributePalette::unitChange()
 {
 	if (currDoc!=NULL)
 	{
-		double oldValue=distributeDistSpinBox->value();
-		double oldRatio=unitRatio;
-		distributeDistSpinBox->setDecimals(unitGetPrecisionFromIndex(currDoc->unitIndex()));
-		distributeDistSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->unitIndex()));
 		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
-		double ratioDivisor =  unitRatio / oldRatio;
-		distributeDistSpinBox->setValue(oldValue*ratioDivisor);
+		distributeDistSpinBox->setNewUnit(currDoc->unitIndex());
 		enableGuideButtons();
 	}
 }
