@@ -1089,7 +1089,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		item->layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
 		if (hl->ch == SpecialChars::OBJECT)
-			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 		else
 			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
 	}
@@ -1129,7 +1129,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		item->layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();                                                           // HACK
 		if (hl->ch == SpecialChars::OBJECT)
-			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) / 2.0;
+			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
 		else
 			dx = hl->glyph.wide() / 2.0;
 
@@ -1146,6 +1146,10 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 			currPerc = currPath.percentAtLength(CurX);
 		}
 		double currAngle = currPath.angleAtPercent(currPerc);
+		if (currAngle <= 180.0)
+			currAngle *= -1.0;
+		else
+			currAngle = 360.0 - currAngle;
 		QPointF currPoint = currPath.pointAtPercent(currPerc);
 		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
 		point = FPoint(currPoint.x(), currPoint.y());
@@ -1192,11 +1196,9 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 			ScColorShade tmp(m_doc->PageColors[actStroke], qRound(actStrokeShade));
 			painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		}
+		painter->translate(0.0, item->pathTextBaseOffset());
 		if (hl->ch == SpecialChars::OBJECT)
-		{
-			painter->translate(0.0, item->pathTextBaseOffset());
 			drawItem_Embedded(hl->embedded.getItem(), painter, clip, itemText.charStyle(a), hl->embedded.getItem());
-		}
 		else
 			drawGlyphs(item, painter, itemText.charStyle(a), hl->glyph, clip);
 
@@ -1204,7 +1206,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		painter->restore();
 		CurX -= dx;
 		if (hl->ch == SpecialChars::OBJECT)
-			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 	}
