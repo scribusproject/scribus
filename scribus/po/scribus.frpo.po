@@ -8888,10 +8888,10 @@ msgid "and"
 msgstr "et"
 
 msgid "remove match"
-msgstr "effacer l'occurence"
+msgstr "effacer l'occurrence"
 
 msgid "do not remove match"
-msgstr "ne pas effacer l'occurence"
+msgstr "ne pas effacer l'occurrence"
 
 msgid "words"
 msgstr "mots"
@@ -8909,7 +8909,7 @@ msgid "paragraph style"
 msgstr "style de paragraphe"
 
 msgid "all instances of"
-msgstr "toutes les occurences de"
+msgstr "toutes les occurrences de"
 
 msgid "all paragraphs"
 msgstr "tous les paragraphes"
