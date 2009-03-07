@@ -2208,7 +2208,7 @@ May raise ValueError if an invalid color name is specified.
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation>В&amp;ыйти</translation>
+        <translation>В&amp;ыход</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -3784,23 +3784,23 @@ May raise ValueError if an invalid color name is specified.
     </message>
     <message>
         <source>Submit format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Формат передачи:</translation>
     </message>
     <message>
         <source>FDF</source>
-        <translation type="unfinished"></translation>
+        <translation>FDF</translation>
     </message>
     <message>
         <source>HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML</translation>
     </message>
     <message>
         <source>XFDF</source>
-        <translation type="unfinished"></translation>
+        <translation>XFDF</translation>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -4482,11 +4482,11 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Изображения в &amp;RGB:</translation>
     </message>
     <message>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Изображения в &amp;CMYK:</translation>
     </message>
 </context>
 <context>
@@ -6508,11 +6508,11 @@ failed!</source>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished">Изменяемая ширина символов</translation>
+        <translation>Изменяемая ширина символов</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменяемая высота символов</translation>
     </message>
 </context>
 <context>
@@ -7429,7 +7429,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>В&amp;ыйти</translation>
+        <translation>В&amp;ыход</translation>
     </message>
     <message>
         <source>Searching is case unsensitive</source>
@@ -9697,7 +9697,7 @@ Corners:</source>
     </message>
     <message>
         <source>A write error occured, please check available disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>Произошла ошибка, проверьте свободное место на диске</translation>
     </message>
 </context>
 <context>
@@ -10192,11 +10192,11 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Управление изображениями</translation>
     </message>
     <message>
         <source>Go to</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти</translation>
     </message>
 </context>
 <context>
@@ -10969,7 +10969,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&amp;Exit</source>
-        <translation>В&amp;ыйти</translation>
+        <translation>В&amp;ыход</translation>
     </message>
     <message>
         <source>&amp;File</source>
