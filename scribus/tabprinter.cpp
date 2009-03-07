@@ -177,25 +177,9 @@ void TabPrinter::selOtherComm()
 
 void TabPrinter::unitChange(QString unit, int docUnitIx, double invUnitConversion)
 {
-	double oldMin, oldMax, val;
-	int decimalsOld;
-	docUnitIndex = docUnitIx;
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
-
-	bleedTop->setSuffix(unit);
-	bleedBottom->setSuffix(unit);
-	bleedLeft->setSuffix(unit);
-	bleedRight->setSuffix(unit);
-	offsetValue->setSuffix( unit );
-
-	bleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bleedTop->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	bleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	bleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	bleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	offsetValue->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	offsetValue->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	bleedTop->setNewUnit(docUnitIx);
+	bleedBottom->setNewUnit(docUnitIx);
+	bleedLeft->setNewUnit(docUnitIx);
+	bleedRight->setNewUnit(docUnitIx);
+	offsetValue->setNewUnit(docUnitIx);
 }

@@ -2196,26 +2196,11 @@ void TabPDFOptions::OutlineAll()
 
 void TabPDFOptions::unitChange(QString unit, int docUnitIndex, double invUnitConversion)
 {
-	double oldMin = -1, oldMax = -1, val = -1;
-	int decimalsOld = -1;
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
-
-	BleedBottom->setSuffix(unit);
-	BleedTop->setSuffix(unit);
-	BleedRight->setSuffix(unit);
-	BleedLeft->setSuffix(unit);
-	markOffset->setSuffix(unit);
-
-	BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	BleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	BleedTop->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	BleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	markOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	markOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	BleedBottom->setNewUnit(docUnitIndex);
+	BleedTop->setNewUnit(docUnitIndex);
+	BleedRight->setNewUnit(docUnitIndex);
+	BleedLeft->setNewUnit(docUnitIndex);
+	markOffset->setNewUnit(docUnitIndex);
 }
 
 void TabPDFOptions::createPageNumberRange( )
