@@ -203,11 +203,11 @@ protected slots:
 	\author Petr Vanek <petr@yarpen.cz> */
 	void find();
 
-	/*! \brief Find next occurences of the text in one document.
+	/*! \brief Find next occurrences of the text in one document.
 	\author Petr Vanek <petr@yarpen.cz> */
 	void findNext();
 
-	/*! \brief Find previous occurences of the text in one document.
+	/*! \brief Find previous occurrences of the text in one document.
 	\author Petr Vanek <petr@yarpen.cz> */
 	void findPrevious();
 
