@@ -1800,9 +1800,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	if (impo && ab >= 0 && VorLFound)
 		last->ParaStyle = DoVorl[ab].toInt();
 	else
-	{
-		last->ParaStyle = doc->paragraphStyles().find(pstylename);
-	}
+		last->ParaStyle = pstylename;
 	// end of legacy stuff
 	
 	int iobj = it->attribute("COBJ", "-1").toInt();
