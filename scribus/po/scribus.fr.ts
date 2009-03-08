@@ -1802,11 +1802,11 @@ May raise ValueError if an invalid color name is specified.
     </message>
     <message>
         <source>Developer Blog</source>
-        <translation type="unfinished"></translation>
+        <translation>Blog des développeurs</translation>
     </message>
     <message>
         <source>Mailing Lists</source>
-        <translation type="unfinished"></translation>
+        <translation>Listes de discussion</translation>
     </message>
 </context>
 <context>
@@ -2778,7 +2778,7 @@ May raise ValueError if an invalid color name is specified.
     </message>
     <message>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gestion des images</translation>
     </message>
 </context>
 <context>
@@ -3505,23 +3505,23 @@ May raise ValueError if an invalid color name is specified.
     </message>
     <message>
         <source>Submit format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Format de soumission:</translation>
     </message>
     <message>
         <source>FDF</source>
-        <translation type="unfinished"></translation>
+        <translation>FDF</translation>
     </message>
     <message>
         <source>HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML</translation>
     </message>
     <message>
         <source>XFDF</source>
-        <translation type="unfinished"></translation>
+        <translation>XFDF</translation>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -4193,11 +4193,11 @@ vous avez des photos dans votre composition.</translation>
     </message>
     <message>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Images &amp;RVB:</translation>
     </message>
     <message>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Images &amp;CMJN:</translation>
     </message>
 </context>
 <context>
@@ -4307,7 +4307,8 @@ Ce nom est réservé aux couleurs transparentes</translation>
     <message>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous ne pouvez créer une couleur sans nom.
+Donnez un nom à la couleur</translation>
     </message>
 </context>
 <context>
@@ -6219,11 +6220,11 @@ failed!</source>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished">Mise à l&apos;échelle de la largeur des caractères</translation>
+        <translation>Mise à l&apos;échelle de la largeur des caractères</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished">Mise à l&apos;échelle de la hauteur des caractères</translation>
+        <translation>Mise à l&apos;échelle de la hauteur des caractères</translation>
     </message>
 </context>
 <context>
@@ -6615,7 +6616,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Fermer</translation>
+        <translation>&amp;Fermer</translation>
     </message>
 </context>
 <context>
@@ -6670,7 +6671,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Version :</translation>
+        <translation>Version :</translation>
     </message>
 </context>
 <context>
@@ -9392,7 +9393,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>A write error occured, please check available disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur d&apos;écriture s&apos;est produite, veuillez vérifier l&apos;espace disque disponible</translation>
     </message>
 </context>
 <context>
@@ -9886,11 +9887,11 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestion des images</translation>
     </message>
     <message>
         <source>Go to</source>
-        <translation type="unfinished"></translation>
+        <translation>Aller à</translation>
     </message>
 </context>
 <context>
@@ -10528,11 +10529,11 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les images</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>(Dés)activer l&apos;affichage des images</translation>
     </message>
 </context>
 <context>
@@ -10734,7 +10735,9 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
 Scripter documentation for futher information. </source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci est une console Python standard possédant
+quelques limitations. Pour plus d&apos;information, 
+veuillez consulter la documentation du scripter.</translation>
     </message>
 </context>
 <context>
@@ -12659,31 +12662,31 @@ Liens externes
     <message>
         <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Opacité hors limite. La valeur doit être comprise entre 0.0 et 1.0</translation>
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Transparence hors limite. La valeur doit être comprise entre 0.0 et 1.0.</translation>
     </message>
     <message>
         <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 contient plus de 8bits par canaux, Scribus ne préservera pas les bits les moins signifiants</translation>
     </message>
     <message>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de récupérer la distance au texte sur un cadre non texte.</translation>
     </message>
     <message>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Distance au texte hors limites, celle-ci doit être positive.</translation>
     </message>
     <message>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de modifier la distance au texte sur un cadre non texte.</translation>
     </message>
 </context>
 <context>
@@ -13023,11 +13026,11 @@ Liens externes
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les images</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>(Dés)activer l&apos;affichage des images</translation>
     </message>
 </context>
 <context>
@@ -14198,7 +14201,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Image</translation>
+        <translation>Image</translation>
     </message>
 </context>
 <context>
@@ -15244,11 +15247,11 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Distance à partir de laquelle un objet est attiré par la grille ou par un repère. Le redémarrage de Scribus est nécessaire pour que la modification soit prise en compte.</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rayon d&apos;action pour attraper les objets. Le redémarrage de Scribus est nécessaire pour que la modification soit prise en compte.</translation>
     </message>
 </context>
 <context>
@@ -16016,7 +16019,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Appli&amp;quer le(s) effet(s) à toutes les pages</translation>
     </message>
 </context>
 <context>
@@ -16339,27 +16342,27 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre l&apos;image aux &amp;dimensions du cadre</translation>
     </message>
     <message>
         <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés des cadres d&apos;image</translation>
     </message>
     <message>
         <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Les cadres d&apos;image permettent une mise à l&apos;échelle libre des images</translation>
     </message>
     <message>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Les images sont mises aux dimensions du cadre</translation>
     </message>
     <message>
         <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Les images redimensionnées automatiquement conservent leurs proportions</translation>
     </message>
     <message>
         <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fond des cadres d&apos;image</translation>
     </message>
 </context>
 <context>
