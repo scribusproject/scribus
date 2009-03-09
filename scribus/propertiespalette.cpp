@@ -1686,7 +1686,7 @@ void PropertiesPalette::SelTab(int t)
 		{
 			// Layouts, boxes etc aren't widgets at all
 			// so let's skip them silently...
-			QWidget * w = qobject_cast<QWidget*>(o);
+			QWidget * w = qobject_cast<QLineEdit*>(o);
 			if (w)
 				w->setEnabled(enable);
 		}
