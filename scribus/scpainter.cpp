@@ -944,10 +944,10 @@ void ScPainter::drawVPath( int mode )
 			double r, g, b;
 			m_fill.getRgbF(&r, &g, &b);
 			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
-			if (fill_trans != 1.0)
+//			if (fill_trans != 1.0)
 				cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-			else
-				cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
+//			else
+//				cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
 			cairo_fill_preserve( m_cr );
 		}
 		else if (fillMode == 2)
@@ -1017,10 +1017,10 @@ void ScPainter::drawVPath( int mode )
 		double r, g, b;
 		m_stroke.getRgbF(&r, &g, &b);
 		cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
-		if (stroke_trans != 1.0)
+//		if (stroke_trans != 1.0)
 			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-		else
-			cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
+//		else
+//			cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
 		if( PLineEnd == Qt::RoundCap )
 			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
 		else if( PLineEnd == Qt::SquareCap )
@@ -1035,7 +1035,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
 		cairo_stroke_preserve( m_cr );
 	}
-	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+//	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );
 }
 #else
