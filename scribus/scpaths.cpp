@@ -362,10 +362,8 @@ QString ScPaths::getTempFileDir(void)
 		if (QDir(tempPath).exists() && tempPath != getSpecialDir(CSIDL_WINDOWS))
 			return tempPath;
 	}
-	return getApplicationDataDir();
-#else
-	return (QDir::homePath() + "/.scribus/");
 #endif
+	return getApplicationDataDir();
 }
 
 QString ScPaths::getSpecialDir(int folder)
