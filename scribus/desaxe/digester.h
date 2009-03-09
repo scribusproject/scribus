@@ -235,8 +235,7 @@ void Digester::setResult(ObjType* res)
 inline
 void Digester::pop()
 {
-	unsigned int count = (unsigned int) objects.size();
-	assert (1 <= count);
+	assert (1 <= (unsigned int) objects.size());
 	objects.pop_back();
 }
 
