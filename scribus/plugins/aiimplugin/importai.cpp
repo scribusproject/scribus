@@ -1112,7 +1112,8 @@ void AIPlug::processData(QString data)
 					if (!currentPatternName.isEmpty())
 					{
 						ite->setPattern(currentPatternName);
-						ite->setPatternTransform(currentPatternXScale, currentPatternYScale, currentPatternX, currentPatternY, currentPatternRotation);
+						ite->setPatternTransform(currentPatternXScale * 100, currentPatternYScale * 100, currentPatternX, currentPatternY, currentPatternRotation);
+						ite->GrType = 8;
 						currentPatternName = "";
 					}
 					ite->setLineEnd(CapStyle);
