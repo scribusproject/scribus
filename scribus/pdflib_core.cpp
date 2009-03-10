@@ -2782,7 +2782,6 @@ uint PDFLibCore::writeObject(QString type, QString dictionary)
 
 bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
-//	bool errorOccured = false;
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStackS;
 	QStack<QString>      groupDataStack;
@@ -7820,7 +7819,7 @@ void PDFLibCore::PDF_Error(const QString& errorMsg)
 
 void PDFLibCore::PDF_Error_WriteFailure(void)
 {
-	PDF_Error( tr("A write error occured, please check available disk space"));
+	PDF_Error( tr("A write error occurred, please check available disk space") );
 }
 
 void PDFLibCore::PDF_Error_ImageLoadFailure(const QString& fileName)

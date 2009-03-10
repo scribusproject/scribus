@@ -84,7 +84,7 @@ const QString FileLoader::getLoadFilterString()
  \author Franz Schmid
  \date
  \brief Tests if the file "FileName" exists and determines the type of the file.
- \retval int -1 if the file doesn't exist or any other error has occured, 0 for the old Format, 1 for the new Format, 2 for EPS and PS files, 3 for SVG files and 4 for PDF files
+ \retval int -1 if the file doesn't exist or any other error has occurred, 0 for the old Format, 1 for the new Format, 2 for EPS and PS files, 3 for SVG files and 4 for PDF files
  */
 int FileLoader::TestFile()
 {

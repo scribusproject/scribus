@@ -121,7 +121,7 @@ public:
 	/*! \brief Print a document using gdi or ps methods
 	\param doc the document whose pages are to be printer
 	\param options print options
-	\retval bool return true if no error occured 
+	\retval bool return true if no error occurred 
 	\author Jean Ghali
 	*/
 	virtual bool print(ScribusDoc& doc, PrintOptions& options);
