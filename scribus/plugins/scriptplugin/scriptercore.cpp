@@ -44,6 +44,10 @@ ScripterCore::ScripterCore(QWidget* parent)
 	scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this));
 	scrScripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this));
 
+	scrScripterActions["scripterExecuteScript"]->setMenuRole(QAction::NoRole);
+	scrScripterActions["scripterShowConsole"]->setMenuRole(QAction::NoRole);
+	scrScripterActions["scripterAboutScript"]->setMenuRole(QAction::NoRole);
+
 	scrScripterActions["scripterShowConsole"]->setToggleAction(true);
 	scrScripterActions["scripterShowConsole"]->setChecked(false);
 
