@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
-<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -2370,7 +2369,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
         <translation>Группа%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="2226"/>
+        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="2227"/>
         <source>Generating Items</source>
         <translation>Создание объектов</translation>
     </message>
@@ -4209,12 +4208,12 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
         <translation>Ничего не выбрано</translation>
     </message>
     <message>
-        <location filename="../../scribus/aligndistribute.cpp" line="443"/>
+        <location filename="../../scribus/aligndistribute.cpp" line="438"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/aligndistribute.cpp" line="451"/>
+        <location filename="../../scribus/aligndistribute.cpp" line="446"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
@@ -6795,6 +6794,25 @@ Angle: %2</source>
 Height: %2</source>
         <translation>Ширина: %1
 Высота: %2</translation>
+    </message>
+</context>
+<context>
+    <name>CanvasMode_EyeDropper</name>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="167"/>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation type="unfinished">Выбранный цвет отсутствует в цветовой палитре документа.
+Введите имя для этого нового цвета.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="170"/>
+        <source>Color Not Found</source>
+        <translation type="unfinished">Цвет не найден</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="174"/>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation type="unfinished">Выбранное вами имя уже существует. Введите другое имя для этого цвета.</translation>
     </message>
 </context>
 <context>
@@ -13499,221 +13517,221 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="898"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="897"/>
         <source>Nodes</source>
         <translation>Узлы</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="911"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="910"/>
         <source>Move Nodes</source>
         <translation>Переместить узлы</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="912"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="911"/>
         <source>Move Control Points</source>
         <translation>Переместить контрольные точки</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="913"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="912"/>
         <source>Add Nodes</source>
         <translation>Добавить узлы</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="914"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="913"/>
         <source>Delete Nodes</source>
         <translation>Удалить узлы</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="917"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="916"/>
         <source>Reset Control Points</source>
         <translation>Восстановить контрольные точки</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="918"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="917"/>
         <source>Reset this Control Point</source>
         <translation>Восстановить эту контрольную точку</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="901"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="900"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Абсолютные координаты</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="904"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="903"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Поз:</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="905"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="904"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Поз:</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="906"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="905"/>
         <source>Edit &amp;Contour Line</source>
         <translation>&amp;Изменить контурную линию</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="907"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="906"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Восстановить 
 контурную линию</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="910"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="909"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Завершить</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="915"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="914"/>
         <source>Move Control Points Independently</source>
         <translation>Переместить контрольные точки независимо</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="916"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="915"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Переместить контрольные точки симметрично</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="919"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="918"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Разомкнуть многоугольник или кривую Безье</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="920"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="919"/>
         <source>Close this Bezier Curve</source>
         <translation>Замкнуть эту кривую Безье</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="921"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="920"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Зеркально отразить этот 
 контур по горизонтали</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="922"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="921"/>
         <source>Mirror the Path Vertically</source>
         <translation>Зеркально отразить этот 
 контур по вертикали</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="923"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="922"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Разрезать контур по 
 горизонтали направо</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="924"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="923"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Разрезать контур по 
 горизонтали направо</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="925"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="924"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Разрезать контур 
 по вертикали вверх</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="926"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="925"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Разрезать контур 
 по вертикали вниз</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="927"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="926"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Вращать контур против 
 часовой стрелки</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="928"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="927"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Вращать контур по 
 часовой стрелке</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="930"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="929"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Увеличить контур на показываемые %</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="933"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="932"/>
         <source>Angle of Rotation</source>
         <translation>Угол вращения</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="936"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="935"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Включить режим правки контурной линии</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="937"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="936"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Восстановить исходную контурную линию</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="899"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="898"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="940"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="939"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Если включено, координаты отсчитываются относительно страницы, в противном случае — относительно объекта.</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="929"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="928"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Уменьшить контур на показываемые %</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="931"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="930"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Уменьшить размер контура на показываемое значение</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="932"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="931"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Увеличить размер контура на показываемое значение</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="934"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="933"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>%, на который увеличить или уменьшить</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="935"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="934"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Значение, на которое увеличить или уменьшить</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="908"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="907"/>
         <source>Set Contour to Image Clip</source>
         <translation>Контур по обтравочному контуру</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="938"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="937"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Уподобить контурную линию обтравочному контуру изображения</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="902"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="901"/>
         <source>to Canvas</source>
         <translation>к холсту</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="903"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="902"/>
         <source>to Page</source>
         <translation>к странице</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="909"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="908"/>
         <source>Set Shape to Image Clip</source>
         <translation>Использовать обтравочный контур</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="939"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="938"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation>Использовать обтравочный контур в качестве фигуры</translation>
     </message>
@@ -14046,29 +14064,34 @@ If no handle is selected all handles will be reset.</source>
         <translation>Дата:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7828"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7827"/>
         <source>Failed to load an image : %1</source>
         <translation>Не удалось загрузить изображение: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7843"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7842"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Недостаточно памяти для обработки изображения</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7838"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7837"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Не удалось загрузить маску изображения: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7833"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7832"/>
         <source>Failed to write an image : %1</source>
         <translation>Не удалось записать изображение: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="7823"/>
         <source>A write error occured, please check available disk space</source>
-        <translation>Произошла ошибка при записи, проверьте доступное дисковое пространство</translation>
+        <translation type="obsolete">Произошла ошибка при записи, проверьте доступное дисковое пространство</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/pdflib_core.cpp" line="7822"/>
+        <source>A write error occurred, please check available disk space</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19074,22 +19097,22 @@ Check path and filename.</source>
         <translation>Свои шаблоны</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="566"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="570"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Сценарии Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="561"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="565"/>
         <source>&amp;Execute Script...</source>
         <translation>&amp;Выполнить сценарий...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="567"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="571"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Недавние сценарии</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="562"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="566"/>
         <source>Show &amp;Console</source>
         <translation>Показать &amp;консоль</translation>
     </message>
@@ -19313,12 +19336,12 @@ External Links
         <translation>Сербский</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="563"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="567"/>
         <source>&amp;About Script...</source>
         <translation>О сц&amp;енарии...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="534"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
         <source>About Script</source>
         <translation>О сценарии</translation>
     </message>
@@ -19920,7 +19943,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="565"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="569"/>
         <source>&amp;Script</source>
         <translation>С&amp;ценарии</translation>
     </message>
@@ -21457,12 +21480,17 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="13"/>
         <source>Dialog</source>
-        <translation>Диалог</translation>
+        <translation type="obsolete">Диалог</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="22"/>
         <source>Run as Extension Script</source>
         <translation>Запустить как сценарий расширения</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="13"/>
+        <source>Run Script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22760,7 +22788,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="obsolete">Документ Scribus 1.3.4</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3471"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3469"/>
         <source>Copy #%1 of </source>
         <translation>Копия #%1 из </translation>
     </message>
@@ -23639,17 +23667,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1097"/>
+        <location filename="../../scribus/scribusview.cpp" line="1100"/>
         <source>Copy Here</source>
         <translation>Скопировать сюда</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1098"/>
+        <location filename="../../scribus/scribusview.cpp" line="1101"/>
         <source>Move Here</source>
         <translation>Переместить сюда</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1099"/>
+        <location filename="../../scribus/scribusview.cpp" line="1102"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
@@ -23719,17 +23747,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Связанные текстовые блоки</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3946"/>
+        <location filename="../../scribus/scribusview.cpp" line="3949"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Невозможно преобразовать используемый объект</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3946"/>
+        <location filename="../../scribus/scribusview.cpp" line="3949"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно преобразовать в контуры</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2443"/>
+        <location filename="../../scribus/scribusview.cpp" line="2446"/>
         <source>Page %1 to %2</source>
         <translation>Страница %1 до %2</translation>
     </message>
@@ -23801,7 +23829,7 @@ You can choose between normal and several color blindness forms</source>
         <translation>Вы пытаетесь связать блок с блоком, который уже связан с другим.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3640"/>
+        <location filename="../../scribus/scribusview.cpp" line="3643"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
@@ -23915,54 +23943,54 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="588"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="592"/>
         <source>Script error</source>
         <translation>Ошибка сценария</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="357"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="361"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Если вы пытались выполнить сценарий из стандартной поставки Scribus, 
 сообщите об ошибке на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;, пожалуйста.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="363"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Это сообщение скопировано в буфер обмена.
 Нажмите Ctrl+V, чтобы вставить его в жалобную книгу.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Examine Script</source>
         <translation>Исследовать сценарий</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="435"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="439"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Произошла внутренняя ошибка при выполнении заданной команды. Подробности переданы на stderr. </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Установка модуля Python провалилась. Подробности об ошибке переданы на stderr. </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="524"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="528"/>
         <source>Documentation for:</source>
         <translation>Документация для:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="529"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="533"/>
         <source>Script</source>
         <translation>Сценарий</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="529"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="533"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> не содержит ни единой строчки документации!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Сценарии на Python (*.py *.PY);;Все файлы (*)</translation>
     </message>
@@ -25431,7 +25459,7 @@ You can choose between normal and several color blindness forms</source>
         <translation>Показывать изображения</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabdisplay.cpp" line="205"/>
+        <location filename="../../scribus/tabdisplay.cpp" line="203"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>

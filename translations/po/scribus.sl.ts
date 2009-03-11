@@ -1003,19 +1003,7 @@ Vrne lahko napako WrongFrameTypeError, če ciljni okvir ni slikovni okvir
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="166"/>
-        <source>scaleImage(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="177"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="191"/>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
 
 Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
@@ -1029,7 +1017,7 @@ Zaklene predmet &quot;ime&quot;, če ni zaklenjen, ali ga odklene, če je zaklen
 če je zaklenjen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="187"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="201"/>
         <source>isLocked([&quot;name&quot;]) -&gt; bool
 
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
@@ -1041,7 +1029,7 @@ Vrne true, če je predmet &quot;ime&quot; zaklenjen.  Če &quot;ime&quot; ni pod
 uporabljen trenutno izbrani predmet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="199"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="213"/>
         <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
 
 Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
@@ -1873,7 +1861,7 @@ ki so na voljo (FILL_&lt;vrsta&gt;).
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="33"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="44"/>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
 
 Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
@@ -1888,7 +1876,7 @@ je uporabljen trenutno izbran element.
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="43"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="54"/>
         <source>setFillTransparency(transparency, [&quot;name&quot;])
 
 Sets the fill transparency of the object &quot;name&quot; to transparency
@@ -1901,7 +1889,7 @@ Nastavi prosojnost polnila predmeta &quot;ime&quot; na vrednost prosojnost
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="53"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="64"/>
         <source>setFillBlendmode(blendmode, [&quot;name&quot;])
 
 Sets the fill blendmode of the object &quot;name&quot; to blendmode
@@ -1914,7 +1902,7 @@ Določi način spajanja predmeta &quot;ime&quot; na načinspajanja
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="63"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="74"/>
         <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
 
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
@@ -1927,7 +1915,7 @@ ni podan, je uporabljen trenutno izbran element.
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="73"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="84"/>
         <source>setLineTransparency(transparency, [&quot;name&quot;])
 
 Sets the line transparency of the object &quot;name&quot; to transparency
@@ -1940,7 +1928,7 @@ Nastavi prosojnost črt predmeta &quot;ime&quot; na vrednost prosojnost
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="83"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="94"/>
         <source>setLineBlendmode(blendmode, [&quot;name&quot;])
 
 Sets the line blendmode of the object &quot;name&quot; to blendmode
@@ -1953,7 +1941,7 @@ Nastavi način spajanja črt predmeta &quot;ime&quot; na načinspajanja.
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="96"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="107"/>
         <source>setLineWidth(width, [&quot;name&quot;])
 
 Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
@@ -1965,7 +1953,7 @@ May raise ValueError if the line width is out of bounds.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="110"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="121"/>
         <source>setLineShade(shade, [&quot;name&quot;])
 
 Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
@@ -1978,7 +1966,7 @@ May raise ValueError if the line shade is out of bounds.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="121"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="132"/>
         <source>setLineJoin(join, [&quot;name&quot;])
 
 Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
@@ -1993,7 +1981,7 @@ Nastavi slog spoja črt predmeta &quot;ime&quot; na slog &quot;spoj&quot;.
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="132"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="143"/>
         <source>setLineEnd(endtype, [&quot;name&quot;])
 
 Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
@@ -2008,7 +1996,7 @@ Določi konec črte predmeta &quot;ime&quot; na slog &quot;vrstakonca&quot;.
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="143"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="154"/>
         <source>setLineStyle(style, [&quot;name&quot;])
 
 Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
@@ -2018,7 +2006,7 @@ constants for &quot;style&quot; - LINE_&lt;style&gt;.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="157"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="168"/>
         <source>setFillShade(shade, [&quot;name&quot;])
 
 Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
@@ -2031,7 +2019,7 @@ May raise ValueError if the fill shade is out of bounds.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="169"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="180"/>
         <source>setCornerRadius(radius, [&quot;name&quot;])
 
 Sets the corner radius of the object &quot;name&quot;. The radius is expressed
@@ -2048,7 +2036,7 @@ Lahko vrne napako ValueError, če je radij negativen.
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="181"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="192"/>
         <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
 
 Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
@@ -2482,7 +2470,7 @@ trenutno izbrani element.
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="295"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="315"/>
         <source>setTextShade(shade, [&quot;name&quot;])
 
 Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
@@ -2494,7 +2482,7 @@ used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="308"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="328"/>
         <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
 
 Link two text frames. The frame named &quot;fromname&quot; is linked to the
@@ -2506,7 +2494,7 @@ May throw ScribusException if linking rules are violated.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="325"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="345"/>
         <source>unlinkTextFrames(&quot;name&quot;)
 
 Remove the specified (named) object from the text frame flow/linkage. If the
@@ -2518,7 +2506,7 @@ May throw ScribusException if linking rules are violated.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="338"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="358"/>
         <source>traceText([&quot;name&quot;])
 
 Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
@@ -2526,7 +2514,7 @@ currently selected item is used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="352"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="372"/>
         <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
 
 Returns the actual number of overflowing characters in text frame &quot;name&quot;.
@@ -2538,7 +2526,7 @@ May raise WrongFrameTypeError if the target frame is not an text frame
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="365"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="385"/>
         <source>hyphenateText([&quot;name&quot;]) -&gt; bool
 
 Does hyphenation on text frame &quot;name&quot;.
@@ -2555,7 +2543,7 @@ Lahko vrne napako WrongFrameTypeError, če ciljni okvir ni besedilni okvir
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="379"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="399"/>
         <source>dehyphenateText([&quot;name&quot;]) -&gt; bool
 
 Does dehyphenation on text frame &quot;name&quot;.
@@ -2573,7 +2561,7 @@ Lahko vrne napako WrongFrameTypeError, če ciljni okvir ni besedilni okvir
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="394"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="414"/>
         <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
 
 Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
@@ -2590,7 +2578,7 @@ Lahko vrne napako WrongFrameTypeError, če ciljni okvir ni besedilni okvir
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="406"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="426"/>
         <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
 
 Returns true if the text frame &quot;name&quot; is a PDF bookmark.
@@ -2764,6 +2752,83 @@ x in y določata koordinate vrhnjega levega kota na stran postavljenega ODG
 
 Če je bilo nalaganje uspešno, izbor vsebuje uvoženi ODG
 </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="120"/>
+        <source>isSpotColor(&quot;name&quot;) -&gt; bool
+
+Returns True if the color &quot;name&quot; is a spot color.
+See also setSpotColor()
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="135"/>
+        <source>setSpotColor(&quot;name&quot;, spot)
+
+Set the color &quot;name&quot; as a spot color if spot parameter is True.
+See also isSpotColor()
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="167"/>
+        <source>scaleImage(x, y [, &quot;name&quot;])
+
+Sets the internal scaling factors of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %. Internal scaling factors are different from the values shown on 
+properties palette. Note : deprecated, use setImageScale() instead.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="180"/>
+        <source>setImageScale(x, y [, &quot;name&quot;])
+
+Sets the scaling factors of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %. Scaling factors are equal to the values shown on properties palette.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="33"/>
+        <source>setGradientStop(&quot;color&quot;, shade, opacity, ramppoint, [&quot;name&quot;])
+
+Set or add a gradient stop to the gradient fill of the object &quot;name&quot; at position ramppoint.
+Color descriptions are the same as for setFillColor() and setFillShade(). setGradientFill()
+must have been called previously for the gradient fill to be visible.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="292"/>
+        <source>setTextScalingV(scale, [&quot;name&quot;])
+
+Sets the vertical character scaling of the object &quot;name&quot; to &quot;scale&quot; in percent.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="302"/>
+        <source>setTextScalingH(scale, [&quot;name&quot;])
+
+Sets the horizontal character scaling of the object &quot;name&quot; to &quot;scale&quot; in percent.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4666,7 +4731,7 @@ Drsi po dokumentu v glavnem oknu vmesnika za podani vrednosti x in y.
         <translation>Skupina%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="2226"/>
+        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="2227"/>
         <source>Generating Items</source>
         <translation>Tvorba predmetov</translation>
     </message>
@@ -5269,57 +5334,57 @@ Manjkajoče knjižnice so prikazane s *</translation>
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1254"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1257"/>
         <source>&amp;New</source>
         <translation>&amp;Nova</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1255"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1259"/>
         <source>&amp;Open...</source>
         <translation>&amp;Odpri ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1256"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1260"/>
         <source>&amp;Close</source>
         <translation>&amp;Zapri</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1257"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1261"/>
         <source>&amp;Save</source>
         <translation>&amp;Shrani</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1258"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1262"/>
         <source>Save &amp;As...</source>
         <translation>Shrani &amp;kot ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1259"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1263"/>
         <source>Re&amp;vert to Saved</source>
         <translation>&amp;Povrni na shranjeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1260"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1264"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Zberi za &amp;izvoz ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1261"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1265"/>
         <source>Get Text...</source>
         <translation>Pridobi besedilo ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1262"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1266"/>
         <source>Append &amp;Text...</source>
         <translation>Dodaj &amp;besedilo ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1263"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1267"/>
         <source>Get Image...</source>
         <translation>Pridobi sliko ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1266"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1270"/>
         <source>Save &amp;Text...</source>
         <translation>Shrani &amp;besedilo ...</translation>
     </message>
@@ -5329,52 +5394,52 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Shrani stran kot &amp;EPS ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1268"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1272"/>
         <source>Save as P&amp;DF...</source>
         <translation>Shrani kot &amp;PDF ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1269"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1273"/>
         <source>Document &amp;Setup...</source>
         <translation>&amp;Nastavitve dokumenta ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1271"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1275"/>
         <source>&amp;Print...</source>
         <translation>Na&amp;tisni ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1273"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1277"/>
         <source>&amp;Quit</source>
         <translation>&amp;Končaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1275"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1279"/>
         <source>&amp;Undo</source>
         <translation>&amp;Razveljavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1276"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1280"/>
         <source>&amp;Redo</source>
         <translation>&amp;Ponovi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1277"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1281"/>
         <source>&amp;Item Action Mode</source>
         <translation>Način obdelave &amp;predmetov</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1278"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1282"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Izreži</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1281"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1285"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiraj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1282"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1286"/>
         <source>&amp;Paste</source>
         <translation>&amp;Prilepi</translation>
     </message>
@@ -5384,27 +5449,27 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Počisti vsebino</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1285"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1289"/>
         <source>Select &amp;All</source>
         <translation>Izberi &amp;vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1287"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1291"/>
         <source>&amp;Deselect All</source>
         <translation>&amp;Izprazni izbiro</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1288"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1292"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Najdi in zamenjaj ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1289"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1293"/>
         <source>Edit Image...</source>
         <translation>Uredi sliko ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1291"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1295"/>
         <source>C&amp;olors...</source>
         <translation>&amp;Barve ...</translation>
     </message>
@@ -5419,7 +5484,7 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Slogi &amp;črt ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1295"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1299"/>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Glavne strani ...</translation>
     </message>
@@ -5429,42 +5494,42 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Java skripti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1270"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1274"/>
         <source>P&amp;references...</source>
         <translation>&amp;Nastavitve ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1303"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1307"/>
         <source>%1 pt</source>
         <translation>%1 točk</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1305"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1309"/>
         <source>&amp;Other...</source>
         <translation>&amp;Drugo ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1306"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1310"/>
         <source>&amp;Left</source>
         <translation>&amp;Levo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1307"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1311"/>
         <source>&amp;Center</source>
         <translation>&amp;Sredinsko</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1308"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1312"/>
         <source>&amp;Right</source>
         <translation>&amp;Desno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1309"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1313"/>
         <source>&amp;Block</source>
         <translation>&amp;Blok</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1310"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1314"/>
         <source>&amp;Forced</source>
         <translation>&amp;Vsiljeno</translation>
     </message>
@@ -5474,42 +5539,42 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1321"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1325"/>
         <source>&amp;Normal</source>
         <translation>&amp;Običajno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1322"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1326"/>
         <source>&amp;Underline</source>
         <translation>&amp;Podčrtano</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1323"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1327"/>
         <source>Underline &amp;Words</source>
         <translation>Podčrtaj &amp;besede</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1324"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1328"/>
         <source>&amp;Strike Through</source>
         <translation>&amp;Prečrtano</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1325"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1329"/>
         <source>&amp;All Caps</source>
         <translation>&amp;Velike črke</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1326"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1330"/>
         <source>Small &amp;Caps</source>
         <translation>Pomanjšane &amp;velike črke</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1327"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1331"/>
         <source>Su&amp;perscript</source>
         <translation>&amp;Nadpisano</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1328"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1332"/>
         <source>Su&amp;bscript</source>
         <translation>Po&amp;dpisano</translation>
     </message>
@@ -5519,172 +5584,172 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Obroba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1330"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1334"/>
         <source>S&amp;hadow</source>
         <translation>&amp;Senca</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1332"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1336"/>
         <source>&amp;Image Effects</source>
         <translation>Slikovni učink&amp;i</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1333"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1337"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabulatorji ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1336"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1340"/>
         <source>D&amp;uplicate</source>
         <translation>Po&amp;dvoji</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1337"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1341"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>&amp;Večkratno podvoji</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1338"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1342"/>
         <source>&amp;Delete</source>
         <translation>I&amp;zbriši</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1339"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1343"/>
         <source>&amp;Group</source>
         <translation>&amp;Združi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1340"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1344"/>
         <source>&amp;Ungroup</source>
         <translation>&amp;Razdruži</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1341"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1345"/>
         <source>Is &amp;Locked</source>
         <translation>Je &amp;zaklenjeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1342"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1346"/>
         <source>Si&amp;ze is Locked</source>
         <translation>Velikost je &amp;zaklenjena</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1346"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1350"/>
         <source>Lower to &amp;Bottom</source>
         <translation>Spusti na &amp;dno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1347"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1351"/>
         <source>Raise to &amp;Top</source>
         <translation>Dvigni na &amp;vrh</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1348"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1352"/>
         <source>&amp;Lower</source>
         <translation>&amp;Spusti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1349"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1353"/>
         <source>&amp;Raise</source>
         <translation>&amp;Dvigni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1350"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1354"/>
         <source>Send to S&amp;crapbook</source>
         <translation>Pošlji v &amp;skicirko</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1352"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1356"/>
         <source>&amp;Attributes...</source>
         <translation>L&amp;astnosti ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1354"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1358"/>
         <source>I&amp;mage Visible</source>
         <translation>&amp;Slika je vidna</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1355"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1359"/>
         <source>&amp;Update Image</source>
         <translation>&amp;Posodobi sliko</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1356"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1360"/>
         <source>Adjust Frame to Image</source>
         <translation>Okvir prilagodi sliki</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1358"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1362"/>
         <source>Extended Image Properties</source>
         <translation>Razširjene lastnosti slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1359"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1363"/>
         <source>&amp;Low Resolution</source>
         <translation>&amp;Nizka ločljivost</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1360"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1364"/>
         <source>&amp;Normal Resolution</source>
         <translation>&amp;Običajna ločljivost</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1361"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1365"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Polna ločljivost</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1362"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1366"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>Je &amp;zaznamek PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1363"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1367"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>je &amp;opomba PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1364"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1368"/>
         <source>Annotation P&amp;roperties</source>
         <translation>&amp;Lastnosti opombe</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1365"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1369"/>
         <source>Field P&amp;roperties</source>
         <translation>Lastnosti &amp;polja</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1366"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1370"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Uredi obliko ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1367"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1371"/>
         <source>&amp;Attach Text to Path</source>
         <translation>Besedilo &amp;pripni na pot</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1368"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1372"/>
         <source>&amp;Detach Text from Path</source>
         <translation>Besedilo &amp;snemi s poti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1369"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1373"/>
         <source>&amp;Combine Polygons</source>
         <translation>&amp;Sestavi poligone</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1370"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1374"/>
         <source>Split &amp;Polygons</source>
         <translation>Razdeli &amp;poligone</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1371"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1375"/>
         <source>&amp;Bezier Curve</source>
         <translation>Krivulja &amp;Bezier</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1372"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1376"/>
         <source>&amp;Image Frame</source>
         <translation>Okv&amp;ir slike</translation>
     </message>
@@ -5694,62 +5759,62 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Obrobe</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1374"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1378"/>
         <source>&amp;Polygon</source>
         <translation>&amp;Mnogokotnk</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1375"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1379"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Okvir besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1379"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1383"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Znak ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1380"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1384"/>
         <source>Sample Text</source>
         <translation>Vzorčno besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1384"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1388"/>
         <source>&amp;Insert...</source>
         <translation>&amp;Vstavi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1385"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1389"/>
         <source>Im&amp;port...</source>
         <translation>&amp;Uvozi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1386"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1390"/>
         <source>&amp;Delete...</source>
         <translation>I&amp;zbriši ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1387"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1391"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Kopiraj ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1388"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1392"/>
         <source>&amp;Move...</source>
         <translation>&amp;Premakni ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1389"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1393"/>
         <source>&amp;Apply Master Page...</source>
         <translation>&amp;Uporabi glavno stran ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1391"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1395"/>
         <source>Manage &amp;Guides...</source>
         <translation>Upravljaj z &amp;vodili ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1392"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1396"/>
         <source>Manage Page Properties...</source>
         <translation>Upravljaj z lastnostmi strani ...</translation>
     </message>
@@ -5759,22 +5824,22 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Prilagodi &amp;oknu</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1397"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1401"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1398"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1402"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1399"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1403"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1400"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1404"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
@@ -5784,42 +5849,42 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Sličice predogleda</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1403"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1407"/>
         <source>Show &amp;Margins</source>
         <translation>Pokaži &amp;robove</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1405"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1409"/>
         <source>Show &amp;Frames</source>
         <translation>Pokaži &amp;okvire</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1407"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1411"/>
         <source>Show &amp;Images</source>
         <translation>Pokaži &amp;slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1408"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1412"/>
         <source>Show &amp;Grid</source>
         <translation>Pokaži &amp;mrežo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1409"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1413"/>
         <source>Show G&amp;uides</source>
         <translation>Pokaži &amp;vodila</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1411"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1415"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>Pokaži &amp;osnovno mrežo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1412"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1416"/>
         <source>Show &amp;Text Chain</source>
         <translation>Pokaži &amp;verige besedil</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1413"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1417"/>
         <source>Show Control Characters</source>
         <translation>Pokaži ukazne znake</translation>
     </message>
@@ -5829,72 +5894,72 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Vodila glede na stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1416"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1420"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>&amp;Pripni na mrežo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1417"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1421"/>
         <source>Sna&amp;p to Guides</source>
         <translation>&amp;Pripni na vodila</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1422"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1426"/>
         <source>&amp;Properties</source>
         <translation>&amp;Lastnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1424"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1428"/>
         <source>&amp;Scrapbook</source>
         <translation>&amp;Skicirka</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1425"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1429"/>
         <source>&amp;Layers</source>
         <translation>&amp;Plasti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1426"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1430"/>
         <source>&amp;Arrange Pages</source>
         <translation>&amp;Uredi strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1427"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1431"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Zaznamki</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1428"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1432"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Meritve</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1429"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1433"/>
         <source>Action &amp;History</source>
         <translation>&amp;Zgodovina dejanj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1430"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1434"/>
         <source>Preflight &amp;Verifier</source>
         <translation>Končno pre&amp;verjanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1431"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1435"/>
         <source>&amp;Align and Distribute</source>
         <translation>R&amp;azporedi in poravnaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1432"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1436"/>
         <source>&amp;Tools</source>
         <translation>&amp;Orodja</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1433"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1437"/>
         <source>P&amp;DF Tools</source>
         <translation>Orodja &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1436"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1440"/>
         <source>Select Item</source>
         <translation>Izberi predmet</translation>
     </message>
@@ -5919,52 +5984,52 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Prostoročna črta</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1437"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1441"/>
         <source>Rotate Item</source>
         <translation>Zasukaj predmet</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1438"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1442"/>
         <source>Zoom in or out</source>
         <translation>Povečaj ali pomanjšaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1439"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1443"/>
         <source>Zoom in</source>
         <translation>Povečaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1440"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1444"/>
         <source>Zoom out</source>
         <translation>Pomanjšaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1441"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1445"/>
         <source>Edit Contents of Frame</source>
         <translation>Uredi vsebino okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1442"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1446"/>
         <source>Edit Text...</source>
         <translation>Uredi besedilo ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1443"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1447"/>
         <source>Link Text Frames</source>
         <translation>Poveži besedilne okvire</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1444"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1448"/>
         <source>Unlink Text Frames</source>
         <translation>Razveži besedilne okvire</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1445"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1449"/>
         <source>&amp;Eye Dropper</source>
         <translation>&amp;Izbira barve</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1446"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1450"/>
         <source>Copy Item Properties</source>
         <translation>Kopiraj lastnosti predmeta</translation>
     </message>
@@ -6019,113 +6084,113 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Upravljaj s slikami</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1469"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1473"/>
         <source>&amp;Hyphenate Text</source>
         <translation>
 &amp;Deli besede</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1470"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1474"/>
         <source>Dehyphenate Text</source>
         <translation>Odstrani deljenje besed</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1471"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1475"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>&amp;Ustvari kazalo vsebine</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1478"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1482"/>
         <source>&amp;About Scribus</source>
         <translation>&amp;O Scribusu</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1480"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1484"/>
         <source>About &amp;Qt</source>
         <translation>O &amp;QT-ju</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1481"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1485"/>
         <source>Toolti&amp;ps</source>
         <translation>&amp;Namigi orodja</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1483"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1487"/>
         <source>Scribus &amp;Manual...</source>
         <translation>Pr&amp;iročnik za Scribus ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1501"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1505"/>
         <source>Smart &amp;Hyphen</source>
         <translation>Pametno &amp;deljenje</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1502"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1506"/>
         <source>Non Breaking Dash</source>
         <translation>Neprelomen pomišljaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1503"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1507"/>
         <source>Non Breaking &amp;Space</source>
         <translation>Neprelomen pre&amp;sledek</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1504"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1508"/>
         <source>Page &amp;Number</source>
         <translation>&amp;Številka strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1506"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1510"/>
         <source>New Line</source>
         <translation>Nova vrstica</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1507"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1511"/>
         <source>Frame Break</source>
         <translation>Prelom okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1508"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1512"/>
         <source>Column Break</source>
         <translation>Prelom stolpca</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1511"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1515"/>
         <source>Copyright</source>
         <translation>Copyright</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1512"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1516"/>
         <source>Registered Trademark</source>
         <translation>Zaščitena blagovna znamka</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1513"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1517"/>
         <source>Trademark</source>
         <translation>Blagovna znamka</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1515"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1519"/>
         <source>Bullet</source>
         <translation>Oznaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1517"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1521"/>
         <source>Em Dash</source>
         <translation>Pomišljaj M</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1518"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1522"/>
         <source>En Dash</source>
         <translation>Pomišljaj N</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1519"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1523"/>
         <source>Figure Dash</source>
         <translation>Vezaj števil</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1520"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1524"/>
         <source>Quotation Dash</source>
         <translation>Narekovalni pomišljaj</translation>
     </message>
@@ -6225,37 +6290,37 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Dvojni desni CJK</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1491"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1495"/>
         <source>Toggle Palettes</source>
         <translation>Preklopi palete</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1492"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1496"/>
         <source>Toggle Guides</source>
         <translation>Preklopi vodila</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1272"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1276"/>
         <source>Print Previe&amp;w</source>
         <translation>Pred&amp;ogled tiskanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1296"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1300"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;JavaSkripti ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1390"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1394"/>
         <source>Convert to Master Page...</source>
         <translation>Pretvori v glavno stran ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1474"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1478"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Kaskadno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1475"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1479"/>
         <source>&amp;Tile</source>
         <translation>&amp;Tlakovano</translation>
     </message>
@@ -6265,73 +6330,73 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;O vtičnikih</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1353"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1357"/>
         <source>More Info...</source>
         <translation>Več informacij ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1343"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1347"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Tiskanje omogočeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1344"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1348"/>
         <source>&amp;Flip Horizontally</source>
         <translation>&amp;Prezrcali vodoravno</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1345"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1349"/>
         <source>&amp;Flip Vertically</source>
         <translation>&amp;Prezrcali navpično</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1414"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1418"/>
         <source>Show Rulers</source>
         <translation>Pokaži ravnila</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1423"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1427"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Oris</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1514"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1518"/>
         <source>Solidus</source>
         <translation>Poševnica</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1516"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1520"/>
         <source>Middle Dot</source>
         <translation>Vmesna pika</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1541"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1545"/>
         <source>En Space</source>
         <translation>Presledek N</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1542"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1546"/>
         <source>Em Space</source>
         <translation>Presledek M</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1543"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1547"/>
         <source>Thin Space</source>
         <translation>Ozek presledek</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1544"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1548"/>
         <source>Thick Space</source>
         <translation>Širok presledek</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1545"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1549"/>
         <source>Mid Space</source>
         <translation>Vmesni presledek</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1546"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1550"/>
         <source>Hair Space</source>
         <translation>Las tanek presledek</translation>
     </message>
@@ -6356,74 +6421,74 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Vstavi številko strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1558"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1562"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1559"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1563"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1560"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1564"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1561"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1565"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1562"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1566"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1563"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1567"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1564"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1568"/>
         <source>st</source>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1294"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1298"/>
         <source>S&amp;tyles...</source>
         <translation>&amp;Slogi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1329"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1333"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>&amp;Oris</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1373"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1377"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Orisi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1283"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1287"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Prilepi (&amp;absolutno)</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1284"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1288"/>
         <source>C&amp;lear</source>
         <translation>&amp;Počisti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1410"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1414"/>
         <source>Show Text Frame Columns</source>
         <translation>Pokaži stolpce okvira z besedilom</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1267"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1271"/>
         <source>Save as &amp;EPS...</source>
         <translation>Shrani kot &amp;EPS ...</translation>
     </message>
@@ -6433,62 +6498,62 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Uredi kodo Latex ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1293"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1297"/>
         <source>Patterns...</source>
         <translation>Vzorci ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1351"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1355"/>
         <source>Send to Patterns</source>
         <translation>Pošlji med vzorce</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1378"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1382"/>
         <source>&amp;Frame...</source>
         <translation>&amp;Okvir ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1381"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1385"/>
         <source>Sticky Tools</source>
         <translation>Orodja lepljivosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1395"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1399"/>
         <source>&amp;Fit to Height</source>
         <translation>&amp;Umeri na višino</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1396"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1400"/>
         <source>Fit to Width</source>
         <translation>Umeri na širino</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1401"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1405"/>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1402"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1406"/>
         <source>Preview Mode</source>
         <translation>Predogledni način</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1404"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1408"/>
         <source>Show Bleeds</source>
         <translation>Pokaži dodatek za porezavo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1406"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1410"/>
         <source>Show Layer Indicators</source>
         <translation>Pokaži indikatorje plasti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1448"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1452"/>
         <source>Insert &amp;Text Frame</source>
         <translation>Vstavi &amp;besedilni okvir</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1449"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1453"/>
         <source>Insert &amp;Image Frame</source>
         <translation>Vstavi &amp;slikovni okvir</translation>
     </message>
@@ -6498,220 +6563,220 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Vstavi okvir Late&amp;x</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1451"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1455"/>
         <source>Insert T&amp;able</source>
         <translation>Vstavi &amp;tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1452"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1456"/>
         <source>Insert &amp;Shape</source>
         <translation>Vstavi &amp;lik</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1453"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1457"/>
         <source>Insert &amp;Polygon</source>
         <translation>Vstavi &amp;mnogokotnik</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1454"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1458"/>
         <source>Insert &amp;Line</source>
         <translation>Vstavi &amp;črto</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1455"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1459"/>
         <source>Insert &amp;Bezier Curve</source>
         <translation>Vstavi krivuljo &amp;Bezier</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1456"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1460"/>
         <source>Insert &amp;Freehand Line</source>
         <translation>Vstavi prostoročno &amp;črto</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1458"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1462"/>
         <source>Insert PDF Push Button</source>
         <translation>Vstavi gumb PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1459"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1463"/>
         <source>Insert PDF Text Field</source>
         <translation>Vstavi besedilno polje PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1460"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1464"/>
         <source>Insert PDF Check Box</source>
         <translation>Vstavi potrditveno polje PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1461"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1465"/>
         <source>Insert PDF Combo Box</source>
         <translation>Vstavi kombinirano polje PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1462"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1466"/>
         <source>Insert PDF List Box</source>
         <translation>Vstavi seznamsko polje PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1463"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1467"/>
         <source>Insert Text Annotation</source>
         <translation>Vstavi besedilo opombe</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1464"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1468"/>
         <source>Insert Link Annotation</source>
         <translation>Vstavi povezavo opombe</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1484"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1488"/>
         <source>Scribus Homepage</source>
         <translation>Domača stran Scribusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1485"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1489"/>
         <source>Scribus Online Documentation</source>
         <translation>Scribusova spletna dokumentacija</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1486"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1490"/>
         <source>Scribus Wiki</source>
         <translation>Wiki Scribusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1487"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1491"/>
         <source>Getting Started with Scribus</source>
         <translation>Prvi koraki s Scribusom</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1509"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1513"/>
         <source>&amp;Zero Width Space</source>
         <translation>Presledek ničelne &amp;širine</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1510"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1514"/>
         <source>Zero Width NB Space</source>
         <translation>Nedeljiv presledek ničelne širine</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1522"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1526"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation>Opuščaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1523"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1527"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation>Ravni dvojni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1524"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1528"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation>Levi enojni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1525"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1529"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation>Desni enojni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1526"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1530"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation>Dvojni levi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1527"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1531"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation>Dvojni desni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1528"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1532"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation>Obratni enojni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1529"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1533"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation>Obratni dvojni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1530"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1534"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation>Enojen levi guillemet </translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1531"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1535"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation>Enojen desni guillemet </translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1532"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1536"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation>Dvojni levi guillemet</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1533"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1537"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation>Dvojni desni guillemet</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1534"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1538"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation>Nizka enojna vejica</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1535"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1539"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation>Nizka dvojna vejica</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1536"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1540"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation>Levi enojni CJK</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1537"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1541"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation>Desni enojni CJK</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1538"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1542"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation>Dvojni levi CJK</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1539"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1543"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation>Dvojni desni CJK</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1418"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1422"/>
         <source>Show Context Menu</source>
         <translation>Pokaži kontekstni meni</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1468"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1472"/>
         <source>&amp;Manage Images</source>
         <translation>&amp;Upravljaj s slikami</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1479"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1483"/>
         <source>&amp;About Plugins</source>
         <translation>&amp;O vtičnikih</translation>
     </message>
@@ -6721,173 +6786,178 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Preverji stanje posodobitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1493"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1497"/>
         <source>Insert Unicode Character Begin Sequence</source>
         <translation>Vstavi začetno zaporedje znaka Unicode</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1264"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1268"/>
         <source>Get Vector File...</source>
         <translation>Pridobi vektorsko datoteko ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1286"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1290"/>
         <source>Advanced Select All...</source>
         <translation>Napredno izberi vse ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1290"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1294"/>
         <source>Edit Source...</source>
         <translation>Uredi vir ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1292"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1296"/>
         <source>Replace Colors...</source>
         <translation>Zamenjaj barve ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1415"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1419"/>
         <source>Rulers Relative to Page</source>
         <translation>Vodila glede na stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1450"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1454"/>
         <source>Insert &amp;Render Frame</source>
         <translation>Vstavi &amp;upodobljen okvir</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1488"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1492"/>
         <source>Check for Updates</source>
         <translation>Preveri stanje posodobitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1505"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1509"/>
         <source>Number of Pages</source>
         <translation>Število strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1357"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1361"/>
         <source>Adjust Image to Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1685"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1690"/>
         <source>File</source>
         <translation type="unfinished">Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1685"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1690"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1687"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>Edit</source>
         <translation type="unfinished">Uredi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1687"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1689"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1694"/>
         <source>Style</source>
         <translation type="unfinished">Slog</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1689"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1694"/>
         <source>&amp;Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1691"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1696"/>
         <source>Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1691"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1696"/>
         <source>&amp;Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1693"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1698"/>
         <source>Insert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1693"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1698"/>
         <source>I&amp;nsert</source>
         <translation type="unfinished">&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1695"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1700"/>
         <source>Page</source>
         <translation type="unfinished">Stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1695"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1700"/>
         <source>&amp;Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1697"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1697"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1699"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>Extras</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1699"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>E&amp;xtras</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1701"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1706"/>
         <source>Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1701"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1706"/>
         <source>&amp;Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1703"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1703"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1871"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1876"/>
         <source>Plugin Menu Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1873"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1878"/>
         <source>Others</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1875"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1880"/>
         <source>Unicode Characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1482"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1486"/>
         <source>Move/Resize Value Indicator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1258"/>
+        <source>New &amp;from Template...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7340,12 +7410,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/aligndistribute.cpp" line="443"/>
+        <location filename="../../scribus/aligndistribute.cpp" line="438"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/aligndistribute.cpp" line="451"/>
+        <location filename="../../scribus/aligndistribute.cpp" line="446"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
@@ -7451,7 +7521,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
 <context>
     <name>Annot</name>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1118"/>
+        <location filename="../../scribus/annot.cpp" line="1134"/>
         <source>OK</source>
         <translation>V redu</translation>
     </message>
@@ -7461,7 +7531,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation> točk</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1056"/>
+        <location filename="../../scribus/annot.cpp" line="1072"/>
         <source>sum</source>
         <translation>vsota</translation>
     </message>
@@ -7471,17 +7541,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Cilj</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="734"/>
+        <location filename="../../scribus/annot.cpp" line="750"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2087"/>
+        <location filename="../../scribus/annot.cpp" line="2104"/>
         <source>None</source>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2244"/>
+        <location filename="../../scribus/annot.cpp" line="2262"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
@@ -7506,7 +7576,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Tanko</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="734"/>
+        <location filename="../../scribus/annot.cpp" line="750"/>
         <source>Time</source>
         <translation>Čas</translation>
     </message>
@@ -7516,12 +7586,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Široko</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="784"/>
+        <location filename="../../scribus/annot.cpp" line="800"/>
         <source>Prepend Currency Symbol</source>
         <translation>Predpni simbol valute</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2051"/>
+        <location filename="../../scribus/annot.cpp" line="2068"/>
         <source>Submit Form</source>
         <translation>Pošlji obrazec</translation>
     </message>
@@ -7541,12 +7611,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Križ</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2031"/>
+        <location filename="../../scribus/annot.cpp" line="2048"/>
         <source>On Focus</source>
         <translation>Ob pozornosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2050"/>
+        <location filename="../../scribus/annot.cpp" line="2067"/>
         <source>Go To</source>
         <translation>Pojdi na</translation>
     </message>
@@ -7576,7 +7646,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Drugo</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="734"/>
+        <location filename="../../scribus/annot.cpp" line="750"/>
         <source>Plain</source>
         <translation>Navadno</translation>
     </message>
@@ -7596,12 +7666,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Seznamsko polje</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="775"/>
+        <location filename="../../scribus/annot.cpp" line="791"/>
         <source>Use Currency Symbol</source>
         <translation>Uporabi simbol valute</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="752"/>
+        <location filename="../../scribus/annot.cpp" line="768"/>
         <source>Number Format</source>
         <translation>Oblika števil</translation>
     </message>
@@ -7626,7 +7696,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Pošlji na URL:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1099"/>
+        <location filename="../../scribus/annot.cpp" line="1115"/>
         <source>Calculate</source>
         <translation>Izračunaj</translation>
     </message>
@@ -7636,17 +7706,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Prehod kazalca</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="980"/>
+        <location filename="../../scribus/annot.cpp" line="996"/>
         <source>Value is not validated</source>
         <translation>Vrednost ni preverjena</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1057"/>
+        <location filename="../../scribus/annot.cpp" line="1073"/>
         <source>maximum</source>
         <translation>največ</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="831"/>
+        <location filename="../../scribus/annot.cpp" line="847"/>
         <source>Formatting</source>
         <translation>Oblikovanje</translation>
     </message>
@@ -7656,17 +7726,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Kombinirano polje</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1004"/>
+        <location filename="../../scribus/annot.cpp" line="1020"/>
         <source>Custom validate script:</source>
         <translation>Posebna skripta za preverbe:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1056"/>
+        <location filename="../../scribus/annot.cpp" line="1072"/>
         <source>minimum</source>
         <translation>najmanj</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="700"/>
+        <location filename="../../scribus/annot.cpp" line="716"/>
         <source>Action</source>
         <translation>Dejanje</translation>
     </message>
@@ -7676,7 +7746,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Obroba</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="854"/>
+        <location filename="../../scribus/annot.cpp" line="870"/>
         <source>Date Format</source>
         <translation>Oblika datuma</translation>
     </message>
@@ -7706,12 +7776,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Črtkano</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="734"/>
+        <location filename="../../scribus/annot.cpp" line="750"/>
         <source>Custom</source>
         <translation>Po meri</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="880"/>
+        <location filename="../../scribus/annot.cpp" line="896"/>
         <source>Time Format</source>
         <translation>Oblika časa</translation>
     </message>
@@ -7721,12 +7791,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Dogodek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1051"/>
+        <location filename="../../scribus/annot.cpp" line="1067"/>
         <source>Value is the</source>
         <translation>Vrednost je</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="964"/>
+        <location filename="../../scribus/annot.cpp" line="980"/>
         <source>Format</source>
         <translation>Oblika</translation>
     </message>
@@ -7736,17 +7806,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Skrito</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1079"/>
+        <location filename="../../scribus/annot.cpp" line="1095"/>
         <source>Custom calculation script:</source>
         <translation>Posebna skripta za izračunavanje:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1175"/>
+        <location filename="../../scribus/annot.cpp" line="1191"/>
         <source>Enter a comma separated list of fields here</source>
         <translation>Tu vnesite seznam polj, ločenih z vejicami</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="902"/>
+        <location filename="../../scribus/annot.cpp" line="918"/>
         <source>Custom Scripts</source>
         <translation>Posebne skripte</translation>
     </message>
@@ -7766,7 +7836,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Navadno</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="734"/>
+        <location filename="../../scribus/annot.cpp" line="750"/>
         <source>Number</source>
         <translation>Število</translation>
     </message>
@@ -7791,7 +7861,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="731"/>
+        <location filename="../../scribus/annot.cpp" line="747"/>
         <source>Field is formatted as:</source>
         <translation>Polje je oblikovano kot:</translation>
     </message>
@@ -7816,7 +7886,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Namig orodja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2031"/>
+        <location filename="../../scribus/annot.cpp" line="2048"/>
         <source>On Blur</source>
         <translation>Ob zabrisanosti</translation>
     </message>
@@ -7833,7 +7903,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../../scribus/annot.cpp" line="678"/>
         <source>Submit Data as HTML</source>
-        <translation>Pošlji podatke kot HTML</translation>
+        <translation type="obsolete">Pošlji podatke kot HTML</translation>
     </message>
     <message>
         <location filename="../../scribus/annot.cpp" line="96"/>
@@ -7851,7 +7921,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Postavitev ikon ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2030"/>
+        <location filename="../../scribus/annot.cpp" line="2047"/>
         <source>Mouse Up</source>
         <translation>Kazalec spusti</translation>
     </message>
@@ -7861,12 +7931,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1074"/>
+        <location filename="../../scribus/annot.cpp" line="1090"/>
         <source>Pick...</source>
         <translation>Izberi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2030"/>
+        <location filename="../../scribus/annot.cpp" line="2047"/>
         <source>Mouse Enter</source>
         <translation>Kazalec vstopi</translation>
     </message>
@@ -7886,7 +7956,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Pritisnjeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1056"/>
+        <location filename="../../scribus/annot.cpp" line="1072"/>
         <source>product</source>
         <translation>zmnožek</translation>
     </message>
@@ -7896,7 +7966,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Besedilo ob prehodu kazalca</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1025"/>
+        <location filename="../../scribus/annot.cpp" line="1041"/>
         <source>Validate</source>
         <translation>Potrdi</translation>
     </message>
@@ -7906,7 +7976,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Spremeni ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="811"/>
+        <location filename="../../scribus/annot.cpp" line="827"/>
         <source>Percent Format</source>
         <translation>Oblika odstotka</translation>
     </message>
@@ -7926,7 +7996,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Vidnost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1056"/>
+        <location filename="../../scribus/annot.cpp" line="1072"/>
         <source>average</source>
         <translation>povprečje</translation>
     </message>
@@ -7936,17 +8006,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Privzdignjeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2051"/>
+        <location filename="../../scribus/annot.cpp" line="2068"/>
         <source>Import Data</source>
         <translation>Uvozi podatke</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2031"/>
+        <location filename="../../scribus/annot.cpp" line="2048"/>
         <source>Mouse Exit</source>
         <translation>Kazalec izstopi</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2030"/>
+        <location filename="../../scribus/annot.cpp" line="2047"/>
         <source>Mouse Down</source>
         <translation>Kazalec pritisne</translation>
     </message>
@@ -7956,32 +8026,32 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Skripta:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="734"/>
+        <location filename="../../scribus/annot.cpp" line="750"/>
         <source>Percentage</source>
         <translation>Odstotek</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="820"/>
+        <location filename="../../scribus/annot.cpp" line="836"/>
         <source>Decimals:</source>
         <translation>Decimalke:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1064"/>
+        <location filename="../../scribus/annot.cpp" line="1080"/>
         <source>of the following fields:</source>
         <translation>iz naslednjih polj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="691"/>
+        <location filename="../../scribus/annot.cpp" line="707"/>
         <source>Import Data from:</source>
         <translation>Uvozi podatke iz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="993"/>
+        <location filename="../../scribus/annot.cpp" line="1009"/>
         <source>and less or equal to:</source>
         <translation>in manjša ali enaka kot:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="940"/>
+        <location filename="../../scribus/annot.cpp" line="956"/>
         <source>Keystroke:</source>
         <translation>Natipk:</translation>
     </message>
@@ -8016,17 +8086,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Potrditveno polje</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1042"/>
+        <location filename="../../scribus/annot.cpp" line="1058"/>
         <source>Value is not calculated</source>
         <translation>Vrednost ni izračunana</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1095"/>
+        <location filename="../../scribus/annot.cpp" line="1111"/>
         <source>Edit...</source>
         <translation>Uredi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2051"/>
+        <location filename="../../scribus/annot.cpp" line="2068"/>
         <source>Reset Form</source>
         <translation>Ponastavi obrazec</translation>
     </message>
@@ -8051,12 +8121,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Viden</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="989"/>
+        <location filename="../../scribus/annot.cpp" line="1005"/>
         <source>Value must be greater than or equal to:</source>
         <translation>Vrednost mora biti večja ali enaka kot :</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="914"/>
+        <location filename="../../scribus/annot.cpp" line="930"/>
         <source>Format:</source>
         <translation>Oblika:</translation>
     </message>
@@ -8071,7 +8141,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Privzeto izbrano</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1453"/>
+        <location filename="../../scribus/annot.cpp" line="1469"/>
         <source>Example:</source>
         <translation>Primer:</translation>
     </message>
@@ -8086,17 +8156,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Besedilo ob pritisku gumba</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1176"/>
+        <location filename="../../scribus/annot.cpp" line="1192"/>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
         <translation>Če želite uporabljati ikone na gumbih, potrebujete vsaj ikono za Navadno</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2079"/>
+        <location filename="../../scribus/annot.cpp" line="2096"/>
         <source>Selection Change</source>
         <translation>Sprememba izbire</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1122"/>
+        <location filename="../../scribus/annot.cpp" line="1138"/>
         <source>Cancel</source>
         <translation>Prekliči</translation>
     </message>
@@ -8106,17 +8176,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Pisava za k PDF 1.3:</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1174"/>
+        <location filename="../../scribus/annot.cpp" line="1190"/>
         <source>Flag is ignored for PDF 1.3</source>
         <translation>Možnost ne bo upoštevana pri PDF 1.3</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2244"/>
+        <location filename="../../scribus/annot.cpp" line="2262"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF datoteke (*.pdf);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2088"/>
+        <location filename="../../scribus/annot.cpp" line="2105"/>
         <source>JavaScript</source>
         <translation>JavaScript</translation>
     </message>
@@ -8132,7 +8202,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="2050"/>
+        <location filename="../../scribus/annot.cpp" line="2067"/>
         <source>None</source>
         <comment>action</comment>
         <translation>Brez</translation>
@@ -8148,12 +8218,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Ne izvozi vrednosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1287"/>
+        <location filename="../../scribus/annot.cpp" line="1303"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
         <translation>Slike (*.tif *.png *.jpg *.xpm);;%1;;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/annot.cpp" line="1342"/>
+        <location filename="../../scribus/annot.cpp" line="1358"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
         <translation>Slike (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Vse datoteke (*)</translation>
     </message>
@@ -8161,6 +8231,31 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <location filename="../../scribus/annot.cpp" line="625"/>
         <source>Export absolute Filename</source>
         <translation>Izvozi absolutno ime datoteke</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/annot.cpp" line="682"/>
+        <source>Submit format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/annot.cpp" line="685"/>
+        <source>FDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/annot.cpp" line="685"/>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/annot.cpp" line="685"/>
+        <source>XFDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/annot.cpp" line="685"/>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
     </message>
 </context>
 <context>
@@ -8276,12 +8371,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="269"/>
         <source>Apply To</source>
-        <translation>Uporabi na</translation>
+        <translation type="obsolete">Uporabi na</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="270"/>
         <source>Current &amp;page</source>
-        <translation>&amp;trenutni strani</translation>
+        <translation type="obsolete">&amp;trenutni strani</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="271"/>
@@ -8291,7 +8386,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="272"/>
         <source>&amp;Even pages</source>
-        <translation>&amp;lihih straneh</translation>
+        <translation type="obsolete">&amp;lihih straneh</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="273"/>
@@ -8301,7 +8396,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="274"/>
         <source>O&amp;dd pages</source>
-        <translation>so&amp;dih straneh</translation>
+        <translation type="obsolete">so&amp;dih straneh</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="275"/>
@@ -8311,7 +8406,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="276"/>
         <source>&amp;All pages</source>
-        <translation>vseh str&amp;aneh</translation>
+        <translation type="obsolete">vseh str&amp;aneh</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="277"/>
@@ -8321,7 +8416,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="278"/>
         <source>&amp;Within range</source>
-        <translation>&amp;v obsegu</translation>
+        <translation type="obsolete">&amp;v obsegu</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="279"/>
@@ -8357,6 +8452,36 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <location filename="../../scribus/applytemplatedialog.cpp" line="52"/>
         <source>Possible Hyphenation</source>
         <translation>Možno deljenje</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/applytemplatedialog.cpp" line="269"/>
+        <source>Apply to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/applytemplatedialog.cpp" line="270"/>
+        <source>Current &amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/applytemplatedialog.cpp" line="272"/>
+        <source>&amp;Even Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/applytemplatedialog.cpp" line="274"/>
+        <source>O&amp;dd Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/applytemplatedialog.cpp" line="276"/>
+        <source>&amp;All Pages</source>
+        <translation type="unfinished">Vse str&amp;ani</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/applytemplatedialog.cpp" line="278"/>
+        <source>&amp;Within Range</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8586,27 +8711,27 @@ slovar</translation>
 <context>
     <name>AspellPluginImpl</name>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="32"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="33"/>
         <source>Loaded </source>
         <translation>Naložen </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="32"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="33"/>
         <source>default </source>
         <translation>privzeti </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="32"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="33"/>
         <source> aspell dictionary.</source>
         <translation> slovar aspell.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="79"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="80"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
         <translation>vtičnikaspell (AspellPluginImpl::AspellPluginImpl): Napaka v konfiguraciji črkovalnika aspell.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="86"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="87"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
         <translation>vtičnikaspell (AspellPluginImpl::AspellPluginImpl): Napaka pri ustvarjanju črkovalnika aspell.</translation>
     </message>
@@ -8626,37 +8751,37 @@ slovar</translation>
         <translation type="obsolete">Preverjanje črkovanja opravljeno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="337"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="349"/>
         <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
         <translation>AspellPluginImpl::on_fskipAllBtn_clicked(): Vseh pojavitev &quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="338"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="350"/>
         <source> by adding it to the session list.</source>
         <translation> ni mogoče preskočiti z dodajanjem na seznam seje.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="360"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="372"/>
         <source>AspellPluginImpl::on_faddWordBtn_clicked(): Unable to add word to personal list.</source>
         <translation>AspellPluginImpl::on_faddWordBtn_clicked(): Besede ni mogoče dodati na osebni seznam.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="218"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="230"/>
         <source>Spelling check complete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="405"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="417"/>
         <source>Spell Checker</source>
         <translation type="unfinished">Preverjanje črkovanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="57"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="58"/>
         <source>No available Aspell dictionaries found. Install some, please.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="407"/>
+        <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="419"/>
         <source>Do you want start from the beginning of the selection with new language selected?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8823,147 +8948,147 @@ slovar</translation>
         <translation type="obsolete">Črtna koda</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="152"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="140"/>
         <source>&amp;Type:</source>
         <translation>&amp;Vrsta:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="145"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="133"/>
         <source>Select one of the available barcode type here</source>
         <translation>Izberite eno od razpoložljivih vrst črtne kode</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="125"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="113"/>
         <source>The numeric representation of the code itself. See the help message below</source>
         <translation>Številčni prikaz same kode. Glejte sporočilo pomoči spodaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="115"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="103"/>
         <source>Reset the barcode samples</source>
         <translation>Ponastavi vzorce črtne kode</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
         <source>&amp;Include text in barcode</source>
-        <translation>&amp;Vključi besedilo v črtno kodo</translation>
+        <translation type="obsolete">&amp;Vključi besedilo v črtno kodo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="81"/>
         <source>Alt+I</source>
         <translation>Alt +I</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="75"/>
         <source>If checked, there will be numbers in the barcode too</source>
         <translation>Če je izbrano, vključi številke v črtni kodi</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="77"/>
         <source>&amp;Guard whitespace</source>
-        <translation>&amp;Straži prazen prostor</translation>
+        <translation type="obsolete">&amp;Straži prazen prostor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="80"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="68"/>
         <source>Alt+G</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="74"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="62"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation>Riši puščice, da je prostor poleg kode zagotovljen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="168"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="156"/>
         <source>Colors</source>
         <translation>Barve</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="184"/>
         <source>&amp;Background</source>
         <translation>&amp;Ozadje</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="211"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="187"/>
         <source>Alt+B</source>
         <translation>Alt+B</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="181"/>
         <source>Background color - under the code lines</source>
         <translation>Barva ozadja - pod črtami kode</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="240"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="216"/>
         <source>&amp;Lines</source>
         <translation>&amp;Črte</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="243"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="219"/>
         <source>Alt+L</source>
         <translation>Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="213"/>
         <source>Color of the lines in barcode</source>
         <translation>Barva črt črtne kode</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="272"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="248"/>
         <source>&amp;Text</source>
         <translation>&amp;Besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="275"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="251"/>
         <source>Alt+T</source>
         <translation>Alt+T</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="269"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="245"/>
         <source>Color of the text and numbers</source>
         <translation>Barva besedila in številk</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="280"/>
         <source>Hints and help is shown here</source>
         <translation>Tu so prikazani nasveti in pomoč</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="314"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="290"/>
         <source>Preview of the result. 72dpi sample.</source>
         <translation>Predogled rezultata. 72dpi vzorec.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="132"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="120"/>
         <source>Co&amp;de:</source>
         <translation>Ko&amp;da:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="64"/>
         <source>I&amp;nclude checksum</source>
-        <translation>V&amp;ključi kontrolno vsoto</translation>
+        <translation type="obsolete">V&amp;ključi kontrolno vsoto</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="67"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="55"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="61"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="49"/>
         <source>Generate and include a checksum in barcode</source>
         <translation>Ustvari in vključi kontrolno vsoto v črtno kodo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="51"/>
         <source>Incl&amp;ude checksum digit</source>
-        <translation>&amp;Vključi številko kotnrolne vsote</translation>
+        <translation type="obsolete">&amp;Vključi številko kotnrolne vsote</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="54"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="42"/>
         <source>Alt+U</source>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="48"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="36"/>
         <source>Include the checksum digit in the barcode text</source>
         <translation>Vključi številko kontrolne vsote v besedilo črtne kode</translation>
     </message>
@@ -8976,6 +9101,26 @@ slovar</translation>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="24"/>
         <source>Format</source>
         <translation>Oblika</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="39"/>
+        <source>Incl&amp;ude Checksum Digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="52"/>
+        <source>I&amp;nclude Checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="65"/>
+        <source>&amp;Guard Whitespace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="78"/>
+        <source>&amp;Include Text in Barcode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9975,192 +10120,192 @@ Prosimo, da jo poimenujete</translation>
         <translation>Barvni krog</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="47"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="45"/>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
         <translation>S klikom na krog izberite čisto barvo. Njen barvni model je odvisen od izbranega zavihka.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="54"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="52"/>
         <source>Result Colors</source>
         <translation>Končne barve</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="311"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="322"/>
         <source>CMYK</source>
         <translation>CMYK (CMRK)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="532"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="543"/>
         <source>RGB</source>
         <translation>RGB (RZM)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="718"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="729"/>
         <source>HSV</source>
         <translation>HSV (ONV)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="108"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="106"/>
         <source>Colors of your chosen color scheme.</source>
         <translation>Barve izbrane barvne sheme.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="118"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="116"/>
         <source>Color Scheme Method</source>
         <translation>Metoda barvne sheme</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="144"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="142"/>
         <source>Angle:</source>
         <translation>Kot:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="154"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="152"/>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
         <translation>Razlika med izbrano vrednostjo in preštetimi vrednostmi. Za več informacij si preberite navodila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="169"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="167"/>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
         <translation>Izberite metodo pripravljanja barvne sheme. Za več informacij si preberite navodila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="203"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="201"/>
         <source>Merge created colors into the document colors</source>
         <translation>Združi pripravljene barve v barve dokumenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="206"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="204"/>
         <source>&amp;Merge</source>
         <translation>&amp;Spoji</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="209"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="207"/>
         <source>Alt+M</source>
         <translation>Alt+M</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="216"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="214"/>
         <source>Replace created colors in the document colors</source>
         <translation>Zamenjaj pripravljene barve v barve dokumenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="219"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="217"/>
         <source>&amp;Replace</source>
         <translation>&amp;Zamenjaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="222"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="220"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="229"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="227"/>
         <source>Leave colors untouched</source>
         <translation>Barve pusti nedotaknjene</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="232"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="230"/>
         <source>&amp;Cancel</source>
         <translation>Prekli&amp;či</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="235"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="233"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="244"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="242"/>
         <source>Preview:</source>
         <translation>Predogled:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="268"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="266"/>
         <source>Sample color scheme.</source>
         <translation>Vzorčna barvna shema.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="287"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="285"/>
         <source>Simulate common vision defects here. Select type of the defect.</source>
         <translation>Simuliranje pogostih okvar vida. Izberite vrsto okvare.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="294"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="292"/>
         <source>Vision Defect Type:</source>
         <translation>Vrsta okvare pogleda:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="331"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="342"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="431"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="442"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="361"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="372"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="391"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="402"/>
         <source>Y:</source>
         <translation>Y (R):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="421"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="432"/>
         <source>K:</source>
         <translation>K:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="827"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="838"/>
         <source>RGB:</source>
         <translation>RGB (RZM):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="674"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="685"/>
         <source>HSV:</source>
         <translation>HSV (ONV):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="560"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="571"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="587"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="598"/>
         <source>G:</source>
         <translation>G (Z):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="614"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="625"/>
         <source>B:</source>
         <translation>B (M):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="863"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="874"/>
         <source>CMYK:</source>
         <translation>CMYK:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="746"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="757"/>
         <source>H:</source>
         <translation>H (O):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="773"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="784"/>
         <source>S:</source>
         <translation>S (N):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="800"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="811"/>
         <source>V:</source>
         <translation>V:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="907"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="918"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -10168,43 +10313,61 @@ Prosimo, da jo poimenujete</translation>
 <context>
     <name>Canvas</name>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2252"/>
+        <location filename="../../scribus/canvas.cpp" line="2243"/>
         <source>X: %1
 Y: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2243"/>
+        <location filename="../../scribus/canvas.cpp" line="2228"/>
         <source>X: %1</source>
         <translation type="unfinished">X: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2245"/>
+        <location filename="../../scribus/canvas.cpp" line="2235"/>
         <source>Y: %1</source>
         <translation type="unfinished">Y: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2260"/>
+        <location filename="../../scribus/canvas.cpp" line="2251"/>
         <source>Length: %1
 Angle: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2262"/>
+        <location filename="../../scribus/canvas.cpp" line="2253"/>
         <source>Width: %1
 Height: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
+    <name>CanvasMode_EyeDropper</name>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="167"/>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation type="unfinished">Izbrana barva ni uvrščena v nabor barv dokumenta. Izberite ji ime.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="170"/>
+        <source>Color Not Found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="174"/>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation type="unfinished">Izbrano ime že obstaja. Izberite drugo ime za to barvo.</translation>
+    </message>
+</context>
+<context>
     <name>CanvasMode_Normal</name>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1822"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1320"/>
         <source>All Supported Formats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1852"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1351"/>
         <source>Open</source>
         <translation type="unfinished">Odpri</translation>
     </message>
@@ -10712,12 +10875,12 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation type="unfinished">&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/charselectenhanced.ui" line="181"/>
+        <location filename="../../scribus/charselectenhanced.ui" line="184"/>
         <source>Delete the current selection(s).</source>
         <translation type="unfinished">Izbriši trenutno izbiro.</translation>
     </message>
     <message>
-        <location filename="../../scribus/charselectenhanced.ui" line="184"/>
+        <location filename="../../scribus/charselectenhanced.ui" line="187"/>
         <source>C&amp;lear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10746,37 +10909,37 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
 <context>
     <name>CheckDocument</name>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="869"/>
+        <location filename="../../scribus/checkDocument.cpp" line="652"/>
         <source>Current Profile:</source>
         <translation>Trenutni profil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="865"/>
+        <location filename="../../scribus/checkDocument.cpp" line="647"/>
         <source>Items</source>
         <translation>Predmeti</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="866"/>
+        <location filename="../../scribus/checkDocument.cpp" line="648"/>
         <source>Problems</source>
         <translation>Težave</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="877"/>
+        <location filename="../../scribus/checkDocument.cpp" line="660"/>
         <source>Glyphs missing</source>
         <translation>Manjkajoči znaki</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="878"/>
+        <location filename="../../scribus/checkDocument.cpp" line="661"/>
         <source>Text overflow</source>
         <translation>Prelivanje besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="879"/>
+        <location filename="../../scribus/checkDocument.cpp" line="662"/>
         <source>Object is not on a Page</source>
         <translation>Predmet ni na strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="880"/>
+        <location filename="../../scribus/checkDocument.cpp" line="663"/>
         <source>Missing Image</source>
         <translation>Manjka slika</translation>
     </message>
@@ -10786,7 +10949,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation type="obsolete">Slika ima ločljivost manjšo od %1 DPI</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="884"/>
+        <location filename="../../scribus/checkDocument.cpp" line="667"/>
         <source>Object has transparency</source>
         <translation>Predmet je prosojen</translation>
     </message>
@@ -10796,114 +10959,146 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation type="obsolete">Predmet je PDF opomba ali polje</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="886"/>
+        <location filename="../../scribus/checkDocument.cpp" line="669"/>
         <source>Object is a placed PDF</source>
         <translation>Predmet je postavljeni PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="250"/>
+        <location filename="../../scribus/checkDocument.cpp" line="379"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="254"/>
+        <location filename="../../scribus/checkDocument.cpp" line="381"/>
         <source>No Problems found</source>
         <translation>Ni najdenih težav</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="656"/>
+        <location filename="../../scribus/checkDocument.cpp" line="548"/>
         <source>Page </source>
         <translation>Stran </translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="837"/>
+        <location filename="../../scribus/checkDocument.cpp" line="612"/>
         <source>Free Objects</source>
         <translation>Prosti predmeti</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="843"/>
         <source>Problems found</source>
-        <translation>Najdene težave</translation>
+        <translation type="obsolete">Najdene težave</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="863"/>
+        <location filename="../../scribus/checkDocument.cpp" line="645"/>
         <source>Preflight Verifier</source>
         <translation>Preveri pred letom</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="885"/>
+        <location filename="../../scribus/checkDocument.cpp" line="668"/>
         <source>Object is a PDF Annotation or Field</source>
         <translation>Predmet je opomba ali polje PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="870"/>
+        <location filename="../../scribus/checkDocument.cpp" line="653"/>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Prezri napake</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="255"/>
+        <location filename="../../scribus/checkDocument.cpp" line="382"/>
         <source>OK</source>
         <translation>V redu</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="276"/>
+        <location filename="../../scribus/checkDocument.cpp" line="412"/>
         <source>Transparency used</source>
         <translation>Uporabljena prosojnost</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="279"/>
+        <location filename="../../scribus/checkDocument.cpp" line="415"/>
         <source>Blendmode used</source>
         <translation>Uporabljen način spajanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="286"/>
+        <location filename="../../scribus/checkDocument.cpp" line="422"/>
         <source>Layer &quot;%1&quot;</source>
         <translation>Plast &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="871"/>
+        <location filename="../../scribus/checkDocument.cpp" line="654"/>
         <source>Check again</source>
         <translation>Preveri znova</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="882"/>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
-        <translation>Ločljivost slike je pod %1 DPI, trenutno je %2 x %3 DPI</translation>
+        <translation type="obsolete">Ločljivost slike je pod %1 DPI, trenutno je %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="883"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
-        <translation>Ločljivost slike presega %1 DPI, trenutno je %2 x %3 DPI</translation>
+        <translation type="obsolete">Ločljivost slike presega %1 DPI, trenutno je %2 x %3 DPI</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="887"/>
+        <location filename="../../scribus/checkDocument.cpp" line="670"/>
         <source>Image is GIF</source>
         <translation>Slika je vrste GIF</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="888"/>
+        <location filename="../../scribus/checkDocument.cpp" line="671"/>
         <source>Annotation uses a non TrueType font</source>
         <translation>Opomba uporablja pisavo, ki ni vrste TrueType</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="873"/>
+        <location filename="../../scribus/checkDocument.cpp" line="656"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
         <translation>Predletni profil kot osnova za izdelavo poročila. Možnosti lahko nastavite v nastavitvah dokumenta ali splošnih nastavitvah</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="874"/>
+        <location filename="../../scribus/checkDocument.cpp" line="657"/>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
         <translation>Prezri opažene napake in nadaljuj z izvozom ali tiskanjem. Preverite, da razumete napake, ki jih boste prezrli, preden nadaljujete.</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="875"/>
+        <location filename="../../scribus/checkDocument.cpp" line="658"/>
         <source>Rerun the document scan to check corrections you may have made</source>
         <translation>Ponovno zaženi pregled dokumenta za preverjanje popravkov, ki ste jih opravili</translation>
     </message>
     <message>
-        <location filename="../../scribus/checkDocument.cpp" line="881"/>
+        <location filename="../../scribus/checkDocument.cpp" line="664"/>
         <source>Empty Image Frame</source>
         <translation>Izprazni slikovni okvir</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/checkDocument.cpp" line="393"/>
+        <source>Layers</source>
+        <translation type="unfinished">Plasti</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/checkDocument.cpp" line="493"/>
+        <source>Issue(s): %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/checkDocument.cpp" line="435"/>
+        <source>Master Pages</source>
+        <translation type="unfinished">Glavne strani</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/checkDocument.cpp" line="648"/>
+        <source>Layer</source>
+        <translation type="unfinished">Plast</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/checkDocument.cpp" line="665"/>
+        <source>Image resolution below %1 DPI,
+currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/checkDocument.cpp" line="666"/>
+        <source>Image resolution above %1 DPI,
+currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13718,7 +13913,7 @@ patenti, blagovne znamke</translation>
 <context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="473"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="474"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -13727,12 +13922,12 @@ failed!</source>
 ni uspel!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="474"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="475"/>
         <source>Fatal Error</source>
         <translation>Usodna napaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="872"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="873"/>
         <source>Error</source>
         <translation>Napaka</translation>
     </message>
@@ -13742,27 +13937,27 @@ ni uspel!</translation>
         <translation type="obsolete">Uvažanje PostScripta</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="83"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="84"/>
         <source>Analyzing PostScript:</source>
         <translation>Preučevanje PostScripta:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="479"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="480"/>
         <source>Generating Items</source>
         <translation>Tvorba predmetov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="871"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="872"/>
         <source>Converting of %1 images failed!</source>
         <translation>Pretvorba %1 slik ni uspela!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="80"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="81"/>
         <source>Importing: %1</source>
         <translation>Uvažanje: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="738"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="739"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -15947,7 +16142,7 @@ Izberite primerne nadomestke zanje.</translation>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="275"/>
         <source>Refer To</source>
-        <translation>Nanašajoč se na</translation>
+        <translation type="obsolete">Nanašajoč se na</translation>
     </message>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="343"/>
@@ -16103,6 +16298,11 @@ Izberite primerne nadomestke zanje.</translation>
         <location filename="../../scribus/guidemanager.cpp" line="271"/>
         <source>Delete all guides from all pages</source>
         <translation>Izbriši vsa vodila na vseh straneh</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/guidemanager.ui" line="275"/>
+        <source>Refer to</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17689,32 +17889,32 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Bo zapolnjeno kasneje</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="330"/>
+        <location filename="../../scribus/latexeditor.cpp" line="336"/>
         <source>Status: </source>
         <translation>Stanje: </translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="334"/>
+        <location filename="../../scribus/latexeditor.cpp" line="340"/>
         <source>Error</source>
         <translation>Napaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="336"/>
+        <location filename="../../scribus/latexeditor.cpp" line="342"/>
         <source>Finished</source>
         <translation>Dokončano</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="339"/>
+        <location filename="../../scribus/latexeditor.cpp" line="345"/>
         <source>Running</source>
         <translation>Poteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="518"/>
+        <location filename="../../scribus/latexeditor.cpp" line="524"/>
         <source>No item selected!</source>
         <translation>Nič ni izbrano!</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="520"/>
+        <location filename="../../scribus/latexeditor.cpp" line="526"/>
         <source>Insert symbol</source>
         <translation>Vstavi simbol</translation>
     </message>
@@ -17772,14 +17972,14 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../../scribus/layers.cpp" line="290"/>
+        <location filename="../../scribus/layers.cpp" line="598"/>
         <source>Delete Layer</source>
         <translation>Izbriši plast</translation>
     </message>
     <message>
-        <location filename="" line="7471221"/>
+        <location filename="../../scribus/layers.cpp" line="600"/>
         <source>Lower Layer</source>
-        <translation type="obsolete">Spusti plast</translation>
+        <translation type="unfinished">Spusti plast</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="567"/>
@@ -17787,9 +17987,9 @@ p, li { white-space: pre-wrap; }
         <translation>Plasti</translation>
     </message>
     <message>
-        <location filename="" line="7471221"/>
+        <location filename="../../scribus/layers.cpp" line="599"/>
         <source>Raise Layer</source>
-        <translation type="obsolete">Dvigni plast</translation>
+        <translation type="unfinished">Dvigni plast</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -17819,22 +18019,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="596"/>
         <source>Add a new layer</source>
-        <translation>Dodaj novo plast</translation>
+        <translation type="obsolete">Dodaj novo plast</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="598"/>
         <source>Delete layer</source>
-        <translation>Izbriši plast</translation>
+        <translation type="obsolete">Izbriši plast</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="599"/>
         <source>Raise layer</source>
-        <translation>Dvigni plast</translation>
+        <translation type="obsolete">Dvigni plast</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="600"/>
         <source>Lower layer</source>
-        <translation>Spusti plast</translation>
+        <translation type="obsolete">Spusti plast</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="586"/>
@@ -17934,7 +18134,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="597"/>
         <source>Duplicates the current layer</source>
-        <translation>Podvoji trenutno plast</translation>
+        <translation type="obsolete">Podvoji trenutno plast</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="603"/>
@@ -17969,7 +18169,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="609"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
-        <translation>Ime plasti - Z dvoklikom na ime plasti omogoča urejanje</translation>
+        <translation type="obsolete">Ime plasti - Z dvoklikom na ime plasti omogoča urejanje</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="601"/>
@@ -17981,6 +18181,21 @@ p, li { white-space: pre-wrap; }
         <source>Layer Transparency, works only in PDF 1.4 and SVG</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../../scribus/layers.cpp" line="596"/>
+        <source>Add a New Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/layers.cpp" line="597"/>
+        <source>Duplicate the Current Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/layers.cpp" line="609"/>
+        <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LegacyMode</name>
@@ -17990,12 +18205,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_legacy.cpp" line="5023"/>
+        <location filename="../../scribus/canvasmode_legacy.cpp" line="5003"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_legacy.cpp" line="4993"/>
+        <location filename="../../scribus/canvasmode_legacy.cpp" line="4973"/>
         <source>All Supported Formats</source>
         <translation>Vse podprte vrste datotek</translation>
     </message>
@@ -18827,7 +19042,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../../scribus/masterpagepalette.cpp" line="116"/>
         <source>Do you really want to delete this master page?</source>
-        <translation>Resnično želite izbrisati to glavno stran?</translation>
+        <translation type="obsolete">Resnično želite izbrisati to glavno stran?</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -18840,12 +19055,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">&amp;Da</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="143"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="173"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="143"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="173"/>
         <source>New Master Page</source>
         <translation>Nova glavna stran</translation>
     </message>
@@ -18855,17 +19070,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Kopija %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="258"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="288"/>
         <source>Name:</source>
         <translation>Ime:</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="258"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="288"/>
         <source>New MasterPage</source>
         <translation>Nova glavna stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="325"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="355"/>
         <source>Copy #%1 of </source>
         <translation>Kopija #%1 od </translation>
     </message>
@@ -18875,58 +19090,63 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Navadno</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="79"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="94"/>
         <source>Duplicate the selected master page</source>
         <translation>Podvoji izbrano glavno stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="80"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="95"/>
         <source>Delete the selected master page</source>
         <translation>Izbriši izbrano glavno stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="81"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="96"/>
         <source>Add a new master page</source>
         <translation>Dodaj novo glavno stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="82"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="97"/>
         <source>Import master pages from another document</source>
         <translation>Uvozi glavne strani iz drugega dokumenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="258"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="288"/>
         <source>New Master Page %1</source>
         <translation>Nova glavna stran %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="415"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="445"/>
         <source>Unable to Rename Master Page</source>
         <translation>Glavne strani ni mogoče preimenovati</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="415"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="445"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>Navadne strani ni mogoče preimenovati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="419"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="449"/>
         <source>Rename Master Page</source>
         <translation>Preimenuj glavno stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="419"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="449"/>
         <source>New Name:</source>
         <translation>Novo ime:</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="141"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="171"/>
         <source>Copy #%1 of %2</source>
         <translation>Kopija št. %1/%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="112"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="135"/>
         <source>This master page is used at least once in the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/masterpagepalette.cpp" line="139"/>
+        <source>Do you really want to delete master page &quot;%1&quot;?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19496,7 +19716,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/movepage.cpp" line="58"/>
         <source>Number of copies:</source>
-        <translation>Število kopij:</translation>
+        <translation type="obsolete">Število kopij:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/movepage.cpp" line="58"/>
+        <source>Number of Copies:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19968,7 +20193,7 @@ Prosim izberite drugo.</translation>
         <translation type="obsolete">Točk (pts)</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="140"/>
+        <location filename="../../scribus/newfile.cpp" line="143"/>
         <source>Document page size, either a standard size or a custom size</source>
         <translation>Velikost strani dokumenta; lahko je običajna ali po meri</translation>
     </message>
@@ -19990,12 +20215,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Razdalja med spodnjim robom strani in spodnjim mejnim vodilom</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="143"/>
+        <location filename="../../scribus/newfile.cpp" line="146"/>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Dolžina strani v dokumentu; nastavljivo, če ste izbrali posebno velikost</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="141"/>
+        <location filename="../../scribus/newfile.cpp" line="144"/>
         <source>Orientation of the document&apos;s pages</source>
         <translation>Usmerjenost strani dokumenta</translation>
     </message>
@@ -20005,7 +20230,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Po meri</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="231"/>
+        <location filename="../../scribus/newfile.cpp" line="237"/>
         <source>Landscape</source>
         <translation>Ležeče</translation>
     </message>
@@ -20017,22 +20242,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 Če ste izbrali nasproti postavljene strani, bo ta prostor uporabljen za pravilno zlaganje</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="278"/>
+        <location filename="../../scribus/newfile.cpp" line="284"/>
         <source>Options</source>
         <translation>Možnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="230"/>
+        <location filename="../../scribus/newfile.cpp" line="236"/>
         <source>Portrait</source>
         <translation>Pokončno</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="148"/>
+        <location filename="../../scribus/newfile.cpp" line="151"/>
         <source>Distance between automatically created columns</source>
         <translation>Razdalja med samodejno ustvarjenimi stolpci</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="259"/>
+        <location filename="../../scribus/newfile.cpp" line="265"/>
         <source>Margin Guides</source>
         <translation>Vodila robov</translation>
     </message>
@@ -20047,12 +20272,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Pik</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="142"/>
+        <location filename="../../scribus/newfile.cpp" line="145"/>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Širina strani v dokumentu; nastavljivo, če ste izbrali velikost po meri</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="146"/>
+        <location filename="../../scribus/newfile.cpp" line="149"/>
         <source>Create text frames automatically when new pages are added</source>
         <translation>Ob dodajanju strani samodejno ustvari besedilne okvire</translation>
     </message>
@@ -20067,7 +20292,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Omogoči enojno ali mnogotero postavitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="147"/>
+        <location filename="../../scribus/newfile.cpp" line="150"/>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Število stolpcev v samodejno ustvarjenih besedilnih okvirih</translation>
     </message>
@@ -20082,7 +20307,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Številka prve strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="145"/>
+        <location filename="../../scribus/newfile.cpp" line="148"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Privzeta merska enota za urejanje dokumenta</translation>
     </message>
@@ -20117,22 +20342,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Tabloidna</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="218"/>
+        <location filename="../../scribus/newfile.cpp" line="224"/>
         <source>&amp;Size:</source>
         <translation>&amp;Velikost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="227"/>
+        <location filename="../../scribus/newfile.cpp" line="233"/>
         <source>Orie&amp;ntation:</source>
         <translation>&amp;Usmerjenost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="237"/>
+        <location filename="../../scribus/newfile.cpp" line="243"/>
         <source>&amp;Width:</source>
         <translation>&amp;Širina:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="243"/>
+        <location filename="../../scribus/newfile.cpp" line="249"/>
         <source>&amp;Height:</source>
         <translation>&amp;Višina:</translation>
     </message>
@@ -20172,22 +20397,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Številka &amp;prve strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="291"/>
+        <location filename="../../scribus/newfile.cpp" line="297"/>
         <source>&amp;Default Unit:</source>
         <translation>&amp;Privzeta merska enota:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="301"/>
+        <location filename="../../scribus/newfile.cpp" line="307"/>
         <source>&amp;Automatic Text Frames</source>
         <translation>&amp;Samodejni besedilni okviri</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="311"/>
+        <location filename="../../scribus/newfile.cpp" line="317"/>
         <source>&amp;Gap:</source>
         <translation>&amp;Razdalja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="303"/>
+        <location filename="../../scribus/newfile.cpp" line="309"/>
         <source>Colu&amp;mns:</source>
         <translation>&amp;Stolpci:</translation>
     </message>
@@ -20237,17 +20462,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Nedavni dokumenti</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="126"/>
+        <location filename="../../scribus/newfile.cpp" line="129"/>
         <source>Do not show this dialog again</source>
         <translation>Tega okna ne kaži več</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="144"/>
+        <location filename="../../scribus/newfile.cpp" line="147"/>
         <source>Initial number of pages of the document</source>
         <translation>Začetno število strani dokumenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="285"/>
+        <location filename="../../scribus/newfile.cpp" line="291"/>
         <source>N&amp;umber of Pages:</source>
         <translation>Š&amp;tevilo strani:</translation>
     </message>
@@ -20282,7 +20507,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="356"/>
+        <location filename="../../scribus/newfile.cpp" line="370"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
@@ -20292,29 +20517,34 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Nov dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="112"/>
+        <location filename="../../scribus/newfile.cpp" line="115"/>
         <source>Open &amp;Existing Document</source>
         <translation>Odpri &amp;obstoječi dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="115"/>
+        <location filename="../../scribus/newfile.cpp" line="118"/>
         <source>Open Recent &amp;Document</source>
         <translation>Odpri nedavni &amp;dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="175"/>
+        <location filename="../../scribus/newfile.cpp" line="181"/>
         <source>Document Layout</source>
         <translation>Postavitev dokumenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="250"/>
+        <location filename="../../scribus/newfile.cpp" line="256"/>
         <source>First Page is:</source>
         <translation>Prva stran:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="323"/>
+        <location filename="../../scribus/newfile.cpp" line="329"/>
         <source>Show Document Settings After Creation</source>
         <translation>Pokaži nastavitve dokumenta po izdelavi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/newfile.cpp" line="113"/>
+        <source>New &amp;from Template</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20361,7 +20591,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="898"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="897"/>
         <source>Nodes</source>
         <translation>Vozlišča</translation>
     </message>
@@ -20373,117 +20603,117 @@ otherwise Coordinates are relative to the Object.</source>
 sicer glede na predmet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="918"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="917"/>
         <source>Reset this Control Point</source>
         <translation>Ponastavi to nadzorno točko</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="914"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="913"/>
         <source>Delete Nodes</source>
         <translation>Izbriši vozlišča</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="913"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="912"/>
         <source>Add Nodes</source>
         <translation>Dodaj vozlišča</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="911"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="910"/>
         <source>Move Nodes</source>
         <translation>Premakni vozlišča</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="912"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="911"/>
         <source>Move Control Points</source>
         <translation>Premakni nadzorne točke</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="917"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="916"/>
         <source>Reset Control Points</source>
         <translation>Ponastavi nadzorne točke</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="901"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="900"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Absolutne koordinate</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="904"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="903"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="905"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="904"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="906"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="905"/>
         <source>Edit &amp;Contour Line</source>
         <translation>&amp;Uredi obrobo</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="907"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="906"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Ponastavi obrobo</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="910"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="909"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Končaj urejanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="915"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="914"/>
         <source>Move Control Points Independently</source>
         <translation>Nadzorne točke premikaj neodvisno</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="916"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="915"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Nadzorne točke premikaj simetrično</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="919"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="918"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Odpri mnogokotnik ali odreži krivuljo bezier</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="920"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="919"/>
         <source>Close this Bezier Curve</source>
         <translation>Zapri to krivuljo bezier</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="921"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="920"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Vodoravno prezrcali pot</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="922"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="921"/>
         <source>Mirror the Path Vertically</source>
         <translation>Navpično prezrcali pot</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="924"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="923"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Pot razreži vodoravno proti levi</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="925"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="924"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Pot razreži navpično navzgor</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="926"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="925"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Pot razreži navpično navzdol</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="927"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="926"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Pot zasukaj v nasprotni smeri urinih kazalcev</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="928"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="927"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Pot zasukaj v smeri urinih kazalcev</translation>
     </message>
@@ -20493,12 +20723,12 @@ sicer glede na predmet.</translation>
         <translation type="obsolete">Zmanjšaj velikost poti za prikazanih %</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="930"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="929"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Povečaj velikost poti za prikazanih %</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="933"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="932"/>
         <source>Angle of Rotation</source>
         <translation>Kot sukanja</translation>
     </message>
@@ -20508,57 +20738,57 @@ sicer glede na predmet.</translation>
         <translation type="obsolete">Povečaj ali zmanjšaj za %</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="936"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="935"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Vključi način za urejanje obrob</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="937"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="936"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Ponastavi obrobo na osnovno obliko okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="923"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="922"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Pot razreži vodoravno proti desni</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="899"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="898"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="940"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="939"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Če je vključeno, so koordinate relativne glede na stran, sicer glede na predmet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="929"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="928"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Zmanjšaj velikost poti za prikazanih %</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="931"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="930"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Zmanjšaj velikost poti za prikazano vrednost</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="932"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="931"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Povečaj velikost poti za prikazano vrednost</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="934"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="933"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>Odstotek povečave ali pomanjšave</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="935"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="934"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Vrednost, za katero naj se poveča ali pomanjša</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="908"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="907"/>
         <source>Set Contour to Image Clip</source>
         <translation>Nastavi obrobo na porezavo slike</translation>
     </message>
@@ -20573,27 +20803,27 @@ sicer glede na predmet.</translation>
         <translation type="obsolete">Uporabi posebne učinke leč</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="938"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="937"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Ponastavi obrobo na pot porezave slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="902"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="901"/>
         <source>to Canvas</source>
         <translation>na platno</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="903"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="902"/>
         <source>to Page</source>
         <translation>na stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="909"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="908"/>
         <source>Set Shape to Image Clip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/nodeeditpalette.cpp" line="939"/>
+        <location filename="../../scribus/nodeeditpalette.cpp" line="938"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20943,28 +21173,28 @@ sicer glede na predmet.</translation>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7702"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7827"/>
         <source>Failed to load an image : %1</source>
         <translation>Slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7707"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7832"/>
         <source>Failed to write an image : %1</source>
         <translation>Slike ni mogoče zapisati: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7712"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7837"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Maske slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7717"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="7842"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Za obdelavo slike primanjkuje pomnilnika</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="7697"/>
-        <source>A write error occured, please check available disk space</source>
+        <location filename="../../scribus/pdflib_core.cpp" line="7822"/>
+        <source>A write error occurred, please check available disk space</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21899,32 +22129,32 @@ sistemih.</translation>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../../scribus/preview.cpp" line="619"/>
+        <location filename="../../scribus/preview.cpp" line="691"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="81"/>
+        <location filename="../../scribus/preview.cpp" line="82"/>
         <source>Print Preview</source>
         <translation>Predogled tiskanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="351"/>
+        <location filename="../../scribus/preview.cpp" line="381"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>Vključi/izključi barvno ploščo M (magentna)</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="353"/>
+        <location filename="../../scribus/preview.cpp" line="383"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Vključi/izključi barvno ploščo K (črna)</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="350"/>
+        <location filename="../../scribus/preview.cpp" line="380"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>Vključi/izključi barvno ploščo C (cijanska)</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="326"/>
+        <location filename="../../scribus/preview.cpp" line="356"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Prikaže prosojnost in prosojne predmete v dokumentu. To zahteva vsaj Ghostscript 7.07 ali novejšega</translation>
     </message>
@@ -21936,12 +22166,12 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 na račun malce počasnejšega izrisovanja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="327"/>
+        <location filename="../../scribus/preview.cpp" line="357"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Prikaže predogled tiskanja s simulacijo splošnih barvil CMYK namesto barv RGB</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="352"/>
+        <location filename="../../scribus/preview.cpp" line="382"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>Vključi/izključi barvno ploščo Y (rumena)</translation>
     </message>
@@ -21963,37 +22193,37 @@ izrisovanja. Vpliva samo na pisave vrste Type 1</translation>
         <translation type="obsolete">Mehčaj &amp;slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="133"/>
+        <location filename="../../scribus/preview.cpp" line="134"/>
         <source>Display Trans&amp;parency</source>
         <translation>Prikaži &amp;prosojnost</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="138"/>
+        <location filename="../../scribus/preview.cpp" line="139"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Prikaži CMYK</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="206"/>
+        <location filename="../../scribus/preview.cpp" line="236"/>
         <source>&amp;C</source>
         <translation>&amp;C</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="211"/>
+        <location filename="../../scribus/preview.cpp" line="241"/>
         <source>&amp;M</source>
         <translation>&amp;M</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="216"/>
+        <location filename="../../scribus/preview.cpp" line="246"/>
         <source>&amp;Y</source>
         <translation>&amp;Y (R)</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="221"/>
+        <location filename="../../scribus/preview.cpp" line="251"/>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="248"/>
+        <location filename="../../scribus/preview.cpp" line="278"/>
         <source>&amp;Under Color Removal</source>
         <translation>&amp;Odstranjevanje barve pod</translation>
     </message>
@@ -22057,37 +22287,37 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Zanemari</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="150"/>
+        <location filename="../../scribus/preview.cpp" line="152"/>
         <source>Separation Name</source>
         <translation>Ime separacije</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="162"/>
+        <location filename="../../scribus/preview.cpp" line="164"/>
         <source>Cyan</source>
         <translation>Cijanska</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="169"/>
+        <location filename="../../scribus/preview.cpp" line="171"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="176"/>
+        <location filename="../../scribus/preview.cpp" line="178"/>
         <source>Yellow</source>
         <translation>Rumena</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="183"/>
+        <location filename="../../scribus/preview.cpp" line="185"/>
         <source>Black</source>
         <translation>Črna</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="269"/>
+        <location filename="../../scribus/preview.cpp" line="299"/>
         <source>Scaling:</source>
         <translation>Sprememba merila:</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="297"/>
+        <location filename="../../scribus/preview.cpp" line="327"/>
         <source>Print...</source>
         <translation>Natisni ...</translation>
     </message>
@@ -22102,27 +22332,27 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Vključi lepši izgled TruType pisav, OpenType pisav, EPS, PDF in vektorskih grafik, na račun malce počasnejšega izrisovanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="328"/>
+        <location filename="../../scribus/preview.cpp" line="358"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Metoda nadomeščanja odtenkov sivine, ki nastanejo kot mešanica cijanske, magente in rumene, s črno. To najbolj vpliva na nevtralne dele slike, ki so blizu sivi. S tem se lahko izboljša rezultat tiskanja, priporočamo pa preverjanje vsakega primera posebej. To tudi zmanjpa možnost prevelike nasičenosti črnil CMY.</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="329"/>
+        <location filename="../../scribus/preview.cpp" line="359"/>
         <source>Resize the scale of the page.</source>
         <translation>Spremeni merilo strani.</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="294"/>
+        <location filename="../../scribus/preview.cpp" line="324"/>
         <source>Close</source>
         <translation>Zapri</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="1106"/>
+        <location filename="../../scribus/preview.cpp" line="1256"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="128"/>
+        <location filename="../../scribus/preview.cpp" line="129"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Omogoči &amp;glajenje robov</translation>
     </message>
@@ -22132,22 +22362,22 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Ponuja prijaznejši ogled pisav Type 1, TrueType, OpenType, dokumentov EPS, PDF ter vektorske grafike v predogledu, pri čemer je predogled malce počasnejši</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="122"/>
+        <location filename="../../scribus/preview.cpp" line="123"/>
         <source>Display Settings</source>
         <translation>Nastavitve prikazovanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="230"/>
+        <location filename="../../scribus/preview.cpp" line="260"/>
         <source>Print Settings</source>
         <translation>Nastavitve tiskanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="236"/>
+        <location filename="../../scribus/preview.cpp" line="266"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="239"/>
+        <location filename="../../scribus/preview.cpp" line="269"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
@@ -22157,7 +22387,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Poreži do robov strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="245"/>
+        <location filename="../../scribus/preview.cpp" line="275"/>
         <source>Print in Grayscale</source>
         <translation>Natisni sivinsko</translation>
     </message>
@@ -22167,37 +22397,37 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Vsili pretisk</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="251"/>
+        <location filename="../../scribus/preview.cpp" line="281"/>
         <source>Convert Spot Colors</source>
         <translation>Pretvori čiste barve</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="254"/>
+        <location filename="../../scribus/preview.cpp" line="284"/>
         <source>Apply Color Profiles</source>
         <translation>Uporabi barvne profile</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="281"/>
+        <location filename="../../scribus/preview.cpp" line="311"/>
         <source>Fit to Width</source>
         <translation>Umeri na širino</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="282"/>
+        <location filename="../../scribus/preview.cpp" line="312"/>
         <source>Fit to Height</source>
         <translation>Umeri na višino</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="283"/>
+        <location filename="../../scribus/preview.cpp" line="313"/>
         <source>Fit to Page</source>
         <translation>Umeri na stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="325"/>
+        <location filename="../../scribus/preview.cpp" line="355"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Ponuja prijaznejši ogled pisav Type 1, TrueType, OpenType, dokumentov EPS, PDF ter vektorske grafike v predogledu, pri čemer je predogled malce počasnejši</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="330"/>
+        <location filename="../../scribus/preview.cpp" line="360"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Omogoči, da se čiste barve pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv v tiskarni, potem je verjetno najbolje, da to nastavitev pustite vključeno.</translation>
     </message>
@@ -22207,14 +22437,34 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="331"/>
+        <location filename="../../scribus/preview.cpp" line="361"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
     </message>
     <message>
-        <location filename="../../scribus/preview.cpp" line="242"/>
+        <location filename="../../scribus/preview.cpp" line="272"/>
         <source>Clip to Printer Margins</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/preview.cpp" line="206"/>
+        <source>Display Ink Coverage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/preview.cpp" line="214"/>
+        <source>Threshold:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/preview.cpp" line="217"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/preview.cpp" line="221"/>
+        <source>None</source>
+        <translation type="unfinished">Brez</translation>
     </message>
 </context>
 <context>
@@ -22230,32 +22480,32 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Izvažanje strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1793"/>
+        <location filename="../../scribus/pslib.cpp" line="1838"/>
         <source>Processing Master Page:</source>
         <translation>Obdelovanje glavne strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1793"/>
+        <location filename="../../scribus/pslib.cpp" line="1838"/>
         <source>Exporting Page:</source>
         <translation>Izvažanje strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1726"/>
+        <location filename="../../scribus/pslib.cpp" line="1771"/>
         <source>Failed to write data for an image</source>
         <translation>Pisanje podatkov slike ni uspelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1731"/>
+        <location filename="../../scribus/pslib.cpp" line="1776"/>
         <source>Failed to load an image : %1</source>
         <translation>Slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1736"/>
+        <location filename="../../scribus/pslib.cpp" line="1781"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Maske slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1741"/>
+        <location filename="../../scribus/pslib.cpp" line="1786"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Za obdelavo slike primanjkuje pomnilnika</translation>
     </message>
@@ -22656,7 +22906,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation>Besedilo po poti</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="3612"/>
+        <location filename="../../scribus/pageitem.cpp" line="3669"/>
         <source>Copy of</source>
         <translation>Kopija</translation>
     </message>
@@ -22878,30 +23128,30 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="394"/>
         <source>Preview Settings</source>
-        <translation>Nastavitve predogleda</translation>
+        <translation type="obsolete">Nastavitve predogleda</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="463"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="464"/>
         <source>Image</source>
         <translation>Slika</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="469"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="470"/>
         <source>Embedded Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="498"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="499"/>
         <source>File:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="472"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="473"/>
         <source>Original PPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="473"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="474"/>
         <source>Actual PPI:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22911,37 +23161,37 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="unfinished">Velikost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="474"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="475"/>
         <source>Colorspace:</source>
         <translation type="unfinished">Barvni prostor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="478"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="479"/>
         <source>Unknown</source>
         <translation type="unfinished">Neznano</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="485"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="486"/>
         <source>Page:</source>
         <translation type="unfinished">Stran:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="487"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="488"/>
         <source>Pages:</source>
         <translation type="unfinished">Strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="496"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="497"/>
         <source>Embedded Image missing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="498"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="499"/>
         <source>missing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="501"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="502"/>
         <source>No Image Loaded</source>
         <translation type="unfinished">Naložena ni nobena slika</translation>
     </message>
@@ -22975,7 +23225,7 @@ se spremeni v
 </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_latexframe.cpp" line="564"/>
+        <location filename="../../scribus/pageitem_latexframe.cpp" line="565"/>
         <source>Error</source>
         <translation>Napaka</translation>
     </message>
@@ -23055,7 +23305,7 @@ se spremeni v
         <translation type="obsolete">V redu</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_latexframe.cpp" line="569"/>
+        <location filename="../../scribus/pageitem_latexframe.cpp" line="570"/>
         <source>Running</source>
         <translation>Poteka</translation>
     </message>
@@ -23075,22 +23325,22 @@ se spremeni v
         <translation>Program &quot;%1&quot; se je sesul!</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_latexframe.cpp" line="558"/>
+        <location filename="../../scribus/pageitem_latexframe.cpp" line="559"/>
         <source>Application</source>
         <translation>Program</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_latexframe.cpp" line="559"/>
+        <location filename="../../scribus/pageitem_latexframe.cpp" line="560"/>
         <source>DPI</source>
         <translation>DPI</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_latexframe.cpp" line="561"/>
+        <location filename="../../scribus/pageitem_latexframe.cpp" line="562"/>
         <source>State</source>
         <translation>Stanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_latexframe.cpp" line="566"/>
+        <location filename="../../scribus/pageitem_latexframe.cpp" line="567"/>
         <source>Finished</source>
         <translation>Dokončano</translation>
     </message>
@@ -23105,7 +23355,7 @@ se spremeni v
         <translation>Konfiguracijska datoteka ne navaja poti programa!</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_latexframe.cpp" line="557"/>
+        <location filename="../../scribus/pageitem_latexframe.cpp" line="558"/>
         <source>Render Frame</source>
         <translation>Upodobi okvir</translation>
     </message>
@@ -23156,32 +23406,32 @@ se spremeni v
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3422"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3417"/>
         <source>Linked Text</source>
         <translation>Povezano besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3424"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3419"/>
         <source>Text Frame</source>
         <translation>Besedilni okvir</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3428"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3423"/>
         <source>Paragraphs: </source>
         <translation>Odstavki: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3436"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3431"/>
         <source>Lines: </source>
         <translation>Vrstice: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3442"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3437"/>
         <source>Words: </source>
         <translation>Besede: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3450"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3445"/>
         <source>Chars: </source>
         <translation>Znaki: </translation>
     </message>
@@ -23303,12 +23553,43 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <location filename="../../scribus/pageselector.cpp" line="266"/>
         <source>%1 of %2</source>
-        <translation>%1 od %2</translation>
+        <translation type="obsolete">%1 od %2</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
         <source>%1 of %1</source>
         <translation type="obsolete">%1 od %1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/pageselector.cpp" line="269"/>
+        <source>Go to the first page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/pageselector.cpp" line="270"/>
+        <source>Go to the previous page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/pageselector.cpp" line="271"/>
+        <source>Go to the next page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/pageselector.cpp" line="272"/>
+        <source>Go to the last page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/pageselector.cpp" line="273"/>
+        <source>Select the current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/pageselector.cpp" line="274"/>
+        <source> of %1</source>
+        <comment>number of pages in document</comment>
+        <translation type="unfinished"> od %1</translation>
     </message>
 </context>
 <context>
@@ -23463,11 +23744,6 @@ Often used for allowing items to be placed across page spreads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="19"/>
-        <source>Connect first Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="48"/>
         <source>Starting Point</source>
         <translation type="unfinished"></translation>
@@ -23478,14 +23754,9 @@ Often used for allowing items to be placed across page spreads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="40"/>
-        <source>with second Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
         <source>with:</source>
-        <translation type="unfinished">z:</translation>
+        <translation type="obsolete">z:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="69"/>
@@ -23501,6 +23772,21 @@ Often used for allowing items to be placed across page spreads</source>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="82"/>
         <source>Preview on Canvas</source>
         <translation type="unfinished">Predogled na platnu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="19"/>
+        <source>Connect First Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="40"/>
+        <source>with Second Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
+        <source>by using:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23778,11 +24064,6 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="418"/>
-        <source>Result takes color from:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="424"/>
         <source>The resulting shape uses the color of the first source shape</source>
         <translation type="unfinished"></translation>
@@ -23816,6 +24097,11 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="498"/>
         <source>Fill Color</source>
         <translation type="unfinished">Barva polnila</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="418"/>
+        <source>Result Takes Color from:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26506,7 +26792,7 @@ instance of gimp.</source>
         <translation type="obsolete">Prekli&amp;či</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsdialogbase.cpp" line="191"/>
+        <location filename="../../scribus/prefsdialogbase.cpp" line="192"/>
         <source>&amp;Defaults</source>
         <translation>&amp;Privzeto</translation>
     </message>
@@ -26516,32 +26802,32 @@ instance of gimp.</source>
         <translation type="obsolete">Shrani ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsdialogbase.cpp" line="200"/>
+        <location filename="../../scribus/prefsdialogbase.cpp" line="201"/>
         <source>Save Preferences</source>
         <translation>Shrani nastavitve</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsdialogbase.cpp" line="190"/>
+        <location filename="../../scribus/prefsdialogbase.cpp" line="191"/>
         <source>Export...</source>
         <translation>Izvozi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsdialogbase.cpp" line="192"/>
+        <location filename="../../scribus/prefsdialogbase.cpp" line="193"/>
         <source>&amp;Apply</source>
         <translation>&amp;Uveljavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsdialogbase.cpp" line="193"/>
+        <location filename="../../scribus/prefsdialogbase.cpp" line="194"/>
         <source>All preferences can be reset here</source>
         <translation>Tukaj lahko ponastavite vse nastavitve</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsdialogbase.cpp" line="194"/>
+        <location filename="../../scribus/prefsdialogbase.cpp" line="195"/>
         <source>Apply all changes without closing the dialog</source>
         <translation>Uveljavi vse spremembe brez zapiranja pogovornega okna</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsdialogbase.cpp" line="195"/>
+        <location filename="../../scribus/prefsdialogbase.cpp" line="196"/>
         <source>Export current preferences into file</source>
         <translation>Izvozi trenutne nastavitve v datoteko</translation>
     </message>
@@ -26594,44 +26880,44 @@ instance of gimp.</source>
         <translation type="obsolete">Srednja desna</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2055"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2062"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="809"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="814"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Želite prenesti stare nastavitve Scribusa?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="811"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="816"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus je zaznal datoteke nastavitev različice 1.2.
 Ali jih želite uporabiti z novo različico?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2055"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2062"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1684"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1691"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Datoteke z nastavitvami &quot;%1&quot; ni mogoče odpreti za pisanje: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1696"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1703"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Neuspešno pisanje v datoteko nastavitev &quot;%1&quot;: QIODevice koda stanja %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1710"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1717"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Neuspešno odpiranje datoteke nastavitev &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1720"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1727"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Neuspešno branje nastavitev XML iz &quot;%1&quot;: %2 v vrstici %3, znak %4</translation>
     </message>
@@ -26651,28 +26937,28 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2393"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2402"/>
         <source>Error Writing Preferences</source>
         <translation>Napaka pri zapisovanju nastavitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2399"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2408"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus ni uspel shraniti svojih nastavitev: &lt;br&gt;%1&lt;br&gt;Preverite dovoljenja datoteke in mape ter razpoložljiv prostor na disku.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2412"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2421"/>
         <source>Error Loading Preferences</source>
         <translation>Napaka pri nalaganju nastavitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2417"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2426"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus ni uspel naložiti svojih nastavitev: &lt;br&gt;%1&lt;br&gt;Naložene bodo privzete vrednosti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2125"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2134"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26744,22 +27030,22 @@ Ali jih želite uporabiti z novo različico?</translation>
 <context>
     <name>PrintDialog</name>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="507"/>
+        <location filename="../../scribus/printdialog.cpp" line="509"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="506"/>
+        <location filename="../../scribus/printdialog.cpp" line="508"/>
         <source>Cyan</source>
         <translation>Cijanska</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="563"/>
+        <location filename="../../scribus/printdialog.cpp" line="565"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="505"/>
+        <location filename="../../scribus/printdialog.cpp" line="507"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
@@ -26769,7 +27055,7 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="504"/>
+        <location filename="../../scribus/printdialog.cpp" line="506"/>
         <source>Yellow</source>
         <translation>Rumena</translation>
     </message>
@@ -26789,7 +27075,7 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">Nastavi tiskalnik</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="503"/>
+        <location filename="../../scribus/printdialog.cpp" line="505"/>
         <source>Black</source>
         <translation>Črna</translation>
     </message>
@@ -26843,7 +27129,7 @@ več strani ali samo številka ene strani.</translation>
         <translation type="obsolete">Natisni &amp;vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="373"/>
+        <location filename="../../scribus/printdialog.cpp" line="375"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Natisni &amp;trenutno stran</translation>
     </message>
@@ -26900,7 +27186,7 @@ to utilize additional printing options</source>
 gtklp, za dodatne možnosti tiskanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="334"/>
+        <location filename="../../scribus/printdialog.cpp" line="336"/>
         <source>Print Normal</source>
         <translation>Tiskaj navadno</translation>
     </message>
@@ -27007,7 +27293,7 @@ narediti nekaj preiskusov.
 POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="359"/>
+        <location filename="../../scribus/printdialog.cpp" line="361"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Datoteke PostScript (*.ps);; Vse datoteke (*)</translation>
     </message>
@@ -27047,7 +27333,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Ne kaži predmet, ki so zunaj robov</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="309"/>
+        <location filename="../../scribus/printdialog.cpp" line="311"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Nastavitev tiskalnika ni mogoče pridobiti</translation>
     </message>
@@ -27207,7 +27493,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Uporabi nastavitve dodatka za porezavo iz nastavitev dokumenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/printdialog.cpp" line="359"/>
+        <location filename="../../scribus/printdialog.cpp" line="361"/>
         <source>Save As</source>
         <translation type="unfinished">Shrani kot</translation>
     </message>
@@ -27555,7 +27841,7 @@ Note: PDF Forms will not be exported.</source>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5079"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5241"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -27580,12 +27866,12 @@ Note: PDF Forms will not be exported.</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5093"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5255"/>
         <source> pt</source>
         <translation> točk</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4900"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5058"/>
         <source>Name</source>
         <translation>Ime</translation>
     </message>
@@ -27595,22 +27881,22 @@ Note: PDF Forms will not be exported.</source>
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5234"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5396"/>
         <source>Move to back</source>
         <translation>Premakni v ozadje</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4908"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5066"/>
         <source>Level</source>
         <translation>Raven</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5218"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5380"/>
         <source>Width</source>
         <translation>Širina</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5305"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5467"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Obdrži razmerje spremembe merila X in Y enako</translation>
     </message>
@@ -27620,32 +27906,32 @@ Note: PDF Forms will not be exported.</source>
         <translation type="obsolete">Izberi spodnji levi kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5000"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5162"/>
         <source>Path Text Properties</source>
         <translation>Lastnosti besedila po poti</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5281"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5443"/>
         <source>Change settings for left or end points</source>
         <translation>Spremeni nastavitve levih ali končnih točk</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5229"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5391"/>
         <source>Flip Horizontal</source>
         <translation>Prezrcali vodoravno </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5027"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5189"/>
         <source>Absolute Colorimetric</source>
         <translation>Absolutne barvne vrednosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5120"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5282"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5230"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5392"/>
         <source>Flip Vertical</source>
         <translation>Prezrcali navpično</translation>
     </message>
@@ -27655,102 +27941,102 @@ Note: PDF Forms will not be exported.</source>
         <translation type="obsolete">Izberi zgornji desni kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5310"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5472"/>
         <source>Rendering intent for the image</source>
         <translation>Namen upodobitve slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5295"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5457"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Razdalja med besedilom in dnom okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5063"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5225"/>
         <source>Flat Cap</source>
         <translation>Raven konec</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5298"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5460"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Uredi nastavitve tabulatorja v besedilnem okviru ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4956"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5114"/>
         <source>Distance from Curve:</source>
         <translation>Razdalja do krivulje:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5221"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5383"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Točka, od katere se merijo razdalje ali koti sukanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5302"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5464"/>
         <source>Vertical offset of image within frame</source>
         <translation>Navpični zamik slike znotraj okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5293"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5455"/>
         <source>Distance between columns</source>
         <translation>Razdalja med stolpci</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5309"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5471"/>
         <source>Source profile of the image</source>
         <translation>Izvorni profil slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5304"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5466"/>
         <source>Resize the image vertically</source>
         <translation>Spremeni velikost slike navpično</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5058"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5220"/>
         <source>Round Join</source>
         <translation>Zaobljen spoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5014"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5176"/>
         <source>Rendering Intent:</source>
         <translation>Namen upodobitve:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5073"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5235"/>
         <source>Line at Bottom</source>
         <translation>Črta na dnu</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3633"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="3791"/>
         <source>Column width</source>
         <translation>Širina stolpcev</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5219"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5381"/>
         <source>Height</source>
         <translation>Višina</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5215"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5377"/>
         <source>Name of selected object</source>
         <translation>Ime izbranega predmeta</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5233"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5395"/>
         <source>Move to front</source>
         <translation>Premakni v ospredje</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5258"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5420"/>
         <source>Saturation of color of text stroke</source>
         <translation>Nasičenost barve črte besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5252"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5414"/>
         <source>Font Size</source>
         <translation>Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5037"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5199"/>
         <source>End Points</source>
         <translation>Končne točke</translation>
     </message>
@@ -27760,12 +28046,12 @@ Note: PDF Forms will not be exported.</source>
         <translation type="obsolete">Senca:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4914"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5072"/>
         <source>Shape:</source>
         <translation>Oblika:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5217"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5379"/>
         <source>Vertical position of current basepoint</source>
         <translation>Navpični položaj trenutnega izhodišča</translation>
     </message>
@@ -27777,32 +28063,32 @@ Please choose another.</source>
 Prosim, izberite drugo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5251"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5413"/>
         <source>Font of selected text or object</source>
         <translation>Pisava za izbrano besedilo ali predmet</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5303"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5465"/>
         <source>Resize the image horizontally</source>
         <translation>Spremeni velikost slike vodoravno</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5259"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5421"/>
         <source>Saturation of color of text fill</source>
         <translation>Nasičenost barve polnila besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5036"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5198"/>
         <source>Left Point</source>
         <translation>Leva točka</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5301"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5463"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Vodoravni zamik slike znotraj okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5294"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5456"/>
         <source>Distance of text from top of frame</source>
         <translation>Razdalja med besedilom in vrhom okvirja</translation>
     </message>
@@ -27812,27 +28098,27 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Posebna razdalja</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4890"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5048"/>
         <source>Properties</source>
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5070"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5232"/>
         <source>Line at Top</source>
         <translation>Črta na vrhu</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5284"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5446"/>
         <source>Type of line joins</source>
         <translation>Vrste spojev črt</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5283"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5445"/>
         <source>Thickness of line</source>
         <translation>Debelina črte</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5254"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5416"/>
         <source>Scaling width of characters</source>
         <translation>Širina spremembe merila znakov</translation>
     </message>
@@ -27847,32 +28133,32 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Izberi spodnji desni kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5064"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5226"/>
         <source>Square Cap</source>
         <translation>Kvadraten konec</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5220"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5382"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Sukanje predmeta okrog trenutnega izhodišča</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5072"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5234"/>
         <source>Line at the Right </source>
         <translation>Črta na desni</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5071"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5233"/>
         <source>Line at the Left</source>
         <translation>Črta na levi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5285"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5447"/>
         <source>Type of line end</source>
         <translation>Vrste zaključkov črt</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4953"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5111"/>
         <source>Show Curve</source>
         <translation>Pokaži krivuljo</translation>
     </message>
@@ -27882,17 +28168,17 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Ročno zgoščevanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5236"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5398"/>
         <source>Lock or unlock the object</source>
         <translation>Zakleni ali odkleni predmet </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5024"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5186"/>
         <source>Perceptual</source>
         <translation>Zaznavno</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5292"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5454"/>
         <source>Switches between Gap or Column width</source>
         <translation>Preklopi med presledkom in širino stolpca</translation>
     </message>
@@ -27902,22 +28188,22 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Barva črte besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5025"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5187"/>
         <source>Relative Colorimetric</source>
         <translation>Relativne barvne vrednosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5235"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5397"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Nakaže raven, na kateri je predmet, 0 pomeni, da je predmet na dnu</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5307"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5469"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Naj slika ustreza velikosti okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5237"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5399"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Zakleni ali odkleni velikost predmeta</translation>
     </message>
@@ -27932,57 +28218,57 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Izberi zgornji levi kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5308"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5470"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Uporabi raje razmerje stranic slike in ne okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5231"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5393"/>
         <source>Move one level up</source>
         <translation>Premakni eno raven navzgor </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5057"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5219"/>
         <source>Bevel Join</source>
         <translation>Nagnjen spoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5286"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5448"/>
         <source>Line style of current object</source>
         <translation>Slog črte trenutnega predmeta</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5232"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5394"/>
         <source>Move one level down</source>
         <translation>Premakni eno raven navzdol </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5056"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5218"/>
         <source>Miter Join</source>
         <translation>Spoj pod kotom</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5065"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5227"/>
         <source>Round Cap</source>
         <translation>Zaobljen konec</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4901"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5059"/>
         <source>Geometry</source>
         <translation>Geometrija</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5296"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5458"/>
         <source>Distance of text from left of frame</source>
         <translation>Razdalja med besedilom in levim robom okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4907"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5065"/>
         <source>Basepoint:</source>
         <translation>Izhodišče:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5026"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5188"/>
         <source>Saturation</source>
         <translation>Nasičenost</translation>
     </message>
@@ -27997,12 +28283,12 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Barva polnila besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5289"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5451"/>
         <source>Edit shape of the frame...</source>
         <translation>Uredi obliko okvira ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5306"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5468"/>
         <source>Keep the aspect ratio</source>
         <translation>Ohrani razmerja</translation>
     </message>
@@ -28012,17 +28298,17 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Opozorilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5297"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5459"/>
         <source>Distance of text from right of frame</source>
         <translation>Razdalja med besedilom in desnim robom okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5013"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5175"/>
         <source>Input Profile:</source>
         <translation>Vhodni profil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5282"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5444"/>
         <source>Pattern of line</source>
         <translation>Vzorec črte</translation>
     </message>
@@ -28032,27 +28318,27 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Izberi središče za izhodišče</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5069"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5231"/>
         <source>Cell Lines</source>
         <translation>Črte celic</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5216"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5378"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Vodoravni položaj trenutnega izhodišča</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5300"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5462"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Dovoli, da je slika lahko druge velikosti kot okvir</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5290"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5452"/>
         <source>Set radius of corner rounding</source>
         <translation>Nastavi radij zaobljenosti roba</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5288"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5450"/>
         <source>Choose the shape of frame...</source>
         <translation>Izberi obliko okvira ...</translation>
     </message>
@@ -28062,72 +28348,72 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Razdalja besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5291"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5453"/>
         <source>Number of columns in text frame</source>
         <translation>Število stolpcev v okviru besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5262"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5424"/>
         <source>Line Spacing</source>
         <translation>Razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4955"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5113"/>
         <source>Start Offset:</source>
         <translation>Začetni zamik:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4892"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5050"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4895"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5053"/>
         <source>&amp;Shape</source>
         <translation>&amp;Oblika</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4893"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5051"/>
         <source>&amp;Text</source>
         <translation>&amp;Besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4894"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5052"/>
         <source>&amp;Image</source>
         <translation>&amp;Slika</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4896"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5054"/>
         <source>&amp;Line</source>
         <translation>&amp;Črta</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4897"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5055"/>
         <source>&amp;Colors</source>
         <translation>&amp;Barve</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5005"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5167"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5006"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5168"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4904"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5062"/>
         <source>&amp;Width:</source>
         <translation>&amp;Širina:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4905"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5063"/>
         <source>&amp;Height:</source>
         <translation>&amp;Višina:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4906"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5064"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Sukanje:</translation>
     </message>
@@ -28137,14 +28423,14 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">&amp;Uredi obliko ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4934"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5092"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>&amp;Zaobljeni
 robovi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4935"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5093"/>
         <source>Colu&amp;mns:</source>
         <translation>&amp;Stolpci:</translation>
     </message>
@@ -28154,27 +28440,27 @@ robovi:</translation>
         <translation type="obsolete">&amp;Razdalja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4942"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5100"/>
         <source>To&amp;p:</source>
         <translation>&amp;Vrh:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4943"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5101"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Dno:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4944"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5102"/>
         <source>&amp;Left:</source>
         <translation>&amp;Levo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4945"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5103"/>
         <source>&amp;Right:</source>
         <translation>&amp;Desno:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4946"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5104"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabulatorji ...</translation>
     </message>
@@ -28184,12 +28470,12 @@ robovi:</translation>
         <translation type="obsolete">Besedilo &amp;poteka okrog okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4969"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5127"/>
         <source>Use &amp;Bounding Box</source>
         <translation>Uporabi &amp;okvir</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4970"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5128"/>
         <source>&amp;Use Contour Line</source>
         <translation>&amp;Uporabi obrobno črto</translation>
     </message>
@@ -28219,72 +28505,72 @@ robovi:</translation>
         <translation type="obsolete">&amp;Jezik:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5002"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5164"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Prosto spreminjanje merila</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5007"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5169"/>
         <source>X-Sc&amp;ale:</source>
         <translation>&amp;Sprememba merila X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5008"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5170"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Sprememba &amp;merila Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5009"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5171"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Raztegni na &amp;velikost okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5010"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5172"/>
         <source>P&amp;roportional</source>
         <translation>&amp;Sorazmerno</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5039"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5201"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Izhodišče:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5040"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5202"/>
         <source>T&amp;ype of Line:</source>
         <translation>&amp;Vrsta črte:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5052"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5214"/>
         <source>Line &amp;Width:</source>
         <translation>&amp;Širina črte:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5053"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5215"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Robovi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5067"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5229"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Konci:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3869"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4027"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3870"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4028"/>
         <source>X&amp;2:</source>
         <translation>&amp;X2:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3871"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4029"/>
         <source>Y&amp;1:</source>
         <translation>&amp;Y1:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3872"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4030"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
@@ -28304,62 +28590,62 @@ robovi:</translation>
         <translation type="obsolete">Jezik za deljenje besed v tem okviru</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5260"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5422"/>
         <source>Right to Left Writing</source>
         <translation>Pisava z leve na desno</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5041"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5203"/>
         <source>Start Arrow:</source>
         <translation>Začetna puščica:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5042"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5204"/>
         <source>End Arrow:</source>
         <translation>Končna puščica:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5019"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5181"/>
         <source>Fixed Linespacing</source>
         <translation>Nespremenljiv razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5020"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5182"/>
         <source>Automatic Linespacing</source>
         <translation>Samodejno razmikanje vrstic</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5021"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5183"/>
         <source>Align to Baseline Grid</source>
         <translation>Poravnaj na mrežo osnovnice </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5003"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5165"/>
         <source>Actual X-DPI:</source>
         <translation>Dejanska X-DPI:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5004"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5166"/>
         <source>Actual Y-DPI:</source>
         <translation>Dejanska Y-DPI:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5253"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5415"/>
         <source>Offset to baseline of characters</source>
         <translation>Zamik na osnovnico znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5255"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5417"/>
         <source>Scaling height of characters</source>
         <translation>Višina spremembe merila znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5261"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5423"/>
         <source>Manual Tracking</source>
         <translation>Ročno sledenje</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4766"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4924"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Ime &quot;%1&quot; ni edinstveno.&lt;br/&gt;Prosim, izberite drugo.</translation>
     </message>
@@ -28374,17 +28660,17 @@ robovi:</translation>
         <translation type="obsolete">Barva polnila besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4957"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5115"/>
         <source>Fill Rule</source>
         <translation>Pravilo polnjenja</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4958"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5116"/>
         <source>Even-Odd</source>
         <translation>Liho-sodo</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4959"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5117"/>
         <source>Non Zero</source>
         <translation>Neničelno</translation>
     </message>
@@ -28394,12 +28680,12 @@ robovi:</translation>
         <translation type="obsolete">Klikni za izbiro kako so vrstice razmaknjene</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5256"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5418"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>Barva poteze črke in/ali sence, odvisno od izbire. Če sta izbrani obe, si delita isto barvo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5257"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5419"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Barva izbranega besedila. Če je izbran učinek pisave Orisano, bo to tudi barva polnila. Če je izbrano senčenje besedila, bo to najbolj vrhnja barva.</translation>
     </message>
@@ -28409,7 +28695,7 @@ robovi:</translation>
         <translation type="obsolete">Besedilo v spodnjih okvirih naj obliva predmet. Možnosti spodaj določajo podrobnosti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5247"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5409"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Uporabite okvirno škatlo, ki je vedno pravokotna, namesto oblike okvira za potek besedila ali okvire besedila pod predmetom. </translation>
     </message>
@@ -28419,7 +28705,7 @@ robovi:</translation>
         <translation type="obsolete">Uporabite drugo vrstico, izvorno temelječo na obliki okvira, za potek besedila ali okvire besedila pod predmetom. </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3009"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="3150"/>
         <source>Auto</source>
         <translation>Samodejno</translation>
     </message>
@@ -28429,157 +28715,157 @@ robovi:</translation>
         <translation type="obsolete">Klinite in držite pritisnjeno za izbor načina razmikanja črt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4915"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5073"/>
         <source>Transparency Settings</source>
         <translation>Nastavitve prosojnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4898"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5056"/>
         <source>&amp;Group</source>
         <translation>&amp;Združi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4916"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5074"/>
         <source>Opacity:</source>
         <translation>Prekrivnost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4917"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5075"/>
         <source>Blend Mode:</source>
         <translation>Način spajanja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4919"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5077"/>
         <source>Normal</source>
         <translation>Navadno</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4920"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5078"/>
         <source>Darken</source>
         <translation>Potemni</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4921"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5079"/>
         <source>Lighten</source>
         <translation>Posvetli</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4922"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5080"/>
         <source>Multiply</source>
         <translation>Pomnoži</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4923"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5081"/>
         <source>Screen</source>
         <translation>Zaslon</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4924"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5082"/>
         <source>Overlay</source>
         <translation>Prekrij</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4925"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5083"/>
         <source>Hard Light</source>
         <translation>Ostra luč</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4926"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5084"/>
         <source>Soft Light</source>
         <translation>Mehka luč</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4927"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5085"/>
         <source>Difference</source>
         <translation>Razlika</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4928"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5086"/>
         <source>Exclusion</source>
         <translation>Izključitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4929"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5087"/>
         <source>Color Dodge</source>
         <translation>Barvno posvetli</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4930"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5088"/>
         <source>Color Burn</source>
         <translation>Barvno potemni</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4931"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5089"/>
         <source>Hue</source>
         <translation>Obarvanost</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4933"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5091"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4938"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5096"/>
         <source>Gap:</source>
         <translation>Razmik:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4939"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5097"/>
         <source>Width:</source>
         <translation>Širina:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4949"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5107"/>
         <source>Default</source>
         <translation>Privzeto</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4950"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5108"/>
         <source>Stair Step</source>
         <translation>Stopnica koraka</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4951"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5109"/>
         <source>Skew</source>
         <translation>Nagib</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4952"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5110"/>
         <source>Flip Text</source>
         <translation>Prezrcali besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4954"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5112"/>
         <source>Type:</source>
         <translation>Vrsta:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4966"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5124"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>Besedilo &amp;poteka okrog okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4967"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5125"/>
         <source>Disabled</source>
         <translation>Izključeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4968"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5126"/>
         <source>Use Frame &amp;Shape</source>
         <translation>Uporabi &amp;obliko okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4971"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5129"/>
         <source>Use Image Clip Path</source>
         <translation>Uporabi pot obrezovanja slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4972"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5130"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>Slog &amp;odstavka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4973"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5131"/>
         <source>Character St&amp;yle:</source>
         <translation>Slog &amp;znaka:</translation>
     </message>
@@ -28589,57 +28875,57 @@ robovi:</translation>
         <translation type="obsolete">Optične meje:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4989"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5151"/>
         <source>Word Tracking</source>
         <translation>Sledenje besed</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4993"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5155"/>
         <source>Min:</source>
         <translation>Najm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4991"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5153"/>
         <source>Norm:</source>
         <translation>Navad:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4992"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5154"/>
         <source>Glyph Extension</source>
         <translation>Končnica znaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4994"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5156"/>
         <source>Max:</source>
         <translation>Najv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5011"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5173"/>
         <source>Image Effects</source>
         <translation>Slikovni učinki</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5012"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5174"/>
         <source>Extended Image Properties</source>
         <translation>Razširjene lastnosti slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5075"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5237"/>
         <source>Overprinting</source>
         <translation>Pretiskanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5076"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5238"/>
         <source>Knockout</source>
         <translation>Izpodrivanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5077"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5239"/>
         <source>Overprint</source>
         <translation>Pretiskaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5227"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5389"/>
         <source>Group the selected objects</source>
         <translation>Združi izbrane predmete</translation>
     </message>
@@ -28649,67 +28935,67 @@ robovi:</translation>
         <translation type="obsolete">Uniči izbrano skupino</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5238"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5400"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Omogoči ali onemogoči izvoz predmeta</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5245"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5407"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>Onemogoči potek besedila iz nižjih okvirov okoli predmeta</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5246"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5408"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>Uporabi obliko okvira za potek besedila besedilnega okvira pod predmetom.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5248"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5410"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation>Če je izbrano, lahko contour line urejate z orodjem Uredi lik na paleti zgoraj. Če urejate prek palete likov, to postane druga ločilna črta, ki izvorno temelji na obliki okvira za potek besedila ali besedilnih okvirov pod predmetom. č</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5249"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5411"/>
         <source>Use the clipping path of the image</source>
         <translation>Uporabi pot obrezovanja slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5265"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5427"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Slog odstavka trenutno izbranega besedila ali odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5266"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5428"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Slog znakov trenutno izbranega besedila ali odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5267"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5429"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5268"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5430"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5275"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5437"/>
         <source>Minimal width of spaces between words</source>
         <translation>Najmanjša širina presledka med besedami</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5276"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5438"/>
         <source>Normal width of spaces between words</source>
         <translation>Navadna širina presledka med besedami</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5277"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5439"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Najmanjša mera stisnjenosti črk za poravnavo</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5278"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5440"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Največja razširitev znakov za poravnavo</translation>
     </message>
@@ -28719,17 +29005,17 @@ robovi:</translation>
         <translation type="obsolete">Uporablja viseče spodsekavanje ločil in robov, da doseže lepši videz stolpcev</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5032"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5194"/>
         <source>Custom</source>
         <translation>Po meri</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4913"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5071"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Uredi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4998"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5160"/>
         <source>First Line Offset</source>
         <translation>Odmik prve vrstice</translation>
     </message>
@@ -28744,93 +29030,117 @@ robovi:</translation>
         <translation>Dvig pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4995"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5157"/>
         <source>Color &amp; Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4996"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5158"/>
         <source>Advanced Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4997"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5159"/>
         <source>Style Settings</source>
         <translation type="unfinished">Nastavitve sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3011"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="3152"/>
         <source>Baseline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5228"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5390"/>
         <source>Ungroup the selected group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5264"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5426"/>
         <source>Select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5271"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5433"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5272"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5434"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5273"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5435"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5001"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5163"/>
         <source>&amp;Page Number:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4999"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5161"/>
         <source>Columns &amp; Text Distances</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4984"/>
         <source>Left Protruding</source>
-        <translation type="unfinished">Levo štrleče</translation>
+        <translation type="obsolete">Levo štrleče</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4985"/>
         <source>Right Protruding</source>
-        <translation type="unfinished">Desno štrleče</translation>
+        <translation type="obsolete">Desno štrleče</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4986"/>
         <source>Left Hanging Punctuation</source>
-        <translation type="unfinished">Levo viseče ločilo</translation>
+        <translation type="obsolete">Levo viseče ločilo</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4987"/>
         <source>Right Hanging Punctuation</source>
-        <translation type="unfinished">Desno viseče ločilo</translation>
+        <translation type="obsolete">Desno viseče ločilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4988"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5150"/>
         <source>Reset</source>
         <translation type="unfinished">Ponastavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="937"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="945"/>
         <source>Optical Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5102"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5264"/>
         <source>Hairline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/propertiespalette.cpp" line="5146"/>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Brez</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/propertiespalette.cpp" line="5147"/>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/propertiespalette.cpp" line="5148"/>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/propertiespalette.cpp" line="5149"/>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29532,7 +29842,7 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Predogled tiskanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1100"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1102"/>
         <source>Background</source>
         <translation>Ozadje</translation>
     </message>
@@ -29599,7 +29909,7 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Slike SVG (*.svg);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="240"/>
+        <location filename="../../scribus/scribuscore.cpp" line="244"/>
         <source>Initializing...</source>
         <translation>Priprave v teku ...</translation>
     </message>
@@ -29799,22 +30109,22 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Priročnik za s&amp;kripte...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="566"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="570"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Skribusove skripte</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="561"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="565"/>
         <source>&amp;Execute Script...</source>
         <translation>&amp;Poženi skripto ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="567"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="571"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Nedavne skripte</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="562"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="566"/>
         <source>Show &amp;Console</source>
         <translation>Pokaži &amp;konzolo</translation>
     </message>
@@ -29968,7 +30278,7 @@ Zunanje povezave
         <translation>nizozemski</translation>
     </message>
     <message>
-        <location filename="../../scribus/langmgr.cpp" line="228"/>
+        <location filename="../../scribus/langmgr.cpp" line="239"/>
         <source>English</source>
         <translation>angleški</translation>
     </message>
@@ -30093,12 +30403,12 @@ Zunanje povezave
         <translation type="obsolete">Poskus da bi bil napredek večji kot največji</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="563"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="567"/>
         <source>&amp;About Script...</source>
         <translation>&amp;O skriptah ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="534"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
         <source>About Script</source>
         <translation>O skriptah</translation>
     </message>
@@ -30155,7 +30465,7 @@ Zunanje povezave
         <translation>Cilj ni slikovni okvir.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="334"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="350"/>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
         <translation>Kotni polmer mora biti pozitivno število.</translation>
@@ -30221,7 +30531,7 @@ Zunanje povezave
         <translation>Poravnava je izven dovoljenega obsega. Uporabite eno od Scribusovih konstant ALIGN_*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="554"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="564"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Števnik izbire je izven meja</translation>
@@ -30328,13 +30638,13 @@ Zunanje povezave
         <translation>Neuspešen izvoz slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="271"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="291"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>Sliki ni mogoče spremeniti merilo za 0%.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="386"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="406"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Izbrani predmet ni slikovni okvir.</translation>
@@ -30418,61 +30728,61 @@ Zunanje povezave
         <translation>Nebesedilnemu okviru ni mogoče nastaviti razmika vrstic.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="488"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="498"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>Razmik med stolpci je izven meja, mora biti pozitiven.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="496"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="506"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti razmika med stolpci.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="515"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="525"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
         <translation>Število stolpcev je izven meja, mora biti &gt;1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="523"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="533"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti števila stolpcev.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="559"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="569"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče izbrati besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="596"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="606"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okvirju ni mogoče izbrisati besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="628"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="638"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti polnila besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="664"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="674"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti poteze besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="706"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="787"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti senčenja besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="746"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="827"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Le besedilne okvire je mogoče povezovati.</translation>
@@ -30484,31 +30794,31 @@ Zunanje povezave
         <translation type="obsolete">Ciljni okvir mora biti prazen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="756"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
         <translation>Ciljni okvir je že povezan z drugim okvirom.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="761"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="842"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>Ciljni okvir je že povezan z drugim okvirom.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="766"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="847"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>Izvor in cilj sta en in isti predmet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="791"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="872"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče razvezati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="846"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="927"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče pretvoriti v krivulje.</translation>
@@ -30544,7 +30854,7 @@ Zunanje povezave
         <translation type="obsolete">Pisava %1 (ki jo je našel fontconfig) je pokvarjena, zato jo zanemarjam</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="581"/>
+        <location filename="../../scribus/scribus.cpp" line="585"/>
         <source>Scribus Development Version</source>
         <translation>Razvojna različica Scribusa</translation>
     </message>
@@ -30796,31 +31106,31 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>argument ne vsebuje številčnih vrednosti: mora biti spisek decimalnih (float) vrednosti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="217"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="245"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
         <translation>Višina vrstice je izven obsega, mora biti 0 &lt;= širina &lt;= 12.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="239"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="265"/>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
         <translation>Senca vrstice je izven obsega, mora biti 0 &lt;= senca &lt;= 100.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="261"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="285"/>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
         <translation>Senca polnila je izven obsega, mora biti 0 &lt;= senca &lt;= 100.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="363"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="377"/>
         <source>Line style not found.</source>
         <comment>python error</comment>
         <translation>Sloga črte ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="797"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="878"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Predmet ni povezan besedilni okvir, ni mogoče razvezati.</translation>
@@ -30832,13 +31142,13 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">Predmet je zadnji okvir v nizu, ni ga mogoče razvezati. Razvežite prejšnji okvir.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="871"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="952"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Samo v besedilnih okvirih lahko preverite prelivanje besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="565"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="569"/>
         <source>&amp;Script</source>
         <translation>&amp;Skript</translation>
     </message>
@@ -31233,12 +31543,12 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">Predogled &amp;pisav...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
+        <location filename="../../scribus/scribus.cpp" line="2310"/>
         <source>Document Template: </source>
         <translation>Predloga dokumenta: </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="213"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="268"/>
         <source>Color not found.</source>
         <comment>python error</comment>
         <translation>Barve ni mogoče najti.</translation>
@@ -31256,7 +31566,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Barve med privzetimi barvami ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="204"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="254"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Manj kot dveh predmetov ni mogoče združiti</translation>
@@ -31265,22 +31575,22 @@ Ali jo želite zamenjati z novo?</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="229"/>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
-        <translation>Manj kot dveh predmetov ni mogoče združiti</translation>
+        <translation type="obsolete">Manj kot dveh predmetov ni mogoče združiti</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="237"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="222"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Za združevanje je potrebna izbira ali seznam predmetov </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="963"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1044"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti zaznamka</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="997"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1078"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Podatkov iz nebesedilnega okvirja ni mogoče pridobiti</translation>
@@ -31292,7 +31602,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Ime datoteke ne sme biti prazno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="759"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="765"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -31364,27 +31674,27 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Dokumenti z besedilom OpenDocument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2620"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2628"/>
         <source>Copy #%1 of </source>
         <translation>Kopija #%1 od </translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1967"/>
+        <location filename="../../scribus/pslib.cpp" line="2012"/>
         <source>Black</source>
         <translation>Črna</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1969"/>
+        <location filename="../../scribus/pslib.cpp" line="2014"/>
         <source>Cyan</source>
         <translation>Cijanska</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1971"/>
+        <location filename="../../scribus/pslib.cpp" line="2016"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1973"/>
+        <location filename="../../scribus/pslib.cpp" line="2018"/>
         <source>Yellow</source>
         <translation>Rumena</translation>
     </message>
@@ -31489,7 +31799,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation type="obsolete">Uporabljate razvojno različico Scribus 1.3.x. Trenutni dokument je bil izvorno pripravljen s Scribusom 1.2.2 ali starejšim. Če ga sedaj shranite, ga s Scribusom 1.2.2 ne boste več mogli odpreti, razen če izberete Datoteka-&gt;Shrani kot. Ste prepričani, da želite nadaljevati s to operacijo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4287"/>
+        <location filename="../../scribus/scribus.cpp" line="4328"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Spremembe v vašem dokumentu niso bile shranjene, zahtevali pa ste, da se jih povrne v staro stanje. Želite nadaljevati?</translation>
     </message>
@@ -31515,27 +31825,27 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>nemški (trad.)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1783"/>
+        <location filename="../../scribus/pslib.cpp" line="1828"/>
         <source>Exporting PostScript File</source>
         <translation>Izvažanje datoteke PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1785"/>
+        <location filename="../../scribus/pslib.cpp" line="1830"/>
         <source>Printing File</source>
         <translation>Tiskanje datoteke</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3635"/>
+        <location filename="../../scribus/scribus.cpp" line="3676"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Ali poskušati uvoziti več strani, kot jih je trenutno na voljo v dokumentu, šteto od aktivne strani.&lt;/p&gt;Izberite eno od naslednjih možnosti:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Ustvari&lt;/b&gt; manjkajoče strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvozi&lt;/b&gt; strani do zadnje strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Prekliči&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3636"/>
+        <location filename="../../scribus/scribus.cpp" line="3677"/>
         <source>C&amp;reate</source>
         <translation>&amp;Ustvari</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3637"/>
+        <location filename="../../scribus/scribus.cpp" line="3678"/>
         <source>&amp;Import</source>
         <translation>Uvo&amp;zi</translation>
     </message>
@@ -31667,7 +31977,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Pisava %1 ima pokvarjen znak %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="98"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="99"/>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
         <translation>Pisava %1 ima okvarjeno metriko v datoteki %2, zato bo metrika prezrta</translation>
     </message>
@@ -31832,7 +32142,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Uvoznik Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="57"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="59"/>
         <source>Scribus 1.2.x Support</source>
         <translation>Podpora za Scribus 1.2.x</translation>
     </message>
@@ -31842,7 +32152,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation type="obsolete">Podpora za Scribus 1.3.4</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="61"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="63"/>
         <source>Scribus 1.3.0-&gt;1.3.3.x Support</source>
         <translation>Podpora za Scribus 1.3.0-&gt;1.3.3.x</translation>
     </message>
@@ -31857,13 +32167,13 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Uvoznik PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="173"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="205"/>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
         <translation>Prosojnost je zunaj meja, moralo bi veljati: 0 &lt;= prosojnost &lt;= 1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="195"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="225"/>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
         <translation>Način spajanja je zunaj meja, biti mora: 0 &lt;= način spajanja &lt;= 15.</translation>
@@ -31918,7 +32228,7 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
         <translation>Nova plast</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="582"/>
+        <location filename="../../scribus/scribus.cpp" line="586"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Uporabljate razvojno različico Scribusa 1.3.x. Dokument, s katerim delate, je bil ustvarjen z različico Scribusa 1.2.x.  Če trenutno datoteko shranite z 1.3.x, je v različicah Scribusa 1.2.x ne boste mogli urejati. Da bi ohranili možnost urejanja z različicami 1.2.x, to datoteko shranite pod drugim imenom in še naprej urejajte novoimenovano datoteko, da bo ostal izvirnik nedotaknjen. Ste prepričani, da želite nadaljevati s to operacijo?</translation>
     </message>
@@ -32154,12 +32464,12 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
         <translation>Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="104"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="105"/>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
         <translation>Najdena veljavna metrika za pisavo %1, uporaba metrike za datoteko %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="111"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="112"/>
         <source>No metrics found for font %1, ignoring font</source>
         <translation>Metrike za pisavo %1 ni mogoče najti, pisava bo prezrta</translation>
     </message>
@@ -32169,7 +32479,7 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
         <translation>Napaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="375"/>
+        <location filename="../../scribus/latexeditor.cpp" line="381"/>
         <source>Configfile %1 not found or the file is not readable</source>
         <translation>Konfiguracijske datoteke %1 ni mogoče najti ali pa datoteka ni berljiva</translation>
     </message>
@@ -32193,31 +32503,31 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
         <translation>drugi parameter vsebuje ne številske vrednosti: mora biti seznam celoštevilskih vrednosti (int).</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="50"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="51"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
         <translation>Ime sloga odstavka ne more biti prazno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="70"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="71"/>
         <source>hasdropcap has to be 0 or 1.</source>
         <comment>python error</comment>
         <translation>hasdropcap je lahko le 0 ali 1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="122"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="128"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>Ime sloga črk ne more biti prazno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="920"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1001"/>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
         <translation>Deljenje besed je podprto le v besedilnem okviru</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="943"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1024"/>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
         <translation>Preklic deljenja besed je podprt le v besedilnem okviru</translation>
@@ -32295,13 +32605,13 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="462"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="472"/>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="470"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="480"/>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -32342,6 +32652,42 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="257"/>
         <source>Printing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="258"/>
+        <source>Color name cannot be an empty string.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="100"/>
+        <source>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="105"/>
+        <source>Ramp point out of bounds, must be 0 &lt;= rampPoint &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="110"/>
+        <source>Opacity out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="743"/>
+        <source>Character scaling out of bounds, must be &gt;= 10</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="751"/>
+        <source>Cannot set character scaling on a non-text frame.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -32914,7 +33260,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../../scribus/reformdoc.cpp" line="458"/>
+        <location filename="../../scribus/reformdoc.cpp" line="462"/>
         <source>Adjusting Colors</source>
         <translation>Prilagajanje barv</translation>
     </message>
@@ -32998,12 +33344,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="13"/>
         <source>Dialog</source>
-        <translation>Pogovorno okno</translation>
+        <translation type="obsolete">Pogovorno okno</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="22"/>
         <source>Run as Extension Script</source>
         <translation>Poženi kot razširitveno skripto</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="13"/>
+        <source>Run Script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -33116,7 +33467,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="84"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="86"/>
         <source>Tracking</source>
         <translation>Sledenje</translation>
     </message>
@@ -33136,7 +33487,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Navpično spr. merila</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="88"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="91"/>
         <source>Language</source>
         <translation>Jezik</translation>
     </message>
@@ -33161,136 +33512,141 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Senca poteze</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.ui" line="33"/>
+        <location filename="../../scribus/smcstylewidget.ui" line="24"/>
         <source>Based On:</source>
         <translation>Temelji na:</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.ui" line="301"/>
+        <location filename="../../scribus/smcstylewidget.ui" line="342"/>
         <source>Language:</source>
         <translation>Jezik:</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="460"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="484"/>
         <source>Shade</source>
         <translation>Senči</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.ui" line="55"/>
+        <location filename="../../scribus/smcstylewidget.ui" line="49"/>
         <source>Basic Formatting</source>
         <translation>Osnovno oblikovanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.ui" line="271"/>
+        <location filename="../../scribus/smcstylewidget.ui" line="312"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.ui" line="198"/>
+        <location filename="../../scribus/smcstylewidget.ui" line="230"/>
         <source>Advanced Formatting</source>
         <translation>Napredno oblikovanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.ui" line="428"/>
+        <location filename="../../scribus/smcstylewidget.ui" line="481"/>
         <source>TextLabel</source>
         <translation>BesedilnaOznaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.ui" line="345"/>
+        <location filename="../../scribus/smcstylewidget.ui" line="389"/>
         <source>Colors</source>
         <translation>Barve</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="81"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="83"/>
         <source>Parent Style</source>
         <translation type="unfinished">Slog starša</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="82"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="84"/>
         <source>Font Face</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="83"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="85"/>
         <source>Font Size</source>
         <translation type="unfinished">Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="85"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="88"/>
         <source>Baseline Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="86"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="89"/>
         <source>Horizontal Scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="87"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="90"/>
         <source>Vertical Scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="89"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="92"/>
         <source>Fill Color</source>
         <translation type="unfinished">Barva polnila</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="90"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="93"/>
         <source>Fill Shade</source>
         <translation type="unfinished">Senca polnila</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="91"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="94"/>
         <source>Stroke Color</source>
         <translation type="unfinished">Barva poteze</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="92"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="95"/>
         <source>Stroke Shade</source>
         <translation type="unfinished">Senca poteze</translation>
     </message>
     <message>
-        <location filename="../../scribus/smcstylewidget.cpp" line="221"/>
+        <location filename="../../scribus/smcstylewidget.cpp" line="229"/>
         <source>A default style cannot be assigned a parent style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/smcstylewidget.cpp" line="87"/>
+        <source>Default width for space</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="1788"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="1812"/>
         <source>Properties</source>
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="1419"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="1443"/>
         <source>Character Styles</source>
         <translation>Slogi znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="1424"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="1448"/>
         <source>Character Style</source>
         <translation>Slog znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="1564"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="1588"/>
         <source>New Style</source>
         <translation>Nov slog</translation>
     </message>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="1586"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="1610"/>
         <source>Clone of %1</source>
         <translation>Klon %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="1613"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="1637"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="2260"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="2309"/>
         <source>Setting that style as parent would create an infinite loop.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33458,7 +33814,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Senca črte</translation>
     </message>
     <message>
-        <location filename="../../scribus/smlinestylewidget.cpp" line="151"/>
+        <location filename="../../scribus/smlinestylewidget.cpp" line="148"/>
         <source> pt</source>
         <translation> točk</translation>
     </message>
@@ -33476,72 +33832,72 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="330"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="332"/>
         <source>Fixed Linespacing</source>
         <translation>Nespremenljiv razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="331"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="333"/>
         <source>Automatic Linespacing</source>
         <translation>Samodejen razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="332"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="334"/>
         <source>Align to Baseline Grid</source>
         <translation>Poravnaj na mrežo osnovnice </translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="81"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="82"/>
         <source>Parent Style</source>
         <translation>Slog starša</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="82"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="83"/>
         <source>Line Spacing Mode</source>
         <translation>Način razmikanja vrstic</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="83"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="84"/>
         <source>Line Spacing</source>
         <translation>Razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="84"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="85"/>
         <source>Space Above</source>
         <translation>Prostor zgoraj</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="85"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="86"/>
         <source>Space Below</source>
         <translation>Prostor spodaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="93"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="94"/>
         <source>Drop Cap Lines</source>
         <translation>Vrstice ozaljšane začetnice</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="94"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="95"/>
         <source>Drop Cap Offset</source>
         <translation>Odmik ozaljšane začetnice</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="95"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="96"/>
         <source>Alignment</source>
         <translation>Poravnava</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="96"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="97"/>
         <source>First Line Indent</source>
         <translation>Zamik prve vrstice</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="97"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="98"/>
         <source>Left Indent</source>
         <translation>Levi zamik</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="98"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="99"/>
         <source>Right Indent</source>
         <translation>Desni zamik</translation>
     </message>
@@ -33561,7 +33917,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Ozaljšana začetnica</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.ui" line="562"/>
+        <location filename="../../scribus/smpstylewidget.ui" line="589"/>
         <source>Tabulators and Indentation</source>
         <translation>Tabulatorji in zamikanje</translation>
     </message>
@@ -33571,12 +33927,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="136"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="137"/>
         <source>Character Style</source>
         <translation>Slog znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.ui" line="511"/>
+        <location filename="../../scribus/smpstylewidget.ui" line="536"/>
         <source>TextLabel</source>
         <translation>BesedilnaOznaka</translation>
     </message>
@@ -33596,34 +33952,34 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Stanje ozaljšane začetnice starša</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.ui" line="612"/>
+        <location filename="../../scribus/smpstylewidget.ui" line="639"/>
         <source>Ch&amp;aracter Style</source>
         <translation>Slog &amp;znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="491"/>
+        <location filename="../../scribus/smpstylewidget.ui" line="394"/>
         <source>None</source>
-        <translation type="obsolete">Brez</translation>
+        <translation type="unfinished">Brez</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="376"/>
         <source>Left Protruding</source>
-        <translation type="unfinished">Levo štrleče</translation>
+        <translation type="obsolete">Levo štrleče</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="383"/>
         <source>Right Protruding</source>
-        <translation type="unfinished">Desno štrleče</translation>
+        <translation type="obsolete">Desno štrleče</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="390"/>
         <source>Left Hanging Punctuation</source>
-        <translation type="unfinished">Levo viseče ločilo</translation>
+        <translation type="obsolete">Levo viseče ločilo</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="397"/>
         <source>Right Hanging Punctuation</source>
-        <translation type="unfinished">Desno viseče ločilo</translation>
+        <translation type="obsolete">Desno viseče ločilo</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="496"/>
@@ -33631,18 +33987,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Privzeto</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="102"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="103"/>
         <source>Maximum white space compression allowed.
 Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="104"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="105"/>
         <source>Maximum compression of glyphs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="106"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="107"/>
         <source>Maximum extension of glyphs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33652,38 +34008,60 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="278"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="280"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="138"/>
+        <location filename="../../scribus/smpstylewidget.cpp" line="139"/>
         <source>Min. Space Width:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="139"/>
-        <source>Max. Glyph Compression:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/smpstylewidget.cpp" line="140"/>
-        <source>Max. Glyph Extension:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/smpstylewidget.ui" line="413"/>
+        <location filename="../../scribus/smpstylewidget.ui" line="385"/>
         <source>Use Parent Value</source>
         <translation type="unfinished">Uporabi vrednost starša</translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.ui" line="406"/>
+        <location filename="../../scribus/smpstylewidget.ui" line="378"/>
         <source>Reset to Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/smpstylewidget.ui" line="440"/>
+        <location filename="../../scribus/smpstylewidget.ui" line="443"/>
         <source>Advanced Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/smpstylewidget.cpp" line="140"/>
+        <source>Glyph Extension</source>
+        <translation type="unfinished">Končnica znaka</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/smpstylewidget.cpp" line="141"/>
+        <source>Min:</source>
+        <comment>Glyph Extension</comment>
+        <translation type="unfinished">Najm:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/smpstylewidget.cpp" line="142"/>
+        <source>Max:</source>
+        <comment>Glyph Extension</comment>
+        <translation type="unfinished">Najv:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/smpstylewidget.ui" line="404"/>
+        <source>Both Sides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/smpstylewidget.ui" line="411"/>
+        <source>Left Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/smpstylewidget.ui" line="418"/>
+        <source>Right Only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -33716,7 +34094,7 @@ Expressed as a percentage of the current white space value.</source>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../scribus/smtextstyles.cpp" line="1359"/>
+        <location filename="../../scribus/smtextstyles.cpp" line="1383"/>
         <source>Setting that style as parent would create an infinite loop.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33856,12 +34234,12 @@ Expressed as a percentage of the current white space value.</source>
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1336"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1339"/>
         <source>Style of current paragraph</source>
         <translation>Slog trenutnega odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1309"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1312"/>
         <source>Style Settings</source>
         <translation>Nastavitve sloga</translation>
     </message>
@@ -33874,17 +34252,17 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1073"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1076"/>
         <source>Color of text fill</source>
         <translation>Barva polnila besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1074"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1077"/>
         <source>Saturation of color of text fill</source>
         <translation>Nasičenost barve polnila besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1036"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1039"/>
         <source>Fill Color Settings</source>
         <translation>Nastavitve barve polnila</translation>
     </message>
@@ -33897,17 +34275,17 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1146"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1149"/>
         <source>Color of text stroke</source>
         <translation>Barva poteze besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1147"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1150"/>
         <source>Saturation of color of text stroke</source>
         <translation>Nasičenost barve poteze besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1111"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1114"/>
         <source>Stroke Color Settings</source>
         <translation>Nastavitve barve poteze</translation>
     </message>
@@ -33925,27 +34303,27 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="obsolete">%</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1409"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1412"/>
         <source>Font of selected text</source>
         <translation>Pisava izbranega besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1410"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1413"/>
         <source>Font Size</source>
         <translation>Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1411"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1414"/>
         <source>Scaling width of characters</source>
         <translation>Sprememba merila širine črk</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1356"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1359"/>
         <source>Font Settings</source>
         <translation>Nastavitve pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1412"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1415"/>
         <source>Scaling height of characters</source>
         <translation>Sprememba merila višine črk</translation>
     </message>
@@ -33968,7 +34346,7 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="obsolete">Ročno spodsekavanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1179"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1182"/>
         <source>Character Settings</source>
         <translation>Nastavitve znakov</translation>
     </message>
@@ -33978,7 +34356,7 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="obsolete"> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1221"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1224"/>
         <source>Manual Tracking</source>
         <translation>Ročno sledenje</translation>
     </message>
@@ -34078,49 +34456,49 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
 <context>
     <name>SWDialog</name>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="104"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="105"/>
         <source>Short Words</source>
         <comment>short words plugin</comment>
         <translation>Kratke besede</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="105"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="106"/>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
         <translation>Uveljavi neprelomljiv presledek na:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="106"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="107"/>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
         <translation>&amp;Izbrani okviri</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="107"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="108"/>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
         <translation>Aktivna &amp;stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="108"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="109"/>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
         <translation>&amp;Vsi predmeti</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="111"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="112"/>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
         <translation>Obdelani le izbrani okviri.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="112"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="113"/>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
         <translation>Obdelana le aktivna stran.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="113"/>
+        <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="114"/>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
         <translation>Obdelani vsi predmeti dokumenta.</translation>
@@ -34453,23 +34831,29 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
 <context>
     <name>Scribus12Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="107"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="109"/>
         <source>Scribus 1.2.x Document</source>
         <translation>Dokument Scribusa 1.2.x</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1723"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1731"/>
         <source>Copy #%1 of </source>
         <translation>Kopija št. %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="67"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="69"/>
         <source>Scribus 1.2.x File Format Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="68"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="70"/>
         <source>Allows Scribus to read Scribus 1.2.x formatted files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="753"/>
+        <source>You have opened a file produced by Scribus 1.2.x.
+If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -34481,7 +34865,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation type="obsolete">Dokument Scribusa 1.3.4</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3471"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3469"/>
         <source>Copy #%1 of </source>
         <translation>Kopija št. %1 </translation>
     </message>
@@ -34504,23 +34888,29 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="89"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="91"/>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
         <translation>Dokument Scribusa 1.3.0-&gt;1.3.3.7</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3066"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3074"/>
         <source>Copy #%1 of </source>
         <translation>Kopija št. %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="71"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="73"/>
         <source>Scribus 1.3.x File Format Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="72"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="74"/>
         <source>Allows Scribus to read Scribus 1.3.0-&gt;1.3.3.x formatted files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1140"/>
+        <source>You have opened a file produced by Scribus 1.3.3.x.
+If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -36579,47 +36969,47 @@ Uporabite Končno preverjanje da jih odpravite</translation>
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="170"/>
+        <location filename="../../scribus/scribuscore.cpp" line="171"/>
         <source>Initializing Plugins</source>
         <translation>Inicializacija vtičnikov</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="182"/>
+        <location filename="../../scribus/scribuscore.cpp" line="183"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>Inicializacija tipk za bližnjice</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="184"/>
+        <location filename="../../scribus/scribuscore.cpp" line="185"/>
         <source>Reading Preferences</source>
         <translation>Branje nastavitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="196"/>
+        <location filename="../../scribus/scribuscore.cpp" line="197"/>
         <source>Reading Color Profiles</source>
         <translation>Branje barvnih profilov</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="331"/>
+        <location filename="../../scribus/scribuscore.cpp" line="332"/>
         <source>Searching for Fonts</source>
         <translation>Iskanje pisav</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="336"/>
+        <location filename="../../scribus/scribuscore.cpp" line="337"/>
         <source>There are no fonts found on your system.</source>
         <translation>V sistemu ni mogoče najti pisav.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="337"/>
+        <location filename="../../scribus/scribuscore.cpp" line="338"/>
         <source>Exiting now.</source>
         <translation>Sledi izhod.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="338"/>
+        <location filename="../../scribus/scribuscore.cpp" line="339"/>
         <source>Fatal Error</source>
         <translation>Usodna napaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="341"/>
+        <location filename="../../scribus/scribuscore.cpp" line="342"/>
         <source>Font System Initialized</source>
         <translation>Sistem pisav je vključen</translation>
     </message>
@@ -36647,17 +37037,17 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <translation>Ozadje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7066"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7224"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Resnično želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7110"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7269"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ne morete izbrisati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7110"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7269"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
     </message>
@@ -36687,32 +37077,32 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <translation>Prilagajanje barv</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="5758"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="5872"/>
         <source>remove direct paragraph formatting</source>
         <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="6004"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="6118"/>
         <source>remove direct char formatting</source>
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7623"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7802"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7624"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7803"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Preskoči zaklenjene predmete</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7627"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7806"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8732"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8911"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -36723,7 +37113,7 @@ Navpični zamik: %3
 Sukanje: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8761"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8940"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -36732,12 +37122,12 @@ Vodoravni razmik: %2
 Navpični razmik: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9789"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9973"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="2571"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="2660"/>
         <source>Copy_of_</source>
         <translation>Kopija_</translation>
     </message>
@@ -36771,7 +37161,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Branje nastavitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="336"/>
+        <location filename="../../scribus/scribus.cpp" line="340"/>
         <source>Initializing Story Editor</source>
         <translation>Inicializacija urejevalnika zgodb</translation>
     </message>
@@ -36781,12 +37171,12 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Branje profilov ICC</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="342"/>
+        <location filename="../../scribus/scribus.cpp" line="346"/>
         <source>Initializing Hyphenator</source>
         <translation>Inicializacija deljenja besed</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="348"/>
+        <location filename="../../scribus/scribus.cpp" line="352"/>
         <source>Reading Scrapbook</source>
         <translation>Branje skicirke</translation>
     </message>
@@ -36821,7 +37211,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Sledi izhod.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3793"/>
+        <location filename="../../scribus/scribus.cpp" line="3834"/>
         <source>Fatal Error</source>
         <translation>Usodna napaka</translation>
     </message>
@@ -36836,17 +37226,17 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9240"/>
+        <location filename="../../scribus/scribus.cpp" line="9208"/>
         <source>Open &amp;Recent</source>
         <translation>Odpri &amp;nedavne</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9242"/>
+        <location filename="../../scribus/scribus.cpp" line="9210"/>
         <source>&amp;Import</source>
         <translation>&amp;Uvozi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9243"/>
+        <location filename="../../scribus/scribus.cpp" line="9211"/>
         <source>&amp;Export</source>
         <translation>&amp;Izvozi</translation>
     </message>
@@ -36891,22 +37281,22 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">&amp;Predmet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="727"/>
+        <location filename="../../scribus/scribus.cpp" line="732"/>
         <source>Preview Settings</source>
         <translation>Nastavitve predogleda</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="711"/>
+        <location filename="../../scribus/scribus.cpp" line="716"/>
         <source>Level</source>
         <translation>Raven</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="717"/>
+        <location filename="../../scribus/scribus.cpp" line="722"/>
         <source>Send to La&amp;yer</source>
         <translation>Pošlji na p&amp;last</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9250"/>
+        <location filename="../../scribus/scribus.cpp" line="9218"/>
         <source>&amp;PDF Options</source>
         <translation>Možnosti &amp;PDF</translation>
     </message>
@@ -36916,7 +37306,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">&amp;Oblika</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9252"/>
+        <location filename="../../scribus/scribus.cpp" line="9220"/>
         <source>C&amp;onvert To</source>
         <translation>&amp;Pretvori v</translation>
     </message>
@@ -36926,17 +37316,17 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9255"/>
+        <location filename="../../scribus/scribus.cpp" line="9223"/>
         <source>Character</source>
         <translation>Znak</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9256"/>
+        <location filename="../../scribus/scribus.cpp" line="9224"/>
         <source>Quote</source>
         <translation>Narekovaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9257"/>
+        <location filename="../../scribus/scribus.cpp" line="9225"/>
         <source>Space</source>
         <translation>Presledek</translation>
     </message>
@@ -36966,47 +37356,47 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">&amp;Pomoč</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9265"/>
+        <location filename="../../scribus/scribus.cpp" line="9233"/>
         <source>&amp;Alignment</source>
         <translation>P&amp;oravnava</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9275"/>
+        <location filename="../../scribus/scribus.cpp" line="9243"/>
         <source>Ready</source>
         <translation>Pripravljen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4145"/>
+        <location filename="../../scribus/scribus.cpp" line="4186"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3602"/>
+        <location filename="../../scribus/scribus.cpp" line="3643"/>
         <source>Importing Pages...</source>
         <translation>Uvažanje strani ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3631"/>
+        <location filename="../../scribus/scribus.cpp" line="3672"/>
         <source>Import Page(s)</source>
         <translation>Uvozi stran(i)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3673"/>
+        <location filename="../../scribus/scribus.cpp" line="3714"/>
         <source>Import done</source>
         <translation>Uvoz končan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3677"/>
+        <location filename="../../scribus/scribus.cpp" line="3718"/>
         <source>Found nothing to import</source>
         <translation>Nič ni bilo mogoče uvoziti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3793"/>
+        <location filename="../../scribus/scribus.cpp" line="3834"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Datoteka %1 ni v sprejemljivi obliki</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3814"/>
+        <location filename="../../scribus/scribus.cpp" line="3855"/>
         <source>Loading...</source>
         <translation>Nalaganje ...</translation>
     </message>
@@ -37021,17 +37411,17 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Nekateri profili ICC, uporabljeni v dokumentu, niso nameščeni:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3961"/>
+        <location filename="../../scribus/scribus.cpp" line="4002"/>
         <source> was replaced by: </source>
         <translation>je bila zamenjana z:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3993"/>
+        <location filename="../../scribus/scribus.cpp" line="4034"/>
         <source>(converted)</source>
         <translation>(pretvorjen)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3451"/>
+        <location filename="../../scribus/scribus.cpp" line="3491"/>
         <source>All Supported Formats</source>
         <translation>Vse podprte vrste</translation>
     </message>
@@ -37041,7 +37431,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7953"/>
+        <location filename="../../scribus/scribus.cpp" line="8002"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>V datoteko ni mogoče pisati:
@@ -37058,17 +37448,17 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Dokumenti (*.sla *.scd);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7788"/>
+        <location filename="../../scribus/scribus.cpp" line="7837"/>
         <source>Save As</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4394"/>
+        <location filename="../../scribus/scribus.cpp" line="4435"/>
         <source>Saving...</source>
         <translation>Shranjevanje poteka ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7650"/>
+        <location filename="../../scribus/scribus.cpp" line="7699"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus je našel napake. Uporabite Končno preverjanje, da jih odpravite</translation>
     </message>
@@ -37083,37 +37473,37 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">&amp;Ustavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4693"/>
+        <location filename="../../scribus/scribus.cpp" line="4736"/>
         <source>Printing...</source>
         <translation>Tiskanje v teku ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7765"/>
+        <location filename="../../scribus/scribus.cpp" line="7814"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4734"/>
+        <location filename="../../scribus/scribus.cpp" line="4777"/>
         <source>Printing failed!</source>
         <translation>Tiskanje ni uspelo!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4824"/>
+        <location filename="../../scribus/scribus.cpp" line="4867"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Ne morete izrezati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4824"/>
+        <location filename="../../scribus/scribus.cpp" line="4867"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodb. Izrezovanje je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5372"/>
+        <location filename="../../scribus/scribus.cpp" line="5415"/>
         <source>About Qt</source>
         <translation>O QT-ju</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5383"/>
+        <location filename="../../scribus/scribus.cpp" line="5426"/>
         <source>Scribus Manual</source>
         <translation>Priročnik za Scribus</translation>
     </message>
@@ -37123,7 +37513,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Shrani kot</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5413"/>
+        <location filename="../../scribus/scribus.cpp" line="5456"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Besedilne datoteke (*.txt);;Vse datoteke(*)</translation>
     </message>
@@ -37148,47 +37538,47 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Nova glavna stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6802"/>
+        <location filename="../../scribus/scribus.cpp" line="6842"/>
         <source>&amp;Size:</source>
         <translation>&amp;Velikost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6802"/>
+        <location filename="../../scribus/scribus.cpp" line="6842"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6832"/>
+        <location filename="../../scribus/scribus.cpp" line="6872"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Senca:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6832"/>
+        <location filename="../../scribus/scribus.cpp" line="6872"/>
         <source>Shade</source>
         <translation>Senči</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6936"/>
+        <location filename="../../scribus/scribus.cpp" line="6976"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7547"/>
+        <location filename="../../scribus/scribus.cpp" line="7594"/>
         <source>The following programs are missing:</source>
         <translation>Manjkajo naslednji programi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7549"/>
+        <location filename="../../scribus/scribus.cpp" line="7596"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript: slik EPS ne morete uporabiti v predogledu tiskanja</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7686"/>
+        <location filename="../../scribus/scribus.cpp" line="7735"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7734"/>
+        <location filename="../../scribus/scribus.cpp" line="7783"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus je našel napake.
@@ -37200,74 +37590,74 @@ Uporabite Končno preverjanje, da jih odpravite.</translation>
         <translation type="obsolete">Datoteke EPS (*.eps);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7831"/>
+        <location filename="../../scribus/scribus.cpp" line="7880"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus je našel napake.
 Uporabite Končno preverjanje, da jih odpravite</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7927"/>
+        <location filename="../../scribus/scribus.cpp" line="7976"/>
         <source>-Page%1</source>
         <translation>-Stran%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8309"/>
+        <location filename="../../scribus/scribus.cpp" line="8360"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8305"/>
+        <location filename="../../scribus/scribus.cpp" line="8356"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Zakleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8306"/>
+        <location filename="../../scribus/scribus.cpp" line="8357"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9010"/>
+        <location filename="../../scribus/scribus.cpp" line="9057"/>
         <source>Information</source>
         <translation>Podatki</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9010"/>
+        <location filename="../../scribus/scribus.cpp" line="9057"/>
         <source>The program %1 is already running!</source>
         <translation>Program %1 že teče!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9049"/>
+        <location filename="../../scribus/scribus.cpp" line="9096"/>
         <source>The program %1 is missing!</source>
         <translation>Program %1 manjka!</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9163"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation>Izbrana barva ni uvrščena v nabor barv dokumenta. Izberite ji ime.</translation>
+        <translation type="obsolete">Izbrana barva ni uvrščena v nabor barv dokumenta. Izberite ji ime.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9166"/>
         <source>Color Not Found</source>
-        <translation>Barve ni mogoče najti</translation>
+        <translation type="obsolete">Barve ni mogoče najti</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9170"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation>Izbrano ime že obstaja. Izberite drugo ime za to barvo.</translation>
+        <translation type="obsolete">Izbrano ime že obstaja. Izberite drugo ime za to barvo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9247"/>
+        <location filename="../../scribus/scribus.cpp" line="9215"/>
         <source>&amp;Level</source>
         <translation>&amp;Raven</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9248"/>
+        <location filename="../../scribus/scribus.cpp" line="9216"/>
         <source>Send to Layer</source>
         <translation>Pošlji na plast</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9249"/>
+        <location filename="../../scribus/scribus.cpp" line="9217"/>
         <source>Previe&amp;w Settings</source>
         <translation>Nastavit&amp;ve predogleda</translation>
     </message>
@@ -37277,12 +37667,12 @@ Uporabite Končno preverjanje, da jih odpravite</translation>
         <translation type="obsolete">&amp;Orodja</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9271"/>
+        <location filename="../../scribus/scribus.cpp" line="9239"/>
         <source>X-Pos:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9272"/>
+        <location filename="../../scribus/scribus.cpp" line="9240"/>
         <source>Y-Pos:</source>
         <translation>Y:</translation>
     </message>
@@ -37311,7 +37701,7 @@ Vodoravni zamik: %2
 Navpični zamik: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7551"/>
+        <location filename="../../scribus/scribus.cpp" line="7598"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript: Slik EPS ali predogleda tiskanja Postscript ne morete uporabljati</translation>
     </message>
@@ -37321,47 +37711,47 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Ghostscript manjka: Predogled tiskanja Postscript ni na voljo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9425"/>
+        <location filename="../../scribus/scribus.cpp" line="9393"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Resnično želite zamenjati obstoječo sliko?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9245"/>
+        <location filename="../../scribus/scribus.cpp" line="9213"/>
         <source>Contents</source>
         <translation>Vsebina</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9258"/>
+        <location filename="../../scribus/scribus.cpp" line="9226"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tura</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="283"/>
+        <location filename="../../scribus/scribus.cpp" line="287"/>
         <source>Scribus </source>
         <translation>Scribus </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9241"/>
+        <location filename="../../scribus/scribus.cpp" line="9209"/>
         <source>Paste Recent</source>
         <translation>Prilepi nedavne</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="790"/>
+        <location filename="../../scribus/scribus.cpp" line="795"/>
         <source>&amp;Character</source>
         <translation>&amp;Znak</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="808"/>
+        <location filename="../../scribus/scribus.cpp" line="813"/>
         <source>&amp;Quote</source>
         <translation>&amp;Narekovaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="833"/>
+        <location filename="../../scribus/scribus.cpp" line="838"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>Pres&amp;ledki in prelomi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9266"/>
+        <location filename="../../scribus/scribus.cpp" line="9234"/>
         <source>Online &amp;Tutorials</source>
         <translation>Spletni &amp;vodniki</translation>
     </message>
@@ -37371,59 +37761,59 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Posodabljanje slik</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3958"/>
+        <location filename="../../scribus/scribus.cpp" line="3999"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Nekateri barvni profili, ki jih uporablja ta dokument, niso nameščeni:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4176"/>
+        <location filename="../../scribus/scribus.cpp" line="4217"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Resnično želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4362"/>
+        <location filename="../../scribus/scribus.cpp" line="4403"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumenti (*.sla *.sla.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7788"/>
+        <location filename="../../scribus/scribus.cpp" line="7837"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="320"/>
+        <location filename="../../scribus/scribus.cpp" line="324"/>
         <source>Applying User Shortcuts</source>
         <translation>Uveljavljanje tipk za bližnjice</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2484"/>
+        <location filename="../../scribus/scribus.cpp" line="2520"/>
         <source>Updating Images</source>
         <translation>Posodabljanje slik</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4378"/>
+        <location filename="../../scribus/scribus.cpp" line="4419"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Vaš dokument je bil shranjen v začasno datoteko in ga ni mogoče premakniti: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4789"/>
+        <location filename="../../scribus/scribus.cpp" line="4832"/>
         <source>Print engine initialization failed</source>
         <translation>Inicializacija tiskalniškega pogona ni uspela</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9479"/>
+        <location filename="../../scribus/scribus.cpp" line="9447"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9479"/>
+        <location filename="../../scribus/scribus.cpp" line="9447"/>
         <source>New Entry</source>
         <translation>Nov vnos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7598"/>
+        <location filename="../../scribus/scribus.cpp" line="7645"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37574,7 +37964,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">pik</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="208"/>
+        <location filename="../../scribus/scribusview.cpp" line="217"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -37604,17 +37994,17 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Plast</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1083"/>
+        <location filename="../../scribus/scribusview.cpp" line="1100"/>
         <source>Copy Here</source>
         <translation>Kopiraj sem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1084"/>
+        <location filename="../../scribus/scribusview.cpp" line="1101"/>
         <source>Move Here</source>
         <translation>Premakni sem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1085"/>
+        <location filename="../../scribus/scribusview.cpp" line="1102"/>
         <source>Cancel</source>
         <translation>Prekliči</translation>
     </message>
@@ -37674,17 +38064,17 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Znaki: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="5285"/>
+        <location filename="../../scribus/pageitem.cpp" line="5342"/>
         <source>Print: </source>
         <translation>Natisni: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="5287"/>
+        <location filename="../../scribus/pageitem.cpp" line="5344"/>
         <source>Enabled</source>
         <translation>Vključeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="5289"/>
+        <location filename="../../scribus/pageitem.cpp" line="5346"/>
         <source>Disabled</source>
         <translation>Izključeno</translation>
     </message>
@@ -37739,7 +38129,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Lastnosti &amp;polja</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3493"/>
+        <location filename="../../scribus/contextmenu.cpp" line="252"/>
         <source>&amp;PDF Options</source>
         <translation>Možnosti &amp;PDF</translation>
     </message>
@@ -37884,7 +38274,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Nastavitve predogleda</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_legacy.cpp" line="2001"/>
+        <location filename="../../scribus/canvasmode_legacy.cpp" line="1979"/>
         <source>Linking Text Frames</source>
         <translation>Povezovanje besedilnih okvirov</translation>
     </message>
@@ -37909,17 +38299,17 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Ali zares želite izbirasti vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3926"/>
+        <location filename="../../scribus/scribusview.cpp" line="3949"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ne morete pretvoriti predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3926"/>
+        <location filename="../../scribus/scribusview.cpp" line="3949"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Predmet %1 uporablja urejevalnik zgodb. Pretvarjanje v črte je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2429"/>
+        <location filename="../../scribus/scribusview.cpp" line="2446"/>
         <source>Page %1 to %2</source>
         <translation>Strani %1 do %2</translation>
     </message>
@@ -37954,12 +38344,12 @@ Navpični zamik: %3</translation>
         <translation>Vsebina</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_legacy.cpp" line="1995"/>
+        <location filename="../../scribus/canvasmode_legacy.cpp" line="1973"/>
         <source>You are trying to link a frame to itself.</source>
         <translation>Poskušate povezati z okvirom, ki je že povezan sam s seboj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_legacy.cpp" line="2002"/>
+        <location filename="../../scribus/canvasmode_legacy.cpp" line="1980"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation>Poskušate povezati z okvirom, ki je že povezan.</translation>
     </message>
@@ -37969,7 +38359,7 @@ Navpični zamik: %3</translation>
         <translation>Prilepi nedavne</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_legacy.cpp" line="2847"/>
+        <location filename="../../scribus/canvasmode_legacy.cpp" line="2829"/>
         <source>Enter Object Size</source>
         <translation>Vnesite velikost predmeta</translation>
     </message>
@@ -37996,17 +38386,17 @@ You can choose between normal and several color blindness forms</source>
 Izberete lahko med navadno in več oblikami barvne slepote</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="421"/>
+        <location filename="../../scribus/scribusview.cpp" line="432"/>
         <source>Preview Mode</source>
         <translation>Predogledni način</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="422"/>
+        <location filename="../../scribus/scribusview.cpp" line="433"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation>CMS je aktiven. Zato se prikaz barv morda ne bo ujemal z zaznavo vidno omejenih</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3620"/>
+        <location filename="../../scribus/scribusview.cpp" line="3643"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -38021,65 +38411,85 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">Strani: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="362"/>
+        <location filename="../../scribus/scribusview.cpp" line="373"/>
         <source>Enable/disable Color Management</source>
         <translation>Omogoči/onemogoči upravljanje barv</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="364"/>
+        <location filename="../../scribus/scribusview.cpp" line="375"/>
         <source>Enable/disable the Preview Mode</source>
         <translation>Omogoči/onemogoči predogledni način</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="365"/>
+        <location filename="../../scribus/scribusview.cpp" line="376"/>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
         <translation>Izberite videz prikazanega. Izberete lahko med navadno in več oblikami barvne slepote</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="363"/>
+        <location filename="../../scribus/scribusview.cpp" line="374"/>
         <source>Configure CMS...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="353"/>
+        <location filename="../../scribus/scribusview.cpp" line="363"/>
         <source>Zoom to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="354"/>
+        <location filename="../../scribus/scribusview.cpp" line="364"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="355"/>
+        <location filename="../../scribus/scribusview.cpp" line="365"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="356"/>
+        <location filename="../../scribus/scribusview.cpp" line="366"/>
         <source>Current zoom level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="359"/>
+        <location filename="../../scribus/scribusview.cpp" line="369"/>
         <source>Select the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="360"/>
+        <location filename="../../scribus/scribusview.cpp" line="370"/>
         <source>Select the current unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusview.cpp" line="205"/>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusview.cpp" line="206"/>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusview.cpp" line="207"/>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusview.cpp" line="371"/>
+        <source>Select the image preview quality</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
     <message>
-        <location filename="../../scribus/scribuswin.cpp" line="112"/>
+        <location filename="../../scribus/scribuswin.cpp" line="114"/>
         <source>has been changed since the last save.</source>
         <translation>je bil od zadnjega shranjevanja še spremenjen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuswin.cpp" line="110"/>
+        <location filename="../../scribus/scribuswin.cpp" line="112"/>
         <source>Document:</source>
         <translation>Dokument:</translation>
     </message>
@@ -38165,17 +38575,17 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">Python Skripte (*.py);; Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="588"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="592"/>
         <source>Script error</source>
         <translation>Napaka skripte</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="357"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="361"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Če ste pognali uradno skipto, prosim, sporočite napako na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="363"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Tudi to sporočilo je v odložišču. Uporabite Ctrl+V, da ga prilepite v slednika hroščev.</translation>
     </message>
@@ -38190,12 +38600,12 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">O skriptah</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="435"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="439"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Pripetila se je notranja napaka pri preverjanju vnesenega ukaza. Podrobnosti so izpisane na izhod standardne napake (stderr).</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Examine Script</source>
         <translation>Preuči skripto</translation>
     </message>
@@ -38205,7 +38615,7 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">Python skripte (*.py)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Neuspešno nastavljanje vtičnika Python. Podrobnosti so izpisane na izhod standardne napake (stderr).</translation>
     </message>
@@ -38215,22 +38625,22 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">Skripte Python (*.py);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="524"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="528"/>
         <source>Documentation for:</source>
         <translation>Dokumentacija za:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="529"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="533"/>
         <source>Script</source>
         <translation>Skripta</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="529"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="533"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation>ne vključuje nobenih docstring!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Skripte Python (*.py *.PY);; Vse datoteke (*)</translation>
     </message>
@@ -38985,12 +39395,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1949"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1952"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="3159"/>
+        <location filename="../../scribus/storyeditor.cpp" line="3166"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
@@ -39000,7 +39410,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Ali zares želite izgubiti vse spremembe?</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="2037"/>
+        <location filename="../../scribus/storyeditor.cpp" line="2040"/>
         <source>Story Editor</source>
         <translation>Urejevalnik zgodb</translation>
     </message>
@@ -39010,32 +39420,32 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Ali zares želite počistiti vso besedilo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1951"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1954"/>
         <source>Current Paragraph:</source>
         <translation>Trenuten odstavek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="2077"/>
+        <location filename="../../scribus/storyeditor.cpp" line="2080"/>
         <source>Do you want to save your changes?</source>
         <translation>Želite shraniti spremembe?</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="3194"/>
+        <location filename="../../scribus/storyeditor.cpp" line="3201"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1957"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1960"/>
         <source>Chars: </source>
         <translation>Znaki: </translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="3194"/>
+        <location filename="../../scribus/storyeditor.cpp" line="3201"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Besedilne datoteke (*.txt);;Vse datoteke(*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1954"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1957"/>
         <source>Totals:</source>
         <translation>Skupaj:</translation>
     </message>
@@ -39045,12 +39455,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Opozorilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1955"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1958"/>
         <source>Paragraphs: </source>
         <translation>Odstavkov: </translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1956"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1959"/>
         <source>Words: </source>
         <translation>Besed: </translation>
     </message>
@@ -39080,52 +39490,52 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">&amp;Nova</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1915"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1918"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Osveži besedilo iz okvira</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1916"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1919"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Shrani v datoteko ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1917"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1920"/>
         <source>&amp;Load from File...</source>
         <translation>&amp;Naloži iz datoteke ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1918"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1921"/>
         <source>Save &amp;Document</source>
         <translation>Shrani &amp;dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1919"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1922"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>&amp;Posodobi okvir z besedilom in končaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1920"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1923"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>&amp;Končaj brez posodabljanja besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1924"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1927"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Izreži</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1925"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1928"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiraj</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1926"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1929"/>
         <source>&amp;Paste</source>
         <translation>&amp;Prilepi</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1927"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1930"/>
         <source>C&amp;lear</source>
         <translation>Po&amp;čisti</translation>
     </message>
@@ -39135,27 +39545,27 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">&amp;Vstavi posebej...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1931"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1934"/>
         <source>&amp;Update Text Frame</source>
         <translation>&amp;Posodobi okvir z besedilom</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1913"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1916"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1922"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1925"/>
         <source>&amp;Edit</source>
         <translation>Ur&amp;edi</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1923"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1926"/>
         <source>Select &amp;All</source>
         <translation>Izberi &amp;vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1929"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1932"/>
         <source>&amp;Edit Styles...</source>
         <translation>&amp;Uredi sloge ...</translation>
     </message>
@@ -39175,27 +39585,27 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Osveži besedilo iz okvirja</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1928"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1931"/>
         <source>&amp;Search/Replace...</source>
         <translation>Najd&amp;i in zamenjaj ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1930"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1933"/>
         <source>&amp;Fonts Preview...</source>
         <translation>Predogled &amp;pisav ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1942"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1945"/>
         <source>&amp;Background...</source>
         <translation>&amp;Ozadje ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1943"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1946"/>
         <source>&amp;Display Font...</source>
         <translation>Pisava za &amp;prikaz ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1941"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1944"/>
         <source>&amp;Settings</source>
         <translation>Na&amp;stavitve</translation>
     </message>
@@ -39215,62 +39625,62 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Počisti vse besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1944"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1947"/>
         <source>&amp;Smart text selection</source>
         <translation>&amp;Pametno izbiranje besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1938"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1941"/>
         <source>&amp;Insert Glyph...</source>
         <translation>&amp;Vstavi znak ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1914"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1917"/>
         <source>Clear All Text</source>
         <translation>Počisti vse besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="2018"/>
+        <location filename="../../scribus/storyeditor.cpp" line="2021"/>
         <source>Story Editor - %1</source>
         <translation>Urejevalnik zgodb - %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="2663"/>
+        <location filename="../../scribus/storyeditor.cpp" line="2670"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Ali zares želite izgubiti vse spremembe?</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="2692"/>
+        <location filename="../../scribus/storyeditor.cpp" line="2699"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ali zares želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1934"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1937"/>
         <source>&amp;Insert</source>
         <translation>&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1935"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1938"/>
         <source>Character</source>
         <translation>Znak</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1936"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1939"/>
         <source>Quote</source>
         <translation>Narekovaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1723"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1726"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Presledki in prelomi</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1735"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1738"/>
         <source>Ligature</source>
         <translation>Ligatura</translation>
     </message>
     <message>
-        <location filename="../../scribus/storyeditor.cpp" line="1937"/>
+        <location filename="../../scribus/storyeditor.cpp" line="1940"/>
         <source>Space</source>
         <translation>Presledek</translation>
     </message>
@@ -39418,7 +39828,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <location filename="../../scribus/stylemanager.cpp" line="162"/>
         <source>Send to Scrapbook</source>
-        <translation>Pošlji v skicirko</translation>
+        <translation type="obsolete">Pošlji v skicirko</translation>
     </message>
     <message>
         <location filename="../../scribus/stylemanager.cpp" line="164"/>
@@ -40317,7 +40727,7 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <translation>Pokaži slike</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabdisplay.cpp" line="200"/>
+        <location filename="../../scribus/tabdisplay.cpp" line="203"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
@@ -41212,47 +41622,47 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <translation>Vnesite ime za nabor tipk za bližnjice:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="551"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="551"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="551"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="551"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="501"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="503"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="505"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="507"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="509"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="511"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="513"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="515"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="523"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="525"/>
         <source>This key sequence is already in use</source>
         <translation>To zaporedje tipk je že v uporabi</translation>
     </message>
@@ -45254,7 +45664,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undogui.cpp" line="309"/>
         <source>Show selected object only</source>
-        <translation>Pokaži samo izbran predmet</translation>
+        <translation type="obsolete">Pokaži samo izbran predmet</translation>
     </message>
     <message>
         <location filename="../../scribus/undogui.cpp" line="310"/>
@@ -45285,6 +45695,11 @@ X: %4, Y: %5</translation>
         <location filename="../../scribus/undogui.cpp" line="315"/>
         <source>Redo the last action for either the current object or the document</source>
         <translation>Ponovi zadnje dejanje za trenutni predmet ali dokument</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undogui.cpp" line="309"/>
+        <source>Show Selected Object Only</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -46312,6 +46727,140 @@ PREDPONA/share/scribus/templates.</translation>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.ui" line="86"/>
         <source>&amp;Preview</source>
         <translation type="unfinished">&amp;Predogled</translation>
+    </message>
+</context>
+<context>
+    <name>nftwidget</name>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="30"/>
+        <source>&amp;Remove</source>
+        <translation type="unfinished">&amp;Odstrani</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="31"/>
+        <source>&amp;Open</source>
+        <translation type="unfinished">&amp;Odpri</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="53"/>
+        <source>All</source>
+        <translation type="unfinished">Vse</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="140"/>
+        <source>Name</source>
+        <translation type="unfinished">Ime</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="142"/>
+        <source>Page Size</source>
+        <translation type="unfinished">Velikost strani</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="144"/>
+        <source>Colors</source>
+        <translation type="unfinished">Barve</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="146"/>
+        <source>Description</source>
+        <translation type="unfinished">Opis</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="148"/>
+        <source>Usage</source>
+        <translation type="unfinished">Uporaba</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="150"/>
+        <source>Created with</source>
+        <translation type="unfinished">Ustvarjeno z</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="152"/>
+        <source>Date</source>
+        <translation type="unfinished">Datum</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="154"/>
+        <source>Author</source>
+        <translation type="unfinished">Avtor</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="169"/>
+        <source>Downloading Templates</source>
+        <translation type="unfinished">Prenašanje predlog</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="172"/>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished">Predloge dokumentov lahko najdete na http://www.scribus.net/, v rubriki &quot;Downloads&quot;.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="175"/>
+        <source>Installing Templates</source>
+        <translation type="unfinished">Nameščanje predlog</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="181"/>
+        <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
+        <translation type="unfinished">Izvleci paket v mapo s predlogami: za trenutnega uporabnika ~/.scribus/templates, za vse uporabnike sistema pa 
+PREDPONA/share/scribus/templates.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="184"/>
+        <source>Preparing a template</source>
+        <translation type="unfinished">Pripravljanje predloge</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="186"/>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished">Prepričajte se, da uporabljate prosto dostopne slike in pisave. Če pisave niso za prosto uporabo, jih ne shranjujte v predlogo.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="187"/>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished">Kdor ustvarja predlogo, mora poskrbeti, da se gornji razdelek &quot;Nameščanje predlog&quot; nanaša tudi na njegove predloge. Tako bodo uporabniki lahko uporabili paket s predlogo v svojih mapah za predloge.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="189"/>
+        <source>Removing a template</source>
+        <translation type="unfinished">Odstranjevanje predloge</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="191"/>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished">Odstranjevanje predloge preko pogovornega okna &quot;Nova iz predloge&quot; odstrani le vnos v datoteki template.xml, ne pa tudi dejanske datoteke. Meni za brisanje se prikaže le, le imate pravico pisanja v datoteko template.xml.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="194"/>
+        <source>Translating template.xml</source>
+        <translation type="unfinished">Prevajanje template.xml</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.cpp" line="196"/>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
+        <translation type="unfinished">Skopiraj obstoječo datoteko template.xml v datoteko z imenom template.jezik_DRŽAVA.xml (uporabite isto jezikovno oznako kot za .qm datoteko vašega jezika), na primer template.sl_SI.xml za slovensko datoteko s predlogami. Kopija mora biti v isti mapi kot izvirna datoteka template.xml.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished">Obrazec</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.ui" line="81"/>
+        <source>&amp;About</source>
+        <translation type="unfinished">&amp;O programu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.ui" line="105"/>
+        <source>&amp;Preview</source>
+        <translation type="unfinished">&amp;Predogled</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/nftwidget.ui" line="133"/>
+        <source>&amp;Help</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
