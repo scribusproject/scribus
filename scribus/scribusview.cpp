@@ -928,13 +928,16 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			if (Doc->Items->at(i)->LayerNr==Doc->activeLayer())
 			{
+				Doc->m_Selection->delaySignalsOn();
 				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
 				{
 					Deselect(false);
-					SelectItem(Doc->Items->at(i));
+					Doc->m_Selection->addItem(Doc->Items->at(i));
+//					SelectItem(Doc->Items->at(i));
 					selectedItemByDrag=true;
 					break;
 				}
+				Doc->m_Selection->delaySignalsOff();
 			}
 		}
 		bool vectorFile = false;
