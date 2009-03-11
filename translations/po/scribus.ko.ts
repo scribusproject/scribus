@@ -2270,9 +2270,6 @@ If loading was successful, the selection contains the imported ODG
     </message>
 </context>
 <context>
-    <name>@default</name>
-</context>
-<context>
     <name>AIPlug</name>
     <message>
         <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="124"/>
