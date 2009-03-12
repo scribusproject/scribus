@@ -313,7 +313,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	
 	if (m_doc->appMode == modeDrawFreehandLine)
 	{
