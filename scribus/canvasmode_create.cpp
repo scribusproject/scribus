@@ -368,7 +368,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 
 	m_createTransaction = new UndoTransaction(Um::instance()->beginTransaction("creating"));
 	currItem = doCreateNewObject();

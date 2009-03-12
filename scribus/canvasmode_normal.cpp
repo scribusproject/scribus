@@ -153,7 +153,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	PageItem *currItem = 0;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
@@ -299,11 +299,11 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			&& (!(currItem->isSingleSel)))
 		{
 			// start drag
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			if ((fabs(m_mousePressPoint.x() - newX) > 10) || (fabs(m_mousePressPoint.y() - newY) > 10))
 			{
 				m_canvas->setRenderMode(Canvas::RENDER_NORMAL);
-				m_view->resetDragTimer();
+//				m_view->resetDragTimer();
 				m_doc->DragP = true;
 				m_doc->leaveDrag = false;
 				m_doc->DraggedElem = currItem;
@@ -339,7 +339,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
 			((m_doc->appMode == modeNormal)) && (!currItem->locked()))
 		{
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			if (!m_canvas->m_viewMode.operItemResizing)
 			{
 				//Dragging an item (plus more?)
@@ -727,10 +727,11 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		m_canvas->m_viewMode.m_MouseButtonPressed = true;
 		m_mousePressPoint = m_mouseCurrentPoint;
 	}
-	if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
-	{
-		m_view->startDragTimer();
-	}
+// Commented out to fix bug #7865
+//	if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
+//	{
+//		m_view->startDragTimer();
+//	}
 	m_canvas->PaintSizeRect(QRect());
 }
 
@@ -747,7 +748,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
@@ -761,7 +762,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 	{
-		m_view->stopDragTimer();
+//		m_view->stopDragTimer();
 		m_canvas->setRenderModeUseBuffer(false);
 		if (!m_doc->m_Selection->isMultipleSelection())
 		{

@@ -247,7 +247,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	PageItem *currItem = 0;
 	if ((m_doc->m_Selection->isMultipleSelection()) || (m_doc->appMode != modeNormal))
 	{
@@ -548,11 +548,11 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			&& (!(currItem->isSingleSel)))
 		{
 			// start drag
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			if ((fabs(Dxp - newX) > 10) || (fabs(Dyp - newY) > 10))
 			{
 				m_canvas->setRenderMode(Canvas::RENDER_NORMAL);
-				m_view->resetDragTimer();
+//				m_view->resetDragTimer();
 				m_doc->DragP = true;
 				m_doc->leaveDrag = false;
 				m_doc->DraggedElem = currItem;
@@ -597,7 +597,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			return;
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeRotation))
 		{
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			if (!m_view->groupTransactionStarted() && m_doc->m_Selection->isMultipleSelection())
 			{
 				m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
@@ -736,7 +736,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
 			((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
 		{
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			if (m_canvas->m_viewMode.operItemResizing)
 			{
 //				newX = static_cast<int>(m->x()/sc);
@@ -1572,10 +1572,11 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				Dxp = Mxp;
 				Dyp = Myp;
 			}
-			if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
-			{
-				m_view->startDragTimer();
-			}
+// Commented out to fix bug #7865
+//			if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
+//			{
+//				m_view->startDragTimer();
+//			}
 			break;
 		case modeDrawShapes:
 			if (m->button() != Qt::LeftButton)
@@ -2218,7 +2219,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if (m_doc->appMode == modeEditGradientVectors)
 		return;
@@ -2255,7 +2256,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 		{
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			m_canvas->setRenderModeUseBuffer(false);
 			if (!m_doc->m_Selection->isMultipleSelection())
 			{

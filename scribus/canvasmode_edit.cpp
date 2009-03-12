@@ -328,7 +328,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	PageItem *currItem = 0;
 	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame())
 	{
@@ -424,7 +424,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
 			((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode) && (!currItem->locked()))
 		{
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			if (m_canvas->m_viewMode.operItemResizing)
 			{
 //				newX = static_cast<int>(m->x()/sc);
@@ -1088,7 +1088,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
@@ -1096,7 +1096,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 	{
-		m_view->stopDragTimer();
+//		m_view->stopDragTimer();
 		m_canvas->setRenderModeUseBuffer(false);
 		if (!m_doc->m_Selection->isMultipleSelection())
 		{

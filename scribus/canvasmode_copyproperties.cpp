@@ -101,7 +101,7 @@ void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 }
 
 
@@ -197,7 +197,7 @@ void CanvasMode_CopyProperties::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());

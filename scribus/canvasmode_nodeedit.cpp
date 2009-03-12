@@ -251,7 +251,7 @@ void CanvasMode_NodeEdit::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	m_view->requestMode(submodeEndNodeEdit);
 }
 
@@ -297,7 +297,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 #ifdef MODEDEBUG
 //			qDebug() << "node edit drag 1";
 #endif
-			m_view->stopDragTimer();
+//			m_view->stopDragTimer();
 			handleNodeEditDrag(m, currItem);
 		}
 		else if (!m_canvas->m_viewMode.m_MouseButtonPressed)
@@ -450,7 +450,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 /*	if (m_doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
@@ -551,7 +551,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	if (m_view->moveTimerElapsed() && (m_doc->appMode == modeEditClip) && (SegP1 != -1) && (SegP2 != -1)) */
 	if (m_view->moveTimerElapsed())
 	{
-		m_view->stopDragTimer();
+//		m_view->stopDragTimer();
 		if (m_doc->nodeEdit.SegP1 != -1 && m_doc->nodeEdit.SegP2 != -1)
 		{
 			m_doc->nodeEdit.deselect();

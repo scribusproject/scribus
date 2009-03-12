@@ -299,7 +299,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
@@ -308,7 +308,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	m_inItemRotation = false;
 	if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 	{
-		m_view->stopDragTimer();
+//		m_view->stopDragTimer();
 		//Always start group transaction as a rotate action is generally a combination of
 		//a change of rotation + a change of position
 		if (!m_view->groupTransactionStarted() /*&& m_doc->m_Selection->isMultipleSelection()*/)

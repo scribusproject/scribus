@@ -158,7 +158,7 @@ void BezierMode::activate(bool flag)
 void BezierMode::deactivate(bool flag)
 {
 //	qDebug() << "BezierMode::deactivate" << flag;
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	if (m_createTransaction && currItem)
 	{
@@ -364,7 +364,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	
 	m_canvas->setRenderModeUseBuffer(false);
 	if ((m_doc->appMode == modeDrawBezierLine) && (m->button() == Qt::LeftButton))

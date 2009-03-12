@@ -115,7 +115,7 @@ void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 }
 
 void CanvasMode_ObjImport::mouseMoveEvent(QMouseEvent *m)
@@ -173,7 +173,7 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;

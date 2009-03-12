@@ -116,7 +116,7 @@ void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 }
 
 void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
@@ -252,7 +252,7 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{

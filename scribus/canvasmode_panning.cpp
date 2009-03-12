@@ -84,7 +84,7 @@ void CanvasMode_Panning::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 }
 
 void CanvasMode_Panning::mousePressEvent(QMouseEvent *m)

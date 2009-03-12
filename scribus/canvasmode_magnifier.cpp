@@ -109,7 +109,7 @@ void CanvasMode_Magnifier::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 }
 
 
@@ -198,7 +198,7 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->stopDragTimer();
+//	m_view->stopDragTimer();
 	if (m_doc->appMode == modeMagnifier)
 	{
 		double sc = m_canvas->scale();

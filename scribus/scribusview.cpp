@@ -333,9 +333,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	languageChange();
-	m_dragTimer = new QTimer(this);
-	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
-	m_dragTimer->stop();
+// Commented out to fix bug #7865
+//	m_dragTimer = new QTimer(this);
+//	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
+//	m_dragTimer->stop();
 	m_dragTimerFired = false;
 }
 
