@@ -290,7 +290,10 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		if ((((m_view->dragTimerElapsed()) && (m->buttons() & Qt::LeftButton)) || (m_view->moveTimerElapsed() && (m->buttons() & Qt::RightButton)))
+		// #0007865
+		if (/*(((m_view->dragTimerElapsed()) && (m->buttons() & Qt::LeftButton)) ||*/
+			(m_view->moveTimerElapsed())
+			&& (m->buttons() & Qt::RightButton)
 			&& (m_canvas->m_viewMode.m_MouseButtonPressed)
 			&& (!m_doc->DragP)  
 			&& (!(currItem->isSingleSel)))

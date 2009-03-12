@@ -1742,7 +1742,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 void ScribusView::dragTimerTimeOut()
 {
 	m_dragTimerFired = true;
-	qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
+	// #0007865
+// 	qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
 }
 
 void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
