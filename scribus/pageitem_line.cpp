@@ -76,7 +76,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				}
 			}
 		}
-		if (m_startArrowIndex != 0)
+		if ((m_startArrowIndex != 0) && (lineColor() != CommonStrings::None))
 		{
 			QMatrix arrowTrans;
 			FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
@@ -90,14 +90,14 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				p->strokePath();
 			else
 			{
-				p->setBrush(p->pen());
+				p->setBrush(strokeQColor);
 				p->setBrushOpacity(1.0 - lineTransparency());
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);
 				p->fillPath();
 			}
 		}
-		if (m_endArrowIndex != 0)
+		if ((m_endArrowIndex != 0) && (lineColor() != CommonStrings::None))
 		{
 			QMatrix arrowTrans;
 			FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
@@ -110,7 +110,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				p->strokePath();
 			else
 			{
-				p->setBrush(p->pen());
+				p->setBrush(strokeQColor);
 				p->setBrushOpacity(1.0 - lineTransparency());
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);

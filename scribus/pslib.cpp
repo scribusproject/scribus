@@ -2474,7 +2474,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if (c->startArrowIndex() != 0)
+			if ((c->startArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
 			{
 				QMatrix arrowTrans;
 				FPointArray arrow = Doc->arrowStyles.at(c->startArrowIndex()-1).points.copy();
@@ -2490,7 +2490,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_closepath();
 				putColor(c->lineColor(), c->lineShade(), true);
 			}
-			if (c->endArrowIndex() != 0)
+			if ((c->endArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
 			{
 				QMatrix arrowTrans;
 				FPointArray arrow = Doc->arrowStyles.at(c->endArrowIndex()-1).points.copy();
@@ -2593,7 +2593,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if (c->startArrowIndex() != 0)
+			if ((c->startArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
 			{
 				FPoint Start = c->PoLine.point(0);
 				for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
@@ -2619,7 +2619,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if (c->endArrowIndex() != 0)
+			if ((c->endArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
 			{
 				FPoint End = c->PoLine.point(c->PoLine.size()-2);
 				for (uint xx = c->PoLine.size()-1; xx > 0; xx -= 2)
