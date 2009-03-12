@@ -124,7 +124,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 				}
 			}
 		}
-		if (m_startArrowIndex != 0)
+		if ((m_startArrowIndex != 0) && (m_lineWidth != 0.0) && (lineColor() != CommonStrings::None))
 		{
 			FPoint Start = PoLine.point(0);
 			for (uint xx = 1; xx < PoLine.size(); xx += 2)
@@ -139,7 +139,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 					arrowTrans.rotate(r);
 					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
-					p->setBrush(p->pen());
+					p->setBrush(strokeQColor);
 					p->setBrushOpacity(1.0 - lineTransparency());
 					p->setLineWidth(0);
 					p->setFillMode(ScPainter::Solid);
@@ -149,7 +149,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 				}
 			}
 		}
-		if (m_endArrowIndex != 0)
+		if ((m_endArrowIndex != 0) && (m_lineWidth != 0.0) && (lineColor() != CommonStrings::None))
 		{
 			FPoint End = PoLine.point(PoLine.size()-2);
 			for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
@@ -164,7 +164,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 					arrowTrans.rotate(r);
 					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
-					p->setBrush(p->pen());
+					p->setBrush(strokeQColor);
 					p->setBrushOpacity(1.0 - lineTransparency());
 					p->setLineWidth(0);
 					p->setFillMode(ScPainter::Solid);

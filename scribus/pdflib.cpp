@@ -1540,7 +1540,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								}
 							}
 						}
-						if (ite->startArrowIndex() != 0)
+						if ((ite->startArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 						{
 							QWMatrix arrowTrans;
 							FPointArray arrow = (*doc.arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
@@ -1566,7 +1566,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
-						if (ite->endArrowIndex() != 0)
+						if ((ite->endArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 						{
 							QWMatrix arrowTrans;
 							FPointArray arrow = (*doc.arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
@@ -1662,7 +1662,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								}
 							}
 						}
-						if (ite->startArrowIndex() != 0)
+						if ((ite->startArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 						{
 							FPoint Start = ite->PoLine.point(0);
 							for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
@@ -1698,7 +1698,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								}
 							}
 						}
-						if (ite->endArrowIndex() != 0)
+						if ((ite->endArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 						{
 							FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
 							for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
@@ -2687,7 +2687,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					}
 				}
 			}
-			if (ite->startArrowIndex() != 0)
+			if ((ite->startArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 			{
 				QWMatrix arrowTrans;
 				FPointArray arrow = (*doc.arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
@@ -2713,7 +2713,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				tmp += SetClipPathArray(&arrow);
 				tmp += "h\nf*\n";
 			}
-			if (ite->endArrowIndex() != 0)
+			if ((ite->endArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 			{
 				QWMatrix arrowTrans;
 				FPointArray arrow = (*doc.arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
@@ -2812,7 +2812,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					}
 				}
 			}
-			if (ite->startArrowIndex() != 0)
+			if ((ite->startArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 			{
 				FPoint Start = ite->PoLine.point(0);
 				for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
@@ -2848,7 +2848,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					}
 				}
 			}
-			if (ite->endArrowIndex() != 0)
+			if ((ite->endArrowIndex() != 0) && (ite->lineWidth() != 0.0) && (ite->lineColor() != CommonStrings::None))
 			{
 				FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
 				for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
