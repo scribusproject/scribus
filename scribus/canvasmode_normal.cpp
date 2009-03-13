@@ -918,9 +918,10 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					continue;
 				QMatrix p;
 				m_canvas->Transform(docItem, p);
-				QRegion apr = QRegion(docItem->Clip * p);
+			//	QRegion apr = QRegion(docItem->Clip * p);
 				QRect apr2(docItem->getRedrawBounding(m_canvas->scale()));
-				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+			//	if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+				if ((Sele.contains(apr2)) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
 				{
 					bool redrawSelection=false;
 					m_view->SelectItemNr(a, redrawSelection);
