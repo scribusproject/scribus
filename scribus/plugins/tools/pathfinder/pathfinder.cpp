@@ -135,17 +135,35 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 		{
 			if (dia->keepItem1)
 			{
+				PageItem *newItem;
 				if (dia->swapped)
-					currDoc->Items->insert(Item2->ItemNr, new PageItem_Polygon(*Item2));
+				{
+					newItem = new PageItem_Polygon(*Item2);
+					newItem->setSelected(false);
+					currDoc->Items->insert(Item2->ItemNr, newItem);
+				}
 				else
-					currDoc->Items->insert(Item1->ItemNr, new PageItem_Polygon(*Item1));
+				{
+					newItem = new PageItem_Polygon(*Item1);
+					newItem->setSelected(false);
+					currDoc->Items->insert(Item1->ItemNr, newItem);
+				}
 			}
 			if (dia->keepItem2)
 			{
+				PageItem *newItem;
 				if (dia->swapped)
-					currDoc->Items->insert(Item1->ItemNr, new PageItem_Polygon(*Item1));
+				{
+					newItem = new PageItem_Polygon(*Item1);
+					newItem->setSelected(false);
+					currDoc->Items->insert(Item1->ItemNr, newItem);
+				}
 				else
-					currDoc->Items->insert(Item2->ItemNr, new PageItem_Polygon(*Item2));
+				{
+					newItem = new PageItem_Polygon(*Item2);
+					newItem->setSelected(false);
+					currDoc->Items->insert(Item2->ItemNr, newItem);
+				}
 			}
 			if (dia->keepItem1 || dia->keepItem2)
 				currDoc->renumberItemsInListOrder();
@@ -194,6 +212,8 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				QPainterPath path;
 				FPointArray points;
 				PageItem *newItem;
+				double i1x = Item1->xPos();
+				double i1y = Item1->yPos();
 				path = dia->result;
 				if (!path.isEmpty())
 				{
@@ -214,7 +234,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				if (!path.isEmpty())
 				{
 					points.fromQPainterPath(path);
-					Item2->setXYPos(Item1->xPos(), Item1->yPos());
+					Item2->setXYPos(i1x, i1y);
 					Item2->setRotation(0.0);
 					Item2->PoLine = points;
 					Item2->Frame = false;
@@ -232,15 +252,19 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				if (!path.isEmpty())
 				{
 					if (dia->targetColor == 0)
+					{
 						newItem = new PageItem_Polygon(*Item1);
+						newItem->setXYPos(i1x, i1y);
+					}
 					else
 					{
 						newItem = new PageItem_Polygon(*Item2);
-						newItem->setXYPos(Item1->xPos(), Item1->yPos());
+						newItem->setXYPos(i1x, i1y);
 						newItem->setRotation(0.0);
 					}
 					currDoc->Items->append(newItem);
 					newItem->ItemNr = currDoc->Items->count()-1;
+					newItem->setSelected(false);
 					points.fromQPainterPath(path);
 					newItem->PoLine = points;
 					newItem->Frame = false;
