@@ -5338,7 +5338,7 @@ void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selec
 {
 	ParagraphStyle newStyle;
 	newStyle.setParent(name.isEmpty()? Style::INHERIT_PARENT : name);
-	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection, true);
 }
 
 
@@ -5920,7 +5920,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	regionsChanged()->update(QRectF());
 }
 
-void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
+void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection, bool rmDirectFormatting)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
@@ -5933,13 +5933,17 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-//		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
-//		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount > 0) && (appMode == modeEdit))
+		if ((currItemTextCount == 0) || (appMode != modeEdit))
 		{
-			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
-			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
+			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
+			dstyle.applyStyle(newStyle);
+			currItem->itemText.setDefaultStyle(dstyle);
+		}
+		if (currItemTextCount > 0)
+		{
+			int start = currItem->asPathText() ? currItem->itemText.startOfItem(currItem->firstInFrame()) : 0;
+			int stop  = currItem->asPathText() ? currItem->itemText.endOfItem(currItem->lastInFrame()) :  currItemTextCount;
 			if (appMode == modeEdit)
 			{
 				start = currItem->itemText.startOfSelection();
@@ -5951,28 +5955,10 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 			{
 				if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
 				{
-					currItem->itemText.applyStyle(pos, newStyle);
+					currItem->itemText.applyStyle(pos, newStyle, rmDirectFormatting);
 				}
 			}
-			currItem->itemText.applyStyle(stop, newStyle);
-			currItem->invalid = true;
-		}
-		else
-		{
-			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
-			dstyle.applyStyle(newStyle);
-			currItem->itemText.setDefaultStyle(dstyle);
-			if (currItem->asPathText())
-			{
-				for (int pos=0; pos < currItem->itemText.length(); ++pos)
-				{
-					if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
-					{
-						currItem->itemText.applyStyle(pos, newStyle);
-					}
-				}
-				currItem->itemText.applyStyle(currItem->itemText.length(), newStyle);
-			}
+			currItem->itemText.applyStyle(stop, newStyle, rmDirectFormatting);
 			currItem->invalid = true;
 		}
 		if (currItem->asPathText())

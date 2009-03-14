@@ -2951,7 +2951,7 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 			Editor->StyledText.setStyle(paraStart, newStyle);
 		}
 		else
-			Editor->StyledText.applyStyle(paraStart, newStyle);
+			Editor->StyledText.applyStyle(paraStart, newStyle, true);
 
 		Editor->updateFromChars(pa);
 		QTextCursor tCursor = Editor->textCursor();

@@ -658,6 +658,7 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
 		itText = d->at(i);
+		// FIXME?? see #6165 : should we really erase charstyle of paragraph style??
 		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
 			itText->parstyle->charStyle().eraseCharStyle(style);
 		itText->eraseCharStyle(style);
@@ -666,8 +667,7 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 	invalidate(pos, pos + len);
 }
 
-
-void StoryText::applyStyle(int pos, const ParagraphStyle& style)
+void StoryText::applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFormatting)
 {
 	if (pos < 0)
 		pos += length();
@@ -695,6 +695,15 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 		// not happy about this but inserting a new PARSEP makes more trouble
 //		qDebug() << QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos);
 		d->trailingStyle.applyStyle(style);
+	}
+	if (rmDirectFormatting)
+	{
+		--i;
+		while (i >= 0 && d->at(i)->ch != SpecialChars::PARSEP)
+		{
+			d->at(i)->eraseDirectFormatting();
+			--i;
+		}
 	}
 	invalidate(pos, qMin(i, length()));
 }

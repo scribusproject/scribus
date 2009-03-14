@@ -134,6 +134,16 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 	updateFeatures();
 }
 
+void CharStyle::eraseDirectFormatting()
+{
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	if (!inh_##attr_NAME) \
+		reset##attr_NAME();
+#include "charstyle.attrdefs.cxx"
+#undef ATTRDEF
+	updateFeatures();
+}
+
 bool CharStyle::equiv(const Style & other) const
 {
 	other.validate();

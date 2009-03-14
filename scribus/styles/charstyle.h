@@ -138,6 +138,7 @@ public:
 	void eraseCharStyle(const CharStyle & other);
 	void setStyle(const CharStyle & other);
 	void erase() { eraseCharStyle(*this); }
+	void eraseDirectFormatting();
 	
 	QString asString() const;
 	

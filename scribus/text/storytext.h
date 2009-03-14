@@ -134,7 +134,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
  	void setCharStyle(int pos, uint len, const CharStyle& style);
  	void setStyle(int pos, const ParagraphStyle& style);
  	void applyCharStyle(int pos, uint len, const CharStyle& style);
- 	void applyStyle(int pos, const ParagraphStyle& style);
+ 	void applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFormatting = false);
  	void eraseCharStyle(int pos, uint len, const CharStyle& style);
  	void eraseStyle(int pos, const ParagraphStyle& style);
 	void replaceStyles(QMap<QString,QString> newNameForOld);
