@@ -384,7 +384,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
 				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
 		//		m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-// 				currItem->update();
+				currItem->update();
 				Mxp = newX;
 				Myp = newY;
 				m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
@@ -416,8 +416,8 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 					m_ScMW->DisableTxEdit();
+				m_canvas->update();
 			}
-			m_canvas->update();
 		}
 		//Operations run here:
 		//Item resize, esp after creating a new one
