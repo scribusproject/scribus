@@ -205,21 +205,35 @@ void ResizeGesture::doResize(bool scaleContent)
 	}
 	else
 	{
-		if ((currItem->itemType() == PageItem::ImageFrame) && scaleContent)
+		if (currItem->itemType() == PageItem::ImageFrame)
 		{
-			double divX = (currItem->width() != 0) ? currItem->width() : 1.0;
-			double divY = (currItem->height() != 0) ? currItem->height() : 1.0;
-			double imgScX = (newBounds.width() - m_extraWidth) / divX * currItem->imageXScale();
-			double imgScY = (newBounds.height() - m_extraHeight) / divY * currItem->imageYScale();
-			// The aspect ratio has been fixed, so make the modification in the direction of the larger movement.
-			if (currItem->keepAspectRatio() && currItem->fitImageToFrame()) 
+			if (scaleContent)
 			{
-				if (qAbs((newBounds.width() - m_extraWidth) - currItem->width()) > qAbs((newBounds.height() - m_extraHeight) - currItem->height()))
-					imgScY = imgScX;
-				else
-					imgScX = imgScY;
+				double divX = (currItem->width() != 0) ? currItem->width() : 1.0;
+				double divY = (currItem->height() != 0) ? currItem->height() : 1.0;
+				double imgScX = (newBounds.width() - m_extraWidth) / divX * currItem->imageXScale();
+				double imgScY = (newBounds.height() - m_extraHeight) / divY * currItem->imageYScale();
+				// The aspect ratio has been fixed, so make the modification in the direction of the larger movement.
+				if (currItem->keepAspectRatio() && currItem->fitImageToFrame()) 
+				{
+					if (qAbs((newBounds.width() - m_extraWidth) - currItem->width()) > qAbs((newBounds.height() - m_extraHeight) - currItem->height()))
+						imgScY = imgScX;
+					else
+						imgScX = imgScY;
+				}
+				currItem->setImageXYScale(imgScX, imgScY);
 			}
-			currItem->setImageXYScale(imgScX, imgScY);
+			else
+			{
+				double dx = (newBounds.x() - m_origBounds.x()) / currItem->imageXScale();
+				double dy = (newBounds.y() - m_origBounds.y()) / currItem->imageYScale();
+				if ((m_handle == Canvas::SOUTHWEST) || (m_handle == Canvas::WEST))
+					currItem->moveImageInFrame(-dx, 0);
+				else if ((m_handle == Canvas::NORTHWEST))
+					currItem->moveImageInFrame(-dx, -dy);
+				else if ((m_handle == Canvas::NORTH) || (m_handle == Canvas::NORTHEAST))
+					currItem->moveImageInFrame(0, -dy);
+			}
 		}
 		// We do not want to scale the text of a linked frame
 		// as it would alter text in other frames of the string
