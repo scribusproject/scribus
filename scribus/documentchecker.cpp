@@ -133,7 +133,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 					itemError.insert(WrongFontInAnnotation, 0);
 			}
-			for (int e = 0; e < currItem->itemText.length(); ++e)
+			for (int e = currItem->firstInFrame(); e <= currItem->lastInFrame(); ++e)
 			{
 				uint chr = currItem->itemText.text(e).unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
@@ -251,7 +251,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 					itemError.insert(WrongFontInAnnotation, 0);
 			}
-			for (int e = 0; e < currItem->itemText.length(); ++e)
+			for (int e = currItem->firstInFrame(); e <= currItem->lastInFrame(); ++e)
 			{
 				uint chr = currItem->itemText.text(e).unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
