@@ -225,7 +225,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			else if (m_doc->appMode != modeEdit)
 			{
 				m_view->requestMode(modeEdit);
-				m_view->slotSetCurs(m->x(), m->y());
+				m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 				//CB ignore the double click and go with a single one
 				//if we werent in mode edit before.
 				//unsure if this is correct, but its ok given we had no

@@ -1667,30 +1667,24 @@ bool ScribusView::slotSetCurs(int x, int y)
 		// unsed by gcc warning - PV
 		//int xP = qRound(x/m_canvas->scale() + Doc->minCanvasCoordinate.x());
 		//int yP = qRound(y/m_canvas->scale() + Doc->minCanvasCoordinate.y());
- 		QMatrix p;
-//		p.begin(this);
-		m_canvas->Transform(currItemGeneric, p);
-//		p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
 		if (currItemGeneric->asImageFrame())
 			return true;
 		PageItem_TextFrame *currItem=currItemGeneric->asTextFrame();
 		if (currItem==0)
 			return false;
-		QRect mpo(x - Doc->guidesSettings.grabRad, y - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
-		if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
-		        (QRegion(p.map(currItem->Clip)).contains(mpo)))
+		
+		FPoint pf(m_canvas->globalToCanvas(QPoint(x,y)));
+		if( m_canvas->frameHitTest(QPointF(pf.x(),pf.y()), currItem) == Canvas::INSIDE )
 		{
 			if(currItem->reversed())
 			{ //handle Right to Left writing
-				FPoint point(currItem->width()-((x + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->xPos()),
-							 (y + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->yPos());
+				FPoint point(currItem->width()-(pf.x() - currItem->xPos()), pf.y() - currItem->yPos());
 				currItem->CPos = currItem->itemText.length() == 0 ? 0 :
 					currItem->itemText.screenToPosition(point);
 			}
 			else
 			{
-				FPoint point((x + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->xPos(),
-							 (y + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->yPos());
+				FPoint point(pf.x() - currItem->xPos(), pf.y() - currItem->yPos());
 				currItem->CPos = currItem->itemText.length() == 0 ? 0 :
 					currItem->itemText.screenToPosition(point);
 			}

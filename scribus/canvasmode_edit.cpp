@@ -393,7 +393,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
-				m_view->slotSetCurs(m->x(), m->y());
+				m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 				//Make sure we dont go here if the old cursor position was not set
 				if (oldCp!=-1 && currItem->itemText.length() > 0)
 				{
@@ -855,27 +855,19 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (currItem->locked())
 					break;
-				QMatrix p;
-				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
-					&& m_doc->appMode == modeEdit)
+				int hitTest = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+				if(hitTest >= 0)
 				{
-					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
-					if ((tx.intersects(mpo)) && (!currItem->locked()))
+					if((hitTest == Canvas::INSIDE))
 					{
 						if (currItem->asTextFrame())
 							qApp->changeOverrideCursor(QCursor(Qt::IBeamCursor));
 						if (currItem->asImageFrame())
 							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-						if (!currItem->sizeLocked())
-						{
-// 							m_view->HandleCurs(currItem, mpo);
-							int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-							if (how > 0)
-								setResizeCursor(how, currItem->rotation());
-						}
+					}
+					else if (!currItem->sizeLocked())
+					{
+						setResizeCursor(hitTest, currItem->rotation());
 					}
 				}
 				else
@@ -934,7 +926,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+// 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	Ryp = Myp;
 	Rxp = Mxp;
@@ -995,7 +987,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		//CB Where we set the cursor for a click in text frame
 		if (currItem->asTextFrame())
 		{
-			inText = m_view->slotSetCurs(m->x(), m->y());
+			inText = m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 			//CB If we clicked outside a text frame to go out of edit mode and deselect the frame
 			if (!inText)
 			{
