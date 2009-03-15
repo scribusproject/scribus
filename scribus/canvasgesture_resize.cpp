@@ -205,34 +205,33 @@ void ResizeGesture::doResize(bool scaleContent)
 	}
 	else
 	{
-		if (currItem->itemType() == PageItem::ImageFrame)
+		if (currItem->itemType() == PageItem::ImageFrame && scaleContent)
 		{
-			if (scaleContent)
+			double divX = (currItem->width() != 0) ? currItem->width() : 1.0;
+			double divY = (currItem->height() != 0) ? currItem->height() : 1.0;
+			double imgScX = (newBounds.width() - m_extraWidth) / divX * currItem->imageXScale();
+			double imgScY = (newBounds.height() - m_extraHeight) / divY * currItem->imageYScale();
+			// The aspect ratio has been fixed, so make the modification in the direction of the larger movement.
+			if (currItem->keepAspectRatio() && currItem->fitImageToFrame()) 
 			{
-				double divX = (currItem->width() != 0) ? currItem->width() : 1.0;
-				double divY = (currItem->height() != 0) ? currItem->height() : 1.0;
-				double imgScX = (newBounds.width() - m_extraWidth) / divX * currItem->imageXScale();
-				double imgScY = (newBounds.height() - m_extraHeight) / divY * currItem->imageYScale();
-				// The aspect ratio has been fixed, so make the modification in the direction of the larger movement.
-				if (currItem->keepAspectRatio() && currItem->fitImageToFrame()) 
-				{
-					if (qAbs((newBounds.width() - m_extraWidth) - currItem->width()) > qAbs((newBounds.height() - m_extraHeight) - currItem->height()))
-						imgScY = imgScX;
-					else
-						imgScX = imgScY;
-				}
-				currItem->setImageXYScale(imgScX, imgScY);
+				if (qAbs((newBounds.width() - m_extraWidth) - currItem->width()) > qAbs((newBounds.height() - m_extraHeight) - currItem->height()))
+					imgScY = imgScX;
+				else
+					imgScX = imgScY;
 			}
-			else
+			currItem->setImageXYScale(imgScX, imgScY);
+		}
+		else if (currItem->itemType() == PageItem::ImageFrame && currItem->PictureIsAvailable)
+		{
+			double dx = ((newBounds.x() + m_extraX) - currItem->xPos());
+			double dy = ((newBounds.y() + m_extraY) - currItem->yPos());
+			double cosa = cos(currItem->rotation() * M_PI / 180.0);
+			double sina = sin(currItem->rotation() * M_PI / 180.0);
+			double xoff = (cosa*dx + sina*dy) / currItem->imageXScale();
+			double yoff = (cosa*dy - sina*dx) / currItem->imageYScale();
+			if (xoff != 0.0 || yoff != 0.0)
 			{
-				double dx = (newBounds.x() - m_origBounds.x()) / currItem->imageXScale();
-				double dy = (newBounds.y() - m_origBounds.y()) / currItem->imageYScale();
-				if ((m_handle == Canvas::SOUTHWEST) || (m_handle == Canvas::WEST))
-					currItem->moveImageInFrame(-dx, 0);
-				else if ((m_handle == Canvas::NORTHWEST))
-					currItem->moveImageInFrame(-dx, -dy);
-				else if ((m_handle == Canvas::NORTH) || (m_handle == Canvas::NORTHEAST))
-					currItem->moveImageInFrame(0, -dy);
+				currItem->moveImageInFrame(-xoff, -yoff);
 			}
 		}
 		// We do not want to scale the text of a linked frame
