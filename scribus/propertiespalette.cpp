@@ -1605,7 +1605,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(setOpticalMargins()) );
 	connect(optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(setOpticalMargins()) );
 	connect(optMarginRadioRight, SIGNAL(clicked()), this, SLOT(setOpticalMargins()) );
-//	connect(optMarginResetButton, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
+	connect(optMarginResetButton, SIGNAL(clicked()), this, SLOT(resetOpticalMargins()) );
 
 
 	connect(minWordTrackingSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMinWordTracking()) );
@@ -3247,11 +3247,21 @@ void PropertiesPalette::setOpticalMargins()
 		return;
 	int omt(ParagraphStyle::OM_None);
 //	if (optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
-	if (optMarginRadioBoth->isChecked()) omt =ParagraphStyle::OM_Default;
-	else if (optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
-	else if (optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
+	if (optMarginRadioBoth->isChecked())
+		omt =ParagraphStyle::OM_Default;
+	else if (optMarginRadioLeft->isChecked())
+		omt = ParagraphStyle::OM_LeftHangingPunct;
+	else if (optMarginRadioRight->isChecked())
+		omt = ParagraphStyle::OM_RightHangingPunct;
 
 	doc->itemSelection_SetOpticalMargins(omt);
+}
+
+void PropertiesPalette::resetOpticalMargins()
+{
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_resetOpticalMargins();
 }
 
 void PropertiesPalette::updateOpticalMargins(const ParagraphStyle & pStyle)

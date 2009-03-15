@@ -212,6 +212,7 @@ public slots:
 	void setParStyle(const QString& name);
 	void setCharStyle(const QString& name);
 	void setOpticalMargins();
+	void resetOpticalMargins();
 	void updateOpticalMargins(const ParagraphStyle& pStyle);
 	void setMinWordTracking();
 	void setNormWordTracking();
