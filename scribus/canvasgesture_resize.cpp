@@ -227,11 +227,15 @@ void ResizeGesture::doResize(bool scaleContent)
 			double dy = ((newBounds.y() + m_extraY) - currItem->yPos());
 			double cosa = cos(currItem->rotation() * M_PI / 180.0);
 			double sina = sin(currItem->rotation() * M_PI / 180.0);
-			double xoff = (cosa*dx + sina*dy) / currItem->imageXScale();
-			double yoff = (cosa*dy - sina*dx) / currItem->imageYScale();
+			double xoff = -(cosa*dx + sina*dy);
+			if (currItem->imageFlippedH())
+				xoff += (currItem->width() - (newBounds.width() - m_extraWidth));
+			double yoff = -(cosa*dy - sina*dx);
+			if (currItem->imageFlippedV())
+				yoff += (currItem->height() - (newBounds.height() - m_extraHeight));
 			if (xoff != 0.0 || yoff != 0.0)
 			{
-				currItem->moveImageInFrame(-xoff, -yoff);
+				currItem->moveImageInFrame(xoff / currItem->imageXScale(), yoff / currItem->imageYScale());
 			}
 		}
 		// We do not want to scale the text of a linked frame
