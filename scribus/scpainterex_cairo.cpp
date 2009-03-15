@@ -56,25 +56,22 @@ QColor ScPainterEx_Cairo::transformColor( ScColorShade& colorShade, double trans
 	return color;
 }
 
-void ScPainterEx_Cairo::transformImage( QImage* image, uchar* data, int scan)
+void ScPainterEx_Cairo::transformImage(QImage& image)
 {
 	int rgb, grey;
-	int imageWidth = image->width();
-	int imageHeight = image->height();
-	QRgb *pscani, *imageBits = (QRgb *) image->bits();
-	uchar *pscand;
+	int imageWidth = image.width();
+	int imageHeight = image.height();
+	QRgb *pscan;
 
-	pscand = data;
 	for ( int j = 0; j < imageHeight; j++ )
 	{
-		pscani = (QRgb *) image->scanLine(j);
+		pscan = (QRgb *) image.scanLine(j);
 		for (int i = 0; i < imageWidth; i++ )
 		{
-			rgb = pscani[i];
+			rgb = pscan[i];
 			grey = 0.3 * qRed(rgb) + 0.59 * qGreen(rgb) + 0.11 * qBlue(rgb);
-			pscand[i] = grey;
+			pscan[i] = qRgba(grey, grey, grey, qAlpha(rgb));
 		}
-		pscand += scan;
 	}
 }
 
@@ -353,9 +350,12 @@ void ScPainterEx_Cairo::setClipPath()
 
 void ScPainterEx_Cairo::drawImage( ScImage *image, ScPainterExBase::ImageMode mode )
 {
+	QImage qImage(image->qImage());
+	if (m_convertToGray)
+		transformImage(qImage);
 	cairo_save(m_cr);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
-	cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)image->qImage().bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)qImage.bits(), CAIRO_FORMAT_ARGB32, qImage.width(), qImage.height(), qImage.width()*4);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
 	cairo_paint_with_alpha (m_cr, m_fillTrans);
 	cairo_surface_destroy (image2);

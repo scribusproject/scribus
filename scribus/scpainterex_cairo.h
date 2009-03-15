@@ -122,7 +122,7 @@ private:
 
 /* Color conversion function */
 	QColor transformColor( ScColorShade& colorShade, double trans );
-	void   transformImage( QImage* image, uchar* data, int scan);
+	void   transformImage( QImage& image );
 
 	QStack<int> m_gStates;
 	double      m_positionX;
