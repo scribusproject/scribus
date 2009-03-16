@@ -53,6 +53,10 @@ private:
 	QString   fentry;
 	/*! \brief Pointer to current document. */
 	ScribusDoc* fdoc;
+	//! \brief Flag is is the document changed
+	bool m_docIsChanged;
+#if 0
+	// HACK: this is not used anywhere - PV
 	/*! \brief Structure to keep track of number of changes made. */
 	struct Changes
 	{
@@ -73,6 +77,7 @@ private:
 		Changes(uint nwords=0, uint ntot=0, uint nframes=0) :
 			fnwords(nwords), fntot(ntot), fnframes(nframes) {}
 	} fnchanges;
+#endif
 	/*! \brief Extracted string of text from one frame. */
 	QString fcontent;
 	/*! \brief Position in 'fcontent' of word being spell-checked. */

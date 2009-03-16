@@ -19,7 +19,11 @@ const QString AspellPluginImpl::kDEF_ASPELL_ENTRY =
 
 // Initialize members here, if any
 AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
-	QDialog( parent ), fdoc( doc ), fpos(0), fidx(0),
+	QDialog( parent ),
+	fdoc( doc ),
+	m_docIsChanged(false),
+	fpos(0),
+	fidx(0),
 	m_errorMessage("")
 {
 	// Constructor.
@@ -169,55 +173,56 @@ void AspellPluginImpl::checkText()
 	{
 		std::vector<std::string> replacement;
 		bool status = fsuggest->checkWord(fcontent.toUtf8().data(), replacement);
-		if (!status)
+		if (status)
+			break;
+		
+		fmisSpelling->setText( fcontent );
+		fcurrWord->setText( "" );
+		flistReplacements->clear();
+		unsigned int idx = 0;
+		for( std::vector<std::string>::const_iterator i = replacement.begin(); i != replacement.end(); ++i )
 		{
-			fmisSpelling->setText( fcontent );
-			fcurrWord->setText( "" );
-			flistReplacements->clear();
-			unsigned int idx = 0;
-			for( std::vector<std::string>::const_iterator i = replacement.begin(); i != replacement.end(); ++i )
+		// FIXME: Handle encodings other than UTF-8.
+			QString dict = QString::fromUtf8(i->c_str());
+			flistReplacements->insertItem( idx, dict );
+			idx++;
+		}
+		if( flistReplacements->count() > 0 )
+		{
+			// FIXME: Is this the correct substitute for
+			// setSelected()?
+			flistReplacements->setCurrentRow( 0 );
+			fcurrWord->setText( flistReplacements->currentItem()->text() );
+		}
+		if (rememberedWords.contains(fcontent))
+		{
+			QString repl = rememberedWords.value(fcontent);
+			int cs, cx;
+			if (fcontent.length() == repl.length())
 			{
-			// FIXME: Handle encodings other than UTF-8.
-				QString dict = QString::fromUtf8(i->c_str());
-				flistReplacements->insertItem( idx, dict );
-				idx++;
+				for (cs = 0; cs < fcontent.length(); ++cs)
+					fFrame->itemText.replaceChar(fpos+cs, repl[cs]);
 			}
-			if( flistReplacements->count() > 0 )
+			else
 			{
-				// FIXME: Is this the correct substitute for
-				// setSelected()?
-				flistReplacements->setCurrentRow( 0 );
-				fcurrWord->setText( flistReplacements->currentItem()->text() );
-			}
-			if (rememberedWords.contains(fcontent))
-			{
-				QString repl = rememberedWords.value(fcontent);
-				int cs, cx;
-				if (fcontent.length() == repl.length())
+				if (fcontent.length() < repl.length())
 				{
 					for (cs = 0; cs < fcontent.length(); ++cs)
 						fFrame->itemText.replaceChar(fpos+cs, repl[cs]);
+					for (cx = cs; cx < repl.length(); ++cx)
+						fFrame->itemText.insertChars(fpos+cx, repl.mid(cx,1), true);
 				}
 				else
 				{
-					if (fcontent.length() < repl.length())
-					{
-						for (cs = 0; cs < fcontent.length(); ++cs)
-							fFrame->itemText.replaceChar(fpos+cs, repl[cs]);
-						for (cx = cs; cx < repl.length(); ++cx)
-							fFrame->itemText.insertChars(fpos+cx, repl.mid(cx,1), true);
-					}
-					else
-					{
-						for (cs = 0; cs < repl.length(); ++cs)
-							fFrame->itemText.replaceChar(fpos+cs, repl[cs]);
-						fFrame->itemText.removeChars(fpos+cs, fcontent.length() - cs);
-					}
+					for (cs = 0; cs < repl.length(); ++cs)
+						fFrame->itemText.replaceChar(fpos+cs, repl[cs]);
+					fFrame->itemText.removeChars(fpos+cs, fcontent.length() - cs);
 				}
 			}
-			else
-				break;
 		}
+		else
+			break;
+
 		fpos += fcontent.length();
 		nextWord();
 	}
@@ -231,7 +236,8 @@ void AspellPluginImpl::spellCheckDone()
 	QMessageBox::information(fdoc->scMW(), tr("Spell Checker"), completeMsg);
 	if( fFrame && fFrame->asTextFrame() )
 		fFrame->asTextFrame()->invalidateLayout();
-	if( fnchanges.fntot > 0 )
+// 	if( fnchanges.fntot > 0 )
+	if (m_docIsChanged)
 	{
 		fdoc->changed();
 	}
@@ -258,6 +264,8 @@ void AspellPluginImpl::on_fchangeBtn_clicked()
 	// FIXME: Handle encodings other than UTF-8.
 	QString repl = fcurrWord->text();
 	int cs, cx;
+	m_docIsChanged = true;
+
 	if (fcontent.length() == repl.length())
 	{
 		for (cs = 0; cs < fcontent.length(); ++cs)
@@ -291,6 +299,8 @@ void AspellPluginImpl::on_fchangeAllBtn_clicked()
 	// text edit box.
 	QString repl = fcurrWord->text();
 	int cs, cx;
+	m_docIsChanged = true;
+
 	if (fcontent.length() == repl.length())
 	{
 		for (cs = 0; cs < fcontent.length(); ++cs)
