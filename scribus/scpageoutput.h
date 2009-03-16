@@ -76,6 +76,7 @@ protected:
 	virtual void drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painte, const QRect& clip );
 	virtual void drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip );
 
+	virtual void drawArrow(ScPainterExBase* painter, PageItem* item, QMatrix &arrowTrans, int arrowIndex);
 	virtual void drawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options );
 	virtual void drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset );
 	virtual void drawRegistrationCross( ScPainterExBase* painter );

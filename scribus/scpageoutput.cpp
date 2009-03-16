@@ -988,7 +988,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 		for (int it = ml.size()-1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
-			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			if (sl.Color != CommonStrings::None)
 			{
 				ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
 				painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
@@ -1001,31 +1001,15 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	if (startArrowIndex != 0)
 	{
 		QMatrix arrowTrans;
-		FPointArray arrow = m_doc->arrowStyles.at(startArrowIndex - 1).points.copy();
-		arrowTrans.translate( 0, 0 );
-		arrowTrans.scale( item->lineWidth(), item->lineWidth());
-		arrowTrans.scale( -1 , 1 );
-		arrow.map( arrowTrans );
-		painter->setBrush( painter->pen() );
-		painter->setBrushOpacity( 1.0 - item->lineTransparency() );
-		painter->setLineWidth( 0 );
-		painter->setFillMode(ScPainterExBase::Solid);
-		painter->setupPolygon( &arrow );
-		fillPath(item, painter, clip);
+		arrowTrans.translate(0, 0);
+		arrowTrans.scale(-1,1);
+		drawArrow(painter, item, arrowTrans, item->startArrowIndex());
 	}
 	if (endArrowIndex != 0)
 	{
 		QMatrix arrowTrans;
-		FPointArray arrow = m_doc->arrowStyles.at(endArrowIndex-1).points.copy();
-		arrowTrans.translate( item->width(), 0 );
-		arrowTrans.scale( item->lineWidth(), item->lineWidth());
-		arrow.map( arrowTrans );
-		painter->setBrush( painter->pen() );
-		painter->setBrushOpacity( 1.0 - item->lineTransparency() );
-		painter->setLineWidth( 0 );
-		painter->setFillMode( ScPainterExBase::Solid );
-		painter->setupPolygon( &arrow );
-		fillPath(item, painter, clip);
+		arrowTrans.translate(item->width(), 0);
+		drawArrow(painter, item, arrowTrans, item->endArrowIndex());
 	}
 }
 
@@ -1268,14 +1252,17 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 		}
 		painter->setupPolygon(&item->PoLine, false);
 		if (item->NamedLStyle.isEmpty())
-			painter->strokePath();
+		{
+			if (item->lineColor() != CommonStrings::None)
+				painter->strokePath();
+		}
 		else
 		{
 			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
 				const SingleLine& sl = ml[it];
-				if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+				if (sl.Color != CommonStrings::None)
 				{
 					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
 					painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
@@ -1295,17 +1282,9 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					QMatrix arrowTrans;
-					FPointArray arrow = m_doc->arrowStyles.at(startArrowIndex-1).points.copy();
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale(item->lineWidth(), item->lineWidth());
-					arrow.map(arrowTrans);
-					painter->setBrush(painter->pen());
-					painter->setBrushOpacity(1.0 - item->lineTransparency());
-					painter->setLineWidth(0);
-					painter->setFillMode(ScPainterExBase::Solid);
-					painter->setupPolygon(&arrow);
-					fillPath(item, painter, clip);
+					drawArrow(painter, item, arrowTrans, item->startArrowIndex());
 					break;
 				}
 			}
@@ -1320,17 +1299,9 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					QMatrix arrowTrans;
-					FPointArray arrow = m_doc->arrowStyles.at(endArrowIndex-1).points.copy();
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale( item->lineWidth(), item->lineWidth() );
-					arrow.map(arrowTrans);
-					painter->setBrush(painter->pen());
-					painter->setBrushOpacity(1.0 - item->lineTransparency());
-					painter->setLineWidth(0);
-					painter->setFillMode(ScPainterExBase::Solid);
-					painter->setupPolygon(&arrow);
-					fillPath(item, painter, clip);
+					drawArrow(painter, item, arrowTrans, item->endArrowIndex());
 					break;
 				}
 			}
@@ -1464,6 +1435,55 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		}
 	}
 	painter->restore();
+}
+
+void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QMatrix &arrowTrans, int arrowIndex)
+{
+	FPointArray arrow = m_doc->arrowStyles.at(arrowIndex-1).points.copy();
+	if (item->NamedLStyle.isEmpty())
+	{
+		if (item->lineWidth() != 0.0)
+			arrowTrans.scale(item->lineWidth(), item->lineWidth());
+	}
+	else
+	{
+		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		if (ml[ml.size()-1].Width != 0.0)
+			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+	}
+	arrow.map(arrowTrans);
+	painter->setupPolygon(&arrow);
+	if (item->NamedLStyle.isEmpty())
+	{
+		ScColorShade tmp(m_doc->PageColors[item->lineColor()], item->lineShade());
+		painter->setBrush(tmp);
+		painter->setBrushOpacity(1.0 - item->lineTransparency());
+		painter->setLineWidth(0);
+		painter->setFillMode(ScPainterExBase::Solid);
+		painter->fillPath();
+	}
+	else
+	{
+		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		QColor tmp;
+		if (ml[0].Color != CommonStrings::None)
+		{
+			ScColorShade tmp(m_doc->PageColors[ml[0].Color], ml[0].Shade);
+			painter->setBrush(tmp);
+			painter->setLineWidth(0);
+			painter->setFillMode(ScPainterExBase::Solid);
+			painter->fillPath();
+		}
+		for (int it = ml.size()-1; it > 0; it--)
+		{
+			if (ml[it].Color != CommonStrings::None)
+			{
+				ScColorShade tmp(m_doc->PageColors[ml[it].Color], ml[it].Shade);
+				painter->setPen(tmp, ml[it].Width, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				painter->strokePath();
+			}
+		}
+	}
 }
 
 void ScPageOutput::drawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options )
