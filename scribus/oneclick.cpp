@@ -70,7 +70,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	if (mode == 1)
 		questionLabel2->setText( tr("Angle:"));
 	SizeGroupLayout->addWidget( questionLabel2, 1, 0 );
-	spinHeight = new ScrSpinBox( 0, 1000, SizeGroup, unitIndex );
+	spinHeight = new ScrSpinBox( 0, 1000, SizeGroup, (mode == 0) ? unitIndex : 6);
 	//Qt4 FIXME what are these.. 
 	if (mode == 0)
 	{
