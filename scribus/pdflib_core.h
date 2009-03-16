@@ -142,6 +142,7 @@ private:
 	
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
+	QString drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
 	bool    PDF_Gradient(QString& output, PageItem *currItem);
 	QString PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, QList<double> Trans, const QStringList& Colors, QStringList colorNames, QList<int> colorShades);

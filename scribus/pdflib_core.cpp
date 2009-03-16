@@ -1958,50 +1958,16 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									}
 							}
 						}
-						if ((ite->startArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+						if (ite->startArrowIndex() != 0)
 						{
 							QMatrix arrowTrans;
-							FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
-							arrowTrans.translate(0, 0);
-							if (ite->lineWidth() != 0.0)
-								arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 							arrowTrans.scale(-1,1);
-							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-							{
-								QString ShName = ResNam+QString::number(ResCount);
-								ResCount++;
-								Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-															   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-															   + "/SMask /None\n/AIS false\n/OPM 1\n"
-															   + "/BM /Normal\n");
-								PutPage("/"+ShName+" gs\n");
-							}
-							PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
-							PutPage(SetClipPathArray(&arrow));
-							PutPage("h\nf*\n");
+							PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
 						}
-						if ((ite->endArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+						if (ite->endArrowIndex() != 0)
 						{
 							QMatrix arrowTrans;
-							FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
-							arrowTrans.translate(ite->width(), 0);
-							if (ite->lineWidth() != 0.0)
-								arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
-							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-							{
-								QString ShName = ResNam+QString::number(ResCount);
-								ResCount++;
-								Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-															   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-															   + "/SMask /None\n/AIS false\n/OPM 1\n"
-															   + "/BM /Normal\n");
-								PutPage("/"+ShName+" gs\n");
-							}
-							PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
-							PutPage(SetClipPathArray(&arrow));
-							PutPage("h\nf*\n");
+							PutPage(drawArrow(ite, arrowTrans, ite->endArrowIndex()));
 						}
 						break;
 					case PageItem::ItemType1:
@@ -2090,7 +2056,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								}
 							}
 						}
-						if ((ite->startArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+						if (ite->startArrowIndex() != 0)
 						{
 							FPoint Start = ite->PoLine.point(0);
 							for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
@@ -2100,30 +2066,14 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								{
 									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 									QMatrix arrowTrans;
-									FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
-									if (ite->lineWidth() != 0.0)
-										arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
-									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-									{
-										QString ShName = ResNam+QString::number(ResCount);
-										ResCount++;
-										Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-																	   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-																	   + "/SMask /None\n/AIS false\n/OPM 1\n"
-																	   + "/BM /Normal\n");
-										PutPage("/"+ShName+" gs\n");
-									}
-									PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
-									PutPage(SetClipPathArray(&arrow));
-									PutPage("h\nf*\n");
+									PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
 									break;
 								}
 							}
 						}
-						if ((ite->endArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+						if (ite->endArrowIndex() != 0)
 						{
 							FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
 							for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
@@ -2133,25 +2083,9 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								{
 									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 									QMatrix arrowTrans;
-									FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
-									if (ite->lineWidth() != 0.0)
-										arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
-									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-									{
-										QString ShName = ResNam+QString::number(ResCount);
-										ResCount++;
-										Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-																	   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-																	   + "/SMask /None\n/AIS false\n/OPM 1\n"
-																	   + "/BM /Normal\n");
-										PutPage("/"+ShName+" gs\n");
-									}
-									PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
-									PutPage(SetClipPathArray(&arrow));
-									PutPage("h\nf*\n");
+									PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
 									break;
 								}
 							}
@@ -3570,50 +3504,17 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					}
 				}
 			}
-			if ((ite->startArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+			if (ite->startArrowIndex() != 0)
 			{
 				QMatrix arrowTrans;
-				FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
-				arrowTrans.translate(0, 0);
-				if (ite->lineWidth() != 0.0)
-					arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 				arrowTrans.scale(-1,1);
-				arrow.map(arrowTrans);
-				if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-				{
-					QString ShName = ResNam+QString::number(ResCount);
-					ResCount++;
-					Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-												   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-												   + "/SMask /None\n/AIS false\n/OPM 1\n"
-												   + "/BM /Normal\n");
-					tmp += "/"+ShName+" gs\n";
-				}
-				tmp += putColor(ite->lineColor(), ite->lineShade(), true);
-				tmp += SetClipPathArray(&arrow);
-				tmp += "h\nf*\n";
+				tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
 			}
-			if ((ite->endArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+			if (ite->endArrowIndex() != 0)
 			{
 				QMatrix arrowTrans;
-				FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
 				arrowTrans.translate(ite->width(), 0);
-				if (ite->lineWidth() != 0.0)
-					arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
-				arrow.map(arrowTrans);
-				if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-				{
-					QString ShName = ResNam+QString::number(ResCount);
-					ResCount++;
-					Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-												   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-												   + "/SMask /None\n/AIS false\n/OPM 1\n"
-												   + "/BM /Normal\n");
-					tmp += "/"+ShName+" gs\n";
-				}
-				tmp += putColor(ite->lineColor(), ite->lineShade(), true);
-				tmp += SetClipPathArray(&arrow);
-				tmp += "h\nf*\n";
+				tmp += drawArrow(ite, arrowTrans, ite->endArrowIndex());
 			}
 			break;
 		case PageItem::ItemType1:
@@ -3711,7 +3612,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					}
 				}
 			}
-			if ((ite->startArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+			if (ite->startArrowIndex() != 0)
 			{
 				FPoint Start = ite->PoLine.point(0);
 				for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
@@ -3721,30 +3622,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QMatrix arrowTrans;
-						FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
-						if (ite->lineWidth() != 0.0)
-							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
-						arrow.map(arrowTrans);
-						if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-						{
-							QString ShName = ResNam+QString::number(ResCount);
-							ResCount++;
-							Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-														   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-														   + "/SMask /None\n/AIS false\n/OPM 1\n"
-														   + "/BM /Normal\n");
-							tmp += "/"+ShName+" gs\n";
-						}
-						tmp += putColor(ite->lineColor(), ite->lineShade(), true);
-						tmp += SetClipPathArray(&arrow);
-						tmp += "h\nf*\n";
+						tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
 						break;
 					}
 				}
 			}
-			if ((ite->endArrowIndex() != 0) && (ite->lineColor() != CommonStrings::None))
+			if (ite->endArrowIndex() != 0)
 			{
 				FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
 				for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
@@ -3754,25 +3639,9 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QMatrix arrowTrans;
-						FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
-						if (ite->lineWidth() != 0.0)
-							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
-						arrow.map(arrowTrans);
-						if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
-						{
-							QString ShName = ResNam+QString::number(ResCount);
-							ResCount++;
-							Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
-														   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
-														   + "/SMask /None\n/AIS false\n/OPM 1\n"
-														   + "/BM /Normal\n");
-							tmp += "/"+ShName+" gs\n";
-						}
-						tmp += putColor(ite->lineColor(), ite->lineShade(), true);
-						tmp += SetClipPathArray(&arrow);
-						tmp += "h\nf*\n";
+						tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
 						break;
 					}
 				}
@@ -3824,6 +3693,63 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	tmp += "Q\n";
 	output = tmp;
 	return true;
+}
+
+QString PDFLibCore::drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex)
+{
+	QString tmp = "";
+	FPointArray arrow = doc.arrowStyles.at(arrowIndex-1).points.copy();
+	if (ite->NamedLStyle.isEmpty())
+	{
+		if (ite->lineWidth() != 0.0)
+			arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+	}
+	else
+	{
+		multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+		if (ml[ml.size()-1].Width != 0.0)
+			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+	}
+	arrow.map(arrowTrans);
+	if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
+	{
+		QString ShName = ResNam+QString::number(ResCount);
+		ResCount++;
+		Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
+									   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
+									   + "/SMask /None\n/AIS false\n/OPM 1\n"
+									   + "/BM /Normal\n");
+		tmp += "/"+ShName+" gs\n";
+	}
+	if (ite->NamedLStyle.isEmpty())
+	{
+		if (ite->lineColor() != CommonStrings::None)
+		{
+			tmp += putColor(ite->lineColor(), ite->lineShade(), true);
+			tmp += SetClipPathArray(&arrow);
+			tmp += "h\nf*\n";
+		}
+	}
+	else
+	{
+		multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+		if (ml[0].Color != CommonStrings::None)
+		{
+			tmp += putColor(ml[0].Color, ml[0].Shade, true);
+			tmp += SetClipPathArray(&arrow);
+			tmp += "h\nf*\n";
+		}
+		for (int it = ml.size()-1; it > 0; it--)
+		{
+			if (ml[it].Color != CommonStrings::None)
+			{
+				tmp += setStrokeMulti(&ml[it]);
+				tmp += SetClipPathArray(&arrow);
+				tmp += "h\nS\n";
+			}
+		}
+	}
+	return tmp;
 }
 
 QString PDFLibCore::putColor(const QString& color, double shade, bool fill)

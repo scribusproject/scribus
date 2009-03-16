@@ -1231,8 +1231,17 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(0, 0);
-			if (Item->lineWidth() != 0.0)
-				arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+			if (Item->NamedLStyle.isEmpty())
+			{
+				if (Item->lineWidth() != 0.0)
+					arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+			}
+			else
+			{
+				multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+				if (ml[ml.size()-1].Width != 0.0)
+					arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+			}
 			arrowTrans.scale(-1,1);
 		}
 		else
@@ -1246,21 +1255,62 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
-					if (Item->lineWidth() != 0.0)
-						arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+					if (Item->NamedLStyle.isEmpty())
+					{
+						if (Item->lineWidth() != 0.0)
+							arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+					}
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+						if (ml[ml.size()-1].Width != 0.0)
+							arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+					}
 					break;
 				}
 			}
 		}
 		arrow.map(arrowTrans);
-		ob = docu.createElement("path");
-		ob.setAttribute("d", SetClipPath(&arrow, true));
-		ob.setAttribute("transform", trans);
-		QString aFill = "fill:"+SetColor(Item->lineColor(), Item->lineShade())+";";
-		if (Item->lineTransparency() != 0)
-			aFill += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
-		ob.setAttribute("style", aFill + " stroke:none;");
-		gr.appendChild(ob);
+		if (Item->NamedLStyle.isEmpty())
+		{
+			ob = docu.createElement("path");
+			ob.setAttribute("d", SetClipPath(&arrow, true));
+			ob.setAttribute("transform", trans);
+			QString aFill = "fill:"+SetColor(Item->lineColor(), Item->lineShade())+";";
+			if (Item->lineTransparency() != 0)
+				aFill += " fill-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
+			ob.setAttribute("style", aFill + " stroke:none;");
+			gr.appendChild(ob);
+		}
+		else
+		{
+			multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+			if (ml[0].Color != CommonStrings::None)
+			{
+				ob = docu.createElement("path");
+				ob.setAttribute("d", SetClipPath(&arrow, true));
+				ob.setAttribute("transform", trans);
+				QString aFill = "fill:"+SetColor(ml[0].Color, ml[0].Shade)+";";
+				ob.setAttribute("style", aFill + " stroke:none;");
+				gr.appendChild(ob);
+			}
+			for (int it = ml.size()-1; it > 0; it--)
+			{
+				if (ml[it].Color != CommonStrings::None)
+				{
+					QDomElement ob5 = docu.createElement("path");
+					ob5.setAttribute("d", SetClipPath(&arrow, true));
+					ob5.setAttribute("transform", trans);
+					QString stroke = "fill:none; stroke:"+SetColor(ml[it].Color, ml[it].Shade)+"; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;";
+					if (ml[it].Width != 0.0)
+						stroke += " stroke-width:"+FToStr(ml[it].Width)+";";
+					else
+						stroke += " stroke-width:1px;";
+					ob5.setAttribute("style", stroke);
+					gr.appendChild(ob5);
+				}
+			}
+		}
 	}
 	if (Item->endArrowIndex() != 0)
 	{
@@ -1269,8 +1319,17 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(Item->width(), 0);
-			if (Item->lineWidth() != 0.0)
-				arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+			if (Item->NamedLStyle.isEmpty())
+			{
+				if (Item->lineWidth() != 0.0)
+					arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+			}
+			else
+			{
+				multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+				if (ml[ml.size()-1].Width != 0.0)
+					arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+			}
 		}
 		else
 		{
@@ -1283,21 +1342,62 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
-					if (Item->lineWidth() != 0.0)
-						arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+					if (Item->NamedLStyle.isEmpty())
+					{
+						if (Item->lineWidth() != 0.0)
+							arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+					}
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+						if (ml[ml.size()-1].Width != 0.0)
+							arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+					}
 					break;
 				}
 			}
 		}
 		arrow.map(arrowTrans);
-		ob = docu.createElement("path");
-		ob.setAttribute("d", SetClipPath(&arrow, true));
-		ob.setAttribute("transform", trans);
-		QString aFill = "fill:"+SetColor(Item->lineColor(), Item->lineShade())+";";
-		if (Item->lineTransparency() != 0)
-			aFill += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
-		ob.setAttribute("style", aFill + " stroke:none;");
-		gr.appendChild(ob);
+		if (Item->NamedLStyle.isEmpty())
+		{
+			ob = docu.createElement("path");
+			ob.setAttribute("d", SetClipPath(&arrow, true));
+			ob.setAttribute("transform", trans);
+			QString aFill = "fill:"+SetColor(Item->lineColor(), Item->lineShade())+";";
+			if (Item->lineTransparency() != 0)
+				aFill += " fill-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
+			ob.setAttribute("style", aFill + " stroke:none;");
+			gr.appendChild(ob);
+		}
+		else
+		{
+			multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+			if (ml[0].Color != CommonStrings::None)
+			{
+				ob = docu.createElement("path");
+				ob.setAttribute("d", SetClipPath(&arrow, true));
+				ob.setAttribute("transform", trans);
+				QString aFill = "fill:"+SetColor(ml[0].Color, ml[0].Shade)+";";
+				ob.setAttribute("style", aFill + " stroke:none;");
+				gr.appendChild(ob);
+			}
+			for (int it = ml.size()-1; it > 0; it--)
+			{
+				if (ml[it].Color != CommonStrings::None)
+				{
+					QDomElement ob5 = docu.createElement("path");
+					ob5.setAttribute("d", SetClipPath(&arrow, true));
+					ob5.setAttribute("transform", trans);
+					QString stroke = "fill:none; stroke:"+SetColor(ml[it].Color, ml[it].Shade)+"; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;";
+					if (ml[it].Width != 0.0)
+						stroke += " stroke-width:"+FToStr(ml[it].Width)+";";
+					else
+						stroke += " stroke-width:1px;";
+					ob5.setAttribute("style", stroke);
+					gr.appendChild(ob5);
+				}
+			}
+		}
 	}
 	return gr;
 }

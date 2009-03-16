@@ -2474,36 +2474,17 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if ((c->startArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
+			if (c->startArrowIndex() != 0)
 			{
 				QMatrix arrowTrans;
-				FPointArray arrow = Doc->arrowStyles.at(c->startArrowIndex()-1).points.copy();
-				arrowTrans.translate(0, 0);
-				if (c->lineWidth() != 0.0)
-					arrowTrans.scale(c->lineWidth(), c->lineWidth());
 				arrowTrans.scale(-1,1);
-				arrow.map(arrowTrans);
-				SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				PS_newpath();
-				SetClipPath(&arrow);
-				PS_closepath();
-				putColor(c->lineColor(), c->lineShade(), true);
+				drawArrow(c, arrowTrans, c->startArrowIndex(), gcr);
 			}
-			if ((c->endArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
+			if (c->endArrowIndex() != 0)
 			{
 				QMatrix arrowTrans;
-				FPointArray arrow = Doc->arrowStyles.at(c->endArrowIndex()-1).points.copy();
 				arrowTrans.translate(c->width(), 0);
-				if (c->lineWidth() != 0.0)
-					arrowTrans.scale(c->lineWidth(), c->lineWidth());
-				arrow.map(arrowTrans);
-				SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				PS_newpath();
-				SetClipPath(&arrow);
-				PS_closepath();
-				putColor(c->lineColor(), c->lineShade(), true);
+				drawArrow(c, arrowTrans, c->endArrowIndex(), gcr);
 			}
 			break;
 		/* OBSOLETE CR 2005-02-06
@@ -2593,7 +2574,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if ((c->startArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
+			if (c->startArrowIndex() != 0)
 			{
 				FPoint Start = c->PoLine.point(0);
 				for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
@@ -2603,23 +2584,14 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QMatrix arrowTrans;
-						FPointArray arrow = Doc->arrowStyles.at(c->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
-						if (c->lineWidth() != 0.0)
-							arrowTrans.scale(c->lineWidth(), c->lineWidth());
-						arrow.map(arrowTrans);
-						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						PS_newpath();
-						SetClipPath(&arrow);
-						PS_closepath();
-						putColor(c->lineColor(), c->lineShade(), true);
+						drawArrow(c, arrowTrans, c->startArrowIndex(), gcr);
 						break;
 					}
 				}
 			}
-			if ((c->endArrowIndex() != 0) && (c->lineColor() != CommonStrings::None))
+			if (c->endArrowIndex() != 0)
 			{
 				FPoint End = c->PoLine.point(c->PoLine.size()-2);
 				for (uint xx = c->PoLine.size()-1; xx > 0; xx -= 2)
@@ -2629,18 +2601,9 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QMatrix arrowTrans;
-						FPointArray arrow = Doc->arrowStyles.at(c->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
-						if (c->lineWidth() != 0.0)
-							arrowTrans.scale(c->lineWidth(), c->lineWidth());
-						arrow.map(arrowTrans);
-						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						PS_newpath();
-						SetClipPath(&arrow);
-						PS_closepath();
-						putColor(c->lineColor(), c->lineShade(), true);
+						drawArrow(c, arrowTrans, c->endArrowIndex(), gcr);
 						break;
 					}
 				}
@@ -3442,6 +3405,64 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			}
 		}
 		PS_MultiLinGradient(w, -h, StopVec, Gcolors, colorNames, colorShades);
+	}
+}
+
+void PSLib::drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex, bool gcr)
+{
+	int h, s, v, k;
+	QVector<double> dum;
+	FPointArray arrow = m_Doc->arrowStyles.at(arrowIndex-1).points.copy();
+	if (ite->NamedLStyle.isEmpty())
+	{
+		if (ite->lineWidth() != 0.0)
+			arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[ite->NamedLStyle];
+		if (ml[ml.size()-1].Width != 0.0)
+			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+	}
+	arrow.map(arrowTrans);
+	if (ite->NamedLStyle.isEmpty())
+	{
+		if (ite->lineColor() != CommonStrings::None)
+		{
+			SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			PS_newpath();
+			SetClipPath(&arrow);
+			PS_closepath();
+			putColor(ite->lineColor(), ite->lineShade(), true);
+		}
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[ite->NamedLStyle];
+		if (ml[0].Color != CommonStrings::None)
+		{
+			SetColor(ml[0].Color, ml[0].Shade, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			PS_newpath();
+			SetClipPath(&arrow);
+			PS_closepath();
+			putColor(ite->lineColor(), ite->lineShade(), true);
+		}
+		for (int it = ml.size()-1; it > 0; it--)
+		{
+			if (ml[it].Color != CommonStrings::None)
+			{
+				SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				PS_setlinewidth(ml[it].Width);
+				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+				PS_setdash(Qt::SolidLine, 0, dum);
+				SetClipPath(&arrow);
+				PS_closepath();
+				putColor(ml[it].Color, ml[it].Shade, false);
+			}
+		}
 	}
 }
 

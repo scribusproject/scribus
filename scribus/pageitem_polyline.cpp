@@ -122,23 +122,9 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					QMatrix arrowTrans;
-					FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
-					if (m_lineWidth != 0.0)
-						arrowTrans.scale(m_lineWidth, m_lineWidth);
-					arrow.map(arrowTrans);
-					p->setupPolygon(&arrow);
-					if (m_Doc->layerOutline(LayerNr))
-						p->strokePath();
-					else
-					{
-						p->setBrush(strokeQColor);
-						p->setBrushOpacity(1.0 - lineTransparency());
-						p->setLineWidth(0);
-						p->setFillMode(ScPainter::Solid);
-						p->fillPath();
-					}
+					drawArrow(p, arrowTrans, m_startArrowIndex);
 					break;
 				}
 			}
@@ -153,23 +139,9 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					QMatrix arrowTrans;
-					FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
-					if (m_lineWidth != 0.0)
-						arrowTrans.scale(m_lineWidth, m_lineWidth);
-					arrow.map(arrowTrans);
-					p->setupPolygon(&arrow);
-					if (m_Doc->layerOutline(LayerNr))
-						p->strokePath();
-					else
-					{
-						p->setBrush(strokeQColor);
-						p->setBrushOpacity(1.0 - lineTransparency());
-						p->setLineWidth(0);
-						p->setFillMode(ScPainter::Solid);
-						p->fillPath();
-					}
+					drawArrow(p, arrowTrans, m_endArrowIndex);
 					break;
 				}
 			}

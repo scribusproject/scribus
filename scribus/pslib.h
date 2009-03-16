@@ -124,6 +124,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_UseTemplate(QString Name);
 		virtual bool ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
 		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+		virtual void drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex, bool gcr);
 		virtual void putColor(const QString& color, double shade, bool fill);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
 		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
