@@ -188,12 +188,26 @@ void MarginDialog::setPageWidth(double)
 {
 	pageWidth = widthSpinBox->value() / unitRatio;
 	GroupRand->setPageWidth(pageWidth);
+	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != orientationQComboBox->currentIndex())
+	{
+		orientationQComboBox->blockSignals(true);
+		orientationQComboBox->setCurrentIndex(newOrientation);
+		orientationQComboBox->blockSignals(false);
+	}
 }
 
 void MarginDialog::setPageHeight(double)
 {
 	pageHeight = heightSpinBox->value() / unitRatio;
 	GroupRand->setPageHeight(pageHeight);
+	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != orientationQComboBox->currentIndex())
+	{
+		orientationQComboBox->blockSignals(true);
+		orientationQComboBox->setCurrentIndex(newOrientation);
+		orientationQComboBox->blockSignals(false);
+	}
 }
 
 void MarginDialog::setPageSize()

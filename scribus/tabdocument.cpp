@@ -306,6 +306,13 @@ void TabDocument::setPageWidth(double)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	int newOrientation = (pageWidth->value() > pageHeight->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentIndex())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentIndex(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
 }
 
 void TabDocument::setPageHeight(double)
@@ -315,6 +322,13 @@ void TabDocument::setPageHeight(double)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	int newOrientation = (pageWidth->value() > pageHeight->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentIndex())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentIndex(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
 }
 
 void TabDocument::setSize(const QString & gr)

@@ -409,6 +409,14 @@ void NewDoc::setWidth(double)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != m_orientation)
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentIndex(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+		m_orientation = newOrientation;
+	}
 }
 
 void NewDoc::setHeight(double)
@@ -418,6 +426,14 @@ void NewDoc::setHeight(double)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != m_orientation)
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentIndex(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+		m_orientation = newOrientation;
+	}
 }
 
 void NewDoc::selectItem(uint nr)
