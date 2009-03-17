@@ -189,11 +189,13 @@ void NewDoc::createNewDocPage()
 	widthMSpinBox->setEnabled(hwEnabled);
 	heightMSpinBox->setEnabled(hwEnabled);
 	*/
+	double w = prefsManager->appPrefs.PageWidth * unitRatio;
+	double h = prefsManager->appPrefs.PageHeight * unitRatio;
 	setDS(prefsManager->appPrefs.FacingPages);
 	setSize(prefsManager->appPrefs.pageSize);
 	setOrien(prefsManager->appPrefs.pageOrientation);
-	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
-	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+	widthMSpinBox->setValue((Orient == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+	heightMSpinBox->setValue((Orient == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
 	GroupBox3 = new QGroupBox( newDocFrame, "GroupBox3" );
@@ -389,14 +391,13 @@ void NewDoc::ExitOK()
 
 void NewDoc::setOrien(int ori)
 {
-	double br;
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 	if (ori != Orient)
 	{
-		br = widthMSpinBox->value();
-		widthMSpinBox->setValue(heightMSpinBox->value());
-		heightMSpinBox->setValue(br);
+		double w = widthMSpinBox->value(), h = heightMSpinBox->value();
+		widthMSpinBox->setValue((ori == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+		heightMSpinBox->setValue((ori == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
 	(ori == portraitPage) ? Orient = portraitPage : Orient = landscapePage;

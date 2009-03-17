@@ -785,10 +785,12 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 
+	double w = prefsData->PageWidth * unitRatio;
+	double h = prefsData->PageHeight * unitRatio;
 	setSize(prefsData->pageSize);
 	setOrien(prefsData->pageOrientation);
-	pageWidth->setValue(prefsData->PageWidth * unitRatio);
-	pageHeight->setValue(prefsData->PageHeight * unitRatio);
+	pageWidth->setValue((prefsData->pageOrientation == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+	pageHeight->setValue((prefsData->pageOrientation == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 	pageWidth->setSuffix(unitSuffix);
 	pageHeight->setSuffix(unitSuffix);
 
