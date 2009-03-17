@@ -194,6 +194,7 @@ void MarginDialog::setPageWidth(double)
 		orientationQComboBox->blockSignals(true);
 		orientationQComboBox->setCurrentIndex(newOrientation);
 		orientationQComboBox->blockSignals(false);
+		oldOri = newOrientation;
 	}
 }
 
@@ -207,6 +208,7 @@ void MarginDialog::setPageHeight(double)
 		orientationQComboBox->blockSignals(true);
 		orientationQComboBox->setCurrentIndex(newOrientation);
 		orientationQComboBox->blockSignals(false);
+		oldOri = newOrientation;
 	}
 }
 
@@ -250,23 +252,22 @@ void MarginDialog::setSize(const QString & gr)
 
 void MarginDialog::setOrien(int ori)
 {
-	double br;
 	setSize(sizeQComboBox->currentText());
 	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	if ((sizeQComboBox->currentText() == CommonStrings::trCustomPageSize) && (ori != oldOri))
 	{
-		br = widthSpinBox->value();
-		widthSpinBox->setValue(heightSpinBox->value());
-		heightSpinBox->setValue(br);
+		double w = widthSpinBox->value(), h = heightSpinBox->value();
+		widthSpinBox->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
+		heightSpinBox->setValue((ori == portraitPage) ? qMax(w, h) : qMin(w, h));
 	}
 	else
 	{
 		if ((ori != 0) && (ori != oldOri))
 		{
-			br = widthSpinBox->value();
-			widthSpinBox->setValue(heightSpinBox->value());
-			heightSpinBox->setValue(br);
+			double w = widthSpinBox->value(), h = heightSpinBox->value();
+			widthSpinBox->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
+			heightSpinBox->setValue((ori == portraitPage) ? qMax(w, h) : qMin(w, h));
 		}
 	}
 	oldOri = ori;

@@ -359,7 +359,6 @@ void TabDocument::setSize(const QString & gr)
 
 void TabDocument::setOrien(int ori)
 {
-	double br;
 	setSize(pageSizeComboBox->currentText());
 	disconnect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	disconnect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
@@ -367,16 +366,16 @@ void TabDocument::setOrien(int ori)
 	{
 		if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
 		{
-			br = pageWidth->value();
-			pageWidth->setValue(pageHeight->value());
-			pageHeight->setValue(br);
+			double w = pageWidth->value(), h = pageHeight->value();
+			pageWidth->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
+			pageHeight->setValue((ori == portraitPage) ? qMax(w, h) : qMin(w, h));
 		}
 	}
 	else
 	{
-		br = pageWidth->value();
-		pageWidth->setValue(pageHeight->value());
-		pageHeight->setValue(br);
+		double w = pageWidth->value(), h = pageHeight->value();
+		pageWidth->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
+		pageHeight->setValue((ori == portraitPage) ? qMax(w, h) : qMin(w, h));
 	}
 	pageW = pageWidth->value() / unitRatio;
 	pageH = pageHeight->value() / unitRatio;
