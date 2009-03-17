@@ -96,7 +96,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QS
 	m_unitIndex = prefsManager->appPrefs.docUnitIndex;
 	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
 	m_unitSuffix = unitGetSuffixFromIndex(m_unitIndex);
-	m_orientation = 0;
+	m_orientation = prefsManager->appPrefs.pageOrientation;
 	setWindowTitle( tr( "New Document" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
 	TabbedNewDocLayout = new QVBoxLayout( this );
@@ -571,14 +571,13 @@ void NewDoc::ExitOK()
 
 void NewDoc::setOrientation(int ori)
 {
-	double br;
 	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 	if (ori != m_orientation)
 	{
-		br = widthSpinBox->value();
-		widthSpinBox->setValue(heightSpinBox->value());
-		heightSpinBox->setValue(br);
+		double w = widthSpinBox->value(), h = heightSpinBox->value();
+		widthSpinBox->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
+		heightSpinBox->setValue((ori == portraitPage) ? qMax(w, h) : qMin(w, h));
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
 	(ori == portraitPage) ? m_orientation = portraitPage : m_orientation = landscapePage;
