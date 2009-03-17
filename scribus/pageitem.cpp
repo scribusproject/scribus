@@ -4889,11 +4889,14 @@ void PageItem::drawArrow(ScPainter *p, QMatrix &arrowTrans, int arrowIndex)
 	{
 		if (NamedLStyle.isEmpty())
 		{
-			p->setBrush(strokeQColor);
-			p->setBrushOpacity(1.0 - lineTransparency());
-			p->setLineWidth(0);
-			p->setFillMode(ScPainter::Solid);
-			p->fillPath();
+			if (lineColor() != CommonStrings::None)
+			{
+				p->setBrush(strokeQColor);
+				p->setBrushOpacity(1.0 - lineTransparency());
+				p->setLineWidth(0);
+				p->setFillMode(ScPainter::Solid);
+				p->fillPath();
+			}
 		}
 		else
 		{
