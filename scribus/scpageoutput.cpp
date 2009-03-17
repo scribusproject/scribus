@@ -974,11 +974,8 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 
 void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, const QRect& clip )
 {
- int startArrowIndex;
- int endArrowIndex;
-
-	startArrowIndex = item->startArrowIndex();
-	endArrowIndex = item->endArrowIndex();
+	int startArrowIndex = item->startArrowIndex();
+	int endArrowIndex = item->endArrowIndex();
 
 	if (item->NamedLStyle.isEmpty())
 		painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
@@ -1003,13 +1000,13 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 		QMatrix arrowTrans;
 		arrowTrans.translate(0, 0);
 		arrowTrans.scale(-1,1);
-		drawArrow(painter, item, arrowTrans, item->startArrowIndex());
+		drawArrow(painter, item, arrowTrans, startArrowIndex);
 	}
 	if (endArrowIndex != 0)
 	{
 		QMatrix arrowTrans;
 		arrowTrans.translate(item->width(), 0);
-		drawArrow(painter, item, arrowTrans, item->endArrowIndex());
+		drawArrow(painter, item, arrowTrans, endArrowIndex);
 	}
 }
 
@@ -1204,11 +1201,8 @@ void ScPageOutput::drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* 
 
 void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painter, const QRect& clip )
 {
- int startArrowIndex;
- int endArrowIndex;
-
-	startArrowIndex = item->startArrowIndex();
-	endArrowIndex = item->endArrowIndex();
+	int startArrowIndex = item->startArrowIndex();
+	int endArrowIndex = item->endArrowIndex();
 
 	if (item->PoLine.size()>=4)
 	{
@@ -1284,7 +1278,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 					QMatrix arrowTrans;
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
-					drawArrow(painter, item, arrowTrans, item->startArrowIndex());
+					drawArrow(painter, item, arrowTrans, startArrowIndex);
 					break;
 				}
 			}
@@ -1301,7 +1295,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 					QMatrix arrowTrans;
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
-					drawArrow(painter, item, arrowTrans, item->endArrowIndex());
+					drawArrow(painter, item, arrowTrans, endArrowIndex);
 					break;
 				}
 			}
@@ -1455,12 +1449,15 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QMatrix &
 	painter->setupPolygon(&arrow);
 	if (item->NamedLStyle.isEmpty())
 	{
-		ScColorShade tmp(m_doc->PageColors[item->lineColor()], item->lineShade());
-		painter->setBrush(tmp);
-		painter->setBrushOpacity(1.0 - item->lineTransparency());
-		painter->setLineWidth(0);
-		painter->setFillMode(ScPainterExBase::Solid);
-		painter->fillPath();
+		if (item->lineColor() != CommonStrings::None)
+		{
+			ScColorShade tmp(m_doc->PageColors[item->lineColor()], item->lineShade());
+			painter->setBrush(tmp);
+			painter->setBrushOpacity(1.0 - item->lineTransparency());
+			painter->setLineWidth(0);
+			painter->setFillMode(ScPainterExBase::Solid);
+			painter->fillPath();
+		}
 	}
 	else
 	{
