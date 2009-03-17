@@ -649,7 +649,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						hl->cstyle &= 0xEFFF; // 4095;
 					if (LiList.count() == 0)
 					{
-						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)) && (!StartOfCol))
+						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || (((a == 0) && (BackBox == 0)) && (!StartOfCol)))
 						{
 							CurY += m_Doc->docParagraphStyles[absa].gapBefore;
 							if (chx != QChar(13))

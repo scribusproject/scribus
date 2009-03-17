@@ -657,7 +657,7 @@ void PrefsManager::ReadPrefs(const QString & fname)
 	ScMW->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
 	ScMW->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
 	if (appPrefs.mainWinSettings.maximized)
-		ScMW->setWindowState(ScMW->windowState() & ~Qt::WindowMinimized | Qt::WindowMaximized);
+		ScMW->setWindowState(ScMW->windowState() & (~Qt::WindowMinimized | Qt::WindowMaximized));
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{

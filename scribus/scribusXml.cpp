@@ -3575,7 +3575,7 @@ bool ScriXmlDoc::WriteDoc(const QString& fileName, ScribusDoc *doc, QProgressBar
 		{
 			int res = gzputs(gzDoc, cs.data());
 			gzclose(gzDoc);
-			writeSucceed = (res > 0 && (res == cs.length()));
+			writeSucceed = (res > 0 && (res == static_cast<int>(cs.length())));
 		}
 	}
 	else

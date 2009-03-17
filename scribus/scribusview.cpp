@@ -4350,7 +4350,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						}
 						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 					}
-					if ((Doc->EditClipMode == 1) || (Doc->EditClipMode == 0) && (EdPoints))
+					if (((Doc->EditClipMode == 1) || (Doc->EditClipMode == 0)) && (EdPoints))
 					{
 						for (uint poi=0; poi<Clip.size()-3; poi += 4)
 						{
@@ -7615,7 +7615,7 @@ void ScribusView::slotDoCurs(bool draw)
 					xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 1000.0));
 				}
 			}
-			if (currItem->CPos != static_cast<int>(currItem->itemText.count()) && (offs+1) < currItem->itemText.count())
+			if (currItem->CPos != static_cast<int>(currItem->itemText.count()) && (offs+1) < static_cast<int>(currItem->itemText.count()))
 			{
 				if (currItem->itemText.at(offs)->yp != currItem->itemText.at(offs+1)->yp)
 				{

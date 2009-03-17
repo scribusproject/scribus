@@ -447,7 +447,7 @@ void MultiLine::slotEditStyle(int i)
 	disconnect(Shade, SIGNAL(valueChanged(int)), this, SLOT(NewLShade()));
 	Styles->setSelected(i, true);
 	CurLin = i;
-	if(i >=0 && i < TempVorl.size())
+	if(i >=0 && i < static_cast<int>(TempVorl.size()))
 	{
 		LWidth->setValue(TempVorl[i].Width);
 		Color->setCurrentText(TempVorl[i].Color);

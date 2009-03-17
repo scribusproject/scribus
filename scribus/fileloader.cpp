@@ -2222,14 +2222,12 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
-        //TODO comparison b/n signed and unsigned int expressions
-	if (startArrowIndex < 0 || startArrowIndex > doc->arrowStyles.size())
+	if (startArrowIndex < 0 || startArrowIndex > static_cast<int>(doc->arrowStyles.size()))
 	{
 		qDebug(QString("invalid start arrow for line: %1").arg(startArrowIndex));
 		startArrowIndex = 0;
 	}
-        //TODO comparison b/n signed and unsigned int expressions
-	if (endArrowIndex < 0 || endArrowIndex > doc->arrowStyles.size())
+	if (endArrowIndex < 0 || endArrowIndex > static_cast<int>(doc->arrowStyles.size()))
 	{
 		qDebug(QString("invalid end arrow for line: %1").arg(endArrowIndex));
 		endArrowIndex = 0;

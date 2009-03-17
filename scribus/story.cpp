@@ -362,7 +362,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_Enter:
 					{
 						int  paraStart, paraTo, indexStart, indexTo;
-						bool hasSelection = hasSelectedText();
+//						bool hasSelection = hasSelectedText();
 						if (hasSelectedText())
 						{
 							getSelection(&paraStart, &indexStart, &paraTo, &indexTo);

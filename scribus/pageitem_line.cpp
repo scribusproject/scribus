@@ -85,34 +85,18 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 				}
 			}
 		}
-		if ((m_startArrowIndex != 0) && (m_lineWidth != 0.0) && (lineColor() != CommonStrings::None))
+		if (m_startArrowIndex != 0)
 		{
 			QWMatrix arrowTrans;
-			FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 			arrowTrans.translate(0, 0);
-			arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrowTrans.scale(-1,1);
-			arrow.map(arrowTrans);
-			p->setBrush(strokeQColor);
-			p->setBrushOpacity(1.0 - lineTransparency());
-			p->setLineWidth(0);
-			p->setFillMode(ScPainter::Solid);
-			p->setupPolygon(&arrow);
-			p->fillPath();
+			drawArrow(p, arrowTrans, m_startArrowIndex);
 		}
-		if ((m_endArrowIndex != 0) && (m_lineWidth != 0.0) && (lineColor() != CommonStrings::None))
+		if (m_endArrowIndex != 0)
 		{
 			QWMatrix arrowTrans;
-			FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 			arrowTrans.translate(Width, 0);
-			arrowTrans.scale(m_lineWidth, m_lineWidth);
-			arrow.map(arrowTrans);
-			p->setBrush(strokeQColor);
-			p->setBrushOpacity(1.0 - lineTransparency());
-			p->setLineWidth(0);
-			p->setFillMode(ScPainter::Solid);
-			p->setupPolygon(&arrow);
-			p->fillPath();
+			drawArrow(p, arrowTrans, m_endArrowIndex);
 		}
 	}
 }

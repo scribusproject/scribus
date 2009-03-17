@@ -3572,6 +3572,57 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1*3.5, ofy+scp1));
 }
 
+void PageItem::drawArrow(ScPainter *p, QWMatrix &arrowTrans, int arrowIndex)
+{
+	FPointArray arrow = (*m_Doc->arrowStyles.at(arrowIndex-1)).points.copy();
+	if (NamedLStyle.isEmpty())
+	{
+		if (m_lineWidth != 0.0)
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		if (ml[ml.size()-1].Width != 0.0)
+			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+	}
+	arrow.map(arrowTrans);
+	p->setupPolygon(&arrow);
+	if (NamedLStyle.isEmpty())
+	{
+		if (lineColor() != CommonStrings::None)
+		{
+			p->setBrush(strokeQColor);
+			p->setBrushOpacity(1.0 - lineTransparency());
+			p->setLineWidth(0);
+			p->setFillMode(ScPainter::Solid);
+			p->fillPath();
+		}
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		QColor tmp;
+		if (ml[0].Color != CommonStrings::None)
+		{
+			SetFarbe(&tmp, ml[0].Color, ml[0].Shade);
+			p->setBrush(tmp);
+			p->setLineWidth(0);
+			p->setFillMode(ScPainter::Solid);
+			p->fillPath();
+		}
+		for (int it = ml.size()-1; it > 0; it--)
+		{
+			if (ml[it].Color != CommonStrings::None)
+			{
+				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+				p->setPen(tmp, ml[it].Width, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->strokePath();
+			}
+		}
+	}
+}
+
 void PageItem::AdjustPictScale()
 {
 	if (itemType()!=PageItem::ImageFrame)

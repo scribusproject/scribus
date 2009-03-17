@@ -4492,6 +4492,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			if (!isCMYK)
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, printerProf, prnProfFormat, IntentPrinter, cmsFlags);
 			break;
+		case Thumbnail:
 		case RGBData: // RGB
 			if (isCMYK) {
 				if (systemBigEndian)
@@ -4599,6 +4600,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				}
 			}
 			break;
+		case Thumbnail:
 		case RGBData:
 		case RGBProof:
 			if (isCMYK)

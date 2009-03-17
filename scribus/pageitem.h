@@ -938,6 +938,7 @@ public:
 protected:
 
 	void drawLockedMarker(ScPainter *p);
+	void drawArrow(ScPainter *p, QWMatrix &arrowTrans, int arrowIndex);
 	
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager * const undoManager;

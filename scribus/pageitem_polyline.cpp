@@ -124,7 +124,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 				}
 			}
 		}
-		if ((m_startArrowIndex != 0) && (m_lineWidth != 0.0) && (lineColor() != CommonStrings::None))
+		if (m_startArrowIndex != 0)
 		{
 			FPoint Start = PoLine.point(0);
 			for (uint xx = 1; xx < PoLine.size(); xx += 2)
@@ -134,22 +134,14 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale(m_lineWidth, m_lineWidth);
-					arrow.map(arrowTrans);
-					p->setBrush(strokeQColor);
-					p->setBrushOpacity(1.0 - lineTransparency());
-					p->setLineWidth(0);
-					p->setFillMode(ScPainter::Solid);
-					p->setupPolygon(&arrow);
-					p->fillPath();
+					drawArrow(p, arrowTrans, m_startArrowIndex);
 					break;
 				}
 			}
 		}
-		if ((m_endArrowIndex != 0) && (m_lineWidth != 0.0) && (lineColor() != CommonStrings::None))
+		if (m_endArrowIndex != 0)
 		{
 			FPoint End = PoLine.point(PoLine.size()-2);
 			for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
@@ -159,17 +151,9 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale(m_lineWidth, m_lineWidth);
-					arrow.map(arrowTrans);
-					p->setBrush(strokeQColor);
-					p->setBrushOpacity(1.0 - lineTransparency());
-					p->setLineWidth(0);
-					p->setFillMode(ScPainter::Solid);
-					p->setupPolygon(&arrow);
-					p->fillPath();
+					drawArrow(p, arrowTrans, m_endArrowIndex);
 					break;
 				}
 			}

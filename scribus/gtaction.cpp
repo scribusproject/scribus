@@ -158,7 +158,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 	if (paragraphStyle == -1)
 	{
-		if (0 <= ScMW->doc->currentParaStyle && ScMW->doc->currentParaStyle < ScMW->doc->docParagraphStyles.count())
+		if (0 <= ScMW->doc->currentParaStyle && ScMW->doc->currentParaStyle < static_cast<int>(ScMW->doc->docParagraphStyles.count()))
 			paragraphStyle = ScMW->doc->currentParaStyle;
 		else
 			paragraphStyle = 0;

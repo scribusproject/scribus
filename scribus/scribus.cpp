@@ -3591,7 +3591,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->OwnPage = doc->OnPage(ite);
 			*/
 			//view->setRedrawBounding(ite);
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
+			if (((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText)) && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{
@@ -8189,7 +8189,7 @@ void ScribusMainWindow::InitDefaultColorTransforms(void)
 	}
 	cmsSetErrorHandler(&cmsErrorHandler);
 
-	// Ouvre le profile RGB par défault
+	// Ouvre le profile RGB par dï¿½fault
 	if (InputProfiles.contains("sRGB IEC61966-2.1"))
 	{
 		const QCString rgbProfPath(InputProfiles["sRGB IEC61966-2.1"].local8Bit());
@@ -8198,7 +8198,7 @@ void ScribusMainWindow::InitDefaultColorTransforms(void)
 	else
 		defaultRGBProfile = cmsCreate_sRGBProfile();
 
-	// Ouvre le profile CMYK par défaut
+	// Ouvre le profile CMYK par dï¿½faut
 	if (InputProfilesCMYK.contains("Fogra27L CMYK Coated Press"))
 	{
 		const QCString cmykProfPath(InputProfilesCMYK["Fogra27L CMYK Coated Press"].local8Bit());
