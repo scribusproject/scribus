@@ -252,27 +252,19 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
-	int stateCode = state->transactionCode;
-	if ((stateCode == 0) || (stateCode == 1))
-		m_Doc->view()->Deselect(true);
+	m_Doc->view()->Deselect(true);
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
-	if ((stateCode == 0) || (stateCode == 1))
-	{
-		m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
-		if (m_Doc->appMode == modeEditClip) // switch off from edit shape
-			m_Doc->scMW()->nodePalette->EndEdit();
-		m_Doc->m_Selection->delaySignalsOn();
-	}
+	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
+		m_Doc->scMW()->nodePalette->EndEdit();
+	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
 		//CB #3373 reinsert at old position and renumber items
 		m_Doc->Items->insert(ite->ItemNr, ite);
-		if ((stateCode == 0) || (stateCode == 2))
-		{
-			m_Doc->renumberItemsInListOrder();
- 			update();
- 		}
+		m_Doc->renumberItemsInListOrder();
+ 		update();
 	}
 	else
 	{
@@ -283,11 +275,9 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 			m_Doc->m_Selection->removeItem(ite);
 		}
 		m_Doc->m_Selection->addItem(ite);
-		if ((stateCode == 0) || (stateCode == 2))
-			m_Doc->itemSelection_DeleteItem();
+		m_Doc->itemSelection_DeleteItem();
 	}
-	if ((stateCode == 0) || (stateCode == 2))
-		m_Doc->m_Selection->delaySignalsOff();
+	m_Doc->m_Selection->delaySignalsOff();
 	m_Doc->setMasterPageMode(oldMPMode);
 }
 
