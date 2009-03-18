@@ -3056,6 +3056,9 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		oldCurrentPage = m_Doc->currentPage();
 		m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]));
 	}
+	int stateCode = state->transactionCode;
+	if (stateCode == 1)
+		m_Doc->m_Selection->delaySignalsOn();
 	if (ss)
 	{
 		if (ss->contains("OLD_XPOS"))
@@ -3162,6 +3165,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
 			restoreImageEffects(ss, isUndo);
 	}
+	if (stateCode == 2)
+		m_Doc->m_Selection->delaySignalsOff();
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
 	m_Doc->setMasterPageMode(oldMPMode);
@@ -3202,9 +3207,13 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	double  rt = state->getDouble("NEW_RROT");
 	double  mx = ox - x;
 	double  my = oy - y;
+	int stateCode = state->transactionCode;
+	bool redraw = true;
+	if ((stateCode == 1) || (stateCode == 3))
+		redraw = false;
 	if (isUndo)
 	{
-		m_Doc->SizeItem(ow, oh, this, false, true, true);
+		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
 		m_Doc->MoveItem(mx, my, this, false);
 		m_Doc->RotateItem(ort, this);
 	}
@@ -3212,7 +3221,7 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	{
 		mx = -mx;
 		my = -my;
-		m_Doc->SizeItem(w, h, this, false, true, true);
+		m_Doc->SizeItem(w, h, this, false, true, redraw);
 		m_Doc->MoveItem(mx, my, this, false);
 		m_Doc->RotateItem(rt, this);
 	}
@@ -3236,6 +3245,10 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	double  oh = state->getDouble("OLD_RHEIGHT");
 	double   w = state->getDouble("NEW_RWIDTH");
 	double   h = state->getDouble("NEW_RHEIGHT");
+	int stateCode = state->transactionCode;
+	bool redraw = true;
+	if ((stateCode == 1) || (stateCode == 3))
+		redraw = false;
 	//CB Commented out test code
 	//QRect oldR(getRedrawBounding(view->scale()));
 	//double mx = ox - x;
@@ -3249,7 +3262,7 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		Height=oh;*/
 		m_Doc->RotateItem(ort, this);
 		m_Doc->MoveItem(ox - Xpos, oy - Ypos, this, false);
-		m_Doc->SizeItem(ow, oh, this, false, true, true);
+		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
 	}
 	else
 	{
@@ -3263,7 +3276,7 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		*/
 		m_Doc->RotateItem(rt, this);
 		m_Doc->MoveItem(x - Xpos, y - Ypos, this, false);
-		m_Doc->SizeItem(w, h, this, false, true, true);
+		m_Doc->SizeItem(w, h, this, false, true, redraw);
 	}
 	/*
 	m_Doc->setRedrawBounding(this);

@@ -753,13 +753,43 @@ UndoObject* TransactionState::replace(ulong uid, UndoObject *newUndoObject)
 void TransactionState::undo() // undo all attached states
 {
 	for (int i = sizet() - 1; i > -1; --i)
+	{
+		if ((sizet() - 1) == 0)
+			at(i)->transactionCode = 0;
+		else
+		{
+			if (i == static_cast<int>(sizet() - 1))
+				at(i)->transactionCode = 1;
+			else if (i == 0)
+				at(i)->transactionCode = 2;
+			else
+				at(i)->transactionCode = 3;
+		}
+		if (transactionCode != 0)
+			at(i)->transactionCode = transactionCode;
 		at(i)->undo();
+	}
 }
 
 void TransactionState::redo() // redo all attached states
 {
 	for (uint i = 0; i < sizet(); ++i)
+	{
+		if ((sizet() - 1) == 0)
+			at(i)->transactionCode = 0;
+		else
+		{
+			if (i == sizet() - 1)
+				at(i)->transactionCode = 1;
+			else if (i == 0)
+				at(i)->transactionCode = 2;
+			else
+				at(i)->transactionCode = 3;
+		}
+		if (transactionCode != 0)
+			at(i)->transactionCode = transactionCode;
 		at(i)->redo();
+	}
 }
 
 TransactionState::~TransactionState()

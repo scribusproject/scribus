@@ -31,7 +31,7 @@ UndoState::UndoState(const QString& name, const QString& description, QPixmap* p
 actionName_(name),
 actionDescription_(description),
 actionPixmap_(pixmap),
-undoObject_(0)
+undoObject_(0), transactionCode(0)
 {
 
 }

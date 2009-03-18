@@ -112,6 +112,7 @@ public:
 	virtual void setUndoObject(UndoObject *object);
 	/** @brief return the UndoObject this state belongs to */
 	virtual UndoObject* undoObject();
+	int transactionCode;
 
 private:
 	/** @brief Name of the state (operation) (f.e. Move object) */
