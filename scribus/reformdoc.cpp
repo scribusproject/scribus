@@ -558,9 +558,9 @@ void ReformDoc::unitChange()
 
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageWidth * unitRatio);
+	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, pageWidth * unitRatio);
 	heightMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageHeight * unitRatio);
+	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, pageHeight * unitRatio);
 	tabGuides->minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabGuides->minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabGuides->majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -626,6 +626,13 @@ void ReformDoc::setPageWidth(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	int newOrientation = (widthMSpinBox->value() > heightMSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentItem())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentItem(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
 }
 
 void ReformDoc::setPageHeight(int)
@@ -635,6 +642,13 @@ void ReformDoc::setPageHeight(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	int newOrientation = (widthMSpinBox->value() > heightMSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentItem())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentItem(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
 }
 
 void ReformDoc::setPageSize()
@@ -678,7 +692,6 @@ void ReformDoc::setSize(const QString & gr)
 
 void ReformDoc::setOrien(int ori)
 {
-	double br;
 	setSize(pageSizeComboBox->currentText());
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -686,16 +699,16 @@ void ReformDoc::setOrien(int ori)
 	{
 		if (pageSizeComboBox->currentText() == customTextTR)
 		{
-			br = widthMSpinBox->value();
-			widthMSpinBox->setValue(heightMSpinBox->value());
-			heightMSpinBox->setValue(br);
+			double w = widthMSpinBox->value(), h = heightMSpinBox->value();
+			widthMSpinBox->setValue((ori == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+			heightMSpinBox->setValue((ori == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 		}
 	}
 	else
 	{
-		br = widthMSpinBox->value();
-		widthMSpinBox->setValue(heightMSpinBox->value());
-		heightMSpinBox->setValue(br);
+		double w = widthMSpinBox->value(), h = heightMSpinBox->value();
+		widthMSpinBox->setValue((ori == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+		heightMSpinBox->setValue((ori == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 	}
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;

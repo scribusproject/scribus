@@ -156,12 +156,28 @@ void MarginDialog::setPageWidth(int)
 {
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	GroupRand->setPageWidth(pageWidth);
+	int newOrientation = (widthMSpinBox->value() > heightMSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != oldOri)
+	{
+		orientationQComboBox->blockSignals(true);
+		orientationQComboBox->setCurrentItem(newOrientation);
+		orientationQComboBox->blockSignals(false);
+		oldOri = newOrientation;
+	}
 }
 
 void MarginDialog::setPageHeight(int)
 {
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->setPageHeight(pageHeight);
+	int newOrientation = (widthMSpinBox->value() > heightMSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != oldOri)
+	{
+		orientationQComboBox->blockSignals(true);
+		orientationQComboBox->setCurrentItem(newOrientation);
+		orientationQComboBox->blockSignals(false);
+		oldOri = newOrientation;
+	}
 }
 
 void MarginDialog::setPageSize()
@@ -201,23 +217,22 @@ void MarginDialog::setSize(const QString & gr)
 
 void MarginDialog::setOrien(int ori)
 {
-	double br;
 	setSize(sizeQComboBox->currentText());
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	if ((sizeQComboBox->currentText() == tr("Custom")) && (ori != oldOri))
 	{
-		br = widthMSpinBox->value();
-		widthMSpinBox->setValue(heightMSpinBox->value());
-		heightMSpinBox->setValue(br);
+		double w = widthMSpinBox->value(), h = heightMSpinBox->value();
+		widthMSpinBox->setValue((ori == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+		heightMSpinBox->setValue((ori == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 	}
 	else
 	{
 		if (ori != 0)
 		{
-			br = widthMSpinBox->value();
-			widthMSpinBox->setValue(heightMSpinBox->value());
-			heightMSpinBox->setValue(br);
+			double w = widthMSpinBox->value(), h = heightMSpinBox->value();
+			widthMSpinBox->setValue((ori == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+			heightMSpinBox->setValue((ori == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 		}
 	}
 	oldOri = ori;

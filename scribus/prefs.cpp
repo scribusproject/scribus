@@ -907,6 +907,13 @@ void Preferences::setPageWidth(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	int newOrientation = (pageWidth->value() > pageHeight->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentItem())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentItem(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
 }
 
 void Preferences::setPageHeight(int)
@@ -916,6 +923,13 @@ void Preferences::setPageHeight(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	int newOrientation = (pageWidth->value() > pageHeight->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentItem())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentItem(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
 }
 
 void Preferences::setPageSize()
@@ -956,7 +970,6 @@ void Preferences::setSize(const QString & gr)
 
 void Preferences::setOrien(int ori)
 {
-	double br;
 	setSize(pageSizeComboBox->currentText());
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -965,17 +978,19 @@ void Preferences::setOrien(int ori)
 		//if (pageSizeComboBox->currentItem() == 30)
 		if (pageSizeComboBox->currentText() == customTextTR)
 		{
-			br = pageWidth->value();
-			pageWidth->setValue(pageHeight->value());
-			pageHeight->setValue(br);
+			double w = pageWidth->value(), h = pageHeight->value();
+			pageWidth->setValue((ori == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+			pageHeight->setValue((ori == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 		}
 	}
 	else
 	{
-		br = pageWidth->value();
-		pageWidth->setValue(pageHeight->value());
-		pageHeight->setValue(br);
+		double w = pageWidth->value(), h = pageHeight->value();
+		pageWidth->setValue((ori == portraitPage) ? QMIN(w, h) : QMAX(w, h));
+		pageHeight->setValue((ori == portraitPage) ? QMAX(w, h) : QMIN(w, h));
 	}
+	Pagebr = pageWidth->value() / unitRatio;
+	Pageho = pageHeight->value() / unitRatio;
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 }

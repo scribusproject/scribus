@@ -321,6 +321,14 @@ void NewDoc::setWidth(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	int newOrientation = (widthMSpinBox->value() > heightMSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != Orient)
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentItem(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+		Orient = newOrientation;
+	}
 }
 
 void NewDoc::setHeight(int)
@@ -330,6 +338,14 @@ void NewDoc::setHeight(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	int newOrientation = (widthMSpinBox->value() > heightMSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != Orient)
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentItem(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+		Orient = newOrientation;
+	}
 }
 
 void NewDoc::setDist(int)
@@ -355,16 +371,12 @@ void NewDoc::setUnit(int newUnitIndex)
 	unitIndex = newUnitIndex;
 	unitRatio = unitGetRatioFromIndex(newUnitIndex);
 	decimals = unitGetDecimalsFromIndex(newUnitIndex);
-	if (pageOrientationComboBox->currentItem() == portraitPage)
-	{
-		widthMSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageWidth * unitRatio);
-		heightMSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageHeight * unitRatio);
-	}
-	else
-	{
-		widthMSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageHeight * unitRatio);
-		heightMSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageWidth * unitRatio);
-	}
+	double w  = pageWidth * unitRatio, h = pageHeight * unitRatio;
+	bool isPortrait = (pageOrientationComboBox->currentItem() == portraitPage);
+	double nw = isPortrait ? QMIN(w, h) : QMAX(w, h);
+	double nh = isPortrait ? QMAX(w, h) : QMIN(w, h);
+	widthMSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, nw);
+	heightMSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, nh);
 	Distance->setValue(Dist * unitRatio);
 	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
 	widthMSpinBox->setSuffix(unitSuffix);
@@ -375,7 +387,6 @@ void NewDoc::setUnit(int newUnitIndex)
 	GroupRand->setPageWidth(pageWidth);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
-
 }
 
 void NewDoc::ExitOK()
@@ -409,6 +420,8 @@ void NewDoc::setOrien(int ori)
 			pageOrientationComboBox->setCurrentItem(portraitPage);
 	}
 	// end of #869
+	pageWidth  = widthMSpinBox->value() / unitRatio;
+	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->setPageHeight(pageHeight);
 	GroupRand->setPageWidth(pageWidth);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
