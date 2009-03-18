@@ -1626,14 +1626,15 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 {
 	if (it->hasAttribute("CNAME"))
 		newStyle.setName(it->attribute("CNAME"));
-	if (it->hasAttribute("CPARENT"))
-		newStyle.setParent(it->attribute("CPARENT"));
+	// The default style attribute must be correctly set before trying to assign a parent
 	if (newStyle.hasName() && it->hasAttribute("DefaultStyle"))
 		newStyle.setDefaultStyle(it->attribute("DefaultStyle").toInt());
 	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
+	if (it->hasAttribute("CPARENT"))
+		newStyle.setParent(it->attribute("CPARENT"));
 	if (it->hasAttribute("FONT"))
 		newStyle.setFont(m_AvailableFonts->findFont(it->attribute("FONT"),doc));
 	
@@ -1890,13 +1891,14 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 {
 	vg.erase();
 	vg.setName(pg.attribute("NAME", ""));
-	vg.setParent(pg.attribute("PARENT", ""));
+	// The default style attribute must be correctly set before trying to assign a parent
 	if (pg.hasAttribute("DefaultStyle"))
 		vg.setDefaultStyle(pg.attribute("DefaultStyle").toInt());
 	else if (vg.name() == CommonStrings::DefaultParagraphStyle || vg.name() == CommonStrings::trDefaultParagraphStyle)
 		vg.setDefaultStyle(true);
 	else
 		vg.setDefaultStyle(false);
+	vg.setParent(pg.attribute("PARENT", ""));
 	if (pg.hasAttribute("LINESPMode"))
 		vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode").toInt()));
 	if (pg.hasAttribute("LINESP"))
