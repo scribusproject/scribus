@@ -94,7 +94,7 @@ long parseLong(const Xml_string& str)
 
 Xml_string toXMLString(double val)
 {
-	return QString::number(val);
+	return QString::number(val, 'g', 10);
 }
 
 Xml_string toXMLString(float val)

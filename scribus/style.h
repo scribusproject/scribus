@@ -151,6 +151,21 @@ public:
 			setParent("");
 		m_contextversion = -1;
 	}
+
+	template <typename T> 
+	bool isequiv(const T& v1, const T& v2) const{ return v1 == v2; }
+
+	template <> 
+	bool isequiv<double>(const double& v1, const double& v2) const
+	{
+		if(v1 > -21473 && v2 > -21473 && v1 < 21474 && v2 < 21474)
+		{
+			long al = static_cast<long>(10000 * v1);
+			long bl = static_cast<long>(10000 * v2);
+			return al == bl;
+		}
+		return v1 == v2;
+	}
 };
 
 

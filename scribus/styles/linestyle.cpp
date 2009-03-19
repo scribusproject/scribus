@@ -48,7 +48,7 @@ bool LineStyle::equiv(const Style & other) const
 		parent() == oth->parent() 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		&& (inh_##attr_NAME == oth->inh_##attr_NAME) \
-		&& (inh_##attr_NAME || m_##attr_NAME == oth->m_##attr_NAME)
+		&& (inh_##attr_NAME || isequiv(m_##attr_NAME, oth->m_##attr_NAME))
 #include "linestyle.attrdefs.cxx"
 #undef ATTRDEF
 		;	
