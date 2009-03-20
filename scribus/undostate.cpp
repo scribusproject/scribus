@@ -28,10 +28,11 @@ for which a new license (GPL+exception) is in place.
 #include "undoobject.h"
 
 UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap) :
+transactionCode(0),
 actionName_(name),
 actionDescription_(description),
 actionPixmap_(pixmap),
-undoObject_(0), transactionCode(0)
+undoObject_(0)
 {
 
 }
