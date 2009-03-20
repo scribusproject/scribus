@@ -12,5 +12,5 @@ and create a sysmlink in MacOS:
 bash$ cd Contents/MacOS
 bash$ ln -s ../bin/scribus Scribus
 
-Mac OS X build support is being improved in 1.3.5, so soon CMake should be able
-to produce a .app bundle on install.
+Mac OS X build support is being continuously improved in 1.3.5svn, and CMake 
+is able to produce a .app bundle on install.
