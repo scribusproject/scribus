@@ -5456,6 +5456,8 @@ void PropertiesPalette::languageChange()
 	LJoinStyle->setToolTip( tr("Type of line joins"));
 	LEndStyle->setToolTip( tr("Type of line end"));
 	StyledLine->setToolTip( tr("Line style of current object"));
+	startArrow->setToolTip( tr("Arrow head style for start of line"));
+	endArrow->setToolTip( tr("Arrow head style for end of line"));
 
 	SCustom->setToolTip( tr("Choose the shape of frame..."));
 	EditShape->setToolTip( tr("Edit shape of the frame..."));
@@ -5477,6 +5479,8 @@ void PropertiesPalette::languageChange()
 	keepImageWHRatioButton->setToolTip( tr("Keep the X and Y scaling the same"));
 	keepFrameWHRatioButton->setToolTip( tr("Keep the aspect ratio"));
 	FrameScale->setToolTip( tr("Make the image fit within the size of the frame"));
+	imgDpiX->setToolTip( tr("Effective horizontal DPI of the image after scaling"));
+	imgDpiY->setToolTip( tr("Effective vertical DPI of the image after scaling"));
 	Aspect->setToolTip( tr("Use image proportions rather than those of the frame"));
 	InputP->setToolTip( tr("Source profile of the image"));
 	MonitorI->setToolTip( tr("Rendering intent for the image"));
