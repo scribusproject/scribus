@@ -64,6 +64,7 @@ enum SubMode
  */
 class SCRIBUS_API CanvasMode : public QObject
 {
+	Q_OBJECT
 protected:
 	CanvasMode (ScribusView* view);
 	
