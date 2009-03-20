@@ -394,7 +394,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 
 	//----- Read placeable metafile header
 	st >> pheader.key;
-	m_IsPlaceable = ( pheader.key==( DWORD )APMHEADER_KEY );
+	m_IsPlaceable = (pheader.key == (WORD32) APMHEADER_KEY);
 	if ( m_IsPlaceable )
 	{
 		st >> pheader.hmf;
