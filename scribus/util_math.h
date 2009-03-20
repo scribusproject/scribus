@@ -83,4 +83,10 @@ inline double cosd(double alpha)
 	return cos(alpha / (180.0/M_PI));
 }
 
+template <typename T> 
+inline bool isequiv(const T& v1, const T& v2) { return v1 == v2; }
+
+template <> 
+inline bool isequiv<double>(const double& v1, const double& v2) { return compareDouble(v1, v2); }
+
 #endif

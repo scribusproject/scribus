@@ -19,6 +19,7 @@
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
 #include "prefsmanager.h"
+#include "util_math.h"
 
 StyleFlag& StyleFlag::operator&= (const StyleFlag& right){        
 	int result = static_cast<int>(value) & static_cast<int>(right.value);        

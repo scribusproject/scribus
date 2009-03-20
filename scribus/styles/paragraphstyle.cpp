@@ -19,7 +19,7 @@
 #include "resourcecollection.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
-
+#include "util_math.h"
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyleContext(NULL), cstyleContextIsInh(true), cstyle()
 {
