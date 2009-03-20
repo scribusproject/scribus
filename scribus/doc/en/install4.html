@@ -65,7 +65,7 @@ make &amp;&amp; make install
 
   <h3>Build Options</h3>
 
-  <p>Some options that the Scribus CMake files know about (more to come!):</p>
+  <p>Some options that the <b>Scribus 1.3.3.x</b> CMake files know about:</p>
 
   <ul>
     <li><strong>WANT_VERSIONING=1</strong>: Sets the build to use the VERSION setting as a suffix for the install directories and the binary. Eg, the binary could be scribus-1.3.4cvs. This should mean that you can install multiple versions with the same prefix with no clashes.</li>
@@ -74,11 +74,32 @@ make &amp;&amp; make install
 
     <li><strong>WANT_CAIRO=1</strong>: Makes CMake search for cairo and build with cairo instead of LibArt_LGPL.</li>
 
-    <li><strong>WANT_LIBART=1</strong>: (default): Makes CMake search for and build with LibArt_LGPL instead of cairo.</li>
+	<li><strong>WANT_LIBART=1</strong> (default): Makes CMake search for and build with LibArt_LGPL instead of cairo.</li>
     
     <li><strong>WANT_NOHEADERINSTALL=1</strong>: Do not install header files used for developers. Distributions should not use this if they split up Scribus into multiple packages.
   </ul>
 
+  <p>Some options that the <b>Scribus 1.3.5+</b> CMake files know about (more to come!):</p>
+
+  <ul>
+	<li><strong>WANT_VERSIONING=1</strong>: Sets the build to use the VERSION setting as a suffix for the install directories and the binary. Eg, the binary could be scribus-1.3.4cvs. This should mean that you can install multiple versions with the same prefix with no clashes.</li>
+
+	<li><strong>WANT_DEBUG=1</strong>: Sets the build to be a debug release and use -O0 -g3, instead of -O2 (This is the default for now, and cannot be turned off unless you edit the CMakeFiles.txt file).</li>
+
+	<li><strong>WANT_CAIRO=1</strong> (default): Makes CMake search for cairo and build with cairo instead of Qt's Arthur.</li>
+
+	<li><strong>WANT_QTARTHUR=1</strong>: Makes CMake search for and build with Qt's Arthur instead of cairo.</li>
+
+	<li><strong>WANT_NOHEADERINSTALL=1</strong>: Do not install header files used for developers. Distributions should not use this if they split up Scribus into multiple packages.
+
+   <li><strong>WANT_NORPATH</strong>: .Turn off setting a specific RPATH</li>
+   <li><strong>WANT_DISTROBUILD</strong>: .An option for OS distributors to use for their builds options</li>
+   <li><strong>WANT_LIB64</strong>: .Force 64 bit builds</li>
+   <li><strong>WANT_RELEASEWITHDEBUG</strong>: .Set Release style build flags, but also include debug information</li>
+   <li><strong>WANT_UNIVERSAL_BUNDLE</strong>: .Mac OS X only, enable building of a .app bundle</li>
+   <li><strong>WANT_QT4MAC_COCOA</strong>: .Mac OS X only, enable the Cocoa version Qt4.5+.</li>
+   <li><strong>WANT_QT3SUPPORT</strong>: .Enable Qt3 support in case you have a custom plugin that you have not converted fully to Qt4. Not needed for base Scribus code.</li>
+  </ul>
   <p>For example: to make a cairo debug build, then something like this (all on one line):</p>
   <pre>
 /usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall
@@ -95,11 +116,11 @@ make &amp;&amp; make install
 
   <h3>When system has both Qt3 and Qt4 installed</h3>
 
-  <p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may results to the compilation crash. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus SVM. However, this might be a useful workaround:</p>
+  <p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may results to the compilation crash. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus SVN. However, this might be a useful workaround:</p>
 
   <p>Remove cached options from previous cmake configuration run from your build location: <code>rm CMakeCache.txt</code></p>
 
-  <p>Then change PATH variable (for my Gentoo) e.g.:</p>
+  <p>Then change PATH variable (for Gentoo) e.g.:</p>
   <pre>
 export PATH=/usr/qt/3/bin/:$PATH
 </pre>
