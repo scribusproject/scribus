@@ -7567,7 +7567,15 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 		{
 			QWidget* w = windows.at(i);
 			ScribusWin* scw = (ScribusWin*) w;
-			scw->view()->zoom((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
+			if (oldDisplayScale != prefsManager->displayScale())
+			{
+				int x = qRound(qMax(scw->view()->contentsX() / scw->view()->scale(), 0.0));
+				int y = qRound(qMax(scw->view()->contentsY() / scw->view()->scale(), 0.0));
+				int w = qRound(qMin(scw->view()->visibleWidth() / scw->view()->scale(), scw->doc()->currentPage()->width()));
+				int h = qRound(qMin(scw->view()->visibleHeight() / scw->view()->scale(), scw->doc()->currentPage()->height()));
+				scw->view()->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
+				scw->view()->zoom((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
+			}
 			if (shadowChanged)
 				scw->view()->DrawNew();
 		}
