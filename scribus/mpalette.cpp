@@ -3927,6 +3927,8 @@ void Mpalette::languageChange()
 	QToolTip::remove(LJoinStyle);
 	QToolTip::remove(LEndStyle);
 	QToolTip::remove(StyledLine);
+	QToolTip::remove(startArrow);
+	QToolTip::remove(endArrow);
 
 	QToolTip::remove(SCustom);
 	QToolTip::remove(EditShape);
@@ -3948,6 +3950,8 @@ void Mpalette::languageChange()
 	QToolTip::remove(keepImageWHRatioButton);
 	QToolTip::remove(keepFrameWHRatioButton);
 	QToolTip::remove(FrameScale);
+	QToolTip::remove(imgDpiX);
+	QToolTip::remove(imgDpiY);
 	QToolTip::remove(Aspect);
 	QToolTip::remove(InputP);
 	QToolTip::remove(MonitorI);
@@ -4001,6 +4005,8 @@ void Mpalette::languageChange()
 	QToolTip::add(LJoinStyle, tr("Type of line joins"));
 	QToolTip::add(LEndStyle, tr("Type of line end"));
 	QToolTip::add(StyledLine, tr("Line style of current object"));
+	QToolTip::add(startArrow, tr("Arrow head style for start of line"));
+	QToolTip::add(endArrow, tr("Arrow head style for end of line"));
 
 	QToolTip::add(SCustom, tr("Choose the shape of frame..."));
 	QToolTip::add(EditShape, tr("Edit shape of the frame..."));
@@ -4022,6 +4028,8 @@ void Mpalette::languageChange()
 	QToolTip::add(keepImageWHRatioButton, tr("Keep the X and Y scaling the same"));
 	QToolTip::add(keepFrameWHRatioButton, tr("Keep the aspect ratio"));
 	QToolTip::add(FrameScale, tr("Make the image fit within the size of the frame"));
+	QToolTip::add(imgDpiX, tr("Effective horizontal DPI of the image after scaling"));
+	QToolTip::add(imgDpiY, tr("Effective vertical DPI of the image after scaling"));
 	QToolTip::add(Aspect, tr("Use image proportions rather than those of the frame"));
 	QToolTip::add(InputP, tr("Source profile of the image"));
 	QToolTip::add(MonitorI, tr("Rendering intent for the image"));
