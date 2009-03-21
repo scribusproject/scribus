@@ -1257,6 +1257,9 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	if (ss)
 	{
 		bool layersUndo=false;
+		if (ss->transactionCode == 1)
+			m_Selection->delaySignalsOn();
+
 		if (ss->contains("GROUP"))
 			restoreGrouping(ss, isUndo);
 		else if (ss->contains("UNGROUP"))
@@ -1334,6 +1337,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		else if (ss->contains("COPY_PAGE"))
 			restorePageCopy(ss, isUndo);
 
+		if (ss->transactionCode == 2)
+			m_Selection->delaySignalsOff();
 		if (layersUndo)
 		{
 			if (ScCore->usingGUI())

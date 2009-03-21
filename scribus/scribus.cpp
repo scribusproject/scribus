@@ -8391,10 +8391,14 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
 	{
+		if (ss->transactionCode == 1)
+			doc->m_Selection->delaySignalsOn();
 		if (ss->contains("ADD_PAGE"))
 			restoreAddPage(ss, isUndo);
 		else if (ss->contains("DELETE_PAGE"))
 			restoreDeletePage(ss, isUndo);
+		if (ss->transactionCode == 2)
+			doc->m_Selection->delaySignalsOff();
 	}
 }
 

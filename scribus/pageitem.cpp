@@ -3056,8 +3056,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		oldCurrentPage = m_Doc->currentPage();
 		m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]));
 	}
-	int stateCode = state->transactionCode;
-	if (stateCode == 1)
+	if (state->transactionCode == 1)
 		m_Doc->m_Selection->delaySignalsOn();
 	if (ss)
 	{
@@ -3165,7 +3164,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
 			restoreImageEffects(ss, isUndo);
 	}
-	if (stateCode == 2)
+	if (state->transactionCode == 2)
 		m_Doc->m_Selection->delaySignalsOff();
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -3207,10 +3206,8 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	double  rt = state->getDouble("NEW_RROT");
 	double  mx = ox - x;
 	double  my = oy - y;
-	int stateCode = state->transactionCode;
-	bool redraw = true;
-	if ((stateCode == 1) || (stateCode == 3))
-		redraw = false;
+	int  stateCode = state->transactionCode;
+	bool redraw = ((stateCode != 1) && (stateCode != 3));
 	if (isUndo)
 	{
 		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
@@ -3245,10 +3242,8 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	double  oh = state->getDouble("OLD_RHEIGHT");
 	double   w = state->getDouble("NEW_RWIDTH");
 	double   h = state->getDouble("NEW_RHEIGHT");
-	int stateCode = state->transactionCode;
-	bool redraw = true;
-	if ((stateCode == 1) || (stateCode == 3))
-		redraw = false;
+	int  stateCode = state->transactionCode;
+	bool redraw = ((stateCode != 1) && (stateCode != 3));;
 	//CB Commented out test code
 	//QRect oldR(getRedrawBounding(view->scale()));
 	//double mx = ox - x;
@@ -5509,5 +5504,6 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 		firstLineOffsetP = flop;
 	}
 }
+
 
 

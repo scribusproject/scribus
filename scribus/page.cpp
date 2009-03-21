@@ -96,6 +96,9 @@ void Page::restore(UndoState* state, bool isUndo)
 	SimpleState* ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
 	{
+		int stateCode = ss->transactionCode;
+		if (stateCode == 1)
+			m_Doc->m_Selection->delaySignalsOn();
 		if (ss->contains("ADD_V"))
 		{
 			double position = ss->getDouble("ADD_V");
@@ -203,6 +206,8 @@ void Page::restore(UndoState* state, bool isUndo)
 			restorePageItemDeletion(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("CONVERT_ITEM"))
 			restorePageItemConversion(dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
+		if (stateCode == 2)
+			m_Doc->m_Selection->delaySignalsOff();
 	}
 }
 
@@ -218,8 +223,8 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 		if (m_Doc->appMode == modeEditClip) // switch off from edit shape
 			m_Doc->scMW()->nodePalette->EndEdit();
-		m_Doc->m_Selection->delaySignalsOn();
 	}
+	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
 		if (m_Doc->m_Selection->findItem(ite)!=-1)
@@ -244,8 +249,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 			update();
 	}
 	m_Doc->setMasterPageMode(oldMPMode);
-	if ((stateCode == 0) || (stateCode == 2))
-		m_Doc->m_Selection->delaySignalsOff();
+	m_Doc->m_Selection->delaySignalsOff();
 }
 
 void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
