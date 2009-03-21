@@ -688,8 +688,10 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 			}
 			else
 			{
-				QString glName = handleGlyph(chr, hl);
-				if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None) && (chstr != QChar(32)))
+				QString glName;
+				if (chstr > QChar(32))
+					glName = handleGlyph(chr, hl);
+				if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None) && (chstr > QChar(32)))
 				{
 					QMatrix sha = finalMat;
 					QMatrix shad;
@@ -745,7 +747,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 					ob6.setAttribute("style", "fill:none;" + sT);
 					ob.appendChild(ob6);
 				}
-				if (chstr != QChar(32))
+				if (chstr > QChar(32))
 				{
 					QDomElement ob3 = docu.createElement("use");
 					ob3.setAttribute("xlink:href", "#" + glName);
@@ -993,7 +995,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				ob8.setAttribute("style", "fill:none;" + sT);
 				ob.appendChild(ob8);
 			}
-			if (chstr != QChar(32))
+			if (chstr > QChar(32))
 			{
 				QString glName = handleGlyph(chr, hl);
 				if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
