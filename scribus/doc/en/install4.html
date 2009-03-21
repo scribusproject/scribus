@@ -92,13 +92,14 @@ make &amp;&amp; make install
 
 	<li><strong>WANT_NOHEADERINSTALL=1</strong>: Do not install header files used for developers. Distributions should not use this if they split up Scribus into multiple packages.
 
-   <li><strong>WANT_NORPATH</strong>: .Turn off setting a specific RPATH</li>
-   <li><strong>WANT_DISTROBUILD</strong>: .An option for OS distributors to use for their builds options</li>
-   <li><strong>WANT_LIB64</strong>: .Force 64 bit builds</li>
-   <li><strong>WANT_RELEASEWITHDEBUG</strong>: .Set Release style build flags, but also include debug information</li>
-   <li><strong>WANT_UNIVERSAL_BUNDLE</strong>: .Mac OS X only, enable building of a .app bundle</li>
-   <li><strong>WANT_QT4MAC_COCOA</strong>: .Mac OS X only, enable the Cocoa version Qt4.5+.</li>
-   <li><strong>WANT_QT3SUPPORT</strong>: .Enable Qt3 support in case you have a custom plugin that you have not converted fully to Qt4. Not needed for base Scribus code.</li>
+	<li><strong>WANT_NORPATH</strong>: Turn off setting a specific RPATH.</li>
+	<li><strong>WANT_DISTROBUILD</strong>: An option for OS distributors to use for their builds options.</li>
+	<li><strong>WANT_LIB64</strong>: Force 64 bit builds.</li>
+	<li><strong>WANT_RELEASEWITHDEBUG</strong>: Set Release style build flags, but also include debug information.</li>
+	<li><strong>WANT_UNIVERSAL_BUNDLE</strong>: Mac OS X only, enable building of a .app bundle.</li>
+	<li><strong>WANT_QT4MAC_COCOA</strong>: Mac OS X only, enable the Cocoa version Qt4.5+.</li>
+	<li><strong>WANT_QT3SUPPORT</strong>: Enable Qt3 support in case you have a custom plugin that you have not converted fully to Qt4. Not needed for base Scribus code.</li>
+	<li><strong>APPLICATION_DATA_DIR</strong>: Set the name of the preferences location for Scribus (instead of default of ~/.scribus on *nix and /Users/username/Library/Preferences/Scribus on Mac OS X.)</li>
   </ul>
   <p>For example: to make a cairo debug build, then something like this (all on one line):</p>
   <pre>
