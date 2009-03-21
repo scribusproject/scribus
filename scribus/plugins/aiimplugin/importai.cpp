@@ -1023,7 +1023,7 @@ void AIPlug::processData(QString data)
 	for (int a = 0; a < da.count(); a++)
 	{
 		Cdata = da[a];
-		if ((Cdata.startsWith("%")) || (Cdata.startsWith(" %")))
+		if (((Cdata.startsWith("%")) || (Cdata.startsWith(" %"))) && (!meshMode))
 			continue;
 		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
 		if (da2.count() == 0)
@@ -1403,6 +1403,242 @@ void AIPlug::processData(QString data)
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			QTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			gVals >> currentPatternX >> currentPatternY >> currentPatternXScale >> currentPatternYScale >> currentPatternRotation;
+		}
+		else if (command == "X!")
+		{
+			if (Cdata.contains("/Mesh"))
+			{
+				QList<PageItem*> gElements;
+				groupStack.push(gElements);
+				meshMode = true;
+				meshNodeCounter = 0;
+				accumColorC = 0.0;
+				accumColorM = 0.0;
+				accumColorY = 0.0;
+				accumColorK = 0.0;
+				meshColorMode = 0;
+			//	meshBoundingPath = QPainterPath();
+			}
+			if (Cdata.contains("/End"))
+			{
+				meshMode = false;
+				if (groupStack.count() != 0)
+				{
+					QList<PageItem*> gElements = groupStack.pop();
+					tmpSel->clear();
+					if (gElements.count() > 0)
+					{
+						for (int dre = 0; dre < gElements.count(); ++dre)
+						{
+							tmpSel->addItem(gElements.at(dre), true);
+						}
+						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
+						ite = tmpSel->itemAt(0);
+					/*	if (!meshBoundingPath.isEmpty())
+						{
+							ite = tmpSel->itemAt(0);
+							clipCoords.fromQPainterPath(meshBoundingPath);
+							clipCoords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
+							ite->PoLine = clipCoords.copy();
+							ite->PoLine.translate(baseX, baseY);
+						} */
+						if (patternMode)
+							PatternElements.append(ite);
+						else
+							Elements.append(ite);
+					}
+					if (groupStack.count() != 0)
+					{
+						for (int as = 0; as < tmpSel->count(); ++as)
+						{
+							groupStack.top().append(tmpSel->itemAt(as));
+						}
+					}
+					tmpSel->clear();
+				}
+			}
+		}
+		else if (command == "X#")
+		{
+			int an = Cdata.indexOf("_");
+			QString cmdLine = Cdata.remove(0, an+1);
+			an = cmdLine.lastIndexOf("/");
+			QString tmpS = cmdLine.mid(an+1, Cdata.size());
+			QTextStream mVals(&tmpS, QIODevice::ReadOnly);
+			QString mKey;
+			mVals >> mKey;
+			if (mKey == "Size")
+			{
+				int ans = cmdLine.indexOf("[");
+				int ens = cmdLine.lastIndexOf("]");
+				QString sizeVals = cmdLine.mid(ans+1, ens-ans-1);
+				QTextStream mVals2(&sizeVals, QIODevice::ReadOnly);
+				mVals2 >> meshXSize >> meshYSize;
+			}
+			if (mKey == "P")
+			{
+				int ans = cmdLine.indexOf("[");
+				int ens = cmdLine.lastIndexOf("]");
+				QString posVals = cmdLine.mid(ans+1, ens-ans-1);
+				QTextStream mVals3(&posVals, QIODevice::ReadOnly);
+				mVals3 >> currentMeshXPos >> currentMeshYPos;
+				accumColorC = 0.0;
+				accumColorM = 0.0;
+				accumColorY = 0.0;
+				accumColorK = 0.0;
+			}
+			if (mKey == "CS")
+			{
+				if (Cdata.contains("CMYK"))
+					meshColorMode = 0;
+				else if (Cdata.contains("RGB"))
+					meshColorMode = 1;
+			}
+			if (mKey == "E")
+			{
+				ScColor tmpColor;
+				ColorList::Iterator it;
+				int Cc = qRound((accumColorC / 4.0) * 255);
+				int Mc = qRound((accumColorM / 4.0) * 255);
+				int Yc = qRound((accumColorY / 4.0) * 255);
+				int Kc = qRound((accumColorK / 4.0) * 255);
+				int hC, hM, hY, hK;
+				bool found = false;
+				if (meshColorMode == 0)
+				{
+					tmpColor.setColor(Cc, Mc, Yc, Kc);
+					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+					{
+						if (it.value().getColorModel() == colorModelCMYK)
+						{
+							it.value().getCMYK(&hC, &hM, &hY, &hK);
+							if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+							{
+								CurrColorFill = it.key();
+								found = true;
+								break;
+							}
+						}
+					}
+				}
+				else
+				{
+					tmpColor.setColorRGB(Cc, Mc, Yc);
+					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+					{
+						if (it.value().getColorModel() == colorModelRGB)
+						{
+							it.value().getRGB(&hC, &hM, &hY);
+							if ((Cc == hC) && (Mc == hM) && (Yc == hY))
+							{
+								CurrColorFill = it.key();
+								found = true;
+								break;
+							}
+						}
+					}
+				}
+				if (!found)
+				{
+					tmpColor.setSpotColor(false);
+					tmpColor.setRegistrationColor(false);
+					QString namPrefix = "FromAI";
+					m_Doc->PageColors.insert(namPrefix+tmpColor.name(), tmpColor);
+					CurrColorFill = namPrefix+tmpColor.name();
+				}
+				meshNodeCounter = 0;
+				Coords.resize(0);
+				Coords.svgInit();
+				Coords.svgMoveTo(meshNode1PointX, meshNode1PointY);
+				Coords.svgCurveToCubic(meshNode1Control2X, meshNode1Control2Y, meshNode2Control1X, meshNode2Control1Y, meshNode2PointX, meshNode2PointY);
+				Coords.svgCurveToCubic(meshNode2Control2X, meshNode2Control2Y, meshNode3Control1X, meshNode3Control1Y, meshNode3PointX, meshNode3PointY);
+				Coords.svgCurveToCubic(meshNode3Control2X, meshNode3Control2Y, meshNode4Control1X, meshNode4Control1Y, meshNode4PointX, meshNode4PointY);
+				Coords.svgCurveToCubic(meshNode4Control2X, meshNode4Control2Y, meshNode1Control1X, meshNode1Control1Y, meshNode1PointX, meshNode1PointY);
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 1, CurrColorFill, CurrColorFill, true);
+				ite = m_Doc->Items->at(z);
+				ite->PoLine = Coords.copy();
+			//	QPainterPath tmpPath = Coords.toQPainterPath(true);
+			//	meshBoundingPath = meshBoundingPath.united(tmpPath);
+				ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+				ite->ClipEdited = true;
+				ite->FrameType = 3;
+				ite->setFillShade(CurrFillShade);
+				ite->setLineShade(CurrFillShade);
+				ite->setFillEvenOdd(fillRule);
+				ite->setFillTransparency(1.0 - Opacity);
+				ite->setLineTransparency(1.0 - Opacity);
+				ite->setLineEnd(CapStyle);
+				ite->setLineJoin(JoinStyle);
+				if (importerFlags & LoadSavePlugin::lfCreateDoc)
+					ite->setLocked(itemLocked);
+				FPoint wh = getMaxClipF(&ite->PoLine);
+				ite->setWidthHeight(wh.x(),wh.y());
+				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				m_Doc->AdjustItemSize(ite);
+				if (patternMode)
+					PatternElements.append(ite);
+				else
+					Elements.append(ite);
+				if (groupStack.count() != 0)
+					groupStack.top().append(ite);
+				Coords.resize(0);
+				Coords.svgInit();
+			}
+			if (mKey == "N")
+			{
+				double cVal, mVal, yVal, kVal, coorX1, coorY1, coorX2, coorY2, coorX3, coorY3;
+				int dummy;
+				meshNodeCounter++;
+				int ans = cmdLine.indexOf("[");
+				int ens = cmdLine.lastIndexOf("]");
+				QString nodeVals = cmdLine.mid(ans+1, ens-ans-1);
+				QTextStream mVals4(&nodeVals, QIODevice::ReadOnly);
+				kVal = 0.0;
+				if (meshColorMode == 0)
+					mVals4 >> cVal >> mVal >> yVal >> kVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
+				else
+					mVals4 >> cVal >> mVal >> yVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
+				accumColorC += cVal;
+				accumColorM += mVal;
+				accumColorY += yVal;
+				accumColorK += kVal;
+				if (meshNodeCounter == 1)
+				{
+					meshNode1PointX = coorX1 - docX;
+					meshNode1PointY = docHeight - (coorY1 - docY);
+					meshNode1Control2X = coorX2 - docX;
+					meshNode1Control2Y = docHeight - (coorY2 - docY);
+					meshNode1Control1X = coorX3 - docX;
+					meshNode1Control1Y = docHeight - (coorY3 - docY);
+				}
+				if (meshNodeCounter == 2)
+				{
+					meshNode2PointX = coorX1 - docX;
+					meshNode2PointY = docHeight - (coorY1 - docY);
+					meshNode2Control2X = coorX2 - docX;
+					meshNode2Control2Y = docHeight - (coorY2 - docY);
+					meshNode2Control1X = coorX3 - docX;
+					meshNode2Control1Y = docHeight - (coorY3 - docY);
+				}
+				if (meshNodeCounter == 3)
+				{
+					meshNode3PointX = coorX1 - docX;
+					meshNode3PointY = docHeight - (coorY1 - docY);
+					meshNode3Control2X = coorX2 - docX;
+					meshNode3Control2Y = docHeight - (coorY2 - docY);
+					meshNode3Control1X = coorX3 - docX;
+					meshNode3Control1Y = docHeight - (coorY3 - docY);
+				}
+				if (meshNodeCounter == 4)
+				{
+					meshNode4PointX = coorX1 - docX;
+					meshNode4PointY = docHeight - (coorY1 - docY);
+					meshNode4Control2X = coorX2 - docX;
+					meshNode4Control2Y = docHeight - (coorY2 - docY);
+					meshNode4Control1X = coorX3 - docX;
+					meshNode4Control1Y = docHeight - (coorY3 - docY);
+				}
+			}
 		}
 /* End Color commands */
 /* Start Layer commands */
@@ -2177,6 +2413,7 @@ bool AIPlug::convert(QString fn)
 	WasU = false;
 	firstLayer = true;
 	patternMode = false;
+	meshMode = false;
 	itemLocked = false;
 	patternX1 = 0.0;
 	patternY1 = 0.0;
@@ -2216,6 +2453,7 @@ bool AIPlug::convert(QString fn)
 	commandList << "Tc" << "Tz";													// Text commands
 	commandList << "XI" << "XG" << "Xh";											// Image commands
 	commandList << "n" << "N" << "*" << "[";										// Special commands
+	commandList << "X!" << "X#";													// Mesh commands
 	commandList << "M" << "d" << "D" << "E";										// unimplemented
 	commandList << "h" << "H" << "i" << "I" << "Np" << "O";							// unimplemented
 	commandList << "P" << "R";														// unimplemented

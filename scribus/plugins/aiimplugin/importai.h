@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "vgradient.h"
 #include <QList>
 #include <QMatrix>
+// #include <QPainterPath>
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -141,6 +142,25 @@ private:
 	double currentPatternXScale;
 	double currentPatternYScale;
 	double currentPatternRotation;
+	bool meshMode;
+	int meshXSize, meshYSize;
+	int currentMeshXPos, currentMeshYPos;
+	int meshNodeCounter;
+	int meshColorMode;
+	double meshNode1PointX, meshNode1PointY;
+	double meshNode1Control1X, meshNode1Control1Y;
+	double meshNode1Control2X, meshNode1Control2Y;
+	double meshNode2PointX, meshNode2PointY;
+	double meshNode2Control1X, meshNode2Control1Y;
+	double meshNode2Control2X, meshNode2Control2Y;
+	double meshNode3PointX, meshNode3PointY;
+	double meshNode3Control1X, meshNode3Control1Y;
+	double meshNode3Control2X, meshNode3Control2Y;
+	double meshNode4PointX, meshNode4PointY;
+	double meshNode4Control1X, meshNode4Control1Y;
+	double meshNode4Control2X, meshNode4Control2Y;
+	double accumColorC, accumColorM, accumColorY, accumColorK;
+//	QPainterPath meshBoundingPath;
 	QString docCreator;
 	QString docDate;
 	QString docTime;
