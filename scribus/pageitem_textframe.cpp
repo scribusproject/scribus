@@ -2564,34 +2564,34 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		{
 			if (lineBlendmode() != 0)
 				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-			if (lineColor() != CommonStrings::None)
+			if (!isTableItem)
 			{
-				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-				if (DashValues.count() != 0)
-					p->setDash(DashValues, DashOffset);
-				if (!isTableItem)
+				p->setupPolygon(&PoLine);
+				if (NamedLStyle.isEmpty())
 				{
-					p->setupPolygon(&PoLine);
-					if (NamedLStyle.isEmpty())
-						p->strokePath();
-					else
+					if (lineColor() != CommonStrings::None)
 					{
-						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-						QColor tmp;
-						for (int it = ml.size()-1; it > -1; it--)
-						{
-							SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-							p->setPen(tmp, ml[it].Width,
-									static_cast<Qt::PenStyle>(ml[it].Dash),
-									static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-									static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-							p->strokePath();
-						}
+						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+						if (DashValues.count() != 0)
+							p->setDash(DashValues, DashOffset);
+						p->strokePath();
+					}
+				}
+				else
+				{
+					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					QColor tmp;
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
+						p->setPen(tmp, ml[it].Width,
+								static_cast<Qt::PenStyle>(ml[it].Dash),
+								static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+								static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						p->strokePath();
 					}
 				}
 			}
-			else
-				p->setLineWidth(0);
 			if (lineBlendmode() != 0)
 				p->endLayer();
 		}
