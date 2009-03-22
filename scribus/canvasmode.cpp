@@ -365,37 +365,37 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		}
 		else // moving page item
 		{
-                        QRectF br(currItem->getVisualBoundingRect());
+			QRectF br(currItem->getVisualBoundingRect());
 #ifdef GESTURE_FRAME_PREVIEW
 			QImage *pixItem(0);
-                        if( m_pixmapCache.contains(currItem) )
-                        {
-                                if( m_pixmapCache.value(currItem)->isReady() )
-                                        pixItem = m_pixmapCache.value(currItem)->getImage();
-                        }
-                        else
-                        {
-                                m_pixmapCache[currItem] = new PageItemPreview(currItem);
-                        }
+			if( m_pixmapCache.contains(currItem) )
+			{
+				if( m_pixmapCache.value(currItem)->isReady() )
+					pixItem = m_pixmapCache.value(currItem)->getImage();
+			}
+			else
+			{
+				m_pixmapCache[currItem] = new PageItemPreview(currItem);
+			}
 
-                        if(pixItem)
-                        {
-                                p->save();
-                                p->translate(br.x(),br.y());
-                                p->translate(deltax, deltay);
-                                p->drawImage( br.toRect(), *pixItem, pixItem->rect() );
-                                p->restore();
-                        }
+			if(pixItem)
+			{
+				p->save();
+				p->translate(br.x(),br.y());
+				p->translate(deltax, deltay);
+				p->drawImage( br.toRect(), *pixItem, pixItem->rect() );
+				p->restore();
+			}
 #endif // GESTURE_FRAME_PREVIEW
 			{
 //				QRect vr(m_canvas->exposedRect());
 //				QImage img(vr.width(), vr.height(), QImage::Format_ARGB32);
 //				ScPainter scp(&img,vr. width(), vr.height());
 //				scp.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-//// 				scp.translate(currItem->xPos(), currItem->yPos());
-//// 				scp.translate(deltax, deltay);
-//// 				scp.scale(scalex, scaley);
-//// 				scp.scale(m_canvas->scale(), m_canvas->scale());
+////				scp.translate(currItem->xPos(), currItem->yPos());
+////				scp.translate(deltax, deltay);
+////				scp.scale(scalex, scaley);
+////				scp.scale(m_canvas->scale(), m_canvas->scale());
 //				currItem->invalid = false;
 //				currItem->DrawObj(&scp, vr);
 //				p->drawImage(vr, img, img.rect() );
@@ -459,8 +459,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						currItem->DrawPolyL(p, currItem->Clip);
 					}
 					else
-                                        {
-                                                QRectF br(currItem->getVisualBoundingRect());
+					{
+						QRectF br(currItem->getVisualBoundingRect());
 #ifdef GESTURE_FRAME_PREVIEW
 						QImage *pixItem(0);
 						if( m_pixmapCache.contains(currItem) )
@@ -477,7 +477,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						if(pixItem)
 						{
 							p->save();
-// 							p->translate(br.x() /*- x*/, br.y() /*- y*/);
+//							p->translate(br.x() /*- x*/, br.y() /*- y*/);
 							p->drawImage( br.toRect(), *pixItem, pixItem->rect() );
 							p->restore();
 						}
