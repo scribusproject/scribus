@@ -63,7 +63,7 @@ public:
 	int exportToSVG() {return 0;}
 	int runScript() {return 0;}
 	*/	
-	int init(bool useGUI, bool swapDialogButtonOrder, const QString fileToUse);
+	int init(bool useGUI, bool swapDialogButtonOrder, const QList<QString>& filesToUse);
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	bool initialized() const {return m_ScribusInitialized;};
 	const QString& getGuiLanguage() const;
@@ -137,7 +137,7 @@ protected:
 	bool m_ScribusInitialized;
 	bool m_UseGUI;
 	bool m_SwapDialogButtonOrder;
-	QString m_File;
+	QList<QString> m_Files;
 	bool m_HaveCMS;
 	bool m_HaveGS;
 	bool m_HavePngAlpha;

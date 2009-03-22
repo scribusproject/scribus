@@ -195,10 +195,10 @@ void ScribusQApp::parseCommandLine()
 			prefsUserFile = QFile::decodeName(argv()[i + 1]);
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
-				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << file.toLocal8Bit().data() << std::endl;
+				if (fileName.left(1) == "-" || fileName.left(2) == "--") {
+					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << fileName.toLocal8Bit().data() << std::endl;
 				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(file).toLocal8Bit().data() << std::endl;
+					std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -210,17 +210,21 @@ void ScribusQApp::parseCommandLine()
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
 		} else {
-			file = QFile::decodeName(argv()[i]);
-			if (!QFileInfo(file).exists()) {
+			fileName = QFile::decodeName(argv()[i]);
+			if (!QFileInfo(fileName).exists()) {
 				showHeader();
-				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << tr("Invalid argument: %1").arg(file).toLocal8Bit().data() << std::endl;
+				if (fileName.left(1) == "-" || fileName.left(2) == "--") {
+					std::cout << tr("Invalid argument: %1").arg(fileName).toLocal8Bit().data() << std::endl;
 				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(file).toLocal8Bit().data() << std::endl;
+					std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
 				return;
+			}
+			else
+			{
+				filesToLoad.append(fileName);
 			}
 		}
 	}
@@ -234,7 +238,7 @@ int ScribusQApp::init()
 		return EXIT_FAILURE;
 	ScCore=m_ScCore;
 	processEvents();
-	ScCore->init(useGUI, swapDialogButtonOrder, file);
+	ScCore->init(useGUI, swapDialogButtonOrder, filesToLoad);
 	int retVal=EXIT_SUCCESS;
 	if (useGUI)
 		retVal=ScCore->startGUI(showSplash, showFontInfo, showProfileInfo, lang, prefsUserFile);

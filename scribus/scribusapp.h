@@ -93,7 +93,8 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		bool swapDialogButtonOrder;
 		//! \brief If is there user given prefs file...
 		QString prefsUserFile;
-		QString file;
+		QList<QString> filesToLoad;
+		QString fileName;
 };
 
 #endif

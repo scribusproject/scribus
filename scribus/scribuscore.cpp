@@ -81,10 +81,10 @@ static void abort_on_error(QtMsgType t, const char * m)
 #endif
 
 
-int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fileToUse)
+int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QList<QString>& filesToUse)
 {
 	m_UseGUI=useGUI;
-	m_File=fileToUse;
+	m_Files=filesToUse;
 	m_SwapDialogButtonOrder=swapDialogButtonOrder;
 #if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMsgHandler( & abort_on_error );
@@ -125,8 +125,11 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	scribus->show();
 	scribus->ShowSubs();
 
-	if (!m_File.isEmpty())
-		scribus->loadDoc(m_File);
+	if (!m_Files.isEmpty())
+	{
+		for (int i = 0; i < m_Files.size(); ++i)
+			scribus->loadDoc(m_Files.at(i));
+	}
 	else
 	{
 		if (PrefsManager::instance()->appPrefs.showStartupDialog)
