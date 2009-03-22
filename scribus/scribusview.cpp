@@ -4075,6 +4075,7 @@ void ScribusView::TextToPath()
 							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
 						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 						bb = Doc->Items->at(z);
+						undoManager->setUndoEnabled(false);
 						bb->setTextFlowMode(currItem->textFlowMode());
 						bb->setSizeLocked(currItem->sizeLocked());
 						bb->setLocked(currItem->locked());
@@ -4102,6 +4103,7 @@ void ScribusView::TextToPath()
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
 						Doc->setRedrawBounding(bb);
+						undoManager->setUndoEnabled(true);
 						newGroupedItems.append(Doc->Items->takeAt(z));
 					}
 					if (chstr != QChar(32))
@@ -4115,6 +4117,7 @@ void ScribusView::TextToPath()
 							double glyTr = -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0;
 							uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 							bb = Doc->Items->at(z);
+							undoManager->setUndoEnabled(false);
 							bb->setTextFlowMode(currItem->textFlowMode());
 							bb->setSizeLocked(currItem->sizeLocked());
 							bb->setLocked(currItem->locked());
@@ -4142,6 +4145,7 @@ void ScribusView::TextToPath()
 							bb->ContourLine = bb->PoLine.copy();
 							bb->ClipEdited = true;
 							Doc->setRedrawBounding(bb);
+							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
 						}
 						pts.map(finalMat);
@@ -4149,6 +4153,7 @@ void ScribusView::TextToPath()
 						bb = Doc->Items->at(z);
 						//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 						//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
+						undoManager->setUndoEnabled(false);
 						bb->setTextFlowMode(currItem->textFlowMode());
 						bb->setSizeLocked(currItem->sizeLocked());
 						bb->setLocked(currItem->locked());
@@ -4175,6 +4180,7 @@ void ScribusView::TextToPath()
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
 						Doc->setRedrawBounding(bb);
+						undoManager->setUndoEnabled(true);
 						newGroupedItems.append(Doc->Items->takeAt(z));
 					}
 					if (charStyle.effects() & ScStyle_Strikethrough)
@@ -4212,6 +4218,7 @@ void ScribusView::TextToPath()
 							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
 						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 						bb = Doc->Items->at(z);
+						undoManager->setUndoEnabled(false);
 						bb->setTextFlowMode(currItem->textFlowMode());
 						bb->setSizeLocked(currItem->sizeLocked());
 						bb->setLocked(currItem->locked());
@@ -4231,6 +4238,7 @@ void ScribusView::TextToPath()
 						bb->ClipEdited = true;
 						Doc->setRedrawBounding(bb);
 						bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
+						undoManager->setUndoEnabled(true);
 						newGroupedItems.append(Doc->Items->takeAt(z));
 					}
 				}
@@ -4301,6 +4309,7 @@ void ScribusView::TextToPath()
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
 							uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 							bb = Doc->Items->at(z);
+							undoManager->setUndoEnabled(false);
 							bb->setTextFlowMode(currItem->textFlowMode());
 							bb->setSizeLocked(currItem->sizeLocked());
 							bb->setLocked(currItem->locked());
@@ -4337,6 +4346,7 @@ void ScribusView::TextToPath()
 							bb->ClipEdited = true;
 							bb->FrameType = 3;
 							Doc->setRedrawBounding(bb);
+							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
 						}
 						if (chstr != QChar(32))
@@ -4359,6 +4369,7 @@ void ScribusView::TextToPath()
 								double glyTr = -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0;
 								uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos() + glxTr, currItem->yPos() + glyTr, currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 								bb = Doc->Items->at(z);
+								undoManager->setUndoEnabled(false);
 								bb->setTextFlowMode(currItem->textFlowMode());
 								bb->setSizeLocked(currItem->sizeLocked());
 								bb->setLocked(currItem->locked());
@@ -4401,10 +4412,12 @@ void ScribusView::TextToPath()
 								bb->ContourLine = bb->PoLine.copy();
 								bb->ClipEdited = true;
 								Doc->setRedrawBounding(bb);
+								undoManager->setUndoEnabled(true);
 								newGroupedItems.append(Doc->Items->takeAt(z));
 							}
 							uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 							bb = Doc->Items->at(z);
+							undoManager->setUndoEnabled(false);
 							//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 							//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
 							bb->setTextFlowMode(currItem->textFlowMode());
@@ -4457,6 +4470,7 @@ void ScribusView::TextToPath()
 							bb->ContourLine = bb->PoLine.copy();
 							bb->ClipEdited = true;
 							Doc->setRedrawBounding(bb);
+							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
 						}
 						if (charStyle.effects() & ScStyle_Strikethrough)
@@ -4482,6 +4496,7 @@ void ScribusView::TextToPath()
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
 							uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 							bb = Doc->Items->at(z);
+							undoManager->setUndoEnabled(false);
 							bb->setTextFlowMode(currItem->textFlowMode());
 							bb->setSizeLocked(currItem->sizeLocked());
 							bb->setLocked(currItem->locked());
@@ -4516,6 +4531,7 @@ void ScribusView::TextToPath()
 							bb->ClipEdited = true;
 							bb->FrameType = 3;
 							Doc->setRedrawBounding(bb);
+							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
 						}
 						CurX += hl->glyph.wide();
@@ -4526,12 +4542,14 @@ void ScribusView::TextToPath()
 			{
 				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor(), true);
 				PageItem *bb = Doc->Items->at(z);
+				undoManager->setUndoEnabled(false);
 				bb->PoLine = currItem->PoLine.copy();
 				bb->ClipEdited = true;
 				bb->FrameType = 3;
 				bb->setRotation(currItem->rotation());
 //				bb->setPolyClip(qRound(qMax(bb->lineWidth() / 2, 1)));
 				Doc->AdjustItemSize(bb);
+				undoManager->setUndoEnabled(true);
 				newGroupedItems.append(Doc->Items->takeAt(z));
 			}
 			delItems.append(tmpSelection.takeItem(offset));
