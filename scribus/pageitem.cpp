@@ -2131,7 +2131,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 				{
 					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 qMax(static_cast<int>(ml[it].Width* view->scale()), 1),
+									 qMax(static_cast<int>(ml[it].Width /** view->scale()*/), 1),
 									 static_cast<Qt::PenStyle>(ml[it].Dash),
 									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
@@ -2149,7 +2149,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 			{
 				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 qMax(static_cast<int>(ml[it].Width* view->scale()), 1),
+								 qMax(static_cast<int>(ml[it].Width /** view->scale()*/), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
@@ -2168,7 +2168,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 			{
 				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 qMax(static_cast<int>(ml[it].Width*view->scale()), 1),
+								 qMax(static_cast<int>(ml[it].Width /**view->scale()*/), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
