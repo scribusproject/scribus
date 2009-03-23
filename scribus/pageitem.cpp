@@ -2115,7 +2115,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 {
 	QColor tmp;
-	ScribusView* view = m_Doc->view();
+//	ScribusView* view = m_Doc->view();
 	if (Segments.count() != 0)
 	{
 		QList<uint>::Iterator it2end=Segments.end();
@@ -2123,7 +2123,11 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
 		{
 			if (NamedLStyle.isEmpty())
+			{
+				if (lineColor() != CommonStrings::None)
+					p->setPen(QPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin));
 				p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
+			}
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -2141,7 +2145,11 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 			FirstVal = (*it2);
 		}
 		if (NamedLStyle.isEmpty())
+		{
+			if (lineColor() != CommonStrings::None)
+				p->setPen(QPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin));
 			p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
+		}
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -2160,7 +2168,11 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 	else
 	{
 		if (NamedLStyle.isEmpty())
+		{
+			if (lineColor() != CommonStrings::None)
+				p->setPen(QPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin));
 			p->drawPolygon(pts);
+		}
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
