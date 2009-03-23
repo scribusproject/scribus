@@ -915,6 +915,7 @@ void UndoManager::languageChange()
 	UndoManager::BreakRatio         = tr("Break aspect ratio");
 	UndoManager::EditContourLine    = tr("Edit contour line");
 	UndoManager::EditShape          = tr("Edit shape");
+	UndoManager::ChangeShapeType    = tr("Change shape type");
 	UndoManager::ResetContourLine   = tr("Reset contour line");
 	UndoManager::AddPage            = tr("Add page");
 	UndoManager::AddPages           = tr("Add pages");
@@ -1110,6 +1111,7 @@ QString UndoManager::KeepRatio          = "";
 QString UndoManager::BreakRatio         = "";
 QString UndoManager::EditContourLine    = "";
 QString UndoManager::EditShape          = "";
+QString UndoManager::ChangeShapeType    = "";
 QString UndoManager::ResetContourLine   = "";
 QString UndoManager::AddPage            = "";
 QString UndoManager::AddPages           = "";

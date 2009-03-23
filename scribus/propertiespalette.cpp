@@ -4453,6 +4453,31 @@ void PropertiesPalette::MakeIrre(int f, int c, qreal *vals)
 	{
 		if ((CurItem->itemType() == PageItem::PolyLine) || (CurItem->itemType() == PageItem::PathText))
 			return;
+
+		if (UndoManager::undoEnabled())
+		{
+			// Store shape info in this form:
+			// CHANGE_SHAPE_TYPE - ID of the undo operation
+			// OLD_FRAME_TYPE - original frame type
+			// NEW_FRAME_TYPE - change of frame type
+			// binary QPair<FPointArray, FPointArray> - .first original shape, .second new shape
+			ItemState<QPair<FPointArray,FPointArray> > *is = new ItemState<QPair<FPointArray,FPointArray> >(Um::ChangeShapeType, "", Um::IBorder);
+			is->set("CHANGE_SHAPE_TYPE", "change_shape_type");
+			is->set("OLD_FRAME_TYPE", CurItem->FrameType);
+			is->set("NEW_FRAME_TYPE", f);
+			// HACK: this is propably Evil Code (TM). I have to find better way...
+			FPointArray newShape;
+			int ix = 0;
+			for (int i = 0; i < c/2; ++i)
+			{
+				newShape.addPoint(vals[ix], vals[ix+1]);
+				ix += 2;
+			}
+			// HACK: end of hack
+			is->setItem(qMakePair(CurItem->shape(), newShape));
+			UndoManager::instance()->action(CurItem, is);
+		}
+
 		switch (f)
 		{
 		case 0:

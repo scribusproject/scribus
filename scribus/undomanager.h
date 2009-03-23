@@ -535,6 +535,7 @@ public:
 	static QString BreakRatio;
 	static QString EditContourLine;
 	static QString EditShape;
+	static QString ChangeShapeType;
 	static QString ResetContourLine;
 	static QString AddPage;
 	static QString AddPages;
