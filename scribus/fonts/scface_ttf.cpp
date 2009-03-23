@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QString>
 #include <QObject>
+#include <QDebug>
+// #include <QTime>
 
 #include <sys/types.h>
 
@@ -16,107 +18,496 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "scconfig.h"
 
+KernFeature::KernFeature ( FT_Face face )
+		:m_valid ( true )
+{
+	FontName = QString ( face->family_name ) + " " + QString ( face->style_name )   ;
+// 	qDebug() <<"KF"<<FontName;
+// 	QTime t;
+// 	t.start();
+	FT_ULong length = 0;
+	if ( !FT_Load_Sfnt_Table ( face, TTAG_GPOS , 0, NULL, &length ) )
+	{
+// 		qDebug() <<"\t"<<"GPOS table len"<<length;
+		if ( length > 32 )
+		{
+			GPOSTableRaw.resize ( length );
+			FT_Load_Sfnt_Table ( face, TTAG_GPOS, 0, reinterpret_cast<FT_Byte*> ( GPOSTableRaw.data() ), &length );
+
+			makeCoverage();
+		}
+		else
+			m_valid = false;
+
+		GPOSTableRaw.clear();
+		coverages.clear();
+	}
+	else
+		m_valid = false;
+
+	if ( !m_valid )
+		pairs.clear();
+// 	qDebug() <<"\t"<<m_valid;
+// 	qDebug() <<"\t"<<t.elapsed();
+}
+
+KernFeature::KernFeature ( const KernFeature & kf )
+{
+	m_valid = kf.m_valid;
+	if ( m_valid )
+		pairs = kf.pairs;
+
+}
 
 
-namespace {
-uint word(QByteArray const & bb, uint pos) 
+KernFeature::~ KernFeature()
 {
-	const unsigned char * pp = reinterpret_cast<const unsigned char*>(bb.data()) + pos;
-	return pp[0] << 24 | pp[1] << 16 | pp[2] << 8 | pp[3];
 }
-uint word16(QByteArray const & bb, uint pos) 
+
+double KernFeature::getPairValue ( unsigned int glyph1, unsigned int glyph2 ) const
 {
-	const unsigned char * pp = reinterpret_cast<const unsigned char*>(bb.data()) + pos;
-	return pp[0] << 8 | pp[1];
+	if ( m_valid )
+	{
+		if ( pairs.contains ( glyph1 ) )
+		{
+			if ( pairs[glyph1].contains ( glyph2 ) )
+			{
+				return pairs[glyph1][glyph2];
+			}
+		}
+	}
+	return 0.0;
 }
-QString tag(QByteArray const & bb, uint pos)
+
+void KernFeature::makeCoverage()
 {
-	char buf[5] = "1234";
-	buf[0] = bb.data()[pos];
-	buf[1] = bb.data()[pos+1];
-	buf[2] = bb.data()[pos+2];
-	buf[3] = bb.data()[pos+3];
-	return buf;
+	if ( GPOSTableRaw.isEmpty() )
+		return;
+
+	quint16 FeatureList_Offset= toUint16 ( 6 );
+	quint16 LookupList_Offset = toUint16 ( 8 );
+
+	// Find the offsets of the kern feature tables
+	quint16 FeatureCount = toUint16 ( FeatureList_Offset );;
+	QList<quint16> FeatureKern_Offset;
+	for ( quint16 FeatureRecord ( 0 ); FeatureRecord < FeatureCount; ++ FeatureRecord )
+	{
+		int rawIdx ( FeatureList_Offset + 2 + ( 6 * FeatureRecord ) );
+		quint32 tag ( FT_MAKE_TAG ( GPOSTableRaw.at ( rawIdx ),
+		                            GPOSTableRaw.at ( rawIdx + 1 ),
+		                            GPOSTableRaw.at ( rawIdx + 2 ),
+		                            GPOSTableRaw.at ( rawIdx + 3 ) ) );
+		if ( tag == TTAG_kern )
+		{
+			FeatureKern_Offset << ( toUint16 ( rawIdx + 4 ) + FeatureList_Offset );
+
+		}
+	}
+
+	// Extract indices of lookups for feture kern
+	QList<quint16> LookupListIndex;
+	foreach ( quint16 kern, FeatureKern_Offset )
+	{
+		quint16 LookupCount ( toUint16 ( kern + 2 ) );
+		for ( int llio ( 0 ) ; llio < LookupCount; ++llio )
+		{
+			quint16 Idx ( toUint16 ( kern + 4 + ( llio * 2 ) ) );
+			if ( !LookupListIndex.contains ( Idx ) )
+			{
+				LookupListIndex <<Idx ;
+			}
+		}
+	}
+
+
+	// Extract offsets of lookup tables for feature kern
+	QList<quint16> LookupTables;
+	QList<quint16> PairAdjustmentSubTables;
+	for ( int i ( 0 ); i < LookupListIndex.count(); ++i )
+	{
+		int rawIdx ( LookupList_Offset + 2 + ( LookupListIndex[i] * 2 ) );
+		quint16 Lookup ( toUint16 ( rawIdx )  + LookupList_Offset );
+		quint16 SubTableCount ( toUint16 ( Lookup + 4 ) );
+		for ( int stIdx ( 0 ); stIdx < SubTableCount; ++ stIdx )
+		{
+			quint16 SubTable ( toUint16 ( Lookup + 6 + ( 2 * stIdx ) ) + Lookup );
+
+// 			quint16 PosFormat ( toUint16 ( SubTable ) );
+			quint16 Coverage_Offset ( toUint16 ( SubTable + 2 ) + SubTable );
+			quint16 CoverageFormat ( toUint16 ( Coverage_Offset ) );
+
+			if ( 1 == CoverageFormat ) // glyph indices based
+			{
+				quint16 GlyphCount ( toUint16 ( Coverage_Offset + 2 ) );
+				quint16 GlyphID ( Coverage_Offset + 4 );
+
+				for ( unsigned int gl ( 0 ); gl < GlyphCount; ++gl )
+				{
+					coverages[SubTable] << toUint16 ( GlyphID + ( gl * 2 ) );
+				}
+			}
+			else if ( 2 == CoverageFormat ) // Coverage Format2 => ranges based
+			{
+				quint16 RangeCount ( toUint16 ( Coverage_Offset + 2 ) );
+
+// 				int gl_base ( 0 );
+				for ( int r ( 0 ); r < RangeCount; ++r )
+				{
+					quint16 rBase ( Coverage_Offset + 4 + ( r * 6 ) );
+					quint16 Start ( toUint16 ( rBase ) );
+					quint16 End ( toUint16 ( rBase + 2 ) );
+// 					quint16 StartCoverageIndex ( toUint16 ( rBase + 4 ) );
+					for ( unsigned int gl ( Start ); gl <= End; ++gl )
+						coverages[SubTable]  << gl;
+				}
+			}
+			else
+				qDebug() <<"Unknow Coverage Format:"<<CoverageFormat;
+
+			makePairs ( SubTable );
+		}
+
+	}
+
+
 }
-bool copy(QByteArray & dst, uint to, QByteArray & src, uint from, uint len) 
+
+
+void KernFeature::makePairs ( quint16 subtableOffset )
 {
-	if (!dst.data())
-		return false;
-	if (!src.data())
-		return false;
-	if (to + len > static_cast<uint>(dst.size()))
-		return false;
-	if (from + len > static_cast<uint>(src.size()))
-		return false;
-	
-	memcpy(dst.data() + to, src.data() + from, len);
-	return true;
+	/*
+	Lookup Type 2:
+	Pair Adjustment Positioning Subtable
+	*/
+
+	quint16 PosFormat ( toUint16 ( subtableOffset ) );
+
+	if ( PosFormat == 1 )
+	{
+		quint16 ValueFormat1 ( toUint16 ( subtableOffset +4 ) );
+		quint16 ValueFormat2 ( toUint16 ( subtableOffset +6 ) );
+		quint16 PairSetCount ( toUint16 ( subtableOffset +8 ) );
+		if ( ValueFormat1 && ValueFormat2 )
+		{
+			for ( int psIdx ( 0 ); psIdx < PairSetCount; ++ psIdx )
+			{
+				unsigned int FirstGlyph ( coverages[subtableOffset][psIdx] );
+				quint16 PairSetOffset ( toUint16 ( subtableOffset +10 + ( 2 * psIdx ) ) +  subtableOffset );
+				quint16 PairValueCount ( toUint16 ( PairSetOffset ) );
+				quint16 PairValueRecord ( PairSetOffset + 2 );
+				for ( int pvIdx ( 0 );pvIdx < PairValueCount; ++pvIdx )
+				{
+					quint16 recordBase ( PairValueRecord + ( ( 2 + 2 + 2 ) * pvIdx ) );
+					quint16 SecondGlyph ( toUint16 ( recordBase ) );
+					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
+					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
+
+				}
+
+			}
+		}
+		else if ( ValueFormat1 && ( !ValueFormat2 ) )
+		{
+			for ( int psIdx ( 0 ); psIdx < PairSetCount; ++ psIdx )
+			{
+				unsigned int FirstGlyph ( coverages[subtableOffset][psIdx] );
+				quint16 PairSetOffset ( toUint16 ( subtableOffset +10 + ( 2 * psIdx ) ) +  subtableOffset );
+				quint16 PairValueCount ( toUint16 ( PairSetOffset ) );
+				quint16 PairValueRecord ( PairSetOffset + 2 );
+				for ( int pvIdx ( 0 );pvIdx < PairValueCount; ++pvIdx )
+				{
+					quint16 recordBase ( PairValueRecord + ( ( 2 + 2 ) * pvIdx ) );
+					quint16 SecondGlyph ( toUint16 ( recordBase ) );
+					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
+					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
+
+				}
+
+			}
+		}
+		else
+		{
+			qDebug() <<"ValueFormat1 is null or both ValueFormat1 and ValueFormat2 are null";
+		}
+
+	}
+	else if ( PosFormat == 2 )
+	{
+		quint16 ValueFormat1 ( toUint16 ( subtableOffset +4 ) );
+		quint16 ValueFormat2 ( toUint16 ( subtableOffset +6 ) );
+		quint16 ClassDef1 ( toUint16 ( subtableOffset +8 )  + subtableOffset );
+		quint16 ClassDef2 ( toUint16 ( subtableOffset +10 ) + subtableOffset );
+		quint16 Class1Count ( toUint16 ( subtableOffset +12 ) );
+		quint16 Class2Count ( toUint16 ( subtableOffset +14 ) );
+		quint16 Class1Record ( subtableOffset +16 );
+
+		// first extract classses
+		ClassDefTable Class1Data ( getClass ( ClassDef1 , subtableOffset ) );
+		ClassDefTable Class2Data ( getClass ( ClassDef2 , subtableOffset ) );
+
+		if ( ValueFormat1 && ValueFormat2 )
+		{
+			for ( quint16 C1 ( 0 );C1 < Class1Count; ++C1 )
+			{
+				QList<quint16> Class1 ( Class1Data[C1] );
+				quint16 Class2Record ( Class1Record + ( C1 * ( 2 * 2 * Class2Count ) ) );
+				for ( quint16 C2 ( 0 );C2 < Class2Count; ++C2 )
+				{
+					qint16 Value1 ( toInt16 ( Class2Record + ( C2 * ( 2 * 2 ) ) ) );
+					QList<quint16> Class2 ( Class2Data[C2] );
+					// keep it barbarian :D
+					foreach ( quint16 FirstGlyph, Class1 )
+					{
+						foreach ( quint16 SecondGlyph, Class2 )
+						{
+							if ( Value1 )
+								pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
+						}
+					}
+				}
+			}
+		}
+		else if ( ValueFormat1 && ( !ValueFormat2 ) )
+		{
+			for ( quint16 C1 ( 0 );C1 < Class1Count; ++C1 )
+			{
+				QString cdbg ( QString::number ( C1 ).rightJustified ( 5,QChar ( 32 ) ) );
+				QList<quint16> Class1 ( Class1Data[C1] );
+				quint16 Class2Record ( Class1Record + ( C1 * ( 2 * Class2Count ) ) );
+				for ( quint16 C2 ( 0 );C2 < Class2Count; ++C2 )
+				{
+					qint16 Value1 ( toInt16 ( Class2Record + ( C2 * 2 ) ) );
+					QList<quint16> Class2 ( Class2Data[C2] );
+
+					foreach ( quint16 FirstGlyph, Class1 )
+					{
+						foreach ( quint16 SecondGlyph, Class2 )
+						{
+							if ( Value1 )
+								pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			qDebug() <<"ValueFormat1 is null or both ValueFormat1 and ValueFormat2 are null";
+		}
+
+	}
+	else
+		qDebug() <<"unknown PosFormat"<<PosFormat;
 }
+
+KernFeature::ClassDefTable KernFeature::getClass ( quint16 classDefOffset, quint16 coverageId )
+{
+	ClassDefTable ret;
+	ret[0] = coverages[coverageId];
+	quint16 ClassFormat ( toUint16 ( classDefOffset ) );
+	if ( ClassFormat == 1 )
+	{
+		quint16 StartGlyph ( toUint16 ( classDefOffset +2 ) );
+		quint16 GlyphCount ( toUint16 ( classDefOffset +4 ) );
+		quint16 ClassValueArray ( classDefOffset + 6 );
+
+		for ( quint16 CV ( 0 );CV < GlyphCount; ++CV )
+		{
+			ret[0].removeAll ( StartGlyph + CV );
+			ret[ toUint16 ( ClassValueArray + ( CV * 2 ) ) ] << StartGlyph + CV;
+		}
+	}
+	else if ( ClassFormat == 2 )
+	{
+		quint16 ClassRangeCount ( toUint16 ( classDefOffset + 2 ) );
+		quint16 ClassRangeRecord ( classDefOffset + 4 );
+		for ( int CRR ( 0 ); CRR < ClassRangeCount; ++CRR )
+		{
+			quint16 Start ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) ) );
+			quint16 End ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 2 ) );
+			quint16 Class ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 4 ) );
+
+			for ( quint16 gl ( Start ); gl <= End; ++gl )
+			{
+				ret[0].removeAll ( gl );
+				ret[Class] << gl;
+			}
+		}
+	}
+	else
+		qDebug() <<"Unknown Class Table type";
+
+	return ret;
+}
+
+quint16 KernFeature::toUint16 ( quint16 index )
+{
+	if ( ( index + 2 ) > GPOSTableRaw.count() )
+	{
+		qDebug() << "HORROR!" << index << GPOSTableRaw.count() << FontName ;
+		// Rather no kerning at all than random kerning
+// 		m_valid = false;
+		return 0;
+	}
+	// FIXME I just do not know how it has to be done *properly*
+	quint16 c1 ( GPOSTableRaw.at ( index ) );
+	quint16 c2 ( GPOSTableRaw.at ( index + 1 ) );
+	c1 &= 0xFF;
+	c2 &= 0xFF;
+	quint16 ret ( ( c1 << 8 ) | c2 );
+	return ret;
+}
+
+qint16 KernFeature::toInt16 ( quint16 index )
+{
+	if ( ( index + 2 ) > GPOSTableRaw.count() )
+	{
+		return 0;
+	}
+	// FIXME I just do not know how it has to be done *properly*
+	quint16 c1 ( GPOSTableRaw.at ( index ) );
+	quint16 c2 ( GPOSTableRaw.at ( index + 1 ) );
+	c1 &= 0xFF;
+	c2 &= 0xFF;
+	qint16 ret ( ( c1 << 8 ) | c2 );
+	return ret;
+}
+
+
+namespace
+{
+	uint word ( QByteArray const & bb, uint pos )
+	{
+		const unsigned char * pp = reinterpret_cast<const unsigned char*> ( bb.data() ) + pos;
+		return pp[0] << 24 | pp[1] << 16 | pp[2] << 8 | pp[3];
+	}
+	uint word16 ( QByteArray const & bb, uint pos )
+	{
+		const unsigned char * pp = reinterpret_cast<const unsigned char*> ( bb.data() ) + pos;
+		return pp[0] << 8 | pp[1];
+	}
+	QString tag ( QByteArray const & bb, uint pos )
+	{
+		char buf[5] = "1234";
+		buf[0] = bb.data() [pos];
+		buf[1] = bb.data() [pos+1];
+		buf[2] = bb.data() [pos+2];
+		buf[3] = bb.data() [pos+3];
+		return buf;
+	}
+	bool copy ( QByteArray & dst, uint to, QByteArray & src, uint from, uint len )
+	{
+		if ( !dst.data() )
+			return false;
+		if ( !src.data() )
+			return false;
+		if ( to + len > static_cast<uint> ( dst.size() ) )
+			return false;
+		if ( from + len > static_cast<uint> ( src.size() ) )
+			return false;
+
+		memcpy ( dst.data() + to, src.data() + from, len );
+		return true;
+	}
 } //namespace
 
+ScFace_ttf::ScFace_ttf ( QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face )
+		: FtFace ( fam, sty, alt, scname, psname, path, face )
+{
+	formatCode = ScFace::SFNT;
+	kernFeature = 0;
+}
 
-void ScFace_ttf::RawData(QByteArray & bb) const {
-	if (formatCode == ScFace::TTCF) {
+ScFace_ttf::~ ScFace_ttf()
+{
+	if ( kernFeature )
+		delete kernFeature;
+}
+
+
+void ScFace_ttf::load() const
+{
+	if ( !kernFeature )
+		kernFeature = new KernFeature ( ftFace() );
+	FtFace::load();
+}
+
+void ScFace_ttf::unload() const
+{
+	if ( kernFeature )
+		delete kernFeature;
+	kernFeature = 0;
+	FtFace::unload();
+}
+
+
+void ScFace_ttf::RawData ( QByteArray & bb ) const
+{
+	if ( formatCode == ScFace::TTCF )
+	{
 		QByteArray coll;
-		FtFace::RawData(coll);
+		FtFace::RawData ( coll );
 		// access table for faceIndex
-		if (faceIndex >= static_cast<int>(word(coll, 8)))
+		if ( faceIndex >= static_cast<int> ( word ( coll, 8 ) ) )
 		{
-			bb.resize(0);
+			bb.resize ( 0 );
 			return;
 		}
 		static const uint OFFSET_TABLE_LEN = 12;
 		static const uint   TDIR_ENTRY_LEN = 16;
-		uint faceOffset = word(coll, 12 + 4 * faceIndex);
-		uint nTables    = word16(coll, faceOffset + 4);
-		sDebug(QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg(fontFile).arg(faceOffset).arg(nTables));
+		uint faceOffset = word ( coll, 12 + 4 * faceIndex );
+		uint nTables    = word16 ( coll, faceOffset + 4 );
+		sDebug ( QObject::tr ( "extracting face %1 from font %2 (offset=%3, nTables=%4)" ).arg ( faceIndex ).arg ( fontFile ).arg ( faceOffset ).arg ( nTables ) );
 		uint headerLength = OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * nTables;
 		uint tableLengths = 0;
 		// sum table lengths incl padding
-		for (uint i=0; i < nTables; ++i)
+		for ( uint i=0; i < nTables; ++i )
 		{
-			tableLengths += word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 12);
-			tableLengths = (tableLengths+3) & ~3;
+			tableLengths += word ( coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 12 );
+			tableLengths = ( tableLengths+3 ) & ~3;
 		}
-		bb.resize(headerLength + tableLengths);
-		if (! bb.data())
+		bb.resize ( headerLength + tableLengths );
+		if ( ! bb.data() )
 			return;
 		// write header
-		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
-		if (!copy(bb, 0, coll, faceOffset, headerLength))
+		sDebug ( QObject::tr ( "memcpy header: %1 %2 %3" ).arg ( 0 ).arg ( faceOffset ).arg ( headerLength ) );
+		if ( !copy ( bb, 0, coll, faceOffset, headerLength ) )
 			return;
 
 		uint pos = headerLength;
-		for (uint i=0; i < nTables; ++i)
+		for ( uint i=0; i < nTables; ++i )
 		{
-			uint tableSize  = word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 12);
-			uint tableStart = word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8);
-			sDebug(QObject::tr("table '%1'").arg(tag(coll, tableStart)));
-			sDebug(QObject::tr("memcpy table: %1 %2 %3").arg(pos).arg(tableStart).arg(tableSize));
-			if (!copy(bb, pos, coll, tableStart, tableSize)) break;
+			uint tableSize  = word ( coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 12 );
+			uint tableStart = word ( coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8 );
+			sDebug ( QObject::tr ( "table '%1'" ).arg ( tag ( coll, tableStart ) ) );
+			sDebug ( QObject::tr ( "memcpy table: %1 %2 %3" ).arg ( pos ).arg ( tableStart ).arg ( tableSize ) );
+			if ( !copy ( bb, pos, coll, tableStart, tableSize ) ) break;
 			// write new offset to table entry
-			sDebug(QObject::tr("memcpy offset: %1 %2 %3").arg(OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8).arg(pos).arg(4));
-			memcpy(bb.data() + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, &pos, 4);
+			sDebug ( QObject::tr ( "memcpy offset: %1 %2 %3" ).arg ( OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8 ).arg ( pos ).arg ( 4 ) );
+			memcpy ( bb.data() + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, &pos, 4 );
 			pos += tableSize;
 			// pad
-			while ((pos & 3) != 0)
-				bb.data()[pos++] = '\0';
+			while ( ( pos & 3 ) != 0 )
+				bb.data() [pos++] = '\0';
 		}
-	}	
-	else if (formatCode == ScFace::TYPE42) {
-		FtFace::RawData(bb);
 	}
-	else {
-		FtFace::RawData(bb);
+	else if ( formatCode == ScFace::TYPE42 )
+	{
+		FtFace::RawData ( bb );
+	}
+	else
+	{
+		FtFace::RawData ( bb );
 	}
 }
 
-bool ScFace_ttf::EmbedFont(QString &str) const
+bool ScFace_ttf::EmbedFont ( QString &str ) const
 {
-	if (formatCode == ScFace::TYPE42) {
+	if ( formatCode == ScFace::TYPE42 )
+	{
 		//easy:
 		QByteArray bb;
-		FtFace::RawData(bb);
+		FtFace::RawData ( bb );
 		str += bb;
 		return true;
 	}
@@ -128,12 +519,14 @@ bool ScFace_ttf::EmbedFont(QString &str) const
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	FT_Face face = ftFace();
-	if (!face) {
+	if ( !face )
+	{
 		return false;
 	}
 	const FT_Stream fts = face->stream;
-	if (ftIOFunc(fts, 0L, NULL, 0)) {
-		return(false);
+	if ( ftIOFunc ( fts, 0L, NULL, 0 ) )
+	{
+		return ( false );
 	}
 	str+="%!PS-TrueTypeFont\n";
 	str+="11 dict begin\n";
@@ -150,26 +543,28 @@ bool ScFace_ttf::EmbedFont(QString &str) const
 	char linebuf[80];
 	str += "/sfnts [";
 	int poso=0;
-	do {
+	do
+	{
 		int posi=0;
 		length= fts->size - fts->pos;
-		if (length > 65534) {
+		if ( length > 65534 )
+		{
 			length = 65534;
 		}
-		if (!ftIOFunc(fts, 0L, tmp, length))
+		if ( !ftIOFunc ( fts, 0L, tmp, length ) )
 		{
 			str+="\n<\n";
-			for (int j = 0; j < length; j++)
+			for ( int j = 0; j < length; j++ )
 			{
 				unsigned char u=tmp[posi];
-				linebuf[poso]=((u >> 4) & 15) + '0';
-				if(u>0x9f) linebuf[poso]+='a'-':';
+				linebuf[poso]= ( ( u >> 4 ) & 15 ) + '0';
+				if ( u>0x9f ) linebuf[poso]+='a'-':';
 				++poso;
 				u&=15; linebuf[poso]=u + '0';
-				if(u>0x9) linebuf[poso]+='a'-':';
+				if ( u>0x9 ) linebuf[poso]+='a'-':';
 				++posi;
 				++poso;
-				if (poso > 70)
+				if ( poso > 70 )
 				{
 					linebuf[poso++]='\n';
 					linebuf[poso++]=0;
@@ -182,29 +577,43 @@ bool ScFace_ttf::EmbedFont(QString &str) const
 			poso = 0;
 			str += "00\n>";
 		}
-		else {
-			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
+		else
+		{
+			sDebug ( QObject::tr ( "Font %1 is broken (read stream), no embedding" ).arg ( fontFile ) );
 			str += "\n] def\n";
-			status = qMax(status,ScFace::BROKENGLYPHS);
+			status = qMax ( status,ScFace::BROKENGLYPHS );
 			return false;
 		}
-	} while (length==65534);
-	
+	}
+	while ( length==65534 );
+
 	str += "\n] def\n";
 	delete[] tmp;
 	gindex = 0;
-	charcode = FT_Get_First_Char(face, &gindex );
-	while (gindex != 0)
+	charcode = FT_Get_First_Char ( face, &gindex );
+	while ( gindex != 0 )
 	{
-		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		tmp2 += "/"+QString(reinterpret_cast<char*>(buf))+" "+tmp3.setNum(gindex)+" def\n";
-		 charcode = FT_Get_Next_Char(face, charcode, &gindex );
+		FT_Get_Glyph_Name ( face, gindex, buf, 50 );
+		tmp2 += "/"+QString ( reinterpret_cast<char*> ( buf ) ) +" "+tmp3.setNum ( gindex ) +" def\n";
+		charcode = FT_Get_Next_Char ( face, charcode, &gindex );
 		counter++;
 	}
-	tmp4.setNum(counter);
+	tmp4.setNum ( counter );
 	str += "/CharStrings " + tmp4 + " dict dup begin\n"+tmp2;
 	str += "end readonly def\n";
 	str += "FontName currentdict end definefont pop\n";
-	return(true);
+	return ( true );
 }
+
+qreal ScFace_ttf::glyphKerning ( uint gl1, uint gl2, qreal sz ) const
+{
+	if ( kernFeature->isValid() )
+	{
+		return kernFeature->getPairValue ( gl1,gl2 ) / m_uniEM * sz;
+
+	}
+	else
+		return FtFace::glyphKerning ( gl1, gl2, sz );
+}
+
 
