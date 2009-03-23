@@ -1554,7 +1554,7 @@ void AIPlug::processData(QString data)
 				Coords.svgCurveToCubic(meshNode2Control2X, meshNode2Control2Y, meshNode3Control1X, meshNode3Control1Y, meshNode3PointX, meshNode3PointY);
 				Coords.svgCurveToCubic(meshNode3Control2X, meshNode3Control2Y, meshNode4Control1X, meshNode4Control1Y, meshNode4PointX, meshNode4PointY);
 				Coords.svgCurveToCubic(meshNode4Control2X, meshNode4Control2Y, meshNode1Control1X, meshNode1Control1Y, meshNode1PointX, meshNode1PointY);
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 1, CurrColorFill, CurrColorFill, true);
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorFill, CurrColorFill, true);
 				ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
 			//	QPainterPath tmpPath = Coords.toQPainterPath(true);
