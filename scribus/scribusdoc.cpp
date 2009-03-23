@@ -2828,10 +2828,14 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			{
 				QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
 				Really.insert(fontName, UsedFonts[fontName]);
-				uint itemTextCount=it->itemText.length();
-				for (uint e = 0; e < itemTextCount; ++e)
+				uint start = it->firstInFrame();
+				uint stop = it->lastInFrame();
+				for (uint e = start; e <= stop; ++e)
 				{
-					Really.insert(it->itemText.charStyle(e).font().replacementName(), UsedFonts[it->itemText.charStyle(e).font().replacementName()]);
+					QString rep = it->itemText.charStyle(e).font().replacementName();
+					if (Really.contains(rep))
+						continue;
+					Really.insert(rep, UsedFonts[rep]);
 				}
 			}
 		}
