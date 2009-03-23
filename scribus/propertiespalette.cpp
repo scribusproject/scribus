@@ -1558,7 +1558,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(DBottom, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(flopGroup, SIGNAL(buttonClicked( int )), this, SLOT(flop(int)));
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
+	connect(StyledLine, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	connect(Fonts, SIGNAL(fontSelected(QString )), this, SLOT(NewTFont(QString)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
@@ -2013,7 +2013,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	if (!doc)
 		setDoc(i->doc());
 
-	disconnect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
+	disconnect(StyledLine, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -2108,6 +2108,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	if (CurItem->NamedLStyle.isEmpty())
 	{
 		setter = true;
+		QListWidgetItem *itemStl = NULL;
+		itemStl = StyledLine->item(0);
+		if (itemStl != NULL)
+			itemStl->setSelected(true);
 	}
 	else
 	{
@@ -2128,7 +2132,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		dashEditor->setDashValues(CurItem->dashes(), qMax(CurItem->lineWidth(), 0.001), CurItem->dashOffset());
 		dashEditor->show();
 	}
-	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
+	connect(StyledLine, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -4590,7 +4594,7 @@ void PropertiesPalette::SetLineFormats(ScribusDoc *dd)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
+	disconnect(StyledLine, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	StyledLine->clear();
 	if (dd != 0)
 	{
@@ -4602,7 +4606,7 @@ void PropertiesPalette::SetLineFormats(ScribusDoc *dd)
 		if (StyledLine->currentItem())
 			StyledLine->currentItem()->setSelected(false);
 	}
-	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
+	connect(StyledLine, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 }
 
 void PropertiesPalette::SetSTline(QListWidgetItem *c)
