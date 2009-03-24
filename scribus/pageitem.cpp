@@ -3162,6 +3162,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restorePoly(ss, isUndo, false);
 		else if (ss->contains("RESET_CONTOUR"))
 			restoreContourLine(ss, isUndo);
+		else if (ss->contains("CHANGE_SHAPE_TYPE"))
+			restoreShapeType(ss, isUndo);
 		else if (ss->contains("MIRROR_PATH_H"))
 		{
 			bool editContour = m_Doc->nodeEdit.isContourLine;
@@ -3566,6 +3568,30 @@ void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 			ContourLine = is->getItem();
 		else
 			ContourLine = PoLine.copy();
+		ClipEdited = true;
+	}
+}
+
+void PageItem::restoreShapeType(SimpleState *state, bool isUndo)
+{
+	// Store shape info in this form:
+	// CHANGE_SHAPE_TYPE - ID of the undo operation
+	// OLD_FRAME_TYPE - original frame type
+	// NEW_FRAME_TYPE - change of frame type
+	// binary QPair<FPointArray, FPointArray> - .first original shape, .second new shape
+	ItemState<QPair<FPointArray,FPointArray> > *is = dynamic_cast<ItemState<QPair<FPointArray,FPointArray> >*>(state);
+	if (is)
+	{
+		if (isUndo)
+		{
+			this->FrameType = is->getInt("OLD_FRAME_TYPE");
+			this->PoLine = is->getItem().first;
+		}
+		else
+		{
+			this->FrameType = is->getInt("NEW_FRAME_TYPE");
+			this->PoLine = is->getItem().second;
+		}
 		ClipEdited = true;
 	}
 }
