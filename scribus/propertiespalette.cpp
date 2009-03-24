@@ -4470,7 +4470,9 @@ void PropertiesPalette::MakeIrre(int f, int c, qreal *vals)
 			int ix = 0;
 			for (int i = 0; i < c/2; ++i)
 			{
-				newShape.addPoint(vals[ix], vals[ix+1]);
+				double x = CurItem->width() * vals[ix] / 100.0;
+				double y = CurItem->height() * vals[ix+1] / 100.0;
+				newShape.addPoint(x, y);
 				ix += 2;
 			}
 			// HACK: end of hack
