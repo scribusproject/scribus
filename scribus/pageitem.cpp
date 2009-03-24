@@ -2114,8 +2114,21 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 
 void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 {
+	if (Segments.count() != 0)
+	{
+		QList<uint>::Iterator it2end=Segments.end();
+		uint FirstVal = 0;
+		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
+		{
+				p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
+			FirstVal = (*it2);
+		}
+		p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
+	}
+	else
+		p->drawPolygon(pts);
+/*
 	QColor tmp;
-//	ScribusView* view = m_Doc->view();
 	if (Segments.count() != 0)
 	{
 		QList<uint>::Iterator it2end=Segments.end();
@@ -2135,7 +2148,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 				{
 					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 qMax(static_cast<int>(ml[it].Width /** view->scale()*/), 1),
+									 qMax(static_cast<int>(ml[it].Width), 1),
 									 static_cast<Qt::PenStyle>(ml[it].Dash),
 									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
@@ -2157,7 +2170,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 			{
 				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 qMax(static_cast<int>(ml[it].Width /** view->scale()*/), 1),
+								 qMax(static_cast<int>(ml[it].Width), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
@@ -2180,14 +2193,14 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 			{
 				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 qMax(static_cast<int>(ml[it].Width /**view->scale()*/), 1),
+								 qMax(static_cast<int>(ml[it].Width), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
 				p->drawPolygon(pts);
 			}
 		}
-	}
+	} */
 }
 
 void PageItem::setItemName(const QString& newName)
