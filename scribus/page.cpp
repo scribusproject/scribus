@@ -96,7 +96,7 @@ void Page::restore(UndoState* state, bool isUndo)
 	SimpleState* ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
 	{
-		int stateCode = ss->transactionCode;
+//		int stateCode = ss->transactionCode;
 		if (ss->contains("ADD_V"))
 		{
 			double position = ss->getDouble("ADD_V");
