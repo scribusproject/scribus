@@ -517,6 +517,7 @@ public:
 	static QString ImportOOoDraw;
 	static QString ImportAI;
 	static QString ImportXfig;
+	static QString ImportWMF;
 	static QString ScratchSpace;
 	//static QString TextFlow;
 	static QString ObjectFrame;
@@ -613,6 +614,7 @@ public:
 	static QPixmap *IEPS;
 	static QPixmap *IAI;
 	static QPixmap *IXFIG;
+	static QPixmap *IWMF;
 	static QPixmap *IImportOOoDraw;
 	static QPixmap *IImageScaling;
 	static QPixmap *IBorder;
@@ -744,6 +746,14 @@ signals:
 	 * @brief representation should be removed.
 	 */
 	void popBack();
+
+	/**
+	 * @brief This signal is emitted when beginning a series of undo/redo actions
+	 *
+	 * It could be used in the application as a signal to disable temporarily gui
+	 * updates.
+	 */
+	void undoRedoBegin();
 
 	/**
 	 * @brief This signal is emitted when all requested undo/redo actions have been done.

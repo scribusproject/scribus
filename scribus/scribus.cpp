@@ -2266,6 +2266,8 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	if (requiresGUI)
 	{
 		wsp->addWindow(w);
+		connect(undoManager, SIGNAL(undoRedoBegin()), tempDoc, SLOT(undoRedoBegin()));
+		connect(undoManager, SIGNAL(undoRedoDone()), tempDoc, SLOT(undoRedoDone()));
 		connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		connect(tempView, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
@@ -4137,6 +4139,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString )));
+		connect(undoManager, SIGNAL(undoRedoBegin()), doc, SLOT(undoRedoBegin()));
+		connect(undoManager, SIGNAL(undoRedoDone()), doc, SLOT(undoRedoDone()));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		doc->connectDocSignals();
 		if (doc->AutoSave)
@@ -8391,14 +8395,10 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
 	{
-		if (ss->transactionCode == 1)
-			doc->m_Selection->delaySignalsOn();
 		if (ss->contains("ADD_PAGE"))
 			restoreAddPage(ss, isUndo);
 		else if (ss->contains("DELETE_PAGE"))
 			restoreDeletePage(ss, isUndo);
-		if (ss->transactionCode == 2)
-			doc->m_Selection->delaySignalsOff();
 	}
 }
 

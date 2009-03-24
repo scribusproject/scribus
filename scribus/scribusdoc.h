@@ -1200,6 +1200,9 @@ public slots:
 	void itemSelection_SetItemPatternFill(QString pattern);
 	void itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 
+	void undoRedoBegin();
+	void undoRedoDone();
+
 	void updatePic();
 	void updatePict(QString name);
 	void updatePictDir(QString name);

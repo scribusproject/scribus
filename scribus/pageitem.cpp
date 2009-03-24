@@ -3081,8 +3081,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		oldCurrentPage = m_Doc->currentPage();
 		m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]));
 	}
-	if (state->transactionCode == 1)
-		m_Doc->m_Selection->delaySignalsOn();
 	if (ss)
 	{
 		if (ss->contains("OLD_XPOS"))
@@ -3189,8 +3187,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
 			restoreImageEffects(ss, isUndo);
 	}
-	if (state->transactionCode == 2)
-		m_Doc->m_Selection->delaySignalsOff();
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
 	m_Doc->setMasterPageMode(oldMPMode);

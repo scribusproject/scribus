@@ -97,8 +97,6 @@ void Page::restore(UndoState* state, bool isUndo)
 	if (ss)
 	{
 		int stateCode = ss->transactionCode;
-		if (stateCode == 1)
-			m_Doc->m_Selection->delaySignalsOn();
 		if (ss->contains("ADD_V"))
 		{
 			double position = ss->getDouble("ADD_V");
@@ -206,8 +204,6 @@ void Page::restore(UndoState* state, bool isUndo)
 			restorePageItemDeletion(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("CONVERT_ITEM"))
 			restorePageItemConversion(dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
-		if (stateCode == 2)
-			m_Doc->m_Selection->delaySignalsOff();
 	}
 }
 

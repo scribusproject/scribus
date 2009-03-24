@@ -1250,6 +1250,15 @@ void ScribusDoc::lockGuides(bool isLocked)
 	}
 }
 
+void ScribusDoc::undoRedoBegin()
+{
+	m_Selection->delaySignalsOn();
+}
+
+void ScribusDoc::undoRedoDone()
+{
+	m_Selection->delaySignalsOff();
+}
 
 void ScribusDoc::restore(UndoState* state, bool isUndo)
 {
@@ -1257,8 +1266,6 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	if (ss)
 	{
 		bool layersUndo=false;
-		if (ss->transactionCode == 1)
-			m_Selection->delaySignalsOn();
 
 		if (ss->contains("GROUP"))
 			restoreGrouping(ss, isUndo);
@@ -1337,8 +1344,6 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		else if (ss->contains("COPY_PAGE"))
 			restorePageCopy(ss, isUndo);
 
-		if (ss->transactionCode == 2)
-			m_Selection->delaySignalsOff();
 		if (layersUndo)
 		{
 			if (ScCore->usingGUI())
@@ -7371,7 +7376,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	//CB FIXME remove this and tree.h too
 //	m_ScMW->outlinePalette->BuildTree();
 
-	if (itemSelection->isGUISelection())
+	if (itemSelection->isGUISelection() && !itemSelection->signalsDelayed())
 	{
 		if (itemSelection->count() == 0)
 			emit firstSelectedItemType(-1);

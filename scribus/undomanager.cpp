@@ -526,6 +526,7 @@ void UndoManager::undo(int steps)
 	if (!undoEnabled_)
 		return;
 
+	emit undoRedoBegin();
 	setUndoEnabled(false);
 	stacks_[currentDoc_].undo(steps, currentUndoObjectId_);
 	setUndoEnabled(true);
@@ -539,6 +540,7 @@ void UndoManager::redo(int steps)
 	if (!undoEnabled_)
 		return;
 
+	emit undoRedoBegin();
 	setUndoEnabled(false);
 	stacks_[currentDoc_].redo(steps, currentUndoObjectId_);
 	setUndoEnabled(true);
@@ -779,9 +781,9 @@ void TransactionState::redo() // redo all attached states
 			at(i)->transactionCode = 0;
 		else
 		{
-			if (i == sizet() - 1)
+			if (i == 0)
 				at(i)->transactionCode = 1;
-			else if (i == 0)
+			else if (i == static_cast<int>(sizet() - 1))
 				at(i)->transactionCode = 2;
 			else
 				at(i)->transactionCode = 3;
@@ -897,6 +899,7 @@ void UndoManager::languageChange()
 	UndoManager::ImportOOoDraw      = tr("Import OpenOffice.org Draw image");
 	UndoManager::ImportAI           = tr("Import AI drawing");
 	UndoManager::ImportXfig         = tr("Import XFig drawing");
+	UndoManager::ImportWMF          = tr("Import WMF drawing");
 	UndoManager::ScratchSpace       = tr("Scratch space");
 	//UndoManager::TextFlow           = tr("Text flows around the frame");
 	UndoManager::ObjectFrame        = tr("Text flows around the frame");
@@ -994,6 +997,7 @@ void UndoManager::initIcons()
 	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
 	UndoManager::IAI              = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
 	UndoManager::IXFIG            = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
+	UndoManager::IWMF             = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
 	UndoManager::IImageScaling    = new QPixmap(iconDir + "u_scale_image.png");
 	UndoManager::IBorder          = new QPixmap(iconDir + "u_shape.png");
 	UndoManager::IDocument        = new QPixmap(iconDir + "16/document-new.png");
@@ -1093,6 +1097,7 @@ QString UndoManager::ImportBarcode      = "";
 QString UndoManager::ImportOOoDraw      = "";
 QString UndoManager::ImportAI           = "";
 QString UndoManager::ImportXfig         = "";
+QString UndoManager::ImportWMF          = "";
 QString UndoManager::ScratchSpace       = "";
 //QString UndoManager::TextFlow           = "";
 QString UndoManager::ObjectFrame        = "";
@@ -1184,6 +1189,7 @@ QPixmap *UndoManager::ISVG             = 0;
 QPixmap *UndoManager::IEPS             = 0;
 QPixmap *UndoManager::IAI              = 0;
 QPixmap *UndoManager::IXFIG            = 0;
+QPixmap *UndoManager::IWMF             = 0;
 QPixmap *UndoManager::IImportOOoDraw   = 0;
 QPixmap *UndoManager::IImageScaling    = 0;
 QPixmap *UndoManager::IBorder          = 0;
