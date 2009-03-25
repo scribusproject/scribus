@@ -27,11 +27,11 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 	hasParent_ = false;
 	tabsChanged_ = false;
 	useParentTabs_ = false;
-	first_ = new SMScrSpinBox(-3000, 4000, this, 1);
+	first_ = new SMScrSpinBox(-3000, 4000, this, dEin);
 	Q_CHECK_PTR(first_);
-	left_ = new SMScrSpinBox(0, 4000, this, 1);
+	left_ = new SMScrSpinBox(0, 4000, this, dEin);
 	Q_CHECK_PTR(left_);
-	right_ = new SMScrSpinBox(0, 4000, this, 1);
+	right_ = new SMScrSpinBox(0, 4000, this, dEin);
 	Q_CHECK_PTR(right_);
 
 	indentLayout->removeWidget(firstLineData);
@@ -66,13 +66,6 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 	parentButton_->hide();
 	Tabruler::setTabs(Tabs, dEin);
 	Tabruler::repaint();
-	if (dEin == 2)
-	{
-		first_->setDecimals(10000);
-		left_->setDecimals(10000);
-		right_->setDecimals(10000);
-		tabData->setDecimals(10000);
-	} // TODO else What's the decimal for other dEins?
 	first_->setNewUnit(dEin);
 	left_->setNewUnit(dEin);
 	right_->setNewUnit(dEin);
@@ -91,13 +84,6 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin, bool i
 		parentButton_->show();
 	Tabruler::setTabs(Tabs, dEin);
 	Tabruler::repaint();
-	if (dEin == 2)
-	{
-		first_->setDecimals(10000);
-		left_->setDecimals(10000);
-		right_->setDecimals(10000);
-		tabData->setDecimals(10000);
-	} // TODO else What's the decimal for other dEins?
 	first_->setNewUnit(dEin);
 	left_->setNewUnit(dEin);
 	right_->setNewUnit(dEin);
@@ -372,7 +358,7 @@ void SMTabruler::firstValueChanged()
 	double a, b, value;
 	int c;
 	first_->getValues(&a, &b, &c, &value);
-	setFirstLineData(value);
+	setFirstLineData(value / docUnitRatio);
 	setFirstLine();
 	setLeftIndent();
 	setRightIndent();
@@ -390,7 +376,7 @@ void SMTabruler::leftValueChanged()
 	double a, b, value;
 	int c;
 	left_->getValues(&a, &b, &c, &value);
-	setLeftIndentData(value);
+	setLeftIndentData(value / docUnitRatio);
 	setLeftIndent();
 //	setFirstLine();
 	setRightIndent();
@@ -408,7 +394,7 @@ void SMTabruler::rightValueChanged()
 	double a, b, value;
 	int c;
 	right_->getValues(&a, &b, &c, &value);
-	setRightIndentData(value);
+	setRightIndentData(value / docUnitRatio);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
