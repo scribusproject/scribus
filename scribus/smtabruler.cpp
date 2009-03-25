@@ -58,36 +58,61 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
-void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void SMTabruler::unitChange(int unitIndex)
+{
+	this->blockSignals(true);
+	Tabruler::setTabs(ruler->tabValues, unitIndex);
+	Tabruler::repaint();
+
+	first_->blockSignals(true);
+	left_->blockSignals(true);
+	right_->blockSignals(true);
+	tabData->blockSignals(true);
+
+	first_->setNewUnit(unitIndex);
+	left_->setNewUnit(unitIndex);
+	right_->setNewUnit(unitIndex);
+	tabData->setNewUnit(unitIndex);
+
+	first_->blockSignals(false);
+	left_->blockSignals(false);
+	right_->blockSignals(false);
+	tabData->blockSignals(false);
+
+	m_unitIndex = unitIndex;
+	this->blockSignals(false);
+}
+
+void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
 	hasParent_ = false;
 	parentButton_->hide();
-	Tabruler::setTabs(Tabs, dEin);
+	Tabruler::setTabs(Tabs, unitIndex);
 	Tabruler::repaint();
-	first_->setNewUnit(dEin);
-	left_->setNewUnit(dEin);
-	right_->setNewUnit(dEin);
-	tabData->setNewUnit(dEin);
+	first_->setNewUnit(unitIndex);
+	left_->setNewUnit(unitIndex);
+	right_->setNewUnit(unitIndex);
+	tabData->setNewUnit(unitIndex);
 }
 
-void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue)
+void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex, bool isParentValue)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
-	hasParent_ = true;
-	pDein_ = dEin;
+	hasParent_  = true;
+	m_unitIndex = unitIndex;
 	if (isParentValue)
 		parentButton_->hide();
 	else
 		parentButton_->show();
-	Tabruler::setTabs(Tabs, dEin);
+	Tabruler::setTabs(Tabs, unitIndex);
 	Tabruler::repaint();
-	first_->setNewUnit(dEin);
-	left_->setNewUnit(dEin);
-	right_->setNewUnit(dEin);
-	tabData->setNewUnit(dEin);
+	first_->setNewUnit(unitIndex);
+	left_->setNewUnit(unitIndex);
+	right_->setNewUnit(unitIndex);
+	tabData->setNewUnit(unitIndex);
 
 	connect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	connect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
@@ -248,7 +273,7 @@ bool SMTabruler::useParentTabs()
 	bool ret = useParentTabs_;
 	if (ret && hasParent_)
 	{
-		setTabs(pTabs_, pDein_, true);
+		setTabs(pTabs_, m_unitIndex, true);
 		Tabruler::repaint();
 		parentButton_->hide();
 	}

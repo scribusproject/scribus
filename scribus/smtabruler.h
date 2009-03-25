@@ -23,8 +23,10 @@ public:
 			   double wid = -1);
 	~SMTabruler() {};
 
-	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
-	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue);
+	void unitChange(int unitIndex);
+
+	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex);
+	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex, bool isParentValue);
 	void setParentTabs(QList<ParagraphStyle::TabRecord> Tabs);
 
 	void setFirstLineValue(double t);
@@ -50,7 +52,7 @@ public:
 
 private:
 	QList<ParagraphStyle::TabRecord> pTabs_;
-	int pDein_;
+	int  m_unitIndex;
 	QToolButton *parentButton_;
 	bool hasParent_;
 	bool tabsChanged_;

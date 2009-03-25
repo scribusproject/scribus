@@ -145,9 +145,7 @@ void SMPStyleWidget::languageChange()
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
 {
 	dropCapOffset_->setNewUnit(unitIndex);
-	tabList_->left_->setNewUnit(unitIndex);
-	tabList_->right_->setNewUnit(unitIndex);
-	tabList_->first_->setNewUnit(unitIndex);
+	tabList_->unitChange(unitIndex);
 }
 
 void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
