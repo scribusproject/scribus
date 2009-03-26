@@ -559,7 +559,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				{
 					if(currItem->asLine())
 						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-					else
+					else if(!currItem->locked() && !currItem->sizeLocked())
 						setResizeCursor(how, currItem->rotation());
 				}
 				else if (how == 0)
@@ -632,15 +632,21 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		}
 		else
 		{
-			if (!resizeGesture)
-				resizeGesture = new ResizeGesture(this);
-			
-			resizeGesture->mousePressEvent(m);
-			if (resizeGesture->frameHandle() > 0)
+			bool isMS=m_doc->m_Selection->isMultipleSelection();
+			if (isMS || (!isMS && (!currItem->locked() && !currItem->sizeLocked())))
 			{
-				m_view->startGesture(resizeGesture);
-				return;
+				if (!resizeGesture)
+					resizeGesture = new ResizeGesture(this);
+
+				resizeGesture->mousePressEvent(m);
+				if (resizeGesture->frameHandle() > 0)
+				{
+					m_view->startGesture(resizeGesture);
+					return;
+				}
 			}
+			else
+				return;
 		}
 		
 		qApp->changeOverrideCursor(Qt::ClosedHandCursor);

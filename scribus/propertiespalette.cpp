@@ -4501,18 +4501,12 @@ void PropertiesPalette::MakeIrre(int f, int c, qreal *vals)
 		emit DocChanged();
 		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
 		{
-			if (f != 0)
-				RoundRect->setEnabled(false);
-			else
-				RoundRect->setEnabled(true);
+			RoundRect->setEnabled(f == 0);
 			return;
 		}
 		CurItem->convertTo(PageItem::Polygon);
 		NewSel(6);
-		if (f != 0)
-			RoundRect->setEnabled(false);
-		else
-			RoundRect->setEnabled(true);
+		RoundRect->setEnabled(f == 0);
 // 		TabStack->setCurrentIndex(1);
 	}
 }
