@@ -929,8 +929,13 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 	}
 	if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
 	{
-		m_Doc->Items->takeAt(z);
-		delete neu;
+		// Unfortunately we have to take the long route here, or we risk crash on undo/redo
+		// FIXME : create group object after parsing grouped objects
+		/*m_Doc->Items->takeAt(z);
+		delete neu;*/
+		Selection tmpSelection(m_Doc, false);
+		tmpSelection.addItem(neu);
+		m_Doc->itemSelection_DeleteItem(&tmpSelection);
 		for (int a = 0; a < m_Doc->Items->count(); ++a)
 		{
 			m_Doc->Items->at(a)->ItemNr = a;
@@ -970,11 +975,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			neu->PoLine.map(mm);
 			neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
 			clipPath.resize(0);
-			/* fix for needless large groups created by the cairo svg-export, won't work tho with complex clip paths
-			FPoint tp2(getMinClipF(&neu->PoLine));
-			FPoint tp(getMaxClipF(&neu->PoLine));
-			if ((tp2.x() < 0) && (tp2.y() < 0) && (tp.x() > neu->width()) && (tp.y() > neu->height()))
-				neu->SetRectFrame(); */
+
 		}
 		else
 			neu->SetRectFrame();
