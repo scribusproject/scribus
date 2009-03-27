@@ -46,18 +46,20 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 
-	pageWidth = value2pts(pageWidth, unit);
-	pageHeight = value2pts(pageHeight, unit);
+	// fixed #7854: Problem with page size with newDocument
+// 	pageWidth = value2pts(pageWidth, unit);
+// 	pageHeight = value2pts(pageHeight, unit);
 	if (orientation == 1)
 	{
 		double x = pageWidth;
 		pageWidth = pageHeight;
 		pageHeight = x;
 	}
-	leftMargin = value2pts(leftMargin, unit);
-	rightMargin = value2pts(rightMargin, unit);
-	topMargin = value2pts(topMargin, unit);
-	bottomMargin = value2pts(bottomMargin, unit);
+	// fixed #7854: Problem with page size with newDocument
+// 	leftMargin = value2pts(leftMargin, unit);
+// 	rightMargin = value2pts(rightMargin, unit);
+// 	topMargin = value2pts(topMargin, unit);
+// 	bottomMargin = value2pts(bottomMargin, unit);
 
 	bool ret = ScCore->primaryMainWindow()->doFileNew(pageWidth, pageHeight,
 								topMargin, leftMargin, rightMargin, bottomMargin,
@@ -81,8 +83,9 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	        (!PyArg_ParseTuple(p, "dd", &b, &h)) ||
 	        (!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr)))
 		return NULL;
-	b = value2pts(b, unit);
-	h = value2pts(h, unit);
+	// fixed #7854: Problem with page size with newDocument
+// 	b = value2pts(b, unit);
+// 	h = value2pts(h, unit);
 	if (ori == 1)
 	{
 		ebr = b;
@@ -96,10 +99,11 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	if (ds!=1 && fsl>0)
 		fsl = 0;
 	// end of hack
-	tpr = value2pts(tpr, unit);
-	lr = value2pts(lr, unit);
-	rr = value2pts(rr, unit);
-	btr = value2pts(btr, unit);
+	// fixed #7854: Problem with page size with newDocument
+// 	tpr = value2pts(tpr, unit);
+// 	lr = value2pts(lr, unit);
+// 	rr = value2pts(rr, unit);
+// 	btr = value2pts(btr, unit);
 	bool ret = ScCore->primaryMainWindow()->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom", true);
 	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
