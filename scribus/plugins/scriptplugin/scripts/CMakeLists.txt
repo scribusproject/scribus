@@ -5,6 +5,7 @@ INCLUDE_DIRECTORIES(
 INSTALL(FILES
 CalendarWizard.py
 ColorChart.py
+DirectImageImport.py
 FontSample.py
 InfoBox.py
 ChangeLog
