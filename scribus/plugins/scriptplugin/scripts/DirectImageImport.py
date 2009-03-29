@@ -13,6 +13,20 @@ Tested with scribus 1.3.3.3
 
 Author: Konrad Stania
 
+some modifications 2009 by Gregory Pittman, tested on Scribus 1.3.3.13svn
+
+This newer version uses the Python Imaging Library to get the dimensions of the
+image to be imported, and adjusts the frame accordingly. Initially the frame will
+be created centered, at 80% of the page's width or height, whichever is smaller. 
+There is an adjustment to 80% of the height of the page in case this is exceeded 
+by the initial calculation.
+
+USAGE:
+
+You must have a document open. Run the script, a dialog asks you to choose an
+image to load. A proportional frame is automatically created and image loaded, 
+then adjusted to frame size.
+
 LICENSE:
 
 This program is free software; you can redistribute it and/or modify
@@ -42,39 +56,35 @@ try:
 except ImportError:
     print "This script only runs from within Scribus."
     sys.exit(1)
+try:
+    from PIL import Image
+except ImportError:
+    print "Unable to import the Python Imaging Library module."
+    sys.exit(1)
     
 def main():
-    #setRedraw(False) 
 
     pageX,pageY = getPageSize()
     ImageFileName = fileDialog("Image Import", "*","" ,True, False)
-    Breite = pageX*0.8
-    Hoehe = Breite
-    
-    if pageX >= pageY:
-       Breite = pageY*0.8
-       Hoehe = Breite
+    im = Image.open(ImageFileName)
+    xsize, ysize = im.size
+
+    if (pageX < pageY):
+        Breite = pageX * 0.8
+    else:
+        Breite = pageY * 0.8
+    Hoehe = Breite * ysize/xsize
+
+# for images taller than they are wide we want to limit height of frame to 80% of page height
+    if (Hoehe > pageY * 0.8):
+	Hoehe = pageY * 0.8
+	Breite = Hoehe * xsize/ysize
 
     ImageFrame = createImage(pageX/2 - Breite/2, pageY/2 - Hoehe/2, Breite, Hoehe)
     loadImage(ImageFileName, ImageFrame)
     setScaleImageToFrame(True, False,ImageFrame)
     setFillColor("None", ImageFrame)
     setLineColor("None", ImageFrame)
-    scaleX,scaleY = getImageScale(ImageFrame)
-
-    if scaleX > scaleY:
-       Breite = Breite * scaleY / scaleX
-       sizeObject(Breite, Hoehe, ImageFrame)
-       setScaleImageToFrame(True, False,ImageFrame)
-
-    if scaleX < scaleY:
-       Hoehe = Hoehe * scaleX / scaleY
-       setScaleImageToFrame(True, False,ImageFrame)
-       sizeObject(Breite, Hoehe, ImageFrame)
- 
-    #setRedraw(True) 
-    
-
 
     
 if __name__ == '__main__':
