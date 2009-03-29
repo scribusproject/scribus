@@ -231,9 +231,9 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		}
 		if ((stateCode == 0) || (stateCode == 1))
 			m_Doc->view()->Deselect(true);
-		m_Doc->m_Selection->addItem(ite);
-		if ((stateCode == 0) || (stateCode == 2))
-			m_Doc->itemSelection_DeleteItem();
+		Selection tmpSelection(m_Doc, false);
+		tmpSelection.addItem(ite);
+		m_Doc->itemSelection_DeleteItem(&tmpSelection);
 	}
 	else
 	{
@@ -274,8 +274,9 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 				m_Doc->view()->requestMode(modeNormal);
 			m_Doc->m_Selection->removeItem(ite);
 		}
-		m_Doc->m_Selection->addItem(ite);
-		m_Doc->itemSelection_DeleteItem();
+		Selection tmpSelection(m_Doc, false);
+		tmpSelection.addItem(ite);
+		m_Doc->itemSelection_DeleteItem(&tmpSelection);
 	}
 	m_Doc->m_Selection->delaySignalsOff();
 	m_Doc->setMasterPageMode(oldMPMode);
