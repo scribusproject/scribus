@@ -36,8 +36,8 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	connect(m_charTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
-	connect(hexLineEdit, SIGNAL(editingFinished()),
-	        this, SLOT(hexLineEdit_editingFinished()));
+	connect(hexLineEdit, SIGNAL(returnPressed()),
+	        this, SLOT(hexLineEdit_returnPressed()));
 }
 
 CharSelectEnhanced::~CharSelectEnhanced()
@@ -450,7 +450,7 @@ void CharSelectEnhanced::insChar()
 	delEdit();
 }
 
-void CharSelectEnhanced::hexLineEdit_editingFinished()
+void CharSelectEnhanced::hexLineEdit_returnPressed()
 {
 	QString tx("0x%1");;
 	bool ok = false;

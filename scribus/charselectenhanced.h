@@ -91,7 +91,7 @@ private:
 	virtual void changeEvent(QEvent *e);
 
 private slots:
-	void hexLineEdit_editingFinished();
+	void hexLineEdit_returnPressed();
 };
 
 #endif
