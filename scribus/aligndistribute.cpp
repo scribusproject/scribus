@@ -341,6 +341,7 @@ void AlignDistributePalette::distributeDistH(bool usingDistance)
 
 void AlignDistributePalette::distributeDistValH()
 {
+	distributeDistSpinBox->interpretText();
 	if (currDoc!=NULL)
 		distributeDistH(true);
 }
@@ -396,6 +397,7 @@ void AlignDistributePalette::distributeDistV(bool usingDistance)
 
 void AlignDistributePalette::distributeDistValV()
 {
+	distributeDistSpinBox->interpretText();
 	if (currDoc!=NULL)
 		distributeDistV(true);
 }
