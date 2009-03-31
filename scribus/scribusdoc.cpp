@@ -2833,9 +2833,9 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			{
 				QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
 				Really.insert(fontName, UsedFonts[fontName]);
-				uint start = it->firstInFrame();
-				uint stop = it->lastInFrame();
-				for (uint e = start; e <= stop; ++e)
+				int start = it->firstInFrame();
+				int stop = it->lastInFrame();
+				for (int e = start; e <= stop; ++e)
 				{
 					QString rep = it->itemText.charStyle(e).font().replacementName();
 					if (Really.contains(rep))
