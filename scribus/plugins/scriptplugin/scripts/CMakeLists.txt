@@ -17,5 +17,6 @@ TODO
 color2csv.py
 csv2color.py
 ColorChart.py
+importcsv2table.py
   DESTINATION ${SCRIPTSDIR}
 )
