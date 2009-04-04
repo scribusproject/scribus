@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 class MultiProgressDialog;
 class ScribusDoc;
 class Selection;
+class TransactionSettings;
 
 //! \brief POSTSCRIPT importer plugin
 class EPSPlug : public QObject
@@ -49,7 +50,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, int flags, bool showProgress = true);
+	bool import(QString fn, const TransactionSettings &trSettings, int flags, bool showProgress = true);
 
 private:
 	

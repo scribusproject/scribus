@@ -48,6 +48,18 @@ struct TransactionData;
 /** @brief Key is the doc name, value is it's undo stack */
 typedef QMap<QString, UndoStack> StackMap;
 
+class SCRIBUS_API TransactionSettings
+{
+public:
+	QString  targetName;
+	QPixmap *targetPixmap;
+	QString  actionName;
+	QString  description;
+	QPixmap *actionPixmap;
+
+	TransactionSettings(void) { targetPixmap = actionPixmap = NULL; }  
+};
+
 /**
  * @brief TransactionState provides a container where multiple UndoStates can be stored
  * @brief as a single action which then appears in the attached <code>UndoGui</code>s.
@@ -226,6 +238,8 @@ public:
 									 const QString &actionName = "",
 									 const QString &description = "",
 									 QPixmap *actionPixmap = 0);
+
+	UndoTransaction beginTransaction(const TransactionSettings& settings);
 	
 	/**
 	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.

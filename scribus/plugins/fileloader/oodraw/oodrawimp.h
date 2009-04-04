@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 class ScrAction;
 class ScribusDoc;
 class Selection;
+class TransactionSettings;
 
 class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 {
@@ -96,12 +97,12 @@ public:
 	bool unsupported;
 	bool importFailed;
 	bool importCanceled;
-	bool import( QString fName, int flags );
+	bool import(QString fName, const TransactionSettings& trSettings, int flags);
 	static double parseUnit(const QString &unit);
 
 protected:
 
-	bool convert(int flags);
+	bool convert(const TransactionSettings& trSettings, int flags);
 	QList<PageItem*> parseGroup(const QDomElement &e);
 	QList<PageItem*> parseElement(const QDomElement &e);
 	QList<PageItem*> parseRect(const QDomElement &e);

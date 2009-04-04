@@ -20,12 +20,13 @@ for which a new license (GPL+exception) is in place.
 #include "wmfcontext.h"
 
 class QBuffer;
+class FPointArray;
 class PageItem;
 class ScribusDoc;
 class ScribusMainWindow;
 class Selection;
 class PrefsManager;
-class FPointArray;
+class TransactionSettings;
 
 class  WmfCmd;
 class  WmfObjHandle;
@@ -42,7 +43,7 @@ public:
 	WMFImport(ScribusMainWindow *mw, int flags);
 	~WMFImport();
 
-	bool import(QString fname, int flags);
+	bool import(QString fname, const TransactionSettings& trSettings, int flags);
 
 	void wmfClosePath(FPointArray *i);
 	void wmfMoveTo(double x1, double y1);
@@ -78,7 +79,7 @@ protected:
     int m_Dpi;
 
 	/** Protected import functions */
-	bool importWMF(int flags);
+	bool importWMF(const TransactionSettings& trSettings, int flags);
 	bool loadWMF( const QString &fileName );
     bool loadWMF( QBuffer &buffer );
 

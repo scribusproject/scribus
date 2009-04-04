@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 class MultiProgressDialog;
 class ScribusDoc;
 class Selection;
+class TransactionSettings;
 
 //! \brief Adobe Illustrator importer plugin
 class AIPlug : public QObject
@@ -45,11 +46,12 @@ public:
 	\date
 	\brief Perform import.
 	\param fNameIn QString a filename to import
+	\param trSettings undo transaction settings
 	\param flags combination of loadFlags in LoadSavePlugin
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fNameIn, int flags, bool showProgress = true);
+	bool import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 
 private:
 	

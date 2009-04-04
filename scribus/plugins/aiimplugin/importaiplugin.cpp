@@ -119,8 +119,6 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-	if (!(flags & lfInteractive))
-		UndoManager::instance()->setUndoEnabled(false);
 	if( fileName.isEmpty() )
 	{
 		flags |= lfInteractive;
@@ -138,25 +136,26 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = NULL;
 	bool emptyDoc = (m_Doc == NULL);
-	if (UndoManager::undoEnabled() && !emptyDoc)
-	{
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
-																						  Um::IImageFrame,
-																						  Um::ImportAI,
-																						  fileName, Um::IAI));
-	}
-	else if (UndoManager::undoEnabled() && emptyDoc)
+	TransactionSettings trSettings;
+	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetPixmap = Um::IImageFrame;
+	trSettings.actionName   = Um::ImportAI;
+	trSettings.description  = fileName;
+	trSettings.actionPixmap = Um::IAI;
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	AIPlug *dia = new AIPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	bool success = dia->import(fileName, flags);
+	bool success = dia->import(fileName, trSettings, flags);
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-	else if (!(flags & lfInteractive))
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (!success)
 		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);

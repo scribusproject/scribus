@@ -78,7 +78,7 @@ class ScribusWin;
 class ScribusMainWindow;
 class UndoManager;
 class UndoTransaction;
-
+class TransactionSettings;
 
 
 /**
@@ -376,7 +376,7 @@ public:
 	inline void resetDragTimer();
 	inline bool dragTimerElapsed();
 
-	bool handleObjectImport(QMimeData* mimeData);
+	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = NULL);
 
 protected: // Protected methods
 	virtual void enterEvent(QEvent *);

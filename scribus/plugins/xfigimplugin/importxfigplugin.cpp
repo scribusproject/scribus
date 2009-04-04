@@ -118,8 +118,6 @@ bool ImportXfigPlugin::import(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-	if (!(flags & lfInteractive))
-		UndoManager::instance()->setUndoEnabled(false);
 	if( fileName.isEmpty() )
 	{
 		flags |= lfInteractive;
@@ -137,25 +135,26 @@ bool ImportXfigPlugin::import(QString fileName, int flags)
 	m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = NULL;
 	bool emptyDoc = (m_Doc == NULL);
-	if (UndoManager::undoEnabled() && !emptyDoc)
-	{
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
-																						  Um::IImageFrame,
-																						  Um::ImportXfig,
-																						  fileName, Um::IXFIG));
-	}
-	else if (UndoManager::undoEnabled() && emptyDoc)
+	TransactionSettings trSettings;
+	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetPixmap = Um::IImageFrame;
+	trSettings.actionName   = Um::ImportXfig;
+	trSettings.description  = fileName;
+	trSettings.actionPixmap = Um::IXFIG;
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	XfigPlug *dia = new XfigPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, flags);
+	dia->import(fileName, trSettings, flags);
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-	else if (!(flags & lfInteractive))
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 	return true;

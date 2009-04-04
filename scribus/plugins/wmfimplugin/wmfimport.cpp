@@ -331,7 +331,7 @@ void WMFImport::pointsToAngle( double xStart, double yStart, double xEnd, double
 	if ( angleLength < 0 ) angleLength = 360.0 + angleLength;
 }
 
-bool WMFImport::import(QString fname, int flags)
+bool WMFImport::import(QString fname, const TransactionSettings& trSettings, int flags)
 {
 	if (!loadWMF(fname))
 	{
@@ -341,7 +341,7 @@ bool WMFImport::import(QString fname, int flags)
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.path());
-	bool success = importWMF(flags);
+	bool success = importWMF(trSettings, flags);
 	QDir::setCurrent(CurDirP);
 	return success;
 }
@@ -537,7 +537,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 	return m_Valid;
 }
 
-bool WMFImport::importWMF(int flags)
+bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 {
 	bool ret = false;
 	//double scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
@@ -703,7 +703,10 @@ bool WMFImport::importWMF(int flags)
 /*#endif*/
 			m_Doc->view()->updatesOn(true);
 			m_Doc->m_Selection->delaySignalsOff();
-			m_Doc->view()->handleObjectImport(md);
+			// We must copy the TransationSettings object as it is owned
+			// by handleObjectImport method afterwards
+			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;
 			m_Doc->DragElements.clear();

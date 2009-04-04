@@ -488,15 +488,17 @@ void ScribusView::changed(QRectF re)
 	}
 }
 
-bool ScribusView::handleObjectImport(QMimeData* mimeData)
+bool ScribusView::handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings)
 {
 	requestMode(modeImportObject);
 	CanvasMode_ObjImport* objImport = dynamic_cast<CanvasMode_ObjImport*>(m_canvasMode);
 	if (objImport)
 	{
 		objImport->setMimeData(mimeData);
+		objImport->setTransactionSettings(trSettings);
 		return true;
 	}
+	delete trSettings;
 	delete mimeData;
 	return false;
 }
@@ -3388,6 +3390,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	//
 	case PageItem::ImageFrame:
 		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
 		Doc->Items->at(z)->Pfile = Buffer->Pfile;
@@ -3404,6 +3407,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
 		Doc->Items->at(z)->AspectRatio = Buffer->AspectRatio;
 		Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
+		undoManager->setUndoEnabled(true);
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
@@ -3417,6 +3421,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			z = Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
 		else
 			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
+		undoManager->setUndoEnabled(false);
 		if ((Buffer->m_isAnnotation) && (Buffer->m_annotation.UseIcons()))
 		{
 			Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
@@ -3534,7 +3539,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			pstyle.charStyle().setStrikethruWidth(Buffer->TxtStrikeWidth);
 			Doc->Items->at(z)->itemText.setDefaultStyle(pstyle);
 		}
-//		Doc->Items->at(z)->convertTo(Buffer->PType);
+		undoManager->setUndoEnabled(true);
 #endif
 		break;
 	case PageItem::Line:
@@ -3551,6 +3556,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	case PageItem::LatexFrame:
 		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
 		Doc->Items->at(z)->Pfile = Buffer->Pfile;
@@ -3567,10 +3573,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
 		PageItem_LatexFrame *latexframe = Doc->Items->at(z)->asLatexFrame();
 		latexframe->setFormula(Buffer->itemText); //itemText seems to be a good choice...
+		undoManager->setUndoEnabled(true);
 		break;
 
 	}
 	PageItem *currItem = Doc->Items->at(z);
+	undoManager->setUndoEnabled(false);
 /*FIXME
 	currItem->setLineSpacingMode(Buffer->LineSpMode);
 	if (currItem->lineSpacingMode() == 3)
@@ -3784,6 +3792,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (resize)
 		Doc->setRedrawBounding(currItem);
 	currItem->OwnPage = Doc->OnPage(currItem);
+	undoManager->setUndoEnabled(true);
 	if (!loading)
 	{
 		Doc->m_Selection->addItem(currItem);

@@ -153,19 +153,28 @@ bool WMFImportPlugin::import(QString filename, int flags)
 			return true;
 	}
 	
-	/*if (UndoManager::undoEnabled() && m_Doc)
-	{
-		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),Um::IImageFrame,Um::ImportWMF, filename, Um::IWMF);
-	}
-	else if (UndoManager::undoEnabled() && !m_Doc)
-		UndoManager::instance()->setUndoEnabled(false);*/
+	TransactionSettings trSettings;
+	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetPixmap = Um::IImageFrame;
+	trSettings.actionName   = Um::ImportWMF;
+	trSettings.description  = filename;
+	trSettings.actionPixmap = Um::IWMF;
+	UndoTransaction* activeTransaction = NULL;
+	if ((m_Doc == NULL) || !(flags & lfInteractive) || !(flags & lfScripted))
+		UndoManager::instance()->setUndoEnabled(false);
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	WMFImport *dia = new WMFImport(mw, flags);
-	dia->import(filename, flags);
+	dia->import(filename, trSettings, flags);
 	Q_CHECK_PTR(dia);
-	/*if (UndoManager::undoEnabled())
-		UndoManager::instance()->commit();
-	else
-		UndoManager::instance()->setUndoEnabled(true);*/
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
+	if ((m_Doc == NULL) || !(flags & lfInteractive) || !(flags & lfScripted))
+		UndoManager::instance()->setUndoEnabled(true);
 	if (dia->importCanceled)
 	{
 		if (dia->importFailed)

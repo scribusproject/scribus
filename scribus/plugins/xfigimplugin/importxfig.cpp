@@ -58,7 +58,7 @@ XfigPlug::XfigPlug(ScribusDoc* doc, int flags)
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
-bool XfigPlug::import(QString fNameIn, int flags, bool showProgress)
+bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	QString fName = fNameIn;
 	bool success = false;
@@ -336,7 +336,10 @@ bool XfigPlug::import(QString fNameIn, int flags, bool showProgress)
 #endif*/
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
-				m_Doc->view()->handleObjectImport(md);
+				// We must copy the TransationSettings object as it is owned
+				// by handleObjectImport method afterwards
+				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();

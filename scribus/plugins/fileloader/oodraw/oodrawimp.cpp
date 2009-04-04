@@ -181,24 +181,25 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 	m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = NULL;
 	bool emptyDoc = (m_Doc == NULL);
-	if (UndoManager::undoEnabled() && !emptyDoc)
-	{
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
-																						  Um::IImageFrame,
-																						  Um::ImportOOoDraw,
-																						  fileName, Um::IImportOOoDraw));
-	}
-	else if (UndoManager::undoEnabled() && emptyDoc)
-		UndoManager::instance()->setUndoEnabled(false);
+	TransactionSettings trSettings;
+	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetPixmap = Um::IImageFrame;
+	trSettings.actionName   = Um::ImportOOoDraw;
+	trSettings.description  = fileName;
+	trSettings.actionPixmap = Um::IImportOOoDraw;
 	OODPlug dia(m_Doc);
-	bool importDone = dia.import(fileName, flags);
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
+		UndoManager::instance()->setUndoEnabled(false);
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
+	bool importDone = dia.import(fileName, trSettings, flags);
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-	else if (UndoManager::undoEnabled() && emptyDoc)
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (dia.importCanceled)
 	{
@@ -221,7 +222,7 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	tmpSel=new Selection(this, false);
 }
 
-bool OODPlug::import( QString fileName, int flags )
+bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, int flags )
 {
 	bool importDone = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -269,12 +270,12 @@ bool OODPlug::import( QString fileName, int flags )
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.path());
-	importDone = convert(flags);
+	importDone = convert(trSettings, flags);
 	QDir::setCurrent(CurDirP);
 	return importDone;
 }
 
-bool OODPlug::convert(int flags)
+bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 {
 	bool ret = false;
 	bool isOODraw2 = false;
@@ -523,7 +524,10 @@ bool OODPlug::convert(int flags)
 /*#endif*/
 			m_Doc->view()->updatesOn(true);
 			m_Doc->m_Selection->delaySignalsOff();
-			m_Doc->view()->handleObjectImport(md);
+			// We must copy the TransationSettings object as it is owned
+			// by handleObjectImport method afterwards
+			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;
 			m_Doc->DragElements.clear();

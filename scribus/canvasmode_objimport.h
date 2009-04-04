@@ -28,6 +28,7 @@ class QMimeData;
 class PageItem;
 class ScribusMainWindow;
 class ScribusView;
+class TransactionSettings;
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
 
@@ -38,6 +39,7 @@ public:
 	~CanvasMode_ObjImport(void);
 
 	void setMimeData(QMimeData* mimeData);
+	void setTransactionSettings(TransactionSettings* settings);
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
@@ -54,8 +56,9 @@ public:
 // 	void setResizeCursor(int);
 
 private:
-	QMimeData* m_mimeData;
-	ScribusMainWindow* m_ScMW;
+	QMimeData*          m_mimeData;
+	TransactionSettings* m_trSettings;
+	ScribusMainWindow*  m_ScMW;
 	double     Mxp, Myp;
 };
 

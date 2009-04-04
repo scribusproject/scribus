@@ -167,22 +167,26 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	
 	UndoTransaction* activeTransaction = NULL;
 	bool emptyDoc = (m_Doc == NULL);
-	if (UndoManager::undoEnabled() && !emptyDoc)
-	{
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),Um::IImageFrame,Um::ImportSVG, filename, Um::ISVG));
-	}
-	else if (UndoManager::undoEnabled() && emptyDoc)
+	TransactionSettings trSettings;
+	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetPixmap = Um::IImageFrame;
+	trSettings.actionName   = Um::ImportSVG;
+	trSettings.description  = filename;
+	trSettings.actionPixmap = Um::ISVG;
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	SVGPlug *dia = new SVGPlug(mw, flags);
-	dia->import(filename, flags);
 	Q_CHECK_PTR(dia);
+	dia->import(filename, trSettings, flags);
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-	else if (UndoManager::undoEnabled() && emptyDoc)
+	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (dia->importCanceled)
 	{
@@ -213,14 +217,14 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 //	m_gc.setAutoDelete( true );
 }
 
-bool SVGPlug::import(QString fname, int flags)
+bool SVGPlug::import(QString fname, const TransactionSettings& trSettings, int flags)
 {
 	if (!loadData(fname))
 		return false;
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.path());
-	convert(flags);
+	convert(trSettings, flags);
 	QDir::setCurrent(CurDirP);
 	return true;
 }
@@ -258,7 +262,7 @@ bool SVGPlug::loadData(QString fName)
 	return success;
 }
 
-void SVGPlug::convert(int flags)
+void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 {
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
@@ -471,7 +475,10 @@ void SVGPlug::convert(int flags)
 				}
 			}
 			m_Doc->m_Selection->delaySignalsOff();
-			m_Doc->view()->handleObjectImport(md);
+			// We must copy the TransationSettings object as it is owned
+			// by handleObjectImport method afterwards
+			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;
 			m_Doc->DragElements.clear();

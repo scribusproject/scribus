@@ -105,7 +105,11 @@ UndoManager::UndoManager()
 	setUndoEnabled(prefs_->getBool("enabled", true));
 }
 
-
+UndoTransaction UndoManager::beginTransaction(const TransactionSettings& settings)
+{
+	return UndoManager::beginTransaction(settings.targetName, settings.targetPixmap, settings.actionName, 
+	                                     settings.description, settings.actionPixmap);
+}
 
 UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 											  QPixmap *targetPixmap,
@@ -1202,4 +1206,6 @@ QPixmap *UndoManager::IPrint           = 0;
 QPixmap *UndoManager::IGetImage        = 0;
 QPixmap *UndoManager::IChangeFormula   = 0;
 QPixmap *UndoManager::IMultipleDuplicate = 0;
+
+
 

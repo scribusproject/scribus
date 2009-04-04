@@ -35,6 +35,7 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -43,12 +44,15 @@ CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) : CanvasMode(view)
 {
 	Mxp = Myp = -1;
 	m_mimeData = NULL;
+	m_trSettings = NULL;
 }
 
 CanvasMode_ObjImport::~CanvasMode_ObjImport(void)
 {
 	if (m_mimeData)
 		delete m_mimeData;
+	if (m_trSettings)
+		delete m_trSettings;
 }
 
 void CanvasMode_ObjImport::setMimeData(QMimeData* mimeData)
@@ -56,6 +60,13 @@ void CanvasMode_ObjImport::setMimeData(QMimeData* mimeData)
 	if (m_mimeData)
 		delete m_mimeData;
 	m_mimeData = mimeData;
+}
+
+void CanvasMode_ObjImport:: setTransactionSettings(TransactionSettings* settings)
+{
+	if (m_trSettings)
+		delete m_trSettings;
+	m_trSettings = settings;
 }
 
 void CanvasMode_ObjImport::drawControls(QPainter* p)
@@ -102,11 +113,8 @@ void CanvasMode_ObjImport::activate(bool fromGesture)
 void CanvasMode_ObjImport::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_ObjImport::deactivate" << forGesture;
-	if (m_mimeData)
-	{
-		delete m_mimeData;
-		m_mimeData = NULL;
-	}
+	setMimeData(NULL);
+	setTransactionSettings(NULL);
 	m_view->redrawMarker->hide();
 }
 
@@ -159,10 +167,22 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 	}
 	if ((m->button() == Qt::LeftButton) && m_mimeData)
 	{
+		UndoTransaction* undoTransaction = NULL;
+		if (m_trSettings && UndoManager::undoEnabled())
+		{
+			undoTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(*m_trSettings));
+		}
 		// Creating QDragEnterEvent outside of Qt is not recommended per docs :S
 		QPoint dropPos = m_view->widget()->mapFromGlobal(m->globalPos());
 		QDropEvent dropEvent(dropPos, Qt::CopyAction|Qt::MoveAction, m_mimeData, m->buttons(), m->modifiers());
 		m_view->contentsDropEvent(&dropEvent);
+		// Commit undo transaction if necessary
+		if (undoTransaction)
+		{
+			undoTransaction->commit();
+			delete undoTransaction;
+		}
+		// Return to normal mode
 		m_view->requestMode(modeNormal);
 	}
 }
@@ -185,5 +205,7 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 	m_view->zoomSpinBox->clearFocus();
 	m_view->pageSelector->clearFocus();
 }
+
+
 
 

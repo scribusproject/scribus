@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScrAction;
 class ScribusMainWindow;
+class TransactionSettings;
 
 /**
  * \brief A class providing the plugin interface implementation for this plugin
@@ -192,9 +193,9 @@ public:
 	 */
 	SVGPlug(ScribusMainWindow *mw, int flags);
 	~SVGPlug();
-	bool import(QString fname, int flags);
+	bool import(QString fname, const TransactionSettings& trSettings, int flags);
 	bool loadData(QString fname);
-	void convert(int flags);
+	void convert(const TransactionSettings& trSettings, int flags);
 	void addGraphicContext();
 	void setupNode( const QDomElement &e );
 	void setupTransform( const QDomElement &e );
