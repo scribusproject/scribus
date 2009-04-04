@@ -14,5 +14,6 @@ ReadMe
 TODO
 color2csv.py
 csv2color.py
+importcsv2table.py
   DESTINATION ${SCRIPTSDIR}
 )
