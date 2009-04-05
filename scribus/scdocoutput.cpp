@@ -11,27 +11,27 @@ using namespace std;
 
 bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
 {
- bool  done = true;
- Page* page;
+	bool  done = true;
+	Page* page;
 
 	begin();
 
-	for ( uint index = 0; index < pageNumbers.size(); index++ )
+	for (uint index = 0; index < pageNumbers.size(); index++)
 	{
 		page = doc->Pages->at( pageNumbers[index] - 1 );
 		ScPageOutput* outputComponent = createPageOutputComponent(index + 1);
-		if( outputComponent != NULL )
+		if (outputComponent != NULL)
 		{
 			outputComponent->begin();
 			outputComponent->drawPage(page);
 			outputComponent->end();
+			delete outputComponent;
 		}
 		else
+		{
 			done = false;
-		if (outputComponent)
-			delete outputComponent;
-		if (!done)
 			break;
+		}
 	}
 
 	end();
