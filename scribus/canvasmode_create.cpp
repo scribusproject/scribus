@@ -630,6 +630,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		len = qMax(0.01, distance(Rxpd, Rypd));
 		z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, len, 1, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
 		m_doc->Items->at(z)->setRotation(rot);
+		m_doc->Items->at(z)->setRedrawBounding();
 		break;
 	case modeDrawLatex:
 		if (modifiers == Qt::ShiftModifier)

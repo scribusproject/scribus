@@ -167,6 +167,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	it->setWidthHeight(sqrt(pow(x-w, 2.0) + pow(y-h, 2.0)), 1.0);
 	it->Sizing = false;
 	it->updateClip();
+	it->setRedrawBounding();
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(it);
 /* WTF? maybe I'll examine who's author later. Or maybe I'll remove it later ;)
 	it->PoLine.resize(4);
