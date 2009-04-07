@@ -405,16 +405,13 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(toggleLsp(int )));
 	connect(fontKern, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 
-	AboveV->setDecimals(10);
-	BelowV->setDecimals(10);
+
+	int decimals = unitGetDecimalsFromIndex(dEin);
+	AboveV->setDecimals(decimals);
+	BelowV->setDecimals(decimals);
+	DropDist->setDecimals(decimals);
 	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
 	QString ein = unitGetSuffixFromIndex(dEin);
-	if (dEin == 2)
-	{
-		AboveV->setDecimals(10000);
-		BelowV->setDecimals(10000);
-		DropDist->setDecimals(10000);
-	}
 	AboveV->setSuffix(ein);
 	BelowV->setSuffix(ein);
 	DropDist->setSuffix(ein);

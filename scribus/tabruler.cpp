@@ -546,21 +546,16 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 		QToolTip::add( leftIndentData, tr( "Indentation from the left for the whole paragraph" ) );
 	}
 	QToolTip::add( clearButton, tr( "Delete all Tabulators" ) );
-	QString ein = unitGetSuffixFromIndex(dEin);
-	if (dEin == 2)
-	{
-		if (haveFirst)
-		{
-			firstLineData->setDecimals(10000);
-			leftIndentData->setDecimals(10000);
-		}
-		tabData->setDecimals(10000);
-	}
+	QString ein  = unitGetSuffixFromIndex(dEin);
+	int decimals = unitGetDecimalsFromIndex(dEin);
 	if (haveFirst)
 	{
+		firstLineData->setDecimals(decimals);
 		firstLineData->setSuffix(ein);
+		leftIndentData->setDecimals(decimals);
 		leftIndentData->setSuffix(ein);
 	}
+	tabData->setDecimals(decimals);
 	tabData->setSuffix(ein);
 	haveF = haveFirst;
 }
