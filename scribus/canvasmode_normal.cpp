@@ -645,8 +645,8 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 					return;
 				}
 			}
-			else
-				return;
+//#7928			else
+//#7928				return;
 		}
 		
 		qApp->changeOverrideCursor(Qt::ClosedHandCursor);
