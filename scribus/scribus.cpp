@@ -1981,7 +1981,7 @@ void ScribusMainWindow::startUpDialog()
 	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (dia->exec())
 	{
-		if (dia->tabSelected() == 0)
+		if (dia->tabSelected() == NewDoc::NewDocumentTab)
 		{
 			int facingPages = dia->choosenLayout();
 			int firstPage = dia->firstPage->currentIndex();
@@ -2018,7 +2018,7 @@ void ScribusMainWindow::startUpDialog()
 			doc->setModified(false);
 			updateActiveWindowCaption(doc->DocName);
 		}
-		else if (dia->tabSelected() == 1)
+		else if (dia->tabSelected() == NewDoc::NewFromTemplateTab)
 		{
 			QString fileName = QDir::cleanPath(dia->selectedFile());
 			if (!fileName.isEmpty() && loadDoc(fileName))
@@ -2031,7 +2031,7 @@ void ScribusMainWindow::startUpDialog()
 				removeRecent(fileName);
 			}
 		}
-		else if (dia->tabSelected() == 2)
+		else if (dia->tabSelected() == NewDoc::OpenExistingTab)
 		{
 			QString fileName = dia->selectedFile();
 			if (!fileName.isEmpty())
@@ -2041,7 +2041,7 @@ void ScribusMainWindow::startUpDialog()
 				loadDoc(fileName);
 			}
 		}
-		else
+		else // NewDoc::OpenRecentTab
 		{
 			QString fileName = dia->selectedFile();
 			if (!fileName.isEmpty())
@@ -3806,24 +3806,30 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	ScribusWin* ActWinOld = NULL;
 	if (windows.count() != 0)
 		ActWinOld = ActWin;
-	bool found = false;
-	uint id = 0;
-	QString platfName = QDir::convertSeparators(fileName);
-	uint windowCount=windows.count();
+
+	// PV - 5780: Scribus doesn't track what documents are already opened
+	// The goal of this part of code is to disallow user to open one
+	// doc multiple times.
+	QString platfName(QDir::convertSeparators(fileName));
+	uint windowCount = windows.count();
 	for ( uint i = 0; i < windowCount; ++i )
 	{
-		if (windows.at(i)->windowTitle() == platfName)
+		QString docNameUnmodified(windows.at(i)->windowTitle());
+		ScribusWin * mx = qobject_cast<ScribusWin*>(windows.at(i));
+		if (mx && mx->doc()->isModified() && docNameUnmodified.endsWith("*"))
+			docNameUnmodified.resize(docNameUnmodified.length() - 1);
+
+		if (docNameUnmodified == platfName)
 		{
-			found = true;
-			id = i;
-			break;
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QMessageBox::information(this, tr("Document is already opened"),
+			                         tr("This document is already in use."
+			                            "You'll be switched into its window now."));
+			windowsMenuActivated(i);
+			return true;
 		}
 	}
-	if (found)
-	{
-		windowsMenuActivated(id);
-		return true;
-	}
+
 	if (!fileName.isEmpty())
 	{
 		QString FName = fi.absoluteFilePath();

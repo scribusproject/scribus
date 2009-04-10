@@ -56,6 +56,15 @@ class SCRIBUS_API NewDoc : public QDialog
 	Q_OBJECT
 
 public:
+
+	//! \brief Indexes of the dialog's tabs.
+	enum {
+		NewDocumentTab = 0,
+		NewFromTemplateTab,
+		OpenExistingTab,
+		OpenRecentTab
+	} ActionSelected;
+
 	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, QString lang = "", QString templateDir = "" );
 	~NewDoc() {};
 	void createNewDocPage();

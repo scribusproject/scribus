@@ -555,12 +555,12 @@ void NewDoc::ExitOK()
 	if (m_onStartup)
 	{
 		m_tabSelected = tabWidget->currentIndex();
-		if (m_tabSelected == 1) // new doc from template
+		if (m_tabSelected == NewDoc::NewFromTemplateTab) // new doc from template
 		{
 			m_selectedFile = QDir::fromNativeSeparators(nftGui->currentDocumentTemplate->file);
 			m_selectedFile = QDir::cleanPath(m_selectedFile);
 		}
-		else if (m_tabSelected == 2) // open existing doc
+		else if (m_tabSelected == NewDoc::OpenExistingTab) // open existing doc
 		{
 #if QT_VERSION  >= 0x040300
 			QStringList files = fileDialog->selectedFiles();
@@ -570,7 +570,7 @@ void NewDoc::ExitOK()
 			m_selectedFile = QDir::fromNativeSeparators(fileDialog->selectedFile());
 #endif
 		}
-		else if (m_tabSelected == 3) // open recent doc
+		else if (m_tabSelected == NewDoc::OpenRecentTab) // open recent doc
 		{
 			if (recentDocListBox->currentItem() != NULL)
 			{
@@ -581,7 +581,7 @@ void NewDoc::ExitOK()
 		}
 	}
 	else
-		m_tabSelected = 0;
+		m_tabSelected = NewDoc::NewDocumentTab;
 	accept();
 }
 
