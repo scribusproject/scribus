@@ -167,8 +167,9 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	
 	UndoTransaction* activeTransaction = NULL;
 	bool emptyDoc = (m_Doc == NULL);
+	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
-	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
 	trSettings.actionName   = Um::ImportSVG;
 	trSettings.description  = filename;

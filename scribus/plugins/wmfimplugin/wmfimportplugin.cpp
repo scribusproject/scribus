@@ -153,8 +153,9 @@ bool WMFImportPlugin::import(QString filename, int flags)
 			return true;
 	}
 	
+	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
-	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
 	trSettings.actionName   = Um::ImportWMF;
 	trSettings.description  = filename;

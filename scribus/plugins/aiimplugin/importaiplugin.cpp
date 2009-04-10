@@ -136,8 +136,9 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = NULL;
 	bool emptyDoc = (m_Doc == NULL);
+	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
-	trSettings.targetName   = m_Doc->currentPage()->getUName();
+	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
 	trSettings.actionName   = Um::ImportAI;
 	trSettings.description  = fileName;
