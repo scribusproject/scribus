@@ -224,8 +224,8 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 	objArg = NULL; // no need to decref, it's borrowed
 
 	// Retrive the object's meta object so we can query it
-	const QMetaObject* objmeta = obj->metaObject();
-	assert(objmeta);
+//qt4 FIXME	const QMetaObject* objmeta = obj->metaObject();
+//qt4 FIXME	assert(objmeta);
 
 	// Return the list of properties
 	QStringList propertyNames;
