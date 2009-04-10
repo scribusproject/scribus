@@ -60,10 +60,14 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent, ScribusMainWindow
 		pluginTable->setItem(i, 2, i2);
 
 		// load at start?
+		if (plugin->inherits("ScPersistentPlugin"))
+		{
 		bool onStart = pluginManager.enableOnStartup(pName);
-		QCheckBox *onStartCheck = new QCheckBox(onStart ? CommonStrings::trYes : CommonStrings::trNo, this);
+//		QCheckBox *onStartCheck = new QCheckBox(onStart ? CommonStrings::trYes : CommonStrings::trNo, this);
+		QCheckBox *onStartCheck = new QCheckBox(this);
 		pluginTable->setCellWidget(i, 3, onStartCheck);
 		onStartCheck->setChecked(onStart);
+	}
 
 		PluginManagerTableItem *i4 = new PluginManagerTableItem(pName);
 		pluginTable->setItem(i, 4, i4); // plugname for developers
@@ -85,8 +89,12 @@ void PluginManagerPrefsGui::apply()
 	for (int i = 0; i < pluginTable->rowCount(); ++i)
 	{
 		plugName = pluginTable->item(i, 4)->text();
-		enable = qobject_cast<QCheckBox*>(pluginTable->cellWidget(i, 3))->isChecked();
-		pluginManager.enableOnStartup(plugName) = enable;
+		QCheckBox* onStartCheck=qobject_cast<QCheckBox*>(pluginTable->cellWidget(i, 3));
+		if (onStartCheck)
+		{
+			enable = onStartCheck->isChecked();
+			pluginManager.enableOnStartup(plugName) = enable;
+		}
 	}
 }
 
