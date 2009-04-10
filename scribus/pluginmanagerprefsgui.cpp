@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QCheckBox>
+#include <QLabel>
 
 #include "menumanager.h"
 #include "pluginmanagerprefsgui.h"
@@ -19,6 +20,9 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent, ScribusMainWindow
 {
 	setupUi(this);
 	PluginManager& pluginManager(PluginManager::instance());
+	//Hide this stuff as we don't want it now we are not letting people turn plugins on or off
+	pluginTable->setColumnHidden(3, true);
+	restartLabel->setHidden(true);
 
 	// Get a list of all internal plugin names, including those of disabled
 	// plugins, then loop over them and add each one to the plugin list.
@@ -58,16 +62,17 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent, ScribusMainWindow
 
 		PluginManagerTableItem *i2 = new PluginManagerTableItem(plugin->pluginTypeName());
 		pluginTable->setItem(i, 2, i2);
-
+/* Don't need this column at all now we are not allowing users to turn plugins on or off
 		// load at start?
 		if (plugin->inherits("ScPersistentPlugin"))
 		{
-		bool onStart = pluginManager.enableOnStartup(pName);
-//		QCheckBox *onStartCheck = new QCheckBox(onStart ? CommonStrings::trYes : CommonStrings::trNo, this);
-		QCheckBox *onStartCheck = new QCheckBox(this);
-		pluginTable->setCellWidget(i, 3, onStartCheck);
-		onStartCheck->setChecked(onStart);
-	}
+			bool onStart = pluginManager.enableOnStartup(pName);
+			//		QCheckBox *onStartCheck = new QCheckBox(onStart ? CommonStrings::trYes : CommonStrings::trNo, this);
+			QCheckBox *onStartCheck = new QCheckBox(this);
+			pluginTable->setCellWidget(i, 3, onStartCheck);
+			onStartCheck->setChecked(onStart);
+		}
+*/
 
 		PluginManagerTableItem *i4 = new PluginManagerTableItem(pName);
 		pluginTable->setItem(i, 4, i4); // plugname for developers
@@ -83,18 +88,20 @@ PluginManagerPrefsGui::~PluginManagerPrefsGui()
 
 void PluginManagerPrefsGui::apply()
 {
-	PluginManager& pluginManager(PluginManager::instance());
 	QString plugName;
-	bool enable;
+//	PluginManager& pluginManager(PluginManager::instance());
+//	bool enable;
 	for (int i = 0; i < pluginTable->rowCount(); ++i)
 	{
 		plugName = pluginTable->item(i, 4)->text();
+		/* Don't need this  at all now we are not allowing users to turn plugins on or off
 		QCheckBox* onStartCheck=qobject_cast<QCheckBox*>(pluginTable->cellWidget(i, 3));
 		if (onStartCheck)
 		{
 			enable = onStartCheck->isChecked();
 			pluginManager.enableOnStartup(plugName) = enable;
 		}
+		*/
 	}
 }
 

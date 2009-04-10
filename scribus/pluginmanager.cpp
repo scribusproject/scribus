@@ -157,6 +157,9 @@ int PluginManager::initPlugin(const QString fileName)
 	ScCore->setSplashStatus( tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
 	if (loadPlugin(pda))
 	{
+		//HACK: Always enable our only persistent plugin, scripter
+		if (pda.plugin->inherits("ScPersistentPlugin"))
+			pda.enableOnStartup=true;
 		if (pda.enableOnStartup)
 			enablePlugin(pda);
 		pluginMap.insert(pda.pluginName, pda);
