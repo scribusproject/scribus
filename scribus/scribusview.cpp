@@ -1058,16 +1058,39 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 							if( fmt )
 							{
+								// We disable undo here as we are only interested by the item creation undo actions
+								// We create them manually after import
+								undoManager->setUndoEnabled(false);
 								fmt->loadFile(url.toLocalFile(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+								undoManager->setUndoEnabled(true);
 								if (Doc->m_Selection->count() > 0)
 								{
+									if (UndoManager::undoEnabled())
+									{
+										// Create undo actions for created items
+										for (int i = 0; i < Doc->m_Selection->count(); ++i)
+										{
+											PageItem* newItem = Doc->m_Selection->itemAt(i);
+											ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
+											is->set("CREATE_ITEM", "create_item");
+											is->setItem(newItem);
+											//Undo target rests with the Page for object specific undo
+											int pindex = (newItem->OwnPage > -1) ? newItem->OwnPage : 0;
+											UndoObject *target = Doc->Pages->at(pindex);
+											undoManager->action(target, is);
+										}
+									}
 									double x2, y2, w, h;
+									// We disable undo temporarily as move actions are not necessary
+									// to perform undo correctly here
+									undoManager->setUndoEnabled(false);
 									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 									Doc->moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
 									m_ScMW->propertiesPalette->updateColorList();
 									m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 									m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
 									m_ScMW->propertiesPalette->SetLineFormats(Doc);
+									undoManager->setUndoEnabled(true);
 								}
 							}
 						}

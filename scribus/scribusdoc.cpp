@@ -9661,6 +9661,8 @@ void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSel
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+	if (x == 0.0 && y == 0.0)
+		return;
 	
 	PageItem* currItem;
 	double gx, gy, gw, gh;
