@@ -1143,8 +1143,12 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 	else if(!isIgnorableNodeName(STag) )
 	{
 		// warn if unsupported SVG feature are encountered
-		qDebug() << QString("unsupported SVG feature: %1").arg(STag);
-		unsupported = true;
+		if (!m_unsupportedFeatures.contains(STag))
+		{
+			m_unsupportedFeatures.insert(STag, STag);
+			qDebug() << QString("unsupported SVG feature: %1").arg(STag);
+			unsupported = true;
+		}
 	}
 	return GElements;
 }
@@ -2177,8 +2181,12 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	}
 	else if( !isIgnorableNodeName(command) )
 	{
-		qDebug() << QString("unsupported SVG feature: %1").arg(command);
-		unsupported = true;
+		if (!m_unsupportedFeatures.contains(command))
+		{
+			m_unsupportedFeatures.insert(command, command);
+			qDebug() << QString("unsupported SVG feature: %1").arg(command);
+			unsupported = true;
+		}
 	}
 }
 

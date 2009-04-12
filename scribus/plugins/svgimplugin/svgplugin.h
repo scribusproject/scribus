@@ -249,6 +249,7 @@ public:
 	QMap<QString, GradientHelper>	m_gradients;
 	QMap<QString, QDomElement>		m_nodeMap;
 	QMap<QString, FPointArray>		m_clipPaths;
+	QMap<QString, QString>			m_unsupportedFeatures;
 	bool PathClosed;
 	double viewTransformX;
 	double viewTransformY;
