@@ -148,8 +148,10 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		if (currItem->asImageFrame())
 			currItem->AdjustPictScale();
 		m_view->resetMousePressed();
-		// necessary since mousebutton is still recorded pressed, and otherwise checkchages() will do nothing
-		currItem->checkChanges();
+		// necessary since mousebutton is still recorded pressed, and otherwise checkchanges() will do nothing
+		// we must check changes on whole selection otherwise resize operation won't undo correctly on groups
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges();
 		currItem->invalidateLayout();
 		currItem->update();
 	}
