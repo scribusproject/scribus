@@ -34,10 +34,6 @@ plus docs package should also obsolete all prior docs packages.
 licenses, not the GPL. Details for each are in the README_XX.xx.txt for
 each corresponding language.
 
-* You might notice that configure can check for the cairo libaries, this is not the
-default, and can be considered experimental. We do not recommend building against cairo
-for packaging.
-
 
 ===============================================================================
 
@@ -89,4 +85,4 @@ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in February 2006
+in April 2009
