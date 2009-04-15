@@ -1103,5 +1103,7 @@ void cmdtextdocwarnings()
 	  << scribus_linktextframes__doc__ << scribus_unlinktextframes__doc__
 	  << scribus_tracetext__doc__      << scribus_istextoverflowing__doc__
 	  << scribus_setpdfbookmark__doc__ << scribus_ispdfbookmark__doc__
-	<< scribus_hyphenatetext__doc__ << scribus_dehyphenatetext__doc__;
+	  << scribus_hyphenatetext__doc__ << scribus_dehyphenatetext__doc__
+	  << scribus_gettextdistances__doc__ << scribus_settextdistances__doc__
+	  << scribus_settextscalingh__doc__ << scribus_settextscalingv__doc__;
 }

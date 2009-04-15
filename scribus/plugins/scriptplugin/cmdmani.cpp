@@ -432,5 +432,13 @@ PV */
 void cmdmanidocwarnings()
 {
     QStringList s;
-    s << scribus_moveobjrel__doc__ << scribus_moveobjabs__doc__ << scribus_rotobjrel__doc__ << scribus_rotobjabs__doc__ << scribus_sizeobjabs__doc__ << scribus_getselobjnam__doc__ << scribus_selcount__doc__ << scribus_selectobj__doc__ <<scribus_deselect__doc__ <<scribus_groupobj__doc__ <<scribus_ungroupobj__doc__ <<scribus_scalegroup__doc__ <<scribus_loadimage__doc__ <<scribus_scaleimage__doc__ <<scribus_lockobject__doc__ <<scribus_islocked__doc__ <<scribus_setscaleimagetoframe__doc__;
+	s << scribus_moveobjrel__doc__ << scribus_moveobjabs__doc__
+	  << scribus_rotobjrel__doc__ << scribus_rotobjabs__doc__
+	  << scribus_sizeobjabs__doc__ << scribus_getselobjnam__doc__
+	  << scribus_selcount__doc__ << scribus_selectobj__doc__
+	  << scribus_deselect__doc__ << scribus_groupobj__doc__
+	  << scribus_ungroupobj__doc__ << scribus_scalegroup__doc__
+	  << scribus_loadimage__doc__ << scribus_scaleimage__doc__
+	  << scribus_setimagescale__doc__ << scribus_lockobject__doc__
+	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__;
 }
