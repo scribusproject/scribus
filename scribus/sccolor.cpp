@@ -100,9 +100,18 @@ colorModel ScColor::getColorModel () const
 
 void ScColor::fromQColor(QColor color)
 {
-	int r, g, b;
-	color.getRgb(&r, &g, &b);
-	setColorRGB(r, g, b);
+	if (color.spec() == QColor::Cmyk)
+	{
+		int c, m, y, k;
+		color.getCmyk(&c, &m, &y, &k);
+		setColor(c, m, y, k);
+	}
+	else
+	{
+		int r, g, b;
+		color.getRgb(&r, &g, &b);
+		setColorRGB(r, g, b);
+	}
 }
 
 void ScColor::getRawRGBColor(int *r, int *g, int *b) const

@@ -234,6 +234,7 @@ public:
 	bool    parseSVG( const QString &s, FPointArray *ite );
 	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
+	QString parseIccColor( const QString &s );
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);

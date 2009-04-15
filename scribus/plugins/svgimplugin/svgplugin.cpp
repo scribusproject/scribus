@@ -1907,24 +1907,34 @@ QString SVGPlug::parseColor( const QString &s )
 {
 	QColor c;
 	QString ret = CommonStrings::None;
-	if( s.startsWith( "rgb(" ) )
+	if (s.length() > 11) // icc-color()
+	{
+		int iccColorIndex  = s.indexOf("icc-color");
+		if (iccColorIndex >= 0)
+		{
+			QString iccColorName = parseIccColor(s);
+			if (iccColorName.length() > 0)
+				return iccColorName;
+		}
+	}
+	if (s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split(',', QString::SkipEmptyParts);
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
-		if( r.contains( "%" ) )
+		if (r.contains( "%" ))
 		{
 			r = r.left( r.length() - 1 );
 			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * r.toDouble() ) / 100.0 ) ) );
 		}
-		if( g.contains( "%" ) )
+		if (g.contains( "%" ))
 		{
 			g = g.left( g.length() - 1 );
 			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * g.toDouble() ) / 100.0 ) ) );
 		}
-		if( b.contains( "%" ) )
+		if (b.contains( "%" ))
 		{
 			b = b.left( b.length() - 1 );
 			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * b.toDouble() ) / 100.0 ) ) );
@@ -1934,7 +1944,7 @@ QString SVGPlug::parseColor( const QString &s )
 	else
 	{
 		QString rgbColor = s.trimmed();
-		if( rgbColor.startsWith( "#" ) )
+		if (rgbColor.startsWith( "#" ))
 		{
 			rgbColor = rgbColor.left(7);
 			c.setNamedColor( rgbColor );
@@ -1966,9 +1976,85 @@ QString SVGPlug::parseColor( const QString &s )
 		tmp.fromQColor(c);
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
-		m_Doc->PageColors.insert("FromSVG"+c.name(), tmp);
-		importedColors.append("FromSVG"+c.name());
-		ret = "FromSVG"+c.name();
+		QString newColorName = "FromSVG"+c.name();
+		m_Doc->PageColors.insert(newColorName, tmp);
+		importedColors.append(newColorName);
+		ret = newColorName;
+	}
+	return ret;
+}
+
+QString SVGPlug::parseIccColor( const QString &s )
+{
+	QColor color, tmpR;
+	QString ret;
+	bool iccColorFound = false, found = false;
+	int iccColorIndex  = s.indexOf("icc-color");
+	if (iccColorIndex < 0)
+		return ret;
+	int iccFirst = s.indexOf("(", iccColorIndex);
+	int iccLast  = s.indexOf(")", iccColorIndex);
+	if (iccFirst >= 0 && iccLast >= 0)
+	{
+		QString iccColor = s.mid(iccFirst + 1, iccLast - iccFirst - 1);
+		iccColor = iccColor.trimmed();
+		QStringList colors = iccColor.split(',', QString::SkipEmptyParts);
+		if (colors.count() == 5) // then we assume this is a cmyk color
+		{
+			QString cs = colors[1], ys = colors[2], ms = colors[3], ks = colors[4];
+			if (cs.contains( "%" ))
+			{
+				cs = cs.left( cs.length() - 1 );
+				cs = QString::number(cs.toDouble() / 100);
+			}
+			if (ys.contains( "%" ))
+			{
+				ys = ys.left( ys.length() - 1 );
+				ys = QString::number(ys.toDouble() / 100);
+			}
+			if (ms.contains( "%" ))
+			{
+				ms = ms.left( ms.length() - 1 );
+				ms = QString::number(ms.toDouble() / 100);
+			}
+			if (ks.contains( "%" ))
+			{
+				ks = ks.left( ks.length() - 1 );
+				ks = QString::number(ks.toDouble() / 100);
+			}
+			color.setCmykF(cs.toDouble(), ms.toDouble(), ys.toDouble(), ks.toDouble());
+			iccColorFound = true;
+		}
+	}
+	if (iccColorFound == false)
+		return ret;
+	int  c, m, y, k;
+	ColorList::Iterator it;
+	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+	{
+		colorModel colorMod = it.value().getColorModel();
+		if (colorMod == colorModelCMYK)
+		{
+			it.value().getCMYK(&c, &m, &y, &k);
+			tmpR.setCmyk(c, m, y, k);
+			if (color == tmpR)
+			{
+				ret = it.key();
+				found = true;
+				break;
+			}
+		}
+	}
+	if (!found)
+	{
+		ScColor tmp;
+		tmp.fromQColor(color);
+		tmp.setSpotColor(false);
+		tmp.setRegistrationColor(false);
+		QString newColorName = "FromSVG"+tmp.name();
+		m_Doc->PageColors.insert(newColorName, tmp);
+		importedColors.append(newColorName);
+		ret = newColorName;
 	}
 	return ret;
 }
