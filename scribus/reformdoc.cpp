@@ -437,11 +437,10 @@ void ReformDoc::updateDocumentSettings()
 									&currDoc->toolSettings.polyCurvature);
 	currDoc->AutoSave = tabPage->GroupAS->isChecked();
 	currDoc->AutoSaveTime = tabPage->ASTime->value() * 60 * 1000;
+	currDoc->autoSaveTimer->stop();
 	if (currDoc->AutoSave)
-	{
-		currDoc->autoSaveTimer->stop();
 		currDoc->autoSaveTimer->start(currDoc->AutoSaveTime);
-	}
+
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
 */
