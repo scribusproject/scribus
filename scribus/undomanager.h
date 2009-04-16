@@ -468,6 +468,8 @@ public:
 	static QString CreateTo;
 	static QString AlignDistribute;
 	static QString ItemsInvolved;
+	static QString ItemsInvolved2;
+	static uint    ItemsInvolvedLimit;
 	static QString Cancel;
 	static QString SetFill;
 	static QString ColorFromTo;

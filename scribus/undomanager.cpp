@@ -840,6 +840,7 @@ void UndoManager::languageChange()
 	UndoManager::CreateTo           = tr("X: %1, Y: %2\nW: %3, H: %4");
 	UndoManager::AlignDistribute    = tr("Align/Distribute");
 	UndoManager::ItemsInvolved      = tr("Items involved");
+	UndoManager::ItemsInvolved2     = tr("More than 20 items involved");
 	UndoManager::Cancel             = tr("Cancel");
 	UndoManager::SetFill            = tr("Set fill color");
 	UndoManager::ColorFromTo        = tr("Color1: %1, Color2: %2");
@@ -1038,6 +1039,8 @@ QString UndoManager::Create             = "";
 QString UndoManager::CreateTo           = "";
 QString UndoManager::AlignDistribute    = "";
 QString UndoManager::ItemsInvolved      = "";
+QString UndoManager::ItemsInvolved2     = "";
+uint    UndoManager::ItemsInvolvedLimit = 20;
 QString UndoManager::Cancel             = "";
 QString UndoManager::SetFill            = "";
 QString UndoManager::ColorFromTo        = "";

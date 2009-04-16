@@ -2364,9 +2364,16 @@ void ScribusView::startGroupTransaction(const QString& action, const QString& de
 		QPixmap* targetIcon = Um::IGroup;
 		if (tooltip.isEmpty() && selectedItemCount > 1)
 		{
-			tooltip = Um::ItemsInvolved + "\n";
-			for (uint i = 0; i < selectedItemCount; ++i)
-				tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
+			if (selectedItemCount <= Um::ItemsInvolvedLimit)
+			{
+				tooltip = Um::ItemsInvolved + "\n";
+				for (uint i = 0; i < selectedItemCount; ++i)
+					tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
+			}
+			else
+			{
+				tooltip = Um::ItemsInvolved2 + "\n";
+			}
 		}
 		if (selectedItemCount == 1)
 		{
