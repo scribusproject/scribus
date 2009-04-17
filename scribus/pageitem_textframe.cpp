@@ -493,20 +493,72 @@ struct LineControl {
 	/// find x position where this line must end
 	double endOfLine(const QRegion& shape, const QMatrix& pf2, double ascent, double descent, double morespace = 0)
 	{
-		double EndX = floor(qMax(line.x, qMin(colRight,breakXPos) - 1));
+		// Keep old code for reference
+		/*double EndX = floor(qMax(line.x, qMin(colRight,breakXPos) - 1));
 		QPoint pt1, pt2;
 		//	qDebug() << QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch);
 		do {
 			EndX += 0.125;
 			pt1 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(yPos+descent));
 			pt2 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(ceil(yPos-ascent)));
-		} while 
-			(   (EndX + (legacy? lineCorr + insets.Right : 0) < colRight - morespace)
-			  && shape.contains(pf2.map(pt1))
-			  && shape.contains(pf2.map(pt2)) 
-			  );
-		
-		return EndX;
+		} while ( (EndX + (legacy? lineCorr + insets.Right : 0) < colRight - morespace)
+			&& shape.contains(pf2.map(pt1))
+			&& shape.contains(pf2.map(pt2))
+			);*/
+
+		// if we aren't restricted further, we'll end at this maxX:
+		double maxX = colRight - morespace;
+		if (legacy) maxX -= (lineCorr + insets.Right);
+
+		double StartX = floor(qMax(line.x, qMin(colRight,breakXPos) - 1));
+		int xPos  = static_cast<int>(ceil(maxX + insets.Right));
+		int yDesc = static_cast<int>(yPos+descent);
+		int yAsc  = static_cast<int>(ceil(yPos-ascent));
+
+		QPoint pt12 (xPos, yDesc);
+		QPoint pt22 (xPos, yAsc);
+
+		// simple and fast case: transformed line completely falls within range
+		// this will happen if we don't wrap around anything - ie. very often
+		QPolygon p;
+		p.append (pf2.map (QPoint (StartX, yAsc)));
+		p.append (pf2.map (QPoint (StartX, yDesc)));
+		p.append (pf2.map (pt12));
+		p.append (pf2.map (pt22));
+		// check if something gets in the way
+		QRegion lineI = shape.intersected (p.boundingRect());
+		// if the intersection only has 1 rectangle, then nothing gets in the way
+		if (lineI.numRects() == 1)
+		{
+			int xPos = qRound(ceil(StartX + 0.125 + insets.Right));
+			pt12.setX(xPos);
+			pt22.setX(xPos);
+			if (shape.contains(pf2.map(pt12)) && shape.contains(pf2.map(pt22)))
+			{
+				QRect rect = lineI.rects().at(0);
+				double  mx = qMax(rect.left(), rect.right()) - pf2.dx(); 
+				int steps = static_cast<int>((mx - StartX - insets.Right - 2)/0.125);
+				if (steps > 0)
+					StartX += steps * 0.125;
+			}
+		}
+
+		// qDebug()<<"endOfLine: going for the hard case";
+		double EndX2 = StartX;
+		double Interval = 0.125;
+		do {
+			EndX2 += Interval;
+			int xPos = qRound(ceil(EndX2 + insets.Right));
+			pt12.setX (xPos);
+			pt22.setX (xPos);
+		} while ((EndX2 < maxX) && shape.contains(pf2.map(pt12)) && shape.contains(pf2.map(pt22)));
+
+		/*if (EndX!=EndX2) 
+		{
+			qDebug()<<EndX<<EndX2<<StartX<<maxX;
+			qDebug()<<"DIFFERING ENDX!!!!!";
+		}*/
+		return EndX2;
 	}
 	
 	
