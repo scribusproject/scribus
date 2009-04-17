@@ -1,5 +1,188 @@
 
 Scribus - 1.3.5svn
+- 0005813: [Import / Export] Undoing any vector import lets desktop freeze (cbradney) - resolved.
+- 0007935: [Import / Export] Selecting an imported vector file causes Scribus to hang (jghali) - resolved.
+- 0005780: [Usability] Scribus doesn't track what documents are already opened (subik) - resolved.
+- 0007913: [General] after inserting a link or an empty text frame into a scribus file and clicking save, scribus crashes (jghali) - resolved.
+- 0007762: [User Interface] middle mouse panning (GIMP+InNkscape like) (fschmid) - resolved.
+- 0006935: [Mac OS] Height of pull-down menu showing inconsistencies in Style Manager, Guide Managers and in the PP wrt other dialog boxes (subik) - resolved.
+- 0004822: [Undo/Redo] Master Pages: Crash when trying to undo non existing objects (Tsoots) - resolved.
+- 0007685: [Language Tools] Hyphenation exceptions are ignored? (fschmid) - closed.
+- 0005960: [Story Editor / Text Frames] Selecting and double-clicking into text frames takes very long (pierremarchand) - closed.
+- 0007761: [Undo/Redo] undo/redo Convert to outlines won't work (jghali) - closed.
+- 0007928: [General] Once an image frame is locked, access to other image frames is not possible (cbradney) - closed.
+- 0007919: [General] Select Item tool does not select multiple items (jghali) - closed.
+- 0007917: [Translation] Polish translation update for 1.3.5 (cbradney) - closed.
+- 0007864: [Graphics / Image Frames] distribute windows with distance values entered and no TAB pressed (cbradney) - closed.
+- 0007893: [Plug-ins] Latex frames looks differently after document opening and update image (fschmid) - closed.
+- 0006290: [Story Editor / Text Frames] When importing text with a text filter, paragraphs styles are not shown and interpreted properly (jghali) - closed.
+- 0007898: [Story Editor / Text Frames] Slow saving of documents with many linked frames (patch attached) (jghali) - closed.
+- 0007902: [Graphics / Image Frames] lock the size of the object doesn't work (cbradney) - closed.
+- 0007907: [User Interface] Improved splash screen (cbradney) - closed.
+- 0007895: [Canvas] Line fill/thickness drawing while dragging inconsistency (fschmid) - closed.
+- 0007896: [Canvas] Dragged line while drawing set via line style does not join up correctly (fschmid) - closed.
+- 0005717: [General] open multiple files from command line (cbradney) - closed.
+- 0007897: [Canvas] Line style fill colour not drawn on most if not all applied-to shapes (fschmid) - closed.
+- 0004933: [User Interface] Scribus forgets status of the bleed "chain" (cbradney) - closed.
+- 0003437: [Usability] Misleading menu entry: Save page as EPS (cbradney) - closed.
+- 0007887: [Styles] Can't handle styles based on default style (jghali) - closed.
+- 0007886: [General] unwanted canvas move when exiting prefs (jghali) - closed.
+- 0007890: [Translation] Slovak Translation Update (cbradney) - closed.
+- 0007847: [Story Editor / Text Frames] text attached to path do not print correctly (jghali) - closed.
+- 0007876: [Story Editor / Text Frames] Changing text with the spellchecker is not recorded as a document change (subik) - closed.
+- 0007722: [Graphics / Image Frames] Arrows are not affected by line styles (fschmid) - closed.
+- 0007870: [Story Editor / Text Frames] Document check with many linked text frames slow (patch attached) (jghali) - closed.
+- 0006989: [Styles] Applying styles to text imported via "Get text" doesn't take effect (jghali) - closed.
+- 0005823: [Story Editor / Text Frames] Text Properties panel resets font style to lowest values (cbradney) - closed.
+- 0007878: [General] Can't write angle dimension into 'Enter Object Size' dialog for line. (jghali) - closed.
+- 0007867: [Story Editor / Text Frames] text selection shifted after using the scratch space (pierremarchand) - closed.
+- 0007869: [Graphics / Image Frames] Moving image in imageframe on resizing it (fschmid) - closed.
+- 0007795: [Story Editor / Text Frames] Very poor perfomance if text is hyphenated (jghali) - closed.
+- 0007849: [Canvas] Scrolling/painting speed is slow (patch attached) (fschmid) - closed.
+- 0007865: [User Interface] Holding down the left mouse button on an object brings up the copy/move/cancel menu that the right mouse button should show (fschmid) - closed.
+- 0007853: [General] Add Tomas Mecir to the list of contributors (cbradney) - closed.
+- 0007620: [Undo/Redo] Undo/Redo doesn't work on grouping operations (jghali) - closed.
+- 0007829: [Story Editor / Text Frames] Spell checker doesn't recognize non-breaking space as word boundary (jghali) - closed.
+- 0007454: [User Interface] Items dragged from scrapbook are not indicated correctly on PP (pierremarchand) - closed.
+- 0005783: [Story Editor / Text Frames] Text is (arbitrarily?) cut in text frame (jghali) - closed.
+- 0007843: [Story Editor / Text Frames] tabs entered with keys are changed (jghali) - closed.
+- 0007848: [Canvas] scratch space values incorrect for new documents (jghali) - closed.
+- 0007851: [Translation] Updated Russian translation for 1.3.5 (cbradney) - closed.
+- 0007850: [Graphics / Image Frames] distribute frames with keybooard entered values (jghali) - closed.
+- 0007844: [Canvas] Page margin guides appear incomplete. (cbradney) - closed.
+- 0007840: [Story Editor / Text Frames] advanced settings in a text frame (jghali) - closed.
+- 0007833: [User Interface] Statusbar Page Selector not working right (pierremarchand) - closed.
+- 0007823: [User Interface] X,Y,Z tab doesn't get activated (fschmid) - closed.
+- 0007825: [Story Editor / Text Frames] right click on selection removes selection (fschmid) - closed.
+- 0007836: [Story Editor / Text Frames] Import of large amount of text is very slow (patch attached) (jghali) - closed.
+- 0007834: [Story Editor / Text Frames] Ctrl-Alt resizing text frame distorts glyph horizontally (jghali) - closed.
+- 0007810: [Story Editor / Text Frames] Inserting characters from the extended character palette does not work (jghali) - closed.
+- 0007832: [Story Editor / Text Frames] missing specialchars.h (fschmid) - closed.
+- 0007827: [Canvas] Guideline position indicator at cursor displays wrong value (fschmid) - closed.
+- 0007824: [Qt4 Port] Dragging a ruler and clicking the right mouse button triggers a crash (jghali) - closed.
+- 0007819: [-] crash in preflight checker (jghali) - closed.
+- 0005049: [Story Editor / Text Frames] single space after long word wraps to beginning of next line (jghali) - closed.
+- 0007807: [User Interface] do not rely on only color coded icons in preflight verifier (fschmid) - closed.
+- 0007811: [Import / Export] Tabs with fill character don't show up in PDF and printout (jghali) - closed.
+- 0005394: [Story Editor / Text Frames] line spacing reverts to default on scaling frames (pierremarchand) - closed.
+- 0006152: [User Interface] spine reflection on GUI (subik) - closed.
+- 0007794: [Story Editor / Text Frames] Square chars after use of Short Words again (jghali) - closed.
+- 0006291: [Story Editor / Text Frames] properties/text: new additions don't behave well (pierremarchand) - closed.
+- 0003412: [User Interface] Chosen preset layout not displayed in Page properties (cbradney) - closed.
+- 0005647: [Styles] Style-defined manual tracking ignored (jghali) - closed.
+- 0006460: [Story Editor / Text Frames] Optical margins aren't indicated correctly (pierremarchand) - closed.
+- 0006146: [Styles] Impossible to send styles to the scrapbook (cbradney) - closed.
+- 0005432: [Shape Drawing] Resizing a line with control for angle constraint only works on one end of the line (pierremarchand) - closed.
+- 0006378: [Story Editor / Text Frames] inserting glyph from another font into story using insert menu results in incorrect cursor placement & more (pierremarchand) - closed.
+- 0006159: [Story Editor / Text Frames] Scribus 1.3.4 "Word Tracking" and "Glyph Extension" custom settings overridden upon re-selection of frame (pierremarchand) - closed.
+- 0007809: [Translation] Japanese Translation Update (subik) - closed.
+- 0007091: [PDF] Mauvais affichage image .psd avec transparence dans le fichier .PDF généré. (fschmid) - closed.
+- 0007772: [Scripter] A more versatile way to construct gradients for the scripter (jghali) - closed.
+- 0007805: [Scripter] setLineSpacing in scripter does nothing (jghali) - closed.
+- 0007806: [Scripter] SetTextScaling function for the scripter (jghali) - closed.
+- 0007371: [Build System] Add aspell files to injestor for OS X dmg creation process (cbradney) - closed.
+- 0007770: [Story Editor / Text Frames] Incomplete relayout of text chains (pierremarchand) - closed.
+- 0006252: [Usability] Missing "new doc using a template" tab in splash dialog (fschmid) - closed.
+- 0007796: [Language Tools] Lorem ipsum for Slovak (jghali) - closed.
+- 0007797: [Plug-ins] Update for Short Words Slovak (jghali) - closed.
+- 0004880: [User Interface] Changing the values for bleed switches first page on canvas (cbradney) - closed.
+- 0005575: [Story Editor / Text Frames] text frames can't be placed as inline objects (fschmid) - closed.
+- 0007401: [Story Editor / Text Frames] Line following a hyphen is overlapping when in Automatic linespacing mode (jghali) - closed.
+- 0005871: [General] Highlighting Text - Strange behaviour of text-cursor (avox) - closed.
+- 0007750: [Graphics / Image Frames] Preview resolution of image frames set to normal when copying a page regardless of what it's set to globaly (fschmid) - closed.
+- 0005973: [Import / Export] Add a compatibility warning for imported 1.2x and 1.3x files (subik) - closed.
+- 0007755: [Graphics / Image Frames] Image frame preview resolution not shown correctly when opening a document (fschmid) - closed.
+- 0006787: [Shape Drawing] enable snap to grid when moving individual shape nodes (fschmid) - closed.
+- 0007786: [Translation] Updated scribus ver1.35svn(ver 20090117) korean tranlation files (subik) - closed.
+- 0003912: [General] Preferences location is an unnecessary challenge. (cbradney) - closed.
+- 0003849: [Fonts] Unable to change or select a different font (cbradney) - closed.
+- 0007768: [Qt4 Port] scribus Qt4 fails to compile with current Qt 4.5 snapshots (jghali) - closed.
+- 0007774: [Scripter] groupObjects() function very slow (cbradney) - closed.
+- 0007550: [User Interface] It's impossible to select more than one master page in the MP dialog to delete a set of master pages. This can be a real chore i (subik) - closed.
+- 0006760: [Story Editor / Text Frames] text layout changed when reopening existing sla made by 1.3.3.8 (avox) - closed.
+- 0007714: [Story Editor / Text Frames] Tabs are unable to be edited in text frames - closed.
+- 0005991: [User Interface] Property Palette text input box focus stays even when on another tab (subik) - closed.
+- 0007766: [Scripter] scribus.textOverflows() returns 0 despite text overflows (ale) - closed.
+- 0006634: [Graphics / Image Frames] several crashes at "Get image" preview (subik) - closed.
+- 0006867: [Graphics / Image Frames] Manage picture bad update (subik) - closed.
+- 0007756: [PDF] Erreur d'effet de texte dans le fichier PDF généré. Bad text effect in generated PDF file. (fschmid) - closed.
+- 0007738: [Build System] Scribus does not like CXXFLAGS="-Werror=format-security" (jghali) - closed.
+- 0005773: [Usability] gradients etc dont open up enough (subik) - closed.
+- 0007181: [Qt4 Port] Single click on free canvas/scratchspace area creates always-on-top 1px selection (subik) - closed.
+- 0007654: [PDF] Gradient with spot colors export wrong (jghali) - closed.
+- 0007703: [User Interface] Copy page does not work properly (fschmid) - closed.
+- 0000504: [Usability] We need more accurate object selection (avox) - closed.
+- 0007726: [Canvas] unselect group from a multi (shift left-click) does not work properly (pierremarchand) - closed.
+- 0006930: [Mac OS] When in the left frame of Prefs, scrolling to one end or the other will affect values in selected field on the right (cbradney) - closed.
+- 0007728: [User Interface] layer and content information in the preflight verifier (subik) - closed.
+- 0007740: [Graphics / Image Frames] Request+Implementation: An ui switch for changing the preview quality of all image frames. (subik) - closed.
+- 0007744: [Scripter] scaleImage(x,y,"name") does not behave correct on some images (jghali) - closed.
+- 0007705: [Scripter] Styles created with a script are not shown in the style dialog (subik) - closed.
+- 0007716: [Scripter] Please add spot colour indicator to ColorChart script (subik) - closed.
+- 0007711: [Graphics / Image Frames] Guides freedom (subik) - closed.
+- 0007743: [Graphics / Image Frames] Image frame preview resolution not preserved when using "Get Image" (subik) - closed.
+- 0007736: [Scripter] Incorrect indentation in the ColorChart.py (subik) - closed.
+- 0007737: [Build System] Add custom ApplicationDataDir at configure time (subik) - closed.
+- 0007735: [General] Crash when editing shortcuts (jghali) - closed.
+- 0007731: [Mac OS] Ghostscript 8.61 & language settings (cbradney) - closed.
+- 0007730: [Mac OS] startup window and dock (cbradney) - closed.
+- 0007699: [Color Management] Dropdown lists for colours don't show the type of colour (RGB, CMYK, Spot) (fschmid) - closed.
+- 0006562: [Graphics / Image Frames] Using frame to select objects catches other objects even on another page (jghali) - closed.
+- 0007717: [User Interface] Prefs->Fonts has confusing checkbox setup that doesnt work reliably (pierremarchand) - closed.
+- 0005786: [PPCOSX] crash when closing doc (jghali) - closed.
+- 0007727: [Translation] Updated Russian translation for 1.3.5 (jghali) - closed.
+- 0007725: [General] Layers not preserved whem page copied. A fix to a previous fix - closed.
+- 0007724: [Translation] Russian translation added to most editorconfig files (jghali) - closed.
+- 0007501: [Usability] Object drag is broken by 'snap to guides' (jghali) - closed.
+- 0007718: [Translation] Galician translation update (trunk) (jghali) - closed.
+- 0007710: [User Interface] layer focus supression (fschmid) - closed.
+- 0007698: [User Interface] The dropdown list for optical margins in the paragraph styles dialog needs to be slightly moved left or resized (cbradney) - closed.
+- 0007697: [User Interface] Options for optical margins are completely available only in paragraph styles. The PP shows only default and none (cbradney) - closed.
+- 0007690: [General] memory leak in story editor when switching between SE and canvas (jghali) - closed.
+- 0007668: [Styles] style nesting blocks ALLKAPITALS (fschmid) - closed.
+- 0007683: [Canvas] "pagewidth" and "pageheight" don't work if unit isn't pt (fschmid) - closed.
+- 0007700: [PDF] If a PDF is imported, the page size of the document is always the default page size, not the one of the PDF (fschmid) - closed.
+- 0007701: [Import / Export] ODT Import segfaults (jghali) - closed.
+- 0007702: [Import / Export] Potential document corruption after using print dialog (jghali) - closed.
+- 0007353: [Graphics / Image Frames] Grayscale image with embedded profile not handled correctly on PDF export (fschmid) - closed.
+- 0007695: [Scripter] valueDialog not displaying caption properly (jghali) - closed.
+- 0005859: [Fonts] Browsing through fonts in Text Frame Properties causes memory leak (jghali) - closed.
+- 0007682: [Story Editor / Text Frames] page number frames are not copyied when copying page (jghali) - closed.
+- 0007244: [Fonts] Missing some characters in Render frame (equations) (Herm) - closed.
+- 0007370: [Mac OS] os x and pdflatex (Herm) - closed.
+- 0007688: [Import / Export] Render frames store full configuration path (Herm) - closed.
+- 0006046: [Usability] When moved after first use, Scribus.app fail to launch (avox) - closed.
+- 0002345: [Usability] Snap to margins and guides too strong (cbradney) - closed.
+- 0006414: [Import / Export] Nothing appears when importing vector file (jghali) - closed.
+- 0003937: [Usability] Changing number of columns of a text frame (cbradney) - closed.
+- 0007681: [PDF] Page numbers shadows are not exported correctly in pdf (jghali) - closed.
+- 0004488: [User Interface] Printer options dialog is only a tiny spot (fschmid) - closed.
+- 0005312: [Fonts] sla contains "empty" font (jghali) - closed.
+- 0003295: [General] Display problems when entering rotation from keyboard (pierremarchand) - closed.
+- 0007479: [Graphics / Image Frames] links to non existing images are deleted (fschmid) - closed.
+- 0007290: [Import / Export] Scribus reduces equation scale on export when setting up manually dpi (fschmid) - closed.
+- 0007602: [Graphics / Image Frames] Image downsampling on PDF export may be wrong when the same image is used several times (fschmid) - closed.
+- 0006747: [Fonts] Default font always embedded in PDF (fschmid) - closed.
+- 0007676: [Translation] Preferences/Plugins: Some strings not translatable (fschmid) - closed.
+- 0007669: [Story Editor / Text Frames] When duplicating a text frame, font size gets reset to default from the second line of the same size (jghali) - closed.
+- 0007652: [Usability] Focus and highlight list entry when adding guide (subik) - closed.
+- 0007675: [Translation] About Scribus: Translated strings are ignored (fschmid) - closed.
+- 0001190: [Graphics / Image Frames] Add image meta data to picture frame (fschmid) - closed.
+- 0007674: [Translation] Polish translation update for 1.3.5svn (subik) - closed.
+- 0007666: [Translation] Render Frames => Latex config file => Polish translation (fschmid) - closed.
+- 0007242: [General] Crash on ungrouping multiple groups (cbradney) - closed.
+- 0007653: [User Interface] Linked Image Scale/DPI controls in Property Palette get unlinked when Shift-scrolling (fschmid) - closed.
+- 0007500: [PDF] Documents with Render Frames Result in PDF Files With Invalid Closepath Operators (fschmid) - closed.
+- 0007640: [Story Editor / Text Frames] Fonts in text frames changed or are not visible (jghali) - closed.
+- 0007352: [Graphics / Image Frames] All layers are on (fschmid) - closed.
+- 0006489: [PDF] Adding weblinks as PDF Annotations adds Helvetica to the PDF (fschmid) - closed.
+- 0007357: [Styles] Infinite loop or crash when default style has a parent (jghali) - closed.
+- 0007630: [Fonts] Font used in paragraph style does not get added to "Available Fonts" list in PDF Export (fschmid) - closed.
+- 0007439: [User Interface] Render Frames don't remember resolution and position of images in frames when Scribus has been closed and reopened (fschmid) - closed.
+- 0007636: [Translation] Some tr strings missing in TS file (cbradney) - closed.
+- 0007642: [Translation] Render Frames => Source Editor: Polish translation for 1.3.5 (jghali) - closed.
+- 0007142: [PDF] Export PDF/EPS on attached file hangs Scribus (jghali) - closed.
+- 0007634: [Import / Export] Text alignment problem when importing a ps file. (fschmid) - closed.
 - 0007577: [PDF] Scribus PDF with embedded font breaks GPL Ghostscript 8.62 (jghali) - resolved.
 - 0006489: [PDF] Adding weblinks as PDF Annotations adds Helvetica to the PDF (fschmid) - resolved.
 - 0007352: [Graphics / Image Frames] All layers are on (fschmid) - resolved.
