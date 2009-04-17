@@ -49,16 +49,12 @@
 
 #include <math.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #if HAVE_CONFIG_H
 #  include "scconfig.h"
-#  if STDC_HEADERS
-#    include <stdio.h>
-#    include <stdlib.h>
-#    include <string.h>
-#  endif
-#else
-#  include <stdio.h>
-#  include <stdlib.h>
 #endif
 
 #define ENABLE_GRAYSCALE
