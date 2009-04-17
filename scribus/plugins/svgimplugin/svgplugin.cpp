@@ -221,7 +221,10 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 bool SVGPlug::import(QString fname, const TransactionSettings& trSettings, int flags)
 {
 	if (!loadData(fname))
+	{
+		importFailed = true;
 		return false;
+	}
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.path());
