@@ -62,10 +62,20 @@ void LatexHighlighter::highlightBlock(const QString &text)
 //TODO: Pass this information to LatexEditor, so the second parser can be removed
 bool LatexConfigParser::parseConfigFile(QString fn)
 {
+	QString base = ScPaths::instance().shareDir()+"/editorconfig/";
+	QFileInfo fi(fn);
+	if (!fi.exists()) {
+		fn = base + fn;
+	}
 	m_error = "";
 	m_filename = fn;
 	QFile f(fn);
-	f.open(QIODevice::ReadOnly);
+	if (!f.open(QIODevice::ReadOnly)) {
+		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+				QObject::tr("Opening the configfile %1 failed! %2").arg(
+						fn, f.errorString())
+				+ "</qt>", 1, 0, 0);
+	}
 	xml.setDevice(&f);
 	
 	while (!xml.atEnd()) {
@@ -403,8 +413,6 @@ QStringList LatexConfigCache::defaultConfigs()
 		if (files[i].compare("sample.xml",Qt::CaseInsensitive)==0) {
 			files.removeAt(i);
 			i--;
-		} else {
-			files[i] = base + files[i];
 		}
 	}
 	return files;
