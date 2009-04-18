@@ -1431,11 +1431,11 @@ void PageItem_TextFrame::layout()
 						double oCurX = tCurX + wide;
 						for (int yg = static_cast<int>(tTabValues.count()-1); yg > -1; yg--)
 						{
-							if (oCurX < tTabValues[yg].tabPosition)
+							if (oCurX < tTabValues.at(yg).tabPosition)
 							{
-								tabs.status = static_cast<int>(tTabValues[yg].tabType);
-								tCurX = tTabValues[yg].tabPosition;
-								tabs.fillChar    = tTabValues[yg].tabFillChar;
+								tabs.status = static_cast<int>(tTabValues.at(yg).tabType);
+								tCurX = tTabValues.at(yg).tabPosition;
+								tabs.fillChar = tTabValues.at(yg).tabFillChar;
 							}
 						}
 						tabs.active = (tabs.status != TabLEFT);
