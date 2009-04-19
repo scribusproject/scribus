@@ -5,6 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#ifndef COLOR_H
+#define COLOR_H
+
 #define TORGB( redVal, greenVal, blueVal ) \
 { \
 	r = redVal; \
@@ -311,3 +314,4 @@ void keywordToRGB( QString rgbColor, int &r, int &g, int &b )
 		TORGB( 154, 205, 50 )
 }
 
+#endif
