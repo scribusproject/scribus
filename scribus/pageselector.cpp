@@ -257,20 +257,18 @@ void PageSelector::goFw()
 void PageSelector::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }
 
 void PageSelector::languageChange()
 {
-	Start->setToolTip(tr("Go to the first page"));
-	Back->setToolTip(tr("Go to the previous page"));
-	Forward->setToolTip(tr("Go to the next page"));
-	Last->setToolTip(tr("Go to the last page"));
-	PageCombo->setToolTip(tr("Select the current page"));
+	Start->setToolTip( tr("Go to the first page") );
+	Back->setToolTip( tr("Go to the previous page") );
+	Forward->setToolTip( tr("Go to the next page") );
+	Last->setToolTip( tr("Go to the last page") );
+	PageCombo->setToolTip( tr("Select the current page") );
 	PageCountString =  tr(" of %1", "number of pages in document");
 	PageCount->setText(PageCountString.arg(LastPG));
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
