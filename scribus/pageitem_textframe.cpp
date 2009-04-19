@@ -1810,8 +1810,6 @@ void PageItem_TextFrame::layout()
 						}
 						bool fromOut = true;
 						double BotOffset = desc+extra.Bottom+lineCorr;
-//						pt1 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(current.yPos+BotOffset));
-//						pt2 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(ceil(current.yPos-asce)));
 						while (!current.isEndOfLine(style.rightMargin()))
 						{
 							current.xPos++;
@@ -1856,8 +1854,12 @@ void PageItem_TextFrame::layout()
 								}
 								break;
 							}
-							pt1 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(current.yPos+BotOffset));
-							pt2 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(ceil(current.yPos-asce)));
+							// #7944 : Do not use static_cast<int> here, this is not consistent with computations
+							// performed at lines 1488-1512 and can trigger hang due to changing region detection
+							//pt1 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(current.yPos+BotOffset));
+							//pt2 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(ceil(current.yPos-asce)));
+							pt1 = QPoint(qRound(current.xPos+extra.Right), qRound(current.yPos+BotOffset));
+							pt2 = QPoint(qRound(current.xPos+extra.Right), qRound(ceil(current.yPos-asce)));
 							if (cl.contains(pf2.map(pt1)) && cl.contains(pf2.map(pt2)))
 								break;
 //							else
