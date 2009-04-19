@@ -1348,6 +1348,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								}
 								bool fromOut = true;
 								double BotOffset = desc+BExtra+lineCorr;
+								// #7944 fix : Replace static_cast<int> by qRound in the two lines below,  
+								// use of static_cast<int> is not consistent with computations performed 
+								// at lines 1037-1054 and can trigger hang due to changing region detection
 								pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 								pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
 								while (CurX+RExtra+lineCorr < ColBound.y())
@@ -1387,6 +1390,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 										}
 										break;
 									}
+									// #7944 fix : Replace static_cast<int> by qRound in the two lines below,  
+									// use of static_cast<int> is not consistent with computations performed 
+									// at lines 1037-1054 and can trigger hang due to changing region detection
 									pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 									pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
 									if ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))))
