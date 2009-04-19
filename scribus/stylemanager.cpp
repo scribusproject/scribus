@@ -678,6 +678,24 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 		++it;
 	}
 	assert(root);
+	if (!fromParent.isEmpty())
+	{
+		QTreeWidgetItemIterator it(root, QTreeWidgetItemIterator::Selectable);
+		while (*it)
+		{
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
+			if (item && item->text(NAME_COL) == fromParent)
+			{
+				StyleViewItem *parent = dynamic_cast<StyleViewItem*>((*it)->parent());
+				if (parent)
+				{
+					root = parent;
+					break;
+				}
+			}
+			++it;
+		}
+	}
 	styleView->clearSelection();
 	StyleViewItem *newItem = new StyleViewItem(root, newName, m_item->typeName());
 	Q_CHECK_PTR(newItem);
