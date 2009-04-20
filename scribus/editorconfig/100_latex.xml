@@ -68,6 +68,18 @@
 				zostanie zamieniony na wzor:
 				\[J = \int r^2 \mathrm{d}m\]
 			</pl>
+			<ru>
+				\section*{Вступление}
+				Если вы читаете этот текст, значит блоки \LaTeX работают!\\
+				Размещать формулы очень просто:\\
+				В контекстном меню блока выберите команду Right click $\Rightarrow$ Изменить исходник\\
+				И замените этот текст своим. Вот пример:
+				\begin{verbatim}
+					\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				becomes
+				\[J = \int r^2 \mathrm{d}m\]
+			</ru>
 		</i18n>
 	</empty-frame-text>
 	<preamble>
@@ -92,12 +104,14 @@
 				<de>Schriften/Header</de>
 				<fr>Polices/En-tête</fr>
 				<pl>Fonty/Nagłówki</pl>
+				<ru>Шрифты и заголовки</ru>
 		</i18n></title>
 		<comment><i18n>
 			<en>Fonts only work when installed on your computer!</en>
 			<de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de>
 			<fr>Les polices fonctionnent uniquement lorsqu'elles sont installées sur votre ordinateur !</fr>
 			<pl>Fonty muszą być zainstalowane na twoim komputerze!</pl>
+			<ru>Шрифты работают только если они установлены в системе!</ru>
 		</i18n></comment>
 		<list name="font" default="">
 			<title><i18n>
@@ -105,6 +119,7 @@
 				<de>Schrift:</de>
 				<fr>Police :</fr>
 				<pl>Font:</pl>
+				<ru>Шрифт:</ru>
 			</i18n></title>
 			<option value="">Computer Modern</option>
 			<option value="\usepackage{ccfonts}">Concrete</option>
@@ -116,6 +131,7 @@
 			<en>Note: You have to include \sf at the beginning of your text for Helvetica and \tt for Courier!</en>
 			<de>Hinweis: Am Anfang des Textes muss zusätzlich \sf für Helvetica und \tt für Courier stehen!</de>
 			<pl>Uwaga: Na początku tekstu należy dodatkowo umieścić \sf dla fontu Helvetica i \tt dla fontu Courier!</pl>
+			<ru>Примечание: необходимо включить команду \sf в начало текста для Helvetica и \tt для Courier!</ru>
 		</i18n></comment>
 		<list name="fontsize" default="11pt">
 			<title><i18n>
@@ -123,6 +139,7 @@
 					<de>Schriftgröße:</de>
 					<fr>Taille police :</fr>
 					<pl>Stopień pisma:</pl>
+					<ru>Кегль шрифт:</ru>
 			</i18n></title>
 			<option value="8pt">8pt</option>
 			<option value="9pt">9pt</option>
@@ -151,6 +168,7 @@
 			<de>Zusätzliche Header:</de>
 			<fr>En-tête additionnel :</fr>
 			<pl>Dodatkowe nagłówki:</pl>
+			<en>Дополнительные заголовки:</en>
 		</i18n></text>
 	</tab>
 	<tab type="items">
@@ -159,6 +177,7 @@
 				<fr>Symboles et opérateurs</fr>
 				<de>Verhältnissymbole</de>
 				<pl>Symbole relacji</pl>
+				<ru>Символы соотношения</ru>
 		</i18n></title>
 		<item value="\pm"  image="pm.png" />
 		<item value="\cap"  image="cap.png" />
@@ -396,6 +415,7 @@
 				<de>Pfeile</de>
 				<fr>Flèches</fr>
 				<pl>Strzałki</pl>
+				<ru>Стрелки</ru>
 		</i18n></title>
 		<item value="\leftarrow"  image="leftarrow.png" />
 		<item value="\longleftarrow"  image="longleftarrow.png" />
@@ -473,6 +493,7 @@
 				<de>Verschiedenes</de>
 				<fr>Symboles divers</fr>
 				<pl>Różne symbole</pl>
+				<ru>Различные символы</ru>
 		</i18n></title>
 		<item value="\ldots"  image="ldots.png" />
 		<item value="\cdots"  image="cdots.png" />
@@ -540,6 +561,7 @@
 				<de>Trenner</de>
 				<fr>Délimiteurs</fr>
 				<pl>Znaki rozdzielające</pl>
+				<ru>Разделители</ru>
 		</i18n></title>
 		<item value="\vert"  image="vert.png" />
 		<item value="\Vert"  image="v_ert.png" />
@@ -580,6 +602,7 @@
 				<de>Griechisches Alphabet</de>
 				<fr>Alphabet Grec</fr>
 				<pl>Alfabet grecki</pl>
+				<ru>Греческий алфавит</ru>
 		</i18n></title>
 		<item value="\alpha"  image="alpha.png" />
 		<item value="\beta"  image="beta.png" />
@@ -628,6 +651,7 @@
 			<de>Mathe-Alphabete</de>
 			<fr>Alphabet Math</fr>
 			<pl>Alfabet matematyczny</pl>
+			<ru>Математические алфавиты</ru>
 		</i18n></title>
 		<item value="\mathcal{A}"  image="mathcala_.png" />
 		<item value="\mathcal{B}"  image="mathcalb_.png" />
@@ -808,6 +832,7 @@
 				<de>Normaler Text</de>
 				<fr>Texte normal</fr>
 				<pl>Zwykły tekst</pl>
+				<ru>Обычный текст</ru>
 			</i18n>
 		</item>
 	</tab>
@@ -817,6 +842,7 @@
 			<de>Mathe-Akzente</de>
 			<fr>Accents Math</fr>
 			<pl>Akcenty matematyczne</pl>
+			<ru>Математические акценты</ru>
 		</i18n></title>
 		<item value="\bar{}"  image="bara.png" />
 		<item value="\vec{}"  image="veca.png" />
