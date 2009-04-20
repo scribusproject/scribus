@@ -515,17 +515,13 @@ void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml)
 	iconList->setWrapping(true);
 	iconList->setResizeMode(QListView::Adjust);
 	
-	connect(iconList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
-			this,     SLOT  (newItemSelected   (QListWidgetItem *, QListWidgetItem *)));
-	connect(iconList, SIGNAL(itemDoubleClicked (QListWidgetItem *)),
-			this,     SLOT  (itemDoubleClicked (QListWidgetItem *)));
+	connect(iconList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this, SLOT(newItemSelected(QListWidgetItem *, QListWidgetItem *)));
+	connect(iconList, SIGNAL(itemDoubleClicked (QListWidgetItem *)), this, SLOT(itemDoubleClicked(QListWidgetItem *)));
 	
 	QHBoxLayout *hLayout = new QHBoxLayout();
 	QLabel *statusLabel = new QLabel(tr("No item selected!"));
-	DataPushButton *insertPushButton = new DataPushButton(
-			tr("Insert symbol"), iconList);
-	connect(insertPushButton, SIGNAL(clickedWithData(QObject *)), 
-			this, SLOT(insertButtonClicked(QObject *)));
+	DataPushButton *insertPushButton = new DataPushButton( tr("Insert Symbol") , iconList);
+	connect(insertPushButton, SIGNAL(clickedWithData(QObject *)), this, SLOT(insertButtonClicked(QObject *)));
 	hLayout->addWidget(statusLabel, 100);
 	hLayout->addWidget(insertPushButton, 0);
 	
@@ -533,48 +529,50 @@ void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml)
 	vLayout->addLayout(hLayout, 0);
 	
 	QStringRef tagname;
-	while (!xml->atEnd()) {
+	while (!xml->atEnd()) 
+	{
 		xml->readNext();
 		if (xml->isWhitespace() || xml->isComment()) continue;
 		tagname = xml->name();
-		if (xml->isEndElement() && (tagname == "tab")) {
+		if (xml->isEndElement() && (tagname == "tab")) 
 			break;
-		}
-		if (!xml->isStartElement()) {
+		if (!xml->isStartElement()) 
+		{
 			xmlError() << "Unexpected end element "
 					<<tagname.toString()<<"in item tab";
 			continue;
 		}
-		if (tagname == "title") {
+		if (tagname == "title") 
+		{
 			title = xml->readI18nText();
-		} else if (tagname == "item") {
+		} 
+		else if (tagname == "item") 
+		{
 			QString value = xml->attributes().value("value").toString();
 			QString img = xml->attributes().value("image").toString();
 			QString text = xml->readI18nText();
 			
 			QString status = value;
-			if (text.isEmpty()) {
+			if (text.isEmpty()) 
 				text = value;
-			} else if (text != value) {
+			else if (text != value) 
 				status = text + "(" + value +")";
-			}
 			
 			QIcon *icon = 0;
-			if (!img.isEmpty()) {
+			if (!img.isEmpty()) 
 				icon = IconBuffer::instance()->icon(currentIconFile, img);
-			}
 			QListWidgetItem *item;
-			if (!icon) {
+			if (!icon)
 				item = new QListWidgetItem(text, iconList);
-			} else {
+			else
 				item = new QListWidgetItem(*icon, "", iconList);
-			}
 			item->setData(Qt::UserRole, value);
-			item->setData(Qt::UserRole + 1, 
-				qVariantFromValue((void *) statusLabel)); //UGLY
+			item->setData(Qt::UserRole + 1, qVariantFromValue((void *) statusLabel)); //UGLY
 			item->setToolTip(text);
 			item->setStatusTip(status);
-		} else {
+		} 
+		else
+		{
 			xmlError() << "Unexpected tag" << tagname.toString() << 
 				"in item tab!";
 			continue;
