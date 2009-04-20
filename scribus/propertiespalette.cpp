@@ -5108,6 +5108,7 @@ void PropertiesPalette::languageChange()
 	TransGroup->setTitle( tr( "Transparency Settings" ));
 	TransTxt->setText( tr( "Opacity:" ) );
 	TransTxt2->setText( tr( "Blend Mode:" ) );
+	int oldBlendMode = blendMode->currentIndex();
 	blendMode->clear();
 	blendMode->addItem( tr("Normal"));
 	blendMode->addItem( tr("Darken"));
@@ -5124,6 +5125,7 @@ void PropertiesPalette::languageChange()
 	blendMode->addItem( tr("Hue"));
 	blendMode->addItem( tr("Saturation"));
 	blendMode->addItem( tr("Color"));
+	blendMode->setCurrentIndex(oldBlendMode);
 	rndcornersLabel->setText( tr("R&ound\nCorners:"));
 	columnsLabel->setText( tr("Colu&mns:"));
 	int oldcolgapLabel = colgapLabel->currentIndex();
@@ -5138,10 +5140,12 @@ void PropertiesPalette::languageChange()
 	rightLabel->setText( tr("&Right:"));
 	TabsButton->setText( tr("T&abulators..."));
 //	Distance2->setTitle( tr("Path Text Properties"));
+	int oldPathType = pathTextType->currentIndex();
 	pathTextType->clear();
 	pathTextType->addItem( tr("Default"));
 	pathTextType->addItem( tr("Stair Step"));
 	pathTextType->addItem( tr("Skew"));
+	pathTextType->setCurrentIndex(oldPathType);
 	flippedPathText->setText( tr("Flip Text"));
 	showcurveCheckBox->setText( tr("Show Curve"));
 	pathTextTypeLabel->setText( tr("Type:"));
@@ -5213,9 +5217,12 @@ void PropertiesPalette::languageChange()
 // 	actList[0]->setText( tr("Fixed Linespacing"));
 // 	actList[1]->setText( tr("Automatic Linespacing"));
 // 	actList[2]->setText( tr("Align to Baseline Grid"));
+	int oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
+	lineSpacingModeCombo->clear();
 	lineSpacingModeCombo->addItem( tr("Fixed Linespacing"));
 	lineSpacingModeCombo->addItem( tr("Automatic Linespacing"));
 	lineSpacingModeCombo->addItem( tr("Align to Baseline Grid"));
+	lineSpacingModeCombo->setCurrentIndex(oldLineSpacingMode);
 	int oldMonitorI=MonitorI->currentIndex();
 	MonitorI->clear();
 	MonitorI->addItem( tr("Perceptual"));
