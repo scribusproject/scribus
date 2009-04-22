@@ -2085,7 +2085,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									QMatrix arrowTrans;
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
-									PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
+									PutPage(drawArrow(ite, arrowTrans, ite->endArrowIndex()));
 									break;
 								}
 							}
@@ -3641,7 +3641,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						QMatrix arrowTrans;
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
-						tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
+						tmp += drawArrow(ite, arrowTrans, ite->endArrowIndex());
 						break;
 					}
 				}
