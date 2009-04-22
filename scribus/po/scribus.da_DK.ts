@@ -2662,7 +2662,14 @@ Returns the text distances of the text frame &quot;name&quot; expressed in point
 distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextDistances([&quot;navn&quot;]) -&gt; tuple
+
+Returnerer tekst-afstandene på tekst-rammen &quot;navn&quot; udtrykt i punkter.
+Afstandene returneres som en tuple som (venstre, højre, top bund). Hvis 
+&quot;navn&quot; ikke er givet, så bruges det markerede element.
+
+
+</translation>
     </message>
     <message>
         <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
@@ -2673,7 +2680,14 @@ selected item is used.
 
 May throw ValueError if any of the distances are out of bounds (must be positive).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextDistances(venstre, højre, top, bund, [&quot;navn&quot;])
+
+Sætter tekst-afstandene på tekst-rammen &quot;navn&quot; til værdierne 
+&quot;venstre&quot;, &quot;højre&quot;, &quot;top&quot; og &quot;bund&quot;. Hvis &quot;navn&quot; ikke er givet, så bruges 
+det markerede element.
+
+Kan rejse ValueError hvis nogen af afstandene er uden for tilladte område (skal være positiv).
+</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -2688,7 +2702,18 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;navn&quot;, &quot;erstat&quot;)
+
+Sletter farven &quot;navn&quot;. Enhver forekomst af denne farve er erstattet 
+af farven &quot;erstat&quot;. Hvis &quot;erstat&quot; ikke er angivet, så sættes farven til 
+&quot;NONE&quot;  - transparent.
+
+deleteColor arbejder på standard dokumentets farver, hvis der ikke  er åbnet 
+et dokument. I dette tilfælde har &quot;erstat&quot; ingen effekt, selvom det angives.
+
+Kan rejse NotFoundError hvis den navngivne farve ikke findes.
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -2698,7 +2723,13 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;navn&quot;, &quot;erstat&quot;)
+
+Enhver forekomst af farven &quot;navn&quot; bliver erstattet af farven &quot;erstat&quot;.
+
+Kan rejse NotFoundError hvis den navngivne farve ikke findes.
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
     </message>
 </context>
 <context>
@@ -4516,23 +4547,23 @@ May raise ValueError if an invalid color name is specified.
     </message>
     <message>
         <source>Submit format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Send format:</translation>
     </message>
     <message>
         <source>FDF</source>
-        <translation type="unfinished"></translation>
+        <translation>FDF</translation>
     </message>
     <message>
         <source>HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML</translation>
     </message>
     <message>
         <source>XFDF</source>
-        <translation type="unfinished"></translation>
+        <translation>XFDF</translation>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -7229,11 +7260,11 @@ fejlede!</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrifttegnenes skalerings-bredde</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrifttegnenes skalerings-højde</translation>
     </message>
 </context>
 <context>
@@ -9817,6 +9848,22 @@ hjørner:</translation>
         <source>Enable or disable exporting of the object</source>
         <translation>Muliggør eller forhindrer eksport af objektet</translation>
     </message>
+    <message>
+        <source>Arrow head style for start of line</source>
+        <translation>Pilhoved-stil for start af linie</translation>
+    </message>
+    <message>
+        <source>Arrow head style for end of line</source>
+        <translation>Pilhoved-stil for slutning af linie</translation>
+    </message>
+    <message>
+        <source>Effective horizontal DPI of the image after scaling</source>
+        <translation>Billedets effektive horisontale DPI efter skalering</translation>
+    </message>
+    <message>
+        <source>Effective vertical DPI of the image after scaling</source>
+        <translation>Billedets effektive vertikale DPI efter skalering</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -10394,7 +10441,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>A write error occured, please check available disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>En skrivefejl opstod, kontroller venligst tilgængelig diskplads</translation>
     </message>
 </context>
 <context>
@@ -13644,22 +13691,22 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 har mere en 8 bits per kanal, Scribus vil ikke bevare de mindst betydende bits</translation>
     </message>
     <message>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke hente tekst-afstande fra andet end tekst-ramme.</translation>
     </message>
     <message>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tekst-afstande  uden for tilladt område, skal være positiv.</translation>
     </message>
     <message>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke sætte tekst-afstande for andet end tekst-ramme.</translation>
     </message>
 </context>
 <context>
