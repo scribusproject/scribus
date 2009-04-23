@@ -2116,19 +2116,18 @@ bool PrefsManager::ReadPref(QString ho)
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 			QStringList configs;
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
-			bool validConfFound = false;
+			QString latexBase = ScPaths::instance().shareDir()+"/editorconfig/";
 			for (int i=0; i < configNodes.size(); i++)
 			{
 				QString confFile = configNodes.at(i).toElement().attribute("file", "");
 				QString command  = configNodes.at(i).toElement().attribute("command", "");
-				if (!validConfFound && !confFile.isEmpty())
-					validConfFound = QFile::exists(confFile);
-				if (!configs.contains(confFile) && QFile::exists(confFile)) {
+				bool configExists = !confFile.isEmpty() && (QFile::exists(confFile) || QFile::exists(latexBase+confFile));
+				if (!configs.contains(confFile) && configExists) {
 					configs.append(confFile);
 					appPrefs.latexCommands[confFile] = command;
 				}
 			}
-			if (!configs.isEmpty() && validConfFound) {
+			if (!configs.isEmpty()) {
 				setLatexConfigs(configs);
 			} else {
 				qWarning() << tr("No valid renderframe config found. Using defaults!");
