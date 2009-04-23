@@ -51,7 +51,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		//Scribus Doc vars, not plugin vars
 		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
 		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, ScribusDoc *doc);
-		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir);
+		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, int pagenr = -2 /* currentPage*/);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(QString fStr, ScribusDoc *doc);

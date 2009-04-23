@@ -863,8 +863,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					//m_Doc->Pages = &m_Doc->MasterPages;
 					m_Doc->setMasterPageMode(true);
 				}
+				int docGc = m_Doc->GroupCounter, pagenr = -1;
 				if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
+				{
 					m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
+					pagenr = -2;
+				}
 
 				if (pg.tagName()=="PAGEOBJECT")
 				{
@@ -875,9 +879,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
 				}
-				int docGc = m_Doc->GroupCounter;
+				
 				m_Doc->GroupCounter = 0;
-				Neu = PasteItem(&pg, m_Doc, fileDir);
+				Neu = PasteItem(&pg, m_Doc, fileDir, pagenr);
 				Neu->setRedrawBounding();
 				if (pg.tagName()=="MASTEROBJECT")
 					Neu->OwnPage = m_Doc->OnPage(Neu);
@@ -1968,7 +1972,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	}
 }
 
-PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir)
+PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, int pagenr)
 {
 	struct ImageLoadRequest loadingInfo;
 	int z = 0;
@@ -2003,11 +2007,15 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	case PageItem::ItemType1:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		break;
 	//
 	case PageItem::ImageFrame:
 		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
 		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
@@ -2081,11 +2089,15 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	case PageItem::ItemType3:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		break;
 	//
 	case PageItem::PathText:
 		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
 		{
 			currItem->setImageXYScale(scx, scy);
@@ -2110,6 +2122,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
 		{
 			currItem->setImageXYScale(scx, scy);
@@ -2134,14 +2148,20 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Polygon:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::PolyLine:
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
 		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Multiple:
 	default:
