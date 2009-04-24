@@ -332,13 +332,14 @@ PyObject *scribus_getpagemargins(PyObject* /* self */)
  */
 // This function is used by scribus_importpage() to add new pages
 void import_addpages(int total, int pos) {
-	for (int i=0; i<total; i++) {
+	for (int i=0; i<total; i++)
+	{
 		int locreal = pos + i;
 		int loc = pos + i + 1;
 
-		if (loc > ScCore->primaryMainWindow()->doc->Pages->count()) {
+		if (loc > ScCore->primaryMainWindow()->doc->Pages->count())
 			loc = ScCore->primaryMainWindow()->doc->Pages->count();
-		}
+
 		QString qName(CommonStrings::trMasterPageNormal);
 
 		if (ScCore->primaryMainWindow()->doc->pageSets[ScCore->primaryMainWindow()->doc->currentPageLayout].Columns != 1) {
@@ -422,7 +423,7 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 		else if (importWhere == 1) //After page
 			startPage = importWherePage + 1;
 		else //at end
-			startPage = ScCore->primaryMainWindow()->doc->DocPages.count() + 1;
+			startPage = ScCore->primaryMainWindow()->doc->DocPages.count();// + 1;
 
 		import_addpages(nrToImport, startPage);
 	}
