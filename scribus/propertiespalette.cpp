@@ -3409,6 +3409,8 @@ void PropertiesPalette::NewX()
 			{
 				m_ScMW->view->endGroupTransaction();
 			}
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			setXY(gx, gy);
 		}
 		else
 		{
@@ -3488,6 +3490,8 @@ void PropertiesPalette::NewY()
 		{
 			m_ScMW->view->endGroupTransaction();
 		}
+		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		setXY(gx, gy);
 	}
 	else
 	{
