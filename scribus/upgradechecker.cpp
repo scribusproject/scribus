@@ -83,13 +83,16 @@ void UpgradeChecker::fetch()
 		connect(getter, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
 		connect(getter, SIGNAL(done(bool)), this, SLOT(done(bool)));
 		
-		outputText("<b>"+ tr("Attempting to get the Scribus version update file")+"</b>");
-		outputText( tr("(No data on your computer will be sent to an external location)"));
+		outputText( tr("No data on your computer will be sent to an external location"));
 		qApp->processEvents();
 		if(rcvdFile->open(QIODevice::ReadWrite))
 		{
-			getter->setHost("www.scribus.net", QHttp::ConnectionModeHttp);
-			getterID=getter->get("/downloads/"+filename, rcvdFile);
+			QString hostname("upgrade.scribus.net");
+			QString filepath("/"+filename);
+			outputText("<b>"+ tr("Attempting to get the Scribus version update file:")+"</b>");
+			outputText(QString("<b>http://%1%2</b>").arg(hostname).arg(filepath));
+			getter->setHost(hostname, QHttp::ConnectionModeHttp);
+			getterID=getter->get(filepath, rcvdFile);
 			
 			int waitCount=0;
 			while (!fin && waitCount<20)
