@@ -3260,7 +3260,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1432"/>
         <source>&amp;Measurements</source>
-        <translation>&amp;Mõõdud</translation>
+        <translation>&amp;Mõõtmine</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1433"/>
@@ -3710,7 +3710,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1550"/>
         <source>Hair Space</source>
-        <translation>Juuksekarvatühik</translation>
+        <translation>Juuspeen tühik</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1461"/>
@@ -6538,42 +6538,42 @@ Kui dokumendis leidub fotosid, on soovitatav see valik sisse lülitada.</transla
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="74"/>
         <source>&amp;RGB Images:</source>
-        <translation>&amp;RGB pildid:</translation>
+        <translation>&amp;RGB-pildid:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="90"/>
         <source>Default color profile for imported RGB images</source>
-        <translation>Imporditud RGB piltide vaikimisi värviprofiil</translation>
+        <translation>Imporditud RGB-piltide vaikimisi värviprofiil</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="97"/>
         <source>&amp;CMYK Images:</source>
-        <translation>&amp;CMYK pildid:</translation>
+        <translation>&amp;CMYK-pildid:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="113"/>
         <source>Default color profile for imported CMYK images</source>
-        <translation>Imporditud CMYK piltide vaikimisi värviprofiil</translation>
+        <translation>Imporditud CMYK-piltide vaikimisi värviprofiil</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="120"/>
         <source>&amp;RGB Solid Colors:</source>
-        <translation>&amp;RGB ühtlased värvid:</translation>
+        <translation>Ühtlased &amp;RGB-värvid:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="136"/>
         <source>Default color profile for solid RGB colors on the page</source>
-        <translation>Ühtlaste RGB värvide vaikimisi värviprofiil leheküljel</translation>
+        <translation>Ühtlaste RGB-värvide vaikimisi värviprofiil leheküljel</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="143"/>
         <source>&amp;CMYK Solid Colors:</source>
-        <translation>&amp;CMYK ühtlased värvid:</translation>
+        <translation>Ühtlased &amp;CMYK-värvid:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="159"/>
         <source>Default color profile for solid CMYK colors on the page</source>
-        <translation>Ühtlaste CMYK värvide vaikimisi värviprofiil leheküljel</translation>
+        <translation>Ühtlaste CMYK-värvide vaikimisi värviprofiil leheküljel</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="166"/>
@@ -8259,7 +8259,7 @@ Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation
     <message>
         <location filename="../../scribus/colorm.cpp" line="173"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation>Kui värvihaldus on lubatud, hoiatab kolmnurkne märk värvi ees, et see võib jääda parajasti valitud printeriprofiili värviulatusest välja. See tähendab, et trükkimisel ei pruugi värv olla täpselt selline, nagu seda näeb ekraanil. Spot-värve tähistatakse punase ringikesega. Täpsemalt tutvustab värviulatuse hoiatusi dokumentatsioon värvihalduse osas. Kokkutrükivärvidel on värvi ees registreerimismärk. Neid tuleb kasutada ainult printeri- ja lõikemärkide jaoks.</translation>
+        <translation>Kui värvihaldus on lubatud, hoiatab kolmnurkne märk värvi ees, et see võib jääda parajasti valitud printeriprofiili värviulatusest välja. See tähendab, et trükkimisel ei pruugi värv olla täpselt selline, nagu seda näeb ekraanil. Spot-värve tähistatakse punase ringikesega. Täpsemalt tutvustab värviulatuse hoiatusi dokumentatsioon värvihalduse osas. Kokkutrükivärvidel on värvi ees kokkutrükimärk. Neid tuleb kasutada ainult printeri- ja lõikemärkide jaoks.</translation>
     </message>
     <message>
         <location filename="../../scribus/colorm.cpp" line="311"/>
@@ -9292,7 +9292,7 @@ Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation
     <message>
         <location filename="../../scribus/cpalette.cpp" line="1029"/>
         <source>Exclusion</source>
-        <translation>VäljajätmineVäljajätmine</translation>
+        <translation>Väljajätmine</translation>
     </message>
     <message>
         <location filename="../../scribus/cpalette.cpp" line="994"/>
@@ -9770,7 +9770,7 @@ Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation
     <message>
         <location filename="../../scribus/curvewidget.cpp" line="511"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
-        <translation>Lülitab kõvera lineaarse ja kolmanda astme intepolatsiooni vahel</translation>
+        <translation>Lülitab kõvera lineaarse ja kolmanda astme interpolatsiooni vahel</translation>
     </message>
     <message>
         <location filename="../../scribus/curvewidget.cpp" line="512"/>
@@ -10945,7 +10945,7 @@ import nurjus!</translation>
     <message>
         <location filename="../../scribus/effectsdialog.cpp" line="216"/>
         <source>Posterize:</source>
-        <translation>Poster:</translation>
+        <translation>Posterdamine:</translation>
     </message>
     <message>
         <location filename="../../scribus/effectsdialog.cpp" line="500"/>
@@ -10985,7 +10985,7 @@ import nurjus!</translation>
     <message>
         <location filename="../../scribus/effectsdialog.cpp" line="1406"/>
         <source>Posterize</source>
-        <translation>Poster</translation>
+        <translation>Posterdamine</translation>
     </message>
     <message>
         <location filename="../../scribus/effectsdialog.cpp" line="1383"/>
@@ -11055,7 +11055,7 @@ import nurjus!</translation>
     <message>
         <location filename="../../scribus/effectsdialog.cpp" line="1565"/>
         <source>Curves</source>
-        <translation>Kõverad</translation>
+        <translation>Kurvid</translation>
     </message>
 </context>
 <context>
@@ -14443,7 +14443,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="587"/>
         <source> %</source>
-        <translation>(sp)%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="568"/>
@@ -15591,7 +15591,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="78"/>
         <source>Create Page(s)</source>
-        <translation>Leheküljed luuakse</translation>
+        <translation>Leheküljed lisatakse</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="82"/>
@@ -16949,7 +16949,7 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../scribus/preview.cpp" line="278"/>
         <source>&amp;Under Color Removal</source>
-        <translation>&amp;Under Color Removal</translation>
+        <translation>Al&amp;usvärvi eemaldamine</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="139"/>
@@ -16984,7 +16984,7 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../scribus/preview.cpp" line="152"/>
         <source>Separation Name</source>
-        <translation>Värvilahutuse nimi</translation>
+        <translation>Värvi nimi</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="164"/>
@@ -17009,7 +17009,7 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../scribus/preview.cpp" line="299"/>
         <source>Scaling:</source>
-        <translation>Skaleerimine:</translation>
+        <translation>Skaala:</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="324"/>
@@ -17039,12 +17039,12 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../scribus/preview.cpp" line="357"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Trükkimise eelvaatlusel simuleeritakse RGB värvide asemel CMYK värve</translation>
+        <translation>Trükkimise eelvaatlusel simuleeritakse RGB-värvide asemel CMYK-värve</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="358"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY värvides.</translation>
+        <translation>Asendab tsüaanist, kollasest ja magentast koosnevad halltoonid mustaga. UCR mõjutab eelkõige piltide neid osi, kus on valitsevad neutraalsed või hallilähedased tumedad toonid. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab CMY värvide üleküllastuse võimalust.</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="359"/>
@@ -17134,7 +17134,7 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../scribus/preview.cpp" line="275"/>
         <source>Print in Grayscale</source>
-        <translation>Halltoonis trükk</translation>
+        <translation>Halltoonides trükk</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="281"/>
@@ -17174,7 +17174,7 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../scribus/preview.cpp" line="272"/>
         <source>Clip to Printer Margins</source>
-        <translation>Kärpimine printeri veeriste juures</translation>
+        <translation>Kärpimine printeri veeriste järgi</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="206"/>
@@ -17858,7 +17858,7 @@ Sageli kasutatakse üle mitme lehe ulatuvate elementide paigutamiseks</translati
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="938"/>
         <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
-        <translation>Dokumendi paigutuses näidatavate dokumendi tavaliste lehejülgede loend. Lehekülgi võib lohistada nende ümberkorraldamiseks või kustutamiseks.</translation>
+        <translation>Dokumendi paigutuses näidatavate dokumendi tavaliste lehekülgede loend. Lehekülgi võib lohistada nende ümberkorraldamiseks või kustutamiseks.</translation>
     </message>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="939"/>
@@ -20263,7 +20263,7 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     <message>
         <location filename="../../scribus/printdialog.cpp" line="336"/>
         <source>Print Normal</source>
-        <translation>Normaalne trükk</translation>
+        <translation>Harilik trükk</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="172"/>
@@ -20581,7 +20581,7 @@ konkreetsed leheküljenumbrid vastavaid lehekülgi.</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="280"/>
         <source>Print Normal</source>
-        <translation>Normaalne trükk</translation>
+        <translation>Harilik trükk</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="285"/>
@@ -20596,7 +20596,7 @@ konkreetsed leheküljenumbrid vastavaid lehekülgi.</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="299"/>
         <source>Print in Grayscale</source>
-        <translation>Halltoonis trükk</translation>
+        <translation>Halltoonides trükk</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="314"/>
@@ -20633,7 +20633,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="363"/>
         <source>Set Media Size</source>
-        <translation>Andmekandja suuruse määramine</translation>
+        <translation>Trükimaterjali suuruse määramine</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="370"/>
@@ -20653,7 +20653,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="389"/>
         <source>Apply Under Color Removal</source>
-        <translation>UCR-i (Under Color Removal) rakendamine</translation>
+        <translation>Alusvärvi eemaldamine (UCR)</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="396"/>
@@ -20663,7 +20663,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="399"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Spot-värvide teisendamine protsessivärvideks</translation>
+        <translation>Spot-värvide teisendamine protsessvärvideks</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="416"/>
@@ -20688,7 +20688,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="436"/>
         <source>Marks</source>
-        <translation>Tähised</translation>
+        <translation>Märgid</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="442"/>
@@ -20703,12 +20703,12 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="452"/>
         <source>Add registration marks which are added to each separation</source>
-        <translation>Registreerimismärkide lisamine igale lahutusele</translation>
+        <translation>Kokkutrükimärkide lisamine igale lahutusele</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="455"/>
         <source>Registration Marks</source>
-        <translation>Registreerimismärgid</translation>
+        <translation>Kokkutrükimärgid</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="462"/>
@@ -20738,7 +20738,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="491"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation>Näitab registreerimismärkide nihutamise ulatust</translation>
+        <translation>Näitab kokkutrükimärkide nihutamise ulatust</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="514"/>
@@ -20825,17 +20825,17 @@ Märkus: PDF-i vorme ei ekspordita.</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="360"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>See võimaldab vahetult määrata PostScript-faili andmekandja suuruse. Pole soovitatav, kui seda ei nõua just trükikoda.</translation>
+        <translation>See võimaldab vahetult määrata PostScript-faili trükimaterjali suuruse. Pole soovitatav, kui seda ei nõua just trükikoda.</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="370"/>
         <source>Clip to Printer Margins</source>
-        <translation>Kärpimine printeri veeriste juures</translation>
+        <translation>Kärpimine printeri veeriste järgi</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="386"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY värvides.</translation>
+        <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY-värvides.</translation>
     </message>
 </context>
 <context>
@@ -21075,7 +21075,7 @@ n&amp;urgad:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5162"/>
         <source>Use &amp;Bounding Box</source>
-        <translation>Üm&amp;britsev kast</translation>
+        <translation>Üm&amp;britsev ristkülik</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5163"/>
@@ -21195,7 +21195,7 @@ n&amp;urgad:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5250"/>
         <source>Ed&amp;ges:</source>
-        <translation>Se&amp;rvad:</translation>
+        <translation>Nu&amp;rgad:</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5253"/>
@@ -21640,7 +21640,7 @@ n&amp;urgad:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5161"/>
         <source>Use Frame &amp;Shape</source>
-        <translation>Kasti ku&amp;jundi kasutamine</translation>
+        <translation>Ku&amp;jund</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5208"/>
@@ -21810,7 +21810,7 @@ n&amp;urgad:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5164"/>
         <source>Use Image Clip Path</source>
-        <translation>Pildi lõikejoone kasutamine</translation>
+        <translation>Pildi lõikejoon</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5165"/>
@@ -21910,17 +21910,17 @@ n&amp;urgad:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5195"/>
         <source>First Line Offset</source>
-        <translation>Esimese rea nihe</translation>
+        <translation>Esimese rea kõrgus</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="832"/>
         <source>Maximum Ascent</source>
-        <translation>Maksimaalne ülapikendus</translation>
+        <translation>Kõrgeima märgi järgi</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="833"/>
         <source>Font Ascent</source>
-        <translation>Fondi ülapikendus</translation>
+        <translation>Fondi kõrgeima märgi järgi</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5192"/>
@@ -24460,7 +24460,7 @@ Välised lingid
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="181"/>
         <source>font %1 </source>
-        <translation>font %1(sp)</translation>
+        <translation>font %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="183"/>
@@ -26063,7 +26063,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="593"/>
         <source> pt</source>
-        <translation>(sp)pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="673"/>
@@ -26093,7 +26093,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="669"/>
         <source> pt </source>
-        <translation>(sp)pt(sp)</translation>
+        <translation> pt </translation>
     </message>
 </context>
 <context>
@@ -26597,7 +26597,7 @@ Väljendatakse protsendina kehtivast tühiruumi väärtusest.</translation>
     <message>
         <location filename="../../scribus/smtabruler.cpp" line="20"/>
         <source> Parent Tabs </source>
-        <translation>(sp)Eellase tabelduskohad(sp)</translation>
+        <translation> Eellase tabelduskohad </translation>
     </message>
 </context>
 <context>
@@ -26730,19 +26730,19 @@ Väljendatakse protsendina kehtivast tühiruumi väärtusest.</translation>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="135"/>
         <source>Save Images inline</source>
-        <translation>Piltide salvestamine märkpiltidena</translation>
+        <translation>Rasterpiltide salvestamine faili</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="136"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
-        <translation>Kõik lehekülje pildid lisatakse SVG-sse märkpiltidena.
+        <translation>Kõik lehekülje rasterpildid lisatakse SVG-faili.
 Ettevaatust: see suurendab faili suurust!</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="140"/>
         <source>Export Page background</source>
-        <translation>Lehekülje importimine taustana</translation>
+        <translation>Lehekülje eksportimine taustana</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="141"/>
@@ -27350,7 +27350,7 @@ Kui salvestad selle praeguses versioonis, ei saa seda enam Scribuse vanemates ve
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="7233"/>
         <source>Do you really want to clear all your text?</source>
-        <translation>Kas tõesti puhastada kogu tekst?</translation>
+        <translation>Kas tõesti kustutada kogu tekst?</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="7280"/>
@@ -27380,7 +27380,7 @@ Kui salvestad selle praeguses versioonis, ei saa seda enam Scribuse vanemates ve
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="715"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation>ICC profiilide avamisel tekkis viga, värvihaldus on välja lülitatud.</translation>
+        <translation>ICC-profiilide avamisel tekkis viga, värvihaldus on välja lülitatud.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="136966688"/>
@@ -28013,7 +28013,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4227"/>
         <source>Do you really want to clear all your text?</source>
-        <translation>Kas tõesti puhastada kogu tekst?</translation>
+        <translation>Kas tõesti kustutada kogu tekst?</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="287"/>
@@ -28213,7 +28213,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="418"/>
         <source>Show location ICC profile information on console while starting</source>
-        <translation>ICC profiili teabe asukoha nätiamine konsoolis käivitamise ajal</translation>
+        <translation>ICC-profiili teabe asukoha näitamine konsoolis käivitamise ajal</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="217"/>
@@ -29424,7 +29424,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="2699"/>
         <source>Do you really want to clear all your text?</source>
-        <translation>Kas tõesti puhastada kogu tekst?</translation>
+        <translation>Kas tõesti kustutada kogu tekst?</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="3166"/>
@@ -30074,7 +30074,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="63"/>
         <source>Lowest allowed resolution</source>
-        <translation>Väikseim lubatud lahutus</translation>
+        <translation>Vähim lubatud lahutus</translation>
     </message>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="76"/>
@@ -31137,7 +31137,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../../scribus/tabgeneral.cpp" line="61"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>ICC profiilide vaikimisi kataloog. Seda ei saa muuta, kui mõni dokument on avatud. Vaikimisi otsib Scribus neid Mac OS X ja Windowsi korral süsteemsetest kataloogidest. Linuxi ja Unixi korral otsib Scribus neid kataloogidest $home/.color/icc,/usr/share/color/icc ja /usr/local/share/color/icc.(sp)</translation>
+        <translation>ICC-profiilide vaikimisi kataloog. Seda ei saa muuta, kui mõni dokument on avatud. Vaikimisi otsib Scribus neid Mac OS X ja Windowsi korral süsteemsetest kataloogidest. Linuxi ja Unixi korral otsib Scribus neid kataloogidest $home/.color/icc,/usr/share/color/icc ja /usr/local/share/color/icc </translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.cpp" line="62"/>
@@ -31262,7 +31262,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="339"/>
         <source>&amp;ICC Profiles:</source>
-        <translation>I&amp;CC profiilid:</translation>
+        <translation>I&amp;CC-profiilid:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="352"/>
@@ -31458,12 +31458,12 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="56"/>
         <source>Snapping</source>
-        <translation>Haaramine</translation>
+        <translation>Tõmbumine</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="61"/>
         <source>Snap Distance:</source>
-        <translation>Haaramise kaugus:</translation>
+        <translation>Tõmbumise kaugus:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="69"/>
@@ -31623,7 +31623,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="223"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Vahemaa, millest väiksema väärtuse korral haaratakse objekt juhtjoonele. Määramise järel tuleb Scribus taaskäivitada.</translation>
+        <translation>Vahemaa, millest väiksema väärtuse korral tõmmatakse objekt juhtjoonele. Määramise järel tuleb Scribus taaskäivitada.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="224"/>
@@ -32588,7 +32588,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="686"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Spot-värvide teisendamine protsessivärvideks</translation>
+        <translation>Spot-värvide teisendamine protsessvärvideks</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="690"/>
@@ -32993,17 +32993,17 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="458"/>
         <source>Fonts to outline:</source>
-        <translation>Kontuurfondid:</translation>
+        <translation>Fondid kontuurjoontena:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="463"/>
         <source>&amp;Outline all</source>
-        <translation>&amp;Kõik kontuurfontideks</translation>
+        <translation>&amp;Kõik fondid kontuurjoontena</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="794"/>
         <source>Printer Marks</source>
-        <translation>Printeritähised</translation>
+        <translation>Printerimärgid</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="799"/>
@@ -33018,7 +33018,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="803"/>
         <source>Registration Marks</source>
-        <translation>Registreerimismärgid</translation>
+        <translation>Kokkutrükimärgid</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="805"/>
@@ -33073,7 +33073,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="917"/>
         <source>Convert all glyphs in the document to outlines.</source>
-        <translation>Kõigi dokumendi glüüfide muutmine kontuurkirjaks.</translation>
+        <translation>Kõigi dokumendi glüüfide muutmine kontuurjoonteks.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="965"/>
@@ -33183,7 +33183,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="992"/>
         <source>Add registration marks to each separation</source>
-        <translation>Registreerimismärkide lisamine igale lahutusele</translation>
+        <translation>Kokkutrükimärkide lisamine igale lahutusele</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="993"/>
@@ -33198,7 +33198,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="995"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation>Näitab registreerimismärkide nihutamise ulatust</translation>
+        <translation>Näitab kokkutrükimärkide nihutamise ulatust</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="1000"/>
@@ -33263,7 +33263,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="305"/>
         <source>Clip to Printer Margins</source>
-        <translation>Kärpimine printeri veeriste juures</translation>
+        <translation>Kärpimine printeri veeriste järgi</translation>
     </message>
 </context>
 <context>
@@ -33328,7 +33328,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.cpp" line="38"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Võimaldab konkreetselt määrata kindlaks PostScript-faili andmekandja (paberi, kile vms.) suuruse. Kui printer seda otseselt ei nõua, ei ole seda mõtet sisse lülitada.</translation>
+        <translation>Võimaldab konkreetselt määrata kindlaks PostScript-faili trükimaterjali (paberi, kile vms.) suuruse. Kui printer seda otseselt ei nõua, ei ole seda mõtet sisse lülitada.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.cpp" line="82"/>
@@ -33368,7 +33368,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="83"/>
         <source>Set Media Size</source>
-        <translation>Andmekandja suuruse määramine</translation>
+        <translation>Trükimaterjali suuruse määramine</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="98"/>
@@ -33378,7 +33378,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="112"/>
         <source>Print in Grayscale</source>
-        <translation>Halltoonis trükk</translation>
+        <translation>Halltoonides trükk</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="119"/>
@@ -33413,7 +33413,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="157"/>
         <source>Print Normal</source>
-        <translation>Normaalne trükk</translation>
+        <translation>Harilik trükk</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="184"/>
@@ -33423,12 +33423,12 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="196"/>
         <source>Apply Under Color Removal</source>
-        <translation>UCR-i (Under Color Removal) rakendamine</translation>
+        <translation>Alusvärvi eemaldamine (UCR)</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="203"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Spot-värvide teisendamine protsessivärvideks</translation>
+        <translation>Spot-värvide teisendamine protsessvärvideks</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="281"/>
@@ -33438,12 +33438,12 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="210"/>
         <source>Apply ICC Profiles</source>
-        <translation>ICC profiilide rakendamine</translation>
+        <translation>ICC-profiilide rakendamine</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="221"/>
         <source>Marks &amp;&amp; Bleeds</source>
-        <translation>Tähised &amp;&amp; lõikevaru</translation>
+        <translation>Märgid &amp;&amp; lõikevaru</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="233"/>
@@ -33473,7 +33473,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="300"/>
         <source>Printer Marks</source>
-        <translation>Printeri tähised</translation>
+        <translation>Printerimärgid</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="312"/>
@@ -33493,12 +33493,12 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="335"/>
         <source>Add registration marks which are added to each separation</source>
-        <translation>Registreerimismärkide lisamine igale lahutusele</translation>
+        <translation>Kokkutrükimärkide lisamine igale lahutusele</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="338"/>
         <source>Registration Marks</source>
-        <translation>Registreerimismärgid</translation>
+        <translation>Kokkutrükimärgid</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="345"/>
@@ -33553,12 +33553,12 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabprinter.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY värvides.</translation>
+        <translation>Asendab tsüaanist, kollasest ja magentast koosnevad halltoonid mustaga. UCR mõjutab eelkõige piltide neid osi, kus on valitsevad neutraalsed või hallilähedased tumedad toonid. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab CMY värvide üleküllastuse võimalust.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="90"/>
         <source>Clip to Printer Margins</source>
-        <translation>Kärpimine printeri veeriste juures</translation>
+        <translation>Kärpimine printeri veeriste järgi</translation>
     </message>
 </context>
 <context>
@@ -34176,7 +34176,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabtools.cpp" line="510"/>
         <source>Constrain to:</source>
-        <translation>Piirang:</translation>
+        <translation>Samm:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabtools.cpp" line="531"/>
@@ -34231,7 +34231,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
     <message>
         <location filename="../../scribus/tabtools.cpp" line="561"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation>Pööramistööriista piirang Ctrl-klahvi vajutamisel</translation>
+        <translation>Pööramistööriista samm Ctrl-klahvi vajutamisel</translation>
     </message>
     <message>
         <location filename="../../scribus/tabtools.cpp" line="513"/>
@@ -35568,7 +35568,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="960"/>
         <source>Convert to outlines</source>
-        <translation>Kontuurkirjaks teisendamine</translation>
+        <translation>Kontuurjoonteks teisendamine</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="943"/>
@@ -36125,7 +36125,7 @@ teisendades nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="128"/>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Väikseima sõna pikkus, mida veel poolitatakse.</translation>
+        <translation>Lühima sõna pikkus, mida veel poolitatakse.</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="138"/>
