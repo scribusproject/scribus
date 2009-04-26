@@ -10,6 +10,7 @@
     <function shortcut="" name="MeshDistortion" />
     <function shortcut="Ctrl+Alt+N" name="NewFromDocumentTemplate" />
     <function shortcut="" name="PathAlongPath" />
+    <function shortcut="" name="PathConnect" />
     <function shortcut="" name="PathCutter" />
     <function shortcut="" name="PathFinder" />
     <function shortcut="" name="PathStroker" />
@@ -62,6 +63,7 @@
     <function shortcut="" name="fileImportText2" />
     <function shortcut="" name="fileImportVector" />
     <function shortcut="Ctrl+N" name="fileNew" />
+    <function shortcut="Ctrl+Alt+N" name="fileNewFromTemplate" />
     <function shortcut="Ctrl+O" name="fileOpen" />
     <function shortcut="" name="filePreferences" />
     <function shortcut="Ctrl+P" name="filePrint" />
@@ -96,6 +98,7 @@
     <function shortcut="" name="insertGlyph" />
     <function shortcut="" name="insertSampleText" />
     <function shortcut="" name="itemAdjustFrameToImage" />
+    <function shortcut="" name="itemAdjustImageToFrame" />
     <function shortcut="" name="itemAttachTextToPath" />
     <function shortcut="" name="itemAttributes" />
     <function shortcut="" name="itemCombinePolygons" />
@@ -143,18 +146,7 @@
     <function shortcut="" name="pageManageGuides" />
     <function shortcut="" name="pageManageMargins" />
     <function shortcut="" name="pageMove" />
-    <function shortcut="" name="shade0" />
-    <function shortcut="" name="shade10" />
-    <function shortcut="" name="shade100" />
-    <function shortcut="" name="shade20" />
-    <function shortcut="" name="shade30" />
-    <function shortcut="" name="shade40" />
-    <function shortcut="" name="shade50" />
-    <function shortcut="" name="shade60" />
-    <function shortcut="" name="shade70" />
-    <function shortcut="" name="shade80" />
-    <function shortcut="" name="shade90" />
-    <function shortcut="" name="shadeOther" />
+    <function shortcut="" name="showMouseCoordinates" />
     <function shortcut="F11" name="specialToggleAllGuides" />
     <function shortcut="F12" name="specialToggleAllPalettes" />
     <function shortcut="Ctrl+Shift+U" name="specialUnicodeSequenceBegin" />
