@@ -1,4 +1,4 @@
-<editorsettings description="Dot (GraphWiz)" icon="dot.svg">
+<editorsettings description="Dot (GraphViz)" icon="dot.svg">
 	<executable command="dot -Tsvg %file -o %file.svg" />
 	<imagefile extension=".svg"/>
 	<empty-frame-text><i18n>
