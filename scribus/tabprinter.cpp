@@ -43,28 +43,22 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	docUnitIndex = prefsData->docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
-	bleedTop->setDecimals( decimals );
+	bleedTop->setNewUnit(docUnitIndex);
 	bleedTop->setMinimum(0.0);
 	bleedTop->setMaximum(3000*unitRatio);
-	bleedTop->setSuffix(unitSuffix);
-	bleedBottom->setDecimals( decimals );
+	bleedBottom->setNewUnit(docUnitIndex);
 	bleedBottom->setMinimum(0.0);
 	bleedBottom->setMaximum(3000*unitRatio);
-	bleedBottom->setSuffix(unitSuffix);
-	bleedLeft->setDecimals( decimals );
+	bleedLeft->setNewUnit(docUnitIndex);
 	bleedLeft->setMinimum(0.0);
 	bleedLeft->setMaximum(3000*unitRatio);
-	bleedLeft->setSuffix(unitSuffix);
-	bleedRight->setDecimals( decimals );
+	bleedRight->setNewUnit(docUnitIndex);
 	bleedRight->setMinimum(0.0);
 	bleedRight->setMaximum(3000*unitRatio);
-	bleedRight->setSuffix(unitSuffix);
-	offsetValue->setDecimals( decimals );
+	offsetValue->setNewUnit(docUnitIndex);
 	offsetValue->setMinimum(0.0);
 	offsetValue->setMaximum(3000*unitRatio);
-	offsetValue->setSuffix(unitSuffix);
 
 	defaultPrinter->setMinimumSize( QSize( 250, 22 ) );
 	defaultPrinter->setMaximumSize( QSize( 260, 30 ) );

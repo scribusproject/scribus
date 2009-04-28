@@ -267,9 +267,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel11b = new QLabel(tr( "Line Style:" ), subTabShape);
 	textLabel11b->setBuddy(comboStyleShape);
 	subTabShapeLayout->addWidget( textLabel11b, 5, 0 );
-	lineWidthShape = new ScrSpinBox( 0, 36, subTabShape, 1 );
+	lineWidthShape = new ScrSpinBox( 0, 36, subTabShape, 0 );
 	lineWidthShape->setDecimals(1);
-	lineWidthShape->setSuffix( tr( " pt" ) );
 	lineWidthShape->setSpecialValueText( tr("Hairline"));
 
 	subTabShapeLayout->addWidget( lineWidthShape, 6, 1, Qt::AlignLeft );
@@ -320,9 +319,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	endArrowText = new QLabel(tr( "End:" ), subTabLine);
 	endArrowText->setBuddy(endArrow);
 	subTabLineLayout->addWidget( endArrowText, 4, 2 );
-	lineWidthLine = new ScrSpinBox( 0, 36, subTabLine, 1 );
+	lineWidthLine = new ScrSpinBox( 0, 36, subTabLine, 0 );
 	lineWidthLine->setDecimals(1);
-	lineWidthLine->setSuffix( tr( " pt" ) );
 	lineWidthLine->setSpecialValueText( tr("Hairline"));
 
 	subTabLineLayout->addWidget( lineWidthLine, 6, 1, Qt::AlignLeft );
