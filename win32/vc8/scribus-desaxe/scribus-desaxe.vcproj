@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Debug-cairo|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -83,7 +83,7 @@
 		<Configuration
 			Name="Release-cairo|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -148,7 +148,7 @@
 		<Configuration
 			Name="Debug-arthur|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -213,7 +213,7 @@
 		<Configuration
 			Name="Release-arthur|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="0"

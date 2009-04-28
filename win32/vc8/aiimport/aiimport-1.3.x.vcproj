@@ -17,7 +17,7 @@
 		<Configuration
 			Name="Debug-cairo|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="1"
@@ -101,7 +101,7 @@
 		<Configuration
 			Name="Release-Cairo|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="1"
@@ -189,7 +189,7 @@
 		<Configuration
 			Name="Debug-arthur|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="1"
@@ -273,7 +273,7 @@
 		<Configuration
 			Name="Release-arthur|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="1"
