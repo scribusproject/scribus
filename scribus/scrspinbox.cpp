@@ -110,20 +110,6 @@ static const QString FinishTag("\xA0");
 
 double ScrSpinBox::valueFromText ( const QString & text ) const
 {
-	//Get all our units strings
-//CB: Replaced by new CommonStrings versions
-// 	QString trStrPT=unitGetStrFromIndex(SC_PT);
-// 	QString trStrMM=unitGetStrFromIndex(SC_MM);
-// 	QString trStrIN=unitGetStrFromIndex(SC_IN);
-// 	QString trStrP =unitGetStrFromIndex(SC_P);
-// 	QString trStrCM=unitGetStrFromIndex(SC_CM);
-// 	QString trStrC =unitGetStrFromIndex(SC_C);
-// 	QString strPT=unitGetUntranslatedStrFromIndex(SC_PT);
-// 	QString strMM=unitGetUntranslatedStrFromIndex(SC_MM);
-// 	QString strIN=unitGetUntranslatedStrFromIndex(SC_IN);
-// 	QString strP =unitGetUntranslatedStrFromIndex(SC_P);
-// 	QString strCM=unitGetUntranslatedStrFromIndex(SC_CM);
-// 	QString strC =unitGetUntranslatedStrFromIndex(SC_C);
 	//Get a copy for use
 	QString ts = text.trimmed();
 	//Find our suffix
@@ -153,6 +139,9 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 // 	qDebug() << "##" << ts;
 	
 	// #7984
+#if defined(_WIN32)
+	ts.replace(",", ".");
+#else
 // 	ts.replace(",", ".");
 	// Fix the separators, thousands and decimal
 	QChar sepGroup(QLocale::system().groupSeparator());
@@ -200,6 +189,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	}
 	// Now we can remove group separators which are useless for processing
 	ts.remove(sepGroup);
+#endif
 	
 	ts.replace("%", "");
 	ts.replace("°", "");
@@ -276,7 +266,8 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 		}
 	}
 // 	qDebug() << "TS"<<ts;
-	int ret = fp.Parse(std::string(ts.toLocal8Bit().data()), "", true);
+	std::string str(ts.toLocal8Bit().data());
+	int ret = fp.Parse(str, "", true);
 // 	qDebug() << "fp return =" << ret << QString::fromAscii(fp.ErrorMsg());
 	if (ret >= 0)
 		return 0;
