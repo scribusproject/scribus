@@ -139,7 +139,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 // 	qDebug() << "##" << ts;
 	
 	// #7984
-#if defined(_WIN32)
+#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
 	ts.replace(",", ".");
 #else
 // 	ts.replace(",", ".");
