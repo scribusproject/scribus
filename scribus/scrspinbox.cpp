@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QtDebug>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QLocale>
 #include <QRegExp>
 
 #include "commonstrings.h"
@@ -151,7 +152,55 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	}
 // 	qDebug() << "##" << ts;
 	
-	ts.replace(",", ".");
+	// #7984
+// 	ts.replace(",", ".");
+	// Fix the separators, thousands and decimal
+	QChar sepGroup(QLocale::system().groupSeparator());
+	QChar sepDecimal(QLocale::system().decimalPoint());
+// 	qDebug()<<"Local decimal sep"<< sepDecimal<< sepDecimal.unicode() <<"- Local group sep"<<sepGroup<<sepGroup.unicode();
+	
+	// case 1, user knows exactly what he does
+	if(ts.contains(sepGroup) && ts.contains(sepDecimal))
+	{
+		// thus we do nothing :) No need to be smart when the user is (or try to be!).
+		// A note if someone comes and complains: in French the separator is a NBSPACE (U+00A0), so it will generally works nicely if the value is copied from the output of a locale-aware application but will certainly fails if the user writes in "presentation mode" as there is quite a chance that he types a regular SPACE (U+0020). Perhaps applicable for others languages.
+		
+	}
+	else if(ts.contains(sepDecimal))
+	{
+		// still nothing to do, at first sight
+	}
+	else if(ts.contains(sepGroup))
+	{
+		
+		// here I see 2 possible strategies, will write both (err, first) and will adjust.
+		// a) 	We consider an automatic conversion is expected if the sepGroup matches
+		//	the sepDecimal of "C" locale "." and is not the sepGroup of "C" locale 
+		//	(It is at least the case in French).
+		// b)	We check if there is a pattern which allows to tell which sign is a sepGroup
+		//	and which is a sepDecimal ("1 000.12" could be a candidate for such analisis)
+		
+		// a
+		if(ts.count(sepGroup) == 1)
+		{
+			QChar cSepGroup(QLocale::c().groupSeparator());
+			QChar cSepDecimal(QLocale::c().decimalPoint());
+			if((sepGroup == cSepDecimal) && (sepGroup != cSepGroup))
+			{
+				ts.replace(sepGroup, sepDecimal);
+			}
+		}
+		
+		// TODO b
+
+	}
+	else if(ts.contains(QLocale::c().decimalPoint())) // no doubt, the user wants us to translate
+	{
+		ts.replace(QLocale::c().decimalPoint(), sepDecimal);
+	}
+	// Now we can remove group separators which are useless for processing
+	ts.remove(sepGroup);
+	
 	ts.replace("%", "");
 	ts.replace("°", "");
 	ts.replace(FinishTag, "");
@@ -226,13 +275,13 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			++it;
 		}
 	}
-	
-	int ret = fp.Parse(ts.toStdString(), "", true);
-//	qDebug() << "fp return =" << ret;
+// 	qDebug() << "TS"<<ts;
+	int ret = fp.Parse(std::string(ts.toLocal8Bit().data()), "", true);
+// 	qDebug() << "fp return =" << ret << QString::fromAscii(fp.ErrorMsg());
 	if (ret >= 0)
 		return 0;
 	double erg = fp.Eval(NULL);
-//	qDebug() << "fp value =" << erg;
+// 	qDebug() << "fp value =" << erg;
 	return erg;
 }
 
