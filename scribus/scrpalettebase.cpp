@@ -47,7 +47,7 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 #else
 	: QDialog ( parent, f | Qt::Tool | Qt::CustomizeWindowHint
 			| Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint
-			| Qt::WindowSystemMenuHint),
+			| Qt::WindowSystemMenuHint | 0x08000000),
 #endif
 	palettePrefs(0),
 	prefsContextName(QString::null),

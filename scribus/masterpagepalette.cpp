@@ -32,7 +32,11 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
-	: QDialog( parent, Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint )
+#if QT_VERSION >= 0x040500
+	: QDialog( parent, Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint)
+#else
+	: QDialog( parent, Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint | 0x08000000)
+#endif
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 	setModal(false);
