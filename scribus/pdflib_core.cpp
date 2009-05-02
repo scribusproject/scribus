@@ -1949,13 +1949,13 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-									{
-										PutPage(setStrokeMulti(&ml[it]));
-										PutPage("0 0 m\n");
-										PutPage(FToStr(ite->width())+" 0 l\n");
-										PutPage("S\n");
-									}
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									PutPage(setStrokeMulti(&ml[it]));
+									PutPage("0 0 m\n");
+									PutPage(FToStr(ite->width())+" 0 l\n");
+									PutPage("S\n");
+								}
 							}
 						}
 						if (ite->startArrowIndex() != 0)
