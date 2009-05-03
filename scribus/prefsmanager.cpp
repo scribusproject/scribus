@@ -1906,12 +1906,10 @@ bool PrefsManager::ReadPref(QString ho)
 			QDesktopWidget *d = QApplication::desktop();
 			QSize gStrut = QApplication::globalStrut();
 			int minX = 0;
+			int minY = 0;
 #ifdef Q_OS_MAC
 			// on Mac you're dead if the titlebar is not on screen
-			int minY = 22;
-			qDebug() << "prefsmanager: adjust for Mac";
-#else
-			int minY = 0;
+			minY = 22;
 #endif
 			if (appPrefs.mainWinSettings.xPosition < minX )
 				appPrefs.mainWinSettings.xPosition = minX;
