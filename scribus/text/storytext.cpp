@@ -1687,7 +1687,7 @@ struct ApplyCharStyle : public MakeAction<ApplyCharStyle_body, const Xml_string&
 class Paragraph_body : public Action_body
 {
 public:
-	Paragraph_body() : lastPos(0), lastStyle(NULL)
+	Paragraph_body() : lastPos(0), numPara(0), lastStyle(NULL)
 	{}
 	
 	~Paragraph_body() 
@@ -1702,8 +1702,7 @@ public:
 		{
 			StoryText* story = this->dig->top<StoryText>();
 //			qDebug() << QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle);
-			lastPos = story->length();
-			if (lastPos > 0) {
+			if (numPara > 0) {
 				story->insertChars(-1, SpecialChars::PARSEP);
 				++lastPos;
 			}
@@ -1731,10 +1730,12 @@ public:
 			{
 				story->applyStyle(lastPos, *lastStyle);
 			}
+			++numPara;
 		}
 	}
 private:
 	int lastPos;
+	int numPara;
 	ParagraphStyle* lastStyle;
 };
 
