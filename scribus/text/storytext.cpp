@@ -1702,6 +1702,7 @@ public:
 		{
 			StoryText* story = this->dig->top<StoryText>();
 //			qDebug() << QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle);
+			lastPos = story->length();
 			if (numPara > 0) {
 				story->insertChars(-1, SpecialChars::PARSEP);
 				++lastPos;
@@ -1726,7 +1727,7 @@ public:
 			StoryText* story = this->dig->top<StoryText>();
 			int len = story->length();
 //			qDebug() << QString("endpar: %1 %2 %3 %4").arg(len).arg(lastPos).arg((ulong)lastStyle).arg(lastStyle? lastStyle->parent() : QString());
-			if (len > lastPos && lastStyle)
+			if (len >= lastPos && lastStyle)
 			{
 				story->applyStyle(lastPos, *lastStyle);
 			}
