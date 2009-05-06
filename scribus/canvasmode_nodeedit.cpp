@@ -1268,11 +1268,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		}
 		else
 		{
-			if (m_doc->nodeEdit.isContourLine)
-				npf = currItem->ContourLine.point(m_doc->nodeEdit.ClRe) + np;
-			else
-				npf = currItem->PoLine.point(m_doc->nodeEdit.ClRe) + np;
-			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, false);
+			npf = m_canvas->globalToCanvas(m->globalPos());
 			double nx = npf.x();
 			double ny = npf.y();
 			if (!m_doc->ApplyGuides(&nx, &ny))
