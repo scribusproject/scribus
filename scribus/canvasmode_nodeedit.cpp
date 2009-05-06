@@ -1272,10 +1272,9 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				npf = currItem->ContourLine.point(m_doc->nodeEdit.ClRe) + np;
 			else
 				npf = currItem->PoLine.point(m_doc->nodeEdit.ClRe) + np;
+			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, false);
 			double nx = npf.x();
 			double ny = npf.y();
-			nx += currItem->xPos();
-			ny += currItem->yPos();
 			if (!m_doc->ApplyGuides(&nx, &ny))
 				npf = m_doc->ApplyGridF(FPoint(nx, ny));
 			else
