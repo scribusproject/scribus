@@ -184,7 +184,6 @@
 #undef WORDS_BIGENDIAN
 
 #define HAVE_CONFIG_H 1
-#undef  LIBART_COMPILATION
 #define WIN32_LEAN_AND_MEAN
 
 typedef unsigned char boolean;
