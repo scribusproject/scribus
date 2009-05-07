@@ -3552,13 +3552,13 @@ void PropertiesPalette::NewW()
 		if (keepFrameWHRatioButton->isChecked())
 		{
 //			m_ScMW->view->frameResizeHandle = 1;
-			doc->scaleGroup(w / gw, w / gw);
+			doc->scaleGroup(w / gw, w / gw, false);
 			setBH(w, (w / gw) * gh);
 		}
 		else
 		{
 //			m_ScMW->view->frameResizeHandle = 6;
-			doc->scaleGroup(w / gw, 1.0);
+			doc->scaleGroup(w / gw, 1.0, false);
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			setBH(gw, gh);
 		}
@@ -3660,13 +3660,13 @@ void PropertiesPalette::NewH()
 			if (keepFrameWHRatioButton->isChecked())
 			{
 //				m_ScMW->view->frameResizeHandle = 1;
-				doc->scaleGroup(h / gh, h / gh);
+				doc->scaleGroup(h / gh, h / gh, false);
 				setBH((h / gh) * gw, h);
 			}
 			else
 			{
 //				m_ScMW->view->frameResizeHandle = 5;
-				doc->scaleGroup(1.0, h / gh);
+				doc->scaleGroup(1.0, h / gh, false);
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
 			}
