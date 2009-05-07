@@ -201,7 +201,7 @@ void Page::restore(UndoState* state, bool isUndo)
 		else if (ss->contains("CREATE_ITEM"))
 			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
-			restorePageItemDeletion(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
+			restorePageItemDeletion(dynamic_cast<ItemState< QList<PageItem*> >*>(ss), isUndo);
 		else if (ss->contains("CONVERT_ITEM"))
 			restorePageItemConversion(dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
 	}
@@ -248,34 +248,44 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	m_Doc->m_Selection->delaySignalsOff();
 }
 
-void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
+void Page::restorePageItemDeletion(ItemState< QList<PageItem*> > *state, bool isUndo)
 {
 	if (!state)
 		return;
+	QList<PageItem*> itemList = state->getItem();
+	if (itemList.count() <= 0) 
+		return;
 	m_Doc->view()->Deselect(true);
-	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
-	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	m_Doc->setMasterPageMode(!itemList.at(0)->OnMasterPage.isEmpty());
 	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
 		m_Doc->scMW()->nodePalette->EndEdit();
 	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
 		//CB #3373 reinsert at old position and renumber items
-		m_Doc->Items->insert(ite->ItemNr, ite);
+		for (int i = 0; i < itemList.count(); ++i)
+		{
+			PageItem* ite = itemList.at(i);
+			m_Doc->Items->insert(ite->ItemNr, ite);
+		}
 		m_Doc->renumberItemsInListOrder();
  		update();
 	}
 	else
 	{
-		if (m_Doc->m_Selection->findItem(ite)!=-1)
-		{
-			if (m_Doc->appMode == modeEdit)
-				m_Doc->view()->requestMode(modeNormal);
-			m_Doc->m_Selection->removeItem(ite);
-		}
 		Selection tmpSelection(m_Doc, false);
-		tmpSelection.addItem(ite);
+		for (int i = 0; i < itemList.count(); ++i)
+		{
+			PageItem* ite = itemList.at(i);
+			if (m_Doc->m_Selection->findItem(ite)!=-1)
+			{
+				if (m_Doc->appMode == modeEdit)
+					m_Doc->view()->requestMode(modeNormal);
+				m_Doc->m_Selection->removeItem(ite);
+			}
+			tmpSelection.addItem(ite);
+		}
 		m_Doc->itemSelection_DeleteItem(&tmpSelection);
 	}
 	m_Doc->m_Selection->delaySignalsOff();

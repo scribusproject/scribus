@@ -7313,7 +7313,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
-		currItem = delItems.last();
+		currItem = delItems.at(selectedItemCount - (de + 1));
 		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable)))
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
@@ -7339,22 +7339,15 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			//CB From view   emit DelBM(currItem);
 			m_ScMW->DelBookMark(currItem);
 		Items->removeAll(currItem);
-		delItems.removeLast();
-		// send the undo action to the UndoManager
-		if (UndoManager::undoEnabled())
-		{
-			ItemState<PageItem*> *is = new ItemState<PageItem*>(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
-			is->setItem(currItem);
-			is->set("DELETE_ITEM", "delete_item");
-			UndoObject *target;
-			if (currItem->OwnPage > -1)
-				target = Pages->at(currItem->OwnPage);
-			else
-				target = Pages->at(0);
-			undoManager->action(target, is, currItem->getUPixmap());
-		}
-		else if (forceDeletion)
+		if (forceDeletion)
 			delete currItem;
+	}
+	if (UndoManager::undoEnabled() && (selectedItemCount > 0) && !forceDeletion)
+	{
+		ItemState< QList<PageItem*> > *is = new ItemState< QList<PageItem*> >(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
+		is->setItem(delItems);
+		is->set("DELETE_ITEM", "delete_item");
+		undoManager->action(Pages->at(0), is, currItem->getUPixmap());
 	}
 	itemSelection->delaySignalsOff();
 	updateFrameItems();

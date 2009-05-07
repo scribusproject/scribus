@@ -1979,7 +1979,7 @@ void ScribusView::Deselect(bool prop)
 				updateContents(currItem->getRedrawBounding(scale));
 		}
 	}
-	if (prop)
+	if (prop && !Doc->m_Selection->signalsDelayed())
 		emit HaveSel(-1);
 }
 
