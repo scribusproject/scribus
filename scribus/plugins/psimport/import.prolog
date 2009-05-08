@@ -938,195 +938,197 @@ currentpagedevice /HWResolution get aload pop
 % changed for Scribus image import by Andreas Vox, 2006-2-21
 % added support for colorimage and other image variant
 
-% /i_image			% <dict> i_image -
-% {
-% %dup { == == } forall
-% /i_image =
-% 	begin 
-% 		/i_left Width Height mul Decode length 2 idiv mul BitsPerComponent mul 8 idiv dup /i_size exch store store 
-% 		/i_dict currentdict store 
-% 		/i_nsources 1 store 
-% 		/i_source 0 store 
-% 		/i_datasource currentdict /DataSource get store
-% 		currentdict /MultipleDataSources known not 
-% 			{ /MultipleDataSources false def } if
-% 		MultipleDataSources
-% 		{
-% 			/i_nsources  DataSource length store
-% 			/i_datasource DataSource 0 get store
-% 		} if
-% 	end
-% 	storeMatrix 
-% 	i_dict /ImageMatrix get matrix invertmatrix matrix currentmatrix matrix concatmatrix /i_m exch def
-% 	i_dict /Width get  0 i_m dtransform dup mul exch dup mul add sqrt /i_w exch def 
-% 	0 i_dict /Height get i_m dtransform dup mul exch dup mul add sqrt /i_h exch def
-% 	0  0 i_m transform  /i_y exch def /i_x exch def 
-% 	i_dict /Width get i_dict /Height get i_m transform
-% 	/i_hflip -1 def /i_vflip 1 def 
-% 	dup i_y le { /i_y exch def } { pop /i_vflip -1 def } ifelse
-% 	dup i_x le { /i_x exch def } { pop /i_hflip  1 def } ifelse
-% 	0 i_dict /Height get i_m dtransform atan
-% 	/i_angle exch def
-% 	(.dat) i_exportfilename
-% 		(im ) print			% im x y w h angle ...
-% 		i_x i_hscale div i_str cvs print ( ) print
-% 		i_y i_vscale div i_str cvs print ( ) print
-% 		i_w i_hscale div i_str cvs print ( ) print
-% 		i_h i_vscale div i_str cvs print ( ) print
-% 		i_angle i_str cvs print ( ) print
-% 		i_dict /Width get  i_str cvs print ( ) print			% ... hpix vpix ...
-% 		i_dict /Height get i_str cvs print ( ) print
-% 		currentcolorspace 0 get /DeviceRGB eq
-% 			{ (tiff24nc ) print } 
-% 		{ currentcolorspace 0 get /DeviceCMYK eq
-% 			{ (psdcmyk ) print } 
-% 		{ currentcolorspace 0 get /DeviceGray eq
-% 			{ (tiffgray ) print } 
-% 			{ (tiff32nc ) print }
-% 		ifelse } ifelse } ifelse
-%         dup  (.tif) concatenate print (\n) print flush			% ... dev filename
-% 		(.dat) concatenate (w) file /i_file exch store			% temp file
-% 	currentcolorspace ==write ( setcolorspace\n) =write
-% 	(<<\n) =write 
-% 	i_dict { exch
-% 		  dup /DataSource eq 
-% 			{ pop pop (/DataSource currentfile\n) =write }
-% 		  {
-% 			dup /ImageMatrix eq 
-% 				{ pop pop (/ImageMatrix [) =write
-% 					i_hflip ==write ( 0 0 ) =write i_vflip ==write 
-% 					( ) =write 
-% 					i_hflip 0 lt { i_dict /Width get } { 0 } ifelse ==write 
-% 					( ) =write 
-% 					i_vflip 0 lt { i_dict /Height get} { 0 } ifelse ==write 
-% 					(]\n) =write }
-% 				{ ==write ( ) =write ==write (\n) =write }
-% 			ifelse 
-% 		  } ifelse 
-% 		} forall 
-% 	(>>\nimage\n) =write i_file flushfile
-% 
-%     { %loop
-%       i_left 0 le 
-%       { 
-% 		i_source 1 add /i_source exch def
-%         i_source i_nsources ge { exit } if
-%         i_dict /DataSource get i_source get /i_datasource exch def
-% 		/i_left i_size def
-%       } if
-%       /i_datasource load exec
-%       dup type /filetype eq
-%        { i_buf 0 i_left 32 .min getinterval readstring pop
-%        } if
-%       dup i_file exch writestring 
-%       i_left exch length sub /i_left exch def
-%     } loop
-%     i_file flushfile
-% /i_imageE =
-%  } bind def
-% 
-% /colorimage
-% {
-% /colorimage =
-% 	% width height bits/sample matrix datasource0..n-1 multi ncomp
-% 	/tmpN exch def
-% 	/tmpMulti exch def
-% 	tmpMulti
-% 	{
-% 		/tmpN load array astore
-% 	} if
-% 	/tmpN load 6 add dict
-% 	dup 7 -1 roll /Width exch put 
-% 	dup 6 -1 roll /Height exch put 
-% 	dup 5 -1 roll /BitsPerComponent exch put 
-% 	dup 4 -1 roll /ImageMatrix exch put 
-% 	dup 3 -1 roll /DataSource exch put 
-% 	tmpMulti
-% 	{
-% 		dup /MultipleDataSources true put
-% 	} if
-% 	dup /ImageType 1 put
-% 	gsave
-% 	/tmpN load
-% 		dup 1 eq
-% 		{
-% 			1 index /Decode [0 1] /Decode put
-%             /DeviceGray setcolorspace
-% 		} if
-% 		dup 3 eq
-% 		{
-% 			1 index /Decode [0 1 0 1 0 1] put
-% 			/DeviceRGB setcolorspace
-% 		} if
-% 		dup 4 eq
-% 		{
-% 			1 index /Decode [0 1 0 1 0 1 0 1]  put
-% 			/DeviceCMYK setcolorspace
-% 		} if
-% 	pop
-% 	i_image
-% 	grestore
-% /colorimageE =
-% } i_shortcutOverload
-% 
-% /image {
-% /image =
-% 	gsave
-% 	dup type /dicttype ne 
-% 	{
-% 		% width height bits/sample matrix datasource
-% 		7 dict
-% 		dup 7 -1 roll /Width exch put
-% 		dup 6 -1 roll /Height exch put
-% 		dup 5 -1 roll /BitsPerComponent  exch put
-% 		dup 4 -1 roll /ImageMatrix exch put
-% 		dup 3 -1 roll /DataSource exch put
-% 		dup 1 /ImageType exch put
-% 		dup [0 1] /Decode exch put
-% 		/DeviceGray setcolorspace
-% 	} if
-% 	i_image
-% 	grestore
-% /imageE =
-% } i_shortcutOverload
-% 
-% /imagemask
-% {
-% /imagemask =
-% 	writecurrentcolor
-% 	(mask\n) print
-% 	gsave
-% 	dup type /dicttype ne 
-% 	{
-% 		% width height pol matrix datasource
-% 		7 dict
-% 		dup 7 -1 roll /Width exch put
-% 		dup 6 -1 roll /Height exch put
-% 		dup 5 -1 roll { [0 1] } { [1 0] } ifelse /Decode exch put
-% 		dup 4 -1 roll /ImageMatrix exch put
-% 		dup 3 -1 roll /DataSource exch put
-% 	} if
-% 	dup 1 /ImageType exch put
-% 	dup 1 /BitsPerComponent exch put
-% 	/DeviceGray setcolorspace
-% 	i_image
-% 	grestore
-% /imagemaskE =
-% } i_shortcutOverload
-% 
-% 
-% % declare some global vars
-% 
-% /i_left 0 def
-% /i_size 0 def
-% /i_dict null def
-% /i_buf 32 string def
-% /i_nsources 1 def
-% /i_source 0 def
-% /i_datasource { (x) } def
-% /i_file null def
-% /i_filecount 1 def
-% 
+/i_image			% <dict> i_image -
+{
+%dup { == == } forall
+/i_image =
+	begin 
+		/i_left Width Height mul Decode length 2 idiv mul BitsPerComponent mul 8 idiv dup /i_size exch store store 
+		/i_dict currentdict store 
+		/i_nsources 1 store 
+		/i_source 0 store 
+		/i_datasource currentdict /DataSource get store
+		currentdict /MultipleDataSources known not 
+			{ /MultipleDataSources false def } if
+		MultipleDataSources
+		{
+			/i_nsources  DataSource length store
+			/i_datasource DataSource 0 get store
+		} if
+	end
+	storeMatrix 
+	i_dict /ImageMatrix get matrix invertmatrix matrix currentmatrix matrix concatmatrix /i_m exch def
+	i_dict /Width get  0 i_m dtransform dup mul exch dup mul add sqrt /i_w exch def 
+	0 i_dict /Height get i_m dtransform dup mul exch dup mul add sqrt /i_h exch def
+	0  0 i_m transform  /i_y exch def /i_x exch def 
+	i_dict /Width get i_dict /Height get i_m transform
+	/i_hflip -1 def /i_vflip 1 def 
+	dup i_y le { /i_y exch def } { pop /i_vflip -1 def } ifelse
+	dup i_x le { /i_x exch def } { pop /i_hflip  1 def } ifelse
+	0 i_dict /Height get i_m dtransform atan
+	/i_angle exch def
+	(.dat) i_exportfilename
+		(im ) print			% im x y w h angle ...
+		i_x i_hscale div i_str cvs print ( ) print
+		i_y i_vscale div i_str cvs print ( ) print
+		i_w i_hscale div i_str cvs print ( ) print
+		i_h i_vscale div i_str cvs print ( ) print
+		i_angle i_str cvs print ( ) print
+		i_dict /Width get  i_str cvs print ( ) print			% ... hpix vpix ...
+		i_dict /Height get i_str cvs print ( ) print
+		currentcolorspace 0 get /DeviceRGB eq
+			{ (tiff24nc ) print } 
+		{ currentcolorspace 0 get /DeviceCMYK eq
+			{ (psdcmyk ) print } 
+		{ currentcolorspace 0 get /DeviceGray eq
+			{ (tiffgray ) print } 
+			{ (tiff32nc ) print }
+		ifelse } ifelse } ifelse
+        dup  (.tif) concatenate print (\n) print flush			% ... dev filename
+		(.dat) concatenate (w) file /i_file exch store			% temp file
+	currentcolorspace ==write ( setcolorspace\n) =write
+	(<<\n) =write 
+	i_dict { exch
+		  dup /DataSource eq 
+			{ pop pop (/DataSource currentfile\n) =write }
+		  {
+			dup /ImageMatrix eq 
+				{ pop pop (/ImageMatrix [) =write
+					i_hflip ==write ( 0 0 ) =write i_vflip ==write 
+					( ) =write 
+					i_hflip 0 lt { i_dict /Width get } { 0 } ifelse ==write 
+					( ) =write 
+					i_vflip 0 lt { i_dict /Height get} { 0 } ifelse ==write 
+					(]\n) =write }
+				{ ==write ( ) =write ==write (\n) =write }
+			ifelse 
+		  } ifelse 
+		} forall 
+	(>>\nimage\n) =write i_file flushfile
+
+    { %loop
+      i_left 0 le 
+      { 
+		i_source 1 add /i_source exch def
+        i_source i_nsources ge { exit } if
+        i_dict /DataSource get i_source get /i_datasource exch def
+		/i_left i_size def
+      } if
+      /i_datasource load exec
+      dup type /filetype eq
+       { i_buf 0 i_left 32 .min getinterval readstring pop
+       } if
+      dup length 0 eq {pop i_zero 0 i_left 32 .min getinterval} if
+      dup i_file exch writestring 
+      i_left exch length sub /i_left exch def
+    } loop
+    i_file flushfile
+/i_imageE =
+ } bind def
+
+/colorimage
+{
+/colorimage =
+	% width height bits/sample matrix datasource0..n-1 multi ncomp
+	/tmpN exch def
+	/tmpMulti exch def
+	tmpMulti
+	{
+		/tmpN load array astore
+	} if
+	/tmpN load 6 add dict
+	dup 7 -1 roll /Width exch put 
+	dup 6 -1 roll /Height exch put 
+	dup 5 -1 roll /BitsPerComponent exch put 
+	dup 4 -1 roll /ImageMatrix exch put 
+	dup 3 -1 roll /DataSource exch put 
+	tmpMulti
+	{
+		dup /MultipleDataSources true put
+	} if
+	dup /ImageType 1 put
+	gsave
+	/tmpN load
+		dup 1 eq
+		{
+			1 index /Decode [0 1] /Decode put
+            /DeviceGray setcolorspace
+		} if
+		dup 3 eq
+		{
+			1 index /Decode [0 1 0 1 0 1] put
+			/DeviceRGB setcolorspace
+		} if
+		dup 4 eq
+		{
+			1 index /Decode [0 1 0 1 0 1 0 1]  put
+			/DeviceCMYK setcolorspace
+		} if
+	pop
+	i_image
+	grestore
+/colorimageE =
+} i_shortcutOverload
+
+/image {
+/image =
+	gsave
+	dup type /dicttype ne 
+	{
+		% width height bits/sample matrix datasource
+		7 dict
+		dup 7 -1 roll /Width exch put
+		dup 6 -1 roll /Height exch put
+		dup 5 -1 roll /BitsPerComponent  exch put
+		dup 4 -1 roll /ImageMatrix exch put
+		dup 3 -1 roll /DataSource exch put
+		dup 1 /ImageType exch put
+		dup [0 1] /Decode exch put
+		/DeviceGray setcolorspace
+	} if
+	i_image
+	grestore
+/imageE =
+} i_shortcutOverload
+
+/imagemask
+{
+/imagemask =
+	writecurrentcolor
+	(mask\n) print
+	gsave
+	dup type /dicttype ne 
+	{
+		% width height pol matrix datasource
+		7 dict
+		dup 7 -1 roll /Width exch put
+		dup 6 -1 roll /Height exch put
+		dup 5 -1 roll { [0 1] } { [1 0] } ifelse /Decode exch put
+		dup 4 -1 roll /ImageMatrix exch put
+		dup 3 -1 roll /DataSource exch put
+	} if
+	dup 1 /ImageType exch put
+	dup 1 /BitsPerComponent exch put
+	/DeviceGray setcolorspace
+	i_image
+	grestore
+/imagemaskE =
+} i_shortcutOverload
+
+
+% declare some global vars
+
+/i_left 0 def
+/i_size 0 def
+/i_dict null def
+/i_buf 32 string def
+/i_nsources 1 def
+/i_source 0 def
+/i_datasource { (x) } def
+/i_file null def
+/i_filecount 1 def
+/i_zero 32 string def
+
 %%%% End of traceimage code
 
 
@@ -1488,4 +1490,5 @@ currentpagedevice /HWResolution get aload pop
 {
 	(sp\n) print
 } i_shortcutOverload
+
 
