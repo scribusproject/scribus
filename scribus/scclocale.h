@@ -14,8 +14,9 @@
 #define SCCLOCALE_H
 
 #include <QLocale>
+#include "scribusapi.h"
 
-class ScCLocale : public QLocale
+class SCRIBUS_API ScCLocale : public QLocale
 {
 	ScCLocale();
 	static ScCLocale * m_instance;

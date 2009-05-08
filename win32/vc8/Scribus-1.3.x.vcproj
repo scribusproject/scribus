@@ -1316,6 +1316,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\scclocale.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\sccolor.cpp"
 				>
 			</File>
@@ -9219,6 +9223,10 @@
 						Outputs="..\..\scribus\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scclocale.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\sccolor.h"
