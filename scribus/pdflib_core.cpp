@@ -1108,7 +1108,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						PutDoc("\n/Filter /FlateDecode");
 					PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream\nendobj\n");
 					glyphCount++;
-					if ((glyphCount > 256) || (glyphCount == RealGlyphs.count()))
+					if ((glyphCount > 255) || (glyphCount == RealGlyphs.count()))
 					{
 						uint fontWidths = newObject();
 						StartObj(fontWidths);
