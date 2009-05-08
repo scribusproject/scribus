@@ -495,6 +495,7 @@ SET(SCRIBUS_SOURCES
   replaceonecolor.cpp
   rulermover.cpp
   sampleitem.cpp
+  scclocale.cpp
   sccolor.cpp
   sccolorengine.cpp
   sccolorshade.cpp
