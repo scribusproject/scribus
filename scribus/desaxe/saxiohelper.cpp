@@ -2,7 +2,7 @@
 #include "saxio.h"
 #include "scfonts.h"
 #include "fpointarray.h"
-
+#include "scclocale.h"
 
 
 
@@ -104,12 +104,12 @@ Xml_string toXMLString(float val)
 
 double parseDouble(const Xml_string& str)
 {
-	return str.toDouble();
+	return ScCLocale::toDoubleC(str);
 }
 
 float parseFloat(const Xml_string& str)
 {
-	return str.toFloat();
+	return ScCLocale::toFloatC(str);
 }
 
 

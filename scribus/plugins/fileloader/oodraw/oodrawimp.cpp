@@ -1038,7 +1038,7 @@ void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e)
 	if ( m_styleStack.hasAttribute("fo:font-size") )
 	{
 		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
-		int FontSize = (int) (fs.toFloat() * 10.0);
+		int FontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
 		style.setFontSize(FontSize);
 	}
 }
@@ -1058,7 +1058,7 @@ void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e)
 	if ( m_styleStack.hasAttribute("fo:font-size") )
 	{
 		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
-		int FontSize = (int) (fs.toFloat() * 10.0);
+		int FontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
 		style.charStyle().setFontSize(FontSize);
 		style.setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
 	}

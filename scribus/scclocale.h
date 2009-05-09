@@ -14,6 +14,7 @@
 #define SCCLOCALE_H
 
 #include <QLocale>
+#include <QString>
 #include "scribusapi.h"
 
 class SCRIBUS_API ScCLocale : public QLocale
@@ -25,6 +26,9 @@ class SCRIBUS_API ScCLocale : public QLocale
 	public:
 		static double toDoubleC(const QString& str, bool * ok = 0);
 		static double toDoubleC(const QString& str, double defValue);
+		static float toFloatC(const QString& str, bool * ok = 0);
+		static float toFloatC(const QString& str, float defValue);
+		static QString toQStringC(double d);
 		
 };
 

@@ -1288,7 +1288,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc1a.setAttribute("DControlCharColor",appPrefs.DControlCharColor.name());
 	dc1a.setAttribute("MARGC",appPrefs.guidesSettings.margColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.marginColored));
-	dc1a.setAttribute("DScale",appPrefs.DisScale);
+	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.DisScale));
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
 	dc2.setAttribute("FACE",appPrefs.toolSettings.defFont);

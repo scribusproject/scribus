@@ -47,3 +47,27 @@ double ScCLocale::toDoubleC(const QString& str, double defValue)
 	}
 	return ret;
 }
+
+float ScCLocale::toFloatC(const QString & str, bool * ok) 
+{
+	double ret( that()->toFloat(str, ok) );
+	return ret;
+}
+
+float ScCLocale::toFloatC(const QString& str, float defValue)
+{
+	double ret = defValue;
+	if (!str.isEmpty())
+	{
+		bool ok  = false;
+		double d = ScCLocale::toFloatC(str, &ok);
+		if (ok)
+			ret = d;
+	}
+	return ret;
+}
+
+QString ScCLocale::toQStringC(double d)
+{
+	return that()->toString(d);
+}
