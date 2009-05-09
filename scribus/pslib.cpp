@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "pluginapi.h"
 #include "prefsmanager.h"
+#include "scclocale.h"
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "scribuscore.h"
@@ -1154,8 +1155,8 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 			int pla = Plate - 1 < 0 ? 3 : Plate - 1;
 			QStringList cols1 = Colors[c+1].split(" ", QString::SkipEmptyParts);
 			QStringList cols2 = Colors[c].split(" ", QString::SkipEmptyParts);
-			PutStream("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
-			PutStream("/C0 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
+			PutStream("/C1 ["+ToStr(1 - ScCLocale::toDoubleC(cols1[pla]))+"]\n");
+			PutStream("/C0 ["+ToStr(1 - ScCLocale::toDoubleC(cols2[pla]))+"]\n");
 		}
 		else
 		{
@@ -1336,8 +1337,8 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 			int pla = Plate - 1 < 0 ? 3 : Plate - 1;
 			QStringList cols1 = Colors[c].split(" ", QString::SkipEmptyParts);
 			QStringList cols2 = Colors[c+1].split(" ", QString::SkipEmptyParts);
-			PutStream("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
-			PutStream("/C0 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
+			PutStream("/C1 ["+ToStr(1 - ScCLocale::toDoubleC(cols1[pla]))+"]\n");
+			PutStream("/C0 ["+ToStr(1 - ScCLocale::toDoubleC(cols2[pla]))+"]\n");
 		}
 		else
 		{
