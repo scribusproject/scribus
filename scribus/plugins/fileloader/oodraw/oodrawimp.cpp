@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "propertiespalette.h"
+#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scmimedata.h"
 #include "scraction.h"
@@ -937,7 +938,7 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 			if( m_styleStack.hasAttribute("svg:stroke-color"))
 				oostyle.strokeColor = parseColor(m_styleStack.attribute("svg:stroke-color"));
 			if( m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
-				oostyle.strokeTrans = m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' ).toDouble() / 100.0;
+				oostyle.strokeTrans = ScCLocale::toDoubleC(m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' )) / 100.0;
 			if( m_styleStack.attribute( "draw:stroke" ) == "dash" )
 			{
 				QString style = m_styleStack.attribute( "draw:stroke-dash" );
@@ -970,7 +971,7 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 			if( m_styleStack.hasAttribute( "draw:fill-color" ) )
 				oostyle.fillColor = parseColor( m_styleStack.attribute("draw:fill-color"));
 			if( m_styleStack.hasAttribute( "draw:transparency" ) )
-				oostyle.fillTrans = m_styleStack.attribute( "draw:transparency" ).remove( '%' ).toDouble() / 100.0;
+				oostyle.fillTrans = ScCLocale::toDoubleC(m_styleStack.attribute( "draw:transparency" ).remove( '%' )) / 100.0;
 		}
 		else if( fill == "gradient" )
 		{
@@ -986,7 +987,7 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 				int shadeS = 100;
 				int shadeE = 100;
 				if( draw->hasAttribute( "draw:border" ) )
-					border += draw->attribute( "draw:border" ).remove( '%' ).toDouble() / 100.0;
+					border += ScCLocale::toDoubleC(draw->attribute( "draw:border" ).remove( '%' )) / 100.0;
 				if( draw->hasAttribute( "draw:start-intensity" ) )
 					shadeS = draw->attribute( "draw:start-intensity" ).remove( '%' ).toInt();
 				if( draw->hasAttribute( "draw:end-intensity" ) )
@@ -995,17 +996,17 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 				if( type == "linear" || type == "axial" )
 				{
 					oostyle.gradient.setType( VGradient::linear );
-					oostyle.gradientAngle = draw->attribute( "draw:angle" ).toDouble() / 10;
+					oostyle.gradientAngle = ScCLocale::toDoubleC(draw->attribute( "draw:angle" )) / 10;
 					oostyle.gradientType = 1;
 				}
 				else if( type == "radial" || type == "ellipsoid" )
 				{
 					if( draw->hasAttribute( "draw:cx" ) )
-						oostyle.gradientPointX = draw->attribute( "draw:cx" ).remove( '%' ).toDouble() / 100.0;
+						oostyle.gradientPointX = ScCLocale::toDoubleC(draw->attribute( "draw:cx" ).remove( '%' )) / 100.0;
 					else
 						oostyle.gradientPointX = 0.5;
 					if( draw->hasAttribute( "draw:cy" ) )
-						oostyle.gradientPointY = draw->attribute( "draw:cy" ).remove( '%' ).toDouble() / 100.0;
+						oostyle.gradientPointY = ScCLocale::toDoubleC(draw->attribute( "draw:cy" ).remove( '%' )) / 100.0;
 					else
 						oostyle.gradientPointY = 0.5;
 					oostyle.gradientType = 2;
@@ -1335,7 +1336,7 @@ double OODPlug::parseUnit(const QString &unit)
 		unitval.replace( "in", "" );
 	else if( unit.right( 2 ) == "px" )
 		unitval.replace( "px", "" );
-	double value = unitval.toDouble();
+	double value = ScCLocale::toDoubleC(unitval);
 	if( unit.right( 2 ) == "pt" )
 		value = value;
 	else if( unit.right( 2 ) == "cm" )
@@ -1370,17 +1371,17 @@ QString OODPlug::parseColor( const QString &s )
 		if( r.contains( "%" ) )
 		{
 			r = r.left( r.length() - 1 );
-			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * r.toDouble() ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 		}
 		if( g.contains( "%" ) )
 		{
 			g = g.left( g.length() - 1 );
-			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * g.toDouble() ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 		}
 		if( b.contains( "%" ) )
 		{
 			b = b.left( b.length() - 1 );
-			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * b.toDouble() ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
@@ -1463,13 +1464,13 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 		else if(subtransform[0] == "skewx")
 		{
 			result = QMatrix();
-			result.shear(-tan(params[0].toDouble()), 0.0);
+			result.shear(-tan(ScCLocale::toDoubleC(params[0])), 0.0);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "skewy")
 		{
 			result = QMatrix();
-			result.shear(0.0, -tan(params[0].toDouble()));
+			result.shear(0.0, -tan(ScCLocale::toDoubleC(params[0])));
 			composite->map(result);
 		}
 	}
@@ -1481,10 +1482,10 @@ void OODPlug::parseViewBox( const QDomElement& object, double *x, double *y, dou
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
 		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
-		*x = points[0].toDouble();
-		*y = points[1].toDouble();
-		*w = points[2].toDouble();
-		*h = points[3].toDouble();
+		*x = ScCLocale::toDoubleC(points[0]);
+		*y = ScCLocale::toDoubleC(points[1]);
+		*w = ScCLocale::toDoubleC(points[2]);
+		*h = ScCLocale::toDoubleC(points[3]);
 	}
 }
 
@@ -1506,7 +1507,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	bool bFirst = true;
 	for( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it )
 	{
-		point = FPoint((*it).section( ',', 0, 0 ).toDouble(), (*it).section( ',', 1, 1 ).toDouble());
+		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1 )));
 		if (bFirst)
 		{
 			composite->addPoint(point);

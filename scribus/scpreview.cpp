@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "missing.h"
 #include "sccolor.h"
+#include "scclocale.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "splash.h"
@@ -88,10 +89,10 @@ QPixmap ScPreview::createPreview(QString data)
 		tmp.loadFromData(inlineImageData);
 		return QPixmap::fromImage(tmp);
 	}
-	double GrX = elem.attribute("XP").toDouble();
-	double GrY = elem.attribute("YP").toDouble();
-	double GrW = elem.attribute("W").toDouble();
-	double GrH = elem.attribute("H").toDouble();
+	double GrX = ScCLocale::toDoubleC(elem.attribute("XP"));
+	double GrY = ScCLocale::toDoubleC(elem.attribute("YP"));
+	double GrW = ScCLocale::toDoubleC(elem.attribute("W"));
+	double GrH = ScCLocale::toDoubleC(elem.attribute("H"));
 	double pmmax = 60 / qMax(GrW+50, GrH+50);
 	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, QImage::Format_ARGB32);
 	tmp.fill( qRgba(255, 255, 255, 0) );
@@ -182,7 +183,7 @@ QPixmap ScPreview::createPreview(QString data)
 				sl.LineEnd = MuL.attribute("LineEnd").toInt();
 				sl.LineJoin = MuL.attribute("LineJoin").toInt();
 				sl.Shade = MuL.attribute("Shade").toInt();
-				sl.Width = MuL.attribute("Width").toDouble();
+				sl.Width = ScCLocale::toDoubleC(MuL.attribute("Width"));
 				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 			}
@@ -204,14 +205,14 @@ QPixmap ScPreview::createPreview(QString data)
 			Segments.clear();
 			// TODO: Nicer conversion
 			OB.PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
-			OB.Xpos = pg.attribute("XPOS").toDouble() - GrX;
-			OB.Ypos = pg.attribute("YPOS").toDouble() - GrY;
-			OB.Width = pg.attribute("WIDTH").toDouble();
-			OB.Height = pg.attribute("HEIGHT").toDouble();
-			OB.RadRect = pg.attribute("RADRECT", "0").toDouble();
+			OB.Xpos = ScCLocale::toDoubleC(pg.attribute("XPOS")) - GrX;
+			OB.Ypos = ScCLocale::toDoubleC(pg.attribute("YPOS")) - GrY;
+			OB.Width = ScCLocale::toDoubleC(pg.attribute("WIDTH"));
+			OB.Height = ScCLocale::toDoubleC(pg.attribute("HEIGHT"));
+			OB.RadRect = ScCLocale::toDoubleC(pg.attribute("RADRECT"), 0.0);
 			OB.ClipEdited = pg.attribute("CLIPEDIT", "0").toInt();
 			OB.FrameType = pg.attribute("FRTYPE", "0").toInt();
-			OB.Pwidth = pg.attribute("PWIDTH").toDouble();
+			OB.Pwidth = ScCLocale::toDoubleC(pg.attribute("PWIDTH"));
 			OB.Pcolor = pg.attribute("PCOLOR");
 			OB.Pcolor2 = pg.attribute("PCOLOR2");
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
@@ -223,18 +224,18 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.TxtStroke = pg.attribute("TXTSTROKE", CommonStrings::None);
 			OB.ShTxtFill = pg.attribute("TXTFILLSH", "100").toInt();
 			OB.ShTxtStroke = pg.attribute("TXTSTRSH", "100").toInt();
-			OB.TxtScale = qRound(pg.attribute("TXTSCALE", "100").toDouble() * 10);
-			OB.TxtScaleV = qRound(pg.attribute("TXTSCALEV", "100").toDouble() * 10);
-			OB.TxTBase = qRound(pg.attribute("TXTBASE", "0").toDouble() * 10);
+			OB.TxtScale = qRound(ScCLocale::toDoubleC(pg.attribute("TXTSCALE"), 100.0) * 10);
+			OB.TxtScaleV = qRound(ScCLocale::toDoubleC(pg.attribute("TXTSCALEV"), 100.0) * 10);
+			OB.TxTBase = qRound(ScCLocale::toDoubleC(pg.attribute("TXTBASE"), 0.0) * 10);
 			OB.TxTStyle = pg.attribute("TXTSTYLE", "0").toInt();
 			OB.GrType = pg.attribute("GRTYP", "0").toInt();
 			OB.fill_gradient.clearStops();
 			if (OB.GrType != 0)
 			{
-				OB.GrStartX = pg.attribute("GRSTARTX", "0.0").toDouble();
-				OB.GrStartY = pg.attribute("GRSTARTY", "0.0").toDouble();
-				OB.GrEndX = pg.attribute("GRENDX", "0.0").toDouble();
-				OB.GrEndY = pg.attribute("GRENDY", "0.0").toDouble();
+				OB.GrStartX = ScCLocale::toDoubleC(pg.attribute("GRSTARTX"), 0.0);
+				OB.GrStartY = ScCLocale::toDoubleC(pg.attribute("GRSTARTY"), 0.0);
+				OB.GrEndX = ScCLocale::toDoubleC(pg.attribute("GRENDX"), 0.0);
+				OB.GrEndY = ScCLocale::toDoubleC(pg.attribute("GRENDY"), 0.0);
 				OB.GrColor = pg.attribute("GRCOLOR","");
 				if (!OB.GrColor.isEmpty())
 				{
@@ -243,16 +244,16 @@ QPixmap ScPreview::createPreview(QString data)
 					OB.GrShade2 = pg.attribute("GRSHADE2", "100").toInt();
 				}
 			}
-			OB.Rot = pg.attribute("ROT").toDouble();
+			OB.Rot = ScCLocale::toDoubleC(pg.attribute("ROT"));
 			OB.PLineArt = Qt::PenStyle(pg.attribute("PLINEART").toInt());
 			OB.PLineEnd = Qt::PenCapStyle(pg.attribute("PLINEEND", "0").toInt());
 			OB.PLineJoin = Qt::PenJoinStyle(pg.attribute("PLINEJOIN", "0").toInt());
-			OB.LineSp = pg.attribute("LINESP").toDouble();
-			OB.ExtraV = static_cast<int>(pg.attribute("EXTRAV", "0").toDouble()); // temporary compiler silencing
-			OB.LocalScX = pg.attribute("LOCALSCX").toDouble();
-			OB.LocalScY = pg.attribute("LOCALSCY").toDouble();
-			OB.LocalX = pg.attribute("LOCALX").toDouble();
-			OB.LocalY = pg.attribute("LOCALY").toDouble();
+			OB.LineSp = ScCLocale::toDoubleC(pg.attribute("LINESP"));
+			OB.ExtraV = static_cast<int>(ScCLocale::toDoubleC(pg.attribute("EXTRAV"), 0.0)); // temporary compiler silencing
+			OB.LocalScX = ScCLocale::toDoubleC(pg.attribute("LOCALSCX"));
+			OB.LocalScY = ScCLocale::toDoubleC(pg.attribute("LOCALSCY"));
+			OB.LocalX = ScCLocale::toDoubleC(pg.attribute("LOCALX"));
+			OB.LocalY = ScCLocale::toDoubleC(pg.attribute("LOCALY"));
 			OB.PicArt = pg.attribute("PICART").toInt();
 			OB.flippedH = pg.attribute("FLIPPEDH").toInt();
 			OB.flippedV = pg.attribute("FLIPPEDV").toInt();
@@ -278,15 +279,15 @@ QPixmap ScPreview::createPreview(QString data)
 			}
 			else
 				OB.TextflowMode = PageItem::TextFlowDisabled;
-			OB.Extra = pg.attribute("EXTRA").toDouble();
-			OB.TExtra = pg.attribute("TEXTRA", "1").toDouble();
-			OB.BExtra = pg.attribute("BEXTRA", "1").toDouble();
-			OB.RExtra = pg.attribute("REXTRA", "1").toDouble();
+			OB.Extra = ScCLocale::toDoubleC(pg.attribute("EXTRA"));
+			OB.TExtra = ScCLocale::toDoubleC(pg.attribute("TEXTRA"), 1.0);
+			OB.BExtra = ScCLocale::toDoubleC(pg.attribute("BEXTRA"), 1.0);
+			OB.RExtra = ScCLocale::toDoubleC(pg.attribute("REXTRA"), 1.0);
 			OB.PoShow = pg.attribute("PTLSHOW", "0").toInt();
-			OB.BaseOffs = pg.attribute("BASEOF", "0").toDouble();
+			OB.BaseOffs = ScCLocale::toDoubleC(pg.attribute("BASEOF"), 0.0);
 			OB.textAlignment = pg.attribute("ALIGN", "0").toInt();
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
-			OB.ISize = qRound(pg.attribute("ISIZE", "12").toDouble() * 10.0);
+			OB.ISize = qRound(ScCLocale::toDoubleC(pg.attribute("ISIZE"), 12.0) * 10.0);
 			if (OB.PType == PageItem::LatexFrame) {
 				OB.Pfile = pg.attribute("LATEXTEMPFILE", ""); 
 				//Hack to create a preview for latex frames
@@ -301,9 +302,9 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.UseEmbedded = pg.attribute("EMBEDDED", "1").toInt();
 			OB.Locked = static_cast<bool>(pg.attribute("LOCK", "0").toInt());
 			OB.Reverse = static_cast<bool>(pg.attribute("REVERS", "0").toInt());
-			OB.Transparency = pg.attribute("TransValue", "0.0").toDouble();
+			OB.Transparency = ScCLocale::toDoubleC(pg.attribute("TransValue"), 0.0);
 			if (pg.hasAttribute("TransValueS"))
-				OB.TranspStroke = pg.attribute("TransValueS", "0.0").toDouble();
+				OB.TranspStroke = ScCLocale::toDoubleC(pg.attribute("TransValueS"), 0.0);
 			else
 				OB.TranspStroke = OB.Transparency;
 			fillBlendmode = pg.attribute("TransBlend", "0").toInt();
@@ -347,7 +348,7 @@ QPixmap ScPreview::createPreview(QString data)
 				if (it.tagName()=="CSTOP")
 				{
 					QString name = it.attribute("NAME");
-					double ramp = it.attribute("RAMP", "0.0").toDouble();
+					double ramp = ScCLocale::toDoubleC(it.attribute("RAMP"), 0.0);
 					int shade = it.attribute("SHADE", "100").toInt();
 					SetQColor(&tmpfa, name, shade);
 					OB.fill_gradient.addStop(tmpfa, ramp, 0.5, 1.0, name, shade);
@@ -412,7 +413,7 @@ QPixmap ScPreview::createPreview(QString data)
 					it++;
 					hg->setFont(prefsManager->appPrefs.AvailFonts[*it]);
 					it++;
-					hg->setFontSize(qRound((*it).toDouble() * 10.0));
+					hg->setFontSize(qRound(ScCLocale::toDoubleC((*it)) * 10.0));
 					it++;
 					hg->setFillColor(*it);
 					it++;

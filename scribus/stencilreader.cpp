@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "pageitem.h"
 #include "prefsmanager.h"
+#include "scclocale.h"
 #include "sccolor.h"
 #include "scpainter.h"
 #include "scribus.h"
@@ -231,7 +232,7 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 					}
 				}
 				else if (command == "stroke-width")
-					strokewidth = params.toDouble();
+					strokewidth = ScCLocale::toDoubleC(params);
 				else if( command == "stroke-linejoin" )
 				{
 					if( params == "miter" )
@@ -254,10 +255,10 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 		}
 		if (STag == "svg:line")
 		{
-			x1 = pg.attribute("x1").toDouble() * Conversion;
-			y1 = pg.attribute("y1").toDouble() * Conversion;
-			x2 = pg.attribute("x2").toDouble() * Conversion;
-			y2 = pg.attribute("y2").toDouble() * Conversion;
+			x1 = ScCLocale::toDoubleC(pg.attribute("x1")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("y1")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("x2")) * Conversion;
+			y2 = ScCLocale::toDoubleC(pg.attribute("y2")) * Conversion;
 			PoLine.addPoint(x1, y1);
 			PoLine.addPoint(x1, y1);
 			PoLine.addPoint(x2, y2);
@@ -265,10 +266,10 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 		}
 		else if (STag == "svg:rect")
 		{
-			x1 = pg.attribute("x").toDouble() * Conversion;
-			y1 = pg.attribute("y").toDouble() * Conversion;
-			x2 = pg.attribute("width").toDouble() * Conversion;
-			y2 = pg.attribute("height").toDouble() * Conversion;
+			x1 = ScCLocale::toDoubleC(pg.attribute("x")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("y")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("width")) * Conversion;
+			y2 = ScCLocale::toDoubleC(pg.attribute("height")) * Conversion;
 			static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 									1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 									0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
@@ -294,16 +295,16 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 			{
 				if( bFirst )
 				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
+					x = ScCLocale::toDoubleC(*(it++));
+					y = ScCLocale::toDoubleC(*it);
 					svgMoveTo(x * Conversion, y * Conversion);
 					bFirst = false;
 					WasM = true;
 				}
 				else
 				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
+					x = ScCLocale::toDoubleC(*(it++));
+					y = ScCLocale::toDoubleC(*it);
 					svgLineTo(&PoLine, x * Conversion, y * Conversion);
 				}
 			}
@@ -317,10 +318,10 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 		}
 		else if (STag == "svg:circle")
 		{
-			x1 = pg.attribute("r").toDouble() * Conversion;
-			y1 = pg.attribute("r").toDouble() * Conversion;
-			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
-			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 = ScCLocale::toDoubleC(pg.attribute("r")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("r")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("cx")) * Conversion - x1;
+			y2 = ScCLocale::toDoubleC(pg.attribute("cy")) * Conversion - y1;
 			x1 *= 2.0;
 			y1 *= 2.0;
 			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
@@ -339,10 +340,10 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 		}
 		else if (STag == "svg:ellipse")
 		{
-			x1 = pg.attribute("rx").toDouble() * Conversion;
-			y1 = pg.attribute("ry").toDouble() * Conversion;
-			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
-			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 = ScCLocale::toDoubleC(pg.attribute("rx")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("ry")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("cx")) * Conversion - x1;
+			y2 = ScCLocale::toDoubleC(pg.attribute("cy")) * Conversion - y1;
 			x1 *= 2.0;
 			y1 *= 2.0;
 			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
@@ -516,10 +517,10 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		}
 		if (STag == "svg:line")
 		{
-			x1 = pg.attribute("x1").toDouble() * Conversion;
-			y1 = pg.attribute("y1").toDouble() * Conversion;
-			x2 = pg.attribute("x2").toDouble() * Conversion;
-			y2 = pg.attribute("y2").toDouble() * Conversion;
+			x1 = ScCLocale::toDoubleC(pg.attribute("x1")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("y1")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("x2")) * Conversion;
+			y2 = ScCLocale::toDoubleC(pg.attribute("y2")) * Conversion;
 			PoLine.addPoint(x1, y1);
 			PoLine.addPoint(x1, y1);
 			PoLine.addPoint(x2, y2);
@@ -527,10 +528,10 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		}
 		else if (STag == "svg:rect")
 		{
-			x1 = pg.attribute("x").toDouble() * Conversion;
-			y1 = pg.attribute("y").toDouble() * Conversion;
-			x2 = pg.attribute("width").toDouble() * Conversion;
-			y2 = pg.attribute("height").toDouble() * Conversion;
+			x1 = ScCLocale::toDoubleC(pg.attribute("x")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("y")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("width")) * Conversion;
+			y2 = ScCLocale::toDoubleC(pg.attribute("height")) * Conversion;
 			static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 									1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 									0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
@@ -556,16 +557,16 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 			{
 				if( bFirst )
 				{
-					x = (*(it1++)).toDouble();
-					y = (*it1).toDouble();
+					x = ScCLocale::toDoubleC(*(it1++));
+					y = ScCLocale::toDoubleC(*it1);
 					svgMoveTo(x * Conversion, y * Conversion);
 					bFirst = false;
 					WasM = true;
 				}
 				else
 				{
-					x = (*(it1++)).toDouble();
-					y = (*it1).toDouble();
+					x = ScCLocale::toDoubleC(*(it1++));
+					y = ScCLocale::toDoubleC(*it1);
 					svgLineTo(&PoLine, x * Conversion, y * Conversion);
 				}
 			}
@@ -579,10 +580,10 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		}
 		else if (STag == "svg:circle")
 		{
-			x1 = pg.attribute("r").toDouble() * Conversion;
-			y1 = pg.attribute("r").toDouble() * Conversion;
-			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
-			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 = ScCLocale::toDoubleC(pg.attribute("r")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("r")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("cx")) * Conversion - x1;
+			y2 = ScCLocale::toDoubleC(pg.attribute("cy")) * Conversion - y1;
 			x1 *= 2.0;
 			y1 *= 2.0;
 			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
@@ -601,10 +602,10 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		}
 		else if (STag == "svg:ellipse")
 		{
-			x1 = pg.attribute("rx").toDouble() * Conversion;
-			y1 = pg.attribute("ry").toDouble() * Conversion;
-			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
-			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 = ScCLocale::toDoubleC(pg.attribute("rx")) * Conversion;
+			y1 = ScCLocale::toDoubleC(pg.attribute("ry")) * Conversion;
+			x2 = ScCLocale::toDoubleC(pg.attribute("cx")) * Conversion - x1;
+			y2 = ScCLocale::toDoubleC(pg.attribute("cy")) * Conversion - y1;
 			x1 *= 2.0;
 			y1 *= 2.0;
 			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
@@ -685,7 +686,7 @@ double StencilReader::parseUnit(const QString &unit)
 		unitval.replace( sPX, "" );
 	if (unitval == unit)
 		noUnit = true;
-	double value = unitval.toDouble();
+	double value = ScCLocale::toDoubleC(unitval);
 	if( unit.right( 2 ) == sPT )
 		value = value;
 	else if( unit.right( 2 ) == sCM )
@@ -1107,8 +1108,8 @@ QPixmap StencilReader::createPreview(QString data)
 	if (list.count() == 0)
 		return QPixmap();
 	QDomElement dims = list.item(0).toElement();
-	GrW = dims.attribute("w","50").toDouble()+10;
-	GrH = dims.attribute("h","50").toDouble()+10;
+	GrW = ScCLocale::toDoubleC(dims.attribute("w"), 50.0) + 10;
+	GrH = ScCLocale::toDoubleC(dims.attribute("h"), 50.0) + 10;
 	pmmax = 60 / qMax(GrW, GrH);
 	tmp = QImage(static_cast<int>(GrW), static_cast<int>(GrH), QImage::Format_ARGB32);
 	pS = new ScPainter(&tmp, tmp.width(), tmp.height());
@@ -1154,15 +1155,15 @@ QPixmap StencilReader::createPreview(QString data)
 				{
 					QString colnam = pt.attribute("color","#FFFFFF");
 					stroke.setNamedColor("#"+colnam.right(6));
-					strokewidth = pt.attribute("width", "1").toDouble();
+					strokewidth = ScCLocale::toDoubleC(pt.attribute("width"), 1.0);
 					LineJoin = Qt::PenJoinStyle(pt.attribute("joinStyle", "0").toInt());
 					Dash = Qt::PenStyle(pt.attribute("pattern", "1").toInt());
 					LineEnd = Qt::PenCapStyle(pt.attribute("capStyle", "0").toInt());
 				}
 				if(pt.tagName()=="KivioPoint")
 				{
-					x = pt.attribute("x").toDouble();
-					y = pt.attribute("y").toDouble();
+					x = ScCLocale::toDoubleC(pt.attribute("x"));
+					y = ScCLocale::toDoubleC(pt.attribute("y"));
 					if (first)
 					{
 						currx = x;
@@ -1228,10 +1229,10 @@ QPixmap StencilReader::createPreview(QString data)
 				{
 					if (!first)
 						PoLine.setMarker();
-					x = pt.attribute("x1").toDouble();
-					y = pt.attribute("y1").toDouble();
-					x1 = pt.attribute("x2").toDouble();
-					y1 = pt.attribute("y2").toDouble();
+					x = ScCLocale::toDoubleC(pt.attribute("x1"));
+					y = ScCLocale::toDoubleC(pt.attribute("y1"));
+					x1 = ScCLocale::toDoubleC(pt.attribute("x2"));
+					y1 = ScCLocale::toDoubleC(pt.attribute("y2"));
 					PoLine.addPoint(x, y);
 					PoLine.addPoint(x, y);
 					PoLine.addPoint(x1, y1);
@@ -1261,10 +1262,10 @@ QPixmap StencilReader::createPreview(QString data)
 				pS->setBrush(fill);
 				pS->setFillMode(fillStyle);
 				pS->setPen(stroke, strokewidth, Dash, LineEnd, LineJoin);
-				x = pg.attribute("x").toDouble();
-				y = pg.attribute("y").toDouble();
-				x1 = pg.attribute("w").toDouble();
-				y1 = pg.attribute("h").toDouble();
+				x = ScCLocale::toDoubleC(pg.attribute("x"));
+				y = ScCLocale::toDoubleC(pg.attribute("y"));
+				x1 = ScCLocale::toDoubleC(pg.attribute("w"));
+				y1 = ScCLocale::toDoubleC(pg.attribute("h"));
 				static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 										1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 										0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
@@ -1287,10 +1288,10 @@ QPixmap StencilReader::createPreview(QString data)
 				pS->setBrush(fill);
 				pS->setFillMode(fillStyle);
 				pS->setPen(stroke, strokewidth, Dash, LineEnd, LineJoin);
-				x = pg.attribute("x").toDouble();
-				y = pg.attribute("y").toDouble();
-				x1 = pg.attribute("w").toDouble();
-				y1 = pg.attribute("h").toDouble();
+				x = ScCLocale::toDoubleC(pg.attribute("x"));
+				y = ScCLocale::toDoubleC(pg.attribute("y"));
+				x1 = ScCLocale::toDoubleC(pg.attribute("w"));
+				y1 = ScCLocale::toDoubleC(pg.attribute("h"));
 				static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
 										0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
 										0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
@@ -1448,8 +1449,8 @@ QString StencilReader::createObjects(QString datain)
 	QDomElement group = data.documentElement();
 	QDomNodeList listItems = elem.elementsByTagName("KivioShape");
 	QDomElement dims = list.item(0).toElement();
-	GrW = dims.attribute("w","50").toDouble();
-	GrH = dims.attribute("h","50").toDouble();
+	GrW = ScCLocale::toDoubleC(dims.attribute("w"), 50.0);
+	GrH = ScCLocale::toDoubleC(dims.attribute("h"), 50.0);
 	group.setAttribute("W", GrW);
 	group.setAttribute("H", GrH);
 	group.setAttribute("XP", 0.0);
@@ -1661,15 +1662,15 @@ QString StencilReader::createObjects(QString datain)
 						StrokeCol = "Black";
 					else
 						StrokeCol = "FromKivio"+stroke.name();
-					strokewidth = pt.attribute("width", "1").toDouble();
+					strokewidth = ScCLocale::toDoubleC(pt.attribute("width"), 1.0);
 					LineJoin = Qt::PenJoinStyle(pt.attribute("joinStyle", "0").toInt());
 					Dash = Qt::PenStyle(pt.attribute("pattern", "1").toInt());
 					LineEnd = Qt::PenCapStyle(pt.attribute("capStyle", "0").toInt());
 				}
 				if(pt.tagName()=="KivioPoint")
 				{
-					x = pt.attribute("x").toDouble();
-					y = pt.attribute("y").toDouble();
+					x = ScCLocale::toDoubleC(pt.attribute("x"));
+					y = ScCLocale::toDoubleC(pt.attribute("y"));
 					if (first)
 					{
 						currx = x;
@@ -1735,10 +1736,10 @@ QString StencilReader::createObjects(QString datain)
 				{
 					if (!first)
 						PoLine.setMarker();
-					x = pt.attribute("x1").toDouble();
-					y = pt.attribute("y1").toDouble();
-					x1 = pt.attribute("x2").toDouble();
-					y1 = pt.attribute("y2").toDouble();
+					x = ScCLocale::toDoubleC(pt.attribute("x1"));
+					y = ScCLocale::toDoubleC(pt.attribute("y1"));
+					x1 = ScCLocale::toDoubleC(pt.attribute("x2"));
+					y1 = ScCLocale::toDoubleC(pt.attribute("y2"));
 					PoLine.addPoint(x, y);
 					PoLine.addPoint(x, y);
 					PoLine.addPoint(x1, y1);
@@ -1791,10 +1792,10 @@ QString StencilReader::createObjects(QString datain)
 					ob.setAttribute("PTYPE", PageItem::Polygon);
 				else
 					ob.setAttribute("PTYPE", PageItem::TextFrame);
-				x = pg.attribute("x").toDouble();
-				y = pg.attribute("y").toDouble();
-				x1 = pg.attribute("w").toDouble();
-				y1 = pg.attribute("h").toDouble();
+				x = ScCLocale::toDoubleC(pg.attribute("x"));
+				y = ScCLocale::toDoubleC(pg.attribute("y"));
+				x1 = ScCLocale::toDoubleC(pg.attribute("w"));
+				y1 = ScCLocale::toDoubleC(pg.attribute("h"));
 				static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 										1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 										0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
@@ -1813,10 +1814,10 @@ QString StencilReader::createObjects(QString datain)
 			else if (typ == "Ellipse")
 			{
 				ob.setAttribute("PTYPE", PageItem::Polygon);
-				x = pg.attribute("x").toDouble();
-				y = pg.attribute("y").toDouble();
-				x1 = pg.attribute("w").toDouble();
-				y1 = pg.attribute("h").toDouble();
+				x = ScCLocale::toDoubleC(pg.attribute("x"));
+				y = ScCLocale::toDoubleC(pg.attribute("y"));
+				x1 = ScCLocale::toDoubleC(pg.attribute("w"));
+				y1 = ScCLocale::toDoubleC(pg.attribute("h"));
 				static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
 										0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
 										0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,

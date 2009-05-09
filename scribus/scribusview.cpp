@@ -101,6 +101,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 #include "rulermover.h"
+#include "scclocale.h"
 #include "scmessagebox.h"
 #include "scmimedata.h"
 #include "scpainter.h"
@@ -3489,7 +3490,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				it++;
 				nstyle.setFont((*Doc->AllFonts)[*it]);
 				it++;
-				nstyle.setFontSize(qRound((*it).toDouble() * 10));
+				nstyle.setFontSize(qRound(ScCLocale::toDoubleC((*it)) * 10));
 				it++;
 				nstyle.setFillColor(*it);
 				it++;

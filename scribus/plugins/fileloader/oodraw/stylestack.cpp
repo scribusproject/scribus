@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "stylestack.h"
 #include "oodrawimp.h"
-//Added by qt3to4:
+#include "scclocale.h"
 #include <QList>
 
 StyleStack::StyleStack()
@@ -156,7 +156,7 @@ double StyleStack::fontSize() const
         if ( properties.hasAttribute( name ) ) {
             QString value = properties.attribute( name );
             if ( value.endsWith( "%" ) )
-                percent *= value.toDouble() / 100.0;
+				percent *= ScCLocale::toDoubleC(value) / 100.0;
             else
                 return percent * OODPlug::parseUnit( value ); // e.g. 12pt
         }
