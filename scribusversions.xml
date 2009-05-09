@@ -12,9 +12,9 @@
   <release platform="Win32" stability="unstable" version="1.3.4" />
   <release platform="MacOSX" stability="unstable" version="1.3.4" />
   <release platform="OS2" stability="unstable" version="1.3.4" />
-  <release platform="X11" stability="unstablesvn" version="1.3.5svn" />
-  <release platform="Win32" stability="unstablesvn" version="1.3.5svn" />
-  <release platform="MacOSX" stability="unstablesvn" version="1.3.5svn" />
-  <release platform="OS2" stability="unstablesvn" version="1.3.5svn" />
+  <release platform="X11" stability="unstablesvn" version="1.3.5.rc1" />
+  <release platform="Win32" stability="unstablesvn" version="1.3.5.rc1" />
+  <release platform="MacOSX" stability="unstablesvn" version="1.3.5.rc1" />
+  <release platform="OS2" stability="unstablesvn" version="1.3.5.rc1" />
   <message lang="en" > - Scribus 1.3.3.13 is the latest stable release.<![CDATA[<br>]]> - We have stabilised 1.3.3.x for those wishing to use some new features of the 1.3.x series but need more stability.<![CDATA[<br>]]> - Scribus 1.3.4 was released 29 May 2007 </message>
 </scribus>

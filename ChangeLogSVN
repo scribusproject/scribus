@@ -1,5 +1,37 @@
 
 Scribus - 1.3.5svn
+- 0006464: [Import / Export] eps import hang scribus when importing file with image (fschmid) - resolved.
+- 0008012: [Graphics / Image Frames] problem when editing control points on rotated shapes (jghali) - resolved.
+- 0005780: [Usability] Scribus doesn't track what documents are already opened (subik) - resolved.
+- 0007762: [User Interface] middle mouse panning (GIMP+InNkscape like) (fschmid) - resolved.
+- 0006935: [Mac OS] Height of pull-down menu showing inconsistencies in Style Manager, Guide Managers and in the PP wrt other dialog boxes (subik) - resolved.
+- 0004822: [Undo/Redo] Master Pages: Crash when trying to undo non existing objects (Tsoots) - resolved.
+- 0008000: [General] No Close button on Master Pages dialog (jghali) - closed.
+- 0008009: [Story Editor / Text Frames] Item duplicate changes text formatting (jghali) - closed.
+- 0008016: [Graphics / Image Frames] undoing large group deletion hangs Scribus (jghali) - closed.
+- 0008011: [Story Editor / Text Frames] Changing size of multiple text frames from PP does not work correctly (jghali) - closed.
+- 0008017: [PDF] Exported PDF with CJK fonts corrupted (jghali) - closed.
+- 0002164: [User Interface] Guides won't let go of snapped items (jghali) - closed.
+- 0003277: [Shape Drawing] Snap-to-guides (jghali) - closed.
+- 0005087: [Undo/Redo] Undo "Convert to Outlines" doesn't work correctly (jghali) - closed.
+- 0008004: [Story Editor / Text Frames] Copying text frames with leading newlines skips the newlines (jghali) - closed.
+- 0008001: [Build System] Failure to build svn13440 with qt44 (jghali) - closed.
+- 0007998: [General] build information in about screen should be selectable for copy and paste (cbradney) - closed.
+- 0007913: [General] after inserting a link or an empty text frame into a scribus file and clicking save, scribus crashes (jghali) - closed.
+- 0007911: [Scripter] Using scribus.importPages() causes a segmentation fault and Scribus crashes (subik) - closed.
+- 0007973: [General] crash when trying to open a file (jghali) - closed.
+- 0007964: [Import / Export] PDF export crash when object uses an end arrow and no start arrow (jghali) - closed.
+- 0007948: [Shape Drawing] moving grouped objects or multiple selection is broken when using properties palette (jghali) - closed.
+- 0007985: [User Interface] About page lacks licence notice (cbradney) - closed.
+- 0007383: [Qt4 Port] changeing of position of object takes very much CPU power (jghali) - closed.
+- 0007982: [Translation] Estonian translation update (again...) (cbradney) - closed.
+- 0007980: [Translation] Estonian translation update (cbradney) - closed.
+- 0007959: [Translation] Translated 100_latex.xml into Russian (cbradney) - closed.
+- 0007946: [Styles] style not cloned under right parent when cloning paragraph style (jghali) - closed.
+- 0007953: [User Interface] incorrect update of combo boxes when switching language (jghali) - closed.
+- 0007947: [Translation] next/previous page is always in english (cbradney) - closed.
+- 0007944: [General] scribus hang when opening file (jghali) - closed.
+- 0007935: [Import / Export] Selecting an imported vector file causes Scribus to hang (jghali) - closed.
 - 0005813: [Import / Export] Undoing any vector import lets desktop freeze (cbradney) - resolved.
 - 0007935: [Import / Export] Selecting an imported vector file causes Scribus to hang (jghali) - resolved.
 - 0005780: [Usability] Scribus doesn't track what documents are already opened (subik) - resolved.

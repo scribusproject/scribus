@@ -9,7 +9,7 @@
 #error "Include <scconfig.h> rather than using <config.h> directly"
 #endif
 
-#cmakedefine VERSION "1.3.5.beta"
+#cmakedefine VERSION "1.3.5.rc1"
 
 #cmakedefine BUILD_WINDOWS_VERSION 1
 #cmakedefine SC_USE_GDI 1
