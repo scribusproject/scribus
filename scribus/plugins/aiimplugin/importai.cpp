@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "rawimage.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
+#include "scclocale.h"
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scpattern.h"
@@ -1958,7 +1959,7 @@ void AIPlug::processGradientData(QString data)
 		else if ((command == "%_Bs") || (command == "%_BS"))
 		{
 			QString stopName = "";
-			double stop = da2[da2.count()-2].toDouble() / 100.0;
+			double stop = ScCLocale::toDoubleC(da2[da2.count()-2]) / 100.0;
 			double colorShade = 100.0;
 			int colortype = da2[da2.count()-4].toInt();
 			if (colortype == 0)

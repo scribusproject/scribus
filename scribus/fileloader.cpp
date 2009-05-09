@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "resourcecollection.h"
 #include "scconfig.h"
+#include "scclocale.h"
 #include "scribuscore.h"
 #include "scribusXml.h"
 #include "units.h"
@@ -364,23 +365,23 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 {
 	vg.setName(pg.attribute("NAME"));
 	vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
-	vg.setLineSpacing(pg.attribute("LINESP").toDouble());
-	vg.setLeftMargin(pg.attribute("INDENT", "0").toDouble());
+	vg.setLineSpacing(ScCLocale::toDoubleC(pg.attribute("LINESP")));
+	vg.setLeftMargin(ScCLocale::toDoubleC(pg.attribute("INDENT"), 0.0));
 	if (pg.hasAttribute("RMARGIN"))
-		vg.setRightMargin(pg.attribute("RMARGIN", "0").toDouble());
+		vg.setRightMargin(ScCLocale::toDoubleC(pg.attribute("RMARGIN"), 0.0));
 	else
 		vg.setRightMargin(0);
-	vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
+	vg.setFirstIndent(ScCLocale::toDoubleC(pg.attribute("FIRST"), 0.0));
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
-	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
-	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
+	vg.setGapBefore(ScCLocale::toDoubleC(pg.attribute("VOR"), 0.0));
+	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
 	QString tmpf = pg.attribute("FONT", currDoc->toolSettings.defFont);
 	currDoc->AllFonts->findFont(tmpf, currDoc);
 		vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
-		vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
+		vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
 		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
-		vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
+		vg.setDropCapOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 		vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
 		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->toolSettings.dBrush));
 		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
@@ -388,17 +389,17 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
 			vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
-		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
-		vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
-		vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
-		vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
-		vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
-		vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
-		vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
-		vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
-		vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
-		vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
-		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
+		vg.charStyle().setShadowXOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSHX"), 5.0)) * 10);
+		vg.charStyle().setShadowYOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSHY"), -5.0)) * 10);
+		vg.charStyle().setOutlineWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTOUT"), 1.0)) * 10);
+		vg.charStyle().setUnderlineOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTULP"), -0.1)) * 10);
+		vg.charStyle().setUnderlineWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTULW"), -0.1)) * 10);
+		vg.charStyle().setStrikethruOffset(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSTP"), -0.1)) * 10);
+		vg.charStyle().setStrikethruWidth(qRound(ScCLocale::toDoubleC(pg.attribute("TXTSTW"), -0.1)) * 10);
+		vg.charStyle().setScaleH(qRound(ScCLocale::toDoubleC(pg.attribute("SCALEH"), 100.0)) * 10);
+		vg.charStyle().setScaleV(qRound(ScCLocale::toDoubleC(pg.attribute("SCALEV"), 100.0)) * 10);
+		vg.charStyle().setBaselineOffset(qRound(ScCLocale::toDoubleC(pg.attribute("BASEO"), 0.0)) * 10);
+		vg.charStyle().setTracking(qRound(ScCLocale::toDoubleC(pg.attribute("KERN"), 0.0)) * 10);
 		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 		{
 			QList<ParagraphStyle::TabRecord> tbs;
@@ -428,7 +429,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 				if (it.tagName()=="Tabs")
 				{
 					ParagraphStyle::TabRecord tb;
-					tb.tabPosition = it.attribute("Pos").toDouble();
+					tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
 					tb.tabType = it.attribute("Type").toInt();
 					QString tbCh = "";
 					tbCh = it.attribute("Fill","");
