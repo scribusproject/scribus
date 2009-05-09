@@ -32,6 +32,5 @@ ScCLocale * ScCLocale::that()
 double ScCLocale::toDoubleC(const QString & str, bool * ok) 
 {
 	double ret( that()->toDouble(str, ok) );
-//  	qDebug()<<"toDoubleC "<<str<<"="<<ret;
 	return ret;
 }

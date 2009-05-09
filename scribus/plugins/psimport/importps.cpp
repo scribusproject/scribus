@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "propertiespalette.h"
 #include "scconfig.h"
+#include "scclocale.h"
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scribus.h"
@@ -981,10 +982,10 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
 	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2;
-	x1 = vals.section(' ', 0, 0, QString::SectionSkipEmpty).toDouble();
-	y1 = vals.section(' ', 1, 1, QString::SectionSkipEmpty).toDouble();
-	x2 = vals.section(' ', 2, 2, QString::SectionSkipEmpty).toDouble();
-	y2 = vals.section(' ', 3, 3, QString::SectionSkipEmpty).toDouble();
+	x1 = ScCLocale::toDoubleC(vals.section(' ', 0, 0, QString::SectionSkipEmpty));
+	y1 = ScCLocale::toDoubleC(vals.section(' ', 1, 1, QString::SectionSkipEmpty));
+	x2 = ScCLocale::toDoubleC(vals.section(' ', 2, 2, QString::SectionSkipEmpty));
+	y2 = ScCLocale::toDoubleC(vals.section(' ', 3, 3, QString::SectionSkipEmpty));
 	if ((!FirstM) && (WasM))
 		i->setMarker();
 	FirstM = false;
@@ -1000,14 +1001,14 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2, x3, y3, x4, y4;
-	x1 = vals.section(' ', 0, 0, QString::SectionSkipEmpty).toDouble();
-	y1 = vals.section(' ', 1, 1, QString::SectionSkipEmpty).toDouble();
-	x2 = vals.section(' ', 2, 2, QString::SectionSkipEmpty).toDouble();
-	y2 = vals.section(' ', 3, 3, QString::SectionSkipEmpty).toDouble();
-	x3 = vals.section(' ', 4, 4, QString::SectionSkipEmpty).toDouble();
-	y3 = vals.section(' ', 5, 5, QString::SectionSkipEmpty).toDouble();
-	x4 = vals.section(' ', 6, 6, QString::SectionSkipEmpty).toDouble();
-	y4 = vals.section(' ', 7, 7, QString::SectionSkipEmpty).toDouble();
+	x1 = ScCLocale::toDoubleC(vals.section(' ', 0, 0, QString::SectionSkipEmpty));
+	y1 = ScCLocale::toDoubleC(vals.section(' ', 1, 1, QString::SectionSkipEmpty));
+	x2 = ScCLocale::toDoubleC(vals.section(' ', 2, 2, QString::SectionSkipEmpty));
+	y2 = ScCLocale::toDoubleC(vals.section(' ', 3, 3, QString::SectionSkipEmpty));
+	x3 = ScCLocale::toDoubleC(vals.section(' ', 4, 4, QString::SectionSkipEmpty));
+	y3 = ScCLocale::toDoubleC(vals.section(' ', 5, 5, QString::SectionSkipEmpty));
+	x4 = ScCLocale::toDoubleC(vals.section(' ', 6, 6, QString::SectionSkipEmpty));
+	y4 = ScCLocale::toDoubleC(vals.section(' ', 7, 7, QString::SectionSkipEmpty));
 	if ((!FirstM) && (WasM))
 		i->setMarker();
 	FirstM = false;

@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "prefsmanager.h"
 #include "scribusview.h"
+#include "scclocale.h"
 #include "commonstrings.h"
 #include "text/nlsconfig.h"
 
@@ -103,7 +104,7 @@ double ScriXmlDoc::attrAsDbl(const QXmlStreamAttributes& attrs, const char* attN
 	double value = defVal;
 	QStringRef att = attrs.value(attString);
 	if (!att.isEmpty())
-		value = QString::fromRawData(att.constData(), att.length()).toDouble();
+		value = ScCLocale::toDoubleC(QString::fromRawData(att.constData(), att.length()));
 	return value;
 }
 
@@ -902,10 +903,10 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 				QString atty = attrs.value("YP").toString();
 				QString attw = attrs.value("W").toString();
 				QString atth = attrs.value("H").toString();
-				*x = (attx.isEmpty()) ? 0.0 : attx.toDouble();
-				*y = (atty.isEmpty()) ? 0.0 : atty.toDouble();
-				*w = (attw.isEmpty()) ? 0.0 : attw.toDouble();
-				*h = (atth.isEmpty()) ? 0.0 : atth.toDouble();
+				*x = (attx.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(attx);
+				*y = (atty.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(atty);
+				*w = (attw.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(attw);
+				*h = (atth.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(atth);
 				succeed = true;
 			}
 		}
@@ -973,8 +974,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 				QXmlStreamAttributes attrs = sReader.attributes();
 				if (!loc)
 				{
-					GrX = attrs.value("XP").toString().toDouble();
-					GrY = attrs.value("YP").toString().toDouble();
+					GrX = ScCLocale::toDoubleC(attrs.value("XP").toString());
+					GrY = ScCLocale::toDoubleC(attrs.value("YP").toString());
 				}
 				if (!attrs.value("Version").isEmpty())
 					newVersion = true;
