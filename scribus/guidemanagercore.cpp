@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "guidemanager.h"
+#include "scclocale.h"
 #include "scribuscore.h"
 #include "pagestructs.h"
 #include "selection.h"
@@ -592,8 +593,8 @@ void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, G
 	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
-			page->guides.addHorizontal((*it).toDouble(), type) :
-			page->guides.addVertical((*it).toDouble(), type);
+			page->guides.addHorizontal(ScCLocale::toDoubleC((*it)), type) :
+			page->guides.addVertical(ScCLocale::toDoubleC((*it)), type);
 }
 
 void GuideManagerIO::readHorizontalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
@@ -601,8 +602,8 @@ void GuideManagerIO::readHorizontalGuides(const QString guideString, Page *page,
 	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
-			page->guides.addVertical((*it).toDouble(), type):
-			page->guides.addHorizontal((*it).toDouble(), type);
+			page->guides.addVertical(ScCLocale::toDoubleC((*it)), type):
+			page->guides.addHorizontal(ScCLocale::toDoubleC((*it)), type);
 }
 
 QString GuideManagerIO::writeHorizontalGuides(Page *page, GuideManagerCore::GuideType type)
@@ -644,8 +645,8 @@ void GuideManagerIO::readSelection(const QString guideString, Page *page)
 	if (guideString.isNull() || guideString.isEmpty())
 		return;
 	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
-	page->guides.gx = gVal[0].toDouble();
-	page->guides.gy = gVal[1].toDouble();
-	page->guides.gw = gVal[2].toDouble();
-	page->guides.gh = gVal[3].toDouble();
+	page->guides.gx = ScCLocale::toDoubleC(gVal[0]);
+	page->guides.gy = ScCLocale::toDoubleC(gVal[1]);
+	page->guides.gw = ScCLocale::toDoubleC(gVal[2]);
+	page->guides.gh = ScCLocale::toDoubleC(gVal[3]);
 }

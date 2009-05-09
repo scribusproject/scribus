@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "color.h"
 #include "prefsmanager.h"
 #include "hyphenator.h"
+#include "scclocale.h"
 #include "selection.h"
 #include "commonstrings.h"
 #include "util_icon.h"
@@ -670,17 +671,17 @@ QString gtAction::parseColor(const QString &s)
 			if( r.contains( "%" ) )
 			{
 				r = r.left( r.length() - 1 );
-				r = QString::number( static_cast<int>( ( static_cast<double>( 255 * r.toDouble() ) / 100.0 ) ) );
+				r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 			}
 			if( g.contains( "%" ) )
 			{
 				g = g.left( g.length() - 1 );
-				g = QString::number( static_cast<int>( ( static_cast<double>( 255 * g.toDouble() ) / 100.0 ) ) );
+				g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 			}
 			if( b.contains( "%" ) )
 			{
 				b = b.left( b.length() - 1 );
-				b = QString::number( static_cast<int>( ( static_cast<double>( 255 * b.toDouble() ) / 100.0 ) ) );
+				b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
 			}
 			c = QColor(r.toInt(), g.toInt(), b.toInt());
 		}
