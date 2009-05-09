@@ -107,20 +107,31 @@ bool SimpleState::contains(const QString& key)
 	return values_.contains(key);
 }
 
-QString SimpleState::get(const QString& key, const QString& def)
+QVariant SimpleState::variant(const QString& key, const QVariant& def)
 {
-	if (values_.contains(key))
-		return values_[key];
+	QMap<QString, QVariant>::const_iterator it = values_.find(key);
+	if (it != values_.end())
+		return it.value();
 
 	values_[key] = def;
-	return values_[key];
+	return def;
+}
+
+QString SimpleState::get(const QString& key, const QString& def)
+{
+	QMap<QString, QVariant>::const_iterator it = values_.find(key);
+	if (it != values_.end())
+		return it.value().toString();
+
+	values_[key] = def;
+	return def;
 }
 
 int SimpleState::getInt(const QString& key, int def)
 {
 	bool ok = false;
-	QString retString = get(key, QString("%1").arg(def));
-	int ret = retString.toInt(&ok);
+	QVariant retVar = variant(key, QVariant(def));
+	int ret = retVar.toInt(&ok);
 	if (!ok)
 		ret = def;
 	return ret;
@@ -129,8 +140,8 @@ int SimpleState::getInt(const QString& key, int def)
 uint SimpleState::getUInt(const QString& key, uint def)
 {
 	bool ok = false;
-	QString retString = get(key, QString("%1").arg(def));
-	uint ret = retString.toUInt(&ok);
+	QVariant retVar = variant(key, QVariant(def));
+	uint ret = retVar.toUInt(&ok);
 	if (!ok)
 		ret = def;
 	return ret;
@@ -139,8 +150,8 @@ uint SimpleState::getUInt(const QString& key, uint def)
 double SimpleState::getDouble(const QString& key, double def)
 {
 	bool ok = false;
-	QString retString = get(key, QString("%1").arg(def));
-	double ret = retString.toDouble(&ok);
+	QVariant retVar = variant(key, QVariant(def));
+	double ret = retVar.toDouble(&ok);
 	if (!ok)
 		ret = def;
 	return ret;
@@ -149,8 +160,8 @@ double SimpleState::getDouble(const QString& key, double def)
 bool SimpleState::getBool(const QString& key, bool def)
 {
 	bool ok = false;
-	QString retString = get(key, QString("%1").arg(def));
-	int ret = retString.toInt(&ok);
+	QVariant retVar = variant(key, QVariant(def));
+	int ret = retVar.toInt(&ok);
 	if (!ok)
 		ret = def;
 	return ret;
@@ -158,27 +169,27 @@ bool SimpleState::getBool(const QString& key, bool def)
 
 void SimpleState::set(const QString& key, const QString& value)
 {
-	values_[key] = value;
+	values_[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, int value)
 {
-	values_[key] = QString("%1").arg(value);
+	values_[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, uint value)
 {
-	values_[key] = QString("%1").arg(value);
+	values_[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, double value)
 {
-	values_[key] = QString("%1").arg(value, 0, 'f', 20);
+	values_[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, bool value)
 {
-	values_[key] = QString("%1").arg(value);
+	values_[key] = QVariant(value);
 }
 
 

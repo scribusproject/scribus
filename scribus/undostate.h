@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMap>
 #include <QPixmap>
+#include <QVariant>
 
 #include "scribusapi.h"
 #include "undoobject.h"
@@ -274,7 +275,9 @@ public:
 
 private:
 	/** @brief QMap to store key-value pairs */
-	QMap<QString, QString> values_;
+	QMap<QString, QVariant> values_;
+
+	QVariant variant(const QString& key, const QVariant& def);
 };
 
 /*** ItemState ***************************************************************************/
