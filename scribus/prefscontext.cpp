@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "prefscontext.h"
+#include "scclocale.h"
 
 PrefsContext::PrefsContext()
 {
@@ -133,7 +134,7 @@ double PrefsContext::getDouble(const QString& key, double defValue)
 		set(key, defValue);
 	QString stringValue = values[key];
 	bool ok = false;
-	double dvalue = stringValue.toDouble(&ok);
+	double dvalue = ScCLocale::toDoubleC(stringValue, &ok);
 	if (!ok)
 		dvalue = defValue;
 	return dvalue;
@@ -141,7 +142,9 @@ double PrefsContext::getDouble(const QString& key, double defValue)
 
 void PrefsContext::set(const QString& key, double value)
 {
-	set(key, QString("%1").arg(value));
+	// Do not use QString::arg() here, arg() use the current locale
+	// We want the C locale
+	set(key, QString::number(value));
 }
 
 bool PrefsContext::getBool(const QString& key, bool defValue)

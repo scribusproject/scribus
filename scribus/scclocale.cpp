@@ -34,3 +34,16 @@ double ScCLocale::toDoubleC(const QString & str, bool * ok)
 	double ret( that()->toDouble(str, ok) );
 	return ret;
 }
+
+double ScCLocale::toDoubleC(const QString& str, double defValue)
+{
+	double ret = defValue;
+	if (!str.isEmpty())
+	{
+		bool ok  = false;
+		double d = ScCLocale::toDoubleC(str, &ok);
+		if (ok)
+			ret = d;
+	}
+	return ret;
+}

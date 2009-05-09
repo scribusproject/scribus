@@ -24,6 +24,7 @@ class SCRIBUS_API ScCLocale : public QLocale
 	
 	public:
 		static double toDoubleC(const QString& str, bool * ok = 0);
+		static double toDoubleC(const QString& str, double defValue);
 		
 };
 

@@ -7,10 +7,11 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptionsio.h"
 #include "scribusstructs.h"
 
-#include "qapplication.h"
-#include <QTextStream>
-//Added by qt3to4:
+#include <QApplication>
 #include <QList>
+#include <QTextStream>
+
+#include "scclocale.h"
 
 const int PDFOptionsIO::formatVersion = 1300;
 
@@ -549,7 +550,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
 	if (elem.isNull())
 		return false;
 	bool ok = false;
-	double result = elem.attribute("value").toDouble(&ok);
+	double result = ScCLocale::toDoubleC(elem.attribute("value"), &ok);
 	if (ok)
 		(*value) = result;
 	return ok;

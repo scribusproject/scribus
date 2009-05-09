@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
+#include "scclocale.h"
 #include "scfonts.h"
 #include "scmessagebox.h"
 #include "scpaths.h"
@@ -1770,12 +1771,12 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
 			appPrefs.showStartupDialog = static_cast<bool>(dc.attribute("StartUp", "1").toInt());
 			appPrefs.useSmallWidgets = static_cast<bool>(dc.attribute("UseSmallWidgets", "0").toInt());
-			appPrefs.scratch.Bottom = dc.attribute("ScratchBottom", "20").toDouble();
-			appPrefs.scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
-			appPrefs.scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
-			appPrefs.scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
-			appPrefs.GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
-			appPrefs.GapVertical = dc.attribute("GapVertical", "40").toDouble();
+			appPrefs.scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
+			appPrefs.scratch.Left   = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
+			appPrefs.scratch.Right  = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
+			appPrefs.scratch.Top    = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
+			appPrefs.GapHorizontal  = ScCLocale::toDoubleC(dc.attribute("GapHorizontal"), 0.0);
+			appPrefs.GapVertical    = ScCLocale::toDoubleC(dc.attribute("GapVertical"), 40.0);
 			if (dc.hasAttribute("STECOLOR"))
 				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
@@ -1786,8 +1787,8 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="GRID")
 		{
-			appPrefs.guidesSettings.minorGrid = dc.attribute("MINOR").toDouble();
-			appPrefs.guidesSettings.majorGrid = dc.attribute("MAJOR").toDouble();
+			appPrefs.guidesSettings.minorGrid  = ScCLocale::toDoubleC(dc.attribute("MINOR"), 20.0);
+			appPrefs.guidesSettings.majorGrid  = ScCLocale::toDoubleC(dc.attribute("MAJOR"), 100.0);
 			appPrefs.guidesSettings.minorColor = QColor(dc.attribute("MINORC"));
 			appPrefs.guidesSettings.majorColor = QColor(dc.attribute("MAJORC"));
 			appPrefs.guidesSettings.before = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
@@ -1795,7 +1796,7 @@ bool PrefsManager::ReadPref(QString ho)
 			if (dc.hasAttribute("GuideC"))
 				appPrefs.guidesSettings.guideColor = QColor(dc.attribute("GuideC"));
 			if (dc.hasAttribute("GuideZ"))
-				appPrefs.guidesSettings.guideRad = dc.attribute("GuideZ").toDouble();
+				appPrefs.guidesSettings.guideRad = ScCLocale::toDoubleC(dc.attribute("GuideZ"), 10.0);
 			if (dc.hasAttribute("BaseC"))
 				appPrefs.guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
 		}
@@ -1813,7 +1814,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
 			appPrefs.guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
-			appPrefs.DisScale = dc.attribute("DScale", QString::number(appPrefs.DisScale)).toDouble();
+			appPrefs.DisScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.DisScale);
 		}
 		if (dc.tagName()=="TYPO")
 		{
@@ -1821,26 +1822,26 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.typographicSettings.scalingSuperScript = dc.attribute("HOCHSC").toInt();
 			appPrefs.typographicSettings.valueSubScript = dc.attribute("TIEF").toInt();
 			appPrefs.typographicSettings.scalingSubScript = dc.attribute("TIEFSC").toInt();
-			appPrefs.typographicSettings.valueSmallCaps = dc.attribute("SMCAPS").toInt();
-			appPrefs.typographicSettings.valueBaseGrid = dc.attribute("BASE", "12").toDouble();
-			appPrefs.typographicSettings.offsetBaseGrid = dc.attribute("BASEO", "0").toDouble();
+			appPrefs.typographicSettings.valueSmallCaps  = dc.attribute("SMCAPS").toInt();
+			appPrefs.typographicSettings.valueBaseGrid   = ScCLocale::toDoubleC(dc.attribute("BASE"), 12.0);
+			appPrefs.typographicSettings.offsetBaseGrid  = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
 			appPrefs.typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
-			double ulp = dc.attribute("UnderlinePos", "-1").toDouble();
+			double ulp = ScCLocale::toDoubleC(dc.attribute("UnderlinePos"), -1.0);
 			if (ulp != -1)
 				appPrefs.typographicSettings.valueUnderlinePos = qRound(ulp * 10);
 			else
 				appPrefs.typographicSettings.valueUnderlinePos = -1;
-			double ulw = dc.attribute("UnderlineWidth", "-1").toDouble();
+			double ulw = ScCLocale::toDoubleC(dc.attribute("UnderlineWidth"), -1.0);
 			if (ulw != -1)
 				appPrefs.typographicSettings.valueUnderlineWidth = qRound(ulw * 10);
 			else
 				appPrefs.typographicSettings.valueUnderlineWidth = -1;
-			double stp = dc.attribute("StrikeThruPos", "-1").toDouble();
+			double stp = ScCLocale::toDoubleC(dc.attribute("StrikeThruPos"), -1.0);
 			if (stp != -1)
 				appPrefs.typographicSettings.valueStrikeThruPos = qRound(ulp * 10);
 			else
 				appPrefs.typographicSettings.valueStrikeThruPos = -1;
-			double stw = dc.attribute("StrikeThruWidth", "-1").toDouble();
+			double stw = ScCLocale::toDoubleC(dc.attribute("StrikeThruWidth"), -1.0);
 			if (stw != -1)
 				appPrefs.typographicSettings.valueStrikeThruWidth = qRound(stw * 10);
 			else
@@ -1860,41 +1861,41 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.dTextPenShade = dc.attribute("TextPenShade", "100").toInt();
 			appPrefs.toolSettings.dTextStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
 			appPrefs.toolSettings.dCols = dc.attribute("TEXTCOL", "1").toInt();
-			appPrefs.toolSettings.dGap = dc.attribute("TEXTGAP", "0.0").toDouble();
+			appPrefs.toolSettings.dGap  = ScCLocale::toDoubleC(dc.attribute("TEXTGAP"), 0.0);
 			appPrefs.toolSettings.tabFillChar = dc.attribute("TabFill", "");
-			appPrefs.toolSettings.dTabWidth = dc.attribute("TabWidth", "36.0").toDouble();
+			appPrefs.toolSettings.dTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
 			appPrefs.toolSettings.dLineArt = dc.attribute("STIL").toInt();
 			appPrefs.toolSettings.dLstyleLine = dc.attribute("STILLINE").toInt();
-			appPrefs.toolSettings.dWidth = dc.attribute("WIDTH", "0.0").toDouble();
-			appPrefs.toolSettings.dWidthLine = dc.attribute("WIDTHLINE", "1.0").toDouble();
+			appPrefs.toolSettings.dWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 0.0);
+			appPrefs.toolSettings.dWidthLine = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
 			appPrefs.toolSettings.dShade2 = dc.attribute("PENSHADE").toInt();
 			appPrefs.toolSettings.dShadeLine = dc.attribute("LINESHADE").toInt();
-			appPrefs.toolSettings.dShade = dc.attribute("BRUSHSHADE").toInt();
-			appPrefs.toolSettings.magMin = dc.attribute("MAGMIN", "10").toInt();
-			appPrefs.toolSettings.magMax = dc.attribute("MAGMAX", "3200").toInt();
+			appPrefs.toolSettings.dShade  = dc.attribute("BRUSHSHADE").toInt();
+			appPrefs.toolSettings.magMin  = dc.attribute("MAGMIN", "10").toInt();
+			appPrefs.toolSettings.magMax  = dc.attribute("MAGMAX", "3200").toInt();
 			appPrefs.toolSettings.magStep = dc.attribute("MAGSTEP", "200").toInt();
 			//CB Reset prefs zoom step value to 200% instead of old values.
 			if (appPrefs.toolSettings.magStep<100)
 				appPrefs.toolSettings.magStep=200;
 			appPrefs.toolSettings.dBrushPict = dc.attribute("CPICT", CommonStrings::None);
 			appPrefs.toolSettings.shadePict = dc.attribute("PICTSHADE", "100").toInt();
-			appPrefs.toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();
-			appPrefs.toolSettings.scaleY = dc.attribute("PICTSCY", "1").toDouble();
+			appPrefs.toolSettings.scaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
+			appPrefs.toolSettings.scaleY = ScCLocale::toDoubleC(dc.attribute("PICTSCY"), 1.0);
 			appPrefs.toolSettings.scaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
 			appPrefs.toolSettings.aspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
 			appPrefs.toolSettings.useEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
 			appPrefs.toolSettings.lowResType = dc.attribute("HalfRes", "1").toInt();
 			appPrefs.toolSettings.polyC = dc.attribute("POLYC", "4").toInt();
-			appPrefs.toolSettings.polyF = dc.attribute("POLYF", "0.5").toDouble();
-			appPrefs.toolSettings.polyR = dc.attribute("POLYR", "0").toDouble();
-			appPrefs.toolSettings.polyCurvature = dc.attribute("POLYCUR", "0").toDouble();
+			appPrefs.toolSettings.polyF = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
+			appPrefs.toolSettings.polyR = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
+			appPrefs.toolSettings.polyCurvature = ScCLocale::toDoubleC(dc.attribute("POLYCUR"), 0.0);
 			appPrefs.toolSettings.polyFd = dc.attribute("POLYFD", "0").toInt();
-			appPrefs.toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
+			appPrefs.toolSettings.polyS  = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 			appPrefs.toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
-			appPrefs.toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
-			appPrefs.toolSettings.dispX = dc.attribute("dispX", "10").toDouble();
-			appPrefs.toolSettings.dispY = dc.attribute("dispY", "10").toDouble();
-			appPrefs.toolSettings.constrain = dc.attribute("constrain", "15").toDouble();
+			appPrefs.toolSettings.dEndArrow   = dc.attribute("EndArrow", "0").toInt();
+			appPrefs.toolSettings.dispX = ScCLocale::toDoubleC(dc.attribute("dispX"), 10.0);
+			appPrefs.toolSettings.dispY = ScCLocale::toDoubleC(dc.attribute("dispY"), 10.0);
+			appPrefs.toolSettings.constrain = ScCLocale::toDoubleC(dc.attribute("constrain"), 15.0);
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{
@@ -1962,20 +1963,20 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.pageSize = dc.attribute("PAGESIZE","A4");
 			appPrefs.pageOrientation = dc.attribute("AUSRICHTUNG", "0").toInt();
-			appPrefs.PageWidth = dc.attribute("BREITE", "595").toDouble();
-			appPrefs.PageHeight = dc.attribute("HOEHE", "842").toDouble();
-			appPrefs.margins.Top = dc.attribute("RANDO", "9").toDouble();
-			appPrefs.margins.Bottom = dc.attribute("RANDU", "40").toDouble();
-			appPrefs.margins.Left = dc.attribute("RANDL", "9").toDouble();
-			appPrefs.margins.Right = dc.attribute("RANDR", "9").toDouble();
-			appPrefs.marginPreset = dc.attribute("PRESET", "0").toInt();
-			appPrefs.FacingPages = dc.attribute("DOPPEL", "0").toInt();
-			appPrefs.AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
-			appPrefs.AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
-			appPrefs.bleeds.Top = dc.attribute("BleedTop", "0").toDouble();
-			appPrefs.bleeds.Left = dc.attribute("BleedLeft", "0").toDouble();
-			appPrefs.bleeds.Right = dc.attribute("BleedRight", "0").toDouble();
-			appPrefs.bleeds.Bottom = dc.attribute("BleedBottom", "0").toDouble();
+			appPrefs.PageWidth   = ScCLocale::toDoubleC(dc.attribute("BREITE"), 595.0);
+			appPrefs.PageHeight  = ScCLocale::toDoubleC(dc.attribute("HOEHE"), 842.0);
+			appPrefs.margins.Top = ScCLocale::toDoubleC(dc.attribute("RANDO"), 9.0);
+			appPrefs.margins.Bottom = ScCLocale::toDoubleC(dc.attribute("RANDU"), 40.0);
+			appPrefs.margins.Left   = ScCLocale::toDoubleC(dc.attribute("RANDL"), 9.0);
+			appPrefs.margins.Right  = ScCLocale::toDoubleC(dc.attribute("RANDR"), 9.0);
+			appPrefs.marginPreset   = dc.attribute("PRESET", "0").toInt();
+			appPrefs.FacingPages    = dc.attribute("DOPPEL", "0").toInt();
+			appPrefs.AutoSave      = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
+			appPrefs.AutoSaveTime  = dc.attribute("AutoSaveTime", "600000").toInt();
+			appPrefs.bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
+			appPrefs.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0);
+			appPrefs.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0);
+			appPrefs.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0);
 		}
 		if (dc.tagName()=="PageSets")
 		{
@@ -2008,8 +2009,8 @@ bool PrefsManager::ReadPref(QString ho)
 						appPrefs.pageSets.append(pageS);
 						if ((appPrefs.pageSets.count() == appPrefs.FacingPages) && ((appPrefs.GapHorizontal < 0) && (appPrefs.GapVertical < 0)))
 						{
-							appPrefs.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
-							appPrefs.GapVertical = PgsAttr.attribute("GapBelow", "40").toDouble();
+							appPrefs.GapHorizontal = ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0);
+							appPrefs.GapVertical   = ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 40.0);
 						}
 					}
 					PGS = PGS.nextSibling();
@@ -2068,8 +2069,8 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkPictures = static_cast<bool>(dc.attribute("checkPictures", "1").toInt());
 			checkerSettings.checkResolution = static_cast<bool>(dc.attribute("checkResolution", "1").toInt());
 			checkerSettings.checkTransparency = static_cast<bool>(dc.attribute("checkTransparency", "1").toInt());
-			checkerSettings.minResolution = dc.attribute("minResolution", "144").toDouble();
-			checkerSettings.maxResolution = dc.attribute("maxResolution", "4800").toDouble();
+			checkerSettings.minResolution = ScCLocale::toDoubleC(dc.attribute("minResolution"), 144.0);
+			checkerSettings.maxResolution = ScCLocale::toDoubleC(dc.attribute("maxResolution"), 4800.0);
 			checkerSettings.checkAnnotations = static_cast<bool>(dc.attribute("checkAnnotations", "0").toInt());
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
 			checkerSettings.checkForGIF = static_cast<bool>(dc.attribute("checkForGIF", "1").toInt());
@@ -2176,7 +2177,7 @@ bool PrefsManager::ReadPref(QString ho)
 					newFont = tmpf;
 				if (!newFont.isEmpty())
 					appPrefs.toolSettings.defFont = newFont;
-				appPrefs.toolSettings.defSize = qRound(dc.attribute("SIZE").toDouble() * 10.0);
+				appPrefs.toolSettings.defSize = qRound( ScCLocale::toDoubleC(dc.attribute("SIZE"), 12.0) * 10.0 );
 				appPrefs.askBeforeSubstituite = static_cast<bool>(dc.attribute("AutomaticSubst", "1").toInt());
 			}
 		}
@@ -2241,20 +2242,20 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.ImageProf = dc.attribute("ImageP", "");
 			appPrefs.PDF_Options.PrintProf = dc.attribute("PrintP", "");
 			appPrefs.PDF_Options.Info = dc.attribute("InfoString", "");
-			appPrefs.PDF_Options.bleeds.Top = dc.attribute("BTop", "0").toDouble();
-			appPrefs.PDF_Options.bleeds.Left = dc.attribute("BLeft", "0").toDouble();
-			appPrefs.PDF_Options.bleeds.Right = dc.attribute("BRight", "0").toDouble();
-			appPrefs.PDF_Options.bleeds.Bottom = dc.attribute("BBottom", "0").toDouble();
+			appPrefs.PDF_Options.bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BTop"), 0.0);
+			appPrefs.PDF_Options.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BLeft"), 0.0);
+			appPrefs.PDF_Options.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BRight"), 0.0);
+			appPrefs.PDF_Options.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BBottom"), 0.0);
 			appPrefs.PDF_Options.useDocBleeds = static_cast<bool>(dc.attribute("useDocBleeds", "1").toInt());
 			appPrefs.PDF_Options.cropMarks = static_cast<bool>(dc.attribute("cropMarks", "0").toInt());
 			appPrefs.PDF_Options.bleedMarks = static_cast<bool>(dc.attribute("bleedMarks", "0").toInt());
 			appPrefs.PDF_Options.registrationMarks = static_cast<bool>(dc.attribute("registrationMarks", "0").toInt());
 			appPrefs.PDF_Options.colorMarks = static_cast<bool>(dc.attribute("colorMarks", "0").toInt());
 			appPrefs.PDF_Options.docInfoMarks = static_cast<bool>(dc.attribute("docInfoMarks", "0").toInt());
-			appPrefs.PDF_Options.markOffset = dc.attribute("markOffset", "0").toDouble();
-			appPrefs.PDF_Options.EmbeddedI = static_cast<bool>(dc.attribute("ImagePr", "0").toInt());
-			appPrefs.PDF_Options.PassOwner = dc.attribute("PassOwner", "");
-			appPrefs.PDF_Options.PassUser = dc.attribute("PassUser", "");
+			appPrefs.PDF_Options.markOffset = ScCLocale::toDoubleC(dc.attribute("markOffset"), 0.0);
+			appPrefs.PDF_Options.EmbeddedI  = static_cast<bool>(dc.attribute("ImagePr", "0").toInt());
+			appPrefs.PDF_Options.PassOwner  = dc.attribute("PassOwner", "");
+			appPrefs.PDF_Options.PassUser   = dc.attribute("PassUser", "");
 			appPrefs.PDF_Options.Permissions = dc.attribute("Permissions", "-4").toInt();
 			appPrefs.PDF_Options.Encrypt = static_cast<bool>(dc.attribute("Encrypt", "0").toInt());
 			appPrefs.PDF_Options.useLayers = static_cast<bool>(dc.attribute("UseLayers", "0").toInt());

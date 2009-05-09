@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 #include "sccolorengine.h"
+#include "scclocale.h"
 #include "scconfig.h"
 #include "scgzfile.h"
 #include "scmimedata.h"
@@ -325,10 +326,10 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			double w2 = wh2.width();
 			double h2 = wh2.height();
 			addGraphicContext();
-			viewTransformX = points[0].toDouble();
-			viewTransformY = points[1].toDouble();
-			viewScaleX = w2 / points[2].toDouble();
-			viewScaleY = h2 / points[3].toDouble();
+			viewTransformX = ScCLocale::toDoubleC(points[0]);
+			viewTransformY = ScCLocale::toDoubleC(points[1]);
+			viewScaleX = w2 / ScCLocale::toDoubleC(points[2]);
+			viewScaleY = h2 / ScCLocale::toDoubleC(points[3]);
 			matrix.translate(-viewTransformX * viewScaleX, -viewTransformY * viewScaleY);
 			matrix.scale(viewScaleX, viewScaleY);
 			m_gc.top()->matrix = matrix;
@@ -794,10 +795,10 @@ QRect SVGPlug::parseViewBox(const QDomElement &e)
 		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
 		if (points.size() > 3)
 		{
-			double left = points[0].toDouble();
-			double bottom  = points[1].toDouble();
-			double width = points[2].toDouble();
-			double height = points[3].toDouble();
+			double left   = ScCLocale::toDoubleC(points[0]);
+			double bottom = ScCLocale::toDoubleC(points[1]);
+			double width  = ScCLocale::toDoubleC(points[2]);
+			double height = ScCLocale::toDoubleC(points[3]);
 			box.setCoords((int) left, (int) bottom, (int) (left + width), (int) (bottom + height));
 		}
 	}
@@ -1335,15 +1336,15 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		{
 			if( bFirst )
 			{
-				x = (*(it++)).toDouble();
-				y = (*it).toDouble();
+				x = ScCLocale::toDoubleC(*(it++));
+				y = ScCLocale::toDoubleC(*it);
 				ite->PoLine.svgMoveTo(x, y);
 				bFirst = false;
 			}
 			else
 			{
-				x = (*(it++)).toDouble();
-				y = (*it).toDouble();
+				x = ScCLocale::toDoubleC(*(it++));
+				y = ScCLocale::toDoubleC(*it);
 				ite->PoLine.svgLineTo(x, y);
 			}
 		}
@@ -1549,8 +1550,8 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 	if( e.hasAttribute("x") || e.hasAttribute("y") )
 	{
 		QMatrix matrix;
-		double  xAtt = e.attribute("x", "0.0").toDouble();
-		double  yAtt = e.attribute("y", "0.0").toDouble();
+		double  xAtt = ScCLocale::toDoubleC(e.attribute("x", "0.0"));
+		double  yAtt = ScCLocale::toDoubleC(e.attribute("y", "0.0"));
 		SvgStyle *gc = m_gc.top();
 		gc->matrix   = QMatrix(1.0, 0.0, 0.0, 1.0, xAtt, yAtt) * gc->matrix;
 	}
@@ -1713,10 +1714,10 @@ double SVGPlug::fromPercentage( const QString &s )
 	if (s1.endsWith( "%" ))
 	{
 		s1 = s1.left(s1.length() - 1);
-		return s1.toDouble() / 100.0;
+		return ScCLocale::toDoubleC(s1) / 100.0;
 	}
 	else
-		return s1.toDouble();
+		return ScCLocale::toDoubleC(s1);
 }
 
 double SVGPlug::parseFontSize(const QString& fsize)
@@ -1750,7 +1751,7 @@ double SVGPlug::parseUnit(const QString &unit)
 		unitval.replace( "px", "" );
 	if (unitval == unit)
 		noUnit = true;
-	double value = unitval.toDouble();
+	double value = ScCLocale::toDoubleC(unitval);
 	if( unit.right( 2 ) == "pt" )
 		value = value;
 	else if( unit.right( 2 ) == "cm" )
@@ -1789,40 +1790,44 @@ QMatrix SVGPlug::parseTransform( const QString &transform )
 		{
 			if(params.count() == 3)
 			{
-				double x = params[1].toDouble();
-				double y = params[2].toDouble();
+				double x = ScCLocale::toDoubleC(params[1]);
+				double y = ScCLocale::toDoubleC(params[2]);
 				result.translate(x, y);
-				result.rotate(params[0].toDouble());
+				result.rotate(ScCLocale::toDoubleC(params[0]));
 				result.translate(-x, -y);
 			}
 			else
-				result.rotate(params[0].toDouble());
+				result.rotate(ScCLocale::toDoubleC(params[0]));
 		}
 		else if(subtransform[0] == "translate")
 		{
 			if(params.count() == 2)
-				result.translate(params[0].toDouble(), params[1].toDouble());
+				result.translate(ScCLocale::toDoubleC(params[0]), ScCLocale::toDoubleC(params[1]));
 			else    // Spec : if only one param given, assume 2nd param to be 0
-				result.translate(params[0].toDouble(), 0);
+				result.translate(ScCLocale::toDoubleC(params[0]), 0);
 		}
 		else if(subtransform[0] == "scale")
 		{
 			if(params.count() == 2)
-				result.scale(params[0].toDouble(), params[1].toDouble());
+				result.scale(ScCLocale::toDoubleC(params[0]), ScCLocale::toDoubleC(params[1]));
 			else    // Spec : if only one param given, assume uniform scaling
-				result.scale(params[0].toDouble(), params[0].toDouble());
+				result.scale(ScCLocale::toDoubleC(params[0]), ScCLocale::toDoubleC(params[0]));
 		}
 		else if(subtransform[0] == "skewx")
-			result.shear(tan(params[0].toDouble() * 0.01745329251994329576), 0.0F);
+			result.shear(tan(ScCLocale::toDoubleC(params[0]) * 0.01745329251994329576), 0.0F);
 		else if(subtransform[0] == "skewy")
-			result.shear(0.0F, tan(params[0].toDouble() * 0.01745329251994329576));
+			result.shear(0.0F, tan(ScCLocale::toDoubleC(params[0]) * 0.01745329251994329576));
 		else if(subtransform[0] == "matrix")
 		{
 			if(params.count() >= 6)
 			{
-				double sx = params[0].toDouble();
-				double sy = params[3].toDouble();
-				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble(), params[5].toDouble());
+				double sx = ScCLocale::toDoubleC(params[0]);
+				double sy = ScCLocale::toDoubleC(params[3]);
+				double p1 = ScCLocale::toDoubleC(params[1]);
+				double p2 = ScCLocale::toDoubleC(params[2]);
+				double p4 = ScCLocale::toDoubleC(params[4]);
+				double p5 = ScCLocale::toDoubleC(params[5]);
+				result.setMatrix(sx, p1, p2, sy, p4, p5);
 			}
 		}
 		ret = result * ret;
@@ -1930,17 +1935,17 @@ QString SVGPlug::parseColor( const QString &s )
 		if (r.contains( "%" ))
 		{
 			r = r.left( r.length() - 1 );
-			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * r.toDouble() ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 		}
 		if (g.contains( "%" ))
 		{
 			g = g.left( g.length() - 1 );
-			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * g.toDouble() ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 		}
 		if (b.contains( "%" ))
 		{
 			b = b.left( b.length() - 1 );
-			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * b.toDouble() ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
@@ -2008,24 +2013,28 @@ QString SVGPlug::parseIccColor( const QString &s )
 			if (cs.contains( "%" ))
 			{
 				cs = cs.left( cs.length() - 1 );
-				cs = QString::number(cs.toDouble() / 100);
+				cs = QString::number(ScCLocale::toDoubleC(cs) / 100);
 			}
 			if (ys.contains( "%" ))
 			{
 				ys = ys.left( ys.length() - 1 );
-				ys = QString::number(ys.toDouble() / 100);
+				ys = QString::number(ScCLocale::toDoubleC(ys) / 100);
 			}
 			if (ms.contains( "%" ))
 			{
 				ms = ms.left( ms.length() - 1 );
-				ms = QString::number(ms.toDouble() / 100);
+				ms = QString::number(ScCLocale::toDoubleC(ms) / 100);
 			}
 			if (ks.contains( "%" ))
 			{
 				ks = ks.left( ks.length() - 1 );
-				ks = QString::number(ks.toDouble() / 100);
+				ks = QString::number(ScCLocale::toDoubleC(ks) / 100);
 			}
-			color.setCmykF(cs.toDouble(), ms.toDouble(), ys.toDouble(), ks.toDouble());
+			double cv = ScCLocale::toDoubleC(cs);
+			double mv = ScCLocale::toDoubleC(ms);
+			double yv = ScCLocale::toDoubleC(ys);
+			double kv = ScCLocale::toDoubleC(ks);
+			color.setCmykF(cv, mv, yv, kv);
 			iccColorFound = true;
 		}
 	}
@@ -2236,12 +2245,12 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			QString params2 = params.simplified().replace(',', " ");
 			QStringList dashes = params2.split(' ', QString::SkipEmptyParts);
 			for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
-				array.append( (*it).toDouble() );
+				array.append( ScCLocale::toDoubleC(*it) );
 		}
 		obj->dashArray = array;
 	}
 	else if( command == "stroke-dashoffset" )
-		obj->dashOffset = params.toDouble();
+		obj->dashOffset = ScCLocale::toDoubleC(params);
 	else if( command == "font-family" )
 		obj->FontFamily = params;
 	else if( command == "font-style" )
@@ -2360,10 +2369,10 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			if( temp.contains( '%' ) )
 			{
 				temp = temp.left( temp.length() - 1 );
-				offset = temp.toDouble() / 100.0;
+				offset = ScCLocale::toDoubleC(temp) / 100.0;
 			}
 			else
-				offset = temp.toDouble();
+				offset = ScCLocale::toDoubleC(temp);
 			if( !stop.attribute( "stop-opacity" ).isEmpty() )
 				opa = fromPercentage(stop.attribute("stop-opacity"));
 			if( !stop.attribute( "stop-color" ).isEmpty() )
