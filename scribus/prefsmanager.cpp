@@ -1224,6 +1224,7 @@ bool PrefsManager::WritePref(QString ho)
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
+	elem.setAttribute("VERSION","1.3.5");
 	QDomElement dc=docu.createElement("GUI");
 	dc.setAttribute("STILT",appPrefs.GUI);
 	dc.setAttribute("RAD",appPrefs.Wheelval);
@@ -1732,6 +1733,15 @@ bool PrefsManager::ReadPref(QString ho)
 	f.close();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSRC")
+		return false;
+	//Ignore scribus*.rc files prior to 1.3.5 due to changes
+	bool prefs135FileFound=false;
+	if (elem.hasAttribute("VERSION"))
+	{
+		if (elem.attribute("VERSION") == "1.3.5")
+			prefs135FileFound=true;
+	}
+	if (!prefs135FileFound)
 		return false;
 	appPrefs.DColors.clear();
 	appPrefs.latexCommands.clear();
