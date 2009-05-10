@@ -262,7 +262,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_AvailableFonts->findFont(Defont, m_Doc);
 		m_Doc->toolSettings.defFont = Defont;
 		m_Doc->toolSettings.dCols=dc.attribute("DCOL", "1").toInt();
-		m_Doc->toolSettings.dGap=ScCLocale::toDoubleC(dc.attribute("DGAP", "0.0"));
+		m_Doc->toolSettings.dGap=ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
 		m_Doc->documentInfo.setAuthor(dc.attribute("AUTHOR"));
 		m_Doc->documentInfo.setComments(dc.attribute("COMMENTS"));
 		m_Doc->documentInfo.setKeywords(dc.attribute("KEYWORDS",""));
@@ -283,8 +283,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->typographicSettings.valueSubScript = dc.attribute("VTIEF").toInt();
 		m_Doc->typographicSettings.scalingSubScript = dc.attribute("VTIEFSC").toInt();
 		m_Doc->typographicSettings.valueSmallCaps = dc.attribute("VKAPIT").toInt();
-		m_Doc->typographicSettings.valueBaseGrid = ScCLocale::toDoubleC(dc.attribute("BASEGRID", "12"));
-		m_Doc->typographicSettings.offsetBaseGrid = ScCLocale::toDoubleC(dc.attribute("BASEO", "0"));
+		m_Doc->typographicSettings.valueBaseGrid = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
+		m_Doc->typographicSettings.offsetBaseGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
 		m_Doc->typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
 		m_Doc->typographicSettings.valueUnderlinePos = dc.attribute("UnderlinePos", "-1").toInt();
 		m_Doc->typographicSettings.valueUnderlineWidth = dc.attribute("UnderlineWidth", "-1").toInt();
@@ -324,15 +324,15 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->pageMargins.Top=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERTOP")));
 		m_Doc->pageMargins.Bottom=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERBOTTOM")));
 		m_Doc->marginPreset = dc.attribute("PRESET", "0").toInt();
-		m_Doc->bleeds.Top = ScCLocale::toDoubleC(dc.attribute("BleedTop", "0"));
-		m_Doc->bleeds.Left = ScCLocale::toDoubleC(dc.attribute("BleedLeft", "0"));
-		m_Doc->bleeds.Right = ScCLocale::toDoubleC(dc.attribute("BleedRight", "0"));
-		m_Doc->bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BleedBottom", "0"));
+		m_Doc->bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
+		m_Doc->bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0);
+		m_Doc->bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0);
+		m_Doc->bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0);
 		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
-		m_Doc->guidesSettings.minorGrid = ScCLocale::toDoubleC(dc.attribute("MINGRID", tmp.setNum(prefsManager->appPrefs.guidesSettings.minorGrid)));
-		m_Doc->guidesSettings.majorGrid = ScCLocale::toDoubleC(dc.attribute("MAJGRID", tmp.setNum(prefsManager->appPrefs.guidesSettings.majorGrid)));
+		m_Doc->guidesSettings.minorGrid = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesSettings.minorGrid);
+		m_Doc->guidesSettings.majorGrid = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesSettings.majorGrid);
 		m_Doc->guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
 		m_Doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
 		m_Doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
@@ -346,33 +346,33 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 		m_Doc->guidesSettings.rulersShown = static_cast<bool>(dc.attribute("showrulers", "1").toInt());
 		m_Doc->guidesSettings.showBleed = static_cast<bool>(dc.attribute("showBleed", "1").toInt());
-		m_Doc->rulerXoffset = ScCLocale::toDoubleC(dc.attribute("rulerXoffset", "0"));
-		m_Doc->rulerYoffset =ScCLocale::toDoubleC(dc.attribute("rulerYoffset", "0"));
+		m_Doc->rulerXoffset = ScCLocale::toDoubleC(dc.attribute("rulerXoffset"), 0.0);
+		m_Doc->rulerYoffset = ScCLocale::toDoubleC(dc.attribute("rulerYoffset"), 0.0);
 		m_Doc->SnapGuides = static_cast<bool>(dc.attribute("SnapToGuides", "0").toInt());
 		m_Doc->useRaster = static_cast<bool>(dc.attribute("SnapToGrid", "0").toInt());
 		m_Doc->toolSettings.polyC = dc.attribute("POLYC", "4").toInt();
-		m_Doc->toolSettings.polyF = ScCLocale::toDoubleC(dc.attribute("POLYF", "0.5"));
-		m_Doc->toolSettings.polyR = ScCLocale::toDoubleC(dc.attribute("POLYR", "0"));
-		m_Doc->toolSettings.polyCurvature = ScCLocale::toDoubleC(dc.attribute("POLYCUR", "0"));
+		m_Doc->toolSettings.polyF = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
+		m_Doc->toolSettings.polyR = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
+		m_Doc->toolSettings.polyCurvature = ScCLocale::toDoubleC(dc.attribute("POLYCUR"), 0.0);
 		m_Doc->toolSettings.polyFd = dc.attribute("POLYFD", "0").toInt();
 		m_Doc->toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 		m_Doc->AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
-		m_Doc->scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom", "20"));
+		m_Doc->scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
 		// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 		// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
 		if (dc.hasAttribute("ScatchLeft"))
-			m_Doc->scratch.Left = ScCLocale::toDoubleC( dc.attribute("ScatchLeft", "100"));
+			m_Doc->scratch.Left = ScCLocale::toDoubleC( dc.attribute("ScatchLeft"), 100.0);
 		else
-			m_Doc->scratch.Left = ScCLocale::toDoubleC( dc.attribute("ScratchLeft", "100"));
-		m_Doc->scratch.Right = ScCLocale::toDoubleC( dc.attribute("ScratchRight", "100"));
-		m_Doc->scratch.Top = ScCLocale::toDoubleC( dc.attribute("ScratchTop", "20"));
-		m_Doc->GapHorizontal = ScCLocale::toDoubleC( dc.attribute("GapHorizontal", "-1"));
-		m_Doc->GapVertical = ScCLocale::toDoubleC( dc.attribute("GapVertical", "-1"));
+			m_Doc->scratch.Left = ScCLocale::toDoubleC( dc.attribute("ScratchLeft"), 100.0);
+		m_Doc->scratch.Right = ScCLocale::toDoubleC( dc.attribute("ScratchRight"), 100.0);
+		m_Doc->scratch.Top   = ScCLocale::toDoubleC( dc.attribute("ScratchTop"), 20.0);
+		m_Doc->GapHorizontal = ScCLocale::toDoubleC( dc.attribute("GapHorizontal"), -1.0);
+		m_Doc->GapVertical   = ScCLocale::toDoubleC( dc.attribute("GapVertical"), -1.0);
 		m_Doc->toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
 		m_Doc->toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
-		m_Doc->toolSettings.scaleX = ScCLocale::toDoubleC( dc.attribute("PICTSCX", "1"));
-		m_Doc->toolSettings.scaleY = ScCLocale::toDoubleC( dc.attribute("PICTSCY", "1"));
+		m_Doc->toolSettings.scaleX = ScCLocale::toDoubleC( dc.attribute("PICTSCX"), 1.0);
+		m_Doc->toolSettings.scaleY = ScCLocale::toDoubleC( dc.attribute("PICTSCY"), 1.0);
 		m_Doc->toolSettings.scaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
 		m_Doc->toolSettings.aspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
 		m_Doc->toolSettings.lowResType = dc.attribute("HalfRes", "1").toInt();
@@ -395,22 +395,22 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->toolSettings.dTextStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
 		m_Doc->toolSettings.dLineArt = static_cast<Qt::PenStyle>(dc.attribute("STIL").toInt());
 		m_Doc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(dc.attribute("STILLINE").toInt());
-		m_Doc->toolSettings.dWidth = ScCLocale::toDoubleC( dc.attribute("WIDTH", "0"));
-		m_Doc->toolSettings.dWidthLine = ScCLocale::toDoubleC( dc.attribute("WIDTHLINE", "1"));
+		m_Doc->toolSettings.dWidth = ScCLocale::toDoubleC( dc.attribute("WIDTH"), 0.0);
+		m_Doc->toolSettings.dWidthLine = ScCLocale::toDoubleC( dc.attribute("WIDTHLINE"), 1.0);
 		m_Doc->toolSettings.dShade2 = dc.attribute("PENSHADE", "100").toInt();
 		m_Doc->toolSettings.dShadeLine = dc.attribute("LINESHADE", "100").toInt();
 		m_Doc->toolSettings.dShade = dc.attribute("BRUSHSHADE", "100").toInt();
 		m_Doc->toolSettings.magMin = dc.attribute("MAGMIN", "10").toInt();
 		m_Doc->toolSettings.magMax = dc.attribute("MAGMAX", "3200").toInt();
 		m_Doc->toolSettings.magStep = dc.attribute("MAGSTEP", "200").toInt();
-		m_Doc->toolSettings.dispX = ScCLocale::toDoubleC( dc.attribute("dispX", "10"));
-		m_Doc->toolSettings.dispY = ScCLocale::toDoubleC( dc.attribute("dispY", "10"));
-		m_Doc->toolSettings.constrain = ScCLocale::toDoubleC( dc.attribute("constrain", "15"));
+		m_Doc->toolSettings.dispX = ScCLocale::toDoubleC( dc.attribute("dispX"), 10.0);
+		m_Doc->toolSettings.dispY = ScCLocale::toDoubleC( dc.attribute("dispY"), 10.0);
+		m_Doc->toolSettings.constrain = ScCLocale::toDoubleC( dc.attribute("constrain"), 15.0);
 		//CB Reset doc zoom step value to 200% instead of old values.
 		if (m_Doc->toolSettings.magStep<100)
 			m_Doc->toolSettings.magStep=200;
 		m_Doc->toolSettings.tabFillChar = dc.attribute("TabFill","");
-		m_Doc->toolSettings.dTabWidth= ScCLocale::toDoubleC(dc.attribute("TabWidth", "36.0"));
+		m_Doc->toolSettings.dTabWidth= ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
 		if (dc.hasAttribute("CPICT"))
 			m_Doc->toolSettings.dBrushPict = dc.attribute("CPICT");
 		m_Doc->toolSettings.shadePict = dc.attribute("PICTSHADE", "100").toInt();
@@ -428,7 +428,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			m_Doc->guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
 		m_Doc->marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
 		m_Doc->guidesSettings.before = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
-		m_Doc->guidesSettings.guideRad = ScCLocale::toDoubleC( dc.attribute("GuideRad", "10"));
+		m_Doc->guidesSettings.guideRad = ScCLocale::toDoubleC( dc.attribute("GuideRad"), 10.0);
 		m_Doc->guidesSettings.grabRad = dc.attribute("GRAB", "4").toInt();
 		if (dc.hasAttribute("currentProfile"))
 		{
@@ -473,8 +473,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						m_Doc->pageSets.append(pageS);
 						if ((m_Doc->pageSets.count()-1 == m_Doc->currentPageLayout) && ((m_Doc->GapHorizontal < 0) && (m_Doc->GapVertical < 0)))
 						{
-							m_Doc->GapHorizontal = ScCLocale::toDoubleC( PgsAttr.attribute("GapHorizontal", "0"));
-							m_Doc->GapVertical = ScCLocale::toDoubleC( PgsAttr.attribute("GapBelow", "0"));
+							m_Doc->GapHorizontal = ScCLocale::toDoubleC( PgsAttr.attribute("GapHorizontal"), 0.0);
+							m_Doc->GapVertical   = ScCLocale::toDoubleC( PgsAttr.attribute("GapBelow"), 0.0);
 						}
 					}
 					PGS = PGS.nextSibling();
@@ -491,8 +491,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				checkerSettings.checkPictures = static_cast<bool>(pg.attribute("checkPictures", "1").toInt());
 				checkerSettings.checkResolution = static_cast<bool>(pg.attribute("checkResolution", "1").toInt());
 				checkerSettings.checkTransparency = static_cast<bool>(pg.attribute("checkTransparency", "1").toInt());
-				checkerSettings.minResolution = ScCLocale::toDoubleC( pg.attribute("minResolution", "72"));
-				checkerSettings.maxResolution = ScCLocale::toDoubleC( pg.attribute("maxResolution", "4800"));
+				checkerSettings.minResolution = ScCLocale::toDoubleC( pg.attribute("minResolution"), 72.0);
+				checkerSettings.maxResolution = ScCLocale::toDoubleC( pg.attribute("maxResolution"), 4800.0);
 				checkerSettings.checkAnnotations = static_cast<bool>(pg.attribute("checkAnnotations", "0").toInt());
 				checkerSettings.checkRasterPDF = static_cast<bool>(pg.attribute("checkRasterPDF", "1").toInt());
 				checkerSettings.checkForGIF = static_cast<bool>(pg.attribute("checkForGIF", "1").toInt());
@@ -542,7 +542,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				la.isPrintable  = pg.attribute("DRUCKEN").toInt();
 				la.isEditable   = pg.attribute("EDIT", "1").toInt();
 				la.flowControl  = pg.attribute("FLOW", "1").toInt();
-				la.transparency = ScCLocale::toDoubleC( pg.attribute("TRANS", "1"));
+				la.transparency = ScCLocale::toDoubleC( pg.attribute("TRANS"), 1.0);
 				la.blendMode    = pg.attribute("BLEND", "0").toInt();
 				la.outlineMode  = pg.attribute("OUTL", "0").toInt();
 				if (pg.hasAttribute("LAYERC"))
@@ -689,17 +689,17 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
 				m_Doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
 				m_Doc->PDF_Options.Info = pg.attribute("InfoString", "");
-				m_Doc->PDF_Options.bleeds.Top = ScCLocale::toDoubleC( pg.attribute("BTop", "0"));
-				m_Doc->PDF_Options.bleeds.Left = ScCLocale::toDoubleC( pg.attribute("BLeft", "0"));
-				m_Doc->PDF_Options.bleeds.Right = ScCLocale::toDoubleC( pg.attribute("BRight", "0"));
-				m_Doc->PDF_Options.bleeds.Bottom = ScCLocale::toDoubleC( pg.attribute("BBottom", "0"));
+				m_Doc->PDF_Options.bleeds.Top    = ScCLocale::toDoubleC( pg.attribute("BTop"), 0.0);
+				m_Doc->PDF_Options.bleeds.Left   = ScCLocale::toDoubleC( pg.attribute("BLeft"), 0.0);
+				m_Doc->PDF_Options.bleeds.Right  = ScCLocale::toDoubleC( pg.attribute("BRight"), 0.0);
+				m_Doc->PDF_Options.bleeds.Bottom = ScCLocale::toDoubleC( pg.attribute("BBottom"), 0.0);
 				m_Doc->PDF_Options.useDocBleeds = static_cast<bool>(pg.attribute("useDocBleeds", "1").toInt());
 				m_Doc->PDF_Options.cropMarks = static_cast<bool>(pg.attribute("cropMarks", "0").toInt());
 				m_Doc->PDF_Options.bleedMarks = static_cast<bool>(pg.attribute("bleedMarks", "0").toInt());
 				m_Doc->PDF_Options.registrationMarks = static_cast<bool>(pg.attribute("registrationMarks", "0").toInt());
 				m_Doc->PDF_Options.colorMarks = static_cast<bool>(pg.attribute("colorMarks", "0").toInt());
 				m_Doc->PDF_Options.docInfoMarks = static_cast<bool>(pg.attribute("docInfoMarks", "0").toInt());
-				m_Doc->PDF_Options.markOffset = ScCLocale::toDoubleC( pg.attribute("markOffset", "0"));
+				m_Doc->PDF_Options.markOffset = ScCLocale::toDoubleC( pg.attribute("markOffset"), 0.0);
 				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
@@ -984,9 +984,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						if (it.tagName()=="CSTOP")
 						{
 							QString name = it.attribute("NAME");
-							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP", "0.0"));
+							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP"), 0.0);
 							int shade = it.attribute("SHADE", "100").toInt();
-							double opa = ScCLocale::toDoubleC( it.attribute("TRANS", "1"));
+							double opa = ScCLocale::toDoubleC( it.attribute("TRANS"), 1.0);
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
@@ -1083,13 +1083,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
-					Neu->gXpos = ScCLocale::toDoubleC( pg.attribute("gXpos", "0.0"));
-					Neu->gYpos = ScCLocale::toDoubleC( pg.attribute("gYpos", "0.0"));
-					QString defaultVal;
-					defaultVal.setNum(Neu->width());
-					Neu->gWidth = ScCLocale::toDoubleC( pg.attribute("gWidth",defaultVal));
-					defaultVal.setNum(Neu->height());
-					Neu->gHeight = ScCLocale::toDoubleC( pg.attribute("gHeight",defaultVal));
+					Neu->gXpos = ScCLocale::toDoubleC( pg.attribute("gXpos"), 0.0);
+					Neu->gYpos = ScCLocale::toDoubleC( pg.attribute("gYpos"), 0.0);
+					Neu->gWidth = ScCLocale::toDoubleC( pg.attribute("gWidth"), Neu->width());
+					Neu->gHeight = ScCLocale::toDoubleC( pg.attribute("gHeight"), Neu->height());
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 					// first of linked chain?
@@ -1211,9 +1208,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						if (it.tagName()=="CSTOP")
 						{
 							QString name = it.attribute("NAME");
-							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP", "0.0"));
+							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP"), 0.0);
 							int shade = it.attribute("SHADE", "100").toInt();
-							double opa = ScCLocale::toDoubleC( it.attribute("TRANS", "1"));
+							double opa = ScCLocale::toDoubleC( it.attribute("TRANS"), 1.0);
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
@@ -1296,13 +1293,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					}
 					Neu->isAutoText = static_cast<bool>(pite.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pite.attribute("isInline", "0").toInt());
-					Neu->gXpos = ScCLocale::toDoubleC( pite.attribute("gXpos", "0.0"));
-					Neu->gYpos = ScCLocale::toDoubleC( pite.attribute("gYpos", "0.0"));
-					QString defaultVal;
-					defaultVal.setNum(Neu->width());
-					Neu->gWidth = ScCLocale::toDoubleC( pite.attribute("gWidth",defaultVal));
-					defaultVal.setNum(Neu->height());
-					Neu->gHeight = ScCLocale::toDoubleC( pite.attribute("gHeight",defaultVal));
+					Neu->gXpos = ScCLocale::toDoubleC( pite.attribute("gXpos"), 0.0);
+					Neu->gYpos = ScCLocale::toDoubleC( pite.attribute("gYpos"), 0.0);
+					Neu->gWidth  = ScCLocale::toDoubleC( pite.attribute("gWidth"), Neu->width());
+					Neu->gHeight = ScCLocale::toDoubleC( pite.attribute("gHeight"), Neu->height());
 					if (Neu->isTableItem)
 					{
 						TableItems2.append(Neu);
@@ -1356,12 +1350,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->SnapGuides = savedAlignGuides;
 				uint ae = m_Doc->Items->count();
 				pat.setDoc(m_Doc);
-				pat.width = ScCLocale::toDoubleC( pg.attribute("width", "0"));
-				pat.height = ScCLocale::toDoubleC( pg.attribute("height", "0"));
-				pat.scaleX = ScCLocale::toDoubleC( pg.attribute("scaleX", "0"));
-				pat.scaleY = ScCLocale::toDoubleC( pg.attribute("scaleY", "0"));
-				pat.xoffset = ScCLocale::toDoubleC( pg.attribute("xoffset", "0"));
-				pat.yoffset = ScCLocale::toDoubleC( pg.attribute("yoffset", "0"));
+				pat.width = ScCLocale::toDoubleC( pg.attribute("width"), 0.0);
+				pat.height = ScCLocale::toDoubleC( pg.attribute("height"), 0.0);
+				pat.scaleX = ScCLocale::toDoubleC( pg.attribute("scaleX"), 0.0);
+				pat.scaleY = ScCLocale::toDoubleC( pg.attribute("scaleY"), 0.0);
+				pat.xoffset = ScCLocale::toDoubleC( pg.attribute("xoffset"), 0.0);
+				pat.yoffset = ScCLocale::toDoubleC( pg.attribute("yoffset"), 0.0);
 				PageItem* currItem = m_Doc->Items->at(ac);
 				pat.pattern = currItem->DrawObj_toImage();
 				pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
@@ -2271,7 +2265,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		doc->OldBM = true;
 	currItem->setImageFlippedH(obj->attribute("FLIPPEDH").toInt());
 	currItem->setImageFlippedV(obj->attribute("FLIPPEDV").toInt());
-	currItem->setCornerRadius(ScCLocale::toDoubleC(obj->attribute("RADRECT", "0")));
+	currItem->setCornerRadius(ScCLocale::toDoubleC(obj->attribute("RADRECT"), 0.0));
 	currItem->ClipEdited = obj->attribute("CLIPEDIT", "0").toInt();
 	currItem->setFillColor(Pcolor);
 	currItem->setLineColor(Pcolor2);
@@ -2319,7 +2313,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	if (obj->hasAttribute("TXTSTYLE"))
 		pstyle.charStyle().setFeatures(static_cast<StyleFlag>(obj->attribute("TXTSTYLE").toInt()).featureList());
 	if (obj->hasAttribute("TXTKERN"))
-		pstyle.charStyle().setTracking(qRound(ScCLocale::toDoubleC(obj->attribute("TXTKERN", "0")) * 10));
+		pstyle.charStyle().setTracking(qRound(ScCLocale::toDoubleC(obj->attribute("TXTKERN"), 0.0) * 10));
 	if (obj->hasAttribute("wordTrack"))
 		pstyle.charStyle().setWordTracking(ScCLocale::toDoubleC(obj->attribute("wordTrack")));
 	if (obj->hasAttribute("MinWordTrack"))
@@ -2353,9 +2347,9 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 
 	currItem->setRotation(ScCLocale::toDoubleC(obj->attribute("ROT")));
 	currItem->setTextToFrameDist(ScCLocale::toDoubleC(obj->attribute("EXTRA")),
-				     ScCLocale::toDoubleC(obj->attribute("REXTRA", "1")),
-						     ScCLocale::toDoubleC(obj->attribute("TEXTRA", "1")),
-								     ScCLocale::toDoubleC(obj->attribute("BEXTRA", "1")));
+								ScCLocale::toDoubleC(obj->attribute("REXTRA"), 1.0),
+								ScCLocale::toDoubleC(obj->attribute("TEXTRA"), 1.0),
+								ScCLocale::toDoubleC(obj->attribute("BEXTRA"), 1.0));
 	currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(obj->attribute("FLOP").toInt()));
 
 	currItem->PLineArt = Qt::PenStyle(obj->attribute("PLINEART").toInt());
@@ -2419,7 +2413,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	currItem->RightLinkID =  obj->attribute("RightLINK", "-1").toInt();
 	currItem->BottomLinkID =  obj->attribute("BottomLINK", "-1").toInt();
 	currItem->PoShow = obj->attribute("PLTSHOW", "0").toInt();
-	currItem->BaseOffs = ScCLocale::toDoubleC( obj->attribute("BASEOF", "0"));
+	currItem->BaseOffs = ScCLocale::toDoubleC( obj->attribute("BASEOF"), 0.0);
 	currItem->textPathType =  obj->attribute("textPathType", "0").toInt();
 	currItem->textPathFlipped = static_cast<bool>(obj->attribute("textPathFlipped", "0").toInt());
 	if ( obj->hasAttribute("TEXTFLOWMODE") )
@@ -2435,7 +2429,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
-	currItem->DashOffset = ScCLocale::toDoubleC( obj->attribute("DASHOFF", "0.0"));
+	currItem->DashOffset = ScCLocale::toDoubleC( obj->attribute("DASHOFF"), 0.0);
 	currItem->setReversed(static_cast<bool>(obj->attribute("REVERS", "0").toInt()));
 	currItem->setLocked(static_cast<bool>(obj->attribute("LOCK", "0").toInt()));
 	currItem->setSizeLocked(static_cast<bool>(obj->attribute("LOCKR", "0").toInt()));
@@ -2451,7 +2445,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		currItem->setFillColor(CommonStrings::None);
 	currItem->Cols = obj->attribute("COLUMNS", "1").toInt();
-	currItem->ColGap = ScCLocale::toDoubleC( obj->attribute("COLGAP", "0.0"));
+	currItem->ColGap = ScCLocale::toDoubleC( obj->attribute("COLGAP"), 0.0);
 	if (obj->attribute("LAYER", "0").toInt() != -1)
 		currItem->LayerNr = obj->attribute("LAYER", "0").toInt();
 	tmp = "";
@@ -2589,19 +2583,19 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		if (currItem->GrType == 8)
 		{
 			currItem->setPattern(obj->attribute("pattern", ""));
-			double patternScaleX = ScCLocale::toDoubleC( obj->attribute("pScaleX", "100.0"));
-			double patternScaleY = ScCLocale::toDoubleC( obj->attribute("pScaleY", "100.0"));
-			double patternOffsetX = ScCLocale::toDoubleC( obj->attribute("pOffsetX", "0.0"));
-			double patternOffsetY = ScCLocale::toDoubleC( obj->attribute("pOffsetY", "0.0"));
-			double patternRotation = ScCLocale::toDoubleC( obj->attribute("pRotation", "0.0"));
+			double patternScaleX = ScCLocale::toDoubleC( obj->attribute("pScaleX"), 100.0);
+			double patternScaleY = ScCLocale::toDoubleC( obj->attribute("pScaleY"), 100.0);
+			double patternOffsetX = ScCLocale::toDoubleC( obj->attribute("pOffsetX"), 0.0);
+			double patternOffsetY = ScCLocale::toDoubleC( obj->attribute("pOffsetY"), 0.0);
+			double patternRotation = ScCLocale::toDoubleC( obj->attribute("pRotation"), 0.0);
 			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 		}
 		else
 		{
-			currItem->GrStartX = ScCLocale::toDoubleC( obj->attribute("GRSTARTX", "0.0"));
-			currItem->GrStartY = ScCLocale::toDoubleC( obj->attribute("GRSTARTY", "0.0"));
-			currItem->GrEndX = ScCLocale::toDoubleC( obj->attribute("GRENDX", "0.0"));
-			currItem->GrEndY = ScCLocale::toDoubleC( obj->attribute("GRENDY", "0.0"));
+			currItem->GrStartX = ScCLocale::toDoubleC( obj->attribute("GRSTARTX"), 0.0);
+			currItem->GrStartY = ScCLocale::toDoubleC( obj->attribute("GRSTARTY"), 0.0);
+			currItem->GrEndX = ScCLocale::toDoubleC( obj->attribute("GRENDX"), 0.0);
+			currItem->GrEndY = ScCLocale::toDoubleC( obj->attribute("GRENDY"), 0.0);
 			GrColor = obj->attribute("GRCOLOR","");
 			if (!GrColor.isEmpty())
 			{
@@ -2746,7 +2740,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				la.isPrintable  = pg.attribute("DRUCKEN").toInt();
 				la.isEditable   = pg.attribute("EDIT", "1").toInt();
 				la.flowControl  = pg.attribute("FLOW", "1").toInt();
-				la.transparency = ScCLocale::toDoubleC( pg.attribute("TRANS", "1"));
+				la.transparency = ScCLocale::toDoubleC( pg.attribute("TRANS"), 1.0);
 				la.blendMode    = pg.attribute("BLEND", "0").toInt();
 				la.outlineMode  = pg.attribute("OUTL", "0").toInt();
 				if (pg.hasAttribute("LAYERC"))
@@ -2940,9 +2934,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						if (it.tagName()=="CSTOP")
 						{
 							QString name = it.attribute("NAME");
-							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP", "0.0"));
+							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP"), 0.0);
 							int shade = it.attribute("SHADE", "100").toInt();
-							double opa = ScCLocale::toDoubleC( it.attribute("TRANS", "1"));
+							double opa = ScCLocale::toDoubleC( it.attribute("TRANS"), 1);
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
@@ -3027,8 +3021,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 //					Neu->Language = m_Doc->Language;
 					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
-					Neu->gXpos = ScCLocale::toDoubleC( pg.attribute("gXpos", "0.0"));
-					Neu->gYpos = ScCLocale::toDoubleC( pg.attribute("gYpos", "0.0"));
+					Neu->gXpos = ScCLocale::toDoubleC( pg.attribute("gXpos"), 0.0);
+					Neu->gYpos = ScCLocale::toDoubleC( pg.attribute("gYpos"), 0.0);
 					QString defaultVal;
 					defaultVal.setNum(Neu->width());
 					Neu->gWidth = ScCLocale::toDoubleC( pg.attribute("gWidth",defaultVal));
@@ -3134,9 +3128,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						if (it.tagName()=="CSTOP")
 						{
 							QString name = it.attribute("NAME");
-							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP", "0.0"));
+							double ramp = ScCLocale::toDoubleC( it.attribute("RAMP"), 0.0);
 							int shade = it.attribute("SHADE", "100").toInt();
-							double opa = ScCLocale::toDoubleC( it.attribute("TRANS", "1"));
+							double opa = ScCLocale::toDoubleC( it.attribute("TRANS"), 1.0);
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
@@ -3181,8 +3175,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					}
 					Neu->isAutoText = static_cast<bool>(pite.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pite.attribute("isInline", "0").toInt());
-					Neu->gXpos = ScCLocale::toDoubleC( pite.attribute("gXpos", "0.0"));
-					Neu->gYpos = ScCLocale::toDoubleC( pite.attribute("gYpos", "0.0"));
+					Neu->gXpos = ScCLocale::toDoubleC( pite.attribute("gXpos"), 0.0);
+					Neu->gYpos = ScCLocale::toDoubleC( pite.attribute("gYpos"), 0.0);
 					QString defaultVal;
 					defaultVal.setNum(Neu->width());
 					Neu->gWidth = ScCLocale::toDoubleC( pite.attribute("gWidth",defaultVal));
@@ -3218,10 +3212,10 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->ItemNr = pat.items.count();
 					pat.items.append(Neu);
 				}
-				pat.width = ScCLocale::toDoubleC( pg.attribute("width", "0"));
-				pat.height = ScCLocale::toDoubleC( pg.attribute("height", "0"));
-				pat.scaleX = ScCLocale::toDoubleC( pg.attribute("scaleX", "0"));
-				pat.scaleY = ScCLocale::toDoubleC( pg.attribute("scaleY", "0"));
+				pat.width = ScCLocale::toDoubleC( pg.attribute("width"), 0.0);
+				pat.height = ScCLocale::toDoubleC( pg.attribute("height"), 0.0);
+				pat.scaleX = ScCLocale::toDoubleC( pg.attribute("scaleX"), 0.0);
+				pat.scaleY = ScCLocale::toDoubleC( pg.attribute("scaleY"), 0.0);
 				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
 			}
 			PAGE=PAGE.nextSibling();
