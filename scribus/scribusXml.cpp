@@ -330,8 +330,11 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (int cx=0; cx < numPo; ++cx)
 		{
-			fp >> xf;
-			fp >> yf;
+			QString s;
+			fp >> s;
+			xf = ScCLocale::toDoubleC(s);
+			fp >> s;
+			yf = ScCLocale::toDoubleC(s);
 			OB->PoLine.setPoint(cx, xf, yf);
 		}
 	}
@@ -346,8 +349,11 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (int cx=0; cx < numCo; ++cx)
 		{
-			fp >> xf;
-			fp >> yf;
+			QString s;
+			fp >> s;
+			xf = ScCLocale::toDoubleC(s);
+			fp >> s;
+			yf = ScCLocale::toDoubleC(s);
 			OB->ContourLine.setPoint(cx, xf, yf);
 		}
 	}
@@ -363,8 +369,11 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->TabValues.clear();
 		for (int cxv = 0; cxv < numTab; cxv += 2)
 		{
-			tgv >> xf;
-			tgv >> xf2;
+			QString s;
+			tgv >> s;
+			xf = ScCLocale::toDoubleC(s);
+			tgv >> s;
+			xf2 = ScCLocale::toDoubleC(s);
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
 			tb.tabFillChar = QChar();
@@ -382,7 +391,9 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->DashValues.clear();
 		for (int cxv = 0; cxv < numDash; ++cxv)
 		{
-			dgv >> xf;
+			QString s;
+			dgv >> s;
+			xf = ScCLocale::toDoubleC(s);
 			OB->DashValues.append(xf);
 		}
 		tmp = "";
@@ -780,8 +791,11 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 		tbs.clear();
 		for (int cxv = 0; cxv < numTab; cxv += 2)
 		{
-			tgv >> xf;
-			tgv >> xf2;
+			QString s;
+			tgv >> s;
+			xf = ScCLocale::toDoubleC(s);
+			tgv >> s;
+			xf2 = ScCLocale::toDoubleC(s);
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
 			tb.tabFillChar = QChar();
@@ -934,7 +948,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	bool VorLFound = false;
 	bool newVersion = false;
 	double GrX = 0.0, GrY = 0.0;
-	int x, GrMax = doc->GroupCounter;
+	int x;
+	int GrMax = doc->GroupCounter;
 	ScColor lf = ScColor();
 
 	QString fileDir = QDir::homePath();
@@ -1022,8 +1037,11 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 				uint numPoints = attrs.value("NumPoints").toString().toUInt();
 				for (uint cx = 0; cx < numPoints; ++cx)
 				{
-					fp >> xa;
-					fp >> ya;
+					QString xs;
+					fp >> xs;
+					xa = ScCLocale::toDoubleC(xs);
+					fp >> xs;
+					ya = ScCLocale::toDoubleC(xs);
 					arrow.points.addPoint(xa, ya);
 				}
 				doc->arrowStyles.append(arrow);
