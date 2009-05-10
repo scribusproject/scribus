@@ -17,6 +17,7 @@ ScCLocale * ScCLocale::m_instance = 0;
 ScCLocale::ScCLocale()
 	:QLocale(QLocale::C)
 {
+	setNumberOptions(QLocale::OmitGroupSeparator);
 }
 
 ScCLocale * ScCLocale::that()
