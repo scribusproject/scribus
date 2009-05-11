@@ -557,8 +557,11 @@ void NewDoc::ExitOK()
 		m_tabSelected = tabWidget->currentIndex();
 		if (m_tabSelected == NewDoc::NewFromTemplateTab) // new doc from template
 		{
-			m_selectedFile = QDir::fromNativeSeparators(nftGui->currentDocumentTemplate->file);
-			m_selectedFile = QDir::cleanPath(m_selectedFile);
+			if (nftGui->currentDocumentTemplate)
+			{
+				m_selectedFile = QDir::fromNativeSeparators(nftGui->currentDocumentTemplate->file);
+				m_selectedFile = QDir::cleanPath(m_selectedFile);
+			}
 		}
 		else if (m_tabSelected == NewDoc::OpenExistingTab) // open existing doc
 		{

@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
+	currentDocumentTemplate = NULL;
 }
 
 void nftwidget::setupSettings(QString lang, QString templateDir)
