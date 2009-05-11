@@ -1915,6 +1915,13 @@ void ScribusMainWindow::changeEvent(QEvent *e)
 
 void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 {
+	//Do not quit if Preferences window is open
+	Preferences *prefsWin = findChild<Preferences *>(QString::fromLocal8Bit("PreferencesWindow"));
+	if (prefsWin!=NULL)
+	{
+		ce->ignore();
+		return;
+	}
 	QWidgetList windows = wsp->windowList();
 	ScribusWin* tw;
 	disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
@@ -7599,12 +7606,9 @@ void ScribusMainWindow::slotPrefsOrg()
 {
 	slotSelect();
 
-	Preferences *dia = new Preferences(this);
-	if (dia->exec())
-	{
-		prefsOrg(dia);
-	}
-	delete dia;
+	Preferences dia(this);
+	if (dia.exec()==QDialog::Accepted)
+		prefsOrg(&dia);
 }
 
 void ScribusMainWindow::ShowSubs()

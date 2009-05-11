@@ -62,6 +62,7 @@ extern ScribusQApp* ScQApp;
 
 Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 {
+	setObjectName(QString::fromLocal8Bit("PreferencesWindow"));
 	prefsManager=PrefsManager::instance();
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	ap = (ScribusMainWindow*)parent;
