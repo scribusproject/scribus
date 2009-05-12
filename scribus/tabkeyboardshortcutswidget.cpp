@@ -426,6 +426,7 @@ void TabKeyboardShortcutsWidget::insertActions()
 			prevLVI=currLVI;
 		}
 	}
+	keyTable->resizeColumnToContents(0);
 }
 
 void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
