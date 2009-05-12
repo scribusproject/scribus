@@ -89,6 +89,7 @@ const QSize PageLayoutsWidget::minimumSizeHint()
 
 NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QString lang, QString templateDir ) : QDialog( parent )
 {
+	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
 	setModal(true);
 	prefsManager=PrefsManager::instance();
 	m_tabSelected = 0;

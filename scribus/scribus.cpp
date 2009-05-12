@@ -1915,9 +1915,10 @@ void ScribusMainWindow::changeEvent(QEvent *e)
 
 void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 {
-	//Do not quit if Preferences window is open
+	//Do not quit if Preferences or new doc window is open
 	Preferences *prefsWin = findChild<Preferences *>(QString::fromLocal8Bit("PreferencesWindow"));
-	if (prefsWin!=NULL)
+	NewDoc *newDocWin = findChild<NewDoc *>(QString::fromLocal8Bit("NewDocumentWindow"));
+	if (prefsWin!=NULL || newDocWin!=NULL)
 	{
 		ce->ignore();
 		return;
