@@ -18,5 +18,6 @@ italian.xml
 loremipsum.xml
 russian.xml
 slovenian.xml
+japanese.xml
   DESTINATION ${SHAREDIR}loremipsum
 )
