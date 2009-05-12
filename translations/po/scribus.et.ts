@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="et_EE">
+<!DOCTYPE TS><TS version="1.1" language="et_EE">
 <context>
     <name></name>
     <message>
@@ -2273,22 +2272,22 @@ If &quot;name&quot; is not given the currently selected item is used.
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="124"/>
+        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="125"/>
         <source>Importing: %1</source>
         <translation>Import: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="127"/>
+        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="128"/>
         <source>Analyzing File:</source>
         <translation>Faili analüüs:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="264"/>
+        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="265"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="2468"/>
+        <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="2469"/>
         <source>Generating Items</source>
         <translation>Elementide genereerimine</translation>
     </message>
@@ -2301,22 +2300,22 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation>Scribus %1 info</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="124"/>
+        <location filename="../../scribus/about.cpp" line="125"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="132"/>
+        <location filename="../../scribus/about.cpp" line="133"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="182"/>
+        <location filename="../../scribus/about.cpp" line="183"/>
         <source>Using Ghostscript version %1</source>
         <translation>Ghostscripti versioon %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="184"/>
+        <location filename="../../scribus/about.cpp" line="185"/>
         <source>No Ghostscript version available</source>
         <translation>Ghostscripti versioon pole teada</translation>
     </message>
@@ -2326,102 +2325,102 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="obsolete">&lt;b&gt;Scribuse versioon %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="185"/>
+        <location filename="../../scribus/about.cpp" line="186"/>
         <source>Build ID:</source>
         <translation>Ehitamise ID:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="187"/>
+        <location filename="../../scribus/about.cpp" line="188"/>
         <source>&amp;About</source>
         <translation>&amp;Info</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="296"/>
+        <location filename="../../scribus/about.cpp" line="297"/>
         <source>Development Team:</source>
         <translation>Arendajate meeskond:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="304"/>
+        <location filename="../../scribus/about.cpp" line="305"/>
         <source>Contributions from:</source>
         <translation>Kaasautorid:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="298"/>
+        <location filename="../../scribus/about.cpp" line="299"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Mac OS&amp;#174; X Aqua port:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="302"/>
+        <location filename="../../scribus/about.cpp" line="303"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>Windows&amp;#174; port:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="306"/>
+        <location filename="../../scribus/about.cpp" line="307"/>
         <source>Official Documentation:</source>
         <translation>Ametlik dokumentatsioon:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="310"/>
+        <location filename="../../scribus/about.cpp" line="311"/>
         <source>Other Documentation:</source>
         <translation>Muu dokumentatsioon:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="316"/>
+        <location filename="../../scribus/about.cpp" line="317"/>
         <source>Tango Project Icons:</source>
         <translation>Tango projekti ikoonid:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="200"/>
+        <location filename="../../scribus/about.cpp" line="201"/>
         <source>A&amp;uthors</source>
         <translation>A&amp;utorid</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="328"/>
+        <location filename="../../scribus/about.cpp" line="329"/>
         <source>Official Translations and Translators:</source>
         <translation>Ametlikud tõlked ja tõlkijad:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="330"/>
+        <location filename="../../scribus/about.cpp" line="331"/>
         <source>Previous Translation Contributors:</source>
         <translation>Varasemad tõlkijad:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="214"/>
+        <location filename="../../scribus/about.cpp" line="215"/>
         <source>&amp;Translations</source>
         <translation>&amp;Tõlked</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="344"/>
+        <location filename="../../scribus/about.cpp" line="345"/>
         <source>Homepage</source>
         <translation>Kodulehekülg</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="346"/>
+        <location filename="../../scribus/about.cpp" line="347"/>
         <source>Online Reference</source>
         <translation>Dokumentatsioon internetis</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="348"/>
+        <location filename="../../scribus/about.cpp" line="349"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="350"/>
+        <location filename="../../scribus/about.cpp" line="351"/>
         <source>Bugs and Feature Requests</source>
         <translation>Veateated ja soovid</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="354"/>
+        <location filename="../../scribus/about.cpp" line="355"/>
         <source>Mailing List</source>
         <translation>Meililist</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="225"/>
+        <location filename="../../scribus/about.cpp" line="226"/>
         <source>&amp;Online</source>
         <translation>I&amp;nternet</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="264"/>
+        <location filename="../../scribus/about.cpp" line="265"/>
         <source>&amp;Close</source>
         <translation>S&amp;ulge</translation>
     </message>
@@ -2431,7 +2430,7 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="obsolete">See dialoog näitab Scribuse versiooni, ehitamise aega ja kompileeritud teekide toetust. Lühendis C-C-T-F tähendab C littlecms&apos;i, teine C CUPS-i, T TIFF-i ja F Fontconfig&apos;i tuge. Viimane täht näitab renderdajat: C=cairo või A=libart. Teegi toe puudumist näitab *. Samuti näeb siin Ghostscripti versiooni, mille Scribus leidis.</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="228"/>
+        <location filename="../../scribus/about.cpp" line="229"/>
         <source>&amp;Updates</source>
         <translation>&amp;Uuendused</translation>
     </message>
@@ -2446,87 +2445,87 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="obsolete">See dialoog näitab Scribuse versiooni, ehitamise aega ja kompileeritud teekide toetust. Lühendis C-C-T-F tähendab C littlecms&apos;i, teine C CUPS-i, T TIFF-i ja F Fontconfig&apos;i tuge. Viimane täht näitab renderdajat: C=cairo või A=libart. Teegi toe puudumist näitab *. Samuti näeb siin Ghostscripti versiooni, mille Scribus leidis. Windowsi versioon ei kasuta Fontconfig&apos;i ega CUPS-i teeke.</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="276"/>
+        <location filename="../../scribus/about.cpp" line="277"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>Scribuse uuenduste kontrollimine. Masinast ei saadeta selleks välja mingeid andmeid.</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="300"/>
+        <location filename="../../scribus/about.cpp" line="301"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>OS/2&amp;#174;/eComStation&amp;#8482; port:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="314"/>
+        <location filename="../../scribus/about.cpp" line="315"/>
         <source>Splash Screen:</source>
         <translation>Käivitusekraan:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="272"/>
+        <location filename="../../scribus/about.cpp" line="273"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
         <translation>See paneel näitab Scribuse versiooni, selle valmimise aega ja teekide toetust.</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="273"/>
+        <location filename="../../scribus/about.cpp" line="274"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
         <translation>C-C-T-F tähendab: C=littlecms C=CUPS T=TIFF-i toetus F=Fontconfig&apos;i toetus.Viimane täht märgib renderdajat: C=cairo või Q=Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="274"/>
+        <location filename="../../scribus/about.cpp" line="275"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation>Teegi toetuse puudumist tähistab *. Samuti on näha Scribuse tuvastatud Ghostscripti versioon.</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="275"/>
+        <location filename="../../scribus/about.cpp" line="276"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation>Windowsi versioon ei kasuta fontconfig&apos;i või CUPS-i teeke.</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="185"/>
+        <location filename="../../scribus/about.cpp" line="186"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="185"/>
+        <location filename="../../scribus/about.cpp" line="186"/>
         <source>Scribus Version</source>
         <translation>Scribuse versioon</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="648"/>
+        <location filename="../../scribus/about.cpp" line="649"/>
         <source>Check for Updates</source>
         <translation>Kontrolli uuendusi</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="646"/>
+        <location filename="../../scribus/about.cpp" line="647"/>
         <source>Abort Update Check</source>
         <translation>Loobu uuenduste kontrollist</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="352"/>
+        <location filename="../../scribus/about.cpp" line="353"/>
         <source>Developer Blog</source>
         <translation>Arendajate veebipäevik</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="239"/>
+        <location filename="../../scribus/about.cpp" line="240"/>
         <source>&amp;Licence</source>
         <translation>&amp;Litsents</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="248"/>
+        <location filename="../../scribus/about.cpp" line="249"/>
         <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
         <translation>Litsentsifaili avamine nurjus. Palun kontrolli oma paigalduskataloogi või Scribuse veebilehte litsentsi kohta teabe hankimiseks.</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="308"/>
+        <location filename="../../scribus/about.cpp" line="309"/>
         <source>Doc Translators:</source>
         <translation>Dokumentatsiooni tõlkijad:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="312"/>
+        <location filename="../../scribus/about.cpp" line="313"/>
         <source>Webmasters:</source>
         <translation>Veebimeistrid:</translation>
     </message>
     <message>
-        <location filename="../../scribus/about.cpp" line="624"/>
+        <location filename="../../scribus/about.cpp" line="625"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>Faili %1 avamine nurjus. Palun kontrolli oma paigalduskataloogi või Scribuse veebilehte %1 kohta teabe hankimiseks.</translation>
     </message>
@@ -5849,9 +5848,9 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="136966688"/>
-        <source>For ISBN-10 the data should contain 9 or 10 								digits separated appropriately by dash characters.
-For ISBN-13 the data should contain 12 or 13 								digits separated appropriately by dash characters.
-If the last digit is not given then the ISBN 								checkdigit is calculated automatically.</source>
+        <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
+For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
+If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
         <translation type="obsolete">ISBN-10 korral peavad andmed sisaldama 9 või 10 (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)arvu, mida eraldavad kriipsud.(new line)
 ISBN-13 korral peavad andmed sisaldama 12 või 13 (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)arvu, mida eraldavad kriipsud.(new line)
 Kui viimast arvu ei ole antud, arvutatakse (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)ISBN kontrollarv automaatselt.</translation>
@@ -10577,12 +10576,12 @@ Selle saab määrata seadistustes.</translation>
         <translation type="obsolete">PostScripti import</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="84"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="85"/>
         <source>Analyzing PostScript:</source>
         <translation>PostScripti analüüsimine:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="477"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="478"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -10591,32 +10590,32 @@ failed!</source>
 import nurjus!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="478"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="479"/>
         <source>Fatal Error</source>
         <translation>Saatuslik viga</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="483"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="484"/>
         <source>Generating Items</source>
         <translation>Elementide genereerimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="875"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="876"/>
         <source>Converting of %1 images failed!</source>
         <translation>%1 pildi teisendamine nurjus!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="876"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="877"/>
         <source>Error</source>
         <translation>Viga</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="742"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="743"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/psimport/importps.cpp" line="81"/>
+        <location filename="../../scribus/plugins/psimport/importps.cpp" line="82"/>
         <source>Importing: %1</source>
         <translation>Import: %1</translation>
     </message>
@@ -11471,12 +11470,12 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;<
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="593"/>
+        <location filename="../../scribus/fileloader.cpp" line="594"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>Mõned selles dokumendis kasutatavad fondid on asendatud:</translation>
     </message>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="597"/>
+        <location filename="../../scribus/fileloader.cpp" line="598"/>
         <source> was replaced by: </source>
         <translation> asendati fondiga: </translation>
     </message>
@@ -14253,62 +14252,62 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LatexEditor</name>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="32"/>
+        <location filename="../../scribus/latexeditor.ui" line="33"/>
         <source>Enter Code:</source>
         <translation>Kood:</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="44"/>
+        <location filename="../../scribus/latexeditor.ui" line="45"/>
         <source>Update</source>
         <translation>Uuenda</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="51"/>
+        <location filename="../../scribus/latexeditor.ui" line="52"/>
         <source>Revert</source>
         <translation>Võta tagasi</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="130"/>
+        <location filename="../../scribus/latexeditor.ui" line="123"/>
         <source>Program Messages:</source>
         <translation>Programmi teated:</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="181"/>
+        <location filename="../../scribus/latexeditor.ui" line="174"/>
         <source>Status: Unknown</source>
         <translation>Olek: teadmata</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="165"/>
+        <location filename="../../scribus/latexeditor.ui" line="158"/>
         <source>Kill Program</source>
         <translation>Tapa programm</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="73"/>
+        <location filename="../../scribus/latexeditor.ui" line="66"/>
         <source>Options</source>
         <translation>Valikud</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="81"/>
+        <location filename="../../scribus/latexeditor.ui" line="74"/>
         <source>Resolution:</source>
         <translation>Lahutus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="88"/>
+        <location filename="../../scribus/latexeditor.ui" line="81"/>
         <source>Automatic</source>
         <translation>Automaatne</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="91"/>
+        <location filename="../../scribus/latexeditor.ui" line="84"/>
         <source> DPI</source>
         <translation> DPI</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="104"/>
+        <location filename="../../scribus/latexeditor.ui" line="97"/>
         <source>Program:</source>
         <translation>Programm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="116"/>
+        <location filename="../../scribus/latexeditor.ui" line="109"/>
         <source>Use Preamble</source>
         <translation>Preambuli kasutamine</translation>
     </message>
@@ -14333,17 +14332,17 @@ p, li { white-space: pre-wrap; }
         <translation>Töös</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="524"/>
+        <location filename="../../scribus/latexeditor.cpp" line="522"/>
         <source>No item selected!</source>
         <translation>Midagi pole valitud!</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="526"/>
         <source>Insert symbol</source>
-        <translation>Lisa sümbol</translation>
+        <translation type="obsolete">Lisa sümbol</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.ui" line="13"/>
+        <location filename="../../scribus/latexeditor.ui" line="14"/>
         <source>Editor</source>
         <translation>Redaktor</translation>
     </message>
@@ -14373,7 +14372,7 @@ p, li { white-space: pre-wrap; }
         <translation>Ajutise faili loomine välise redaktori käivitamiseks nurjus!</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexeditor.cpp" line="222"/>
+        <location filename="../../scribus/latexeditor.ui" line="148"/>
         <source>Run External Editor...</source>
         <translation>Käivita väline redaktor...</translation>
     </message>
@@ -14390,7 +14389,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/latexeditor.ui" line="155"/>
         <source>Run external editor...</source>
-        <translation>Käivita väline redaktor...</translation>
+        <translation type="obsolete">Käivita väline redaktor...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/latexeditor.cpp" line="523"/>
+        <source>Insert Symbol</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15292,27 +15296,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="39"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="43"/>
         <source>Edit Master Pages</source>
         <translation>Leheküljetoorikute redigeerimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="94"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="98"/>
         <source>Duplicate the selected master page</source>
         <translation>Klooni valitud leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="95"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="99"/>
         <source>Delete the selected master page</source>
         <translation>Kustuta valitud leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="96"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="100"/>
         <source>Add a new master page</source>
         <translation>Lisa uus leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="97"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="101"/>
         <source>Import master pages from another document</source>
         <translation>Impordi leheküljetoorikuid mõnest muust dokumendist</translation>
     </message>
@@ -15332,12 +15336,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Ei</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="173"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="177"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nimi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="173"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="177"/>
         <source>New Master Page</source>
         <translation>Uus leheküljetoorik</translation>
     </message>
@@ -15347,22 +15351,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 koopia</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="288"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="292"/>
         <source>Name:</source>
         <translation>Nimi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="288"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="292"/>
         <source>New MasterPage</source>
         <translation>Uus leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="288"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="292"/>
         <source>New Master Page %1</source>
         <translation>Uus leheküljetoorik %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="355"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="359"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1 toorikust </translation>
     </message>
@@ -15372,37 +15376,37 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="445"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="449"/>
         <source>Unable to Rename Master Page</source>
         <translation>Leheküljetooriku ümbernimetamine nurjus</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="445"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="449"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>Normaalset lehekülge ei saa ümber nimetada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="449"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="453"/>
         <source>Rename Master Page</source>
         <translation>Leheküljetooriku ümbernimetamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="449"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="453"/>
         <source>New Name:</source>
         <translation>Uus nimi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="171"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="175"/>
         <source>Copy #%1 of %2</source>
         <translation>Koopia nr. %1 toorikust %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="135"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="139"/>
         <source>This master page is used at least once in the document.</source>
         <translation>Seda leheküljetoorikut on dokumendis vähemalt ühel korral kasutatud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/masterpagepalette.cpp" line="139"/>
+        <location filename="../../scribus/masterpagepalette.cpp" line="143"/>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
         <translation>Kas tõesti kustutada leheküljetoorik &quot;%1&quot;?</translation>
     </message>
@@ -15430,7 +15434,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Nihe püstsuunas:</translation>
     </message>
 </context>
-<context>
+<context encoding="UTF-8">
     <name>Measurements</name>
     <message>
         <location filename="../measurements.cpp" line="49"/>
@@ -15482,7 +15486,7 @@ p, li { white-space: pre-wrap; }
         <source>Length:</source>
         <translation type="obsolete">Pikkus:</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/measurements.cpp" line="51"/>
         <source> °</source>
         <translation> °</translation>
@@ -16140,72 +16144,72 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
         <translation type="obsolete">Kohandatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="100"/>
+        <location filename="../../scribus/newfile.cpp" line="101"/>
         <source>New Document</source>
         <translation>Uus dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="110"/>
+        <location filename="../../scribus/newfile.cpp" line="111"/>
         <source>&amp;New Document</source>
         <translation>&amp;Uus dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="115"/>
+        <location filename="../../scribus/newfile.cpp" line="116"/>
         <source>Open &amp;Existing Document</source>
         <translation>Ol&amp;emasolev dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="118"/>
+        <location filename="../../scribus/newfile.cpp" line="119"/>
         <source>Open Recent &amp;Document</source>
         <translation>Viimati kasutatud &amp;dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="129"/>
+        <location filename="../../scribus/newfile.cpp" line="130"/>
         <source>Do not show this dialog again</source>
         <translation>Seda dialoogi rohkem ei näidata</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="143"/>
+        <location filename="../../scribus/newfile.cpp" line="144"/>
         <source>Document page size, either a standard size or a custom size</source>
         <translation>Dokumendi lehekülje suurus: kas mõni standardne või kohandatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="144"/>
+        <location filename="../../scribus/newfile.cpp" line="145"/>
         <source>Orientation of the document&apos;s pages</source>
         <translation>Dokumendi lehekülgede orientatsioon</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="145"/>
+        <location filename="../../scribus/newfile.cpp" line="146"/>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Dokumendi lehekülgede laius. Kui valisid kohandatud suuruse, saab seda muuta</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="146"/>
+        <location filename="../../scribus/newfile.cpp" line="147"/>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Dokumendi lehekülgede kõrgus. Kui valisid kohandatud suuruse, saab seda muuta</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="147"/>
+        <location filename="../../scribus/newfile.cpp" line="148"/>
         <source>Initial number of pages of the document</source>
         <translation>Esialgne dokumendi lehekülgede arv</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="148"/>
+        <location filename="../../scribus/newfile.cpp" line="149"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Dokumendi redigeerimisel vaikimisi kasutatav mõõtühik</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="149"/>
+        <location filename="../../scribus/newfile.cpp" line="150"/>
         <source>Create text frames automatically when new pages are added</source>
         <translation>Tekstikastide automaatne loomine uute lehekülgede lisamisel</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="150"/>
+        <location filename="../../scribus/newfile.cpp" line="151"/>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Veergude arv automaatselt loodud tekstikastides</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="151"/>
+        <location filename="../../scribus/newfile.cpp" line="152"/>
         <source>Distance between automatically created columns</source>
         <translation>Automaatselt loodud veergude vahe</translation>
     </message>
@@ -16215,72 +16219,72 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
         <translation type="obsolete">Lehekülje suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="224"/>
+        <location filename="../../scribus/newfile.cpp" line="225"/>
         <source>&amp;Size:</source>
         <translation>&amp;Suurus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="233"/>
+        <location filename="../../scribus/newfile.cpp" line="234"/>
         <source>Orie&amp;ntation:</source>
         <translation>Orie&amp;ntatsioon:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="236"/>
+        <location filename="../../scribus/newfile.cpp" line="237"/>
         <source>Portrait</source>
         <translation>Püstpaigutus</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="237"/>
+        <location filename="../../scribus/newfile.cpp" line="238"/>
         <source>Landscape</source>
         <translation>Rõhtpaigutus</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="243"/>
+        <location filename="../../scribus/newfile.cpp" line="244"/>
         <source>&amp;Width:</source>
         <translation>&amp;Laius:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="249"/>
+        <location filename="../../scribus/newfile.cpp" line="250"/>
         <source>&amp;Height:</source>
         <translation>&amp;Kõrgus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="265"/>
+        <location filename="../../scribus/newfile.cpp" line="266"/>
         <source>Margin Guides</source>
         <translation>Veerisejooned</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="284"/>
+        <location filename="../../scribus/newfile.cpp" line="285"/>
         <source>Options</source>
         <translation>Valikud</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="291"/>
+        <location filename="../../scribus/newfile.cpp" line="292"/>
         <source>N&amp;umber of Pages:</source>
         <translation>Le&amp;hekülgede arv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="297"/>
+        <location filename="../../scribus/newfile.cpp" line="298"/>
         <source>&amp;Default Unit:</source>
         <translation>Va&amp;ikimisi ühik:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="307"/>
+        <location filename="../../scribus/newfile.cpp" line="308"/>
         <source>&amp;Automatic Text Frames</source>
         <translation>&amp;Automaatsed tekstikastid</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="317"/>
+        <location filename="../../scribus/newfile.cpp" line="318"/>
         <source>&amp;Gap:</source>
         <translation>Va&amp;he:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="309"/>
+        <location filename="../../scribus/newfile.cpp" line="310"/>
         <source>Colu&amp;mns:</source>
         <translation>V&amp;eergude arv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="370"/>
+        <location filename="../../scribus/newfile.cpp" line="371"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
@@ -16290,22 +16294,22 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
         <translation type="obsolete">Lehekülgede paigutus</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="256"/>
+        <location filename="../../scribus/newfile.cpp" line="257"/>
         <source>First Page is:</source>
         <translation>Esimene lehekülg on:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="329"/>
+        <location filename="../../scribus/newfile.cpp" line="330"/>
         <source>Show Document Settings After Creation</source>
         <translation>Dokumendi seadistuste näitamine loomise järel</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="181"/>
+        <location filename="../../scribus/newfile.cpp" line="182"/>
         <source>Document Layout</source>
         <translation>Dokumendi omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="113"/>
+        <location filename="../../scribus/newfile.cpp" line="114"/>
         <source>New &amp;from Template</source>
         <translation>Uus &amp;mallist</translation>
     </message>
@@ -16544,12 +16548,12 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="299"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="300"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>See dokument ei paista olevat OpenOffice Draw&apos; fail.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="618"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="619"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
@@ -16557,39 +16561,39 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="96"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="97"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>Impordi &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="111"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="112"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation>Impordib OpenOffice.org Draw&apos; faile</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="112"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="113"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Impordib OpenOffice.org Draw&apos; failid aktiivsesse dokumenti, muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="126"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="127"/>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="138"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="139"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="210"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="211"/>
         <source>This file contains some unsupported features</source>
         <translation>See fail sisaldab mõningaid toetamata omadusi</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="208"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="209"/>
         <source>The file could not be imported</source>
         <translation>Faili import nurjus</translation>
     </message>
@@ -17200,32 +17204,32 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1838"/>
+        <location filename="../../scribus/pslib.cpp" line="1839"/>
         <source>Processing Master Page:</source>
         <translation>Leheküljetooriku töötlemine:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1838"/>
+        <location filename="../../scribus/pslib.cpp" line="1839"/>
         <source>Exporting Page:</source>
         <translation>Lehekülje eksport:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1771"/>
+        <location filename="../../scribus/pslib.cpp" line="1772"/>
         <source>Failed to write data for an image</source>
         <translation>Andmete kirjutamine pilti nurjus</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1776"/>
+        <location filename="../../scribus/pslib.cpp" line="1777"/>
         <source>Failed to load an image : %1</source>
         <translation>Pildi laadimine nurjus: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1781"/>
+        <location filename="../../scribus/pslib.cpp" line="1782"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Pildimaski laadimine nurjus: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1786"/>
+        <location filename="../../scribus/pslib.cpp" line="1787"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Pildi töötlemiseks jääb mälu napiks</translation>
     </message>
@@ -17753,32 +17757,32 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3469"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3471"/>
         <source>Linked Text</source>
         <translation>Lingitud tekst</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3471"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3473"/>
         <source>Text Frame</source>
         <translation>Tekstikast</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3475"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3477"/>
         <source>Paragraphs: </source>
         <translation>Lõigud:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3483"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3485"/>
         <source>Lines: </source>
         <translation>Read: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3489"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3491"/>
         <source>Words: </source>
         <translation>Sõnad: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="3497"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="3499"/>
         <source>Chars: </source>
         <translation>Märgid: </translation>
     </message>
@@ -18175,7 +18179,7 @@ both end points must lie outside of the polygon</source>
 mõlemad otspunktid asuma väljaspool hulknurka</translation>
     </message>
 </context>
-<context>
+<context encoding="UTF-8">
     <name>PathDialogBase</name>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="13"/>
@@ -18232,22 +18236,22 @@ mõlemad otspunktid asuma väljaspool hulknurka</translation>
         <source>Rotate Objects by:</source>
         <translation>Objektide pööramisnurk:</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -19470,7 +19474,7 @@ Palun vali mõni muu kataloog.</translation>
         <translation type="obsolete">Kohandatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="72"/>
+        <location filename="../../scribus/prefs.cpp" line="73"/>
         <source>Preferences</source>
         <translation>Seadistused</translation>
     </message>
@@ -19565,7 +19569,7 @@ Palun vali mõni muu kataloog.</translation>
         <translation type="obsolete">Muud&amp;a...</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="75"/>
+        <location filename="../../scribus/prefs.cpp" line="76"/>
         <source>General</source>
         <translation>Üldine</translation>
     </message>
@@ -19640,62 +19644,62 @@ Palun vali mõni muu kataloog.</translation>
         <translation type="obsolete">Toimingute ajaloo pikkus</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="78"/>
+        <location filename="../../scribus/prefs.cpp" line="79"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="81"/>
+        <location filename="../../scribus/prefs.cpp" line="82"/>
         <source>Guides</source>
         <translation>Juhtjooned</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="84"/>
+        <location filename="../../scribus/prefs.cpp" line="85"/>
         <source>Typography</source>
         <translation>Tüpograafia</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="87"/>
+        <location filename="../../scribus/prefs.cpp" line="88"/>
         <source>Tools</source>
         <translation>Tööriistad</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="90"/>
+        <location filename="../../scribus/prefs.cpp" line="91"/>
         <source>Hyphenator</source>
         <translation>Poolitaja</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="93"/>
+        <location filename="../../scribus/prefs.cpp" line="94"/>
         <source>Fonts</source>
         <translation>Fondid</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="99"/>
+        <location filename="../../scribus/prefs.cpp" line="100"/>
         <source>Preflight Verifier</source>
         <translation>Trükieelne kontroll</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="104"/>
+        <location filename="../../scribus/prefs.cpp" line="105"/>
         <source>Color Management</source>
         <translation>Värvihaldus</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="119"/>
+        <location filename="../../scribus/prefs.cpp" line="120"/>
         <source>PDF Export</source>
         <translation>PDF-i eksport</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="124"/>
+        <location filename="../../scribus/prefs.cpp" line="125"/>
         <source>Document Item Attributes</source>
         <translation>Dokumendi elemendi atribuudid</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="129"/>
+        <location filename="../../scribus/prefs.cpp" line="130"/>
         <source>Table of Contents and Indexes</source>
         <translation>Sisukord ja registrid</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="132"/>
+        <location filename="../../scribus/prefs.cpp" line="133"/>
         <source>Keyboard Shortcuts</source>
         <translation>Kiirklahvid</translation>
     </message>
@@ -19795,12 +19799,12 @@ Palun vali mõni muu kataloog.</translation>
         <translation type="obsolete">Vaate kohandamiseks lohista allpool joonlaual liugurit.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="138"/>
+        <location filename="../../scribus/prefs.cpp" line="139"/>
         <source>Display</source>
         <translation>Vaade</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="141"/>
+        <location filename="../../scribus/prefs.cpp" line="142"/>
         <source>External Tools</source>
         <translation>Välised tööriistad</translation>
     </message>
@@ -19835,12 +19839,12 @@ Palun vali mõni muu kataloog.</translation>
         <translation type="obsolete">Lõikude arv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="144"/>
+        <location filename="../../scribus/prefs.cpp" line="145"/>
         <source>Miscellaneous</source>
         <translation>Muud</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="148"/>
+        <location filename="../../scribus/prefs.cpp" line="149"/>
         <source>Plugins</source>
         <translation>Pluginad</translation>
     </message>
@@ -20000,12 +20004,12 @@ Palun vali mõni muu kataloog.</translation>
         <translation type="obsolete">Kataloogi valik</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="135"/>
+        <location filename="../../scribus/prefs.cpp" line="136"/>
         <source>Scrapbook</source>
         <translation>Visandimapp</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefs.cpp" line="96"/>
+        <location filename="../../scribus/prefs.cpp" line="97"/>
         <source>Printer</source>
         <translation>Printer</translation>
     </message>
@@ -20056,44 +20060,44 @@ Palun vali mõni muu kataloog.</translation>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2062"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2075"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="814"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="816"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Kas migreerida Scribuse vanad seadistused?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="816"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="818"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus tuvastas Scribus 1.2 seadistustefailide olemasolu.
 Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1691"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1696"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Seadistustefaili &quot;%1&quot; avamine kirjutamiseks nurjus: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1703"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1708"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Seadistustefaili &quot;%1&quot; kirjutamine nurjus: QIODevice olekukood %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1717"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1722"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Seadistustefaili &quot;%1&quot; avamine nurjus: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1727"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1732"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Seadistuste XML-i lugemine failist &quot;%1&quot; nurjus: %2 real %3, veerus %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2062"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2075"/>
         <source>Postscript</source>
         <translation>PostScript</translation>
     </message>
@@ -20113,23 +20117,23 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2402"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2414"/>
         <source>Error Writing Preferences</source>
         <translation>Viga seadistuste salvestamisel</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2408"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2420"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus ei suutnud seadistusi salvestada:&lt;br&gt;%1&lt;br&gt;Palun kontrolli faili ja kataloogi õigusi ning kettaruumi.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2421"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2433"/>
         <source>Error Loading Preferences</source>
         <translation>Viga seadistuste laadimisel</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2426"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2438"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus ei suutnud seadistusi laadida:&lt;br&gt;%1&lt;br&gt;Laaditakse vaikeseadistused.</translation>
     </message>
@@ -20139,7 +20143,7 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
         <translation type="obsolete">PDF 1.5</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2134"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2146"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Renderduskasti korrektset seadistust ei leitud. Kasutatakse vaikeväärtusi!</translation>
     </message>
@@ -20841,142 +20845,142 @@ Märkus: PDF-i vorme ei ekspordita.</translation>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5216"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5226"/>
         <source>Fixed Linespacing</source>
         <translation>Fikseeritud reavahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5217"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5227"/>
         <source>Automatic Linespacing</source>
         <translation>Automaatne reavahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5218"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5228"/>
         <source>Align to Baseline Grid</source>
         <translation>Joondamine alusjoontele</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4041"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4045"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4042"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4046"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4043"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4047"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4044"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4048"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5202"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5210"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-asukoht:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5097"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5101"/>
         <source>&amp;Width:</source>
         <translation>&amp;Laius:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5203"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5211"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-asukoht:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5098"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5102"/>
         <source>&amp;Height:</source>
         <translation>&amp;Kõrgus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5492"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5503"/>
         <source>Distance between columns</source>
         <translation>Veergude vahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="3805"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="3809"/>
         <source>Column width</source>
         <translation>Veeru laius</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5317"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5328"/>
         <source>No Style</source>
         <translation>Stiil puudub</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="4959"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="4963"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Nimi &quot;%1&quot; ei ole unikaalne.&lt;br/&gt;Palun vali mõni muu nimi.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5083"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5087"/>
         <source>Properties</source>
         <translation>Omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5085"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5089"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5086"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5090"/>
         <source>&amp;Text</source>
         <translation>&amp;Tekst</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5087"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5091"/>
         <source>&amp;Image</source>
         <translation>P&amp;ilt</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5088"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5092"/>
         <source>&amp;Shape</source>
         <translation>&amp;Kujund</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5089"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5093"/>
         <source>&amp;Line</source>
         <translation>&amp;Joon</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5090"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5094"/>
         <source>&amp;Colors</source>
         <translation>&amp;Värvid</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5093"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5097"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5094"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5098"/>
         <source>Geometry</source>
         <translation>Geomeetria</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5099"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5103"/>
         <source>&amp;Rotation:</source>
         <translation>Pöö&amp;ramine:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5100"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5104"/>
         <source>Basepoint:</source>
         <translation>Baaspunkt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5101"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5105"/>
         <source>Level</source>
         <translation>Tase</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5107"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5111"/>
         <source>Shape:</source>
         <translation>Kujund:</translation>
     </message>
@@ -20986,7 +20990,7 @@ Märkus: PDF-i vorme ei ekspordita.</translation>
         <translation type="obsolete">&amp;Muuda kuju...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5127"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5133"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>Ümarad
@@ -20998,7 +21002,7 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Teksti kaugus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5128"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5134"/>
         <source>Colu&amp;mns:</source>
         <translation>V&amp;eergude arv:</translation>
     </message>
@@ -21008,62 +21012,62 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Va&amp;he:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5135"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5141"/>
         <source>To&amp;p:</source>
         <translation>Ü&amp;lal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5136"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5142"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;All:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5137"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5143"/>
         <source>&amp;Left:</source>
         <translation>&amp;Vasakul:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5138"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5144"/>
         <source>&amp;Right:</source>
         <translation>&amp;Paremal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5139"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5145"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabeldusmärgid...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5197"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5205"/>
         <source>Path Text Properties</source>
         <translation>Vektorjoone teksti omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5146"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5154"/>
         <source>Show Curve</source>
         <translation>Kõvera näitamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5148"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5156"/>
         <source>Start Offset:</source>
         <translation>Alguse nihe:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5149"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5157"/>
         <source>Distance from Curve:</source>
         <translation>Kaugus kõverast:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5150"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5158"/>
         <source>Fill Rule</source>
         <translation>Täitmise reegel</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5151"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5159"/>
         <source>Even-Odd</source>
         <translation>Paaris-paaritu</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5152"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5160"/>
         <source>Non Zero</source>
         <translation>Mittenull</translation>
     </message>
@@ -21073,12 +21077,12 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Teksti&amp;voog ümber kasti</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5162"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5170"/>
         <source>Use &amp;Bounding Box</source>
         <translation>Üm&amp;britsev ristkülik</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5163"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5171"/>
         <source>&amp;Use Contour Line</source>
         <translation>Kont&amp;uurjoon</translation>
     </message>
@@ -21093,227 +21097,227 @@ n&amp;urgad:</translation>
         <translation type="obsolete">&amp;Keel:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5199"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5207"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Vaba skaleerimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5200"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5208"/>
         <source>Actual X-DPI:</source>
         <translation>Tegelik X-DPI:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5201"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5209"/>
         <source>Actual Y-DPI:</source>
         <translation>Tegelik Y-DPI:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5204"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5212"/>
         <source>X-Sc&amp;ale:</source>
         <translation>X-sk&amp;aala:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5205"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5213"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Y-s&amp;kaala:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5206"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5214"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Skaleerimine kas&amp;ti suuruse järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5207"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5215"/>
         <source>P&amp;roportional</source>
         <translation>P&amp;roportsionaalne</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5210"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5218"/>
         <source>Input Profile:</source>
         <translation>Sisendprofiil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5211"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5219"/>
         <source>Rendering Intent:</source>
         <translation>Renderdamisviis:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5221"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5232"/>
         <source>Perceptual</source>
         <translation>Pertseptuaalne</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5222"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5233"/>
         <source>Relative Colorimetric</source>
         <translation>Suhteline kolorimeetriline</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5223"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5234"/>
         <source>Saturation</source>
         <translation>Küllastus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5224"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5235"/>
         <source>Absolute Colorimetric</source>
         <translation>Absoluutne kolorimeetriline</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5233"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5244"/>
         <source>Left Point</source>
         <translation>Vasak ots</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5234"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5245"/>
         <source>End Points</source>
         <translation>Otspunktid</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5236"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5247"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Baaspunkt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5237"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5248"/>
         <source>T&amp;ype of Line:</source>
         <translation>&amp;Joone tüüp:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5238"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5249"/>
         <source>Start Arrow:</source>
         <translation>Algusnool:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5239"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5250"/>
         <source>End Arrow:</source>
         <translation>Lõppnool:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5249"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5260"/>
         <source>Line &amp;Width:</source>
         <translation>J&amp;oone jämedus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5250"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5261"/>
         <source>Ed&amp;ges:</source>
         <translation>Nu&amp;rgad:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5253"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5264"/>
         <source>Miter Join</source>
         <translation>Nurkühendus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5254"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5265"/>
         <source>Bevel Join</source>
         <translation>Längühendus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5255"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5266"/>
         <source>Round Join</source>
         <translation>Ümarühendus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5260"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5271"/>
         <source>Flat Cap</source>
         <translation>Lameots</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5261"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5272"/>
         <source>Square Cap</source>
         <translation>Ruutots</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5262"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5273"/>
         <source>Round Cap</source>
         <translation>Ümarots</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5264"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5275"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Otsad:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5266"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5277"/>
         <source>Cell Lines</source>
         <translation>Lahtri jooned</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5267"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5278"/>
         <source>Line at Top</source>
         <translation>Joon üleval</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5268"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5279"/>
         <source>Line at the Left</source>
         <translation>Joon vasakul</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5269"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5280"/>
         <source>Line at the Right </source>
         <translation>Joon paremal </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5270"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5281"/>
         <source>Line at Bottom</source>
         <translation>Joon all</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5272"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5283"/>
         <source>Overprinting</source>
         <translation>Ületrükk</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5273"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5284"/>
         <source>Knockout</source>
         <translation>Väljajätmine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5274"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5285"/>
         <source>Overprint</source>
         <translation>Ületrükk</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5276"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5287"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5290"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5301"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5412"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5423"/>
         <source>Name of selected object</source>
         <translation>Valitud objekti nimi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5413"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5424"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Aktiivse baaspunkti asukoht rõhtteljel</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5414"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5425"/>
         <source>Vertical position of current basepoint</source>
         <translation>Aktiivse baaspunkti asukoht püstteljel</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5415"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5426"/>
         <source>Width</source>
         <translation>Laius</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5416"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5427"/>
         <source>Height</source>
         <translation>Kõrgus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5417"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5428"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Objekti pööramine aktiivse baaspunkti suhtes</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5418"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5429"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Punkt, millest arvestatakse mõõte või pööramisnurka</translation>
     </message>
@@ -21343,47 +21347,47 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Vali baaspunktiks keskpunkt</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5426"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5437"/>
         <source>Flip Horizontal</source>
         <translation>Peegelda rõhtsalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5427"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5438"/>
         <source>Flip Vertical</source>
         <translation>Peegelda püstiselt</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5428"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5439"/>
         <source>Move one level up</source>
         <translation>Liiguta üks tase ettepoole</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5429"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5440"/>
         <source>Move one level down</source>
         <translation>Liiguta üks tase tahapoole</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5430"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5441"/>
         <source>Move to front</source>
         <translation>Liiguta kõige ette</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5431"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5442"/>
         <source>Move to back</source>
         <translation>Liiguta kõige taha</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5432"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5443"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Tähistab taset, millel objekt asub. 0 tähendab, et objekt asub kõige all</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5433"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5444"/>
         <source>Lock or unlock the object</source>
         <translation>Lukusta objekt või eemalda lukustus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5434"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5445"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Lukusta objekti suurus või eemalda lukustus</translation>
     </message>
@@ -21408,62 +21412,62 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Tekstivoo jaoks kasutatakse teist joont, mis tugineb kastipiiretele</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5448"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5459"/>
         <source>Font of selected text or object</source>
         <translation>Valitud teksti või objekti font</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5449"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5460"/>
         <source>Font Size</source>
         <translation>Fondi suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5450"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5461"/>
         <source>Offset to baseline of characters</source>
         <translation>Nihe märkide alusjoone suhtes</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5451"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5462"/>
         <source>Scaling width of characters</source>
         <translation>Märkide skaleerimislaius</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5452"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5463"/>
         <source>Scaling height of characters</source>
         <translation>Märkide skaleerimiskõrgus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5453"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5464"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>Teksti äärejoone ja/või varju värv (sõltuvalt valikust). Kui mõlemad on valitud, kasutatakse üht ja sama värvi.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5454"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5465"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Valitud teksti värv. Kui sisse on lülitatud kontuuriefekt, on see täidise värv. Kui sisse on lülitatud varjuefekt, on see kõige ülemine värv.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5455"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5466"/>
         <source>Saturation of color of text stroke</source>
         <translation>Teksti äärejoone värvi küllastus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5456"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5467"/>
         <source>Saturation of color of text fill</source>
         <translation>Teksti täidise värvi küllastus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5457"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5468"/>
         <source>Right to Left Writing</source>
         <translation>Kirjutamine paremalt vasakule</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5458"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5469"/>
         <source>Manual Tracking</source>
         <translation>Märkide koondamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5459"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5470"/>
         <source>Line Spacing</source>
         <translation>Reavahe</translation>
     </message>
@@ -21483,187 +21487,187 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Tekstikastis kasutatav keel</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5478"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5489"/>
         <source>Change settings for left or end points</source>
         <translation>Vasaku või otspunktide seadistuste muutmine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5479"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5490"/>
         <source>Pattern of line</source>
         <translation>Joone muster</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5480"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5491"/>
         <source>Thickness of line</source>
         <translation>Joone jämedus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5481"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5492"/>
         <source>Type of line joins</source>
         <translation>Jooneühenduste tüüp</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5482"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5493"/>
         <source>Type of line end</source>
         <translation>Jooneotste tüüp</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5483"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5494"/>
         <source>Line style of current object</source>
         <translation>Aktiivse objekti joonestiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5487"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5498"/>
         <source>Choose the shape of frame...</source>
         <translation>Vali kasti kuju...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5488"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5499"/>
         <source>Edit shape of the frame...</source>
         <translation>Muuda kasti kuju...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5489"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5500"/>
         <source>Set radius of corner rounding</source>
         <translation>Määra nurkade ümardamise raadius</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5490"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5501"/>
         <source>Number of columns in text frame</source>
         <translation>Veergude arv tekstikastis</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5491"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5502"/>
         <source>Switches between Gap or Column width</source>
         <translation>Vahe või veerulaiuse lülitamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5493"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5504"/>
         <source>Distance of text from top of frame</source>
         <translation>Teksti kaugus kasti ülaservast</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5494"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5505"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Teksti kaugus kasti alaservast</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5495"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5506"/>
         <source>Distance of text from left of frame</source>
         <translation>Teksti kaugus kasti vasakust servast</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5496"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5507"/>
         <source>Distance of text from right of frame</source>
         <translation>Teksti kaugus kasti paremast servast</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5497"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5508"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Muuda tekstikasti tabeldusmärke...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5499"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5510"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Võimaldab pildil olla kastist erineva suurusega</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5500"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5511"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Pildi rõhtsuunaline nihe kastis</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5501"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5512"/>
         <source>Vertical offset of image within frame</source>
         <translation>Pildi püstsuunaline nihe kastis</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5502"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5513"/>
         <source>Resize the image horizontally</source>
         <translation>Pildi suuruse muutmine rõhtsuunas</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5503"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5514"/>
         <source>Resize the image vertically</source>
         <translation>Pildi suuruse muutmine püstsuunas</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5504"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5515"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>X- ja Y-skaala hoitakse võrdsena</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5505"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5516"/>
         <source>Keep the aspect ratio</source>
         <translation>Säilitatakse proportsioon</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5506"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5517"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Pilt sobitatakse kasti suurusega</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5509"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5520"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Kasti proportsioonide asemel kasutatakse pildi proportsioone</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5510"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5521"/>
         <source>Source profile of the image</source>
         <translation>Pildi lähteprofiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5511"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5522"/>
         <source>Rendering intent for the image</source>
         <translation>Pildi renderdamisviis</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5131"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5137"/>
         <source>Gap:</source>
         <translation>Vahe:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5132"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5138"/>
         <source>Width:</source>
         <translation>Laius:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5159"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5167"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>Teksti&amp;voog ümber kasti</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5160"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5168"/>
         <source>Disabled</source>
         <translation>Keelatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5161"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5169"/>
         <source>Use Frame &amp;Shape</source>
         <translation>Ku&amp;jund</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5208"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5216"/>
         <source>Image Effects</source>
         <translation>Pildiefektid</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5209"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5217"/>
         <source>Extended Image Properties</source>
         <translation>Pildi laiendatud omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5442"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5453"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>Alumiste kastide teksti kulgemine ümber objekti keelatakse</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5443"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5454"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>Kasti kujundi kasutamine objekti all asuvate tekstikastide tekstivoo jaoks.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5444"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5455"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Kasti kujundi asemel kasutatakse alati nelinurkset ümbritsevat kasti objekti all asuvate tekstiraamide tekstivoo jaoks. </translation>
     </message>
@@ -21673,97 +21677,97 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Algselt kasti kujundil põhineva teise joone kasutamine objekti all asuvate tekstikastide tekstivoo jaoks. </translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5108"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5112"/>
         <source>Transparency Settings</source>
         <translation>Läbipaistvuse seadistused</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5091"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5095"/>
         <source>&amp;Group</source>
         <translation>&amp;Rühmitamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5109"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5113"/>
         <source>Opacity:</source>
         <translation>Läbipaistmatus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5110"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5114"/>
         <source>Blend Mode:</source>
         <translation>Sulandamisrežiim:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5112"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5117"/>
         <source>Normal</source>
         <translation>Normaalne</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5113"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5118"/>
         <source>Darken</source>
         <translation>Tumendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5114"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5119"/>
         <source>Lighten</source>
         <translation>Helendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5115"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5120"/>
         <source>Multiply</source>
         <translation>Korrutamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5116"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5121"/>
         <source>Screen</source>
         <translation>Ekraan</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5117"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5122"/>
         <source>Overlay</source>
         <translation>Ülekatmine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5118"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5123"/>
         <source>Hard Light</source>
         <translation>Külm valgus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5119"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5124"/>
         <source>Soft Light</source>
         <translation>Soe valgus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5120"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5125"/>
         <source>Difference</source>
         <translation>Lahutamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5121"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5126"/>
         <source>Exclusion</source>
         <translation>Väljajätmine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5122"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5127"/>
         <source>Color Dodge</source>
         <translation>Värvi helestamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5123"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5128"/>
         <source>Color Burn</source>
         <translation>Värvi tumestamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5124"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5129"/>
         <source>Hue</source>
         <translation>Toon</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5126"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5131"/>
         <source>Color</source>
         <translation>Värv</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5424"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5435"/>
         <source>Group the selected objects</source>
         <translation>Valitud objektide rühmitamine</translation>
     </message>
@@ -21778,137 +21782,137 @@ n&amp;urgad:</translation>
         <translation>Automaatne</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5445"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5456"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation>Valimise korral saab kontuurjoont muuta ülaloleval paletil asuva kujundi muutmise tööriistaga. Kujundi paletil muutmise korral muutub see omaette jooneks, mis tugineb algselt objektist allpool asuvate tekstikastide tekstivoo arvestamisel kasti kujundile</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5142"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5149"/>
         <source>Default</source>
         <translation>Vaikimisi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5143"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5150"/>
         <source>Stair Step</source>
         <translation>Trepiaste</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5144"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5151"/>
         <source>Skew</source>
         <translation>Nurgeti pööramine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5145"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5153"/>
         <source>Flip Text</source>
         <translation>Tekst peapeale</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5147"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5155"/>
         <source>Type:</source>
         <translation>Tüüp:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5164"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5172"/>
         <source>Use Image Clip Path</source>
         <translation>Pildi lõikejoon</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5165"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5173"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>Lõigust&amp;iil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5166"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5174"/>
         <source>Character St&amp;yle:</source>
         <translation>Märgist&amp;iil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5186"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5194"/>
         <source>Word Tracking</source>
         <translation>Sõnade koondamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5190"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5198"/>
         <source>Min:</source>
         <translation>Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5188"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5196"/>
         <source>Norm:</source>
         <translation>Norm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5189"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5197"/>
         <source>Glyph Extension</source>
         <translation>Glüüfi laiendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5191"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5199"/>
         <source>Max:</source>
         <translation>Maks:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5446"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5457"/>
         <source>Use the clipping path of the image</source>
         <translation>Pildi lõikejoone kasutamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5462"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5473"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Valitud teksti või lõigu lõigustiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5463"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5474"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Valitud teksti või lõigu märgistiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5464"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5475"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Lõigu otsevorminduse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5465"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5476"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Märgi otsevorminduse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5472"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5483"/>
         <source>Minimal width of spaces between words</source>
         <translation>Sõnadevahelise ruumi miinimumsuurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5473"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5484"/>
         <source>Normal width of spaces between words</source>
         <translation>Sõnadevahelise ruumi normaalne suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5474"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5485"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Glüüfi minimaalne kokkusurumine joonduseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5475"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5486"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Glüüfi maksimaalne laiendamine joonduseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5435"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5446"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Objekti eksportimise lubamine või keelamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5229"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5240"/>
         <source>Custom</source>
         <translation>Kohandatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5106"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5110"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Muuda...</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5195"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5203"/>
         <source>First Line Offset</source>
         <translation>Esimese rea kõrgus</translation>
     </message>
@@ -21923,17 +21927,17 @@ n&amp;urgad:</translation>
         <translation>Fondi kõrgeima märgi järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5192"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5200"/>
         <source>Color &amp; Effects</source>
         <translation>Värvid &amp; efektid</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5193"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5201"/>
         <source>Advanced Settings</source>
         <translation>Muud seadistused</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5194"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5202"/>
         <source>Style Settings</source>
         <translation>Stiiliseadistused</translation>
     </message>
@@ -21943,42 +21947,42 @@ n&amp;urgad:</translation>
         <translation>Alusjoon</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5425"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5436"/>
         <source>Ungroup the selected group</source>
         <translation>Valitud grupi lõhkumine</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5461"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5472"/>
         <source>Select the line spacing mode.</source>
         <translation>Reavahe režiimi valimine.</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5468"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5479"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
         <translation>Tekstikasti esimese rea kõrguse määramine kaasatud märkide suurima kõrguse kasutamiseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5469"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5480"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation>Tekstikasti esimese rea kõrguse määramine fondi täieliku ülapikenduse kasutamiseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5470"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5481"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
         <translation>Tekstikasti esimese rea kõrguse määramine kindlale väärtusele</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5198"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5206"/>
         <source>&amp;Page Number:</source>
         <translation>Lehekülje&amp;number:</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5196"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5204"/>
         <source>Columns &amp; Text Distances</source>
         <translation>Veerud &amp; teksti vahemaad</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5185"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5193"/>
         <source>Reset</source>
         <translation>Lähtesta</translation>
     </message>
@@ -21988,51 +21992,51 @@ n&amp;urgad:</translation>
         <translation>Optilised veerised</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5299"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5310"/>
         <source>Hairline</source>
         <translation>Juusjoon</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5181"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5189"/>
         <source>None</source>
         <comment>optical margins</comment>
         <translation>Puudub</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5182"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5190"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
         <translation>Mõlemal küljel</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5183"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5191"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
         <translation>Ainult vasakul</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5184"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5192"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
         <translation>Ainult paremal</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5484"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5495"/>
         <source>Arrow head style for start of line</source>
         <translation>Joone alguse nooleotsa stiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5485"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5496"/>
         <source>Arrow head style for end of line</source>
         <translation>Joone lõpu nooleotsa stiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5507"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5518"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>Pildi näiv rõhtsuunas DPI pärast skaleerimist</translation>
     </message>
     <message>
-        <location filename="../../scribus/propertiespalette.cpp" line="5508"/>
+        <location filename="../../scribus/propertiespalette.cpp" line="5519"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>Pildi näiv püstsuunas DPI pärast skaleerimist</translation>
     </message>
@@ -22704,17 +22708,17 @@ Palun kontrolli asukohta ja nime.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2628"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2656"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1  - </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1102"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1104"/>
         <source>Background</source>
         <translation>Taust</translation>
     </message>
     <message>
-        <location filename="../../scribus/gtaction.cpp" line="76"/>
+        <location filename="../../scribus/gtaction.cpp" line="77"/>
         <source>Importing text</source>
         <translation>Teksti import</translation>
     </message>
@@ -23004,85 +23008,85 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>DLE</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="40"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="41"/>
         <source>Could not open output file %1</source>
         <translation>Väljundfaili %1 avamine nurjus</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="56"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="57"/>
         <source>Output stream not writeable</source>
         <translation>Väljundvoog ei ole kirjutamisõigusega</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="79"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="80"/>
         <source>Verification of settings failed: %1</source>
         <translation>Seadistuste kontroll nurjus: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="281"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="282"/>
         <source>Could not open input file %1</source>
         <translation>Sisendfaili %1 avamine nurjus</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="663"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="664"/>
         <source>Unable to read settings XML:</source>
         <translation>Seadistuste XML-i lugemine nurjus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="297"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="298"/>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
         <translation>%1 (rida %2 veerg %3)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="316"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="317"/>
         <source>Unable to read settings XML: %1</source>
         <translation>Seadistuste XML-i lugemine nurjus: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="316"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="317"/>
         <source>null root node</source>
         <comment>Load PDF settings</comment>
         <translation>null juursõlm</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="441"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="442"/>
         <source>&lt;pdfVersion&gt; invalid</source>
         <comment>Load PDF settings</comment>
         <translation>&lt;pdfVersion&gt; vigane</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="454"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="455"/>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
         <comment>Load PDF settings</comment>
         <translation>leiti %1 &lt;%2&gt; sõlme, vaja on 1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="469"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="470"/>
         <source>unexpected null &lt;%2&gt; node</source>
         <comment>Load PDF settings</comment>
         <translation>ootamatu null &lt;%2&gt; sõlm</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="477"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="478"/>
         <source>node &lt;%1&gt; not an element</source>
         <comment>Load PDF settings</comment>
         <translation>sõlm &lt;%1&gt; ei ole element</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="497"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="498"/>
         <source>element &lt;%1&gt; lacks `value&apos; attribute</source>
         <comment>Load PDF settings</comment>
         <translation>elemendil &lt;%1&gt; puudub atribuut `value&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="526"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="527"/>
         <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
         <comment>Load PDF settings</comment>
         <translation>elemendi &lt;%1&gt; väärtus peab olema `true&apos; või `false&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdfoptionsio.cpp" line="664"/>
+        <location filename="../../scribus/pdfoptionsio.cpp" line="665"/>
         <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
         <comment>Load PDF settings</comment>
         <translation>elemendil &lt;lpiSettingsEntry&gt; puudub atribuut `name&apos;</translation>
@@ -23093,32 +23097,32 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Kõik</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1828"/>
+        <location filename="../../scribus/pslib.cpp" line="1829"/>
         <source>Exporting PostScript File</source>
         <translation>PostScript-faili eksport</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1830"/>
+        <location filename="../../scribus/pslib.cpp" line="1831"/>
         <source>Printing File</source>
         <translation>Faili trükkimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="2012"/>
+        <location filename="../../scribus/pslib.cpp" line="2013"/>
         <source>Black</source>
         <translation>Must</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="2014"/>
+        <location filename="../../scribus/pslib.cpp" line="2015"/>
         <source>Cyan</source>
         <translation>Tsüaan</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="2016"/>
+        <location filename="../../scribus/pslib.cpp" line="2017"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="2018"/>
+        <location filename="../../scribus/pslib.cpp" line="2019"/>
         <source>Yellow</source>
         <translation>Kollane</translation>
     </message>
@@ -23253,22 +23257,22 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation type="obsolete">Kasutad Scribus 1.3.x arendusversiooni. Redigeeritav dokument on loodud Scribuse versiooniga 1.2.3 või vanemaga. Salvestamisel ei saa seda enam Scribus 1.2.3 või vanemas kasutada, kui sa ei vali just Fail-&gt;Salvesta kui. Kas soovid kindlasti jätkata?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3678"/>
+        <location filename="../../scribus/scribus.cpp" line="3689"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Üritad importida rohkem lehekülgi, kui neid leidub aktiivses dokumendis alates aktiivsest leheküljest.&lt;/p&gt;Vali üks järgmistest võimalustest:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Loo&lt;/b&gt; puuduvad leheküljed&lt;/li&gt;&lt;li&gt;&lt;b&gt;Impordi&lt;/b&gt; leheküljed viimase leheküljeni&lt;/li&gt;&lt;li&gt;&lt;b&gt;Loobu&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3679"/>
+        <location filename="../../scribus/scribus.cpp" line="3690"/>
         <source>C&amp;reate</source>
         <translation>&amp;Loo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3680"/>
+        <location filename="../../scribus/scribus.cpp" line="3691"/>
         <source>&amp;Import</source>
         <translation>&amp;Impordi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4338"/>
+        <location filename="../../scribus/scribus.cpp" line="4349"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Dokumenti tehtud muudatused pole salvestatud, nüüd aga soovisid need tühistada. Kas soovid jätkata?</translation>
     </message>
@@ -23419,7 +23423,7 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Uus mallist</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2312"/>
+        <location filename="../../scribus/scribus.cpp" line="2322"/>
         <source>Document Template: </source>
         <translation>Dokumendimall: </translation>
     </message>
@@ -24344,7 +24348,7 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
 %1?</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="101"/>
+        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="102"/>
         <source>SVG Import</source>
         <translation>SVG import</translation>
     </message>
@@ -24354,12 +24358,12 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
         <translation>Vana .sla-vormingu toetus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="104"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="105"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation>OpenOffice.org Draw&apos; importija</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="172"/>
+        <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="173"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
         <translation>OpenOffice.org Draw (*.sxd *.odg);;Kõik failid (*)</translation>
     </message>
@@ -24569,7 +24573,7 @@ Välised lingid
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="106"/>
-        <source>Norwegian (BokmÃ¥l)</source>
+        <source>Norwegian (Bokm&#xc3;&#xa5;l)</source>
         <translation>Norra (BokmÃ¥l)</translation>
     </message>
     <message>
@@ -24710,7 +24714,7 @@ Välised lingid
         <translation>Sulandamine väljub piiridest, peab olema  0 &lt;= sulandamine &lt;= 15.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="59"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="60"/>
         <source>Scribus 1.2.x Support</source>
         <translation>Scribus 1.2.x toetus</translation>
     </message>
@@ -24808,7 +24812,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation>Hiina (tradits.)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="63"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="64"/>
         <source>Scribus 1.3.0-&gt;1.3.3.x Support</source>
         <translation>Scribus 1.3.0-&gt;1.3.3.x toetus</translation>
     </message>
@@ -25000,13 +25004,13 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation>Seadistustefaili %1 ei leitud või ei ole see loetav</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="386"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="387"/>
         <source>second argument is not tuple: must be tuple of int values.</source>
         <comment>python error</comment>
         <translation>teine argument ei ole ennik: peab olema täisarvväärtuste ennik.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="398"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="399"/>
         <source>second argument contains non-numeric values: must be list of int values.</source>
         <comment>python error</comment>
         <translation>teine argument sisaldab mittearvulisi väärtusi: peab olema täisarvväärtuste loend.</translation>
@@ -25105,7 +25109,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="161"/>
-        <source>°</source>
+        <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation>°</translation>
     </message>
@@ -25138,7 +25142,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation>Sanskriti</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="64"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="65"/>
         <source>Scribus 1.3.4+ Support</source>
         <translation>Scribus 1.3.4+ toetus</translation>
     </message>
@@ -26753,17 +26757,17 @@ Ettevaatust: see suurendab faili suurust!</translation>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="93"/>
+        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="94"/>
         <source>Import &amp;SVG...</source>
         <translation>Impordi &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="108"/>
+        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="109"/>
         <source>Imports SVG Files</source>
         <translation>Impordib SVG-faile</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="109"/>
+        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="110"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Impordib SVG-failid aktiivsesse dokumenti,
@@ -26775,12 +26779,12 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation type="obsolete">Skaleeritav vektorgraafika</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="197"/>
+        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="198"/>
         <source>SVG file contains some unsupported features</source>
         <translation>SVG-fail sisaldab mõningaid toetamata omadusi</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="195"/>
+        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="196"/>
         <source>The file could not be imported</source>
         <translation>Faili import nurjus</translation>
     </message>
@@ -26788,7 +26792,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="1000"/>
+        <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="1001"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
@@ -27164,7 +27168,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
 <context>
     <name>Scribus12Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="109"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="110"/>
         <source>Scribus 1.2.x Document</source>
         <translation>Scribus 1.2.x dokument</translation>
     </message>
@@ -27174,22 +27178,22 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation type="obsolete">Taust</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1731"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1732"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1 - </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="69"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="70"/>
         <source>Scribus 1.2.x File Format Support</source>
         <translation>Scribus 1.2.x failivormingu toetus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="70"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="71"/>
         <source>Allows Scribus to read Scribus 1.2.x formatted files.</source>
         <translation>Võimaldab Scribusel lugeda Scribus 1.2.x vormingus faile.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="753"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="754"/>
         <source>You have opened a file produced by Scribus 1.2.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation>Avasid faili, mis on loodud Scribuse versiooniga 1.2.x.
@@ -27204,22 +27208,22 @@ Kui salvestad selle praeguses versioonis, ei saa seda enam Scribuse vanemates ve
         <translation type="obsolete">Scribus 1.3.4 dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3471"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3485"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1 - </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="74"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="75"/>
         <source>Scribus 1.3.4+ File Format Support</source>
         <translation>Scribus 1.3.4+ failivormingu toetus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="75"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="76"/>
         <source>Allows Scribus to read Scribus 1.3.4 and higher formatted files.</source>
         <translation>Võimaldab Scribusel lugeda Scribus 1.3.4 ja uuemas vormingus faile.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="92"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="93"/>
         <source>Scribus 1.3.4+ Document</source>
         <translation>Scribus 1.3.4+ dokument</translation>
     </message>
@@ -27232,27 +27236,27 @@ Kui salvestad selle praeguses versioonis, ei saa seda enam Scribuse vanemates ve
         <translation type="obsolete">Scribus 1.3.0-&gt;1.3.3.2 dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3074"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3099"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1  - </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="91"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="92"/>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
         <translation>Scribus 1.3.0-&gt;1.3.3.7 dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="73"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="74"/>
         <source>Scribus 1.3.x File Format Support</source>
         <translation>Scribus 1.3.x failivormingu toetus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="74"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="75"/>
         <source>Allows Scribus to read Scribus 1.3.0-&gt;1.3.3.x formatted files.</source>
         <translation>Võimaldab Scribusel lugeda Scribus 1.3.0-&gt;1.3.3.x vormingus faile.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1140"/>
+        <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1142"/>
         <source>You have opened a file produced by Scribus 1.3.3.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation>Avasid faili, mis on loodud Scribuse versiooniga 1.3.3.x.
@@ -27363,17 +27367,17 @@ Kui salvestad selle praeguses versioonis, ei saa seda enam Scribuse vanemates ve
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Kustutamisoperatsioon katkestatakse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7829"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7822"/>
         <source>Some objects are locked.</source>
         <translation>Mõned objektid on lukustatud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7825"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7818"/>
         <source>&amp;Unlock All</source>
         <translation>Eemalda kõigi l&amp;ukustus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="7826"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="7819"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Jäta lukustatud objektid vahele</translation>
     </message>
@@ -27392,7 +27396,7 @@ Nihe rõhtsuunas: %2
 Nihe püstsuunas: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8969"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8962"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -27416,7 +27420,7 @@ Vahe püstsuunas: %3</translation>
         <translation>märgi otsevorminduse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8940"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8933"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -27427,7 +27431,7 @@ Nihe püstsuunas: %3
 Pööramine: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="10010"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="10003"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
@@ -27481,17 +27485,17 @@ Pööramine: %4</translation>
         <translation type="obsolete">&amp;Fail</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9226"/>
+        <location filename="../../scribus/scribus.cpp" line="9234"/>
         <source>Open &amp;Recent</source>
         <translation>Ava &amp;viimati kasutatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9228"/>
+        <location filename="../../scribus/scribus.cpp" line="9236"/>
         <source>&amp;Import</source>
         <translation>&amp;Impordi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9229"/>
+        <location filename="../../scribus/scribus.cpp" line="9237"/>
         <source>&amp;Export</source>
         <translation>&amp;Ekspordi</translation>
     </message>
@@ -27501,7 +27505,7 @@ Pööramine: %4</translation>
         <translation type="obsolete">&amp;Redigeerimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9231"/>
+        <location filename="../../scribus/scribus.cpp" line="9239"/>
         <source>Contents</source>
         <translation>Sisu</translation>
     </message>
@@ -27556,7 +27560,7 @@ Pööramine: %4</translation>
         <translation>Saatmine ki&amp;hile</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9236"/>
+        <location filename="../../scribus/scribus.cpp" line="9244"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-i valikud</translation>
     </message>
@@ -27566,7 +27570,7 @@ Pööramine: %4</translation>
         <translation type="obsolete">&amp;Kuju</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9238"/>
+        <location filename="../../scribus/scribus.cpp" line="9246"/>
         <source>C&amp;onvert To</source>
         <translation>T&amp;eisendamine</translation>
     </message>
@@ -27591,7 +27595,7 @@ Pööramine: %4</translation>
         <translation>&amp;Tühikud ja katkestused</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9244"/>
+        <location filename="../../scribus/scribus.cpp" line="9252"/>
         <source>Liga&amp;ture</source>
         <translation>Li&amp;gatuur</translation>
     </message>
@@ -27621,52 +27625,52 @@ Pööramine: %4</translation>
         <translation type="obsolete">A&amp;bi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9251"/>
+        <location filename="../../scribus/scribus.cpp" line="9259"/>
         <source>&amp;Alignment</source>
         <translation>&amp;Joondus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9261"/>
+        <location filename="../../scribus/scribus.cpp" line="9269"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4196"/>
+        <location filename="../../scribus/scribus.cpp" line="4207"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3645"/>
+        <location filename="../../scribus/scribus.cpp" line="3656"/>
         <source>Importing Pages...</source>
         <translation>Lehekülgede import...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3674"/>
+        <location filename="../../scribus/scribus.cpp" line="3685"/>
         <source>Import Page(s)</source>
         <translation>Lehekülgede import</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3716"/>
+        <location filename="../../scribus/scribus.cpp" line="3727"/>
         <source>Import done</source>
         <translation>Import tehtud</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3720"/>
+        <location filename="../../scribus/scribus.cpp" line="3731"/>
         <source>Found nothing to import</source>
         <translation>Ei leitud midagi importida</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3842"/>
+        <location filename="../../scribus/scribus.cpp" line="3853"/>
         <source>Fatal Error</source>
         <translation>Saatuslik viga</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3842"/>
+        <location filename="../../scribus/scribus.cpp" line="3853"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Fail %1 ei ole sobivas vormingus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3863"/>
+        <location filename="../../scribus/scribus.cpp" line="3874"/>
         <source>Loading...</source>
         <translation>Laadimine...</translation>
     </message>
@@ -27681,17 +27685,17 @@ Pööramine: %4</translation>
         <translation type="obsolete">Mõned dokumendis kasutatud ICC profiilid ei ole paigaldatud:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4010"/>
+        <location filename="../../scribus/scribus.cpp" line="4021"/>
         <source> was replaced by: </source>
         <translation> asendati profiiliga: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4042"/>
+        <location filename="../../scribus/scribus.cpp" line="4053"/>
         <source>(converted)</source>
         <translation>(teisendatud)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3493"/>
+        <location filename="../../scribus/scribus.cpp" line="3504"/>
         <source>All Supported Formats</source>
         <translation>Kõik toetatud vormingud</translation>
     </message>
@@ -27701,7 +27705,7 @@ Pööramine: %4</translation>
         <translation type="obsolete">Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8020"/>
+        <location filename="../../scribus/scribus.cpp" line="8028"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Ei õnnestunud kirjutada faili:
@@ -27718,17 +27722,17 @@ Pööramine: %4</translation>
         <translation type="obsolete">Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7855"/>
+        <location filename="../../scribus/scribus.cpp" line="7863"/>
         <source>Save As</source>
         <translation>Salvestamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4445"/>
+        <location filename="../../scribus/scribus.cpp" line="4456"/>
         <source>Saving...</source>
         <translation>Salvestamine...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7717"/>
+        <location filename="../../scribus/scribus.cpp" line="7725"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus avastas vigu. Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     </message>
@@ -27743,37 +27747,37 @@ Pööramine: %4</translation>
         <translation type="obsolete">&amp;Katkesta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4746"/>
+        <location filename="../../scribus/scribus.cpp" line="4757"/>
         <source>Printing...</source>
         <translation>Trükkimine...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7832"/>
+        <location filename="../../scribus/scribus.cpp" line="7840"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4787"/>
+        <location filename="../../scribus/scribus.cpp" line="4798"/>
         <source>Printing failed!</source>
         <translation>Trükkimine nurjus!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4877"/>
+        <location filename="../../scribus/scribus.cpp" line="4888"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Kasutuselolevat elementi ei saa lõigata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4877"/>
+        <location filename="../../scribus/scribus.cpp" line="4888"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Lõikamisoperatsioon katkestatakse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5425"/>
+        <location filename="../../scribus/scribus.cpp" line="5436"/>
         <source>About Qt</source>
         <translation>Qt info</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5436"/>
+        <location filename="../../scribus/scribus.cpp" line="5447"/>
         <source>Scribus Manual</source>
         <translation>Scribuse käsiraamat</translation>
     </message>
@@ -27783,7 +27787,7 @@ Pööramine: %4</translation>
         <translation type="obsolete">Salvestamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5466"/>
+        <location filename="../../scribus/scribus.cpp" line="5477"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Tekstifailid (*.txt);;Kõik failid (*)</translation>
     </message>
@@ -27808,27 +27812,27 @@ Pööramine: %4</translation>
         <translation type="obsolete">Uus leheküljetoorik %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6852"/>
+        <location filename="../../scribus/scribus.cpp" line="6863"/>
         <source>&amp;Size:</source>
         <translation>&amp;Suurus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6852"/>
+        <location filename="../../scribus/scribus.cpp" line="6863"/>
         <source>Size</source>
         <translation>Suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6882"/>
+        <location filename="../../scribus/scribus.cpp" line="6893"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Varjund:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6882"/>
+        <location filename="../../scribus/scribus.cpp" line="6893"/>
         <source>Shade</source>
         <translation>Varjund</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6986"/>
+        <location filename="../../scribus/scribus.cpp" line="6997"/>
         <source>No Style</source>
         <translation>Stiil puudub</translation>
     </message>
@@ -27842,17 +27846,17 @@ Nihe rõhtsuunas: %2
 Nihe püstsuunas: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7612"/>
+        <location filename="../../scribus/scribus.cpp" line="7620"/>
         <source>The following programs are missing:</source>
         <translation>Järgmised programmid puuduvad:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7614"/>
+        <location filename="../../scribus/scribus.cpp" line="7622"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript: ei saa kasutada EPS-pilte ega trükkimise eelvaatlust</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7616"/>
+        <location filename="../../scribus/scribus.cpp" line="7624"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript: ei saa kasutada EPS-pilte ega PostScript trükkimise eelvaatlust</translation>
     </message>
@@ -27862,12 +27866,12 @@ Nihe püstsuunas: %3</translation>
         <translation type="obsolete">Ghostscript puudub: ei saa kasutada PostScript trükkimise eelvaatlust</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7753"/>
+        <location filename="../../scribus/scribus.cpp" line="7761"/>
         <source>All</source>
         <translation>Kõik</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7801"/>
+        <location filename="../../scribus/scribus.cpp" line="7809"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus avastas vigu.
@@ -27879,44 +27883,44 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">EPS-failid (*.eps);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7898"/>
+        <location filename="../../scribus/scribus.cpp" line="7906"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Avastati mõned vead.
 Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7994"/>
+        <location filename="../../scribus/scribus.cpp" line="8002"/>
         <source>-Page%1</source>
         <translation>-lk%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8378"/>
+        <location filename="../../scribus/scribus.cpp" line="8386"/>
         <source>Some objects are locked.</source>
         <translation>Mõned objektid on lukustatud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8374"/>
+        <location filename="../../scribus/scribus.cpp" line="8382"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Lukusta kõik</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8375"/>
+        <location filename="../../scribus/scribus.cpp" line="8383"/>
         <source>&amp;Unlock All</source>
         <translation>Eemalda kõigi l&amp;ukustus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9075"/>
+        <location filename="../../scribus/scribus.cpp" line="9083"/>
         <source>Information</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9075"/>
+        <location filename="../../scribus/scribus.cpp" line="9083"/>
         <source>The program %1 is already running!</source>
         <translation>Programm %1 juba töötab!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9114"/>
+        <location filename="../../scribus/scribus.cpp" line="9122"/>
         <source>The program %1 is missing!</source>
         <translation>Programm %1 puudub!</translation>
     </message>
@@ -27936,32 +27940,32 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="obsolete">Valitud nimi on juba olemas. Palun anna uuele värvile mõni muu nimi.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9233"/>
+        <location filename="../../scribus/scribus.cpp" line="9241"/>
         <source>&amp;Level</source>
         <translation>&amp;Tase</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9234"/>
+        <location filename="../../scribus/scribus.cpp" line="9242"/>
         <source>Send to Layer</source>
         <translation>Saatmine kihile</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9235"/>
+        <location filename="../../scribus/scribus.cpp" line="9243"/>
         <source>Previe&amp;w Settings</source>
         <translation>Eel&amp;vaatluse seadistused</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9241"/>
+        <location filename="../../scribus/scribus.cpp" line="9249"/>
         <source>Character</source>
         <translation>Märk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9242"/>
+        <location filename="../../scribus/scribus.cpp" line="9250"/>
         <source>Quote</source>
         <translation>Jutumärk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9243"/>
+        <location filename="../../scribus/scribus.cpp" line="9251"/>
         <source>Space</source>
         <translation>Tühik</translation>
     </message>
@@ -27971,22 +27975,22 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="obsolete">&amp;Tööriistad</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9257"/>
+        <location filename="../../scribus/scribus.cpp" line="9265"/>
         <source>X-Pos:</source>
         <translation>X-asukoht:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9258"/>
+        <location filename="../../scribus/scribus.cpp" line="9266"/>
         <source>Y-Pos:</source>
         <translation>Y-asukoht:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9411"/>
+        <location filename="../../scribus/scribus.cpp" line="9419"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Kas tõesti asendada olemasolev pilt?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9227"/>
+        <location filename="../../scribus/scribus.cpp" line="9235"/>
         <source>Paste Recent</source>
         <translation>Aseta viimati kasutatud</translation>
     </message>
@@ -27996,7 +28000,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="obsolete">Piltide uuendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4413"/>
+        <location filename="../../scribus/scribus.cpp" line="4424"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumendid (*.sla *.sla.gz);;Kõik failid (*)</translation>
     </message>
@@ -28011,7 +28015,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="obsolete">Grupp%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4227"/>
+        <location filename="../../scribus/scribus.cpp" line="4238"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Kas tõesti kustutada kogu tekst?</translation>
     </message>
@@ -28021,17 +28025,17 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Scribus </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9252"/>
+        <location filename="../../scribus/scribus.cpp" line="9260"/>
         <source>Online &amp;Tutorials</source>
         <translation>Õ&amp;ppematerjalid internetis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4007"/>
+        <location filename="../../scribus/scribus.cpp" line="4018"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Mõned dokumendis kasutatud värviprofiilid ei ole paigaldatud:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7855"/>
+        <location filename="../../scribus/scribus.cpp" line="7863"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Kõik failid (*)</translation>
     </message>
@@ -28041,44 +28045,44 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Kasutaja kiirklahvide rakendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2522"/>
+        <location filename="../../scribus/scribus.cpp" line="2533"/>
         <source>Updating Images</source>
         <translation>Piltide uuendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4429"/>
+        <location filename="../../scribus/scribus.cpp" line="4440"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Sinu dokument on salvestatud ajutisse faili ja seda ei saa liigutada: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4842"/>
+        <location filename="../../scribus/scribus.cpp" line="4853"/>
         <source>Print engine initialization failed</source>
         <translation>Trükkimismootori initsialiseerimine nurjus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9465"/>
+        <location filename="../../scribus/scribus.cpp" line="9473"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nimi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9465"/>
+        <location filename="../../scribus/scribus.cpp" line="9473"/>
         <source>New Entry</source>
         <translation>Uus kirje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7663"/>
+        <location filename="../../scribus/scribus.cpp" line="7671"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Ghostscript puudub: ei saa kasutada PostScript trükkimise eelvaatlust</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3825"/>
+        <location filename="../../scribus/scribus.cpp" line="3836"/>
         <source>Document is already opened</source>
         <translation>Dokument on juba avatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3827"/>
+        <location filename="../../scribus/scribus.cpp" line="3838"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation>Dokument on juba kasutusel. Nüüd lülitutakse selle aknasse.</translation>
     </message>
@@ -28224,7 +28228,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="217"/>
+        <location filename="../../scribus/scribusview.cpp" line="218"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -28234,17 +28238,17 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="obsolete">Kiht</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1126"/>
+        <location filename="../../scribus/scribusview.cpp" line="1127"/>
         <source>Copy Here</source>
         <translation>Kopeeri siia</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1127"/>
+        <location filename="../../scribus/scribusview.cpp" line="1128"/>
         <source>Move Here</source>
         <translation>Liiguta siia</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1128"/>
+        <location filename="../../scribus/scribusview.cpp" line="1129"/>
         <source>Cancel</source>
         <translation>Loobu</translation>
     </message>
@@ -28394,17 +28398,17 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="obsolete">Üritad linkida täidetud kastiga või sama kasti endaga.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2474"/>
+        <location filename="../../scribus/scribusview.cpp" line="2475"/>
         <source>Page %1 to %2</source>
         <translation>Lehekülg %1 kuni %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3984"/>
+        <location filename="../../scribus/scribusview.cpp" line="3985"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Kasutuselolevat elementi ei saa teisendada</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3984"/>
+        <location filename="../../scribus/scribusview.cpp" line="3985"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Antud elemendi kontuuriks teisendamise operatsioon jäetakse vahele</translation>
     </message>
@@ -28424,7 +28428,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="obsolete">Read: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3677"/>
+        <location filename="../../scribus/scribusview.cpp" line="3678"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
@@ -28471,12 +28475,12 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">Lülitab värvihalduse sisse või välja</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="433"/>
+        <location filename="../../scribus/scribusview.cpp" line="434"/>
         <source>Preview Mode</source>
         <translation>Eelvaatluse režiim</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="434"/>
+        <location filename="../../scribus/scribusview.cpp" line="435"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation>Värvihaldus on sisse lülitatud. Seepärast ei pruugi värvivaade klappida nägemisvaegusega inimeste tajuga</translation>
     </message>
@@ -28496,72 +28500,72 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>Püüad linkida kasti, mis on juba lingitud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="374"/>
+        <location filename="../../scribus/scribusview.cpp" line="375"/>
         <source>Enable/disable Color Management</source>
         <translation>Värvihalduse lubamine/keelamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="376"/>
+        <location filename="../../scribus/scribusview.cpp" line="377"/>
         <source>Enable/disable the Preview Mode</source>
         <translation>Eelvaatluse režiimi lubamine/keelamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="377"/>
+        <location filename="../../scribus/scribusview.cpp" line="378"/>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
         <translation>Vaate väljanägemise valimine. Valida on tavalise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="375"/>
+        <location filename="../../scribus/scribusview.cpp" line="376"/>
         <source>Configure CMS...</source>
         <translation>Seadista värvihaldust...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="364"/>
+        <location filename="../../scribus/scribusview.cpp" line="365"/>
         <source>Zoom to 100%</source>
         <translation>Suurendus 100% peale</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="365"/>
+        <location filename="../../scribus/scribusview.cpp" line="366"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Vähendus tööriista seadistustes määratud sammu võrra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="366"/>
+        <location filename="../../scribus/scribusview.cpp" line="367"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Suurendus tööriista seadistustes määratud sammu võrra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="367"/>
+        <location filename="../../scribus/scribusview.cpp" line="368"/>
         <source>Current zoom level</source>
         <translation>Praegune suurendustase</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="370"/>
+        <location filename="../../scribus/scribusview.cpp" line="371"/>
         <source>Select the current layer</source>
         <translation>Aktiivse kihi valimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="371"/>
+        <location filename="../../scribus/scribusview.cpp" line="372"/>
         <source>Select the current unit</source>
         <translation>Aktiivse ühiku valimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="205"/>
+        <location filename="../../scribus/scribusview.cpp" line="206"/>
         <source>High</source>
         <translation>Suur</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="206"/>
+        <location filename="../../scribus/scribusview.cpp" line="207"/>
         <source>Normal</source>
         <translation>Normaalne</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="207"/>
+        <location filename="../../scribus/scribusview.cpp" line="208"/>
         <source>Low</source>
         <translation>Väike</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="372"/>
+        <location filename="../../scribus/scribusview.cpp" line="373"/>
         <source>Select the image preview quality</source>
         <translation>Pildi eelvaatluse kvaliteedi valimine</translation>
     </message>
@@ -29473,22 +29477,22 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">Valitud on rohkem kui üks element</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="351"/>
+        <location filename="../../scribus/stylemanager.ui" line="244"/>
         <source>Name:</source>
         <translation>Nimi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="500"/>
+        <location filename="../../scribus/stylemanager.ui" line="385"/>
         <source>&amp;Reset</source>
         <translation>Lä&amp;htesta</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="478"/>
+        <location filename="../../scribus/stylemanager.ui" line="363"/>
         <source>&amp;Apply</source>
         <translation>&amp;Rakenda</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="456"/>
+        <location filename="../../scribus/stylemanager.ui" line="341"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation>&lt;&lt; &amp;Tehtud</translation>
     </message>
@@ -29498,22 +29502,22 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">&amp;Redigeeri &gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="169"/>
+        <location filename="../../scribus/stylemanager.ui" line="110"/>
         <source>&amp;New</source>
         <translation>&amp;Uus</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="235"/>
+        <location filename="../../scribus/stylemanager.ui" line="157"/>
         <source>&amp;Import</source>
         <translation>&amp;Impordi</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="200"/>
+        <location filename="../../scribus/stylemanager.ui" line="141"/>
         <source>&amp;Clone</source>
         <translation>&amp;Klooni</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="251"/>
+        <location filename="../../scribus/stylemanager.ui" line="173"/>
         <source>&amp;Delete</source>
         <translation>K&amp;ustuta</translation>
     </message>
@@ -29578,7 +29582,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>Kustuta</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.cpp" line="703"/>
+        <location filename="../../scribus/stylemanager.cpp" line="721"/>
         <source>&amp;Edit</source>
         <translation>&amp;Redigeeri</translation>
     </message>
@@ -29588,12 +29592,12 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>&amp;Tehtud</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="78"/>
+        <location filename="../../scribus/stylemanager.ui" line="54"/>
         <source>Shortcut</source>
         <translation>Kiirklahv</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="73"/>
+        <location filename="../../scribus/stylemanager.ui" line="49"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
@@ -29618,12 +29622,12 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>Uus %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.cpp" line="993"/>
+        <location filename="../../scribus/stylemanager.cpp" line="1011"/>
         <source>This key sequence is already in use</source>
         <translation>See klahvikombinatsioon on juba kasutusel</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.cpp" line="1081"/>
+        <location filename="../../scribus/stylemanager.cpp" line="1099"/>
         <source>More than one style selected</source>
         <translation>Valitud on rohkem kui üks stiil</translation>
     </message>
@@ -29638,47 +29642,47 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>dokumendid (*.sla *.sla.gz *.scd *.scd.gz);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="172"/>
+        <location filename="../../scribus/stylemanager.ui" line="113"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="197"/>
+        <location filename="../../scribus/stylemanager.ui" line="138"/>
         <source>Clone copies the style to make similar styles easily.</source>
         <translation>Kloonimine kopeerib stiili, nii saab lihtsamini luua sarnaseid stiile.</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="203"/>
+        <location filename="../../scribus/stylemanager.ui" line="144"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="238"/>
+        <location filename="../../scribus/stylemanager.ui" line="160"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="459"/>
+        <location filename="../../scribus/stylemanager.ui" line="344"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="382"/>
+        <location filename="../../scribus/stylemanager.ui" line="275"/>
         <source>Please select a unique name for the style</source>
         <translation>Palun vali stiilile unikaalne nimi</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="481"/>
+        <location filename="../../scribus/stylemanager.ui" line="366"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="503"/>
+        <location filename="../../scribus/stylemanager.ui" line="388"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
     </message>
     <message>
-        <location filename="../../scribus/stylemanager.ui" line="22"/>
+        <location filename="../../scribus/stylemanager.ui" line="23"/>
         <source>Style Manager</source>
         <translation>Stiilihaldur</translation>
     </message>
@@ -31639,47 +31643,47 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">Klahvikomplektide XML-failid (*.ksxml)</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="557"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="557"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="557"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="557"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="503"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="504"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="507"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="508"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="511"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="512"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="515"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="516"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="525"/>
+        <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="526"/>
         <source>This key sequence is already in use</source>
         <translation>See klahvikombinatsioon on juba kasutusel</translation>
     </message>
@@ -33331,12 +33335,12 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Võimaldab konkreetselt määrata kindlaks PostScript-faili trükimaterjali (paberi, kile vms.) suuruse. Kui printer seda otseselt ei nõua, ei ole seda mõtet sisse lülitada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabprinter.cpp" line="82"/>
+        <location filename="../../scribus/tabprinter.cpp" line="76"/>
         <source>File</source>
         <translation>Fail</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabprinter.cpp" line="143"/>
+        <location filename="../../scribus/tabprinter.cpp" line="137"/>
         <source>All</source>
         <translation>Kõik</translation>
     </message>
@@ -33733,7 +33737,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Font:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="635"/>
+        <location filename="../../scribus/tabtools.cpp" line="633"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
@@ -33748,7 +33752,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Teksti värv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="463"/>
+        <location filename="../../scribus/tabtools.cpp" line="461"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -33773,28 +33777,28 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Äärejoone värv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="702"/>
+        <location filename="../../scribus/tabtools.cpp" line="700"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Puudub</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="703"/>
+        <location filename="../../scribus/tabtools.cpp" line="701"/>
         <source>Dot</source>
         <translation>Punkt</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="704"/>
+        <location filename="../../scribus/tabtools.cpp" line="702"/>
         <source>Hyphen</source>
         <translation>Kriips</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="705"/>
+        <location filename="../../scribus/tabtools.cpp" line="703"/>
         <source>Underscore</source>
         <translation>Alakriips</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="706"/>
+        <location filename="../../scribus/tabtools.cpp" line="704"/>
         <source>Custom</source>
         <translation>Kohandatud</translation>
     </message>
@@ -33819,22 +33823,22 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Va&amp;he:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="922"/>
+        <location filename="../../scribus/tabtools.cpp" line="920"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="292"/>
+        <location filename="../../scribus/tabtools.cpp" line="291"/>
         <source>&amp;Line Color:</source>
         <translation>&amp;Joone värv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="300"/>
+        <location filename="../../scribus/tabtools.cpp" line="299"/>
         <source>&amp;Shading:</source>
         <translation>&amp;Varjund:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="749"/>
+        <location filename="../../scribus/tabtools.cpp" line="747"/>
         <source>None</source>
         <translation>Puudub</translation>
     </message>
@@ -33844,7 +33848,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>&amp;Täidise värv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="396"/>
+        <location filename="../../scribus/tabtools.cpp" line="394"/>
         <source>S&amp;hading:</source>
         <translation>Va&amp;rjund:</translation>
     </message>
@@ -33854,42 +33858,42 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Joone stiil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="329"/>
+        <location filename="../../scribus/tabtools.cpp" line="327"/>
         <source>Line &amp;Width:</source>
         <translation>J&amp;oone jämedus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="307"/>
+        <location filename="../../scribus/tabtools.cpp" line="306"/>
         <source>Line S&amp;tyle:</source>
         <translation>Joone &amp;stiil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="315"/>
+        <location filename="../../scribus/tabtools.cpp" line="314"/>
         <source>Arrows:</source>
         <translation>Nooled:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="317"/>
+        <location filename="../../scribus/tabtools.cpp" line="316"/>
         <source>Start:</source>
         <translation>Algus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="320"/>
+        <location filename="../../scribus/tabtools.cpp" line="319"/>
         <source>End:</source>
         <translation>Lõpp:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="345"/>
+        <location filename="../../scribus/tabtools.cpp" line="343"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Vaba skaleerimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="356"/>
+        <location filename="../../scribus/tabtools.cpp" line="354"/>
         <source>&amp;Horizontal Scaling:</source>
         <translation>Rõ&amp;htsuunas skaleerimine:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="365"/>
+        <location filename="../../scribus/tabtools.cpp" line="363"/>
         <source>&amp;Vertical Scaling:</source>
         <translation>&amp;Püstsuunas skaleerimine:</translation>
     </message>
@@ -33899,57 +33903,57 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation type="obsolete">Pildi &amp;skaleerimine vastavalt kasti suurusele</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="382"/>
+        <location filename="../../scribus/tabtools.cpp" line="380"/>
         <source>Keep Aspect &amp;Ratio</source>
         <translation>P&amp;roportsiooni säilitamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="388"/>
+        <location filename="../../scribus/tabtools.cpp" line="386"/>
         <source>F&amp;ill Color:</source>
         <translation>&amp;Täidise värv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="400"/>
+        <location filename="../../scribus/tabtools.cpp" line="398"/>
         <source>Use embedded Clipping Path</source>
         <translation>Põimitud lõikejoone kasutamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="404"/>
+        <location filename="../../scribus/tabtools.cpp" line="402"/>
         <source>On Screen Preview</source>
         <translation>Eelvaatlus ekraanil</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="410"/>
+        <location filename="../../scribus/tabtools.cpp" line="408"/>
         <source>Full Resolution Preview</source>
         <translation>Täieliku kvaliteediga</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="413"/>
+        <location filename="../../scribus/tabtools.cpp" line="411"/>
         <source>Normal Resolution Preview</source>
         <translation>Normaalse kvaliteediga</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="416"/>
+        <location filename="../../scribus/tabtools.cpp" line="414"/>
         <source>Low Resolution Preview</source>
         <translation>Madala kvaliteediga</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="447"/>
+        <location filename="../../scribus/tabtools.cpp" line="445"/>
         <source>Mi&amp;nimum:</source>
         <translation>Mi&amp;nimaalne:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="456"/>
+        <location filename="../../scribus/tabtools.cpp" line="454"/>
         <source>Ma&amp;ximum:</source>
         <translation>Ma&amp;ksimaalne:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="465"/>
+        <location filename="../../scribus/tabtools.cpp" line="463"/>
         <source>&amp;Stepping:</source>
         <translation>&amp;Samm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="525"/>
+        <location filename="../../scribus/tabtools.cpp" line="523"/>
         <source>Text Frame Properties</source>
         <translation>Tekstikasti omadused</translation>
     </message>
@@ -33959,52 +33963,52 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation type="obsolete">Pildikasti omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="527"/>
+        <location filename="../../scribus/tabtools.cpp" line="525"/>
         <source>Shape Drawing Properties</source>
         <translation>Kujundi omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="528"/>
+        <location filename="../../scribus/tabtools.cpp" line="526"/>
         <source>Magnification Level Defaults</source>
         <translation>Suurendustasemed</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="529"/>
+        <location filename="../../scribus/tabtools.cpp" line="527"/>
         <source>Line Drawing Properties</source>
         <translation>Joone omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="530"/>
+        <location filename="../../scribus/tabtools.cpp" line="528"/>
         <source>Polygon Drawing Properties</source>
         <translation>Hulknurga omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="532"/>
+        <location filename="../../scribus/tabtools.cpp" line="530"/>
         <source>Font for new text frames</source>
         <translation>Uute tekstikastide font</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="533"/>
+        <location filename="../../scribus/tabtools.cpp" line="531"/>
         <source>Size of font for new text frames</source>
         <translation>Uute tekstikastide fondi suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="534"/>
+        <location filename="../../scribus/tabtools.cpp" line="532"/>
         <source>Color of font</source>
         <translation>Fondi värv</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="535"/>
+        <location filename="../../scribus/tabtools.cpp" line="533"/>
         <source>Number of columns in a text frame</source>
         <translation>Veergude arv tekstikastis</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="536"/>
+        <location filename="../../scribus/tabtools.cpp" line="534"/>
         <source>Gap between text frame columns</source>
         <translation>Tekstikasti veergude vahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="537"/>
+        <location filename="../../scribus/tabtools.cpp" line="535"/>
         <source>Sample of your font</source>
         <translation>Fondi näide</translation>
     </message>
@@ -34014,17 +34018,17 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation type="obsolete">Pildikastid võimaldavad piltide skaleerimist iga väärtuse järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="539"/>
+        <location filename="../../scribus/tabtools.cpp" line="537"/>
         <source>Horizontal scaling of images</source>
         <translation>Piltide skaleerimine rõhtsuunas</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="540"/>
+        <location filename="../../scribus/tabtools.cpp" line="538"/>
         <source>Vertical scaling of images</source>
         <translation>Piltide skaleerimine püstsuunas</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="541"/>
+        <location filename="../../scribus/tabtools.cpp" line="539"/>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation>Rõht- ja püstsuunas skaleerimine on võrdne</translation>
     </message>
@@ -34044,67 +34048,67 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation type="obsolete">Pildikastide täidise värv</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="549"/>
+        <location filename="../../scribus/tabtools.cpp" line="547"/>
         <source>Saturation of color of fill</source>
         <translation>Täidise värvi küllastus</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="546"/>
+        <location filename="../../scribus/tabtools.cpp" line="544"/>
         <source>Line color of shapes</source>
         <translation>Kujundite joone värv</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="547"/>
+        <location filename="../../scribus/tabtools.cpp" line="545"/>
         <source>Saturation of color of lines</source>
         <translation>Joone värvi küllastus</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="548"/>
+        <location filename="../../scribus/tabtools.cpp" line="546"/>
         <source>Fill color of shapes</source>
         <translation>Kujundite täidise värv</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="550"/>
+        <location filename="../../scribus/tabtools.cpp" line="548"/>
         <source>Line style of shapes</source>
         <translation>Kujundite joone stiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="551"/>
+        <location filename="../../scribus/tabtools.cpp" line="549"/>
         <source>Line width of shapes</source>
         <translation>Kujundite joone jämedus</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="552"/>
+        <location filename="../../scribus/tabtools.cpp" line="550"/>
         <source>Minimum magnification allowed</source>
         <translation>Lubatud minimaalne suurendus</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="553"/>
+        <location filename="../../scribus/tabtools.cpp" line="551"/>
         <source>Maximum magnification allowed</source>
         <translation>Lubatud maksimaalne suurendus</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="554"/>
+        <location filename="../../scribus/tabtools.cpp" line="552"/>
         <source>Change in magnification for each zoom operation</source>
         <translation>Suurenduse muutmise samm iga suurendusoperatsiooniga</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="555"/>
+        <location filename="../../scribus/tabtools.cpp" line="553"/>
         <source>Color of lines</source>
         <translation>Joonte värv</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="556"/>
+        <location filename="../../scribus/tabtools.cpp" line="554"/>
         <source>Saturation of color</source>
         <translation>Värviküllastus</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="557"/>
+        <location filename="../../scribus/tabtools.cpp" line="555"/>
         <source>Style of lines</source>
         <translation>Joonte stiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="558"/>
+        <location filename="../../scribus/tabtools.cpp" line="556"/>
         <source>Width of lines</source>
         <translation>Joonte jämedus</translation>
     </message>
@@ -34129,22 +34133,22 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Kujundid</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="286"/>
+        <location filename="../../scribus/tabtools.cpp" line="285"/>
         <source>Lines</source>
         <translation>Jooned</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="339"/>
+        <location filename="../../scribus/tabtools.cpp" line="337"/>
         <source>Images</source>
         <translation>Pildid</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="427"/>
+        <location filename="../../scribus/tabtools.cpp" line="425"/>
         <source>Regular Polygons</source>
         <translation>Korrapärased hulknurgad</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="439"/>
+        <location filename="../../scribus/tabtools.cpp" line="437"/>
         <source>Zoom</source>
         <translation>Suurendus</translation>
     </message>
@@ -34169,17 +34173,17 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation type="obsolete">Y-nihe</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="501"/>
+        <location filename="../../scribus/tabtools.cpp" line="499"/>
         <source>Rotation Tool</source>
         <translation>Pööramistööriist</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="510"/>
+        <location filename="../../scribus/tabtools.cpp" line="508"/>
         <source>Constrain to:</source>
         <translation>Samm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="531"/>
+        <location filename="../../scribus/tabtools.cpp" line="529"/>
         <source>Other Properties</source>
         <translation>Muud omadused</translation>
     </message>
@@ -34199,82 +34203,82 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation type="obsolete">Pööramistööriista piirang Ctrl-klahvi vajutamisel</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="475"/>
+        <location filename="../../scribus/tabtools.cpp" line="473"/>
         <source>Miscellaneous Settings</source>
         <translation>Muud seadistused</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="480"/>
+        <location filename="../../scribus/tabtools.cpp" line="478"/>
         <source>Item Duplicate</source>
         <translation>Elemendi kloonimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="488"/>
+        <location filename="../../scribus/tabtools.cpp" line="486"/>
         <source>X Displacement</source>
         <translation>X-nihe</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="495"/>
+        <location filename="../../scribus/tabtools.cpp" line="493"/>
         <source>Y Displacement</source>
         <translation>Y-nihe</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="559"/>
+        <location filename="../../scribus/tabtools.cpp" line="557"/>
         <source>Horizontal displacement of page items</source>
         <translation>Lehekülje elementide rõhtnihe</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="560"/>
+        <location filename="../../scribus/tabtools.cpp" line="558"/>
         <source>Vertical displacement of page items</source>
         <translation>Lehekülje elementide püstnihe</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="561"/>
+        <location filename="../../scribus/tabtools.cpp" line="559"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation>Pööramistööriista samm Ctrl-klahvi vajutamisel</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="513"/>
+        <location filename="../../scribus/tabtools.cpp" line="511"/>
         <source>Degrees</source>
         <translation>kraadi</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="562"/>
+        <location filename="../../scribus/tabtools.cpp" line="560"/>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation>Piltidesse põimitud lõikejoonte kasutamine importimisel. Lõikejooni saab põimida JPEG, PSD ja TIFF-i pildivormingutesse.</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="376"/>
+        <location filename="../../scribus/tabtools.cpp" line="374"/>
         <source>&amp;Scale Image to Frame Size</source>
         <translation>Pildi &amp;skaleerimine vastavalt kasti suurusele</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="526"/>
+        <location filename="../../scribus/tabtools.cpp" line="524"/>
         <source>Image Frame Properties</source>
         <translation>Pildikasti omadused</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="538"/>
+        <location filename="../../scribus/tabtools.cpp" line="536"/>
         <source>Image frames allow images to scale to any size</source>
         <translation>Pildikastid võimaldavad piltide skaleerimist iga väärtuse järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="542"/>
+        <location filename="../../scribus/tabtools.cpp" line="540"/>
         <source>Images in image frames are scaled to the size of the frame</source>
         <translation>Pildikasti pildid skaleeritakse kasti suuruse järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="543"/>
+        <location filename="../../scribus/tabtools.cpp" line="541"/>
         <source>Automatically scaled images keep their original proportions</source>
         <translation>Automaatselt skaleeritud pildid säilitavad algsed proportsioonid</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="544"/>
+        <location filename="../../scribus/tabtools.cpp" line="542"/>
         <source>Fill color of image frames</source>
         <translation>Pildikastide täidise värv</translation>
     </message>
     <message>
-        <location filename="../../scribus/tabtools.cpp" line="326"/>
+        <location filename="../../scribus/tabtools.cpp" line="324"/>
         <source>Hairline</source>
         <translation>Juusjoon</translation>
     </message>
@@ -35704,15 +35708,15 @@ to %2</source>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="86"/>
         <source>Attempting to get the Scribus version update file</source>
-        <translation>Üritatakse hankida Scribuse versiooni uuendusfail</translation>
+        <translation type="obsolete">Üritatakse hankida Scribuse versiooni uuendusfail</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="87"/>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation>(Sinu arvutist ei saadeta kuskile mujale mingeid andmeid)</translation>
+        <translation type="obsolete">(Sinu arvutist ei saadeta kuskile mujale mingeid andmeid)</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="108"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="111"/>
         <source>Timed out when attempting to get update file.</source>
         <translation>Aegumine uuendusfaili hankimisel.</translation>
     </message>
@@ -35722,56 +35726,66 @@ to %2</source>
         <translation type="obsolete">Viga uuendusfaili hankimisel: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="137"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="140"/>
         <source>File not found on server</source>
         <translation>Serverist ei leitud faili</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="139"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="142"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Ei õnnestunud avada versiooni faili: %1
 Viga: %2 real %3, veerus %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="220"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="223"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation>Scribuse uuenduse otsimisel tekkis viga, palun kontrolli oma Internetiühendust.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="224"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="227"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation>Sinu Scribuse versioonile %1 ei ole uuendusi</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="227"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="230"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation>Sinu Scribuse versioonile %1 on vähemalt üks uuendus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="231"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="234"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation>Palun külasta täpsema teabe saamiseks saiti www.scribus.net.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="120"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="123"/>
         <source>Finished</source>
         <translation>Lõpetatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="215"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="218"/>
         <source>Operation canceled</source>
         <translation>Toiming katkestati</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="228"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="231"/>
         <source>This list may contain development/unstable versions.</source>
         <translation>Nimekiri võib sisaldada ebastabiilseid või arendusversioone.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="311"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="314"/>
         <source>Error: %1</source>
         <translation>Viga: %1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/upgradechecker.cpp" line="86"/>
+        <source>No data on your computer will be sent to an external location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/upgradechecker.cpp" line="92"/>
+        <source>Attempting to get the Scribus version update file:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -36301,112 +36315,112 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>nftwidget</name>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="30"/>
+        <location filename="../../scribus/nftwidget.cpp" line="31"/>
         <source>&amp;Remove</source>
         <translation>&amp;Eemalda</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="31"/>
+        <location filename="../../scribus/nftwidget.cpp" line="32"/>
         <source>&amp;Open</source>
         <translation>&amp;Ava</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="53"/>
+        <location filename="../../scribus/nftwidget.cpp" line="54"/>
         <source>All</source>
         <translation>Kõik</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="140"/>
+        <location filename="../../scribus/nftwidget.cpp" line="141"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="142"/>
+        <location filename="../../scribus/nftwidget.cpp" line="143"/>
         <source>Page Size</source>
         <translation>Lehekülje suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="144"/>
+        <location filename="../../scribus/nftwidget.cpp" line="145"/>
         <source>Colors</source>
         <translation>Värvid</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="146"/>
+        <location filename="../../scribus/nftwidget.cpp" line="147"/>
         <source>Description</source>
         <translation>Kirjeldus</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="148"/>
+        <location filename="../../scribus/nftwidget.cpp" line="149"/>
         <source>Usage</source>
         <translation>Kasutamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="150"/>
+        <location filename="../../scribus/nftwidget.cpp" line="151"/>
         <source>Created with</source>
         <translation>Loodud versiooniga</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="152"/>
+        <location filename="../../scribus/nftwidget.cpp" line="153"/>
         <source>Date</source>
         <translation>Kuupäev</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="154"/>
+        <location filename="../../scribus/nftwidget.cpp" line="155"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="169"/>
+        <location filename="../../scribus/nftwidget.cpp" line="170"/>
         <source>Downloading Templates</source>
         <translation>Mallide allalaadimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="172"/>
+        <location filename="../../scribus/nftwidget.cpp" line="173"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
         <translation>Dokumendimalle leiab aadressil http://www.scribus.net/ sektsioonis Downloads.</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="175"/>
+        <location filename="../../scribus/nftwidget.cpp" line="176"/>
         <source>Installing Templates</source>
         <translation>Mallide paigaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="181"/>
+        <location filename="../../scribus/nftwidget.cpp" line="182"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
         <translation>Paki pakett lahti mallikataloogi ~/.scribus/templates aktiivse kasutaja või kataloogi PREFIX/share/scribus/templates kõigi süsteemi kasutajate jaoks.  </translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="184"/>
+        <location filename="../../scribus/nftwidget.cpp" line="185"/>
         <source>Preparing a template</source>
         <translation>Malli ettevalmistamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="186"/>
+        <location filename="../../scribus/nftwidget.cpp" line="187"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
         <translation>Kontrolli, et kasutatud pilte ja fonte võib vabalt kasutada. Kui fonte ei ole lubatud jagada, ära neid malli salvestamisel kogu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="187"/>
+        <location filename="../../scribus/nftwidget.cpp" line="188"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
         <translation>Malli looja peab ka kontrollima, et eespool mallide paigaldamises räägitu kehtib ka tema malli kohta. See tähendab, et kasutajal peab olema võimalus mallipakett alla laadida, pakkida see mallikataloogi lahti ja seejärel kasutama hakata.</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="189"/>
+        <location filename="../../scribus/nftwidget.cpp" line="190"/>
         <source>Removing a template</source>
         <translation>Malli eemaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="191"/>
+        <location filename="../../scribus/nftwidget.cpp" line="192"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation>Malli eemaldamine dialoogis &apos;Uus mallist&apos; eemaldab ainult kirje failist template.xml, kuid ei kustuta dokumendifaili. Eemaldamist võimaldavat hüpikmenüüd näeb ainult siis, kui sul on faili template.xml kirjutamisõigus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="194"/>
+        <location filename="../../scribus/nftwidget.cpp" line="195"/>
         <source>Translating template.xml</source>
         <translation>Faili template.xml tõlkimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/nftwidget.cpp" line="196"/>
+        <location filename="../../scribus/nftwidget.cpp" line="197"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Kopeeri olemasolev fail template.xml nimega template.KEEL.xml (kasuta sama keelekoodi, mis vastab sinu keele qm-failile), näiteks eesti keele puhul template.et.xml. Koopia peab asuma originaalse failiga template.xml samas kataloogis, et Scribus seda laadida saaks.</translation>
     </message>

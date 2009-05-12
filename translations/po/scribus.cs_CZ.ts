@@ -18855,7 +18855,7 @@ Corners:</source>
 <context>
     <name>NewDoc</name>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="100"/>
+        <location filename="../../scribus/newfile.cpp" line="101"/>
         <source>New Document</source>
         <translation>Nový dokument</translation>
     </message>
@@ -18870,157 +18870,157 @@ Corners:</source>
         <translation type="obsolete">Vlastní</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="236"/>
+        <location filename="../../scribus/newfile.cpp" line="237"/>
         <source>Portrait</source>
         <translation>Na výšku</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="237"/>
+        <location filename="../../scribus/newfile.cpp" line="238"/>
         <source>Landscape</source>
         <translation>Na šířku</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="265"/>
+        <location filename="../../scribus/newfile.cpp" line="266"/>
         <source>Margin Guides</source>
         <translation>Okrajová vodítka</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="284"/>
+        <location filename="../../scribus/newfile.cpp" line="285"/>
         <source>Options</source>
         <translation>Volby</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="143"/>
+        <location filename="../../scribus/newfile.cpp" line="144"/>
         <source>Document page size, either a standard size or a custom size</source>
         <translation>Velikost stránky dokumentu - buď standardní, nebo volitelný rozměr</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="144"/>
+        <location filename="../../scribus/newfile.cpp" line="145"/>
         <source>Orientation of the document&apos;s pages</source>
         <translation>Orientace stránek dokumentu</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="145"/>
+        <location filename="../../scribus/newfile.cpp" line="146"/>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Šířka stránek dokumentu - upravitelná, je-li vybrán volitelný rozměr stránky</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="146"/>
+        <location filename="../../scribus/newfile.cpp" line="147"/>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Výška stránek dokumentu - upravitelná, je-li vybrán volitelný rozměr stránky</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="148"/>
+        <location filename="../../scribus/newfile.cpp" line="149"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Výchozí měrná jednotka dokumentu</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="149"/>
+        <location filename="../../scribus/newfile.cpp" line="150"/>
         <source>Create text frames automatically when new pages are added</source>
         <translation>Vytvářet automaticky textové rámce, jsou-li přidány nové stránky</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="150"/>
+        <location filename="../../scribus/newfile.cpp" line="151"/>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Počet sloupců v automaticky vytvořených textových rámcích</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="151"/>
+        <location filename="../../scribus/newfile.cpp" line="152"/>
         <source>Distance between automatically created columns</source>
         <translation>Vzdálenost mezi automaticky vytvořenými sloupci</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="224"/>
+        <location filename="../../scribus/newfile.cpp" line="225"/>
         <source>&amp;Size:</source>
         <translation>&amp;Velikost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="233"/>
+        <location filename="../../scribus/newfile.cpp" line="234"/>
         <source>Orie&amp;ntation:</source>
         <translation>&amp;Orientace:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="243"/>
+        <location filename="../../scribus/newfile.cpp" line="244"/>
         <source>&amp;Width:</source>
         <translation>Šíř&amp;ka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="249"/>
+        <location filename="../../scribus/newfile.cpp" line="250"/>
         <source>&amp;Height:</source>
         <translation>&amp;Výška:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="297"/>
+        <location filename="../../scribus/newfile.cpp" line="298"/>
         <source>&amp;Default Unit:</source>
         <translation>&amp;Výchozí jednotka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="307"/>
+        <location filename="../../scribus/newfile.cpp" line="308"/>
         <source>&amp;Automatic Text Frames</source>
         <translation>&amp;Automatické textové rámce</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="317"/>
+        <location filename="../../scribus/newfile.cpp" line="318"/>
         <source>&amp;Gap:</source>
         <translation>&amp;Mezera:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="309"/>
+        <location filename="../../scribus/newfile.cpp" line="310"/>
         <source>Colu&amp;mns:</source>
         <translation>S&amp;loupce:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="129"/>
+        <location filename="../../scribus/newfile.cpp" line="130"/>
         <source>Do not show this dialog again</source>
         <translation>Tento dialog znovu nezobrazovat</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="147"/>
+        <location filename="../../scribus/newfile.cpp" line="148"/>
         <source>Initial number of pages of the document</source>
         <translation>Počáteční počet stránek dokumentu</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="291"/>
+        <location filename="../../scribus/newfile.cpp" line="292"/>
         <source>N&amp;umber of Pages:</source>
         <translation>&amp;Počet stránek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="370"/>
+        <location filename="../../scribus/newfile.cpp" line="371"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="110"/>
+        <location filename="../../scribus/newfile.cpp" line="111"/>
         <source>&amp;New Document</source>
         <translation>&amp;Nový dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="115"/>
+        <location filename="../../scribus/newfile.cpp" line="116"/>
         <source>Open &amp;Existing Document</source>
         <translation>Otevřít &amp;existující dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="118"/>
+        <location filename="../../scribus/newfile.cpp" line="119"/>
         <source>Open Recent &amp;Document</source>
         <translation>Otevřít ne&amp;dávný dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="181"/>
+        <location filename="../../scribus/newfile.cpp" line="182"/>
         <source>Document Layout</source>
         <translation>Vzhled dokumentu</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="256"/>
+        <location filename="../../scribus/newfile.cpp" line="257"/>
         <source>First Page is:</source>
         <translation>První stránka je:</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="329"/>
+        <location filename="../../scribus/newfile.cpp" line="330"/>
         <source>Show Document Settings After Creation</source>
         <translation>Po vytvoření dokumentu ukázat jeho nastavení</translation>
     </message>
     <message>
-        <location filename="../../scribus/newfile.cpp" line="113"/>
+        <location filename="../../scribus/newfile.cpp" line="114"/>
         <source>New &amp;from Template</source>
         <translation>N&amp;ový ze šablony</translation>
     </message>
@@ -22613,44 +22613,44 @@ Please choose another one.</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2071"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2075"/>
         <source>Postscript</source>
         <translation>Postsript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="815"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="816"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Převést stará nastavení Scribusu?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="817"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="818"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus nalezl soubory s nastavením pro Scribus 1.2.
 Chcete je převést na novou verzi Scribusu?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2071"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2075"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1693"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1696"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Nelze otevřít soubor s nastavením &quot;%1&quot; pro zápis: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1705"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1708"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Zápis do souboru s nastavením &quot;%1&quot; selhal:  chybový kód QIODevice %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1719"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1722"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Nelze otevřít soubor s nastavením &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1729"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1732"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Nelze číst XML nastavení z &quot;%1&quot;: %2, řádek %3, sloupec %4</translation>
     </message>
@@ -22670,28 +22670,28 @@ Chcete je převést na novou verzi Scribusu?</translation>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2410"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2414"/>
         <source>Error Writing Preferences</source>
         <translation>Chyba zápisu nastavení</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2416"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2420"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Nelze uložit nastavení: &lt;br&gt;%1&lt;br&gt; Zkontrolujte prosím oprávnění k souboru a adresáři a také volné místo dostupné na disku.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2429"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2433"/>
         <source>Error Loading Preferences</source>
         <translation>Chyba při načítání nastavení</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2434"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2438"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Nelze načíst nastavení:&lt;br&gt;%1&lt;br&gt;Použije se výchozí nastavení.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2142"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2146"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26171,7 +26171,7 @@ Načíst nastavení PDF</translation>
         <translation>Všechny</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2321"/>
+        <location filename="../../scribus/scribus.cpp" line="2322"/>
         <source>Document Template: </source>
         <translation>Šablona dokumentu: </translation>
     </message>
@@ -26532,7 +26532,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="obsolete">Používáte vývojovou verzi Scribusu 1.3.x. Dokument, se kterým pracujete, byl vytvořen ve Scribusu 1.2.3 nebo starším. Pokud jej teď uložíte, v těchto starších verzích jej nebude možné načíst, pokud ovšem nepoužijete Soubor-Uložit jako. Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4348"/>
+        <location filename="../../scribus/scribus.cpp" line="4349"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Změny ve vašem dokumentu nebyly uloženy, ovšem vy požadujete jejich vrácení. Opravdu chcete pokračovat?</translation>
     </message>
@@ -26568,17 +26568,17 @@ is not exhaustive due to exceptions from called functions.
         <translation>Tisk souboru</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3688"/>
+        <location filename="../../scribus/scribus.cpp" line="3689"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Snažíte se importovat více stránek, než je počet stránek dostupných v aktuálním dokumentu, počítáno od aktivní stránky.&lt;/p&gt;Vyberte některou možnost:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Vytvořit&lt;/b&gt; chybějící stránky&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importovat&lt;/b&gt; stránky do poslední stránky&lt;/li&gt;&lt;b&gt;Zrušit&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3689"/>
+        <location filename="../../scribus/scribus.cpp" line="3690"/>
         <source>C&amp;reate</source>
         <translation>&amp;Vytvořit</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3690"/>
+        <location filename="../../scribus/scribus.cpp" line="3691"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Importovat</translation>
     </message>
@@ -29480,7 +29480,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Ukončuji.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3852"/>
+        <location filename="../../scribus/scribus.cpp" line="3853"/>
         <source>Fatal Error</source>
         <translation>Kritická chyba</translation>
     </message>
@@ -29495,17 +29495,17 @@ Vertical gap: %3</source>
         <translation type="obsolete">&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9233"/>
+        <location filename="../../scribus/scribus.cpp" line="9234"/>
         <source>Open &amp;Recent</source>
         <translation>Otevřít &amp;předchozí</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9235"/>
+        <location filename="../../scribus/scribus.cpp" line="9236"/>
         <source>&amp;Import</source>
         <translation>&amp;Importovat</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9236"/>
+        <location filename="../../scribus/scribus.cpp" line="9237"/>
         <source>&amp;Export</source>
         <translation type="unfinished">&amp;Exportovat</translation>
     </message>
@@ -29565,7 +29565,7 @@ Vertical gap: %3</source>
         <translation>Přesu&amp;nout do hladiny</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9243"/>
+        <location filename="../../scribus/scribus.cpp" line="9244"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;Volby PDF</translation>
     </message>
@@ -29575,7 +29575,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">&amp;Tvar</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9245"/>
+        <location filename="../../scribus/scribus.cpp" line="9246"/>
         <source>C&amp;onvert To</source>
         <translation>&amp;Převést na</translation>
     </message>
@@ -29585,17 +29585,17 @@ Vertical gap: %3</source>
         <translation type="obsolete">&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9248"/>
+        <location filename="../../scribus/scribus.cpp" line="9249"/>
         <source>Character</source>
         <translation>Znaky</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9249"/>
+        <location filename="../../scribus/scribus.cpp" line="9250"/>
         <source>Quote</source>
         <translation>Uvozovky</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9250"/>
+        <location filename="../../scribus/scribus.cpp" line="9251"/>
         <source>Space</source>
         <translation>Mezery</translation>
     </message>
@@ -29625,47 +29625,47 @@ Vertical gap: %3</source>
         <translation type="obsolete">Nápo&amp;věda</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9258"/>
+        <location filename="../../scribus/scribus.cpp" line="9259"/>
         <source>&amp;Alignment</source>
         <translation>&amp;Zarovnání</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9268"/>
+        <location filename="../../scribus/scribus.cpp" line="9269"/>
         <source>Ready</source>
         <translation>Připravený</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4206"/>
+        <location filename="../../scribus/scribus.cpp" line="4207"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3655"/>
+        <location filename="../../scribus/scribus.cpp" line="3656"/>
         <source>Importing Pages...</source>
         <translation>Importuji stránky...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3684"/>
+        <location filename="../../scribus/scribus.cpp" line="3685"/>
         <source>Import Page(s)</source>
         <translation>Importovat stránku(y)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3726"/>
+        <location filename="../../scribus/scribus.cpp" line="3727"/>
         <source>Import done</source>
         <translation>Import ukončen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3730"/>
+        <location filename="../../scribus/scribus.cpp" line="3731"/>
         <source>Found nothing to import</source>
         <translation>Nenalezeno nic k importu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3852"/>
+        <location filename="../../scribus/scribus.cpp" line="3853"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Soubor %1 není v přijatelném formátu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3873"/>
+        <location filename="../../scribus/scribus.cpp" line="3874"/>
         <source>Loading...</source>
         <translation>Načítám...</translation>
     </message>
@@ -29680,17 +29680,17 @@ Vertical gap: %3</source>
         <translation type="obsolete">Některé ICC profily použité tímto dokumentem nejsou nainstalované:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4020"/>
+        <location filename="../../scribus/scribus.cpp" line="4021"/>
         <source> was replaced by: </source>
         <translation> zaměněn za: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4052"/>
+        <location filename="../../scribus/scribus.cpp" line="4053"/>
         <source>(converted)</source>
         <translation>(konvertováno)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3503"/>
+        <location filename="../../scribus/scribus.cpp" line="3504"/>
         <source>All Supported Formats</source>
         <translation>Všechny podporované formáty</translation>
     </message>
@@ -29700,7 +29700,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Včechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8027"/>
+        <location filename="../../scribus/scribus.cpp" line="8028"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Nelze uložit soubor: 
@@ -29717,17 +29717,17 @@ Vertical gap: %3</source>
         <translation type="obsolete">Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7862"/>
+        <location filename="../../scribus/scribus.cpp" line="7863"/>
         <source>Save As</source>
         <translation>Uložit jako</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4455"/>
+        <location filename="../../scribus/scribus.cpp" line="4456"/>
         <source>Saving...</source>
         <translation>Ukládám...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7724"/>
+        <location filename="../../scribus/scribus.cpp" line="7725"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus detekoval nějaké chyby. Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
     </message>
@@ -29742,37 +29742,37 @@ Vertical gap: %3</source>
         <translation type="obsolete">&amp;Přerušit</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4756"/>
+        <location filename="../../scribus/scribus.cpp" line="4757"/>
         <source>Printing...</source>
         <translation>Tisknu...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7839"/>
+        <location filename="../../scribus/scribus.cpp" line="7840"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4797"/>
+        <location filename="../../scribus/scribus.cpp" line="4798"/>
         <source>Printing failed!</source>
         <translation>Tisk se nepodařil!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4887"/>
+        <location filename="../../scribus/scribus.cpp" line="4888"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Nelze odstranit používaný objekt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4887"/>
+        <location filename="../../scribus/scribus.cpp" line="4888"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Objekt %1 je momentálně upravován v zápisníku. proto nelze nic vyříznout</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5435"/>
+        <location filename="../../scribus/scribus.cpp" line="5436"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5446"/>
+        <location filename="../../scribus/scribus.cpp" line="5447"/>
         <source>Scribus Manual</source>
         <translation>Scribus manuál</translation>
     </message>
@@ -29782,7 +29782,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Uložit jako</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5476"/>
+        <location filename="../../scribus/scribus.cpp" line="5477"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Textové soubory (*.txt);;Všechny soubory (*)</translation>
     </message>
@@ -29802,47 +29802,47 @@ Vertical gap: %3</source>
         <translation type="obsolete">Převést stránku na vzorovou stránku</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6862"/>
+        <location filename="../../scribus/scribus.cpp" line="6863"/>
         <source>&amp;Size:</source>
         <translation>&amp;Velikost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6862"/>
+        <location filename="../../scribus/scribus.cpp" line="6863"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6892"/>
+        <location filename="../../scribus/scribus.cpp" line="6893"/>
         <source>&amp;Shade:</source>
         <translation>Od&amp;stín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6892"/>
+        <location filename="../../scribus/scribus.cpp" line="6893"/>
         <source>Shade</source>
         <translation>Odstín</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6996"/>
+        <location filename="../../scribus/scribus.cpp" line="6997"/>
         <source>No Style</source>
         <translation>Bez stylu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7619"/>
+        <location filename="../../scribus/scribus.cpp" line="7620"/>
         <source>The following programs are missing:</source>
         <translation>Chybí následující program(y):</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7621"/>
+        <location filename="../../scribus/scribus.cpp" line="7622"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript: nelze použít EPS obrázky nebo Náhled před tiskem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7760"/>
+        <location filename="../../scribus/scribus.cpp" line="7761"/>
         <source>All</source>
         <translation>Všechny</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7808"/>
+        <location filename="../../scribus/scribus.cpp" line="7809"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus detekoval nějaké chyby.
@@ -29854,44 +29854,44 @@ Zvažte použití předtiskové kontrol pro jejich odstranění.</translation>
         <translation type="obsolete">EPS soubory (*.eps);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7905"/>
+        <location filename="../../scribus/scribus.cpp" line="7906"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Detekovány chyby.
 Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8001"/>
+        <location filename="../../scribus/scribus.cpp" line="8002"/>
         <source>-Page%1</source>
         <translation>-Stránka%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8385"/>
+        <location filename="../../scribus/scribus.cpp" line="8386"/>
         <source>Some objects are locked.</source>
         <translation>Některé objekty jsou zamčeny.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8381"/>
+        <location filename="../../scribus/scribus.cpp" line="8382"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Zamknout vše</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8382"/>
+        <location filename="../../scribus/scribus.cpp" line="8383"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odemknout vše</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9082"/>
+        <location filename="../../scribus/scribus.cpp" line="9083"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9082"/>
+        <location filename="../../scribus/scribus.cpp" line="9083"/>
         <source>The program %1 is already running!</source>
         <translation>Program %1 už běží!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9121"/>
+        <location filename="../../scribus/scribus.cpp" line="9122"/>
         <source>The program %1 is missing!</source>
         <translation>Program %1 nenalezen!</translation>
     </message>
@@ -29911,17 +29911,17 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <translation type="obsolete">Barva, kterou jste vybrali, již existuje. Pojmenujte prosím novou barvu jinak.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9240"/>
+        <location filename="../../scribus/scribus.cpp" line="9241"/>
         <source>&amp;Level</source>
         <translation>&amp;Hladina</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9241"/>
+        <location filename="../../scribus/scribus.cpp" line="9242"/>
         <source>Send to Layer</source>
         <translation>Přesunout do vrstvy</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9242"/>
+        <location filename="../../scribus/scribus.cpp" line="9243"/>
         <source>Previe&amp;w Settings</source>
         <translation>Nas&amp;tavení náhledu</translation>
     </message>
@@ -29931,12 +29931,12 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <translation type="obsolete">&amp;Nástroje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9264"/>
+        <location filename="../../scribus/scribus.cpp" line="9265"/>
         <source>X-Pos:</source>
         <translation>X-Poz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9265"/>
+        <location filename="../../scribus/scribus.cpp" line="9266"/>
         <source>Y-Pos:</source>
         <translation>Y-Poz:</translation>
     </message>
@@ -29965,7 +29965,7 @@ Vodorovné posunutí: %2
 Svislé posunutí: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7623"/>
+        <location filename="../../scribus/scribus.cpp" line="7624"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript: nelze použít EPS obrázky nebo PS Náhled před tiskem</translation>
     </message>
@@ -29975,17 +29975,17 @@ Svislé posunutí: %3</translation>
         <translation type="obsolete">Ghostscript chybí: PS Náhled před tiskem nelze použít</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9418"/>
+        <location filename="../../scribus/scribus.cpp" line="9419"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Opravdu chcete nahradit existující obrázek?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9238"/>
+        <location filename="../../scribus/scribus.cpp" line="9239"/>
         <source>Contents</source>
         <translation>Obsah</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9251"/>
+        <location filename="../../scribus/scribus.cpp" line="9252"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tura</translation>
     </message>
@@ -29995,7 +29995,7 @@ Svislé posunutí: %3</translation>
         <translation>Scribus </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4439"/>
+        <location filename="../../scribus/scribus.cpp" line="4440"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Váš dokument byl uložen jako dočasný soubor, ale nelze jej přesunout: 
@@ -30007,7 +30007,7 @@ Svislé posunutí: %3</translation>
         <translation>Nahrávám klávesové zkratky uživatele</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9234"/>
+        <location filename="../../scribus/scribus.cpp" line="9235"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30027,62 +30027,62 @@ Svislé posunutí: %3</translation>
         <translation>&amp;Mezery &amp;&amp; Zalomení</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9259"/>
+        <location filename="../../scribus/scribus.cpp" line="9260"/>
         <source>Online &amp;Tutorials</source>
         <translation>Online &amp;Tutoriály</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2532"/>
+        <location filename="../../scribus/scribus.cpp" line="2533"/>
         <source>Updating Images</source>
         <translation>Aktualizuji obrázky</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4017"/>
+        <location filename="../../scribus/scribus.cpp" line="4018"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Některé profily barev používané v tomto dokumentu nejsou nainstalované:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4237"/>
+        <location filename="../../scribus/scribus.cpp" line="4238"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Opravdu chcete smazat celý text?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4423"/>
+        <location filename="../../scribus/scribus.cpp" line="4424"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumenty  (*.sla *.sla.gz);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4852"/>
+        <location filename="../../scribus/scribus.cpp" line="4853"/>
         <source>Print engine initialization failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7862"/>
+        <location filename="../../scribus/scribus.cpp" line="7863"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9472"/>
+        <location filename="../../scribus/scribus.cpp" line="9473"/>
         <source>&amp;Name:</source>
         <translation>&amp;Název:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9472"/>
+        <location filename="../../scribus/scribus.cpp" line="9473"/>
         <source>New Entry</source>
         <translation>Nová položka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7670"/>
+        <location filename="../../scribus/scribus.cpp" line="7671"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Není nainstalován Ghostscript: Není dostupný PostScriptový náhled před tiskem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3835"/>
+        <location filename="../../scribus/scribus.cpp" line="3836"/>
         <source>Document is already opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3837"/>
+        <location filename="../../scribus/scribus.cpp" line="3838"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation type="unfinished"></translation>
     </message>
