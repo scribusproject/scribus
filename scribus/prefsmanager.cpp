@@ -59,7 +59,8 @@ extern bool emergencyActivated;
 PrefsManager* PrefsManager::_instance = 0;
 
 PrefsManager::PrefsManager(QObject *parent)
- : QObject(parent)
+ : QObject(parent),
+ firstTimeIgnoreOldPrefs(false)
 {
 }
 
@@ -902,7 +903,9 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	mw->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
 	if (appPrefs.mainWinSettings.maximized)
 		mw->setWindowState((ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
-	ReadPrefsXML();
+	//For 1.3.5, we dump prefs first time around.
+	if (!firstTimeIgnoreOldPrefs)
+		ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
 		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
@@ -1741,6 +1744,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if (elem.attribute("VERSION") == "1.3.5")
 			prefs135FileFound=true;
 	}
+	firstTimeIgnoreOldPrefs=!prefs135FileFound;
 	if (!prefs135FileFound)
 		return false;
 	appPrefs.DColors.clear();
