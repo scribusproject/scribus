@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -9,7 +10,7 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished">getColorNames() -&gt; list
+        <translation>getColorNames() -&gt; list
 
 Gibt eine Liste zurück, die alle vorhandenen Farben des aktuellen Dokuments enthält. 
 Wenn kein Dokument geöffnet ist, werden die Standardfarben zurückgegeben.</translation>
@@ -25,7 +26,7 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">getColor(&quot;name&quot;) -&gt; tuple
+        <translation>getColor(&quot;name&quot;) -&gt; tuple
 
 Gibt eine Liste mit den vier Farbkomponenten der Farbe &quot;name&quot; im aktuellen 
 Dokument wieder. Wenn kein Dokument geöffnet ist, werden die Werte der 
@@ -46,7 +47,7 @@ from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">getColorAsRGB(&quot;name&quot;) -&gt; tuple
+        <translation>getColorAsRGB(&quot;name&quot;) -&gt; tuple
 
 Returns a tuple (R,G,B) containing the three color components of the
 color &quot;name&quot; from the current document, converted to the RGB color
@@ -67,7 +68,7 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">changeColor(&quot;name&quot;, c, m, y, k)
+        <translation>changeColor(&quot;name&quot;, c, m, y, k)
 
 Ändert die Farbe &quot;name&quot; auf die angegeben CMYK-Werte. Die Abkürzungen
 stehen für die vier Farben c=Cyan, m=Magenta, y=Yellow, b=Black.
@@ -86,7 +87,7 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">defineColor(&quot;name&quot;, c, m, y, k)
+        <translation>defineColor(&quot;name&quot;, c, m, y, k)
 
 Defines a new color &quot;name&quot;. The color Value is defined via four components:
 c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
@@ -108,7 +109,7 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">deleteColor(&quot;name&quot;, &quot;replace&quot;)
+        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
 Löscht die Farbe &quot;name&quot;. An allen Stellen, wo &quot;name&quot; im Dokument auftritt,
 wird sie durch &quot;replace&quot; ersetzt. Standardmäßig ist &quot;replace&quot; gar keine Farbe -
@@ -129,7 +130,7 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">replaceColor(&quot;name&quot;, &quot;replace&quot;)
+        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
 An allen Stellen, wo die Farbe &quot;name&quot; vorkommt, wird sie duch die Farbe
 &quot;replace&quot; ersetzt.
@@ -145,7 +146,7 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished">newDocDialog() -&gt; bool
+        <translation>newDocDialog() -&gt; bool
 
 Zeigt den Dialog \&quot;Neues Dokument\&quot; an. Damit können Sie ein neues Dokument erstellen, wenn der Benutzer die standardmäßigen Einstellung aktzeptiert. Erzeugt kein neues Dokument, wenn der Benutzer auf \&quot;Abbrechen\&quot; klickt. 
 Gibt den Wert \&quot;true\&quot; zurück, wenn ein neues Dokument erstellt wurde.</translation>
@@ -171,7 +172,7 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished">fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filenameShows a File Open dialog box with the caption &quot;caption&quot;. Files are filteredwith the filter string &quot;filter&quot;. A default filename or file path can alsosupplied, leave this string empty when you don&apos;t want to use it.  A value ofTrue for haspreview enables a small preview widget in the FileSelect box.  Whenthe issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialogotherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is Truethe dialog shows and returns only directories. The default for all of theoptional parameters is False.The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.For example &apos;Images (*.png *.xpm *.jpg)&apos;.Refer to the Qt-Documentation for QFileDialog for details on filters.Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filenameShows a File Open dialog box with the caption &quot;caption&quot;. Files are filteredwith the filter string &quot;filter&quot;. A default filename or file path can alsosupplied, leave this string empty when you don&apos;t want to use it.  A value ofTrue for haspreview enables a small preview widget in the FileSelect box.  Whenthe issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialogotherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is Truethe dialog shows and returns only directories. The default for all of theoptional parameters is False.The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.For example &apos;Images (*.png *.xpm *.jpg)&apos;.Refer to the Qt-Documentation for QFileDialog for details on filters.Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddialog.h" line="88"/>
@@ -208,7 +209,7 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished">messageBox(&quot;caption&quot;, &quot;message&quot;,icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+        <translation>messageBox(&quot;caption&quot;, &quot;message&quot;,icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
 button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
 Zeigt einen Dialog mit dem Titel &quot;caption&quot;, der Botschaft &quot;message&quot; und dem Symbol &quot;icon&quot; sowie
 bis zu 3 Buttons an. Standard ist kein Symbol und ein OK-Button. Nur Titel und Botschaft sind
@@ -240,7 +241,7 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished">valueDialog(caption, message [,defaultvalue]) -&gt; string
+        <translation>valueDialog(caption, message [,defaultvalue]) -&gt; string
 
 Zeigt einen Dialog an, der einen String verlangt und zurückgibt.
 Parameter: Fenstertitel, Text im Fenster und optionaler &apos;default&apos;-Text.
@@ -254,7 +255,7 @@ Beispiel: valueDialog(&apos;TItel&apos;, &apos;Text im Fenster&apos;, &apos;opti
 Shows &apos;Create new paragraph style&apos; dialog. Function returns real
 style name or None when user cancels the dialog.
 </source>
-        <translation type="unfinished">isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
 that the layer &quot;layer&quot; is visible, a value of False means that the layer
@@ -305,7 +306,7 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished">newDocument(size, margins, orientation, firstPageNumber,
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
 (sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)unit, pagesType, firstPageOrder, numPages) -&gt; bool
 
 Creates a new document and returns true if successful. The parameters have the(new line)
@@ -382,7 +383,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished">newDoc(size, margins, orientation, firstPageNumber,
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
                    unit, facingPages, firstSideLeft) -&gt; bool
 
 WARNING: Obsolete procedure! Use newDocument instead.
@@ -426,7 +427,7 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished">closeDoc()
+        <translation>closeDoc()
 
 Schließt das aktuelle Dokument, ohne Änderungen zu sichern.
 
@@ -438,7 +439,7 @@ Wenn kein Dokument offen ist, tritt der Fehler NoDocOpenError auf</translation>
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished">haveDoc() -&gt; bool
+        <translation>haveDoc() -&gt; bool
 
 Gibt True zurück, wenn ein Dokument geöffnet ist.</translation>
     </message>
@@ -450,7 +451,7 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished">openDoc(&quot;name&quot;)
+        <translation>openDoc(&quot;name&quot;)
 
 Öffnet das Dokument &quot;name&quot;.
 
@@ -466,7 +467,7 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished">saveDoc()
+        <translation>saveDoc()
 
 Speichert das Dokument unter dem aktuellen Namen und gibt True zurück, wenn das
 erfolgreich war. Wurde das Dokument noch nicht gesichert, öffnet sich der &quot;Speichern&quot;-
@@ -483,7 +484,7 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished">saveDocAs(&quot;name&quot;)
+        <translation>saveDocAs(&quot;name&quot;)
 
 Speichert das aktuelle Dokument unter dem neuen Namen &quot;name&quot;. Die Pfadangabe kann dabei
 relativ oder absolut sein.
@@ -497,7 +498,7 @@ Schlägt das Sichern fehl, tritt der Fehler ScribusError auf.</translation>
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished">setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+        <translation>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.</translation>
@@ -510,7 +511,7 @@ Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockT
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished">setMargins(lr, rr, tr, br)Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)margins are given in the measurement units of the document - see UNIT_&lt;type&gt;constants.</translation>
+        <translation>setMargins(lr, rr, tr, br)Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)margins are given in the measurement units of the document - see UNIT_&lt;type&gt;constants.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="185"/>
@@ -521,7 +522,7 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished">setUnit(type)
+        <translation>setUnit(type)
 
 Ändert die Maßeinheit des Dokuments auf &quot;type&quot;. Mögliche Einheiten geben Sie durch die 
 Konstanten UNIT_&lt;type&gt; an.
@@ -536,7 +537,7 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished">getUnit() -&gt; integer (Scribus unit constant)
+        <translation>getUnit() -&gt; integer (Scribus unit constant)
 
 Gibt die Maßeinheit des Dokuments zurück. Der Rückgabewert ist eine
 der möglichen UNIT_*-Konstanten:
@@ -549,7 +550,7 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished">loadStylesFromFile(&quot;filename&quot;)
+        <translation>loadStylesFromFile(&quot;filename&quot;)
 
 Lädt die Absatzstile aus der Datei &quot;filename&quot; in das aktuelle Dokument.</translation>
     </message>
@@ -562,7 +563,7 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished">setDocType(facingPages, firstPageLeft)
+        <translation>setDocType(facingPages, firstPageLeft)
 
 Setzt den Dokumenttyp. Gegenüberliegende Seiten erreichen Sie mit FACINGPAGES, normale
 Seiten mit NOFACINGPAGES. Wenn die erste Seite links sein soll, schreiben Sie FIRSTPAGELEFT, 
@@ -575,7 +576,7 @@ ansonsten FIRSTPAGERIGHT.</translation>
 Closes the currently active master page, if any, and returns editing
 to normal. Begin editing with editMasterPage().
 </source>
-        <translation type="unfinished">closeMasterPage()
+        <translation>closeMasterPage()
 
 Closes the currently active master page, if any, and returns editing
 to normal. Begin editing with editMasterPage().</translation>
@@ -586,7 +587,7 @@ to normal. Begin editing with editMasterPage().</translation>
 
 Returns a list of the names of all master pages in the document.
 </source>
-        <translation type="unfinished">masterPageNames()(new line)
+        <translation>masterPageNames()(new line)
 (new line)
 Returns a list of the names of all master pages in the document.</translation>
     </message>
@@ -597,7 +598,7 @@ Returns a list of the names of all master pages in the document.</translation>
 Enables master page editing and opens the named master page
 for editing. Finish editing with closeMasterPage().
 </source>
-        <translation type="unfinished">editMasterPage(pageName)(new line)
+        <translation>editMasterPage(pageName)(new line)
 (new line)
 Enables master page editing and opens the named master page(new line)
 for editing. Finish editing with closeMasterPage().</translation>
@@ -609,7 +610,7 @@ for editing. Finish editing with closeMasterPage().</translation>
 Creates a new master page named pageName and opens it for
 editing.
 </source>
-        <translation type="unfinished">createMasterPage(pageName)(new line)
+        <translation>createMasterPage(pageName)(new line)
 (new line)
 Creates a new master page named pageName and opens it for(new line)
 editing.</translation>
@@ -620,7 +621,7 @@ editing.</translation>
 
 Delete the named master page.
 </source>
-        <translation type="unfinished">deleteMasterPage(pageName)(new line)
+        <translation>deleteMasterPage(pageName)(new line)
 (new line)
 Delete the named master page.</translation>
     </message>
@@ -631,7 +632,7 @@ Delete the named master page.</translation>
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getFillColor([&quot;name&quot;]) -&gt; string
+        <translation>getFillColor([&quot;name&quot;]) -&gt; string
 
 Gibt den Wert der Füllfarbe des Objekts &quot;name&quot; zurück.
 Wenn &quot;name&quot; nicht angegeben ist, wird das aktuell ausgewählt Objekt verwendet.</translation>
@@ -643,7 +644,7 @@ Wenn &quot;name&quot; nicht angegeben ist, wird das aktuell ausgewählt Objekt v
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getFillTransparency([&quot;name&quot;]) -&gt; float
+        <translation>getFillTransparency([&quot;name&quot;]) -&gt; float
 
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
@@ -655,7 +656,7 @@ is not given the currently selected Item is used.</translation>
 Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getFillBlendmode([&quot;name&quot;]) -&gt; integer
+        <translation>getFillBlendmode([&quot;name&quot;]) -&gt; integer
 
 Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
@@ -667,7 +668,7 @@ is not given the currently selected Item is used.</translation>
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineColor([&quot;name&quot;]) -&gt; string
+        <translation>getLineColor([&quot;name&quot;]) -&gt; string
 
 Gibt den Namen der Linienfarbe des Objekts &quot;name&quot; zurück.
 Wenn &quot;name&quot; nicht angegeben ist, wird das aktuelle Objekt benutzt.</translation>
@@ -679,7 +680,7 @@ Wenn &quot;name&quot; nicht angegeben ist, wird das aktuelle Objekt benutzt.</tr
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getLineTransparency([&quot;name&quot;]) -&gt; float
+        <translation>getLineTransparency([&quot;name&quot;]) -&gt; float
 
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
@@ -691,7 +692,7 @@ is not given the currently selected Item is used.</translation>
 Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getLineBlendmode([&quot;name&quot;]) -&gt; integer
+        <translation>getLineBlendmode([&quot;name&quot;]) -&gt; integer
 
 Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
@@ -703,7 +704,7 @@ is not given the currently selected Item is used.</translation>
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getLineWidth([&quot;name&quot;]) -&gt; integer
+        <translation>getLineWidth([&quot;name&quot;]) -&gt; integer
 
 Gibt die Linienbreite des Objekts &quot;name&quot; zurück.
 Wenn &quot;name&quot; nicht angegeben ist, wird das aktuelle Objekt benutzt.</translation>
@@ -715,7 +716,7 @@ Wenn &quot;name&quot; nicht angegeben ist, wird das aktuelle Objekt benutzt.</tr
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineShade([&quot;name&quot;]) -&gt; integer
+        <translation>getLineShade([&quot;name&quot;]) -&gt; integer
 
 Gibt den Tonwert des Objekts &quot;name&quot; zurück.
 Wenn &quot;name&quot; nicht angegeben ist, wird das aktuelle Objekt benutzt.</translation>
@@ -728,7 +729,7 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished">getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not giventhe currently selected item is used.  The join types are:JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
+        <translation>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not giventhe currently selected item is used.  The join types are:JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="113"/>
@@ -738,7 +739,7 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished">getLineEnd([&quot;name&quot;]) -&gt; integer (siehe Konstanten)
+        <translation>getLineEnd([&quot;name&quot;]) -&gt; integer (siehe Konstanten)
 
 Gibt den Stil der Linienrundungen des Objekts &quot;name&quot; an. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt benutzt.
 Die unterstützten Stile sind CAP_FLAT, CAP_ROUND, CAP_SQUARE</translation>
@@ -751,7 +752,7 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished">getLineStyle([&quot;name&quot;]) -&gt; integer (siehe Konstanten)
+        <translation>getLineStyle([&quot;name&quot;]) -&gt; integer (siehe Konstanten)
 
 Gibt den Linienstil des Objekts &quot;name&quot; wieder. Ist &quot;name&quot; nicht angegeben,
 wird das aktuelle Objekt benutzt. Linienstile sind LINE_DASH, LINE_DASHDOT,
@@ -764,7 +765,7 @@ LINE_DASHDOTDOT, LINE_SOLID</translation>
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getFillShade([&quot;name&quot;]) -&gt; integer
+        <translation>getFillShade([&quot;name&quot;]) -&gt; integer
 
 Gibt den Tonwert der Füllfarbe von &quot;name&quot; zurück. Ist &quot;name&quot; nicht angegeben, wird
 das aktuelle Objekt verwendet.</translation>
@@ -777,7 +778,7 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getCornerRadius([&quot;name&quot;]) -&gt; integer
+        <translation>getCornerRadius([&quot;name&quot;]) -&gt; integer
 
 Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
@@ -790,7 +791,7 @@ selected item is used.</translation>
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getImageScale([&quot;name&quot;]) -&gt; (x,y)(
+        <translation>getImageScale([&quot;name&quot;]) -&gt; (x,y)(
 
 Gibt ein Zahlenpaar (x,y) zurück mit den Skalierungswerten des Bildes im Rahmen
 &quot;name&quot;. Ist &quot;name&quot; nicht angegeben, wird der aktuelle Rahmen verwendet.</translation>
@@ -802,7 +803,7 @@ Gibt ein Zahlenpaar (x,y) zurück mit den Skalierungswerten des Bildes im Rahmen
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">getImageName([&quot;name&quot;]) -&gt; string
+        <translation>getImageName([&quot;name&quot;]) -&gt; string
 
 Gibt den Dateinamen des Bildes im Rahmen &quot;name&quot; zurück. Ist &quot;name&quot; nicht
 angegeben, wird das aktuelle Objekt benutzt.</translation>
@@ -816,7 +817,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished">getPosition([&quot;name&quot;]) -&gt; (x,y)
+        <translation>getPosition([&quot;name&quot;]) -&gt; (x,y)
 
 Returns a (x, y) tuple with the position of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
@@ -832,7 +833,7 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished">getSize([&quot;name&quot;]) -&gt; (Breite,Höhe)
+        <translation>getSize([&quot;name&quot;]) -&gt; (Breite,Höhe)
 
 Gibt das Zahlenpaar (Breite,Höhe) des Objekts &quot;name&quot; zurück. Ist &quot;name&quot; nicht
 angegeben, wird das aktuelle Objekt verwendet. Die Größe wird in der Maßeinheit
@@ -846,7 +847,7 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished">getRotation([&quot;name&quot;]) -&gt; integer
+        <translation>getRotation([&quot;name&quot;]) -&gt; integer
 
 Gibt die Drehung des Objekts &quot;name&quot; in Grad zurück und im Uhrzeigersinn zurück.
 Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt benutzt.</translation>
@@ -857,7 +858,7 @@ Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt benutzt.</transla
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished">getAllObjects() -&gt; list
+        <translation>getAllObjects() -&gt; list
 
 Gibt eine Liste zurück mit allen auf der aktuellen Seite verwendeten Objekte.</translation>
     </message>
@@ -870,7 +871,7 @@ for details of arguments.
 
 If `includesuper&apos; is true, search inherited properties too.
 </source>
-        <translation type="unfinished">getPropertyCType(object, property, includesuper=True)
+        <translation>getPropertyCType(object, property, includesuper=True)
 
 Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
 for details of arguments.
@@ -885,7 +886,7 @@ Return a list of property names supported by `object&apos;.
 If `includesuper&apos; is true, return properties supported
 by parent classes as well.
 </source>
-        <translation type="unfinished">getPropertyNames(object, includesuper=True)
+        <translation>getPropertyNames(object, includesuper=True)
 
 Return a list of property names supported by `object&apos;.
 If `includesuper&apos; is true, return properties supported
@@ -906,7 +907,7 @@ to look up on `object&apos;.
 
 The return value varies depending on the type of the property.
 </source>
-        <translation type="unfinished">getProperty(object, property)
+        <translation>getProperty(object, property)
 
 Return the value of the property `property&apos; of the passed `object&apos;.
 
@@ -929,7 +930,7 @@ also be raised if the underlying setter fails.
 
 See getProperty() for more information.
 </source>
-        <translation type="unfinished">setProperty(object, property, value)
+        <translation>setProperty(object, property, value)
 
 Set `property&apos; of `object&apos; to `value&apos;. If `value&apos; cannot be converted to a type
 compatible with the type of `property&apos;, an exception is raised. An exception may
@@ -946,7 +947,7 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished">moveObject(dx, dy [, &quot;name&quot;])
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
 
 Verschiebt das Objekt &quot;name&quot; um dx und dy relativ zur Position. Die 
 Entfernungsangaben werden in der Maßeinheit des Dokuments 
@@ -963,7 +964,7 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished">moveObjectAbs(x, y [, &quot;name&quot;])
+        <translation>moveObjectAbs(x, y [, &quot;name&quot;])
 
 Bewegt das Objekt &quot;name&quot; an die neue Stelle. Die Koordinaten werden in der Maßeinheit
 des Dokuments angegeben (siehe UNIT_*-Konstanten). Ist &quot;name&quot; nicht angegeben, wird das
@@ -979,7 +980,7 @@ default, the top left vertex at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">rotateObject(rot [, &quot;name&quot;])Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object isrotated by the vertex that is currently selected as the rotation point - bydefault, the top left vertex at zero rotation. Positive values mean counterclockwise rotation when the default rotation point is used. If &quot;name&quot; is notgiven the currently selected item is used.</translation>
+        <translation>rotateObject(rot [, &quot;name&quot;])Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object isrotated by the vertex that is currently selected as the rotation point - bydefault, the top left vertex at zero rotation. Positive values mean counterclockwise rotation when the default rotation point is used. If &quot;name&quot; is notgiven the currently selected item is used.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="59"/>
@@ -989,7 +990,7 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">rotateObjectAbs(rot [, &quot;name&quot;])
+        <translation>rotateObjectAbs(rot [, &quot;name&quot;])
 
 Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
@@ -1002,7 +1003,7 @@ selected item is used.</translation>
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">sizeObject(width, height [, &quot;name&quot;])
+        <translation>sizeObject(width, height [, &quot;name&quot;])
 
 Ändert die Größe von &quot;name&quot; auf die Breite width und die Höhe height.
 ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt benutzt.</translation>
@@ -1015,7 +1016,7 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished">getSelectedObject([nr]) -&gt; string
+        <translation>getSelectedObject([nr]) -&gt; string
 
 Gibt den Namen des ausgewählten Objekts zurück. &quot;nr&quot; gibt die Zahl des gewählten
 Objekts an. 0 bedeutet das erste ausgewählte Objekt, 1 das zweite usw.</translation>
@@ -1026,7 +1027,7 @@ Objekts an. 0 bedeutet das erste ausgewählte Objekt, 1 das zweite usw.</transla
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished">selectionCount() -&gt; integer
+        <translation>selectionCount() -&gt; integer
 
 Gibt die Anzahl der ausgewählten Objekte zurück.</translation>
     </message>
@@ -1036,7 +1037,7 @@ Gibt die Anzahl der ausgewählten Objekte zurück.</translation>
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished">selectObject(&quot;name&quot;)
+        <translation>selectObject(&quot;name&quot;)
 
 Wählt das Objekt &quot;name&quot; aus.</translation>
     </message>
@@ -1046,7 +1047,7 @@ Wählt das Objekt &quot;name&quot; aus.</translation>
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished">deselectAll()
+        <translation>deselectAll()
 
 Setzt alle Objekte im Dokument auf nicht ausgewählt.</translation>
     </message>
@@ -1058,7 +1059,7 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished">groupObjects(list)
+        <translation>groupObjects(list)
 
 Gruppiert die Elemente in &quot;list&quot;. &quot;list&quot; muss die Namen der zu gruppierenden 
 Objekte enthalten. Ist &quot;list&quot; nicht angegeben, werden die aktuell gewählten 
@@ -1069,7 +1070,7 @@ Objekte verwendet.</translation>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished">unGroupObjects(&quot;name&quot;)
+        <translation>unGroupObjects(&quot;name&quot;)
 
 Zerstört die Gruppe &quot;name&quot;. Ist &quot;name&quot; nicht angegeben, wird die aktuelle Gruppe verwendet.</translation>
     </message>
@@ -1085,7 +1086,7 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished">scaleGroup(factor [,&quot;name&quot;])
+        <translation>scaleGroup(factor [,&quot;name&quot;])
 
 Skaliert die Gruppe, zu dem das Objekt &quot;name&quot; gehört. Werte größer als 1 vergrößern das Objekt, 
 Werte kleiner als 1 verkleinert das Objekt. Zum Beispiel bedeutet 0.5 = 50 % oder 1.5=150% der 
@@ -1101,7 +1102,7 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished">loadImage(&quot;filename&quot; [, &quot;name&quot;])
+        <translation>loadImage(&quot;filename&quot; [, &quot;name&quot;])
 
 Lädt das Bild &quot;picture&quot; in den Bildrahmen &quot;name&quot;. Ist &quot;name&quot; nicht angegeben, 
 wird der aktuelle Rahmen benutzt.
@@ -1133,7 +1134,7 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished">lockObject([&quot;name&quot;]) -&gt; bool
+        <translation>lockObject([&quot;name&quot;]) -&gt; bool
 
 Sperrt das Objekt &quot;name&quot;, wenn es freigegeben ist und entsperrt es, wenn es
 gesperrt ist. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt verwendet.
@@ -1146,7 +1147,7 @@ Gibt True zurück, wenn das Objekt gesperrt ist.</translation>
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished">isLocked([&quot;name&quot;]) -&gt; bool
+        <translation>isLocked([&quot;name&quot;]) -&gt; bool
 
 Gibt True zurück, wenn &quot;name&quot; gesperrt ist. Ist &quot;name&quot; nicht angegeben, wird das aktuelle
 Objekt verwendet.</translation>
@@ -1161,7 +1162,7 @@ Both `scaletoframe&apos; and `proportional&apos; are boolean.
 
 May raise WrongFrameTypeError.
 </source>
-        <translation type="unfinished">setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
+        <translation>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
 
 Setzt die Eigenschaft An Rahmen anpassen für den gewählten Bildrahmen oder angegebenen
 Bildrahmen.
@@ -1178,7 +1179,7 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation type="unfinished">setRedraw(bool)
+        <translation>setRedraw(bool)
 
 Wenn bool=False, dann wird die Seite nicht neu neu aufgebaut (redraw ist deaktiviert).
 Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Script beendet ist.
@@ -1190,7 +1191,7 @@ Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Script 
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished">getFontNames() -&gt; list
+        <translation>getFontNames() -&gt; list
 
 Gibt eine Liste mit allen verfügbaren Schriften zurück.</translation>
     </message>
@@ -1201,7 +1202,7 @@ Gibt eine Liste mit allen verfügbaren Schriften zurück.</translation>
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished">getXFontNames() -&gt; list
+        <translation>getXFontNames() -&gt; list
 
 Gibt genaue Informationen zu einer Schrift zurück mit den Werten:
 [ (Name in Scribus, Familie, wirklicher Name, Subset (1|0), embed PS (1|0), Fontdatei), (...), ... ]</translation>
@@ -1219,7 +1220,7 @@ by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished">renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+        <translation>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
 Erzeugt ein Bild mit dem Text &quot;sample&quot; in der Schrift &quot;font&quot; und der Größe &quot;size&quot;.
 Ist &quot;filename&quot; angegeben, wird das Bild unter &quot;filename&quot; abgespeichert. Ansonsten
@@ -1236,7 +1237,7 @@ Der Fehler ValueError tritt auf, wenn &quot;sample&quot; leer ist oder der Datei
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished">getLayers() -&gt; list
+        <translation>getLayers() -&gt; list
 
 Gibt eine Liste mit allen Ebenen zurück.</translation>
     </message>
@@ -1249,7 +1250,7 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setActiveLayer(&quot;name&quot;)
+        <translation>setActiveLayer(&quot;name&quot;)
 
 Macht die Ebene &quot;name&quot; zur aktiven Ebene.
 
@@ -1262,7 +1263,7 @@ Ist der Name der Ebene ungültig, tritt der Fehler ValueError auf.</translation>
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished">getActiveLayer() -&gt; string
+        <translation>getActiveLayer() -&gt; string
 
 Gibt die aktive Ebene zurück.</translation>
     </message>
@@ -1276,7 +1277,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+        <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
 
 Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muss
 vorhanden sein. Ist &quot;name&quot; nicht angegeben, wird das aktive Objekt benutzt.
@@ -1294,7 +1295,7 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerVisible(&quot;layer&quot;, visible)
+        <translation>setLayerVisible(&quot;layer&quot;, visible)
 
 Zeigt die Ebene &quot;layer&quot; an oder versteckt sie. Ist &quot;visible&quot; auf False gesetzt,
 ist die Ebene unsichtbar.
@@ -1312,7 +1313,7 @@ printable set to false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerPrintable(&quot;layer&quot;, printable)
+        <translation>setLayerPrintable(&quot;layer&quot;, printable)
 
 Sets the layer &quot;layer&quot; to be printable or not. If is the
 printable set to false the layer won&apos;t be printed.
@@ -1330,7 +1331,7 @@ true the layer will be locked.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerLocked(&quot;layer&quot;, locked)
+        <translation>setLayerLocked(&quot;layer&quot;, locked)
 
 Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
 true the layer will be locked.
@@ -1348,7 +1349,7 @@ true the layer will be displayed outlined.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerOutlined(&quot;layer&quot;, outline)
+        <translation>setLayerOutlined(&quot;layer&quot;, outline)
 Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
 true the layer will be displayed outlined.
 May raise NotFoundError if the layer can&apos;t be found.
@@ -1364,7 +1365,7 @@ true text in layers above this one will flow around objects on this layer.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerFlow(&quot;layer&quot;, flow)
+        <translation>setLayerFlow(&quot;layer&quot;, flow)
 Sets the layers &quot;layer&quot;(sp)(sp)flowcontrol to flow. If flow is set to
 true text in layers above this one will flow around objects on this layer.
 May raise NotFoundError if the layer can&apos;t be found.
@@ -1379,7 +1380,7 @@ Sets the layers &quot;layer&quot;  blendmode to blend.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerBlendmode(&quot;layer&quot;, blend)
+        <translation>setLayerBlendmode(&quot;layer&quot;, blend)
 Sets the layers &quot;layer&quot;(sp)(sp)blendmode to blend.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
@@ -1393,7 +1394,7 @@ Sets the layers &quot;layer&quot;  transparency to trans.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerTransparency(&quot;layer&quot;, trans)
+        <translation>setLayerTransparency(&quot;layer&quot;, trans)
 Sets the layers &quot;layer&quot;(sp)(sp)transparency to trans.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
@@ -1409,7 +1410,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerVisible(&quot;layer&quot;) -&gt; bool
+        <translation>isLayerVisible(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
 that the layer &quot;layer&quot; is visible, a value of False means that the layer
@@ -1429,7 +1430,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Gibt zurück, ob die Ebene gedruckt wird oder nicht. True bedeutet, dass die Ebene
 gedruckt wird, False bedeutet, dass das Drucken deaktiviert ist.
@@ -1448,7 +1449,7 @@ that the layer &quot;layer&quot; is editable, a value of False means that the la
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerLocked(&quot;layer&quot;) -&gt; bool
+        <translation>isLayerLocked(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
 that the layer &quot;layer&quot; is editable, a value of False means that the layer
@@ -1468,7 +1469,7 @@ that the layer &quot;layer&quot; is outlined, a value of False means that the la
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerOutlined(&quot;layer&quot;) -&gt; bool
+        <translation>isLayerOutlined(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
 that the layer &quot;layer&quot; is outlined, a value of False means that the layer
@@ -1487,7 +1488,7 @@ that text flows around, a value of False means that the text does not flow aroun
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerFlow(&quot;layer&quot;) -&gt; bool
+        <translation>isLayerFlow(&quot;layer&quot;) -&gt; bool
 
 Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
 that text flows around, a value of False means that the text does not flow around.
@@ -1504,7 +1505,7 @@ Returns the &quot;layer&quot; layer blendmode,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">getLayerBlendmode(&quot;layer&quot;) -&gt; int
+        <translation>getLayerBlendmode(&quot;layer&quot;) -&gt; int
 
 Returns the &quot;layer&quot; layer blendmode,
 
@@ -1520,7 +1521,7 @@ Returns the &quot;layer&quot; layer transparency,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">getLayerTransparency(&quot;layer&quot;) -&gt; float
+        <translation>getLayerTransparency(&quot;layer&quot;) -&gt; float
 
 Returns the &quot;layer&quot; layer transparency,
 
@@ -1537,7 +1538,7 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">deleteLayer(&quot;layer&quot;)
+        <translation>deleteLayer(&quot;layer&quot;)
 
 Löscht die Ebene &quot;layer&quot;. Ist die Ebene nicht vorhanden oder ist nur eine
 Ebene vorhanden, passiert gar nichts.
@@ -1553,7 +1554,7 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">createLayer(layer)
+        <translation>createLayer(layer)
 
 Erzeugt einen Ebene mit dem Namen &quot;layer&quot;.
 
@@ -1565,7 +1566,7 @@ Ist der Name ungültig, tritt der Fehler ValueError auf.</translation>
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished">getGuiLanguage() -&gt; string
+        <translation>getGuiLanguage() -&gt; string
 
 Gibt den Wert der Variable -lang zurück.</translation>
     </message>
@@ -1575,7 +1576,7 @@ Gibt den Wert der Variable -lang zurück.</translation>
 
 Moves current selection to front.
 </source>
-        <translation type="unfinished">moveSelectionToFront()
+        <translation>moveSelectionToFront()
 Moves current selection to front.</translation>
     </message>
     <message>
@@ -1584,7 +1585,7 @@ Moves current selection to front.</translation>
 
 Moves current selection to back.
 </source>
-        <translation type="unfinished">moveSelectionToFront()
+        <translation>moveSelectionToFront()
 Moves current selection to back.</translation>
     </message>
     <message>
@@ -1599,7 +1600,7 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+        <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt ein neues Rechteck auf der aktuellen Seite und gibt seinen Namen zurück. Die
 Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe UNIT-Konstanten).
@@ -1620,7 +1621,7 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+        <translation>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Ellipse auf der aktuellen Seite und gibt ihren Namen zurück. Die Koordinaten
 werden in der Maßeinheit des Dokuments angegeben (siehe UNIT-Konstanten). &quot;name&quot; sollte
@@ -1641,7 +1642,7 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+        <translation>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt einen Bildrahmen auf der aktuellen Seite und gibt seinen Namen zurück.
 Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
@@ -1663,7 +1664,7 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+        <translation>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt einen neuen Textrahmen auf der aktuellen Seite und gibt seinen Namen zurück.
 Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
@@ -1685,7 +1686,7 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+        <translation>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Linie von P(x1,y1) zu P(x2,y2) und gibt ihren Namen zurück.
 Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
@@ -1710,7 +1711,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createPolyLine(list, [&quot;name&quot;]) -&gt; string
+        <translation>createPolyLine(list, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Mehrfachlinie und und gibt ihren Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: [x1, y1, x2,...xn, yn].
@@ -1739,7 +1740,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createPolygon(list, [&quot;name&quot;]) -&gt; string
+        <translation>createPolygon(list, [&quot;name&quot;]) -&gt; string
 
 Erzeugt ein Vieleck und gibt seinen Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: [x1, y1, x2,...xn, yn]. Sie müssen
@@ -1771,7 +1772,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createBezierLine(list, [&quot;name&quot;]) -&gt; string
+        <translation>createBezierLine(list, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Bézierkurve und gibt ihren Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: 
@@ -1799,7 +1800,7 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished">createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+        <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
 
 Erzeugt Text auf einem Pfad, indem die Objekte &quot;textbox&quot; und &quot;beziercurve&quot;
 zusammengefügt werden.
@@ -1818,7 +1819,7 @@ Sind ein oder beide Objekte nicht vorhanden, tritt der Fehler NotFoundError auf.
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished">deleteObject([&quot;name&quot;])
+        <translation>deleteObject([&quot;name&quot;])
 
 Löscht das Objekt &quot;name&quot;. Ist &quot;name&quot; nicht angegeben, wird das aktuelle
 Objekt gelöscht.</translation>
@@ -1835,7 +1836,7 @@ Setting &quot;state&quot; to 2 will make text flow around bounding box.
 Setting &quot;state&quot; to 3 will make text flow around contour line.
 If &quot;state&quot; is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished">textFlowMode(&quot;name&quot; [, state])
+        <translation>textFlowMode(&quot;name&quot; [, state])
 
 Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
 Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).(new line)
@@ -1853,7 +1854,7 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished">objectExists([&quot;name&quot;]) -&gt; bool
+        <translation>objectExists([&quot;name&quot;]) -&gt; bool
 
 Gibt an, ob das Objekt mit dem Name &quot;name&quot; auch wirklich im aktuellen Dokument
 existiert. &quot;name&quot; ist optional, ist &quot;name&quot; nicht angegeben, wird True ausgegeben, wenn
@@ -1866,7 +1867,7 @@ gerade ein Objekt selektiert ist.</translation>
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished">setStyle(&quot;style&quot; [, &quot;name&quot;])
+        <translation>setStyle(&quot;style&quot; [, &quot;name&quot;])
 
 Setzt den Absatzstil &quot;style&quot; für das Objekt &quot;name&quot;. Ist kein Objekt angegeben,
 wird der Stil auf das aktuelle Objekt angewendet.</translation>
@@ -1877,7 +1878,7 @@ wird der Stil auf das aktuelle Objekt angewendet.</translation>
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished">getAllStyles() -&gt; list
+        <translation>getAllStyles() -&gt; list
 
 Gibt eine Listen mit allen Absatzstilen im aktuellen Dokument zurück.</translation>
     </message>
@@ -1887,7 +1888,7 @@ Gibt eine Listen mit allen Absatzstilen im aktuellen Dokument zurück.</translat
 
 creates a Duplicate of the selected Object (or Selection Group).
 </source>
-        <translation type="unfinished">duplicateObject([&quot;name&quot;]) -&gt; string
+        <translation>duplicateObject([&quot;name&quot;]) -&gt; string
 
 creates a Duplicate of the selected Object (or Selection Group).</translation>
     </message>
@@ -1903,7 +1904,7 @@ master page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished">newPage(where [,&quot;masterpage&quot;])
+        <translation>newPage(where [,&quot;masterpage&quot;])
 
 Erzeugt eine neue Seite. Falls &quot;where&quot; -1 ist, wird die neue Seite an das Dokument angefügt,
 ansonsten wird die neue Seite vor &quot;where&quot; eingefügt. Seitennummern werden von 1 ab hoch-
@@ -1917,7 +1918,7 @@ Parameter &quot;masterpage&quot; legt den Namen der Musterseite für die neue Se
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished">currentPage() -&gt; integer
+        <translation>currentPage() -&gt; integer
 
 Gibt die Nummer der aktuellen Seite zurück. Seitenzahlen werden ab 1 gezählt, egal welche
 Seitenzahl auf der aktuellen Seite angezeigt wird.</translation>
@@ -1928,7 +1929,7 @@ Seitenzahl auf der aktuellen Seite angezeigt wird.</translation>
 
 Redraws all pages.
 </source>
-        <translation type="unfinished">redrawAll()
+        <translation>redrawAll()
 
 Baut alle Seiten neu auf.</translation>
     </message>
@@ -1938,7 +1939,7 @@ Baut alle Seiten neu auf.</translation>
 
 Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
 </source>
-        <translation type="unfinished">getPageType() -&gt; integerReturns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page</translation>
+        <translation>getPageType() -&gt; integerReturns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="65"/>
@@ -1948,7 +1949,7 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished">savePageAsEPS(&quot;name&quot;)
+        <translation>savePageAsEPS(&quot;name&quot;)
 
 Speichert die aktuelle Seite als EPS-Datei mit dem Namen &quot;name&quot;.
 
@@ -1964,7 +1965,7 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished">deletePage(nr)
+        <translation>deletePage(nr)
 
 Löscht die Seite mit der Nummer &quot;nr&quot;. Besteht das Dokument nur aus einer Seite, passiert nichts.
 Seitenzahlen werden von 1 aufwärts gezählt, egal, welche Seitenzahl Sie auf der aktuellen Seite
@@ -1982,7 +1983,7 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished">gotoPage(nr)Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note thatgotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, itjust sets the page that script commands will operates on.May raise IndexError if the page number is out of range.</translation>
+        <translation>gotoPage(nr)Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note thatgotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, itjust sets the page that script commands will operates on.May raise IndexError if the page number is out of range.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="100"/>
@@ -1990,7 +1991,7 @@ May raise IndexError if the page number is out of range.
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished">pageCount() -&gt; integer
+        <translation>pageCount() -&gt; integer
 
 Gibt die Anzahl der Seiten im Dokument zurück.</translation>
     </message>
@@ -2001,7 +2002,7 @@ Gibt die Anzahl der Seiten im Dokument zurück.</translation>
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished">getHGuides() -&gt; list
+        <translation>getHGuides() -&gt; list
 
 Gibt eine Liste zurück, die die Position der horizontalen Hilfslinien enthält. Die Werte
 werden in der Maßeinheit des Dokuments angegeben, siehe UNIT-Konstanten.</translation>
@@ -2016,7 +2017,7 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished">setHGuides(list)
+        <translation>setHGuides(list)
 
 Legt horizontale Hilfslinien fest, list muss eine Liste der Linien sein, angegeben in der Maßeinheit
 des Dokuments, siehe UNIT-Konstanten.
@@ -2031,7 +2032,7 @@ setHGuides(getHGuides() + [200.0, 210.0] # fügt eine neue Hilfslinie hinzu
 
 See getHGuides.
 </source>
-        <translation type="unfinished">getVGuides()
+        <translation>getVGuides()
 
 Siehe getHGuides.</translation>
     </message>
@@ -2041,7 +2042,7 @@ Siehe getHGuides.</translation>
 
 See setHGuides.
 </source>
-        <translation type="unfinished">setVGuides()
+        <translation>setVGuides()
 
 Siehe setHGuides.</translation>
     </message>
@@ -2052,7 +2053,7 @@ Siehe setHGuides.</translation>
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished">getPageSize() -&gt; tuple
+        <translation>getPageSize() -&gt; tuple
 
 Gibt eine Liste mit der Seitengröße in der aktuellen Maßeinheit zurück, siehe
 UNIT-Konstanten und getPageMargins()</translation>
@@ -2066,7 +2067,7 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished">getPageItems() -&gt; list
+        <translation>getPageItems() -&gt; list
 
 Gibt eine Liste zurück mit den Objekten auf der aktuelle Seite. Die Reihenfolge
 der Werte ist: (Name, Typ des Objekts, Anordnung).
@@ -2081,7 +2082,7 @@ ein Textrahmen ist  (type 4) und sich auf der ersten Seite befindet...</translat
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished">getPageMargins()
+        <translation>getPageMargins()
 
 Gibt die Seitenränder als ein Tupel in der gerade aktiven Einheit zurück (oben, unten, links, rechts).
 Mögliche Einheiten finden Sie bei UNIT_&lt;tye&gt; und getPageSize().
@@ -2098,7 +2099,7 @@ create: number; 0 to replace existing pages, 1 (default) to insert new pages
 importWhere: number; the page number (of the current document) at which import the pages
 importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
 </source>
-        <translation type="unfinished">importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
+        <translation>importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
 
 Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.
 fromDoc: string; the filename of the document to import pages from
@@ -2115,7 +2116,7 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation type="unfinished">setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+        <translation>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
 
 Füllt das Objekt &quot;name&quot; mit einem Farbverlauf. Farbbezeichnungen sind die
 gleichen wie für setFillColor() und setFillShade(). Siehe Konstanten
@@ -2129,7 +2130,7 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished">setFillColor(&quot;color&quot;, [&quot;name&quot;])
+        <translation>setFillColor(&quot;color&quot;, [&quot;name&quot;])
 
 Setzt die Füllfarbe &quot;color&quot; für das Objekt &quot;name&quot;. &quot;color&quot; ist der Name einer
 vorhandenen Farbe. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
@@ -2142,7 +2143,7 @@ verwendet.</translation>
 Sets the fill transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setFillTransparency(transparency, [&quot;name&quot;])
+        <translation>setFillTransparency(transparency, [&quot;name&quot;])
 Sets the fill transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
@@ -2153,7 +2154,7 @@ If &quot;name&quot; is not given the currently selected item is used.</translati
 Sets the fill blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setFillBlendmode(blendmode, [&quot;name&quot;])
+        <translation>setFillBlendmode(blendmode, [&quot;name&quot;])
 Sets the fill blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
@@ -2164,7 +2165,7 @@ If &quot;name&quot; is not given the currently selected item is used.</translati
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setLineColor(&quot;color&quot;, [&quot;name&quot;])
+        <translation>setLineColor(&quot;color&quot;, [&quot;name&quot;])
 
 Setzt die Linienfarbe &quot;color&quot; für das Objekt &quot;name&quot;. Ist &quot;name&quot; nicht angegeben, 
 wird das aktuelle Objekt verwendet.</translation>
@@ -2176,7 +2177,7 @@ wird das aktuelle Objekt verwendet.</translation>
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setLineTransparency(transparency, [&quot;name&quot;])
+        <translation>setLineTransparency(transparency, [&quot;name&quot;])
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
@@ -2187,7 +2188,7 @@ If &quot;name&quot; is not given the currently selected item is used.</translati
 Sets the line blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setLineBlendmode(blendmode, [&quot;name&quot;])
+        <translation>setLineBlendmode(blendmode, [&quot;name&quot;])
 Sets the line blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
@@ -2201,7 +2202,7 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished">setLineWidth(width, [&quot;name&quot;])
+        <translation>setLineWidth(width, [&quot;name&quot;])
 
 Setzt die Linienbreite für das Objekt &quot;name&quot; auf &quot;width&quot;. &quot;width&quot; muss zwischen 
 0.0 und 12.0 groß sein und wird in Punkt angegeben. Ist &quot;name&quot; nicht angegeben,
@@ -2220,7 +2221,7 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished">setLineShade(shade, [&quot;name&quot;])
+        <translation>setLineShade(shade, [&quot;name&quot;])
 
 Setzt den Tonwert der Linie des Objekts &quot;name&quot; auf &quot;shade&quot;. &quot;shade&quot; ist eine
 ganze Zahl zwischen 0 und 100. Ist &quot;name&quot; nicht angegeben, wird das aktuelle 
@@ -2236,7 +2237,7 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished">setLineJoin(join, [&quot;name&quot;])
+        <translation>setLineJoin(join, [&quot;name&quot;])
 
 Setzt die Ecken der Linien des Objekts &quot;name&quot; auf den Stil join.
 Ist &quot;name&quot; nicht angegeben, wird das aktuelle Obekt verwendet.
@@ -2250,7 +2251,7 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished">SetLineEnd(endtype, [&quot;name&quot;])
+        <translation>SetLineEnd(endtype, [&quot;name&quot;])
 
 Setzt die Linienenden des Objekts &quot;name&quot; auf den Stil &quot;endtype&quot;.
 Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt verwendet.
@@ -2264,7 +2265,7 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished">setLineStyle(style, [&quot;name&quot;])
+        <translation>setLineStyle(style, [&quot;name&quot;])
 
 Setzt den Linienstil des Objekts &quot;name&quot; auf den Stil &quot;style&quot;. Ist &quot;name&quot; nicht
 angegeben, wird das aktuelle Objekt verwendet. Benutzen Sie die
@@ -2281,7 +2282,7 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished">setFillShade(shade, [&quot;name&quot;])
+        <translation>setFillShade(shade, [&quot;name&quot;])
 
 Setzt den Tonwert der Füllfarbe für das Objekt &quot;name&quot; auf &quot;shade&quot;.
 &quot;shade&quot; muss eine ganze Zahl zwischen 0 und 100 sein. Ist &quot;name&quot;
@@ -2298,7 +2299,7 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished">setCornerRadius(radius, [&quot;name&quot;])
+        <translation>setCornerRadius(radius, [&quot;name&quot;])
 
 Setzt den Eckradius für das Objekt &quot;name&quot; auf radius. Der Radius wird
 in Punkt angegeben. Ist &quot;name&quot; nicht angegeben, wird das aktuelle
@@ -2315,7 +2316,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished">setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+        <translation>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
 
 Setzt den Linienstil für das Objekt &quot;name&quot; auf den angegebenen Stil.
 Ist &quot;name&quot; nicht angegeben, wird der aktuelle Stil benutzt.
@@ -2367,7 +2368,7 @@ dropcapoffset [optional] -&gt; offset of the caps if used
 &quot;charstyle&quot; [optional] -&gt; char style to use
 
 </source>
-        <translation type="unfinished">createParagraphStyle(...)Creates a paragraph style. This function takes the following keyword parameters:&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to createlinespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:fixed linespacing:          0automatic linespacing:      1baseline grid linespacing:  2linespacing [optional] -&gt; specifies the linespacing if using fixed linespacingalignment [optional] -&gt; specifies the alignment of the paragraph-&gt; left:     0-&gt; center:   1-&gt; right:    2-&gt; justify:  3-&gt; extend:   4leftmargin [optional], rightmargin [optional] -&gt; specify the margingapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphsfirstindent [optional] -&gt; the indent of the first linehasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)dropcaplines [optional] -&gt; height (in lines) of the caps if useddropcapoffset [optional] -&gt; offset of the caps if used&quot;charstyle&quot; [optional] -&gt; char style to use</translation>
+        <translation>createParagraphStyle(...)Creates a paragraph style. This function takes the following keyword parameters:&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to createlinespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:fixed linespacing:          0automatic linespacing:      1baseline grid linespacing:  2linespacing [optional] -&gt; specifies the linespacing if using fixed linespacingalignment [optional] -&gt; specifies the alignment of the paragraph-&gt; left:     0-&gt; center:   1-&gt; right:    2-&gt; justify:  3-&gt; extend:   4leftmargin [optional], rightmargin [optional] -&gt; specify the margingapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphsfirstindent [optional] -&gt; the indent of the first linehasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)dropcaplines [optional] -&gt; height (in lines) of the caps if useddropcapoffset [optional] -&gt; offset of the caps if used&quot;charstyle&quot; [optional] -&gt; char style to use</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.h" line="80"/>
@@ -2428,7 +2429,7 @@ tracking [optional] -&gt; tracking of the text
 &quot;language&quot; [optional] -&gt; language code
 
 </source>
-        <translation type="unfinished">createCharStyle(...)
+        <translation>createCharStyle(...)
 
 Creates a character style. This function takes the following keyword parameters:
 
@@ -2494,7 +2495,7 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getFontSize([&quot;name&quot;]) -&gt; float
+        <translation>getFontSize([&quot;name&quot;]) -&gt; float
 
 Gibt die Schriftgröße in Punkten für den Textrahmen &quot;name&quot; zurück. Wenn innerhalb
 des Rahmens Text markiert ist, wird die Schriftgröße des ersten Zeichens verwendet.
@@ -2509,7 +2510,7 @@ has some text selected the value assigned to the first character
 of the selection is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getFont([&quot;name&quot;]) -&gt; string
+        <translation>getFont([&quot;name&quot;]) -&gt; string
 
 Gibt den Namen der Schrift für den Textrahmen &quot;name&quot; zurück. Ist in
 dem Textfeld Text ausgewählt, wird die Schrift des ersten gewählten
@@ -2523,7 +2524,7 @@ verwendet.</translation>
 Returns the length of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getTextLength([&quot;name&quot;]) -&gt; integer
+        <translation>getTextLength([&quot;name&quot;]) -&gt; integer
 
 Gibt die Länge des Textes im Textrahmen &quot;name&quot; zurück.
 Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt verwendet.</translation>
@@ -2535,7 +2536,7 @@ Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt verwendet.</trans
 Returns the number of lines of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getTextLines([&quot;name&quot;]) -&gt; integer
+        <translation>getTextLines([&quot;name&quot;]) -&gt; integer
 
 Returns the number of lines of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.</translation>
@@ -2549,7 +2550,7 @@ selected, the selected text is returned. All text in the frame, not just
 currently visible text, is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getText([&quot;name&quot;]) -&gt; string
+        <translation>getText([&quot;name&quot;]) -&gt; string
 
 Gibt den Text aus dem Textrahmen &quot;name&quot; zurück. Ist in dem Textfeld Text markiert,
 wird der selektierte Text zurückgegeben. Der gesamte Text wird zurückgegeben, nicht
@@ -2565,7 +2566,7 @@ linked with this frame. If this textframe has some text selected, the selected
 text is returned. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">getAllText([&quot;name&quot;]) -&gt; string
+        <translation>getAllText([&quot;name&quot;]) -&gt; string
 
 Gibt den Text aus dem Textrahmen &quot;name&quot; zurück und aus allen Rahmen, die mit
 dem Rahmen &quot;name&quot; verbunden sind. Ist in dem Textfeld Text markiert,
@@ -2579,7 +2580,7 @@ Objekt verwendet.</translation>
 Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
 points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineSpacing([&quot;name&quot;]) -&gt; float
+        <translation>getLineSpacing([&quot;name&quot;]) -&gt; float
 
 Gibt den Zeilenabstand für den Textrahmen &quot;name&quot; in Punkten zurück.
 Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt verwendet.</translation>
@@ -2592,7 +2593,7 @@ Returns the text distances of the text frame &quot;name&quot; expressed in point
 distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getTextDistances([&quot;name&quot;]) -&gt; tupleReturns the text distances of the text frame &quot;name&quot; expressed in points. Thedistances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;is not given the currently selected item is used.</translation>
+        <translation>getTextDistances([&quot;name&quot;]) -&gt; tupleReturns the text distances of the text frame &quot;name&quot; expressed in points. Thedistances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;is not given the currently selected item is used.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="110"/>
@@ -2601,7 +2602,7 @@ is not given the currently selected item is used.
 Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
 &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getColumnGap([&quot;name&quot;]) -&gt; float
+        <translation>getColumnGap([&quot;name&quot;]) -&gt; float
 
 Gibt den Zeilenabstand für den Text im Rahmen &quot;name&quot; in Punkten zurück. Ist
 &quot;name&quot; nicht angegeben, wird das aktuelle Objekt verwendet.</translation>
@@ -2613,7 +2614,7 @@ Gibt den Zeilenabstand für den Text im Rahmen &quot;name&quot; in Punkten zurü
 Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">getColumns([&quot;name&quot;]) -&gt; integer
+        <translation>getColumns([&quot;name&quot;]) -&gt; integer
 
 Gibt die Anzahl der Spalten im Textrahmen &quot;name&quot; zurück. Ist &quot;name&quot; nicht
 angegeben, wird das aktuelle Objekt verwendet.</translation>
@@ -2627,7 +2628,7 @@ Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See 
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">setText(&quot;text&quot;, [&quot;name&quot;])
+        <translation>setText(&quot;text&quot;, [&quot;name&quot;])
 
 Ändert den Text im Rahmen &quot;name&quot; auf den String &quot;text&quot;.
 Der Text muss URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
@@ -2645,7 +2646,7 @@ not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished">nsertText(&quot;text&quot;, pos, [&quot;name&quot;])
+        <translation>nsertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
 Text must be UTF encoded (see setText() as reference) The first character has an
@@ -2664,7 +2665,7 @@ currently selected item is used.
 
 May throw ValueError if the font cannot be found.
 </source>
-        <translation type="unfinished">setFont(&quot;font&quot;, [&quot;name&quot;])
+        <translation>setFont(&quot;font&quot;, [&quot;name&quot;])
 
 Setzt die Schrift für den Rahmen &quot;name&quot; auf &quot;font&quot;. Ist Text ausgewählt,
 wird nur die Markierung verändert. Ist &quot;name&quot; nicht angegeben, wird der
@@ -2683,7 +2684,7 @@ currently selected item is used.
 
 May throw ValueError for a font size that&apos;s out of bounds.
 </source>
-        <translation type="unfinished">setFontSize(size, [&quot;name&quot;])
+        <translation>setFontSize(size, [&quot;name&quot;])
 
 Setzt die Schriftgröße im Textrahmen &quot;name&quot; auf den Wert &quot;size&quot;. &quot;size&quot; ist
 ein Wert in Punkten zwischen 1 und 512. Ist eine Markierung vorhanden, wird
@@ -2702,7 +2703,7 @@ item is used.
 
 May throw ValueError if the line spacing is out of bounds.
 </source>
-        <translation type="unfinished">setLineSpacing(size, [&quot;name&quot;])
+        <translation>setLineSpacing(size, [&quot;name&quot;])
 
 Setzt den Zeilenabstand im Rahmen &quot;name&quot; auf den Wert &quot;size&quot;.
 &quot;size&quot; ist ein Wert in Punkten. Ist &quot;name&quot; nicht angegeben, wird der
@@ -2721,7 +2722,7 @@ selected item is used.
 
 May throw ValueError if any of the distances are out of bounds (must be positive).
 </source>
-        <translation type="unfinished">setTextDistances(left, right, top, bottom, [&quot;name&quot;])Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currentlyselected item is used.May throw ValueError if any of the distances are out of bounds (must be positive).</translation>
+        <translation>setTextDistances(left, right, top, bottom, [&quot;name&quot;])Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currentlyselected item is used.May throw ValueError if any of the distances are out of bounds (must be positive).</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="211"/>
@@ -2732,7 +2733,7 @@ Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&q
 
 May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
-        <translation type="unfinished">setColumnGap(size, [&quot;name&quot;])
+        <translation>setColumnGap(size, [&quot;name&quot;])
 
 Setzt den Spaltenabstand im Rahmen &quot;name&quot; auf den Wert &quot;size&quot;.
 Ist &quot;name&quot; nicht angegeben, wird der aktuelle Textrahmen verwendet.
@@ -2748,7 +2749,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May throw ValueError if number of columns is not at least one.
 </source>
-        <translation type="unfinished">setColumns(nr, [&quot;name&quot;])
+        <translation>setColumns(nr, [&quot;name&quot;])
 
 Legt die Anzahl der Spalten im Textrahmen &quot;name&quot; fest auf &quot;nr&quot; fest.
 Wenn &quot;name&quot; nicht angegeben ist, wird der aktuelle Textrahmen verwendet.
@@ -2765,7 +2766,7 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).
 
 May throw ValueError for an invalid alignment constant.
 </source>
-        <translation type="unfinished">setTextAlignment(align, [&quot;name&quot;])
+        <translation>setTextAlignment(align, [&quot;name&quot;])
 
 Richtet den Text in dem Objekt &quot;name&quot; nach der Art &quot;align&quot; aus. Ist &quot;name&quot;
 nicht angegeben, wird der aktuelle Textrahmen verwendet. &quot;align&quot; ist eine der
@@ -2784,7 +2785,7 @@ selected item is used.
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished">selectText(start, count, [&quot;name&quot;])
+        <translation>selectText(start, count, [&quot;name&quot;])
 
 Markiert &quot;count&quot; Zeichen des Textrahmens &quot;name&quot; beginnend mit dem Zeichen &quot;start&quot;. 
 Die Zählung beginnt bei 0. Wenn &quot;count&quot;=0 ist, wird die Markierung gelöscht. Wenn &quot;name&quot;
@@ -2800,7 +2801,7 @@ Deletes any text in the text frame &quot;name&quot;. If there is some text selec
 only the selected text will be deleted. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">deleteText([&quot;name&quot;])
+        <translation>deleteText([&quot;name&quot;])
 
 Löscht den Textrahmen &quot;name&quot;. Wenn Text ausgewählt ist, wird nur die Markierung
 gelöscht. Ist &quot;name&quot; nicht angegeben, wird der aktuelle Textrahmen gelöscht.</translation>
@@ -2813,7 +2814,7 @@ Sets the text color of the text frame &quot;name&quot; to the color &quot;color&
 is some text selected only the selected text is changed. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">setTextColor(&quot;color&quot;, [&quot;name&quot;])
+        <translation>setTextColor(&quot;color&quot;, [&quot;name&quot;])
 
 Ändert die Farbe des Textes auf &quot;color&quot;. Wenn Text ausgewählt ist, wird die
 Markierung auf &quot;color&quot; geändert. Ist &quot;name&quot; nicht angegeben, wird der aktuelle
@@ -2826,7 +2827,7 @@ Textrahmen verwendet.</translation>
 Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+        <translation>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
 
 Setzt die Farbe &quot;color&quot; für die Umrandung des Textes. Ist &quot;name&quot; nicht angegeben, wird der aktuelle 
 Textrahmen verwendet.</translation>
@@ -2841,7 +2842,7 @@ be an integer value in the range from 0 (lightest) to 100 (full color
 intensity). If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">setTextShade(shade, [&quot;name&quot;])
+        <translation>setTextShade(shade, [&quot;name&quot;])
 
 Setzt den Tonwert für den Textrahmen &quot;name&quot; auf &quot;shade&quot;.
 Ist Text in dem Rahmen ausgewählt, wird nur der ausgewählt Text
@@ -2858,7 +2859,7 @@ and must not link to or be linked from any other frames already.
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished">linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+        <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
 
 Zwei Textrahmen verketten. &quot;Fromname&quot; wird mit &quot;Toname&quot; verkettet. Der Zielrahmen
 muss leer sein und darf nicht mit anderen Rahmen verkettet sein.
@@ -2875,7 +2876,7 @@ connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unl
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished">unlinkTextFrames(&quot;name&quot;)
+        <translation>unlinkTextFrames(&quot;name&quot;)
 
 Entfernt den Textrahmen &quot;name&quot; aus der Reihe der verketteten Rahmen. Ist der
 zu entfernende Rahmen einer aus der Mitte der Reihe, wird der vorherige und nächste
@@ -2890,7 +2891,7 @@ Wenn die Verkettungsregeln gebrochen werden, erscheint der Fehler ScribusExcepti
 
 Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
 currently selected item is used.</source>
-        <translation type="unfinished">traceText([&quot;name&quot;])
+        <translation>traceText([&quot;name&quot;])
 
 Konvertiert den Textrahmen &quot;name&quot; in Umrisse. Ist &quot;name&quot; nicht vorhanden oder 
 vorgegeben, wird der aktuelle Textrahmen verwendet.</translation>
@@ -2905,7 +2906,7 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished">isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
 that the layer &quot;layer&quot; is visible, a value of False means that the layer
@@ -2923,7 +2924,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">hyphenateText([&quot;name&quot;]) -&gt; bool
+        <translation>hyphenateText([&quot;name&quot;]) -&gt; bool
 
 Does hyphenation on text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
@@ -2939,7 +2940,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">dehyphenateText([&quot;name&quot;]) -&gt; bool
+        <translation>dehyphenateText([&quot;name&quot;]) -&gt; bool
 
 Does dehyphenation on text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
@@ -2955,7 +2956,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.If &quot;name&quot; is not given the currently selected item is used.May raise WrongFrameTypeError if the target frame is not a text frame</translation>
+        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.If &quot;name&quot; is not given the currently selected item is used.May raise WrongFrameTypeError if the target frame is not a text frame</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="426"/>
@@ -2966,7 +2967,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">isPDFBookmark([&quot;name&quot;]) -&gt; bool
+        <translation>isPDFBookmark([&quot;name&quot;]) -&gt; bool
 
 Gibt zurück, ob der Textrahmen &quot;name&quot; ein PDF-Lesezeichen ist.
 Ist &quot;name&quot; nicht angegeben, wird der aktuelle Textrahmen verwendet.
@@ -2980,7 +2981,7 @@ Der Fehler WrongFrameTypeError tritt auf, wenn der Zielrahmen kein Textrahmen is
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished">messagebarText(&quot;string&quot;)
+        <translation>messagebarText(&quot;string&quot;)
 
 Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muss
 UTF8-kodiert oder ein &apos;unicode&apos;-String sein (empfohlen).</translation>
@@ -2992,7 +2993,7 @@ UTF8-kodiert oder ein &apos;unicode&apos;-String sein (empfohlen).</translation>
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished">progressReset()
+        <translation>progressReset()
 
 Löscht die Fortschrittsanzeige. Wird aufgerufen, bevor eine neue Verlaufsanzeige benutzt wird.
 Siehe progressSet.</translation>
@@ -3004,7 +3005,7 @@ Siehe progressSet.</translation>
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished">progressTotal(max)
+        <translation>progressTotal(max)
 
 Setzt die Gesamtzahl der Schritte für die Fortschrittsanzeige. Siehe progressSet.</translation>
     </message>
@@ -3020,7 +3021,7 @@ total number of steps with progressTotal(). The current number of steps is set
 with progressSet(). The progress bar can be rewound to the beginning with
 progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 </source>
-        <translation type="unfinished">progressSet(nr)
+        <translation>progressSet(nr)
 
 Die Fortschrittsanzeigen auf &quot;nr&quot; setzen, ein Wert relativ zum vorher festgelegten Wert
 für progressTotal. Die Fortschrittsanzeige verwendet Schritte zum Anzeigen des Verlaufs:
@@ -3036,7 +3037,7 @@ Dokumenten von Trolltech Qt]</translation>
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished">setCursor()
+        <translation>setCursor()
 
 [nicht unterstützt!] Bitte verwenden Sie diese Funktion zur Zeit noch nicht.</translation>
     </message>
@@ -3048,7 +3049,7 @@ Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos
 useful to call this procedure when you&apos;re changing the document, because Scribus
 won&apos;t automatically notice when you change the document using a script.
 </source>
-        <translation type="unfinished">docChanged(bool)
+        <translation>docChanged(bool)
 
 Aktiviert/Deaktivert das Icon zum Speichern und den entsprechenden Eintrag im Datei-Menü.
 Wenn Sie ein Dokument verändert ist es hilfreich, diese Funktion aufzurufen, weil Scribus im Script-
@@ -3061,7 +3062,7 @@ Modus nicht automatisch erkennt, wann ein Dokument verändert wurde.</translatio
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished">zoomDocument(double)(new line)
+        <translation>zoomDocument(double)(new line)
 (new line)
 Zoom the document in main GUI window. Actions have whole number(new line)
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</translation>
@@ -3072,7 +3073,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</translation>
 
 Scroll the document in main GUI window by x and y.
 </source>
-        <translation type="unfinished">scrollDocument(x,y)
+        <translation>scrollDocument(x,y)
 
 Scroll the document in main GUI window by x and y.
 </translation>
@@ -3086,7 +3087,7 @@ x and y specify the coordinate of the topleft corner of the SVG placed on the pa
 
 If loading was successful, the selection contains the imported SVG
 </source>
-        <translation type="unfinished">placeSVG(&quot;filename&quot;, x, y)
+        <translation>placeSVG(&quot;filename&quot;, x, y)
 Places the SVG &quot;filename&quot; onto the current page,
 x and y specify the coordinate of the topleft corner of the SVG placed on the page
 If loading was successful, the selection contains the imported SVG</translation>
@@ -3100,7 +3101,7 @@ x and y specify the coordinate of the topleft corner of the EPS placed on the pa
 
 If loading was successful, the selection contains the imported EPS
 </source>
-        <translation type="unfinished">placeEPS(&quot;filename&quot;, x, y)
+        <translation>placeEPS(&quot;filename&quot;, x, y)
 Places the EPS &quot;filename&quot; onto the current page,
 x and y specify the coordinate of the topleft corner of the EPS placed on the page
 If loading was successful, the selection contains the imported EPS</translation>
@@ -3114,7 +3115,7 @@ x and y specify the coordinate of the topleft corner of the SXD placed on the pa
 
 If loading was successful, the selection contains the imported SXD
 </source>
-        <translation type="unfinished">placeSXD(&quot;filename&quot;, x, y)
+        <translation>placeSXD(&quot;filename&quot;, x, y)
 Places the SXD &quot;filename&quot; onto the current page,
 x and y specify the coordinate of the topleft corner of the SXD placed on the page
 If loading was successful, the selection contains the imported SXD</translation>
@@ -3128,7 +3129,7 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 
 If loading was successful, the selection contains the imported ODG
 </source>
-        <translation type="unfinished">placeODG(&quot;filename&quot;, x, y)
+        <translation>placeODG(&quot;filename&quot;, x, y)
 Places the ODG &quot;filename&quot; onto the current page,
 x and y specify the coordinate of the topleft corner of the ODG placed on the page
 If loading was successful, the selection contains the imported ODG</translation>
@@ -3143,7 +3144,7 @@ See also setSpotColor()
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isSpotColor(&quot;name&quot;) -&gt; boolReturns True if the color &quot;name&quot; is a spot color.See also setSpotColor()May raise NotFoundError if a named color wasn&apos;t found.May raise ValueError if an invalid color name is specified.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="135"/>
@@ -3155,7 +3156,7 @@ See also isSpotColor()
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setSpotColor(&quot;name&quot;, spot)Set the color &quot;name&quot; as a spot color if spot parameter is True.See also isSpotColor()May raise NotFoundError if a named color wasn&apos;t found.May raise ValueError if an invalid color name is specified.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="167"/>
@@ -3168,7 +3169,7 @@ properties palette. Note : deprecated, use setImageScale() instead.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleImage(x, y [, &quot;name&quot;])Sets the internal scaling factors of the picture in the image frame &quot;name&quot;.If &quot;name&quot; is not given the currently selected item is used. A number of 1means 100 %. Internal scaling factors are different from the values shown on properties palette. Note : deprecated, use setImageScale() instead.May raise WrongFrameTypeError if the target frame is not an image frame</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="180"/>
@@ -3180,7 +3181,7 @@ means 100 %. Scaling factors are equal to the values shown on properties palette
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setImageScale(x, y [, &quot;name&quot;])Sets the scaling factors of the picture in the image frame &quot;name&quot;.If &quot;name&quot; is not given the currently selected item is used. A number of 1means 100 %. Scaling factors are equal to the values shown on properties palette.May raise WrongFrameTypeError if the target frame is not an image frame</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="33"/>
@@ -3190,7 +3191,7 @@ Set or add a gradient stop to the gradient fill of the object &quot;name&quot; a
 Color descriptions are the same as for setFillColor() and setFillShade(). setGradientFill()
 must have been called previously for the gradient fill to be visible.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setGradientStop(&quot;color&quot;, shade, opacity, ramppoint, [&quot;name&quot;])Set or add a gradient stop to the gradient fill of the object &quot;name&quot; at position ramppoint.Color descriptions are the same as for setFillColor() and setFillShade(). setGradientFill()must have been called previously for the gradient fill to be visible.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="292"/>
@@ -3199,7 +3200,7 @@ must have been called previously for the gradient fill to be visible.
 Sets the vertical character scaling of the object &quot;name&quot; to &quot;scale&quot; in percent.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextScalingV(scale, [&quot;name&quot;])Sets the vertical character scaling of the object &quot;name&quot; to &quot;scale&quot; in percent.If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="302"/>
@@ -3208,7 +3209,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 Sets the horizontal character scaling of the object &quot;name&quot; to &quot;scale&quot; in percent.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextScalingH(scale, [&quot;name&quot;])Sets the horizontal character scaling of the object &quot;name&quot; to &quot;scale&quot; in percent.If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
 </context>
 <context>
@@ -6888,17 +6889,17 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../scribus/about.cpp" line="309"/>
         <source>Doc Translators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Übersetzer der Dokumentation:</translation>
     </message>
     <message>
         <location filename="../../scribus/about.cpp" line="313"/>
         <source>Webmasters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Webmaster:</translation>
     </message>
     <message>
         <location filename="../../scribus/about.cpp" line="625"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei %1 kann nicht geöffnet werden. Bitte überprüfen Sie das Installationsverzeichnis oder besuchen Sie die Scribus-Website, um Informationen über %1 zu erhalten.</translation>
     </message>
 </context>
 <context>
@@ -8438,132 +8439,132 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1361"/>
         <source>Adjust Image to Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild an Rahmen anpassen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1690"/>
         <source>File</source>
-        <translation type="unfinished">Datei</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1690"/>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Datei</translation>
+        <translation>&amp;Datei</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>Edit</source>
-        <translation type="unfinished">Bearbeiten</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Bearbeiten</translation>
+        <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1694"/>
         <source>Style</source>
-        <translation type="unfinished">Stil</translation>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1694"/>
         <source>&amp;Style</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Stil</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1696"/>
         <source>Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1696"/>
         <source>&amp;Item</source>
-        <translation type="unfinished">&amp;Objekt</translation>
+        <translation>&amp;Objekt</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1698"/>
         <source>Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1698"/>
         <source>I&amp;nsert</source>
-        <translation type="unfinished">&amp;Einfügen</translation>
+        <translation>&amp;Einfügen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1700"/>
         <source>Page</source>
-        <translation type="unfinished">Seite</translation>
+        <translation>Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1700"/>
         <source>&amp;Page</source>
-        <translation type="unfinished">&amp;Seite</translation>
+        <translation>&amp;Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>&amp;View</source>
-        <translation type="unfinished">&amp;Ansicht</translation>
+        <translation>&amp;Ansicht</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>Extras</source>
-        <translation type="unfinished"></translation>
+        <translation>Extras</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation>E&amp;xtras</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1706"/>
         <source>Windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1706"/>
         <source>&amp;Windows</source>
-        <translation type="unfinished">&amp;Fenster</translation>
+        <translation>&amp;Fenster</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Hilfe</translation>
+        <translation>&amp;Hilfe</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1876"/>
         <source>Plugin Menu Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekte im Plug-in-Menü</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1878"/>
         <source>Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Andere</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1880"/>
         <source>Unicode Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicode-Zeichen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1486"/>
         <source>Move/Resize Value Indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Koordinatenanzeige</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1258"/>
         <source>New &amp;from Template...</source>
-        <translation type="unfinished">Neu von &amp;Vorlage...</translation>
+        <translation>Neu von &amp;Vorlage...</translation>
     </message>
 </context>
 <context>
@@ -8571,7 +8572,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../scribus/adjustcmsdialog.cpp" line="16"/>
         <source>CMS Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>CMS-Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -9578,27 +9579,27 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../scribus/annot.cpp" line="682"/>
         <source>Submit format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Übermittlungsformat:</translation>
     </message>
     <message>
         <location filename="../../scribus/annot.cpp" line="685"/>
         <source>FDF</source>
-        <translation type="unfinished"></translation>
+        <translation>FDF</translation>
     </message>
     <message>
         <location filename="../../scribus/annot.cpp" line="685"/>
         <source>HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML</translation>
     </message>
     <message>
         <location filename="../../scribus/annot.cpp" line="685"/>
         <source>XFDF</source>
-        <translation type="unfinished"></translation>
+        <translation>XFDF</translation>
     </message>
     <message>
         <location filename="../../scribus/annot.cpp" line="685"/>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -9779,32 +9780,32 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="269"/>
         <source>Apply to</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwenden auf</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="270"/>
         <source>Current &amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle &amp;Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="272"/>
         <source>&amp;Even Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>G&amp;erade Seitenzahlen</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="274"/>
         <source>O&amp;dd Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungera&amp;de Seitenzahlen</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="276"/>
         <source>&amp;All Pages</source>
-        <translation type="unfinished">&amp;Alle Seiten</translation>
+        <translation>&amp;Alle Seiten</translation>
     </message>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="278"/>
         <source>&amp;Within Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Bere&amp;ich</translation>
     </message>
 </context>
 <context>
@@ -9845,7 +9846,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="95"/>
         <source>Aspell Plugin Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Aspell-Fehler</translation>
     </message>
 </context>
 <context>
@@ -10038,7 +10039,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="235"/>
         <source>Spelling check complete</source>
-        <translation>Rechtschreibprüfung abgeschlossen.</translation>
+        <translation>Rechtschreibprüfung abgeschlossen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="427"/>
@@ -10048,12 +10049,12 @@ Wörterbuch</translation>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="62"/>
         <source>No available Aspell dictionaries found. Install some, please.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Aspell-Wörterbücher gefunden. Installieren Sie bitte einige.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="429"/>
         <source>Do you want start from the beginning of the selection with new language selected?</source>
-        <translation type="unfinished"></translation>
+        <translation>Möchten Sie die Auswahl erneut von Anfang an in der neuen Sprache überprüfen?</translation>
     </message>
 </context>
 <context>
@@ -10094,7 +10095,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="39"/>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation type="unfinished">Scribus-Dialog für den Pure PostScript Barcode Writer</translation>
+        <translation>Scribus-Dialog für den Pure-PostScript-Barcode-Writer</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="22"/>
@@ -10366,22 +10367,22 @@ Wörterbuch</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="39"/>
         <source>Incl&amp;ude Checksum Digit</source>
-        <translation type="unfinished"></translation>
+        <translation>Prüfs&amp;ummenzahl einfügen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="52"/>
         <source>I&amp;nclude Checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>Prüfsumme ei&amp;nfügen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="65"/>
         <source>&amp;Guard Whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>Si&amp;cherheitsabstand</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="78"/>
         <source>&amp;Include Text in Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Text &amp;in Strichcode einfügen</translation>
     </message>
 </context>
 <context>
@@ -10861,142 +10862,142 @@ alle Farben (egal ob RGB oder CMYK) werden in den Farbraum des Druckers konverti
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="19"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="40"/>
         <source>&amp;Activate Color Management</source>
-        <translation type="unfinished">Farbmanagement &amp;aktivieren</translation>
+        <translation>Farbmanagement &amp;aktivieren</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="50"/>
         <source>System Profiles</source>
-        <translation type="unfinished">Systemprofile</translation>
+        <translation>Systemprofile</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="74"/>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished">&amp;RGB-Bilder:</translation>
+        <translation>&amp;RGB-Bilder:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="90"/>
         <source>Default color profile for imported RGB images</source>
-        <translation type="unfinished">Standard-Farbprofil für importierte RGB-Bilder</translation>
+        <translation>Standard-Farbprofil für importierte RGB-Bilder</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="97"/>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished">&amp;CMYK-Bilder:</translation>
+        <translation>&amp;CMYK-Bilder:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="113"/>
         <source>Default color profile for imported CMYK images</source>
-        <translation type="unfinished">Standard-Farbprofil für importierte CMYK-Bilder</translation>
+        <translation>Standard-Farbprofil für importierte CMYK-Bilder</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="120"/>
         <source>&amp;RGB Solid Colors:</source>
-        <translation type="unfinished">&amp;RGB-Füllfarben:</translation>
+        <translation>&amp;RGB-Füllfarben:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="136"/>
         <source>Default color profile for solid RGB colors on the page</source>
-        <translation type="unfinished">Standardprofil für RGB-Füllfarben im Dokument</translation>
+        <translation>Standardprofil für RGB-Füllfarben im Dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="143"/>
         <source>&amp;CMYK Solid Colors:</source>
-        <translation type="unfinished">&amp;CMYK-Füllfarben:</translation>
+        <translation>&amp;CMYK-Füllfarben:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="159"/>
         <source>Default color profile for solid CMYK colors on the page</source>
-        <translation type="unfinished">Standardprofil für CMYK-Füllfarben im Dokument</translation>
+        <translation>Standardprofil für CMYK-Füllfarben im Dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="166"/>
         <source>&amp;Monitor:</source>
-        <translation type="unfinished">Moni&amp;tor:</translation>
+        <translation>Moni&amp;tor:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="182"/>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
-        <translation type="unfinished">Das Farbprofil für Ihren Monitor, das Sie entweder selbst erstellt oder vom 
+        <translation>Das Farbprofil für Ihren Monitor, das Sie entweder selbst erstellt oder vom 
 Hersteller erhalten haben. Dieses Farbprofil sollte die Eigenschaften Ihres 
 Monitors berücksichtigen und kein generisches Profil (z. B. sRGB) sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="190"/>
         <source>P&amp;rinter:</source>
-        <translation type="unfinished">&amp;Drucker:</translation>
+        <translation>&amp;Drucker:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="206"/>
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
-        <translation type="unfinished">Das Farbprofil für Ihren Drucker, das Sie vom Hersteller erhalten haben. 
+        <translation>Das Farbprofil für Ihren Drucker, das Sie vom Hersteller erhalten haben. 
 Dieses Farbprofil sollte die Eigenschaften Ihres Druckers berücksichtigen 
 und kein generisches Profil (z. B. sRGB) sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="220"/>
         <source>Rendering Intents</source>
-        <translation type="unfinished">Render-Prioritäten</translation>
+        <translation>Render-Prioritäten</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="244"/>
         <source>Images:</source>
-        <translation type="unfinished">Bilder:</translation>
+        <translation>Bilder:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="260"/>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished">Standard-Rendering für Bilder. Verändern Sie die Einstellung nur, wenn Sie wissen, was Sie tun.
+        <translation>Standard-Rendering für Bilder. Verändern Sie die Einstellung nur, wenn Sie wissen, was Sie tun.
 Hier sollte entweder Relativ farbmetrisch oder Wahrnehmung ausgewählt werden.</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="268"/>
         <source>Sol&amp;id Colors:</source>
-        <translation type="unfinished">Füll&amp;farben:</translation>
+        <translation>Füll&amp;farben:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="284"/>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished">Standard-Rendering für Füllfarben. Verändern Sie die Einstellung nur, wenn Sie wissen, was Sie tun.
+        <translation>Standard-Rendering für Füllfarben. Verändern Sie die Einstellung nur, wenn Sie wissen, was Sie tun.
 Hier sollte entweder Relativ farbmetrisch oder Wahrnehmung ausgewählt werden.</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="298"/>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation type="unfinished">Aktiviert die Druckvorschau unter Verwendung des
+        <translation>Aktiviert die Druckvorschau unter Verwendung des
 gewählten Druckerprofils.</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="302"/>
         <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation type="unfinished">Druckerfarben auf dem Bildschirm &amp;simulieren</translation>
+        <translation>Druckerfarben auf dem Bildschirm &amp;simulieren</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="329"/>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
-        <translation type="unfinished">Komplette Farbmanagement-Umgebung simulieren:
+        <translation>Komplette Farbmanagement-Umgebung simulieren:
 alle Farben (egal ob RGB oder CMYK) werden in den Farbraum des Druckers konvertiert.</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="333"/>
         <source>Convert all colors to printer space</source>
-        <translation type="unfinished">Alle Farben in den Farbraum des Druckers konvertieren</translation>
+        <translation>Alle Farben in den Farbraum des Druckers konvertieren</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="340"/>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation type="unfinished">Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
+        <translation>Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
 auf Grund der Eigenschaften des gewählten Ausgabegerätes für den 
 Druck nicht korrekt wiedergegeben werden können. Bitte beachten Sie, 
 dass dies sehr genaue Geräteprofile erfordert.</translation>
@@ -11004,19 +11005,19 @@ dass dies sehr genaue Geräteprofile erfordert.</translation>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="344"/>
         <source>Mark Colors out of &amp;Gamut</source>
-        <translation type="unfinished">Farben außerhalb des Farbbereichs &amp;markieren</translation>
+        <translation>Farben außerhalb des Farbbereichs &amp;markieren</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="357"/>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation type="unfinished">Tiefenkompensierung ist eine Methode zur Verbesserung des Kontrasts.
+        <translation>Tiefenkompensierung ist eine Methode zur Verbesserung des Kontrasts.
 Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="361"/>
         <source>Use &amp;Blackpoint Compensation</source>
-        <translation type="unfinished">&amp;Tiefenkompensierung benutzen</translation>
+        <translation>&amp;Tiefenkompensierung benutzen</translation>
     </message>
 </context>
 <context>
@@ -11673,29 +11674,31 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
         <location filename="../../scribus/canvas.cpp" line="2243"/>
         <source>X: %1
 Y: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1Y: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2228"/>
         <source>X: %1</source>
-        <translation type="unfinished">X: %1 %2 {1?}</translation>
+        <translation>X: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2235"/>
         <source>Y: %1</source>
-        <translation type="unfinished">Y: %1 %2 {1?}</translation>
+        <translation>Y: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2251"/>
         <source>Length: %1
 Angle: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Länge: %1
+Winkel: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2253"/>
         <source>Width: %1
 Height: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite: %1
+Höhe: %2</translation>
     </message>
 </context>
 <context>
@@ -11703,17 +11706,17 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="167"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation type="unfinished">Die gewählte Farbe existiert im Farbsatz des Dokuments noch nicht. Bitte geben Sie einen Namen für die neue Farbe ein.</translation>
+        <translation>Die gewählte Farbe existiert im Farbsatz des Dokuments noch nicht. Bitte geben Sie einen Namen für die neue Farbe ein.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="170"/>
         <source>Color Not Found</source>
-        <translation type="unfinished">Farbe nicht gefunden</translation>
+        <translation>Farbe nicht gefunden</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="174"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation type="unfinished">Eine Farbe mit diesem Namen existiert schon. Bitte geben Sie einen anderen Namen ein.</translation>
+        <translation>Eine Farbe mit diesem Namen existiert schon. Bitte geben Sie einen anderen Namen ein.</translation>
     </message>
 </context>
 <context>
@@ -11721,12 +11724,12 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1331"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1362"/>
         <source>Open</source>
-        <translation type="unfinished">Öffnen</translation>
+        <translation>Öffnen</translation>
     </message>
 </context>
 <context>
@@ -11997,198 +12000,198 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="205"/>
         <source>Full Character Set</source>
-        <translation type="unfinished">Kompletter Zeichensatz</translation>
+        <translation>Kompletter Zeichensatz</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="210"/>
         <source>Basic Latin</source>
-        <translation type="unfinished">Basis Latein</translation>
+        <translation>Basis Latein</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="216"/>
         <source>Latin-1 Supplement</source>
-        <translation type="unfinished">Latein-1</translation>
+        <translation>Latein-1</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="222"/>
         <source>Latin Extended-A</source>
-        <translation type="unfinished">Latein erweitert-A</translation>
+        <translation>Latein erweitert-A</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="228"/>
         <source>Latin Extended-B</source>
-        <translation type="unfinished">Latein erweitert-B</translation>
+        <translation>Latein erweitert-B</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="234"/>
         <source>General Punctuation</source>
-        <translation type="unfinished">Allgemeine Interpunktion</translation>
+        <translation>Allgemeine Interpunktion</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="240"/>
         <source>Super- and Subscripts</source>
-        <translation type="unfinished">Hoch- und Tiefstellungen</translation>
+        <translation>Hoch- und Tiefstellungen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="246"/>
         <source>Currency Symbols</source>
-        <translation type="unfinished">Währungssymbole</translation>
+        <translation>Währungssymbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="252"/>
         <source>Letterlike Symbols</source>
-        <translation type="unfinished">Buchstabensymbole</translation>
+        <translation>Buchstabensymbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="258"/>
         <source>Number Forms</source>
-        <translation type="unfinished">Zahlensysmbole</translation>
+        <translation>Zahlensysmbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="264"/>
         <source>Arrows</source>
-        <translation type="unfinished">Pfeilsymbole</translation>
+        <translation>Pfeilsymbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="270"/>
         <source>Mathematical Operators</source>
-        <translation type="unfinished">Mathematische Operatoren</translation>
+        <translation>Mathematische Operatoren</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="276"/>
         <source>Box Drawing</source>
-        <translation type="unfinished">Rahmensymbole</translation>
+        <translation>Rahmensymbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="282"/>
         <source>Block Elements</source>
-        <translation type="unfinished">Blocksymbole</translation>
+        <translation>Blocksymbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="288"/>
         <source>Geometric Shapes</source>
-        <translation type="unfinished">Geometrische Formen</translation>
+        <translation>Geometrische Formen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="294"/>
         <source>Miscellaneous Symbols</source>
-        <translation type="unfinished">Sonstige Symbole</translation>
+        <translation>Sonstige Symbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="300"/>
         <source>Dingbats</source>
-        <translation type="unfinished">Dingbats</translation>
+        <translation>Dingbats</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="306"/>
         <source>Small Form Variants</source>
-        <translation type="unfinished">Kleine Symbole</translation>
+        <translation>Kleine Symbole</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="312"/>
         <source>Ligatures</source>
-        <translation type="unfinished">Ligaturen</translation>
+        <translation>Ligaturen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="318"/>
         <source>Specials</source>
-        <translation type="unfinished">Spezielle Zeichen</translation>
+        <translation>Spezielle Zeichen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="324"/>
         <source>Greek</source>
-        <translation type="unfinished">Griechisch</translation>
+        <translation>Griechisch</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="330"/>
         <source>Greek Extended</source>
-        <translation type="unfinished">Griechisch erweitert</translation>
+        <translation>Griechisch erweitert</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="336"/>
         <source>Cyrillic</source>
-        <translation type="unfinished">Kyrillisch</translation>
+        <translation>Kyrillisch</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="342"/>
         <source>Cyrillic Supplement</source>
-        <translation type="unfinished">Kyrillisch Zusätze</translation>
+        <translation>Kyrillisch Zusätze</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="348"/>
         <source>Arabic</source>
-        <translation type="unfinished">Arabisch</translation>
+        <translation>Arabisch</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="354"/>
         <source>Arabic Extended A</source>
-        <translation type="unfinished">Arabisch erweitert A</translation>
+        <translation>Arabisch erweitert A</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="360"/>
         <source>Arabic Extended B</source>
-        <translation type="unfinished">Arabisch erweitert B</translation>
+        <translation>Arabisch erweitert B</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="366"/>
         <source>Hebrew</source>
-        <translation type="unfinished">Hebräisch</translation>
+        <translation>Hebräisch</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="13"/>
         <source>Enhanced Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterte Zeichenpalette</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="19"/>
         <source>&amp;Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schri&amp;ft:</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="45"/>
         <source>C&amp;haracter Class:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeic&amp;henklasse:</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="77"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button.
 The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie können eine Vorschau sehen, wenn Sie die rechte Maustaste gedrückt halten.Der &quot;Einfügen&quot;-Button fügt ein Zeichen in die Textauswahl ein. &quot;Entfernen&quot; löscht das zuletzt hinzugefügte Zeichen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="96"/>
         <source>Insert &amp;Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Code eingeben:</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="131"/>
         <source>Glyphs to Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzufügende Zeichen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="171"/>
         <source>Insert the characters at the cursor in the text</source>
-        <translation type="unfinished">Zeichen an Cursorposition einfügen</translation>
+        <translation>Zeichen an Cursorposition einfügen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="174"/>
         <source>&amp;Insert</source>
-        <translation type="unfinished">Ein&amp;fügen</translation>
+        <translation>Ein&amp;fügen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="184"/>
         <source>Delete the current selection(s).</source>
-        <translation type="unfinished">Markierung(en) löschen.</translation>
+        <translation>Markierung(en) löschen.</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="187"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Entfernen</translation>
+        <translation>&amp;Entfernen</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="106"/>
         <source>Type in a four digit Unicode value directly here</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie hier einen vierstelligen Unicode-Wert ein</translation>
     </message>
 </context>
 <context>
@@ -12355,7 +12358,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="656"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Preflight-Profil, auf dem eine Warnung basieren kann. Die Optionen befinden sich unter &quot;Dokument einrichten&quot; und  in den &quot;Allgemeinen Einstellungen&quot;.</translation>
+        <translation>Preflight-Profil, auf dem eine Warnung basieren kann. Die Optionen befinden sich unter &quot;Dokument einrichten&quot; und  in den &quot;Allgemeinen Einstellungen&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="657"/>
@@ -12365,39 +12368,40 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="658"/>
         <source>Rerun the document scan to check corrections you may have made</source>
-        <translation>Das Dokument einschließlich etwaiger Änderungen erneut überprüfen.</translation>
+        <translation>Das Dokument einschließlich etwaiger Änderungen erneut überprüfen</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="393"/>
         <source>Layers</source>
-        <translation type="unfinished">Ebenen</translation>
+        <translation>Ebenen</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="493"/>
         <source>Issue(s): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Problem(e): %1</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="435"/>
         <source>Master Pages</source>
-        <translation type="unfinished">Musterseite</translation>
+        <translation>Musterseiten</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="648"/>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="665"/>
         <source>Image resolution below %1 DPI,
 currently %2 x %3 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildauflösung geringer als %1 DPI
+Zur Zeit sind es %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="666"/>
         <source>Image resolution above %1 DPI,
 currently %2 x %3 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildauflösung höher als %1 DPIZur Zeit sind es %2 x %3 DPI</translation>
     </message>
 </context>
 <context>
@@ -12589,7 +12593,7 @@ If the file was a PostScript-based, try to import it with File -&amp;gt; Import.
 Not all files have DSC conformant comments where the color descriptions are located.
  This prevents importing colors from some files.
 See the Edit Colors section of the documentation for more details.</source>
-        <translation>Die Datei %1 enthält keine Farben , die importiert werden können. 
+        <translation>Die Datei %1 enthält keine Farben, die importiert werden können. 
 Falls es sich um eine Datei handelt, die auf PostScript basiert, versuchen Sie, diese per Datei &gt; Importieren zu laden.
 Nicht alle Dateien enthalten DSC-konforme Kommentare, in denen die Farbbeschreibungen gespeichert sind. 
 Daher können Farben aus einigen Dateien nicht importiert werden.
@@ -12618,7 +12622,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../scribus/colorm.cpp" line="312"/>
         <source>Import Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Farben importieren</translation>
     </message>
 </context>
 <context>
@@ -13270,7 +13274,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../scribus/contextmenu.cpp" line="182"/>
         <source>Paste Image from Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild aus der Zwischenablage einfügen</translation>
     </message>
 </context>
 <context>
@@ -16034,12 +16038,12 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="35"/>
         <source>Show Extended Font Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterte Schriftinformationen anzeigen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="120"/>
         <source>Set the preview text</source>
-        <translation type="unfinished"></translation>
+        <translation>Beispieltext ändern</translation>
     </message>
 </context>
 <context>
@@ -16506,7 +16510,7 @@ im Dokument gespeichert.</translation>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="275"/>
         <source>Refer to</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ zu</translation>
     </message>
 </context>
 <context>
@@ -18339,47 +18343,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="130"/>
         <source>Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="124"/>
         <source>An editor for this frame is already running!</source>
-        <translation type="unfinished">Für diesen Rahmen ist bereits ein Editor geöffnet!</translation>
+        <translation>Für diesen Rahmen ist bereits ein Editor geöffnet!</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="150"/>
         <source>Editor running!</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor geöffnet!</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="132"/>
         <source>Please specify an editor in the preferences!</source>
-        <translation type="unfinished">Bitte tragen Sie einen Editor in den Allgemeinen Einstellungen ein!</translation>
+        <translation>Bitte tragen Sie einen Editor in den Allgemeinen Einstellungen ein!</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="167"/>
         <source>Could not create a temporary file to run the external editor!</source>
-        <translation type="unfinished">Konnte keine temporäre Datei erstellen, um den externen Editor aufzurufen!</translation>
+        <translation>Konnte keine temporäre Datei erstellen, um den externen Editor aufzurufen!</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.ui" line="148"/>
         <source>Run External Editor...</source>
-        <translation type="unfinished"></translation>
+        <translation>Externen Editor verwenden ...</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="207"/>
         <source>Running the editor failed with exitcode %d!</source>
-        <translation type="unfinished">Aufruf des Editors ist fehlgeschlagen. Exitcode: %d!</translation>
+        <translation>Aufruf des Editors ist fehlgeschlagen. Exitcode: %d!</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="225"/>
         <source>Running the editor &quot;%1&quot; failed!</source>
-        <translation type="unfinished">Aufruf des Editors &quot;%1&quot; ist fehlgeschlagen!</translation>
+        <translation>Aufruf des Editors &quot;%1&quot; ist fehlgeschlagen!</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="523"/>
         <source>Insert Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Symbol einfügen</translation>
     </message>
 </context>
 <context>
@@ -18562,37 +18566,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="601"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählt den Transparenzmodus aus; funktioniert nur mit PDF 1.4 oder höher</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="602"/>
         <source>Layer Transparency, works only in PDF 1.4 and SVG</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebenentransparenz. Funktioniert nur mit PDF 1.4 oder höher und SVG</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="596"/>
         <source>Add a New Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Ebene hinzufügen</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="597"/>
         <source>Duplicate the Current Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktive Ebene duplizieren</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="599"/>
         <source>Raise Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene anheben</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="600"/>
         <source>Lower Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene absenken</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="609"/>
         <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name der Ebene. Doppelklicken Sie auf den Namen, um diesen zu ändern</translation>
     </message>
 </context>
 <context>
@@ -18718,62 +18722,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="58"/>
         <source>&amp;Add Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Linse &amp;hinzufügen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="68"/>
         <source>&amp;Remove Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Linse entfe&amp;rnen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="95"/>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Vergrößern</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="105"/>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Verkleinern</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="138"/>
         <source>&amp;X Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;X-Pos.:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="148"/>
         <source>Horizontal position of the lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontale Position der Linse</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="161"/>
         <source>&amp;Y Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Y-Pos.:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="171"/>
         <source>Vertical position of the lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikale Position der Linse</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="187"/>
         <source>&amp;Magnification Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver&amp;größerungslinse</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="200"/>
         <source>&amp;Fish Eye Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fischaugenlinse</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="207"/>
         <source>Ra&amp;dius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ra&amp;dius:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="230"/>
         <source>&amp;Strength:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Stärke:</translation>
     </message>
 </context>
 <context>
@@ -19388,12 +19392,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/masterpagepalette.cpp" line="139"/>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Musterseite wird mindestens einmal im Dokument verwendet.</translation>
     </message>
     <message>
         <location filename="../../scribus/masterpagepalette.cpp" line="143"/>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Möchten Sie die Musterseite &quot;%1&quot; wirklich löschen?</translation>
     </message>
 </context>
 <context>
@@ -19482,57 +19486,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="13"/>
         <source>Distances</source>
-        <translation type="unfinished">Abstände</translation>
+        <translation>Abstände</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="19"/>
         <source>X1:</source>
-        <translation type="unfinished">X1:</translation>
+        <translation>X1:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="145"/>
         <source>10000.0000</source>
-        <translation type="unfinished">10000.0000</translation>
+        <translation>10000.0000</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="36"/>
         <source>Y1:</source>
-        <translation type="unfinished">Y1:</translation>
+        <translation>Y1:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="53"/>
         <source>X2:</source>
-        <translation type="unfinished">X2:</translation>
+        <translation>X2:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="70"/>
         <source>Y2:</source>
-        <translation type="unfinished">Y2:</translation>
+        <translation>Y2:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="87"/>
         <source>Length:</source>
-        <translation type="unfinished">Länge:</translation>
+        <translation>Länge:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="104"/>
         <source>DX:</source>
-        <translation type="unfinished">DX:</translation>
+        <translation>DX:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="121"/>
         <source>DY:</source>
-        <translation type="unfinished">DY:</translation>
+        <translation>DY:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="138"/>
         <source>Angle:</source>
-        <translation type="unfinished">Winkel:</translation>
+        <translation>Winkel:</translation>
     </message>
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="155"/>
         <source>Unit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Einheit:</translation>
     </message>
 </context>
 <context>
@@ -19627,7 +19631,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="52"/>
         <source>&amp;Select...</source>
-        <translation type="unfinished"></translation>
+        <translation>Au&amp;swählen ...</translation>
     </message>
 </context>
 <context>
@@ -19665,28 +19669,28 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="13"/>
         <source>Mesh Distortion</source>
-        <translation type="unfinished"></translation>
+        <translation>Perspektivisch verzerren</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="41"/>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Vergrößern</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="51"/>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Verkleinern</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="82"/>
         <source>Resets the selected handles to their initial position.
 If no handle is selected all handles will be reset.</source>
-        <translation type="unfinished"></translation>
+        <translation>Setzt die ausgewählten Anfasser auf ihre ursprüngliche Position zurück.Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="86"/>
         <source>&amp;Reset</source>
-        <translation type="unfinished">&amp;Zurücksetzen</translation>
+        <translation>&amp;Zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -19793,7 +19797,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/movepage.cpp" line="58"/>
         <source>Number of Copies:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Kopien:</translation>
     </message>
 </context>
 <context>
@@ -20272,7 +20276,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/newfile.cpp" line="114"/>
         <source>New &amp;from Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Neu &amp;von Vorlage</translation>
     </message>
 </context>
 <context>
@@ -20498,12 +20502,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="908"/>
         <source>Set Shape to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Form als Beschneidungspfad verwenden</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="938"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Form dem Beschneidungspfad des Bildes anpassen</translation>
     </message>
 </context>
 <context>
@@ -20850,7 +20854,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/outlinepalette.cpp" line="141"/>
         <source>Ctrl+F</source>
         <comment>Filter the Outline using a keyword</comment>
-        <translation type="unfinished"></translation>
+        <translation>Strg+F</translation>
     </message>
 </context>
 <context>
@@ -20928,7 +20932,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/pdfopts.cpp" line="204"/>
         <source>Save As</source>
-        <translation type="unfinished">Speichern unter</translation>
+        <translation>Speichern unter</translation>
     </message>
 </context>
 <context>
@@ -20991,7 +20995,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="7748"/>
         <source>A write error occurred, please check available disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Schreiben der Datei. Überprüfen Sie, ob ausreichend Speicherplatz zur Verfügung steht</translation>
     </message>
 </context>
 <context>
@@ -21271,27 +21275,27 @@ werden ignoriert</translation>
     <message>
         <location filename="../../scribus/preview.cpp" line="272"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Druckerränder beschneiden</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="206"/>
         <source>Display Ink Coverage</source>
-        <translation type="unfinished"></translation>
+        <translation>Tintenabdeckung anzeigen</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="214"/>
         <source>Threshold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grenzwert:</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="217"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="221"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keiner</translation>
     </message>
 </context>
 <context>
@@ -21678,62 +21682,62 @@ werden ignoriert</translation>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="470"/>
         <source>Embedded Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingebettetes Bild</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="499"/>
         <source>File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="473"/>
         <source>Original PPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprüngliche PPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="474"/>
         <source>Actual PPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle PPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="104"/>
         <source>Size:</source>
-        <translation type="unfinished">Größe:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="475"/>
         <source>Colorspace:</source>
-        <translation type="unfinished">Farbraum:</translation>
+        <translation>Farbraum:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="479"/>
         <source>Unknown</source>
-        <translation type="unfinished">Unbekannt</translation>
+        <translation>Unbekannt</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="486"/>
         <source>Page:</source>
-        <translation type="unfinished">Seite:</translation>
+        <translation>Seite:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="488"/>
         <source>Pages:</source>
-        <translation type="unfinished">Seiten:</translation>
+        <translation>Seiten:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="497"/>
         <source>Embedded Image missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Engebettetes Bild fehlt</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="499"/>
         <source>missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="502"/>
         <source>No Image Loaded</source>
-        <translation type="unfinished">Kein Bild geladen</translation>
+        <translation>Kein Bild geladen</translation>
     </message>
 </context>
 <context>
@@ -21861,22 +21865,22 @@ werden ignoriert</translation>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="224"/>
         <source>No configuration defined to run the application!</source>
-        <translation type="unfinished"></translation>
+        <translation>Es wurde keine Konfiguration zum Ausführen der Anwendung gefunden!</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="421"/>
         <source>No application defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Konfiguration gefunden</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="130"/>
         <source>Rendering...</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendere ...</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="139"/>
         <source>Render Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderfehler</translation>
     </message>
 </context>
 <context>
@@ -21951,12 +21955,12 @@ werden ignoriert</translation>
         <location filename="../../scribus/pagelayout.cpp" line="268"/>
         <source>Number of pages to show side-by-side on the canvas
 Often used for allowing items to be placed across page spreads</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Seiten, die nebeneinander auf der Arbeitsfläche angezeigt werden.Wird oft dazu verwendet, um ein Objekt über mehrere Seiten zu verteilen</translation>
     </message>
     <message>
         <location filename="../../scribus/pagelayout.cpp" line="273"/>
         <source>Location on the canvas where the first page of the document is placed</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Ort auf der Arbeitsfläche, an dem sich die erste Seite des Dokuments befindet</translation>
     </message>
 </context>
 <context>
@@ -22014,12 +22018,12 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="628"/>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Musterseite wird mindestens einmal im Dokument verwendet.</translation>
     </message>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="632"/>
         <source>Do you really want to delete this master page?</source>
-        <translation type="unfinished">Wollen Sie diese Musterseite wirklich löschen?</translation>
+        <translation>Wollen Sie diese Musterseite wirklich löschen?</translation>
     </message>
 </context>
 <context>
@@ -22037,33 +22041,33 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <location filename="../../scribus/pageselector.cpp" line="267"/>
         <source>Go to the first page</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehe zur ersten Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/pageselector.cpp" line="268"/>
         <source>Go to the previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehe zur vorherigen Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/pageselector.cpp" line="269"/>
         <source>Go to the next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehe zur nächsten Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/pageselector.cpp" line="270"/>
         <source>Go to the last page</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehe zur letzten Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/pageselector.cpp" line="271"/>
         <source>Select the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Seite auswählen</translation>
     </message>
     <message>
         <location filename="../../scribus/pageselector.cpp" line="272"/>
         <source> of %1</source>
         <comment>number of pages in document</comment>
-        <translation type="unfinished"></translation>
+        <translation>von %1</translation>
     </message>
 </context>
 <context>
@@ -22102,17 +22106,17 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="13"/>
         <source>Connect Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfade verbinden</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="48"/>
         <source>Starting Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Anfangspunkt</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="53"/>
         <source>End Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Endpunkt</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
@@ -22122,32 +22126,32 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="69"/>
         <source>a straight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>eine gerade Linie</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="74"/>
         <source>Points moving</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkte bewegen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="82"/>
         <source>Preview on Canvas</source>
-        <translation type="unfinished">Vorschau</translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="19"/>
         <source>Connect First Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Erste Linie verbinden</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="40"/>
         <source>with Second Line</source>
-        <translation type="unfinished"></translation>
+        <translation>mit der zweiten Linie</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
         <source>by using:</source>
-        <translation type="unfinished"></translation>
+        <translation>unter Verwendung von:</translation>
     </message>
 </context>
 <context>
@@ -22155,17 +22159,17 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="90"/>
         <source>Connect Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfade verbinden</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="69"/>
         <source>Path Tools</source>
-        <translation type="unfinished">Pfadwerkzeuge</translation>
+        <translation>Pfadwerkzeuge</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="91"/>
         <source>Connect 2 Polylines.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwei Polylinien verbinden.</translation>
     </message>
 </context>
 <context>
@@ -22268,27 +22272,27 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="72"/>
         <source>Rotate Objects by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt rotieren um:</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
-        <translation type="unfinished"></translation>
+        <translation>0°</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
-        <translation type="unfinished"></translation>
+        <translation>90°</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
-        <translation type="unfinished"></translation>
+        <translation>180°</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
-        <translation type="unfinished"></translation>
+        <translation>270°</translation>
     </message>
 </context>
 <context>
@@ -22356,113 +22360,114 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="41"/>
         <source>First source shape.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erste Form.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="139"/>
         <source>Second source shape.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweite Form.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="234"/>
         <source>The resulting shape.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ergebnis.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="286"/>
         <source>Unites the shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Vereinigt die Formen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="321"/>
         <source>Intersection of the shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Schnittmenge</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="337"/>
         <source>Result is the area where the two shapes do not intersect</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Ergebnis ist die Fläche an der sich die zwei Formen nicht überschneiden</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="353"/>
         <source>Break apart,
 The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufbrechen.
+Das Ergebnis ist eine Mischiung aus &quot;Schnittmenge&quot; und &quot;Ausschluß&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="450"/>
         <source>Custom Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierte Farben</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="462"/>
         <source>Stroke:</source>
-        <translation type="unfinished"></translation>
+        <translation>Umrandung:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="488"/>
         <source>Fill:</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllung:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="158"/>
         <source>Keep a copy of the original item after applying the operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Kopie des Originals nach der Operation beibehalten</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="161"/>
         <source>Keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Beibehalten</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="305"/>
         <source>Subtracts the second shape from the first shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Zieht die zweite von der ersten Form ab</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="378"/>
         <source>Exchange the Source Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Quellformen vertauschen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="424"/>
         <source>The resulting shape uses the color of the first source shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Die resultierende Form verwendet die Farbe der ersten Quellform</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="427"/>
         <source>First Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Erste Form</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="437"/>
         <source>The resulting shape uses the color of the second source shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Die resultierende Form verwendet die Farbe der zweiten Quellform</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="440"/>
         <source>Second Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweite Form</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="447"/>
         <source>The resulting shape uses the colors listed below</source>
-        <translation type="unfinished"></translation>
+        <translation>Die resultierende Form verwendet die unten angegebenen Farben</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="478"/>
         <source>Stroke Color</source>
-        <translation type="unfinished">Randfarbe</translation>
+        <translation>Randfarbe</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="498"/>
         <source>Fill Color</source>
-        <translation type="unfinished">Füllfarbe</translation>
+        <translation>Füllfarbe</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="418"/>
         <source>Result Takes Color from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Ergebnis verwendet die Farbe von:</translation>
     </message>
 </context>
 <context>
@@ -23291,7 +23296,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="264"/>
         <source>Embedded Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingebettetes Bild</translation>
     </message>
 </context>
 <context>
@@ -23447,7 +23452,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/export.cpp" line="123"/>
         <source>Save as Image</source>
-        <translation type="unfinished">Als Bild speichern</translation>
+        <translation>Als Bild speichern</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/plugins/pixmapexport/export.cpp" line="130"/>
@@ -23462,12 +23467,12 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/export.cpp" line="118"/>
         <source>The target location %1 must be an existing directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Ziel %1 muß ein existierendes Verzeichnis sein</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/export.cpp" line="124"/>
         <source>The target location %1 must be writable</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie benötigen das Recht, in das Ziel %1 zu schreiben</translation>
     </message>
 </context>
 <context>
@@ -23652,62 +23657,62 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="19"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="30"/>
         <source>Corn&amp;ers:</source>
-        <translation type="unfinished">Ec&amp;ken:</translation>
+        <translation>Ec&amp;ken:</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="40"/>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">Zahl der Ecken des Polygons</translation>
+        <translation>Zahl der Ecken des Polygons</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="53"/>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rotation:</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="76"/>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Grad der Drehung des Polygons</translation>
+        <translation>Grad der Drehung des Polygons</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="121"/>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Vorschau der gewählten Eigenschaften</translation>
+        <translation>Vorschau der gewählten Eigenschaften</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="143"/>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">Hier stellen Sie ein, wie stark konvex oder konkav das Polygon gezeichnet wird</translation>
+        <translation>Hier stellen Sie ein, wie stark konvex oder konkav das Polygon gezeichnet wird</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="146"/>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished">Faktor über&amp;nehmen</translation>
+        <translation>Faktor über&amp;nehmen</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="161"/>
         <source>&amp;Factor:</source>
-        <translation type="unfinished">Fa&amp;ktor:</translation>
+        <translation>Fa&amp;ktor:</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="187"/>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-        <translation type="unfinished">Ein negativer Wert steht für eine konkave (sternförmige) Figur, ein positiver Wert für eine konvexe Form</translation>
+        <translation>Ein negativer Wert steht für eine konkave (sternförmige) Figur, ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="216"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="206"/>
         <source>C&amp;urvature:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kr&amp;ümmung:</translation>
     </message>
 </context>
 <context>
@@ -23936,12 +23941,12 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2075"/>
         <source>Postscript</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2146"/>
         <source>No valid renderframe config found. Using defaults!</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine gültige Konfigurationsdatei gefunden. Es werden die Standardwerte verwendet!</translation>
     </message>
 </context>
 <context>
@@ -23990,7 +23995,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="561"/>
         <source>When you have selected a Document Layout other than Single Page, you can select a predefined page layout here. &apos;None&apos; leaves margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins to the same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sofern Sie nicht &quot;Einzelne Seite&quot; als Dokumentlayout ausgewählt haben, können Sie hier ein vordefiniertes Seitenlayout auswählen. &quot;Keine&quot; läßt die Ränder unverändert, &quot;Gutenberg&quot; setzt klassische Buchseitenränder. &quot;Zeitschrift&quot; setzt gleiche Werte für alle Ränder. Maßgebend ist der Wert für den linken/inneren Rand.</translation>
     </message>
 </context>
 <context>
@@ -24405,7 +24410,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../../scribus/printdialog.cpp" line="361"/>
         <source>Save As</source>
-        <translation type="unfinished">Speichern unter</translation>
+        <translation>Speichern unter</translation>
     </message>
 </context>
 <context>
@@ -24720,27 +24725,27 @@ PostScript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
         <location filename="../../scribus/printdialogbase.ui" line="322"/>
         <source>Include PDF Annotations and Links into the output.
 Note: PDF Forms will not be exported.</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-Anmerkungen und Links exportieren.Beachten Sie: PDF-Formulare werden nicht exportiert.</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="326"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-Anmerkungen und Links exportieren</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="360"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier können Sie die Mediengröße der PostScript-Datei einstellen. Dies sollten Sie nur tun, wenn Ihre Druckerei es ausdrücklich verlangt.</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="370"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Druckerränder beschneiden</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="386"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
 Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflußt,
 die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
@@ -25825,37 +25830,37 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="3156"/>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Grundlinie</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5472"/>
         <source>Select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie die Art des Zeilenabstandes aus.</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5479"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Höhe der ersten Linie im Textrahmen richtet sich nach der Höhe der größten verwendeten Glyphe</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5480"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Höhe der ersten Linie im Textrahmen richtet sich nach der Versalhöhe der verwendeten Schrift(en)</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5481"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Höhe der ersten Linie im Textrahmen richtet sich nach dem Zeilenabstand</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5206"/>
         <source>&amp;Page Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seitennummer:</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5204"/>
         <source>Columns &amp; Text Distances</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalten &amp; Textabstände</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4984"/>
@@ -25880,61 +25885,61 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5193"/>
         <source>Reset</source>
-        <translation type="unfinished">Zurücksetzen</translation>
+        <translation>Zurücksetzen</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="945"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optischer Randausgleich</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5310"/>
         <source>Hairline</source>
-        <translation type="unfinished"></translation>
+        <translation>Haarlinie</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5189"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5190"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Beidseitig</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5191"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nur links</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5192"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nur rechts</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5495"/>
         <source>Arrow head style for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfeilspitzenstil für den Ursprung der Linie</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5496"/>
         <source>Arrow head style for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfeilspitzenstil für das Ende der Linie</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5518"/>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Tatsächliche horizontale DPI des Bildes nach dem Skalieren</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5519"/>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Tatsächliche vertikale DPI des Bildes nach dem Skalieren</translation>
     </message>
 </context>
 <context>
@@ -28968,22 +28973,22 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="62"/>
         <source>Bengali</source>
-        <translation type="unfinished"></translation>
+        <translation>Bengali</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="117"/>
         <source>Sanskrit</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanskrit</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="65"/>
         <source>Scribus 1.3.4+ Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterstützung für Scribus 1.3.4+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="82"/>
         <source>PathConnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfadverbindung</translation>
     </message>
     <message>
         <location filename="../../scribus/scimgdataloader_ps.cpp" line="502"/>
@@ -28991,58 +28996,58 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Schrift(en)ist/sind nicht eingebettet oder stehen Scribus nicht zur Verfügung.Sie könnten durch &quot;Courier&quot; ersetzt werden, je nachdem, wie Ihr Ghostscript konfiguriert ist.Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
     </message>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
         <source>Save As</source>
-        <translation type="unfinished">Speichern unter</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="257"/>
         <source>Printing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucke ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="258"/>
         <source>Color name cannot be an empty string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Color name cannot be an empty string.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="100"/>
         <source>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="105"/>
         <source>Ramp point out of bounds, must be 0 &lt;= rampPoint &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ramp point out of bounds, must be 0 &lt;= rampPoint &lt;= 1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="110"/>
         <source>Opacity out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Opacity out of bounds, must be 0 &lt;= transparency &lt;= 1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="743"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Character scaling out of bounds, must be &gt;= 10</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="751"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cannot set character scaling on a non-text frame.</translation>
     </message>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="75"/>
         <source>Opening the configfile %1 failed! %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Öffnen der Konfigurationsdatei %1 ist fehlgeschlagen! %2</translation>
     </message>
 </context>
 <context>
@@ -29277,37 +29282,37 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="82"/>
         <source>Reset Rulers</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineale zurücksetzen</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="88"/>
         <source>Move on current Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf aktueller Seite bewegen</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="89"/>
         <source>Origin at Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprung oben links</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="90"/>
         <source>Origin at Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprung oben rechts</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="91"/>
         <source>Origin at Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprung unten links</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="92"/>
         <source>Origin at Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprung unten rechts</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="93"/>
         <source>Origin at Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprung zentriert</translation>
     </message>
 </context>
 <context>
@@ -29336,7 +29341,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="13"/>
         <source>Run Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Script ausführen</translation>
     </message>
 </context>
 <context>
@@ -29684,12 +29689,12 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/smcstylewidget.cpp" line="229"/>
         <source>A default style cannot be assigned a parent style</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Standardstil kann nicht als übergeordneter Stil verwendet werden</translation>
     </message>
     <message>
         <location filename="../../scribus/smcstylewidget.cpp" line="87"/>
         <source>Default width for space</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardweite für Abstände</translation>
     </message>
 </context>
 <context>
@@ -29728,7 +29733,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="2309"/>
         <source>Setting that style as parent would create an infinite loop.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Stil als übergeordneten Stil zu verwenden, würde in einer Endlosschleife enden.</translation>
     </message>
 </context>
 <context>
@@ -30135,84 +30140,85 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/smpstylewidget.cpp" line="103"/>
         <source>Maximum white space compression allowed.
 Expressed as a percentage of the current white space value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Kompression von Leerzeichen.
+Ausgedrückt als Prozentsatz der aktuellen Leerzeichenweite.</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="105"/>
         <source>Maximum compression of glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Glyphenkompression</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="107"/>
         <source>Maximum extension of glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Glyphenverbreiterung</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="367"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optischer Randausgleich</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="278"/>
         <source>A default style cannot be assigned a parent style</source>
-        <translation type="unfinished"></translation>
+        <translation>Einem Standardstil kann kein übergeordneter Stil zugewiesen werden</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="139"/>
         <source>Min. Space Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Min. Leerzeichenabstand:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="385"/>
         <source>Use Parent Value</source>
-        <translation type="unfinished">Den verknüpften Wert verwenden</translation>
+        <translation>Den übergeordneten Wert verwenden</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="378"/>
         <source>Reset to Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Standardwerte zurücksetzen</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="443"/>
         <source>Advanced Settings</source>
-        <translation type="unfinished">Erweiterte Einstellungen</translation>
+        <translation>Erweiterte Einstellungen</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="140"/>
         <source>Glyph Extension</source>
-        <translation type="unfinished">Glyphenstauchung</translation>
+        <translation>Glyphenstauchung</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="141"/>
         <source>Min:</source>
         <comment>Glyph Extension</comment>
-        <translation type="unfinished">Minimal:</translation>
+        <translation>Minimal:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="142"/>
         <source>Max:</source>
         <comment>Glyph Extension</comment>
-        <translation type="unfinished">Maximal:</translation>
+        <translation>Maximal:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="394"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="404"/>
         <source>Both Sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Beidseitig</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="411"/>
         <source>Left Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur links</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="418"/>
         <source>Right Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur rechts</translation>
     </message>
 </context>
 <context>
@@ -30246,7 +30252,7 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="1383"/>
         <source>Setting that style as parent would create an infinite loop.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Stil als übergeordneten Stil zu verwenden, hätte eine Endlosschleife zur Folge.</translation>
     </message>
 </context>
 <context>
@@ -30529,28 +30535,28 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="131"/>
         <source>Compress File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei komprimieren</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="135"/>
         <source>Save Images inline</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder in der Datei speichern</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="136"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichert alle Bilder in der SVG-Datei.Achtung: Die Datei wird dadurch wesentlich größer!</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="140"/>
         <source>Export Page background</source>
-        <translation type="unfinished"></translation>
+        <translation>Seitenhintergrund exportieren</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="141"/>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt die Seite als Hintergrund der SVG-Datei hinzu.</translation>
     </message>
 </context>
 <context>
@@ -30650,7 +30656,7 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="14"/>
         <source>Short Words</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbruchkontrolle für Abkürzungen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="19"/>
@@ -30675,37 +30681,37 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="65"/>
         <source>&amp;Languages:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sprachen:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="20"/>
         <source>Apply Unbreakable Space On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwenden auf:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="26"/>
         <source>&amp;Selected Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Markierte Textrahmen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="33"/>
         <source>Active &amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktive S&amp;eite</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="40"/>
         <source>&amp;All Items</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alle Objekte</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="50"/>
         <source>Language Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Spracheinstellungen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="56"/>
         <source>&amp;Use Language from Style Definition</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;prache des Zeichenstils verwenden</translation>
     </message>
 </context>
 <context>
@@ -30970,18 +30976,19 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="70"/>
         <source>Scribus 1.2.x File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus-1.2.x-Unterstützung</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="71"/>
         <source>Allows Scribus to read Scribus 1.2.x formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ermöglicht es Scribus, Dateien zu öffnen, die mit Version 1.2.x erzeugt wurden.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="754"/>
         <source>You have opened a file produced by Scribus 1.2.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.2.x erzeugt wurde.
+Wenn Sie diese mit der aktuellen Version speichern, können ältere Versionen sie nicht mehr öffnen.</translation>
     </message>
 </context>
 <context>
@@ -30999,17 +31006,17 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="75"/>
         <source>Scribus 1.3.4+ File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus-1.3.4+-Unterstützung</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="76"/>
         <source>Allows Scribus to read Scribus 1.3.4 and higher formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ermöglicht es Scribus, Dateien zu öffnen, die mit Version 1.3.4 und höher erzeugt wurden.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="93"/>
         <source>Scribus 1.3.4+ Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus-1.3.4+-Dokument</translation>
     </message>
 </context>
 <context>
@@ -31027,18 +31034,18 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="74"/>
         <source>Scribus 1.3.x File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus-1.3.x-Unterstützung</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="75"/>
         <source>Allows Scribus to read Scribus 1.3.0-&gt;1.3.3.x formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ermöglicht es Scribus, Dateien zu öffnen, die mit den Versionen 1.3.0 bis 1.3.3.x erzeugt wurden.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1142"/>
         <source>You have opened a file produced by Scribus 1.3.3.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.3.3.x erzeugt wurde.Wenn Sie diese mit der aktuellen Version speichern, können ältere Versionen sie nicht mehr öffnen.</translation>
     </message>
 </context>
 <context>
@@ -31214,7 +31221,7 @@ Drehung: %4</translation>
         <location filename="../../scribus/scribusdoc.cpp" line="1196"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
-        <translation type="unfinished"></translation>
+        <translation>Importiert</translation>
     </message>
 </context>
 <context>
@@ -31694,7 +31701,7 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7671"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
-        <translation type="unfinished">Ghostscript fehlt: Die PostScript-Druckvorschau ist nicht verfügbar</translation>
+        <translation>Ghostscript fehlt: Die PostScript-Druckvorschau ist nicht verfügbar</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9419"/>
@@ -31826,12 +31833,12 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3836"/>
         <source>Document is already opened</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Dokument ist bereits geöffnet</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3838"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Dokument wird bereits verwendet und wird nun angezeigt.</translation>
     </message>
 </context>
 <context>
@@ -32255,52 +32262,52 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus/scribusview.cpp" line="365"/>
         <source>Zoom to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf 100% vergrößern</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="366"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>In den Intervallen, die in den Voreinstellungen festgelegt sind, verkleinern</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="367"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>In den Intervallen, die in den Voreinstellungen festgelegt sind, vergrößern</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="368"/>
         <source>Current zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Vergrößerungsstufe</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="371"/>
         <source>Select the current layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Ebene auswählen</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="372"/>
         <source>Select the current unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Einheit auswählen</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="206"/>
         <source>High</source>
-        <translation type="unfinished">Hoch</translation>
+        <translation>Hoch</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="207"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="208"/>
         <source>Low</source>
-        <translation type="unfinished">Niedrig</translation>
+        <translation>Niedrig</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="373"/>
         <source>Select the image preview quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildvorschauqualität auswählen</translation>
     </message>
 </context>
 <context>
@@ -34698,27 +34705,27 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.ui" line="300"/>
         <source>Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen ...</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.cpp" line="271"/>
         <source>Change Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Befehl ändern</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.cpp" line="272"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Befehl eingeben. Wenn Sie dieses Feld leer lassen, werden die Standardeinstellungen verwendet. Benutzen Sie Anführungszeichen für Parameter, die Leerzeichen enthalten</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.cpp" line="287"/>
         <source>Command: </source>
-        <translation type="unfinished"></translation>
+        <translation>Befehl:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.ui" line="327"/>
         <source>Change Command...</source>
-        <translation type="unfinished"></translation>
+        <translation>Befehl ändern ...</translation>
     </message>
 </context>
 <context>
@@ -36971,12 +36978,12 @@ werden ignoriert</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="353"/>
         <source>Embed PDF &amp;&amp; EPS files (EXPERIMENTAL)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF- und EPS-Dateien einbetten (EXPERIMENTELL)</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="305"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Druckerränder beschneiden</translation>
     </message>
 </context>
 <context>
@@ -37261,12 +37268,12 @@ PostScript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../../scribus/tabprinter.ui" line="174"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-Anmerkungen und Links exportieren</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
 Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflußt,
 die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
@@ -37276,7 +37283,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="90"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Druckerränder beschneiden</translation>
     </message>
 </context>
 <context>
@@ -38064,7 +38071,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../scribus/tabtools.cpp" line="324"/>
         <source>Hairline</source>
-        <translation type="unfinished"></translation>
+        <translation>Haarlinie</translation>
     </message>
 </context>
 <context>
@@ -39412,17 +39419,17 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="843"/>
         <source>More than 20 items involved</source>
-        <translation type="unfinished"></translation>
+        <translation>Es werden mehr als 20 Objekte verwendet</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="907"/>
         <source>Import WMF drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiere WMF-Grafik</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="926"/>
         <source>Change shape type</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändere den Formtyp</translation>
     </message>
 </context>
 <context>
@@ -39470,7 +39477,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undogui.cpp" line="309"/>
         <source>Show Selected Object Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur ausgewähltes Objekt anzeigen</translation>
     </message>
 </context>
 <context>
@@ -39515,7 +39522,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/unicodesearch.ui" line="39"/>
         <source>Enter the search phrase. Then press Enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie die Suchphrase ein und drücken Sie die Eingabetaste.</translation>
     </message>
 </context>
 <context>
@@ -39623,12 +39630,12 @@ Fehler:%2 in Zeile: %3, Spalte %4</translation>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="86"/>
         <source>No data on your computer will be sent to an external location</source>
-        <translation type="unfinished"></translation>
+        <translation>Es werden keine Daten von Ihrem Computer an eine externe Adresse übermittelt</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="92"/>
         <source>Attempting to get the Scribus version update file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versuche, die Scribus-Aktualisierungsdatei zu finden:</translation>
     </message>
 </context>
 <context>
@@ -40160,132 +40167,132 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="31"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Entfernen</translation>
+        <translation>&amp;Entfernen</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="32"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Öffnen</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="54"/>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="141"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="143"/>
         <source>Page Size</source>
-        <translation type="unfinished">Seitenformat</translation>
+        <translation>Seitenformat</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="145"/>
         <source>Colors</source>
-        <translation type="unfinished">Farben</translation>
+        <translation>Farben</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="147"/>
         <source>Description</source>
-        <translation type="unfinished">Beschreibung</translation>
+        <translation>Beschreibung</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="149"/>
         <source>Usage</source>
-        <translation type="unfinished">Verwendungszweck</translation>
+        <translation>Verwendungszweck</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="151"/>
         <source>Created with</source>
-        <translation type="unfinished">Erstellt mit</translation>
+        <translation>Erstellt mit</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="153"/>
         <source>Date</source>
-        <translation type="unfinished">Datum</translation>
+        <translation>Datum</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="155"/>
         <source>Author</source>
-        <translation type="unfinished">Autor</translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="170"/>
         <source>Downloading Templates</source>
-        <translation type="unfinished">Vorlagen herunterladen</translation>
+        <translation>Vorlagen herunterladen</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="173"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation type="unfinished">Weitere Dokumentvorlagen finden Sie unter http://www.scribus.net/ im Download-Bereich.</translation>
+        <translation>Weitere Dokumentvorlagen finden Sie unter http://www.scribus.net/ im Download-Bereich.</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="176"/>
         <source>Installing Templates</source>
-        <translation type="unfinished">Vorlagen installieren</translation>
+        <translation>Vorlagen installieren</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="182"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
-        <translation type="unfinished">Bitte entpacken Sie die Vorlage nach ~/.scribus/templates für sich selbst oder nach PREFIX/share/scribus/templates für alle Benutzer.</translation>
+        <translation>Bitte entpacken Sie die Vorlage nach ~/.scribus/templates für sich selbst oder nach PREFIX/share/scribus/templates für alle Benutzer.</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="185"/>
         <source>Preparing a template</source>
-        <translation type="unfinished">Vorlage vorbereiten</translation>
+        <translation>Vorlage vorbereiten</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="187"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished">Sie müssen sicherstellen, daß Bilder und Schriften frei benutzt werden können. Wenn Sie Schriften nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
+        <translation>Sie müssen sicherstellen, daß Bilder und Schriften frei benutzt werden können. Wenn Sie Schriften nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="188"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished">Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, daß Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
+        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, daß Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="190"/>
         <source>Removing a template</source>
-        <translation type="unfinished">Vorlage entfernen</translation>
+        <translation>Vorlage entfernen</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="192"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="unfinished">Wenn Sie eine Vorlage von dieser Liste entfernen, wird nur der entsprechende Eintrag in der Datei template.xml gelöscht, nicht die Vorlage selbst. Sie können Vorlagen nur löschen, wenn Sie Schreibrechte für template.xml besitzen.</translation>
+        <translation>Wenn Sie eine Vorlage von dieser Liste entfernen, wird nur der entsprechende Eintrag in der Datei template.xml gelöscht, nicht die Vorlage selbst. Sie können Vorlagen nur löschen, wenn Sie Schreibrechte für template.xml besitzen.</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="195"/>
         <source>Translating template.xml</source>
-        <translation type="unfinished">template.xml übersetzen</translation>
+        <translation>template.xml übersetzen</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.cpp" line="197"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation type="unfinished">Kopieren Sie die existierende template.xml in eine Datei mit der Bezeichnung template.lang_COUNTRY.xml (ersetzen Sie COUNTRY durch denselben Ländercode wie bei den po/qm-Dateien für Ihre Sprache), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muß sich im selben Verzeichnis wie template.xml befinden.</translation>
+        <translation>Kopieren Sie die existierende template.xml in eine Datei mit der Bezeichnung template.lang_COUNTRY.xml (ersetzen Sie COUNTRY durch denselben Ländercode wie bei den po/qm-Dateien für Ihre Sprache), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muß sich im selben Verzeichnis wie template.xml befinden.</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.ui" line="81"/>
         <source>&amp;About</source>
-        <translation type="unfinished">Ü&amp;ber</translation>
+        <translation>Ü&amp;ber</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.ui" line="105"/>
         <source>&amp;Preview</source>
-        <translation type="unfinished">Vor&amp;schau</translation>
+        <translation>Vor&amp;schau</translation>
     </message>
     <message>
         <location filename="../../scribus/nftwidget.ui" line="133"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Hilfe</translation>
+        <translation>&amp;Hilfe</translation>
     </message>
 </context>
 <context>
@@ -40495,7 +40502,7 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="72"/>
         <source>on the Scratch Space</source>
-        <translation type="unfinished">in der Ablagefläche</translation>
+        <translation>in der Ablagefläche</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="91"/>
@@ -40665,17 +40672,17 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="34"/>
         <source>Select All Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Objekte auswählen</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="49"/>
         <source>on Current Page</source>
-        <translation type="unfinished"></translation>
+        <translation>auf der aktuellen Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="62"/>
         <source>on Current Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>auf der aktuellen Ebene</translation>
     </message>
 </context>
 <context>
