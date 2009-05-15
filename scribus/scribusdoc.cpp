@@ -10052,40 +10052,73 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	{
 		uint docSelectionCount = itemSelection->count();
 		PageItem *currItem;
-		uint lowestItem = 999999;
+		QMap<PageItem*, int> toDelete;
+		QMap<int, QList<PageItem*> > groupObjects; 
 		for (uint a=0; a < docSelectionCount; ++a)
 		{
 			currItem = itemSelection->itemAt(a);
 			if (currItem->Groups.count() != 0)
-				currItem->Groups.pop();
-			lowestItem = qMin(lowestItem, currItem->ItemNr);
+			{
+				int groupId = currItem->Groups.pop();
+				if (currItem->isGroupControl && (currItem->Groups.count() == 0))
+					toDelete.insert(currItem, groupId);
+				if (!currItem->isGroupControl)
+					groupObjects[groupId].append(currItem);
+			}
 		}
-		if (Items->at(lowestItem)->isGroupControl)
+		// Remove group control objects
+		itemSelection->delaySignalsOn();
+		QMap<PageItem*, int>::iterator it;
+		for (it = toDelete.begin(); it != toDelete.end(); ++it)
 		{
-			itemSelection->removeItem(Items->at(lowestItem));
-			Items->removeAt(lowestItem);
-			renumberItemsInListOrder();
+			itemSelection->removeItem(it.key());
+			Items->removeOne(it.key());
 		}
-		docSelectionCount = itemSelection->count();
-		SimpleState *ss = new SimpleState(Um::Ungroup);
-		ss->set("UNGROUP", "ungroup");
-		ss->set("itemcount", docSelectionCount);
-		QString tooltip = Um::ItemsInvolved + "\n";
-		if (docSelectionCount > Um::ItemsInvolvedLimit)
-			tooltip = Um::ItemsInvolved2 + "\n";
-		itemSelection->connectItemToGUI();
-		for (uint a=0; a<docSelectionCount; ++a)
+		itemSelection->delaySignalsOff();
+		renumberItemsInListOrder();
+		// Create undo actions
+		UndoTransaction* undoTransaction = NULL;
+		if (UndoManager::undoEnabled() && toDelete.count() > 1)
 		{
-			currItem = itemSelection->itemAt(a);
-			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
-			ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
-			if (docSelectionCount <= Um::ItemsInvolvedLimit)
-				tooltip += "\t" + currItem->getUName() + "\n";
-			currItem->isTableItem = false;
-			currItem->setSelected(true);
+			undoTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Ungroup, "", Um::IGroup));
 		}
-		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+		QMap<int, QList<PageItem*> >::iterator groupIt;
+		for (it = toDelete.begin(); it != toDelete.end(); ++it)
+		{
+			PageItem* groupItem = it.key();
+			int groupId = it.value();
+			groupIt = groupObjects.find(groupId);
+			if (groupIt == groupObjects.end()) 
+				continue;
+			QList<PageItem*> groupItems = groupIt.value();
+
+			docSelectionCount = groupItems.count();
+			SimpleState *ss = new SimpleState(Um::Ungroup);
+			ss->set("UNGROUP", "ungroup");
+			ss->set("itemcount", docSelectionCount);
+			QString tooltip = Um::ItemsInvolved + "\n";
+			if (docSelectionCount > Um::ItemsInvolvedLimit)
+				tooltip = Um::ItemsInvolved2 + "\n";
+			for (uint a=0; a < docSelectionCount; ++a)
+			{
+				currItem = groupItems.at(a);
+				ss->set(QString("item%1").arg(a), currItem->uniqueNr);
+				ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
+				if (docSelectionCount <= Um::ItemsInvolvedLimit)
+					tooltip += "\t" + currItem->getUName() + "\n";
+				currItem->isTableItem = false;
+				currItem->setSelected(true);
+			}
+			undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+		}
+		if (undoTransaction)
+		{
+			undoTransaction->commit();
+			delete undoTransaction;
+			undoTransaction = NULL;
+		}
 		double x, y, w, h;
+		itemSelection->connectItemToGUI();
 		itemSelection->getGroupRect(&x, &y, &w, &h);
 		emit docChanged();
 		m_ScMW->HaveNewSel(itemSelection->itemAt(0)->itemType());
