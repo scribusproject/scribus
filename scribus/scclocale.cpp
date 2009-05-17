@@ -70,6 +70,6 @@ float ScCLocale::toFloatC(const QString& str, float defValue)
 
 QString ScCLocale::toQStringC(double d)
 {
-	return that()->qLocale.toString(d);
+	return that()->qLocale.toString(d, 'f', 3);
 }
 
