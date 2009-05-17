@@ -1,5 +1,15 @@
 
 Scribus - 1.3.5svn
+- 0008040: [General] crash when ungrouping multiple items at once (jghali) - closed.
+- 0008055: [Translation] Updated Danish Translation (cbradney) - closed.
+- 0006935: [Mac OS] Height of pull-down menu showing inconsistencies in Style Manager, Guide Managers and in the PP wrt other dialog boxes (subik) - closed.
+- 0008012: [Graphics / Image Frames] problem when editing control points on rotated shapes (jghali) - closed.
+- 0004822: [Undo/Redo] Master Pages: Crash when trying to undo non existing objects (Tsoots) - closed.
+- 0007762: [User Interface] middle mouse panning (GIMP+InNkscape like) (fschmid) - closed.
+- 0005780: [Usability] Scribus doesn't track what documents are already opened (subik) - closed.
+- 0007987: [Translation] Czech translation update (subik) - closed.
+- 0008036: [Translation] German Translation update for 1.3.5rc1 (plinnell) - closed.
+- 0008014: [Translation] Missing german tranlation (christoph_s) - closed.
 - 0006464: [Import / Export] eps import hang scribus when importing file with image (fschmid) - resolved.
 - 0008012: [Graphics / Image Frames] problem when editing control points on rotated shapes (jghali) - resolved.
 - 0005780: [Usability] Scribus doesn't track what documents are already opened (subik) - resolved.
@@ -1024,4 +1034,4 @@ Scribus - 1.3.5svn
 - 0005796: [User Interface] Switching off Sticky Tools should set cursor to "Select" mode (cbradney) - closed.
 - 0005789: [Internal] Sig6 when saving when theres an image in an image frame (fschmid) - closed.
 - 0003399: [Plug-ins] font preview: scrolling with mouse does not update the preview (subik) - closed.
-- 0005669: [-] Sweep selection and click selection have the same effect but noticable different performance (fschmid) - closed.
+- 0005669: [-] Sweep selection and click selection have the same effect but noticable different performance (fschmid) - closed.	
