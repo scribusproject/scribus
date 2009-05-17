@@ -134,7 +134,7 @@ int mainApp(ScribusQApp& app)
 */
 LONG exceptionFilter(DWORD exceptionCode)
 {
- LONG result;
+	LONG result;
 	switch( exceptionCode )
 	{
 	case EXCEPTION_ACCESS_VIOLATION:
@@ -268,7 +268,7 @@ void messageHandler( QtMsgType type, const char *msg )
 
 bool consoleOptionEnabled(int argc, char* argv[])
 {
- bool value = false;
+	bool value = false;
 	for( int i = 0; i < argc; i++ )
 	{
 		if( strcmp(argv[i], ARG_CONSOLE) == 0 ||
