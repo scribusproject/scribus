@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QStack>
 #include <QStack>
-#include <QTextStream>
 #include <QTemporaryFile>
 #include <QDebug>
 
@@ -598,8 +597,10 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 			QStringList bb = BBox.split(" ", QString::SkipEmptyParts);
 			if (bb.count() == 4)
 			{
-				QTextStream ts2(&BBox, QIODevice::ReadOnly);
-				ts2 >> x >> y >> b >> h;
+				x = ScCLocale::toDoubleC(bb[0]);
+				y = ScCLocale::toDoubleC(bb[1]);
+				b = ScCLocale::toDoubleC(bb[2]);
+				h = ScCLocale::toDoubleC(bb[3]);
 			}
 		}
 		importColorsFromFile(fName, CustColors);
@@ -628,7 +629,7 @@ QString AIPlug::parseColor(QString data)
 	double c, m, y, k;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&data, QIODevice::ReadOnly);
+	ScTextStream Code(&data, QIODevice::ReadOnly);
 	bool found = false;
 	Code >> c;
 	Code >> m;
@@ -673,7 +674,7 @@ QString AIPlug::parseColorGray(QString data)
 	double k;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&data, QIODevice::ReadOnly);
+	ScTextStream Code(&data, QIODevice::ReadOnly);
 	bool found = false;
 	Code >> k;
 	int Kc = 255 - qRound(k * 255);
@@ -712,7 +713,7 @@ QString AIPlug::parseColorRGB(QString data)
 	double r, g, b;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&data, QIODevice::ReadOnly);
+	ScTextStream Code(&data, QIODevice::ReadOnly);
 	bool found = false;
 	Code >> r;
 	Code >> g;
@@ -755,7 +756,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	double c, m, y, k, sh;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&data, QIODevice::ReadOnly);
+	ScTextStream Code(&data, QIODevice::ReadOnly);
 	bool found = false;
 	Code >> c;
 	Code >> m;
@@ -767,7 +768,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	QString FarNam = data.mid(an+1, en-an-1);
 	FarNam.remove("\\");
 	QString FarSha = data.mid(en+1, data.size() - en);
-	QTextStream Val(&FarSha, QIODevice::ReadOnly);
+	ScTextStream Val(&FarSha, QIODevice::ReadOnly);
 	Val >> sh;
 	shade = (1.0 - sh) * 100.0;
 	int Cc = qRound(c * 255);
@@ -808,7 +809,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 	double c, m, y, k, sh, r, g, b;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&data, QIODevice::ReadOnly);
+	ScTextStream Code(&data, QIODevice::ReadOnly);
 	bool found = false;
 	if (type == "1")
 	{
@@ -866,7 +867,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 	QString FarNam = data.mid(an+1, en-an-1);
 	FarNam.remove("\\");
 	QString FarSha = data.mid(en+1, data.size() - en);
-	QTextStream Val(&FarSha, QIODevice::ReadOnly);
+	ScTextStream Val(&FarSha, QIODevice::ReadOnly);
 	Val >> sh;
 	shade = (1.0 - sh) * 100.0;
 	if (!found)
@@ -1036,21 +1037,21 @@ void AIPlug::processData(QString data)
 /* Start Path construction commands */
 		if (command == "m")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y;
 			Coords.svgMoveTo(x - docX, docHeight - (y - docY));
 			currentPoint = FPoint(x - docX, docHeight - (y - docY));
 		}
 		else if ((command == "L") || (command == "l"))
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y;
 			Coords.svgLineTo(x - docX, docHeight - (y - docY));
 			currentPoint = FPoint(x - docX, docHeight - (y - docY));
 		}
 		else if ((command == "C") || (command == "c"))
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y >> x1 >> y1 >> x2 >> y2;
 			Coords.svgCurveToCubic(x - docX, docHeight - (y - docY),
 								   x1 - docX, docHeight - (y1 - docY),
@@ -1059,7 +1060,7 @@ void AIPlug::processData(QString data)
 		}
 		else if ((command == "Y") || (command == "y"))
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x1 >> y1 >> x2 >> y2;
 			Coords.svgCurveToCubic(currentPoint.x(), currentPoint.y(),
 								   x1 - docX, docHeight - (y1 - docY),
@@ -1068,7 +1069,7 @@ void AIPlug::processData(QString data)
 		}
 		else if ((command == "V") || (command == "v"))
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y >> x2 >> y2;
 			Coords.svgCurveToCubic(x - docX, docHeight - (y - docY),
 								   currentPoint.x(), currentPoint.y(),
@@ -1221,7 +1222,7 @@ void AIPlug::processData(QString data)
 /* Start Graphics state commands */
 		else if (command == "A")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 1)
 				itemLocked = true;
@@ -1230,12 +1231,12 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "w")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> LineW;
 		}
 		else if (command == "j")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 0)
 				JoinStyle = Qt::MiterJoin;
@@ -1246,7 +1247,7 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "J")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 0)
 				CapStyle = Qt::FlatCap;
@@ -1262,12 +1263,12 @@ void AIPlug::processData(QString data)
 		*/
 		else if (command == "Xy")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> blendMode >> Opacity;
 		}
 		else if (command == "XR")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 1)
 				fillRule = true;
@@ -1284,7 +1285,7 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "Xm")
 		{
-			QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			double m1, m2, m3, m4, m5, m6;
 			gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 			startMatrix.translate(m5, -m6);
@@ -1295,7 +1296,7 @@ void AIPlug::processData(QString data)
 		{
 			if (m_gradients[currentGradientName].type() == 1)
 			{
-				QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+				ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 				double m1, m2, m3, m4, m5, m6;
 				gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 				startMatrix.translate(m5, -m6);
@@ -1353,7 +1354,7 @@ void AIPlug::processData(QString data)
 			currentGradientName = Cdata.mid(an+1, en-an-1);
 			currentGradientName.remove("\\");
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
-			QTextStream gVals(&tmpS, QIODevice::ReadOnly);
+			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			double xOrig, yOrig, m1, m2, m3, m4, m5, m6;
 			gVals >> xOrig >> yOrig >> currentGradientAngle >> currentGradientLenght >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 			currentGradientOrigin = QPointF(xOrig - docX, docHeight - (yOrig - docY));
@@ -1405,7 +1406,7 @@ void AIPlug::processData(QString data)
 			currentPatternName.remove("\\");
 			currentPatternName = currentPatternName.trimmed().simplified().replace(" ", "_");
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
-			QTextStream gVals(&tmpS, QIODevice::ReadOnly);
+			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			gVals >> currentPatternX >> currentPatternY >> currentPatternXScale >> currentPatternYScale >> currentPatternRotation;
 		}
 		else if (command == "X!")
@@ -1468,7 +1469,7 @@ void AIPlug::processData(QString data)
 			QString cmdLine = Cdata.remove(0, an+1);
 			an = cmdLine.lastIndexOf("/");
 			QString tmpS = cmdLine.mid(an+1, Cdata.size());
-			QTextStream mVals(&tmpS, QIODevice::ReadOnly);
+			ScTextStream mVals(&tmpS, QIODevice::ReadOnly);
 			QString mKey;
 			mVals >> mKey;
 			if (mKey == "Size")
@@ -1476,7 +1477,7 @@ void AIPlug::processData(QString data)
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
 				QString sizeVals = cmdLine.mid(ans+1, ens-ans-1);
-				QTextStream mVals2(&sizeVals, QIODevice::ReadOnly);
+				ScTextStream mVals2(&sizeVals, QIODevice::ReadOnly);
 				mVals2 >> meshXSize >> meshYSize;
 			}
 			if (mKey == "P")
@@ -1484,7 +1485,7 @@ void AIPlug::processData(QString data)
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
 				QString posVals = cmdLine.mid(ans+1, ens-ans-1);
-				QTextStream mVals3(&posVals, QIODevice::ReadOnly);
+				ScTextStream mVals3(&posVals, QIODevice::ReadOnly);
 				mVals3 >> currentMeshXPos >> currentMeshYPos;
 				accumColorC = 0.0;
 				accumColorM = 0.0;
@@ -1596,7 +1597,7 @@ void AIPlug::processData(QString data)
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
 				QString nodeVals = cmdLine.mid(ans+1, ens-ans-1);
-				QTextStream mVals4(&nodeVals, QIODevice::ReadOnly);
+				ScTextStream mVals4(&nodeVals, QIODevice::ReadOnly);
 				kVal = 0.0;
 				if (meshColorMode == 0)
 					mVals4 >> cVal >> mVal >> yVal >> kVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
@@ -1651,7 +1652,7 @@ void AIPlug::processData(QString data)
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
 				int visible, preview, enabled, printing, dummy, rc, gc, bc;
-				QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+				ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 				ts2 >> visible >> preview >> enabled >> printing >> dummy >> dummy >> dummy >> rc >> gc >> bc;
 				if (!firstLayer)
 					currentLayer = m_Doc->addLayer("Layer", true);
@@ -1685,7 +1686,7 @@ void AIPlug::processData(QString data)
 /* Start Text commands */
 		else if (command == "To")
 		{
-			QTextStream ts2(&Cdata, QIODevice::ReadOnly);
+			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> textMode;
 			textData.clear();
 			textMatrix = QMatrix();
@@ -1700,7 +1701,7 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "Tp")
 		{
-			QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			double m1, m2, m3, m4, m5, m6;
 			gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 			textMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
@@ -1755,7 +1756,7 @@ void AIPlug::processData(QString data)
 		{
 			int flag;
 			double val;
-			QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			gVals >> flag >> val;
 			if (flag == 1)
 				val = 0;
@@ -1766,13 +1767,13 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "Tc")
 		{
-			QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			gVals >> textKern;
 			textKern *= 100.0;
 		}
 		else if (command == "Tz")
 		{
-			QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			gVals >> textScaleH >> textScaleV;
 			textScaleH *= 10.0;
 			textScaleV *= 10.0;
@@ -1807,7 +1808,7 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "Tf")
 		{
-			QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			gVals >> textFont >> textSize;
 			textFont.remove(0, 2);
 			QString family = textFont;
@@ -1921,7 +1922,7 @@ void AIPlug::processData(QString data)
 				currentPatternDefName.remove("\\");
 				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
 				QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
-				QTextStream gVals(&tmpS, QIODevice::ReadOnly);
+				ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
 			}
 		}
@@ -2119,7 +2120,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	QStringList da;
 	getCommands(cumulated, da);
 	Cdata = da[da.count()-1];
-	QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+	ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 	gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6 >> x1 >> y1 >> x2 >> y2 >> w >> h >> bits >> type >> alpha >> dummy >> bin;
 //	qDebug() << QString("Matrix: %1 %2 %3 %4 %5 %6").arg(m1).arg(m2).arg(m3).arg(m4).arg(m5).arg(m6);
 //	qDebug() << QString("Bounds: %1 %2 %3 %4").arg(x1).arg(y1).arg(x2).arg(y2);
@@ -2136,7 +2137,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	if (tmp.startsWith("%%BeginData"))
 	{
 		QString dummyS;
-		QTextStream gVals2(&tmp, QIODevice::ReadOnly);
+		ScTextStream gVals2(&tmp, QIODevice::ReadOnly);
 		tmp = readLinefromDataStream(ts);
 	}
 	QByteArray psdata;

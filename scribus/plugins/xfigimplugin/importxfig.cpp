@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
-#include <QTextStream>
 #include <QDebug>
 
 #include <cmath>
@@ -33,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "propertiespalette.h"
 #include "rawimage.h"
+#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scmimedata.h"
@@ -419,7 +419,7 @@ void XfigPlug::parseColor(QString data)
 	int colorNum, dummy;
 	QString colorValues;
 	ScColor tmp;
-	QTextStream Code(&data, QIODevice::ReadOnly);
+	ScTextStream Code(&data, QIODevice::ReadOnly);
 	Code >> dummy >> colorNum >> colorValues;
 	tmp.setNamedColor(colorValues);
 	tmp.setSpotColor(false);
@@ -577,7 +577,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 	if (forward_arrow == 1)
 	{
 		arrow.resize(0);
-		QTextStream CodeAF(&fArrowData, QIODevice::ReadOnly);
+		ScTextStream CodeAF(&fArrowData, QIODevice::ReadOnly);
 		CodeAF >> arrow_typeAF >> arrow_styleAF >> arrow_thicknessAF >> arrow_widthAF >> arrow_heightAF;
 		arrow_widthAF = fig2Pts(arrow_widthAF);
 		arrow_heightAF = fig2Pts(arrow_heightAF);
@@ -636,7 +636,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 	if (backward_arrow == 1)
 	{
 		arrow.resize(0);
-		QTextStream CodeAB(&bArrowData, QIODevice::ReadOnly);
+		ScTextStream CodeAB(&bArrowData, QIODevice::ReadOnly);
 		CodeAB >> arrow_typeAB >> arrow_styleAB >> arrow_thicknessAB >> arrow_widthAB >> arrow_heightAB;
 		arrow_widthAB = fig2Pts(arrow_widthAB);
 		arrow_heightAB = fig2Pts(arrow_heightAB);
@@ -723,7 +723,7 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	Coords.resize(0);
 	Coords.svgInit();
 	bool first = true;
-	QTextStream Code(&tmp, QIODevice::ReadOnly);
+	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> join_style >> cap_style >> radius >> forward_arrow >> backward_arrow >> npoints;
 	if (forward_arrow == 1)
@@ -733,13 +733,13 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	if (subtype == 5)
 	{
 		tmp = readLinefromDataStream(ts);
-		QTextStream imf(&tmp, QIODevice::ReadOnly);
+		ScTextStream imf(&tmp, QIODevice::ReadOnly);
 		imf >> imgFlipped >> imgFile;
 	}
 	while (!ts.atEnd())
 	{
 		tmp = readLinefromDataStream(ts);
-		QTextStream pts(&tmp, QIODevice::ReadOnly);
+		ScTextStream pts(&tmp, QIODevice::ReadOnly);
 		while (!pts.atEnd())
 		{
 			pts >> x >> y;
@@ -861,7 +861,7 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	Coords.resize(0);
 	Coords.svgInit();
 	bool first = true;
-	QTextStream Code(&tmp, QIODevice::ReadOnly);
+	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> cap_style >> forward_arrow >> backward_arrow >> npoints;
 	if (forward_arrow == 1)
@@ -871,7 +871,7 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	while (!ts.atEnd())
 	{
 		tmp = readLinefromDataStream(ts);
-		QTextStream pts(&tmp, QIODevice::ReadOnly);
+		ScTextStream pts(&tmp, QIODevice::ReadOnly);
 		while (!pts.atEnd())
 		{
 			pts >> x >> y;
@@ -897,7 +897,7 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	while (!ts.atEnd())
 	{
 		tmp = readLinefromDataStream(ts);
-		QTextStream pts(&tmp, QIODevice::ReadOnly);
+		ScTextStream pts(&tmp, QIODevice::ReadOnly);
 		while (!pts.atEnd())
 		{
 			pts >> x;
@@ -973,7 +973,7 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 	int		x1, y1;					// (Fig units, the 1st point the user entered)
 	int		x2, y2;					// (Fig units, the 2nd point)
 	int		x3, y3;					// (Fig units, the last point)
-	QTextStream Code(&tmp, QIODevice::ReadOnly);
+	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> cap_style >> direction >> forward_arrow >> backward_arrow;
 	Code >> center_x >> center_y >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
@@ -1095,7 +1095,7 @@ void XfigPlug::processEllipse(QString data)
 	int		start_x, start_y;	// (Fig units; the 1st point entered)
 	int		end_x, end_y;		// (Fig units; the last point entered)
 	double x, y, w, h;
-	QTextStream Code(&tmp, QIODevice::ReadOnly);
+	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> direction >> angle >> center_x >> center_y >> radius_x >> radius_y;
 	Code >> start_x >> start_y >> end_x >> end_y;
@@ -1204,7 +1204,7 @@ void XfigPlug::processText(QString data)
 								//  right corner of the string.)
 	QString text;
 	double x, y, w, h;
-	QTextStream Code(&tmp, QIODevice::ReadOnly);
+	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype >> color >> depth >> pen_style >> font >> font_size >> angle;
 	Code >> font_flags >> height >> length >> xT >> yT;
 	text = Code.readAll();
@@ -1452,7 +1452,7 @@ void XfigPlug::processData(QDataStream &ts, QString data)
 {
 	QString tmp = data;
 	int command, subtype;
-	QTextStream Code(&tmp, QIODevice::ReadOnly);
+	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype;
 	switch (command)
 	{

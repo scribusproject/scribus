@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 #include "resourcecollection.h"
+#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scpainter.h"
@@ -3794,7 +3795,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 		{
 			QString tmpstr = effectsInUse.at(a).effectParameters;
 			QString tmpstr2 = "";
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			switch (effectsInUse.at(a).effectCode)
 			{
 				case ScImage::EF_QUADTONE:
@@ -3957,7 +3958,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		for (int a = 0; a < effectsInUse.count(); ++a)
 		{
 			QString tmpstr = effectsInUse.at(a).effectParameters;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			switch (effectsInUse.at(a).effectCode)
 			{
 				case ScImage::EF_QUADTONE:
@@ -5551,6 +5552,7 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 		firstLineOffsetP = flop;
 	}
 }
+
 
 
 

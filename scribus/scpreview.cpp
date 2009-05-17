@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QList>
 #include <QPolygon>
-#include <QTextStream>
 #include <QPixmap>
 #include <QTemporaryFile>
 #include <cmath>
@@ -110,7 +109,7 @@ QPixmap ScPreview::createPreview(QString data)
 			double xa, ya;
 			arrow.name = pg.attribute("Name");
 			QString tmp = pg.attribute("Points");
-			QTextStream fp(&tmp, QIODevice::ReadOnly);
+			ScTextStream fp(&tmp, QIODevice::ReadOnly);
 			for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 			{
 				fp >> xa;
@@ -313,7 +312,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.Clip.resize(pg.attribute("NUMCLIP").toUInt());
 				tmpx = pg.attribute("CLIPCOOR");
-				QTextStream f(&tmpx, QIODevice::ReadOnly);
+				ScTextStream f(&tmpx, QIODevice::ReadOnly);
 				for (uint c=0; c<pg.attribute("NUMCLIP").toUInt(); ++c)
 				{
 					f >> x;
@@ -327,7 +326,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.PoLine.resize(pg.attribute("NUMPO").toUInt());
 				tmpx = pg.attribute("POCOOR");
-				QTextStream fp(&tmpx, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpx, QIODevice::ReadOnly);
 				for (uint cx=0; cx<pg.attribute("NUMPO").toUInt(); ++cx)
 				{
 					fp >> xf;
@@ -394,7 +393,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.itemText = tmpx;
 			if (!OB.itemText.isEmpty())
 			{
-				QTextStream t(&OB.itemText, QIODevice::ReadOnly);
+				ScTextStream t(&OB.itemText, QIODevice::ReadOnly);
 				QString cc;
 #ifndef NLS_PROTO
 				while (!t.atEnd())
@@ -452,7 +451,7 @@ QPixmap ScPreview::createPreview(QString data)
 #endif
 			}
 			tmpx = GetAttr(&pg, "TEXTCOOR","0 0");
-			QTextStream ft(&tmpx, QIODevice::ReadOnly);
+			ScTextStream ft(&tmpx, QIODevice::ReadOnly);
 			for (uint ct=0; ct<GetAttr(&pg, "NUMTEXT","0").toUInt(); ct++)
 			{
 #ifndef NLS_PROTO

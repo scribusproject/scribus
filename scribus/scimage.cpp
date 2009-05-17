@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "cmsettings.h"
+#include "scclocale.h"
 #include "scimage.h"
 #include "scribus.h"
 #include "scpaths.h"
@@ -18,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_qt.h"
 #include "scimgdataloader_tiff.h"
 #include <QMessageBox>
-#include <QTextStream>
 #include <QList>
 #include <QByteArray>
 #include <cassert>
@@ -152,7 +152,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 				QString tmpstr = effectsList.at(a).effectParameters;
 				QString col = CommonStrings::None;
 				int shading = 100;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			//	fp >> col;
 				col = fp.readLine();
 				fp >> shading;
@@ -162,7 +162,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				int brightnessValue = 0;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> brightnessValue;
 				brightness(brightnessValue, cmyk);
 			}
@@ -170,7 +170,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				int contrastValue = 0;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> contrastValue;
 				contrast(contrastValue, cmyk);
 			}
@@ -178,7 +178,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				double radius, sigma;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				sharpen(radius, sigma);
@@ -187,7 +187,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				double radius, sigma;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				blur(static_cast<int>(radius));
@@ -196,7 +196,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				double sigma;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> sigma;
 				solarize(sigma, cmyk);
 			}
@@ -207,7 +207,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 				int shading1 = 100;
 				QString col2 = CommonStrings::None;
 				int shading2 = 100;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				col1 = fp.readLine();
 				col2 = fp.readLine();
 				fp >> shading1;
@@ -247,7 +247,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 				int shading1 = 100;
 				int shading2 = 100;
 				int shading3 = 100;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				col1 = fp.readLine();
 				col2 = fp.readLine();
 				col3 = fp.readLine();
@@ -302,7 +302,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 				int shading2 = 100;
 				int shading3 = 100;
 				int shading4 = 100;
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				col1 = fp.readLine();
 				col2 = fp.readLine();
 				col3 = fp.readLine();
@@ -366,7 +366,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 				double xval, yval;
 				FPointArray curve;
 				curve.resize(0);
-				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> numVals;
 				for (int nv = 0; nv < numVals; nv++)
 				{

@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QList>
 #include <QByteArray>
-#include <QTextStream>
 #include <QApplication>
 #include <QMessageBox>
 
@@ -500,7 +499,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						QTextStream fg(&tmp, QIODevice::ReadOnly);
+						ScTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
@@ -954,7 +953,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	{
 		OB->Clip.resize(obj->attribute("NUMCLIP").toUInt());
 		tmp = obj->attribute("CLIPCOOR");
-		QTextStream fc(&tmp, QIODevice::ReadOnly);
+		ScTextStream fc(&tmp, QIODevice::ReadOnly);
 		for (uint c=0; c<obj->attribute("NUMCLIP").toUInt(); ++c)
 		{
 			fc >> x;
@@ -969,7 +968,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	{
 		OB->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		QTextStream fp(&tmp, QIODevice::ReadOnly);
+		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -984,7 +983,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	{
 		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		QTextStream fp(&tmp, QIODevice::ReadOnly);
+		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -999,7 +998,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	{
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		QTextStream tgv(&tmp, QIODevice::ReadOnly);
+		ScTextStream tgv(&tmp, QIODevice::ReadOnly);
 		OB->TabValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -1017,7 +1016,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		QTextStream dgv(&tmp, QIODevice::ReadOnly);
+		ScTextStream dgv(&tmp, QIODevice::ReadOnly);
 		OB->DashValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
 		{
@@ -1339,7 +1338,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						QTextStream fg(&tmp, QIODevice::ReadOnly);
+						ScTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
@@ -1530,7 +1529,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
-		QTextStream tgv(&tmp, QIODevice::ReadOnly);
+		ScTextStream tgv(&tmp, QIODevice::ReadOnly);
 		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;

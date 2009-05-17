@@ -406,13 +406,13 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 			ParagraphStyle::TabRecord tb;
 			QString tmp = pg.attribute("TABS");
 			QTextStream tgv(&tmp, QIODevice::ReadOnly);
-			double xf, xf2;
+			QString xf, xf2;
 			for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 			{
 				tgv >> xf;
 				tgv >> xf2;
-				tb.tabPosition = xf2;
-				tb.tabType = static_cast<int>(xf);
+				tb.tabPosition = ScCLocale::toDoubleC(xf2);
+				tb.tabType = static_cast<int>(ScCLocale::toDoubleC(xf));
 				tb.tabFillChar =  QChar();
 				tbs.append(tb);
 			}
@@ -518,6 +518,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 				ResourceCollection repl;
 				repl.availableFonts = currDoc->AllFonts;
 				repl.mapFonts(ReplacedFonts);
+				repl.setUpdateSubstitutedFonts(true);
 				currDoc->replaceNamedResources(repl);
 				return true;
 			}

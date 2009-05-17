@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QStack>
 #include <QStack>
-#include <QTextStream>
 
 #include <cmath>
 #include <cstdlib>
@@ -136,8 +135,10 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 				QStringList bb = BBox.split(" ", QString::SkipEmptyParts);
 				if (bb.count() == 4)
 				{
-					QTextStream ts2(&BBox, QIODevice::ReadOnly);
-					ts2 >> x >> y >> b >> h;
+					x = ScCLocale::toDoubleC(bb[0]);
+					y = ScCLocale::toDoubleC(bb[1]);
+					b = ScCLocale::toDoubleC(bb[2]);
+					h = ScCLocale::toDoubleC(bb[3]);
 				}
 			}
 		}
@@ -525,7 +526,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 		JoinStyle = Qt::MiterJoin;
 		CapStyle = Qt::FlatCap;
 		DashPattern.clear();
-		QTextStream ts(&f);
+		ScTextStream ts(&f);
 		int line_cnt = 0;
 		while (!ts.atEnd() && !cancel)
 		{
@@ -783,13 +784,13 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "w")
 			{
-				QTextStream Lw(&params, QIODevice::ReadOnly);
+				ScTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> LineW;
 //				currPath += params;
 			}
 			else if (token == "ld")
 			{
-				QTextStream Lw(&params, QIODevice::ReadOnly);
+				ScTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> dc;
 				Lw >> DashOffset;
 				DashPattern.clear();
@@ -805,7 +806,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lc")
 			{
-				QTextStream Lw(&params, QIODevice::ReadOnly);
+				ScTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> lcap;
 				switch (lcap)
 				{
@@ -826,7 +827,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lj")
 			{
-				QTextStream Lw(&params, QIODevice::ReadOnly);
+				ScTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> ljoin;
 				switch (ljoin)
 				{
@@ -883,7 +884,7 @@ bool EPSPlug::Image(QString vals)
 	double x, y, w, h, angle;
 	int horpix, verpix;
 	QString filename, device;
-	QTextStream Code(&vals, QIODevice::ReadOnly);
+	ScTextStream Code(&vals, QIODevice::ReadOnly);
 	Code >> x;
 	Code >> y;
 	Code >> w;
@@ -1027,7 +1028,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 	double c, m, y, k, r, g, b;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&vals, QIODevice::ReadOnly);
+	ScTextStream Code(&vals, QIODevice::ReadOnly);
 	bool found = false;
 	if (model == colorModelRGB)
 	{

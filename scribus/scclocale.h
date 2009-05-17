@@ -15,11 +15,15 @@
 
 #include <QLocale>
 #include <QString>
+#include <QTextStream>
+
 #include "scribusapi.h"
 
-class SCRIBUS_API ScCLocale : public QLocale
+class SCRIBUS_API ScCLocale
 {
 	ScCLocale();
+	QLocale qLocale;
+
 	static ScCLocale * m_instance;
 	static ScCLocale * that();
 	
@@ -32,5 +36,34 @@ class SCRIBUS_API ScCLocale : public QLocale
 		
 };
 
+/**
+	This clas fixes a bug in QTextStream up to version Qt 4.4: using locale-aware strtod() for parsing double/float arguments
+ */
+class SCRIBUS_API ScTextStream
+{
+private:
+	QTextStream qts;
+
+public:
+	ScTextStream() : qts() {}
+	ScTextStream(QIODevice* device) : qts(device) {}
+	ScTextStream(QString * string, QIODevice::OpenMode openMode = QIODevice::ReadWrite) : qts(string, openMode) {}
+	ScTextStream(QByteArray * array, QIODevice::OpenMode openMode = QIODevice::ReadWrite ) : qts(array, openMode) {}
+
+	ScTextStream & operator<< ( const QString & val );
+	ScTextStream & operator<< ( double val );
+
+	ScTextStream & operator>> ( QString & val );
+	ScTextStream & operator>> ( double & val );
+	ScTextStream & operator>> ( float & val );
+	ScTextStream & operator>> ( int & val );
+
+	QString readAll ();
+	QString readLine ( qint64 maxlen = 0 );
+
+	bool atEnd () const;
+};
+
 #endif // SCCLOCALE_H
+
 

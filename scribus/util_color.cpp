@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include "util_color.h"
 #include "scconfig.h"
+#include "scclocale.h"
 #include "scribusdoc.h"
 #include "scpixmapcache.h"
 #include "commonstrings.h"
@@ -610,7 +611,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 								tmp = tmp.remove(0,18);
 							else if (tmp.startsWith("%%CMYKProcessColor"))
 								tmp = tmp.remove(0,19);
-							QTextStream ts2(&tmp, QIODevice::ReadOnly);
+							ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y >> k;
 							FarNam = ts2.readAll();
 							FarNam = FarNam.trimmed();
@@ -631,7 +632,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 									break;
 								}
 								tmp = tmp.remove(0,3);
-								QTextStream ts2(&tmp, QIODevice::ReadOnly);
+								ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 								ts2 >> c >> m >> y >> k;
 								FarNam = ts2.readAll();
 								FarNam = FarNam.trimmed();
@@ -652,7 +653,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 						else
 						{
 							tmp = tmp.remove(0,17);
-							QTextStream ts2(&tmp, QIODevice::ReadOnly);
+							ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y;
 							FarNam = ts2.readAll();
 							FarNam = FarNam.trimmed();
@@ -672,7 +673,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 									break;
 								}
 								tmp = tmp.remove(0,3);
-								QTextStream ts2(&tmp, QIODevice::ReadOnly);
+								ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 								ts2 >> c >> m >> y;
 								FarNam = ts2.readAll();
 								FarNam = FarNam.trimmed();
@@ -695,7 +696,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 								tmp = readLinefromDataStream(ts);
 								if ((tmp.endsWith("Xa") || tmp.endsWith(" k") || tmp.endsWith(" x")) && (tmp.length() > 4))
 								{
-									QTextStream ts2(&tmp, QIODevice::ReadOnly);
+									ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 									ts2 >> c >> m >> y >> k;
 									if (tmp.endsWith(" x"))
 									{
@@ -755,7 +756,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 				{
 					QString ColorEn, Cname;
 					int Rval, Gval, Bval, Kval;
-					QTextStream tsC(&fiC);
+					ScTextStream tsC(&fiC);
 					ColorEn = tsC.readLine();
 					bool cus = false;
 					if (ColorEn.contains("OpenOffice"))
@@ -811,7 +812,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 						if (ColorEn.startsWith("GIMP Palette"))
 						{
 							ColorEn = tsC.readLine();
-							QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+							ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
 							CoE >> dummy >> paletteName;
 						}
 						while (!tsC.atEnd())
@@ -820,7 +821,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 							ColorEn = tsC.readLine();
 							if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 								continue;
-							QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+							ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
 							CoE >> Rval;
 							CoE >> Gval;
 							CoE >> Bval;

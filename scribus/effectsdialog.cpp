@@ -23,13 +23,13 @@ for which a new license (GPL+exception) is in place.
 #include <QWidgetAction>
 #include <QTime>
 #include <QStackedWidget>
-#include <QTextStream>
 
 #include "cmsettings.h"
 #include "colorcombo.h"
 #include "curvewidget.h"
 #include "page.h"
 #include "sccombobox.h"
+#include "scclocale.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "shadebutton.h"
@@ -540,9 +540,10 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 		{
 			usedEffects->addItem( tr("Blur"));
 			QString tmpstr = effectsList.at(a).effectParameters;
-			double radius;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
-			fp >> radius;
+			double radius = ScCLocale::toDoubleC(tmpstr);
+			// surely we dont need to do it this way, do we? - av
+			//ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			//fp >> radius;
 			blRadius->setValue(radius / imageScale);
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), QString("%1 1.0").arg(radius / imageScale));
 		}
@@ -964,6 +965,7 @@ void EffectsDialog::moveEffectDown()
 
 void EffectsDialog::selectEffect(QListWidgetItem* c)
 {
+	QString s;
 	toEffects->setEnabled(false);
 	selectEffectHelper();
 	if (c)
@@ -989,7 +991,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col;
 			int shading;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 		//	fp >> col;
 			col = fp.readLine();
 			fp >> shading;
@@ -1010,7 +1012,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col1, col2;
 			int shading1, shading2;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			col1 = fp.readLine();
 			col2 = fp.readLine();
 			fp >> shading1;
@@ -1026,8 +1028,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveD1->cDisplay->setCurve(curve);
@@ -1038,8 +1042,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveD2->cDisplay->setCurve(curve);
@@ -1067,7 +1073,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col1, col2, col3;
 			int shading1, shading2, shading3;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			col1 = fp.readLine();
 			col2 = fp.readLine();
 			col3 = fp.readLine();
@@ -1087,8 +1093,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveT1->cDisplay->setCurve(curve);
@@ -1099,8 +1107,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveT2->cDisplay->setCurve(curve);
@@ -1110,8 +1120,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveT3->cDisplay->setCurve(curve);
@@ -1145,7 +1157,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col1, col2, col3, col4;
 			int shading1, shading2, shading3, shading4;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			col1 = fp.readLine();
 			col2 = fp.readLine();
 			col3 = fp.readLine();
@@ -1169,8 +1181,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveQ1->cDisplay->setCurve(curve);
@@ -1181,8 +1195,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveQ2->cDisplay->setCurve(curve);
@@ -1192,8 +1208,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveQc3->cDisplay->setCurve(curve);
@@ -1203,8 +1221,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			CurveQ4->cDisplay->setCurve(curve);
@@ -1230,7 +1250,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			disconnect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int brightness;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> brightness;
 			brightnessSlider->setValue(brightness);
 			QString tmp;
@@ -1246,7 +1266,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			disconnect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int contrast;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> contrast;
 			contrastSlider->setValue(contrast);
 			QString tmp;
@@ -1262,9 +1282,11 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			disconnect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
-			fp >> radius;
-			fp >> sigma;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> s;
+			radius = ScCLocale::toDoubleC(s);
+			fp >> s;
+			sigma = ScCLocale::toDoubleC(s);
 			shRadius->setValue(radius);
 			shValue->setValue(sigma);
 			optionStack->setCurrentIndex(4);
@@ -1276,8 +1298,9 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			disconnect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
-			fp >> radius;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> s;
+			radius = ScCLocale::toDoubleC(s);
 			blRadius->setValue(radius);
 			optionStack->setCurrentIndex(5);
 			connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
@@ -1288,7 +1311,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			disconnect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int solarize;
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> solarize;
 			solarizeSlider->setValue(solarize);
 			QString tmp;
@@ -1302,7 +1325,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 		{
 			disconnect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
-			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
@@ -1310,8 +1333,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			Kdisplay->cDisplay->setCurve(curve);

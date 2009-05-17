@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QByteArray>
 #include <QDataStream>
-#include <QTextStream>
 #include <QApplication>
 #include <QMessageBox>
 
@@ -575,7 +574,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, QIODevice::ReadOnly);
+				ScTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -1931,7 +1930,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
-		QTextStream tgv(&tmp, QIODevice::ReadOnly);
+		ScTextStream tgv(&tmp, QIODevice::ReadOnly);
 		double xf, xf2;
 		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -2238,7 +2237,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	{
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		QTextStream tgv(&tmp, QIODevice::ReadOnly);
+		ScTextStream tgv(&tmp, QIODevice::ReadOnly);
 		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
@@ -2384,7 +2383,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	if ((obj->hasAttribute("GROUPS")) && (obj->attribute("NUMGROUP", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("GROUPS");
-		QTextStream fg(&tmp, QIODevice::ReadOnly);
+		ScTextStream fg(&tmp, QIODevice::ReadOnly);
 		currItem->Groups.clear();
 		for (int cx = 0; cx < obj->attribute("NUMGROUP", "0").toInt(); ++cx)
 		{
@@ -2398,7 +2397,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		QTextStream dgv(&tmp, QIODevice::ReadOnly);
+		ScTextStream dgv(&tmp, QIODevice::ReadOnly);
 		currItem->DashValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
 		{
@@ -2414,7 +2413,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	{
 		currItem->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		QTextStream fp(&tmp, QIODevice::ReadOnly);
+		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2429,7 +2428,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	{
 		currItem->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		QTextStream fp(&tmp, QIODevice::ReadOnly);
+		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2666,7 +2665,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, QIODevice::ReadOnly);
+				ScTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;

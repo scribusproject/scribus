@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scclocale.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_icon.h"
@@ -430,8 +431,11 @@ void CurveWidget::doLoad()
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
-				fp >> xval;
-				fp >> yval;
+				QString s;
+				fp >> s;
+				xval = ScCLocale::toDoubleC(s);
+				fp >> s;
+				yval = ScCLocale::toDoubleC(s);
 				curve.addPoint(xval, yval);
 			}
 			cDisplay->setCurve(curve);
@@ -512,4 +516,5 @@ void CurveWidget::languageChange()
 	loadButton->setToolTip( tr( "Loads a curve" ) );
 	saveButton->setToolTip( tr( "Saves this curve" ) );
 }
+
 
