@@ -518,7 +518,6 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 				ResourceCollection repl;
 				repl.availableFonts = currDoc->AllFonts;
 				repl.mapFonts(ReplacedFonts);
-				repl.setUpdateSubstitutedFonts(true);
 				currDoc->replaceNamedResources(repl);
 				return true;
 			}
