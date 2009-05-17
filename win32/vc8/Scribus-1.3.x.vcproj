@@ -1568,6 +1568,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\sctextstream.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\sctextstruct.cpp"
 				>
 			</File>
@@ -10515,6 +10519,10 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\sctextstream.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\sctextstruct.h"
