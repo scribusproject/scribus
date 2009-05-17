@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_pdf.h"
 #include "scimgdataloader_qt.h"
 #include "scimgdataloader_tiff.h"
+#include "sctextstream.h"
 #include <QMessageBox>
 #include <QList>
 #include <QByteArray>

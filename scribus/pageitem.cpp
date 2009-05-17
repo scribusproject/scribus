@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "scribuswin.h"
+#include "sctextstream.h"
 #include "selection.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"

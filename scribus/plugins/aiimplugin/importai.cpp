@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "sctextstream.h"
 #include "selection.h"
 #include "text/specialchars.h"
 #include "undomanager.h"

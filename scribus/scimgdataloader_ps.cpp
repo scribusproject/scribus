@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_ps.h"
+#include "sctextstream.h"
 #include "prefsmanager.h"
 #include "util.h"
 #include "util_formats.h"

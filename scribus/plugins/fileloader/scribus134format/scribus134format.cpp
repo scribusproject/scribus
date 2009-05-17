@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "sctextstream.h"
 #include "sccolorengine.h"
 #include "hyphenator.h"
 #include "pageitem_latexframe.h"

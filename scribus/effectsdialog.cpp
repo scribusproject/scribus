@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
+#include "sctextstream.h"
 #include "shadebutton.h"
 #include "util_color.h"
 #include "util_icon.h"

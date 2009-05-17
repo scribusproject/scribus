@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scpixmapcache.h"
 #include "commonstrings.h"
+#include "sctextstream.h"
 #include "sccolorengine.h"
 #include "fileloader.h"
 #include "plugins/formatidlist.h"

@@ -551,6 +551,7 @@ SET(SCRIBUS_SOURCES
   scstreamfilter_rc4.cpp
   sctablewidget.cpp
   sctextbrowser.cpp
+  sctextstream.cpp
   sctextstruct.cpp
   sctoolbar.cpp
   sctreewidget.cpp
