@@ -214,6 +214,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_mwProgressBar->setMaximum(DOC.childNodes().count());
 		m_mwProgressBar->setValue(0);
 	}
+	// Stop  autosave timer,it will be started only if doc has autosave feature is enabled
+	if (m_Doc->autoSaveTimer->isActive())
+		m_Doc->autoSaveTimer->stop();
 	int ObCount = 0;
 	TableItems.clear();
 	TableID.clear();
@@ -1132,6 +1135,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		while (m_Doc->FirstAuto->prevInChain())
 			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
 	}
+
+	// start auto save timer if needed
+	if (m_Doc->AutoSave  && ScCore->usingGUI())
+		m_Doc->autoSaveTimer->start(m_Doc->AutoSaveTime);
 	
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(DOC.childNodes().count());
