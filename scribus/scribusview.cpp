@@ -107,6 +107,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scrapbookpalette.h"
+#include "scribuscore.h"
 #include "scribusXml.h"
 #include "selection.h"
 #include "serializer.h"
@@ -192,7 +193,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	viewport()->setBackgroundMode(Qt::PaletteBackground);
 	setFocusPolicy(Qt::ClickFocus);
 	QFont fo = QFont(font());
-	int posi = fo.pointSize()-2;
+	// #8058: Better not use too small font size on Windows
+	// in case ClearType is not enabled
+	int posi = fo.pointSize() - (ScCore->isWinGUI() ? 1 : 2);
 	fo.setPointSize(posi);
 	unitSwitcher = new QComboBox( this );
 	unitSwitcher->setFocusPolicy(Qt::NoFocus);
