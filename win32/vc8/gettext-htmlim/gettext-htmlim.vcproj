@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="gettext-pdbim"
-	ProjectGUID="{97BDE35F-A881-49BE-ADB4-218998087BF9}"
+	Name="gettext-htmlim"
+	ProjectGUID="{AD793860-316D-46C9-A355-0888D003FFB0}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,13 +64,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib lcmsd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-htmlim.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-htmlim.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\gettext-htmlim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -126,7 +126,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -150,15 +150,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-htmlim.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-htmlim.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\gettext-htmlim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -212,7 +212,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -236,13 +236,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib lcmsd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-htmlim.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-htmlim.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\gettext-htmlim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -298,7 +298,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -322,15 +322,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-htmlim.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-htmlim.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\gettext-htmlim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -367,11 +367,15 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="gettext-pdbim.cpp"
+				RelativePath="gettext-htmlim.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\pdbim\pdbim.cpp"
+				RelativePath="..\..\..\scribus\plugins\gettext\htmlim\htmlim.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\htmlim\htmlreader.cpp"
 				>
 			</File>
 		</Filter>
@@ -380,19 +384,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\pdbim\pdbim.h"
+				RelativePath="..\..\..\scribus\plugins\gettext\htmlim\htmlim.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\htmlim\htmlreader.h"
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
-		</Filter>
-		<File
-			RelativePath="ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

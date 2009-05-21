@@ -177,7 +177,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.3.5svn"
+#define VERSION "1.5.0svn"
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */

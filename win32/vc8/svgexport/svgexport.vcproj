@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="gettext-pdbim"
-	ProjectGUID="{97BDE35F-A881-49BE-ADB4-218998087BF9}"
+	Name="svgexport"
+	ProjectGUID="{9652EA11-AFA0-4CDF-88AC-7912C653EFE6}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -16,7 +16,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins\gettext"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -50,7 +50,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4190;4251;4996"
+				DisableSpecificWarnings="4190;4251;4267;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -63,14 +63,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib lcmsd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib"
+				OutputFile="$(OutDir)\svgexplugin.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\svgexplugin.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\svgexplugin.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -100,7 +100,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins\gettext"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -126,7 +126,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -136,7 +136,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4190;4251;4996"
+				DisableSpecificWarnings="4190;4251;4267;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -149,16 +149,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
+				OutputFile="$(OutDir)\svgexplugin.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\svgexplugin.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\svgexplugin.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -188,7 +188,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug-arthur|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins\gettext"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -212,7 +212,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -222,7 +222,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4190;4251;4996"
+				DisableSpecificWarnings="4190;4251;4267;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -235,14 +235,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib lcmsd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib"
+				OutputFile="$(OutDir)\svgexplugin.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\svgexplugin.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\svgexplugin.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -272,7 +272,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release-arthur|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins\gettext"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -298,7 +298,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\include&quot;;&quot;$(LIBRARIES_VC8)\iconv-1.9.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -308,7 +308,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4190;4251;4996"
+				DisableSpecificWarnings="4190;4251;4267;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -321,16 +321,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
+				OutputFile="$(OutDir)\svgexplugin.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\libxml2-2.6.32+\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\svgexplugin.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)\svgexplugin.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -367,11 +367,11 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="gettext-pdbim.cpp"
+				RelativePath="..\..\..\scribus\plugins\svgexplugin\svgexplugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\pdbim\pdbim.cpp"
+				RelativePath="svgexport.cpp"
 				>
 			</File>
 		</Filter>
@@ -380,19 +380,62 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\pdbim\pdbim.h"
+				RelativePath="..\..\..\scribus\plugins\svgexplugin\svgexplugin.h"
 				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+			Name="Generated Moc Files"
 			>
+			<File
+				RelativePath="..\..\..\scribus\plugins\svgexplugin\moc_svgexplugin.cpp"
+				>
+			</File>
 		</Filter>
-		<File
-			RelativePath="ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="scribus-lib2geom-1.3.5.x"
+	Name="scribus-lib2geom"
 	ProjectGUID="{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}"
 	RootNamespace="scribuslib2geom"
 	Keyword="Win32Proj"
