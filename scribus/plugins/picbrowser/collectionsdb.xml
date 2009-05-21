@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<picturebrowser type="collectionsset">
+	<category name="Recently used collections">
+		<collection file="/home/markd/gsoc2008/Scribus/scribus/plugins/picturebrowser/collection.xml">collection 1</collection>
+	</category>
+	<category name="Collections linked to this document">
+		<collection file="/home/markd/gsoc2008/Scribus/scribus/plugins/picturebrowser/collection.xml">linked collection 1</collection>
+		<collection file="/home/markd/Desktop/blaaa.xml">linked collection 2</collection>
+	</category>
+	<category name="My collections">
+		<collection file="/home/col1.xml">collection 1</collection>
+	</category>
+</picturebrowser>

@@ -1,0 +1,104 @@
+1. INSTALLATION
+
+How to add my Picturebrowser plugin to your current Scribus source snapshot:
+
+1. Create a folder in /scribus/plugins named picturebrowser (or anything you like)
+2. Open scribus/plugins/CMakeLists.txt and add "ADD_SUBDIRECTORY(picturebrowser)"
+3. Recompile Scribus (commands: "cmake", "make", "make install")
+
+You will find the Picturebrowser at Extras/Picturebrowser
+
+
+I didnt find out how to compile only the plugin yet, the tutorial with qmake specified here:
+http://docs.scribus.net/index.php?lang=en&page=plugin_howto
+
+does not seem to work. Maybe i will figure out later.
+
+
+2. CHANGELOG (i would be glad about suggestions how to do things better here)
+2.11
+- a lot of things have changed:
+  collections management is fully working, you can create, delete, edit collections and categories and
+  add/remove images.
+  Drag and drop is working. Wasn't as hard as i imagined, i just needed to return the correct mime data
+  in my model.
+  You can now save your settings (just the most basic ones for now, more to come).
+
+2.10
+- implemented list-based filtering
+
+2.9
+- improved my multicombobox, now it is possible to select multiple items at once, just
+  hold your mousebutton clicked and mark everything you want. Furthermore, a signal is
+  emitted when an item's checkstate is changed, this makes handling much easier.
+  I also did some work to the "insert image" tab, should be almost fully working now.
+
+2.8
+- redesigned and connected information tab
+  unfortunately there is not much information ScImage is willing to tell me :(
+
+2.7 
+- updated ScribusAPIcall to ScImage::LoadPicture
+
+2.6
+- connected GUI elements to code
+  a lot of gui elements such as the sortcombobox, zoom, previewmode, "insert into document" action, browse subfolders,
+  "go to page" can now be used
+
+2.5
+- xmlreader/writer threads
+  xmlreader has been moved to its own thread, writer has been added
+
+2.4
+- Collectionfile reading works
+  To test it out, you have to edit collectionsdb.xml and collection.xml (set proper absolute paths to testimages).
+  collectionsdb.xml holds the collections under several categories, and collection.xml contains the
+  actual images/their paths. I think everything else is selfexplanatory. Tags are not read yet.
+  At the moment, it is still running in the Gui-thread but will be moved to its own thread in the next step.
+
+2.3
+- Collectionsdatabase reading works
+  Collectionsbrowser will read collections from collectionsdb.xml (a sample file gets installed with the current
+  plugin version). This file contains several categories under which the collections are saved.
+  The loading of a collection does not work yet.
+
+2.2
+- Documentbrowser working
+  The Documentbrowser is fully functional, it shows all pages in current document and the
+  corresponding images. Remember: you have to load the document before opening the picturebrowser
+  as it won't update yet.
+
+2.1.
+- Implemented Multithreading for filebrowsing
+  A new thread is created everytime a new folder is selected. If it is still browsing the old folder
+  when a new one already has been selected, the old thread gets canceled. This works fine.
+
+- Multithreading for loading previewimages
+  This one really was really hard. I manage the exchange of data between an image loading thread and the gui
+  thread using Qt's signals and slots. Problems started with the "data" method of my itemmodel being const,
+  and therefore its not possible to emit a signal to the imageloading-thread directly from there. So i had
+  to create a method in my PictureBrowser class which emits the signal, this method is then called from "data"
+  when items are requestet by QListView.
+  The second problem was getting signals and threads to run in the context of the new thread, a new class had
+  to be defined ("loadImagesThreadInstance") which has the method to load an image and the signal to tell that
+  an image has been loaded. An instance of this class has to be created in the thread and then connected back
+  to the itemmodel to make signals/slots run in the new thread.
+  The third problem was the validity of the passed pointers. I pass the pointer of the previewImage Object
+  the image belongs to to the slot which loads the image, however if the user selects a new folder in the 
+  meantime, the pointer is invalid and this will give us a segfault ocasionally. To prevent this, a unique
+  id is associated with every set of images ("pId"), and passed to the thread. If the id of the itemmodel changes,
+  the thread or the method which creates the icon knows and cancels.
+  The fourth issue was (and is) how to pass the image and other information between the threads, to copy all this
+  results in poor performance. Passing pointers would make a very careful synchronising of threads necessary to
+  prevent simultaneous access. Im still working this out.
+
+  However, multithreading works and makes scrolling very smoothly as intended. I think the biggest chunk of work
+  has been done here.
+
+2.0.
+I replaced QListWidget by QListView now and switched to a model-based approach.
+Because images are now loaded just when they get visible, this means a huge performance
+boost.
+
+
+

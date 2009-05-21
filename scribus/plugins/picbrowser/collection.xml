@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<picturebrowser type="collection" name="testcollection">
+<image file="/home/markd/.thumbnails/normal/045f39fa39b8fa11a177d1b1e6669961.png">
+<tag>045bla</tag>
+<tag>tagtest2</tag>
+<tag>tagtest</tag>
+</image>
+<image file="/home/markd/Desktop/blabla.jpg">
+<tag>blabla</tag>
+<tag>tagtest2</tag>
+<tag>tagtest</tag>
+</image>
+<image file="/home/markd/Desktop/rel12.jpg">
+<tag>045bla</tag>
+<tag>tagtest2</tag>
+<tag>tagtest</tag>
+</image>
+<image file="/home/markd/Desktop/2481641512_30a0efc3f4.jpg">
+</image>
+</picturebrowser>
