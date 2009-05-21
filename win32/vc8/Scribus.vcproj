@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="Scribus 1.3.5.x"
+	Name="scribus-main"
 	ProjectGUID="{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}"
 	RootNamespace="Scribus 1.3.x"
 	Keyword="Win32Proj"

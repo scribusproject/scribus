@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -127,7 +127,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -213,7 +213,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -299,7 +299,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -376,11 +376,11 @@
 				>
 			</File>
 			<File
-				RelativePath="picturebrowser.cpp"
+				RelativePath="..\..\..\scribus\plugins\picbrowser\picturebrowser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\picbrowser\picturebrowser.cpp"
+				RelativePath="picturebrowserdll.cpp"
 				>
 			</File>
 			<File
@@ -401,7 +401,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -412,7 +412,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -423,7 +423,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -434,7 +434,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -449,7 +449,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -460,7 +460,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -471,7 +471,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -482,7 +482,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -545,7 +545,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -556,7 +556,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -567,7 +567,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -578,7 +578,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -603,7 +603,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
@@ -614,7 +614,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
@@ -625,7 +625,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
@@ -636,7 +636,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
