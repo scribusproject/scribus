@@ -706,6 +706,7 @@ ADD_CUSTOM_TARGET(uninstall
 ADD_SUBDIRECTORY(scribus)
 ADD_SUBDIRECTORY(doc)
 ADD_SUBDIRECTORY(icons)
+ADD_SUBDIRECTORY(profiles)
 ADD_SUBDIRECTORY(translations/qm)
 
 #Install our READMEs etc.
