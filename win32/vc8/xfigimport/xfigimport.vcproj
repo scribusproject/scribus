@@ -375,7 +375,7 @@
 				>
 			</File>
 			<File
-				RelativePath="xfigimport.cpp"
+				RelativePath="xfigimportdll.cpp"
 				>
 			</File>
 		</Filter>

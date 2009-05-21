@@ -368,7 +368,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\transform.cpp"
+				RelativePath=".\transformdll.cpp"
 				>
 			</File>
 			<File

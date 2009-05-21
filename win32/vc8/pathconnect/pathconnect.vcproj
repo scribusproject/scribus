@@ -368,7 +368,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\pathconnect.cpp"
+				RelativePath=".\pathconnectdll.cpp"
 				>
 			</File>
 			<File

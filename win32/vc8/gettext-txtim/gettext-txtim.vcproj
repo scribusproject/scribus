@@ -367,7 +367,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="gettext-txtim.cpp"
+				RelativePath="gettext-txtimdll.cpp"
 				>
 			</File>
 			<File

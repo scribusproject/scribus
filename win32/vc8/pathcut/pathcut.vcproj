@@ -368,7 +368,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\pathcut.cpp"
+				RelativePath=".\pathcutdll.cpp"
 				>
 			</File>
 			<File

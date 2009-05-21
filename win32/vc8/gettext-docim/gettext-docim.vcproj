@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="gettext-docim.cpp"
+				RelativePath="gettext-docimdll.cpp"
 				>
 			</File>
 		</Filter>

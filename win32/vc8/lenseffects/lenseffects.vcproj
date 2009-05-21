@@ -372,7 +372,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\lenseffects.cpp"
+				RelativePath=".\lenseffectsdll.cpp"
 				>
 			</File>
 			<File

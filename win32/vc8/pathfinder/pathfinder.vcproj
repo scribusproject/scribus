@@ -368,7 +368,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\pathfinder.cpp"
+				RelativePath=".\pathfinderdll.cpp"
 				>
 			</File>
 			<File

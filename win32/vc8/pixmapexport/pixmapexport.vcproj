@@ -375,7 +375,7 @@
 				>
 			</File>
 			<File
-				RelativePath="pixmapexport.cpp"
+				RelativePath="pixmapexportdll.cpp"
 				>
 			</File>
 		</Filter>

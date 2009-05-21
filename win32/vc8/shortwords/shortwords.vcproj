@@ -376,7 +376,7 @@
 				>
 			</File>
 			<File
-				RelativePath="shortwords.cpp"
+				RelativePath="shortwordsdll.cpp"
 				>
 			</File>
 			<File

@@ -367,7 +367,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="scribus12format.cpp"
+				RelativePath="scribus12formatdll.cpp"
 				>
 			</File>
 			<File

@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="wmfimport.cpp"
+				RelativePath="wmfimportdll.cpp"
 				>
 			</File>
 			<File

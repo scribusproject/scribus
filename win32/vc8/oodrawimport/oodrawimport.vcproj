@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="oodrawimport.cpp"
+				RelativePath="oodrawimportdll.cpp"
 				>
 			</File>
 			<File

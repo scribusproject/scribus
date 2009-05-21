@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="gettext-odtim.cpp"
+				RelativePath="gettext-odtimdll.cpp"
 				>
 			</File>
 			<File
