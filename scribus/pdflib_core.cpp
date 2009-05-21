@@ -1108,7 +1108,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						PutDoc("\n/Filter /FlateDecode");
 					PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream\nendobj\n");
 					glyphCount++;
-					if ((glyphCount > 255) || (glyphCount == RealGlyphs.count()))
+					int glyphsLeft = RealGlyphs.count() - SubFonts * 256;
+					if ((glyphCount > 255) || (glyphCount == glyphsLeft))
 					{
 						uint fontWidths = newObject();
 						StartObj(fontWidths);
@@ -1148,7 +1149,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						glyphWidths.clear();
 //						glyphMapping.clear();
 						glyphCount = 0;
-						SubFonts = 0;
+						++SubFonts;
 						minx = 99999.9;
 						miny = 99999.9;
 						maxx = -99999.9;
@@ -4745,7 +4746,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 					tmp += FToStr(qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
 				uchar idx2;
 				if (Options.SubsetList.contains(style.font().replacementName()))
-					idx2 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] % 255;
+					idx2 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] % 256;
 				else
 					idx2 = idx % 224 + 32;
 				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
