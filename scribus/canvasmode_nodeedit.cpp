@@ -908,6 +908,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 						bb->setRotation(currItem->rotation());
 						m_doc->AdjustItemSize(bb);
 						bb->ClipEdited = true;
+						bb->setFrameType(currItem->frameType());
 						cli.resize(0);
 						cli.putPoints(0, m_doc->nodeEdit.ClRe+2, Clip);
 						currItem->PoLine = cli.copy();
@@ -1285,5 +1286,6 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_doc->regionsChanged()->update(QRectF());
 }
+
 
 
