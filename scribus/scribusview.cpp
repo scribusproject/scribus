@@ -4703,6 +4703,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 										bb->PoLine.putPoints(0, Clip.size()-(ClRe+2), Clip, ClRe+2);
 									bb->setRotation(currItem->rotation());
 									AdjustItemSize(bb);
+									bb->FrameType = currItem->FrameType;
 									bb->ClipEdited = true;
 									cli.resize(0);
 									cli.putPoints(0, ClRe+2, Clip);
