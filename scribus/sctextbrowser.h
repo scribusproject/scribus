@@ -7,26 +7,34 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCTEXTBROWSER_H
 #define SCTEXTBROWSER_H
 
-#include <QTextBrowser>
-
 #include "scribusapi.h"
+#include <QUrl>
+#include <QWebView>
 
-class SCRIBUS_API ScTextBrowser : public QTextBrowser
+class SCRIBUS_API ScTextBrowser : public QWebView
 {
 	Q_OBJECT
-	
+
+	QUrl homeUrl;
+
 	public:
 		ScTextBrowser( QWidget * parent = 0 );
-		
-	signals:
-		void overLink(const QString &link);
 
-	protected slots:
-		/*! \brief Show the hover mouse pointer in the textBrowser*/
-		void hoverMouse(const QString &link);
+		void clear();
+		void setSimpleText(const QString& str);
+		void find(const QString& txt, const int& options = 0);
+		QString toPlainText();
 
-		/*! \brief Show the hover mouse pointer in the textBrowser*/
-		void navigateOverride(const QUrl & link);
+	protected:
+		bool event(QEvent *e);
+
+	public slots:
+		void home();
+
+	private slots:
+		void catchHome(QUrl url);
+		void externalLinkClick(QUrl url);
+
 };
 
 #endif

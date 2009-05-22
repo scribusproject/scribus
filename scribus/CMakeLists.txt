@@ -66,6 +66,7 @@ SET(SCRIBUS_UI_SRC
   ui/copypagetomasterpage.ui
   ui/createrange.ui
   ui/helpbrowser.ui
+  ui/helpbrowsernavigation.ui
   unicodesearch.ui
   useprintermarginsdialog.ui
 )
@@ -609,6 +610,7 @@ SET(SCRIBUS_SOURCES
   ui/createrange.cpp
   ui/edittoolbar.cpp
   ui/filetoolbar.cpp
+  ui/helpnavigation.cpp
   ui/modetoolbar.cpp
   ui/pdftoolbar.cpp
   undogui.cpp

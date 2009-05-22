@@ -195,7 +195,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	/*! AUTHORS tab */
 	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/AUTHORS
 	textView1 = new ScTextBrowser( tab_2 );
-	textView1->setText(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
+	textView1->setHtml(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
 
 	tabLayout->addWidget( textView1 );
 	tabWidget2->addTab( tab_2, tr( "A&uthors" ) );
@@ -209,7 +209,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 
 	/*! TRANSLATION tab */
 	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/TRANSLATION
-	textView2->setText(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
+	textView2->setHtml(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
 
 	tabLayout_2->addWidget( textView2 );
 	tabWidget2->addTab( tab_3, tr( "&Translations" ) );
@@ -218,7 +218,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/LINKS
 	tab_4 = new QWidget( tabWidget2 );
 	textView4 = new ScTextBrowser( tab_4 );
-	textView4->setText(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
+	textView4->setHtml(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
@@ -246,12 +246,12 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	
 	QFile licenceFile(ScPaths::instance().docDir() + "/COPYING");
 	if (!licenceFile.open(QIODevice::ReadOnly | QIODevice::Text))
-		textViewLicence->setText( tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
+		textViewLicence->setSimpleText( tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
 	else
 	{
 		QTextStream inTS(&licenceFile);
 		QString licenceText = inTS.readAll();
-		textViewLicence->setText(licenceText);
+		textViewLicence->setSimpleText(licenceText);
 	} 
 	
 	//Add tab widget to about window

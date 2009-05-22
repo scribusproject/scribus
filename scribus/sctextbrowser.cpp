@@ -5,51 +5,82 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <QApplication>
-#include <QCursor>
-#include <QFileDialog>
-#include <QFileInfo>
-#include <QMessageBox>
-#include <QProcess>
-#include <QString>
-#include <QStringList>
-#include <QToolTip>
-#include <QUrl>
+#include "sctextbrowser.h"
+
+#include <QWebFrame>
+#include <QEvent>
+#include <QDebug>
 
 #if defined(_WIN32)
 #include <windows.h>
 #include <shellapi.h>
 #endif
 
-#include "prefsmanager.h"
-#include "sctextbrowser.h"
 #include "urllauncher.h"
 
 ScTextBrowser::ScTextBrowser( QWidget * parent )
-	 : QTextBrowser(parent)
+	 : QWebView(parent)
 {
-	setOpenLinks(false);
-	connect(this, SIGNAL(highlighted(const QString &)), this, SLOT(hoverMouse(const QString &)));
-	connect(this, SIGNAL(anchorClicked(const QUrl &)), this, SLOT(navigateOverride(const QUrl &)));
+	// Questionable - e.g. I would like to browse only through help browser (a pref?)
+	page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+	connect(this, SIGNAL(urlChanged(QUrl)), this, SLOT(catchHome(QUrl)));
+	connect(this, SIGNAL(linkClicked(QUrl)), this, SLOT(externalLinkClick(QUrl)));
 }
 
-void ScTextBrowser::hoverMouse(const QString &link)
+void ScTextBrowser::clear()
 {
-	if (link.isEmpty())
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	setHtml(QString::fromAscii("<html></html>"));
+}
+
+void ScTextBrowser::setSimpleText(const QString& str)
+{
+	if(!str.isEmpty())
+		setHtml(QString::fromLocal8Bit("<html><body>%1</body></html>").arg(str));
 	else
+		clear();
+}
+
+void ScTextBrowser::find(const QString& txt, const int& options)
+{
+	findText(txt, QWebPage::FindFlag(options));
+}
+
+
+QString ScTextBrowser::toPlainText()
+{
+	if(page())
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
-//		Add this back in if we want links to show in tooltips
-// 		QToolTip::showText(QCursor::pos(), link);
+		if(page()->mainFrame())
+		{
+			return page()->mainFrame()->toPlainText();
+		}
 	}
-	emit overLink(link);
+	return QString();
 }
 
-void ScTextBrowser::navigateOverride(const QUrl & link)
+void ScTextBrowser::home()
 {
-	if (link.scheme()=="http")
-		UrlLauncher::instance()->launchUrlExt(link, parentWidget());
-	else
-		setSource(link);
+	setUrl(homeUrl);
+}
+
+void ScTextBrowser::catchHome(QUrl url)
+{
+	if(homeUrl.isEmpty())
+	{
+		homeUrl = url;
+		disconnect(this, SIGNAL(urlChanged(QUrl)), this, SLOT(catchHome(QUrl)));
+	}
+}
+
+void ScTextBrowser::externalLinkClick(QUrl url)
+{
+	UrlLauncher::instance()->launchUrlExt(url, parentWidget());
+}
+
+bool ScTextBrowser::event(QEvent * e)
+{
+//	bool ret(QWebView::event(e));
+//	qDebug()<<"ScTextBrowser::event"<<e->type()<<ret;
+//	return ret;
+	return QWebView::event(e);
 }

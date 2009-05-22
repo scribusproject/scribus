@@ -269,9 +269,9 @@ void UpgradeCheckerGUI::outputText(QString text, bool noLineFeed)
 		wText.remove("<qt>");
 		wText.remove("</qt>");
 		if (noLineFeed)
-			w->setText("<qt>"+wText+text+"</qt>");
+			w->setSimpleText("<qt>"+wText+text+"</qt>");
 		else
-			w->setText("<qt>"+wText+text+"<br>"+"</qt>");
+			w->setSimpleText("<qt>"+wText+text+"<br>"+"</qt>");
 	}	
 }
 

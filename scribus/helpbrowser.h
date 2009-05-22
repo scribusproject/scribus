@@ -36,8 +36,10 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QMenuBar>
 #include <QPair>
+#include <QProgressBar>
 #include <QString>
 #include <QToolBar>
+#include <QTreeWidgetItem>
 #include <QUrl>
 #include <QVariant>
 #include <QWidget>
@@ -52,6 +54,8 @@ class QEvent;
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "schelptreemodel.h"
+
+class HelpNavigation;
 
 //! \brief A structure holding title/file url reference.
 struct histd2 {
@@ -98,6 +102,8 @@ protected:
 
 	/*! \brief Tell the user there is no help available */
 	void displayNoHelp();
+
+	HelpNavigation * helpNav;
 	
 	QMenu* fileMenu;
 	QMenu* editMenu;
@@ -113,6 +119,8 @@ protected:
 	QAction* goHome;
 	QAction* goBack;
 	QAction* goFwd;
+
+	QProgressBar * progressBar;
 
 	//! \brief Selected language is here. If there is no docs for this language, "en" is used.
 	QString language;
@@ -132,9 +140,13 @@ protected slots:
 	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile="");
 	void loadHelp(const QString& filename);
 	void loadMenu();
-	void showLinkContents(const QString &link);
+//	void showLinkContents(const QString &link);
 	QString bookmarkFile();
 	QString historyFile();
+
+	void loadStart();
+	void loadProcess(int);
+	void loadEnd(bool);
 
 	/*! \brief Load doc file when user select filename in content view. */
 	void itemSelected(const QItemSelection & selected, const QItemSelection & deselected);
