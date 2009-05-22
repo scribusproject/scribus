@@ -196,7 +196,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 		{
 			currPathIndex++;
 			if (currPathIndex == pathList.count())
+			{
+				MaxChars = a;
 				break;
+			}
 			currPath = pathList[currPathIndex];
 			CurX = dx;
 			currPerc = currPath.percentAtLength(CurX);
@@ -288,7 +291,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 	}
-	MaxChars++;  // ugly Hack
 #endif
 }
 
