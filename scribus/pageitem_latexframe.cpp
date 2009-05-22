@@ -442,6 +442,7 @@ void PageItem_LatexFrame::setDpi(int newDpi)
 
 void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 {
+	// Try to interpret a config file as a relative path even when it is given with a full path
 	if (relative) {
 		QFileInfo fi;
 		QStringList configs = PrefsManager::instance()->latexConfigs();

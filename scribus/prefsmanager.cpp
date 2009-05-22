@@ -2129,7 +2129,7 @@ bool PrefsManager::ReadPref(QString ho)
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 			QStringList configs;
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
-			QString latexBase = ScPaths::instance().shareDir()+"/editorconfig/";
+			QString latexBase = LatexConfigParser::configBase();
 			for (int i=0; i < configNodes.size(); i++)
 			{
 				QString confFile = configNodes.at(i).toElement().attribute("file", "");

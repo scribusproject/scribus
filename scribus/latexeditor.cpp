@@ -243,7 +243,7 @@ void LatexEditor::initialize()
 	stateChanged(frame->state());
 	messagesTextEdit->setPlainText(frame->output());
 	disconnect(programComboBox, SIGNAL(activated(int)), this, SLOT(applicationChanged()));
-	int ind = programComboBox->findData(frame->configFile());
+	int ind = programComboBox->findData(frame->configFile()); //TODO: Needs special care wrt relative filenames
 	if (ind != -1)
 		programComboBox->setCurrentIndex(ind);
 	connect(programComboBox, SIGNAL(activated(int)), this, SLOT(applicationChanged()));
@@ -252,7 +252,8 @@ void LatexEditor::initialize()
 void LatexEditor::apply(bool force)
 {
 	bool changed = frame->setFormula(sourceTextEdit->toPlainText());
-	
+
+	//TODO: Needs special care wrt relative filenames
 	QString newConfig = programComboBox->itemData(programComboBox->currentIndex()).toString();
 	if (newConfig != frame->configFile()) {
 		changed = true;
@@ -285,7 +286,8 @@ void LatexEditor::apply(bool force)
 }
 
 void LatexEditor::applicationChanged()
-{	
+{
+	//TODO: Needs special care wrt relative filenames
 	QString newConfig = programComboBox->itemData(programComboBox->currentIndex()).toString();
 	if (newConfig != frame->configFile())
 	{
@@ -348,15 +350,16 @@ void LatexEditor::stateChanged(QProcess::ProcessState state)
 	killPushButton->setEnabled(state != QProcess::NotRunning);
 }
 
+
 QIcon LatexEditor::icon(QString config, QString fn)
 {
-	QFileInfo fiConfig(config);
+	QFileInfo fiConfig(LatexConfigParser::absoluteFilename(config));
 	QFileInfo fiIcon(fiConfig.path()+"/"+fn);
 	if (fiIcon.exists() && fiIcon.isReadable()) {
 		return QIcon(fiConfig.path()+"/"+fn);
 	} else {
 		QIcon *tmp = IconBuffer::instance()->icon(
-			fiConfig.path() + "/" + fiConfig.completeBaseName() + ".tar", fn);
+			iconFile(config), fn);
 		if (tmp) return *tmp; else return QIcon();
 	}
 }
@@ -364,14 +367,16 @@ QIcon LatexEditor::icon(QString config, QString fn)
 
 QString LatexEditor::iconFile(QString config)
 {
-	QFileInfo fiConfig(config);
+	QFileInfo fiConfig(LatexConfigParser::absoluteFilename(config));
 	return fiConfig.path() + "/" + fiConfig.completeBaseName() + ".tar";
 }
 
+
 void LatexEditor::updateConfigFile()
 {
-	if (currentConfigFile == frame->configFile()) return;
-	currentConfigFile = frame->configFile();
+	QString newConfigFile = LatexConfigParser::absoluteFilename(frame->configFile());
+	if (currentConfigFile == newConfigFile) return;
+	currentConfigFile = newConfigFile;
 	currentIconFile = iconFile(currentConfigFile);
 	QFileInfo fi(currentConfigFile);
 	
@@ -393,6 +398,7 @@ void LatexEditor::updateConfigFile()
 			value->fromString(frame->editorProperties[key]);
 		}
 	}
+	//TODO: Needs special care wrt relative filenames
 	highlighter->setConfig(&LatexConfigCache::instance()->parser(currentConfigFile)->highlighterRules);
 }
 
@@ -408,7 +414,7 @@ void LatexEditor::loadSettings()
 	}
 	widgetMap.clear();
 	
-	QFile f(frame->configFile());
+	QFile f(LatexConfigParser::absoluteFilename(frame->configFile()));
 	f.open(QIODevice::ReadOnly);
 	I18nXmlStreamReader xml(&f);
 	while (!xml.atEnd()) {
