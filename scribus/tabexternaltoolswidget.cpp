@@ -161,7 +161,7 @@ void TabExternalToolsWidget::addConfig()
 {
 	QString s = QFileDialog::getOpenFileName(this,
 		tr("Locate a Configuration file"),
-		ScPaths::instance().shareDir() + "/editorconfig/",
+		LatexConfigParser::configBase(),
 		tr("Configuration files")+" (*.xml)");
 	if (!s.isEmpty()) {
 		insertConfigItem(s);

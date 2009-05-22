@@ -59,14 +59,25 @@ void LatexHighlighter::highlightBlock(const QString &text)
 	}
 }
 
+QString LatexConfigParser::configBase()
+{
+	return ScPaths::instance().shareDir() + "/editorconfig/";
+}
+
+QString LatexConfigParser::absoluteFilename(QString fn)
+{
+	QFileInfo fi(fn);
+	if (!fi.exists()) {
+		return configBase() + fn;
+	} else {
+		return fn;
+	}
+}
+
 //TODO: Pass this information to LatexEditor, so the second parser can be removed
 bool LatexConfigParser::parseConfigFile(QString fn)
 {
-	QString base = ScPaths::instance().shareDir()+"/editorconfig/";
-	QFileInfo fi(fn);
-	if (!fi.exists()) {
-		fn = base + fn;
-	}
+	fn = absoluteFilename(fn);
 	m_error = "";
 	m_filename = fn;
 	QFile f(fn);
@@ -403,8 +414,7 @@ bool LatexConfigCache::hasError(QString filename)
 
 QStringList LatexConfigCache::defaultConfigs()
 {
-	QString base = ScPaths::instance().shareDir()+"/editorconfig/";
-	QDir dir(base);
+	QDir dir(LatexConfigParser::configBase());
 	QStringList files;
 	files = dir.entryList(QStringList("*.xml"));
 	files.sort();
