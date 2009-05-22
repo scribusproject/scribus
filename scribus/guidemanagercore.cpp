@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "guidemanager.h"
+#include "ui/guidemanager.h"
 #include "scclocale.h"
 #include "scribuscore.h"
 #include "pagestructs.h"

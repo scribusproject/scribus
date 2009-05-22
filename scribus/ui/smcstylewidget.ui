@@ -533,33 +533,33 @@
   <customwidget>
    <class>SMScComboBox</class>
    <extends>QComboBox</extends>
-   <header>smsccombobox.h</header>
+   <header>ui/smsccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>SMScrSpinBox</class>
    <extends>QSpinBox</extends>
-   <header>smscrspinbox.h</header>
+   <header>ui/smscrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>SMColorCombo</class>
    <extends>QComboBox</extends>
-   <header>smcolorcombo.h</header>
+   <header>ui/smcolorcombo.h</header>
   </customwidget>
   <customwidget>
    <class>SMShadeButton</class>
    <extends>QPushButton</extends>
-   <header>smshadebutton.h</header>
+   <header>ui/smshadebutton.h</header>
   </customwidget>
   <customwidget>
    <class>SMFontComboH</class>
    <extends>QWidget</extends>
-   <header>smfontcomboh.h</header>
+   <header>ui/smfontcomboh.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SMStyleSelect</class>
    <extends>QWidget</extends>
-   <header>smstyleselect.h</header>
+   <header>ui/smstyleselect.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "importxfig.h"
 #include "loadsaveplugin.h"
 #include "missing.h"
-#include "multiprogressdialog.h"
+#include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

@@ -78,7 +78,7 @@
   <customwidget>
    <class>UnicodeChooseButton</class>
    <extends>QPushButton</extends>
-   <header>unicodesearch.h</header>
+   <header>ui/unicodesearch.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

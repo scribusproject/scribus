@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "styles/paragraphstyle.h"
 #include "styles/charstyle.h"
-#include "stylemanager.h"
+#include "ui/stylemanager.h"
 
 /*! 02.01.2007 - 05.01.2007 : Joachim Neu : Create a paragraph style.
 			Special thanks go to avox for helping me! */

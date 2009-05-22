@@ -30,7 +30,7 @@
 #include <QWidgetAction>
 #include <QDebug>
 
-#include "aligndistribute.h"
+#include "ui/aligndistribute.h"
 #include "canvas.h"
 #include "canvasgesture_resize.h"
 #include "contextmenu.h"

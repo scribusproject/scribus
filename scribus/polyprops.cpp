@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSpacerItem>
 #include <QPixmap>
 #include <QPushButton>
-#include "polygonwidget.h"
+#include "ui/polygonwidget.h"
 #include "commonstrings.h"
 #include "util_icon.h"
 

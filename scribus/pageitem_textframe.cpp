@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "canvas.h"
 #include "commonstrings.h"
-#include "guidemanager.h"
+#include "ui/guidemanager.h"
 #include "hyphenator.h"
 #include "page.h"
 #include "pageitem.h"

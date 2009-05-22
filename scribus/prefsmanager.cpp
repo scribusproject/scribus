@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "latexhelpers.h"
 #include "missing.h"
-#include "tabkeyboardshortcutswidget.h"
+#include "ui/tabkeyboardshortcutswidget.h"
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "pdfoptions.h"

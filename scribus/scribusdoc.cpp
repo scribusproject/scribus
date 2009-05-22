@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fileloader.h"
 #include "filewatcher.h"
-#include "guidemanager.h"
+#include "ui/guidemanager.h"
 #include "hruler.h"
 #include "hyphenator.h"
 #include "layers.h"

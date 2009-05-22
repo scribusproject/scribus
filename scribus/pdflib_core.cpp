@@ -55,7 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "bookmarkpalette.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "multiprogressdialog.h"
+#include "ui/multiprogressdialog.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"

@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "latexeditor.h"
+#include "ui/latexeditor.h"
 #include "latexhelpers.h"
 #include "util.h"
 

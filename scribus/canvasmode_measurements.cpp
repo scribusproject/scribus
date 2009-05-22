@@ -20,7 +20,7 @@
 #include <QPen>
 
 #include "canvas.h"
-#include "measurements.h"
+#include "ui/measurements.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "util_math.h"

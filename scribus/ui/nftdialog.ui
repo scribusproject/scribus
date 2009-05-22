@@ -32,7 +32,7 @@
   <customwidget>
    <class>nftwidget</class>
    <extends>QWidget</extends>
-   <header>nftwidget.h</header>
+   <header>ui/nftwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

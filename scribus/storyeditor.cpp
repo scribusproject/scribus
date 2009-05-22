@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "actionmanager.h"
 #include "alignselect.h"
-#include "charselect.h"
+#include "ui/charselect.h"
 #include "colorcombo.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
@@ -76,7 +76,7 @@ for which a new license (GPL+exception) is in place.
 #include "spalette.h"
 #include "storyeditor.h"
 #include "styleitem.h"
-#include "stylemanager.h"
+#include "ui/stylemanager.h"
 #include "styleselect.h"
 #include "text/nlsconfig.h"
 #include "units.h"

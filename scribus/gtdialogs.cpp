@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include "commonstrings.h"
 #include "util_icon.h"
-#include "gtfiledialog.h"
+#include "ui/gtfiledialog.h"
 
 extern QString DocDir;
 

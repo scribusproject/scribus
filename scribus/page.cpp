@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QPixmap>
 
-#include "guidemanager.h"
+#include "ui/guidemanager.h"
 #include "nodeeditpalette.h"
 #include "page.h"
 #include "scribus.h"

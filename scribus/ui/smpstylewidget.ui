@@ -677,40 +677,40 @@
   <customwidget>
    <class>SMScComboBox</class>
    <extends>QComboBox</extends>
-   <header>smsccombobox.h</header>
+   <header>ui/smsccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>SMScrSpinBox</class>
    <extends>QSpinBox</extends>
-   <header>smscrspinbox.h</header>
+   <header>ui/smscrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>SMAlignSelect</class>
    <extends>QWidget</extends>
-   <header>smalignselect.h</header>
+   <header>ui/smalignselect.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SMSpinBox</class>
    <extends>QSpinBox</extends>
-   <header>smspinbox.h</header>
+   <header>ui/smspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>SMTabruler</class>
    <extends>QWidget</extends>
-   <header>smtabruler.h</header>
+   <header>ui/smtabruler.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SMCStyleWidget</class>
    <extends>QWidget</extends>
-   <header>smcstylewidget.h</header>
+   <header>ui/smcstylewidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SMRadioButton</class>
    <extends>QRadioButton</extends>
-   <header>smradiobutton.h</header>
+   <header>ui/smradiobutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -47,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "customfdialog.h"
 #include "sctextstruct.h"
-#include "guidemanager.h"
+#include "ui/guidemanager.h"
 #include "sccolorengine.h"
 #include "util_formats.h"
 

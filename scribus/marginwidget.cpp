@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scrspinbox.h"
 #include "units.h"
-#include "useprintermarginsdialog.h"
+#include "ui/useprintermarginsdialog.h"
 
 
 MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent),

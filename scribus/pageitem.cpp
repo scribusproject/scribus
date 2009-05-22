@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "cpalette.h"
-#include "guidemanager.h"
+#include "ui/guidemanager.h"
 #include "page.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
