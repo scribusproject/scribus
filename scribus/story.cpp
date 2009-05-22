@@ -810,19 +810,22 @@ void SEditor::saveItemText(PageItem *currItem)
 			if (hg->ch == QChar(25))
 			{
 				hg->cembedded = chars->at(c)->cembedded;
-				currItem->document()->FrameItems.append(hg->cembedded);
-				if (hg->cembedded->Groups.count() != 0)
+				if (hg->cembedded != 0)
 				{
-					for (uint ga=0; ga<FrameItems.count(); ++ga)
+					currItem->document()->FrameItems.append(hg->cembedded);
+					if (hg->cembedded->Groups.count() != 0)
 					{
-						if (FrameItems.at(ga)->Groups.count() != 0)
+						for (uint ga=0; ga<FrameItems.count(); ++ga)
 						{
-							if (FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
+							if (FrameItems.at(ga)->Groups.count() != 0)
 							{
-								if (FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
+								if (FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
 								{
-									if (currItem->document()->FrameItems.find(FrameItems.at(ga)) == -1)
-										currItem->document()->FrameItems.append(FrameItems.at(ga));
+									if (FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
+									{
+										if (currItem->document()->FrameItems.find(FrameItems.at(ga)) == -1)
+											currItem->document()->FrameItems.append(FrameItems.at(ga));
+									}
 								}
 							}
 						}
@@ -941,19 +944,22 @@ void SEditor::loadItemText(PageItem *currItem)
 				if (hg->ch == QChar(25))
 				{
 					hg->cembedded = nextItem->itemText.at(a)->cembedded;
-					FrameItems.append(hg->cembedded);
-					if (hg->cembedded->Groups.count() != 0)
+					if (hg->cembedded != 0)
 					{
-						for (uint ga=0; ga < doc->FrameItems.count(); ++ga)
+						FrameItems.append(hg->cembedded);
+						if (hg->cembedded->Groups.count() != 0)
 						{
-							if (doc->FrameItems.at(ga)->Groups.count() != 0)
+							for (uint ga=0; ga < doc->FrameItems.count(); ++ga)
 							{
-								if (doc->FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
+								if (doc->FrameItems.at(ga)->Groups.count() != 0)
 								{
-									if (doc->FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
+									if (doc->FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
 									{
-										if (FrameItems.find(doc->FrameItems.at(ga)) == -1)
-											FrameItems.append(doc->FrameItems.at(ga));
+										if (doc->FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
+										{
+											if (FrameItems.find(doc->FrameItems.at(ga)) == -1)
+												FrameItems.append(doc->FrameItems.at(ga));
+										}
 									}
 								}
 							}
