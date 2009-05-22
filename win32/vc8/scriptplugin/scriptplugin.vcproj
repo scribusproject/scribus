@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include\QtWebKit&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib python25_d.lib scribus-api.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib python25_d.lib scribus-api.lib"
 				OutputFile="$(OutDir)\scriptplugin.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\libs&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -126,7 +126,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include\QtWebKit&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -149,7 +149,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib python25.lib scribus-api.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit.lib freetype.lib libjpeg.a libtiff.lib lcms.lib python25.lib scribus-api.lib"
 				OutputFile="$(OutDir)\scriptplugin.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\libs&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -212,7 +212,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include\QtWebKit&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -235,7 +235,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib python25_d.lib scribus-api.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib python25_d.lib scribus-api.lib"
 				OutputFile="$(OutDir)\scriptplugin.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\libs&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -298,7 +298,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include\QtWebKit&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -321,7 +321,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib python25.lib scribus-api.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit.lib freetype.lib libjpeg.a libtiff.lib lcms.lib python25.lib scribus-api.lib"
 				OutputFile="$(OutDir)\scriptplugin.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES_VC8)\Python-2.5.1\libs&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -451,11 +451,11 @@
 				>
 			</File>
 			<File
-				RelativePath="scriptplugindll.cpp"
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp"
+				RelativePath="scriptplugindll.cpp"
 				>
 			</File>
 			<File
