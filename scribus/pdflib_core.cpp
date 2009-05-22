@@ -4161,7 +4161,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	else
 	{
 		double CurX = 0;
-		for (int d = 0; d < ite->itemText.length(); ++d)
+		for (int d = ite->firstInFrame(); d <= ite->lastInFrame(); ++d)
 		{
 			const ScText * const hl = ite->itemText.item(d);
 			const QChar ch = hl->ch;
