@@ -34,4 +34,5 @@ QPixmap SCRIBUS_API FontSample(const ScFace& fnt, int s, QString ts, QColor back
 //QPixmap SCRIBUS_API fontSamples(const ScFace& fnt, int s, QString ts, QColor back);
 bool SCRIBUS_API GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList);
 
+
 #endif

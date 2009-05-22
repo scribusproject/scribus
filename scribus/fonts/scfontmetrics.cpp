@@ -621,3 +621,4 @@ qreal RealFHeight(ScribusDoc *, ScFace* scFace, int Size)
 	return face->height / uniEM * (Size / 10.0);
 }
 */
+
