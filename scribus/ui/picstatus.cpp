@@ -134,9 +134,9 @@ void PicStatus::fillTable()
 			firstItem = tempItem;
 	}
 
-	for (int i = 0; i < m_Doc->Items->count(); ++i)
+	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
 	{
-		item = m_Doc->Items->at(i);
+		item = m_Doc->DocItems.at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		QString Iname = "";
 		if (item->isInlineImage)
@@ -400,7 +400,13 @@ bool PicStatus::loadPict(const QString & newFilePath)
 {
 	// Hack to fool the LoadPict function
 	currItem->Pfile = newFilePath;
+	bool masterPageMode = !currItem->OnMasterPage.isEmpty();
+	bool oldMasterPageMode = m_Doc->masterPageMode();
+	if (masterPageMode != oldMasterPageMode)
+		m_Doc->setMasterPageMode(masterPageMode);
 	m_Doc->LoadPict(newFilePath, currItem->ItemNr, true);
+	if (masterPageMode != oldMasterPageMode)
+		m_Doc->setMasterPageMode(oldMasterPageMode);
 	return currItem->PictureIsAvailable;
 }
 
