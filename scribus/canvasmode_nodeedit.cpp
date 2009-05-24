@@ -24,7 +24,7 @@
 #include "pageitem.h"
 #include "pageselector.h"
 #include "scraction.h"
-#include "scrapbookpalette.h"
+#include "ui/scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"

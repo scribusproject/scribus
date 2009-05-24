@@ -44,7 +44,7 @@ class QVBoxLayout;
 #include "scribusapi.h"
 #include "gradienteditor.h"
 #include "scribusdoc.h"
-#include "scrpalettebase.h"
+#include "ui/scrpalettebase.h"
 
 class PageItem;
 class ColorListBox;

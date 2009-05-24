@@ -40,7 +40,7 @@
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"

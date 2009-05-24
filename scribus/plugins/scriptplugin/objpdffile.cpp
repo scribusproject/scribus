@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "objpdffile.h"
 #include "cmdutil.h"
-#include "bookmarkpalette.h"
+#include "ui/bookmarkpalette.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"

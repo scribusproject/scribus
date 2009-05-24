@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "cwdialog.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "sccolorengine.h"
 #include "util_color.h"
 

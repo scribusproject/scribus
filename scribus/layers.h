@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
+#include "ui/scrpalettebase.h"
 #include "scribusstructs.h"
 #include "sclayer.h"
 

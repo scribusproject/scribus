@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "sccolorengine.h"
 #include "scclocale.h"
 #include "scconfig.h"

@@ -18,7 +18,7 @@ class QTreeWidgetItem;
 class QVBoxLayout;
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
+#include "ui/scrpalettebase.h"
 #include "scribusstructs.h"
 
 class ScribusDoc;

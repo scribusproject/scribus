@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 class QEvent;
 
-#include "scrpalettebase.h"
+#include "ui/scrpalettebase.h"
 #include "ui_stylemanager.h"
 
 class  StyleItem;

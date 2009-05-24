@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pathfinder.h"
 #include "pathfinderdialog.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "scribuscore.h"
 #include "sccolorengine.h"
 #include "util_color.h"

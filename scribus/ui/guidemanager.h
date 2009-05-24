@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "ui_guidemanager.h"
 #include "guidemanagercore.h"
-#include "scrpalettebase.h"
+#include "ui/scrpalettebase.h"
 #include "scribusstructs.h"
 #include "page.h"
 

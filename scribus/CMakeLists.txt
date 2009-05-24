@@ -85,7 +85,7 @@ SET(SCRIBUS_MOC_CLASSES
   autoform.h
   autoformbuttongroup.h
   basepointwidget.h
-  bookmarkpalette.h
+  ui/bookmarkpalette.h
   bookmwin.h
   buttonicon.h
   canvas.h
@@ -111,7 +111,7 @@ SET(SCRIBUS_MOC_CLASSES
   colorm.h
   commonstrings.h
   contextmenu.h
-  cpalette.h
+  ui/cpalette.h
   cupsoptions.h
   curvewidget.h
   customfdialog.h
@@ -156,7 +156,7 @@ SET(SCRIBUS_MOC_CLASSES
   loremipsum.h
   marginwidget.h
   margindialog.h
-  masterpagepalette.h
+  ui/masterpagepalette.h
   ui/measurements.h
   menumanager.h
   mergedoc.h
@@ -169,10 +169,10 @@ SET(SCRIBUS_MOC_CLASSES
   newtemp.h
   ui/nftdialog.h
   ui/nftwidget.h
-  nodeeditpalette.h
+  ui/nodeeditpalette.h
   observable.h
   oneclick.h
-  outlinepalette.h
+  ui/outlinepalette.h
   pageitem.h
   pageitem_imageframe.h
   pageitem_latexframe.h
@@ -184,7 +184,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/pageitemattributes.h
   pageitempointer.h
   pagelayout.h
-  pagepalette.h
+  ui/pagepalette.h
   pageselector.h
   ui/patterndialog.h
   pdflib.h
@@ -203,7 +203,7 @@ SET(SCRIBUS_MOC_CLASSES
   prefspanel.h
   preview.h
   ui/printdialog.h
-  propertiespalette.h
+  ui/propertiespalette.h
   pslib.h
   query.h
   reformdoc.h
@@ -220,14 +220,14 @@ SET(SCRIBUS_MOC_CLASSES
   scplugin.h
   scprintengine.h
   scraction.h
-  scrapbookpalette.h
+  ui/scrapbookpalette.h
   scribus.h
   scribusapp.h
   scribuscore.h
   scribusdoc.h
   scribusview.h
   scribuswin.h
-  scrpalettebase.h
+  ui/scrpalettebase.h
   scrspinbox.h
   sctablewidget.h
   sctextbrowser.h
@@ -256,7 +256,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/smstyleselect.h
   ui/smtabruler.h
   ui/smtextstyles.h
-  spalette.h
+  ui/spalette.h
   storyeditor.h
   styleitem.h
   ui/stylemanager.h
@@ -310,7 +310,7 @@ SET(SCRIBUS_SOURCES
   autoform.cpp
   autoformbuttongroup.cpp
   basepointwidget.cpp
-  bookmarkpalette.cpp
+  ui/bookmarkpalette.cpp
   bookmwin.cpp
   buttonicon.cpp
   canvas.cpp
@@ -355,7 +355,7 @@ SET(SCRIBUS_SOURCES
   colorsetmanager.cpp
   commonstrings.cpp
   contextmenu.cpp
-  cpalette.cpp
+  ui/cpalette.cpp
   cupsoptions.cpp
   curvewidget.cpp
   customfdialog.cpp
@@ -424,7 +424,7 @@ SET(SCRIBUS_SOURCES
   loremipsum.cpp
   marginwidget.cpp
   margindialog.cpp
-  masterpagepalette.cpp
+  ui/masterpagepalette.cpp
   ui/measurements.cpp
   menumanager.cpp
   mergedoc.cpp
@@ -440,10 +440,10 @@ SET(SCRIBUS_SOURCES
   nftrcreader.cpp
   nftsettings.cpp
   nfttemplate.cpp
-  nodeeditpalette.cpp
+  ui/nodeeditpalette.cpp
   observable.cpp
   oneclick.cpp
-  outlinepalette.cpp
+  ui/outlinepalette.cpp
   page.cpp
   pageitem.cpp
   pageitem_desaxe.cpp
@@ -457,7 +457,7 @@ SET(SCRIBUS_SOURCES
   ui/pageitemattributes.cpp
   pageitempointer.cpp
   pagelayout.cpp
-  pagepalette.cpp
+  ui/pagepalette.cpp
   pageselector.cpp
   pagesize.cpp
   ui/patterndialog.cpp
@@ -483,7 +483,7 @@ SET(SCRIBUS_SOURCES
   prefstable.cpp
   preview.cpp
   ui/printdialog.cpp
-  propertiespalette.cpp
+  ui/propertiespalette.cpp
   pslib.cpp
   query.cpp
   rawimage.cpp
@@ -531,7 +531,7 @@ SET(SCRIBUS_SOURCES
   scpreview.cpp
   scprintengine_ps.cpp
   scraction.cpp
-  scrapbookpalette.cpp
+  ui/scrapbookpalette.cpp
   scresizecursor.cpp
   scribus.cpp
   scribusXml.cpp
@@ -540,7 +540,7 @@ SET(SCRIBUS_SOURCES
   scribusdoc.cpp
   scribusview.cpp
   scribuswin.cpp
-  scrpalettebase.cpp
+  ui/scrpalettebase.cpp
   scrspinbox.cpp
   scslainforeader.cpp
   scstreamfilter.cpp
@@ -578,8 +578,8 @@ SET(SCRIBUS_SOURCES
   ui/smstyleselect.cpp
   ui/smtabruler.cpp
   ui/smtextstyles.cpp
-  spalette.cpp
-  splash.cpp
+  ui/spalette.cpp
+  ui/splash.cpp
   stencilreader.cpp
   storyeditor.cpp
   styleitem.cpp

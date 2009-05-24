@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
-#include "splash.h"
+#include "ui/splash.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"

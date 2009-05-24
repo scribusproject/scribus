@@ -52,7 +52,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "bookmwin.h"
-#include "bookmarkpalette.h"
+#include "ui/bookmarkpalette.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "ui/multiprogressdialog.h"

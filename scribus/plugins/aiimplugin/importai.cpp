@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "sccolorengine.h"
 #include "scconfig.h"

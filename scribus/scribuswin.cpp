@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fileloader.h"
-#include "masterpagepalette.h"
+#include "ui/masterpagepalette.h"
 #include "pageselector.h"
 #include "scribus.h"
 #include "scribuswin.h"

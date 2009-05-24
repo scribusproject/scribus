@@ -24,14 +24,14 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "missing.h"
-#include "gtaction.h"
-#include "propertiespalette.h"
-#include "scribus.h"
 #include <QCursor>
 #include <QStringList>
-//Added by qt3to4:
 #include <QList>
+
+#include "missing.h"
+#include "gtaction.h"
+#include "ui/propertiespalette.h"
+#include "scribus.h"
 #include "color.h"
 #include "prefsmanager.h"
 #include "hyphenator.h"

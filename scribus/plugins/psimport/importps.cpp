@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "scconfig.h"
 #include "scclocale.h"
 #include "scmimedata.h"

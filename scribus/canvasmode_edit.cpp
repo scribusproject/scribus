@@ -44,7 +44,7 @@
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "sccolorengine.h"
 #include "scmimedata.h"
 #include "scribus.h"

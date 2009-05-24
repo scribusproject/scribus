@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagesize.h"
 #include "ui/polygonwidget.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
+#include "ui/propertiespalette.h"
 #include "sccombobox.h"
 #include "scribus.h"
 #include "scribuscore.h"

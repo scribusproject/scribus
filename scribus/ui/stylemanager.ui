@@ -404,8 +404,8 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="local">scrpalettebase.h</include>
-  <include location="local">scrpalettebase.h</include>
+  <include location="local">ui/scrpalettebase.h</include>
+  <include location="local">ui/scrpalettebase.h</include>
  </includes>
  <resources/>
  <connections/>

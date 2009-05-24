@@ -34,7 +34,7 @@ class QEvent;
 
 #include "scribusapi.h"
 #include "scribusview.h"
-#include "scrpalettebase.h"
+#include "ui/scrpalettebase.h"
 
 class QSpacerItem;
 class QLabel;

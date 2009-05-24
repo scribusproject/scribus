@@ -18,10 +18,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "runscriptdialog.h"
 #include "helpbrowser.h"
-#include "propertiespalette.h" //TODO Move the calls to this to a signal
-#include "pagepalette.h" //TODO Move the calls to this to a signal
+#include "ui/propertiespalette.h" //TODO Move the calls to this to a signal
+#include "ui/pagepalette.h" //TODO Move the calls to this to a signal
 #include "layers.h" //TODO Move the calls to this to a signal
-#include "outlinepalette.h" //TODO Move the calls to this to a signal
+#include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
 #include "menumanager.h"
 #include "pconsole.h"
 #include "scraction.h"

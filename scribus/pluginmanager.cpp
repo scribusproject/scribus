@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "menumanager.h"
 #include "scraction.h"
-#include "splash.h"
+#include "ui/splash.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scpaths.h"
