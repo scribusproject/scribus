@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include "color.h"
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
 #include "loadsaveplugin.h"

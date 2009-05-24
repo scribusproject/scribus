@@ -34,7 +34,6 @@
 #include "canvas.h"
 #include "canvasgesture_resize.h"
 #include "contextmenu.h"
-#include "customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"

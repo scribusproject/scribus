@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdtext.h"
 #include "cmdutil.h"
 #include "cmdstyle.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "guiapp.h"
 #include "helpbrowser.h"
 #include "menumanager.h"

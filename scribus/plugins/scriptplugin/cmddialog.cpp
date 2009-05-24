@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmddialog.h"
 #include "cmdutil.h"
 #include "scribuscore.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "ui/stylemanager.h"
 
 #include <QMessageBox>

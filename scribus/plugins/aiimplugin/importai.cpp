@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <zlib.h>
 
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "importai.h"
 #include "loadsaveplugin.h"
 #include "missing.h"

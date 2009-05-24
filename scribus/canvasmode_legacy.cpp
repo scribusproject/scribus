@@ -36,7 +36,7 @@
 #include "canvasgesture_resize.h"
 #include "canvasgesture_rulermove.h"
 #include "contextmenu.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"

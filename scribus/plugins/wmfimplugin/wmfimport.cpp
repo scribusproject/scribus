@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "scribus.h"
 #include "scribusXml.h"
 #include "ui/propertiespalette.h"

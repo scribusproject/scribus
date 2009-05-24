@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QCursor>
 
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "scribus.h"
 #include "scribusXml.h"
 #include "prefsfile.h"

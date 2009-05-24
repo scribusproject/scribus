@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "color.h"
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "fileunzip.h"
 #include "fpointarray.h"
 #include "menumanager.h"

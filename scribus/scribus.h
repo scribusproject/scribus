@@ -67,7 +67,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 
 class ActionManager;
 class AlignDistributePalette;

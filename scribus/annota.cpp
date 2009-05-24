@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scfonts.h"
 #include "annota.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "commonstrings.h"

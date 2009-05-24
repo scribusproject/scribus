@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribus.h"
-#include "prefsdialogbase.h"
+#include "ui/prefsdialogbase.h"
 
 class TabTypograpy;
 class HySettings;

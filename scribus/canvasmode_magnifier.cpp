@@ -32,7 +32,6 @@
 
 #include "canvas.h"
 #include "contextmenu.h"
-#include "customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "pageitem_textframe.h"

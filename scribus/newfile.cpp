@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #if QT_VERSION  >= 0x040300
 	#include <QFileDialog>
 #else
-	#include "customfdialog.h"
+	#include "ui/customfdialog.h"
 #endif
 
 #include "fileloader.h"

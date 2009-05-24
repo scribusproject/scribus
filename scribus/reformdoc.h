@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include "prefsdialogbase.h"
+#include "ui/prefsdialogbase.h"
 
 class QSpinBox;
 class DocSections;

@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "importxfig.h"
 #include "loadsaveplugin.h"
 #include "missing.h"

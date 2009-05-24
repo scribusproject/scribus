@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "editor.h"
 #include "ui/propertiespalette.h"
 #include "navigator.h"

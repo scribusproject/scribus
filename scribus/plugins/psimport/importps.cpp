@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "importps.h"
 #include "loadsaveplugin.h"
 #include "ui/multiprogressdialog.h"

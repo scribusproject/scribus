@@ -39,9 +39,9 @@ using namespace ::std;
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "commonstrings.h"
-#include "multiprogressdialog.h"
+#include "ui/multiprogressdialog.h"
 #include "scpaths.h"
 #include "pslib.h"
 

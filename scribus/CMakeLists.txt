@@ -72,7 +72,7 @@ SET(SCRIBUS_UI_SRC
 )
 
 SET(SCRIBUS_MOC_CLASSES
-  about.h
+  ui/about.h
   ui/aboutplugins.h
   actionmanager.h
   ui/adjustcmsdialog.h
@@ -80,7 +80,7 @@ SET(SCRIBUS_MOC_CLASSES
   alignselect.h
   annot.h
   annota.h
-  applytemplatedialog.h
+  ui/applytemplatedialog.h
   arrowchooser.h
   autoform.h
   autoformbuttongroup.h
@@ -114,7 +114,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/cpalette.h
   cupsoptions.h
   curvewidget.h
-  customfdialog.h
+  ui/customfdialog.h
   dasheditor.h
   dcolor.h
   deferredtask.h
@@ -123,7 +123,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/docitemattrprefs.h
   ui/docsections.h
   editor.h
-  effectsdialog.h
+  ui/effectsdialog.h
   extimageprops.h
   fileloader.h
   filesearch.h
@@ -132,9 +132,9 @@ SET(SCRIBUS_MOC_CLASSES
   fontlistmodel.h
   fontlistview.h
   fontprefs.h
-  fontreplacedialog.h
+  ui/fontreplacedialog.h
   gradienteditor.h
-  gtdialogs.h
+  ui/gtdialogs.h
   ui/gtfiledialog.h
   ui/guidemanager.h
   guidesdelegate.h
@@ -144,7 +144,7 @@ SET(SCRIBUS_MOC_CLASSES
   hyask.h
   hyphenator.h
   ui/hysettings.h
-  imageinfodialog.h
+  ui/imageinfodialog.h
   insertTable.h
   ui/insertaframe.h
   inspage.h
@@ -155,7 +155,7 @@ SET(SCRIBUS_MOC_CLASSES
   loadsaveplugin.h
   loremipsum.h
   marginwidget.h
-  margindialog.h
+  ui/margindialog.h
   ui/masterpagepalette.h
   ui/measurements.h
   menumanager.h
@@ -198,7 +198,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/polygonwidget.h
   polyprops.h
   prefs.h
-  prefsdialogbase.h
+  ui/prefsdialogbase.h
   prefsmanager.h
   prefspanel.h
   preview.h
@@ -214,7 +214,7 @@ SET(SCRIBUS_MOC_CLASSES
   scfilewidget.h
   scgtplugin.h
   schelptreemodel.h
-  scinputdialog.h
+  ui/scinputdialog.h
   scmenu.h
   scmessagebox.h
   scplugin.h
@@ -296,7 +296,7 @@ SET(SCRIBUS_MOC_CLASSES
 )
 
 SET(SCRIBUS_SOURCES
-  about.cpp
+  ui/about.cpp
   ui/aboutplugins.cpp
   actionmanager.cpp
   ui/adjustcmsdialog.cpp
@@ -305,7 +305,7 @@ SET(SCRIBUS_SOURCES
   annot.cpp
   annota.cpp
   annotation.cpp
-  applytemplatedialog.cpp
+  ui/applytemplatedialog.cpp
   arrowchooser.cpp
   autoform.cpp
   autoformbuttongroup.cpp
@@ -358,7 +358,7 @@ SET(SCRIBUS_SOURCES
   ui/cpalette.cpp
   cupsoptions.cpp
   curvewidget.cpp
-  customfdialog.cpp
+  ui/customfdialog.cpp
   dasheditor.cpp
   dcolor.cpp
   deferredtask.cpp
@@ -369,7 +369,7 @@ SET(SCRIBUS_SOURCES
   documentchecker.cpp
   documentinformation.cpp
   editor.cpp
-  effectsdialog.cpp
+  ui/effectsdialog.cpp
   exif.cpp
   extimageprops.cpp
   fileloader.cpp
@@ -380,14 +380,14 @@ SET(SCRIBUS_SOURCES
   fontlistmodel.cpp
   fontlistview.cpp
   fontprefs.cpp
-  fontreplacedialog.cpp
+  ui/fontreplacedialog.cpp
   fparser.cpp
   fpoint.cpp
   fpointarray.cpp
   fpoptimizer.cpp
   gradienteditor.cpp
   gtaction.cpp
-  gtdialogs.cpp
+  ui/gtdialogs.cpp
   ui/gtfiledialog.cpp
   gtfont.cpp
   gtframestyle.cpp
@@ -407,7 +407,7 @@ SET(SCRIBUS_SOURCES
   hyphen.c
   hyphenator.cpp
   ui/hysettings.cpp
-  imageinfodialog.cpp
+  ui/imageinfodialog.cpp
   insertTable.cpp
   ui/insertaframe.cpp
   inspage.cpp
@@ -423,7 +423,7 @@ SET(SCRIBUS_SOURCES
   loadsaveplugin.cpp
   loremipsum.cpp
   marginwidget.cpp
-  margindialog.cpp
+  ui/margindialog.cpp
   ui/masterpagepalette.cpp
   ui/measurements.cpp
   menumanager.cpp
@@ -475,7 +475,7 @@ SET(SCRIBUS_SOURCES
   polyprops.cpp
   prefs.cpp
   prefscontext.cpp
-  prefsdialogbase.cpp
+  ui/prefsdialogbase.cpp
   prefsfile.cpp
   prefsmanager.cpp
   prefspanel.cpp
@@ -515,7 +515,7 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_psd.cpp
   scimgdataloader_qt.cpp
   scimgdataloader_tiff.cpp
-  scinputdialog.cpp
+  ui/scinputdialog.cpp
   sclayer.cpp
   scmenu.cpp
   scmessagebox.cpp

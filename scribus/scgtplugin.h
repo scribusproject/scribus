@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scplugin.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 
 class QString;
 class QCheckBox;
