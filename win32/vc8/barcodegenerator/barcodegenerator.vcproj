@@ -20,7 +20,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -67,7 +67,7 @@
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib"
 				OutputFile="$(OutDir)\barcodegenerator.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)\barcodegenerator.pdb"
 				SubSystem="2"
@@ -104,7 +104,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -127,7 +127,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
 				OutputFile="$(OutDir)\barcodegenerator.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)\barcodegenerator.pdb"
 				SubSystem="2"
@@ -192,7 +192,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -213,7 +213,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -239,7 +239,7 @@
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib"
 				OutputFile="$(OutDir)\barcodegenerator.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)\barcodegenerator.pdb"
 				SubSystem="2"
@@ -276,7 +276,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -299,7 +299,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\lcms-1.16\include&quot;;&quot;$(LIBRARIES_VC8)\cairo-1.8.6\include&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\include&quot;"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -325,7 +325,7 @@
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
 				OutputFile="$(OutDir)\barcodegenerator.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(LIBRARIES_VC8)\lcms-1.16\lib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\lib&quot;;&quot;$(LIBRARIES_VC8)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES_VC8)\libtiff-3.8.2\lib&quot;;&quot;$(QT4DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
+				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)\barcodegenerator.pdb"
 				SubSystem="2"
@@ -372,11 +372,11 @@
 				>
 			</File>
 			<File
-				RelativePath="barcodegeneratordll.cpp"
+				RelativePath="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.cpp"
+				RelativePath="barcodegeneratordll.cpp"
 				>
 			</File>
 		</Filter>
@@ -393,8 +393,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -404,8 +404,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -415,8 +415,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -426,8 +426,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -441,8 +441,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -452,8 +452,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -463,8 +463,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -474,8 +474,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -498,8 +498,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
 				</FileConfiguration>
@@ -509,8 +509,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
 				</FileConfiguration>
@@ -520,8 +520,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
 				</FileConfiguration>
@@ -531,8 +531,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
 				</FileConfiguration>
