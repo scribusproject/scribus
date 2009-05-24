@@ -20,6 +20,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -40,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\boost-1.35.0&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;"
+				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(BOOST_DIR)&quot;;&quot;$(FREETYPE_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -85,6 +86,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
 			>
@@ -107,7 +109,7 @@
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\boost-1.35.0&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;"
+				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(BOOST_DIR)&quot;;&quot;$(FREETYPE_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -150,6 +152,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -170,7 +173,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\boost-1.35.0&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;"
+				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(BOOST_DIR)&quot;;&quot;$(FREETYPE_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -215,6 +218,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
 			>
@@ -237,7 +241,7 @@
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\boost-1.35.0&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;"
+				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(BOOST_DIR)&quot;;&quot;$(FREETYPE_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
