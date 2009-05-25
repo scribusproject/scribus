@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scclocale.h"

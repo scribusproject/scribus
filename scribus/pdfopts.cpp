@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "commonstrings.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
