@@ -34,6 +34,7 @@ Requirements:
 	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
 	libjpeg (depending on how Qt is packaged)
 	libpng
+	Qtwebkit
 
 Recommended:
 	CUPS
