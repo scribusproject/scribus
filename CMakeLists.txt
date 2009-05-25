@@ -426,6 +426,13 @@ FIND_PACKAGE(Qt4 REQUIRED)
 INCLUDE( ${QT_USE_FILE} )
 IF (QT_FOUND)
   MESSAGE("Qt4 Found OK")
+  # we wont turn around, lets make it required
+  IF(QT_QTWEBKIT_FOUND)
+  MESSAGE(STATUS "QtWebkit Found OK")
+  ELSE(QT_QTWEBKIT_FOUND)
+  MESSAGE(FATAL_ERROR "QtWebKit not found")
+  ENDIF(QT_QTWEBKIT_FOUND)
+
   IF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 4 AND QT_VERSION_PATCH EQUAL 0)
   MESSAGE(STATUS "Warning: Qt 4.4.0 has some bugs relating to decimal notation and line drawing. Please refer to Scribus bug 6999 and 7187 for information and to check if this may affect your use. Please use 4.4.1+ on release for your platform/distribution.")
   ENDIF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 4 AND QT_VERSION_PATCH EQUAL 0)
