@@ -50,7 +50,8 @@
 			<submenuitem file="importhints3.html" text="OpenOffice.org Docs" />
 			<submenuitem file="importhints4.html" text="HTML Importing" />
 			<submenuitem file="scribus-svg.html" text="Importing SVGs" />
-		<submenuitem file="psd.html" text="Importing PSD" />
+			<submenuitem file="psd.html" text="Importing PSD" />
+			<submenuitem file="renderframes-en.html" text="Render Frames" />
 		</submenuitem>
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
