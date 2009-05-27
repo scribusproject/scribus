@@ -772,6 +772,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				a = pg.attribute("NUM").toInt();
 				PgNam = "";
 				PgNam = pg.attribute("NAM", "");
+				if (pg.tagName()=="MASTERPAGE" && PgNam.isEmpty())
+				{
+					qDebug() << "scribus13format: corrupted masterpage with empty name detected";
+					PAGE=PAGE.nextSibling();
+					continue;
+				}
 				//Pgc = m_Doc->pageCount;
 				//AtFl = m_Doc->usesAutomaticTextFrames();
 				if (PgNam.isEmpty())
