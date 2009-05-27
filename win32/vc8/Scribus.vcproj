@@ -512,7 +512,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\arrowchooser.cpp"
+				RelativePath="..\..\scribus\ui\arrowchooser.cpp"
 				>
 			</File>
 			<File
@@ -524,7 +524,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\basepointwidget.cpp"
+				RelativePath="..\..\scribus\ui\basepointwidget.cpp"
 				>
 			</File>
 			<File
@@ -532,7 +532,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\bookmwin.cpp"
+				RelativePath="..\..\scribus\ui\bookmwin.cpp"
 				>
 			</File>
 			<File
@@ -708,7 +708,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\contextmenu.cpp"
+				RelativePath="..\..\scribus\ui\contextmenu.cpp"
 				>
 			</File>
 			<File
@@ -728,7 +728,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\curvewidget.cpp"
+				RelativePath="..\..\scribus\ui\curvewidget.cpp"
 				>
 			</File>
 			<File
@@ -920,7 +920,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\helpbrowser.cpp"
+				RelativePath="..\..\scribus\ui\helpbrowser.cpp"
 				>
 			</File>
 			<File
@@ -932,7 +932,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\hruler.cpp"
+				RelativePath="..\..\scribus\ui\hruler.cpp"
 				>
 			</File>
 			<File
@@ -996,7 +996,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\layers.cpp"
+				RelativePath="..\..\scribus\ui\layers.cpp"
 				>
 			</File>
 			<File
@@ -1172,7 +1172,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\pageselector.cpp"
+				RelativePath="..\..\scribus\ui\pageselector.cpp"
 				>
 			</File>
 			<File
@@ -1240,7 +1240,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\prefs.cpp"
+				RelativePath="..\..\scribus\ui\prefs.cpp"
 				>
 			</File>
 			<File
@@ -1300,7 +1300,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\reformdoc.cpp"
+				RelativePath="..\..\scribus\ui\reformdoc.cpp"
 				>
 			</File>
 			<File
@@ -1432,11 +1432,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scmenu.cpp"
+				RelativePath="..\..\scribus\ui\scmenu.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scmessagebox.cpp"
+				RelativePath="..\..\scribus\ui\scmessagebox.cpp"
 				>
 			</File>
 			<File
@@ -1568,7 +1568,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctextbrowser.cpp"
+				RelativePath="..\..\scribus\ui\sctextbrowser.cpp"
 				>
 			</File>
 			<File
@@ -1580,7 +1580,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctoolbar.cpp"
+				RelativePath="..\..\scribus\ui\sctoolbar.cpp"
 				>
 			</File>
 			<File
@@ -1704,7 +1704,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\storyeditor.cpp"
+				RelativePath="..\..\scribus\ui\storyeditor.cpp"
 				>
 			</File>
 			<File
@@ -1916,7 +1916,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\vruler.cpp"
+				RelativePath="..\..\scribus\ui\vruler.cpp"
 				>
 			</File>
 		</Filter>
@@ -2361,7 +2361,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\arrowchooser.h"
+				RelativePath="..\..\scribus\ui\arrowchooser.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2505,7 +2505,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\basepointwidget.h"
+				RelativePath="..\..\scribus\ui\basepointwidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2601,7 +2601,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\bookmwin.h"
+				RelativePath="..\..\scribus\ui\bookmwin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3873,7 +3873,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\contextmenu.h"
+				RelativePath="..\..\scribus\ui\contextmenu.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4149,7 +4149,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\curvewidget.h"
+				RelativePath="..\..\scribus\ui\curvewidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5577,7 +5577,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\helpbrowser.h"
+				RelativePath="..\..\scribus\ui\helpbrowser.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5677,7 +5677,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\hruler.h"
+				RelativePath="..\..\scribus\ui\hruler.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6221,7 +6221,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\layers.h"
+				RelativePath="..\..\scribus\ui\layers.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -7929,7 +7929,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\pageselector.h"
+				RelativePath="..\..\scribus\ui\pageselector.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -8573,7 +8573,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\prefs.h"
+				RelativePath="..\..\scribus\ui\prefs.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9033,7 +9033,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\reformdoc.h"
+				RelativePath="..\..\scribus\ui\reformdoc.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9669,7 +9669,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scmenu.h"
+				RelativePath="..\..\scribus\ui\scmenu.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9717,7 +9717,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scmessagebox.h"
+				RelativePath="..\..\scribus\ui\scmessagebox.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10525,7 +10525,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctextbrowser.h"
+				RelativePath="..\..\scribus\ui\sctextbrowser.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10581,7 +10581,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctoolbar.h"
+				RelativePath="..\..\scribus\ui\sctoolbar.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11853,7 +11853,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\storyeditor.h"
+				RelativePath="..\..\scribus\ui\storyeditor.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -13437,14 +13437,14 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\vruler.h"
+				RelativePath="..\..\scribus\ui\vruler.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing vruler.h"
+						Description="Moc&apos;ing $(InputFileName)"
 						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
@@ -13455,7 +13455,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing vruler.h"
+						Description="Moc&apos;ing $(InputFileName)"
 						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
@@ -13466,7 +13466,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing vruler.h"
+						Description="Moc&apos;ing $(InputFileName)"
 						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
@@ -13477,7 +13477,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing vruler.h"
+						Description="Moc&apos;ing $(InputFileName)"
 						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
@@ -13731,7 +13731,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_arrowchooser.cpp"
+				RelativePath="..\..\scribus\ui\moc_arrowchooser.cpp"
 				>
 			</File>
 			<File
@@ -13743,7 +13743,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_basepointwidget.cpp"
+				RelativePath="..\..\scribus\ui\moc_basepointwidget.cpp"
 				>
 			</File>
 			<File
@@ -13751,7 +13751,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_bookmwin.cpp"
+				RelativePath="..\..\scribus\ui\moc_bookmwin.cpp"
 				>
 			</File>
 			<File
@@ -13847,7 +13847,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_contextmenu.cpp"
+				RelativePath="..\..\scribus\ui\moc_contextmenu.cpp"
 				>
 			</File>
 			<File
@@ -13867,7 +13867,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_curvewidget.cpp"
+				RelativePath="..\..\scribus\ui\moc_curvewidget.cpp"
 				>
 			</File>
 			<File
@@ -13979,11 +13979,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_helpbrowser.cpp"
+				RelativePath="..\..\scribus\ui\moc_helpbrowser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_hruler.cpp"
+				RelativePath="..\..\scribus\ui\moc_hruler.cpp"
 				>
 			</File>
 			<File
@@ -14027,7 +14027,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_layers.cpp"
+				RelativePath="..\..\scribus\ui\moc_layers.cpp"
 				>
 			</File>
 			<File
@@ -14167,7 +14167,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_pageselector.cpp"
+				RelativePath="..\..\scribus\ui\moc_pageselector.cpp"
 				>
 			</File>
 			<File
@@ -14219,7 +14219,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_prefs.cpp"
+				RelativePath="..\..\scribus\ui\moc_prefs.cpp"
 				>
 			</File>
 			<File
@@ -14255,7 +14255,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_reformdoc.cpp"
+				RelativePath="..\..\scribus\ui\moc_reformdoc.cpp"
 				>
 			</File>
 			<File
@@ -14291,11 +14291,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_scmenu.cpp"
+				RelativePath="..\..\scribus\ui\moc_scmenu.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_scmessagebox.cpp"
+				RelativePath="..\..\scribus\ui\moc_scmessagebox.cpp"
 				>
 			</File>
 			<File
@@ -14351,11 +14351,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_sctextbrowser.cpp"
+				RelativePath="..\..\scribus\ui\moc_sctextbrowser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_sctoolbar.cpp"
+				RelativePath="..\..\scribus\ui\moc_sctoolbar.cpp"
 				>
 			</File>
 			<File
@@ -14459,7 +14459,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_storyeditor.cpp"
+				RelativePath="..\..\scribus\ui\moc_storyeditor.cpp"
 				>
 			</File>
 			<File
@@ -14579,7 +14579,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_vruler.cpp"
+				RelativePath="..\..\scribus\ui\moc_vruler.cpp"
 				>
 			</File>
 		</Filter>
