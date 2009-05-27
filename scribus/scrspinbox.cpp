@@ -142,6 +142,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	// #7984
 #if defined(Q_WS_MAC) || defined(Q_WS_WIN)
 	ts.replace(",", ".");
+	QString sepDecimal(".");
 #else
 // 	ts.replace(",", ".");
 	// We need to take information at the same source as strtod
@@ -154,7 +155,6 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	ts.remove(sepGroup);
 	// it can be that some keyboard layouts expect applications to turn "." (from numpad generally) into localized decimal separator (e.g. fr)
 	ts.replace(cSepDecimal, sepDecimal);
-
 #endif
 	
 	ts.replace("%", "");
@@ -167,7 +167,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	int pos = ts.length();
 	while (pos > 0)
 	{
-		pos = ts.lastIndexOf(".", pos);
+		pos = ts.lastIndexOf(sepDecimal, pos);
 		if (pos >= 0) 
 		{
 			if (pos < static_cast<int>(ts.length()))
@@ -178,7 +178,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			pos--;
 		}
 	}
-	if (ts.endsWith("."))
+	if (ts.endsWith(sepDecimal))
 		ts.append("0");
 	//CB FParser doesn't handle unicode well/at all.
 	//So, instead of just getting the translated strings and
@@ -236,7 +236,18 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	int ret = fp.Parse(str, "", true);
 // 	qDebug() << "fp return =" << ret << QString::fromAscii(fp.ErrorMsg());
 	if (ret >= 0)
-		return 0;
+	{
+		/* #7984 Lets give a second chance.
+		 * We have made sure that the decimal separator was set according to locale,
+		 * as instructed per documentation, but seems that strtod was not happy.
+		 * Now reset to C decimal separator and "hope that helps!"
+		 */
+		ts.replace(QString::fromLocal8Bit( localeconv()->decimal_point ), QLocale::c().decimalPoint());
+		str =  ts.toLocal8Bit().data();
+		int ret = fp.Parse(str, "", true);
+		if(ret >= 0)
+			return 0;
+	}
 	double erg = fp.Eval(NULL);
 // 	qDebug() << "fp value =" << erg;
 	return erg;
