@@ -1521,6 +1521,12 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				PgNam = pg.attribute("NAM", "");
 				//Pgc = doc->pageCount;
 				//AtFl = doc->usesAutomaticTextFrames();
+				if (pg.tagName()=="MASTERPAGE" && PgNam.isEmpty())
+				{
+					qDebug("scribus13format: corrupted masterpage with empty name detected");
+					PAGE=PAGE.nextSibling();
+					continue;
+				}
 				if (PgNam.isEmpty())
 				{
 					//doc->pageCount = Pgc;

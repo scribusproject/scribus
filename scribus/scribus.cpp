@@ -5067,7 +5067,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 			diaLinksCount=static_cast<int>(dia->Links->count());
 		}
 		QString masterPageName = dia->Answer->text();
-		while (doc->MasterNames.contains(masterPageName) || (masterPageName == "Normal"))
+		while (doc->MasterNames.contains(masterPageName) || (masterPageName == "Normal") || masterPageName.isEmpty())
 		{
 			if (!dia->exec())
 			{
