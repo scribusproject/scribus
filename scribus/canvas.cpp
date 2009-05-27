@@ -19,7 +19,7 @@
 
 #include "canvas.h"
 #include "canvasmode.h"
-#include "hruler.h"
+#include "ui/hruler.h"
 #include "page.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"

@@ -81,12 +81,12 @@ SET(SCRIBUS_MOC_CLASSES
   annot.h
   annota.h
   ui/applytemplatedialog.h
-  arrowchooser.h
+  ui/arrowchooser.h
   autoform.h
   autoformbuttongroup.h
-  basepointwidget.h
+  ui/basepointwidget.h
   ui/bookmarkpalette.h
-  bookmwin.h
+  ui/bookmwin.h
   buttonicon.h
   canvas.h
   canvasgesture_rulermove.h
@@ -110,10 +110,10 @@ SET(SCRIBUS_MOC_CLASSES
   colorlistbox.h
   colorm.h
   commonstrings.h
-  contextmenu.h
+  ui/contextmenu.h
   ui/cpalette.h
   cupsoptions.h
-  curvewidget.h
+  ui/curvewidget.h
   ui/customfdialog.h
   dasheditor.h
   dcolor.h
@@ -139,8 +139,8 @@ SET(SCRIBUS_MOC_CLASSES
   ui/guidemanager.h
   guidesdelegate.h
   guidesmodel.h
-  helpbrowser.h
-  hruler.h
+  ui/helpbrowser.h
+  ui/hruler.h
   hyask.h
   hyphenator.h
   ui/hysettings.h
@@ -151,7 +151,7 @@ SET(SCRIBUS_MOC_CLASSES
   javadocs.h
   ui/latexeditor.h
   latexhelpers.h
-  layers.h
+  ui/layers.h
   loadsaveplugin.h
   loremipsum.h
   marginwidget.h
@@ -185,7 +185,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitempointer.h
   pagelayout.h
   ui/pagepalette.h
-  pageselector.h
+  ui/pageselector.h
   ui/patterndialog.h
   pdflib.h
   pdflib_core.h
@@ -197,7 +197,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/pluginmanagerprefsgui.h
   ui/polygonwidget.h
   polyprops.h
-  prefs.h
+  ui/prefs.h
   ui/prefsdialogbase.h
   prefsmanager.h
   prefspanel.h
@@ -206,7 +206,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/propertiespalette.h
   pslib.h
   query.h
-  reformdoc.h
+  ui/reformdoc.h
   ui/replacecolors.h
   ui/replaceonecolor.h
   rulermover.h
@@ -215,8 +215,8 @@ SET(SCRIBUS_MOC_CLASSES
   scgtplugin.h
   schelptreemodel.h
   ui/scinputdialog.h
-  scmenu.h
-  scmessagebox.h
+  ui/scmenu.h
+  ui/scmessagebox.h
   scplugin.h
   scprintengine.h
   scraction.h
@@ -230,8 +230,8 @@ SET(SCRIBUS_MOC_CLASSES
   ui/scrpalettebase.h
   scrspinbox.h
   sctablewidget.h
-  sctextbrowser.h
-  sctoolbar.h
+  ui/sctextbrowser.h
+  ui/sctoolbar.h
   sctreewidget.h
   search.h
   selection.h
@@ -257,7 +257,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/smtabruler.h
   ui/smtextstyles.h
   ui/spalette.h
-  storyeditor.h
+  ui/storyeditor.h
   styleitem.h
   ui/stylemanager.h
   styleselect.h
@@ -292,7 +292,7 @@ SET(SCRIBUS_MOC_CLASSES
   upgradechecker.h
   urllauncher.h
   ui/useprintermarginsdialog.h
-  vruler.h
+  ui/vruler.h
 )
 
 SET(SCRIBUS_SOURCES
@@ -306,12 +306,12 @@ SET(SCRIBUS_SOURCES
   annota.cpp
   annotation.cpp
   ui/applytemplatedialog.cpp
-  arrowchooser.cpp
+  ui/arrowchooser.cpp
   autoform.cpp
   autoformbuttongroup.cpp
-  basepointwidget.cpp
+  ui/basepointwidget.cpp
   ui/bookmarkpalette.cpp
-  bookmwin.cpp
+  ui/bookmwin.cpp
   buttonicon.cpp
   canvas.cpp
   canvasgesture_linemove.cpp
@@ -354,10 +354,10 @@ SET(SCRIBUS_SOURCES
   colorm.cpp
   colorsetmanager.cpp
   commonstrings.cpp
-  contextmenu.cpp
+  ui/contextmenu.cpp
   ui/cpalette.cpp
   cupsoptions.cpp
-  curvewidget.cpp
+  ui/curvewidget.cpp
   ui/customfdialog.cpp
   dasheditor.cpp
   dcolor.cpp
@@ -400,9 +400,9 @@ SET(SCRIBUS_SOURCES
   guidemanagercore.cpp
   guidesdelegate.cpp
   guidesmodel.cpp
-  helpbrowser.cpp
+  ui/helpbrowser.cpp
   hnjalloc.c
-  hruler.cpp
+  ui/hruler.cpp
   hyask.cpp
   hyphen.c
   hyphenator.cpp
@@ -417,7 +417,7 @@ SET(SCRIBUS_SOURCES
   langmgr.cpp
   ui/latexeditor.cpp
   latexhelpers.cpp
-  layers.cpp
+  ui/layers.cpp
   linecombo.cpp
   linkbutton.cpp
   loadsaveplugin.cpp
@@ -458,7 +458,7 @@ SET(SCRIBUS_SOURCES
   pageitempointer.cpp
   pagelayout.cpp
   ui/pagepalette.cpp
-  pageselector.cpp
+  ui/pageselector.cpp
   pagesize.cpp
   ui/patterndialog.cpp
   pdflib.cpp
@@ -473,7 +473,7 @@ SET(SCRIBUS_SOURCES
   ui/pluginmanagerprefsgui.cpp
   ui/polygonwidget.cpp
   polyprops.cpp
-  prefs.cpp
+  ui/prefs.cpp
   prefscontext.cpp
   ui/prefsdialogbase.cpp
   prefsfile.cpp
@@ -488,7 +488,7 @@ SET(SCRIBUS_SOURCES
   query.cpp
   rawimage.cpp
   rc4.c
-  reformdoc.cpp
+  ui/reformdoc.cpp
   ui/replacecolors.cpp
   ui/replaceonecolor.cpp
   rulermover.cpp
@@ -517,8 +517,8 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_tiff.cpp
   ui/scinputdialog.cpp
   sclayer.cpp
-  scmenu.cpp
-  scmessagebox.cpp
+  ui/scmenu.cpp
+  ui/scmessagebox.cpp
   scmimedata.cpp
   scpageoutput.cpp
   scpageoutput_ps2.cpp
@@ -548,10 +548,10 @@ SET(SCRIBUS_SOURCES
   scstreamfilter_flate.cpp
   scstreamfilter_rc4.cpp
   sctablewidget.cpp
-  sctextbrowser.cpp
+  ui/sctextbrowser.cpp
   sctextstream.cpp
   sctextstruct.cpp
-  sctoolbar.cpp
+  ui/sctoolbar.cpp
   sctreewidget.cpp
   search.cpp
   selection.cpp
@@ -581,7 +581,7 @@ SET(SCRIBUS_SOURCES
   ui/spalette.cpp
   ui/splash.cpp
   stencilreader.cpp
-  storyeditor.cpp
+  ui/storyeditor.cpp
   styleitem.cpp
   ui/stylemanager.cpp
   styleselect.cpp
@@ -637,7 +637,7 @@ SET(SCRIBUS_SOURCES
   util_text.cpp
   vgradient.cpp
   vgradientex.cpp
-  vruler.cpp
+  ui/vruler.cpp
 )
 
 IF(WIN32)

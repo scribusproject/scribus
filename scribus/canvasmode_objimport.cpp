@@ -28,7 +28,7 @@
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "pageselector.h"
+#include "ui/pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

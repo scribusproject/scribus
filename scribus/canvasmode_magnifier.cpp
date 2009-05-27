@@ -31,11 +31,11 @@
 #include <QDebug>
 
 #include "canvas.h"
-#include "contextmenu.h"
+#include "ui/contextmenu.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "pageitem_textframe.h"
-#include "pageselector.h"
+#include "ui/pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

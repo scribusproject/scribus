@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 
 
-#include "bookmwin.h"
+#include "ui/bookmwin.h"
 #include "ui/bookmarkpalette.h"
 #include "cmsettings.h"
 #include "commonstrings.h"

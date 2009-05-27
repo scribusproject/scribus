@@ -59,7 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scpaths.h"
-#include "pageselector.h"
+#include "ui/pageselector.h"
 #include "util_printer.h"
 #include "util_ghostscript.h"
 #include "sccolorengine.h"

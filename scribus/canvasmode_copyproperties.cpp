@@ -25,7 +25,7 @@
 #include <QDebug>
 
 #include "canvas.h"
-#include "contextmenu.h"
+#include "ui/contextmenu.h"
 #include "fpoint.h"
 #include "scribus.h"
 #include "scribusdoc.h"

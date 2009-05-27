@@ -21,7 +21,7 @@ or documentation
 #include "scribus.h"
 #include "scpaths.h"
 #include "configuration.h"
-#include "helpbrowser.h"
+#include "ui/helpbrowser.h"
 
 #include <QGridLayout>
 #include <QHBoxLayout>

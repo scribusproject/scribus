@@ -28,16 +28,17 @@
 #include <QRect>
 #include <QWidgetAction>
 
+#include "ui/basepointwidget.h"
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "hruler.h"
-#include "vruler.h"
+#include "ui/hruler.h"
+#include "ui/vruler.h"
 #include "hyphenator.h"
 #include "insertTable.h"
 #include "oneclick.h"
 #include "pageitem_textframe.h"
-#include "pageselector.h"
+#include "ui/pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include <QProcess>
 #include "pageitem.h"
-#include "scmessagebox.h"
+#include "ui/scmessagebox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scpainter.h"

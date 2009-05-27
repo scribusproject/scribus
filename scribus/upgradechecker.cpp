@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "sctextbrowser.h"
+#include "ui/sctextbrowser.h"
 #include "upgradechecker.h"
 
 
@@ -28,8 +28,7 @@ for which a new license (GPL+exception) is in place.
 #define sleep(t) Sleep(t*1000)
 #endif
 
-UpgradeChecker::UpgradeChecker()
- : QObject()
+UpgradeChecker::UpgradeChecker() : QObject()
 {
 	init();
 	writeToConsole=true;

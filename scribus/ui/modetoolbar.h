@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #define MODETOOLBAR_H
 
 #include "scribusapi.h"
-#include "sctoolbar.h"
+#include "ui/sctoolbar.h"
 #include <QAction>
 #include <QMenu>
 #include <QWidgetAction>

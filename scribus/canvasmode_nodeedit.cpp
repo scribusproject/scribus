@@ -22,7 +22,7 @@
 #include "canvasgesture_rectselect.h"
 #include "fpoint.h"
 #include "pageitem.h"
-#include "pageselector.h"
+#include "ui/pageselector.h"
 #include "scraction.h"
 #include "ui/scrapbookpalette.h"
 #include "scribus.h"

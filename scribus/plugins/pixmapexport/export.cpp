@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QCursor>
 
-#include "scmessagebox.h"
+#include "ui/scmessagebox.h"
 #include "scribus.h"
 #include "scraction.h"
 #include "menumanager.h"

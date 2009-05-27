@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
-#include "sctoolbar.h"
+#include "ui/sctoolbar.h"
 #include "selection.h"
 #include "menumanager.h"
 #include "scraction.h"

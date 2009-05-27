@@ -506,7 +506,7 @@
   <customwidget>
    <class>BasePointWidget</class>
    <extends>QWidget</extends>
-   <header>basepointwidget.h</header>
+   <header>ui/basepointwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

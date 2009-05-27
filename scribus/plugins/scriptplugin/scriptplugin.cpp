@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdstyle.h"
 #include "ui/customfdialog.h"
 #include "guiapp.h"
-#include "helpbrowser.h"
+#include "ui/helpbrowser.h"
 #include "menumanager.h"
 #include "objimageexport.h"
 #include "objpdffile.h"

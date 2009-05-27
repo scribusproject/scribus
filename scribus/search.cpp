@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribus.h"
 #include "shadebutton.h"
-#include "storyeditor.h"
+#include "ui/storyeditor.h"
 #include "styleselect.h"
 #include "util.h"
 #include "util_icon.h"

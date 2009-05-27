@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include "scribus.h"
 #include "menumanager.h"
-#include "scmenu.h"
+#include "ui/scmenu.h"
 #include "scraction.h"
 #include <QDebug>
 

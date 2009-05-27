@@ -45,7 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "scclocale.h"
 #include "scfonts.h"
-#include "scmessagebox.h"
+#include "ui/scmessagebox.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"

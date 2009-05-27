@@ -86,7 +86,7 @@
   <customwidget>
    <class>ScTextBrowser</class>
    <extends>QWidget</extends>
-   <header>sctextbrowser.h</header>
+   <header>ui/sctextbrowser.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

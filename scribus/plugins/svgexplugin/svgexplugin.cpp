@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
-#include "scmessagebox.h"
+#include "ui/scmessagebox.h"
 #include "scpattern.h"
 #include "util.h"
 #include "ui/customfdialog.h"
