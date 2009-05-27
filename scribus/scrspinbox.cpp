@@ -140,12 +140,16 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 // 	qDebug() << "##" << ts;
 
 	const lconv * lc(localeconv());
-	QString sepDecimal(QString::fromLocal8Bit( lc->decimal_point ));
-	QString sepGroup(QString::fromLocal8Bit( lc->thousands_sep ));
+	QString sysSepDecimal(QLocale::system().decimalPoint());
+	QString sysSepGroup(QLocale::system().groupSeparator());
+	QString crtSepDecimal(QString::fromLocal8Bit( lc->decimal_point ));
+	QString crtSepGroup(QString::fromLocal8Bit( lc->thousands_sep ));
 	// this could be hardcoded: "."
 	QString cSepDecimal(QLocale::c().decimalPoint());
-	ts.remove(sepGroup);
-	ts.replace(sepDecimal, cSepDecimal);
+	ts.remove(sysSepGroup);
+	ts.replace(sysSepDecimal, crtSepDecimal);
+	ts.remove(crtSepGroup);
+	ts.replace(crtSepDecimal, cSepDecimal);
 	
 	ts.replace("%", "");
 	ts.replace("°", "");
@@ -224,7 +228,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 //	qDebug() << "TS"<<ts;
 	std::string str(ts.toLocal8Bit().data());
 	double erg(0.0);
-	if(sepDecimal != cSepDecimal)
+	if(crtSepDecimal != cSepDecimal)
 	{
 		setlocale(LC_NUMERIC, "C");
 		int ret = fp.Parse(str, "", true);
