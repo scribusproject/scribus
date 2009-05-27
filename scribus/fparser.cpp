@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "fptypes.h"
 using namespace FUNCTIONPARSERTYPES;
 
+#include <clocale>
 #include <cstdlib>
 #include <cstring>
 #include <cctype>
@@ -479,7 +480,7 @@ int FunctionParser::CheckSyntax(const char* Function)
         }
 
         // Check for number
-        if(isdigit(c) || (c=='.' && isdigit(Function[Ind+1])))
+	if(isdigit(c) || (c==*(localeconv()->decimal_point) && isdigit(Function[Ind+1])))
         {
             strtod(&Function[Ind], &Ptr);
             Ind += int(Ptr-&Function[Ind]);
@@ -713,7 +714,7 @@ int FunctionParser::CompileElement(const char* F, int ind)
         return ind+1; // F[ind] is ')'
     }
 
-    if(isdigit(c) || c=='.' /*|| c=='-'*/) // Number
+    if(isdigit(c) || c==*(localeconv()->decimal_point) /*|| c=='-'*/) // Number
     {
         const char* startPtr = &F[ind];
         char* endPtr;
