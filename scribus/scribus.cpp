@@ -5683,11 +5683,25 @@ void ScribusMainWindow::duplicateToMasterPage()
 		QString masterPageName;
 		int pageLocation=0;
 		copyDialog.values(masterPageName, copyFromMaster, pageLocation);
-		while (doc->MasterNames.contains(masterPageName) || (masterPageName == CommonStrings::masterPageNormal))
+		bool badMasterPageName = doc->MasterNames.contains(masterPageName);
+		badMasterPageName |= (masterPageName == CommonStrings::masterPageNormal);
+		badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormal);
+		badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormalLeft);
+		badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormalMiddle);
+		badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormalRight);
+		badMasterPageName |=  masterPageName.isEmpty();
+		while (badMasterPageName)
 		{
 			if (!copyDialog.exec())
 				return;
 			copyDialog.values(masterPageName, copyFromMaster, pageLocation);
+			badMasterPageName = doc->MasterNames.contains(masterPageName);
+			badMasterPageName |= (masterPageName == CommonStrings::masterPageNormal);
+			badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormal);
+			badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormalLeft);
+			badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormalMiddle);
+			badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormalRight);
+			badMasterPageName |=  masterPageName.isEmpty();
 		}
 		int currentPageNumber=doc->currentPage()->pageNr();
 		bool ok=doc->copyPageToMasterPage(currentPageNumber, pageLocation, pageLocationCount, masterPageName, copyFromMaster);
