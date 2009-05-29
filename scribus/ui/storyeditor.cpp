@@ -82,6 +82,8 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
+#include "loremipsum.h"
+
 
 class StyledTextMimeData : public QMimeData
 {
@@ -1633,6 +1635,8 @@ void StoryEditor::initActions()
 	//Insert Menu
 	seActions.insert("insertGlyph", new ScrAction(QPixmap(), QPixmap(), "", QKeySequence(), this));
 	connect( seActions["insertGlyph"], SIGNAL(triggered()), this, SLOT(Do_insSp()) );
+	seActions.insert("insertSampleText", new ScrAction(QPixmap(), QPixmap(), "", QKeySequence(), this));
+	connect(seActions["insertSampleText"], SIGNAL(triggered()), this, SLOT(insertSampleText()));
 
 	//Settings Menu
 	seActions.insert("settingsBackground", new ScrAction("", QKeySequence(), this));
@@ -1682,6 +1686,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["editUpdateFrame"], "Edit");
 	seMenuMgr->createMenu("Insert", tr("&Insert"));
 	seMenuMgr->addMenuItem(seActions["insertGlyph"], "Insert");
+	seMenuMgr->addMenuItem(seActions["insertSampleText"], "Insert");
 	seMenuMgr->createMenu("InsertChar", tr("Character"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodePageNumber"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodePageCount"], "InsertChar");
@@ -1939,6 +1944,7 @@ void StoryEditor::languageChange()
 	seMenuMgr->setText("InsertQuote", tr("Quote"));
 	seMenuMgr->setText("InsertSpace", tr("Space"));
 	seActions["insertGlyph"]->setTexts( tr("&Insert Glyph..."));
+	seActions["insertSampleText"]->setTexts( tr("&Sample Text..."));
 
 	//Settings Menu
 	seMenuMgr->setText("Settings", tr("&Settings"));
@@ -2610,6 +2616,16 @@ void StoryEditor::Do_insSp()
 	charSelect->setEnabled(true, 0);
 	charSelect->setDoc(currDoc);
 	charSelect->show();
+}
+
+void StoryEditor::insertSampleText()
+{
+	LoremManager dia(currDoc, this);
+	if (!dia.exec())
+		return;
+	blockUpdate = true;
+	Editor->insertPlainText(dia.loremIpsum());
+	blockUpdate = false;
 }
 
 void StoryEditor::slot_insertSpecialChar()

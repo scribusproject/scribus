@@ -84,7 +84,7 @@ LoremParser::LoremParser(QString fname)
 			{
 				QString txt = element.text().simplified();
 				txt.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
-				txt.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);	
+				txt.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
 				loremIpsum.append(txt);
 			}
 		}
@@ -238,15 +238,10 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 		defItem[0]->setSelected(true);
 	}
 	// signals and slots connections
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
-	connect( loremList, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(okButton_clicked()));
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( loremList, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(accept()));
 	
-}
-
-LoremManager::~LoremManager()
-{
-// 	delete langmgr;
 }
 
 void LoremManager::changeEvent(QEvent *e)
@@ -271,29 +266,6 @@ void LoremManager::languageChange()
 	standardloremtext = tr("Standard Lorem Ipsum");
 	paraBox->setToolTip( tr( "Number of paragraphs of selected sample text to insert" ) );
 	loremList->setToolTip( tr( "List of languages available to insert sample text in" ) );
-}
-
-void LoremManager::okButton_clicked()
-{
-	// only top level items are taken
-	QTreeWidgetItem *li;
-	if (loremList->currentItem()->parent() == 0)
-		li = loremList->currentItem();
-	else
-		li = loremList->currentItem()->parent();
-	QString name;
-	if (li->text(0)==standardloremtext)
-		name="la";
-	else
-		name=LanguageManager::instance()->getAbbrevFromLang(li->text(0), true, false);
-		
-	insertLoremIpsum(availableLorems[name], paraBox->value(), randomCheckBox->isChecked());
-	accept();
-}
-
-void LoremManager::cancelButton_clicked()
-{
-	reject();
 }
 
 void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
@@ -356,4 +328,37 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
  		m_Doc->regionsChanged()->update(QRectF());
 		m_Doc->changed();
 // 	}
+}
+
+QString LoremManager::loremIpsum()
+{
+	LoremParser lp(getName());
+	return lp.createLorem(paraBox->value(), randomCheckBox->isChecked());
+}
+
+int LoremManager::paragraphCount()
+{
+	return paraBox->value();
+}
+
+bool LoremManager::randomize()
+{
+	return randomCheckBox->isChecked();
+}
+
+QString LoremManager::getName()
+{
+	QTreeWidgetItem *li;
+	if (loremList->currentItem()->parent() == 0)
+		li = loremList->currentItem();
+	else
+		li = loremList->currentItem()->parent();
+
+	QString name;
+	if (li->text(0)==standardloremtext)
+		name="la";
+	else
+		name=LanguageManager::instance()->getAbbrevFromLang(li->text(0), true, false);
+
+	return availableLorems[name];
 }

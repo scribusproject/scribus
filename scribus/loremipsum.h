@@ -87,13 +87,6 @@ class SCRIBUS_API LoremManager : public QDialog
 public:
 	/*! Reads all XML files in cfg directory. */
 	LoremManager(ScribusDoc* doc, QWidget* parent = 0);
-	~LoremManager();
-	
-	
-	virtual void changeEvent(QEvent *e);
-
-	//! all lorems with Public Name -> filename structure
-	QMap<QString,QString> availableLorems;
 
 	/*! Apply created LI into a frame
 	\param name filename of the selected LI
@@ -101,11 +94,20 @@ public:
 	*/
 	void insertLoremIpsum(QString name, int paraCount, bool random = true);
 
-public slots:
-	virtual void okButton_clicked();
-	virtual void cancelButton_clicked();
+	//! Lorem Ipsum as QString
+	QString loremIpsum();
 
-protected:
+	//! Count of the paragraphs selected in GUI
+	int paragraphCount();
+
+	//! Name of the Lorem Ipsum file including extension.
+	QString getName();
+
+	//! Flag if use "random" paragraphs, taken from GUI.
+	bool randomize();
+
+
+private:
 	ScribusDoc* m_Doc;
 	QTreeWidget* loremList;
 	QLabel* paraLabel;
@@ -119,8 +121,12 @@ protected:
 	QSpacerItem* paraSpacer;
 	QHBoxLayout* layout1;
 	QSpacerItem* buttonSpacer;
-// 	LanguageManager* langmgr;
 	QString standardloremtext;
+
+	//! all lorems with Public Name -> filename structure
+	QMap<QString,QString> availableLorems;
+
+	virtual void changeEvent(QEvent *e);
 
 protected slots:
 	virtual void languageChange();

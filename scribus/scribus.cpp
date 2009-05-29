@@ -9219,13 +9219,15 @@ void ScribusMainWindow::generateTableOfContents()
 
 void ScribusMainWindow::insertSampleText()
 {
-	LoremManager *m = new LoremManager(doc, this);
+	LoremManager m(doc, this);
 	if (prefsManager->appPrefs.useStandardLI)
-		m->insertLoremIpsum("la.xml", prefsManager->appPrefs.paragraphsLI);
-	else
-		m->exec();
-	delete(m);
-	m=NULL;
+	{
+		m.insertLoremIpsum("la.xml", prefsManager->appPrefs.paragraphsLI);
+		return;
+	}
+
+	if (m.exec())
+		m.insertLoremIpsum(m.getName(), m.paragraphCount(), m.randomize());
 }
 
 void ScribusMainWindow::languageChange()
