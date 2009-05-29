@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="en_GB">
+<!DOCTYPE TS>
+<TS version="2.0" language="en_GB">
 <context>
     <name></name>
     <message>
@@ -16502,7 +16503,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="523"/>
         <source>Insert Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Insert Symbol</translation>
     </message>
 </context>
 <context>
@@ -17369,15 +17370,10 @@ p, li { white-space: pre-wrap; }
         <source>Length:</source>
         <translation type="obsolete">Length:</translation>
     </message>
-    <message>
+    <message utf8="both">
         <location filename="../../scribus/measurements.cpp" line="0"/>
-        <source> &#xb0;</source>
-        <translation type="obsolete"> °</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="../../scribus/measurements.cpp" line="51"/>
         <source> °</source>
-        <translation>°</translation>
+        <translation type="obsolete"> °</translation>
     </message>
 </context>
 <context>
@@ -19607,7 +19603,7 @@ both end points must lie outside of the polygon</source>
         <translation>The cutting line must cross the polygon andboth end points must lie outside of the polygon</translation>
     </message>
 </context>
-<context encoding="UTF-8">
+<context>
     <name>PathDialogBase</name>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="13"/>
@@ -19664,22 +19660,22 @@ both end points must lie outside of the polygon</source>
         <source>Rotate Objects by:</source>
         <translation>Rotate Objects by:</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -22911,22 +22907,22 @@ Corners:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5495"/>
         <source>Arrow head style for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrow head style for start of line</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5496"/>
         <source>Arrow head style for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrow head style for end of line</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5518"/>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Effective horizontal DPI of the image after scaling</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5519"/>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Effective vertical DPI of the image after scaling</translation>
     </message>
 </context>
 <context>
@@ -25585,7 +25581,7 @@ Therefore the image may be not correct</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="161"/>
-        <source>&#xb0;</source>
+        <source>°</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation>°</translation>
     </message>
@@ -25798,7 +25794,7 @@ Therefore the image may be not correct</translation>
         <source>Xfig File</source>
         <translation>Xfig File</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/langmgr.cpp" line="106"/>
         <source>Norwegian (Bokmål)</source>
         <translation>Norwegian (Bokmål)</translation>
@@ -25919,7 +25915,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="75"/>
         <source>Opening the configfile %1 failed! %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Opening the configfile %1 failed! %2</translation>
     </message>
 </context>
 <context>
@@ -28319,12 +28315,12 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3836"/>
         <source>Document is already opened</source>
-        <translation type="unfinished"></translation>
+        <translation>Document is already opened</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3838"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
-        <translation type="unfinished"></translation>
+        <translation>This document is already in use.You&apos;ll be switched into its window now.</translation>
     </message>
 </context>
 <context>
@@ -34652,17 +34648,17 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="843"/>
         <source>More than 20 items involved</source>
-        <translation type="unfinished"></translation>
+        <translation>More than 20 items involved</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="907"/>
         <source>Import WMF drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Import WMF drawing</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="926"/>
         <source>Change shape type</source>
-        <translation type="unfinished"></translation>
+        <translation>Change shape type</translation>
     </message>
 </context>
 <context>
@@ -34830,12 +34826,12 @@ Error:%2 at line: %3, row: %4</translation>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="86"/>
         <source>No data on your computer will be sent to an external location</source>
-        <translation type="unfinished"></translation>
+        <translation>No data on your computer will be sent to an external location</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="92"/>
         <source>Attempting to get the Scribus version update file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Attempting to get the Scribus version update file:</translation>
     </message>
 </context>
 <context>
