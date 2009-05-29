@@ -18,6 +18,21 @@ ScCLocale::ScCLocale()
 	:qLocale(QLocale::C)
 {
 	qLocale.setNumberOptions(QLocale::OmitGroupSeparator);
+
+#if defined(Q_WS_WIN)
+	cLocale = _create_locale(LC_ALL, "C");
+#else
+	cLocale = newlocale(LC_ALL_MASK, "C", NULL);
+#endif
+}
+
+ScCLocale::~ScCLocale()
+{
+#if defined(Q_WS_WIN)
+	_free_locale(cLocale);
+#else
+	freelocale(cLocale);
+#endif
 }
 
 ScCLocale * ScCLocale::that()
@@ -71,5 +86,24 @@ float ScCLocale::toFloatC(const QString& str, float defValue)
 QString ScCLocale::toQStringC(double d)
 {
 	return that()->qLocale.toString(d, 'f', 3);
+}
+
+double ScCLocale::strtod ( const char * str, char ** endptr )
+{
+	if(NULL == that()->cLocale)
+	{
+		// a sade workaround
+		setlocale(LC_NUMERIC, "C");
+		return strtod(str, endptr);
+		setlocale(LC_NUMERIC, "");
+	}
+	else
+	{
+#if defined(Q_WS_WIN)
+		return _strtod_l(str, endptr, that()->cLocale);
+#else
+		return strtod_l(str, endptr, that()->cLocale);
+#endif
+	}
 }
 
