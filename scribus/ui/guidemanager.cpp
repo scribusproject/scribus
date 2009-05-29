@@ -61,8 +61,10 @@ GuideManager::GuideManager(QWidget* parent) :
 
 	connect(addHorButton, SIGNAL(clicked()), this, SLOT(addHorButton_clicked()));
 	connect(delHorButton, SIGNAL(clicked()), this, SLOT(delHorButton_clicked()));
+	connect(horizontalView, SIGNAL(deleteKeyPressed()), this, SLOT(delHorButton_clicked()));
 	connect(addVerButton, SIGNAL(clicked()), this, SLOT(addVerButton_clicked()));
 	connect(delVerButton, SIGNAL(clicked()), this, SLOT(delVerButton_clicked()));
+	connect(verticalView, SIGNAL(deleteKeyPressed()), this, SLOT(delVerButton_clicked()));
 	connect(horizontalView->selectionModel(),
 			 SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
 			 this, SLOT(forceDrawGuides(const QItemSelection &, const QItemSelection &)));

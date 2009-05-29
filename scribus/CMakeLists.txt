@@ -139,6 +139,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/guidemanager.h
   guidesdelegate.h
   guidesmodel.h
+  guidesview.h
   ui/helpbrowser.h
   ui/hruler.h
   hyask.h
@@ -400,6 +401,7 @@ SET(SCRIBUS_SOURCES
   guidemanagercore.cpp
   guidesdelegate.cpp
   guidesmodel.cpp
+  guidesview.cpp
   ui/helpbrowser.cpp
   hnjalloc.c
   ui/hruler.cpp
