@@ -50,6 +50,15 @@ public:
 	\retval QString selected name. */
 	QString getColorSetName();
 
+	/*! \brief Returns currently selected ScColor.
+	It's used e.g. in BarcodeGenerator plugin.
+	*/
+	ScColor selectedColor();
+	/*! \brief Returns name of the currently selected color.
+	It's used e.g. in BarcodeGenerator plugin.
+	*/
+	QString selectedColorName();
+
 private:
 	void updateButtons();
 	ColorListBox* colorListBox;
@@ -92,7 +101,7 @@ protected:
 	QVBoxLayout* ColsSetGroupLayout;
 	QVBoxLayout* Layout1;
 	
-	ColorSetManager csm;	
+	ColorSetManager csm;
 	int customSetStartIndex;
 };
 

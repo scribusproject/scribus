@@ -15,10 +15,10 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
-
+#include "colorm.h"
 
 #include <QTextStream>
-#include <QColorDialog>
+
 
 BarcodeType::BarcodeType(QString cmd, QString exa,
 						 QString comm, QString regExp,
@@ -107,9 +107,27 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	ui.okButton->setText(CommonStrings::tr_OK);
 	ui.cancelButton->setText(CommonStrings::tr_Cancel);
 	ui.resetButton->setIcon(loadIcon("u_undo16.png"));
-	lnColor = Qt::black;
-	txtColor = Qt::black;
-	bgColor = Qt::white;
+
+	if (ScCore->primaryMainWindow()->doc->PageColors.contains("Black"))
+	{
+		lnColor = ScCore->primaryMainWindow()->doc->PageColors["Black"];
+		txtColor = ScCore->primaryMainWindow()->doc->PageColors["Black"];
+		ui.linesLabel->setToolTip("Black");
+		ui.txtLabel->setToolTip("Black");
+	}
+	else
+	{
+		ui.linesLabel->setToolTip("n.a.");
+		ui.txtLabel->setToolTip("n.a.");
+	}
+	if (ScCore->primaryMainWindow()->doc->PageColors.contains("White"))
+	{
+		bgColor = ScCore->primaryMainWindow()->doc->PageColors["White"];
+		ui.bgLabel->setToolTip("White");
+	}
+	else
+		ui.bgLabel->setToolTip("n.a.");
+
 	paintColorSample(ui.linesLabel, lnColor);
 	paintColorSample(ui.txtLabel, txtColor);
 	paintColorSample(ui.bgLabel, bgColor);
@@ -190,42 +208,49 @@ void BarcodeGenerator::includeCheckInText_stateChanged(int)
 	paintBarcode();
 }
 
-void BarcodeGenerator::paintColorSample(QLabel *l, QColor c)
+void BarcodeGenerator::paintColorSample(QLabel *l, const ScColor & c)
 {
 	QRect rect = l->frameRect();
 	QPixmap pm(rect.width(), rect.height());
-	pm.fill(c);
+	pm.fill(c.getRawRGBColor()); // brute force sc2qt color convert for preview
 	l->setPixmap(pm);
 }
 
 void BarcodeGenerator::bgColorButton_pressed()
 {
-	bgColor = QColorDialog::getColor(bgColor, this);
-	if (bgColor.isValid())
-	{
-		paintColorSample(ui.bgLabel, bgColor);
-		paintBarcode();
-	}
+	ColorManager d(this, ScCore->primaryMainWindow()->doc->PageColors, ScCore->primaryMainWindow()->doc, "", QStringList());
+
+	if (!d.exec())
+		return;
+	bgColor = d.selectedColor();
+	ui.bgLabel->setToolTip(d.selectedColorName());
+	paintColorSample(ui.bgLabel, bgColor);
+	paintBarcode();
 }
 
 void BarcodeGenerator::lnColorButton_pressed()
 {
-	lnColor = QColorDialog::getColor(lnColor, this);
-	if (lnColor.isValid())
-	{
-		paintColorSample(ui.linesLabel, lnColor);
-		paintBarcode();
-	}
+	ColorManager d(this, ScCore->primaryMainWindow()->doc->PageColors, ScCore->primaryMainWindow()->doc, "", QStringList());
+
+	if (!d.exec())
+		return;
+	lnColor = d.selectedColor();
+	ui.linesLabel->setToolTip(d.selectedColorName());
+	paintColorSample(ui.linesLabel, lnColor);
+	paintBarcode();
 }
 
 void BarcodeGenerator::txtColorButton_pressed()
 {
-	txtColor = QColorDialog::getColor(txtColor, this);
-	if (txtColor.isValid())
-	{
-		paintColorSample(ui.txtLabel, txtColor);
-		paintBarcode();
-	}
+	ColorManager d(this, ScCore->primaryMainWindow()->doc->PageColors, ScCore->primaryMainWindow()->doc, "", QStringList());
+
+	if (!d.exec())
+		return;
+
+	txtColor = d.selectedColor();
+	ui.txtLabel->setToolTip(d.selectedColorName());
+	paintColorSample(ui.txtLabel, txtColor);
+	paintBarcode();
 }
 
 void BarcodeGenerator::okButton_pressed()
