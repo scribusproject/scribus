@@ -150,7 +150,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
 				OutputFile="$(OutDir)\scribusshortwords.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -322,7 +322,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
 				OutputFile="$(OutDir)\scribusshortwords.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
