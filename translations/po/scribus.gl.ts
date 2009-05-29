@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="gl_ES">
+<!DOCTYPE TS>
+<TS version="2.0" language="gl_ES">
 <context>
     <name></name>
     <message>
@@ -11528,7 +11529,7 @@ que llo pida o seu impresor.</translation>
     <message>
         <location filename="../../scribus/applytemplatedialog.cpp" line="278"/>
         <source>&amp;Within Range</source>
-        <translation>$Dentro do intervalo</translation>
+        <translation>&amp;Dentro do intervalo</translation>
     </message>
 </context>
 <context>
@@ -11652,7 +11653,7 @@ Persoal</translation>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="278"/>
         <source>&amp;Add Word</source>
-        <translation>Eng&amp;adir Palabra</translation>
+        <translation>Eng&amp;adir palabra</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="306"/>
@@ -12779,12 +12780,12 @@ todas ascores, rgb ou cmyk, convírtense ao espazo de cores da impresora.</trans
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="40"/>
         <source>&amp;Activate Color Management</source>
-        <translation>&amp;Activar a Xestión das Cores</translation>
+        <translation>&amp;Activar a xestión das cores</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="50"/>
         <source>System Profiles</source>
-        <translation>Perfís do Sistema</translation>
+        <translation>Perfís do sistema</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="74"/>
@@ -12809,7 +12810,7 @@ todas ascores, rgb ou cmyk, convírtense ao espazo de cores da impresora.</trans
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="120"/>
         <source>&amp;RGB Solid Colors:</source>
-        <translation>Cores Sólidas &amp;RGB:</translation>
+        <translation>Cores sólidas &amp;RGB:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="136"/>
@@ -12819,7 +12820,7 @@ todas ascores, rgb ou cmyk, convírtense ao espazo de cores da impresora.</trans
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="143"/>
         <source>&amp;CMYK Solid Colors:</source>
-        <translation>Cores Sólidas &amp;CMYK:</translation>
+        <translation>Cores sólidas &amp;CMYK:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="159"/>
@@ -12841,7 +12842,7 @@ Este perfil debería ser específico do seu monitor e non un perfil xenérico (o
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="190"/>
         <source>P&amp;rinter:</source>
-        <translation>Im&amp;resora:</translation>
+        <translation>Im&amp;presora:</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="206"/>
@@ -12853,7 +12854,7 @@ Este perfil debería ser específico da impresora e non un perfil xenérico (ou 
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="220"/>
         <source>Rendering Intents</source>
-        <translation>Tipo de Exhibición</translation>
+        <translation>Tipo de exhibición</translation>
     </message>
     <message>
         <location filename="../../scribus/cmsprefsbase.ui" line="244"/>
@@ -13380,7 +13381,7 @@ Delle un nome</translation>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="402"/>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation>Amar. [Y]:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="432"/>
@@ -14232,7 +14233,7 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
     <message>
         <location filename="../../scribus/spalette.cpp" line="118"/>
         <source>No Style</source>
-        <translation>Sen Estilo</translation>
+        <translation>Sen estilo</translation>
     </message>
 </context>
 <context>
@@ -14336,12 +14337,12 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="652"/>
         <source>Current Profile:</source>
-        <translation>Perfil Actual:</translation>
+        <translation>Perfil actual:</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="653"/>
         <source>&amp;Ignore Errors</source>
-        <translation>&amp;Ignorar os Erros</translation>
+        <translation>&amp;Ignorar os erros</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="654"/>
@@ -15930,22 +15931,22 @@ CommonStrings, tamaño personalizado da páxina</translation>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="54"/>
         <source>Number of Pages in Document:</source>
-        <translation>Número de Páxinas do Documento:</translation>
+        <translation>Número de páxinas do documento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="64"/>
         <source>Doc Page Range</source>
-        <translation>Intervalo de Páxinas do Documento</translation>
+        <translation>Intervalo de páxinas do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="112"/>
         <source>Basic Range Selection</source>
-        <translation>Selección Básica de Intervalo</translation>
+        <translation>Selección básica do intervalo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="136"/>
         <source>Range of Pages</source>
-        <translation>Intervalo de Páxinas</translation>
+        <translation>Intervalo de páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="160"/>
@@ -15980,32 +15981,32 @@ CommonStrings, tamaño personalizado da páxina</translation>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="218"/>
         <source>Add a Range of Pages</source>
-        <translation>Engadir un Intervalo de Páxinas</translation>
+        <translation>Engadir un intervalo de páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="242"/>
         <source>Consecutive Pages</source>
-        <translation>Páxinas Consecutivas</translation>
+        <translation>Páxinas consecutivas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="252"/>
         <source>Even Pages</source>
-        <translation>Páxinas Pares</translation>
+        <translation>Páxinas pares</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="259"/>
         <source>From:</source>
-        <translation>Desde:</translation>
+        <translation>Da:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="291"/>
         <source>To:</source>
-        <translation>Até:</translation>
+        <translation>á:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="334"/>
         <source>&amp;Add To Range</source>
-        <translation>Eng&amp;adir ao Intervalo</translation>
+        <translation>Eng&amp;adir ao intervalo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="337"/>
@@ -16015,32 +16016,32 @@ CommonStrings, tamaño personalizado da páxina</translation>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="362"/>
         <source>Odd Pages</source>
-        <translation>Páxinas Impares</translation>
+        <translation>Páxinas impares</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="372"/>
         <source>Comma Separated List</source>
-        <translation>Lista Separada por Vírgulas</translation>
+        <translation>Lista separada por vírgulas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="383"/>
         <source>Advanced Reordering</source>
-        <translation>Reordenación Avanzada</translation>
+        <translation>Reordenación avanzada</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="439"/>
         <source>Page Order</source>
-        <translation>Orde das Páxinas</translation>
+        <translation>Orde das páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="449"/>
         <source>Sample Page Order:</source>
-        <translation>Orde de Páxina de Exemplo:</translation>
+        <translation>Orde de páxina de exemplo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="478"/>
         <source>Page Group Size:</source>
-        <translation>Tamaño do Grupo de Páxinas:</translation>
+        <translation>Tamaño do grupo de páxinas:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="525"/>
@@ -16440,7 +16441,7 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/customfdialog.cpp" line="306"/>
         <source>&amp;Include Fonts</source>
-        <translation>&amp;Incluir Fontes</translation>
+        <translation>&amp;Incluír as fontes</translation>
     </message>
     <message>
         <location filename="../customfdialog.cpp" line="314"/>
@@ -16450,12 +16451,12 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/customfdialog.cpp" line="274"/>
         <source>Show Preview</source>
-        <translation>Mostrar a Antevisión</translation>
+        <translation>Mostrar a antevisión</translation>
     </message>
     <message>
         <location filename="../../scribus/customfdialog.cpp" line="308"/>
         <source>&amp;Include Color Profiles</source>
-        <translation>&amp;Incluír Perfís de Cores</translation>
+        <translation>&amp;Incluír os perfís de cores</translation>
     </message>
     <message>
         <location filename="../../scribus/customfdialog.cpp" line="275"/>
@@ -16592,7 +16593,7 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/dcolor.cpp" line="28"/>
         <source>Delete Color</source>
-        <translation>Eliminar esta Cor</translation>
+        <translation>Eliminar esta cor</translation>
     </message>
     <message>
         <location filename="../../scribus/dcolor.cpp" line="0"/>
@@ -16637,7 +16638,7 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/dcolor.cpp" line="36"/>
         <source>Delete Color:</source>
-        <translation>Eliminar esta Cor:</translation>
+        <translation>Eliminar esta cor:</translation>
     </message>
     <message>
         <location filename="../../scribus/dcolor.cpp" line="45"/>
@@ -16650,7 +16651,7 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/delpages.cpp" line="17"/>
         <source>Delete Pages</source>
-        <translation>Eliminar Páxinas</translation>
+        <translation>Eliminar páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/delpages.cpp" line="0"/>
@@ -16675,7 +16676,7 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/delpages.cpp" line="26"/>
         <source>Delete From:</source>
-        <translation>Eliminar Desde:</translation>
+        <translation>Eliminar desde:</translation>
     </message>
 </context>
 <context>
@@ -16749,7 +16750,7 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="30"/>
         <source>Document Information</source>
-        <translation>Información sobre o Documento</translation>
+        <translation>Información sobre o documento</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="39"/>
@@ -16834,7 +16835,7 @@ Pódese definir nas Preferencias.</translation>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="153"/>
         <source>Further &amp;Information</source>
-        <translation>Máis &amp;Información</translation>
+        <translation>&amp;Información adicional</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="0"/>
@@ -17378,7 +17379,7 @@ tipos</translation>
         <source>Importing File:
 %1
 failed!</source>
-        <translation>A importar o Ficheiro:
+        <translation>A importar o ficheiro:
 %1
 fallou!</translation>
     </message>
@@ -17409,7 +17410,7 @@ fallou!</translation>
     <message>
         <location filename="../../scribus/plugins/psimport/importps.cpp" line="484"/>
         <source>Generating Items</source>
-        <translation>A xerar Elementos</translation>
+        <translation>A xerar os elementos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/psimport/importps.cpp" line="876"/>
@@ -18217,7 +18218,7 @@ O erro foi:
     <message>
         <location filename="../../scribus/plugins/pixmapexport/dialog.cpp" line="80"/>
         <source>Choose a Export Directory</source>
-        <translation>Escolla un Directorio para Exportar</translation>
+        <translation>Escolla un directorio para exportar</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/exportform.ui" line="13"/>
@@ -18227,7 +18228,7 @@ O erro foi:
     <message>
         <location filename="../../scribus/plugins/pixmapexport/exportform.ui" line="153"/>
         <source>&amp;Export to Directory:</source>
-        <translation>&amp;Exportar para o Directorio:</translation>
+        <translation>&amp;Exportar para o directorio:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/exportform.ui" line="166"/>
@@ -18242,7 +18243,7 @@ O erro foi:
     <message>
         <location filename="../../scribus/plugins/pixmapexport/exportform.ui" line="54"/>
         <source>Image &amp;Type:</source>
-        <translation>&amp;Tipo de Imaxe:</translation>
+        <translation>&amp;Tipo de imaxe:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/exportform.ui" line="64"/>
@@ -18365,7 +18366,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/plugins/pixmapexport/exportform.ui" line="44"/>
         <source>Image size in Pixels</source>
-        <translation>Tamaño da imaxe en Píxeles</translation>
+        <translation>Tamaño da imaxe en píxeles</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/exportform.ui" line="37"/>
@@ -18388,7 +18389,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/extimageprops.cpp" line="39"/>
         <source>Extended Image Properties</source>
-        <translation>Propiedades extendidas de Imaxe</translation>
+        <translation>Propiedades extendidas da imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/extimageprops.cpp" line="102"/>
@@ -18483,7 +18484,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/extimageprops.cpp" line="98"/>
         <source>Blend Mode:</source>
-        <translation>Modo de Mescla:</translation>
+        <translation>Modo de mestura:</translation>
     </message>
     <message>
         <location filename="../../scribus/extimageprops.cpp" line="121"/>
@@ -18513,7 +18514,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/extimageprops.cpp" line="267"/>
         <source>Don&apos;t use any Path</source>
-        <translation>Non utilizar nengunha Rota</translation>
+        <translation>Non utilizar nengunha rota</translation>
     </message>
     <message>
         <location filename="../../scribus/extimageprops.cpp" line="269"/>
@@ -18523,7 +18524,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/extimageprops.cpp" line="276"/>
         <source>Live Preview</source>
-        <translation>Antevisión Directa</translation>
+        <translation>Antevisión directa</translation>
     </message>
 </context>
 <context>
@@ -18783,7 +18784,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontcombo.cpp" line="148"/>
         <source>Face:</source>
-        <translation>Cara:</translation>
+        <translation>Familia:</translation>
     </message>
     <message>
         <location filename="../../scribus/fontcombo.cpp" line="149"/>
@@ -18796,12 +18797,12 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="63"/>
         <source>Font Name</source>
-        <translation>Nome da Fonte</translation>
+        <translation>Nome da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="65"/>
         <source>Use Font</source>
-        <translation>Empregar Fonte</translation>
+        <translation>Empregar a fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="67"/>
@@ -18851,7 +18852,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="85"/>
         <source>Path to Font File</source>
-        <translation>Camiño ao Ficheiro da Fonte</translation>
+        <translation>Camiño ao ficheiro da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="144"/>
@@ -18893,12 +18894,12 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="48"/>
         <source>Available Fonts</source>
-        <translation>Fontes Disponíbeis</translation>
+        <translation>Fontes disponíbeis</translation>
     </message>
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="48"/>
         <source>Font Substitutions</source>
-        <translation>Substitución de Fontes</translation>
+        <translation>Substitución de fontes</translation>
     </message>
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="48"/>
@@ -18948,7 +18949,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="58"/>
         <source>&amp;Available Fonts</source>
-        <translation>Fontes &amp;Disponíbeis</translation>
+        <translation>Fontes &amp;disponíbeis</translation>
     </message>
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="67"/>
@@ -18963,7 +18964,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="88"/>
         <source>Font &amp;Substitutions</source>
-        <translation>&amp;Substitucións de Fontes</translation>
+        <translation>&amp;Substitucións de fontes</translation>
     </message>
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="107"/>
@@ -18983,7 +18984,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="135"/>
         <source>Additional &amp;Paths</source>
-        <translation>Ro&amp;tas Adicionais</translation>
+        <translation>Ro&amp;tas adicionais</translation>
     </message>
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="0"/>
@@ -18998,7 +18999,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="247"/>
         <source>Choose a Directory</source>
-        <translation>Escolla un Directorio</translation>
+        <translation>Escolla un directorio</translation>
     </message>
     <message>
         <location filename="../../scribus/fontprefs.cpp" line="0"/>
@@ -19365,7 +19366,7 @@ antevisión da fonte</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="35"/>
         <source>Show Extended Font Information</source>
-        <translation>Mostrar Información Extendida da Fonte</translation>
+        <translation>Mostrar información extendida da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="120"/>
@@ -19494,7 +19495,7 @@ antevisión da fonte</translation>
     <message>
         <location filename="../../scribus/fontreplacedialog.cpp" line="30"/>
         <source>Font Substitution</source>
-        <translation>Substitución de Fontes</translation>
+        <translation>Substitución de fontes</translation>
     </message>
     <message>
         <location filename="../../scribus/fontreplacedialog.cpp" line="40"/>
@@ -19505,12 +19506,12 @@ Cancelar fará que non se continúe carregando o documento.</translation>
     <message>
         <location filename="../../scribus/fontreplacedialog.cpp" line="45"/>
         <source>Original Font</source>
-        <translation>Fonte Orixinal</translation>
+        <translation>Fonte orixinal</translation>
     </message>
     <message>
         <location filename="../../scribus/fontreplacedialog.cpp" line="46"/>
         <source>Substitution Font</source>
-        <translation>Fonte Substituta</translation>
+        <translation>Fonte substituta</translation>
     </message>
     <message>
         <location filename="../../scribus/fontreplacedialog.cpp" line="72"/>
@@ -19562,7 +19563,7 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
     <message>
         <location filename="../../scribus/cpalette.cpp" line="100"/>
         <source>Gradient Vector</source>
-        <translation>Vector Gradiente</translation>
+        <translation>Vector gradiente</translation>
     </message>
 </context>
 <context>
@@ -19788,7 +19789,7 @@ xestor de guías</translation>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="320"/>
         <source>Appl&amp;y to All Pages</source>
-        <translation>Apl&amp;icar a Todas as Páxinas</translation>
+        <translation>Apl&amp;icar a todas as páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="323"/>
@@ -19808,7 +19809,7 @@ xestor de guías</translation>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="175"/>
         <source>U&amp;se Gap:</source>
-        <translation>U&amp;sar Espazo:</translation>
+        <translation>U&amp;sar espazo:</translation>
     </message>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="178"/>
@@ -19843,7 +19844,7 @@ xestor de guías</translation>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="262"/>
         <source>Use &amp;Gap:</source>
-        <translation>Usar &amp;Espazo:</translation>
+        <translation>Usar &amp;espazo:</translation>
     </message>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="265"/>
@@ -19873,12 +19874,12 @@ xestor de guías</translation>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="353"/>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation>Eliminar as Guías de Tod&amp;as as Páxinas</translation>
+        <translation>Eliminar as guías de tod&amp;as as páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/guidemanager.ui" line="15"/>
         <source>Guide Manager</source>
-        <translation>Xestor das Guías</translation>
+        <translation>Xestor das guías</translation>
     </message>
     <message>
         <location filename="../../scribus/guidemanager.cpp" line="253"/>
@@ -20226,7 +20227,7 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="96"/>
         <source>&amp;New</source>
-        <translation>&amp;Nova</translation>
+        <translation>&amp;Novo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="178"/>
@@ -20266,7 +20267,7 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
     <message>
         <location filename="../../scribus/helpbrowser.cpp" line="409"/>
         <source>New Bookmark&apos;s Title:</source>
-        <translation>Título do Novo Marcador:</translation>
+        <translation>Título do novo marcador:</translation>
     </message>
     <message>
         <location filename="../../scribus/helpbrowser.cpp" line="289"/>
@@ -20281,12 +20282,12 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
     <message>
         <location filename="../../scribus/helpbrowser.cpp" line="296"/>
         <source>Find &amp;Next</source>
-        <translation>Procurar o Segui&amp;nte</translation>
+        <translation>Procurar o segui&amp;nte</translation>
     </message>
     <message>
         <location filename="../../scribus/helpbrowser.cpp" line="297"/>
         <source>Find &amp;Previous</source>
-        <translation>&amp;Procurar o Anterior</translation>
+        <translation>&amp;Procurar o anterior</translation>
     </message>
     <message>
         <location filename="../../scribus/helpbrowser.cpp" line="290"/>
@@ -20296,7 +20297,7 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
     <message>
         <location filename="../../scribus/helpbrowser.cpp" line="298"/>
         <source>&amp;Add Bookmark</source>
-        <translation>&amp;Adicionar Marcador</translation>
+        <translation>&amp;Adicionar un marcador</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="183"/>
@@ -20336,12 +20337,12 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="163"/>
         <source>Find &amp;Next...</source>
-        <translation>Atopar o Segui&amp;nte...</translation>
+        <translation>Atopar o segui&amp;nte...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="168"/>
         <source>Find &amp;Previous...</source>
-        <translation>Ato&amp;par o Anterior...</translation>
+        <translation>Ato&amp;par o anterior...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="173"/>
@@ -20425,14 +20426,14 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
         <source>Add to the
 Exception List</source>
         <translation>Engadir á
-Listaxe de Excepcións</translation>
+listaxe de excepcións</translation>
     </message>
     <message>
         <location filename="../../scribus/hyask.cpp" line="97"/>
         <source>Add to the
 Ignore List</source>
         <translation>Engadir á
-Listaxe a Ignorar</translation>
+listaxe a ignorar</translation>
     </message>
 </context>
 <context>
@@ -20507,17 +20508,17 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/hysettings.cpp" line="121"/>
         <source>Add a new Entry</source>
-        <translation>Engadir unha Entrada nova</translation>
+        <translation>Engadir unha entrada nova</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettings.cpp" line="133"/>
         <source>Edit Entry</source>
-        <translation>Modificar Entrada</translation>
+        <translation>Modificar a entrada</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettings.cpp" line="133"/>
         <source>Exception List</source>
-        <translation>Listaxe de Excepcións</translation>
+        <translation>Listaxe de excepcións</translation>
     </message>
 </context>
 <context>
@@ -20525,7 +20526,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="23"/>
         <source>Image Info</source>
-        <translation>Información sobre a Imaxe</translation>
+        <translation>Información sobre a imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="30"/>
@@ -20540,7 +20541,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="38"/>
         <source>Has Embedded Profile:</source>
-        <translation>Ten o Perfil Embebido:</translation>
+        <translation>Ten o perfil embebido:</translation>
     </message>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="0"/>
@@ -20560,12 +20561,12 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="50"/>
         <source>Has Embedded Paths:</source>
-        <translation>Ten Rotas Embebidas:</translation>
+        <translation>Ten rotas embebidas:</translation>
     </message>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="58"/>
         <source>Has Layers:</source>
-        <translation>Ten Capas:</translation>
+        <translation>Ten capas:</translation>
     </message>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="69"/>
@@ -20595,7 +20596,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="129"/>
         <source>Camera Manufacturer:</source>
-        <translation>Fabricante da Cámara:</translation>
+        <translation>Fabricante da cámara:</translation>
     </message>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="135"/>
@@ -20610,12 +20611,12 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="137"/>
         <source>Scanner Model:</source>
-        <translation>Modelo do Escáner:</translation>
+        <translation>Modelo do escáner:</translation>
     </message>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="138"/>
         <source>Scanner Manufacturer:</source>
-        <translation>Fabricante do Escáner:</translation>
+        <translation>Fabricante do escáner:</translation>
     </message>
     <message>
         <location filename="../../scribus/imageinfodialog.cpp" line="130"/>
@@ -20643,7 +20644,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/plugins/aiimplugin/importaiplugin.cpp" line="79"/>
         <source>Imports Illustrator Files</source>
-        <translation>Importa Ficheiros do Illustrator</translation>
+        <translation>Importa ficheiros do Illustrator</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/aiimplugin/importaiplugin.cpp" line="80"/>
@@ -20738,7 +20739,7 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/psimport/importpsplugin.cpp" line="78"/>
         <source>Imports PostScript Files</source>
-        <translation>Importa Ficheiros de PostScript</translation>
+        <translation>Importa ficheiros de PostScript</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/psimport/importpsplugin.cpp" line="79"/>
@@ -20757,7 +20758,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/xfigimplugin/importxfigplugin.cpp" line="79"/>
         <source>Imports Xfig Files</source>
-        <translation>Importa Ficheiros do Xfig</translation>
+        <translation>Importa ficheiros do Xfig</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/xfigimplugin/importxfigplugin.cpp" line="80"/>
@@ -20769,7 +20770,7 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/xfigimplugin/importxfigplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
-        <translation>Todos os Formatos Coñecidos</translation>
+        <translation>Todos os formatos coñecidos</translation>
     </message>
 </context>
 <context>
@@ -20959,7 +20960,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/inspage.cpp" line="30"/>
         <source>Insert Page</source>
-        <translation>Inserir Páxina</translation>
+        <translation>Inserir unha páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/inspage.cpp" line="0"/>
@@ -20974,12 +20975,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/inspage.cpp" line="50"/>
         <source>before Page</source>
-        <translation>antes da Páxina</translation>
+        <translation>antes da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/inspage.cpp" line="51"/>
         <source>after Page</source>
-        <translation>após a Páxina</translation>
+        <translation>após a páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/inspage.cpp" line="52"/>
@@ -21079,7 +21080,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/inspage.cpp" line="245"/>
         <source>Move Objects with their Page</source>
-        <translation>Mover os Obxectos coa súa Páxina</translation>
+        <translation>Mover os obxectos coa súa páxina</translation>
     </message>
 </context>
 <context>
@@ -21102,7 +21103,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="13"/>
         <source>Insert A Frame</source>
-        <translation>Inserir Unha Moldura</translation>
+        <translation>Inserir unha moldura</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="37"/>
@@ -21112,12 +21113,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="75"/>
         <source>&amp;Text Frame</source>
-        <translation>Moldura de &amp;Texto</translation>
+        <translation>Moldura de &amp;texto</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="85"/>
         <source>&amp;Image Frame</source>
-        <translation>Moldura de &amp;Imaxe</translation>
+        <translation>Moldura de &amp;imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="122"/>
@@ -21127,7 +21128,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="137"/>
         <source>Page Placement</source>
-        <translation>Colocación na Páxina</translation>
+        <translation>Colocación na páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="152"/>
@@ -21137,12 +21138,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="162"/>
         <source>All Pages</source>
-        <translation>Todas as Páxinas</translation>
+        <translation>Todas as páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="172"/>
         <source>Range of Pages</source>
-        <translation>Intervalo de Páxinas</translation>
+        <translation>Intervalo de páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="773"/>
@@ -21152,7 +21153,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="225"/>
         <source>Position of Frame</source>
-        <translation>Posición da Moldura</translation>
+        <translation>Posición da moldura</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="240"/>
@@ -21197,22 +21198,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="419"/>
         <source>Same as the Page</source>
-        <translation>O mesmo que a Páxina</translation>
+        <translation>O mesmo que a páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="429"/>
         <source>Same as the Bleed</source>
-        <translation>A mesma que o Sangrado</translation>
+        <translation>O mesmo que o sangrado</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="439"/>
         <source>Same as the Imported Image</source>
-        <translation>A mesma que a Imaxe Importada</translation>
+        <translation>O mesmo que a imaxe Importada</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="449"/>
         <source>Custom Size</source>
-        <translation>Tamaño Personalizado</translation>
+        <translation>Tamaño personalizado</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="488"/>
@@ -21252,7 +21253,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="759"/>
         <source>Source Image:</source>
-        <translation>Imaxe Orixinal:</translation>
+        <translation>Imaxe orixinal:</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="813"/>
@@ -21392,7 +21393,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="652"/>
         <source>Link Inserted Frames</source>
-        <translation>Ligar as Molduras Inseridas</translation>
+        <translation>Ligar as molduras inseridas</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="661"/>
@@ -21402,7 +21403,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertaframe.ui" line="664"/>
         <source>Link to Existing Frame</source>
-        <translation>Ligar cunha Moldura Existente</translation>
+        <translation>Ligar cunha moldura existente</translation>
     </message>
     <message>
         <location filename="../../scribus/insertaframe.ui" line="680"/>
@@ -21668,7 +21669,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/insertTable.cpp" line="15"/>
         <source>Insert Table</source>
-        <translation>Inserir unha Táboa</translation>
+        <translation>Inserir unha táboa</translation>
     </message>
     <message>
         <location filename="../../scribus/insertTable.cpp" line="0"/>
@@ -21942,7 +21943,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/latexeditor.ui" line="33"/>
         <source>Enter Code:</source>
-        <translation>Introduza o Código</translation>
+        <translation>Introduza o código:</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.ui" line="45"/>
@@ -21957,7 +21958,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/latexeditor.ui" line="123"/>
         <source>Program Messages:</source>
-        <translation>Mensaxes do Programa:</translation>
+        <translation>Mensaxes do programa:</translation>
     </message>
     <message>
         <location filename="../../scribus/latexeditor.ui" line="174"/>
@@ -22082,7 +22083,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/latexeditor.cpp" line="523"/>
         <source>Insert Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserir un símbolo</translation>
     </message>
 </context>
 <context>
@@ -22100,7 +22101,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="598"/>
         <source>Delete Layer</source>
-        <translation>Eliminar unha Capa</translation>
+        <translation>Eliminar a capa</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="599"/>
@@ -22110,7 +22111,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="600"/>
         <source>Lower Layer</source>
-        <translation>Eliminar a capa</translation>
+        <translation>Baixar a capa</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="0"/>
@@ -22165,7 +22166,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="568"/>
         <source>Blend Mode:</source>
-        <translation>Modo de Mescla:</translation>
+        <translation>Modo de mestura:</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="570"/>
@@ -22220,12 +22221,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="580"/>
         <source>Color Dodge</source>
-        <translation>Esborrar a Cor</translation>
+        <translation>Esborrar a cor</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="581"/>
         <source>Color Burn</source>
-        <translation>Quimar a Cor</translation>
+        <translation>Queimar a cor</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="579"/>
@@ -22255,22 +22256,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="603"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation>Cor do Indicador de Capa - Cada capta conta cunha cor asignada para mostrar na área de traballo cando se activan os indicadores de capa. Pode facer dobre clic para editar a cor. </translation>
+        <translation>Cor do indicador de capa - Cada capta conta cunha cor asignada para mostrar na área de traballo cando se activan os indicadores de capa. Pode facer dobre clic para editar a cor. </translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="604"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation>Facer Visíbel a Capa - Retire a selección para agochar a capa </translation>
+        <translation>Facer visíbel a capa - Retire a selección para agochar a capa </translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="605"/>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation>Imprimir Capa - Retire a selección para desactivar a impresión. </translation>
+        <translation>Imprimir a capa - Retire a selección para desactivar a impresión. </translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="606"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation>Bloquear ou Desbloquear Capa - Retire a selección para desbloquear </translation>
+        <translation>Bloquear ou desbloquear a capa - Retire a selección para desbloquear </translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="607"/>
@@ -22333,7 +22334,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/canvasmode_legacy.cpp" line="4974"/>
         <source>All Supported Formats</source>
-        <translation>Todos os Formatos Coñecidos</translation>
+        <translation>Todos os formatos coñecidos</translation>
     </message>
 </context>
 <context>
@@ -22366,7 +22367,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="126"/>
         <source>Lens Parameters</source>
-        <translation>Parámetros da Lente</translation>
+        <translation>Parámetros da lente</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="147"/>
@@ -22416,7 +22417,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="68"/>
         <source>&amp;Remove Lens</source>
-        <translation>Elimina&amp;r Lente</translation>
+        <translation>Elimina&amp;r a lente</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="95"/>
@@ -22466,7 +22467,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="200"/>
         <source>&amp;Fish Eye Lens</source>
-        <translation>O&amp;llo de Peixe</translation>
+        <translation>O&amp;llo de peixe</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="207"/>
@@ -22494,17 +22495,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="66"/>
         <source>Lens Effects...</source>
-        <translation>Efectos da Lente...</translation>
+        <translation>Efectos da lente...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation>Ferramentas de Trazado</translation>
+        <translation>Ferramentas de trazado</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="90"/>
         <source>Lens Effects</source>
-        <translation>Efectos da Lente</translation>
+        <translation>Efectos da lente</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="91"/>
@@ -22754,7 +22755,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="81"/>
         <source>All Files (*)</source>
-        <translation>Todos os Ficheiros (*)</translation>
+        <translation>Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="80"/>
@@ -22812,7 +22813,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/loremipsum.cpp" line="266"/>
         <source>Random Paragraphs</source>
-        <translation>Parágrafos Ao Chou</translation>
+        <translation>Parágrafos ao chou</translation>
     </message>
     <message>
         <location filename="../../scribus/loremipsum.cpp" line="272"/>
@@ -23272,7 +23273,7 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
     <message>
         <location filename="../../scribus/margindialog.cpp" line="31"/>
         <source>Manage Page Properties</source>
-        <translation>Xerir as Propiedades da Páxina</translation>
+        <translation>Xerir as propiedades da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/margindialog.cpp" line="39"/>
@@ -23317,7 +23318,7 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
     <message>
         <location filename="../../scribus/margindialog.cpp" line="83"/>
         <source>Move Objects with their Page</source>
-        <translation>Mover os Obxectos coa súa Páxina</translation>
+        <translation>Mover os obxectos coa súa páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/margindialog.cpp" line="89"/>
@@ -23327,7 +23328,7 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
     <message>
         <location filename="../../scribus/margindialog.cpp" line="109"/>
         <source>Margin Guides</source>
-        <translation>Guías das Marxes</translation>
+        <translation>Guías das marxes</translation>
     </message>
     <message>
         <location filename="../../scribus/margindialog.cpp" line="116"/>
@@ -23454,7 +23455,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="102"/>
         <source>Printer Margins...</source>
-        <translation>Marxes da Impresora...</translation>
+        <translation>Marxes da impresora...</translation>
     </message>
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="104"/>
@@ -23469,7 +23470,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="82"/>
         <source>All Document Pages</source>
-        <translation>Todas as Páxinas do Documento</translation>
+        <translation>Todas as páxinas do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="86"/>
@@ -23484,7 +23485,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="108"/>
         <source>Margin Guides</source>
-        <translation>Guías das Marxes</translation>
+        <translation>Guías das marxes</translation>
     </message>
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="126"/>
@@ -23820,7 +23821,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <source>pt</source>
         <translation type="obsolete">pt</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/measurements.cpp" line="51"/>
         <source> °</source>
         <translation> °</translation>
@@ -23894,7 +23895,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="37"/>
         <source>Import Page(s)</source>
-        <translation>Importar Páxina(s)</translation>
+        <translation>Importar páxina(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="0"/>
@@ -23928,7 +23929,7 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="78"/>
         <source>Create Page(s)</source>
-        <translation>Crear Páxina(s)</translation>
+        <translation>Crear páxina(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="0"/>
@@ -23963,7 +23964,7 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="135"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os Ficheiros (*)</translation>
+        <translation>Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="0"/>
@@ -23983,7 +23984,7 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="48"/>
         <source>&amp;From Document:</source>
-        <translation>&amp;Desde o Documento:</translation>
+        <translation>&amp;Desde o documento:</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="52"/>
@@ -23993,7 +23994,7 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="55"/>
         <source>&amp;Import Page(s):</source>
-        <translation>&amp;Importar Páxina(s):</translation>
+        <translation>&amp;Importar páxina(s):</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="59"/>
@@ -24008,17 +24009,17 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="82"/>
         <source>Before Page</source>
-        <translation>Antes da Páxina</translation>
+        <translation>Antes da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="83"/>
         <source>After Page</source>
-        <translation>Depóis da Páxina</translation>
+        <translation>Depóis da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="84"/>
         <source>At End</source>
-        <translation>No Final</translation>
+        <translation>No final</translation>
     </message>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="101"/>
@@ -24051,7 +24052,7 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="13"/>
         <source>Mesh Distortion</source>
-        <translation>Distorsión de Malla</translation>
+        <translation>Distorsión de malla</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="27"/>
@@ -24061,12 +24062,12 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="41"/>
         <source>Zoom In</source>
-        <translation>Achegarse</translation>
+        <translation>Achegar</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="51"/>
         <source>Zoom Out</source>
-        <translation>Alonxarse</translation>
+        <translation>Alonxar</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="82"/>
@@ -24086,17 +24087,17 @@ Se non hai nengún seleccionado, reporanse todos.</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="69"/>
         <source>Mesh Distortion...</source>
-        <translation>Distorsión de Malla...</translation>
+        <translation>Distorsión de malla...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="73"/>
         <source>Path Tools</source>
-        <translation>Ferramentas de Trazo</translation>
+        <translation>Ferramentas de trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="95"/>
         <source>Mesh Distortion of Polygons</source>
-        <translation>Distorsión de Malla de Polígonos</translation>
+        <translation>Distorsión de malla de polígonos</translation>
     </message>
 </context>
 <context>
@@ -24104,7 +24105,7 @@ Se non hai nengún seleccionado, reporanse todos.</translation>
     <message>
         <location filename="../../scribus/missing.cpp" line="309"/>
         <source>Missing Font</source>
-        <translation>Falta esta Fonte</translation>
+        <translation>Falta esta fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/missing.cpp" line="317"/>
@@ -24140,17 +24141,17 @@ Se non hai nengún seleccionado, reporanse todos.</translation>
     <message>
         <location filename="../../scribus/movepage.cpp" line="28"/>
         <source>Move Pages</source>
-        <translation>Mover Páxinas</translation>
+        <translation>Mover páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/movepage.cpp" line="37"/>
         <source>Copy Page</source>
-        <translation>Copiar a Páxina</translation>
+        <translation>Copiar a páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/movepage.cpp" line="78"/>
         <source>Move Page(s):</source>
-        <translation>Mover Páxina(s):</translation>
+        <translation>Mover páxina(s):</translation>
     </message>
     <message>
         <location filename="../../scribus/movepage.cpp" line="0"/>
@@ -24185,22 +24186,22 @@ Se non hai nengún seleccionado, reporanse todos.</translation>
     <message>
         <location filename="../../scribus/movepage.cpp" line="37"/>
         <source>Move Page(s)</source>
-        <translation>Mover a(s) Páxina(s)</translation>
+        <translation>Mover a(s) páxina(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/movepage.cpp" line="68"/>
         <source>Before Page</source>
-        <translation>Antes da Páxina</translation>
+        <translation>Antes da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/movepage.cpp" line="69"/>
         <source>After Page</source>
-        <translation>Depóis da Páxina</translation>
+        <translation>Depóis da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/movepage.cpp" line="70"/>
         <source>At End</source>
-        <translation>No Final</translation>
+        <translation>No final</translation>
     </message>
     <message>
         <location filename="../../scribus/movepage.cpp" line="48"/>
@@ -24353,7 +24354,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/multiprogressdialog.ui" line="24"/>
         <source>Overall Progress:</source>
-        <translation>Progreso Total:</translation>
+        <translation>Progreso total:</translation>
     </message>
     <message>
         <location filename="../../scribus/multiprogressdialog.ui" line="67"/>
@@ -24384,12 +24385,12 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="112"/>
         <source>&amp;Horizontal Shift:</source>
-        <translation>Desprazamento &amp;Horizontal:</translation>
+        <translation>Desprazamento &amp;horizontal:</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="165"/>
         <source>&amp;Vertical Shift:</source>
-        <translation>Desprazamento &amp;Vertical:</translation>
+        <translation>Desprazamento &amp;vertical:</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.cpp" line="69"/>
@@ -24409,17 +24410,17 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="32"/>
         <source>&amp;By Number of Copies</source>
-        <translation>&amp;Por Número de Copias</translation>
+        <translation>&amp;Por número de copias</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="50"/>
         <source>&amp;Number of Copies:</source>
-        <translation>&amp;Número de Copias:</translation>
+        <translation>&amp;Número de copias:</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="81"/>
         <source>Create &amp;Gap Between Items Of</source>
-        <translation>Crear &amp;Separación Entre Elementos De</translation>
+        <translation>Crear &amp;separación entre elementos de</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="84"/>
@@ -24429,7 +24430,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="91"/>
         <source>&amp;Shift Created Items By</source>
-        <translation>De&amp;sprazar os Elementos Creados En</translation>
+        <translation>De&amp;sprazar os elementos creados en</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="94"/>
@@ -24444,27 +24445,27 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="217"/>
         <source>By &amp;Rows &amp;&amp; Columns</source>
-        <translation>En &amp;Fileiras e Columnas</translation>
+        <translation>En &amp;fileiras e columnas</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="245"/>
         <source>Vertical Gap:</source>
-        <translation>Separación Vertical:</translation>
+        <translation>Separación vertical:</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="272"/>
         <source>Horizontal Gap:</source>
-        <translation>Separación Horizontal:</translation>
+        <translation>Separación horizontal:</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="289"/>
         <source>Number of Rows:</source>
-        <translation>Número de Fileiras:</translation>
+        <translation>Número de fileiras:</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="309"/>
         <source>Number of Columns:</source>
-        <translation>Número de Columnas:</translation>
+        <translation>Número de columnas:</translation>
     </message>
     <message>
         <location filename="../../scribus/multipleduplicate.ui" line="383"/>
@@ -25092,7 +25093,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="900"/>
         <source>&amp;Absolute Coordinates</source>
-        <translation>Coordenadas &amp;Absolutas</translation>
+        <translation>Coordenadas &amp;absolutas</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="903"/>
@@ -25107,107 +25108,107 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="905"/>
         <source>Edit &amp;Contour Line</source>
-        <translation>Modificar a Liña de &amp;Contorno</translation>
+        <translation>Modificar a liña de &amp;contorno</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="906"/>
         <source>&amp;Reset Contour Line</source>
-        <translation>Bo&amp;rrar a Liña de Contorno</translation>
+        <translation>Bo&amp;rrar a liña de contorno</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="909"/>
         <source>&amp;End Editing</source>
-        <translation>R&amp;ematar as Modificacións</translation>
+        <translation>R&amp;ematar as modificacións</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="910"/>
         <source>Move Nodes</source>
-        <translation>Mover Nodos</translation>
+        <translation>Mover os nodos</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="911"/>
         <source>Move Control Points</source>
-        <translation>Mover Puntos de Control</translation>
+        <translation>Mover os puntos de control</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="912"/>
         <source>Add Nodes</source>
-        <translation>Adicionar Nodos</translation>
+        <translation>Adicionar nodos</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="913"/>
         <source>Delete Nodes</source>
-        <translation>Eliminar Nodos</translation>
+        <translation>Eliminar nodos</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="914"/>
         <source>Move Control Points Independently</source>
-        <translation>Mover os Puntos de Control Independentemente</translation>
+        <translation>Mover os puntos de control independentemente</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="915"/>
         <source>Move Control Points Symmetrical</source>
-        <translation>Mover os Puntos de Control Simetricamente</translation>
+        <translation>Mover os puntos de control simetricamente</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="916"/>
         <source>Reset Control Points</source>
-        <translation>Limpar os Puntos de Control</translation>
+        <translation>Limpar os puntos de control</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="917"/>
         <source>Reset this Control Point</source>
-        <translation>Limpar este Punto de Control</translation>
+        <translation>Limpar este punto de control</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="918"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation>Abrir un Polígono ou Cortar unha Curva de Bézier</translation>
+        <translation>Abrir un polígono ou cortar unha curva de Bézier</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="919"/>
         <source>Close this Bezier Curve</source>
-        <translation>Fechar esta Curva de Bézier</translation>
+        <translation>Fechar esta curva de Bézier</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="920"/>
         <source>Mirror the Path Horizontally</source>
-        <translation>Reflexar o Trazo Horizontalmente</translation>
+        <translation>Reflectir o trazo horizontalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="921"/>
         <source>Mirror the Path Vertically</source>
-        <translation>Reflexar o Trazo Verticalmente</translation>
+        <translation>Reflectir o trazo verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="922"/>
         <source>Shear the Path Horizontally to the Right</source>
-        <translation>Recortar o Trazo Horizontalmente para a Dereita</translation>
+        <translation>Recortar o trazo horizontalmente para a dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="923"/>
         <source>Shear the Path Horizontally to the Left</source>
-        <translation>Recortar o Trazo Horizontalmente para a Esquerda</translation>
+        <translation>Recortar o trazo horizontalmente para a esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="924"/>
         <source>Shear the Path Vertically Up</source>
-        <translation>Recortar o Trazo Verticalmente para riba</translation>
+        <translation>Recortar o trazo verticalmente para riba</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="925"/>
         <source>Shear the Path Vertically Down</source>
-        <translation>Recortar o Trazo Verticalmente para baixo</translation>
+        <translation>Recortar o trazo verticalmente para baixo</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="926"/>
         <source>Rotate the Path Counter-Clockwise</source>
-        <translation>Xirar o Trazo en sentido Anti-reloxio</translation>
+        <translation>Xirar o trazo en sentido anti-reloxio</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="927"/>
         <source>Rotate the Path Clockwise</source>
-        <translation>Xirar o Trazo no sentido do Reloxio</translation>
+        <translation>Xirar o trazo no sentido do reloxio</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="0"/>
@@ -25217,12 +25218,12 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="929"/>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation>Aumentar o Tamaño do Trazo polo % mostrado</translation>
+        <translation>Aumentar o tamaño do trazo no % mostrado</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="932"/>
         <source>Angle of Rotation</source>
-        <translation>Ángulo de Rotación</translation>
+        <translation>Ángulo de rotación</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="0"/>
@@ -25232,12 +25233,12 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="935"/>
         <source>Activate Contour Line Editing Mode</source>
-        <translation>Activar o Modo de Edición da Liña de Contorno</translation>
+        <translation>Activar o modo de edición da liña de contorno</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="936"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation>Limpar a Liña de Contorno para a Forma Orixinal da Moldura</translation>
+        <translation>Limpar a liña de contorno para a forma orixinal da moldura</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="0"/>
@@ -25258,47 +25259,47 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="928"/>
         <source>Shrink the Size of the Path by shown %</source>
-        <translation>Encoller o Tamaño do Trazo na percentaxe mostrada</translation>
+        <translation>Encoller o tamaño do trazo na percentaxe mostrada</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="930"/>
         <source>Reduce the Size of the Path by the shown value</source>
-        <translation>Reducir o Tamaño do Trazo no valor mostrado</translation>
+        <translation>Reducir o tamaño do trazo no valor mostrado</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="931"/>
         <source>Enlarge the Size of the Path by the shown value</source>
-        <translation>Aumentar o Tamaño do Trazo no valor mostrado</translation>
+        <translation>Aumentar o tamaño do trazo no valor mostrado</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="933"/>
         <source>% to Enlarge or Shrink By</source>
-        <translation>Percentaxe no que Aumentar ou Reducir</translation>
+        <translation>Percentaxe no que aumentar ou reducir</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="934"/>
         <source>Value to Enlarge or Shrink By</source>
-        <translation>Valor no que Aumentar ou Reducir</translation>
+        <translation>Valor no que aumentar ou reducir</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="907"/>
         <source>Set Contour to Image Clip</source>
-        <translation>Fixar o Contorno ao Pegado de Imaxe</translation>
+        <translation>Fixar o contorno ao pegado de Imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="937"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
-        <translation>Desfacer a Liña de Contorno ao Trazo de Pegado da Imaxe</translation>
+        <translation>Desfacer a liña de contorno ao trazo de pegado da imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="901"/>
         <source>to Canvas</source>
-        <translation>á Mesa de Traballo</translation>
+        <translation>á mesa de traballo</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="902"/>
         <source>to Page</source>
-        <translation>á Páxina</translation>
+        <translation>á páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="908"/>
@@ -25344,7 +25345,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="112"/>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation>Importa Ficheiros do Draw de OpenOffice.org</translation>
+        <translation>Importa ficheiros do Draw de OpenOffice.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="113"/>
@@ -25379,7 +25380,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="43"/>
         <source>OpenDocument Importer Options</source>
-        <translation>Opcións do Importador do OpenDocument</translation>
+        <translation>Opcións do importador do OpenDocument</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="0"/>
@@ -25394,7 +25395,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="61"/>
         <source>Merge Paragraph Styles</source>
-        <translation>Integrar os Estilos de Parágrafo</translation>
+        <translation>Integrar os estilos de parágrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="63"/>
@@ -25429,7 +25430,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="52"/>
         <source>Overwrite Paragraph Styles</source>
-        <translation>Substituir os Estilos de Parágrafo</translation>
+        <translation>Substituír os estilos de parágrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="92"/>
@@ -25485,7 +25486,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/oneclick.cpp" line="101"/>
         <source>Remember Values</source>
-        <translation>Lembrar os Valores</translation>
+        <translation>Lembrar os valores</translation>
     </message>
 </context>
 <context>
@@ -25574,7 +25575,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/pdfopts.cpp" line="65"/>
         <source>O&amp;utput to File:</source>
-        <translation>Saída para &amp;Ficheiro:</translation>
+        <translation>Saída para &amp;ficheiro:</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfopts.cpp" line="94"/>
@@ -25649,7 +25650,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="139"/>
         <source>Exporting Page:</source>
-        <translation>A exportar Páxina:</translation>
+        <translation>A exportar a páxina:</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="139"/>
@@ -26679,7 +26680,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     <message>
         <location filename="../../scribus/preview.cpp" line="278"/>
         <source>&amp;Under Color Removal</source>
-        <translation>Eliminación da Cor &amp;Inferior (UCR)</translation>
+        <translation>Eliminación da cor &amp;inferior (UCR)</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="139"/>
@@ -26773,7 +26774,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <message>
         <location filename="../../scribus/preview.cpp" line="152"/>
         <source>Separation Name</source>
-        <translation>Nome da Separación</translation>
+        <translation>Nome da separación</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="164"/>
@@ -26844,17 +26845,17 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/preview.cpp" line="129"/>
         <source>Enable &amp;Antialiasing</source>
-        <translation>Activar &amp;Antialias</translation>
+        <translation>Activar &amp;antialias</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="311"/>
         <source>Fit to Width</source>
-        <translation>Axustar á Largura</translation>
+        <translation>Axustar á largura</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="312"/>
         <source>Fit to Height</source>
-        <translation>Axustar á Altura</translation>
+        <translation>Axustar á altura</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="313"/>
@@ -26874,17 +26875,17 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/preview.cpp" line="260"/>
         <source>Print Settings</source>
-        <translation>Configuración da Impresión</translation>
+        <translation>Configuración da impresión</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="266"/>
         <source>Mirror Page(s) Horizontal</source>
-        <translation>Reflexar a(s) páxina(s) horizontalmente</translation>
+        <translation>Reflectir a(s) páxina(s) horizontalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="269"/>
         <source>Mirror Page(s) Vertical</source>
-        <translation>Reflexar a(s) páxina(s) verticalmente</translation>
+        <translation>Reflectir a(s) páxina(s) verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="242"/>
@@ -26894,12 +26895,12 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/preview.cpp" line="275"/>
         <source>Print in Grayscale</source>
-        <translation>Impimir en Escala de Grises</translation>
+        <translation>Impimir en escala de grises</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="281"/>
         <source>Convert Spot Colors</source>
-        <translation>Converter en Manchas de Cor</translation>
+        <translation>Converter en manchas de cor</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="255"/>
@@ -26909,7 +26910,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/preview.cpp" line="360"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Permite que as Manchas de Cor se convirtan en cores compostas. A non ser que pretenda imprimir manchas de cor nunha imprenta comercial, será preferíbel que deixe isto seleccionado.</translation>
+        <translation>Permite que as manchas de cor se convirtan en cores compostas. A non ser que pretenda imprimir manchas de cor nunha imprenta comercial, será preferíbel que deixe isto seleccionado.</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="335"/>
@@ -26924,7 +26925,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/preview.cpp" line="284"/>
         <source>Apply Color Profiles</source>
-        <translation>Aplicar Perfís de Cores</translation>
+        <translation>Aplicar perfís de cores</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="361"/>
@@ -26977,7 +26978,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/pslib.cpp" line="1839"/>
         <source>Exporting Page:</source>
-        <translation>A exportar Páxina:</translation>
+        <translation>A exportar a páxina:</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1772"/>
@@ -27492,17 +27493,17 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/pageitemattributes.cpp" line="21"/>
         <source>Relates To</source>
-        <translation>Relacionado Con</translation>
+        <translation>Relacionado con</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitemattributes.cpp" line="21"/>
         <source>Is Parent Of</source>
-        <translation>É Pai De</translation>
+        <translation>É pai de</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitemattributes.cpp" line="21"/>
         <source>Is Child Of</source>
-        <translation>É Fillo De</translation>
+        <translation>É fillo de</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="13"/>
@@ -27537,7 +27538,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/pageitemattributes.ui" line="48"/>
         <source>Relationship To</source>
-        <translation>Relación Con</translation>
+        <translation>Relación con</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitemattributes.ui" line="58"/>
@@ -27920,12 +27921,12 @@ relación</translation>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="3471"/>
         <source>Linked Text</source>
-        <translation>Texto Ligado</translation>
+        <translation>Texto ligado</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="3473"/>
         <source>Text Frame</source>
-        <translation>Moldura de Texto</translation>
+        <translation>Moldura de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="3477"/>
@@ -27958,12 +27959,12 @@ relación</translation>
     <message>
         <location filename="../../scribus/pagelayout.cpp" line="266"/>
         <source>First Page is:</source>
-        <translation>A Primeira Páxina é:</translation>
+        <translation>A primeira páxina é:</translation>
     </message>
     <message>
         <location filename="../../scribus/pagelayout.cpp" line="197"/>
         <source>Document Layout</source>
-        <translation>Disposición do Documento</translation>
+        <translation>Disposición do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/pagelayout.cpp" line="268"/>
@@ -28008,7 +28009,7 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="933"/>
         <source>Arrange Pages</source>
-        <translation>Dispor as Páxinas</translation>
+        <translation>Dispor as páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="934"/>
@@ -28018,7 +28019,7 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="935"/>
         <source>Document Pages:</source>
-        <translation>Páxinas do Documento:</translation>
+        <translation>Páxinas do documento:</translation>
     </message>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="883"/>
@@ -28223,7 +28224,7 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/spalette.cpp" line="62"/>
         <source>No Style</source>
-        <translation>Sen Estilo</translation>
+        <translation>Sen estilo</translation>
     </message>
 </context>
 <context>
@@ -28231,22 +28232,22 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="69"/>
         <source>Path Along Path...</source>
-        <translation>Trazo Ao Longo de Trazo...</translation>
+        <translation>Trazo ao longo dun trazo...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="73"/>
         <source>Path Tools</source>
-        <translation>Ferramentas de Trazado</translation>
+        <translation>Ferramentas de trazado</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="96"/>
         <source>Bends a Polygon along a Polyline</source>
-        <translation>Dobra un Polígono ao longo dunha Poli-liña</translation>
+        <translation>Dobra un polígono ao longo dunha poli-liña</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="97"/>
         <source>This plugin bends a Polygon with the help of a Polyline.</source>
-        <translation>Este engadido dobra un Polígono con axuda dunha Poli-liña.</translation>
+        <translation>Este engadido dobra un polígono con axuda dunha poli-liña.</translation>
     </message>
 </context>
 <context>
@@ -28294,7 +28295,7 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="82"/>
         <source>Preview on Canvas</source>
-        <translation>Antevisión na Mesa de Traballo</translation>
+        <translation>Antevisión na mesa de traballo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="19"/>
@@ -28309,7 +28310,7 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
         <source>by using:</source>
-        <translation>empregando</translation>
+        <translation>empregando:</translation>
     </message>
 </context>
 <context>
@@ -28335,17 +28336,17 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="70"/>
         <source>Cut Polygon</source>
-        <translation>Recortar Polígono</translation>
+        <translation>Recortar o polígono</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="76"/>
         <source>Path Tools</source>
-        <translation>Ferramentas de Trazado</translation>
+        <translation>Ferramentas de trazado</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="100"/>
         <source>Cuts a Polygon by a Polyline</source>
-        <translation>Recorta un Polígono ao longo dunha Poli-liña</translation>
+        <translation>Recorta un polígono ao longo dunha poli-liña</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="119"/>
@@ -28370,17 +28371,17 @@ both end points must lie outside of the polygon</source>
 os dous extremos deben ficar fóra do polígono</translation>
     </message>
 </context>
-<context encoding="UTF-8">
+<context>
     <name>PathDialogBase</name>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="13"/>
         <source>Path along Path</source>
-        <translation>Trazo Ao Longo de Trazo</translation>
+        <translation>Trazo ao Longo de trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="21"/>
         <source>Effect Type</source>
-        <translation>Tipo de Efecto</translation>
+        <translation>Tipo de efecto</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="29"/>
@@ -28405,14 +28406,14 @@ os dous extremos deben ficar fóra do polígono</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="52"/>
         <source>Horizontal Offset</source>
-        <translation>Distancia Horizontal</translation>
+        <translation>Distancia horizontal</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="62"/>
         <source>Vertical Offset</source>
-        <translation>Distancia Vertical</translation>
+        <translation>Distancia vertical</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="72"/>
         <source>Rotate Object by 90°</source>
         <translation type="obsolete">Xirar o Obxecto 90°</translation>
@@ -28420,34 +28421,34 @@ os dous extremos deben ficar fóra do polígono</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="103"/>
         <source>Gap between Objects</source>
-        <translation>Separación entre Obxectos</translation>
+        <translation>Separación entre os obxectos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="113"/>
         <source>Preview on Canvas</source>
-        <translation>Antevisión na Mesa de Traballo</translation>
+        <translation>Antevisión na mesa de traballo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="72"/>
         <source>Rotate Objects by:</source>
-        <translation>Xirar Obxectos:</translation>
+        <translation>Xirar os obxectos:</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -28458,7 +28459,7 @@ os dous extremos deben ficar fóra do polígono</translation>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="13"/>
         <source>Boolean Path Operations</source>
-        <translation>Operacións Lóxicas dos Trazos</translation>
+        <translation>Operacións lóxicas dos trazos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="158"/>
@@ -28493,7 +28494,7 @@ os dous extremos deben ficar fóra do polígono</translation>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="381"/>
         <source>Swap Shapes</source>
-        <translation>Intercambiar Formas</translation>
+        <translation>Intercambiar as formas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="386"/>
@@ -28638,12 +28639,12 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderdialog.cpp" line="103"/>
         <source>Result gets Color of:</source>
-        <translation>O Resultado toma a Cor da:</translation>
+        <translation>O resultado toma a cor da:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderdialog.cpp" line="127"/>
         <source>Intersection gets Color of:</source>
-        <translation>A Intersección toma a Cor da:</translation>
+        <translation>A intersección toma a cor da:</translation>
     </message>
 </context>
 <context>
@@ -28651,17 +28652,17 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="74"/>
         <source>Path Operations...</source>
-        <translation>Operacións dos Trazos...</translation>
+        <translation>Operacións dos trazos...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="78"/>
         <source>Path Tools</source>
-        <translation>Ferramentas de Trazado</translation>
+        <translation>Ferramentas de trazado</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="103"/>
         <source>Path Operations</source>
-        <translation>Operacións dos Trazos</translation>
+        <translation>Operacións dos trazos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="104"/>
@@ -28684,17 +28685,17 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="95"/>
         <source>Create Path from Stroke</source>
-        <translation>Crear Camiño a partir de Trazo</translation>
+        <translation>Crear camiño a partir de trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="74"/>
         <source>Path Tools</source>
-        <translation>Ferramentas de Trazado</translation>
+        <translation>Ferramentas de trazado</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="96"/>
         <source>Converts the stroke of a Path to a filled Path.</source>
-        <translation>Converte o trazado dun Camiño nun Camiño recheo.</translation>
+        <translation>Converte o trazado dun camiño nun camiño recheo.</translation>
     </message>
 </context>
 <context>
@@ -28702,17 +28703,17 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/patterndialog.cpp" line="134"/>
         <source>Choose a Directory</source>
-        <translation>Escolla un Directorio</translation>
+        <translation>Escolla un directorio</translation>
     </message>
     <message>
         <location filename="../../scribus/patterndialog.cpp" line="162"/>
         <source>Loading Patterns</source>
-        <translation>A carregar Deseños</translation>
+        <translation>A carregar deseños</translation>
     </message>
     <message>
         <location filename="../../scribus/patterndialog.cpp" line="296"/>
         <source>All Files (*)</source>
-        <translation>Todos os Ficheiros (*)</translation>
+        <translation>Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/patterndialog.cpp" line="310"/>
@@ -28732,7 +28733,7 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/patterndialog.ui" line="63"/>
         <source>Load Set</source>
-        <translation>Carregar Conxunto</translation>
+        <translation>Carregar un conxunto</translation>
     </message>
     <message>
         <location filename="../../scribus/patterndialog.ui" line="77"/>
@@ -28742,7 +28743,7 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/patterndialog.ui" line="84"/>
         <source>Remove All</source>
-        <translation>Eliminalo Todo</translation>
+        <translation>Eliminalo todo</translation>
     </message>
     <message>
         <location filename="../../scribus/patterndialog.ui" line="107"/>
@@ -28762,12 +28763,12 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/patterndialog.cpp" line="84"/>
         <source>Rename Entry</source>
-        <translation>Mudarlle o nome á Entrada</translation>
+        <translation>Mudarlle o nome á entrada</translation>
     </message>
     <message>
         <location filename="../../scribus/patterndialog.cpp" line="213"/>
         <source>All Supported Formats</source>
-        <translation>Todos os Formatos Coñecidos</translation>
+        <translation>Todos os formatos coñecidos</translation>
     </message>
     <message>
         <location filename="../../scribus/patterndialog.ui" line="70"/>
@@ -28785,7 +28786,7 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/picsearch.ui" line="34"/>
         <source>Search Results for: </source>
-        <translation>Procurar Resultado para: </translation>
+        <translation>Procurar os resultados para: </translation>
     </message>
     <message>
         <location filename="../../scribus/picsearch.ui" line="0"/>
@@ -28850,7 +28851,7 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/picsearch.ui" line="86"/>
         <source>&amp;Preview</source>
-        <translation>&amp;Vista Previa</translation>
+        <translation>&amp;Vista previa</translation>
     </message>
     <message>
         <location filename="../../scribus/picsearch.ui" line="89"/>
@@ -28911,7 +28912,7 @@ O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión
     <message>
         <location filename="../../scribus/picsearchoptions.cpp" line="58"/>
         <source>Cancel Search</source>
-        <translation>Deter a Procura</translation>
+        <translation>Deter a procura</translation>
     </message>
     <message>
         <location filename="../../scribus/picsearchoptions.ui" line="124"/>
@@ -29094,7 +29095,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="422"/>
         <source>Scribus - Image Search</source>
-        <translation>Scribus - Procura de Imaxes</translation>
+        <translation>Scribus - Procura de imaxes</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="0"/>
@@ -29119,7 +29120,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="253"/>
         <source>Not on a Page</source>
-        <translation>Non nunha Páxina</translation>
+        <translation>Non nunha páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="278"/>
@@ -29274,7 +29275,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/picstatus.ui" line="575"/>
         <source>Image Tools</source>
-        <translation>Ferramentas de Imaxe</translation>
+        <translation>Ferramentas de imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.ui" line="628"/>
@@ -29289,37 +29290,37 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/picstatus.ui" line="613"/>
         <source>Edit Image...</source>
-        <translation>Modificar a Imaxe...</translation>
+        <translation>Modificar a imaxe...</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.ui" line="623"/>
         <source>Image Visible</source>
-        <translation>Imaxe Visíbel</translation>
+        <translation>Imaxe visíbel</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.ui" line="633"/>
         <source>Image Effects...</source>
-        <translation>Efectos de Imaxe...</translation>
+        <translation>Efectos da imaxe...</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.ui" line="600"/>
         <source>Extended Image Properties...</source>
-        <translation>Propiedades Extendidas da Imaxe...</translation>
+        <translation>Propiedades extendidas da imaxe...</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="228"/>
         <source>Sort by Name</source>
-        <translation>Ordenar polo Nome</translation>
+        <translation>Ordenar polo nome</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="230"/>
         <source>Sort by Page</source>
-        <translation>Ordenar pola Páxina</translation>
+        <translation>Ordenar pola páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.ui" line="16"/>
         <source>Manage Images</source>
-        <translation>Xestionar as Imaxes</translation>
+        <translation>Xestionar as imaxes</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.ui" line="562"/>
@@ -29424,7 +29425,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/picstatus.ui" line="590"/>
         <source>Export/Print Image</source>
-        <translation>Exportar/Imprimir Imaxe</translation>
+        <translation>Exportar/Imprimir a imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/picstatus.ui" line="597"/>
@@ -31693,7 +31694,7 @@ erro da aplicación scribus.</translation>
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="557"/>
         <source>Golden Mean</source>
-        <translation>Media Áurea</translation>
+        <translation>Media áurea</translation>
     </message>
     <message>
         <location filename="../../scribus/marginwidget.cpp" line="558"/>
@@ -33734,7 +33735,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5472"/>
         <source>Select the line spacing mode.</source>
-        <translation>Seleccionar o modo de espaciamento da liña</translation>
+        <translation>Seleccionar o modo de espaciamento da liña.</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5479"/>
@@ -33759,7 +33760,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5204"/>
         <source>Columns &amp; Text Distances</source>
-        <translation>Columnas e distancias entre os textos</translation>
+        <translation>Distancias entre as columnas e os textos</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4984"/>
@@ -36875,7 +36876,7 @@ erro de python.</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="106"/>
-        <source>Norwegian (Bokm&#xc3;&#xa5;l)</source>
+        <source>Norwegian (BokmÃ¥l)</source>
         <translation>Noruegués (Bokmaal)</translation>
     </message>
     <message>
@@ -37215,7 +37216,7 @@ En consecuencia, pode que a imaxe non sexa correcta</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="161"/>
-        <source>&#xb0;</source>
+        <source>°</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation>°</translation>
     </message>
@@ -37367,13 +37368,13 @@ En consecuencia, pode que a imaxe non sexa correcta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="51"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
-        <translation>Un nome de estilo de parágrafo non pode estar baleiro</translation>
+        <translation>Un nome de estilo de parágrafo non pode estar baleiro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="71"/>
         <source>hasdropcap has to be 0 or 1.</source>
         <comment>python error</comment>
-        <translation>hasdropcap ha de ser 0 ou 1</translation>
+        <translation>hasdropcap ha de ser 0 ou 1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="128"/>
@@ -37518,7 +37519,7 @@ Polo tanto, a imaxe podería non ser correcta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="258"/>
         <source>Color name cannot be an empty string.</source>
         <comment>python error</comment>
-        <translation>O nome da cor non pode ser unha cadea baleira</translation>
+        <translation>O nome da cor non pode ser unha cadea baleira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="100"/>
@@ -38650,17 +38651,17 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="42"/>
         <source>Line Styles</source>
-        <translation>Estilos de Liña</translation>
+        <translation>Estilos de lLiña</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="47"/>
         <source>Line Style</source>
-        <translation>Estilo de Liña</translation>
+        <translation>Estilo de liña</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="184"/>
         <source>New Style</source>
-        <translation>Estilo Novo</translation>
+        <translation>Estilo novo</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="194"/>
@@ -38681,27 +38682,27 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="673"/>
         <source>Solid Line</source>
-        <translation>Liña Continua</translation>
+        <translation>Liña continua</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="676"/>
         <source>Dashed Line</source>
-        <translation>Liña Tracexada</translation>
+        <translation>Liña tracexada</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="679"/>
         <source>Dotted Line</source>
-        <translation>Liña de Puntos</translation>
+        <translation>Liña de puntos</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="682"/>
         <source>Dash Dot Line</source>
-        <translation>Liña Guión-punto</translation>
+        <translation>Liña guión-punto</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="685"/>
         <source>Dash Dot Dot Line</source>
-        <translation>Liña Guión-punto-punto</translation>
+        <translation>Liña guión-punto-punto</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestyle.cpp" line="669"/>
@@ -38714,32 +38715,32 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smlinestylewidget.cpp" line="36"/>
         <source>Flat Cap</source>
-        <translation>Terminación Plana</translation>
+        <translation>Terminación plana</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestylewidget.cpp" line="37"/>
         <source>Square Cap</source>
-        <translation>Terminación Cadrada</translation>
+        <translation>Terminación cadrada</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestylewidget.cpp" line="38"/>
         <source>Round Cap</source>
-        <translation>Terminación Arredondada</translation>
+        <translation>Terminación arredondada</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestylewidget.cpp" line="40"/>
         <source>Miter Join</source>
-        <translation>Xunta en Inglete</translation>
+        <translation>Xunta en inglete</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestylewidget.cpp" line="41"/>
         <source>Bevel Join</source>
-        <translation>Xunta Biselada</translation>
+        <translation>Xunta biselada</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestylewidget.cpp" line="42"/>
         <source>Round Join</source>
-        <translation>Xunta Arredondada</translation>
+        <translation>Xunta arredondada</translation>
     </message>
     <message>
         <location filename="../../scribus/smlinestylewidget.cpp" line="62"/>
@@ -38794,7 +38795,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smlinestylewidget.ui" line="256"/>
         <source>Line Width:</source>
-        <translation>Largura da Liña:</translation>
+        <translation>Largura da liña:</translation>
     </message>
 </context>
 <context>
@@ -38802,17 +38803,17 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="330"/>
         <source>Fixed Linespacing</source>
-        <translation>Interliñado Fixo</translation>
+        <translation>Interliñado fixo</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="331"/>
         <source>Automatic Linespacing</source>
-        <translation>Interliñado Automático</translation>
+        <translation>Interliñado automático</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="332"/>
         <source>Align to Baseline Grid</source>
-        <translation>Aliñar á Grella Base</translation>
+        <translation>Aliñar á grella base</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="0"/>
@@ -38822,17 +38823,17 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="72"/>
         <source>Distances and Alignment</source>
-        <translation>Distancias e Aliñamento</translation>
+        <translation>Distancias e aliñamento</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="247"/>
         <source>Drop Caps</source>
-        <translation>Maiúsculas Capitulares</translation>
+        <translation>Maiúsculas capitulares</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="589"/>
         <source>Tabulators and Indentation</source>
-        <translation>Tabuladores e Indentación</translation>
+        <translation>Tabuladores e indentación</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="20"/>
@@ -38842,7 +38843,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="137"/>
         <source>Character Style</source>
-        <translation>Estilo de Carácter</translation>
+        <translation>Estilo de carácter</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="265"/>
@@ -38852,7 +38853,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="289"/>
         <source>Distance from Text:</source>
-        <translation>Distancia ao Texto:</translation>
+        <translation>Distancia ao texto:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="96"/>
@@ -38862,12 +38863,12 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="82"/>
         <source>Parent Style</source>
-        <translation>Estilo Pai</translation>
+        <translation>Estilo pai</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="83"/>
         <source>Line Spacing Mode</source>
-        <translation>Modo de Interliñado</translation>
+        <translation>Modo de interliñado</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="84"/>
@@ -38877,42 +38878,42 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="85"/>
         <source>Space Above</source>
-        <translation>Espazo por Riba</translation>
+        <translation>Espazo por riba</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="86"/>
         <source>Space Below</source>
-        <translation>Espazo por Baixo</translation>
+        <translation>Espazo por baixo</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="94"/>
         <source>Drop Cap Lines</source>
-        <translation>Liñas de Capitulares</translation>
+        <translation>Liñas de capitulares</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="95"/>
         <source>Drop Cap Offset</source>
-        <translation>Separación das Capitulares</translation>
+        <translation>Separación das capitulares</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="97"/>
         <source>First Line Indent</source>
-        <translation>Indentación da Primeira Liña</translation>
+        <translation>Indentación da primeira liña</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="98"/>
         <source>Left Indent</source>
-        <translation>Indentación Esquerda</translation>
+        <translation>Indentación esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="99"/>
         <source>Right Indent</source>
-        <translation>Indentación Dereita</translation>
+        <translation>Indentación dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="34"/>
         <source>Based On:</source>
-        <translation>Baseado En:</translation>
+        <translation>Baseado en:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="536"/>
@@ -38927,7 +38928,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="639"/>
         <source>Ch&amp;aracter Style</source>
-        <translation>Estilo de C&amp;arácter</translation>
+        <translation>Estilo de c&amp;arácter</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="376"/>
@@ -38999,7 +39000,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="385"/>
         <source>Use Parent Value</source>
-        <translation>Usar valor pai</translation>
+        <translation>Usar o valor pai</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="378"/>
@@ -39054,17 +39055,17 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="56"/>
         <source>Paragraph Styles</source>
-        <translation>Estilos de Parágrafo</translation>
+        <translation>Estilos de parágrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="61"/>
         <source>Paragraph Style</source>
-        <translation>Estilo de Parágrafo</translation>
+        <translation>Estilo de parágrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="227"/>
         <source>New Style</source>
-        <translation>Estilo Novo</translation>
+        <translation>Estilo novo</translation>
     </message>
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="249"/>
@@ -39098,7 +39099,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smreplacedia.ui" line="13"/>
         <source>Delete Styles</source>
-        <translation>Eliminar Estilos</translation>
+        <translation>Eliminar os estilos</translation>
     </message>
     <message>
         <location filename="../../scribus/smreplacedia.ui" line="65"/>
@@ -39144,7 +39145,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smreplacedia.cpp" line="23"/>
         <source>No Style</source>
-        <translation>Sen Estilo</translation>
+        <translation>Sen estilo</translation>
     </message>
 </context>
 <context>
@@ -39152,7 +39153,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smsccombobox.cpp" line="180"/>
         <source>Use Parent Value</source>
-        <translation>Usar Valor Pai</translation>
+        <translation>Usar o valor pai</translation>
     </message>
 </context>
 <context>
@@ -39160,7 +39161,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smshadebutton.cpp" line="74"/>
         <source>Use Parent Value</source>
-        <translation>Usar Valor Pai</translation>
+        <translation>Usar o valor pai</translation>
     </message>
 </context>
 <context>
@@ -39168,27 +39169,27 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smstyleimport.cpp" line="22"/>
         <source>Character Styles</source>
-        <translation>Estilos de Carácter</translation>
+        <translation>Estilos de carácter</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.cpp" line="34"/>
         <source>Paragraph Styles</source>
-        <translation>Estilos de Parágrafo</translation>
+        <translation>Estilos de parágrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.cpp" line="46"/>
         <source>Line Styles</source>
-        <translation>Estilos de Liña</translation>
+        <translation>Estilos de liña</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.ui" line="13"/>
         <source>Choose Styles</source>
-        <translation>Escolla Estilos</translation>
+        <translation>Escolla os estilos</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.ui" line="26"/>
         <source>Available Styles</source>
-        <translation>Estilos Disponíbeis</translation>
+        <translation>Estilos disponíbeis</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.ui" line="28"/>
@@ -39198,17 +39199,17 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smstyleimport.ui" line="47"/>
         <source>&amp;Rename Imported Style</source>
-        <translation>Substitui&amp;r o Estilo Importado</translation>
+        <translation>Muda&amp;r o nome do estilo importado</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.ui" line="57"/>
         <source>R&amp;eplace Existing Style</source>
-        <translation>Substituir o &amp;Estilo Existente</translation>
+        <translation>Substituír o &amp;estilo existente</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.ui" line="34"/>
         <source>Select or Unselect All</source>
-        <translation>Seleccionar ou Deseleccionar Todo</translation>
+        <translation>Seleccionar ou deseleccionar todo</translation>
     </message>
     <message>
         <location filename="../../scribus/smstyleimport.ui" line="41"/>
@@ -39235,7 +39236,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/smtabruler.cpp" line="20"/>
         <source> Parent Tabs </source>
-        <translation> Tabuladores Pai </translation>
+        <translation> Tabuladores pai </translation>
     </message>
 </context>
 <context>
@@ -39243,7 +39244,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1312"/>
         <source>Style Settings</source>
-        <translation>Configuración dos Estilos</translation>
+        <translation>Configuración dos estilos</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1339"/>
@@ -39256,7 +39257,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1039"/>
         <source>Fill Color Settings</source>
-        <translation>Configuración da Cor de Enchido</translation>
+        <translation>Configuración da cor de enchido</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="0"/>
@@ -39279,7 +39280,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1114"/>
         <source>Stroke Color Settings</source>
-        <translation>Configuración da Cor do Trazo</translation>
+        <translation>Configuración da cor do trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="0"/>
@@ -39302,7 +39303,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1359"/>
         <source>Font Settings</source>
-        <translation>Configuración das Fontes</translation>
+        <translation>Configuración das fontes</translation>
     </message>
     <message>
         <location filename="../../scribus/story.cpp" line="1318"/>
@@ -39322,7 +39323,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1413"/>
         <source>Font Size</source>
-        <translation>Tamaño da Fonte</translation>
+        <translation>Tamaño da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1414"/>
@@ -39355,7 +39356,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1224"/>
         <source>Manual Tracking</source>
-        <translation>Tracking Manual</translation>
+        <translation>Tracking manual</translation>
     </message>
     <message>
         <location filename="../../scribus/story.cpp" line="1144"/>
@@ -39373,7 +39374,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="105"/>
         <source>Exports SVG Files</source>
-        <translation>Exporta a Ficheiros SVG</translation>
+        <translation>Exporta a ficheiros SVG</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="106"/>
@@ -39388,7 +39389,7 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="131"/>
         <source>Compress File</source>
-        <translation>Comprimir ficheiro</translation>
+        <translation>Comprimir o ficheiro</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="135"/>
@@ -39423,7 +39424,7 @@ Precaución: isto incrementa o tamaño do ficheiro!</translation>
     <message>
         <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="109"/>
         <source>Imports SVG Files</source>
-        <translation>Importa Ficheiros SVG</translation>
+        <translation>Importa ficheiros SVG</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgimplugin/svgplugin.cpp" line="110"/>
@@ -39625,7 +39626,7 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="54"/>
         <source>Save as &amp;Template...</source>
-        <translation>Gardar como &amp;Modelo...</translation>
+        <translation>Gardar como &amp;modelo...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="74"/>
@@ -39892,7 +39893,7 @@ Se o grava nesta versión xa non o poderán ler as versións de Scribus máis an
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="76"/>
         <source>Allows Scribus to read Scribus 1.3.4 and higher formatted files.</source>
-        <translation>Permite que o Scribus lea ficheiros formatados para Scribus 1.3.4 e posteriores</translation>
+        <translation>Permite que o Scribus lea ficheiros formatados para Scribus 1.3.4 e posteriores.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="93"/>
@@ -41737,12 +41738,12 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="186"/>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>A inicializar os Atallos de Teclado</translation>
+        <translation>A inicializar os atallos de teclado</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="188"/>
         <source>Reading Preferences</source>
-        <translation>A ler as Preferencias</translation>
+        <translation>A ler as preferencias</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="181"/>
@@ -41752,7 +41753,7 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="335"/>
         <source>Searching for Fonts</source>
-        <translation>A procurar as Fontes</translation>
+        <translation>A procurar as fontes</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="340"/>
@@ -41767,17 +41768,17 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="342"/>
         <source>Fatal Error</source>
-        <translation>Erro Fatal</translation>
+        <translation>Erro fatal</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="345"/>
         <source>Font System Initialized</source>
-        <translation>Sistema de Fontes inicializado</translation>
+        <translation>O sistema de fontes está inicializado</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="200"/>
         <source>Reading Color Profiles</source>
-        <translation>A Ler os Perfís de Cores</translation>
+        <translation>A ler os perfís de cores</translation>
     </message>
 </context>
 <context>
@@ -41825,7 +41826,7 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="7818"/>
         <source>&amp;Unlock All</source>
-        <translation>&amp;Desbloquealo Todo</translation>
+        <translation>&amp;Desbloquealo todo</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="7819"/>
@@ -41858,7 +41859,7 @@ Separación vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="847"/>
         <source>Adjusting Colors</source>
-        <translation>A axustar as Cores</translation>
+        <translation>A axustar as cores</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/paragraphstyle.cpp" line="66"/>
@@ -41938,7 +41939,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="340"/>
         <source>Initializing Story Editor</source>
-        <translation>A iniciar o Editor de Artigos</translation>
+        <translation>A iniciar o editor de artigos</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="0"/>
@@ -41948,7 +41949,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="346"/>
         <source>Initializing Hyphenator</source>
-        <translation>A iniciar o Separador de Guións</translation>
+        <translation>A iniciar o separador de guións</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="352"/>
@@ -41988,7 +41989,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3853"/>
         <source>Fatal Error</source>
-        <translation>Erro Fatal</translation>
+        <translation>Erro fatal</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="0"/>
@@ -42068,7 +42069,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="722"/>
         <source>Send to La&amp;yer</source>
-        <translation>Enviar para &amp;Capa</translation>
+        <translation>Enviar para a &amp;capa</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9244"/>
@@ -42083,7 +42084,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9246"/>
         <source>C&amp;onvert To</source>
-        <translation>C&amp;onverter En</translation>
+        <translation>C&amp;onverter en</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9253"/>
@@ -42148,12 +42149,12 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3656"/>
         <source>Importing Pages...</source>
-        <translation>A Importar Páxina(s)...</translation>
+        <translation>A Importar páxina(s)...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3685"/>
         <source>Import Page(s)</source>
-        <translation>Importar Páxina(s)</translation>
+        <translation>Importar páxina(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3727"/>
@@ -42198,7 +42199,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3504"/>
         <source>All Supported Formats</source>
-        <translation>Todos os Formatos Coñecidos</translation>
+        <translation>Todos os formatos coñecidos</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="0"/>
@@ -42265,7 +42266,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4888"/>
         <source>Cannot Cut In-Use Item</source>
-        <translation>Non se pode Recortar un Elemento en Uso</translation>
+        <translation>Non se pode recortar un elemento en uso</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4888"/>
@@ -42290,7 +42291,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="5477"/>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Ficheiros de Texto (*.txt);;Todos os Ficheiros (*)</translation>
+        <translation>Ficheiros de texto (*.txt);;Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="0"/>
@@ -42330,7 +42331,7 @@ Rotación: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6997"/>
         <source>No Style</source>
-        <translation>Sen Estilo</translation>
+        <translation>Sen estilo</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7620"/>
@@ -42379,12 +42380,12 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8382"/>
         <source>&amp;Lock All</source>
-        <translation>B&amp;loquealo Todo</translation>
+        <translation>B&amp;loquealo todo</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8383"/>
         <source>&amp;Unlock All</source>
-        <translation>&amp;Desbloquealo Todo</translation>
+        <translation>&amp;Desbloquealo todo</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9083"/>
@@ -42424,7 +42425,7 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9242"/>
         <source>Send to Layer</source>
-        <translation>Enviar para Capa</translation>
+        <translation>Enviar para capa</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9243"/>
@@ -42503,7 +42504,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="838"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation>Es&amp;pazos e Quebras</translation>
+        <translation>Es&amp;pazos e quebras</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9252"/>
@@ -42513,7 +42514,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9235"/>
         <source>Paste Recent</source>
-        <translation>Pegar Recente</translation>
+        <translation>Pegar recente</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="2405"/>
@@ -42543,7 +42544,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9260"/>
         <source>Online &amp;Tutorials</source>
-        <translation>&amp;Tutoriais En Liña</translation>
+        <translation>&amp;Tutoriais en liña</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4018"/>
@@ -42553,17 +42554,17 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7863"/>
         <source>%1;;All Files (*)</source>
-        <translation>%1;;Todos os Ficheiros (*)</translation>
+        <translation>%1;;Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="324"/>
         <source>Applying User Shortcuts</source>
-        <translation>A Aplicar os Atallos do Usuario</translation>
+        <translation>A Aplicar os atallos do usuario</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2533"/>
         <source>Updating Images</source>
-        <translation>A Actualizar as Imaxes</translation>
+        <translation>A actualizar as imaxes</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4440"/>
@@ -42585,7 +42586,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9473"/>
         <source>New Entry</source>
-        <translation>Entrada Nova</translation>
+        <translation>Entrada nova</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7671"/>
@@ -42786,12 +42787,12 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1127"/>
         <source>Copy Here</source>
-        <translation>Copiar Aquí</translation>
+        <translation>Copiar aquí</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1128"/>
         <source>Move Here</source>
-        <translation>Mover Aquí</translation>
+        <translation>Mover aquí</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1129"/>
@@ -42886,7 +42887,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/contextmenu.cpp" line="296"/>
         <source>Send to La&amp;yer</source>
-        <translation>Enviar para &amp;Capa</translation>
+        <translation>Enviar para a &amp;capa</translation>
     </message>
     <message>
         <location filename="../../scribus/contextmenu.cpp" line="330"/>
@@ -42906,7 +42907,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/canvasmode_legacy.cpp" line="1980"/>
         <source>Linking Text Frames</source>
-        <translation>Vincular as Molduras de Texto</translation>
+        <translation>Ligar as molduras de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_legacy.cpp" line="0"/>
@@ -42936,7 +42937,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="3985"/>
         <source>Cannot Convert In-Use Item</source>
-        <translation>Non se pode Converter o Elemento en Uso</translation>
+        <translation>Non se pode converter o elemento en uso</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="3985"/>
@@ -42981,7 +42982,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/contextmenu.cpp" line="413"/>
         <source>Paste Recent</source>
-        <translation>Pegar Recente</translation>
+        <translation>Pegar recente</translation>
     </message>
     <message>
         <location filename="../../scribus/contextmenu.cpp" line="0"/>
@@ -43043,7 +43044,7 @@ Pode escoller entre normal e varias formas de cegueira para as cores</translatio
     <message>
         <location filename="../../scribus/scribusview.cpp" line="434"/>
         <source>Preview Mode</source>
-        <translation>Modo Antevisión</translation>
+        <translation>Modo de antevisión</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="435"/>
@@ -43053,7 +43054,7 @@ Pode escoller entre normal e varias formas de cegueira para as cores</translatio
     <message>
         <location filename="../../scribus/canvasmode_legacy.cpp" line="2830"/>
         <source>Enter Object Size</source>
-        <translation>Introducir o Tamaño do Obxecto</translation>
+        <translation>Introducir o tamaño do obxecto</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="437"/>
@@ -43083,12 +43084,12 @@ Pode escoller entre normal e varias formas de cegueira para as cores</translatio
     <message>
         <location filename="../../scribus/scribusview.cpp" line="375"/>
         <source>Enable/disable Color Management</source>
-        <translation>Activar/desactivar a Xestión da Cor</translation>
+        <translation>Activar/desactivar a xestión da cor</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="377"/>
         <source>Enable/disable the Preview Mode</source>
-        <translation>Activar/desactivar o Modo de Antevisión</translation>
+        <translation>Activar/desactivar o modo de antevisión</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="378"/>
@@ -43686,7 +43687,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="59"/>
         <source>Show Page Previews</source>
-        <translation>Mostrar a Antevisión das Páxinas</translation>
+        <translation>Mostrar a antevisión das páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="119"/>
@@ -43714,7 +43715,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="388"/>
         <source>Delete Page?</source>
-        <translation>Eliminar a Páxina?</translation>
+        <translation>Eliminar a páxina?</translation>
     </message>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="389"/>
@@ -43752,17 +43753,17 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <location filename="../../scribus/search.cpp" line="163"/>
         <source>Font Size</source>
-        <translation>Tamaño da Fonte</translation>
+        <translation>Tamaño da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/search.cpp" line="166"/>
         <source>Font Effects</source>
-        <translation>Efectos da Fonte</translation>
+        <translation>Efectos da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/search.cpp" line="169"/>
         <source>Fill Color</source>
-        <translation>Cor de Enchido</translation>
+        <translation>Cor de enchido</translation>
     </message>
     <message>
         <location filename="../../scribus/search.cpp" line="172"/>
@@ -43772,12 +43773,12 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <location filename="../../scribus/search.cpp" line="175"/>
         <source>Stroke Color</source>
-        <translation>Cor do Trazo</translation>
+        <translation>Cor do trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/search.cpp" line="178"/>
         <source>Stroke Shade</source>
-        <translation>Matiz do Trazo</translation>
+        <translation>Matiz do trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/search.cpp" line="96"/>
@@ -43842,7 +43843,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <location filename="../../scribus/search.cpp" line="257"/>
         <source>Replace &amp;All</source>
-        <translation>Substituir &amp;Todo</translation>
+        <translation>Substituír &amp;todo</translation>
     </message>
     <message>
         <location filename="../../scribus/search.cpp" line="260"/>
@@ -43980,12 +43981,12 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/selfield.cpp" line="26"/>
         <source>Select Fields</source>
-        <translation>Escoller Campos</translation>
+        <translation>Escoller os campos</translation>
     </message>
     <message>
         <location filename="../../scribus/selfield.cpp" line="39"/>
         <source>Available Fields</source>
-        <translation>Campos Disponíbeis</translation>
+        <translation>Campos disponíbeis</translation>
     </message>
     <message>
         <location filename="../../scribus/selfield.cpp" line="67"/>
@@ -44000,7 +44001,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/selfield.cpp" line="77"/>
         <source>Selected Fields</source>
-        <translation>Campos Escollidos</translation>
+        <translation>Campos escollidos</translation>
     </message>
     <message>
         <location filename="../../scribus/selfield.cpp" line="0"/>
@@ -44078,12 +44079,12 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/shortcutwidget.ui" line="16"/>
         <source>&amp;No Key</source>
-        <translation>&amp;Nengunha Tecla</translation>
+        <translation>&amp;Nengunha tecla</translation>
     </message>
     <message>
         <location filename="../../scribus/shortcutwidget.ui" line="23"/>
         <source>&amp;User Defined Key</source>
-        <translation>Tecla Definida polo &amp;Usuario</translation>
+        <translation>Tecla definida polo &amp;usuario</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="1461"/>
@@ -44093,7 +44094,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/shortcutwidget.ui" line="30"/>
         <source>Set &amp;Key</source>
-        <translation>Asignar &amp;Tecla</translation>
+        <translation>Asignar &amp;tecla</translation>
     </message>
     <message>
         <location filename="../../scribus/shortcutwidget.cpp" line="116"/>
@@ -44156,12 +44157,12 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="197"/>
         <source>No Style</source>
-        <translation>Sen Estilo</translation>
+        <translation>Sen estilo</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="146"/>
         <source>Edit Styles...</source>
-        <translation>Modificar os Estilos...</translation>
+        <translation>Modificar os estilos...</translation>
     </message>
 </context>
 <context>
@@ -44280,7 +44281,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="2040"/>
         <source>Story Editor</source>
-        <translation>Editor de Artigos</translation>
+        <translation>Editor de artigos</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1636"/>
@@ -44290,32 +44291,32 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1918"/>
         <source>&amp;Reload Text from Frame</source>
-        <translation>&amp;Recarregar o Texto desde a Moldura</translation>
+        <translation>&amp;Recarregar o texto desde a moldura</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1919"/>
         <source>&amp;Save to File...</source>
-        <translation>&amp;Salvar nun Ficheiro...</translation>
+        <translation>&amp;Salvar nun ficheiro...</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1920"/>
         <source>&amp;Load from File...</source>
-        <translation>&amp;Carregar desde un Ficheiro...</translation>
+        <translation>&amp;Carregar desde un ficheiro...</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1921"/>
         <source>Save &amp;Document</source>
-        <translation>Salvar &amp;Documento</translation>
+        <translation>Salvar o &amp;documento</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1922"/>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation>&amp;Actualizar a Moldura de Texto e Sair</translation>
+        <translation>&amp;Actualizar a moldura de texto e saír</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1923"/>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation>Sair S&amp;en Actualizar a Moldura de Texto</translation>
+        <translation>Saír s&amp;en actualizar a moldura de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1926"/>
@@ -44355,17 +44356,17 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1932"/>
         <source>&amp;Edit Styles...</source>
-        <translation>&amp;Modificar os Estilos...</translation>
+        <translation>&amp;Modificar os estilos...</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1933"/>
         <source>&amp;Fonts Preview...</source>
-        <translation>Antevisión das &amp;Fontes...</translation>
+        <translation>Antevisión das &amp;fontes...</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1934"/>
         <source>&amp;Update Text Frame</source>
-        <translation>&amp;Actualizar a Moldura de Texto</translation>
+        <translation>&amp;Actualizar a moldura de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1945"/>
@@ -44375,7 +44376,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1946"/>
         <source>&amp;Display Font...</source>
-        <translation>&amp;Mostrar a Fonte...</translation>
+        <translation>&amp;Mostrar a fonte...</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1947"/>
@@ -44445,7 +44446,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1954"/>
         <source>Current Paragraph:</source>
-        <translation>Parágrafo Actual:</translation>
+        <translation>Parágrafo actual:</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1959"/>
@@ -44495,7 +44496,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="3201"/>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Ficheiros de Texto (*.txt);;Todos os Ficheiros (*)</translation>
+        <translation>Ficheiros de texto (*.txt);;Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="3201"/>
@@ -44505,17 +44506,17 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1941"/>
         <source>&amp;Insert Glyph...</source>
-        <translation>&amp;Inserir Glifo...</translation>
+        <translation>&amp;Inserir un glifo...</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1917"/>
         <source>Clear All Text</source>
-        <translation>Limpar Todo o texto</translation>
+        <translation>Limpar todo o texto</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="2021"/>
         <source>Story Editor - %1</source>
-        <translation>Editor de Artigos - %1</translation>
+        <translation>Editor de artigos - %1</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="2670"/>
@@ -44545,7 +44546,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1726"/>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation>Espazos &amp;&amp; Quebras</translation>
+        <translation>Espazos &amp;&amp; quebras</translation>
     </message>
     <message>
         <location filename="../../scribus/storyeditor.cpp" line="1738"/>
@@ -44791,7 +44792,7 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/stylemanager.ui" line="23"/>
         <source>Style Manager</source>
-        <translation>Xestor de Estilos</translation>
+        <translation>Xestor de estilos</translation>
     </message>
 </context>
 <context>
@@ -44857,12 +44858,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/styleselect.cpp" line="269"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Subliñar Texto. Calque no botón un pouco para fixar a largura da liña e as opcións de desprazamento.</translation>
+        <translation>Subliñar o texto. Calque no botón un pouco para fixar a largura da liña e as opcións de desprazamento.</translation>
     </message>
     <message>
         <location filename="../../scribus/styleselect.cpp" line="270"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Subliñar Só Palabras. Calque no botón un pouco para fixar a largura da liña e as opcións de desprazamento.</translation>
+        <translation>Subliñar só as palabras. Calque no botón un pouco para fixar a largura da liña e as opcións de desprazamento.</translation>
     </message>
     <message>
         <location filename="../../scribus/styleselect.cpp" line="275"/>
@@ -44878,7 +44879,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/styleselect.cpp" line="277"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation>Texto con Sombra. Calque no botón un pouco para activar a distancia.</translation>
+        <translation>Texto con sombra. Calque no botón un pouco para activar a distancia.</translation>
     </message>
 </context>
 <context>
@@ -44886,12 +44887,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="66"/>
         <source>Subdivide Path</source>
-        <translation>Subdividir Trazo</translation>
+        <translation>Subdividir trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation>Ferramentas de Trazo</translation>
+        <translation>Ferramentas de trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="87"/>
@@ -44901,7 +44902,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="88"/>
         <source>Subdivide selected Path</source>
-        <translation>Subdividir o Trazo seleccionado</translation>
+        <translation>Subdividir o trazo seleccionado</translation>
     </message>
 </context>
 <context>
@@ -44959,7 +44960,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="34"/>
         <source>Overwrite Paragraph Styles</source>
-        <translation>Substituir os Estilos de Parágrafo</translation>
+        <translation>Substituir os estilos de parágrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="74"/>
@@ -44992,7 +44993,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="13"/>
         <source>Table of Contents and Indexes</source>
-        <translation>Índice e Índices Analíticos</translation>
+        <translation>Índice e Índices analíticos</translation>
     </message>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="34"/>
@@ -45032,12 +45033,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="125"/>
         <source>Item Attribute Name:</source>
-        <translation>Nome do Elemento Atributo:</translation>
+        <translation>Nome do elemento atributo:</translation>
     </message>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="135"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation>O Atributo Elemento que se asignará ás molduras utilizadas como base para a creación de entradas</translation>
+        <translation>O atributo do elemento que se asigna ás molduras utilizadas como base para a creación de entradas</translation>
     </message>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="142"/>
@@ -45047,7 +45048,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="152"/>
         <source>List Non-Printing Entries</source>
-        <translation>Listaxe de Entradas que Non se Imprimen</translation>
+        <translation>Listaxe de entradas que non se Imprimen</translation>
     </message>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="149"/>
@@ -45062,12 +45063,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="166"/>
         <source>Paragraph Style:</source>
-        <translation>Estilo de Parágrafo:</translation>
+        <translation>Estilo do parágrafo:</translation>
     </message>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="176"/>
         <source>Destination Frame:</source>
-        <translation>Moldura de Destino:</translation>
+        <translation>Moldura de destino:</translation>
     </message>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="0"/>
@@ -45082,7 +45083,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tocindexprefs.ui" line="115"/>
         <source>Page Number Placement:</source>
-        <translation>Colocación dos Números de Páxina:</translation>
+        <translation>Colocación dos números de páxina:</translation>
     </message>
     <message>
         <location filename="../../scribus/tocindexprefs.cpp" line="116"/>
@@ -45238,22 +45239,22 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="80"/>
         <source>Check for placed PDF Files</source>
-        <translation>Comprobar os Ficheiros PDF colocados</translation>
+        <translation>Comprobar os ficheiros PDF colocados</translation>
     </message>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="86"/>
         <source>Check for PDF Annotations and Fields</source>
-        <translation>Comprobar as Anotacións e Campos PDF</translation>
+        <translation>Comprobar as anotacións e campos PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="96"/>
         <source>Add Profile</source>
-        <translation>Adicionar Perfil</translation>
+        <translation>Adicionar un perfil</translation>
     </message>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="98"/>
         <source>Remove Profile</source>
-        <translation>Eliminar Perfil</translation>
+        <translation>Eliminar o perfil</translation>
     </message>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="71"/>
@@ -45268,7 +45269,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="89"/>
         <source>Ignore non-printable Layers</source>
-        <translation>Ignorar Capas non imprimíbeis</translation>
+        <translation>Ignorar as capas non imprimíbeis</translation>
     </message>
     <message>
         <location filename="../../scribus/tabcheckdoc.cpp" line="44"/>
@@ -45361,7 +45362,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="257"/>
         <source>Adjust Display Size</source>
-        <translation>Axustar o Tamaño da Exhibición</translation>
+        <translation>Axustar o tamaño da exhibición</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="297"/>
@@ -45376,7 +45377,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="216"/>
         <source>Gaps Between Pages</source>
-        <translation>Separación Entre Páxinas</translation>
+        <translation>Separación entre as páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="231"/>
@@ -45416,17 +45417,17 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="37"/>
         <source>Page Display</source>
-        <translation>Exhibición da Páxina</translation>
+        <translation>Exhibición da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="110"/>
         <source>Show Bleed Area</source>
-        <translation>Mostrar Área de Sangrado</translation>
+        <translation>Mostrar a área de sangrado</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="100"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Mostrar a Área &amp;Non Imprimíbel na Cor da Marxe</translation>
+        <translation>Mostrar a çarea &amp;non imprimíbel na cor da marxe</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="103"/>
@@ -45441,22 +45442,22 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="80"/>
         <source>Show Frames</source>
-        <translation>Mostrar as Molduras</translation>
+        <translation>Mostrar as molduras</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="70"/>
         <source>Show Text Chains</source>
-        <translation>Mostrar as Cadeas de Texto</translation>
+        <translation>Mostrar as cadeas de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="63"/>
         <source>Rulers Relative to Page</source>
-        <translation>Regras Relativas á Páxina</translation>
+        <translation>Regras relativas á páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="56"/>
         <source>Show Text Control Characters</source>
-        <translation>Mostrar os Caracteres de Control do Texto</translation>
+        <translation>Mostrar os caracteres de control do texto</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="323"/>
@@ -45476,12 +45477,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="409"/>
         <source>Selected Page Border:</source>
-        <translation>Bordo de Páxina Seleccionado:</translation>
+        <translation>Bordo de páxina seleccionado:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="464"/>
         <source>Fill Color:</source>
-        <translation>Cor de Enchido:</translation>
+        <translation>Cor de enchido:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="498"/>
@@ -45526,7 +45527,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="796"/>
         <source>Control Characters:</source>
-        <translation>Caracteres de Control:</translation>
+        <translation>Caracteres de control:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.cpp" line="39"/>
@@ -45536,7 +45537,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="49"/>
         <source>Show Images</source>
-        <translation>Mostrar Imaxes</translation>
+        <translation>Mostrar as imaxes</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdisplay.cpp" line="203"/>
@@ -45556,7 +45557,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdisplay.ui" line="120"/>
         <source>Show Page Shadow</source>
-        <translation>Mostrar a Sombra da Páxina</translation>
+        <translation>Mostrar a sombra da páxina</translation>
     </message>
 </context>
 <context>
@@ -45877,7 +45878,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabdocument.cpp" line="126"/>
         <source>All Document Pages</source>
-        <translation>Todas as Páxinas do Documento</translation>
+        <translation>Todas as páxinas do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/tabdocument.cpp" line="130"/>
@@ -46100,12 +46101,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.ui" line="255"/>
         <source>Render Frames</source>
-        <translation>Molduras Renderizadas</translation>
+        <translation>Molduras renderizadas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.ui" line="338"/>
         <source>External Editor:</source>
-        <translation>Editor Externo:</translation>
+        <translation>Editor externo:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.ui" line="300"/>
@@ -46316,7 +46317,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabgeneral.cpp" line="119"/>
         <source>Choose a Directory</source>
-        <translation>Escolla un Directorio</translation>
+        <translation>Escolla un directorio</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="15"/>
@@ -46326,27 +46327,27 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="21"/>
         <source>User Interface</source>
-        <translation>Interface do Usuario</translation>
+        <translation>Interface do usuario</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="75"/>
         <source>&amp;Recent Documents:</source>
-        <translation>Documentos &amp;Recentes:</translation>
+        <translation>Documentos &amp;recentes:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="43"/>
         <source>&amp;Wheel Jump:</source>
-        <translation>&amp;Salto do Rato:</translation>
+        <translation>&amp;Salto do rato:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="154"/>
         <source>Show Splashscreen on Startup</source>
-        <translation>Mostrar a Pantalla de Presentación</translation>
+        <translation>Mostrar a pantalla de presentación</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="127"/>
         <source>Show Startup Dialog</source>
-        <translation>Mostrar o Diálogo de Inicio</translation>
+        <translation>Mostrar o diálogo de inicio</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="147"/>
@@ -46356,12 +46357,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="91"/>
         <source>&amp;Font Size (Menus):</source>
-        <translation>Tamaño da &amp;Fonte (Menús):</translation>
+        <translation>Tamaño da &amp;fonte (menús):</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="134"/>
         <source>Font Size (&amp;Palettes):</source>
-        <translation>Tamaño da Fonte (&amp;Paletas):</translation>
+        <translation>Tamaño da fonte (&amp;paletas):</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="164"/>
@@ -46436,7 +46437,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="365"/>
         <source>Document &amp;Templates:</source>
-        <translation>&amp;Modelos de Documentos:</translation>
+        <translation>&amp;Modelos de documentos:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="378"/>
@@ -46456,7 +46457,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabgeneral.ui" line="196"/>
         <source>Use Small Widgets in Palettes</source>
-        <translation>Empregar Imaxes Pequenas nas Paletas</translation>
+        <translation>Empregar imaxes pequenas nas paletas</translation>
     </message>
 </context>
 <context>
@@ -46602,22 +46603,22 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="36"/>
         <source>Common Settings</source>
-        <translation>Configuración Común</translation>
+        <translation>Configuración común</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="42"/>
         <source>Placing in Documents</source>
-        <translation>Colocación nos Documentos</translation>
+        <translation>Colocación nos documentos</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="48"/>
         <source>In the Background</source>
-        <translation>No Fondo</translation>
+        <translation>No fondo</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="51"/>
         <source>In the Foreground</source>
-        <translation>No Primeiro Plano</translation>
+        <translation>No primeiro plano</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="56"/>
@@ -46627,12 +46628,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="61"/>
         <source>Snap Distance:</source>
-        <translation>Distancia de Agarre:</translation>
+        <translation>Distancia de agarre:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="69"/>
         <source>Grab Radius:</source>
-        <translation>Radio de Agarre:</translation>
+        <translation>Radio de agarre:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="273"/>
@@ -46642,7 +46643,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="82"/>
         <source>Show Guides</source>
-        <translation>Mostrar as Guías</translation>
+        <translation>Mostrar as guías</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="181"/>
@@ -46652,17 +46653,17 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="100"/>
         <source>Show Margins</source>
-        <translation>Mostrar as Marxes</translation>
+        <translation>Mostrar as marxes</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="118"/>
         <source>Show Page Grid</source>
-        <translation>Mostrar a Grella da Páxina</translation>
+        <translation>Mostrar a grella da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="125"/>
         <source>Major Grid</source>
-        <translation>Grella Principal</translation>
+        <translation>Grella principal</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="163"/>
@@ -46672,12 +46673,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="147"/>
         <source>Minor Grid</source>
-        <translation>Grella Secundaria</translation>
+        <translation>Grella secundaria</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="174"/>
         <source>Show Baseline Grid</source>
-        <translation>Mostrar a Grella de Base</translation>
+        <translation>Mostrar a grella de base</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="193"/>
@@ -46687,12 +46688,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="200"/>
         <source>Baseline &amp;Grid:</source>
-        <translation>&amp;Grella de Base:</translation>
+        <translation>&amp;Grella de base:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="205"/>
         <source>Baseline &amp;Offset:</source>
-        <translation>Dis&amp;tancia da Grella Base:</translation>
+        <translation>Dis&amp;tancia da grella base:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabguides.cpp" line="219"/>
@@ -46870,7 +46871,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.ui" line="69"/>
         <source>Shortcut for Selected Action</source>
-        <translation>Atallo para a Acción Seleccionada</translation>
+        <translation>Atallo para a acción seleccionada</translation>
     </message>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.ui" line="87"/>
@@ -46890,7 +46891,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.ui" line="129"/>
         <source>&amp;User Defined Key</source>
-        <translation>Tecla Definida polo &amp;Usuario</translation>
+        <translation>Tecla definida polo &amp;usuario</translation>
     </message>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.ui" line="132"/>
@@ -46910,7 +46911,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.ui" line="152"/>
         <source>Loadable Shortcut Sets</source>
-        <translation>Conxuntos de Atallos Carregábeis</translation>
+        <translation>Conxuntos de atallos carregábeis</translation>
     </message>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.ui" line="164"/>
@@ -46980,7 +46981,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="233"/>
         <source>Export Keyboard Shortcuts to File</source>
-        <translation>Exportar Atallos de Teclado a Ficheiro</translation>
+        <translation>Exportar os atallos de teclado a un ficheiro</translation>
     </message>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="233"/>
@@ -46995,7 +46996,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="162"/>
         <source>Key Set XML Files (*.xml)</source>
-        <translation>Ficheiros XML de Conxuntos de Teclas (*.xml)</translation>
+        <translation>Ficheiros XML de conxuntos de teclas (*.xml)</translation>
     </message>
     <message>
         <location filename="../../scribus/tabkeyboardshortcutswidget.cpp" line="162"/>
@@ -47141,7 +47142,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabmanager.cpp" line="23"/>
         <source>Manage Tabulators</source>
-        <translation>Xerir as Tabulacións</translation>
+        <translation>Xerir as tabulacións</translation>
     </message>
     <message>
         <location filename="../../scribus/tabmanager.cpp" line="0"/>
@@ -47164,7 +47165,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabmiscellaneous.ui" line="60"/>
         <source>Count of the Paragraphs:</source>
-        <translation>Conta de Parágrafos:</translation>
+        <translation>Conta de parágrafos:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabmiscellaneous.ui" line="98"/>
@@ -47174,7 +47175,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabmiscellaneous.ui" line="111"/>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation>Antevisión do Estilo de Parágrafo actual visíbel ao modificar os Estilos</translation>
+        <translation>Antevisión do estilo de parágrafo actual visíbel ao modificar os estilos</translation>
     </message>
     <message>
         <location filename="../../scribus/tabmiscellaneous.ui" line="121"/>
@@ -47255,7 +47256,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="267"/>
         <source>C&amp;hoose Pages</source>
-        <translation>Esco&amp;ller as Páxinas</translation>
+        <translation>Esco&amp;ller as páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="282"/>
@@ -47280,17 +47281,17 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="331"/>
         <source>Left Margin</source>
-        <translation>Marxe Esquerda</translation>
+        <translation>Marxe esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="332"/>
         <source>Right Margin</source>
-        <translation>Marxe Direita</translation>
+        <translation>Marxe direita</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="336"/>
         <source>Generate &amp;Thumbnails</source>
-        <translation>Xerar &amp;Miniaturas</translation>
+        <translation>Xerar &amp;miniaturas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="338"/>
@@ -47300,7 +47301,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="340"/>
         <source>&amp;Include Bookmarks</source>
-        <translation>&amp;Incluir os Marcadores</translation>
+        <translation>&amp;Incluir os marcadores</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="0"/>
@@ -47315,12 +47316,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="348"/>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation>&amp;Resolución para os Gráficos EPS:</translation>
+        <translation>&amp;Resolución para os gráficos EPS:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="360"/>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Com&amp;primir o Texto e os Gráficos Vectoriais</translation>
+        <translation>Com&amp;primir o texto e os gráficos vectoriais</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="0"/>
@@ -47410,7 +47411,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="413"/>
         <source>Available Fonts:</source>
-        <translation>Fontes Disponíbeis:</translation>
+        <translation>Fontes disponíbeis:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="0"/>
@@ -47440,7 +47441,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="472"/>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Permitir os Efectos de &amp;Presentación</translation>
+        <translation>Permitir os efectos de &amp;presentación</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="1921"/>
@@ -47450,7 +47451,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="477"/>
         <source>Show Page Pre&amp;views</source>
-        <translation>Mostrar a Ante&amp;visión das Páxinas</translation>
+        <translation>Mostrar a ante&amp;visión das páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="479"/>
@@ -47460,12 +47461,12 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="484"/>
         <source>&amp;Display Duration:</source>
-        <translation>Duración da E&amp;xhibición:</translation>
+        <translation>Duración da e&amp;xhibición:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="486"/>
         <source>Effec&amp;t Duration:</source>
-        <translation>Duración do Efec&amp;to:</translation>
+        <translation>Duración do efec&amp;to:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="488"/>
@@ -47550,22 +47551,22 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="532"/>
         <source>Left to Right</source>
-        <translation>De Esquerda a Direita</translation>
+        <translation>De esquerda a direita</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="532"/>
         <source>Top to Bottom</source>
-        <translation>De Arriba a Baixo</translation>
+        <translation>De arriba a baixo</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="532"/>
         <source>Bottom to Top</source>
-        <translation>De Abaixo a Riba</translation>
+        <translation>De abaixo a riba</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="532"/>
         <source>Right to Left</source>
-        <translation>De Direita a Esquerda</translation>
+        <translation>De direita a esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="533"/>
@@ -47585,7 +47586,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="627"/>
         <source>&amp;Use Encryption</source>
-        <translation>&amp;Usar Encriptación</translation>
+        <translation>&amp;Usar o cifrado</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="629"/>
@@ -47610,22 +47611,22 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="655"/>
         <source>Allow &amp;Printing the Document</source>
-        <translation>Permitir a Im&amp;presión do Documento</translation>
+        <translation>Permitir a im&amp;presión do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="657"/>
         <source>Allow &amp;Changing the Document</source>
-        <translation>Permitir a &amp;Modificación do Documento</translation>
+        <translation>Permitir a &amp;modificación do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="659"/>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation>Permitir a Cop&amp;ia de Texto e Gráficos</translation>
+        <translation>Permitir a cop&amp;ia de texto e gráficos</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="661"/>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation>Permitir Engadir &amp;Anotacións e Campos</translation>
+        <translation>Permitir engadir &amp;anotacións e campos</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="664"/>
@@ -47640,7 +47641,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="675"/>
         <source>Output &amp;Intended For:</source>
-        <translation>Saída &amp;Deseñada Para:</translation>
+        <translation>Saída &amp;deseñada para:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="678"/>
@@ -47660,7 +47661,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="686"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Converter as Manchas de Cor en Cores Procesadas</translation>
+        <translation>Converter as manchas de cor en cores procesadas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="689"/>
@@ -47670,7 +47671,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="691"/>
         <source>Rendering Settings</source>
-        <translation>Configuración da Exhibición</translation>
+        <translation>Configuración da exhibición</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="699"/>
@@ -47685,7 +47686,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="714"/>
         <source>S&amp;pot Function:</source>
-        <translation>Función P&amp;unto:</translation>
+        <translation>Función p&amp;unto:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="718"/>
@@ -47775,7 +47776,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="863"/>
         <source>Output &amp;Profile:</source>
-        <translation>&amp;Perfil de Saída:</translation>
+        <translation>&amp;Perfil de saída:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="0"/>
@@ -47892,7 +47893,7 @@ Algúns visualizadores poden usar as miniaturas para a navegación.</translation
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="959"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Xerar Artigos PDF, que resultan útiles para navegar por artigos vinculados nun PDF.</translation>
+        <translation>Xerar artigos PDF, que resultan útiles para navegar polos artigos vinculados nun PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="0"/>
@@ -48111,7 +48112,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="987"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Permite que as Manchas de Cor se convirtan en cores compostas. A non ser que pretenda imprimir manchas de cor nunha imprenta comercial, será preferíbel que deixe isto seleccionado.</translation>
+        <translation>Permite que as manchas de cor se convirtan en cores compostas. A non ser que pretenda imprimir manchas de cor nunha imprenta comercial, será preferíbel que deixe isto seleccionado.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="342"/>
@@ -48121,7 +48122,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="374"/>
         <source>Compression Metho&amp;d:</source>
-        <translation>Méto&amp;do de Compresión:</translation>
+        <translation>Méto&amp;do de compresión:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="0"/>
@@ -48201,7 +48202,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="564"/>
         <source>Single Page</source>
-        <translation>Páxina Única</translation>
+        <translation>Páxina única</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="567"/>
@@ -48211,62 +48212,62 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="570"/>
         <source>Double Page Left</source>
-        <translation>Dobre Páxina Esquerda</translation>
+        <translation>Dobre páxina esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="573"/>
         <source>Double Page Right</source>
-        <translation>Dobre Páxina Dereita</translation>
+        <translation>Dobre páxina dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="577"/>
         <source>Visual Appearance</source>
-        <translation>Aparencia Visual</translation>
+        <translation>Aparencia visual</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="583"/>
         <source>Use Viewers Defaults</source>
-        <translation>Utilizar o definido polo Lector</translation>
+        <translation>Empregar o que defina o lector</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="586"/>
         <source>Use Full Screen Mode</source>
-        <translation>Utilizar Modo a Pantalla Completa</translation>
+        <translation>Empregar o modo a pantalla completa</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="589"/>
         <source>Display Bookmarks Tab</source>
-        <translation>Mostrar a Pestana de Marcadores</translation>
+        <translation>Mostrar a pestana de marcadores</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="592"/>
         <source>Display Thumbnails</source>
-        <translation>Mostrar as Miniaturas</translation>
+        <translation>Mostrar as miniaturas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="595"/>
         <source>Display Layers Tab</source>
-        <translation>Mostrar a Pestana de Capas</translation>
+        <translation>Mostrar a pestana de capas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="597"/>
         <source>Hide Viewers Toolbar</source>
-        <translation>Ocultar a Barra de Ferramentas do Lector</translation>
+        <translation>Acochar a barra de ferramentas do lector</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="599"/>
         <source>Hide Viewers Menubar</source>
-        <translation>Ocultar a Barra de Menú do Lector</translation>
+        <translation>Acochar a barra de menú do lector</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="601"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation>Modificar o tamaño das Páxinas para adecuarse á Xanela do Lector</translation>
+        <translation>Modificar o tamaño das páxinas para adecuarse á xanela do lector</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="607"/>
         <source>Special Actions</source>
-        <translation>Accións Especiais</translation>
+        <translation>Accións especiais</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="1180"/>
@@ -48296,7 +48297,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="362"/>
         <source>Image Compression Method</source>
-        <translation>Método de Compresión das Imaxes</translation>
+        <translation>Método de compresión das imaxes</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="613"/>
@@ -48378,32 +48379,32 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="794"/>
         <source>Printer Marks</source>
-        <translation>Marcas de Impresión</translation>
+        <translation>Marcas de impresión</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="799"/>
         <source>Crop Marks</source>
-        <translation>Marcas de Recorte</translation>
+        <translation>Marcas de recorte</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="801"/>
         <source>Bleed Marks</source>
-        <translation>Marcas de Sangrado</translation>
+        <translation>Marcas de sangrado</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="803"/>
         <source>Registration Marks</source>
-        <translation>Marcas de Rexistro</translation>
+        <translation>Marcas de rexistro</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="805"/>
         <source>Color Bars</source>
-        <translation>Barras de Cor</translation>
+        <translation>Barras de cor</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="807"/>
         <source>Page Information</source>
-        <translation>Información da Páxina</translation>
+        <translation>Información da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="810"/>
@@ -48413,7 +48414,7 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="820"/>
         <source>Bleed Settings</source>
-        <translation>Configuración de Sangrado</translation>
+        <translation>Configuración do sangrado</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="826"/>
@@ -48438,7 +48439,7 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="845"/>
         <source>Use Document Bleeds</source>
-        <translation>Empregar os Sangrados do Documento</translation>
+        <translation>Empregar os sangrados do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="871"/>
@@ -48473,12 +48474,12 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="558"/>
         <source>Document Layout</source>
-        <translation>Disposición do Documento</translation>
+        <translation>Disposición do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="390"/>
         <source>Maximum Image Resolution:</source>
-        <translation>Resolución Máxima da Imaxe:</translation>
+        <translation>Resolución máxima da imaxe:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="919"/>
@@ -48528,12 +48529,12 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="928"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation>Agocha a Barra de Ferramentas, que ten selección e outras opcións de edición</translation>
+        <translation>Acocha a barra de ferramentas, que ten selección e outras opcións de edición</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="929"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Agocha a Barra do Menú do visor; o PDF exhibirase nunha xanela normal. </translation>
+        <translation>Acocha a barra do menú do visor; o PDF exhibirase nunha xanela normal. </translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="930"/>
@@ -48593,7 +48594,7 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="763"/>
         <source>Use Color Profile</source>
-        <translation>Empregar Perfil de Cores</translation>
+        <translation>Empregar perfil de cores</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="766"/>
@@ -48603,7 +48604,7 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="540"/>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation>&amp;Aplicar Efecto a todas as Páxinas</translation>
+        <translation>&amp;Aplicar o efecto a todas as páxinas</translation>
     </message>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="354"/>
@@ -48749,12 +48750,12 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="69"/>
         <source>Mirror Page(s) Horizontal</source>
-        <translation>Reflexar a(s) Páxina(s) Horizontalmente</translation>
+        <translation>Reflectir a(s) páxina(s) horizontalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="76"/>
         <source>Mirror Page(s) Vertical</source>
-        <translation>Reflexar a(s) Páxina(s) Verticalmente</translation>
+        <translation>Reflexar a(s) páxina(s) verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="83"/>
@@ -48774,12 +48775,12 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="112"/>
         <source>Print in Grayscale</source>
-        <translation>Impimir en Escala de Grises</translation>
+        <translation>Impimir en escala de grises</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="119"/>
         <source>Print in Color if Available</source>
-        <translation>Imprimir en Cores de Ser Posíbel</translation>
+        <translation>Imprimir en cores de ser posíbel</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="130"/>
@@ -48804,12 +48805,12 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="167"/>
         <source>Print Separations</source>
-        <translation>Imprimir Separacións</translation>
+        <translation>Imprimir separacións</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="157"/>
         <source>Print Normal</source>
-        <translation>Imprimir Normal</translation>
+        <translation>Imprimir normal</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="184"/>
@@ -48819,7 +48820,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="196"/>
         <source>Apply Under Color Removal</source>
-        <translation>Aplicar Eliminación da Cor Inferior (UCR)</translation>
+        <translation>Aplicar eliminación da cor inferior (UCR)</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="203"/>
@@ -48834,17 +48835,17 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="210"/>
         <source>Apply ICC Profiles</source>
-        <translation>Aplicar Perfís ICC</translation>
+        <translation>Aplicar perfís ICC</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="221"/>
         <source>Marks &amp;&amp; Bleeds</source>
-        <translation>Marcas e Sangrados</translation>
+        <translation>Marcas e sangrados</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="233"/>
         <source>Bleed Settings</source>
-        <translation>Configuración de Sangrado</translation>
+        <translation>Configuración do sangrado</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="248"/>
@@ -48869,7 +48870,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="300"/>
         <source>Printer Marks</source>
-        <translation>Marcas de Impresión</translation>
+        <translation>Marcas de impresión</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="312"/>
@@ -48879,7 +48880,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="315"/>
         <source>Color Bars</source>
-        <translation>Barras de Cor</translation>
+        <translation>Barras de cor</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="325"/>
@@ -48894,7 +48895,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="338"/>
         <source>Registration Marks</source>
-        <translation>Marcas de Rexistro</translation>
+        <translation>Marcas de rexistro</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="345"/>
@@ -48904,7 +48905,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="348"/>
         <source>Bleed Marks</source>
-        <translation>Marcas de Sangrado</translation>
+        <translation>Marcas de sangrado</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="355"/>
@@ -48914,17 +48915,17 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.ui" line="358"/>
         <source>Crop Marks</source>
-        <translation>Marcas de Recorte</translation>
+        <translation>Marcas de recorte</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="372"/>
         <source>Print Destination</source>
-        <translation>Destino da Impresión</translation>
+        <translation>Destino da impresión</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="384"/>
         <source>Alternative Printer Command</source>
-        <translation>Comando de Impresión Alternativo</translation>
+        <translation>Comando de impresión alternativo</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="402"/>
@@ -49928,7 +49929,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabruler.cpp" line="545"/>
         <source>Delete All</source>
-        <translation>Eliminalo Todo</translation>
+        <translation>Eliminalo todo</translation>
     </message>
     <message>
         <location filename="../../scribus/tabruler.cpp" line="597"/>
@@ -49943,7 +49944,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabruler.cpp" line="604"/>
         <source>Delete all Tabulators</source>
-        <translation>Eliminar todos os Tabuladores</translation>
+        <translation>Eliminar todos os tabuladores</translation>
     </message>
     <message>
         <location filename="../../scribus/tabruler.cpp" line="0"/>
@@ -50019,17 +50020,17 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabruler.cpp" line="584"/>
         <source>Fill Character of Tab</source>
-        <translation>Carácter de Enchido da Tabulación</translation>
+        <translation>Carácter de enchido da tabulación</translation>
     </message>
     <message>
         <location filename="../../scribus/tabruler.cpp" line="585"/>
         <source>Type/Orientation of Tab</source>
-        <translation>Tipo/Orientación da Tabulación</translation>
+        <translation>Tipo/Orientación da tabulación</translation>
     </message>
     <message>
         <location filename="../../scribus/tabruler.cpp" line="586"/>
         <source>Position of Tab</source>
-        <translation>Posición da Tabulación</translation>
+        <translation>Posición da tabulación</translation>
     </message>
     <message>
         <location filename="../../scribus/tabruler.cpp" line="490"/>
@@ -50206,7 +50207,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/plugins/tools/transform/transformeffect.cpp" line="86"/>
         <source>Transform Effect</source>
-        <translation>Efecto de Transformación</translation>
+        <translation>Efecto de transformación</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/transform/transformeffect.cpp" line="87"/>
@@ -51234,7 +51235,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undogui.cpp" line="308"/>
         <source>Action History</source>
-        <translation>Historial de Accións</translation>
+        <translation>Historial de accións</translation>
     </message>
     <message>
         <location filename="../../scribus/undogui.cpp" line="309"/>
@@ -51414,12 +51415,12 @@ Erro: %2 na liña: %3, fileira: %4</translation>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="86"/>
         <source>No data on your computer will be sent to an external location</source>
-        <translation type="unfinished"></translation>
+        <translation>Non se enviará ningún dato do computador a ningún sitio externo</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="92"/>
         <source>Attempting to get the Scribus version update file:</source>
-        <translation type="unfinished"></translation>
+        <translation>A tentar obter o ficheiro de actualización da versión de Scribus:</translation>
     </message>
 </context>
 <context>
@@ -51447,7 +51448,7 @@ Querería empregar o navegador por omisión do sistema no canto do outro?</trans
     <message>
         <location filename="../../scribus/useprintermarginsdialog.cpp" line="44"/>
         <source>Minimum Margins for Page Size %1</source>
-        <translation>Marxes mínimas para o Tamaño da Páxina %1</translation>
+        <translation>Marxes mínimas para o tamaño da páxina %1</translation>
     </message>
     <message>
         <location filename="../../scribus/useprintermarginsdialog.ui" line="13"/>
@@ -51457,7 +51458,7 @@ Querería empregar o navegador por omisión do sistema no canto do outro?</trans
     <message>
         <location filename="../../scribus/useprintermarginsdialog.ui" line="21"/>
         <source>Select &amp;Printer:</source>
-        <translation>Escolla a Im&amp;presora:</translation>
+        <translation>Escolla a im&amp;presora:</translation>
     </message>
     <message>
         <location filename="../../scribus/useprintermarginsdialog.ui" line="46"/>
@@ -51816,7 +51817,7 @@ extensión abreviaturas</translation>
     <message>
         <location filename="../../scribus/plugins/wmfimplugin/wmfimportplugin.cpp" line="96"/>
         <source>Imports WMF Files</source>
-        <translation>Importa Ficheiros WMF</translation>
+        <translation>Importa ficheiros WMF</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
@@ -51997,7 +51998,7 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/xfigimplugin/importxfig.cpp" line="146"/>
         <source>Analyzing File:</source>
-        <translation>A Analizar Ficheiro:</translation>
+        <translation>A analizar o ficheiro:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/xfigimplugin/importxfig.cpp" line="281"/>
@@ -52007,7 +52008,7 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/xfigimplugin/importxfig.cpp" line="1550"/>
         <source>Generating Items</source>
-        <translation>A xerar Elementos</translation>
+        <translation>A xerar os elementos</translation>
     </message>
 </context>
 <context>
@@ -52143,7 +52144,7 @@ para ficheiros deste tipo.</translation>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="37"/>
         <source>General Options</source>
-        <translation>Opcións Xerais</translation>
+        <translation>Opcións xerais</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="58"/>
@@ -52153,7 +52154,7 @@ para ficheiros deste tipo.</translation>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="61"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>Suxestións de &amp;Separación con Guións</translation>
+        <translation>Suxestións de &amp;separación con guións</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="68"/>
@@ -52163,7 +52164,7 @@ para ficheiros deste tipo.</translation>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="71"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation>Cortar Automaticamente as Palabras con Guións &amp;Encanto se Escrebe</translation>
+        <translation>Cortar automaticamente as palabras con guións &amp;encanto se escrebe</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="81"/>
@@ -52178,7 +52179,7 @@ para ficheiros deste tipo.</translation>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="118"/>
         <source>&amp;Smallest Word:</source>
-        <translation>Palabra máis &amp;Pequena:</translation>
+        <translation>Palabra máis &amp;pequena:</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="128"/>
@@ -52193,7 +52194,7 @@ para ficheiros deste tipo.</translation>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="145"/>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation>Guións Consecutivos &amp;Permitidos:</translation>
+        <translation>Guións consecutivos &amp;permitidos:</translation>
     </message>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="158"/>
@@ -52215,7 +52216,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/hysettingsBase.ui" line="233"/>
         <source>Ignore List</source>
-        <translation>Ignorar Listaxe</translation>
+        <translation>Ignorar a listaxe</translation>
     </message>
 </context>
 <context>
@@ -52293,7 +52294,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
         <source>Downloading Templates</source>
-        <translation>A baixar os Modelos</translation>
+        <translation>A baixar os modelos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="184"/>
@@ -52542,7 +52543,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/replaceonecolor.ui" line="13"/>
         <source>Replace Color</source>
-        <translation>Substituir Cor</translation>
+        <translation>Substituír unha cor</translation>
     </message>
     <message>
         <location filename="../../scribus/replaceonecolor.ui" line="54"/>
@@ -52683,7 +52684,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="89"/>
         <source>&amp;More Details</source>
-        <translation>&amp;Máis Detalles</translation>
+        <translation>&amp;Máis detalles</translation>
     </message>
 </context>
 <context>
@@ -52706,7 +52707,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="72"/>
         <source>on the Scratch Space</source>
-        <translation>do Espazo de Traballo</translation>
+        <translation>do espazo de traballo</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="91"/>
@@ -52721,12 +52722,12 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="117"/>
         <source>Text Frame</source>
-        <translation>Moldura de Texto</translation>
+        <translation>Moldura de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="122"/>
         <source>Image Frame</source>
-        <translation>Moldura de Imaxe</translation>
+        <translation>Moldura de imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="127"/>
@@ -52746,22 +52747,22 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="142"/>
         <source>Render Frame</source>
-        <translation>Moldura Renderizada</translation>
+        <translation>Moldura renderizada</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="153"/>
         <source>Fill Color</source>
-        <translation>Cor de Enchido</translation>
+        <translation>Cor de enchido</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="170"/>
         <source>Line Color</source>
-        <translation>Cor de Liña</translation>
+        <translation>Cor da liña</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="187"/>
         <source>Line Width</source>
-        <translation>Largura da Liña</translation>
+        <translation>Largura da liña</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="204"/>
@@ -52894,7 +52895,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="35"/>
         <source>Create filter</source>
-        <translation>Crear filtro</translation>
+        <translation>Crear un filtro</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="77"/>
