@@ -228,20 +228,11 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 //	qDebug() << "TS"<<ts;
 	std::string str(ts.toLocal8Bit().data());
 	double erg(0.0);
-	if(crtSepDecimal != cSepDecimal)
-	{
-		setlocale(LC_NUMERIC, "C");
-		int ret = fp.Parse(str, "", true);
-		if (ret < 0)
-			erg = fp.Eval(NULL);
-		setlocale(LC_NUMERIC, "");
-	}
-	else
-	{
-		int ret = fp.Parse(str, "", true);
-		if(ret < 0)
-			erg = fp.Eval(NULL);
-	}
+
+	int ret = fp.Parse(str, "", true);
+	if(ret < 0)
+		erg = fp.Eval(NULL);
+
 	//qDebug() << "fp value =" << erg ;
 	return erg;
 }
