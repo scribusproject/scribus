@@ -920,6 +920,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\guidesview.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\helpbrowser.cpp"
 				>
 			</File>
@@ -5571,6 +5575,54 @@
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
 						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\guidesview.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -13976,6 +14028,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_guidesmodel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_guidesview.cpp"
 				>
 			</File>
 			<File
