@@ -3,6 +3,8 @@ INCLUDE_DIRECTORIES(
 )
 
 INSTALL(FILES
+icalamus.xml
+pagestream.xml
 scribus13.xml
   DESTINATION ${SHAREDIR}keysets
 )
