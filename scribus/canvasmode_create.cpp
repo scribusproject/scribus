@@ -243,8 +243,8 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+			newX = qRound(mousePointDoc.x());
+			newY = qRound(mousePointDoc.y());
 			if (createObjectMode == modeDrawLine)
 			{
 				if (m_doc->useRaster)
@@ -265,15 +265,17 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 					newY = bounds.bottom();
 				}
 			}
-			else
-			{
+			//CB: #8099: Readd snapping for drag creation of lines by commenting this else..
+			//else
+			//{
 				FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
 				double nx = np2.x();
 				double ny = np2.y();
 				m_doc->ApplyGuides(&nx, &ny);
 				newX = qRound(nx);
 				newY = qRound(ny);
-			}
+			//}
+
 			canvasCurrCoord.setXY(newX, newY);
 			m_view->HaveSelRect = true;
 
