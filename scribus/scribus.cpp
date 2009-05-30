@@ -3255,6 +3255,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemDetachTextFromPath"]->setEnabled(false);
 			scrActions["itemCombinePolygons"]->setEnabled(false);
 			scrActions["itemDelete"]->setEnabled(false);
+			scrMenuMgr->setMenuEnabled("ItemLevel", false);
 			scrActions["itemLowerToBottom"]->setEnabled(false);
 			scrActions["itemRaiseToTop"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
@@ -3267,7 +3268,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		}
 		else
 		{
-			bool setter=!(currItem->isTableItem && currItem->isSingleSel && currItem->isGroupControl);
+			bool setter=!(currItem->isSingleSel && (currItem->isTableItem  || currItem->isGroupControl));
+			scrMenuMgr->setMenuEnabled("ItemLevel", setter);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(!currItem->isSingleSel);
