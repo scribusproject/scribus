@@ -2624,7 +2624,7 @@ void StoryEditor::insertSampleText()
 	if (!dia.exec())
 		return;
 	blockUpdate = true;
-	Editor->insertPlainText(dia.loremIpsum());
+	Editor->insertChars(dia.loremIpsum());
 	blockUpdate = false;
 }
 
