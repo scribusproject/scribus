@@ -191,9 +191,15 @@ void LineMove::adjustBounds(QMouseEvent *m)
 		newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
 		newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
 	}
-	m_bounds.setBottomRight(QPointF(newX, newY));
-//	qDebug() << "LineMove::adjustBounds" << m_bounds << rotation() << length() << m_bounds.bottomRight();
 
+	FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
+	double nx = np2.x();
+	double ny = np2.y();
+	m_doc->ApplyGuides(&nx, &ny);
+	newX = qRound(nx);
+	newY = qRound(ny);
+
+	m_bounds.setBottomRight(QPointF(newX, newY));
 	//Constrain rotation angle, when the mouse is being dragged around for a new line
 	if (constrainRatio)
 	{
@@ -201,6 +207,8 @@ void LineMove::adjustBounds(QMouseEvent *m)
 		newRot = constrainAngle(newRot, m_doc->toolSettings.constrain);
 		setRotation(newRot);
 	}
+
+//	qDebug() << "LineMove::adjustBounds" << m_bounds << rotation() << length() << m_bounds.bottomRight();
 	m_view->updateCanvas(m_bounds.normalized().adjusted(-10, -10, 20, 20));
 }
 
