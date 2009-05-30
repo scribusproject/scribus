@@ -17,7 +17,9 @@
 #include <QString>
 
 #include <clocale>
-
+#if defined(Q_OS_MAC)
+#include <xlocale.h>
+#endif
 
 #if defined(Q_WS_WIN)
 #define XLocaleType _locale_t
