@@ -222,8 +222,9 @@ PyObject *scribus_objectexists(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_setstyle__doc__,
 QT_TR_NOOP("setStyle(\"style\" [, \"name\"])\n\
 \n\
-Apply the named \"style\" to the object named \"name\". If is no object name\n\
-given, it's applied on the selected object.\n\
+Apply the named \"style\" to the object named \"name\". If object name is\n\
+given, style is applied to the current text selection in object \"name\".\n\
+If no object name is given, style is applied on selected object.\n\
 "));
 /**
  Craig Ringer, 2004-09-09
