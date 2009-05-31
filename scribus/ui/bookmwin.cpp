@@ -249,6 +249,7 @@ void BookMView::DeleteItem(PageItem *pObject)
 			delete (*it);
 			break;
 		}
+		++it;
 	}
 	rebuildTree();
 }
