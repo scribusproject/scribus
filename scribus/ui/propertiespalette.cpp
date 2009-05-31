@@ -60,7 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "spalette.h"
 #include "styleselect.h"
-#include "ui/tabmanager.h"
+#include "tabmanager.h"
 #include "units.h"
 #include "undomanager.h"
 #include "util.h"
@@ -2397,6 +2397,7 @@ void PropertiesPalette::NewSel(int nr)
 		return;
 	int visID;
 	PageItem *i=0;
+	int currentTab = TabStack->currentIndex();
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	if (doc->m_Selection->count()>1)
 	{
@@ -2439,6 +2440,11 @@ void PropertiesPalette::NewSel(int nr)
 		NameEdit->setEnabled(false);
 		TabStack->setItemEnabled(idLineItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
+		if (HaveItem && CurItem)
+		{
+			if ((CurItem->isGroupControl) || ((CurItem->Groups.count() != 0) && (!CurItem->isSingleSel)))
+				TabStack->setItemEnabled(idGroupItem, true);
+		}
 		FlipH->setCheckable( false );
 		FlipV->setCheckable( false );
 		FlipH->setChecked(false);
@@ -2602,6 +2608,8 @@ void PropertiesPalette::NewSel(int nr)
 			break;
 		}
 	}
+	if (TabStack->isItemEnabled(currentTab) && (TabStack->currentIndex() != currentTab))
+		TabStack->setCurrentIndex(currentTab);
 	updateGeometry();
 //	setFocus();
 	repaint();
