@@ -182,7 +182,7 @@ void ScrPaletteBase::show()
 				vwidth = d->width()/3;
 			// and should be partly visible
 			int vleft   = qMin(qMax(scr.left() - vwidth + gStrut.width(), palettePrefs->getInt("left")),
-			                   d->width() - gStrut.width());
+			                   scr.right() - gStrut.width());
 			int vtop = qMin(palettePrefs->getInt("top"), d->height() - gStrut.height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
