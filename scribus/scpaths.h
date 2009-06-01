@@ -63,6 +63,8 @@ public:
 
 	/** @brief Return path to application data dir*/
 	static QString getApplicationDataDir(void);
+	/** @brief Return path to plugin data dir*/
+	static QString getPluginDataDir(void);
 	/** @brief Return path to user documents*/
 	static QString getUserDocumentDir(void);
 	/** @brief Return path to directory used for temporary files*/

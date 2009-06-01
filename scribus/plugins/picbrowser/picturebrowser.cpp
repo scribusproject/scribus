@@ -153,7 +153,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	collectionsWidget->setColumnCount ( 1 );
 	collectionsWidget->setHeaderLabels ( QStringList ( "Name" ) );
 
-	cdbFile = ScPaths::instance().shareDir() + QString ( "/plugins/collectionsdb.xml" );
+	cdbFile = ScPaths::instance().getPluginDataDir() + QString ( "collectionsdb.xml" );
 //emtpy initialization, maybe accessed before collection is actually loaded
 	currCollection = new imageCollection;
 	currCollection->name = "empty";
@@ -1237,7 +1237,7 @@ void PictureBrowser::collectionsNewButtonClicked()
 	}
 
 	QTreeWidgetItem *parentItem, *tmpItem;
-	QString newCollectionFile = ScPaths::instance().shareDir() + QString ( "/plugins/" );
+	QString newCollectionFile = ScPaths::instance().getPluginDataDir();
 
 	parentItem = currItem->parent();
 
