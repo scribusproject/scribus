@@ -264,15 +264,16 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 					newY = bounds.bottom();
 				}
 			}
-			else
-			{
+			//CB: #8099: Readd snapping for drag creation of lines by commenting this else..
+			//else
+			//{
 				FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
 				double nx = np2.x();
 				double ny = np2.y();
 				m_doc->ApplyGuides(&nx, &ny);
 				newX = qRound(nx);
 				newY = qRound(ny);
-			}
+			//}
 			canvasCurrCoord.setXY(newX, newY);
 			m_view->HaveSelRect = true;
 
