@@ -1063,7 +1063,8 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		propertiesPalette->setParStyle(currPStyle.parent());
 		propertiesPalette->setCharStyle(currItem->currentCharStyle().parent());
 		doc->currentStyle = currItem->currentStyle();
-		doc->currentStyle.charStyle() = currItem->currentCharStyle();
+		// #8112 : do not use operator= here as it does not update style features
+		doc->currentStyle.charStyle().setStyle( currItem->currentCharStyle() );
 		emit TextStyle(doc->currentStyle);
 		// to go: (av)
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
