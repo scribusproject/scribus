@@ -6406,7 +6406,11 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			}
 			*/
 			char * mbuffer = NULL;
+#if defined(pdf_long)
+			pdf_long mlen = 0;
+#else
 			long mlen = 0;
+#endif
 			stream->GetCopy(&mbuffer, &mlen);
 			if (mbuffer[mlen-1] == '\n')
 				--mlen;
@@ -6663,7 +6667,11 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QM
 	if (obj->HasStream())
 	{
 		char * mbuffer = NULL;
-		long mlen = 0;
+#if defined(pdf_long)
+			pdf_long mlen = 0;
+#else
+			long mlen = 0;
+#endif
 		const PoDoFo::PdfStream* stream = obj->GetStream();
 		stream->GetCopy(&mbuffer, &mlen);
 		if (mbuffer[mlen-1] == '\n')
