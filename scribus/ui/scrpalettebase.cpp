@@ -171,6 +171,7 @@ void ScrPaletteBase::show()
 		QSize gStrut = QApplication::globalStrut();
 		if (palettePrefs->contains("left"))
 		{
+			QRect scr = QApplication::desktop()->availableGeometry(this);
 			// all palettes should have enough room for 3x3 min widgets
 			int vwidth  = qMin(qMax(3*gStrut.width(), palettePrefs->getInt("width")),
 			                   d->width());
@@ -180,8 +181,8 @@ void ScrPaletteBase::show()
 			if (vwidth > d->width()/3 && vheight > d->height()/3)
 				vwidth = d->width()/3;
 			// and should be partly visible
-			int vleft   = qMin(qMax(-vwidth + gStrut.width(), palettePrefs->getInt("left")),
-			                   d->width() - gStrut.width());
+			int vleft   = qMin(qMax(scr.left() - vwidth + gStrut.width(), palettePrefs->getInt("left")),
+			                   scr.right() - gStrut.width());
 			int vtop = qMin(palettePrefs->getInt("top"), d->height() - gStrut.height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
@@ -190,9 +191,8 @@ void ScrPaletteBase::show()
 			vtop    = qMax(-vheight + gStrut.height(), vtop);
 #endif
 			// Check values against current screen size
-			QRect scr = QApplication::desktop()->availableGeometry(this);
-			if ( vleft >= scr.width() )
-				vleft = 0;
+			if ( vleft >= scr.right() )
+				vleft = scr.left();
 			if ( vtop >= scr.bottom() )
 				vtop = 64;
 			if ( vtop <= scr.top() )
