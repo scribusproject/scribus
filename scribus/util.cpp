@@ -957,11 +957,21 @@ void printBacktrace ( int nFrames )
 				size_t length = 0;
 				int status = 0; 
 				outbuf = abi::__cxa_demangle(mName.trimmed().toAscii().data(), outbuf, &length, &status);
-				name = QString::fromAscii( outbuf,length );
-				if(!status)
+				name = QString::fromAscii( outbuf );
+				if(0 == status)
+				{
+//					qDebug()<<"Demangle success["<< length <<"]"<<name;
 					free(outbuf);
+				}
+//				else
+//				{
+//					qDebug()<<"Demangle failed ["<<status<<"]["<< mName.trimmed() <<"]";
+//					continue;
+//				}
 			}
 			else
+				name = mName;
+			if(name.isEmpty())
 				name = mName;
 			QString bts ( "[ScBT] %1. %2" );
 			qDebug ("%s", bts.arg( i ).arg( name ).toUtf8().data() );

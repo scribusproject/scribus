@@ -390,6 +390,8 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 			}
 			if (currItem->asTextFrame())
 			{
+				int refStartSel(currItem->asTextFrame()->itemText.startOfSelection());
+				int refEndSel(currItem->asTextFrame()->itemText.endOfSelection());
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
 				m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
@@ -407,15 +409,20 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						currItem->HasSel = true;
 					}
 				}
-// 				currItem->update();
 				if(currItem->HasSel)
 				{
 					m_ScMW->EnableTxEdit();
 					m_canvas->m_viewMode.operTextSelecting = true;
+					if((refStartSel != currItem->asTextFrame()->itemText.startOfSelection())
+						|| (refEndSel != currItem->asTextFrame()->itemText.endOfSelection()))
+					{
+						QRectF br(currItem->getBoundingRect());
+						m_canvas->update(QRectF(m_canvas->canvasToLocal(br.topLeft()), br.size() * m_canvas->scale()).toRect());
+					}
 				}
 				else
 					m_ScMW->DisableTxEdit();
-				m_canvas->update();
+
 			}
 		}
 		//Operations run here:
@@ -996,6 +1003,9 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				m_view->requestMode(modeNormal);
 				return;
 			}
+			else
+				currItem->asTextFrame()->deselectAll();
+
 			if (m->button() != Qt::RightButton)
 			{
 				//<<CB Add in shift select to text frames
