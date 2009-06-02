@@ -1,0 +1,85 @@
+<html>
+<head><TITLE>Filing a Bug Report</TITLE></head>
+
+<body>
+
+<h1>Introduction</h1>
+<p>Software development is almost useless without testing, and that's true for Scribus as well, of course. Testing means using the software, especially development versions. Bugs, when discovered, need to be reported to let the developers know that something's wrong or at least seems to be wrong, so the problem can be fixed, if necessary. Sometimes the fix may simply be an update to the online documentation, the wiki or the next edition of the Official Manual. Moreover, the developers need to know what kind of features users need. In such a case case, someone who is missing a feature or has a great idea, should also let the team know about it.</p>
+
+<p>In both cases, the procedure is the same. There is a software called <i>bug tracking system</i>, in Scribus' case this is <a href="http://www.mantisbt.org/">Mantis</a>. A bug tracking system allows developers to keep track of, discuss and review bug reports and RFEs (requests for enhancement). If you want to help to improve Scribus or absolutely need a feature, you are advised to use it.</p>
+
+<h1>How to Create an Account</h1>
+
+<p>First, visit the <a href="http://bugs.scribus.net/signup_page.php">signup page</a>. You will see a page that looks like this:</p>
+<br>
+<table width="100%"><tr><td align="left"><img src="images/Mantis_signup.png"/></td></tr></table>
+<br>
+<p>Enter a login name, your email address and the digits displayed. Then click <i>Signup</i> and wait until your account has been confirmed and you received a password. You can change your personal preferences any time in the tab "My account," provided you are logged in. Please take the time to check the different options. They may or may not be useful to you.</p>
+
+<h1>Before filing a bug</h1>
+<p>If something doesn't work as expected or you think you have the idea of the century, please don't start firing up bug reports galore. Chances are that someone has already had the same problem, perhaps even the same great idea. Five steps are recommended to ensure your report won't be closed as "duplicate" or "no change required".</p>
+
+<ol><li>Read the <a href="http://docs.scribus.net/">Scribus documentation</a>, rummage the <a href="http://wiki.scribus.net/index.php">Scribus wiki</a> or even consider buying the <a href="http://www.scribus.net/?q=node/171">Official Scribus Manual</a>. There are lots of informations in different languages available, and perhaps someone has already turned his own experiences into a wiki article, or the documentation team may have documented a feature/issue thoroughly by then.</li>
+<li>Try to really use Scribus and learn about its concepts. Compared to other DTP programs, Scribus is not hard to learn, but it is still quite different from, say, a word processor.</li>
+<li>Tell one of the <a href="http://lists.scribus.info/mailman/listinfo/">mailing lists</a> about your problem or your idea. Things normally get sorted out quickly. Often enough, a supposed bug is just lack of experience.</li>
+<li>Ask questions on <a href="irc://irc.freenode.net/#scribus">IRC</a>. This is especially useful for "real time" support.</li>
+<li>If your questions still haven't been answered, you should browse the bug database. You can search for keywords. As you can see on the screenshot below, you can enter a keyword in the "Search" field. Then click <i>Apply</i>, and Mantis will search for all reports containing the text string. If you don't know the correct English word to search for, you can skim the multilingual <a href="/index.php/Glossary_of_technical_terms_used_in_Scribus_and_its_translations">Glossary</a> on the Wiki for a translation. If you use a non-English version of Scribus and want to look up the English names of menu items, just switch the Scribus interface to English: <i>File &gt; Preferences &gt; General &gt; Language</i></li>
+</ol>
+<br>
+<table width="100%"><tr><td align="left"><img src="images/Mantis_searching.png"/></td></tr></table>
+<br>
+</p><p>You will notice that the reports are coloured differently. The meaning of the different colours is:</p>
+<table class="width100" cellspacing="1"><tr><td class="small-caption" width="14%" bgcolor="#ffa0a0">new</td><td class="small-caption" width="14%" bgcolor="#ff50a8">feedback</td><td class="small-caption" width="14%" bgcolor="#ffd850">acknowledged</td><td class="small-caption" width="14%" bgcolor="#ffffb0">confirmed</td><td class="small-caption" width="14%" bgcolor="#c8c8ff">assigned</td><td class="small-caption" width="14%" bgcolor="#cceedd">resolved</td><td class="small-caption" width="14%" bgcolor="#e8e8e8">closed</td></tr></table>
+<br>
+
+<ul><li><i>New</i>: The bug/RFE is reported, and no decision has been made as to how to handle it.</li>
+<li><i>Feedback</i>: Feedback is required from either the original reporter or someone who added a note to the report. This happens quite often in cases where an issue can't be reproduced.</li>
+<li><i>Acknowledged</i>: Once the team has decided a suggestion is worth keeping in mind for further development, the status is changed to "acknowledged." This is mostly the case with RFEs.</li>
+<li><i>Confirmed</i>: If a reported bug could be reproduced by others, the status will change to "confirmed." This is what usually happens to bug reports.</li>
+<li><i>Assigned</i>: A bug or RFE is assigned to a developer for fixing it or adding a feature.</li>
+<li><i>Resolved</i>: A bug or RFE is resolved. That doesn't necessarily mean a developer wrote any code. If things cannot or need not be fixed, the issue will be resolved as well.</li>
+<li><i>Closed</i>: The end of a life span of a report. If all works well, the issue will finally be closed, and the scary number of reports/requests is a bit smaller.</li>
+</ul>
+<br>
+<h1>How to file a bug report</h1>
+<br>To file a bug report, you have to click on the <i>Report Issue</i> link in your browser. You will be presented a page with lots of fields for entries:
+<br>
+<table width="100%"><tr><td align="left"><img src="images/Mantis_new_report1.png"/></td></tr></table>
+<br>
+<ul><li><i>Categories</i>: Choose a category you think your report fits best. If you can't find an appropriate category, choose "General."</li>
+<li><i>Reproducibility</i>: If you report a bug, can you reproduce it? How often does it happen? Choose the appropriate degree of frequency. RFEs have the reproducibility "Always," since the feature is always missing, until the issue is resolved.</li>
+<li><i>Select Profile</i>: In your personal preferences you can create user profiles for your reports. This is especially useful if you use more than one operating system or Distribution. You create a profile for each operating system, and if you file a report on an issue that occured on a particular system, you can simply choose the profile instead of inserting the data (Platform, OS, OS Version) by hand all the time.</li>
+<li><i>Platform</i>: Insert your CPU platform (e. g. x86, x86-64, PPC, SPARC)</li>
+<li><i>OS</i>: Your operating system (e.g. Linux, Windows, OS X)</li>
+<li><i>OS Version</i>: e. g. Debian 3.1, SuSE 10.1, Win2000, OS X 10.3</li>
+<li><i>Product Version</i>: Scribus has many incarnations: the stable branch, the developer branch with some more or less stable versions (1.3.xSVN, 1.5SVN etc.). Make sure you choose the right one from the drop down menu.</li>
+<li><i>Product Build</i>: This is especially important if you are using <a href="http://docs.scribus.net/index.php?lang=en&page=install1">SVN versions</a> of Scribus. You find the relevant date in Scribus under <i>Help &gt; About Scribus</i>. The date is very important, because the source code changes almost daily. An issue you report with an older version may very well already be resolved, in which case you will receive the recommendation to try the latest SVN version. <b>Please don't report issues for depracated versions of Scribus.</b></li>
+</ul>
+
+<p>If you have finished the preparations, you can finally start writing:</p>
+<br>
+<table width="100%"><tr><td align="left"><img src="images/Mantis_new_report2.png"/></td></tr></table>
+<br>
+
+<ul><li><i>Summary</i>: A short description of your report. This will become the "headline" in the bug tracker.</li>
+<li><i>Description</i>: Describe your issue as precisely as possible, but keep it concise. <b>No Novels here!</b> It may also be helpful to upload some screenshots (see below). If you file a feature request, please add a real world scenario. The team needs examples to understand what the idea is and how this new feature would help people to work better and more efficiently. In other words, try to describe not only <i>what</i> and <i>how</i>, but also <i>why</i>.</li>
+<li><i>Steps to reproduce</i>: If you are able to reproduce a bug, please write down the steps necessary for reproduction on other machines.</li>
+<li><i>Additional information</i>: If you think other information, e.g. postings from the mailing list or messages from a debugger</a>, are useful in this context, you can add them here.</li>
+</ul>
+<br>
+<p>You're almost done now, but you may want to upload a file, a screenshot for instance, or a Scribus sample file. Click <i>Search</i>or enter the path to the file on your hard drive or a URL.</p>
+<br>
+<table width="100%"><tr><td align="left"><img src="images/Mantis_new_report3.png"/></td></tr></table>
+<br>
+<p>If you don't want a report to be seen by other reporters, but only the team, you can switch the status to "Private." This may be the case if you discover issues with a file that is protected by copyrights. Check "Private," and only a handful of people will see the file.</p><p>Once everything is to your satisfaction, click <i>Submit Report</i>, and you're done.</p>
+
+<h1>Personalised View</h1>
+<p>Provided you are logged in, you can choose a more clearly laid out view of the bugtracker. Click on the link <i>My view</i>, and Mantis will present a structured view of recently changed issues:
+<br>
+<table width="100%"><tr><td align="left"><img src="images/Mantis_my_view.png"/></td></tr></table>
+<br>
+<ul><li><i>Left column</i>: Unassigned reports, resolved reports, and reports monitored by you.</li>
+<li><i>Right column</i>: Your reports, all reports recently modified.</li>
+</ul>
+</body>
+</html>
