@@ -4,7 +4,7 @@ INCLUDE_DIRECTORIES(
 
 INSTALL(FILES
 icalamus.xml
-pageplus.xml
+pageplusx3.xml
 pagestream.xml
 scribus13.xml
   DESTINATION ${SHAREDIR}keysets
