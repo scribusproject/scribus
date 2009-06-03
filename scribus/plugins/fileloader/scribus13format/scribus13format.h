@@ -60,6 +60,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
 		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		
+		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		int  itemCount;

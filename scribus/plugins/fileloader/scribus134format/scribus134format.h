@@ -92,6 +92,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
 		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir, bool newFormat);
 
+		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		QMap<int, int> itemRemapF;

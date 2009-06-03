@@ -219,6 +219,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	int x, a;
 //	double xf, xf2;
 	PageItem *Neu;
+	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	QDomDocument docu("scridoc");
@@ -323,7 +324,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->typographicSettings.valueBaseGrid = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
 		m_Doc->typographicSettings.offsetBaseGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
 		m_Doc->typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
-		m_Doc->GroupCounter=dc.attribute("GROUPC", "1").toInt();
+		m_Doc->GroupCounter = 1 /*dc.attribute("GROUPC", "1").toInt()*/;
 		//m_Doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
 		m_Doc->CMSSettings.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
 		m_Doc->CMSSettings.SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
@@ -498,14 +499,25 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
+						QMap<int, int>::ConstIterator gIt;
+						int groupMax = m_Doc->GroupCounter;
 						tmp = obj.attribute("GROUPS");
 						ScTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
 							fg >> x;
-							OB.Groups.push(x);
+							gIt = groupRemap.find(x);
+							if (gIt != groupRemap.end())
+								OB.Groups.push(gIt.value());
+							else
+							{
+								OB.Groups.push(groupMax); 
+								groupRemap.insert(x, groupMax);
+								++groupMax;
+							}
 						}
+						m_Doc->GroupCounter = groupMax;
 						tmp = "";
 					}
 					else
@@ -528,11 +540,11 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 						IT=IT.nextSibling();
 					}
 					OB.itemText = "";
-					int docGc = m_Doc->GroupCounter;
-					m_Doc->GroupCounter = 0;
+					/*int docGc = m_Doc->GroupCounter;
+					m_Doc->GroupCounter = 0;*/
 					uint last = m_Doc->Items->count();
 					m_View->PasteItem(&OB, true);
-					m_Doc->GroupCounter = docGc;
+					/*m_Doc->GroupCounter = docGc;*/
 					Neu = m_Doc->Items->at(last);
 					Neu->OnMasterPage = PgNam;
 					Neu->OwnPage = a; //No need to scan for OnPage as we know page by page in 1.2.x
@@ -1132,6 +1144,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
+	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
@@ -1337,15 +1350,26 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
+						int groupMax = m_Doc->GroupCounter;
+						QMap<int, int>::ConstIterator gIt;
 						tmp = obj.attribute("GROUPS");
 						ScTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
 							fg >> x;
-							OB.Groups.push(x);
+							gIt = groupRemap.find(x);
+							if (gIt != groupRemap.end())
+								OB.Groups.push(gIt.value());
+							else
+							{
+								OB.Groups.push(groupMax); 
+								groupRemap.insert(x, groupMax);
+								++groupMax;
+							}
 						}
-					tmp = "";
+						m_Doc->GroupCounter = groupMax;
+						tmp = "";
 					}
 					else
 						OB.Groups.clear();

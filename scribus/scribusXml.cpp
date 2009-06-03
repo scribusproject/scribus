@@ -941,6 +941,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	QString tmp, tmpf, tmf;
 	QMap<int,int> TableID;
 	QMap<int,int> arrowID;
+	QMap<int,int> groupMap;
 	QMap<PageItem*, int> groupID;
 	QMap<int, ImageLoadRequest> loadRequests;
 	QList<PageItem*>  TableItems;
@@ -1192,14 +1193,22 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			int numGroup = attrAsInt(attrs, "NUMGROUP", 0);
 			if ((!attrs.value("GROUPS").isEmpty()) && (numGroup > 0))
 			{
+				QMap<int, int>::ConstIterator gIt;
 				tmp = attrAsString(attrs, "GROUPS", "");
 				QTextStream fg(&tmp, QIODevice::ReadOnly);
 				OB.Groups.clear();
 				for (int cx = 0; cx < numGroup; ++cx)
 				{
 					fg >> x;
-					OB.Groups.push(x+doc->GroupCounter);
-					GrMax = qMax(GrMax, x+doc->GroupCounter);
+					gIt = groupMap.find(x);
+					if (gIt != groupMap.end())
+						OB.Groups.push(gIt.value());
+					else
+					{
+						OB.Groups.push(GrMax + 1); 
+						groupMap.insert(x, GrMax + 1);
+						GrMax = qMax(GrMax + 1, doc->GroupCounter + 1);
+					}
 				}
 				tmp = "";
 			}
@@ -1428,6 +1437,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	QMap<int, ImageLoadRequest> loadRequests;
 	QMap<int,int> TableID;
 	QMap<int,int> arrowID;
+	QMap<int, int> groupMap;
 	QMap<PageItem*, int> groupID;
 	ScImageEffectList imageEffects;
 	ScPattern pat;
@@ -1511,14 +1521,22 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			int numGroup = attrAsInt(attrs1, "NUMGROUP", 0);
 			if ((!attrs1.value("GROUPS").isEmpty()) && (numGroup > 0))
 			{
+				QMap<int, int>::ConstIterator gIt;
 				tmp = attrAsString(attrs1, "GROUPS", "");
 				QTextStream fg(&tmp, QIODevice::ReadOnly);
 				OB.Groups.clear();
 				for (int cx = 0; cx < numGroup; ++cx)
 				{
 					fg >> x;
-					OB.Groups.push(x+doc->GroupCounter);
-					GrMax = qMax(GrMax, x+doc->GroupCounter);
+					gIt = groupMap.find(x);
+					if (gIt != groupMap.end())
+						OB.Groups.push(gIt.value());
+					else
+					{
+						OB.Groups.push(GrMax + 1); 
+						groupMap.insert(x, GrMax + 1);
+						GrMax = qMax(GrMax + 1, doc->GroupCounter + 1);
+					}
 				}
 				tmp = "";
 			}
