@@ -1,5 +1,28 @@
 
 Scribus - 1.3.5svn
+- 0008017: [PDF] Exported PDF with CJK fonts corrupted (jghali) - resolved.
+- 0008109: [Usability] Scribus forgets window positions of related windows on two screen workplace (jghali) - closed.
+- 0008114: [Graphics / Image Frames] Resizing grouped objects automatically groups objects with other non-selected graphics on page. (jghali) - closed.
+- 0008112: [General] crash when editing prefs after char style has been applied (jghali) - closed.
+- 0008099: [User Interface] Lines don't snap to guides well (cbradney) - closed.
+- 0008092: [Tables] Applying a shape to a table makes the Group tab inaccessible (jghali) - closed.
+- 0008107: [Scripter] setStyle() only sets the first paragraph (jghali) - closed.
+- 0008105: [General] Crashes when trying to unset some pdf bookmarks or deleting a frame (jghali) - closed.
+- 0007984: [User Interface] Assigning values in the object property dialog is not possible (pierremarchand) - closed.
+- 0008098: [Win32] Spaces / file extension issues with latex render frame under windows (Herm) - closed.
+- 0008097: [Translation] Galician translation update (cbradney) - closed.
+- 0008077: [Build System] Actual SVN version does not compile (pierremarchand) - closed.
+- 0008063: [Documentation] New online docs, part 1: Quick Start Guide (plinnell) - closed.
+- 0008059: [Shape Drawing] shape change to rect after shape editing + cut (jghali) - closed.
+- 0008070: [Graphics / Image Frames] Scribus crashes when using "Manage Images" to change source of image on master page (jghali) - closed.
+- 0008068: [PDF] incorrect export of path text objects if text is too long for the path (jghali) - closed.
+- 0008074: [Documentation] Render Frame Documentation (plinnell) - closed.
+- 0008020: [Internal] string toDouble conversions break when locale changes - closed.
+- 0008069: [Import / Export] Relative render frame paths not handled correctly in all places. (Herm) - closed.
+- 0008058: [User Interface] Text in status bar almost unreadable (jghali) - closed.
+- 0008060: [Language Tools] Dutch Translation Update (cbradney) - closed.
+- 0008066: [Translation] Updated Russian translation for 1.3.5 (cbradney) - closed.
+- 0005339: [Graphics / Image Frames] SVG corruption (jghali) - closed.
 - 0008040: [General] crash when ungrouping multiple items at once (jghali) - closed.
 - 0008055: [Translation] Updated Danish Translation (cbradney) - closed.
 - 0006935: [Mac OS] Height of pull-down menu showing inconsistencies in Style Manager, Guide Managers and in the PP wrt other dialog boxes (subik) - closed.
