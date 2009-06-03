@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #define FILETOOLBAR_H
 
 #include "scribusapi.h"
-#include "ui/sctoolbar.h"
+#include "sctoolbar.h"
 
 class ScribusMainWindow;
 

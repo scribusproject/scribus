@@ -20,10 +20,10 @@
 #include <QTimer>
 
 #include "canvas.h"
-#include "ui/contextmenu.h"
+#include "contextmenu.h"
 #include "fpoint.h"
 #include "pageitem.h"
-#include "ui/pageselector.h"
+#include "pageselector.h"
 #include "prefsmanager.h"
 #include "scribusview.h"
 #include "selection.h"

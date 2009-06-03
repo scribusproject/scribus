@@ -23,17 +23,17 @@ for which a new license (GPL+exception) is in place.
 #include <zlib.h>
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+#include "customfdialog.h"
 #include "importai.h"
 #include "loadsaveplugin.h"
 #include "missing.h"
-#include "ui/multiprogressdialog.h"
+#include "multiprogressdialog.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
+#include "propertiespalette.h"
 #include "rawimage.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
@@ -413,11 +413,7 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 							data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 							PoDoFo::PdfStream const *stream = data->GetStream();
 							char *Buffer;
-#if defined(pdf_long)
-							pdf_long bLen = 0;
-#else
-							long bLen = 0;
-#endif
+							long bLen;
 							stream->GetFilteredCopy(&Buffer, &bLen);
 							outf.write(Buffer, bLen);
 							free( Buffer );
@@ -432,11 +428,7 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 									break;
 								PoDoFo::PdfStream const *stream = data->GetStream();
 								char *Buffer;
-#if defined(pdf_long)
-								pdf_long bLen = 0;
-#else
-								long bLen = 0;
-#endif
+								long bLen;
 								stream->GetFilteredCopy(&Buffer, &bLen);
 								outf.write(Buffer, bLen);
 								free( Buffer );

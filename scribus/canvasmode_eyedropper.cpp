@@ -28,7 +28,7 @@
 
 #include "canvas.h"
 #include "fpoint.h"
-#include "ui/propertiespalette.h"
+#include "propertiespalette.h"
 #include "sccolorengine.h"
 #include "scribus.h"
 #include "scribusdoc.h"

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fileloader.h"
-#include "ui/fontreplacedialog.h"
+#include "fontreplacedialog.h"
 #include "hyphenator.h"
 #include "missing.h"
 #include "page.h"
@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "units.h"
 #include "loadsaveplugin.h"
-#include "ui/guidemanager.h"
+#include "guidemanager.h"
 #include "text/nlsconfig.h"
 
 // We need to include the headers for the plugins we support until we start

@@ -30,20 +30,21 @@
 #include <QWidgetAction>
 #include <QDebug>
 
-#include "ui/aligndistribute.h"
+#include "aligndistribute.h"
 #include "canvas.h"
 #include "canvasgesture_resize.h"
-#include "ui/contextmenu.h"
+#include "contextmenu.h"
+#include "customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
 #include "insertTable.h"
 #include "pageitem_textframe.h"
-#include "ui/pageselector.h"
+#include "pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
+#include "propertiespalette.h"
 #include "sccolorengine.h"
 #include "scmimedata.h"
 #include "scribus.h"
@@ -409,6 +410,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						currItem->HasSel = true;
 					}
 				}
+
 				if(currItem->HasSel)
 				{
 					m_ScMW->EnableTxEdit();

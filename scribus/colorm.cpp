@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmykfw.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+#include "customfdialog.h"
 #include "dcolor.h"
 #include "fileloader.h"
 #include "prefsfile.h"
@@ -179,9 +179,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	connect( deleteColorButton, SIGNAL( clicked() ), this, SLOT( deleteColor() ) );
 	connect( importColorsButton, SIGNAL( clicked() ), this, SLOT( importColors() ) );
 	connect( colorListBox, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selColor(QListWidgetItem*) ) );
-	// PV - itemActivated changed to itemDoubleClicked because
-	// it was opening edit color dialog on every click in KDE4.
-	connect( colorListBox, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( selEditColor(QListWidgetItem*) ) );
+	connect( colorListBox, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selEditColor(QListWidgetItem*) ) );
 	resize(minimumSizeHint());
 }
 
@@ -508,15 +506,4 @@ void ColorManager::updateCList()
 QString ColorManager::getColorSetName()
 {
 	return LoadColSet->currentText();
-}
-
-ScColor ColorManager::selectedColor()
-{
-	QString color(colorListBox->currentColor());
-	return EditColors[color];
-}
-
-QString ColorManager::selectedColorName()
-{
-	return colorListBox->currentColor();
 }

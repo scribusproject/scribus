@@ -15,12 +15,11 @@ class QLabel;
 class QCheckBox;
 class QPushButton;
 class QGroupBox;
-
-class BasePointWidget;
 class ScrSpinBox;
 class LinkButton;
 
 #include "scribusapi.h"
+#include "basepointwidget.h"
 
 class SCRIBUS_API OneClick : public QDialog
 {

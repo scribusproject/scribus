@@ -201,6 +201,8 @@ void LineMove::adjustBounds(QMouseEvent *m)
 	//>>#8099
 
 	m_bounds.setBottomRight(QPointF(newX, newY));
+//	qDebug() << "LineMove::adjustBounds" << m_bounds << rotation() << length() << m_bounds.bottomRight();
+
 	//Constrain rotation angle, when the mouse is being dragged around for a new line
 	if (constrainRatio)
 	{
@@ -208,8 +210,6 @@ void LineMove::adjustBounds(QMouseEvent *m)
 		newRot = constrainAngle(newRot, m_doc->toolSettings.constrain);
 		setRotation(newRot);
 	}
-
-//	qDebug() << "LineMove::adjustBounds" << m_bounds << rotation() << length() << m_bounds.bottomRight();
 	m_view->updateCanvas(m_bounds.normalized().adjusted(-10, -10, 20, 20));
 }
 

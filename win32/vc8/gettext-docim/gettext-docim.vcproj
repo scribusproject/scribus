@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="gettext-docim"
+	Name="gettext-docim-1.3.5.x"
 	ProjectGUID="{EF2A0A6E-589C-4D37-9C1E-1FC02B63C044}"
 	Keyword="Win32Proj"
 	>
@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="gettext-docimdll.cpp"
+				RelativePath="gettext-docim.cpp"
 				>
 			</File>
 		</Filter>

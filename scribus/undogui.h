@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "undostate.h"
-#include "ui/scrpalettebase.h"
+#include "scrpalettebase.h"
 
 class QEvent;
 class QMenu;

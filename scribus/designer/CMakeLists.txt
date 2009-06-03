@@ -32,13 +32,13 @@ sctablewidgetplugin.cpp
 
 SET(SCRIBUS_SCTEXTBROWSER_PLUGIN_MOC_CLASSES
 sctextbrowserplugin.h
-../ui/sctextbrowser.h
+../sctextbrowser.h
 ../urllauncher.h
 )
 
 SET(SCRIBUS_SCTEXTBROWSER_PLUGIN_SOURCES
 sctextbrowserplugin.cpp
-../ui/sctextbrowser.cpp
+../sctextbrowser.cpp
 ../urllauncher.cpp
 )
 

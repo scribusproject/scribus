@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "splash.h"
 #include "units.h"
 #include "util_math.h"
 

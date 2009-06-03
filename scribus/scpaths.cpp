@@ -336,11 +336,6 @@ QString ScPaths::getApplicationDataDir(void)
 #endif
 }
 
-QString ScPaths::getPluginDataDir(void)
-{
-	return getApplicationDataDir() + "plugins/";
-}
-
 QString ScPaths::getUserDocumentDir(void)
 {
 #if defined(_WIN32)

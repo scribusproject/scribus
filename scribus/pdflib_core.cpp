@@ -51,11 +51,11 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 
 
-#include "ui/bookmwin.h"
-#include "ui/bookmarkpalette.h"
+#include "bookmwin.h"
+#include "bookmarkpalette.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "ui/multiprogressdialog.h"
+#include "multiprogressdialog.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
@@ -6406,11 +6406,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			}
 			*/
 			char * mbuffer = NULL;
-#if defined(pdf_long)
-			pdf_long mlen = 0;
-#else
 			long mlen = 0;
-#endif
 			stream->GetCopy(&mbuffer, &mlen);
 			if (mbuffer[mlen-1] == '\n')
 				--mlen;
@@ -6667,11 +6663,7 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QM
 	if (obj->HasStream())
 	{
 		char * mbuffer = NULL;
-#if defined(pdf_long)
-			pdf_long mlen = 0;
-#else
-			long mlen = 0;
-#endif
+		long mlen = 0;
 		const PoDoFo::PdfStream* stream = obj->GetStream();
 		stream->GetCopy(&mbuffer, &mlen);
 		if (mbuffer[mlen-1] == '\n')

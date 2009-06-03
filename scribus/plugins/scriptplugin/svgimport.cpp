@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "scribuscore.h"
 #include "selection.h"
-#include "ui/propertiespalette.h"
+#include "propertiespalette.h"
 
 #include <QString>
 

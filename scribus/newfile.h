@@ -23,8 +23,8 @@ class QPushButton;
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
-#include "ui/customfdialog.h"
-#include "ui/nftwidget.h"
+#include "customfdialog.h"
+#include "nftwidget.h"
 
 class PrefsManager;
 class MarginWidget;

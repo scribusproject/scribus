@@ -10,92 +10,22 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "fonts/ftface.h"
 
-#include FT_TRUETYPE_TABLES_H
-#include FT_TRUETYPE_TAGS_H
-
-
-/**
-	An object holding a table of kerning pairs extracted from
-	a kern feature such as found in a GPOS table
- */
-class SCRIBUS_API KernFeature
-{
-	public:
-		/**
-		* Build a ready-to-use kerning pairs table
-		* @param face a valid FT_Face, It won’t be store by KernFeature
-		 */
-		KernFeature ( FT_Face face );
-		KernFeature ( const KernFeature& kf );
-		~KernFeature();
-
-		/**
-		 * Get the kerning value for a pair of glyph indexes.
-		 * @param glyph1 Index of the left glyph in logical order
-		 * @param glyph2 Index of the right glyph in logical order
-		 * @return the unscaled delta to apply to xadvance of the first glyph
-		 */
-		double getPairValue ( unsigned int glyph1, unsigned int glyph2 ) const;
-
-		/**
-		 * The table can have been invalidated if something went wrong at any moment.
-		 * @return True if valid, False otherwise.
-		 */
-		bool isValid() const {return m_valid;}
-
-	private:
-		bool m_valid;
-		QByteArray GPOSTableRaw;
-		QMap<quint16,QList<quint16> > coverages;
-		QMap<quint16, QMap<quint16, double> > pairs;
-
-		void makeCoverage();
-		void makePairs ( quint16 subtableOffset );
-
-		typedef QMap<quint16, QList<quint16> > ClassDefTable; // <Class , list<GLyph> >
-		ClassDefTable getClass ( quint16 classDefOffset, quint16 coverageId );
-		inline quint16 toUint16 ( quint16 index );
-		inline qint16 toInt16 ( quint16 index );
-
-		enum ValueFormat
-		{
-			XPlacement = 0x0001,
-			YPlacement = 0x0002,
-			XAdvance = 0x0004,
-			YAdvance = 0x0008,
-			XPlaDevice =0x0010,
-			YPlaDevice =0x0020,
-			XAdvDevice =0x0040,
-			YAdvDevice =0x0080
-		};
-		QString FontName;// for debugging purpose
-};
-
-
 /*
 	Class ScFace_ttf
 	Subclass of ScFace, specifically for TrueType fonts.
 	Implements: RealName() and EmbedFont().
 */
 
-
-
 class SCRIBUS_API ScFace_ttf : public FtFace
 {
-	public:
-		ScFace_ttf ( QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face );
-		~ScFace_ttf();
-		
-		void load () const;
-		void unload () const;
-		
-		bool EmbedFont ( QString &str ) const;
-		void RawData ( QByteArray & bb ) const;
-		
-		qreal glyphKerning ( uint gl1, uint gl2, qreal sz ) const;
-		
-	private:
-		mutable KernFeature * kernFeature;
+public:
+	ScFace_ttf(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face) 
+	: FtFace(fam, sty, alt, scname, psname, path, face )
+	{
+		formatCode = ScFace::SFNT;
+	}
+	bool EmbedFont(QString &str) const;
+	void RawData(QByteArray & bb) const;
 };
 
 #endif

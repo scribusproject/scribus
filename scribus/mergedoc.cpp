@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "mergedoc.h"
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+#include "customfdialog.h"
 #include "fileloader.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

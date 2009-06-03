@@ -75,9 +75,9 @@ PROJECT(scribus)
 #Final version is ${VERSION} = ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX}
 #where VERSION_SUFFIX is of the form "", "cvs" or "Ncvs" (N being the minor patch level)
 SET (VERSION_MAJOR "1")
-SET (VERSION_MINOR "5")
-SET (VERSION_PATCH "0")
-SET (VERSION_SUFFIX "svn")
+SET (VERSION_MINOR "3")
+SET (VERSION_PATCH "5")
+SET (VERSION_SUFFIX "rc2")
 SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX})
 MESSAGE(STATUS "Scribus ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
 
@@ -417,7 +417,6 @@ ELSE (WANT_QT3SUPPORT)
   SET (QT_USE_QT3SUPPORT FALSE)
 ENDIF (WANT_QT3SUPPORT)
 SET (QT_USE_QTXML TRUE )
-SET (QT_USE_QTWEBKIT TRUE )
 IF (APPLE)
   SET( QT_USE_QTSQL TRUE )
 ENDIF (APPLE)
@@ -426,13 +425,6 @@ FIND_PACKAGE(Qt4 REQUIRED)
 INCLUDE( ${QT_USE_FILE} )
 IF (QT_FOUND)
   MESSAGE("Qt4 Found OK")
-  # we wont turn around, lets make it required
-  IF(QT_QTWEBKIT_FOUND)
-  MESSAGE(STATUS "QtWebkit Found OK")
-  ELSE(QT_QTWEBKIT_FOUND)
-  MESSAGE(FATAL_ERROR "QtWebKit not found")
-  ENDIF(QT_QTWEBKIT_FOUND)
-
   IF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 4 AND QT_VERSION_PATCH EQUAL 0)
   MESSAGE(STATUS "Warning: Qt 4.4.0 has some bugs relating to decimal notation and line drawing. Please refer to Scribus bug 6999 and 7187 for information and to check if this may affect your use. Please use 4.4.1+ on release for your platform/distribution.")
   ENDIF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 4 AND QT_VERSION_PATCH EQUAL 0)
@@ -712,10 +704,6 @@ ADD_CUSTOM_TARGET(uninstall
 
 #Add our source subdirs
 ADD_SUBDIRECTORY(scribus)
-ADD_SUBDIRECTORY(doc)
-ADD_SUBDIRECTORY(icons)
-ADD_SUBDIRECTORY(keysets)
-ADD_SUBDIRECTORY(profiles)
 ADD_SUBDIRECTORY(translations/qm)
 
 #Install our READMEs etc.
@@ -786,9 +774,9 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_TOPLEVEL_TAG "")
   SET(CPACK_SOURCE_IGNORE_FILES
     CMakeCache.txt
-    scribus-1.5.0.svn.tar.bz2
-    scribus-1.5.0.svn.tar.Z
-    scribus-1.5.0.svn.tar.gz
+    scribus-1.3.5.rc2.tar.bz2
+    scribus-1.3.5.rc2.tar.Z
+    scribus-1.3.5.rc2.svn.tar.gz
     "~$"
     "\\\\.cvsignore$"
     "\\\\.o$"

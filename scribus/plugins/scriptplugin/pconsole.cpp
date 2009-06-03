@@ -18,7 +18,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
-#include "ui/scmessagebox.h"
+#include "scmessagebox.h"
 #include "commonstrings.h"
 #include "util_icon.h"
 

@@ -17,11 +17,11 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "runscriptdialog.h"
-#include "ui/helpbrowser.h"
-#include "ui/propertiespalette.h" //TODO Move the calls to this to a signal
-#include "ui/pagepalette.h" //TODO Move the calls to this to a signal
-#include "ui/layers.h" //TODO Move the calls to this to a signal
-#include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
+#include "helpbrowser.h"
+#include "propertiespalette.h" //TODO Move the calls to this to a signal
+#include "pagepalette.h" //TODO Move the calls to this to a signal
+#include "layers.h" //TODO Move the calls to this to a signal
+#include "outlinepalette.h" //TODO Move the calls to this to a signal
 #include "menumanager.h"
 #include "pconsole.h"
 #include "scraction.h"

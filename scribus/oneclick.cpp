@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSpacerItem>
 #include "util_icon.h"
 
-#include "ui/basepointwidget.h"
 #include "scrspinbox.h"
 #include "linkbutton.h"
 #include "units.h"

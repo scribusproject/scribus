@@ -1,0 +1,94 @@
+<ui version="4.0" >
+ <class>CharSelect</class>
+ <widget class="QDialog" name="CharSelect" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>394</width>
+    <height>319</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Character Palette</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="spacing" >
+      <number>1</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="hideButton" >
+       <property name="toolTip" >
+        <string>Hide/Show Enhanced Palette</string>
+       </property>
+       <property name="checkable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="UnicodeChooseButton" name="unicodeButton" />
+     </item>
+     <item>
+      <widget class="QPushButton" name="uniLoadButton" >
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="uniSaveButton" >
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="uniClearButton" >
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" >
+    <widget class="CharTableView" name="m_userTable" >
+     <property name="dragDropOverwriteMode" >
+      <bool>false</bool>
+     </property>
+     <property name="dragDropMode" >
+      <enum>QAbstractItemView::DropOnly</enum>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CharTableView</class>
+   <extends>QTableView</extends>
+   <header>chartableview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>UnicodeChooseButton</class>
+   <extends>QPushButton</extends>
+   <header>unicodesearch.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>hideButton</tabstop>
+  <tabstop>unicodeButton</tabstop>
+  <tabstop>uniLoadButton</tabstop>
+  <tabstop>uniSaveButton</tabstop>
+  <tabstop>uniClearButton</tabstop>
+  <tabstop>m_userTable</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

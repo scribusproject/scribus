@@ -28,23 +28,22 @@
 #include <QRect>
 #include <QWidgetAction>
 
-#include "ui/basepointwidget.h"
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "ui/hruler.h"
-#include "ui/vruler.h"
+#include "hruler.h"
+#include "vruler.h"
 #include "hyphenator.h"
 #include "insertTable.h"
 #include "oneclick.h"
 #include "pageitem_textframe.h"
-#include "ui/pageselector.h"
+#include "pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
+#include "propertiespalette.h"
 #include "scraction.h"
-#include "ui/scrapbookpalette.h"
+#include "scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -243,8 +242,8 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x());
-			newY = qRound(mousePointDoc.y());
+			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			if (createObjectMode == modeDrawLine)
 			{
 				if (m_doc->useRaster)
@@ -275,7 +274,6 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				newX = qRound(nx);
 				newY = qRound(ny);
 			//}
-
 			canvasCurrCoord.setXY(newX, newY);
 			m_view->HaveSelRect = true;
 

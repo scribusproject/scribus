@@ -15,8 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QString>
 
-#include "sccolor.h"
-
 
 /*! \brief One Barcode Entity.
 \author Petr Vanek <petr@yarpen.cz>
@@ -77,14 +75,12 @@ class BarcodeGenerator : public QDialog
 
 		//! \brief BC/BC type mapping. QMap keys are used as BC names.
 		BarcodeMap map;
-
 		//! \brief Color of the BC lines.
-		ScColor lnColor;
+		QColor lnColor;
 		//! \brief Color of the BC font.
-		ScColor txtColor;
+		QColor txtColor;
 		//! \brief Background color of the BC.
-		ScColor bgColor;
-
+		QColor bgColor;
 		//! \brief A PS command taken from barcode.ps with scribus related addons.
 		QString psCommand;
 		//! \brief A temporary png pixmap to store the preview image.
@@ -109,10 +105,10 @@ class BarcodeGenerator : public QDialog
 		Used for Color box feedback.
 		\param l A pointer to the sample QLabel
 		\param c A color to fill */
-		void paintColorSample(QLabel *l, const ScColor & c);
+		void paintColorSample(QLabel *l, QColor c);
 		/*! \brief Perform BarcodeCheckType checks here
 		\param s new string */
-		bool codeEdit_check(const QString & s);
+		bool codeEdit_check(const QString& s);
 
 	protected slots:
 		void bcComboChanged();

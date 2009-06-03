@@ -73,37 +73,37 @@ for which a new license (GPL+exception) is in place.
 
 
 
-#include "ui/about.h"
-#include "ui/aboutplugins.h"
+#include "about.h"
+#include "aboutplugins.h"
 #include "actionmanager.h"
-#include "ui/aligndistribute.h"
+#include "aligndistribute.h"
 #include "annot.h"
 #include "annota.h"
-#include "ui/applytemplatedialog.h"
-#include "ui/arrowchooser.h"
+#include "applytemplatedialog.h"
+#include "arrowchooser.h"
 #include "autoform.h"
-#include "ui/basepointwidget.h"
-#include "ui/bookmarkpalette.h"
+#include "basepointwidget.h"
+#include "bookmarkpalette.h"
 #include "canvasmode.h"
-#include "ui/charselect.h"
+#include "charselect.h"
 #include "checkDocument.h"
-#include "ui/cmsprefs.h"
+#include "cmsprefs.h"
 #include "collect4output.h"
 #include "colorcombo.h"
 #include "colorm.h"
 #include "commonstrings.h"
-#include "ui/contextmenu.h"
-#include "ui/cpalette.h"
-#include "ui/customfdialog.h"
+#include "contextmenu.h"
+#include "cpalette.h"
+#include "customfdialog.h"
 #include "delpages.h"
 #include "desaxe/digester.h"
 #include "desaxe/saxXML.h"
 #include "desaxe/simple_actions.h"
 #include "docinfo.h"
-#include "ui/docitemattrprefs.h"
+#include "docitemattrprefs.h"
 #include "documentchecker.h"
 #include "documentinformation.h"
-#include "ui/effectsdialog.h"
+#include "effectsdialog.h"
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "fontcombo.h"
@@ -111,72 +111,72 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "gtgettext.h"
-#include "ui/guidemanager.h"
-#include "ui/helpbrowser.h"
-#include "ui/hruler.h"
+#include "guidemanager.h"
+#include "helpbrowser.h"
+#include "hruler.h"
 #include "hyphenator.h"
-#include "ui/hysettings.h"
-#include "ui/imageinfodialog.h"
-#include "ui/insertaframe.h"
+#include "hysettings.h"
+#include "imageinfodialog.h"
+#include "insertaframe.h"
 #include "inspage.h"
 #include "javadocs.h"
 #include "langmgr.h"
-#include "ui/layers.h"
+#include "layers.h"
 #include "loremipsum.h"
 #include "marginwidget.h"
-#include "ui/margindialog.h"
-#include "ui/masterpagepalette.h"
+#include "margindialog.h"
+#include "masterpagepalette.h"
 #include "menumanager.h"
 #include "mergedoc.h"
 #include "movepage.h"
-#include "ui/multipleduplicate.h"
+#include "multipleduplicate.h"
 #include "newfile.h"
 #include "newtemp.h"
 #include "nfttemplate.h"
-#include "ui/nftdialog.h"
+#include "nftdialog.h"
 #include "ui_nftdialog.h"
-#include "ui/nftwidget.h"
-#include "ui/nodeeditpalette.h"
-#include "ui/outlinepalette.h"
+#include "nftwidget.h"
+#include "nodeeditpalette.h"
+#include "outlinepalette.h"
 #include "page.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_textframe.h"
-#include "ui/pageitemattributes.h"
+#include "pageitemattributes.h"
 #include "pagelayout.h"
-#include "ui/pagepalette.h"
-#include "ui/pageselector.h"
+#include "pagepalette.h"
+#include "pageselector.h"
 #include "pagesize.h"
-#include "ui/patterndialog.h"
+#include "patterndialog.h"
 #include "pdflib.h"
 #include "pdfoptions.h"
 #include "pdfopts.h"
-#include "ui/picstatus.h"
+#include "picstatus.h"
 #include "pluginmanager.h"
 #include "plugins/formatidlist.h"
-#include "ui/polygonwidget.h"
-#include "ui/prefs.h"
+#include "polygonwidget.h"
+#include "prefs.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "preview.h"
-#include "ui/printdialog.h"
-#include "ui/propertiespalette.h"
+#include "printdialog.h"
+#include "propertiespalette.h"
 #include "pslib.h"
 #include "query.h"
-#include "ui/reformdoc.h"
-#include "ui/replacecolors.h"
+#include "reformdoc.h"
+#include "replacecolors.h"
 #include "resourcecollection.h"
 #include "sccolorengine.h"
 #include "sccombobox.h"
 #include "scgtplugin.h"
-#include "ui/scmessagebox.h"
+#include "scmessagebox.h"
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scprintengine_ps.h"
 #include "scraction.h"
-#include "ui/scrapbookpalette.h"
+#include "scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusXml.h"
 #include "scribusapp.h"
@@ -184,23 +184,23 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "search.h"
 #include "selection.h"
-#include "ui/selectobjects.h"
+#include "selectobjects.h"
 #include "serializer.h"
-#include "ui/smlinestyle.h"
-#include "ui/smtextstyles.h"
-#include "ui/splash.h"
+#include "smlinestyle.h"
+#include "smtextstyles.h"
+#include "splash.h"
 #include "stencilreader.h"
-#include "ui/storyeditor.h"
-#include "ui/stylemanager.h"
-#include "ui/tabcheckdoc.h"
-#include "ui/tabguides.h"
-#include "ui/tabmanager.h"
-#include "ui/tabpdfoptions.h"
-#include "ui/tabtools.h"
-#include "ui/tabtypography.h"
+#include "storyeditor.h"
+#include "stylemanager.h"
+#include "tabcheckdoc.h"
+#include "tabguides.h"
+#include "tabmanager.h"
+#include "tabpdfoptions.h"
+#include "tabtools.h"
+#include "tabtypography.h"
 #include "text/nlsconfig.h"
 #include "tocgenerator.h"
-#include "ui/tocindexprefs.h"
+#include "tocindexprefs.h"
 #include "ui/copypagetomasterpagedialog.h"
 #include "ui/edittoolbar.h"
 #include "ui/filetoolbar.h"
@@ -215,7 +215,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
-#include "ui/vruler.h"
+#include "vruler.h"
 #include "loadsaveplugin.h"
 #include "plugins/formatidlist.h"
 
@@ -3256,7 +3256,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemDetachTextFromPath"]->setEnabled(false);
 			scrActions["itemCombinePolygons"]->setEnabled(false);
 			scrActions["itemDelete"]->setEnabled(false);
-			scrMenuMgr->setMenuEnabled("ItemLevel", false);
 			scrActions["itemLowerToBottom"]->setEnabled(false);
 			scrActions["itemRaiseToTop"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
@@ -3269,8 +3268,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		}
 		else
 		{
-			bool setter=!(currItem->isSingleSel && (currItem->isTableItem  || currItem->isGroupControl));
-			scrMenuMgr->setMenuEnabled("ItemLevel", setter);
+			bool setter=!(currItem->isTableItem && currItem->isSingleSel && currItem->isGroupControl);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(!currItem->isSingleSel);
@@ -9222,15 +9220,13 @@ void ScribusMainWindow::generateTableOfContents()
 
 void ScribusMainWindow::insertSampleText()
 {
-	LoremManager m(doc, this);
+	LoremManager *m = new LoremManager(doc, this);
 	if (prefsManager->appPrefs.useStandardLI)
-	{
-		m.insertLoremIpsum("la.xml", prefsManager->appPrefs.paragraphsLI);
-		return;
-	}
-
-	if (m.exec())
-		m.insertLoremIpsum(m.getName(), m.paragraphCount(), m.randomize());
+		m->insertLoremIpsum("la.xml", prefsManager->appPrefs.paragraphsLI);
+	else
+		m->exec();
+	delete(m);
+	m=NULL;
 }
 
 void ScribusMainWindow::languageChange()

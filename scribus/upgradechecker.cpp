@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "ui/sctextbrowser.h"
+#include "sctextbrowser.h"
 #include "upgradechecker.h"
 
 
@@ -28,7 +28,8 @@ for which a new license (GPL+exception) is in place.
 #define sleep(t) Sleep(t*1000)
 #endif
 
-UpgradeChecker::UpgradeChecker() : QObject()
+UpgradeChecker::UpgradeChecker()
+ : QObject()
 {
 	init();
 	writeToConsole=true;
@@ -268,9 +269,9 @@ void UpgradeCheckerGUI::outputText(QString text, bool noLineFeed)
 		wText.remove("<qt>");
 		wText.remove("</qt>");
 		if (noLineFeed)
-			w->setSimpleText("<qt>"+wText+text+"</qt>");
+			w->setText("<qt>"+wText+text+"</qt>");
 		else
-			w->setSimpleText("<qt>"+wText+text+"<br>"+"</qt>");
+			w->setText("<qt>"+wText+text+"<br>"+"</qt>");
 	}	
 }
 

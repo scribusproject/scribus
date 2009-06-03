@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "color.h"
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+#include "customfdialog.h"
 #include "fileunzip.h"
 #include "fpointarray.h"
 #include "menumanager.h"
@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
+#include "propertiespalette.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scmimedata.h"

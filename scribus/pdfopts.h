@@ -20,7 +20,7 @@ class QPushButton;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include "ui/tabpdfoptions.h"
+#include "tabpdfoptions.h"
 class ScribusView;
 
 /**

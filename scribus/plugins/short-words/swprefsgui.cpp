@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include <QDir>
 
-#include "ui/scmessagebox.h"
+#include "scmessagebox.h"
 
 SWPrefsGui::SWPrefsGui(QWidget* parent ) : PrefsPanel(parent)
 {

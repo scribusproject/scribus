@@ -19,7 +19,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-#include "ui/guidemanager.h"
+#include "guidemanager.h"
 #include "guidemanagercore.h"
 #include "scribus.h"
 #include "scribusdoc.h"

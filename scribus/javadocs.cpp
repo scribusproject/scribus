@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QToolTip>
 #include "editor.h"
-#include "ui/scmessagebox.h"
+#include "scmessagebox.h"
 #include "scribusdoc.h"
 #include "page.h"
 #include "commonstrings.h"

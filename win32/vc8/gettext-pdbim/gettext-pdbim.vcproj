@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="gettext-pdbim"
+	Name="gettext-pdbim-1.3.5.x"
 	ProjectGUID="{97BDE35F-A881-49BE-ADB4-218998087BF9}"
 	Keyword="Win32Proj"
 	>
@@ -367,7 +367,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="gettext-pdbimdll.cpp"
+				RelativePath="gettext-pdbim.cpp"
 				>
 			</File>
 			<File
