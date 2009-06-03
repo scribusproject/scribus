@@ -188,6 +188,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	int a;
 	PageItem *Neu;
 	Page* Apage;
+	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -298,7 +299,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->typographicSettings.valueUnderlineWidth = dc.attribute("UnderlineWidth", "-1").toInt();
 		m_Doc->typographicSettings.valueStrikeThruPos = dc.attribute("StrikeThruPos", "-1").toInt();
 		m_Doc->typographicSettings.valueStrikeThruWidth = dc.attribute("StrikeThruWidth", "-1").toInt();
-		m_Doc->GroupCounter=dc.attribute("GROUPC", "1").toInt();
+		m_Doc->GroupCounter = 1/*dc.attribute("GROUPC", "1").toInt()*/;
 		//m_Doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
 		m_Doc->CMSSettings.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
 		m_Doc->CMSSettings.SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
@@ -978,7 +979,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
 						pagenr = -2;
 					}
-					m_Doc->GroupCounter = 0;
+					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pg, m_Doc, fileDir, pagenr);
 					Neu->setRedrawBounding();
 					if (pg.tagName()=="MASTEROBJECT")
@@ -987,7 +988,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						Neu->OwnPage = pg.attribute("OwnPage").toInt();
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
-					m_Doc->GroupCounter = docGc;
+					/*m_Doc->GroupCounter = docGc;*/
 					tmpf = pg.attribute("IFONT", m_Doc->toolSettings.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pg.firstChild();
@@ -1206,12 +1207,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					QDomElement pite = pa.toElement();
 					m_Doc->setMasterPageMode(false);
 					int docGc = m_Doc->GroupCounter;
-					m_Doc->GroupCounter = 0;
+					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
 					Neu->OwnPage = pite.attribute("OwnPage").toInt();
 					Neu->OnMasterPage = "";
-					m_Doc->GroupCounter = docGc;
+					/*m_Doc->GroupCounter = docGc;*/
 					tmpf = pite.attribute("IFONT", m_Doc->toolSettings.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pite.firstChild();
@@ -2469,14 +2470,25 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	tmp = "";
 	if ((obj->hasAttribute("GROUPS")) && (obj->attribute("NUMGROUP", "0").toInt() != 0))
 	{
+		int groupMax = doc->GroupCounter;
+		QMap<int, int>::ConstIterator gIt;
 		tmp = obj->attribute("GROUPS");
 		ScTextStream fg(&tmp, QIODevice::ReadOnly);
 		currItem->Groups.clear();
 		for (int cx = 0; cx < obj->attribute("NUMGROUP", "0").toInt(); ++cx)
 		{
 			fg >> xi;
-			currItem->Groups.push(xi);
+			gIt = groupRemap.find(xi);
+			if (gIt != groupRemap.end())
+				currItem->Groups.push(gIt.value());
+			else
+			{
+				currItem->Groups.push(groupMax); 
+				groupRemap.insert(xi, groupMax);
+				++groupMax;
+			}
 		}
+		doc->GroupCounter = groupMax;
 		tmp = "";
 	}
 	else
@@ -2666,6 +2678,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	Page* Apage = NULL;
+	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -2930,7 +2943,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
 					}*/
 					int docGc = m_Doc->GroupCounter;
-					m_Doc->GroupCounter = 0;
+					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pg, m_Doc, fileDir);
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					Neu->setRedrawBounding();
@@ -2941,7 +2954,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->OwnPage = m_Doc->currentPageNumber();
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
-					m_Doc->GroupCounter = docGc;
+					/*m_Doc->GroupCounter = docGc;*/
 					tmpf = pg.attribute("IFONT", m_Doc->toolSettings.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pg.firstChild();
@@ -3130,12 +3143,12 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 								itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
 					}*/
 					int docGc = m_Doc->GroupCounter;
-					m_Doc->GroupCounter = 0;
+					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
 					Neu->OwnPage = pite.attribute("OwnPage").toInt();
 					Neu->OnMasterPage = "";
-					m_Doc->GroupCounter = docGc;
+					/*m_Doc->GroupCounter = docGc;*/
 					tmpf = pite.attribute("IFONT", m_Doc->toolSettings.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pite.firstChild();
