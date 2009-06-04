@@ -416,7 +416,7 @@ void gtAction:: setCharStyleAttributes(gtFont *font, CharStyle& style)
 	int flags = font->getFlags();
 	style.erase();
 
-	if ((flags & gtFont::familyWasSet) || (flags & gtFont::weightWasSet))
+	if ((flags & gtFont::familyWasSet) || (flags & gtFont::weightWasSet) || (flags & gtFont::slantWasSet))
 		style.setFont(validateFont(font));
 	if (flags & gtFont::sizeWasSet)
 		style.setFontSize(font->getSize());
