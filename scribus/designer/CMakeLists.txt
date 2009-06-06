@@ -22,12 +22,12 @@ scrspinboxplugin.cpp
 
 SET(SCRIBUS_SCTABLEWIDGET_PLUGIN_MOC_CLASSES
 sctablewidgetplugin.h
-../sctablewidget.h
+../ui/sctablewidget.h
 )
 
 SET(SCRIBUS_SCTABLEWIDGET_PLUGIN_SOURCES
 sctablewidgetplugin.cpp
-../sctablewidget.cpp
+../ui/sctablewidget.cpp
 )
 
 SET(SCRIBUS_SCTEXTBROWSER_PLUGIN_MOC_CLASSES
