@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QHeaderView>
 
-#include "cmykfw.h"
+#include "ui/cmykfw.h"
 #include "colorblind.h"
-#include "colorlistbox.h"
+#include "ui/colorlistbox.h"
 #include "commonstrings.h"
 #include "cwdialog.h"
 #include "prefsfile.h"

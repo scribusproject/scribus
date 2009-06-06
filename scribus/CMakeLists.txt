@@ -76,17 +76,17 @@ SET(SCRIBUS_MOC_CLASSES
   actionmanager.h
   ui/adjustcmsdialog.h
   ui/aligndistribute.h
-  alignselect.h
-  annot.h
-  annota.h
+  ui/alignselect.h
+  ui/annot.h
+  ui/annota.h
   ui/applytemplatedialog.h
   ui/arrowchooser.h
-  autoform.h
-  autoformbuttongroup.h
+  ui/autoform.h
+  ui/autoformbuttongroup.h
   ui/basepointwidget.h
   ui/bookmarkpalette.h
   ui/bookmwin.h
-  buttonicon.h
+  ui/buttonicon.h
   canvas.h
   canvasgesture_rulermove.h
   canvasmode.h
@@ -98,41 +98,41 @@ SET(SCRIBUS_MOC_CLASSES
   ui/charselectenhanced.h
   chartablemodel.h
   chartableview.h
-  charzoom.h
-  checkDocument.h
+  ui/charzoom.h
+  ui/checkDocument.h
   ui/cmsprefs.h
-  cmykfw.h
+  ui/cmykfw.h
   collect4output.h
   colorblind.h
-  colorchart.h
-  colorcombo.h
-  colorlistbox.h
-  colorm.h
+  ui/colorchart.h
+  ui/colorcombo.h
+  ui/colorlistbox.h
+  ui/colorm.h
   commonstrings.h
   ui/contextmenu.h
   ui/cpalette.h
-  cupsoptions.h
+  ui/cupsoptions.h
   ui/curvewidget.h
   ui/customfdialog.h
-  dasheditor.h
-  dcolor.h
+  ui/dasheditor.h
+  ui/dcolor.h
   deferredtask.h
-  delpages.h
+  ui/delpages.h
   docinfo.h
   ui/docitemattrprefs.h
   ui/docsections.h
-  editor.h
+  ui/editor.h
   ui/effectsdialog.h
-  extimageprops.h
+  ui/extimageprops.h
   fileloader.h
   filesearch.h
   filewatcher.h
-  fontcombo.h
+  ui/fontcombo.h
   fontlistmodel.h
-  fontlistview.h
-  fontprefs.h
+  ui/fontlistview.h
+  ui/fontprefs.h
   ui/fontreplacedialog.h
-  gradienteditor.h
+  ui/gradienteditor.h
   ui/gtdialogs.h
   ui/gtfiledialog.h
   ui/guidemanager.h
@@ -141,37 +141,37 @@ SET(SCRIBUS_MOC_CLASSES
   guidesview.h
   ui/helpbrowser.h
   ui/hruler.h
-  hyask.h
+  ui/hyask.h
   hyphenator.h
   ui/hysettings.h
   ui/imageinfodialog.h
-  insertTable.h
+  ui/insertTable.h
   ui/insertaframe.h
-  inspage.h
-  javadocs.h
+  ui/inspage.h
+  ui/javadocs.h
   ui/latexeditor.h
   latexhelpers.h
   ui/layers.h
   loadsaveplugin.h
-  loremipsum.h
-  marginwidget.h
+  ui/loremipsum.h
+  ui/marginwidget.h
   ui/margindialog.h
   ui/masterpagepalette.h
   ui/measurements.h
   menumanager.h
-  mergedoc.h
-  missing.h
-  movepage.h
+  ui/mergedoc.h
+  ui/missing.h
+  ui/movepage.h
   ui/multipleduplicate.h
   ui/multiprogressdialog.h
   navigator.h
-  newfile.h
-  newtemp.h
+  ui/newfile.h
+  ui/newtemp.h
   ui/nftdialog.h
   ui/nftwidget.h
   ui/nodeeditpalette.h
   observable.h
-  oneclick.h
+  ui/oneclick.h
   ui/outlinepalette.h
   pageitem.h
   pageitem_imageframe.h
@@ -183,35 +183,35 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_textframe.h
   ui/pageitemattributes.h
   pageitempointer.h
-  pagelayout.h
+  ui/pagelayout.h
   ui/pagepalette.h
   ui/pageselector.h
   ui/patterndialog.h
   pdflib.h
   pdflib_core.h
-  pdfopts.h
+  ui/pdfopts.h
   ui/picsearch.h
   ui/picsearchoptions.h
   ui/picstatus.h
   pluginmanager.h
   ui/pluginmanagerprefsgui.h
   ui/polygonwidget.h
-  polyprops.h
+  ui/polyprops.h
   ui/prefs.h
   ui/prefsdialogbase.h
   prefsmanager.h
-  prefspanel.h
-  preview.h
+  ui/prefspanel.h
+  ui/preview.h
   ui/printdialog.h
   ui/propertiespalette.h
   pslib.h
-  query.h
+  ui/query.h
   ui/reformdoc.h
   ui/replacecolors.h
   ui/replaceonecolor.h
-  rulermover.h
+  ui/rulermover.h
   sampleitem.h
-  scfilewidget.h
+  ui/scfilewidget.h
   scgtplugin.h
   schelptreemodel.h
   ui/scinputdialog.h
@@ -228,16 +228,16 @@ SET(SCRIBUS_MOC_CLASSES
   scribusview.h
   scribuswin.h
   ui/scrpalettebase.h
-  scrspinbox.h
-  sctablewidget.h
+  ui/scrspinbox.h
+  ui/sctablewidget.h
   ui/sctextbrowser.h
   ui/sctoolbar.h
-  sctreewidget.h
-  search.h
+  ui/sctreewidget.h
+  ui/search.h
   selection.h
   ui/selectobjects.h
-  selfield.h
-  shadebutton.h
+  ui/selfield.h
+  ui/shadebutton.h
   ui/shortcutwidget.h
   ui/smalignselect.h
   ui/smcheckbox.h
@@ -260,8 +260,8 @@ SET(SCRIBUS_MOC_CLASSES
   ui/storyeditor.h
   styleitem.h
   ui/stylemanager.h
-  styleselect.h
-  styleview.h
+  ui/styleselect.h
+  ui/styleview.h
   ui/tabcheckdoc.h
   ui/tabdisplay.h
   ui/tabdocument.h
@@ -301,18 +301,18 @@ SET(SCRIBUS_SOURCES
   actionmanager.cpp
   ui/adjustcmsdialog.cpp
   ui/aligndistribute.cpp
-  alignselect.cpp
-  annot.cpp
-  annota.cpp
+  ui/alignselect.cpp
+  ui/annot.cpp
+  ui/annota.cpp
   annotation.cpp
   ui/applytemplatedialog.cpp
   ui/arrowchooser.cpp
-  autoform.cpp
-  autoformbuttongroup.cpp
+  ui/autoform.cpp
+  ui/autoformbuttongroup.cpp
   ui/basepointwidget.cpp
   ui/bookmarkpalette.cpp
   ui/bookmwin.cpp
-  buttonicon.cpp
+  ui/buttonicon.cpp
   canvas.cpp
   canvasgesture_linemove.cpp
   canvasgesture_pan.cpp
@@ -340,52 +340,52 @@ SET(SCRIBUS_SOURCES
   ui/charselectenhanced.cpp
   chartablemodel.cpp
   chartableview.cpp
-  charzoom.cpp
-  checkDocument.cpp
+  ui/charzoom.cpp
+  ui/checkDocument.cpp
   cmserrorhandling.cpp
   cmsettings.cpp
   ui/cmsprefs.cpp
-  cmykfw.cpp
+  ui/cmykfw.cpp
   collect4output.cpp
   colorblind.cpp
-  colorchart.cpp
-  colorcombo.cpp
-  colorlistbox.cpp
-  colorm.cpp
+  ui/colorchart.cpp
+  ui/colorcombo.cpp
+  ui/colorlistbox.cpp
+  ui/colorm.cpp
   colorsetmanager.cpp
   commonstrings.cpp
   ui/contextmenu.cpp
   ui/cpalette.cpp
-  cupsoptions.cpp
+  ui/cupsoptions.cpp
   ui/curvewidget.cpp
   ui/customfdialog.cpp
-  dasheditor.cpp
-  dcolor.cpp
+  ui/dasheditor.cpp
+  ui/dcolor.cpp
   deferredtask.cpp
-  delpages.cpp
+  ui/delpages.cpp
   docinfo.cpp
   ui/docitemattrprefs.cpp
   ui/docsections.cpp
   documentchecker.cpp
   documentinformation.cpp
-  editor.cpp
+  ui/editor.cpp
   ui/effectsdialog.cpp
   exif.cpp
-  extimageprops.cpp
+  ui/extimageprops.cpp
   fileloader.cpp
   filesearch.cpp
   fileunzip.cpp
   filewatcher.cpp
-  fontcombo.cpp
+  ui/fontcombo.cpp
   fontlistmodel.cpp
-  fontlistview.cpp
-  fontprefs.cpp
+  ui/fontlistview.cpp
+  ui/fontprefs.cpp
   ui/fontreplacedialog.cpp
   fparser.cpp
   fpoint.cpp
   fpointarray.cpp
   fpoptimizer.cpp
-  gradienteditor.cpp
+  ui/gradienteditor.cpp
   gtaction.cpp
   ui/gtdialogs.cpp
   ui/gtfiledialog.cpp
@@ -404,38 +404,38 @@ SET(SCRIBUS_SOURCES
   ui/helpbrowser.cpp
   hnjalloc.c
   ui/hruler.cpp
-  hyask.cpp
+  ui/hyask.cpp
   hyphen.c
   hyphenator.cpp
   ui/hysettings.cpp
   ui/imageinfodialog.cpp
-  insertTable.cpp
+  ui/insertTable.cpp
   ui/insertaframe.cpp
-  inspage.cpp
+  ui/inspage.cpp
   ioapi.c
-  javadocs.cpp
+  ui/javadocs.cpp
   KarbonCurveFit.cpp
   langmgr.cpp
   ui/latexeditor.cpp
   latexhelpers.cpp
   ui/layers.cpp
-  linecombo.cpp
-  linkbutton.cpp
+  ui/linecombo.cpp
+  ui/linkbutton.cpp
   loadsaveplugin.cpp
-  loremipsum.cpp
-  marginwidget.cpp
+  ui/loremipsum.cpp
+  ui/marginwidget.cpp
   ui/margindialog.cpp
   ui/masterpagepalette.cpp
   ui/measurements.cpp
   menumanager.cpp
-  mergedoc.cpp
-  missing.cpp
-  movepage.cpp
+  ui/mergedoc.cpp
+  ui/missing.cpp
+  ui/movepage.cpp
   ui/multipleduplicate.cpp
   ui/multiprogressdialog.cpp
   navigator.cpp
-  newfile.cpp
-  newtemp.cpp
+  ui/newfile.cpp
+  ui/newtemp.cpp
   ui/nftdialog.cpp
   ui/nftwidget.cpp
   nftrcreader.cpp
@@ -443,7 +443,7 @@ SET(SCRIBUS_SOURCES
   nfttemplate.cpp
   ui/nodeeditpalette.cpp
   observable.cpp
-  oneclick.cpp
+  ui/oneclick.cpp
   ui/outlinepalette.cpp
   page.cpp
   pageitem.cpp
@@ -457,7 +457,7 @@ SET(SCRIBUS_SOURCES
   pageitem_textframe.cpp
   ui/pageitemattributes.cpp
   pageitempointer.cpp
-  pagelayout.cpp
+  ui/pagelayout.cpp
   ui/pagepalette.cpp
   ui/pageselector.cpp
   pagesize.cpp
@@ -466,42 +466,42 @@ SET(SCRIBUS_SOURCES
   pdflib_core.cpp
   pdfoptions.cpp
   pdfoptionsio.cpp
-  pdfopts.cpp
+  ui/pdfopts.cpp
   ui/picsearch.cpp
   ui/picsearchoptions.cpp
   ui/picstatus.cpp
   pluginmanager.cpp
   ui/pluginmanagerprefsgui.cpp
   ui/polygonwidget.cpp
-  polyprops.cpp
+  ui/polyprops.cpp
   ui/prefs.cpp
   prefscontext.cpp
   ui/prefsdialogbase.cpp
   prefsfile.cpp
   prefsmanager.cpp
-  prefspanel.cpp
+  ui/prefspanel.cpp
   prefsreader.cpp
   prefstable.cpp
-  preview.cpp
+  ui/preview.cpp
   ui/printdialog.cpp
   ui/propertiespalette.cpp
   pslib.cpp
-  query.cpp
+  ui/query.cpp
   rawimage.cpp
   rc4.c
   ui/reformdoc.cpp
   ui/replacecolors.cpp
   ui/replaceonecolor.cpp
-  rulermover.cpp
+  ui/rulermover.cpp
   sampleitem.cpp
   scclocale.cpp
   sccolor.cpp
   sccolorengine.cpp
   sccolorshade.cpp
-  sccombobox.cpp
+  ui/sccombobox.cpp
   scdocoutput.cpp
   scdocoutput_ps2.cpp
-  scfilewidget.cpp
+  ui/scfilewidget.cpp
   scfonts.cpp
   scgtplugin.cpp
   scgzfile.cpp
@@ -533,7 +533,7 @@ SET(SCRIBUS_SOURCES
   scprintengine_ps.cpp
   scraction.cpp
   ui/scrapbookpalette.cpp
-  scresizecursor.cpp
+  ui/scresizecursor.cpp
   scribus.cpp
   scribusXml.cpp
   scribusapp.cpp
@@ -542,24 +542,24 @@ SET(SCRIBUS_SOURCES
   scribusview.cpp
   scribuswin.cpp
   ui/scrpalettebase.cpp
-  scrspinbox.cpp
+  ui/scrspinbox.cpp
   scslainforeader.cpp
   scstreamfilter.cpp
   scstreamfilter_ascii85.cpp
   scstreamfilter_flate.cpp
   scstreamfilter_rc4.cpp
-  sctablewidget.cpp
+  ui/sctablewidget.cpp
   ui/sctextbrowser.cpp
   sctextstream.cpp
   sctextstruct.cpp
   ui/sctoolbar.cpp
-  sctreewidget.cpp
-  search.cpp
+  ui/sctreewidget.cpp
+  ui/search.cpp
   selection.cpp
   ui/selectobjects.cpp
-  selfield.cpp
+  ui/selfield.cpp
   serializer.cpp
-  shadebutton.cpp
+  ui/shadebutton.cpp
   ui/shortcutwidget.cpp
   ui/smalignselect.cpp
   ui/smcheckbox.cpp
@@ -585,8 +585,8 @@ SET(SCRIBUS_SOURCES
   ui/storyeditor.cpp
   styleitem.cpp
   ui/stylemanager.cpp
-  styleselect.cpp
-  styleview.cpp
+  ui/styleselect.cpp
+  ui/styleview.cpp
   ui/tabcheckdoc.cpp
   ui/tabdisplay.cpp
   ui/tabdocument.cpp

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "cmsettings.h"
-#include "missing.h"
+#include "ui/missing.h"
 #include "sccolor.h"
 #include "scclocale.h"
 #include "scribus.h"

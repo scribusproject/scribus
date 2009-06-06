@@ -36,7 +36,7 @@
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
-#include "insertTable.h"
+//#include "insertTable.h"
 #include "pageitem_textframe.h"
 #include "ui/pageselector.h"
 #include "prefscontext.h"

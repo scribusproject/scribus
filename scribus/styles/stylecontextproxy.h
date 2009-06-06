@@ -18,12 +18,12 @@
 #define STYLECONTEXTPROXY_H
 
 #include <cassert>
+#include <QList>
 #include <QString>
 #include "scfonts.h"
 #include "scribusapi.h"
 #include "sccolor.h"
 #include "styles/stylecontext.h"
-#include <QList>
 
 
 /** This class turns a style into a new stylecontext:

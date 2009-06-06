@@ -9,14 +9,14 @@ ${CMAKE_SOURCE_DIR}/scribus
 SET(SCRIBUS_SCRSPINBOX_PLUGIN_MOC_CLASSES
 scrspinboxplugin.h
 ../commonstrings.h
-../scrspinbox.h
+../ui/scrspinbox.h
 )
 
 SET(SCRIBUS_SCRSPINBOX_PLUGIN_SOURCES
 scrspinboxplugin.cpp
 ../commonstrings.cpp
 ../fparser.cpp
-../scrspinbox.cpp
+../ui/scrspinbox.cpp
 ../units.cpp
 )
 

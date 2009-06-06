@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QStringList>
 
-#include "missing.h"
+#include "ui/missing.h"
 #include "gtaction.h"
 #include "ui/propertiespalette.h"
 #include "scribus.h"

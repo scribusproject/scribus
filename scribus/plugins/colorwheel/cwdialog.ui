@@ -943,12 +943,12 @@
   <customwidget>
    <class>ColorListBox</class>
    <extends>QWidget</extends>
-   <header>colorlistbox.h</header>
+   <header>ui/colorlistbox.h</header>
   </customwidget>
  </customwidgets>
  <includes>
   <include location="local" >colorwheelwidget.h</include>
-  <include location="local" >colorlistbox.h</include>
+  <include location="local" >ui/colorlistbox.h</include>
  </includes>
  <resources/>
  <connections/>

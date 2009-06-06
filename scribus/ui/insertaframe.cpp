@@ -15,8 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "insertaframe.h"
 
 #include "ui/createrange.h"
-#include "customfdialog.h"
-#include "scrspinbox.h"
+#include "ui/customfdialog.h"
+#include "ui/scrspinbox.h"
 #include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

@@ -146,7 +146,7 @@
   <customwidget>
    <class>ScTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>sctablewidget.h</header>
+   <header>ui/sctablewidget.h</header>
   </customwidget>
  </customwidgets>
  <includes>

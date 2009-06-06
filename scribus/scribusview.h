@@ -64,7 +64,7 @@ class QMimeData;
 #include "observable.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "scrspinbox.h"
+#include "ui/scrspinbox.h"
 
 class Canvas;
 class CanvasMode;

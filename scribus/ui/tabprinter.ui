@@ -440,7 +440,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QWidget</extends>
-   <header>scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

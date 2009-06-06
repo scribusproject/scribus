@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHeaderView>
 #include <QLayout>
 
-#include <sctreewidget.h>
+#include "sctreewidget.h"
 
 
 ScTreeWidgetDelegate::ScTreeWidgetDelegate(QTreeWidget *view, QWidget *parent) : QItemDelegate(parent), m_view(view)

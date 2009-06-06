@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
-#include "colorm.h"
+#include "ui/colorm.h"
 
 #include <QTextStream>
 

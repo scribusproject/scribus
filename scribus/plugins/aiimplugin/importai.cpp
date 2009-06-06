@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/customfdialog.h"
 #include "importai.h"
 #include "loadsaveplugin.h"
-#include "missing.h"
+#include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

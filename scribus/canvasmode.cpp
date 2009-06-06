@@ -39,7 +39,7 @@
 #endif
 #include "selection.h"
 #include "scpainter.h"
-#include "scresizecursor.h"
+#include "ui/scresizecursor.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "util_icon.h"

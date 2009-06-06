@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "tabdisplay.h"
 
-#include "scrspinbox.h"
+#include "ui/scrspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"
 #include "util_icon.h"

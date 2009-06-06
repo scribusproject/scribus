@@ -132,7 +132,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

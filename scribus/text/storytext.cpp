@@ -30,7 +30,6 @@ pageitem.cpp  -  description
 #include "scribusdoc.h"
 #include "sctext_shared.h"
 #include "storytext.h"
-//#include "storytext.moc"
 #include "scribus.h"
 #include "util.h"
 #include "resourcecollection.h"

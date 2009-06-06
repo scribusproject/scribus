@@ -64,14 +64,14 @@ smsccomboboxplugin.cpp
 
 SET(SCRIBUS_SMSCRSPINBOXPLUGIN_PLUGIN_MOC_CLASSES
 smscrspinboxplugin.h
-../../smscrspinbox.h
-../../scrspinbox.h
+../../ui/smscrspinbox.h
+../../ui/scrspinbox.h
 )
 
 SET(SCRIBUS_SMSCRSPINBOXPLUGIN_PLUGIN_SOURCES
 smscrspinboxplugin.cpp
-../../smscrspinbox.cpp
-../../scrspinbox.cpp
+../../ui/smscrspinbox.cpp
+../../ui/scrspinbox.cpp
 )
 
 SET(SCRIBUS_SMSHADEBUTTONPLUGIN_PLUGIN_MOC_CLASSES
@@ -100,14 +100,14 @@ SET(SCRIBUS_SMSTYLESELECTPLUGIN_PLUGIN_MOC_CLASSES
 smstyleselectplugin.h
 ../../smstyleselect.h
 ../../styleselect.h
-../../scrspinbox.h
+../../ui/scrspinbox.h
 )
 
 SET(SCRIBUS_SMSTYLESELECTPLUGIN_PLUGIN_SOURCES
 smstyleselectplugin.cpp
 ../../smstyleselect.cpp
 ../../styleselect.cpp
-../../scrspinbox.cpp
+../../ui/scrspinbox.cpp
 )
 
 SET(SCRIBUS_SMTABRULERPLUGIN_PLUGIN_MOC_CLASSES

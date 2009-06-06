@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCRIPTERPREFSGUI_H
 
 #include "ui_scripterprefsgui.h"
-#include "prefspanel.h"
+#include "ui/prefspanel.h"
 
 
 /*! \brief Subclass of PrefsPanel that's supplied to the prefs

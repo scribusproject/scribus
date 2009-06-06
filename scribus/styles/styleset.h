@@ -3,10 +3,10 @@
 #ifndef STYLESET_H
 #define STYLESET_H
 
+#include <QList>
+
 #include <assert.h>
 #include "style.h"
-//Added by qt3to4:
-#include <QList>
 
 
 template<class STYLE>

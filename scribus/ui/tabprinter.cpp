@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRadioButton>
 
 #include "tabprinter.h"
-#include "scrspinbox.h"
+#include "ui/scrspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"
 #include "prefscontext.h"

@@ -496,12 +496,12 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>LinkButton</class>
    <extends>QToolButton</extends>
-   <header>linkbutton.h</header>
+   <header>ui/linkbutton.h</header>
   </customwidget>
   <customwidget>
    <class>BasePointWidget</class>

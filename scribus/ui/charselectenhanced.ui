@@ -199,12 +199,12 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
   <customwidget>
    <class>FontCombo</class>
    <extends>QComboBox</extends>
-   <header>fontcombo.h</header>
+   <header>ui/fontcombo.h</header>
   </customwidget>
   <customwidget>
    <class>ScComboBox</class>
    <extends>QComboBox</extends>
-   <header>sccombobox.h</header>
+   <header>ui/sccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>CharTableView</class>

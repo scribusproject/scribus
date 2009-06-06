@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef SWPREFSGUI_H
 #define SWPREFSGUI_H
 
-#include "prefspanel.h"
 #include <QSyntaxHighlighter>
 
 class QVBoxLayout;
@@ -18,6 +17,7 @@ class QLabel;
 class QTextEdit;
 class QSpacerItem;
 
+#include "ui/prefspanel.h"
 
 /*! \brief This is the Scribus Short Words plugin configuration widget.
 Used in Preferences dialog.

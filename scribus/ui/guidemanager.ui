@@ -385,7 +385,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>ScrPaletteBase</class>
@@ -401,7 +401,7 @@
  </customwidgets>
  <includes>
   <include location="local">ui/scrpalettebase.h</include>
-  <include location="local">scrspinbox.h</include>
+  <include location="local">ui/scrspinbox.h</include>
  </includes>
  <resources/>
  <connections/>

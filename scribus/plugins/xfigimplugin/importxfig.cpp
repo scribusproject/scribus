@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/customfdialog.h"
 #include "importxfig.h"
 #include "loadsaveplugin.h"
-#include "missing.h"
+#include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "prefscontext.h"

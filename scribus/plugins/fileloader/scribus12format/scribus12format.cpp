@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "../../formatidlist.h"
 #include "commonstrings.h"
-#include "missing.h"
+#include "ui/missing.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
 #include "scclocale.h"

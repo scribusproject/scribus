@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <cstdlib>
 #include <cmath>
-#include "missing.h"
+#include "ui/missing.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_latexframe.h"

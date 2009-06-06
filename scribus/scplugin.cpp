@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "deferredtask.h"
 #include "scribus.h"
 #include "scribusapp.h"
-#include "prefspanel.h"
+#include "ui/prefspanel.h"
 #include "selection.h"
 
 //=====================================================//

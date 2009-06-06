@@ -39,7 +39,7 @@
   <customwidget>
    <class>ScFileWidget</class>
    <extends>QWidget</extends>
-   <header>scfilewidget.h</header>
+   <header>ui/scfilewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

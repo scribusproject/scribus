@@ -298,12 +298,12 @@
   <customwidget>
    <class>ColorCombo</class>
    <extends>QComboBox</extends>
-   <header>colorcombo.h</header>
+   <header>ui/colorcombo.h</header>
   </customwidget>
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

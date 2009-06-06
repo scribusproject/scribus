@@ -36,9 +36,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "page.h"
-#include "scmessagebox.h"
+#include "ui/scmessagebox.h"
 #include "scribusdoc.h"
-#include "scrspinbox.h"
+#include "ui/scrspinbox.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "units.h"

@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "ui/fontreplacedialog.h"
 #include "hyphenator.h"
-#include "missing.h"
+#include "ui/missing.h"
 #include "page.h"
 #include "pluginmanager.h"
 #include "plugins/formatidlist.h"

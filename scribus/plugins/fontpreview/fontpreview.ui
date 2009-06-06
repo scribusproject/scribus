@@ -180,7 +180,7 @@
   <customwidget>
    <class>FontListView</class>
    <extends>QTableView</extends>
-   <header>fontlistview.h</header>
+   <header>ui/fontlistview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

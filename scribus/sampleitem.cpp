@@ -6,8 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scribuscore.h"
 #include "sampleitem.h"
-//#include "sampleitem.moc"
-#include "loremipsum.h"
+#include "ui/loremipsum.h"
 #include "scpainter.h"
 #include "scribusdoc.h"
 #include "undomanager.h"

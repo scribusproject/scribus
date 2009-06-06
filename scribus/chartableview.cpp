@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "chartablemodel.h"
 #include "chartableview.h"
-#include "charzoom.h"
+#include "ui/charzoom.h"
 #include "fonts/scface.h"
 
 

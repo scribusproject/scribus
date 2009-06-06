@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "latexhelpers.h"
-#include "missing.h"
+#include "ui/missing.h"
 #include "ui/tabkeyboardshortcutswidget.h"
 #include "pagesize.h"
 #include "pagestructs.h"
