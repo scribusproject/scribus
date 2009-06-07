@@ -554,6 +554,7 @@ SET(SCRIBUS_SOURCES
   sctextstruct.cpp
   ui/sctoolbar.cpp
   ui/sctreewidget.cpp
+  scxmlstreamreader.cpp
   ui/search.cpp
   selection.cpp
   ui/selectobjects.cpp
