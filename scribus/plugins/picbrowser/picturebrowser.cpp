@@ -167,7 +167,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	connect ( insertSizeCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( insertSizeComboboxChanged ( int ) ) );
 	connect ( insertImageButton, SIGNAL ( clicked() ), this, SLOT ( insertImageButtonClicked() ) );
 	connect ( insertPagesCombobox, SIGNAL ( checkstateChanged ( int ) ), this, SLOT ( insertPagesComboboxCheckstateChanged ( int ) ) );
-	insertPagesCombobox->addItem ( "Current page", 1 );
+	insertPagesCombobox->addItem ( "Current Page", 1 );
 	insertPagesCombobox->addItem ( "All Pages", 0 );
 
 	for ( int i = 0 ; i < ( int ) ( srcDoc->Pages->count() ) ; ++i )
@@ -239,7 +239,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	filters = new imageFilters;
 
 
-	filterTypeCombobox->addItem ( "All supported formats", 1 );
+	filterTypeCombobox->addItem ( "All Supported Formats", 1 );
 
 	for ( int i = 0 ; i < nameFilters.size() ; ++i )
 	{
@@ -388,7 +388,7 @@ void PictureBrowser::actionsGoButtonClicked()
 
 	if ( ( previewIconIndex < 0 ) || ( previewIconIndex > pImages->previewImagesList.size() ) )
 	{
-		QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "no image(s) selected" ) );
+		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No Image(s) Selected" ) );
 		return;
 	}
 
@@ -632,7 +632,7 @@ void PictureBrowser::collectionChosen ( QTreeWidgetItem * item, int column )
 {
 	QString collectionFile = item->data ( 0, Qt::UserRole ).toString();
 
-	if ( collectionFile == "category" )
+	if ( collectionFile == "Category" )
 	{
 		return;
 	}
@@ -698,7 +698,7 @@ void PictureBrowser::collectionReaderThreadFinished()
 	switch ( crt->type )
 	{
 		case 0:
-			QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "File not found or file is not a collectionsfile" ) );
+			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "File not found or file is not a collection file" ) );
 			break;
 
 		case 1:
@@ -721,7 +721,7 @@ void PictureBrowser::collectionReaderThreadFinished()
 
 					if ( !currItem )
 					{
-						QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "you have to create a category first." ) );
+						QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
 						return;
 					}
 				}
@@ -801,7 +801,7 @@ void PictureBrowser::collectionReaderThreadListFinishedSave()
 
 			if ( !tmpCrt->type )
 			{
-				QMessageBox::warning ( this, tr ( "Picturebrowser error" ), QString ( "a collection was not found:\n%1\nit will be created" ).arg ( tmpCrt->xmlFile ) );
+				QMessageBox::warning ( this, tr ( "Picture Browser Error" ), QString ( "A collection was not found:\n%1\nit will be created" ).arg ( tmpCrt->xmlFile ) );
 				tmpCollection = new imageCollection;
 				tmpCollection->imageFiles = tmpCrt->addImages;
 			}
@@ -885,7 +885,7 @@ void PictureBrowser::insertImageButtonClicked()
 {
 	if ( ( previewIconIndex < 0 ) || ( previewIconIndex > pModel->modelItemsList.size() ) )
 	{
-		QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "no image(s) selected" ) );
+		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No image(s) selected" ) );
 		return;
 	}
 
@@ -930,7 +930,7 @@ void PictureBrowser::insertImageButtonClicked()
 
 		if ( pageList.isEmpty() )
 		{
-			QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "no page/imageframe selected" ) );
+			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No page/image frame selected" ) );
 			return;
 		}
 
@@ -1036,7 +1036,7 @@ void PictureBrowser::filterFilterButtonClicked()
 
 		if ( !dir.exists() )
 		{
-			QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "Dir does not exist." ) );
+			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "Directory does not exist" ) );
 			return;
 		}
 
@@ -1093,18 +1093,18 @@ void PictureBrowser::filterAddCriterionButtonClicked()
 	newItem->setCheckState ( Qt::Checked );
 
 	int index = filterCriteriaCombobox->currentIndex();
-	QString filterText = "emtpy filter";
+	QString filterText = "Empty Filter";
 
 	if ( index == 0 )
 	{
 		if ( filterNameCombobox->currentIndex() == 0 )
 		{
-			filterText = QString ( "name contains \"%1\"" ).arg ( filterNameLineedit->text() );
+			filterText = QString ( "Name contains \"%1\"" ).arg ( filterNameLineedit->text() );
 			filters->nameInverts.append ( true );
 		}
 		else
 		{
-			filterText = QString ( "name does not contain \"%1\"" ).arg ( filterNameLineedit->text() );
+			filterText = QString ( "Name does not contain \"%1\"" ).arg ( filterNameLineedit->text() );
 			filters->nameInverts.append ( false );
 		}
 
@@ -1114,12 +1114,12 @@ void PictureBrowser::filterAddCriterionButtonClicked()
 	{
 		if ( filterDateCombobox->currentIndex() == 0 )
 		{
-			filterText = QString ( "newer than %1" ).arg ( filterDateDatetimeedit->dateTime().toString ( "dd.MM.yyyy hh:mm" ) );
+			filterText = QString ( "Newer than %1" ).arg ( filterDateDatetimeedit->dateTime().toString ( "dd.MM.yyyy hh:mm" ) );
 			filters->dateInverts.append ( false );
 		}
 		else
 		{
-			filterText = QString ( "older than %1" ).arg ( filterDateDatetimeedit->dateTime().toString ( "dd.MM.yyyy hh:mm" ) );
+			filterText = QString ( "Older than %1" ).arg ( filterDateDatetimeedit->dateTime().toString ( "dd.MM.yyyy hh:mm" ) );
 			filters->dateInverts.append ( true );
 		}
 
@@ -1129,12 +1129,12 @@ void PictureBrowser::filterAddCriterionButtonClicked()
 	{
 		if ( filterSizeCombobox->currentIndex() == 0 )
 		{
-			filterText = QString ( "smaller than %1 KB" ).arg ( filterSizeSpinbox->value() );
+			filterText = QString ( "Smaller than %1 KB" ).arg ( filterSizeSpinbox->value() );
 			filters->sizeInverts.append ( true );
 		}
 		else
 		{
-			filterText = QString ( "bigger than %1 KB" ).arg ( filterSizeSpinbox->value() );
+			filterText = QString ( "Bigger than %1 KB" ).arg ( filterSizeSpinbox->value() );
 			filters->sizeInverts.append ( false );
 		}
 
@@ -1143,11 +1143,11 @@ void PictureBrowser::filterAddCriterionButtonClicked()
 	else if ( index == 3 )
 	{
 		QStringList types;
-		filterText = QString ( "allowed types: " );
+		filterText = QString ( "Allowed types: " );
 
 		if ( filterTypeCombobox->checkstate ( 0 ) == 1 )
 		{
-			filterText += QString ( " all supported types (really a useful filter...)" );
+			filterText += QString ( "All supported types (really a useful filter...)" );
 			types = nameFilters;
 		}
 		else
@@ -1169,7 +1169,7 @@ void PictureBrowser::filterAddCriterionButtonClicked()
 	else if ( index == 4 )
 	{
 		QStringList tags;
-		filterText = QString ( "has tags: " );
+		filterText = QString ( "Has tags: " );
 
 		int itemsCount = filterTagsCombobox->count();
 
@@ -1207,7 +1207,7 @@ void PictureBrowser::collectionsNewCategoryButtonClicked()
 
 	tmpCategory = new QTreeWidgetItem ( collectionsWidget, QStringList ( "New Category" ) );
 	tmpCategory->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled );
-	tmpCategory->setData ( 0, Qt::UserRole, QString ( "category" ) );
+	tmpCategory->setData ( 0, Qt::UserRole, QString ( "Category" ) );
 	tmpCategory->setExpanded ( true );
 
 	collectionsWidget->blockSignals ( false );
@@ -1231,7 +1231,7 @@ void PictureBrowser::collectionsNewButtonClicked()
 
 		if ( !currItem )
 		{
-			QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "you have to create a category first." ) );
+			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
 			return;
 		}
 	}
@@ -1273,7 +1273,7 @@ void PictureBrowser::collectionsNewButtonClicked()
 
 void PictureBrowser::collectionsImportButtonClicked()
 {
-	QString fileName = QFileDialog::getOpenFileName ( this, tr ( "Import Imagecollection" ), QDir::rootPath(), tr ( "Scribus ImageCollection (*.sic)" ) );
+	QString fileName = QFileDialog::getOpenFileName ( this, tr ( "Import Image Collection" ), QDir::rootPath(), tr ( "Scribus ImageCollection (*.sic)" ) );
 
 	if ( !fileName.isEmpty() )
 	{
@@ -1295,13 +1295,13 @@ void PictureBrowser::collectionsImportButtonClicked()
 
 void PictureBrowser::collectionsExportButtonClicked()
 {
-	QString fileName = QFileDialog::getSaveFileName ( this, tr ( "Export Imagecollection" ), QDir::rootPath(), tr ( "Scribus ImageCollection (*.sic)" ) );
+	QString fileName = QFileDialog::getSaveFileName ( this, tr ( "Export Image Collection" ), QDir::rootPath(), tr ( "Scribus ImageCollection (*.sic)" ) );
 
 	QTreeWidgetItem *currItem = collectionsWidget->currentItem();
 
 	if ( !currItem )
 	{
-		QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "you have to select something you want to export." ) );
+		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to select something you want to export" ) );
 		return;
 	}
 
@@ -1410,7 +1410,7 @@ void PictureBrowser::collectionsAddNewTagButtonClicked()
 	}
 	else
 	{
-		QMessageBox::warning ( this, tr ( "Picturebrowser error" ), tr ( "no tag entered" ) );
+		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No tag entered" ) );
 	}
 }
 
@@ -1643,7 +1643,7 @@ void PictureBrowser::updateDocumentbrowser()
 {
 	documentWidget->clear();
 	documentItems.clear();
-	QTreeWidgetItem* allpages=new QTreeWidgetItem ( documentWidget, QStringList ( "All pages" ) );
+	QTreeWidgetItem* allpages=new QTreeWidgetItem ( documentWidget, QStringList ( "All Pages" ) );
 	allpages->setData ( 0, Qt::UserRole, 0 );
 	allpages->setExpanded ( true );
 	documentWidget->addTopLevelItem ( allpages );
@@ -1702,7 +1702,7 @@ void PictureBrowser::updateInformationTab ( int index )
 
 			informationFilenameLabel->setText ( tmpImage->fileInformation.fileName() );
 			informationFilepathLabel->setText ( tmpImage->fileInformation.absolutePath() );
-			informationFilesizeLabel->setText ( QString ( "%1 bytes" ).arg ( tmpImage->fileInformation.size() ) );
+			informationFilesizeLabel->setText ( QString ( "%1 Bytes" ).arg ( tmpImage->fileInformation.size() ) );
 			informationFiledateLabel->setText ( tmpImage->fileInformation.lastModified().toString ( "dd.MM.yyyy hh:mm:ss" ) );
 
 			if ( tmpImage->imgInfo->valid )
@@ -1751,17 +1751,17 @@ void PictureBrowser::updateInformationTab ( int index )
 				informationFormatLabel->setText ( format );
 				informationColorspaceLabel->setText ( colorSpaceText ( tmpImage->imgInfo->colorspace ) );
 				informationDpiLabel->setText ( QString ( "%1 x %2" ).arg ( tmpImage->imgInfo->xdpi ).arg ( tmpImage->imgInfo->ydpi ) );
-				informationWidthLabel->setText ( QString ( "%1 pixels" ).arg ( tmpImage->imgInfo->width ) );
-				informationHeightLabel->setText ( QString ( "%1 pixels" ).arg ( tmpImage->imgInfo->height ) );
+				informationWidthLabel->setText ( QString ( "%1 Pixels" ).arg ( tmpImage->imgInfo->width ) );
+				informationHeightLabel->setText ( QString ( "%1 Pixels" ).arg ( tmpImage->imgInfo->height ) );
 				informationLayersLabel->setText ( QString ( "%1" ).arg ( tmpImage->imgInfo->layers ) );
 
 				if ( tmpImage->imgInfo->embedded )
 				{
-					informationEmbeddedLabel->setText ( QString ( "yes" ) );
+					informationEmbeddedLabel->setText ( QString ( "Yes" ) );
 				}
 				else
 				{
-					informationEmbeddedLabel->setText ( QString ( "no" ) );
+					informationEmbeddedLabel->setText ( QString ( "No" ) );
 				}
 
 				informationProfilenameLabel->setText ( QString ( "%1" ).arg ( tmpImage->imgInfo->profileName ) );
@@ -1769,7 +1769,7 @@ void PictureBrowser::updateInformationTab ( int index )
 		}
 		else
 		{
-			informationFilenameLabel->setText ( "no image selected" );
+			informationFilenameLabel->setText ( "No image selected" );
 		}
 	}
 }
@@ -1787,7 +1787,7 @@ void PictureBrowser::updateCollectionsWidget ( bool addImages )
 		QTreeWidgetItem *tmpCategory;
 		tmpCategory = new QTreeWidgetItem ( collectionsWidget, QStringList ( tmpCollections->name ) );
 		tmpCategory->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled );
-		tmpCategory->setData ( 0, Qt::UserRole, QString ( "category" ) );
+		tmpCategory->setData ( 0, Qt::UserRole, QString ( "Category" ) );
 		tmpCategory->setExpanded ( true );
 
 		for ( int j = 0 ; j < tmpCollections->collectionNames.size() ; ++j )
@@ -1838,7 +1838,7 @@ void PictureBrowser::expandDialog ( bool expand )
 		tabWidget->show();
 
 		resize ( 872, 550 );
-		moreButton->setText ( "hide" );
+		moreButton->setText ( "Hide" );
 		moreButton->setIcon ( *iconArrowUp );
 	}
 	else
@@ -1846,7 +1846,7 @@ void PictureBrowser::expandDialog ( bool expand )
 		tabWidget->hide();
 
 		resize ( 872, 385 );
-		moreButton->setText ( "more" );
+		moreButton->setText ( "More" );
 		moreButton->setIcon ( *iconArrowDown );
 	}
 }

@@ -29,9 +29,9 @@ void PictureBrowserPlugin::languageChange()
 	// Note that we leave the unused members unset. They'll be initialised
 	// with their default ctors during construction.
 	// Action name
-	m_actionInfo.name = "Picturebrowser";
+	m_actionInfo.name = "Picture Browser";
 	// Action text for menu, including &accel
-	m_actionInfo.text = tr ( "&Picturebrowser" );
+	m_actionInfo.text = tr ( "&Picture Browser" );
 	// Menu
 	m_actionInfo.menu = "Extras";
 	// If needed, what item to add the menu item after
@@ -45,7 +45,7 @@ void PictureBrowserPlugin::languageChange()
 
 const QString PictureBrowserPlugin::fullTrName() const
 {
-	return QObject::tr ( "Picturebrowser" );
+	return QObject::tr ( "Picture Browser" );
 }
 
 const ScActionPlugin::AboutData* PictureBrowserPlugin::getAboutData() const

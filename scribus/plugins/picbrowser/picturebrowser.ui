@@ -13,22 +13,10 @@
    <string>Scribus Picture Browser</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
+   <property name="margin" >
     <number>3</number>
    </property>
-   <property name="topMargin" >
-    <number>3</number>
-   </property>
-   <property name="rightMargin" >
-    <number>3</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>3</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>2</number>
-   </property>
-   <property name="verticalSpacing" >
+   <property name="spacing" >
     <number>2</number>
    </property>
    <item row="0" column="0" >
@@ -38,16 +26,7 @@
      </property>
      <widget class="QWidget" native="1" name="widget_3" >
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
-        <number>0</number>
-       </property>
-       <property name="topMargin" >
-        <number>0</number>
-       </property>
-       <property name="rightMargin" >
-        <number>0</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin" >
         <number>0</number>
        </property>
        <item row="0" column="0" >
@@ -66,16 +45,7 @@
            <property name="spacing" >
             <number>3</number>
            </property>
-           <property name="leftMargin" >
-            <number>2</number>
-           </property>
-           <property name="topMargin" >
-            <number>2</number>
-           </property>
-           <property name="rightMargin" >
-            <number>2</number>
-           </property>
-           <property name="bottomMargin" >
+           <property name="margin" >
             <number>2</number>
            </property>
            <item>
@@ -107,22 +77,13 @@
                <property name="spacing" >
                 <number>0</number>
                </property>
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
                 <widget class="QCheckBox" name="subdirsCheckbox" >
                  <property name="text" >
-                  <string>include subdirs</string>
+                  <string>Include Subdirectories</string>
                  </property>
                 </widget>
                </item>
@@ -136,16 +97,7 @@
                <property name="spacing" >
                 <number>3</number>
                </property>
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
@@ -170,16 +122,7 @@
                    <property name="spacing" >
                     <number>3</number>
                    </property>
-                   <property name="leftMargin" >
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin" >
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin" >
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin" >
+                   <property name="margin" >
                     <number>0</number>
                    </property>
                    <item>
@@ -275,7 +218,7 @@
                      <property name="orientation" >
                       <enum>Qt::Horizontal</enum>
                      </property>
-                     <property name="sizeHint" >
+                     <property name="sizeHint" stdset="0" >
                       <size>
                        <width>40</width>
                        <height>20</height>
@@ -354,7 +297,7 @@
                      <property name="orientation" >
                       <enum>Qt::Horizontal</enum>
                      </property>
-                     <property name="sizeHint" >
+                     <property name="sizeHint" stdset="0" >
                       <size>
                        <width>40</width>
                        <height>20</height>
@@ -413,16 +356,7 @@
                    <property name="spacing" >
                     <number>3</number>
                    </property>
-                   <property name="leftMargin" >
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin" >
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin" >
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin" >
+                   <property name="margin" >
                     <number>0</number>
                    </property>
                    <item>
@@ -488,16 +422,7 @@
                <property name="spacing" >
                 <number>3</number>
                </property>
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
@@ -532,7 +457,7 @@
                    <property name="orientation" >
                     <enum>Qt::Horizontal</enum>
                    </property>
-                   <property name="sizeHint" >
+                   <property name="sizeHint" stdset="0" >
                     <size>
                      <width>40</width>
                      <height>20</height>
@@ -576,7 +501,7 @@
                <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -606,16 +531,7 @@
            <property name="spacing" >
             <number>3</number>
            </property>
-           <property name="leftMargin" >
-            <number>2</number>
-           </property>
-           <property name="topMargin" >
-            <number>2</number>
-           </property>
-           <property name="rightMargin" >
-            <number>2</number>
-           </property>
-           <property name="bottomMargin" >
+           <property name="margin" >
             <number>2</number>
            </property>
            <item>
@@ -683,7 +599,7 @@
                <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -752,7 +668,7 @@
                <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -764,7 +680,7 @@
               <widget class="QComboBox" name="previewModeCombobox" >
                <item>
                 <property name="text" >
-                 <string>Preview Images Only</string>
+                 <string>Preview Images only</string>
                 </property>
                </item>
                <item>
@@ -779,7 +695,7 @@
                <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -847,7 +763,7 @@
              <item>
               <widget class="QLabel" name="statusLabel" >
                <property name="text" >
-                <string>0 Image(s) displayed, 0 Image(s) filtered</string>
+                <string>0 Image(s) Displayed, 0 Image(s) Filtered</string>
                </property>
               </widget>
              </item>
@@ -856,7 +772,7 @@
                <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -913,7 +829,7 @@
        </size>
       </property>
       <property name="currentIndex" >
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab" >
        <attribute name="title" >
@@ -1155,7 +1071,7 @@
           </property>
           <item>
            <property name="text" >
-            <string>Filter displayed Images</string>
+            <string>Filter Displayed Images</string>
            </property>
           </item>
           <item>
@@ -1184,16 +1100,7 @@
           <widget class="QWidget" name="page_10" />
           <widget class="QWidget" name="page_8" >
            <layout class="QHBoxLayout" >
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -1223,16 +1130,7 @@
           </widget>
           <widget class="QWidget" name="page_9" >
            <layout class="QHBoxLayout" >
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -1255,7 +1153,7 @@
            </sizepolicy>
           </property>
           <property name="title" >
-           <string>criteria</string>
+           <string>Criteria</string>
           </property>
           <layout class="QGridLayout" >
            <item row="0" column="0" >
@@ -1313,16 +1211,7 @@
              </property>
              <widget class="QWidget" name="page" >
               <layout class="QHBoxLayout" >
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
@@ -1334,7 +1223,7 @@
                  </item>
                  <item>
                   <property name="text" >
-                   <string>Does not Contain</string>
+                   <string>Doesn't Contain</string>
                   </property>
                  </item>
                 </widget>
@@ -1346,16 +1235,7 @@
              </widget>
              <widget class="QWidget" name="page_2" >
               <layout class="QHBoxLayout" >
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
@@ -1379,16 +1259,7 @@
              </widget>
              <widget class="QWidget" name="page_3" >
               <layout class="QHBoxLayout" >
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
@@ -1425,16 +1296,7 @@
              </widget>
              <widget class="QWidget" name="page_4" >
               <layout class="QHBoxLayout" >
-               <property name="leftMargin" >
-                <number>0</number>
-               </property>
-               <property name="topMargin" >
-                <number>0</number>
-               </property>
-               <property name="rightMargin" >
-                <number>0</number>
-               </property>
-               <property name="bottomMargin" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
@@ -1506,7 +1368,7 @@
            </sizepolicy>
           </property>
           <property name="title" >
-           <string>Image placement</string>
+           <string>Image Placement</string>
           </property>
           <layout class="QGridLayout" >
            <item row="0" column="0" >
@@ -1518,7 +1380,7 @@
               </sizepolicy>
              </property>
              <property name="text" >
-              <string>page(s)</string>
+              <string>Page(s)</string>
              </property>
              <property name="buddy" >
               <cstring>insertPagesCombobox</cstring>
@@ -1537,7 +1399,7 @@
               </sizepolicy>
              </property>
              <property name="text" >
-              <string>imageframe(s)</string>
+              <string>Image Frame(s)</string>
              </property>
              <property name="buddy" >
               <cstring>insertFramesCombobox</cstring>
@@ -1559,29 +1421,29 @@
            </sizepolicy>
           </property>
           <property name="title" >
-           <string>Position of new frame(s)</string>
+           <string>Position of New Frame(s)</string>
           </property>
           <layout class="QGridLayout" >
            <item row="0" column="0" colspan="4" >
             <widget class="QComboBox" name="insertPositionCombobox" >
              <item>
               <property name="text" >
-               <string>Top left of margins</string>
+               <string>Top Left of Margins</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Top left of page</string>
+               <string>Top Left of Page</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Top left of bleed</string>
+               <string>Top Left of Bleed</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Custom position</string>
+               <string>Custom Position</string>
               </property>
              </item>
             </widget>
@@ -1592,7 +1454,7 @@
               <bool>false</bool>
              </property>
              <property name="text" >
-              <string>x:</string>
+              <string>X:</string>
              </property>
             </widget>
            </item>
@@ -1612,7 +1474,7 @@
               <bool>false</bool>
              </property>
              <property name="text" >
-              <string>y:</string>
+              <string>Y:</string>
              </property>
             </widget>
            </item>
@@ -1645,17 +1507,17 @@
             <widget class="QComboBox" name="insertSizeCombobox" >
              <item>
               <property name="text" >
-               <string>Same as page margins</string>
+               <string>Same as Page Margins</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Same as page</string>
+               <string>Same as Page</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Same as bleed</string>
+               <string>Same as Bleed</string>
               </property>
              </item>
              <item>
@@ -1671,7 +1533,7 @@
               <bool>false</bool>
              </property>
              <property name="text" >
-              <string>width:</string>
+              <string>Width:</string>
              </property>
             </widget>
            </item>
@@ -1691,7 +1553,7 @@
               <bool>false</bool>
              </property>
              <property name="text" >
-              <string>height:</string>
+              <string>Height:</string>
              </property>
             </widget>
            </item>
@@ -1719,7 +1581,7 @@
              </sizepolicy>
             </property>
             <property name="text" >
-             <string>insert image into</string>
+             <string>Insert Image into</string>
             </property>
             <property name="wordWrap" >
              <bool>true</bool>
@@ -1735,7 +1597,7 @@
              </sizepolicy>
             </property>
             <property name="text" >
-             <string>0 page(s)</string>
+             <string>0 Page(s)</string>
             </property>
            </widget>
           </item>
@@ -1748,7 +1610,7 @@
              </sizepolicy>
             </property>
             <property name="text" >
-             <string>0 frame(s)</string>
+             <string>0 Frame(s)</string>
             </property>
            </widget>
           </item>
@@ -1761,7 +1623,7 @@
              </sizepolicy>
             </property>
             <property name="text" >
-             <string>insert</string>
+             <string>Insert</string>
             </property>
            </widget>
           </item>
@@ -1777,7 +1639,7 @@
         <item row="0" column="0" >
          <widget class="QLabel" name="label_7" >
           <property name="text" >
-           <string>selected images:</string>
+           <string>Selected Images:</string>
           </property>
          </widget>
         </item>
@@ -1786,7 +1648,7 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
@@ -1806,7 +1668,7 @@
            </sizepolicy>
           </property>
           <property name="title" >
-           <string>tag selected image(s)</string>
+           <string>Tag Selected Image(s)</string>
           </property>
           <layout class="QGridLayout" >
            <item row="0" column="0" colspan="2" >
@@ -1818,14 +1680,14 @@
            <item row="1" column="1" >
             <widget class="QPushButton" name="collectionsAddNewTagButton" >
              <property name="text" >
-              <string>add new tag</string>
+              <string>Add New Tag</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0" >
             <widget class="QPushButton" name="collectionsSetTagsButton" >
              <property name="text" >
-              <string>set tags</string>
+              <string>Set Tags</string>
              </property>
             </widget>
            </item>

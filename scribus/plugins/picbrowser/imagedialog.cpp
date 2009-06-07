@@ -40,7 +40,7 @@ Imagedialog::Imagedialog ( const QString imageFile, ScribusDoc* doc , QWidget *p
 	else
 	{
 		//show error
-		imageLabel->setText ( QString ( "error loading image: %1" ).arg ( imageFile ) );
+		imageLabel->setText ( QString ( "Error loading image: %1" ).arg ( imageFile ) );
 	}
 }
 

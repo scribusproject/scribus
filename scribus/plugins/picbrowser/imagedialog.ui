@@ -21,7 +21,7 @@
      <item>
       <widget class="QRadioButton" name="fitToWindowRadiobutton" >
        <property name="text" >
-        <string>Fit To Window</string>
+        <string>Fit to Window</string>
        </property>
        <property name="checked" >
         <bool>true</bool>
@@ -33,7 +33,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>
@@ -72,7 +72,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>
