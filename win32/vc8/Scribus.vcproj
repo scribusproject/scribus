@@ -492,15 +492,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\alignselect.cpp"
+				RelativePath="..\..\scribus\ui\alignselect.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\annot.cpp"
+				RelativePath="..\..\scribus\ui\annot.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\annota.cpp"
+				RelativePath="..\..\scribus\ui\annota.cpp"
 				>
 			</File>
 			<File
@@ -516,11 +516,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\autoform.cpp"
+				RelativePath="..\..\scribus\ui\autoform.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\autoformbuttongroup.cpp"
+				RelativePath="..\..\scribus\ui\autoformbuttongroup.cpp"
 				>
 			</File>
 			<File
@@ -536,7 +536,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\buttonicon.cpp"
+				RelativePath="..\..\scribus\ui\buttonicon.cpp"
 				>
 			</File>
 			<File
@@ -652,11 +652,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\charzoom.cpp"
+				RelativePath="..\..\scribus\ui\charzoom.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\checkDocument.cpp"
+				RelativePath="..\..\scribus\ui\checkDocument.cpp"
 				>
 			</File>
 			<File
@@ -672,7 +672,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\cmykfw.cpp"
+				RelativePath="..\..\scribus\ui\cmykfw.cpp"
 				>
 			</File>
 			<File
@@ -684,19 +684,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorchart.cpp"
+				RelativePath="..\..\scribus\ui\colorchart.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorcombo.cpp"
+				RelativePath="..\..\scribus\ui\colorcombo.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorlistbox.cpp"
+				RelativePath="..\..\scribus\ui\colorlistbox.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorm.cpp"
+				RelativePath="..\..\scribus\ui\colorm.cpp"
 				>
 			</File>
 			<File
@@ -724,7 +724,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\cupsoptions.cpp"
+				RelativePath="..\..\scribus\ui\cupsoptions.cpp"
 				>
 			</File>
 			<File
@@ -736,11 +736,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\dasheditor.cpp"
+				RelativePath="..\..\scribus\ui\dasheditor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\dcolor.cpp"
+				RelativePath="..\..\scribus\ui\dcolor.cpp"
 				>
 			</File>
 			<File
@@ -748,7 +748,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\delpages.cpp"
+				RelativePath="..\..\scribus\ui\delpages.cpp"
 				>
 			</File>
 			<File
@@ -772,7 +772,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\editor.cpp"
+				RelativePath="..\..\scribus\ui\editor.cpp"
 				>
 			</File>
 			<File
@@ -788,7 +788,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\extimageprops.cpp"
+				RelativePath="..\..\scribus\ui\extimageprops.cpp"
 				>
 			</File>
 			<File
@@ -812,7 +812,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\fontcombo.cpp"
+				RelativePath="..\..\scribus\ui\fontcombo.cpp"
 				>
 			</File>
 			<File
@@ -820,11 +820,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\fontlistview.cpp"
+				RelativePath="..\..\scribus\ui\fontlistview.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\fontprefs.cpp"
+				RelativePath="..\..\scribus\ui\fontprefs.cpp"
 				>
 			</File>
 			<File
@@ -860,7 +860,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\gradienteditor.cpp"
+				RelativePath="..\..\scribus\ui\gradienteditor.cpp"
 				>
 			</File>
 			<File
@@ -940,7 +940,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\hyask.cpp"
+				RelativePath="..\..\scribus\ui\hyask.cpp"
 				>
 			</File>
 			<File
@@ -964,11 +964,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\insertTable.cpp"
+				RelativePath="..\..\scribus\ui\insertTable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\inspage.cpp"
+				RelativePath="..\..\scribus\ui\inspage.cpp"
 				>
 			</File>
 			<File
@@ -976,7 +976,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\javadocs.cpp"
+				RelativePath="..\..\scribus\ui\javadocs.cpp"
 				>
 			</File>
 			<File
@@ -1004,7 +1004,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\linecombo.cpp"
+				RelativePath="..\..\scribus\ui\linecombo.cpp"
 				>
 			</File>
 			<File
@@ -1012,7 +1012,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\linkbutton.cpp"
+				RelativePath="..\..\scribus\ui\linkbutton.cpp"
 				>
 			</File>
 			<File
@@ -1020,7 +1020,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\loremipsum.cpp"
+				RelativePath="..\..\scribus\ui\loremipsum.cpp"
 				>
 			</File>
 			<File
@@ -1032,7 +1032,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\marginwidget.cpp"
+				RelativePath="..\..\scribus\ui\marginwidget.cpp"
 				>
 			</File>
 			<File
@@ -1048,11 +1048,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\mergedoc.cpp"
+				RelativePath="..\..\scribus\ui\mergedoc.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\missing.cpp"
+				RelativePath="..\..\scribus\ui\missing.cpp"
 				>
 			</File>
 			<File
@@ -1060,7 +1060,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\movepage.cpp"
+				RelativePath="..\..\scribus\ui\movepage.cpp"
 				>
 			</File>
 			<File
@@ -1076,11 +1076,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\newfile.cpp"
+				RelativePath="..\..\scribus\ui\newfile.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\newtemp.cpp"
+				RelativePath="..\..\scribus\ui\newtemp.cpp"
 				>
 			</File>
 			<File
@@ -1112,7 +1112,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\oneclick.cpp"
+				RelativePath="..\..\scribus\ui\oneclick.cpp"
 				>
 			</File>
 			<File
@@ -1168,7 +1168,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\pagelayout.cpp"
+				RelativePath="..\..\scribus\ui\pagelayout.cpp"
 				>
 			</File>
 			<File
@@ -1208,7 +1208,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\pdfopts.cpp"
+				RelativePath="..\..\scribus\ui\pdfopts.cpp"
 				>
 			</File>
 			<File
@@ -1240,7 +1240,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\polyprops.cpp"
+				RelativePath="..\..\scribus\ui\polyprops.cpp"
 				>
 			</File>
 			<File
@@ -1264,7 +1264,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\prefspanel.cpp"
+				RelativePath="..\..\scribus\ui\prefspanel.cpp"
 				>
 			</File>
 			<File
@@ -1276,7 +1276,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\preview.cpp"
+				RelativePath="..\..\scribus\ui\preview.cpp"
 				>
 			</File>
 			<File
@@ -1292,7 +1292,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\query.cpp"
+				RelativePath="..\..\scribus\ui\query.cpp"
 				>
 			</File>
 			<File
@@ -1316,7 +1316,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\rulermover.cpp"
+				RelativePath="..\..\scribus\ui\rulermover.cpp"
 				>
 			</File>
 			<File
@@ -1340,7 +1340,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sccombobox.cpp"
+				RelativePath="..\..\scribus\ui\sccombobox.cpp"
 				>
 			</File>
 			<File
@@ -1364,7 +1364,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scfilewidget.cpp"
+				RelativePath="..\..\scribus\ui\scfilewidget.cpp"
 				>
 			</File>
 			<File
@@ -1504,7 +1504,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scresizecursor.cpp"
+				RelativePath="..\..\scribus\ui\scresizecursor.cpp"
 				>
 			</File>
 			<File
@@ -1540,7 +1540,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scrspinbox.cpp"
+				RelativePath="..\..\scribus\ui\scrspinbox.cpp"
 				>
 			</File>
 			<File
@@ -1564,7 +1564,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctablewidget.cpp"
+				RelativePath="..\..\scribus\ui\sctablewidget.cpp"
 				>
 			</File>
 			<File
@@ -1588,11 +1588,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctreewidget.cpp"
+				RelativePath="..\..\scribus\ui\sctreewidget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\search.cpp"
+				RelativePath="..\..\scribus\scxmlstreamreader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\search.cpp"
 				>
 			</File>
 			<File
@@ -1604,7 +1608,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\selfield.cpp"
+				RelativePath="..\..\scribus\ui\selfield.cpp"
 				>
 			</File>
 			<File
@@ -1612,7 +1616,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\shadebutton.cpp"
+				RelativePath="..\..\scribus\ui\shadebutton.cpp"
 				>
 			</File>
 			<File
@@ -1736,11 +1740,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\styleselect.cpp"
+				RelativePath="..\..\scribus\ui\styleselect.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\styleview.cpp"
+				RelativePath="..\..\scribus\ui\styleview.cpp"
 				>
 			</File>
 			<File
@@ -2169,7 +2173,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\alignselect.h"
+				RelativePath="..\..\scribus\ui\alignselect.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2217,7 +2221,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\annot.h"
+				RelativePath="..\..\scribus\ui\annot.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2265,7 +2269,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\annota.h"
+				RelativePath="..\..\scribus\ui\annota.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2413,7 +2417,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\autoform.h"
+				RelativePath="..\..\scribus\ui\autoform.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2461,7 +2465,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\autoformbuttongroup.h"
+				RelativePath="..\..\scribus\ui\autoformbuttongroup.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2653,7 +2657,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\buttonicon.h"
+				RelativePath="..\..\scribus\ui\buttonicon.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3301,7 +3305,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\charzoom.h"
+				RelativePath="..\..\scribus\ui\charzoom.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3349,7 +3353,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\checkDocument.h"
+				RelativePath="..\..\scribus\ui\checkDocument.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3453,7 +3457,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\cmykfw.h"
+				RelativePath="..\..\scribus\ui\cmykfw.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3633,7 +3637,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorchart.h"
+				RelativePath="..\..\scribus\ui\colorchart.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3681,7 +3685,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorcombo.h"
+				RelativePath="..\..\scribus\ui\colorcombo.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3729,7 +3733,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorlistbox.h"
+				RelativePath="..\..\scribus\ui\colorlistbox.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -3777,7 +3781,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colorm.h"
+				RelativePath="..\..\scribus\ui\colorm.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4105,7 +4109,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\cupsoptions.h"
+				RelativePath="..\..\scribus\ui\cupsoptions.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4249,7 +4253,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\dasheditor.h"
+				RelativePath="..\..\scribus\ui\dasheditor.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4297,7 +4301,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\dcolor.h"
+				RelativePath="..\..\scribus\ui\dcolor.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4393,7 +4397,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\delpages.h"
+				RelativePath="..\..\scribus\ui\delpages.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4593,7 +4597,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\editor.h"
+				RelativePath="..\..\scribus\ui\editor.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4741,7 +4745,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\extimageprops.h"
+				RelativePath="..\..\scribus\ui\extimageprops.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4985,7 +4989,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\fontcombo.h"
+				RelativePath="..\..\scribus\ui\fontcombo.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5081,7 +5085,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\fontlistview.h"
+				RelativePath="..\..\scribus\ui\fontlistview.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5129,7 +5133,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\fontprefs.h"
+				RelativePath="..\..\scribus\ui\fontprefs.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5257,7 +5261,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\gradienteditor.h"
+				RelativePath="..\..\scribus\ui\gradienteditor.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5589,7 +5593,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -5600,7 +5604,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -5611,7 +5615,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -5622,7 +5626,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -5777,7 +5781,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\hyask.h"
+				RelativePath="..\..\scribus\ui\hyask.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6025,7 +6029,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\insertTable.h"
+				RelativePath="..\..\scribus\ui\insertTable.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6073,7 +6077,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\inspage.h"
+				RelativePath="..\..\scribus\ui\inspage.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6125,7 +6129,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\javadocs.h"
+				RelativePath="..\..\scribus\ui\javadocs.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6321,7 +6325,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\linecombo.h"
+				RelativePath="..\..\scribus\ui\linecombo.h"
 				>
 			</File>
 			<File
@@ -6329,7 +6333,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\linkbutton.h"
+				RelativePath="..\..\scribus\ui\linkbutton.h"
 				>
 			</File>
 			<File
@@ -6381,7 +6385,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\loremipsum.h"
+				RelativePath="..\..\scribus\ui\loremipsum.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6477,7 +6481,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\marginwidget.h"
+				RelativePath="..\..\scribus\ui\marginwidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6669,7 +6673,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\mergedoc.h"
+				RelativePath="..\..\scribus\ui\mergedoc.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6717,7 +6721,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\missing.h"
+				RelativePath="..\..\scribus\ui\missing.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6813,7 +6817,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\movepage.h"
+				RelativePath="..\..\scribus\ui\movepage.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -7005,7 +7009,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\newfile.h"
+				RelativePath="..\..\scribus\ui\newfile.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -7053,7 +7057,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\newtemp.h"
+				RelativePath="..\..\scribus\ui\newtemp.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -7305,7 +7309,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\oneclick.h"
+				RelativePath="..\..\scribus\ui\oneclick.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -7885,7 +7889,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\pagelayout.h"
+				RelativePath="..\..\scribus\ui\pagelayout.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -8193,7 +8197,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\pdfopts.h"
+				RelativePath="..\..\scribus\ui\pdfopts.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -8577,7 +8581,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\polyprops.h"
+				RelativePath="..\..\scribus\ui\polyprops.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -8777,7 +8781,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\prefspanel.h"
+				RelativePath="..\..\scribus\ui\prefspanel.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -8837,7 +8841,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\preview.h"
+				RelativePath="..\..\scribus\ui\preview.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9029,7 +9033,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\query.h"
+				RelativePath="..\..\scribus\ui\query.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9237,7 +9241,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\rulermover.h"
+				RelativePath="..\..\scribus\ui\rulermover.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9349,7 +9353,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sccombobox.h"
+				RelativePath="..\..\scribus\ui\sccombobox.h"
 				>
 			</File>
 			<File
@@ -9421,7 +9425,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scfilewidget.h"
+				RelativePath="..\..\scribus\ui\scfilewidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10061,7 +10065,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scresizecursor.h"
+				RelativePath="..\..\scribus\ui\scresizecursor.h"
 				>
 			</File>
 			<File
@@ -10457,7 +10461,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\scrspinbox.h"
+				RelativePath="..\..\scribus\ui\scrspinbox.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10525,7 +10529,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctablewidget.h"
+				RelativePath="..\..\scribus\ui\sctablewidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10681,7 +10685,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\sctreewidget.h"
+				RelativePath="..\..\scribus\ui\sctreewidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10729,11 +10733,15 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\scxmlstreamreader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\scxmlstreamwriter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\search.h"
+				RelativePath="..\..\scribus\ui\search.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10877,7 +10885,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\selfield.h"
+				RelativePath="..\..\scribus\ui\selfield.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -10929,7 +10937,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\shadebutton.h"
+				RelativePath="..\..\scribus\ui\shadebutton.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -12109,7 +12117,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\styleselect.h"
+				RelativePath="..\..\scribus\ui\styleselect.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -12161,7 +12169,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\styleview.h"
+				RelativePath="..\..\scribus\ui\styleview.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -13767,15 +13775,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_alignselect.cpp"
+				RelativePath="..\..\scribus\ui\moc_alignselect.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_annot.cpp"
+				RelativePath="..\..\scribus\ui\moc_annot.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_annota.cpp"
+				RelativePath="..\..\scribus\ui\moc_annota.cpp"
 				>
 			</File>
 			<File
@@ -13787,11 +13795,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_autoform.cpp"
+				RelativePath="..\..\scribus\ui\moc_autoform.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_autoformbuttongroup.cpp"
+				RelativePath="..\..\scribus\ui\moc_autoformbuttongroup.cpp"
 				>
 			</File>
 			<File
@@ -13807,7 +13815,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_buttonicon.cpp"
+				RelativePath="..\..\scribus\ui\moc_buttonicon.cpp"
 				>
 			</File>
 			<File
@@ -13855,11 +13863,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_charzoom.cpp"
+				RelativePath="..\..\scribus\ui\moc_charzoom.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_checkDocument.cpp"
+				RelativePath="..\..\scribus\ui\moc_checkDocument.cpp"
 				>
 			</File>
 			<File
@@ -13867,7 +13875,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_cmykfw.cpp"
+				RelativePath="..\..\scribus\ui\moc_cmykfw.cpp"
 				>
 			</File>
 			<File
@@ -13879,19 +13887,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_colorchart.cpp"
+				RelativePath="..\..\scribus\ui\moc_colorchart.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_colorcombo.cpp"
+				RelativePath="..\..\scribus\ui\moc_colorcombo.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_colorlistbox.cpp"
+				RelativePath="..\..\scribus\ui\moc_colorlistbox.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_colorm.cpp"
+				RelativePath="..\..\scribus\ui\moc_colorm.cpp"
 				>
 			</File>
 			<File
@@ -13915,7 +13923,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_cupsoptions.cpp"
+				RelativePath="..\..\scribus\ui\moc_cupsoptions.cpp"
 				>
 			</File>
 			<File
@@ -13927,11 +13935,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_dasheditor.cpp"
+				RelativePath="..\..\scribus\ui\moc_dasheditor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_dcolor.cpp"
+				RelativePath="..\..\scribus\ui\moc_dcolor.cpp"
 				>
 			</File>
 			<File
@@ -13939,7 +13947,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_delpages.cpp"
+				RelativePath="..\..\scribus\ui\moc_delpages.cpp"
 				>
 			</File>
 			<File
@@ -13955,7 +13963,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_editor.cpp"
+				RelativePath="..\..\scribus\ui\moc_editor.cpp"
 				>
 			</File>
 			<File
@@ -13967,7 +13975,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_extimageprops.cpp"
+				RelativePath="..\..\scribus\ui\moc_extimageprops.cpp"
 				>
 			</File>
 			<File
@@ -13987,7 +13995,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_fontcombo.cpp"
+				RelativePath="..\..\scribus\ui\moc_fontcombo.cpp"
 				>
 			</File>
 			<File
@@ -13995,11 +14003,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_fontlistview.cpp"
+				RelativePath="..\..\scribus\ui\moc_fontlistview.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_fontprefs.cpp"
+				RelativePath="..\..\scribus\ui\moc_fontprefs.cpp"
 				>
 			</File>
 			<File
@@ -14007,7 +14015,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_gradienteditor.cpp"
+				RelativePath="..\..\scribus\ui\moc_gradienteditor.cpp"
 				>
 			</File>
 			<File
@@ -14043,7 +14051,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_hyask.cpp"
+				RelativePath="..\..\scribus\ui\moc_hyask.cpp"
 				>
 			</File>
 			<File
@@ -14063,15 +14071,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_insertTable.cpp"
+				RelativePath="..\..\scribus\ui\moc_insertTable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_inspage.cpp"
+				RelativePath="..\..\scribus\ui\moc_inspage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_javadocs.cpp"
+				RelativePath="..\..\scribus\ui\moc_javadocs.cpp"
 				>
 			</File>
 			<File
@@ -14091,7 +14099,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_loremipsum.cpp"
+				RelativePath="..\..\scribus\ui\moc_loremipsum.cpp"
 				>
 			</File>
 			<File
@@ -14099,7 +14107,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_marginwidget.cpp"
+				RelativePath="..\..\scribus\ui\moc_marginwidget.cpp"
 				>
 			</File>
 			<File
@@ -14115,11 +14123,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_mergedoc.cpp"
+				RelativePath="..\..\scribus\ui\moc_mergedoc.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_missing.cpp"
+				RelativePath="..\..\scribus\ui\moc_missing.cpp"
 				>
 			</File>
 			<File
@@ -14127,7 +14135,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_movepage.cpp"
+				RelativePath="..\..\scribus\ui\moc_movepage.cpp"
 				>
 			</File>
 			<File
@@ -14143,11 +14151,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_newfile.cpp"
+				RelativePath="..\..\scribus\ui\moc_newfile.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_newtemp.cpp"
+				RelativePath="..\..\scribus\ui\moc_newtemp.cpp"
 				>
 			</File>
 			<File
@@ -14167,7 +14175,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_oneclick.cpp"
+				RelativePath="..\..\scribus\ui\moc_oneclick.cpp"
 				>
 			</File>
 			<File
@@ -14215,7 +14223,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_pagelayout.cpp"
+				RelativePath="..\..\scribus\ui\moc_pagelayout.cpp"
 				>
 			</File>
 			<File
@@ -14239,7 +14247,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_pdfopts.cpp"
+				RelativePath="..\..\scribus\ui\moc_pdfopts.cpp"
 				>
 			</File>
 			<File
@@ -14271,7 +14279,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_polyprops.cpp"
+				RelativePath="..\..\scribus\ui\moc_polyprops.cpp"
 				>
 			</File>
 			<File
@@ -14287,11 +14295,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_prefspanel.cpp"
+				RelativePath="..\..\scribus\ui\moc_prefspanel.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_preview.cpp"
+				RelativePath="..\..\scribus\ui\moc_preview.cpp"
 				>
 			</File>
 			<File
@@ -14307,7 +14315,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_query.cpp"
+				RelativePath="..\..\scribus\ui\moc_query.cpp"
 				>
 			</File>
 			<File
@@ -14323,7 +14331,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_rulermover.cpp"
+				RelativePath="..\..\scribus\ui\moc_rulermover.cpp"
 				>
 			</File>
 			<File
@@ -14331,7 +14339,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_scfilewidget.cpp"
+				RelativePath="..\..\scribus\ui\moc_scfilewidget.cpp"
 				>
 			</File>
 			<File
@@ -14399,11 +14407,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_scrspinbox.cpp"
+				RelativePath="..\..\scribus\ui\moc_scrspinbox.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_sctablewidget.cpp"
+				RelativePath="..\..\scribus\ui\moc_sctablewidget.cpp"
 				>
 			</File>
 			<File
@@ -14415,11 +14423,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_sctreewidget.cpp"
+				RelativePath="..\..\scribus\ui\moc_sctreewidget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_search.cpp"
+				RelativePath="..\..\scribus\ui\moc_search.cpp"
 				>
 			</File>
 			<File
@@ -14431,11 +14439,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_selfield.cpp"
+				RelativePath="..\..\scribus\ui\moc_selfield.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_shadebutton.cpp"
+				RelativePath="..\..\scribus\ui\moc_shadebutton.cpp"
 				>
 			</File>
 			<File
@@ -14531,11 +14539,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_styleselect.cpp"
+				RelativePath="..\..\scribus\ui\moc_styleselect.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_styleview.cpp"
+				RelativePath="..\..\scribus\ui\moc_styleview.cpp"
 				>
 			</File>
 			<File
