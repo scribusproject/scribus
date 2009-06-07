@@ -742,7 +742,10 @@ void PageItem::link(PageItem* nxt)
 	{
 		assert (ff != this);
 	}
-	itemText.append(nxt->itemText);
+	// Append only if necessary to avoid the
+	// charstyle: access at end of text warning
+	if (nxt->itemText.length() > 0)
+		itemText.append(nxt->itemText);
 	NextBox = nxt;
 	nxt->BackBox = this;
 	// update AutoText
