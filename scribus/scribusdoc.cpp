@@ -4759,7 +4759,7 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 			break;
 		}
 	}
-	Q_ASSERT(found);
+	//Our page was not in a section
 	if (!found)
 		return;
 	DocumentSectionMap::Iterator it2(it);
@@ -4794,7 +4794,7 @@ void ScribusDoc::removePageFromSection(const uint pageIndex)
 			break;
 		}
 	}
-	Q_ASSERT(found);
+	//Our page was not in a section
 	if (!found)
 		return;
 	--it.value().toindex;
