@@ -1003,11 +1003,10 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				m_view->requestMode(modeNormal);
 				return;
 			}
-			else
-				currItem->asTextFrame()->deselectAll();
 
 			if (m->button() != Qt::RightButton)
 			{
+				currItem->asTextFrame()->deselectAll();
 				//<<CB Add in shift select to text frames
 				if (m->modifiers() & Qt::ShiftModifier && currItem->itemText.lengthOfSelection() > 0)
 				{
