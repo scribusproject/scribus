@@ -5016,9 +5016,9 @@ void ScribusMainWindow::slotEditCopy()
 			// debug:
 			SaxXML tmpfile1("tmp-scribus1.xml", true);
 			Serializer::serializeObjects(*doc->m_Selection, tmpfile1);
-			Serializer digester(*doc);
+			Serializer *digester = doc->serializer();
 			QFile file ("tmp-scribus1.xml");
-			Selection objects = digester.deserializeObjects(file);
+			Selection objects = digester->deserializeObjects(file);
 			SaxXML tmpfile2("tmp-scribus2.xml", true);
 			Serializer::serializeObjects(objects, tmpfile2);
 			doc->itemSelection_DeleteItem(&objects);
@@ -5067,7 +5067,7 @@ void ScribusMainWindow::slotEditPaste()
 
 			if (ScMimeData::clipboardHasScribusText())
 			{
-				Serializer dig(*doc);
+				Serializer dig(*doc); // TODO: do we really need a new serializer here?
 				dig.store<ScribusDoc>("<scribusdoc>", doc);
 				StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
 				dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
@@ -5105,7 +5105,7 @@ void ScribusMainWindow::slotEditPaste()
 				else
 				{
 					QByteArray fragment = ScMimeData::clipboardScribusFragment();
-					Serializer(*doc).deserializeObjects(fragment);
+					doc->serializer()->deserializeObjects(fragment);
 				}
 
 				// update style lists:
@@ -5192,7 +5192,7 @@ void ScribusMainWindow::slotEditPaste()
 				else
 				{
 					QByteArray fragment = ScMimeData::clipboardScribusFragment();
-					Selection pastedObjects = Serializer(*doc).deserializeObjects(fragment);
+					Selection pastedObjects = doc->serializer()->deserializeObjects(fragment);
 					for (int i=0; i < pastedObjects.count(); ++i)
 						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
 

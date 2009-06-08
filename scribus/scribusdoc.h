@@ -69,6 +69,7 @@ class ResourceCollection;
 class PageSize;
 class ScPattern;
 class UndoTransaction;
+class Serializer;
 
 class QProgressBar;
 
@@ -889,7 +890,9 @@ public:
 	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
 	//! \brief Get a list of frames of certain type
 	QMap<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
-	
+	//! \brief Returns a serializer for this document
+	Serializer *serializer();
+
 protected:
 	void addSymbols();
 	bool m_hasGUI;
@@ -906,6 +909,7 @@ protected:
 	ScribusMainWindow* m_ScMW;
 	ScribusView* m_View;
 	ScGuardedObject<ScribusDoc> m_guardedObject;
+	Serializer *m_serializer;
 	
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later

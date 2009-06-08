@@ -102,6 +102,7 @@ public:
 	Digester();
 	Digester& operator=(const Digester& other);
 	virtual ~Digester();
+	void reset();
 	void addRule(const Xml_string& pattern, Action action);
 	
 	void parseFile(const Xml_string& filename);

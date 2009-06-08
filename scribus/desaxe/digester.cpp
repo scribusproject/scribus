@@ -135,6 +135,14 @@ void Digester::addRule(const Xml_string& pattern, Action action)
 	state->addRule(pattern, action);
 }
 
+void Digester::reset()
+{
+	objects.clear();
+	storage.clear();
+	result_.ptr = NULL;
+	result_.type = "";
+	errors.clear();
+}
 
 void Digester::beginDoc()
 {

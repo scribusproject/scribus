@@ -2229,7 +2229,7 @@ void ScribusView::PasteToPage()
 		bool savedAlignGrid = Doc->useRaster;
 		bool savedAlignGuides = Doc->SnapGuides;
 		QByteArray fragment   = ScMimeData::clipboardScribusFragment();
-		Selection pastedObjects = Serializer(*Doc).deserializeObjects(fragment);
+		Selection pastedObjects = Doc->serializer()->deserializeObjects(fragment);
 		Doc->useRaster = savedAlignGrid;
 		Doc->SnapGuides = savedAlignGuides;
 		pastedObjects.setGroupRect();

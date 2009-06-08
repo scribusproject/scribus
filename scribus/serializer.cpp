@@ -281,6 +281,7 @@ Selection Serializer::cloneObjects(const Selection& objects)
 
 Selection Serializer::deserializeObjects(const QByteArray & xml)
 {
+	reset();
 	backUpColors = m_Doc.PageColors;
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
 
@@ -291,6 +292,7 @@ Selection Serializer::deserializeObjects(const QByteArray & xml)
 
 Selection Serializer::deserializeObjects(const QFile & file)
 {
+	reset();
 	backUpColors = m_Doc.PageColors;
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
 

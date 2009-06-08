@@ -129,6 +129,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	m_ScMW(0),
 	m_View(0),
 	m_guardedObject(this),
+	m_serializer(NULL),
 	is12doc(false),
 	NrItems(0),
 	First(1), Last(0),
@@ -238,6 +239,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_ScMW(0),
 	m_View(0),
 	m_guardedObject(this),
+	m_serializer(NULL),
 	is12doc(false),
 	NrItems(0),
 	First(1), Last(0),
@@ -515,6 +517,7 @@ ScribusDoc::~ScribusDoc()
 	}
 	if (docHyphenator)
 		delete docHyphenator;
+	delete m_serializer;
 }
 
 
@@ -10864,3 +10867,12 @@ QMap<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType
 	}
 	return namesMap;
 }
+
+Serializer *ScribusDoc::serializer()
+{
+	if (!m_serializer) 
+		m_serializer = new Serializer (*this);
+	Q_ASSERT(m_serializer);
+	return m_serializer;
+}
+
