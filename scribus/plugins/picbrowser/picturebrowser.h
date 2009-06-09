@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "scribusstructs.h"
 #include "cmsettings.h"
-#include "insertaframe.h"
+#include "ui/insertaframe.h"
 #include "scribusdoc.h"
 
 #include "imagedialog.h"
