@@ -5228,7 +5228,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 			QRectF newRect = currItem->getVisualBoundingRect();
 			//currItem->update();
 			currItem->invalidateLayout();
-			regionsChanged()->update(newRect.unite(oldRect));
+			regionsChanged()->update(newRect.united(oldRect));
 		}
 		if (activeTransaction)
 		{
