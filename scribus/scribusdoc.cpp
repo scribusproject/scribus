@@ -5212,6 +5212,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = m_Selection->itemAt(a);
+			QRectF oldRect = currItem->getVisualBoundingRect();
 			//cb moved to setlinewidth
 			//currItem->Oldm_lineWidth = currItem->lineWidth();
 			currItem->setLineWidth(w);
@@ -5224,7 +5225,10 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 				                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
 				                  -ph,static_cast<int>(currItem->height()+ph));
 			}
-			currItem->update();
+			QRectF newRect = currItem->getVisualBoundingRect();
+			//currItem->update();
+			currItem->invalidateLayout();
+			regionsChanged()->update(newRect.unite(oldRect));
 		}
 		if (activeTransaction)
 		{
