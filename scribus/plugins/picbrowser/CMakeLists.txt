@@ -9,17 +9,24 @@ imagedialog.ui
 )
 
 SET(PICTUREBROWSER_PLUGIN_MOC_CLASSES
+collection.h
+imagedialog.h
+loadimage.h
+multicombobox.h
 picturebrowserplugin.h
 picturebrowser.h
-multicombobox.h
-imagedialog.h
+previewimage.h
 )
 
 SET(PICTUREBROWSER_PLUGIN_SOURCES
-picturebrowserplugin.cpp
-picturebrowser.cpp
-multicombobox.cpp
+collection.cpp
+findimage.cpp
 imagedialog.cpp
+loadimage.cpp
+multicombobox.cpp
+picturebrowser.cpp
+picturebrowserplugin.cpp
+previewimage.cpp
 )
 
 SET(SCRIBUS_PICTUREBROWSER_PLUGIN "picturebrowser")

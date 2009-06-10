@@ -22,7 +22,7 @@ PictureBrowserPlugin::PictureBrowserPlugin() : ScActionPlugin()
 
 PictureBrowserPlugin::~PictureBrowserPlugin()
 {
-};
+}
 
 void PictureBrowserPlugin::languageChange()
 {
