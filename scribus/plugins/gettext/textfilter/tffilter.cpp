@@ -40,7 +40,7 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 		fourthCombo->setCurrentIndex(style);
 		if (style == STARTS_WITH)
 		{
-			setCurrentComboItem(fifthCombo, regExp);
+			fifthCombo->setEditText(regExp);
 			fifthRegexpCheck->setChecked(regexp);
 			if (match)
 				sixthCombo->setCurrentIndex(0);
@@ -50,24 +50,24 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 		else if (style == LESS_THAN)
 		{
 			if (less > 0)
-				setCurrentComboItem(fifthCombo, QString("%1").arg(less));
+				fifthCombo->setEditText(QString("%1").arg(less));
 		}
 		else if (style == MORE_THAN)
 		{
 			if (more > 0)
-				setCurrentComboItem(fifthCombo, QString("%1").arg(more));
+				fifthCombo->setEditText(QString("%1").arg(more));
 		}
 	}
 	else if (action == REMOVE) 
 	{
-		setCurrentComboItem(secondCombo, regExp);
+		secondCombo->setEditText(regExp);
 		secondRegexpCheck->setChecked(regexp);
 	}
 	else if (action == REPLACE)
 	{
-		setCurrentComboItem(secondCombo, regExp);
+		secondCombo->setEditText(regExp);
 		secondRegexpCheck->setChecked(regexp);
-		setCurrentComboItem(thirdCombo, replace);
+		thirdCombo->setEditText(replace);
 	}
 	enableCheck->setChecked(enabled);
 	enableToggled(enabled);
