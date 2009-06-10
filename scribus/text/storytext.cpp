@@ -1697,7 +1697,11 @@ public:
 	
 	void begin(const Xml_string& tag, Xml_attr attr)
 	{
-		if (tag == "p")
+		if (tag == "text-content")
+		{
+			numPara = 0;
+		}
+		else if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
 //			qDebug() << QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle);
@@ -1812,6 +1816,7 @@ void StoryText::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 	
 	Paragraph paraAction;
 	Xml_string paraPrefix(Digester::concat(storyPrefix, "p"));
+	ruleset.addRule(storyPrefix, paraAction ); // needed to initialize some variables
 	ruleset.addRule(paraPrefix, paraAction );
 	ParagraphStyle::desaxeRules(paraPrefix, ruleset, ParagraphStyle::saxxDefaultElem);
 	ruleset.addRule(Digester::concat(paraPrefix, ParagraphStyle::saxxDefaultElem), paraAction );
