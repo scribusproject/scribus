@@ -37,10 +37,36 @@ void ScResizeCursor::initCursorDb(int idx)
 	// TODO design a _nice_ cursor
 	
 	QPainterPath path;
-	double pext(6);
-	double pint(4);
 	double sext(12);
+	double pext(6);
+	double pint(6);
 	double sint(1);
+/*
+		  /\			^
+		 /  \			.
+		/    \			.
+	       /      \			.
+	      /        \		.
+	     /          \		.
+	    /            \		s
+	   /              \		e
+	  /_______   ______\		x
+		 |   |			t	^
+		 |   |			.	.
+		 |   |			.	.
+		 |   |			.	p
+		 |   |			.	e
+		 |   |			.	x
+		 |   |			.	t
+		 |   |			.	.
+		 | | |			.	.
+	--------------------------	v	v
+		 <a>
+	 <⋅⋅⋅⋅b⋅⋅⋅⋅>
+
+	 a/ sint
+	 b/ pint
+*/
 	
 	path.moveTo(0, -sext * uu);
 	path.lineTo( pint*uu,-pext*uu);
@@ -61,7 +87,17 @@ void ScResizeCursor::initCursorDb(int idx)
 		pxm.fill(QColor (255, 255, 255, 0 ));
 		
 		QPainter painter(&pxm);
-		painter.setRenderHint(QPainter::Antialiasing, true);
+		if((idx != 0)
+//			&& (idx != 45)
+			&& (idx != 90)
+//			&& (idx != 135)
+			&& (idx != 180)
+//			&& (idx != 225)
+			&& (idx != 270)
+//			&& (idx != 315)
+			&& (idx != 360)
+			)
+			painter.setRenderHint(QPainter::Antialiasing, true);
 		painter.translate( ww/2, ww/2 );
 		painter.rotate(rot);
 		painter.setPen(pen);
