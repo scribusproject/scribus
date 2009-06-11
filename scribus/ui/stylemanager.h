@@ -63,6 +63,7 @@ private:
 	QAction            *m_rcpEditId;
 	QAction            *m_rcpCloneId;
 //	QAction            *m_rcpToScrapId;
+	ScrAction	*m_selectedStyleAction;
 
 	bool                m_isEditMode;
 	bool                m_isStoryEditMode;
