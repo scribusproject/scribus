@@ -22,10 +22,12 @@ SET(PICTUREBROWSER_PLUGIN_SOURCES
 collection.cpp
 findimage.cpp
 imagedialog.cpp
+iview.cpp
 loadimage.cpp
 multicombobox.cpp
 picturebrowser.cpp
 picturebrowserplugin.cpp
+pictview.cpp
 previewimage.cpp
 )
 

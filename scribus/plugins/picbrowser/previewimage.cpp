@@ -21,6 +21,7 @@
 #include "collection.h"
 
 #include "util_icon.h"
+#include "util.h"
 
 #include <QPainter>
 #include <QUrl>

@@ -112,18 +112,13 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 
 	connect ( imageViewArea, SIGNAL ( clicked ( const QModelIndex & ) ), this, SLOT ( previewIconClicked ( const QModelIndex & ) ) );
 	connect ( imageViewArea, SIGNAL ( doubleClicked ( const QModelIndex & ) ), this, SLOT ( previewIconDoubleClicked ( const QModelIndex & ) ) );
-	imageViewArea->setViewMode ( QListView::IconMode );
-	imageViewArea->setIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
-	imageViewArea->setGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
-	imageViewArea->setUniformItemSizes ( true );
-	imageViewArea->setContextMenuPolicy ( Qt::CustomContextMenu );
-	imageViewArea->setSelectionMode ( QAbstractItemView::ExtendedSelection );
-	imageViewArea->setMovement ( QListView::Static);
-	imageViewArea->setResizeMode ( QListView::Adjust );
-	imageViewArea->setModel ( pModel );
+
+	imageViewArea->SetIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
+	imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
+	imageViewArea->SetModel ( pModel );
 
 //register item selections
-	connect ( imageViewArea->selectionModel(), SIGNAL ( selectionChanged ( const QItemSelection &, const QItemSelection & ) ), this, SLOT ( previewImageSelectionChanged ( const QItemSelection &, const QItemSelection & ) ) );
+	connect ( imageViewArea->SelectionModel(), SIGNAL ( selectionChanged ( const QItemSelection &, const QItemSelection & ) ), this, SLOT ( previewImageSelectionChanged ( const QItemSelection &, const QItemSelection & ) ) );
 
 //documentbrowser setup
 	connect ( documentWidget, SIGNAL ( itemActivated ( QTreeWidgetItem * , int ) ), this, SLOT ( documentChosen ( QTreeWidgetItem * , int ) ) );
@@ -340,7 +335,7 @@ void PictureBrowser::previewModeChanged ( int index )
 	if ( ( index >= 0 ) && ( index < 2 ) )
 	{
 		pbSettings.previewMode = index;
-		imageViewArea->setGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
+		imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
 
 		if ( saveSettingsCheckbox->isChecked() )
 		{
@@ -473,8 +468,8 @@ void PictureBrowser::zoomPlusButtonClicked()
 	{
 		pbSettings.previewIconSize += 20;
 
-		imageViewArea->setIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
-		imageViewArea->setGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
+		imageViewArea->SetIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
+		imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
 
 		pModel->createDefaultIcon ( pbSettings.previewIconSize );
 
@@ -494,8 +489,8 @@ void PictureBrowser::zoomMinusButtonClicked()
 	{
 		pbSettings.previewIconSize -= 20;
 
-		imageViewArea->setIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
-		imageViewArea->setGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
+		imageViewArea->SetIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
+		imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
 
 		pModel->createDefaultIcon ( pbSettings.previewIconSize );
 
@@ -702,7 +697,7 @@ void PictureBrowser::collectionReaderThreadFinished()
 	switch ( crt->type )
 	{
 		case 0:
-			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "File not found or file is not a collection file" ) );
+// 			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "File not found or file is not a collection file" ) );
 			break;
 
 		case 1:
@@ -1668,7 +1663,7 @@ void PictureBrowser::updateDocumentbrowser()
 
 void PictureBrowser::previewImageSelectionChanged ( const QItemSelection & selected, const QItemSelection & deselected )
 {
-	QItemSelectionModel *selectionModel = imageViewArea->selectionModel();
+	QItemSelectionModel *selectionModel = imageViewArea->SelectionModel();
 	QModelIndexList selection = selectionModel->selectedIndexes();
 	int tmpIndex;
 

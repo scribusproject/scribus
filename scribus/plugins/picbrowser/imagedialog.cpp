@@ -6,11 +6,16 @@ for which a new license (GPL+exception) is in place.
 */
 #include "imagedialog.h"
 
+#include <QApplication>
+#include <QDesktopWidget>
+
 Imagedialog::Imagedialog ( const QString imageFile, ScribusDoc* doc , QWidget *parent ) : QDialog ( parent )
 {
 	setupUi ( this );
-
+	setAttribute ( Qt::WA_DeleteOnClose );
 	setWindowTitle ( imageFile );
+	m_hRatio = double(QApplication::desktop()->logicalDpiX()) / 72.0;
+	m_vRatio = double(QApplication::desktop()->logicalDpiY()) / 72.0;
 
 //no realCMYK
 	bool mode=false;
@@ -18,19 +23,12 @@ Imagedialog::Imagedialog ( const QString imageFile, ScribusDoc* doc , QWidget *p
 	CMSettings cms ( doc, "", 0 );
 
 	//load image
-	if ( image.LoadPicture ( imageFile, 1, cms, true, true, ScImage::RGBProof, 72, &mode ) )
+	if ( image.LoadPicture ( imageFile, 1, cms, true, true, ScImage::RGBProof, 72 , &mode ) )
 	{
-		imageLabel->setPixmap ( QPixmap::fromImage ( image.scaled ( this->size().width()-3, this->size().height()-3, Qt::KeepAspectRatio, Qt::SmoothTransformation ) ) );
-
-		scrollArea = new QScrollArea ( this );
-		scrollArea->setFrameShape ( QFrame::NoFrame );
-		scrollArea->setBackgroundRole ( QPalette::Dark );
-		scrollArea->setSizePolicy ( QSizePolicy::Ignored, QSizePolicy::Ignored );
-		scrollArea->setWidget ( imageLabel );
-
-		scrollArea->setWidgetResizable ( true );
-
-		layout()->addWidget ( scrollArea );
+		
+		pView->setImage(QPixmap::fromImage ( image.qImage() ));
+		pView->fitImage();
+		pView->setKeepFitted(true);
 
 		connect ( fitToWindowRadiobutton, SIGNAL ( toggled ( bool ) ), this, SLOT ( fitToWindowRadiobuttonToggled ( bool ) ) );
 		connect ( zoomRadiobutton, SIGNAL ( toggled ( bool ) ), this, SLOT ( zoomRadiobuttonToggled ( bool ) ) );
@@ -40,7 +38,7 @@ Imagedialog::Imagedialog ( const QString imageFile, ScribusDoc* doc , QWidget *p
 	else
 	{
 		//show error
-		imageLabel->setText ( QString ( "Error loading image: %1" ).arg ( imageFile ) );
+// 		imageLabel->setText ( QString ( "Error loading image: %1" ).arg ( imageFile ) );
 	}
 }
 
@@ -49,8 +47,7 @@ void Imagedialog::resizeEvent ( QResizeEvent * event )
 {
 	if ( fitToWindowRadiobutton->isChecked() )
 	{
-		imageLabel->setPixmap ( QPixmap::fromImage ( image.scaled ( scrollArea->size().width(), scrollArea->size().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation ) ) );
-		zoomSpinbox->setValue ( qRound ( ( double ) ( ( double ) imageLabel->pixmap()->size().width() / ( double ) image.width() ) *100 ) );
+		zoomSpinbox->setValue ( qRound ( pView->getZoom() * 100  * m_hRatio) );
 	}
 }
 
@@ -59,12 +56,11 @@ void Imagedialog::fitToWindowRadiobuttonToggled ( bool toggled )
 {
 	if ( toggled )
 	{
-		scrollArea->setWidgetResizable ( true );
-		imageLabel->setPixmap ( QPixmap::fromImage ( image.scaled ( scrollArea->size().width(), scrollArea->size().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation ) ) );
-		zoomSpinbox->setValue ( qRound ( ( double ) ( ( double ) imageLabel->pixmap()->size().width() / ( double ) image.width() ) *100 ) );
-
+		pView->fitImage();
+		zoomSpinbox->setValue ( qRound ( pView->getZoom() * 100  * m_hRatio) );
 		zoomSpinbox->setEnabled ( false );
 	}
+	pView->setKeepFitted(toggled);
 }
 
 
@@ -72,8 +68,6 @@ void Imagedialog::zoomRadiobuttonToggled ( bool toggled )
 {
 	if ( toggled )
 	{
-		scrollArea->setWidgetResizable ( false );
-
 		zoomSpinbox->setEnabled ( true );
 	}
 }
@@ -83,17 +77,9 @@ void Imagedialog::zoomSpinboxValueChanged ( int value )
 {
 	if ( zoomRadiobutton->isChecked() )
 	{
-		if ( value == 100 )
-		{
-			imageLabel->setPixmap ( QPixmap::fromImage ( image.qImage() ) );
-			imageLabel->adjustSize();
-		}
-		else
-		{
-			double scaleFactor = ( ( double ) value/100 );
-			imageLabel->setPixmap ( QPixmap::fromImage ( image.scaled ( qRound ( image.width() *scaleFactor ), qRound ( image.height() *scaleFactor ), Qt::KeepAspectRatio, Qt::SmoothTransformation ) ) );
-			imageLabel->adjustSize();
-		}
+
+		double scaleFactor = ( double( value ) / 100.0 / m_hRatio );
+		pView->setZoom(scaleFactor);
 	}
 }
 

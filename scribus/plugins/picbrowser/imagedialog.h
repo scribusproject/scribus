@@ -39,7 +39,8 @@ class Imagedialog : public QDialog, Ui::imagedialog
 
 
 	private:
-		QScrollArea *scrollArea;
+		double m_hRatio;
+		double m_vRatio;
 };
 
 #endif

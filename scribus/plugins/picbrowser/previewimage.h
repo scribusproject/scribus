@@ -185,6 +185,7 @@ class PreviewImagesModel : public QAbstractListModel
 		QPixmap defaultIcon;
 		//icon size of defaultIcon
 		int defaultIconSize;
+	
 };
 
 #endif // PREVIEWIMAGE_H

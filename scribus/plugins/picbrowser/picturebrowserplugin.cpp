@@ -66,7 +66,7 @@ bool PictureBrowserPlugin::run ( ScribusDoc* doc, QString target )
 	//picturebrowser isn't running yet, so create it
 	if ( !pictureBrowser )
 	{
-		pictureBrowser = new PictureBrowser ( doc );
+		pictureBrowser = new PictureBrowser ( doc, doc->scMW() );
 
 		if ( !pictureBrowser )
 		{
@@ -112,6 +112,8 @@ void PictureBrowserPlugin::changedDoc ( ScribusDoc* doc )
 
 void PictureBrowserPlugin::pictureBrowserClosed()
 {
+	if(pictureBrowser)
+		pictureBrowser->close();
 	pictureBrowser = 0;
 }
 

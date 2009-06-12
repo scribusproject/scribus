@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" >
  <class>PictureBrowser</class>
- <widget class="QDialog" name="PictureBrowser">
-  <property name="geometry">
+ <widget class="QDialog" name="PictureBrowser" >
+  <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
@@ -10,216 +9,216 @@
     <height>530</height>
    </rect>
   </property>
-  <property name="windowTitle">
+  <property name="windowTitle" >
    <string>Scribus Picture Browser</string>
   </property>
-  <layout class="QGridLayout">
-   <property name="margin">
+  <layout class="QGridLayout" >
+   <property name="margin" >
     <number>3</number>
    </property>
-   <property name="spacing">
+   <property name="spacing" >
     <number>2</number>
    </property>
-   <item row="0" column="0">
-    <widget class="QSplitter" name="splitter_2">
-     <property name="orientation">
+   <item row="0" column="0" >
+    <widget class="QSplitter" name="splitter_2" >
+     <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <widget class="QWidget" name="widget_3" native="true">
-      <layout class="QGridLayout">
-       <property name="margin">
+     <widget class="QWidget" native="1" name="widget_3" >
+      <layout class="QGridLayout" >
+       <property name="margin" >
         <number>0</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QSplitter" name="splitter">
-         <property name="orientation">
+       <item row="0" column="0" >
+        <widget class="QSplitter" name="splitter" >
+         <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
-         <widget class="QWidget" name="widget" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <widget class="QWidget" native="1" name="widget" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
             <horstretch>1</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="spacing">
+          <layout class="QVBoxLayout" >
+           <property name="spacing" >
             <number>3</number>
            </property>
-           <property name="margin">
+           <property name="margin" >
             <number>2</number>
            </property>
            <item>
-            <widget class="QComboBox" name="navigationBox">
+            <widget class="QComboBox" name="navigationBox" >
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Folder Browser</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Collection Browser</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Document Browser</string>
               </property>
              </item>
             </widget>
            </item>
            <item>
-            <widget class="QStackedWidget" name="navigationStack">
-             <property name="currentIndex">
+            <widget class="QStackedWidget" name="navigationStack" >
+             <property name="currentIndex" >
               <number>0</number>
              </property>
-             <widget class="QWidget" name="folderpage">
-              <layout class="QVBoxLayout">
-               <property name="spacing">
+             <widget class="QWidget" name="folderpage" >
+              <layout class="QVBoxLayout" >
+               <property name="spacing" >
                 <number>0</number>
                </property>
-               <property name="margin">
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
-                <widget class="QCheckBox" name="subdirsCheckbox">
-                 <property name="text">
+                <widget class="QCheckBox" name="subdirsCheckbox" >
+                 <property name="text" >
                   <string>Include Subdirectories</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QTreeView" name="folderView"/>
+                <widget class="QTreeView" name="folderView" />
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="collectionspage">
-              <layout class="QVBoxLayout">
-               <property name="spacing">
+             <widget class="QWidget" name="collectionspage" >
+              <layout class="QVBoxLayout" >
+               <property name="spacing" >
                 <number>3</number>
                </property>
-               <property name="margin">
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
-                <widget class="QStackedWidget" name="collectionsStackedwidget">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <widget class="QStackedWidget" name="collectionsStackedwidget" >
+                 <property name="sizePolicy" >
+                  <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="minimumSize">
+                 <property name="minimumSize" >
                   <size>
                    <width>0</width>
                    <height>0</height>
                   </size>
                  </property>
-                 <property name="currentIndex">
+                 <property name="currentIndex" >
                   <number>0</number>
                  </property>
-                 <widget class="QWidget" name="page_5">
-                  <layout class="QHBoxLayout">
-                   <property name="spacing">
+                 <widget class="QWidget" name="page_5" >
+                  <layout class="QHBoxLayout" >
+                   <property name="spacing" >
                     <number>3</number>
                    </property>
-                   <property name="margin">
+                   <property name="margin" >
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="collectionsNewCategoryButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsNewCategoryButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Create new category</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsNewButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsNewButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>New collection</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsDeleteButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsDeleteButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Delete selected collection</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsRenameButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsRenameButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Edit selected collection</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <spacer>
-                     <property name="orientation">
+                     <property name="orientation" >
                       <enum>Qt::Horizontal</enum>
                      </property>
-                     <property name="sizeHint" stdset="0">
+                     <property name="sizeHint" stdset="0" >
                       <size>
                        <width>40</width>
                        <height>20</height>
@@ -228,77 +227,77 @@
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsAddImagesButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsAddImagesButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Add selected images to collection(s)</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsRemoveImagesButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsRemoveImagesButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Remove selected images from current collection</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsTagImagesButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsTagImagesButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Tag selected images</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <spacer>
-                     <property name="orientation">
+                     <property name="orientation" >
                       <enum>Qt::Horizontal</enum>
                      </property>
-                     <property name="sizeHint" stdset="0">
+                     <property name="sizeHint" stdset="0" >
                       <size>
                        <width>40</width>
                        <height>20</height>
@@ -307,100 +306,100 @@
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsImportButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsImportButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Import collection/collectionset</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsExportButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsExportButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="toolTip">
+                     <property name="toolTip" >
                       <string>Export collection/collectionset</string>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                   </layout>
                  </widget>
-                 <widget class="QWidget" name="page_6">
-                  <layout class="QHBoxLayout">
-                   <property name="spacing">
+                 <widget class="QWidget" name="page_6" >
+                  <layout class="QHBoxLayout" >
+                   <property name="spacing" >
                     <number>3</number>
                    </property>
-                   <property name="margin">
+                   <property name="margin" >
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QLabel" name="label_8">
-                     <property name="text">
+                    <widget class="QLabel" name="label_8" >
+                     <property name="text" >
                       <string>add selected images to collections</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsAddImagesOkButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsAddImagesOkButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="collectionsAddImagesCancelButton">
-                     <property name="minimumSize">
+                    <widget class="QPushButton" name="collectionsAddImagesCancelButton" >
+                     <property name="minimumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
+                     <property name="maximumSize" >
                       <size>
                        <width>23</width>
                        <height>23</height>
                       </size>
                      </property>
-                     <property name="text">
+                     <property name="text" >
                       <string/>
                      </property>
                     </widget>
@@ -410,55 +409,55 @@
                 </widget>
                </item>
                <item>
-                <widget class="QTreeWidget" name="collectionsWidget">
-                 <property name="columnCount">
+                <widget class="QTreeWidget" name="collectionsWidget" >
+                 <property name="columnCount" >
                   <number>0</number>
                  </property>
                 </widget>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="documentpage">
-              <layout class="QVBoxLayout">
-               <property name="spacing">
+             <widget class="QWidget" name="documentpage" >
+              <layout class="QVBoxLayout" >
+               <property name="spacing" >
                 <number>3</number>
                </property>
-               <property name="margin">
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
-                <layout class="QHBoxLayout">
+                <layout class="QHBoxLayout" >
                  <item>
-                  <widget class="QPushButton" name="gotoPageButton">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <widget class="QPushButton" name="gotoPageButton" >
+                   <property name="sizePolicy" >
+                    <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
-                   <property name="minimumSize">
+                   <property name="minimumSize" >
                     <size>
                      <width>0</width>
                      <height>23</height>
                     </size>
                    </property>
-                   <property name="maximumSize">
+                   <property name="maximumSize" >
                     <size>
                      <width>16777215</width>
                      <height>23</height>
                     </size>
                    </property>
-                   <property name="text">
+                   <property name="text" >
                     <string>go to page</string>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <spacer>
-                   <property name="orientation">
+                   <property name="orientation" >
                     <enum>Qt::Horizontal</enum>
                    </property>
-                   <property name="sizeHint" stdset="0">
+                   <property name="sizeHint" stdset="0" >
                     <size>
                      <width>40</width>
                      <height>20</height>
@@ -469,8 +468,8 @@
                 </layout>
                </item>
                <item>
-                <widget class="QTreeWidget" name="documentWidget">
-                 <property name="columnCount">
+                <widget class="QTreeWidget" name="documentWidget" >
+                 <property name="columnCount" >
                   <number>0</number>
                  </property>
                 </widget>
@@ -480,16 +479,16 @@
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout">
+            <layout class="QHBoxLayout" >
              <item>
-              <widget class="QPushButton" name="moreButton">
-               <property name="enabled">
+              <widget class="QPushButton" name="moreButton" >
+               <property name="enabled" >
                 <bool>true</bool>
                </property>
-               <property name="text">
+               <property name="text" >
                 <string>More</string>
                </property>
-               <property name="iconSize">
+               <property name="iconSize" >
                 <size>
                  <width>15</width>
                  <height>15</height>
@@ -499,10 +498,10 @@
              </item>
              <item>
               <spacer>
-               <property name="orientation">
+               <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -511,8 +510,8 @@
               </spacer>
              </item>
              <item>
-              <widget class="QCheckBox" name="alwaysOnTopCheckbox">
-               <property name="text">
+              <widget class="QCheckBox" name="alwaysOnTopCheckbox" >
+               <property name="text" >
                 <string>Always on Top</string>
                </property>
               </widget>
@@ -521,73 +520,73 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="widget_2" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <widget class="QWidget" native="1" name="widget_2" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
             <horstretch>3</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="spacing">
+          <layout class="QVBoxLayout" >
+           <property name="spacing" >
             <number>3</number>
            </property>
-           <property name="margin">
+           <property name="margin" >
             <number>2</number>
            </property>
            <item>
-            <layout class="QHBoxLayout">
-             <property name="spacing">
+            <layout class="QHBoxLayout" >
+             <property name="spacing" >
               <number>3</number>
              </property>
              <item>
-              <widget class="QComboBox" name="sortCombobox">
-               <property name="currentIndex">
+              <widget class="QComboBox" name="sortCombobox" >
+               <property name="currentIndex" >
                 <number>0</number>
                </property>
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Sort by Name</string>
                 </property>
                </item>
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Sort by Date</string>
                 </property>
                </item>
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Sort by Size</string>
                 </property>
                </item>
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Sort by Type</string>
                 </property>
                </item>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="sortOrderButton">
-               <property name="minimumSize">
+              <widget class="QPushButton" name="sortOrderButton" >
+               <property name="minimumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="maximumSize">
+               <property name="maximumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="toolTip">
+               <property name="toolTip" >
                 <string>Change sortorder</string>
                </property>
-               <property name="text">
+               <property name="text" >
                 <string/>
                </property>
-               <property name="iconSize">
+               <property name="iconSize" >
                 <size>
                  <width>15</width>
                  <height>15</height>
@@ -597,10 +596,10 @@
              </item>
              <item>
               <spacer>
-               <property name="orientation">
+               <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -609,26 +608,26 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="zoomPlusButton">
-               <property name="minimumSize">
+              <widget class="QPushButton" name="zoomPlusButton" >
+               <property name="minimumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="maximumSize">
+               <property name="maximumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="toolTip">
+               <property name="toolTip" >
                 <string>Zoom in</string>
                </property>
-               <property name="text">
+               <property name="text" >
                 <string/>
                </property>
-               <property name="iconSize">
+               <property name="iconSize" >
                 <size>
                  <width>20</width>
                  <height>20</height>
@@ -637,26 +636,26 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="zoomMinusButton">
-               <property name="minimumSize">
+              <widget class="QPushButton" name="zoomMinusButton" >
+               <property name="minimumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="maximumSize">
+               <property name="maximumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="toolTip">
+               <property name="toolTip" >
                 <string>Zoom out</string>
                </property>
-               <property name="text">
+               <property name="text" >
                 <string/>
                </property>
-               <property name="iconSize">
+               <property name="iconSize" >
                 <size>
                  <width>20</width>
                  <height>20</height>
@@ -666,10 +665,10 @@
              </item>
              <item>
               <spacer>
-               <property name="orientation">
+               <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -678,14 +677,14 @@
               </spacer>
              </item>
              <item>
-              <widget class="QComboBox" name="previewModeCombobox">
+              <widget class="QComboBox" name="previewModeCombobox" >
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Preview Images only</string>
                 </property>
                </item>
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Preview with Information</string>
                 </property>
                </item>
@@ -693,10 +692,10 @@
              </item>
              <item>
               <spacer>
-               <property name="orientation">
+               <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -705,48 +704,48 @@
               </spacer>
              </item>
              <item>
-              <widget class="QComboBox" name="actionsCombobox">
+              <widget class="QComboBox" name="actionsCombobox" >
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Quick Insert</string>
                 </property>
                </item>
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Custom Insert</string>
                 </property>
                </item>
                <item>
-                <property name="text">
+                <property name="text" >
                  <string>Add to Collection</string>
                 </property>
                </item>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="actionsGoButton">
-               <property name="minimumSize">
+              <widget class="QPushButton" name="actionsGoButton" >
+               <property name="minimumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="maximumSize">
+               <property name="maximumSize" >
                 <size>
                  <width>23</width>
                  <height>23</height>
                 </size>
                </property>
-               <property name="toolTip">
+               <property name="toolTip" >
                 <string>Go</string>
                </property>
-               <property name="layoutDirection">
+               <property name="layoutDirection" >
                 <enum>Qt::LeftToRight</enum>
                </property>
-               <property name="text">
+               <property name="text" >
                 <string/>
                </property>
-               <property name="iconSize">
+               <property name="iconSize" >
                 <size>
                  <width>20</width>
                  <height>20</height>
@@ -757,30 +756,33 @@
             </layout>
            </item>
            <item>
-            <widget class="QListView" name="imageViewArea">
-             <property name="dragEnabled">
+            <widget class="PictView" name="imageViewArea" >
+             <property name="dragEnabled" >
               <bool>true</bool>
              </property>
-             <property name="dragDropMode">
+             <property name="dragDropMode" >
               <enum>QAbstractItemView::DragOnly</enum>
+             </property>
+             <property name="selectionMode" >
+              <enum>QAbstractItemView::SingleSelection</enum>
              </property>
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout">
+            <layout class="QHBoxLayout" >
              <item>
-              <widget class="QLabel" name="statusLabel">
-               <property name="text">
+              <widget class="QLabel" name="statusLabel" >
+               <property name="text" >
                 <string>0 Image(s) Displayed, 0 Image(s) Filtered</string>
                </property>
               </widget>
              </item>
              <item>
               <spacer>
-               <property name="orientation">
+               <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -789,28 +791,28 @@
               </spacer>
              </item>
              <item>
-              <widget class="QCheckBox" name="saveSettingsCheckbox">
-               <property name="text">
+              <widget class="QCheckBox" name="saveSettingsCheckbox" >
+               <property name="text" >
                 <string>Autosave Settings</string>
                </property>
-               <property name="checked">
+               <property name="checked" >
                 <bool>false</bool>
                </property>
-               <property name="tristate">
+               <property name="tristate" >
                 <bool>false</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="resetSettingsButton">
-               <property name="text">
+              <widget class="QPushButton" name="resetSettingsButton" >
+               <property name="text" >
                 <string>Reset Settings</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="closeButton">
-               <property name="text">
+              <widget class="QPushButton" name="closeButton" >
+               <property name="text" >
                 <string>Close</string>
                </property>
               </widget>
@@ -823,91 +825,91 @@
        </item>
       </layout>
      </widget>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <widget class="QTabWidget" name="tabWidget" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="minimumSize">
+      <property name="minimumSize" >
        <size>
         <width>866</width>
         <height>191</height>
        </size>
       </property>
-      <property name="currentIndex">
-       <number>1</number>
+      <property name="currentIndex" >
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
+      <widget class="QWidget" name="tab" >
+       <attribute name="title" >
         <string>Information</string>
        </attribute>
-       <layout class="QGridLayout">
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QGroupBox" name="groupBox_2" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
+          <property name="title" >
            <string>File</string>
           </property>
-          <layout class="QGridLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_10">
-             <property name="text">
+          <layout class="QGridLayout" >
+           <item row="0" column="0" >
+            <widget class="QLabel" name="label_10" >
+             <property name="text" >
               <string>Name:</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="informationFilenameLabel">
-             <property name="text">
+           <item row="0" column="1" >
+            <widget class="QLabel" name="informationFilenameLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
+           <item row="1" column="0" >
+            <widget class="QLabel" name="label_11" >
+             <property name="text" >
               <string>Path:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="informationFilepathLabel">
-             <property name="text">
+           <item row="1" column="1" >
+            <widget class="QLabel" name="informationFilepathLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_22">
-             <property name="text">
+           <item row="2" column="0" >
+            <widget class="QLabel" name="label_22" >
+             <property name="text" >
               <string>Size:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="informationFilesizeLabel">
-             <property name="text">
+           <item row="2" column="1" >
+            <widget class="QLabel" name="informationFilesizeLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_23">
-             <property name="text">
+           <item row="3" column="0" >
+            <widget class="QLabel" name="label_23" >
+             <property name="text" >
               <string>Date:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="informationFiledateLabel">
-             <property name="text">
+           <item row="3" column="1" >
+            <widget class="QLabel" name="informationFiledateLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
@@ -915,126 +917,126 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <item row="0" column="1" >
+         <widget class="QGroupBox" name="groupBox" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
+          <property name="title" >
            <string>Image</string>
           </property>
-          <layout class="QGridLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
+          <layout class="QGridLayout" >
+           <item row="0" column="0" >
+            <widget class="QLabel" name="label_12" >
+             <property name="text" >
               <string>Format:</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="informationFormatLabel">
-             <property name="text">
+           <item row="0" column="1" >
+            <widget class="QLabel" name="informationFormatLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
+           <item row="0" column="2" >
+            <widget class="QLabel" name="label_3" >
+             <property name="text" >
               <string>Width:</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="informationWidthLabel">
-             <property name="text">
+           <item row="0" column="3" >
+            <widget class="QLabel" name="informationWidthLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_13">
-             <property name="text">
+           <item row="1" column="0" >
+            <widget class="QLabel" name="label_13" >
+             <property name="text" >
               <string>Colorspace:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="informationColorspaceLabel">
-             <property name="text">
+           <item row="1" column="1" >
+            <widget class="QLabel" name="informationColorspaceLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
+           <item row="1" column="2" >
+            <widget class="QLabel" name="label_4" >
+             <property name="text" >
               <string>Height:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QLabel" name="informationHeightLabel">
-             <property name="text">
+           <item row="1" column="3" >
+            <widget class="QLabel" name="informationHeightLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_14">
-             <property name="text">
+           <item row="2" column="0" >
+            <widget class="QLabel" name="label_14" >
+             <property name="text" >
               <string>DPI:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="informationDpiLabel">
-             <property name="text">
+           <item row="2" column="1" >
+            <widget class="QLabel" name="informationDpiLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_5">
-             <property name="text">
+           <item row="2" column="2" >
+            <widget class="QLabel" name="label_5" >
+             <property name="text" >
               <string>Layers:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="3">
-            <widget class="QLabel" name="informationLayersLabel">
-             <property name="text">
+           <item row="2" column="3" >
+            <widget class="QLabel" name="informationLayersLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
+           <item row="3" column="0" >
+            <widget class="QLabel" name="label_9" >
+             <property name="text" >
               <string>Embedded Profile:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="informationEmbeddedLabel">
-             <property name="text">
+           <item row="3" column="1" >
+            <widget class="QLabel" name="informationEmbeddedLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
            </item>
-           <item row="3" column="2">
-            <widget class="QLabel" name="label_15">
-             <property name="text">
+           <item row="3" column="2" >
+            <widget class="QLabel" name="label_15" >
+             <property name="text" >
               <string>Profile Name:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="3">
-            <widget class="QLabel" name="informationProfilenameLabel">
-             <property name="text">
+           <item row="3" column="3" >
+            <widget class="QLabel" name="informationProfilenameLabel" >
+             <property name="text" >
               <string/>
              </property>
             </widget>
@@ -1044,106 +1046,106 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
+      <widget class="QWidget" name="tab_3" >
+       <attribute name="title" >
         <string>Filter / Search</string>
        </attribute>
-       <layout class="QGridLayout">
-        <item row="0" column="0" rowspan="3">
-         <layout class="QVBoxLayout">
+       <layout class="QGridLayout" >
+        <item rowspan="3" row="0" column="0" >
+         <layout class="QVBoxLayout" >
           <item>
-           <widget class="QLabel" name="label_6">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <widget class="QLabel" name="label_6" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="text">
+            <property name="text" >
              <string>Filters:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="filterFiltersListwidget"/>
+           <widget class="QListWidget" name="filterFiltersListwidget" />
           </item>
          </layout>
         </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="filterTargetCombobox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <item row="0" column="1" >
+         <widget class="QComboBox" name="filterTargetCombobox" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <item>
-           <property name="text">
+           <property name="text" >
             <string>Filter Displayed Images</string>
            </property>
           </item>
           <item>
-           <property name="text">
+           <property name="text" >
             <string>Search Images</string>
            </property>
           </item>
           <item>
-           <property name="text">
+           <property name="text" >
             <string>Filter Collections</string>
            </property>
           </item>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QStackedWidget" name="filterTargetStackedWidget">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <item row="0" column="2" >
+         <widget class="QStackedWidget" name="filterTargetStackedWidget" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="currentIndex">
+          <property name="currentIndex" >
            <number>0</number>
           </property>
-          <widget class="QWidget" name="page_10"/>
-          <widget class="QWidget" name="page_8">
-           <layout class="QHBoxLayout">
-            <property name="margin">
+          <widget class="QWidget" name="page_10" />
+          <widget class="QWidget" name="page_8" >
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
-             <widget class="QLineEdit" name="filterSearchLineedit">
-              <property name="enabled">
+             <widget class="QLineEdit" name="filterSearchLineedit" >
+              <property name="enabled" >
                <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="filterSearchDirButton">
-              <property name="enabled">
+             <widget class="QPushButton" name="filterSearchDirButton" >
+              <property name="enabled" >
                <bool>true</bool>
               </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="text">
+              <property name="text" >
                <string>...</string>
               </property>
              </widget>
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="page_9">
-           <layout class="QHBoxLayout">
-            <property name="margin">
+          <widget class="QWidget" name="page_9" >
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
-             <widget class="multiCombobox" name="filterCollectionsCombobox">
-              <property name="enabled">
+             <widget class="multiCombobox" name="filterCollectionsCombobox" >
+              <property name="enabled" >
                <bool>true</bool>
               </property>
              </widget>
@@ -1152,177 +1154,177 @@
           </widget>
          </widget>
         </item>
-        <item row="1" column="1" rowspan="2" colspan="2">
-         <widget class="QGroupBox" name="groupBox_3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <item rowspan="2" row="1" column="1" colspan="2" >
+         <widget class="QGroupBox" name="groupBox_3" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
+          <property name="title" >
            <string>Criteria</string>
           </property>
-          <layout class="QGridLayout">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="filterAddCriterionButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <layout class="QGridLayout" >
+           <item row="0" column="0" >
+            <widget class="QPushButton" name="filterAddCriterionButton" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>&lt;&lt; Add</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="filterCriteriaCombobox">
+           <item row="0" column="1" >
+            <widget class="QComboBox" name="filterCriteriaCombobox" >
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Name (Wildcards Allowed)</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Date</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Size</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Type</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Tag</string>
               </property>
              </item>
             </widget>
            </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QStackedWidget" name="filterStackedwidget">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <item row="1" column="0" colspan="2" >
+            <widget class="QStackedWidget" name="filterStackedwidget" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="currentIndex">
+             <property name="currentIndex" >
               <number>0</number>
              </property>
-             <widget class="QWidget" name="page">
-              <layout class="QHBoxLayout">
-               <property name="margin">
+             <widget class="QWidget" name="page" >
+              <layout class="QHBoxLayout" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
-                <widget class="QComboBox" name="filterNameCombobox">
+                <widget class="QComboBox" name="filterNameCombobox" >
                  <item>
-                  <property name="text">
+                  <property name="text" >
                    <string>Contains</string>
                   </property>
                  </item>
                  <item>
-                  <property name="text">
+                  <property name="text" >
                    <string>Doesn't Contain</string>
                   </property>
                  </item>
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="filterNameLineedit"/>
+                <widget class="QLineEdit" name="filterNameLineedit" />
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="page_2">
-              <layout class="QHBoxLayout">
-               <property name="margin">
+             <widget class="QWidget" name="page_2" >
+              <layout class="QHBoxLayout" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
-                <widget class="QComboBox" name="filterDateCombobox">
+                <widget class="QComboBox" name="filterDateCombobox" >
                  <item>
-                  <property name="text">
+                  <property name="text" >
                    <string>Newer than</string>
                   </property>
                  </item>
                  <item>
-                  <property name="text">
+                  <property name="text" >
                    <string>Older than</string>
                   </property>
                  </item>
                 </widget>
                </item>
                <item>
-                <widget class="QDateTimeEdit" name="filterDateDatetimeedit"/>
+                <widget class="QDateTimeEdit" name="filterDateDatetimeedit" />
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="page_3">
-              <layout class="QHBoxLayout">
-               <property name="margin">
+             <widget class="QWidget" name="page_3" >
+              <layout class="QHBoxLayout" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
-                <widget class="QComboBox" name="filterSizeCombobox">
+                <widget class="QComboBox" name="filterSizeCombobox" >
                  <item>
-                  <property name="text">
+                  <property name="text" >
                    <string>Smaller than</string>
                   </property>
                  </item>
                  <item>
-                  <property name="text">
+                  <property name="text" >
                    <string>Bigger than</string>
                   </property>
                  </item>
                 </widget>
                </item>
                <item>
-                <widget class="QSpinBox" name="filterSizeSpinbox">
-                 <property name="suffix">
+                <widget class="QSpinBox" name="filterSizeSpinbox" >
+                 <property name="suffix" >
                   <string> KB</string>
                  </property>
-                 <property name="minimum">
+                 <property name="minimum" >
                   <number>1</number>
                  </property>
-                 <property name="maximum">
+                 <property name="maximum" >
                   <number>60000</number>
                  </property>
-                 <property name="value">
+                 <property name="value" >
                   <number>1000</number>
                  </property>
                 </widget>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="page_4">
-              <layout class="QHBoxLayout">
-               <property name="margin">
+             <widget class="QWidget" name="page_4" >
+              <layout class="QHBoxLayout" >
+               <property name="margin" >
                 <number>0</number>
                </property>
                <item>
-                <widget class="multiCombobox" name="filterTypeCombobox"/>
+                <widget class="multiCombobox" name="filterTypeCombobox" />
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="page_7">
-              <layout class="QHBoxLayout">
+             <widget class="QWidget" name="page_7" >
+              <layout class="QHBoxLayout" >
                <item>
-                <widget class="multiCombobox" name="filterTagsCombobox"/>
+                <widget class="multiCombobox" name="filterTagsCombobox" />
                </item>
                <item>
-                <widget class="QLineEdit" name="filterTagLineedit"/>
+                <widget class="QLineEdit" name="filterTagLineedit" />
                </item>
                <item>
-                <widget class="QPushButton" name="filterAddTagButton">
-                 <property name="text">
+                <widget class="QPushButton" name="filterAddTagButton" >
+                 <property name="text" >
                   <string>add</string>
                  </property>
                 </widget>
@@ -1334,164 +1336,164 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="3">
-         <widget class="QPushButton" name="filterFilterButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <item row="1" column="3" >
+         <widget class="QPushButton" name="filterFilterButton" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="text">
+          <property name="text" >
            <string>Apply Filters</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="3">
-         <widget class="QPushButton" name="filterClearButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <item row="2" column="3" >
+         <widget class="QPushButton" name="filterClearButton" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="text">
+          <property name="text" >
            <string>Clear Filters</string>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_4">
-       <attribute name="title">
+      <widget class="QWidget" name="tab_4" >
+       <attribute name="title" >
         <string>Insert Image</string>
        </attribute>
-       <layout class="QGridLayout">
-        <item row="1" column="0">
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <layout class="QGridLayout" >
+        <item row="1" column="0" >
+         <widget class="QGroupBox" name="groupBox_5" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
+          <property name="title" >
            <string>Image Placement</string>
           </property>
-          <layout class="QGridLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <layout class="QGridLayout" >
+           <item row="0" column="0" >
+            <widget class="QLabel" name="label" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>Page(s)</string>
              </property>
-             <property name="buddy">
+             <property name="buddy" >
               <cstring>insertPagesCombobox</cstring>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="multiCombobox" name="insertPagesCombobox"/>
+           <item row="1" column="0" >
+            <widget class="multiCombobox" name="insertPagesCombobox" />
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <item row="2" column="0" >
+            <widget class="QLabel" name="label_2" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>Image Frame(s)</string>
              </property>
-             <property name="buddy">
+             <property name="buddy" >
               <cstring>insertFramesCombobox</cstring>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="multiCombobox" name="insertFramesCombobox"/>
+           <item row="3" column="0" >
+            <widget class="multiCombobox" name="insertFramesCombobox" />
            </item>
           </layout>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QGroupBox" name="groupBox_6">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <item row="1" column="1" >
+         <widget class="QGroupBox" name="groupBox_6" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
+          <property name="title" >
            <string>Position of New Frame(s)</string>
           </property>
-          <layout class="QGridLayout">
-           <item row="0" column="0" colspan="4">
-            <widget class="QComboBox" name="insertPositionCombobox">
+          <layout class="QGridLayout" >
+           <item row="0" column="0" colspan="4" >
+            <widget class="QComboBox" name="insertPositionCombobox" >
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Top Left of Margins</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Top Left of Page</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Top Left of Bleed</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Custom Position</string>
               </property>
              </item>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="insertPositionXLabel">
-             <property name="enabled">
+           <item row="1" column="0" >
+            <widget class="QLabel" name="insertPositionXLabel" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>X:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="insertPositionXSpinbox">
-             <property name="enabled">
+           <item row="1" column="1" >
+            <widget class="QSpinBox" name="insertPositionXSpinbox" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="maximum">
+             <property name="maximum" >
               <number>9999</number>
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="insertPositionYLabel">
-             <property name="enabled">
+           <item row="1" column="2" >
+            <widget class="QLabel" name="insertPositionYLabel" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>Y:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QSpinBox" name="insertPositionYSpinbox">
-             <property name="enabled">
+           <item row="1" column="3" >
+            <widget class="QSpinBox" name="insertPositionYSpinbox" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="maximum">
+             <property name="maximum" >
               <number>9999</number>
              </property>
             </widget>
@@ -1499,78 +1501,78 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QGroupBox" name="groupBox_7">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <item row="1" column="2" >
+         <widget class="QGroupBox" name="groupBox_7" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
+          <property name="title" >
            <string>Size</string>
           </property>
-          <layout class="QGridLayout">
-           <item row="0" column="0" colspan="5">
-            <widget class="QComboBox" name="insertSizeCombobox">
+          <layout class="QGridLayout" >
+           <item row="0" column="0" colspan="5" >
+            <widget class="QComboBox" name="insertSizeCombobox" >
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Same as Page Margins</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Same as Page</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Same as Bleed</string>
               </property>
              </item>
              <item>
-              <property name="text">
+              <property name="text" >
                <string>Custom Size</string>
               </property>
              </item>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="insertWidthLabel">
-             <property name="enabled">
+           <item row="2" column="0" >
+            <widget class="QLabel" name="insertWidthLabel" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>Width:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="insertWidthSpinbox">
-             <property name="enabled">
+           <item row="2" column="1" >
+            <widget class="QSpinBox" name="insertWidthSpinbox" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="maximum">
+             <property name="maximum" >
               <number>60000</number>
              </property>
             </widget>
            </item>
-           <item row="2" column="2" colspan="2">
-            <widget class="QLabel" name="insertHeightLabel">
-             <property name="enabled">
+           <item row="2" column="2" colspan="2" >
+            <widget class="QLabel" name="insertHeightLabel" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>Height:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="4">
-            <widget class="QSpinBox" name="insertHeightSpinbox">
-             <property name="enabled">
+           <item row="2" column="4" >
+            <widget class="QSpinBox" name="insertHeightSpinbox" >
+             <property name="enabled" >
               <bool>false</bool>
              </property>
-             <property name="maximum">
+             <property name="maximum" >
               <number>60000</number>
              </property>
             </widget>
@@ -1578,59 +1580,59 @@
           </layout>
          </widget>
         </item>
-        <item row="1" column="3">
-         <layout class="QVBoxLayout">
+        <item row="1" column="3" >
+         <layout class="QVBoxLayout" >
           <item>
-           <widget class="QLabel" name="label_25">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <widget class="QLabel" name="label_25" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="text">
+            <property name="text" >
              <string>Insert Image into</string>
             </property>
-            <property name="wordWrap">
+            <property name="wordWrap" >
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_26">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <widget class="QLabel" name="label_26" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="text">
+            <property name="text" >
              <string>0 Page(s)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_27">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <widget class="QLabel" name="label_27" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="text">
+            <property name="text" >
              <string>0 Frame(s)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="insertImageButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <widget class="QPushButton" name="insertImageButton" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="text">
+            <property name="text" >
              <string>Insert</string>
             </property>
            </widget>
@@ -1639,24 +1641,24 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_5">
-       <attribute name="title">
+      <widget class="QWidget" name="tab_5" >
+       <attribute name="title" >
         <string>Tag Image(s)</string>
        </attribute>
-       <layout class="QGridLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QLabel" name="label_7" >
+          <property name="text" >
            <string>Selected Images:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="0" column="2" >
          <spacer>
-          <property name="orientation">
+          <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0">
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
@@ -1664,37 +1666,37 @@
           </property>
          </spacer>
         </item>
-        <item row="1" column="0">
-         <widget class="QListWidget" name="collectionsSelectedImagesListwidget"/>
+        <item row="1" column="0" >
+         <widget class="QListWidget" name="collectionsSelectedImagesListwidget" />
         </item>
-        <item row="1" column="1">
-         <widget class="QGroupBox" name="groupBox_9">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <item row="1" column="1" >
+         <widget class="QGroupBox" name="groupBox_9" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="title">
+          <property name="title" >
            <string>Tag Selected Image(s)</string>
           </property>
-          <layout class="QGridLayout">
-           <item row="0" column="0" colspan="2">
-            <widget class="multiCombobox" name="collectionsTagImagesCombobox"/>
+          <layout class="QGridLayout" >
+           <item row="0" column="0" colspan="2" >
+            <widget class="multiCombobox" name="collectionsTagImagesCombobox" />
            </item>
-           <item row="1" column="0">
-            <widget class="QLineEdit" name="collectionsAddNewTagLineedit"/>
+           <item row="1" column="0" >
+            <widget class="QLineEdit" name="collectionsAddNewTagLineedit" />
            </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="collectionsAddNewTagButton">
-             <property name="text">
+           <item row="1" column="1" >
+            <widget class="QPushButton" name="collectionsAddNewTagButton" >
+             <property name="text" >
               <string>Add New Tag</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="collectionsSetTagsButton">
-             <property name="text">
+           <item row="2" column="0" >
+            <widget class="QPushButton" name="collectionsSetTagsButton" >
+             <property name="text" >
               <string>Set Tags</string>
              </property>
             </widget>
@@ -1714,6 +1716,11 @@
    <class>multiCombobox</class>
    <extends>QComboBox</extends>
    <header>multicombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PictView</class>
+   <extends>QListView</extends>
+   <header>pictview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
