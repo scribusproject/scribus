@@ -65,12 +65,6 @@ class findImagesThread;
 class QImage;
 class imageFilters;
 
-//functions for comparing attributes of previewimages (used for sorting)
-bool comparePreviewImageFileName ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageFileType ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageFileDate ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageFileSize ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageResolution ( const previewImage *i1, const previewImage *i2 );
 
 
 class picturebrowserSettings

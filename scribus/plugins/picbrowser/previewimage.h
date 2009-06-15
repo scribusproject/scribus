@@ -37,6 +37,7 @@ class PageItem;
 class PictureBrowser;
 
 
+
 //holds information about an image
 class ImageInformation
 {

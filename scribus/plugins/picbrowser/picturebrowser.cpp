@@ -1704,7 +1704,9 @@ void PictureBrowser::updateInformationTab ( int index )
 			informationFilesizeLabel->setText ( QString ( "%1 Bytes" ).arg ( tmpImage->fileInformation.size() ) );
 			informationFiledateLabel->setText ( tmpImage->fileInformation.lastModified().toString ( "dd.MM.yyyy hh:mm:ss" ) );
 
-			if ( tmpImage->imgInfo->valid )
+			if(tmpImage->previewImageLoading)
+				informationFilenameLabel->setText (tr("Image still loading"));
+			else if ( tmpImage->imgInfo->valid )
 			{
 				QString format;
 
@@ -1768,7 +1770,7 @@ void PictureBrowser::updateInformationTab ( int index )
 		}
 		else
 		{
-			informationFilenameLabel->setText ( "No image selected" );
+			informationFilenameLabel->setText ( tr("No image selected") );
 		}
 	}
 }

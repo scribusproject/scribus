@@ -31,6 +31,13 @@ IView::IView ( QWidget * parent )
 	setRenderHint(QPainter::SmoothPixmapTransform);
 }
 
+IView::~ IView()
+{
+	QGraphicsScene * s(scene());
+	if(s)
+		delete s;
+}
+
 void IView::mouseMoveEvent ( QMouseEvent * e )
 {
 	////qDebug()<<"IView::mouseMoveEvent";

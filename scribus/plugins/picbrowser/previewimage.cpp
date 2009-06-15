@@ -26,6 +26,13 @@
 #include <QPainter>
 #include <QUrl>
 
+// //functions for comparing attributes of previewimages (used for sorting)
+bool comparePreviewImageFileName ( const previewImage *i1, const previewImage *i2 );
+bool comparePreviewImageFileType ( const previewImage *i1, const previewImage *i2 );
+bool comparePreviewImageFileDate ( const previewImage *i1, const previewImage *i2 );
+bool comparePreviewImageFileSize ( const previewImage *i1, const previewImage *i2 );
+bool comparePreviewImageResolution ( const previewImage *i1, const previewImage *i2 );
+
 ImageInformation::ImageInformation()
 {
 }
@@ -304,6 +311,9 @@ void previewImages::clearFilters()
 
 void previewImages::sortPreviewImages ( const int sort )
 {
+	if(0 != previewImagesList.count())
+		return;
+	
 	switch ( sort )
 	{
 			//sort by filename

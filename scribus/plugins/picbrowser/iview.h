@@ -23,7 +23,7 @@ class IView: public QGraphicsView
 {
 	public:
 		IView ( QWidget* parent );
-		~IView() {}
+		~IView();
 
 		void setImage ( const QPixmap& pixmap );
 		QPixmap getPixmap();
