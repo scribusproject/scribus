@@ -143,7 +143,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, const Q
 						currItem->OwnPage = page->pageNr();
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset());
+							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
@@ -151,12 +151,16 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, const Q
 							currItem->Dirty = true;*/
 						QRect oldR(currItem->getRedrawBounding(1.0));
 						if (clip.intersects(oldR))
+						{
+							// relayout necessary to get page number ok
+							currItem->invalidateLayout();
+							currItem->layout();
 							drawItem(currItem, painter, clip);
+						}
 						currItem->OwnPage = savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->setXPos(OldX, true);
-							currItem->setYPos(OldY, true);
+							currItem->setXYPos(OldX, OldY, true);
 							currItem->BoundingX = OldBX;
 							currItem->BoundingY = OldBY;
 						}
