@@ -105,6 +105,11 @@ const QString DocumentInformation::getSource()
 	return source;
 }
 
+const QString DocumentInformation::getSubject()
+{
+	return subject;
+}
+
 const QString DocumentInformation::getTitle()
 {
 	return title;
@@ -179,6 +184,11 @@ void DocumentInformation::setRights(const QString &_rights)
 void DocumentInformation::setSource(const QString &_source)
 {
 	source=_source;
+}
+
+void DocumentInformation::setSubject(const QString & _subject)
+{
+	subject = _subject;
 }
 
 void DocumentInformation::setTitle(const QString &_title)

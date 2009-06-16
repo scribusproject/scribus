@@ -118,6 +118,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("DOCRIGHTS",m_Doc->documentInfo.getRights());
 	docu.writeAttribute("DOCCONTRIB",m_Doc->documentInfo.getContrib());
 	docu.writeAttribute("TITLE",m_Doc->documentInfo.getTitle());
+	docu.writeAttribute("SUBJECT",m_Doc->documentInfo.getSubject());
 	docu.writeAttribute("VHOCH"  , m_Doc->typographicSettings.valueSuperScript);
 	docu.writeAttribute("VHOCHSC", m_Doc->typographicSettings.scalingSuperScript);
 	docu.writeAttribute("VTIEF"  , m_Doc->typographicSettings.valueSubScript);

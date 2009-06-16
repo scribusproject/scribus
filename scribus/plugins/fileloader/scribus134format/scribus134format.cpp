@@ -276,6 +276,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->documentInfo.setComments(dc.attribute("COMMENTS"));
 		m_Doc->documentInfo.setKeywords(dc.attribute("KEYWORDS",""));
 		m_Doc->documentInfo.setTitle(dc.attribute("TITLE"));
+		m_Doc->documentInfo.setSubject(dc.attribute("SUBJECT"));
 		m_Doc->documentInfo.setPublisher(dc.attribute("PUBLISHER", ""));
 		m_Doc->documentInfo.setDate(dc.attribute("DOCDATE", ""));
 		m_Doc->documentInfo.setType(dc.attribute("DOCTYPE", ""));

@@ -55,12 +55,14 @@ protected:
 	QLineEdit* rightsEdit;
 	QLineEdit* titleEdit;
 	QLineEdit* authorEdit;
+	QLineEdit* subjectEdit;
 
 	QTextEdit* descriptionEdit;
 	QTextEdit* keywordsEdit;
 	QTextEdit* contributorsEdit;
 
 	QLabel* authorLabel;
+	QLabel* subjectLabel;
 	QLabel* titleLabel;
 	QLabel* publisherLabel;
 	QLabel* dateLabel;
