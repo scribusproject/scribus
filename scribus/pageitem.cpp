@@ -5005,7 +5005,8 @@ void PageItem::AdjustPictScale()
 		LocalScX = xs;
 		LocalScY = ys;
 	}
-	switch (m_Doc->RotMode)
+	// Disable broken code. Code must be independent from doc in that function
+	/*switch (m_Doc->RotMode)
 	{
 		case 0:
 			LocalX = 0;
@@ -5027,7 +5028,7 @@ void PageItem::AdjustPictScale()
 			LocalX = (Width - static_cast<double>(OrigW) * LocalScX) / LocalScX;
 			LocalY = (Height - static_cast<double>(OrigH) * LocalScY) / LocalScY;
 			break;
-	}
+	}*/
 	if (imageClip.size() != 0)
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
