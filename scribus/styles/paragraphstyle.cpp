@@ -271,15 +271,18 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	handler.begin(elemtag, att);
 //	if (parentStyle() && hasParent())
 //		parentStyle()->saxx(handler);
-	QList<ParagraphStyle::TabRecord>::const_iterator it;
-	for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
+	if (!isInhTabValues())
 	{
-		const ParagraphStyle::TabRecord& tb(*it);
-		Xml_attr tab;
-		tab.insert("pos", toXMLString(tb.tabPosition));
-		tab.insert("fillChar", toXMLString(tb.tabFillChar.unicode()));
-		tab.insert("type", toXMLString(tb.tabType));
-		handler.beginEnd("tabstop", tab);
+		QList<ParagraphStyle::TabRecord>::const_iterator it;
+		for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
+		{
+			const ParagraphStyle::TabRecord& tb(*it);
+			Xml_attr tab;
+			tab.insert("pos", toXMLString(tb.tabPosition));
+			tab.insert("fillChar", toXMLString(tb.tabFillChar.unicode()));
+			tab.insert("type", toXMLString(tb.tabType));
+			handler.beginEnd("tabstop", tab);
+		}
 	}
 	if (charStyle() != CharStyle())
 		charStyle().saxx(handler);
