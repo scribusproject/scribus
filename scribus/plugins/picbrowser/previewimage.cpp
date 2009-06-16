@@ -311,7 +311,7 @@ void previewImages::clearFilters()
 
 void previewImages::sortPreviewImages ( const int sort )
 {
-	if(0 != previewImagesList.count())
+	if(0 == previewImagesList.count())
 		return;
 	
 	switch ( sort )
