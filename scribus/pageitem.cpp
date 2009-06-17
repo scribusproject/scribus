@@ -5045,7 +5045,10 @@ void PageItem::setExternalFile(QString val)
 	Pfile = val;
 	if (!Pfile.isEmpty())
 	{
-		QString test = QDir::cleanPath(QDir::convertSeparators(QDir::homePath()+"/"+Pfile));
+		QString test = Pfile;
+		if (QDir::isRelativePath(test))
+			test = QDir::homePath()+"/"+Pfile;
+		test = QDir::cleanPath(QDir::convertSeparators(test));
 		QFileInfo pfi2(test);
 		Pfile = pfi2.absoluteFilePath();
 	}
