@@ -1639,7 +1639,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsZoomIn", Qt::CTRL+Qt::Key_Plus);
 	defKeys.insert("toolsZoomOut", Qt::CTRL+Qt::Key_Minus);
 	defKeys.insert("toolsEditContents", Qt::Key_E);
-	defKeys.insert("toolsEditWithStoryEditor", Qt::CTRL+Qt::Key_Y);
+	defKeys.insert("toolsEditWithStoryEditor", Qt::CTRL+Qt::Key_T);
 	defKeys.insert("toolsLinkTextFrame", Qt::Key_N);
 	defKeys.insert("toolsUnlinkTextFrame", Qt::Key_U);
 	defKeys.insert("toolsEyeDropper", Qt::Key_Y);
