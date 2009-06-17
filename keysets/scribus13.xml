@@ -158,7 +158,7 @@
     <function shortcut="" name="toolsBookmarks" />
     <function shortcut="" name="toolsCopyProperties" />
     <function shortcut="E" name="toolsEditContents" />
-    <function shortcut="Ctrl+Y" name="toolsEditWithStoryEditor" />
+    <function shortcut="Ctrl+T" name="toolsEditWithStoryEditor" />
     <function shortcut="Y" name="toolsEyeDropper" />
     <function shortcut="B" name="toolsInsertBezier" />
     <function shortcut="F" name="toolsInsertFreehandLine" />
