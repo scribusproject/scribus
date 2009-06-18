@@ -70,15 +70,17 @@ bool copyFileAtomic(const QString& source, const QString& target)
 		return false;
 	QFile srcFile(source);
 	QString tempFileName;
-	QTemporaryFile tempFile(target + "_XXXXXX");
+	QTemporaryFile* tempFile = new QTemporaryFile(target + "_XXXXXX");
+	if (!tempFile)
+		return false;
 	if (srcFile.open(QIODevice::ReadOnly))
 	{
-		if (tempFile.open())
+		if (tempFile->open())
 		{
-			tempFileName = tempFile.fileName();
-			success  = copyData(srcFile, tempFile);
-			success &= (srcFile.error() == QFile::NoError && tempFile.error() == QFile::NoError);
-			tempFile.close();
+			tempFileName = tempFile->fileName();
+			success  = copyData(srcFile, *tempFile);
+			success &= (srcFile.error() == QFile::NoError && tempFile->error() == QFile::NoError);
+			tempFile->close();
 		}
 		srcFile.close();
 	}
@@ -88,12 +90,16 @@ bool copyFileAtomic(const QString& source, const QString& target)
 			success = QFile::remove(target);
 		if (success)
 		{
+			// We delete temporary file now to force file close
+			// QTemporaryFile::close() do not really close file
+			tempFile->setAutoRemove(false);
+			delete tempFile; 
+			tempFile = NULL;
 			success = QFile::rename(tempFileName, target);
-			// if rename failed tempFileName should not be removed
-			// Note : on Windows QFile::rename() may not remove tempFileName :S
-			tempFile.setAutoRemove(success);
 		}
 	}
+	if (tempFile)
+		delete tempFile;
 	return success;
 }
 
