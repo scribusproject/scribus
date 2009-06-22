@@ -1964,7 +1964,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 							if (errorOccured) break;
 						}
-						PS_TemplateStart(Doc->MasterPages.at(ap)->pageName() + tmps.setNum(it->ItemNr));
+						PS_TemplateStart(Doc->MasterPages.at(ap)->pageName() + "_" + tmps.setNum(it->ItemNr));
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
 						PS_TemplateEnd();
 					}
@@ -2063,7 +2063,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 								continue;
 							}
 							if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
-								PS_UseTemplate(Doc->Pages->at(a)->MPageNam + tmps.setNum(ite->ItemNr));
+								PS_UseTemplate(Doc->Pages->at(a)->MPageNam + "_" + tmps.setNum(ite->ItemNr));
 							else if (ite->asImageFrame())
 							{
 								PS_save();
