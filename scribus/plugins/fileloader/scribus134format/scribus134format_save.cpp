@@ -886,7 +886,6 @@ void Scribus134Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 	uint ObCount = maxC;
 	Page *page;
 	uint pages;
-	QDomElement pg;
 	QString tmp;
 	if (master)
 		pages = doc->MasterPages.count();
@@ -1081,7 +1080,6 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 	uint ObCount = maxC;
 	QList<PageItem*> *items = NULL;
 	PageItem *item = NULL;
-	QDomElement ob;
 	uint objects = 0;
 	switch (master)
 	{

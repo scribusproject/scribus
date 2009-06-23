@@ -19,18 +19,22 @@ public:
 	ScXmlStreamAttributes(void);
 	ScXmlStreamAttributes(const QXmlStreamAttributes& attrs);
 
-	bool   valueAsBool (const char*    attrName, bool def = false) const;
-	bool   valueAsBool (const QString& attrName, bool def = false) const;
-	int    valueAsInt  (const char*    attrName, int def = 0) const;
-	int    valueAsInt  (const QString& attrName, int def = 0) const;
-	double valueAsDouble (const char*    attrName, double def = 0.0) const;
-	double valueAsDouble (const QString& attrName, double def = 0.0) const;
+	bool    valueAsBool   (const char*    attrName, bool def = false) const;
+	bool    valueAsBool   (const QString& attrName, bool def = false) const;
+	int     valueAsInt    (const char*    attrName, int def = 0) const;
+	int     valueAsInt    (const QString& attrName, int def = 0) const;
+	uint    valueAsUInt   (const char*    attrName, uint def = 0) const;
+	uint    valueAsUInt   (const QString& attrName, uint def = 0) const;
+	double  valueAsDouble (const char*    attrName, double def = 0.0) const;
+	double  valueAsDouble (const QString& attrName, double def = 0.0) const;
+	QString valueAsString (const char*    attrName, const QString def = QString()) const;
+	QString valueAsString (const QString& attrName, const QString def = QString()) const;
 };
 
 class SCRIBUS_API ScXmlStreamReader : public QXmlStreamReader
 {
 public:
-
+	ScXmlStreamReader(const QString& string) : QXmlStreamReader(string) {};
 	ScXmlStreamAttributes scAttributes(void) const;
 };
 

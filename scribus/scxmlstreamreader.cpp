@@ -80,6 +80,36 @@ int ScXmlStreamAttributes::valueAsInt (const QString& attrName, int def) const
 	return retValue;
 }
 
+uint ScXmlStreamAttributes::valueAsUInt  (const char*    attrName, uint def) const
+{
+	uint retValue = def;
+	QStringRef att = value(QLatin1String(attrName));
+	if (!att.isEmpty())
+	{
+		bool success = false;
+		QString strVal = QString::fromRawData(att.constData(), att.length());
+		uint intVal = strVal.toUInt(&success);
+		if (success)
+			retValue = intVal;
+	}
+	return retValue;
+}
+
+uint ScXmlStreamAttributes::valueAsUInt  (const QString& attrName, uint def) const
+{
+	uint retValue = def;
+	QStringRef att = value(attrName);
+	if (!att.isEmpty())
+	{
+		bool success = false;
+		QString strVal = QString::fromRawData(att.constData(), att.length());
+		uint intVal = strVal.toUInt(&success);
+		if (success)
+			retValue = intVal;
+	}
+	return retValue;
+}
+
 double ScXmlStreamAttributes::valueAsDouble (const char* attrName, double def) const
 {
 	double retValue = def;
@@ -103,6 +133,24 @@ double ScXmlStreamAttributes::valueAsDouble (const QString& attrName, double def
 		QString strVal = QString::fromRawData(att.constData(), att.length());
 		retValue = ScCLocale::toDoubleC(strVal, def);
 	}
+	return retValue;
+}
+
+QString ScXmlStreamAttributes::valueAsString (const char*    attrName, const QString def) const
+{
+	QString retValue = def;
+	QStringRef att = value(QLatin1String(attrName));
+	if (!att.isEmpty() || hasAttribute(attrName))
+		retValue = att.toString();
+	return retValue;
+}
+
+QString ScXmlStreamAttributes::valueAsString (const QString& attrName, const QString def) const
+{
+	QString retValue = def;
+	QStringRef att = value(attrName);
+	if (!att.isEmpty() || hasAttribute(attrName))
+		retValue = att.toString();
 	return retValue;
 }
 

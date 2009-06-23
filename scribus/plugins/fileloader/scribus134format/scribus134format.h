@@ -13,13 +13,19 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "styles/styleset.h"
 
-#include <QDomElement>
 #include <QMap>
 #include <QString>
 #include <QList>
 #include <QProgressBar>
 
-class ScXmlStreamWriter;
+class  ColorList;
+class  multiLine;
+class  ScLayer;
+class  ScribusDoc;
+struct ScribusDoc::BookMa;
+class  ScXmlStreamAttributes;
+class  ScXmlStreamReader;
+class  ScXmlStreamWriter;
 
 class PLUGIN_API Scribus134Format : public LoadSavePlugin
 {
@@ -50,20 +56,60 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
 
 	private:
+
 		enum ItemSelection {
 			ItemSelectionMaster = 0,
 			ItemSelectionPage   = 1,
 			ItemSelectionFrame  = 2,
 			ItemSelectionPattern= 3,
 		};
+
+		class ItemInfo
+		{
+		public:
+			ItemInfo(void) { groupLastItem = nextItem = ownLink = 0; item = NULL; };
+			PageItem* item;
+			int groupLastItem;
+			int nextItem;
+			int ownLink;
+		};
+
 		void registerFormats();
-		//Scribus Doc vars, not plugin vars
-		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
-		void GetCStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle);
-		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
-		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, int pagenr = -2 /* currentPage*/);
-		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
+		
 		QString readSLA(const QString & fileName);
+
+		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
+
+		void readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		void readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		void readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		void readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		void readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		void readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+
+		bool readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		bool readBookMark(ScribusDoc::BookMa& bookmark, ScXmlStreamAttributes& attrs); 
+		bool readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		bool readColor(ColorList& colors, ScXmlStreamAttributes& attrs);
+		void readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
+		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
+		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
+		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last, bool impo=false, bool VorLFound=false);
+		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
+		void readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs);
+		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader);
+		bool readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage);
+		bool readPage(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader);
+		bool readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader);
+		void readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle, SCFonts &fonts);
+		bool readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, const QString& baseDir);
+		bool readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readSections(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader);
+
+		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, int pagenr = -2 /* currentPage*/);
 
 		void writeCheckerProfiles(ScXmlStreamWriter& docu);
 		void writeLinestyles(ScXmlStreamWriter& docu);
@@ -99,6 +145,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		QMap<int, int> itemNextF;
 		QMap<int, int> itemRemapM;
 		QMap<int, int> itemNextM;
+
 		int itemCount;
 		int itemCountM;
 		int itemCountF;
