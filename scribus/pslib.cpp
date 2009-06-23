@@ -635,13 +635,13 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 	PutStream("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxX))+" "+IToStr(qRound(maxBoxY))+"\n");
 	PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs*2.0)+"\n");
 	PutStream("Scribusdict begin\n");
-	PutStream("save\n");
-  	PutStream("/DeviceCMYK setcolorspace\n");
 	if ((Art) && (Options.setDevParam))
   	{
 		PutStream("<< /PageSize [ "+ToStr(maxBoxX)+" "+ToStr(maxBoxY)+" ]\n");
 		PutStream(">> setpagedevice\n");
 	}
+	PutStream("save\n");
+  	PutStream("/DeviceCMYK setcolorspace\n");
 	PutStream(ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" tr\n");
 	ActPage = pg;
 	if (Clipping)
