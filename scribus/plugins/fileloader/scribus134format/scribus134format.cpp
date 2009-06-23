@@ -202,7 +202,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (m_Doc->autoSaveTimer->isActive())
 		m_Doc->autoSaveTimer->stop();
 	
-	int ObCount = 0;
 	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
@@ -219,7 +218,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	TableIDM.clear();
 	TableItemsF.clear();
 	TableIDF.clear();
-	PrefsManager* prefsManager=PrefsManager::instance();
 
 	m_Doc->GroupCounter = 1;
 	m_Doc->LastAuto = 0;
@@ -937,7 +935,7 @@ bool Scribus134Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 	doc->pageSets.clear();
 	while(!reader.atEnd() && !reader.hasError())
 	{
-		ScXmlStreamReader::TokenType tType = reader.readNext();
+		reader.readNext();
 		QStringRef tagName = reader.name();
 		if(reader.isStartElement())
 			attrs = reader.attributes();
@@ -1170,7 +1168,7 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 		QStringRef thisTagName = reader.name();
 		while (!reader.atEnd() && !reader.hasError())
 		{
-			ScXmlStreamReader::TokenType tType = reader.readNext();
+			reader.readNext();
 			if (reader.isEndElement() && reader.name() == thisTagName)
 				break;
 			if (reader.isStartElement() && reader.name() == "Tabs")
@@ -1334,7 +1332,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	QStringRef tagName = reader.name();
 	while(!reader.atEnd() && !reader.hasError())
 	{
-		ScXmlStreamReader::TokenType tType = reader.readNext();
+		reader.readNext();
 		if (reader.isEndElement() & reader.name() == tagName)
 			break;
 		if (!reader.isStartElement())
@@ -1431,7 +1429,7 @@ bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 	doc->docItemAttributes.clear();
 	while(!reader.atEnd() && !reader.hasError())
 	{
-		ScXmlStreamReader::TokenType tType = reader.readNext();
+		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
 		if(reader.isStartElement() && reader.name() == "ItemAttribute")
@@ -1457,7 +1455,7 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 	m_Doc->docToCSetups.clear();
 	while(!reader.atEnd() && !reader.hasError())
 	{
-		ScXmlStreamReader::TokenType tType = reader.readNext();
+		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
 		if(reader.isStartElement() && reader.name() == "TableOfContents")
@@ -1487,7 +1485,7 @@ bool Scribus134Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 	QStringRef tagName = reader.name();
 	while(!reader.atEnd() && !reader.hasError())
 	{
-		ScXmlStreamReader::TokenType tType = reader.readNext();
+		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
 		if (reader.isStartElement() && reader.name() == "Section")
@@ -1525,7 +1523,7 @@ bool Scribus134Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader)
 	QStringRef tagName = reader.name();
 	while(!reader.atEnd() && !reader.hasError())
 	{
-		ScXmlStreamReader::TokenType tType = reader.readNext();
+		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
 		if (reader.isStartElement() && reader.name() == "EXCEPTION")
@@ -1616,7 +1614,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		else
 			doc->setMasterPageMode(true);
 	}
-	int groupCounter = doc->GroupCounter, pagenr = -1;
+	int pagenr = -1;
 	if ((!attrs.value("OnMasterPage").isEmpty()) && (tagName == "MASTEROBJECT"))
 	{
 		doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[attrs.valueAsString("OnMasterPage")]));
