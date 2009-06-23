@@ -1701,7 +1701,21 @@ void Annot::SetVals()
 	QString Nfo("");
 	bool AAct = false;
 	item->annotation().setType(ComboBox1->currentItem()+2);
-	if (Name->text() != OldName)
+	bool found = false;
+	QString NameNew = Name->text();
+	// hack for qt3 bug, line edit widget may still have focus when leaving dialog
+	if (Name->hasFocus())
+	{
+		for (uint b = 0; b < view->Doc->Items->count(); ++b)
+		{
+			if ((NameNew == view->Doc->Items->at(b)->itemName()) && (view->Doc->Items->at(b) != item))
+			{
+				found = true;
+				break;
+			}
+		}
+	}
+	if (!found && (NameNew != OldName))
 	{
 		item->setItemName(Name->text());
 		item->AutoName = false;
