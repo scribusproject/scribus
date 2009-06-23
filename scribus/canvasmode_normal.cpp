@@ -782,7 +782,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		{
 			// we want to invalidate all frames under the moved frame
 			// hm, I will try to be more explicit :) - pm
-			PageItem* underItem( m_canvas->itemUnderItem(currItem) );
+			int itemIndex = m_doc->Items->count();
+			PageItem* underItem( m_canvas->itemUnderItem(currItem, itemIndex) );
 			while(underItem)
 			{
 				if(underItem->asTextFrame())
@@ -790,7 +791,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				else
 					underItem->invalidateLayout();
 				
-				underItem =  m_canvas->itemUnderItem(underItem);
+				underItem =  m_canvas->itemUnderItem(currItem, itemIndex);
 			}
 			
 			m_view->updatesOn(false);

@@ -472,25 +472,27 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	return NULL;
 }
 
-PageItem * Canvas::itemUnderItem(PageItem * item) const
+PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 {
-	// first gather all frames on the same page which have a zindex =< to item
-	QList<PageItem*> pList;
-	
-	for(int idx =  m_doc->Items->indexOf(item)-1; idx >= 0 ; --idx)
-	{
-		// take in account this bad news: "do not trust OwnPage"
-// 		PageItem* ti(m_doc->Items->at(idx));
-// 		if(ti->OwnPage == item->OwnPage)
-			pList << m_doc->Items->at(idx);
-	}
+	int indice = qMin(index, m_doc->Items->count());
+	if (index < 0 || indice < 0)
+		return NULL;
 	
 	QRectF baseRect(item->getBoundingRect());
-	for(int idx(0); idx < pList.count(); ++idx)
+	int itemLevel = m_doc->layerLevelFromNumber(item->LayerNr);
+	if (itemLevel < 0)
+		return NULL;
+
+	for(index = indice - 1; index >= 0; --index)
 	{
-		QRectF uRect(pList.at(idx)->getBoundingRect());
-		if(baseRect.intersects(uRect))
-			return pList.at(idx);
+		PageItem* item = m_doc->Items->at(index);
+		int level = m_doc->layerLevelFromNumber(item->LayerNr);
+		if (level >= 0 && level <= itemLevel)
+		{
+			QRectF uRect(item->getBoundingRect());
+			if(baseRect.intersects(uRect))
+				return item;
+		}
 	}
 	return NULL;
 }
@@ -2290,6 +2292,7 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	m_view->horizRuler->setItem(item);
 	m_view->horizRuler->update();
 }
+
 
 
 
