@@ -169,7 +169,7 @@ public:
 	 */
 	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=NULL, bool allowInGroup=false, bool allowMasterItems=false) const;
 	
-	PageItem* itemUnderItem(PageItem* item) const;
+	PageItem* itemUnderItem(PageItem* item, int& index) const;
 	
 	const QPolygon& redrawPolygon() const { return m_viewMode.redrawPolygon; }
 	QPolygon& newRedrawPolygon() 
@@ -244,5 +244,6 @@ private:
 
 
 #endif
+
 
 
