@@ -106,7 +106,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	imageMode = false;
 	m_matrix = QWMatrix();
 #if defined(HAVE_CAIRO) && defined(_WIN32)
-	pixm = QPixmap(w, h, 32);
+	pixm = QPixmap(w, h);
 	cairo_surface_t *img;
 	img = cairo_win32_surface_create(pixm.handle());
 	m_cr = cairo_create(img);
