@@ -171,7 +171,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
-	QList<ScribusDoc::BookMa> bookmarks;
+	QMap<int, ScribusDoc::BookMa> bookmarks;
 
 	bool newVersion = false;
 
@@ -211,7 +211,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	itemCountM = 0;
 	itemRemapF.clear();
 	itemNextF.clear();
-	itemCountF = 0;
+
 	TableItems.clear();
 	TableID.clear();
 	TableItemsM.clear();
@@ -340,10 +340,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (tagName == "Bookmark")
 		{
+			int bmElem = 0;
 			struct ScribusDoc::BookMa bookmark;
-			success = readBookMark(bookmark, attrs);
+			success = readBookMark(bookmark, bmElem, attrs);
 			if (!success) break;
-			bookmarks.append(bookmark);
+			bookmarks.insert(bmElem, bookmark);
 		}
 		if (tagName == "PDF")
 		{
@@ -442,13 +443,15 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (reader.hasError())
 		return false;
 
-	for (int i = 0; i < bookmarks.count(); ++i)
+	QMap<int, ScribusDoc::BookMa>::Iterator it;
+	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
 	{
-		int elem = reinterpret_cast<int>(bookmarks.at(i).PageObject);
+		int elem = it.key();
 		if (elem < m_Doc->Items->count())
 		{
-			bookmarks[i].PageObject = m_Doc->Items->at(i);
-			m_Doc->BookMarks.append( bookmarks.at(i) );
+			ScribusDoc::BookMa bookmark = it.value();
+			bookmark.PageObject = m_Doc->Items->at(elem);
+			m_Doc->BookMarks.append( bookmark );
 		}
 	}
 
@@ -1251,13 +1254,14 @@ bool Scribus134Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader)
 	return !reader.hasError();
 }
 
-bool Scribus134Format::readBookMark(ScribusDoc::BookMa& bookmark, ScXmlStreamAttributes& attrs)
+bool Scribus134Format::readBookMark(ScribusDoc::BookMa& bookmark, int& elem, ScXmlStreamAttributes& attrs)
 {
+	elem = attrs.valueAsInt("Element");
+	bookmark.PageObject = NULL;
 	bookmark.Title  = attrs.valueAsString("Title");
 	bookmark.Text   = attrs.valueAsString("Text");
 	bookmark.Aktion = attrs.valueAsString("Aktion");
 	bookmark.ItemNr = attrs.valueAsInt("ItemNr");
-	bookmark.PageObject = reinterpret_cast<PageItem*>(attrs.valueAsInt("Element"));
 	bookmark.First  = attrs.valueAsInt("First");
 	bookmark.Last   = attrs.valueAsInt("Last");
 	bookmark.Prev   = attrs.valueAsInt("Prev");
@@ -1333,7 +1337,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
-		if (reader.isEndElement() & reader.name() == tagName)
+		if (reader.isEndElement() && (reader.name() == tagName))
 			break;
 		if (!reader.isStartElement())
 			continue;
@@ -2762,7 +2766,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
-	QList<ScribusDoc::BookMa> bookmarks;
+	QMap<int, ScribusDoc::BookMa> bookmarks;
 
 	Page* newPage = NULL;
 	
@@ -2775,7 +2779,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	bool vorLFound  = false;
 	QMap<int,int> layerTrans;
 	int maxLayer = 0, maxLevel = 0, a = 0;
-	itemCountF = 0;
 
 	layerTrans.clear();
 	uint layerCount=m_Doc->layerCount();
@@ -2892,10 +2895,11 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if (tagName == "Bookmark")
 		{
+			int bmElem = 0;
 			struct ScribusDoc::BookMa bookmark;
-			success = readBookMark(bookmark, attrs);
+			success = readBookMark(bookmark, bmElem, attrs);
 			if (!success) break;
-			bookmarks.append(bookmark);
+			bookmarks.insert(bmElem, bookmark);
 		}
 		if(tagName == "STYLE")
 		{
@@ -2957,7 +2961,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if ((tagName == "PAGEOBJECT") || (tagName == "MASTEROBJECT") || (tagName == "FRAMEOBJECT"))
 		{
-			if ((Mpage && tagName != "MASTEROBJECT") || !Mpage && tagName == "MASTEROBJECT")
+			if ((Mpage && tagName != "MASTEROBJECT") || (!Mpage && tagName == "MASTEROBJECT"))
 			{
 				// Go to end of node
 				while(!reader.atEnd() && !reader.hasError())
@@ -3018,13 +3022,18 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 	}
 
-	for (int i = 0; i < bookmarks.count(); ++i)
+	if (reader.hasError())
+		return false;
+
+	QMap<int, ScribusDoc::BookMa>::Iterator it;
+	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
 	{
-		int elem = reinterpret_cast<int>(bookmarks.at(i).PageObject);
+		int elem = it.key();
 		if (elem < m_Doc->Items->count())
 		{
-			bookmarks[i].PageObject = m_Doc->Items->at(i);
-			m_Doc->BookMarks.append( bookmarks.at(i) );
+			ScribusDoc::BookMa bookmark = it.value();
+			bookmark.PageObject = m_Doc->Items->at(elem);
+			m_Doc->BookMarks.append( bookmark );
 		}
 	}
 

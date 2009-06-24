@@ -88,7 +88,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
 
 		bool readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		bool readBookMark(ScribusDoc::BookMa& bookmark, ScXmlStreamAttributes& attrs); 
+		bool readBookMark(ScribusDoc::BookMa& bookmark, int& elem, ScXmlStreamAttributes& attrs); 
 		bool readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
 		bool readColor(ColorList& colors, ScXmlStreamAttributes& attrs);
 		void readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
@@ -148,7 +148,6 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 
 		int itemCount;
 		int itemCountM;
-		int itemCountF;
 		QMap<uint,QString> DoVorl;
 		uint VorlC;
 };
