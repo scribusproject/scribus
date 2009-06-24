@@ -29,6 +29,22 @@ public:
 	double  valueAsDouble (const QString& attrName, double def = 0.0) const;
 	QString valueAsString (const char*    attrName, const QString def = QString()) const;
 	QString valueAsString (const QString& attrName, const QString def = QString()) const;
+
+// Taken directly from Qt code for Qt 4.4 which do not have hasAttribute()
+#if QT_VERSION < 0x040500 
+	inline bool hasAttribute(const QString &qualifiedName) const
+    {
+        return !value(qualifiedName).isNull();
+    }
+    inline bool hasAttribute(const QLatin1String &qualifiedName) const
+    {
+        return !value(qualifiedName).isNull();
+    }
+    inline bool hasAttribute(const QString &namespaceUri, const QString &name) const
+    {
+        return !value(namespaceUri, name).isNull();
+    }
+#endif
 };
 
 class SCRIBUS_API ScXmlStreamReader : public QXmlStreamReader
