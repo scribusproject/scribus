@@ -485,13 +485,15 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 
 	for(index = indice - 1; index >= 0; --index)
 	{
-		PageItem* item = m_doc->Items->at(index);
-		int level = m_doc->layerLevelFromNumber(item->LayerNr);
-		if (level >= 0 && level <= itemLevel)
+		PageItem* item1 = m_doc->Items->at(index);
+		int level = m_doc->layerLevelFromNumber(item1->LayerNr);
+		if ((item != item1) && (level >= 0) && (level <= itemLevel))
 		{
-			QRectF uRect(item->getBoundingRect());
+			if ((level == itemLevel) && (item1->ItemNr > item->ItemNr))
+				continue;
+			QRectF uRect(item1->getBoundingRect());
 			if(baseRect.intersects(uRect))
-				return item;
+				return item1;
 		}
 	}
 	return NULL;
@@ -2292,6 +2294,7 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	m_view->horizRuler->setItem(item);
 	m_view->horizRuler->update();
 }
+
 
 
 
