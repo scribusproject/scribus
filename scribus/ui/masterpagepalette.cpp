@@ -40,7 +40,6 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 	setModal(false);
-	setWindowTitle( tr( "Edit Master Pages" ) );
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	currentDoc = pCurrentDoc;
 	currentView = pCurrentView;
@@ -95,6 +94,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 
 void MasterPagesPalette::languageChange()
 {
+	setWindowTitle( tr( "Edit Master Pages" ) );
 	duplicateButton->setToolTip( tr( "Duplicate the selected master page" ) );
 	deleteButton->setToolTip( tr( "Delete the selected master page" ) );
 	newButton->setToolTip( tr( "Add a new master page" ) );
@@ -457,3 +457,15 @@ void MasterPagesPalette::renameMasterPage(QListWidgetItem * item)
 			updateMasterPageList(newName);
 	}
 }
+
+
+void MasterPagesPalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+	else
+		QWidget::changeEvent(e);
+}
+

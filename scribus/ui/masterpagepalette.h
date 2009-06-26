@@ -39,6 +39,8 @@ public slots:
 	void languageChange();
 	void selectMasterPage(QString name);
 
+	virtual void changeEvent(QEvent *e);
+
 protected slots:
 	void reject();
 
