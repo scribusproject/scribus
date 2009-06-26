@@ -1134,7 +1134,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							continue;
 						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printEnabled()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
-						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr));
+						PS_TemplateStart(QString("mp_obj_%1_%2").arg(ap).arg(it->ItemNr));
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
 						PS_TemplateEnd();
 					}
@@ -1212,7 +1212,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 								continue;
 							if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
-								PS_UseTemplate(Doc->Pages->at(a)->MPageNam + tmps.setNum(ite->ItemNr));
+							{
+								int mpIndex = Doc->MasterNames[Doc->Pages->at(a)->MPageNam];
+								PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(ite->ItemNr));
+							}
 							else if (ite->asImageFrame())
 							{
 								PS_save();
