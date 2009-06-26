@@ -200,6 +200,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if ((m->y() < height()) && (m->y() > 0))
 		{
+			bool mustApplyStyle = false;
+			ParagraphStyle paraStyle;
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 			switch (RulerCode)
 			{
@@ -212,16 +214,19 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					emit DocChanged(false);
 					break;
 				case rc_indentFirst:
-					currItem->changeCurrentStyle().setFirstIndent(First);
+					paraStyle.setFirstIndent(First);
+					mustApplyStyle = true;
 					emit DocChanged(false);
 					break;
 				case rc_leftMargin:
-					currItem->changeCurrentStyle().setLeftMargin(Indent);
-					currItem->changeCurrentStyle().setFirstIndent(First);
+					paraStyle.setLeftMargin(Indent);
+					paraStyle.setFirstIndent(First);
+					mustApplyStyle = true;
 					emit DocChanged(false);
 					break;
 				case rc_rightMargin:
-					currItem->changeCurrentStyle().setRightMargin(ColWidth - RMargin);
+					paraStyle.setRightMargin(ColWidth - RMargin);
+					mustApplyStyle = true;
 					emit DocChanged(false);
 					break;
 				case rc_tab:
@@ -231,13 +236,23 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 						if (TabValues[ActTab].tabType > 4)
 							TabValues[ActTab].tabType = 0;
 					}
-					currItem->changeCurrentStyle().setTabValues(TabValues);
+					paraStyle.setTabValues(TabValues);
+					mustApplyStyle = true;
 					emit DocChanged(false);
 					break;
 				default:
 					break;
 			}
-			currItem->update();
+			if (mustApplyStyle)
+			{
+				Selection tempSelection(this, false);
+				tempSelection.addItem(currItem);
+				currDoc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
+			}
+			else
+			{
+				currItem->update();
+			}
 		}
 		else
 		{
@@ -245,7 +260,11 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			{
 				TabValues.removeAt(ActTab);
 				ActTab = 0;
-				currItem->changeCurrentStyle().setTabValues(TabValues);
+				ParagraphStyle paraStyle;
+				paraStyle.setTabValues(TabValues);
+				Selection tempSelection(this, false);
+				tempSelection.addItem(currItem);
+				currDoc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
 				emit DocChanged(false);
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			}
