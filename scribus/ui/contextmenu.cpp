@@ -304,7 +304,7 @@ void ContextMenu::createMenuItems_Selection()
 		int firstElem = -1;
 		if (currItem->Groups.count() != 0)
 			firstElem = currItem->Groups.top();
-		for (int bx = 0; bx < selectedItemCount; ++bx)
+		for (int bx = 0; bx < selectedItemCount && isGroup==true; ++bx)
 		{
 			if (m_Sel.itemAt(bx)->Groups.count() != 0)
 			{
