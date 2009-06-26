@@ -93,6 +93,7 @@ void StyleManager::changeEvent(QEvent *e)
 
 void StyleManager::languageChange()
 {
+	setWindowTitle( tr( "Style Manager" ) );
 /***********************************/
 /*      Begin Tooltips             */
 /***********************************/
