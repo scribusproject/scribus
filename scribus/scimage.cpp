@@ -2091,6 +2091,8 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	}
 	else if (useProf && isCMYK)
 		inputProf = ScCore->defaultCMYKProfile;
+	else if (useProf && bilevel && (reqType == CMYKData))
+		inputProf = NULL; // Workaround to map directly gray to K channel
 	else if (useProf)
 		inputProf = ScCore->defaultRGBProfile;
 	cmsHPROFILE screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
