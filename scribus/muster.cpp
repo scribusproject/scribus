@@ -424,5 +424,8 @@ void MasterPagesPalette::renameMasterPage(QListBoxItem * item)
 			oldName, &ok, this );
 	if (ok && !newName.isEmpty())
 		if (currentDoc->renameMasterPage( oldName, newName))
+		{
 			updateMasterPageList(newName);
+			emit docAltered();
+		}
 }
