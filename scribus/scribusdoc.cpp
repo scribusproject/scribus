@@ -1675,7 +1675,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->initialMargins.Right = pageMargins.Right;
 	addedPage->setPageNr(pageIndex);
 	addedPage->m_pageSize = m_pageSize;
-	addedPage->PageOri = PageOri;
+	addedPage->setOrientation(PageOri);
 	addedPage->marginPreset = marginPreset;
 	DocPages.insert(pageIndex, addedPage);
 	assert(DocPages.at(pageIndex)!=NULL);
@@ -1708,7 +1708,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->initialMargins.Left = pageMargins.Left;
 	addedPage->initialMargins.Right = pageMargins.Right;
 	addedPage->m_pageSize = m_pageSize;
-	addedPage->PageOri = PageOri;
+	addedPage->setOrientation(PageOri);
 	addedPage->marginPreset = marginPreset;
 	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
@@ -3333,7 +3333,7 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 			currentPage()->setInitialWidth(initialWidth);
 			currentPage()->setHeight(height);
 			currentPage()->setWidth(width);
-			currentPage()->PageOri = orientation;
+			currentPage()->setOrientation(orientation);
 			currentPage()->m_pageSize = pageSize;
 			currentPage()->LeftPg = pageType;
 			changed();
@@ -4889,7 +4889,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		applyMasterPage(from->MPageNam, destLocation);
 		destination->setInitialHeight(from->height());
 		destination->setInitialWidth(from->width());
-		destination->PageOri = from->PageOri;
+		destination->setOrientation(from->orientation());
 		destination->m_pageSize = from->m_pageSize;
 		destination->initialMargins.Top = from->initialMargins.Top;
 		destination->initialMargins.Bottom = from->initialMargins.Bottom;

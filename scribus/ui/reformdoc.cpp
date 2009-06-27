@@ -254,7 +254,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->setHeight(currDoc->pageHeight);
 			pp->setWidth(currDoc->pageWidth);
 			pp->m_pageSize = currDoc->m_pageSize;
-			pp->PageOri = currDoc->PageOri;
+			pp->setOrientation(currDoc->PageOri);
 		}
 		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
@@ -289,7 +289,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->setHeight(currDoc->pageHeight);
 			pp->setWidth(currDoc->pageWidth);
 			pp->m_pageSize = currDoc->m_pageSize;
-			pp->PageOri = currDoc->PageOri;
+			pp->setOrientation(currDoc->PageOri);
 		}
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
 		{

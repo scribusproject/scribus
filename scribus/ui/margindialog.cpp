@@ -63,8 +63,8 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	orientationQComboBox->addItem( tr( "Portrait" ) );
 	orientationQComboBox->addItem( tr( "Landscape" ) );
 	orientationQComboBox->setEditable(false);
-	orientationQComboBox->setCurrentIndex(doc->currentPage()->PageOri );
-	oldOri = doc->currentPage()->PageOri;
+	orientationQComboBox->setCurrentIndex(doc->currentPage()->orientation() );
+	oldOri = doc->currentPage()->orientation();
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addWidget( orientationQComboBox, 1, 2, 1, 2 );
 	widthSpinBox = new ScrSpinBox( 1, 16777215, dsGroupBox7, doc->unitIndex() );

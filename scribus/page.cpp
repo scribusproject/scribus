@@ -344,6 +344,11 @@ void Page::setInitialHeight(const double newInitialHeight)
 	m_initialHeight = newInitialHeight;
 }
 
+void Page::setOrientation(int ori)
+{
+	m_orientation = ori;
+}
+
 void Page::setPageSectionNumber(const QString& newPageSectionNumber)
 {
 	m_pageSectionNumber=newPageSectionNumber;
@@ -354,7 +359,7 @@ void Page::copySizingProperties(Page* sourcePage, const MarginStruct& pageMargin
 	if (sourcePage==NULL)
 		return;
 	m_pageSize = sourcePage->m_pageSize;
-	PageOri = sourcePage->PageOri;
+	m_orientation = sourcePage->m_orientation;
 	m_width=sourcePage->m_width;
 	m_height=sourcePage->m_height;
 	m_initialWidth = sourcePage->m_initialWidth;

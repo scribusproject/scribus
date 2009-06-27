@@ -627,7 +627,7 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 	}
 	else
 	{
-		if (pg->PageOri == 0)
+		if (pg->orientation() == 0)
 			PutStream("Portrait\n");
 		else
 			PutStream("Landscape\n");

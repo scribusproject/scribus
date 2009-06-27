@@ -54,12 +54,14 @@ public:
 	double height() const { return m_height; }
 	double initialWidth() const { return m_initialWidth; }
 	double initialHeight() const { return m_initialHeight; }
+	int orientation() const { return m_orientation; }
 	void setXOffset(const double);
 	void setYOffset(const double);
 	void setWidth(const double);
 	void setHeight(const double);
 	void setInitialWidth(const double);
 	void setInitialHeight(const double);
+	void setOrientation(int);
 	void copySizingProperties(Page *sourcePage, const MarginStruct& pageMargins);
 	MarginStruct Margins;
 	MarginStruct initialMargins;
@@ -69,7 +71,6 @@ public:
 	QString MPageNam;
 
 	QString m_pageSize;
-	int PageOri;
 	int marginPreset;
 	ScribusDoc* doc() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
@@ -104,6 +105,7 @@ protected:
 	double m_initialWidth;
 	double m_initialHeight;
 	int m_pageNr;
+	int m_orientation;
 	//! Name of this page, currently only allowed to be used by a master page
 	QString m_PageName;
 	ScribusDoc* m_Doc;	

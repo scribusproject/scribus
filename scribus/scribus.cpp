@@ -5617,7 +5617,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 //		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
 		doc->currentPage()->setInitialHeight(height);
 		doc->currentPage()->setInitialWidth(width);
-		doc->currentPage()->PageOri = orient;
+		doc->currentPage()->setOrientation(orient);
 		doc->currentPage()->m_pageSize = siz;
 		//CB If we want to add this master page setting into the slotnewpage call, the pagenumber must be +1 I think
 	//Apply_MasterPage(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns],

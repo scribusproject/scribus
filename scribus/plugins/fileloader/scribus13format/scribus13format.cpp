@@ -824,7 +824,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				if (pg.hasAttribute("Size"))
 					Apage->m_pageSize = pg.attribute("Size");
 				if (pg.hasAttribute("Orientation"))
-					Apage->PageOri = pg.attribute("Orientation").toInt();
+					Apage->setOrientation(pg.attribute("Orientation").toInt());
 				Apage->setXOffset( ScCLocale::toDoubleC(pg.attribute("PAGEXPOS")) );
 				Apage->setYOffset( ScCLocale::toDoubleC(pg.attribute("PAGEYPOS")) );
 				if (pg.hasAttribute("PAGEWIDTH"))
@@ -2722,7 +2722,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				if (pg.hasAttribute("Size"))
 					Apage->m_pageSize = pg.attribute("Size");
 				if (pg.hasAttribute("Orientation"))
-					Apage->PageOri = pg.attribute("Orientation").toInt();
+					Apage->setOrientation(pg.attribute("Orientation").toInt());
 				if (pg.hasAttribute("PAGEWIDTH"))
 					Apage->setWidth(ScCLocale::toDoubleC(pg.attribute("PAGEWIDTH")));
 				else
@@ -3257,7 +3257,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 		pg.setAttribute("NAM",page->pageName());
 		pg.setAttribute("MNAM",page->MPageNam);
 		pg.setAttribute("Size", page->m_pageSize);
-		pg.setAttribute("Orientation", page->PageOri);
+		pg.setAttribute("Orientation", page->orientation());
 		pg.setAttribute("LEFT", page->LeftPg);
 		pg.setAttribute("PRESET", page->marginPreset);
 		pg.setAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(
