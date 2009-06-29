@@ -63,6 +63,8 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	deleteButton->setEnabled(false);
 	m_rightClickPopup->setEnabled(false);
 	m_newPopup->setEnabled(false);
+	
+	m_selectedStyleAction = 0;
 
 	connect(m_newPopup, SIGNAL(triggered(QAction*)), this, SLOT(slotNewPopup(QAction*)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
@@ -592,6 +594,20 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcStyle = item->text(0);
 		m_rcType = m_styleClassesPS[item->rootName()];
 		loadType(m_styleClassesPS[item->rootName()]);
+
+		if(m_selectedStyleAction)
+		{
+			m_rightClickPopup->removeAction(m_selectedStyleAction);
+		}
+		QString key = item->rootName() + SEPARATOR + item->text(NAME_COL);
+		m_selectedStyleAction = m_styleActions[key];
+// 		qDebug()<<"Add to popup menu"<<key;
+		if(m_selectedStyleAction)
+		{
+			m_rightClickPopup->insertAction( m_rightClickPopup->actions().first(), m_selectedStyleAction);
+		}
+
+
 	}
 	else if (item && item->isRoot())
 	{
@@ -604,6 +620,12 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 //		m_rcpToScrapId->setEnabled(false);
 		m_rcType = m_styleClassesPS[item->text(0)];
 		loadType(m_rcType);
+		
+		if(m_selectedStyleAction)
+		{
+			m_rightClickPopup->removeAction(m_selectedStyleAction);
+			m_selectedStyleAction = 0;
+		}
 	}
 	else
 	{
@@ -614,6 +636,12 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcpEditId->setEnabled(false);
 		m_rcpCloneId->setEnabled(false);
 //		m_rcpToScrapId->setEnabled(false);
+		
+		if(m_selectedStyleAction)
+		{
+			m_rightClickPopup->removeAction(m_selectedStyleAction);
+			m_selectedStyleAction = 0;
+		}
 	}
 
 	m_rightClickPopup->exec(styleView->mapToGlobal(point));
@@ -737,10 +765,11 @@ void StyleManager::slotOk()
 		if (!isFirst)
 			move(m_editPosition);
 		m_prefs->set("isEditMode", m_isEditMode);
-		connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
-		        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
-		connect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
-				this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
+// 		qDebug() <<"CONNECT slotOK";
+// 		connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+// 		        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
+// 		connect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+// 				this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 		if (m_isStoryEditMode)
 		{
 			m_isStoryEditMode=false;
@@ -749,10 +778,11 @@ void StyleManager::slotOk()
 	}
 	else
 	{
-		disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
-				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
-		disconnect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
-				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
+// 		qDebug() <<"DISCONNECT slotOK";
+// 		disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+// 				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
+// 		disconnect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+// 				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 
 		slotSetupWidget();
 		styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -834,7 +864,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				continue;
 
 			m_styleActions[key] =
-				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",	shortcutValue, m_doc->view(), 0, 0.0, key);
+					new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply") ,	shortcutValue, m_doc->view(), 0, 0.0, key);
 			connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
 		}
@@ -1158,8 +1188,9 @@ void StyleManager::slotDocSelectionChanged()
 
 // 	qDebug() << "Style Manager : doc selection changed";
 
-	disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
-	           this, SLOT(slotApplyStyle(QTreeWidgetItem*, QTreeWidgetItem*)));
+// 	qDebug() <<"DISCONNECT slotDocSelectionChanged";
+// 	disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
+// 	           this, SLOT(slotApplyStyle(QTreeWidgetItem*, QTreeWidgetItem*)));
 
 	styleView->clearSelection();
 
@@ -1187,9 +1218,9 @@ void StyleManager::slotDocSelectionChanged()
 		}
 		++it;
 	}
-
-	connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
-	        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
+// 	qDebug() <<"CONNECT slotDocSelectionChanged";
+// 	connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+// 	        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
 }
 
 void StyleManager::slotDocStylesChanged()
