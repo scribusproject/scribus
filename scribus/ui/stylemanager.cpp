@@ -39,6 +39,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 {
 	setupUi(this);
 	styleView->hideColumn(SHORTCUT_COL);
+	styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	uniqueLabel->hide();
 	rightFrame->hide();
 
@@ -595,16 +596,24 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcType = m_styleClassesPS[item->rootName()];
 		loadType(m_styleClassesPS[item->rootName()]);
 		
+
+		// Add "Apply" menu entry
 		if(m_selectedStyleAction)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
+			m_selectedStyleAction = 0;
 		}
-		QString key = item->rootName() + SEPARATOR + item->text(NAME_COL);
-		m_selectedStyleAction = m_styleActions[key];
-// 		qDebug()<<"Add to popup menu"<<key;
-		if(m_selectedStyleAction)
+		if(styleView->selectedItems().count() == 1)
 		{
-			m_rightClickPopup->addAction(m_selectedStyleAction);
+			QString key = item->rootName() + SEPARATOR + item->text(NAME_COL);
+			if(m_styleActions.contains(key))
+			{
+				m_selectedStyleAction = m_styleActions[key];
+				if(m_selectedStyleAction)
+				{
+					m_rightClickPopup->insertAction( m_rightClickPopup->actions().first(), m_selectedStyleAction);
+				}
+			}
 		}
 		
 	}
@@ -745,7 +754,7 @@ void StyleManager::slotOk()
 	{
 		disconnect(styleView, SIGNAL(itemSelectionChanged()), this, SLOT(slotSetupWidget()));
 		slotApply();
-		styleView->setSelectionMode(QAbstractItemView::MultiSelection);
+
 		okButton->setText(QString("%1 >>").arg( tr("&Edit")));
 		editFrame->hide();
 		applyButton->hide();
@@ -784,7 +793,7 @@ void StyleManager::slotOk()
 // 				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 
 		slotSetupWidget();
-		styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
 		m_editPosition.setX(x());
 		m_editPosition.setY(y());
 		m_prefs->set("eX", x());
