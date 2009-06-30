@@ -39,6 +39,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 {
 	setupUi(this);
 	styleView->hideColumn(SHORTCUT_COL);
+	styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	uniqueLabel->hide();
 	rightFrame->hide();
 
@@ -753,7 +754,7 @@ void StyleManager::slotOk()
 	{
 		disconnect(styleView, SIGNAL(itemSelectionChanged()), this, SLOT(slotSetupWidget()));
 		slotApply();
-		styleView->setSelectionMode(QAbstractItemView::MultiSelection);
+
 		okButton->setText(QString("%1 >>").arg( tr("&Edit")));
 		editFrame->hide();
 		applyButton->hide();
@@ -792,7 +793,7 @@ void StyleManager::slotOk()
 // 				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 
 		slotSetupWidget();
-		styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
 		m_editPosition.setX(x());
 		m_editPosition.setY(y());
 		m_prefs->set("eX", x());
