@@ -65,6 +65,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatSLA12x(LoadSavePlugin::getFormatById(FORMATID_SLA12XIMPORT)),
 	formatSLA13x(LoadSavePlugin::getFormatById(FORMATID_SLA13XIMPORT)),
 	formatSLA134(LoadSavePlugin::getFormatById(FORMATID_SLA134IMPORT)),
+	formatSLA150(LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT)),
 	formatPS(LoadSavePlugin::getFormatById(FORMATID_PSIMPORT)),
 	formatSVG(LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT)),
 	formatSXD(LoadSavePlugin::getFormatById(FORMATID_SXDIMPORT)),
@@ -171,7 +172,7 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 // 			if (ret)
 // 				(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 		}
-		if (FileType==FORMATID_SLA13XIMPORT || FileType==FORMATID_SLA134IMPORT)
+		if (FileType==FORMATID_SLA13XIMPORT || FileType==FORMATID_SLA134IMPORT || FileType==FORMATID_SLA150IMPORT)
 		{
 			(*it).plug->setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 			ret=(*it).plug->loadPage(FileName, PageToLoad, Mpage, renamedPageName);
@@ -286,6 +287,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 				break;
 			case FORMATID_SLA13XIMPORT:
 			case FORMATID_SLA134IMPORT:
+			case FORMATID_SLA150IMPORT:
 				{
 					(*it).setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
@@ -306,7 +308,7 @@ bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QString *sav
 {
 	bool ret = false;
 	QList<FileFormat>::const_iterator it;
-	if (findFormat(FORMATID_SLA134EXPORT, it))
+	if (findFormat(FORMATID_SLA150EXPORT, it))
 	{
 		it->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 		ret = it->saveFile(fileName);

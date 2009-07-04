@@ -737,7 +737,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 		{
 			FileLoader fl(fileName);
 			int test = fl.TestFile();
-			if ((test == FORMATID_SLA134IMPORT) || (test == FORMATID_SLA13XIMPORT) || (test == FORMATID_SLA12XIMPORT))
+			if ((test == FORMATID_SLA150IMPORT) || (test == FORMATID_SLA134IMPORT) || 
+				(test == FORMATID_SLA13XIMPORT) || (test == FORMATID_SLA12XIMPORT))
 			{
 				ColorList LColors;
 				if (fl.ReadColors(fileName, LColors))

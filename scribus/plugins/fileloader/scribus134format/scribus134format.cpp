@@ -123,8 +123,7 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 //		return true;
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
 	return startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.4") >= 0)
-				     || (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.5") >= 0)
-				     || (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.5.0") >= 0));
+				     || (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.5") >= 0));
 }
 
 QString Scribus134Format::readSLA(const QString & fileName)
@@ -146,8 +145,7 @@ QString Scribus134Format::readSLA(const QString & fileName)
 	QString docText("");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
 	if (startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.4") >= 0)
-		|| (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.5") >= 0)
-		|| (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.5.0") >= 0)))
+		|| (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.5") >= 0)))
 		docText = QString::fromUtf8(docBytes);
 	else
 		return QString::null;
