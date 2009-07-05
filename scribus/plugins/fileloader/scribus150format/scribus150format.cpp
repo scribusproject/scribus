@@ -1140,50 +1140,27 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	readCharacterStyleAttrs( doc, attrs, newStyle.charStyle());
 
 	//	newStyle.tabValues().clear();
-	int numTabs = attrs.valueAsInt("NUMTAB", 0);
-	if (numTabs > 0)
+	QList<ParagraphStyle::TabRecord> tbs;
+	newStyle.resetTabValues();
+	QStringRef thisTagName = reader.name();
+	while (!reader.atEnd() && !reader.hasError())
 	{
-		QList<ParagraphStyle::TabRecord> tbs;
-		ParagraphStyle::TabRecord tb;
-		QString tmp = attrs.valueAsString("TABS");
-		ScTextStream tgv(&tmp, QIODevice::ReadOnly);
-		double xf, xf2;
-		for (int cxv = 0; cxv < numTabs; cxv += 2)
+		reader.readNext();
+		if (reader.isEndElement() && reader.name() == thisTagName)
+			break;
+		if (reader.isStartElement() && reader.name() == "Tabs")
 		{
-			tgv >> xf;
-			tgv >> xf2;
-			tb.tabPosition = xf2;
-			tb.tabType = static_cast<int>(xf);
-			tb.tabFillChar =  QChar();
+			ParagraphStyle::TabRecord tb;
+			ScXmlStreamAttributes attrs2 = reader.scAttributes();
+			tb.tabPosition = attrs2.valueAsDouble("Pos");
+			tb.tabType     = attrs2.valueAsInt("Type");
+			QString tbCh   = attrs2.valueAsString("Fill","");
+			tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh[0];
 			tbs.append(tb);
 		}
+	}
+	if (tbs.count() > 0)
 		newStyle.setTabValues(tbs);
-		tmp = "";
-	}
-	else
-	{
-		QList<ParagraphStyle::TabRecord> tbs;
-		newStyle.resetTabValues();
-		QStringRef thisTagName = reader.name();
-		while (!reader.atEnd() && !reader.hasError())
-		{
-			reader.readNext();
-			if (reader.isEndElement() && reader.name() == thisTagName)
-				break;
-			if (reader.isStartElement() && reader.name() == "Tabs")
-			{
-				ParagraphStyle::TabRecord tb;
-				ScXmlStreamAttributes attrs2 = reader.scAttributes();
-				tb.tabPosition = attrs2.valueAsDouble("Pos");
-				tb.tabType     = attrs2.valueAsInt("Type");
-				QString tbCh   = attrs2.valueAsString("Fill","");
-				tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh[0];
-				tbs.append(tb);
-			}
-		}
-		if (tbs.count() > 0)
-			newStyle.setTabValues(tbs);
-	}
 	
 	fixLegacyParStyle(newStyle);
 }
@@ -2154,6 +2131,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	int z = 0;
 	struct ImageLoadRequest loadingInfo;
 	PageItem::ItemType pt = static_cast<PageItem::ItemType>(attrs.valueAsInt("PTYPE"));
+	double xf, yf;
 	double x   = attrs.valueAsDouble("XPOS");
 	double y   = attrs.valueAsDouble("YPOS");
 	double w   = attrs.valueAsDouble("WIDTH");
@@ -2169,10 +2147,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		Pcolor2 = CommonStrings::None;
 	QColor tmpc;
 	PageItem *currItem=NULL;
-	QString tmp;
+	QString tmp, clPath;
 	int xi;
-	double xf, yf, xf2;
-	QString clPath;
 
 	switch (pt)
 	{
@@ -2571,31 +2547,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	else
 		currItem->Groups.clear();
 
-	QList<ParagraphStyle::TabRecord> tbs;
 	tmp = "";
-	if ((attrs.hasAttribute("NUMTAB")) && (attrs.valueAsInt("NUMTAB", 0) != 0))
-	{
-		ParagraphStyle::TabRecord tb;
-		tmp = attrs.valueAsString("TABS");
-		ScTextStream tgv(&tmp, QIODevice::ReadOnly);
-		int numTab = attrs.valueAsInt("NUMTAB", 0);
-		for (int cxv = 0; cxv < numTab; cxv += 2)
-		{
-			tgv >> xf;
-			tgv >> xf2;
-			tb.tabPosition = xf2;
-			tb.tabType = static_cast<int>(xf);
-			tb.tabFillChar = QChar();
-			tbs.append(tb);
-		}
-		tmp = "";
-	}
-	if (tbs.count() > 0) {
-		ParagraphStyle newDefault(currItem->itemText.defaultStyle());
-		newDefault.setTabValues(tbs);
-		currItem->itemText.setDefaultStyle(newDefault);
-	}
-	
 	if ((attrs.hasAttribute("NUMDASH")) && (attrs.valueAsInt("NUMDASH", 0) != 0))
 	{
 		tmp = attrs.valueAsString("DASHS");
