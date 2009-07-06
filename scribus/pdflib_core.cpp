@@ -7569,20 +7569,14 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 			if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
 					(!tel->inPdfArticle))
 			{
-				StartObj(ObjCounter);
-				Threads.append(ObjCounter);
-				ObjCounter++;
-				PutDoc("<< /Type /Thread\n");
-				PutDoc("   /F "+QString::number(ObjCounter)+" 0 R\n");
-				PutDoc(">>\nendobj\n");
 				Beads.clear();
 				struct Bead bd;
-				int fir = ObjCounter;
-				int ccb = ObjCounter;
-				bd.Parent = ObjCounter-1;
+				int fir = ObjCounter + 1;
+				int ccb = ObjCounter + 1;
+				bd.Parent = ObjCounter;
 				while (tel->nextInChain() != 0)
 				{
-					if (tel->OwnPage != -1)
+					if ((tel->OwnPage != -1) && (tel->OwnPage < PageTree.Kids.count()))
 					{
 						bd.Next = ccb + 1;
 						bd.Prev = ccb - 1;
@@ -7599,7 +7593,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				}
 				bd.Next = ccb + 1;
 				bd.Prev = ccb - 1;
-				if (tel->OwnPage != -1)
+				if ((tel->OwnPage != -1) && (tel->OwnPage < PageTree.Kids.count()))
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
 					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()),
@@ -7609,8 +7603,17 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 					Beads.append(bd);
 				}
 				tel->inPdfArticle = true;
-				Beads[0].Prev = fir + Beads.count()-1;
-				Beads[Beads.count()-1].Next = fir;
+				if (Beads.count() > 0)
+				{
+					int threadObj = newObject();
+					StartObj(threadObj);
+					Threads.append(threadObj);
+					PutDoc("<< /Type /Thread\n");
+					PutDoc("   /F "+QString::number(threadObj + 1)+" 0 R\n");
+					PutDoc(">>\nendobj\n");
+					Beads[0].Prev = fir + Beads.count()-1;
+					Beads[Beads.count()-1].Next = fir;
+				}
 				for (int beac = 0; beac < Beads.count(); ++beac)
 				{
 					StartObj(ObjCounter);
