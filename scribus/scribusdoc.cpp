@@ -3202,7 +3202,12 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 
 		Ap->initialMargins.Top = Mp->Margins.Top;
 		Ap->initialMargins.Bottom = Mp->Margins.Bottom;
-		if (pageSets[currentPageLayout].Columns != 1)
+		if (pageSets[currentPageLayout].Columns == 1)
+		{
+			Ap->initialMargins.Left = Mp->Margins.Left;
+			Ap->initialMargins.Right = Mp->Margins.Right;
+		}
+		else
 		{
 			PageLocation pageLoc=locationOfPage(pageNumber);
 			if (pageLoc==LeftPage) //Left hand page
@@ -3237,11 +3242,14 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 				Ap->initialMargins.Right = Mp->initialMargins.Right;
 			}
 		}
-		else
-		{
-			Ap->initialMargins.Left = Mp->Margins.Left;
-			Ap->initialMargins.Right = Mp->Margins.Right;
-		}
+
+		//#8212: Apply page settings
+		Ap->setInitialHeight(Mp->initialHeight());
+		Ap->setInitialWidth(Mp->initialWidth());
+		Ap->setHeight(Mp->height());
+		Ap->setWidth(Mp->width());
+		Ap->setOrientation(Mp->orientation());
+		Ap->m_pageSize = Mp->m_pageSize;
 	}
 	//TODO make a return false if not possible to apply the master page
 	if (!isLoading())
@@ -4833,7 +4841,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	ss->set("COPY_COUNT", copyCount);
 	undoManager->action(this, ss);
 
-	//CB Should we really be disabled auto text frames here?
+	//CB Should we really be disabling auto text frames here?
 	bool autoText = usesAutomaticTextFrames();
 	setUsesAutomaticTextFrames(false);
 	Page* from = DocPages.at(pageNumberToCopy);
@@ -4891,6 +4899,8 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		destination->setInitialWidth(from->width());
 		destination->setOrientation(from->orientation());
 		destination->m_pageSize = from->m_pageSize;
+		//CB: Can possibly partially use the code from applyMasterPage here instead of runnin all of this again..
+		//TODO make a fucntion to do this margin stuff and use elsewhere too
 		destination->initialMargins.Top = from->initialMargins.Top;
 		destination->initialMargins.Bottom = from->initialMargins.Bottom;
 		if (pageSets[currentPageLayout].Columns == 1)
@@ -7817,10 +7827,6 @@ bool ScribusDoc::startAlign()
 	int t = 2;
 	if (oneLocked)
 	{
-//		t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Some objects are locked."),
-//									tr("&Unlock All"), tr("&Skip locked objects"), CommonStrings::tr_Cancel, 0, 0);
-//		if (t == 2)
-//			return false;
 		QMessageBox msgBox;
 		QPushButton *abortButton = msgBox.addButton(QMessageBox::Cancel);
 		QPushButton *lockButton = msgBox.addButton(tr("&Unlock All"), QMessageBox::AcceptRole);

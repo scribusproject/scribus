@@ -5523,26 +5523,20 @@ void ScribusMainWindow::slotNewPageM()
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
-	QStringList base;
 	InsPage *dia = new InsPage(this, doc, doc->currentPage()->pageNr(), doc->Pages->count());
 	if (dia->exec())
 	{
-		base = dia->getMasterPages();
-		addNewPages(dia->getWherePage(),
-		            dia->getWhere(),
-		            dia->getCount(),
-					dia->heightSpinBox->value() / doc->unitRatio(),
-					dia->widthSpinBox->value() / doc->unitRatio(),
-					dia->orientationQComboBox->currentIndex(),
-					dia->prefsPageSizeName,
-					dia->moveObjects->isChecked(),
-		            &base
-		            );
+		QStringList base(dia->getMasterPages());
+		double height=dia->heightSpinBox->value() / doc->unitRatio();
+		double width=dia->widthSpinBox->value() / doc->unitRatio();
+		int orientation=dia->orientationQComboBox->currentIndex();
+		addNewPages(dia->getWherePage(), dia->getWhere(), dia->getCount(), height, width, orientation, 
+			dia->prefsPageSizeName, dia->moveObjects->isChecked(), &base, dia->overrideMPSizingCheckBox->checkState()==Qt::Checked);
 	}
 	delete dia;
 }
 
-void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn)
+void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn, bool overrideMasterPageSizing)
 {
 	UndoTransaction* activeTransaction = NULL;
 	if (UndoManager::undoEnabled())
@@ -5615,10 +5609,14 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	{
 		slotNewPage(wot, base[(wot+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns], mov); //Avoid the master page application with QString::null
 //		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
-		doc->currentPage()->setInitialHeight(height);
-		doc->currentPage()->setInitialWidth(width);
-		doc->currentPage()->setOrientation(orient);
-		doc->currentPage()->m_pageSize = siz;
+		//CB: #8212: added overrideMasterPageSizing, but keeping default to true for other calls for now, off for calls from InsPage
+		if (overrideMasterPageSizing)
+		{	
+			doc->currentPage()->setInitialHeight(height);
+			doc->currentPage()->setInitialWidth(width);
+			doc->currentPage()->setOrientation(orient);
+			doc->currentPage()->m_pageSize = siz;
+		}
 		//CB If we want to add this master page setting into the slotnewpage call, the pagenumber must be +1 I think
 	//Apply_MasterPage(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns],
 //						 doc->currentPage()->pageNr(), false); // this Apply_MasterPage avoids DreawNew and PagePalette->ReBuild, which is much faster for 100 pp :-)

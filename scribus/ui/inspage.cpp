@@ -200,7 +200,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 		}
 	}
 	dialogLayout->addWidget(masterPageGroup);
-
+	overrideMPSizingCheckBox=new QCheckBox("Override Master Page Sizing");
+	dialogLayout->addWidget(overrideMPSizingCheckBox);
 	dsGroupBox7 = new QGroupBox( this );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7Layout = new QGridLayout( dsGroupBox7 );
@@ -246,6 +247,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addWidget( moveObjects, 3, 0, 1, 4 );
 	dialogLayout->addWidget( dsGroupBox7 );
+	dsGroupBox7->setEnabled(false);
 	bool b=(sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
 	heightSpinBox->setEnabled( b );
 	widthSpinBox->setEnabled( b );
@@ -273,6 +275,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
+	connect(overrideMPSizingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableSizingControls(int)));
 }
 
 void InsPage::setSize(const QString & gr)
@@ -349,4 +352,9 @@ int InsPage::getCount() const
 void InsPage::insWherePageDataDisable(int index)
 {
 	insWherePageData->setDisabled((index==2));
+}
+
+void InsPage::enableSizingControls(int state)
+{
+	dsGroupBox7->setEnabled(state==Qt::Checked);
 }

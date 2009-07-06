@@ -617,7 +617,8 @@ private:
 	/** @brief tells the undo mode */
 	bool objectSpecificUndo;
 
-	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
+	//CB: #8212: add overrideMasterPageSizing, however default to true for compatibility with other calls.. for now
+	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
 
 	void *PSDriver;
 	int DocNr;

@@ -42,6 +42,7 @@ public:
 	QComboBox* sizeQComboBox;
 	QComboBox* orientationQComboBox;
 	QCheckBox* moveObjects;
+	QCheckBox* overrideMPSizingCheckBox;
 	double unitRatio;
 	QString prefsPageSizeName;
 	QList<QComboBox*> masterPageCombos;
@@ -71,6 +72,7 @@ private slots:
 	void insWherePageDataDisable (int index);
 	void setSize(const QString &);
 	void setOrien(int ori);
+	void enableSizingControls(int);
 };
 
 #endif // INSPAGE_H
