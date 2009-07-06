@@ -2688,7 +2688,7 @@ void PDFLibCore::PDF_End_Page()
 	}
 	PutDoc(">>\nendobj\n");
 	PageTree.Count++;
-	PageTree.Kids.append(pageObject);
+	PageTree.Kids[PgNr] = pageObject;
 }
 
 
@@ -7380,7 +7380,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 // 			if (ip->firstChild())
 			if (ip->childCount())
 				Inhal += "/Count -"+QString::number(ip->childCount())+"\n";
-			if ((ip->PageObject->OwnPage != -1) && (ip->PageObject->OwnPage < static_cast<int>(PageTree.Kids.count())))
+			if ((ip->PageObject->OwnPage != -1) && PageTree.Kids.contains(ip->PageObject->OwnPage))
 				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+ip->Action+"\n";
 			Inhal += ">>\nendobj\n";
 			Inha[ip->ItemNr] = Inhal;
@@ -7491,8 +7491,9 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	PutDoc(">>\nendobj\n");
 	XRef[3] = bytesWritten();
 	PutDoc("4 0 obj\n<<\n/Type /Pages\n/Kids [");
-	for (int b = 0; b < PageTree.Kids.count(); ++b)
-		PutDoc(QString::number(PageTree.Kids[b])+" 0 R ");
+	QMap<int, int>::Iterator kidsIt;
+	for (kidsIt = PageTree.Kids.begin(); kidsIt != PageTree.Kids.end(); ++kidsIt)
+		PutDoc(QString::number(kidsIt.value())+" 0 R ");
 	PutDoc("]\n");
 	PutDoc("/Count "+QString::number(PageTree.Count)+"\n");
 	PutDoc("/Resources "+QString::number(ObjCounter-1)+" 0 R\n");
@@ -7504,7 +7505,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		QList<Dest>::Iterator vt;
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
-			if ((*vt).Seite < static_cast<int>(PageTree.Kids.count()))
+			if (PageTree.Kids.contains((*vt).Seite))
 				PutDoc("/"+(*vt).Name+" ["+QString::number(PageTree.Kids[(*vt).Seite])+" 0 R /XYZ "+(*vt).Act+"]\n");
 		}
 	}
@@ -7576,7 +7577,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				bd.Parent = ObjCounter;
 				while (tel->nextInChain() != 0)
 				{
-					if ((tel->OwnPage != -1) && (tel->OwnPage < PageTree.Kids.count()))
+					if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
 					{
 						bd.Next = ccb + 1;
 						bd.Prev = ccb - 1;
@@ -7593,7 +7594,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				}
 				bd.Next = ccb + 1;
 				bd.Prev = ccb - 1;
-				if ((tel->OwnPage != -1) && (tel->OwnPage < PageTree.Kids.count()))
+				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
 					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()),
