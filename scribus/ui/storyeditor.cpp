@@ -1525,19 +1525,22 @@ void StoryEditor::showEvent(QShowEvent *)
 
 void StoryEditor::hideEvent(QHideEvent *)
 {
-	if (charSelectUsed)
-    {
-		ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters(
-                charSelect->userTableModel()->characters());
-    }
-	if (charSelect->isVisible())
-		charSelect->close();
-	disconnect(charSelect, SIGNAL(insertSpecialChar()),
-                this, SLOT(slot_insertSpecialChar()));
-	disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
-                this, SLOT(slot_insertUserSpecialChar(QChar)));
-	delete charSelect;
-	charSelect = NULL;
+	if (charSelect)
+	{
+		if (charSelectUsed)
+		{
+			ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters(
+					charSelect->userTableModel()->characters());
+		}
+		if (charSelect->isVisible())
+			charSelect->close();
+		disconnect(charSelect, SIGNAL(insertSpecialChar()),
+					this, SLOT(slot_insertSpecialChar()));
+		disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
+					this, SLOT(slot_insertUserSpecialChar(QChar)));
+		delete charSelect;
+		charSelect = NULL;
+	}
 }
 
 void StoryEditor::savePrefs()
