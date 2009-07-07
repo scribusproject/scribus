@@ -124,7 +124,7 @@ localization = {
     [['Gennaio', 'Febbraio', 'Marzo', 'Aprile',
        'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
        'Ottobre', 'Novembre', 'Dicembre'],
-    [u'Luned\xec', u'Marted\xec', u'Mercoled\xec', u'Gioved\exc', u'Venerd\xec', 'Sabato', 'Domenica']],
+    [u'Luned\xec', u'Marted\xec', u'Mercoled\xec', u'Gioved\xec', u'Venerd\xec', 'Sabato', 'Domenica']],
 # Polish by "Łukasz [DeeJay1] Jernaś" <deejay1@nsj.srem.pl>
 'Polish' :
     [['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj',
