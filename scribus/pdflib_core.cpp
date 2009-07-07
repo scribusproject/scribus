@@ -4553,7 +4553,8 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				if (style.fillColor() != CommonStrings::None)
 					tmp2 += FillColor;
 				tmp2 += "q\n";
-				if (ite->itemType() == PageItem::PathText)
+				// #see 8257 : transform is already computed at beginning of the function
+				/*if (ite->itemType() == PageItem::PathText)
 				{
 					QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
 					QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
@@ -4564,7 +4565,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 					else if (ite->textPathType == 1)
 						trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
 					tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
-				}
+				}*/
 				if (!ite->asPathText())
 				{
 					if (ite->reversed())
@@ -4657,7 +4658,8 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				{
 					tmp2 += "q\n";
 					tmp2 += FToStr((tsz * style.outlineWidth() / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
-					if (ite->itemType() == PageItem::PathText)
+					// #see 8257 : transform is already computed at beginning of the function
+					/*if (ite->itemType() == PageItem::PathText)
 					{
 						QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
 						QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
@@ -4668,7 +4670,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 						else if (ite->textPathType == 1)
 							trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
 						tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
-					}
+					}*/
 					if (!ite->asPathText())
 					{
 						if (ite->reversed())
@@ -4728,7 +4730,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				}
 				else
 				{
-					if (style.effects() & 4)
+					if (style.effects() & ScStyle_Outline)
 						tmp += FToStr(tsz * style.outlineWidth() / 10000.0) + (style.fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
 					else
 						tmp += "0 Tr\n";
@@ -4747,10 +4749,18 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 					tmp += FToStr(qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
 				uchar idx2;
 				if (Options.SubsetList.contains(style.font().replacementName()))
-					idx2 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] % 256;
+				{
+					if (style.fillColor() != CommonStrings::None)
+					{
+						idx2 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] % 256;
+						tmp += "<"+QString(toHex(idx2))+"> Tj\n";
+					}
+				}
 				else
+				{
 					idx2 = idx % 224 + 32;
-				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
+					tmp += "<"+QString(toHex(idx2))+"> Tj\n";
+				}
 			}
 		}
 		if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
