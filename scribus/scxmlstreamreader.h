@@ -52,6 +52,8 @@ class SCRIBUS_API ScXmlStreamReader : public QXmlStreamReader
 public:
 	ScXmlStreamReader(const QString& string) : QXmlStreamReader(string) {};
 	ScXmlStreamAttributes scAttributes(void) const;
+
+	void readToElementEnd(void);
 };
 
 #endif

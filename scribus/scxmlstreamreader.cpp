@@ -159,3 +159,22 @@ ScXmlStreamAttributes ScXmlStreamReader::scAttributes(void) const
 	ScXmlStreamAttributes attrs(attributes());
 	return attrs;
 }
+
+void ScXmlStreamReader::readToElementEnd(void)
+{
+	if (!isStartElement())
+		return;
+	int count = 1;
+	QStringRef tagName = name();
+	while(!atEnd() && !hasError())
+	{
+		readNext();
+		if (isStartElement() && (name() == tagName))
+			++count;
+		if (isEndElement() && (name() == tagName))
+			--count;
+		if (count == 0)
+			break;
+	}
+}
+

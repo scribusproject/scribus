@@ -2919,12 +2919,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			if ((Mpage && tagName != "MASTEROBJECT") || (!Mpage && tagName == "MASTEROBJECT"))
 			{
 				// Go to end of node
-				while(!reader.atEnd() && !reader.hasError())
-				{
-					reader.readNext();
-					if (reader.isEndElement() && reader.name() == tagName)
-						break;
-				}
+				reader.readToElementEnd();
+				continue;
 			}
 			if (attrs.valueAsInt("OwnPage") != pageNumber)
 			{			
@@ -2932,6 +2928,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 					itemRemap[itemCount++] = -1;
 				else if (tagName == "MASTEROBJECT")
 					itemRemapM[itemCountM++] = -1;
+				reader.readToElementEnd();
 			}
 			else
 			{
@@ -3307,7 +3304,7 @@ bool Scribus150Format::readColors(const QString& fileName, ColorList & colors)
 
 bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames)
 {
-	QString PgNam;
+	QString pageName;
 	int counter = 0;
 	int counter2 = 0;
 	QString f(readSLA(fileName));
@@ -3338,8 +3335,12 @@ bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *nu
 			counter++;
 		if(tagName == "MASTERPAGE")
 		{
-			counter2++;
-			masterPageNames.append(PgNam);
+			pageName = reader.scAttributes().valueAsString("NAM");
+			if (!pageName.isEmpty())
+			{
+				counter2++;
+				masterPageNames.append(pageName);
+			}
 		}
 	}
 	*num1 = counter;
