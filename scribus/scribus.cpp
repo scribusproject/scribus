@@ -155,6 +155,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "plugins/formatidlist.h"
 #include "ui/polygonwidget.h"
+#include "ui/preferencesdialog.h"
 #include "ui/prefs.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -621,6 +622,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File");
 	scrMenuMgr->addMenuItem(scrActions["filePreferences"], "File");
+//	scrMenuMgr->addMenuItem(scrActions["filePreferences150"], "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["filePrint"], "File");
 	scrMenuMgr->addMenuItem(scrActions["PrintPreview"], "File");
@@ -7625,6 +7627,16 @@ void ScribusMainWindow::slotPrefsOrg()
 	Preferences dia(this);
 	if (dia.exec()==QDialog::Accepted)
 		prefsOrg(&dia);
+}
+
+void ScribusMainWindow::slotPrefs150Org()
+{
+	slotSelect();
+
+	PreferencesDialog prefsDialog(this);
+	if (prefsDialog.exec()==QDialog::Accepted)
+		qDebug()<<"New prefs window closed";
+//		prefsOrg(&prefsDialog);
 }
 
 void ScribusMainWindow::ShowSubs()

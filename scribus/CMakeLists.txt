@@ -31,6 +31,7 @@ SET(SCRIBUS_UI_SRC
   ui/hysettingsBase.ui
   ui/insertaframe.ui
   ui/latexeditor.ui
+  ui/newmarginwidgetbase.ui
   ui/measurementsbase.ui
   ui/multipleduplicate.ui
   ui/multiprogressdialog.ui
@@ -43,6 +44,29 @@ SET(SCRIBUS_UI_SRC
   ui/picstatus.ui
   ui/pluginmanagerprefsgui.ui
   ui/polygonwidgetbase.ui
+  ui/preferencesdialogbase.ui
+  ui/prefs_colormanagementbase.ui
+  ui/prefs_displaybase.ui
+  ui/prefs_documentsetupbase.ui
+  ui/prefs_externaltoolsbase.ui
+  ui/prefs_fontsbase.ui
+  ui/prefs_guidesbase.ui
+  ui/prefs_hyphenatorbase.ui
+  ui/prefs_keyboardshortcutsbase.ui
+  ui/prefs_miscellaneousbase.ui
+  ui/prefs_pathsbase.ui
+  ui/prefs_pluginsbase.ui
+  ui/prefs_printerbase.ui
+  ui/prefs_scripterbase.ui
+  ui/prefs_scrapbookbase.ui
+  ui/prefs_shortwordsbase.ui
+  ui/prefs_typographybase.ui
+  ui/prefs_userinterfacebase.ui
+  ui/prefs_itemtoolsbase.ui
+  ui/prefs_operatortoolsbase.ui
+  ui/prefs_pdfexportbase.ui
+  ui/prefs_tableofcontentsbase.ui
+  ui/prefs_documentitemattributesbase.ui
   ui/printdialogbase.ui
   ui/replacecolors.ui
   ui/replaceonecolor.ui
@@ -155,6 +179,7 @@ SET(SCRIBUS_MOC_CLASSES
   loadsaveplugin.h
   ui/loremipsum.h
   ui/marginwidget.h
+  ui/newmarginwidget.h
   ui/margindialog.h
   ui/masterpagepalette.h
   ui/measurements.h
@@ -199,6 +224,29 @@ SET(SCRIBUS_MOC_CLASSES
   ui/polyprops.h
   ui/prefs.h
   ui/prefsdialogbase.h
+  ui/preferencesdialog.h
+  ui/prefs_colormanagement.h
+  ui/prefs_display.h
+  ui/prefs_documentsetup.h
+  ui/prefs_externaltools.h
+  ui/prefs_fonts.h
+  ui/prefs_guides.h
+  ui/prefs_hyphenator.h
+  ui/prefs_keyboardshortcuts.h
+  ui/prefs_miscellaneous.h
+  ui/prefs_paths.h
+  ui/prefs_plugins.h
+  ui/prefs_printer.h
+  ui/prefs_scrapbook.h
+  ui/prefs_scripter.h
+  ui/prefs_shortwords.h
+  ui/prefs_typography.h
+  ui/prefs_userinterface.h
+  ui/prefs_itemtools.h
+  ui/prefs_operatortools.h
+  ui/prefs_pdfexport.h
+  ui/prefs_tableofcontents.h
+  ui/prefs_documentitemattributes.h
   prefsmanager.h
   ui/prefspanel.h
   ui/preview.h
@@ -424,6 +472,7 @@ SET(SCRIBUS_SOURCES
   loadsaveplugin.cpp
   ui/loremipsum.cpp
   ui/marginwidget.cpp
+  ui/newmarginwidget.cpp
   ui/margindialog.cpp
   ui/masterpagepalette.cpp
   ui/measurements.cpp
@@ -476,6 +525,29 @@ SET(SCRIBUS_SOURCES
   ui/polyprops.cpp
   ui/prefs.cpp
   prefscontext.cpp
+  ui/preferencesdialog.cpp
+  ui/prefs_colormanagement.cpp
+  ui/prefs_display.cpp
+  ui/prefs_documentsetup.cpp
+  ui/prefs_externaltools.cpp
+  ui/prefs_fonts.cpp
+  ui/prefs_guides.cpp
+  ui/prefs_hyphenator.cpp
+  ui/prefs_keyboardshortcuts.cpp
+  ui/prefs_miscellaneous.cpp
+  ui/prefs_paths.cpp
+  ui/prefs_plugins.cpp
+  ui/prefs_printer.cpp
+  ui/prefs_scrapbook.cpp
+  ui/prefs_scripter.cpp
+  ui/prefs_shortwords.cpp
+  ui/prefs_typography.cpp
+  ui/prefs_userinterface.cpp
+  ui/prefs_itemtools.cpp
+  ui/prefs_operatortools.cpp
+  ui/prefs_pdfexport.cpp
+  ui/prefs_tableofcontents.cpp
+  ui/prefs_documentitemattributes.cpp
   ui/prefsdialogbase.cpp
   prefsfile.cpp
   prefsmanager.cpp

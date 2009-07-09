@@ -30,6 +30,8 @@
 #include "undomanager.h"
 #include "canvasmode_legacy.h"
 
+#include "util.h" //just for tdebug
+
 ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, ScribusDoc* doc, QWidget * parent) :
 	QMenu(parent),
 	m_Sel(sel),
@@ -39,7 +41,9 @@ ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, Scri
 {
 	if (m_Sel.count()>0)
 	{
+		tDebug("process Selection start");
 		processSelection();
+		tDebug("process Selection end");
 		createMenuItems_Selection();
 	}
 }
