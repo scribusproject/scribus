@@ -92,6 +92,7 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	ActPageP(0),
 	Options(doc.PDF_Options),
 	Bvie(0),
+	ucs2Codec(0),
 	ObjCounter(7),
 	ResNam("RE"),
 	ResCount(0),
@@ -166,6 +167,12 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 	QMap<QString, QMap<uint, FPointArray> > usedFonts;
 	usedFonts.clear();
 	doc.getUsedFonts(usedFonts);
+	ucs2Codec = QTextCodec::codecForName("ISO-10646-UCS-2");
+	if (!ucs2Codec)
+	{
+		PDF_Error( tr("Qt build miss ISO-10646-UCS-2 text codec, pdf export is not possible") );
+		return false;
+	}
 	if (PDF_Begin_Doc(fn, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, doc.scMW()->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;
@@ -340,8 +347,7 @@ QByteArray PDFLibCore::EncodeUTF16(const QString &in)
 			tmp += '\\';
 		tmp += cc;
 	}
-	QTextCodec *codec = QTextCodec::codecForName("ISO-10646-UCS-2");
-	QByteArray cres = codec->fromUnicode( tmp );
+	QByteArray cres = ucs2Codec->fromUnicode( tmp );
 #ifndef WORDS_BIGENDIAN
 	// on little endian systems we ned to swap bytes:
 	uchar sw;
