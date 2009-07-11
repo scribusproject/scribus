@@ -758,7 +758,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	layout23->addWidget( PM1 );
 	QSpacerItem* spacer7s = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout23->addItem( spacer7s );
-	layout41c->addLayout( layout23, 0, 0, 1, 4 );
+	layout41c->addLayout( layout23, 1, 0, 1, 4 );
 	layout24 = new QHBoxLayout;
 	layout24->setSpacing( 3 );
 	layout24->setMargin( 0 );
@@ -775,7 +775,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	layout24->addWidget( PM2 );
 	QSpacerItem* spacer7f = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout24->addItem( spacer7f );
-	layout41c->addLayout( layout24, 1, 0, 1, 4 );
+	layout41c->addLayout( layout24, 0, 0, 1, 4 );
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 0 );
 	Layout1->setMargin( 0 );
