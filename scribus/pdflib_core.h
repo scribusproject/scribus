@@ -15,9 +15,10 @@ for which a new license (GPL+exception) is in place.
 #include <string>
 #include <vector>
 
-class QString;
-class QRect;
 class QImage;
+class QRect;
+class QString;
+class QTextCodec;
 class PageItem;
 class BookMItem;
 class BookMView;
@@ -251,6 +252,7 @@ private:
 	QMap<QString,int> Transpar;
 	QMap<QString,ICCD> ICCProfiles;
 	QHash<QString, OCGInfo> OCGEntries;
+	QTextCodec* ucs2Codec;
 	int ObjCounter;
 	QString ResNam;
 	int ResCount;
