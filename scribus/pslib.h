@@ -171,14 +171,13 @@ class SCRIBUS_API PSLib : public QObject
 		int Seiten;
 		QString FillColor;
 		QString StrokeColor;
-		QString GrColor1;
-		QString GrColor2;
 		double LineW;
 		QString Fonts;
 		QString FontDesc;
 		QMap<QString, QString> UsedFonts;
-		typedef QMap<uint, std::pair<QChar, QString> > GListe;
-		QMap<QString, GListe> GlyphsOfFont;
+		QMap<QString, QString> FontSubsetMap;
+		typedef QMap<uint, std::pair<QChar, QString> > GlyphList;
+		QMap<QString, GlyphList> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;
 		QDataStream spoolStream;
