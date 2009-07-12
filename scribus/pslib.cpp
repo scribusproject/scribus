@@ -133,19 +133,30 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			erst = false;
 		}
 	}
+	QMap<QString, QString> psNameMap;
 	QMap<QString, QMap<uint, FPointArray> >::Iterator it;
 	int a = 0;
 	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 	{
-/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-		ScFace::FontType type = AllFonts[it.key()].type();
+		// Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed
+		// Subset also font whose postscript name conflicts with an already used font
+		ScFace &face (AllFonts[it.key()]);
+		ScFace::FontType type = face.type();
+		QString encodedName = face.psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 
-		if ((type == ScFace::TTF) || (AllFonts[it.key()].isOTF()) || (AllFonts[it.key()].subset()))
+		if ((type == ScFace::TTF) || (face.isOTF()) || (face.subset()) || psNameMap.contains(encodedName))
 		{
 			QMap<uint, FPointArray>& RealGlyphs(it.value());
-			FontDesc += "/"+AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+
-					" "+IToStr(RealGlyphs.count()+1)+" dict def\n";
-			FontDesc += AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
+			// Handle possible PostScript name conflict in oft/ttf fonts
+			int psNameIndex = 1;
+			QString initialName = encodedName;
+			while (psNameMap.contains(encodedName))
+			{
+				encodedName = QString("%1-%2").arg(initialName).arg(psNameIndex);
+				++psNameIndex;
+			}
+			FontDesc += "/" + encodedName + " " + IToStr(RealGlyphs.count()+1) + " dict def\n";
+			FontDesc += encodedName + " begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 			{
@@ -179,25 +190,27 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 				FontDesc += "cl\n} bind def\n";
 			}
 			FontDesc += "end\n";
+			FontSubsetMap.insert(face.scName(), encodedName);
 		}
 		else
 		{
 			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" findfont definefont pop\n";
+			Fonts += "/Fo" + IToStr(a) + " /" + encodedName + " findfont definefont pop\n";
 			if (AllFonts[it.key()].embedPs())
 			{
 				QString tmp;
-				if(AllFonts[it.key()].EmbedFont(tmp))
+				if(face.EmbedFont(tmp))
 				{
-					FontDesc += "%%BeginFont: " + AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + "\n";
+					FontDesc += "%%BeginFont: " + encodedName + "\n";
 					FontDesc += tmp + "\n%%EndFont\n";
 				}
 			}
-			GListe gl;
-			AllFonts[it.key()].glyphNames(gl);
+			GlyphList gl;
+			face.glyphNames(gl);
 			GlyphsOfFont.insert(it.key(), gl);
 			a++;
 		}
+		psNameMap.insert(encodedName, face.scName());
 	}
 	Prolog = "%%BeginProlog\n";
 	Prolog += "/Scribusdict 100 dict def\n";
@@ -2766,8 +2779,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					continue;
 				}
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				ScFace::FontType type = style.font().type();
-				if ((type == ScFace::TTF) ||  (style.font().isOTF()) || (style.font().subset()))
+				if (FontSubsetMap.contains(style.font().scName()))
 				{
 //					uint chr = chstr.unicode();
 					uint chr = style.font().char2CMap(chstr);
@@ -2868,7 +2880,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 										PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
 									else
 										PutStream(FillColor + " cmyk");
-									PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+									PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 									PS_restore();
 								}
 								SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
@@ -2877,7 +2889,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
 								else
 									PutStream(FillColor + " cmyk");
-								PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+								PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 								if ((style.effects() & ScStyle_Outline))
 								{
 									if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
@@ -2890,7 +2902,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 											PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
 										else
 											PutStream(StrokeColor + " cmyk");
-										PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
+										PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, true);
 										PS_restore();
 									}
 								}
@@ -3787,7 +3799,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 					PutStream(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
 				else
 					PutStream(FillColor + " cmyk");
-						PS_showSub(chr, hl->font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+						PS_showSub(chr, FontSubsetMap[hl->font().scName()], tsz / 10.0, false);
 			}
 			PS_restore();
 		}
@@ -4181,8 +4193,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 		}
 		/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-		ScFace::FontType ftype = cstyle.font().type();
-		if ((ftype == ScFace::TTF) || (cstyle.font().isOTF()) || (cstyle.font().subset()))
+		if (FontSubsetMap.contains(cstyle.font().scName()))
 		{
 			if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')) && (!SpecialChars::isBreak(chstr)))
 			{
@@ -4212,7 +4223,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 						PutStream(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
 					else
 						PutStream(FillColor + " cmyk");
-					PS_showSub(glyph, cstyle.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+					PS_showSub(glyph, FontSubsetMap[cstyle.font().scName()], tsz / 10.0, false);
 				}
 				PS_restore();
 			}
