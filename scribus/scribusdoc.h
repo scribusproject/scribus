@@ -1182,6 +1182,8 @@ public slots:
 	void itemSelection_DistributeLeft();
 	void itemSelection_DistributeCenterV();
 	void itemSelection_DistributeTop();
+	void itemSelection_SwapLeft();
+	void itemSelection_SwapRight();
 	void itemSelection_MultipleDuplicate(ItemMultipleDuplicateData&);
 	void itemSelection_UniteItems(Selection* customSelection=0);
 	void itemSelection_SplitItems(Selection* customSelection=0);

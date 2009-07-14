@@ -97,6 +97,8 @@ protected slots:
 	void distributeLeft();
 	void distributeCenterV();
 	void distributeTop();
+	void swapLeft();
+	void swapRight();
 	
 	void alignToChanged(int);
 

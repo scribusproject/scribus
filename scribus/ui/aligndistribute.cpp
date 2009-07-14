@@ -172,30 +172,32 @@ void AlignDistributePalette::init()
 	alignCenterHorToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-center.png")));
 	alignRightInToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-right.png")));
 	alignRightOutToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-right-out.png")));
- 	
+
 	alignTopOutToolButton->setIcon(QIcon(loadIcon("22/align-vertical-top-out.png")));
 	alignTopInToolButton->setIcon(QIcon(loadIcon("22/align-vertical-top.png")));
 	alignCenterVerToolButton->setIcon(QIcon(loadIcon("22/align-vertical-center.png")));
 	alignBottomInToolButton->setIcon(QIcon(loadIcon("22/align-vertical-bottom.png")));
 	alignBottomOutToolButton->setIcon(QIcon(loadIcon("22/align-vertical-bottom-out.png")));
- 	
+
 	distributeLeftToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-left.png")));
 	distributeCenterHToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-center.png")));
 	distributeRightToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-right.png")));
 	distributeDistHToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-equal.png")));
- 	
+
 	distributeBottomToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-bottom.png")));
 	distributeCenterVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-center.png")));
 	distributeTopToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-top.png")));
 	distributeDistVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-equal.png")));
- 	
-	
+
 	distributeAcrossPageToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-page.png")));
 	distributeDownPageToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-page.png")));
 	distributeAcrossMarginsToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-margin.png")));
 	distributeDownMarginsToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-margin.png")));
 	distributeDistValueHToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-x.png")));
 	distributeDistValueVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-y.png")));
+
+	swapLeftToolButton->setIcon(QIcon(loadIcon("22/swap-left.png")));
+	swapRightToolButton->setIcon(QIcon(loadIcon("22/swap-right.png")));
 
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
@@ -221,6 +223,8 @@ void AlignDistributePalette::init()
 	connect(distributeDownPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownPage()));
 	connect(distributeAcrossMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossMargins()));
 	connect(distributeDownMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownMargins()));
+	connect(swapLeftToolButton, SIGNAL(clicked()), this, SLOT(swapLeft()));
+	connect(swapRightToolButton, SIGNAL(clicked()), this, SLOT(swapRight()));
 	
 	alignRelativeToCombo->setCurrentIndex(0);
 	alignToChanged(0);
@@ -400,6 +404,18 @@ void AlignDistributePalette::distributeDistValV()
 	distributeDistSpinBox->interpretText();
 	if (currDoc!=NULL)
 		distributeDistV(true);
+}
+
+void AlignDistributePalette::swapLeft()
+{
+	if (currDoc!=NULL)
+		currDoc->itemSelection_SwapLeft();
+}
+
+void AlignDistributePalette::swapRight()
+{
+	if (currDoc!=NULL)
+		currDoc->itemSelection_SwapRight();
 }
 
 void AlignDistributePalette::alignToChanged(int newAlignTo)
