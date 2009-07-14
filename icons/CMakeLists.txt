@@ -448,6 +448,8 @@ INSTALL(FILES
 22/pointer.png
 22/preflight-verifier.png
 22/story-editor.png
+22/swap-left.png
+22/swap-right.png
 22/text-field.png
 22/text-frame-link.png
 22/text-frame-unlink.png
