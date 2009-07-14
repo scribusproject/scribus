@@ -160,6 +160,9 @@ void AlignDistributePalette::languageChange()
 	distributeDistSpinBox->setToolTip( tr( "Distribute the items with the distance specified" ) );
 	
 	guideInfoTextNone = tr("None Selected");
+
+	swapLeftToolButton->setToolTip( tr( "Swap items to the left" ) );
+	swapRightToolButton->setToolTip( tr( "Swap items to the right" ) );
 }
 
 void AlignDistributePalette::init()
