@@ -1016,73 +1016,98 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
-	if (attrs.hasAttribute("CPARENT"))
-		newStyle.setParent(attrs.valueAsString("CPARENT"));
-	if (attrs.hasAttribute("FONT"))
-		newStyle.setFont(m_AvailableFonts->findFont(attrs.valueAsString("FONT"), doc));
-	
-	if (attrs.hasAttribute("FONTSIZE"))
-		newStyle.setFontSize(qRound(attrs.valueAsDouble("FONTSIZE") * 10));
-	
-	if (attrs.hasAttribute("FCOLOR"))
-		newStyle.setFillColor(attrs.valueAsString("FCOLOR"));
-	
-	if (attrs.hasAttribute("KERN"))
-		newStyle.setTracking(qRound(attrs.valueAsDouble("KERN") * 10));
-	
-	if (attrs.hasAttribute("FSHADE"))
-		newStyle.setFillShade(attrs.valueAsInt("FSHADE"));
-	
-	if (attrs.hasAttribute("EFFECTS"))
-		newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt("EFFECTS")).featureList());
-	
-	if (attrs.hasAttribute("EFFECT"))
-		newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt("EFFECT")).featureList());
-	
-	if (attrs.hasAttribute("FEATURES"))
-		newStyle.setFeatures(attrs.valueAsString("FEATURES").split( " ", QString::SkipEmptyParts));
-	
-	if (attrs.hasAttribute("SCOLOR"))
-		newStyle.setStrokeColor(attrs.valueAsString("SCOLOR", CommonStrings::None));
-	
-	if (attrs.hasAttribute("SSHADE"))
-		newStyle.setStrokeShade(attrs.valueAsInt("SSHADE"));
-	
-	if (attrs.hasAttribute("SCALEH"))
-		newStyle.setScaleH(qRound(attrs.valueAsDouble("SCALEH") * 10));
-	
-	if (attrs.hasAttribute("SCALEV"))
-		newStyle.setScaleV(qRound(attrs.valueAsDouble("SCALEV") * 10));
-	
-	if (attrs.hasAttribute("BASEO"))
-		newStyle.setBaselineOffset(qRound(attrs.valueAsDouble("BASEO") * 10));
-	
-	if (attrs.hasAttribute("TXTSHX"))
-		newStyle.setShadowXOffset(qRound(attrs.valueAsDouble("TXTSHX") * 10));
-	
-	if (attrs.hasAttribute("TXTSHY"))
-		newStyle.setShadowYOffset(qRound(attrs.valueAsDouble("TXTSHY") * 10));
-	
-	if (attrs.hasAttribute("TXTOUT"))
-		newStyle.setOutlineWidth(qRound(attrs.valueAsDouble("TXTOUT") * 10));
-	
-	if (attrs.hasAttribute("TXTULP"))
-		newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble("TXTULP") * 10));
-	
-	if (attrs.hasAttribute("TXTULW"))
-		newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble("TXTULW") * 10));
-	
-	if (attrs.hasAttribute("TXTSTP"))
-		newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble("TXTSTP") * 10));
-	
-	if (attrs.hasAttribute("TXTSTW"))
-		newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble("TXTSTW") * 10));
 
-	if (attrs.hasAttribute("SHORTCUT"))
-		newStyle.setShortcut(attrs.valueAsString("SHORTCUT"));
+	static const QString CPARENT("CPARENT");
+	if (attrs.hasAttribute(CPARENT))
+		newStyle.setParent(attrs.valueAsString(CPARENT));
 
-	if (attrs.hasAttribute("wordTrack"))
-		newStyle.setWordTracking(attrs.valueAsDouble("wordTrack"));
+	static const QString FONT("FONT");
+	if (attrs.hasAttribute(FONT))
+		newStyle.setFont(m_AvailableFonts->findFont(attrs.valueAsString(FONT), doc));
+	
+	static const QString FONTSIZE("FONTSIZE");
+	if (attrs.hasAttribute(FONTSIZE))
+		newStyle.setFontSize(qRound(attrs.valueAsDouble(FONTSIZE) * 10));
+	
+	static const QString FCOLOR("FCOLOR");
+	if (attrs.hasAttribute(FCOLOR))
+		newStyle.setFillColor(attrs.valueAsString(FCOLOR));
+	
+	static const QString KERN("KERN");
+	if (attrs.hasAttribute(KERN))
+		newStyle.setTracking(qRound(attrs.valueAsDouble(KERN) * 10));
+	
+	static const QString FSHADE("FSHADE");
+	if (attrs.hasAttribute(FSHADE))
+		newStyle.setFillShade(attrs.valueAsInt(FSHADE));
+	
+	static const QString EFFECTS("EFFECTS");
+	if (attrs.hasAttribute(EFFECTS))
+		newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECTS)).featureList());
+	
+	static const QString EFFECT("EFFECT");
+	if (attrs.hasAttribute(EFFECT))
+		newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECT)).featureList());
+	
+	static const QString FEATURES("FEATURES");
+	if (attrs.hasAttribute(FEATURES))
+		newStyle.setFeatures(attrs.valueAsString(FEATURES).split( " ", QString::SkipEmptyParts));
+	
+	static const QString SCOLOR("SCOLOR");
+	if (attrs.hasAttribute(SCOLOR))
+		newStyle.setStrokeColor(attrs.valueAsString(SCOLOR, CommonStrings::None));
+	
+	static const QString SSHADE("SSHADE");
+	if (attrs.hasAttribute(SSHADE))
+		newStyle.setStrokeShade(attrs.valueAsInt(SSHADE));
+	
+	static const QString SCALEH("SCALEH");
+	if (attrs.hasAttribute(SCALEH))
+		newStyle.setScaleH(qRound(attrs.valueAsDouble(SCALEH) * 10));
+	
+	static const QString SCALEV("SCALEV");
+	if (attrs.hasAttribute(SCALEV))
+		newStyle.setScaleV(qRound(attrs.valueAsDouble(SCALEV) * 10));
+	
+	static const QString BASEO("BASEO");
+	if (attrs.hasAttribute(BASEO))
+		newStyle.setBaselineOffset(qRound(attrs.valueAsDouble(BASEO) * 10));
+	
+	static const QString TXTSHX("TXTSHX");
+	if (attrs.hasAttribute(TXTSHX))
+		newStyle.setShadowXOffset(qRound(attrs.valueAsDouble(TXTSHX) * 10));
+	
+	static const QString TXTSHY("TXTSHY");
+	if (attrs.hasAttribute(TXTSHY))
+		newStyle.setShadowYOffset(qRound(attrs.valueAsDouble(TXTSHY) * 10));
+	
+	static const QString TXTOUT("TXTOUT");
+	if (attrs.hasAttribute(TXTOUT))
+		newStyle.setOutlineWidth(qRound(attrs.valueAsDouble(TXTOUT) * 10));
+	
+	static const QString TXTULP("TXTULP");
+	if (attrs.hasAttribute(TXTULP))
+		newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble(TXTULP) * 10));
+	
+	static const QString TXTULW("TXTULW");
+	if (attrs.hasAttribute(TXTULW))
+		newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble(TXTULW) * 10));
+	
+	static const QString TXTSTP("TXTSTP");
+	if (attrs.hasAttribute(TXTSTP))
+		newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble(TXTSTP) * 10));
+	
+	static const QString TXTSTW("TXTSTW");
+	if (attrs.hasAttribute(TXTSTW))
+		newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble(TXTSTW) * 10));
+
+	static const QString SHORTCUT("SHORTCUT");
+	if (attrs.hasAttribute(SHORTCUT))
+		newStyle.setShortcut(attrs.valueAsString(SHORTCUT));
+
+	static const QString WORDTRACK("wordTrack");
+	if (attrs.hasAttribute(WORDTRACK))
+		newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
 }
 
 void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle, SCFonts &fonts)
@@ -1099,43 +1124,78 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	else
 		newStyle.setDefaultStyle(false);
 	newStyle.setParent(attrs.valueAsString("PARENT", ""));
-	if (attrs.hasAttribute("LINESPMode"))
-		newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt("LINESPMode")));
-	if (attrs.hasAttribute("LINESP"))
-		newStyle.setLineSpacing(attrs.valueAsDouble("LINESP"));
-	if (attrs.hasAttribute("INDENT"))
-		newStyle.setLeftMargin(attrs.valueAsDouble("INDENT"));
-	if (attrs.hasAttribute("RMARGIN"))
-		newStyle.setRightMargin(attrs.valueAsDouble("RMARGIN"));
-	if (attrs.hasAttribute("FIRST"))
-		newStyle.setFirstIndent(attrs.valueAsDouble("FIRST"));
-	if (attrs.hasAttribute("ALIGN"))
-		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt("ALIGN")));
-	if (attrs.hasAttribute("VOR"))
-		newStyle.setGapBefore(attrs.valueAsDouble("VOR"));
-	if (attrs.hasAttribute("NACH"))
-		newStyle.setGapAfter(attrs.valueAsDouble("NACH"));
-	if (attrs.hasAttribute("DROP"))
-		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt("DROP")));
-	if (attrs.hasAttribute("DROPLIN"))
-		newStyle.setDropCapLines(attrs.valueAsInt("DROPLIN"));
-	if (attrs.hasAttribute("DROPDIST"))
-		newStyle.setDropCapOffset(attrs.valueAsDouble("DROPDIST"));
-	if (attrs.hasAttribute("PSHORTCUT"))
-		newStyle.setShortcut(attrs.valueAsString("PSHORTCUT"));
+
+	static const QString LINESPMode("LINESPMode");
+	if (attrs.hasAttribute(LINESPMode))
+		newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt(LINESPMode)));
+
+	static const QString LINESP("LINESP");
+	if (attrs.hasAttribute(LINESP))
+		newStyle.setLineSpacing(attrs.valueAsDouble(LINESP));
+
+	static const QString INDENT("INDENT");
+	if (attrs.hasAttribute(INDENT))
+		newStyle.setLeftMargin(attrs.valueAsDouble(INDENT));
+
+	static const QString RMARGIN("RMARGIN");
+	if (attrs.hasAttribute(RMARGIN))
+		newStyle.setRightMargin(attrs.valueAsDouble(RMARGIN));
+
+	static const QString FIRST("FIRST");
+	if (attrs.hasAttribute(FIRST))
+		newStyle.setFirstIndent(attrs.valueAsDouble(FIRST));
+
+	static const QString ALIGN("ALIGN");
+	if (attrs.hasAttribute(ALIGN))
+		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt(ALIGN)));
+
+	static const QString VOR("VOR");
+	if (attrs.hasAttribute(VOR))
+		newStyle.setGapBefore(attrs.valueAsDouble(VOR));
+
+	static const QString NACH("NACH");
+	if (attrs.hasAttribute(NACH))
+		newStyle.setGapAfter(attrs.valueAsDouble(NACH));
+
+	static const QString DROP("DROP");
+	if (attrs.hasAttribute(DROP))
+		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt(DROP)));
+
+	static const QString DROPLIN("DROPLIN");
+	if (attrs.hasAttribute(DROPLIN))
+		newStyle.setDropCapLines(attrs.valueAsInt(DROPLIN));
+
+	static const QString DROPDIST("DROPDIST");
+	if (attrs.hasAttribute(DROPDIST))
+		newStyle.setDropCapOffset(attrs.valueAsDouble(DROPDIST));
+
+	static const QString PSHORTCUT("PSHORTCUT");
+	if (attrs.hasAttribute(PSHORTCUT))
+		newStyle.setShortcut(attrs.valueAsString(PSHORTCUT));
 	
-	if (attrs.hasAttribute("OpticalMargins"))
-		newStyle.setOpticalMargins(attrs.valueAsInt("OpticalMargins"));
-	if (attrs.hasAttribute("HyphenationMode"))
-		newStyle.setHyphenationMode(attrs.valueAsInt("HyphenationMode"));
-	if (attrs.hasAttribute("MinWordTrack"))
-		newStyle.setMinWordTracking(attrs.valueAsDouble("MinWordTrack"));
-	if (attrs.hasAttribute("NormWordTrack"))
-		newStyle.charStyle().setWordTracking(attrs.valueAsDouble("NormWordTrack"));
-	if (attrs.hasAttribute("MinGlyphShrink"))
-		newStyle.setMinGlyphExtension(attrs.valueAsDouble("MinGlyphShrink"));
-	if (attrs.hasAttribute("MaxGlyphExtend"))
-		newStyle.setMaxGlyphExtension(attrs.valueAsDouble("MaxGlyphExtend"));
+	static const QString OpticalMargins("OpticalMargins");
+	if (attrs.hasAttribute(OpticalMargins))
+		newStyle.setOpticalMargins(attrs.valueAsInt(OpticalMargins));
+
+	static const QString HyphenationMode("HyphenationMode");
+	if (attrs.hasAttribute(HyphenationMode))
+		newStyle.setHyphenationMode(attrs.valueAsInt(HyphenationMode));
+
+	static const QString MinWordTrack("MinWordTrack");
+	if (attrs.hasAttribute(MinWordTrack))
+		newStyle.setMinWordTracking(attrs.valueAsDouble(MinWordTrack));
+
+	static const QString NormWordTrack("NormWordTrack");
+	if (attrs.hasAttribute(NormWordTrack))
+		newStyle.charStyle().setWordTracking(attrs.valueAsDouble(NormWordTrack));
+
+	static const QString MinGlyphShrink("MinGlyphShrink");
+	if (attrs.hasAttribute(MinGlyphShrink))
+		newStyle.setMinGlyphExtension(attrs.valueAsDouble(MinGlyphShrink));
+
+	static const QString MaxGlyphExtend("MaxGlyphExtend");
+	if (attrs.hasAttribute(MaxGlyphExtend))
+		newStyle.setMaxGlyphExtension(attrs.valueAsDouble(MaxGlyphExtend));
 	
 	readCharacterStyleAttrs( doc, attrs, newStyle.charStyle());
 
@@ -1938,82 +1998,10 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 	}
 	
 	// more legacy stuff:
-	
-	if (attrs.hasAttribute("CFONT"))
-		newStyle.setFont(m_AvailableFonts->findFont(attrs.valueAsString("CFONT"), doc));
-	
-	if (attrs.hasAttribute("CSIZE"))
-		newStyle.setFontSize(qRound(attrs.valueAsDouble("CSIZE") * 10));
-	
-	if (attrs.hasAttribute("CCOLOR"))
-		newStyle.setFillColor(attrs.valueAsString("CCOLOR"));
-	
-	if (attrs.hasAttribute("CEXTRA"))
-		newStyle.setTracking(qRound(attrs.valueAsDouble("CEXTRA") / attrs.valueAsDouble("CSIZE") * 1000.0));
-	else if (attrs.hasAttribute("CKERN"))
-		newStyle.setTracking(attrs.valueAsInt("CKERN"));
-	
-	if (attrs.hasAttribute("CSHADE"))
-		newStyle.setFillShade(attrs.valueAsInt("CSHADE"));
-	
-	if (attrs.hasAttribute("CSTYLE"))
-		newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt("CSTYLE")).featureList());
+	QString pstylename = attrs.valueAsString("PSTYLE", "");		
 
-	QString pstylename = attrs.valueAsString("PSTYLE", "");
-	int calign = attrs.valueAsInt("CALIGN", -1);		
-	
-	int ab = attrs.valueAsInt("CAB", -1);
-	if (ab >= 5) {
-		pstylename = doc->paragraphStyles()[ab-5].name();
-		calign = -1;
-	}
-	else if (ab >= 0) {
-		pstylename = "";
-		calign = ab;
-	}
-	
-	if (attrs.hasAttribute("CSTROKE"))
-		newStyle.setStrokeColor(attrs.valueAsString("CSTROKE", CommonStrings::None));
-	
-	if (attrs.hasAttribute("CSHADE2"))
-		newStyle.setStrokeShade(attrs.valueAsInt("CSHADE2", 100));
-	
-	if (attrs.hasAttribute("CSCALE"))
-		newStyle.setScaleH(qMin(qMax(qRound(attrs.valueAsDouble("CSCALE", 100.0) * 10), 100), 4000));
-	
-	if (attrs.hasAttribute("CSCALEV"))
-		newStyle.setScaleV(qMin(qMax(qRound(attrs.valueAsDouble("CSCALEV", 100.0) * 10), 100), 4000));
-	
-	if (attrs.hasAttribute("CBASE"))
-		newStyle.setBaselineOffset(qRound(attrs.valueAsDouble("CBASE") * 10));
-	
-	if (attrs.hasAttribute("CSHX"))
-		newStyle.setShadowXOffset(qRound(attrs.valueAsDouble("CSHX", 5.0) * 10));
-	
-	if (attrs.hasAttribute("CSHY"))
-		newStyle.setShadowYOffset(qRound(attrs.valueAsDouble("CSHY", -5.0) * 10));
-	
-	if (attrs.hasAttribute("COUT"))
-		newStyle.setOutlineWidth(qRound(attrs.valueAsDouble("COUT", 1.0) * 10));
-	
-	if (attrs.hasAttribute("CULP"))
-		newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble("CULP", -0.1) * 10));
-	
-	if (attrs.hasAttribute("CULW"))
-		newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble("CULW", -0.1) * 10));
-	
-	if (attrs.hasAttribute("CSTP"))
-		newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble("CSTP", -0.1) * 10));
-	
-	if (attrs.hasAttribute("CSTW"))
-		newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble("CSTW", -0.1) * 10));
-	
 	fixLegacyCharStyle(newStyle);
-	
-	if (impo && ab >= 0 && VorLFound)
-		last->ParaStyle = DoVorl[ab].toInt();
-	else
-		last->ParaStyle = pstylename;
+	last->ParaStyle = pstylename;
 	// end of legacy stuff
 	
 	int iobj = attrs.valueAsInt("COBJ", -1);
@@ -2066,9 +2054,6 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 			if (!last->ParaStyle.isEmpty()) {
 				pstyle.setParent( last->ParaStyle );
 			}
-			if (calign >= 0)
-				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
-//			qDebug() << QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign);
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}
@@ -2089,10 +2074,6 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 
 	if (!last->ParaStyle.isEmpty()) { // Qt4 >= 0) {
 		pstyle.setParent( last->ParaStyle );
-		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
-	}
-	if (calign >= 0) {
-		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
 		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	}
 
