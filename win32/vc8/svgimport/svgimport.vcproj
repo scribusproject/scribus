@@ -380,10 +380,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\svgimplugin\color.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\plugins\svgimplugin\svgplugin.h"
 				>
 				<FileConfiguration

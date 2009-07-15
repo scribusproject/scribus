@@ -384,10 +384,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\oodraw\color.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\plugins\fileloader\oodraw\oodrawimp.h"
 				>
 				<FileConfiguration
