@@ -21,6 +21,7 @@ PyObject *scribus_redraw(PyObject* /* self */)
 		return NULL;
 	ScMW->ScriptRunning = false;
 	ScMW->view->DrawNew();
+	qApp->processEvents();
 	ScMW->ScriptRunning = true;
 	Py_INCREF(Py_None);
 	return Py_None;
