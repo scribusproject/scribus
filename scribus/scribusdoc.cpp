@@ -4873,6 +4873,10 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					m_Selection->clear();
 					delete ss;
 				}
+				else
+				{
+					itemBuffer.append(QString());
+				}
 			}
 			setActiveLayer(currActiveLayer);
 		}
@@ -4940,7 +4944,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				int currActiveLayer = activeLayer();
 				for (it = Layers.begin(); it != Layers.end(); ++it)
 				{
-					if (lcount < itemBuffer.count())
+					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
 					{
 						ScriXmlDoc *ss = new ScriXmlDoc();
 						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).LNr);
@@ -11112,4 +11116,5 @@ Serializer *ScribusDoc::serializer()
 	Q_ASSERT(m_serializer);
 	return m_serializer;
 }
+
 
