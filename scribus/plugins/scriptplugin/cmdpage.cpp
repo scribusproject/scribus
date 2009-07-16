@@ -23,6 +23,7 @@ PyObject *scribus_redraw(PyObject* /* self */)
 	if(!checkHaveDocument())
 		return NULL;
 	ScCore->primaryMainWindow()->view->DrawNew();
+	qApp->processEvents();
  //	Py_INCREF(Py_None);
  //	return Py_None;
 	Py_RETURN_NONE;
