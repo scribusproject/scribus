@@ -1007,11 +1007,14 @@ bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 
 void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle)
 {
-	if (attrs.hasAttribute("CNAME"))
-		newStyle.setName(attrs.valueAsString("CNAME"));
+	static const QString CNAME("CNAME");
+	if (attrs.hasAttribute(CNAME))
+		newStyle.setName(attrs.valueAsString(CNAME));
+
 	// The default style attribute must be correctly set before trying to assign a parent
-	if (newStyle.hasName() && attrs.hasAttribute("DefaultStyle"))
-		newStyle.setDefaultStyle(attrs.valueAsInt("DefaultStyle"));
+	static const QString DEFAULTSTYLE("DefaultStyle");
+	if (newStyle.hasName() && attrs.hasAttribute(DEFAULTSTYLE))
+		newStyle.setDefaultStyle(attrs.valueAsInt(DEFAULTSTYLE));
 	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
 		newStyle.setDefaultStyle(true);
 	else
@@ -1117,8 +1120,9 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	newStyle.erase();
 	newStyle.setName(attrs.valueAsString("NAME", ""));
 	// The default style attribute must be correctly set before trying to assign a parent
-	if (attrs.hasAttribute("DefaultStyle"))
-		newStyle.setDefaultStyle(attrs.valueAsInt("DefaultStyle"));
+	static const QString DEFAULTSTYLE("DefaultStyle");
+	if (attrs.hasAttribute(DEFAULTSTYLE))
+		newStyle.setDefaultStyle(attrs.valueAsInt(DEFAULTSTYLE));
 	else if (newStyle.name() == CommonStrings::DefaultParagraphStyle || newStyle.name() == CommonStrings::trDefaultParagraphStyle)
 		newStyle.setDefaultStyle(true);
 	else
@@ -1983,7 +1987,7 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 	
 	readCharacterStyleAttrs(doc, attrs, newStyle);
 
-	if (attrs.hasAttribute("Unicode"))
+	if (attrs.hasAttribute(QLatin1String("Unicode")))
 	{
 		tmp2 = QChar(attrs.valueAsInt("Unicode"));
 	}

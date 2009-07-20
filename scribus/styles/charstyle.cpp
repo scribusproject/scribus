@@ -287,105 +287,70 @@ void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* par
 		{
 			if (parent)
 				runFeatures(parent->features(), dynamic_cast<const CharStyle*>(parent->parentStyle()));
+			continue;
 		}
-		else if (feature == BOLD)
+		int set = feature.startsWith('-') ? 0 : 1;
+		int invert = 1 - set;
+		if (invert)
+			feature = feature.mid(1);
+
+		if (feature == BOLD)
 		{
-			// select bolder font
+			// (de)select bolder font
 		}
 		else if (feature == ITALIC)
 		{
-			// select italic font
+			// (de)select italic font
 		}
 		else if (feature == UNDERLINE)
 		{
-			m_Effects |= ScStyle_Underline;
+			m_Effects &= ~(invert * ScStyle_Underline);
+			m_Effects |= set * ScStyle_Underline;
 		}
 		else if (feature == UNDERLINEWORDS)
 		{
-			m_Effects |= ScStyle_UnderlineWords;
+			m_Effects &= ~(invert * ScStyle_UnderlineWords);
+			m_Effects |= set * ScStyle_UnderlineWords;
 		}
 		else if (feature == STRIKETHROUGH)
 		{
-			m_Effects |= ScStyle_Strikethrough;
+			m_Effects &= ~(invert * ScStyle_Strikethrough);
+			m_Effects |= set * ScStyle_Strikethrough;
 		}
 		else if (feature == SUPERSCRIPT)
 		{
-			m_Effects |= ScStyle_Superscript;
+			m_Effects &= ~(invert * ScStyle_Superscript);
+			m_Effects |= set * ScStyle_Superscript;
 		}
 		else if (feature == SUBSCRIPT)
 		{
-			m_Effects |= ScStyle_Subscript;
+			m_Effects &= ~(invert * ScStyle_Subscript);
+			m_Effects |= set * ScStyle_Subscript;
 		}
 		else if (feature == OUTLINE)
 		{
-			m_Effects |= ScStyle_Outline;
+			m_Effects &= ~(invert * ScStyle_Outline);
+			m_Effects |= set * ScStyle_Outline;
 		}
 		else if (feature == SHADOWED)
 		{
-			m_Effects |= ScStyle_Shadowed;
+			m_Effects &= ~(invert * ScStyle_Shadowed);
+			m_Effects |= set * ScStyle_Shadowed;
 		}
 		else if (feature == ALLCAPS)
 		{
-			m_Effects |= ScStyle_AllCaps;
+			m_Effects &= ~(invert * ScStyle_AllCaps);
+			m_Effects |= set * ScStyle_AllCaps;
 		}
 		else if (feature == SMALLCAPS)
 		{
-			m_Effects |= ScStyle_SmallCaps;
+			m_Effects &= ~(invert * ScStyle_SmallCaps);
+			m_Effects |= set * ScStyle_SmallCaps;
 		}
 		else if (feature == SHYPHEN)
 		{
-			m_Effects |= ScStyle_HyphenationPossible;
-		}
-		else if (feature.startsWith("-"))
-		{
-			QString no_feature = feature.mid(1);
-			if (no_feature == BOLD)
-			{
-				// deselect bolder font
-			}
-			else if (no_feature == ITALIC)
-			{
-				// deselect italic font
-			}
-			else if (no_feature == UNDERLINE)
-			{
-				m_Effects &= ~ScStyle_Underline;
-			}
-			else if (no_feature == UNDERLINEWORDS)
-			{
-				m_Effects &= ~ScStyle_UnderlineWords;
-			}
-			else if (no_feature == STRIKETHROUGH)
-			{
-				m_Effects &= ~ScStyle_Strikethrough;
-			}
-			else if (no_feature == SUPERSCRIPT)
-			{
-				m_Effects &= ~ScStyle_Superscript;
-			}
-			else if (no_feature == SUBSCRIPT)
-			{
-				m_Effects &= ~ScStyle_Subscript;
-			}
-			else if (no_feature == OUTLINE)
-			{
-				m_Effects &= ~ScStyle_Outline;
-			}
-			else if (no_feature == SHADOWED)
-			{
-				m_Effects &= ~ScStyle_Shadowed;
-			}
-			else if (no_feature == ALLCAPS)
-			{
-				m_Effects &= ~ScStyle_AllCaps;
-			}
-			else if (no_feature == SMALLCAPS)
-			{
-				m_Effects &= ~ScStyle_SmallCaps;
-			}
-			else {
-				qDebug("CharStyle: unknown feature: %s", feature.toLocal8Bit().constData());
-			}
+			m_Effects &= ~(invert * ScStyle_HyphenationPossible);
+			m_Effects |= set * ScStyle_HyphenationPossible;
 		}
 		else {
 			qDebug("CharStyle: unknown feature: %s", feature.toLocal8Bit().constData());
@@ -531,3 +496,5 @@ void CharStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF		
 }
+
+//kate: replace-tabs 0;
