@@ -1979,7 +1979,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	return success;
 }
 
-bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs, LastStyles* last, bool impo, bool VorLFound)
+bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs, LastStyles* last)
 {
 	QString tmp2;
 	CharStyle newStyle;
@@ -2716,7 +2716,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QMap<PageItem*, int> groupID;
 	double pageX = 0, pageY = 0;
 	bool newVersion = false;
-	bool vorLFound  = false;
 	QMap<int,int> layerTrans;
 	int maxLayer = 0, maxLevel = 0, a = 0;
 
@@ -2737,14 +2736,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	itemCountM = 0;
 	itemRemapF.clear();
 	itemNextF.clear();
-
-	DoVorl.clear();
-	DoVorl[0] = "0";
-	DoVorl[1] = "1";
-	DoVorl[2] = "2";
-	DoVorl[3] = "3";
-	DoVorl[4] = "4";
-	VorlC = 5;
 
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -2844,7 +2835,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		if(tagName == "STYLE")
 		{
 			getStyle(vg, reader, NULL, m_Doc, true);
-			vorLFound = true;
 		}
 		if (((tagName == "PAGE") || (tagName == "MASTERPAGE")) && (attrs.valueAsInt("NUM") == pageNumber))
 		{
@@ -3077,11 +3067,6 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 		{
 			if (style.equiv((*docParagraphStyles)[xx]))
 			{
-				if (fl)
-				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
-				}
 				fou = true;
 			}
 			else
@@ -3092,19 +3077,14 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 			break;
 		}
 	}
-	if (!fou)
+	if (!fou && fl)
 	{
 		for (int xx=0; xx< docParagraphStyles->count(); ++xx)
 		{
-			if (style.equiv((*docParagraphStyles)[xx]) && fl)
+			if (style.equiv((*docParagraphStyles)[xx]))
 			{
 				style.setName((*docParagraphStyles)[xx].name());
 				fou = true;
-// 				if (fl)
-				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
-				}
 				break;
 			}
 		}
@@ -3118,11 +3098,6 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 			StyleSet<ParagraphStyle> tmp;
 			tmp.create(style);
 			doc->redefineStyles(tmp, false);
-		}
-		if (fl)
-		{
-			DoVorl[VorlC] = tmV.setNum(docParagraphStyles->count()-1);
-			VorlC++;
 		}
 	}
 }
