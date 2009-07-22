@@ -268,6 +268,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
 	}
 	currItem->itemText.insertChars(0, Daten);
+	currItem->invalidateLayout();
 	currItem->Dirty = false;
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -927,6 +928,8 @@ PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot convert a non-text frame to outlines.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
+	if (item->invalid)
+		item->layout();
 	ScCore->primaryMainWindow()->view->Deselect(true);
 	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
 	ScCore->primaryMainWindow()->view->TextToPath();
