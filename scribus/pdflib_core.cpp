@@ -167,11 +167,11 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 	QMap<QString, QMap<uint, FPointArray> > usedFonts;
 	usedFonts.clear();
 	doc.getUsedFonts(usedFonts);
-	ucs2Codec = QTextCodec::codecForName("ISO-10646-UCS-2");
+	ucs2Codec = QTextCodec::codecForName("UTF-16");
 	if (!ucs2Codec)
 	{
 		// FIXME : Replace by PDF_Error() after 1.3.5 release
-		qDebug() << "Qt build miss ISO-10646-UCS-2 text codec, pdf export is not possible";
+		qDebug() << "Qt build miss UTF-16 text codec, pdf export is not possible";
 		return false;
 	}
 	if (PDF_Begin_Doc(fn, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, doc.scMW()->bookmarkPalette->BView))
