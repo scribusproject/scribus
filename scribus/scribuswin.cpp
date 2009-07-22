@@ -92,11 +92,14 @@ void ScribusWin::slotAutoSave()
 {
 	if ((m_Doc->hasName) && (m_Doc->isModified()))
 	{
-		moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
+		//#8081 : change behavior of autosave, autosave writes now to an .autosave file
+		//instead of overwriting source document
+		//moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
 		FileLoader fl(m_Doc->DocName);
-		if (fl.SaveFile(m_Doc->DocName, m_Doc, 0))
+		if (fl.SaveFile(m_Doc->DocName+".autosave", m_Doc, 0))
 		{
-			m_Doc->setModified(false);
+			//#8081 related : do not unset modified flag until user really save file
+			//m_Doc->setModified(false);
 			setWindowTitle(QDir::convertSeparators(m_Doc->DocName));
 			qApp->processEvents();
 			emit AutoSaved();
