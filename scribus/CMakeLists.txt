@@ -905,10 +905,21 @@ ELSE(APPLEBUNDLE)
   ENDIF(WIN32)
 ENDIF(APPLEBUNDLE)
 
-#Install our header files, selected from all existing dirs
+#Install our header files, selected from all existing dirs, excluding unwanted directories and svn files
 IF(NOT WANT_NOHEADERINSTALL)
-  FILE( GLOB_RECURSE SCRIBUS_HEADER_FILES *.h )
-  INSTALL(FILES ${SCRIBUS_HEADER_FILES} DESTINATION ${INCLUDEDIR})
+  MESSAGE(STATUS "Source header files will be installed")
+  INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${INCLUDEDIR} 
+    FILES_MATCHING 
+    PATTERN "*.h"
+    PATTERN "dicts" EXCLUDE
+    PATTERN "doc" EXCLUDE
+    PATTERN "dtd" EXCLUDE
+    PATTERN "editorconfig" EXCLUDE
+    PATTERN "icon*" EXCLUDE
+    PATTERN "manpages" EXCLUDE
+    PATTERN "old" EXCLUDE
+    PATTERN ".svn" EXCLUDE 
+  )
 ELSE(NOT WANT_NOHEADERINSTALL)
   MESSAGE(STATUS "No source header files will be installed")
 ENDIF(NOT WANT_NOHEADERINSTALL)
