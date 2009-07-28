@@ -288,8 +288,11 @@ void SMLineStyle::setDefaultStyle(bool ids)
 
 QString SMLineStyle::shortcut(const QString &stylename) const
 {
-	Q_ASSERT(tmpLines.contains(stylename));
-	return tmpLines[stylename].shortcut;
+	QString s;
+	QMap<QString, multiLine>::ConstIterator it = tmpLines.find(stylename);
+	if (it != tmpLines.end())
+		s = it.value().shortcut;
+	return s;
 }
 
 void SMLineStyle::setShortcut(const QString &shortcut)
