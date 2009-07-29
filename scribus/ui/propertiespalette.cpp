@@ -3596,8 +3596,8 @@ void PropertiesPalette::NewW()
 			double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
 			if (CurItem->isTableItem)
 			{
-				int rmo = doc->RotMode;
-				doc->RotMode = 0;
+				int rmo = doc->RotMode();
+				doc->RotMode ( 0 );
 				double dist = w - CurItem->width();
 				PageItem* bb2;
 				PageItem* bb = CurItem;
@@ -3623,7 +3623,7 @@ void PropertiesPalette::NewW()
 					bb2 = bb2->RightLink;
 				}
 				doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
-				doc->RotMode = rmo;
+				doc->RotMode ( rmo );
 				if (keepFrameWHRatioButton->isChecked())
 				{
 					keepFrameWHRatioButton->setChecked(false);
@@ -3704,8 +3704,8 @@ void PropertiesPalette::NewH()
 				double oldH = (CurItem->height() != 0.0) ? CurItem->height() : 1.0;
 				if (CurItem->isTableItem)
 				{
-					int rmo = doc->RotMode;
-					doc->RotMode = 0;
+					int rmo = doc->RotMode();
+					doc->RotMode ( 0 );
 					double dist = h - CurItem->height();
 					PageItem* bb2;
 					PageItem* bb = CurItem;
@@ -3731,7 +3731,7 @@ void PropertiesPalette::NewH()
 						bb2 = bb2->BottomLink;
 					}
 					doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
-					doc->RotMode = rmo;
+					doc->RotMode ( rmo );
 					if (keepFrameWHRatioButton->isChecked())
 					{
 						keepFrameWHRatioButton->setChecked(false);
@@ -4320,7 +4320,7 @@ void PropertiesPalette::NewRotMode(int m)
 	if ((HaveDoc) && (HaveItem))
 	{
 		HaveItem = false;
-		doc->RotMode = m;
+		doc->RotMode ( m );
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			doc->m_Selection->setGroupRect();

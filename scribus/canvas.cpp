@@ -2181,15 +2181,15 @@ void Canvas::displayXYHUD(QPoint m)
 	ma.translate(gx, gy);
 	ma.rotate(r);
 	FPoint n;
-	if (m_doc->RotMode == 0)
+	if (m_doc->RotMode() == 0)
 		n = FPoint(0.0, 0.0);
-	else if (m_doc->RotMode == 1)
+	else if (m_doc->RotMode() == 1)
 		n = FPoint(gw, 0.0);
-	else if (m_doc->RotMode == 2)
+	else if (m_doc->RotMode() == 2)
 		n = FPoint(gw / 2.0, gh / 2.0);
-	else if (m_doc->RotMode == 3)
+	else if (m_doc->RotMode() == 3)
 		n = FPoint(0.0, gh);
-	else if (m_doc->RotMode == 4)
+	else if (m_doc->RotMode() == 4)
 		n = FPoint(gw, gh);
 	gx = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 	gy = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();

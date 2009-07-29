@@ -181,8 +181,8 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				QMatrix comulatedMatrix = matrix;
 				PageItem *currItem = currDoc->m_Selection->itemAt(0);
 				Elements.append(currItem);
-				int rotBack = currDoc->RotMode;
-				currDoc->RotMode = 0;
+				int rotBack = currDoc->RotMode();
+				currDoc->RotMode ( 0 );
 				currDoc->scMW()->slotEditCopy();
 				currDoc->view()->Deselect(true);
 				for (int b = 0; b < nrOfCopies; b++)
@@ -248,7 +248,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 					currDoc->m_Selection->addItem(Elements.at(c), true);
 				}
 				currDoc->m_Selection->setGroupRect();
-				currDoc->RotMode = rotBack;
+				currDoc->RotMode (rotBack);
 				currDoc->useRaster = savedAlignGrid;
 				currDoc->SnapGuides = savedAlignGuides;
 				currDoc->DoDrawing = true;

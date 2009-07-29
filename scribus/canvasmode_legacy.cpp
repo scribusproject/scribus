@@ -1877,7 +1877,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					m_view->undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
 														  Um::Rotate, "", Um::IRotate);
 */
-				RotMode = m_doc->RotMode;
+				RotMode = m_doc->RotMode();
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
 					double gx, gy, gh, gw;
@@ -1886,12 +1886,12 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					m_doc->m_Selection->getGroupRect(&gxR, &gyR, &gwR, &ghR);
 					if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 					{
-						m_doc->RotMode = 2;
+						m_doc->RotMode ( 2 );
 						m_view->RCenter = FPoint(gxR+gwR/2.0, gyR+ghR/2.0);
 						if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
 						{
 							m_view->RCenter = FPoint(gxR, gyR);
-							m_doc->RotMode = 0;
+							m_doc->RotMode ( 0);
 						}
 					}
 					m_view->oldW = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y());
@@ -1900,7 +1900,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				{
 					QMatrix mat;
 					m_canvas->Transform(currItem, mat);
-					m_doc->RotMode = 2;
+					m_doc->RotMode ( 2);
 //					RCenter = FPoint(currItem->xPos()+currItem->width()/2, currItem->yPos()+currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, true);
 					m_view->RCenter = FPoint(currItem->width()/2, currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, false);
 //					if (!currItem->asLine())
@@ -1911,25 +1911,25 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							{
 //								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
 								m_view->RCenter = FPoint(currItem->width(), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
-								m_doc->RotMode = 4;
+								m_doc->RotMode ( 4 );
 							}
 							else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
 							{
 //								RCenter = FPoint(currItem->xPos(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
 								m_view->RCenter = FPoint(0, currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
-								m_doc->RotMode = 3;
+								m_doc->RotMode ( 3 );
 							}
 							else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
 							{
 //								RCenter = FPoint(currItem->xPos(), currItem->yPos());
 								m_view->RCenter = FPoint(0, 0);
-								m_doc->RotMode = 0;
+								m_doc->RotMode ( 0 );
 							}
 							else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
 							{
 //								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos(), 0, 0, currItem->rotation(), 1, 1, true);
 								m_view->RCenter = FPoint(currItem->width(), 0, 0, 0, currItem->rotation(), 1, 1, false);
-								m_doc->RotMode = 1;
+								m_doc->RotMode ( 1 );
 							}
 						}
 //					}
@@ -2414,7 +2414,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		if (m_doc->appMode != modeEdit)
 		{
 			if (m_doc->appMode == modeRotation)
-				m_doc->RotMode = RotMode;
+				m_doc->RotMode ( RotMode );
 			if (!PrefsManager::instance()->appPrefs.stickyTools)
 				m_view->requestMode(modeNormal);
 			else

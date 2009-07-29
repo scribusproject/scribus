@@ -893,6 +893,11 @@ public:
 	//! \brief Returns a serializer for this document
 	Serializer *serializer();
 
+	//! \brief Get rotation mode
+	int RotMode() const {return rotMode;}
+	//! \brief Set rotation mode
+	void RotMode(const int& val);
+
 protected:
 	void addSymbols();
 	bool m_hasGUI;
@@ -903,6 +908,7 @@ protected:
 	int ActiveLayer;
 	int docUnitIndex;
 	double docUnitRatio;
+	int rotMode;
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
 	QMap<QString, double> m_constants;
@@ -1063,7 +1069,6 @@ public:
 	QList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;
-	int RotMode;
 	bool AutoSave;
 	int AutoSaveTime;
 	QTimer * const autoSaveTimer;
@@ -1130,6 +1135,9 @@ signals:
 	void signalRebuildOutLinePalette();
 	//! Temporary signal for SizeItem
 	void widthAndHeight(double, double);
+
+	//! Signal a change in rotation mode (aka basepoint)
+	void rotationMode(int);
 	
 public slots:
 	void itemSelection_ToggleLock();

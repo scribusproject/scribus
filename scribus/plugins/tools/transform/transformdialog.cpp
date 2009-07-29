@@ -67,7 +67,7 @@ TransformDialog::TransformDialog(QWidget* parent, ScribusDoc *doc) : QDialog(par
 	verticalSkew->setSuffix(unitGetSuffixFromIndex(6));
 	linkSkew->setChecked(true);
 	numberOfCopies->setValue(0);
-	basePoint->setCheckedId(m_doc->RotMode);
+	basePoint->setCheckedId(m_doc->RotMode());
 	connect(transformSelector, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(setCurrentTransform(QListWidgetItem*)));
 	connect(horizontalScale, SIGNAL(valueChanged(double)), this, SLOT(changeHScale(double)));
 	connect(verticalScale, SIGNAL(valueChanged(double)), this, SLOT(changeVScale(double)));

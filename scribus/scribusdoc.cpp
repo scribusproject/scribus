@@ -194,7 +194,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	RotMode(0),
+	rotMode(0),
 	AutoSave(prefsData.AutoSave),
 	AutoSaveTime(prefsData.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
@@ -306,7 +306,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	RotMode(0),
+	rotMode(0),
 	AutoSave(prefsData.AutoSave),
 	AutoSaveTime(prefsData.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
@@ -9598,7 +9598,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 		return;
 	QRectF oldR = currItem->getBoundingRect();
 //	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
-	if (RotMode != 0)
+	if (rotMode != 0)
 	{
 		QMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
@@ -9607,7 +9607,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 		double ro = angle - currItem->rotation();
 		currItem->setRotation(angle);
 		FPoint n(0,0);
-		switch (RotMode)
+		switch (rotMode)
 		{
 		case 2:
 			ma.translate(currItem->width()/2.0, currItem->height()/2.0);
@@ -9688,17 +9688,17 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
 	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
 	currItem->setWidthHeight(newX, newY, true);
-	if ((RotMode != 0) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
+	if ((rotMode != 0) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
 	{
 		double moveX=dX, moveY=dY;
-		if (RotMode==2)
+		if (rotMode==2)
 		{
 			moveX/=2.0;
 			moveY/=2.0;
 		}
-		else if (RotMode==3)
+		else if (rotMode==3)
 			moveX=0.0;
-		else if (RotMode==1)
+		else if (rotMode==1)
 			moveY=0.0;
 		MoveItem(moveX, moveY, currItem);
 	}
@@ -9996,8 +9996,8 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	double gx, gy, gh, gw, x, y;
 	int aa;
 	double sc = 1; //FIXME:av Scale;
-	int drm = RotMode;
-	RotMode = 0;
+	int drm = rotMode;
+	rotMode = 0;
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 //	gx -= minCanvasCoordinate.x();
 //	gy -= minCanvasCoordinate.y();
@@ -10103,10 +10103,10 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	GroupOnPage(bb);
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
-	RotMode = drm;
-	if ((RotMode != 0) && (!isLoading()))
+	rotMode = drm;
+	if ((rotMode != 0) && (!isLoading()))
 	{
-		switch (RotMode)
+		switch (rotMode)
 		{
 		case 2:
 			moveGroup((origGW-gw) / 2.0, (origGH-gh) / 2.0, true);
@@ -11117,4 +11117,10 @@ Serializer *ScribusDoc::serializer()
 	return m_serializer;
 }
 
+
+void ScribusDoc::RotMode(const int& val)
+{
+	rotMode = val;
+	emit rotationMode(rotMode);
+}
 

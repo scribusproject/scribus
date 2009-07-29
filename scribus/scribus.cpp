@@ -3174,7 +3174,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		break;
 	}
 	doc->CurrentSel = SelectedType;
-	propertiesPalette->RotationGroup->setCheckedId(doc->RotMode);
+	propertiesPalette->RotationGroup->setCheckedId(doc->RotMode());
 	if (docSelectionCount > 1)
 	{
 		if (!doc->m_Selection->itemsAreSameType())
