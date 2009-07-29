@@ -289,7 +289,7 @@ QString getGSDefaultExeName(void)
 #endif
 #if defined Q_OS_MAC
 	QStringList gsPaths;
-	gsPaths << "/usr/bin/gs" << "/usr/local/bin/gs" << "/opt/local/bin/gs";
+	gsPaths << "/usr/bin/gs" << "/usr/local/bin/gs" << "/opt/local/bin/gs" << "/sw/bin/gs";
 	for (int i = 0; i < gsPaths.size(); ++i)
 	{
 		QFileInfo fInfo(gsPaths.at(i));
