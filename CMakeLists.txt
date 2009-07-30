@@ -500,11 +500,7 @@ INSTALL(FILES
   vnd.scribus.desktop
   DESTINATION ${MIMELNKDIR}
 )
-#Install the desktop file
-#INSTALL(FILES
-#scribus.desktop
-#DESTINATION ${DESKTOPDIR}
-#)
+
 
 # If the cmake version includes cpack, use it
 IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
