@@ -357,9 +357,9 @@ void PDFExportDialog::updateDocOptions()
 					Opts.Encrypt = false;
 					Opts.MirrorH = false;
 					Opts.MirrorV = false;
-					Opts.RotateDeg = 0;
+					//#8306 : PDF/X-3 export ignores rotation setting
+					//Opts.RotateDeg = 0;
 					Opts.PresentMode = false;
-					Opts.Encrypt = false;
 				}
 			}
 			else
