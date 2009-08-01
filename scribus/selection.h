@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QObject>
 #include <QPointer>
+#include <QRectF>
 
 #include "pageitem.h"
 #include "scribusapi.h"
@@ -134,6 +135,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item PageItem reference
 		 */
 		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item==m_SelList.first())); }
+		const SelectionList& selectionList() const {return m_SelList;}
 		PageItem *itemAt(int index=0) { return itemAt_(index); }
 		const PageItem *itemAt(int index=0) const { return const_cast<Selection*>(this)->itemAt_(index); }
 		QStringList getSelectedItemsByName() const;
@@ -144,7 +146,9 @@ class SCRIBUS_API Selection : public QObject
 		//set the group rectangle properties
 		void setGroupRect();
 		void getGroupRect(double *x, double *y, double *w, double *h);
+		QRectF getGroupRect();
 		void getVisualGroupRect(double *x, double *y, double *w, double *h);
+		QRectF getVisualGroupRect();
 		//!\brief Test to see if all items in the selection are the same typedef
 		bool itemsAreSameType() const;
 

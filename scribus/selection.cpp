@@ -460,18 +460,34 @@ void Selection::setGroupRect()
 
 void Selection::getGroupRect(double *x, double *y, double *w, double *h)
 {
+	setGroupRect();
 	*x = groupX;
 	*y = groupY;
 	*w = groupW;
 	*h = groupH;
 }
 
+QRectF Selection::getGroupRect()
+{
+	double x, y, w, h;
+	getGroupRect(&x, &y, &w, &h);
+	return QRectF(x,y,w,h);
+}
+
 void Selection::getVisualGroupRect(double * x, double * y, double * w, double * h)
 {
+	setGroupRect();
 	*x = visualGX;
 	*y = visualGY;
 	*w = visualGW;
 	*h = visualGH;
+}
+
+QRectF Selection::getVisualGroupRect()
+{
+	double x, y, w, h;
+	getGroupRect(&x, &y, &w, &h);
+	return QRectF(x,y,w,h);
 }
 
 bool Selection::itemsAreSameType() const
