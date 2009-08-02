@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdgetprop.h"
 #include "cmdutil.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 
 PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 {

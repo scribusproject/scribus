@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "scplugin.h"
-#include "selection.h"
 
 /** \brief This is a simple "Transform Effect" plugin for Scribus 1.3 and later.
 \author Franz Schmid

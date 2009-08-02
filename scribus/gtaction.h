@@ -32,20 +32,20 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QString>
 
+#include "scribusapi.h"
+
 class PageItem;
 class PrefsManager;
 class ScFace;
-
-#include "gtfont.h"
-#include "gtframestyle.h"
-#include "gtparagraphstyle.h"
-#include "gtstyle.h"
-#include "scribusapi.h"
-
 class CharStyle;
 class ParagraphStyle;
 class ScribusDoc;
 class ScribusMainWindow;
+
+class gtStyle;
+class gtParagraphStyle;
+class gtFont;
+class gtFrameStyle;
 
 typedef QMap<QString, QString> FontFamilyMap;
 

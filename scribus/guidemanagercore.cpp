@@ -16,8 +16,10 @@ for which a new license (GPL+exception) is in place.
 #include "ui/guidemanager.h"
 #include "scclocale.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "pagestructs.h"
 #include "selection.h"
+
 
 
 GuideManagerCore::GuideManagerCore():

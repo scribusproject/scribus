@@ -9,14 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "csvdia.h"
-#include <gtwriter.h>
-#include <gtparagraphstyle.h>
 #include <QByteArray>
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
 #include <QStringList>
 #include <QTextCodec>
+
+class gtParagraphStyle;
+class gtWriter;
 
 extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 

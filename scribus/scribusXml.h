@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include "selection.h"
 #include "styles/styleset.h"
 
 #include <QXmlStreamAttributes>
@@ -36,6 +35,7 @@ class SCFonts;
 class ScribusDoc;
 class ScPattern;
 class ScXmlStreamWriter;
+class Selection;
 
 class SCRIBUS_API ScriXmlDoc
 {
@@ -95,6 +95,7 @@ protected:
 };
 
 #endif // _SCRIBUS_CONFIG_
+
 
 
 

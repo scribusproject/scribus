@@ -24,17 +24,20 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
 ****************************************************************************/
 
-#include <QMessageBox>
-#include <QPixmap>
-#include "pageitem_polygon.h"
 #include "pathfinder.h"
+
+#include "pageitem_polygon.h"
 #include "pathfinderdialog.h"
-#include "ui/propertiespalette.h"
+#include "selection.h"
 #include "scribuscore.h"
 #include "sccolorengine.h"
+#include "ui/propertiespalette.h"
 #include "util_color.h"
 #include "util_math.h"
 #include "util_icon.h"
+
+#include <QMessageBox>
+#include <QPixmap>
 
 int pathfinder_getPluginAPIVersion()
 {

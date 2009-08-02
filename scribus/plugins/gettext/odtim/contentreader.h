@@ -38,9 +38,11 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <QXmlAttributes>
 #include <QMap>
-#include <gtstyle.h>
-#include <gtwriter.h>
-#include "stylereader.h"
+
+class gtStyle;
+class gtWriter;
+class ListStyle;
+class StyleReader;
 
 typedef std::vector<std::pair<QString, QString> > Properties;
 typedef QMap<QString, Properties > TMap;

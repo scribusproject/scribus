@@ -35,6 +35,7 @@ or documentation
 #include "swprefsgui.h"
 #include "scpaths.h"
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "util_icon.h"
 
 int scribusshortwords_getPluginAPIVersion()
@@ -165,4 +166,5 @@ bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent,
 	icon = loadIcon("shortwords.png");
 	return true;
 }
+
 

@@ -26,7 +26,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "subdivide.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "scribusstructs.h"
+#include "selection.h"
 
 int subdivide_getPluginAPIVersion()
 {

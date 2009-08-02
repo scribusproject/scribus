@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
+#include "page.h"
 #include "pageitem.h"
 #include "scimage.h"
 #include "scpageoutput_ps2.h"

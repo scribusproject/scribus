@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <vector>
 #include "scribuscore.h"
+#include "scribusdoc.h"
 
 typedef struct
 {

@@ -25,10 +25,11 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "contentreader.h"
+#include "gtparagraphstyle.h"
 
 #ifdef HAVE_XML
 
-#include <scribusstructs.h>
+#include "scribusstructs.h"
 #include <QByteArray>
 
 ContentReader* ContentReader::creader = NULL;

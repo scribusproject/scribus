@@ -42,8 +42,8 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "vgradientex.h"
 #include "sccolorshade.h"
-#include "scimage.h"
 
+class ScImage;
 class ScPattern;
 
 class SCRIBUS_API ScPainterExBase

@@ -12,8 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QColor>
 #include <QList>
-#include "pageitem.h"
-#include "scribusdoc.h"
+
+class PageItem;
+class ScribusDoc;
 
 class PLUGIN_API PathFinderDialog : public QDialog, Ui::PathFinderBase
 { 

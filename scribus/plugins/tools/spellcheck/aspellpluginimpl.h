@@ -15,16 +15,14 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 #include <QHash>
-// Scribus include files
-#include "scribusdoc.h"           // For ScribusDoc
-#include "scribus.h"              // For ScribusMainWindow
-#include "selection.h"            // Item selected
-#include "prefsfile.h"            // Stored plugin preferences
-#include "prefsmanager.h"         // Preferences manager
 // Local include files
 #include "ui_aspellpluginbase.h"  // For GUI from QT4 designer
 // #include "donedlgimpl.h"          // For spell-checking done dialog
 #include "suggest.h"              // For aspell interface class
+
+class ScribusDoc;
+class PrefsContext;
+class PageItem;
 
 /*!
 \class AspellPluginImpl

@@ -30,9 +30,9 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "pluginapi.h"
 #include "scplugin.h"
-#include "selection.h"
 #include "scribuscore.h"
-#include "scribusdoc.h"
+
+class ScribusDoc;
 
 /** \brief This is a simple "Path Connect" plugin for Scribus 1.3 and later.
 \author Franz Schmid

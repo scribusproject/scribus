@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "scribuscore.h"
 #include "commonstrings.h"
-
+#include "scribusdoc.h"
 
 PyObject *scribus_actualpage(PyObject* /* self */)
 {

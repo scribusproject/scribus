@@ -33,9 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPen>
 #include <QString>
 
-class ScribusDoc;
-
-#include "page.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include CMS_INC
@@ -44,6 +41,8 @@ class ScribusDoc;
 class ScText;
 #endif
 
+class Page;
+class ScribusDoc;
 class PageItem;
 class MultiProgressDialog;
 class ScImage;

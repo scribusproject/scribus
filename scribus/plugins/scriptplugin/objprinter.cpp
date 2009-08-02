@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "pslib.h"
 #include "scpaths.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
 #include "util_printer.h"

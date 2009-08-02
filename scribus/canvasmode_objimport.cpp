@@ -29,6 +29,7 @@
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "ui/pageselector.h"
+#include "ui/scrspinbox.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -205,6 +206,7 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 	m_view->zoomSpinBox->clearFocus();
 	m_view->pageSelector->clearFocus();
 }
+
 
 
 

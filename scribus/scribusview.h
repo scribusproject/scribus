@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 #include <QRectF>
 #include <QTime>
+#include <QTimer>
 #include <QWheelEvent>
 #include <QRubberBand>
 #include <QList>
@@ -64,7 +65,6 @@ class QMimeData;
 #include "observable.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "ui/scrspinbox.h"
 
 class Canvas;
 class CanvasMode;
@@ -73,9 +73,13 @@ class Hruler;
 class Vruler;
 class Page;
 class RulerMover;
+class PageItem;
 class PageSelector;
+class ScribusDoc;
 class ScribusWin;
 class ScribusMainWindow;
+class ScrSpinBox;
+class Selection;
 class UndoManager;
 class UndoTransaction;
 class TransactionSettings;

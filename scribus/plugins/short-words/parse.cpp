@@ -24,6 +24,7 @@ or documentation
 #include "configuration.h"
 
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "page.h"
 #include "pageitem.h"
 #include "selection.h"

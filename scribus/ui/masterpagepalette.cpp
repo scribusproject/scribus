@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "newtemp.h"
 #include "page.h"
 #include "pagestructs.h"
+#include "selection.h"
 #include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusXml.h"
@@ -468,4 +469,5 @@ void MasterPagesPalette::changeEvent(QEvent *e)
 	else
 		QWidget::changeEvent(e);
 }
+
 

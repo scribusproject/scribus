@@ -28,6 +28,7 @@
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "scribusview.h"
+#include "scribusdoc.h"
 #include "util.h"
 #include "util_icon.h"
 

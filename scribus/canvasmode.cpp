@@ -41,6 +41,7 @@
 #include "scpainter.h"
 #include "ui/scresizecursor.h"
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "util_icon.h"
 

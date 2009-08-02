@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "scpaths.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "text/nlsconfig.h"

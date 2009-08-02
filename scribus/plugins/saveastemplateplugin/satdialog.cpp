@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "satdialog.h"
 #include "scribusapi.h"
 
+#include <QDir>
 #include <QXmlDefaultHandler>
 #include <QXmlSimpleReader>
 

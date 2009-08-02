@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "page.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "selection.h"
 
 ScribusMainWindow* Carrier;

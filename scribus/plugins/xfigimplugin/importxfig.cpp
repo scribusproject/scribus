@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
 #include "pagesize.h"
+#include "pageitem.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

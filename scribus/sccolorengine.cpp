@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolorengine.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include CMS_INC
 
 QColor ScColorEngine::getRGBColor(const ScColor& color, const ScribusDoc* doc)

@@ -4,9 +4,13 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "scraction.h"
+
 #include "aspellplugin.h"
 #include "aspellpluginimpl.h"
+#include "scraction.h"
+#include "scribus.h"
+#include "scribusdoc.h"
+#include "pageitem.h"
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.

@@ -28,18 +28,26 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QStringList>
 
-#include "ui/missing.h"
 #include "gtaction.h"
-#include "ui/propertiespalette.h"
-#include "scribus.h"
+#include "gtfont.h"
+#include "gtstyle.h"
+#include "gtparagraphstyle.h"
+#include "gtframestyle.h"
+
 #include "color.h"
+#include "commonstrings.h"
 #include "prefsmanager.h"
 #include "hyphenator.h"
 #include "scclocale.h"
 #include "selection.h"
-#include "commonstrings.h"
-#include "util_icon.h"
 #include "sccolorengine.h"
+#include "scribus.h"
+
+#include "util_icon.h"
+#include "ui/propertiespalette.h"
+#include "ui/missing.h"
+
+
 
 // gtAction::gtAction(bool append)
 // {

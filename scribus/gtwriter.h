@@ -29,10 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "gtaction.h"
-#include "gtfont.h"
-#include "gtframestyle.h"
-#include "gtparagraphstyle.h"
-#include "gtstyle.h"
 
 class PageItem;
 

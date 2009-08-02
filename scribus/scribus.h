@@ -100,6 +100,7 @@ class PropertiesPalette;
 class ReformDoc;
 class ScToolBar;
 class ScrAction;
+class ScribusDoc;
 class ScribusCore;
 class ScribusMainWindow;
 class ScribusQApp;

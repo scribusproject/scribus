@@ -36,7 +36,7 @@ class ScribusDoc;
 
 /**
   *@author Franz Schmid
-  * \brief This Class adds support for CMYK-Colors to QT.
+  * \brief This Class adds support for CMYK-Colors to Qt.
   * its API is based on the API of QColor
   */
 

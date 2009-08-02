@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include "scribusapi.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "util_icon.h"

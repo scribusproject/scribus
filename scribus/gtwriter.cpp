@@ -25,7 +25,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gtwriter.h"
-//#include "scfonts.h"
+#include "gtframestyle.h"
+
 #include "pageitem.h"
 #include "scribusstructs.h"
 

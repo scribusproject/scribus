@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "commonstrings.h"
 #include "scribuscore.h"
-
+#include "scribusdoc.h"
 
 PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 {

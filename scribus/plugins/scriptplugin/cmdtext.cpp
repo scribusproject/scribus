@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "util.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "hyphenator.h"
 
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)

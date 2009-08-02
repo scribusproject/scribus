@@ -11,9 +11,9 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "../../formatidlist.h"
 #include "stylestack.h"
-#include "pageitem.h"
 #include "scribusstructs.h"
 
+class PageItem;
 class ScrAction;
 class ScribusDoc;
 class Selection;

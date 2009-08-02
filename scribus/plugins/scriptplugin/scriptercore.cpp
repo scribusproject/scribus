@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "pconsole.h"
 #include "scraction.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "scpaths.h"
 #include "selection.h"
 #include "prefsfile.h"

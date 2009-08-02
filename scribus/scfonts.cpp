@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "scribus.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #ifdef Q_WS_X11
 #include <X11/X.h>
 #include <X11/Xlib.h>

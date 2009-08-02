@@ -5,30 +5,32 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QLabel>
-#include <QSpinBox>
-#include <QCheckBox>
-#include <QSpacerItem>
-#include <QApplication>
-#include <QCursor>
-#include <QToolTip>
-
 #include "scconfig.h"
 #include "mergedoc.h"
-#include "commonstrings.h"
-#include "ui/customfdialog.h"
+
 #include "fileloader.h"
+#include "commonstrings.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "sccombobox.h"
 #include "scpaths.h"
+#include "ui/customfdialog.h"
 #include "util_icon.h"
+
+#include <QApplication>
+#include <QCheckBox>
+#include <QCursor>
+#include <QDir>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QSpinBox>
+#include <QToolTip>
+#include <QVBoxLayout>
 
 MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCount, int currentPage) : QDialog(parent)
 {

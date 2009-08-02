@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "sccolor.h"
 #include "scpainterexbase.h"
+#include "scimage.h"
 
 class ScribusDoc;
 class Page;

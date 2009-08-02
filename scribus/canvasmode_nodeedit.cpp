@@ -23,6 +23,7 @@
 #include "fpoint.h"
 #include "pageitem.h"
 #include "ui/pageselector.h"
+#include "ui/scrspinbox.h"
 #include "scraction.h"
 #include "ui/scrapbookpalette.h"
 #include "scribus.h"
@@ -1286,6 +1287,8 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_doc->regionsChanged()->update(QRectF());
 }
+
+
 
 
 

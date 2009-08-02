@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "lenseffects.h"
 #include "lensdialog.h"
 #include "scribuscore.h"
+#include "selection.h"
 
 int lenseffects_getPluginAPIVersion()
 {

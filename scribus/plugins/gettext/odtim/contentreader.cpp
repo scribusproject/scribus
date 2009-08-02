@@ -28,6 +28,10 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include "contentreader.h"
 #include "scribusstructs.h"
+#include "gtwriter.h"
+#include "gtstyle.h"
+#include "gtparagraphstyle.h"
+#include "stylereader.h"
 
 ContentReader* ContentReader::creader = NULL;
 

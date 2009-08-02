@@ -24,6 +24,8 @@ copyright            : Scribus Team
 
 #include <QDebug>
 #include <QFile>
+#include <QFileInfo>
+#include <QDir>
 #include <QMessageBox>
 
 #include "prefsmanager.h"

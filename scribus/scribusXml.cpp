@@ -35,9 +35,11 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_latexframe.h"
+#include "selection.h"
 #include "units.h"
 #include "prefsmanager.h"
 #include "scribusview.h"
+#include "scribusdoc.h"
 #include "scclocale.h"
 #include "commonstrings.h"
 #include "text/nlsconfig.h"
@@ -2672,4 +2674,5 @@ void ScriXmlDoc::ReadPStyle(QXmlStreamReader& reader, ParagraphStyle &style, Scr
 	if (tabs.count() < 0)
 		style.setTabValues(tabs);
 }
+
 

@@ -20,21 +20,23 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <QCloseEvent>
-#include <QDir>
-#include <QFileInfo>
-#include <QMessageBox>
 
+#include "scribuswin.h"
+#include "scribus.h"
 #include "commonstrings.h"
 #include "fileloader.h"
 #include "ui/masterpagepalette.h"
 #include "ui/pageselector.h"
-#include "scribus.h"
-#include "scribuswin.h"
+#include "ui/scrspinbox.h"
 #include "ui/storyeditor.h"
 #include "util.h"
 #include "util_file.h"
 #include "util_icon.h"
+
+#include <QCloseEvent>
+#include <QDir>
+#include <QFileInfo>
+#include <QMessageBox>
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent)
 {

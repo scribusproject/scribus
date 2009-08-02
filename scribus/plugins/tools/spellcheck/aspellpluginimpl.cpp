@@ -5,6 +5,13 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "aspellpluginimpl.h"
+// Scribus include files
+#include "scribusdoc.h"           // For ScribusDoc
+#include "scribus.h"              // For ScribusMainWindow
+#include "selection.h"            // Item selected
+#include "prefsfile.h"            // Stored plugin preferences
+#include "prefsmanager.h"         // Preferences manager
+#include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "text/specialchars.h"
 #include "util.h"

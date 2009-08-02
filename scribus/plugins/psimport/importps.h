@@ -12,13 +12,13 @@ for which a new license (GPL+exception) is in place.
 #include "qstring.h"
 
 #include "pluginapi.h"
-#include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
 #include <QList>
 #include <QPainterPath>
 
 class MultiProgressDialog;
+class PageItem;
 class ScribusDoc;
 class Selection;
 class TransactionSettings;

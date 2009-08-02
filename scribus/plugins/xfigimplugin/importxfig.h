@@ -12,14 +12,15 @@ for which a new license (GPL+exception) is in place.
 #include "qstring.h"
 
 #include "pluginapi.h"
-#include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
 #include <QList>
+#include <QStack>
 #include <QMatrix>
 #include <QMultiMap>
 
 class MultiProgressDialog;
+class PageItem;
 class ScribusDoc;
 class Selection;
 class TransactionSettings;

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 #include "selection.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "undomanager.h"
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)

@@ -21,10 +21,13 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "pathfinderdialog.h"
+
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "sccolorengine.h"
+#include "scribusdoc.h"
 #include "util.h"
 #include "util_icon.h"
-#include "fpointarray.h"
-#include "sccolorengine.h"
 
 #include <QPixmap>
 #include <QPainter>

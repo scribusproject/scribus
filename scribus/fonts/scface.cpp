@@ -4,17 +4,13 @@
 #include "fonts/scface.h"
 #include "text/storytext.h"
 
+static const QString NONE_LITERAL("(None)");
+
 ScFace::ScFaceData::ScFaceData() : 
 	refs(0), 
 	usage(0), 
-	scName(""),
-	fontFile("(None)"),
+	fontFile(NONE_LITERAL),
 	faceIndex(-1),
-	psName(""),
-	family(""),
-	style(""),
-	variant(""),
-	forDocument(""),
 	status(ScFace::NULLFACE),
 	typeCode(ScFace::UNKNOWN_TYPE),
 	formatCode(ScFace::UNKNOWN_FORMAT),
@@ -133,24 +129,21 @@ FPoint ScFace::ScFaceData::glyphOrigin(uint gl, qreal sz) const
    unicode emulate: spaces, hyphen, ligatures?, diacritics?
  *****/
 
-ScFace::ScFace() :  replacedName(), replacedInDoc()
+ScFace::ScFace() :  m(new ScFaceData())
 {
-	m = new ScFaceData();
 	m->refs = 1;
 	m->usage = 0;
 }
 
 
-ScFace::ScFace(ScFaceData* data) : replacedName(), replacedInDoc()
+ScFace::ScFace(ScFaceData* data) : m(data)
 {
-	m = data;
 	++(m->refs);
 	m->cachedStatus = ScFace::UNKNOWN;
 }
 
-ScFace::ScFace(const ScFace& other) : replacedName(other.replacedName), replacedInDoc(other.replacedInDoc)
+ScFace::ScFace(const ScFace& other) : m(other.m), replacedName(other.replacedName), replacedInDoc(other.replacedInDoc)
 {
-	m = other.m;
 	++(m->refs);
 }
 

@@ -7,20 +7,20 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTAI_H
 #define IMPORTAI_H
 
-#include "qglobal.h"
-#include "qobject.h"
-#include "qstring.h"
-
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
-#include "vgradient.h"
 #include <QList>
 #include <QMatrix>
-// #include <QPainterPath>
+#include <QObject>
+#include <QString>
+
+#include "pluginapi.h"
+
+#include "fpointarray.h"
+#include "sccolor.h"
+#include "text/storytext.h"
+#include "vgradient.h"
 
 class MultiProgressDialog;
+class PageItem;
 class ScribusDoc;
 class Selection;
 class TransactionSettings;

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "documentinformation.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 
 /*
 newDocument(size, margins, orientation, firstPageNumber,

@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusapi.h"
 #include "QByteArray"
-#include "QImage"
+#include <QImage>
 
 class SCRIBUS_API RawImage : public QByteArray
 {

@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "fonts/scfontmetrics.h"
 #include "prefsmanager.h"
 
