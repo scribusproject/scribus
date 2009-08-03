@@ -18,6 +18,25 @@ IF (WANT_DESIGNER)
   ADD_SUBDIRECTORY(designer)
 ENDIF (WANT_DESIGNER)
 
+# We setup something like a group to gather setter related stuff
+# because it could expand into a huge amount of file at some point.
+SET(SCRIBUS_ITEMSETTERS_UI_SRC
+ui/positionsetter.ui
+ui/rotationsetter.ui
+)
+SET(SCRIBUS_ITEMSETTERS_CLASS
+pageitemsettersmanager.h
+ui/pageitempositionsetter.h
+ui/pageitemrotationsetter.h
+)
+SET(SCRIBUS_ITEMSETTERS_SRC
+pageitemsettersmanager.cpp
+ui/openpalette.cpp
+ui/pageitemsetterbase.cpp
+ui/pageitempositionsetter.cpp
+ui/pageitemrotationsetter.cpp
+)
+
 SET(SCRIBUS_UI_SRC
   ui/aboutplugins.ui
   ui/aligndistribute.ui
@@ -92,6 +111,7 @@ SET(SCRIBUS_UI_SRC
   ui/helpbrowsernavigation.ui
   ui/unicodesearch.ui
   ui/useprintermarginsdialog.ui
+  ${SCRIBUS_ITEMSETTERS_UI_SRC}
 )
 
 SET(SCRIBUS_MOC_CLASSES
@@ -341,6 +361,7 @@ SET(SCRIBUS_MOC_CLASSES
   urllauncher.h
   ui/useprintermarginsdialog.h
   ui/vruler.h
+  ${SCRIBUS_ITEMSETTERS_CLASS}
 )
 
 SET(SCRIBUS_SOURCES
@@ -712,6 +733,7 @@ SET(SCRIBUS_SOURCES
   vgradient.cpp
   vgradientex.cpp
   ui/vruler.cpp
+  ${SCRIBUS_ITEMSETTERS_SRC}
 )
 
 IF(WIN32)
