@@ -19,7 +19,15 @@ class SCRIBUS_API BasePointWidget : public QWidget
 
 public:
 	BasePointWidget(QWidget *pa, int mode = 0);
-	~BasePointWidget() {};
+	~BasePointWidget() {}
+	/**
+	  BasePoint values:
+	  0 => top left
+	  1 => top right
+	  2 => center
+	  3 => bottom left
+	  4 => bottom right
+	  */
 	int checkedId();
 	void setCheckedId(int id);
 	void paintEvent(QPaintEvent *e);
