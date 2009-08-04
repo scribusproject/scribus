@@ -32,8 +32,6 @@ class QToolBox;
 class QVBoxLayout;
 class QWidget;
 
-class OpenPaletteView;
-
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -62,8 +60,6 @@ class UserActionSniffer;
 class DashEditor;
 class Selection;
 class BasePointWidget;
-class PageItemPositionSetter;
-class PageItemRotationSetter;
 
 
 struct SCRIBUS_API LineFormatValue
@@ -164,8 +160,6 @@ public:
 	Autoforms* SCustom2;
 	ParaStyleComboBox *paraStyleCombo;
 	CharStyleComboBox *charStyleCombo;
-	QPushButton *paraStyleDumpButton;
-	QPushButton *charStyleDumpButton;
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
@@ -193,9 +187,9 @@ public slots:
 	void SetCurItem(PageItem *i);
 	void unitChange();
 	void setLevel(uint l);
-//	void setXY(double x, double y);
-//	void setBH(double x, double y);
-//	void setR(double r);
+	void setXY(double x, double y);
+	void setBH(double x, double y);
+	void setR(double r);
 	void setRR(double r);
 	void setCols(int r, double g);
 // 	void setLspMode(QAction *);
@@ -254,11 +248,11 @@ public slots:
 
 private slots:
 	void SelTab(int t);
-//	void NewX();
-//	void NewY();
-//	void NewW();
-//	void NewH();
-//	void setRotation();
+	void NewX();
+	void NewY();
+	void NewW();
+	void NewH();
+	void setRotation();
 	void NewCornerRadius();
 	void NewLineSpacing();
 	void HandleGapSwitch();
@@ -325,15 +319,12 @@ private slots:
 	void doGrouping();
 	void dashChange();
 	void flop(int);
-	void createCStyleFromCurrrent();
-	void createPStyleFromCurrent();
-	void newOpenPalette();
 
 protected slots:
 	//virtual void reject();
 	void spinboxStartUserAction();
 	void spinboxFinishUserAction();
-//	void updateSpinBoxConstants();
+	void updateSpinBoxConstants();
 
 signals:
 	void DocChanged();
@@ -397,7 +388,6 @@ protected:
 	QHBoxLayout* glyphExtensionHLayout;
 	QGridLayout* flopLayout;
 	QVBoxLayout* OptMarginsLayout;
-	QVBoxLayout* PalettePageLayout;
 	
 	NameWidget* NameEdit;
 	
@@ -413,14 +403,12 @@ protected:
 	QWidget* page_5b;
 	QWidget* page_6;
 	QWidget* page_group;
-	QWidget* page_palette;
-	PageItemPositionSetter * experimentalPIPS;
-	PageItemRotationSetter * experimentalPIRS;
-//	QLabel* xposLabel;
-//	QLabel* widthLabel;
-//	QLabel* yposLabel;
-//	QLabel* heightLabel;
-//	QLabel* rotationLabel;
+	
+	QLabel* xposLabel;
+	QLabel* widthLabel;
+	QLabel* yposLabel;
+	QLabel* heightLabel;
+	QLabel* rotationLabel;
 	QLabel* basepointLabel;
 	QLabel* LevelTxt;
 	QLabel* SRect;
@@ -472,16 +460,13 @@ protected:
 	QLabel* minGlyphExtensionLabel;
 	QLabel* maxGlyphExtensionLabel;
 
-	QPushButton *openPaletteButton;
-	OpenPaletteView *openPaletteView;
-
 //	LabelButton* colgapLabel;
 	ScComboBox* colgapLabel;
 	StyleSelect* SeStyle;
 	AlignSelect* GroupAlign;
 
 	LinkButton* keepImageWHRatioButton;
-//	LinkButton* keepFrameWHRatioButton;
+	LinkButton* keepFrameWHRatioButton;
 	LinkButton* keepImageDPIRatioButton;
 	LineCombo* LStyle;
 
@@ -560,11 +545,11 @@ protected:
 
 	QListWidget* StyledLine;
 
-//	ScrSpinBox* Width;
-//	ScrSpinBox* Xpos;
-//	ScrSpinBox* Ypos;
-//	ScrSpinBox* Height;
-//	ScrSpinBox* Rotation;
+	ScrSpinBox* Width;
+	ScrSpinBox* Xpos;
+	ScrSpinBox* Ypos;
+	ScrSpinBox* Height;
+	ScrSpinBox* Rotation;
 	ScrSpinBox* RoundRect;
 	ScrSpinBox* dGap;
 	ScrSpinBox* DTop;
