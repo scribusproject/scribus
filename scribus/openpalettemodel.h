@@ -18,45 +18,47 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef PAGEITEMSETTERSMANAGER_H
-#define PAGEITEMSETTERSMANAGER_H
+#ifndef OPENPALETTEMODEL_H
+#define OPENPALETTEMODEL_H
 
-#include <QObject>
-#include <QList>
+#include <QAbstractItemModel>
 
-class PageItemSetterBase;
-class PageItem;
-class Selection;
-class ScribusDoc;
+
 
 /**
-  PageItemSettersManager acts as a registry for page item setters.
-  Notifying setters of document changes (selection, units, etc.).
+  * Provides a model to attach to a treeview representing
+  * the state of open palettes configuration.
+  * Its own data being actually hold by OpenPaletteManager,
+  * so most of the implementations of virtual methods are in fact
+  * forwarded to OpenPaletteManager.
   */
 
-class PageItemSettersManager : public QObject
+class OpenPaletteModel : public QAbstractItemModel
 {
 	Q_OBJECT
-
-	static PageItemSettersManager * instance;
-	static PageItemSettersManager * that();
-
-	PageItemSettersManager(QObject * parent = 0);
-
-	QList<PageItemSetterBase*> setters;
-	Selection * selection;
-	ScribusDoc * doc;
-
+	OpenPaletteModel(){}
 public:
-	static void registerSetter(PageItemSetterBase* base);
-	static void setSelection(Selection* selection);
-	static PageItemSetterBase* getClone(const QString& type);
+	OpenPaletteModel( QObject * parent );
 
-private slots:
-	void UnRegisterSetter();
-	void rotationModeChanged(int);
-	void updateSelection();
+	/// Standard reimplementations for an abstract item model (read-only)
+	QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+	QModelIndex parent ( const QModelIndex & index ) const;
+	Qt::ItemFlags flags ( const QModelIndex & index ) const;
+	QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+	QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
+	int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
+	int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
+
+	// write
+	bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
+
+
+private:
+	bool isTopIndex(const QModelIndex & index) const;
+
+public slots:
+	void paletteChanged();
 
 };
 
-#endif // PAGEITEMSETTERSMANAGER_H
+#endif // OPENPALETTEMODEL_H

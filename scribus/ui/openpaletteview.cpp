@@ -18,45 +18,24 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef PAGEITEMSETTERSMANAGER_H
-#define PAGEITEMSETTERSMANAGER_H
+#include "openpaletteview.h"
+#include "openpalettemodel.h"
 
-#include <QObject>
-#include <QList>
-
-class PageItemSetterBase;
-class PageItem;
-class Selection;
-class ScribusDoc;
-
-/**
-  PageItemSettersManager acts as a registry for page item setters.
-  Notifying setters of document changes (selection, units, etc.).
-  */
-
-class PageItemSettersManager : public QObject
+OpenPaletteView::OpenPaletteView(QWidget * parent)
+		:QTreeView(parent)
 {
-	Q_OBJECT
+	setModel(new OpenPaletteModel(parent));
+	connect(model(), SIGNAL(layoutChanged()), this, SLOT(adjustView()));
+}
 
-	static PageItemSettersManager * instance;
-	static PageItemSettersManager * that();
+OpenPaletteView::~OpenPaletteView()
+{
+	delete model();
+}
 
-	PageItemSettersManager(QObject * parent = 0);
-
-	QList<PageItemSetterBase*> setters;
-	Selection * selection;
-	ScribusDoc * doc;
-
-public:
-	static void registerSetter(PageItemSetterBase* base);
-	static void setSelection(Selection* selection);
-	static PageItemSetterBase* getClone(const QString& type);
-
-private slots:
-	void UnRegisterSetter();
-	void rotationModeChanged(int);
-	void updateSelection();
-
-};
-
-#endif // PAGEITEMSETTERSMANAGER_H
+void OpenPaletteView::adjustView()
+{
+	int cCount(model()->columnCount());
+	for(int i(0); i < cCount; ++i)
+		resizeColumnToContents(i);
+}

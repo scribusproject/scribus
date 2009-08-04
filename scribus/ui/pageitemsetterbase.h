@@ -24,7 +24,7 @@
 
 #include <QWidget>
 #include <QString>
-#include <QUuid>
+
 
 //Not exactly clear what would be the best but we go for the Selection atm -pm
 //class PageItem;
@@ -37,7 +37,7 @@ class Selection;
 * note about dragging:
 * this base class is expected to handle propper dragging, droppers
 * must ask the pageitemsettersmanager a clone of a dropped setter based
-* on the uuid.
+* on the name.
 *
 */
 class PageItemSetterBase : public QWidget
@@ -55,20 +55,19 @@ public:
 	virtual void changeItem(Selection*) = 0;
 
 	/**
-	  * Return a group name which can be used to assossiate setters
+	  * Return a full name which first identifies the type of a setter and can be used to assossiate setters
 	  * and generally help the caller to layout widgets (think pages in PP as of 2009 :)
+	  * Prototype of a name could be (retaining actual layout in PP):
+	  * type.group.page or the reverse page.group.type
 	  */
-	virtual QString group() const = 0;
+//	let put this in objectName which is yet available.
+//	virtual QString name() const = 0;
 
 	/**
 	  * Return a setter on same property
 	  */
 	virtual PageItemSetterBase* clone() = 0;
 
-	/**
-	  * Return identifier for this setter
-	  */
-	QUuid uuid() const {return m_uuid;}
 
 protected:
 	QPoint startDragPoint;
@@ -80,9 +79,6 @@ protected:
 	  * on the widget itself disables dragging.
 	  */
 	virtual void activate(const bool& act);
-
-private:
-	const QUuid m_uuid;
 
 };
 #endif // PAGEITEMSETTERBASE_H

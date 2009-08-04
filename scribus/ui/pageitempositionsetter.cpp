@@ -32,6 +32,7 @@ PageItemPositionSetter::PageItemPositionSetter(QWidget * parent)
 		:PageItemSetterBase(parent), m_select(0), hasConnections(false)
 {
 	setupUi(this);
+	setObjectName("XYZ.geometry.position");
 	refineSetup();
 	activate(false);
 	PageItemSettersManager::registerSetter(this);
@@ -43,11 +44,6 @@ void PageItemPositionSetter::refineSetup()
 	keepFrameWHRatioButton->setAutoRaise( true );
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setChecked(true);
-}
-
-QString PageItemPositionSetter::group() const
-{
-	return QString("XYZ");
 }
 
 PageItemSetterBase * PageItemPositionSetter::clone()

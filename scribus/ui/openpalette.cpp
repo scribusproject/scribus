@@ -21,18 +21,28 @@
 #include "openpalette.h"
 #include "pageitemsettersmanager.h"
 #include "ui/pageitemsetterbase.h"
+#include "prefsfile.h"
+#include "scpaths.h"
 
 #include <QDragEnterEvent>
 #include <QDropEvent>
-#include <QUuid>
+#include <QCloseEvent>
 #include <QRect>
 #include <QDebug>
 
 OpenPalette::OpenPalette(QWidget * parent)
-		:ScrPaletteBase(parent)
+#if QT_VERSION >= 0x040500
+	: QDialog ( parent, Qt::Tool | Qt::CustomizeWindowHint
+			| Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint
+			| Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint )
+#else
+	: QDialog ( parent, Qt::Tool | Qt::CustomizeWindowHint
+			| Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint
+			| Qt::WindowSystemMenuHint | Qt::WindowType(0x08000000))
+#endif
 {
 	setAcceptDrops(true);
-	setAttribute ( Qt::WA_DeleteOnClose );
+//	setAttribute ( Qt::WA_DeleteOnClose );
 	setWindowTitle(tr("empty palette"));
 	if(parent)
 		setGeometry(QRect(parent->x(),parent->y(), 300, 200));
@@ -41,17 +51,73 @@ OpenPalette::OpenPalette(QWidget * parent)
 	mainLayout = new QVBoxLayout(this);
 }
 
+QStringList OpenPalette::hostedList() const
+{
+	QStringList retL;
+	foreach(PageItemSetterBase  * b, hosted)
+	{
+		retL << b->objectName();
+	}
+	return retL;
+}
+
+void OpenPalette::setHosted(const QStringList& sList)
+{
+	foreach(PageItemSetterBase  * b, hosted)
+	{
+		delete b;
+	}
+	hosted.clear();
+
+	foreach(QString oName, sList)
+	{
+		PageItemSetterBase * base(PageItemSettersManager::getClone(oName));
+		if(base)
+		{
+			mainLayout->addWidget(base);
+			hosted << base;
+		}
+	}
+	QStringList gList;
+	foreach(PageItemSetterBase  * b, hosted)
+	{
+		QStringList fn(b->objectName().split("."));
+		if(fn.count() > 0)
+		{
+			if(!gList.contains(fn.first()))
+				gList << fn.first();
+		}
+	}
+	setWindowTitle(gList.join("/"));
+}
+
+void OpenPalette::closeEvent(QCloseEvent * event)
+{
+	event->ignore();
+	hide();
+}
+
+void OpenPalette::showEvent(QShowEvent *event)
+{
+	QDialog::show();
+	emit changed();
+}
+
+void OpenPalette::hideEvent(QHideEvent *event)
+{
+	QDialog::hide();
+	emit changed();
+}
 
 void OpenPalette::dragEnterEvent( QDragEnterEvent *event )
 {
 	if (event->mimeData()->hasFormat("text/x-scribus-palette-item"))
 	{
 		// prevent copy of an item already present
-		QString uidText(event->mimeData()->data("text/x-scribus-palette-item"));
-		QUuid pid(uidText);
+		QString oName(QString::fromUtf8(event->mimeData()->data("text/x-scribus-palette-item")));
 		foreach(PageItemSetterBase  * b, hosted)
 		{
-			if(b->uuid() == pid)
+			if(b->objectName() == oName)
 				return;
 		}
 		event->acceptProposedAction();
@@ -63,13 +129,12 @@ void OpenPalette::dragEnterEvent( QDragEnterEvent *event )
 
 void OpenPalette::dropEvent ( QDropEvent * event )
 {
-	QString uidText(event->mimeData()->data("text/x-scribus-palette-item"));
-	QUuid pid(uidText);
-	if(pid.isNull())
+	QString oName(QString::fromUtf8(event->mimeData()->data("text/x-scribus-palette-item")));
+	if(oName.isEmpty())
 		qDebug()<<"Dropped a Null setter uuid on Open Palette";
 	else
 	{
-		PageItemSetterBase * base(PageItemSettersManager::getClone(pid));
+		PageItemSetterBase * base(PageItemSettersManager::getClone(oName));
 		if(base)
 		{
 			mainLayout->addWidget(base);
@@ -77,8 +142,12 @@ void OpenPalette::dropEvent ( QDropEvent * event )
 			QStringList gList;
 			foreach(PageItemSetterBase  * b, hosted)
 			{
-				if(!gList.contains(b->group()))
-					gList << b->group();
+				QStringList fn(b->objectName().split("."));
+				if(fn.count() > 0)
+				{
+					if(!gList.contains(fn.first()))
+						gList << fn.first();
+				}
 			}
 			setWindowTitle(gList.join("/"));
 		}

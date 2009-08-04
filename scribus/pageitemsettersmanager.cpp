@@ -59,7 +59,7 @@ void PageItemSettersManager::registerSetter(PageItemSetterBase * base)
 void PageItemSettersManager::UnRegisterSetter()
 {
 	PageItemSetterBase * base = reinterpret_cast<PageItemSetterBase*>(sender());
-	that()->setters.removeAll(base);
+	setters.removeAll(base);
 }
 
 void PageItemSettersManager::setSelection(Selection * sel)
@@ -83,11 +83,11 @@ void PageItemSettersManager::setSelection(Selection * sel)
 	}
 }
 
-PageItemSetterBase* PageItemSettersManager::getClone(const QUuid& uuid)
+PageItemSetterBase* PageItemSettersManager::getClone(const QString& type)
 {
 	foreach(PageItemSetterBase* base, that()->setters)
 	{
-		if(base->uuid() == uuid)
+		if(base->objectName() == type)
 			return base->clone();
 	}
 	return 0;

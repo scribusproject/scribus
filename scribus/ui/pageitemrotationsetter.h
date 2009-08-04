@@ -35,7 +35,6 @@ public:
 	PageItemRotationSetter(QWidget * parent = 0);
 
 	void changeItem(Selection* sel);
-	QString group() const;
 	PageItemSetterBase * clone();
 
 private:

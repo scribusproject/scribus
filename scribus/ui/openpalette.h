@@ -23,6 +23,7 @@
 
 #include "ui/scrpalettebase.h"
 
+#include <QDialog>
 #include <QList>
 #include <QVBoxLayout>
 
@@ -33,18 +34,30 @@ class PageItemSetterBase;
   * and in some extent to serialize its content and
   * layout in order to reload it over sessions
   */
-class OpenPalette : public ScrPaletteBase
+class OpenPalette : public QDialog
 {
+	Q_OBJECT
+
+	OpenPalette(){}
 public:
 	OpenPalette(QWidget * parent);
+	~OpenPalette(){}
+	QStringList hostedList() const;
+	void setHosted(const QStringList& sList);
 
 protected:
+	void closeEvent(QCloseEvent *event);
+	void showEvent(QShowEvent *event);
+	void hideEvent(QHideEvent *event);
 	void dragEnterEvent( QDragEnterEvent *event );
 	void dropEvent ( QDropEvent * event );
 
 private:
 	QList<PageItemSetterBase*> hosted;
 	QVBoxLayout * mainLayout;
+
+signals:
+	void changed();
 
 };
 

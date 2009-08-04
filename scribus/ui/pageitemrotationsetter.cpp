@@ -29,14 +29,10 @@ PageItemRotationSetter::PageItemRotationSetter(QWidget * parent )
 		:PageItemSetterBase(parent), m_select(0), connectedItem(0)
 {
 	setupUi(this);
+	setObjectName("XYZ.geometry.rotation");
 	refineSetup();
 	activate(false);
 	PageItemSettersManager::registerSetter(this);
-}
-
-QString PageItemRotationSetter::group()const
-{
-	return QString("XYZ");
 }
 
 PageItemSetterBase * PageItemRotationSetter::clone()

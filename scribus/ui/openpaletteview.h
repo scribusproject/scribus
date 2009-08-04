@@ -18,45 +18,26 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef PAGEITEMSETTERSMANAGER_H
-#define PAGEITEMSETTERSMANAGER_H
+#ifndef OPENPALETTEVIEW_H
+#define OPENPALETTEVIEW_H
 
-#include <QObject>
-#include <QList>
-
-class PageItemSetterBase;
-class PageItem;
-class Selection;
-class ScribusDoc;
+#include <QTreeView>
 
 /**
-  PageItemSettersManager acts as a registry for page item setters.
-  Notifying setters of document changes (selection, units, etc.).
+  * A widget to operate on OpenPaletteManager
   */
 
-class PageItemSettersManager : public QObject
+class OpenPaletteView : public QTreeView
 {
 	Q_OBJECT
 
-	static PageItemSettersManager * instance;
-	static PageItemSettersManager * that();
-
-	PageItemSettersManager(QObject * parent = 0);
-
-	QList<PageItemSetterBase*> setters;
-	Selection * selection;
-	ScribusDoc * doc;
-
+	OpenPaletteView(){}
 public:
-	static void registerSetter(PageItemSetterBase* base);
-	static void setSelection(Selection* selection);
-	static PageItemSetterBase* getClone(const QString& type);
+	OpenPaletteView(QWidget * parent);
+	~OpenPaletteView();
 
 private slots:
-	void UnRegisterSetter();
-	void rotationModeChanged(int);
-	void updateSelection();
-
+	void adjustView();
 };
 
-#endif // PAGEITEMSETTERSMANAGER_H
+#endif // OPENPALETTEVIEW_H

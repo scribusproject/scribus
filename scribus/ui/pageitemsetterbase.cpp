@@ -27,7 +27,7 @@
 #include <QPixmap>
 
 PageItemSetterBase::PageItemSetterBase(QWidget * parent)
-		:QWidget(parent), m_uuid(QUuid::createUuid())
+		:QWidget(parent)
 {
 }
 
@@ -48,7 +48,7 @@ void PageItemSetterBase::mouseMoveEvent(QMouseEvent * event)
 	QDrag *drag = new QDrag(this);
 	QMimeData *mimeData = new QMimeData;
 
-	mimeData->setData("text/x-scribus-palette-item", m_uuid.toString().toAscii());
+	mimeData->setData("text/x-scribus-palette-item", objectName().toUtf8());
 	drag->setPixmap(QPixmap::grabWidget(this, rect()));
 	drag->setMimeData(mimeData);
 
