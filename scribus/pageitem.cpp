@@ -532,7 +532,6 @@ void PageItem::setXPos(const double newXPos, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	updateClip();
 	emit position(Xpos, Ypos);
 }
 
@@ -542,7 +541,6 @@ void PageItem::setYPos(const double newYPos, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	updateClip();
 	emit position(Xpos, Ypos);
 }
 
@@ -553,7 +551,6 @@ void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawing
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	updateClip();
 	emit position(Xpos, Ypos);
 }
 
@@ -569,7 +566,6 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	updateClip();
 	emit position(Xpos, Ypos);
 }
 
@@ -578,7 +574,6 @@ void PageItem::setWidth(const double newWidth)
 	Width = newWidth;
 	updateConstants();
 	checkChanges();
-	updateClip();
 	emit widthAndHeight(Width, Height);
 }
 
@@ -587,7 +582,6 @@ void PageItem::setHeight(const double newHeight)
 	Height = newHeight;
 	updateConstants();
 	checkChanges();
-	updateClip();
 	emit widthAndHeight(Width, Height);
 }
 
@@ -599,7 +593,6 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight, boo
 	if (drawingOnly)
 		return;
 	checkChanges();
-	updateClip();
 	emit widthAndHeight(Width, Height);
 }
 
@@ -609,7 +602,6 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 	Height = newHeight;
 	updateConstants();
 	checkChanges();
-	updateClip();
 	emit widthAndHeight(Width, Height);
 }
 
@@ -623,7 +615,6 @@ void PageItem::resizeBy(const double dH, const double dW)
 		Height+=dW;
 	updateConstants();
 	checkChanges();
-	updateClip();
 	emit widthAndHeight(Width, Height);
 }
 
@@ -5087,7 +5078,6 @@ void PageItem::setFileIconRollover(QString val)
 
 QRect PageItem::getRedrawBounding(const double viewScale)
 {
-	setRedrawBounding();
 	int x = qRound(floor(BoundingX - Oldm_lineWidth / 2.0 - 5) * viewScale);
 	int y = qRound(floor(BoundingY - Oldm_lineWidth / 2.0 - 5) * viewScale);
 	int w = qRound(ceil(BoundingW + Oldm_lineWidth + 10) * viewScale);
