@@ -1786,11 +1786,13 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				ite =PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
-				double x = pag->xOffset();
-				double y = pag->yOffset();
-				double w = pag->width();
-				double h1 = pag->height();
-				double ilw=ite->lineWidth();
+				double bLeft, bRight, bBottom, bTop;
+				getBleeds(pag, bLeft, bRight, bBottom, bTop);
+				double x  = pag->xOffset() - bLeft;
+				double y  = pag->yOffset() - bTop;
+				double w  = pag->width() + bLeft + bRight;
+				double h1 = pag->height() + bBottom + bTop;
+				double ilw= ite->lineWidth();
 				double x2 = ite->BoundingX - ilw / 2.0;
 				double y2 = ite->BoundingY - ilw / 2.0;
 				double w2 = ite->BoundingW + ilw;
@@ -2140,36 +2142,14 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::Multiple:
 						Q_ASSERT(false);
 						break;
-					}
+				}
 				PutPage("Q\n");
 				uint templateObject = newObject();
 				StartObj(templateObject);
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 				double bleedRight = 0.0;
-				double bleedLeft = 0.0;
-				if (doc.pageSets[doc.currentPageLayout].Columns == 1)
-				{
-					bleedRight = Options.bleeds.Right;
-					bleedLeft = Options.bleeds.Left;
-				}
-				else
-				{
-					if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
-					{
-						bleedRight = Options.bleeds.Left;
-						bleedLeft = Options.bleeds.Right;
-					}
-					else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
-					{
-						bleedRight = Options.bleeds.Right;
-						bleedLeft = Options.bleeds.Left;
-					}
-					else
-					{
-						bleedRight = Options.bleeds.Left;
-						bleedLeft = Options.bleeds.Left;
-					}
-				}
+				double bleedLeft  = 0.0;
+				getBleeds(ActPageP, bleedLeft, bleedRight);
 				double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 				double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
 				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
@@ -2227,8 +2207,8 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					QMap<QString,SpotC>::Iterator it3sc;
 					if (spotMap.count() != 0)
 					{
-					for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-						PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
+						for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+							PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
 					}
 					PutDoc(">>\n");
 				}
@@ -2242,10 +2222,10 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				int pIndex   = doc.MasterPages.indexOf((Page* const) pag) + 1;
 				QString name = QString("master_page_obj_%1_%2").arg(pIndex).arg(ite->ItemNr);
 				Seite.XObjects[name] = templateObject;
-				}
-				if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
-					PutPage("EMC\n");
 			}
+			if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
+				PutPage("EMC\n");
+		}
 		Lnr++;
 	}
 	return true;
@@ -2293,31 +2273,8 @@ void PDFLibCore::PDF_End_Page()
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
 		markOffs = 20.0 + Options.markOffset;
-	double bleedRight;
-	double bleedLeft;
-	if (doc.pageSets[doc.currentPageLayout].Columns == 1)
-	{
-		bleedRight = Options.bleeds.Right;
-		bleedLeft = Options.bleeds.Left;
-	}
-	else
-	{
-		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Right;
-		}
-		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
-		{
-			bleedRight = Options.bleeds.Right;
-			bleedLeft = Options.bleeds.Left;
-		}
-		else
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Left;
-		}
-	}
+	double bleedRight, bleedLeft;
+	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPageP->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
 	// (JG) Fix #5977 and #6075 (invalid restore)
@@ -2749,29 +2706,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		markOffs = 20.0 + Options.markOffset;
 	if (!pag->MPageNam.isEmpty())
 	{
-		if (doc.pageSets[doc.currentPageLayout].Columns == 1)
-		{
-			bleedRight = Options.bleeds.Right;
-			bleedLeft = Options.bleeds.Left;
-		}
-		else
-		{
-			if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
-			{
-				bleedRight = Options.bleeds.Left;
-				bleedLeft = Options.bleeds.Right;
-			}
-			else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
-			{
-				bleedRight = Options.bleeds.Right;
-				bleedLeft = Options.bleeds.Left;
-			}
-			else
-			{
-				bleedRight = Options.bleeds.Left;
-				bleedLeft = Options.bleeds.Left;
-			}
-		}
+		getBleeds(ActPageP, bleedLeft, bleedRight);
 		PutPage("1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
 		bleedDisplacementX = bleedLeft+markOffs;
 		bleedDisplacementY = Options.bleeds.Bottom+markOffs;
@@ -2991,11 +2926,13 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					continue;
 				if (!ite->isTableItem)
 					continue;
-				double x = pag->xOffset();
-				double y = pag->yOffset();
-				double w = pag->width();
-				double h1 = pag->height();
-				double ilw=ite->lineWidth();
+				double bLeft, bRight, bBottom, bTop;
+				getBleeds(ActPageP, bLeft, bRight, bBottom, bTop);
+				double x  = pag->xOffset() - bLeft;
+				double y  = pag->yOffset() - bTop;
+				double w  = pag->width()  + bLeft + bRight;
+				double h1 = pag->height() + bBottom + bTop;
+				double ilw= ite->lineWidth();
 				double x2 = ite->BoundingX - ilw / 2.0;
 				double y2 = ite->BoundingY - ilw / 2.0;
 				double w2 = qMax(ite->BoundingW + ilw, 1.0);
@@ -3032,30 +2969,8 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				StartObj(formObject);
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 				double bleedRight = 0.0;
-				double bleedLeft = 0.0;
-				if (doc.pageSets[doc.currentPageLayout].Columns == 1)
-				{
-					bleedRight = Options.bleeds.Right;
-					bleedLeft = Options.bleeds.Left;
-				}
-				else
-				{
-					if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
-					{
-						bleedRight = Options.bleeds.Left;
-						bleedLeft = Options.bleeds.Right;
-					}
-					else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
-					{
-						bleedRight = Options.bleeds.Right;
-						bleedLeft = Options.bleeds.Left;
-					}
-					else
-					{
-						bleedRight = Options.bleeds.Left;
-						bleedLeft = Options.bleeds.Left;
-					}
-				}
+				double bleedLeft  = 0.0;
+				getBleeds(ActPageP, bleedLeft, bleedRight);
 				double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 				double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
 				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
@@ -3102,30 +3017,8 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	StartObj(formObject);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 	double bleedRight = 0.0;
-	double bleedLeft = 0.0;
-	if (doc.pageSets[doc.currentPageLayout].Columns == 1)
-	{
-		bleedRight = Options.bleeds.Right;
-		bleedLeft = Options.bleeds.Left;
-	}
-	else
-	{
-		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Right;
-		}
-		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
-		{
-			bleedRight = Options.bleeds.Right;
-			bleedLeft = Options.bleeds.Left;
-		}
-		else
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Left;
-		}
-	}
+	double bleedLeft  = 0.0;
+	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 	double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
 	PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
@@ -3243,10 +3136,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 {
 	QString tmp(""), tmpOut;
 	ite->setRedrawBounding();
-	double x = pag->xOffset();
-	double y = pag->yOffset();
-	double w = pag->width();
-	double h1 = pag->height();
+	double bLeft, bRight, bBottom, bTop;
+	getBleeds(pag, bLeft, bRight, bBottom, bTop);
+	double x  = pag->xOffset() - bLeft;
+	double y  = pag->yOffset() - bTop;
+	double w  = pag->width() + bLeft + bRight;
+	double h1 = pag->height()+ bBottom + bTop;
 	double ilw=ite->lineWidth();
 	double x2 = ite->BoundingX - ilw / 2.0;
 	double y2 = ite->BoundingY - ilw / 2.0;
@@ -5081,6 +4976,40 @@ QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 		}
 	}
 	return tmp;
+}
+
+void PDFLibCore::getBleeds(const Page* page, double &left, double &right)
+{
+	if (doc.pageSets[doc.currentPageLayout].Columns == 1)
+	{
+		right = Options.bleeds.Right;
+		left  = Options.bleeds.Left;
+	}
+	else
+	{
+		if (doc.locationOfPage(page->pageNr()) == LeftPage)
+		{
+			right = Options.bleeds.Left;
+			left = Options.bleeds.Right;
+		}
+		else if (doc.locationOfPage(page->pageNr()) == RightPage)
+		{
+			right = Options.bleeds.Right;
+			left = Options.bleeds.Left;
+		}
+		else
+		{
+			right = Options.bleeds.Left;
+			left = Options.bleeds.Left;
+		}
+	}
+}
+
+void PDFLibCore::getBleeds(const Page* page, double &left, double &right, double &bottom, double& top)
+{
+	getBleeds(page, left, right);
+	bottom = Options.bleeds.Bottom;
+	top    = Options.bleeds.Top;
 }
 
 QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
