@@ -331,7 +331,7 @@ void ColorList::copyColors(const ColorList& colorList, bool overwrite)
 	addColors(colorList, overwrite);
 }
 
-ScribusDoc* ColorList::document(void)
+ScribusDoc* ColorList::document(void) const
 { 
 	return m_doc;
 }
