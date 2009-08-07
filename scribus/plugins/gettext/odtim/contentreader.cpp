@@ -44,6 +44,7 @@ ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, 
 	currentStyle = NULL;
 	inList = false;
 	inNote = false;
+	inAnnotation = false;
 	inNoteBody = false;
 	inSpan = false;
 	append = 0;
@@ -128,6 +129,8 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 			write(currentListStyle->bullet());
 		}
 	}
+	else if (name == "office:annotation")
+		inAnnotation = true;
 	else if (name == "text:note")
 		inNote = true;
 	else if (name == "text:note-body")
@@ -199,7 +202,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 // 		qDebug("TPTH");
 		write("\n");
 		--append;
-		if (inList || inNote || inNoteBody)
+		if (inList || inAnnotation || inNote || inNoteBody)
 		{
 			if(static_cast<int>(styleNames.size()) > 0)
 				styleNames.pop_back();
@@ -215,6 +218,10 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		if (styleNames.size() != 0)
 			styleNames.pop_back();	
 		currentStyle = sreader->getStyle(getName());
+	}
+	else if (name == "office:annotation")
+	{
+		inAnnotation = false;
 	}
 	else if (name == "text:note")
 	{
@@ -269,7 +276,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 
 void ContentReader::write(const QString& text)
 {
-	if (!inNote && !inNoteBody) // Disable notes import for now
+	if (!inNote && !inNoteBody && !inAnnotation) // Disable notes import for now
 	{
 		if (importTextOnly)
 			writer->appendUnstyled(text);

@@ -59,6 +59,7 @@ private:
 	gtStyle *pstyle;
 	bool importTextOnly;
 	bool inList;
+	bool inAnnotation;
 	bool inNote;
 	bool inNoteBody;
 	bool inSpan;
