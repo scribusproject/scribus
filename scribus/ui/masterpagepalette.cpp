@@ -257,17 +257,26 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->m_Selection->clear();
 		if (oldItems>0)
 		{
+			ScLayers::iterator it;
 			currentDoc->m_Selection->delaySignalsOn();
-			for (uint ite = 0; ite < oldItems; ++ite)
+			for (it = currentDoc->Layers.begin(); it != currentDoc->Layers.end(); ++it)
 			{
-				PageItem *itemToCopy = currentDoc->Items->at(ite);
-				if (itemToCopy->OwnPage == inde)
-					currentDoc->m_Selection->addItem(itemToCopy, true);
+				for (uint ite = 0; ite < oldItems; ++ite)
+				{
+					PageItem *itemToCopy = currentDoc->Items->at(ite);
+					if (itemToCopy->OwnPage == inde && (it->LNr == itemToCopy->LayerNr))
+						currentDoc->m_Selection->addItem(itemToCopy, true);
+				}
+				if (currentDoc->m_Selection->count() != 0)
+				{
+					ScriXmlDoc *ss = new ScriXmlDoc();
+					QString buffer = ss->WriteElem(currentDoc, currentView, currentDoc->m_Selection);
+					ss->ReadElemToLayer(buffer, prefsManager->appPrefs.AvailFonts, currentDoc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.GFontSub, currentView, it->LNr);
+					currentDoc->m_Selection->clear();
+					delete ss;
+				}
 			}
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			ss->ReadElem(ss->WriteElem(currentDoc, currentView, currentDoc->m_Selection), prefsManager->appPrefs.AvailFonts, currentDoc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.GFontSub, currentView);
 			currentDoc->m_Selection->clear();
-			delete ss;
 			currentDoc->m_Selection->delaySignalsOff();
 		}
 		uint end3 = currentDoc->MasterItems.count();
