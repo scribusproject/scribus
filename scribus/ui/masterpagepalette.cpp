@@ -248,7 +248,9 @@ void MasterPagesPalette::duplicateMasterPage()
 				destination->initialMargins.Right = from->initialMargins.Right;
 			}
 		}
-		currentDoc->setCurrentPage(destination);
+		//#8321 : incorrect selection of master page on new mp creation/duplictation
+		//currentDoc->setCurrentPage(destination);
+		selectMasterPage(MasterPageName);
 		uint oldItems = currentDoc->Items->count();
 		uint end2 = currentDoc->MasterItems.count();
 		int GrMax = currentDoc->GroupCounter;
@@ -332,7 +334,9 @@ void MasterPagesPalette::newMasterPage()
 			currentDoc->Pages->at(nr)->LeftPg = lp;
 		}
 		updateMasterPageList(MasterPageName);
-		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
+		//#8321 : incorrect selection of master page on new mp creation/duplictation
+		//currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
+		selectMasterPage(MasterPageName);
 		currentView->reformPages();
 	}
 	delete dia;
