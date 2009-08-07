@@ -602,29 +602,7 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 		markOffs = 20.0 + Options.markOffset;
-	if (m_Doc->pageSets[m_Doc->currentPageLayout].Columns == 1)
-	{
-		bleedRight = Options.bleeds.Right;
-		bleedLeft = Options.bleeds.Left;
-	}
-	else
-	{
-		if (m_Doc->locationOfPage(pg->pageNr()) == LeftPage)
-		{
-			bleedRight = Options.bleeds.Right;
-			bleedLeft = Options.bleeds.Left;
-		}
-		else if (m_Doc->locationOfPage(pg->pageNr()) == RightPage)
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Right;
-		}
-		else
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Left;
-		}
-	}
+	GetBleeds(pg, bleedLeft, bleedRight);
 	double maxBoxX = pg->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = pg->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
 	Seiten++;
@@ -673,31 +651,8 @@ void PSLib::PS_end_page()
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 		markOffs = 20.0 + Options.markOffset;
-	double bleedRight;
-	double bleedLeft;
-	if (m_Doc->pageSets[m_Doc->currentPageLayout].Columns == 1)
-	{
-		bleedRight = Options.bleeds.Right;
-		bleedLeft = Options.bleeds.Left;
-	}
-	else
-	{
-		if (m_Doc->locationOfPage(ActPage->pageNr()) == LeftPage)
-		{
-			bleedRight = Options.bleeds.Right;
-			bleedLeft = Options.bleeds.Left;
-		}
-		else if (m_Doc->locationOfPage(ActPage->pageNr()) == RightPage)
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Right;
-		}
-		else
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Left;
-		}
-	}
+	double bleedRight, bleedLeft;
+	GetBleeds(ActPage, bleedLeft, bleedRight);
 	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPage->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
@@ -1948,21 +1903,12 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							ScQApp->processEvents();
 						if ((it->LayerNr != ll.LNr) || (!it->printEnabled()))
 							continue;
-/*						int x = static_cast<int>(Doc->MasterPages.at(ap)->xOffset());
-						int y = static_cast<int>(Doc->MasterPages.at(ap)->yOffset());
-						int w = static_cast<int>(Doc->MasterPages.at(ap)->width());
-						int h = static_cast<int>(Doc->MasterPages.at(ap)->height());
-						double ilw=it->lineWidth();
-						int x2 = static_cast<int>(it->BoundingX - ilw / 2.0);
-						int y2 = static_cast<int>(it->BoundingY - ilw / 2.0);
-						int w2 = static_cast<int>(it->BoundingW + ilw);
-						int h2 = static_cast<int>(it->BoundingH + ilw);
-						if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
-							continue; */
-						double x = Doc->MasterPages.at(ap)->xOffset();
-						double y = Doc->MasterPages.at(ap)->yOffset();
-						double w = Doc->MasterPages.at(ap)->width();
-						double h1 = Doc->MasterPages.at(ap)->height();
+						double bLeft, bRight, bBottom, bTop;
+						GetBleeds(Doc->MasterPages.at(ap), bLeft, bRight, bBottom, bTop);
+						double x  = Doc->MasterPages.at(ap)->xOffset() - bLeft;
+						double y  = Doc->MasterPages.at(ap)->yOffset() - bTop;
+						double w  = Doc->MasterPages.at(ap)->width() + bLeft + bRight;
+						double h1 = Doc->MasterPages.at(ap)->height()+ bBottom + bTop;
 						double ilw = it->lineWidth();
 						double x2 = it->BoundingX - ilw / 2.0;
 						double y2 = it->BoundingY - ilw / 2.0;
@@ -3163,10 +3109,12 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
 				if ((!Art) && (!c->isSelected()) && (Doc->m_Selection->count() != 0))
 					continue;
-				double x = a->xOffset();
-				double y = a->yOffset();
-				double w = a->width();
-				double h1 = a->height();
+				double bLeft, bRight, bBottom, bTop;
+				GetBleeds(a, bLeft, bRight, bBottom, bTop);
+				double x  = a->xOffset() - bLeft;
+				double y  = a->yOffset() - bTop;
+				double w  = a->width() + bLeft + bRight;
+				double h1 = a->height() + bBottom + bTop;
 				double ilw = c->lineWidth();
 				double x2 = c->BoundingX - ilw / 2.0;
 				double y2 = c->BoundingY - ilw / 2.0;
@@ -3216,10 +3164,12 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				continue;
 			if ((!a->pageName().isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 				continue;
-			double x = a->xOffset();
-			double y = a->yOffset();
-			double w = a->width();
-			double h1 = a->height();
+			double bLeft, bRight, bBottom, bTop;
+			GetBleeds(a, bLeft, bRight, bBottom, bTop);
+			double x = a->xOffset() - bLeft;
+			double y = a->yOffset() - bTop;
+			double w = a->width() + bLeft + bRight;
+			double h1 = a->height() + bBottom + bTop;
 			double ilw=c->lineWidth();
 			double x2 = c->BoundingX - ilw / 2.0;
 			double y2 = c->BoundingY - ilw / 2.0;
@@ -4423,6 +4373,40 @@ void PSLib::putColor(const QString& color, double shade, bool fill)
 				PS_stroke();
 		}
 	}
+}
+
+void PSLib::GetBleeds(Page* page, double& left, double& right)
+{
+	if (m_Doc->pageSets[m_Doc->currentPageLayout].Columns == 1)
+	{
+		right = Options.bleeds.Right;
+		left  = Options.bleeds.Left;
+	}
+	else
+	{
+		if (m_Doc->locationOfPage(page->pageNr()) == LeftPage)
+		{
+			right = Options.bleeds.Right;
+			left  = Options.bleeds.Left;
+		}
+		else if (m_Doc->locationOfPage(page->pageNr()) == RightPage)
+		{
+			right = Options.bleeds.Left;
+			left  = Options.bleeds.Right;
+		}
+		else
+		{
+			right = Options.bleeds.Left;
+			left  = Options.bleeds.Left;
+		}
+	}
+}
+
+void PSLib::GetBleeds(Page* page, double& left, double& right, double& bottom, double& top)
+{
+	GetBleeds(page, left, right);
+	bottom = Options.bleeds.Bottom;
+	top    = Options.bleeds.Top;
 }
 
 void PSLib::SetClipPath(FPointArray *c, bool poly)

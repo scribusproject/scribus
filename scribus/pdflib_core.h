@@ -120,6 +120,8 @@ private:
 	QString Write_TransparencyGroup(double trans, int blend, QString &data);
 	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
 	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
+	void    getBleeds(const Page* page, double &left, double &right);
+	void    getBleeds(const Page* page, double &left, double &right, double &bottom, double& top);
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
@@ -290,4 +292,5 @@ protected slots:
 };
 
 #endif
+
 
