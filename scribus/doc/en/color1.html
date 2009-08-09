@@ -3,25 +3,49 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Editing and Importing Colors, Scribus Color Sets</title>
 </head>
-<body>
-<h3>Editing and Importing Colors, Scribus Color Sets</h3>
-<p>Within Scribus there are several methods to create, import and edit colors in a document. Which method to follow, depends on if you need to replicate or import colors from another Scribus document or other third party documents. These third party documents could be an EPS, SVG or other vector format files. Moreover, Scribus has a well developed tool, the Color Wheel plug-in, which helps
- to guide you selecting complementary colors, as well as visualize colors seen by folks with certain kinds of color-blindness.</p>
-<p>Let us start by looking at <strong>Color Sets</strong>:</p>
-<p>By default, Scribus comes with a handful of very useful color sets, which can be used as a basis for creating new colors or color sets. You can then reuse these sets in all future documents. It is helpful to understand the differences between RGB and CMYK color models and I recommend you have color management properly set up and enabled when using CMYK color sets. Remember, true CMYK colors cannot be shown directly on a computer monitor; they can only be simulated. Color Management, when enabled, presents a truer representation of colors when printed using CMYK inks. Note, that most common desktop inkjet printers are actually what we call an RGB device, like a monitor. This is because their drivers expect RGB color data and do the RGB to CMYK conversion internally via the driver and/or a combination of driver/firmware in the printer.</p>
-<p>One other term which is handy to know is in page layout color sets are also known as <em><strong>swatches</strong></em>, much like a swatch book of fabrics or paints.</p>
+<h3>Solid Colors</h3>
+<p>Within Scribus there are several methods to create, import and edit solid colors and color sets in a document. Moreover, Scribus has a well developed tool, the Color Wheel plug-in, which helps with creating creating color harmonies and even testing them for people with colour blindness.</p>
+<h4>Managing Color Sets</h4>
+<p>By default, Scribus comes with a handful of very useful color sets, which can be used as a basis for creating new colors or color sets. You can then reuse these sets in all future documents. It is helpful to understand the differences between RGB and CMYK color models, and it is recommended you have color management properly set up and enabled. Remember, true CMYK colors cannot be shown directly on a computer monitor; they can only be simulated. Color Management, when enabled, presents a truer representation of colors when printed using CMYK inks. Note that most common desktop inkjet printers are actually what is called an RGB device, like a monitor. This is because their drivers expect RGB color data and do the RGB to CMYK conversion internally via the driver and/or a combination of driver/firmware in the printer.</p>
+<p>One other term which is handy to know in page layout is <em>color sets</em>, also known as <em>palettes</em> or <em>swatches</em>, much like swatch books of fabrics or paints.</p>
 <ul>
    <li><strong>Scribus Small</strong> is a set of primary CMYK colors. These are based on a mix of percentages of the standard CMYK inks.  </li>
+<li><strong>Scribus Basic</strong> is a set of primary CMYK and RGB colors, as well as two variants of black, namely "Cool Black" and "Warm Black." The latter consists of a mix of C, M, Y and K colours instead of just 100% K (K=Black).</li>
    <li><strong>Scribus Gnome</strong> is a set of named RGB colors, which are standard on recent Gnome Desktops.  </li>
-   <li><strong>Scribus Open Office</strong> is a set of CMYK colors which are based on the standard colors found in OpenOffice.org applications.</li>
+   <li><strong>Scribus OpenOffice</strong> is a set of CMYK colors which are based on the standard colors found in OpenOffice.org.</li>
    <li><strong>Scribus SVG</strong> is a set of RGB colors based on the named colors from the <a href="http://www.w3.org/TR/css3-color/#svg-color">SVG specification</a>.</li>
-   <li><strong>Scribus X11</strong> is a set of RGB colors based on the named colors from X-Windows</li>
-   <li><strong>Scribus X11</strong> is a set of Grey Scale shades based on the named shades from X-Windows  </li>
+<li><strong>Scribus Splash</strong> is a set of the colours in the Scribus logo and the splashscreen. Its main purpose is to guarantee a consistent use of colors in Scribus-related publications.</li>
+   <li><strong>Scribus X11</strong> is a set of RGB colors based on the named colors from X-Window.</li>
+   <li><strong>Scribus X11</strong> is a set of Grey Scale shades based on the named shades from X-Window.</li>
+<li><strong>Scribus Xfig</strong> is a set of the RGB colors used by Xfig.</li>
+<li>Some of the swatches also contain a color called "Registration." Since this one is only used for printing marks in offset printing, you cannot edit the color.</li>
  </ul>
-<p>You can choose the default color set for all documents by closing all documents and then picking one from the Color Editor Palette.</p>
-<table width="100%"><tr><td align="center"><img src="images/colormanager1.png" title="Scribus' Story Editor" alt="Scribus' Story Editor" /></td></tr></table><br />
+<p>You can choose the default color set for all new documents by closing all documents and then picking one from the Color Editor Palette (Edit > Colors).</p>
+<table width="100%"><tr><td align="center"><img src="images/colormanager1.png" title="Scribus Color Manager" alt="Scribus Color Manager" /></td></tr></table><br />
 <h4>Importing Colors</h4>
-<p>From the Color Manager you can import colors from other Scribus documents or from vector based EPS, PostScript or AI (Adobe Illustrator&#174;) files. This includes spot colors which are special named colors. To import the colors only, click the Import button and then change the file type drop down to show non-Scribus files. </p>
-<p>Not all files will have colors which can be imported, even if they are PostScript based. Why? Not all programs save <a href="http://en.wikipedia.org/wiki/Document_structure_convention">DSC</a> (Document Structure Convention) comments properly and incompatible proprietary extensions which do not follow the Postscript specification properly.</p>
+<p>From the Color Manager you can import colors from other Scribus documents or from vector based EPS, PostScript or AI (Adobe Illustrator&#174;) files, as well as OpenOffice.org (SOC) and GIMP (GPL) palettes, and also spot colors. The latter are colors that are only identified by their name, hence the alternative term "Named Colors." It's up to the printer to reproduce any such color with the help of a color fan and/or a specialized ink vendor.</p>
+<p>To import colors, click the "Import" button and then change the file type drop down to show non-Scribus files. </p>
+<p>Sometimes, colors cannot be imported from a file, even if it's PostScript based. Why? Not all programs save <a href="http://en.wikipedia.org/wiki/Document_structure_convention">DSC</a> (Document Structure Convention) comments properly and incompatible proprietary extensions which do not follow the Postscript specification properly.</p>
+<p>Note that colors in imported vector files will be added automatically to the color set of the current document.</p>
+<h4>Creating New Color Sets</h4>
+<p>To create a new color set, close all documents and open the Color Manager. Choose any palette from the list. Now you can add, remove or import colors. Finally, click on "Save Color Set." Scribus will ask for a name, and after clicking "OK," the new palette is saved. You can now use it in all documents.</p>
+<h4>Replacing Colors</h4>
+<p>It is possible to replace all instances of a solid color in a Scribus document. Just open the replacement dialog (Edit > Replace Colors).</p>
+<table width="100%"><tr><td align="center"><img src="images/replace_colors.png" title="Replacing Colors" alt="Replacing Colors" /></td></tr></table>
+<br>
+<p>The dialog provides three editing options:</p>
+<ul>
+<li><strong>Add...</strong> allows for adding a new color and its substitution.</li>
+<li><strong>Remove</strong> removes a selected color substitution.</li>
+<li><strong>Edit</strong> allows for editing a color substitution.</li>
+</ul>
+<p><em>Note that clicking OK removes all colors in the left column of the dialog shown above from the document irreversibly!</em>
+</p>
+<h4>Removing Colors</h4>
+<p>There are two ways to remove colors from a document, and they serve different purposes.</p>
+<ul>
+<li>To remove a color that's used in a document, use color replacement as described above and choose "None" as the replacement color.</li>
+<li>To remove all colors in a color set that aren't used in the current document, open the Color Manager and click "Remove Unused."</li>
+</ul>
 </body>
 </html>
