@@ -431,6 +431,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.CompressMethod = PDFOptions::Compression_Auto;
 	appPrefs.PDF_Options.Quality = 0;
 	appPrefs.PDF_Options.RecalcPic = false;
+	appPrefs.PDF_Options.embedPDF  = false;
 	appPrefs.PDF_Options.Bookmarks = false;
 	appPrefs.PDF_Options.PicRes = 300;
 	appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
@@ -1594,6 +1595,7 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("Compress", static_cast<int>(appPrefs.PDF_Options.Compress));
 	pdf.setAttribute("CMethod", appPrefs.PDF_Options.CompressMethod);
 	pdf.setAttribute("Quality", appPrefs.PDF_Options.Quality);
+	pdf.setAttribute("EmbedPDF", static_cast<int>(appPrefs.PDF_Options.embedPDF));
 	pdf.setAttribute("MirrorH", static_cast<int>(appPrefs.PDF_Options.MirrorH));
 	pdf.setAttribute("MirrorV", static_cast<int>(appPrefs.PDF_Options.MirrorV));
 	pdf.setAttribute("Clip", static_cast<int>(appPrefs.PDF_Options.doClip));
@@ -2230,6 +2232,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.Compress = static_cast<bool>(dc.attribute("Compress").toInt());
 			appPrefs.PDF_Options.CompressMethod = (PDFOptions::PDFCompression) dc.attribute("CMethod", "0").toInt();
 			appPrefs.PDF_Options.Quality = dc.attribute("Quality", "0").toInt();
+			appPrefs.PDF_Options.embedPDF  = dc.attribute("EmbedPDF", "0").toInt();
 			appPrefs.PDF_Options.RecalcPic = static_cast<bool>(dc.attribute("RecalcPic").toInt());
 			appPrefs.PDF_Options.Bookmarks = static_cast<bool>(dc.attribute("Bookmarks").toInt());
 			appPrefs.PDF_Options.MirrorH = static_cast<bool>(dc.attribute("MirrorH").toInt());
