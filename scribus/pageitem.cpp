@@ -50,7 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include "resourcecollection.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
-#include "scconfig.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scpattern.h"
@@ -382,6 +381,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	switch (m_ItemType)
 	{
 	case ImageFrame:
+	case OSGFrame:
 	case LatexFrame:
 		//We can't determine if this is a latex frame here
 		// because c++'s typeinfos are still saying it's 
@@ -1167,7 +1167,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 //					p->setLineWidth(0);
 				if (!isTableItem)
 				{
-					if ((itemType() == LatexFrame) || (itemType() == ImageFrame))
+					if ((itemType() == LatexFrame) || (itemType() == ImageFrame) || (itemType() == OSGFrame))
 						p->setupPolygon(&PoLine);
 					if (NamedLStyle.isEmpty())
 					{
@@ -1207,7 +1207,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
 		if (!isGroupControl)
 		{
-			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == PathText)))
+			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
 			{
 				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
@@ -1354,6 +1354,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			case ImageFrame:
 			case TextFrame:
 			case LatexFrame:
+			case OSGFrame:
 			case Polygon:
 			case PathText:
 				embedded->DrawObj_Item(p, cullingArea, sc);
@@ -2276,6 +2277,7 @@ void PageItem::setFillColor(const QString &newColor)
 			{
 				case ImageFrame:
 				case LatexFrame:
+				case OSGFrame:
 					tmp = m_Doc->toolSettings.dBrushPict;
 				case TextFrame:
 				case PathText:
@@ -2388,6 +2390,7 @@ void PageItem::setLineColor(const QString &newColor)
 				case Polygon:
 				case ImageFrame:
 				case LatexFrame:
+				case OSGFrame:
 					tmp = m_Doc->toolSettings.dPen;
 					break;
 				default:
@@ -2456,6 +2459,7 @@ void PageItem::setLineQColor()
 				case Polygon:
 				case ImageFrame:
 				case LatexFrame:
+				case OSGFrame:
 					lineColorVal = m_Doc->toolSettings.dPen;
 					break;
 				default:
@@ -2484,6 +2488,7 @@ void PageItem::setFillQColor()
 			{
 				case ImageFrame:
 				case LatexFrame:
+				case OSGFrame:
 					fillColorVal = m_Doc->toolSettings.dBrushPict;
 				case TextFrame:
 				case PathText:
@@ -5561,6 +5566,25 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 	}
 }
 
-
-
+void PageItem::setInlineData(QString data)
+{
+	QByteArray inlineImageData;
+	inlineImageData.append(data);
+	if (inlineImageData.size() > 0)
+	{
+		tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineExt);
+		tempImageFile->open();
+		QString fileName = getLongPathName(tempImageFile->fileName());
+		tempImageFile->close();
+		inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+		QFile outFil(fileName);
+		if (outFil.open(QIODevice::WriteOnly))
+		{
+			outFil.write(inlineImageData);
+			outFil.close();
+			isInlineImage = true;
+			Pfile = fileName;
+		}
+	}
+}
 

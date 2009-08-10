@@ -529,6 +529,12 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 		itemType  = (int) PageItem::TextFrame;
 		frameType = (int) PageItem::Unspecified;
 		break;
+#ifdef HAVE_OSG
+	case modeInsertPDF3DAnnotation:
+		itemType  = (int) PageItem::OSGFrame;
+		frameType = (int) PageItem::Unspecified;
+		break;
+#endif
 	}
 }
 
@@ -544,7 +550,8 @@ PageItem* CreateMode::doCreateNewObject(void)
 		(createObjectMode == modeInsertPDFButton) || (createObjectMode == modeInsertPDFTextfield) ||
 		(createObjectMode == modeInsertPDFTextfield) || (createObjectMode == modeInsertPDFCheckbox) ||
 		(createObjectMode == modeInsertPDFCombobox) || (createObjectMode == modeInsertPDFListbox) ||
-		(createObjectMode == modeInsertPDFTextAnnotation) || (createObjectMode == modeInsertPDFLinkAnnotation))
+		(createObjectMode == modeInsertPDFTextAnnotation) || (createObjectMode == modeInsertPDFLinkAnnotation) ||
+		(createObjectMode == modeInsertPDF3DAnnotation))
 	{
 		skipOneClick = false;
 	}
@@ -854,6 +861,21 @@ PageItem* CreateMode::doCreateNewObject(void)
 			}
 			m_doc->m_Selection->delaySignalsOff();
 		}
+		break;
+	case modeInsertPDF3DAnnotation:
+		if (modifiers == Qt::ShiftModifier)
+		{
+			z = m_doc->itemAddArea(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		}
+		else
+		{
+			m_doc->ApplyGuides(&Rxp, &Ryp);
+			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		}
+		currItem = m_doc->Items->at(z);
+		currItem->setIsAnnotation(true);
+		currItem->AutoName = false;
+		currItem->annotation().setType(12);
 		break;
 	}
 	if (z >= 0)

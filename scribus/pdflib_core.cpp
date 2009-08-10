@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QStack>
 #include <QString>
+#include <QTemporaryFile>
 #include <QTextCodec>
 
 
@@ -78,6 +79,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 #include "util_ghostscript.h"
+#ifdef HAVE_OSG
+	#include "prc/exportPRC.h"
+#endif
 
 using namespace std;
 
@@ -2139,6 +2143,8 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							PutPage(PDF_TransparenzFill(ite));
 						PutPage(setTextSt(ite, pag->pageNr(), pag));
 						break;
+					case PageItem::OSGFrame:
+						break;
 					case PageItem::Multiple:
 						Q_ASSERT(false);
 						break;
@@ -3261,6 +3267,18 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	{
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
+		case PageItem::OSGFrame:
+#ifdef HAVE_OSG
+			if (ite->asOSGFrame())
+			{
+				if (Options.Version != PDFOptions::PDFVersion_X3)
+				{
+					if (!PDF_3DAnnotation(ite, PNr))
+						return false;
+				}
+				break;
+			}
+#endif
 			// Same functions as for ImageFrames work for LatexFrames too
 			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp += PDF_TransparenzFill(ite);
@@ -5644,6 +5662,96 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 	}
 	return tmp;
 }
+
+#ifdef HAVE_OSG
+bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
+{
+	QStringList lightModes;
+	lightModes << "None" << "Headlamp" << "White" << "Day" << "Night" << "Hard" << "Primary";
+	lightModes << "Blue" << "Red" << "Cube" << "CAD" << "Artwork";
+	QStringList renderModes;
+	renderModes << "Solid" << "SolidWireframe" << "Transparent" << "TransparentWireframe";
+	renderModes << "BoundingBox" << "TransparentBoundingBox" << "TransparentBoundingBoxOutline";
+	renderModes << "Wireframe" << "ShadedWireframe" << "HiddenWireframe" << "Vertices";
+	renderModes << "ShadedVertices" << "Illustration" << "SolidOutline" << "ShadedIllustration";
+	QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_osg_XXXXXX.prc");
+	tempImageFile->open();
+	QString imgName = getLongPathName(tempImageFile->fileName());
+	tempImageFile->close();
+	PRCExporter *exprc = new PRCExporter();
+	exprc->convertFile(imgName, ite->asOSGFrame());
+	delete exprc;
+	double x = ite->xPos() - ActPageP->xOffset();
+	double y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
+	double x2 = x+ite->width();
+	double y2 = y-ite->height();
+	PageItem_OSGFrame *osgframe = ite->asOSGFrame();
+	QList<uint> viewList;
+	uint viewObj = 0;
+	QHash<QString, PageItem_OSGFrame::viewDefinition>::iterator itv;
+	for (itv = osgframe->viewMap.begin(); itv != osgframe->viewMap.end(); ++itv)
+	{
+		uint viewObjL = newObject();
+		viewList.append(viewObjL);
+		if (osgframe->currentView == itv.key())
+			viewObj = viewObjL;
+		StartObj(viewObjL);
+		PutDoc("<<\n/Type /3DView\n");
+		PutDoc("/MS /M\n");
+		PutDoc("/C2W ["+osgframe->getPDFMatrix(itv.key())+" ]\n");
+		PutDoc("/LS << /Subtype /" + lightModes[itv.value().illumination] + " >>\n");
+		PutDoc("/RM << /Subtype /" + renderModes[itv.value().rendermode] + " >>\n");
+		PutDoc("/P << /FOV "+FToStr(itv.value().angleFOV)+" /PS /Min /Subtype /P >>\n");
+		PutDoc("/CO "+FToStr(osgframe->distanceToObj)+"\n");
+		if (ite->fillColor() != CommonStrings::None)
+		{
+			PutDoc("/BG << /Type /3DBG\n");
+			PutDoc("/C [ "+SetColor(ite->fillColor(), ite->fillShade())+" ]\n>>\n");
+		}
+		PutDoc("/XN ("+PDFEncode(itv.key())+")\n");
+		PutDoc("/IN ("+PDFEncode(itv.key())+")\n");
+		PutDoc(">>\nendobj\n");
+	}
+	uint appearanceObj = newObject();
+	StartObj(appearanceObj);
+	PutDoc("<<\n/Type /3D\n");
+	PutDoc("/Subtype /PRC\n");
+	PutDoc("/VA [");
+	for (int vl = 0; vl < viewList.count(); vl++)
+	{
+		PutDoc(QString::number(viewList.at(vl))+" 0 R ");
+	}
+	PutDoc("]\n");
+	QByteArray dataP;
+	loadRawBytes(imgName, dataP);
+	if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
+	{
+		QByteArray compData = CompressArray(dataP);
+		if (compData.size() > 0)
+		{
+			PutDoc("/Filter /FlateDecode\n");
+			dataP = compData;
+		}
+	}
+	PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
+	PutDoc(">>\nstream\n");
+	EncodeArrayToStream(dataP, appearanceObj);
+	PutDoc("\nendstream\nendobj\n");
+	uint annotationObj = newObject();
+	StartObj(annotationObj);
+	Seite.AObjects.append(annotationObj);
+	PutDoc("<<\n/Type /Annot\n");
+	PutDoc("/Subtype /3D\n");
+	PutDoc("/F 4\n");
+	PutDoc("/3DD "+QString::number(appearanceObj)+" 0 R\n");
+	PutDoc("/3DV "+QString::number(viewObj)+" 0 R\n");
+	PutDoc("/3DA <<\n/A /PV\n/TB true\n/NP true\n>>\n");
+	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
+	PutDoc(">>\nendobj\n");
+	delete tempImageFile;
+	return true;
+}
+#endif
 
 bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 {

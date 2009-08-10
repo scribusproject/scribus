@@ -2261,6 +2261,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		break;
 	//
 	case PageItem::ImageFrame:
+	case PageItem::OSGFrame:
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);

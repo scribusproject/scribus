@@ -787,7 +787,7 @@ void TransactionState::redo() // redo all attached states
 		{
 			if (i == 0)
 				at(i)->transactionCode = 1;
-			else if (i == static_cast<int>(sizet() - 1))
+			else if (i == static_cast<uint>(sizet() - 1))
 				at(i)->transactionCode = 2;
 			else
 				at(i)->transactionCode = 3;

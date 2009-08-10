@@ -418,6 +418,7 @@ ELSE (WANT_QT3SUPPORT)
 ENDIF (WANT_QT3SUPPORT)
 SET (QT_USE_QTXML TRUE )
 SET (QT_USE_QTWEBKIT TRUE )
+SET (QT_USE_QTOPENGL TRUE )
 IF (APPLE)
   SET( QT_USE_QTSQL TRUE )
 ENDIF (APPLE)
@@ -451,6 +452,7 @@ IF (QT_FOUND)
     -DQT_GUI_LIB
     -DQT_THREAD_LIB
     -DQT_XML_LIB
+    -DQT_GL_LIB
   )
 ELSE(QT_FOUND)
   MESSAGE(FATAL_ERROR "No Qt4 found")
@@ -475,6 +477,19 @@ IF (PNG_FOUND)
   MESSAGE("PNG Library Found OK")
 ENDIF(PNG_FOUND)
 #>> ZLIB, PNG
+
+IF (WANT_NOOSG)
+    MESSAGE("Building without 3D-Extension")
+ELSE (WANT_NOOSG)
+  FIND_PACKAGE(OSG)
+  IF(OSG_FOUND)
+    MESSAGE("OSG found OK")
+    SET(HAVE_OSG 1)
+  ELSE(OSG_FOUND)
+    MESSAGE("No OSG found, building without 3D-Extension")
+  ENDIF(OSG_FOUND)
+  FIND_PACKAGE(OpenGL)
+ENDIF (WANT_NOOSG)
 
 #<< JPEG, TIFF, PYTHON
 FIND_PACKAGE(JPEG REQUIRED)
@@ -692,6 +707,8 @@ INCLUDE_DIRECTORIES(
   ${PYTHON_INCLUDE_PATH}
   ${TIFF_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
+  ${OPENGL_INCLUDE_DIR}
+  ${OSG_INCLUDE_DIR}
 )
 
 ##############################################################################################################

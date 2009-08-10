@@ -19,6 +19,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "hyphenator.h"
 #include "pageitem_latexframe.h"
+#ifdef HAVE_OSG
+	#include "pageitem_osgframe.h"
+#endif
 
 #include "units.h"
 #include "util.h"
@@ -1248,6 +1251,52 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			latexinfo.appendChild(latextext);
 			ob.appendChild(latexinfo);*/
 		}
+#ifdef HAVE_OSG
+		if (item->asOSGFrame())
+		{
+			PageItem_OSGFrame *osgitem = item->asOSGFrame();
+			if (!item->Pfile.isEmpty())
+			{
+				QHash<QString, PageItem_OSGFrame::viewDefinition>::iterator itv;
+				for (itv = osgitem->viewMap.begin(); itv != osgitem->viewMap.end(); ++itv)
+				{
+					QString tmp;
+					docu.writeStartElement("OSGViews");
+					docu.writeAttribute("viewName", itv.key());
+					docu.writeAttribute("angleFOV", itv.value().angleFOV);
+					QString trackM = "";
+					for (uint matx = 0; matx < 4; ++matx)
+					{
+						for (uint maty = 0; maty < 4; ++maty)
+						{
+							trackM += tmp.setNum(itv.value().trackerMatrix(matx, maty))+" ";
+						}
+					}
+					docu.writeAttribute("trackM", trackM);
+					QString trackC = "";
+					trackC += tmp.setNum(itv.value().trackerCenter[0])+" ";
+					trackC += tmp.setNum(itv.value().trackerCenter[1])+" ";
+					trackC += tmp.setNum(itv.value().trackerCenter[2]);
+					docu.writeAttribute("trackC", trackC);
+					QString cameraP = "";
+					cameraP += tmp.setNum(itv.value().cameraPosition[0])+" ";
+					cameraP += tmp.setNum(itv.value().cameraPosition[1])+" ";
+					cameraP += tmp.setNum(itv.value().cameraPosition[2]);
+					docu.writeAttribute("cameraP", cameraP);
+					QString cameraU = "";
+					cameraU += tmp.setNum(itv.value().cameraUp[0])+" ";
+					cameraU += tmp.setNum(itv.value().cameraUp[1])+" ";
+					cameraU += tmp.setNum(itv.value().cameraUp[2]);
+					docu.writeAttribute("cameraU", cameraU);
+					docu.writeAttribute("trackerDist", itv.value().trackerDist);
+					docu.writeAttribute("trackerSize", itv.value().trackerSize);
+					docu.writeAttribute("illumination", itv.value().illumination);
+					docu.writeAttribute("rendermode", itv.value().rendermode);
+					docu.writeEndElement();
+				}
+			}
+		}
+#endif
 
 		//CB PageItemAttributes
 		docu.writeStartElement("PageItemAttributes");
@@ -1424,7 +1473,11 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("BEXTRA",item->textToFrameDistBottom());
 	docu.writeAttribute("REXTRA",item->textToFrameDistRight());
 	docu.writeAttribute("FLOP",item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
-	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+#ifdef HAVE_OSG
+	if (((item->asImageFrame() && !(item->asLatexFrame() || item->asOSGFrame())) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+#else
+	if (((item->asImageFrame() && !(item->asLatexFrame())) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+#endif
 	{
 		if (item->isInlineImage)
 		{
@@ -1443,6 +1496,28 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		else
 			docu.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	}
+#ifdef HAVE_OSG
+	else if (item->asOSGFrame())
+	{
+		if (!item->Pfile.isEmpty())
+		{
+			docu.writeAttribute("PFILE", "");
+			docu.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
+			QFileInfo inlFi(item->Pfile);
+			docu.writeAttribute("inlineImageExt", inlFi.suffix());
+			QFile inFil(item->Pfile);
+			if (inFil.open(QIODevice::ReadOnly))
+			{
+				QByteArray ba = qCompress(inFil.readAll()).toBase64();
+				docu.writeAttribute("ImageData", QString(ba));
+				inFil.close();
+			}
+			PageItem_OSGFrame *osgframe = item->asOSGFrame();
+			docu.writeAttribute("modelFile", Path2Relative(osgframe->modelFile, baseDir));
+			docu.writeAttribute("currentViewName", osgframe->currentView);
+		}
+	}
+#endif
 	else
 		docu.writeAttribute("PFILE","");
 	if (!item->Pfile2.isEmpty())

@@ -1762,7 +1762,11 @@ void PropertiesPalette::SelTab(int t)
 		{
 			imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
 			setter = CurItem->ScaleType;
+#ifdef HAVE_OSG
+			if ((CurItem->asLatexFrame()) || (CurItem->asOSGFrame()))
+#else
 			if (CurItem->asLatexFrame())
+#endif
 			{
 				FreeScale->setEnabled(false);
 				FrameScale->setEnabled(false);
@@ -1815,6 +1819,22 @@ void PropertiesPalette::SelTab(int t)
 			KnockOut->setChecked(!CurItem->doOverprint);
 			Overprint->setChecked(CurItem->doOverprint);
 		}
+#ifdef HAVE_OSG
+		if (CurItem->asOSGFrame())
+		{
+			TabStack->setItemEnabled(idXYZItem, true);
+			TabStack->setItemEnabled(idShapeItem, true);
+			TabStack->setItemEnabled(idGroupItem, false);
+			TabStack->setItemEnabled(idLineItem, false);
+			TabStack->setItemEnabled(idColorsItem, true);
+			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idImageItem, false);
+			Rotation->setEnabled(false);
+			RoundRect->setEnabled(false);
+			EditShape->setEnabled(false);
+			SCustom->setEnabled(false);
+		}
+#endif
 	}
 }
 
@@ -2322,7 +2342,11 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 			setter = CurItem->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
+#ifdef HAVE_OSG
+			if ((CurItem->asLatexFrame()) || (CurItem->asOSGFrame()))
+#else
 			if (CurItem->asLatexFrame())
+#endif
 			{
 				FreeScale->setEnabled(false);
 				FrameScale->setEnabled(false);
@@ -2388,6 +2412,22 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		if ((CurItem->Groups.count() != 0) && (isGroup))
 			DoUnGroup->setEnabled(true);
 	}
+#ifdef HAVE_OSG
+	if (CurItem->asOSGFrame())
+	{
+		TabStack->setItemEnabled(idXYZItem, true);
+		TabStack->setItemEnabled(idShapeItem, true);
+		TabStack->setItemEnabled(idGroupItem, false);
+		TabStack->setItemEnabled(idLineItem, false);
+		TabStack->setItemEnabled(idColorsItem, true);
+		TabStack->setItemEnabled(idTextItem, false);
+		TabStack->setItemEnabled(idImageItem, false);
+		Rotation->setEnabled(false);
+		RoundRect->setEnabled(false);
+		EditShape->setEnabled(false);
+		SCustom->setEnabled(false);
+	}
+#endif
 	updateSpinBoxConstants();
 }
 
@@ -2531,21 +2571,42 @@ void PropertiesPalette::NewSel(int nr)
 			TabStack->setItemEnabled(idXYZItem, false);
 			Cpal->ChooseGrad(0);
 			break;
-		case 2:
-			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idTextItem, false);
-			TabStack->setItemEnabled(idImageItem, true);
-			TabStack->setItemEnabled(idLineItem, true);
-			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
-				RoundRect->setEnabled(!i->locked());
-			else
+		case PageItem::ImageFrame:
+		case PageItem::LatexFrame:
+		case PageItem::OSGFrame:
+#ifdef HAVE_OSG
+			if (i->asOSGFrame())
+			{
+				TabStack->setItemEnabled(idXYZItem, true);
+				TabStack->setItemEnabled(idShapeItem, true);
+				TabStack->setItemEnabled(idGroupItem, false);
+				TabStack->setItemEnabled(idLineItem, false);
+				TabStack->setItemEnabled(idColorsItem, true);
+				TabStack->setItemEnabled(idTextItem, false);
+				TabStack->setItemEnabled(idImageItem, false);
+				Rotation->setEnabled(false);
 				RoundRect->setEnabled(false);
-			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
-				RoundRect->setEnabled(!i->locked());
-// 			if (visID == 2)
-// 				TabStack->setCurrentIndex(0);
+				EditShape->setEnabled(false);
+				SCustom->setEnabled(false);
+			}
+			else
+			{
+#endif
+				TabStack->setItemEnabled(idShapeItem, true);
+				TabStack->setItemEnabled(idTextItem, false);
+				TabStack->setItemEnabled(idImageItem, true);
+				TabStack->setItemEnabled(idLineItem, true);
+				if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
+					RoundRect->setEnabled(!i->locked());
+				else
+					RoundRect->setEnabled(false);
+				if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
+					RoundRect->setEnabled(!i->locked());
+#ifdef HAVE_OSG
+			}
+#endif
 			break;
-		case 4:
+		case PageItem::TextFrame:
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idTextItem, true);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -2558,7 +2619,7 @@ void PropertiesPalette::NewSel(int nr)
 // 			if (visID == 3)
 // 				TabStack->setCurrentIndex(0);
 			break;
-		case 5:
+		case PageItem::Line:
 			TabStack->setItemEnabled(idShapeItem, false);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -2574,9 +2635,9 @@ void PropertiesPalette::NewSel(int nr)
 // 			if ((visID == 1) || (visID == 2) || (visID == 3))
 // 				TabStack->setCurrentIndex(0);
 			break;
-		case 1:
-		case 3:
-		case 6:
+		case PageItem::ItemType1:
+		case PageItem::ItemType3:
+		case PageItem::Polygon:
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -2588,7 +2649,7 @@ void PropertiesPalette::NewSel(int nr)
 // 			if ((visID == 2) || (visID == 3))
 // 				TabStack->setCurrentIndex(0);
 			break;
-		case 7:
+		case PageItem::PolyLine:
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -2597,7 +2658,7 @@ void PropertiesPalette::NewSel(int nr)
 // 			if ((visID == 2) || (visID == 3))
 // 				TabStack->setCurrentIndex(0);
 			break;
-		case 8:
+		case PageItem::PathText:
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idTextItem, true);
 			TabStack->setItemEnabled(idImageItem, false);

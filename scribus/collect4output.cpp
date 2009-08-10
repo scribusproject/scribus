@@ -16,6 +16,9 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "filewatcher.h"
 #include "pageitem.h"
+#ifdef HAVE_OSG
+	#include "pageitem_osgframe.h"
+#endif
 #include "scraction.h"
 #include "scpattern.h"
 #include "util_file.h"
@@ -208,6 +211,24 @@ void CollectForOutput::processItem(PageItem *ite)
 			}
 		}
 	}
+#ifdef HAVE_OSG
+	if (ite->asOSGFrame())
+	{
+		PageItem_OSGFrame *osgframe = ite->asOSGFrame();
+		QString ofName(osgframe->modelFile);
+		QFileInfo itf = QFileInfo(ofName);
+		if (!itf.exists())
+		{
+			ofName = QDir::convertSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
+			itf.setFile(ofName);
+		}
+		if (itf.exists())
+		{
+			QString oldFile = ofName;
+			osgframe->modelFile = collectFile(oldFile, itf.fileName());
+		}
+	}
+#endif
 	if (ite->asTextFrame())
 	{
 		if (ite->isAnnotation())

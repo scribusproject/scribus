@@ -16,7 +16,11 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
+#ifdef HAVE_OSG
+	#include "pageitem_osgframe.h"
+#endif
 #include "scribusdoc.h"
+#include "sctextstream.h"
 #include "util_color.h"
 #include "util_math.h"
 #include "util.h"
@@ -185,6 +189,17 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		else
 			result.insert("image-file", Path2Relative(item->externalFile(), QDir::homePath()));
 	}
+#ifdef HAVE_OSG
+	if (item->realItemType() == PageItem::OSGFrame)
+	{
+		if (!item->Pfile.isEmpty())
+		{
+			const PageItem_OSGFrame *osgframe = dynamic_cast<const PageItem_OSGFrame*>(item);
+			result.insert("modelFile", Path2Relative(osgframe->modelFile, QDir::homePath()));
+			result.insert("currentViewName", osgframe->currentView);
+		}
+	}
+#endif
 	if (!item->fileIconPressed().isEmpty())
 		result.insert("icon-pressed-file", Path2Relative(item->fileIconPressed(), QDir::homePath()));
 	if (!item->fileIconRollover().isEmpty())
@@ -292,10 +307,12 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	const PageItem_LatexFrame *latexframe = NULL;
 	if (this->realItemType() == PageItem::LatexFrame)
 		latexframe = dynamic_cast<const PageItem_LatexFrame*>(this);
-	if (latexframe) {
+	if (latexframe)
+	{
 		handler.begin("latex-source", empty);
 		QMapIterator<QString, QString> i(latexframe->editorProperties);
-		while (i.hasNext()) {
+		while (i.hasNext())
+		{
 			Xml_attr property;
 			i.next();
 			property.insert("name", i.key());
@@ -306,10 +323,108 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		handler.chars(latexframe->formula());
 		handler.end("latex-source");
 	}
+#ifdef HAVE_OSG
+	if (this->realItemType() == PageItem::OSGFrame)
+	{
+		const PageItem_OSGFrame *osgitem = dynamic_cast<const PageItem_OSGFrame*>(this);
+		if (!osgitem->Pfile.isEmpty())
+		{
+			QHashIterator<QString, PageItem_OSGFrame::viewDefinition> itv(osgitem->viewMap);
+			while (itv.hasNext())
+			{
+				Xml_attr osg;
+				itv.next();
+				osg.insert("viewName", toXMLString(itv.key()));
+				osg.insert("angleFOV", toXMLString(itv.value().angleFOV));
+				QString tmp;
+				QString trackM = "";
+				for (uint matx = 0; matx < 4; ++matx)
+				{
+					for (uint maty = 0; maty < 4; ++maty)
+					{
+						trackM += tmp.setNum(itv.value().trackerMatrix(matx, maty))+" ";
+					}
+				}
+				osg.insert("trackM", trackM);
+				QString trackC = "";
+				trackC += tmp.setNum(itv.value().trackerCenter[0])+" ";
+				trackC += tmp.setNum(itv.value().trackerCenter[1])+" ";
+				trackC += tmp.setNum(itv.value().trackerCenter[2]);
+				osg.insert("trackC", trackC);
+				QString cameraP = "";
+				cameraP += tmp.setNum(itv.value().cameraPosition[0])+" ";
+				cameraP += tmp.setNum(itv.value().cameraPosition[1])+" ";
+				cameraP += tmp.setNum(itv.value().cameraPosition[2]);
+				osg.insert("cameraP", cameraP);
+				QString cameraU = "";
+				cameraU += tmp.setNum(itv.value().cameraUp[0])+" ";
+				cameraU += tmp.setNum(itv.value().cameraUp[1])+" ";
+				cameraU += tmp.setNum(itv.value().cameraUp[2]);
+				osg.insert("cameraU", cameraU);
+				osg.insert("trackerDist", toXMLString(itv.value().trackerDist));
+				osg.insert("trackerSize", toXMLString(itv.value().trackerSize));
+				osg.insert("illumination", toXMLString(itv.value().illumination));
+				osg.insert("rendermode", toXMLString(itv.value().rendermode));
+				handler.begin("OSGViews", osg);
+				handler.end("OSGViews");
+			}
+		}
+	}
+#endif
 	handler.end(elemtag);
 }
 
+#ifdef HAVE_OSG
+class OSGViews_body : public Action_body
+{
+	void begin (const Xml_string& tagName, Xml_attr attr)
+	{
+		if (tagName=="OSGViews")
+		{
+			PageItem_OSGFrame* osgframe = dynamic_cast<PageItem_OSGFrame *> (this->dig->top<PageItem>());
+			struct PageItem_OSGFrame::viewDefinition defaultView;
+			defaultView.angleFOV = parseDouble(attr["angleFOV"]);
+			QString tmp = "";
+			tmp = attr["trackM"];
+			ScTextStream fp(&tmp, QIODevice::ReadOnly);
+			double m1, m2, m3, m4;
+			double m5, m6, m7, m8;
+			double m9, m10, m11, m12;
+			double m13, m14, m15, m16;
+			fp >> m1 >> m2 >> m3 >> m4;
+			fp >> m5 >> m6 >> m7 >> m8;
+			fp >> m9 >> m10 >> m11 >> m12;
+			fp >> m13 >> m14 >> m15 >> m16;
+			defaultView.trackerMatrix.set(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16);
+			tmp = "";
+			tmp = attr["trackC"];
+			ScTextStream fp2(&tmp, QIODevice::ReadOnly);
+			double v1, v2, v3;
+			fp2 >> v1 >> v2 >> v3;
+			defaultView.trackerCenter.set(v1, v2, v3);
+			tmp = "";
+			tmp = attr["cameraP"];
+			ScTextStream fp3(&tmp, QIODevice::ReadOnly);
+			fp3 >> v1 >> v2 >> v3;
+			defaultView.cameraPosition.set(v1, v2, v3);
+			tmp = "";
+			tmp = attr["cameraU"];
+			ScTextStream fp4(&tmp, QIODevice::ReadOnly);
+			fp4 >> v1 >> v2 >> v3;
+			defaultView.cameraUp.set(v1, v2, v3);
+			defaultView.trackerDist = parseDouble(attr["trackerDist"]);
+			defaultView.trackerSize = parseDouble(attr["trackerSize"]);
+			defaultView.illumination = static_cast<PageItem_OSGFrame::LightType>(parseInt(attr["illumination"]));
+			defaultView.rendermode = static_cast<PageItem_OSGFrame::RenderType>(parseInt(attr["rendermode"]));
+			QString name = attr["viewName"];
+			osgframe->viewMap.insert(name, defaultView);
+		}
+	}
+};
 
+class OSGViews : public MakeAction<OSGViews_body>
+{};
+#endif
 
 class CreatePageItem_body : public Generator_body<PageItem>
 {
@@ -545,6 +660,25 @@ struct  LatexParams : public MakeAction<LatexParams_body>
 {};
 
 
+#ifdef HAVE_OSG
+class OSGParams_body : public Action_body
+{
+	public:	
+		void begin(const Xml_string& tag, Xml_attr attr) 
+		{
+			if (this->dig->top<PageItem>()->realItemType() == PageItem::OSGFrame)
+			{
+				PageItem_OSGFrame* osgframe = dynamic_cast<PageItem_OSGFrame *> (this->dig->top<PageItem>());
+				osgframe->setExternalModelFile(attr["modelFile"]);
+				osgframe->currentView = attr["currentViewName"];
+				osgframe->loadModel();
+			}
+		}
+};
+
+struct  OSGParams : public MakeAction<OSGParams_body> 
+{};
+#endif
 
 const Xml_string PageItem::saxxDefaultElem("item");
 
@@ -669,10 +803,18 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	// TODO: obj attributes
 	
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setExternalFile, "image-file" ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setImageInline, "isInlineImage", &parseBool ));
+	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setInlineExt, "inlineImageExt" ));
+	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setInlineData, "ImageData" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconPressed, "icon-pressed-file" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconRollover, "icon-rollover-file" ));
 	ruleset.addRule("latex-source", LatexSource());
 	ruleset.addRule(itemPrefix, LatexParams());
+#ifdef HAVE_OSG
+	ruleset.addRule(itemPrefix, OSGParams());
+	OSGViews osgViewset;
+	ruleset.addRule(Digester::concat(itemPrefix, "OSGViews"), osgViewset);
+#endif
 	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QVector<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleVector ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setDashOffset, "line-dash-offset", &parseDouble ));

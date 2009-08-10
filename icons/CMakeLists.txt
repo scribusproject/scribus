@@ -242,6 +242,7 @@ INSTALL(FILES
 16/align-vertical-center.png
 16/align-vertical-top-out.png
 16/align-vertical-top.png
+16/annot3d.png
 16/checkbox.png
 16/close.png
 16/color-fill.png
@@ -363,6 +364,7 @@ INSTALL(FILES
 22/align-vertical-center.png
 22/align-vertical-top-out.png
 22/align-vertical-top.png
+22/annot3d.png
 22/checkbox.png
 22/close.png
 22/color-picker.png

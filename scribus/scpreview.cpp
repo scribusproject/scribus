@@ -583,6 +583,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 			case PageItem::ImageFrame:
 			case PageItem::LatexFrame:
+			case PageItem::OSGFrame:
 				if ((OB.Pcolor != CommonStrings::None) || (OB.GrType != 0))
 				{
 					pS->setupPolygon(&OB.PoLine);

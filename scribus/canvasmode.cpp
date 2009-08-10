@@ -120,6 +120,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 		case modeInsertPDFListbox:
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
+		case modeInsertPDF3DAnnotation:
 			result = new CreateMode(view);
 			break;
 		case modeEyeDropper:
@@ -584,6 +585,7 @@ void CanvasMode::setModeCursor()
 		case modeInsertPDFListbox:
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
+		case modeInsertPDF3DAnnotation:
 			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 		default:

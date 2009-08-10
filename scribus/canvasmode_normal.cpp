@@ -184,7 +184,13 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			if (currItem->imageShown())
 				m_view->requestMode(modeEdit);
-		} 
+		}
+#ifdef HAVE_OSG
+		else if (currItem->asOSGFrame())
+		{
+			m_view->requestMode(submodeEditExternal);
+		}
+#endif
 		else if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 		{
 			if ((currItem->locked()) || (!currItem->ScaleType))

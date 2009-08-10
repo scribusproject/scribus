@@ -107,6 +107,7 @@ protected:
 	QPixmap listBoxIcon;
 	QPixmap annotTextIcon;
 	QPixmap annotLinkIcon;
+	QPixmap annot3DIcon;
 	bool selectionTriggered;
 	ScribusDoc *currDoc;
 };

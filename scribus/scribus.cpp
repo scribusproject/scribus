@@ -137,6 +137,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui_nftdialog.h"
 #include "ui/nftwidget.h"
 #include "ui/nodeeditpalette.h"
+#ifdef HAVE_OSG
+	#include "ui/osgeditor.h"
+#endif
 #include "ui/outlinepalette.h"
 #include "page.h"
 #include "pageitem_imageframe.h"
@@ -2389,7 +2392,11 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 	{
 		for (int i = 0; i < doc->Items->count(); ++i)
 		{
-			if ((doc->Items->at(i)->itemType() == PageItem::ImageFrame) && (!doc->Items->at(i)->asLatexFrame()))
+#ifdef HAVE_OSG
+			if ((doc->Items->at(i)->itemType() == PageItem::ImageFrame) && (!((doc->Items->at(i)->asLatexFrame()) || (doc->Items->at(i)->asOSGFrame()))))
+#else
+			if ((doc->Items->at(i)->itemType() == PageItem::ImageFrame) && (!(doc->Items->at(i)->asLatexFrame())))
+#endif
 			{
 				enablePicManager = true;
 				break;
@@ -2642,6 +2649,9 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
 		scrActions["toolsPDFListBox"]->setEnabled(false);
 		scrActions["toolsPDFAnnotText"]->setEnabled(false);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
 	}
 	else
 	{
@@ -2671,6 +2681,9 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["toolsPDFComboBox"]->setEnabled(true);
 		scrActions["toolsPDFListBox"]->setEnabled(true);
 		scrActions["toolsPDFAnnotText"]->setEnabled(true);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(true);
+#endif
 		pagePalette->enablePalette(true);
 	}
 	scrMenuMgr->setMenuEnabled("ItemLayer", doc->layerCount() > 1);
@@ -2746,6 +2759,9 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["toolsPDFListBox"]->setEnabled(true);
 	scrActions["toolsPDFAnnotText"]->setEnabled(true);
 	scrActions["toolsPDFAnnotLink"]->setEnabled(true);
+#ifdef HAVE_OSG
+	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
+#endif
 
 	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
@@ -2887,7 +2903,11 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->isRaster);
-	scrActions["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && currItem->asLatexFrame());
+#ifdef HAVE_OSG
+	scrActions["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
+#else
+	scrActions["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame()));
+#endif
 	if (SelectedType!=PageItem::ImageFrame)
 	{
 		scrActions["itemImageIsVisible"]->setChecked(false);
@@ -4671,6 +4691,9 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsPDFListBox"]->setEnabled(false);
 		scrActions["toolsPDFAnnotText"]->setEnabled(false);
 		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
 		//CB dont need this until we have a doc...
 		//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		propertiesPalette->Cpal->ChooseGrad(0);
@@ -6172,6 +6195,9 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsPDFListBox"]->setEnabled(false);
 		scrActions["toolsPDFAnnotText"]->setEnabled(false);
 		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
 		scrActions["itemDelete"]->setEnabled(false);
 		layerPalette->setEnabled(false);
 		outlinePalette->setEnabled(false);
@@ -6243,6 +6269,9 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsPDFListBox"]->setEnabled(true);
 	scrActions["toolsPDFAnnotText"]->setEnabled(true);
 	scrActions["toolsPDFAnnotLink"]->setEnabled(true);
+#ifdef HAVE_OSG
+	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
+#endif
 	scrActions["toolsEditContents"]->setChecked(false);
 	scrActions["toolsEditWithStoryEditor"]->setChecked(false);
 	scrActions["toolsMeasurements"]->setEnabled(true);
@@ -6333,6 +6362,9 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsPDFListBox"]->setChecked(mode==modeInsertPDFListbox);
 	scrActions["toolsPDFAnnotText"]->setChecked(mode==modeInsertPDFTextAnnotation);
 	scrActions["toolsPDFAnnotLink"]->setChecked(mode==modeInsertPDFLinkAnnotation);
+#ifdef HAVE_OSG
+	scrActions["toolsPDFAnnot3D"]->setChecked(mode==modeInsertPDF3DAnnotation);
+#endif
 
 	if (HaveDoc)
 	{
@@ -6491,6 +6523,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeInsertPDFListbox:
 			case modeInsertPDFTextAnnotation:
 			case modeInsertPDFLinkAnnotation:
+			case modeInsertPDF3DAnnotation:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
@@ -8270,6 +8303,9 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["toolsPDFComboBox"]->setEnabled(false);
 			scrActions["toolsPDFListBox"]->setEnabled(false);
 			scrActions["toolsPDFAnnotText"]->setEnabled(false);
+#ifdef HAVE_OSG
+			scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
 			pagePalette->enablePalette(false);
 			dia->show();
 			ActWin->setMasterPagesPalette(dia);
@@ -8308,6 +8344,9 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["toolsPDFComboBox"]->setEnabled(true);
 	scrActions["toolsPDFListBox"]->setEnabled(true);
 	scrActions["toolsPDFAnnotText"]->setEnabled(true);
+#ifdef HAVE_OSG
+	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
+#endif
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
@@ -8819,6 +8858,9 @@ void ScribusMainWindow::changeLayer(int )
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
 		scrActions["toolsPDFListBox"]->setEnabled(false);
 		scrActions["toolsPDFAnnotText"]->setEnabled(false);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
 	}
 	else
 	{
@@ -8828,6 +8870,9 @@ void ScribusMainWindow::changeLayer(int )
 		scrActions["toolsPDFComboBox"]->setEnabled(setter);
 		scrActions["toolsPDFListBox"]->setEnabled(setter);
 		scrActions["toolsPDFAnnotText"]->setEnabled(setter);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(setter);
+#endif
 	}
 	scrActions["toolsPDFAnnotLink"]->setEnabled(setter);
 	scrMenuMgr->setMenuEnabled("ItemLayer", doc->layerCount() > 1);
@@ -9100,11 +9145,19 @@ void ScribusMainWindow::callImageEditor()
 		// - IMHO ScribusMainWindow has way to many slots already
 		// - my code here is short and without sideeffects
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (currItem->asLatexFrame()) {
+		if (currItem->asLatexFrame())
+		{
 			currItem->asLatexFrame()->runEditor();
 			return; //Don't process the functions for imageframes!
 		}
-
+#ifdef HAVE_OSG
+		if (currItem->asOSGFrame())
+		{
+			OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame());
+			dia->exec();
+			return;
+		}
+#endif
 		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
 		{

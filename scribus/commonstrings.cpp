@@ -53,6 +53,7 @@ QString CommonStrings::itemType_Polygon    = "";
 QString CommonStrings::itemType_Polyline   = "";
 QString CommonStrings::itemType_PathText   = "";
 QString CommonStrings::itemType_LatexFrame = "";
+QString CommonStrings::itemType_OSGFrame   = "";
 QString CommonStrings::itemType_Multiple   = "";
 
 QString CommonStrings::itemSubType_PDF_PushButton;
@@ -271,6 +272,7 @@ void CommonStrings::languageChange()
 	CommonStrings::itemType_Polyline   = tr("Polyline");
 	CommonStrings::itemType_PathText   = tr("Text on a Path");
 	CommonStrings::itemType_LatexFrame = tr("Render Frame");
+	CommonStrings::itemType_OSGFrame   = tr("PDF 3D Annotation");
 	CommonStrings::itemType_Multiple   = tr("Multiple", "Multiple frame types");
 	CommonStrings::itemSubType_PDF_PushButton     = tr("PDF Push Button");
 	CommonStrings::itemSubType_PDF_TextField      = tr("PDF Text Field");

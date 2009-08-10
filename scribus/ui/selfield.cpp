@@ -45,7 +45,7 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 		PageItem* item = Doc->Items->at(se);
 		if (Art < 2)
 		{
-			if ((item->isAnnotation()) && (item->annotation().Type() > 1))
+			if ((item->isAnnotation()) && ((item->annotation().Type() > 1) && (item->annotation().Type() < 12)))
 				AvailFields->addItem(item->itemName());
 		}
 		else

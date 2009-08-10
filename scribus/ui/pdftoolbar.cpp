@@ -35,4 +35,7 @@ PDFToolBar::PDFToolBar(ScribusMainWindow* parent) : ScToolBar( tr("PDF Tools"), 
 	this->addAction(parent->scrActions["toolsPDFListBox"]);
 	this->addAction(parent->scrActions["toolsPDFAnnotText"]);
 	this->addAction(parent->scrActions["toolsPDFAnnotLink"]);
+#ifdef HAVE_OSG
+	this->addAction(parent->scrActions["toolsPDFAnnot3D"]);
+#endif
 }

@@ -3589,6 +3589,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Q_ASSERT(false);
 		break;
 	case PageItem::LatexFrame:
+		{
 		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
@@ -3609,7 +3610,28 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		latexframe->setFormula(Buffer->itemText); //itemText seems to be a good choice...
 		undoManager->setUndoEnabled(true);
 		break;
-
+		}
+	case PageItem::OSGFrame:
+#ifdef HAVE_OSG
+		z = Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		undoManager->setUndoEnabled(false);
+		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		Doc->Items->at(z)->Pfile = Buffer->Pfile;
+		Doc->Items->at(z)->IProfile = Buffer->IProfile;
+		Doc->Items->at(z)->EmProfile = Buffer->EmProfile;
+		Doc->Items->at(z)->IRender = Buffer->IRender;
+		Doc->Items->at(z)->UseEmbedded = Buffer->UseEmbedded;
+		if (!Doc->Items->at(z)->Pfile.isEmpty())
+			Doc->LoadPict(Doc->Items->at(z)->Pfile, z);
+		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		Doc->Items->at(z)->setImageShown(Buffer->PicArt);
+		Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
+		Doc->Items->at(z)->AspectRatio = Buffer->AspectRatio;
+		Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
+		undoManager->setUndoEnabled(true);
+#endif
+		break;
 	}
 	PageItem *currItem = Doc->Items->at(z);
 	undoManager->setUndoEnabled(false);

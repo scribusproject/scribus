@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
+#include "pageitem_osgframe.h"
 #include "ui/pagepalette.h"
 #include "pagesize.h"
 #include "pagestructs.h"
@@ -124,6 +125,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	ActiveLayer(0),
 	docUnitIndex(prefsData.docUnitIndex),
 	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
+	rotMode(0),
 	automaticTextFrames(0),
 	m_masterPageMode(false),
 	m_ScMW(0),
@@ -194,7 +196,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	rotMode(0),
 	AutoSave(prefsData.AutoSave),
 	AutoSaveTime(prefsData.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
@@ -234,6 +235,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	ActiveLayer(0),
 	docUnitIndex(unitindex),
 	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
+	rotMode(0),
 	automaticTextFrames(pagesSetup.autoTextFrames),
 	m_masterPageMode(false),
 	m_ScMW(0),
@@ -306,7 +308,6 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	rotMode(0),
 	AutoSave(prefsData.AutoSave),
 	AutoSaveTime(prefsData.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
@@ -3572,6 +3573,12 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			newItem = new PageItem_LatexFrame(this, x, y, b, h, w, toolSettings.dBrushPict, CommonStrings::None);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
+#ifdef HAVE_OSG
+		case PageItem::OSGFrame:
+			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, toolSettings.dBrushPict, CommonStrings::None);
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+			break;
+#endif
 		default:
 //			qDebug() << "unknown item type";
 			assert (false);
@@ -3770,6 +3777,9 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setFillShade(toolSettings.shadePict);
 			break;
 		case PageItem::LatexFrame:
+#ifdef HAVE_OSG
+		case PageItem::OSGFrame:
+#endif
 			newItem->setFillShade(toolSettings.shadePict);
 			break;
 		case PageItem::TextFrame:
@@ -3801,7 +3811,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			break;
 	}
 
-	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame)
+	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame)
 	{
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if(ScCore->usingGUI())
@@ -6819,7 +6829,12 @@ void ScribusDoc::updatePic()
 						m_Selection->itemAt(i)->asLatexFrame();
 					latexframe->rerunApplication();
 					toUpdate = true;
-				} else if (m_Selection->itemAt(i)->asImageFrame())
+				}
+#ifdef HAVE_OSG
+				else if ((m_Selection->itemAt(i)->asImageFrame()) || (m_Selection->itemAt(i)->asOSGFrame()))
+#else
+				else if (m_Selection->itemAt(i)->asImageFrame())
+#endif
 				{
 					PageItem *currItem = m_Selection->itemAt(i);
 					if (currItem->PictureIsAvailable)
@@ -8848,8 +8863,8 @@ void ScribusDoc::itemSelection_SwapLeft()
 
 	itX = Xsorted.begin(); //first item is left most
 	int itemIndex=itX.value(); //get our first item's index in the AObjects array
-	bool found=false;
-	double itXX=itX.key();
+//	bool found=false;
+//	double itXX=itX.key();
 	minY=999999.9;
 	maxY=-999999.9;
 	int nextItemIndex=itemIndex;
@@ -8872,7 +8887,7 @@ void ScribusDoc::itemSelection_SwapLeft()
 	}
 
 
-	if (circleListCounter!=alignObjectsCount) //need to reverse back now
+	if (circleListCounter != static_cast<int>(alignObjectsCount)) //need to reverse back now
 	{
 		QMap<double,uint>::Iterator itX2_2 = itLast;
 		while (itX2_2!=Xsorted.begin())
@@ -8962,8 +8977,8 @@ void ScribusDoc::itemSelection_SwapRight()
 
 	itX = Xsorted.begin(); //first item is left most
 	int itemIndex=itX.value(); //get our first item's index in the AObjects array
-	bool found=false;
-	double itXX=itX.key();
+//	bool found=false;
+//	double itXX=itX.key();
 	minY=999999.9;
 	maxY=-999999.9;
 	int nextItemIndex=itemIndex;
@@ -8986,7 +9001,7 @@ void ScribusDoc::itemSelection_SwapRight()
 	}
 
 
-	if (circleListCounter!=alignObjectsCount) //need to reverse back now
+	if (circleListCounter!=static_cast<int>(alignObjectsCount)) //need to reverse back now
 	{
 		QMap<double,uint>::Iterator itX2_2 = itLast;
 		while (itX2_2!=Xsorted.begin())
@@ -10330,7 +10345,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		QMap<int, QList<PageItem*> >::iterator groupIt;
 		for (it = toDelete.begin(); it != toDelete.end(); ++it)
 		{
-			PageItem* groupItem = it.key();
+//			PageItem* groupItem = it.key();
 			int groupId = it.value();
 			groupIt = groupObjects.find(groupId);
 			if (groupIt == groupObjects.end()) 

@@ -152,6 +152,9 @@ private:
 	QString PDF_TransparenzFill(PageItem *currItem);
 	QString PDF_TransparenzStroke(PageItem *currItem);
 	bool    PDF_Annotation(PageItem *ite, uint PNr);
+#ifdef HAVE_OSG
+	bool    PDF_3DAnnotation(PageItem *ite, uint PNr);
+#endif
 	void    PDF_Form(const QString& im);
 	void    PDF_xForm(uint objNr, double w, double h, QString im);
 	bool    PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, int Intent = 1, QString* output = NULL);

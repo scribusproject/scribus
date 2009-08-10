@@ -28,6 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "scgzfile.h"
 #include "scpattern.h"
+#ifdef HAVE_OSG
+	#include "pageitem_osgframe.h"
+#endif
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
@@ -1709,6 +1712,9 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	bool layerFound = true;
 	struct ImageLoadRequest loadingInfo;
+#ifdef HAVE_OSG
+	struct PageItem_OSGFrame::viewDefinition currentView;
+#endif
 	QList<ParagraphStyle::TabRecord> tabValues;
 
 	LastStyles * lastStyle = new LastStyles();
@@ -1789,6 +1795,46 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			loadingInfo.useMask = tAtt.valueAsBool("useMask", true);
 			newItem->pixm.imgInfo.RequestProps.insert(tAtt.valueAsInt("Layer"), loadingInfo);
 		}
+#ifdef HAVE_OSG
+		if (tName == "OSGViews")
+		{
+			currentView.angleFOV = tAtt.valueAsDouble("angleFOV");
+			QString tmp = "";
+			tmp = tAtt.valueAsString("trackM");
+			ScTextStream fp(&tmp, QIODevice::ReadOnly);
+			double m1, m2, m3, m4;
+			double m5, m6, m7, m8;
+			double m9, m10, m11, m12;
+			double m13, m14, m15, m16;
+			fp >> m1 >> m2 >> m3 >> m4;
+			fp >> m5 >> m6 >> m7 >> m8;
+			fp >> m9 >> m10 >> m11 >> m12;
+			fp >> m13 >> m14 >> m15 >> m16;
+			currentView.trackerMatrix.set(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16);
+			tmp = "";
+			tmp = tAtt.valueAsString("trackC");
+			ScTextStream fp2(&tmp, QIODevice::ReadOnly);
+			double v1, v2, v3;
+			fp2 >> v1 >> v2 >> v3;
+			currentView.trackerCenter.set(v1, v2, v3);
+			tmp = "";
+			tmp = tAtt.valueAsString("cameraP");
+			ScTextStream fp3(&tmp, QIODevice::ReadOnly);
+			fp3 >> v1 >> v2 >> v3;
+			currentView.cameraPosition.set(v1, v2, v3);
+			tmp = "";
+			tmp = tAtt.valueAsString("cameraU");
+			ScTextStream fp4(&tmp, QIODevice::ReadOnly);
+			fp4 >> v1 >> v2 >> v3;
+			currentView.cameraUp.set(v1, v2, v3);
+			currentView.trackerDist = tAtt.valueAsDouble("trackerDist");
+			currentView.trackerSize = tAtt.valueAsDouble("trackerSize");
+			currentView.illumination = static_cast<PageItem_OSGFrame::LightType>(tAtt.valueAsInt("illumination"));
+			currentView.rendermode = static_cast<PageItem_OSGFrame::RenderType>(tAtt.valueAsInt("rendermode"));
+			if (newItem->asOSGFrame())
+				newItem->asOSGFrame()->viewMap.insert(tAtt.valueAsString("viewName"), currentView);
+		}
+#endif
 		if (tName == "ImageEffect")
 		{
 			struct ImageEffect ef;
@@ -1844,7 +1890,11 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->updatePolyClip();
 		newItem->Frame = true;
 	}
+#ifdef HAVE_OSG
+	if (newItem->asImageFrame() || newItem->asLatexFrame() || newItem->asOSGFrame())
+#else
 	if (newItem->asImageFrame() || newItem->asLatexFrame())
+#endif
 	{
 		if (!newItem->Pfile.isEmpty())
 		{
@@ -2146,6 +2196,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		break;
 	//
 	case PageItem::ImageFrame:
+	case PageItem::OSGFrame:
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
@@ -2153,7 +2204,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->OwnPage = pagenr;
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
-		if (!currItem->asLatexFrame())
+//		if (!currItem->asLatexFrame())
+#ifdef HAVE_OSG
+		if ((currItem->asImageFrame() || currItem->asOSGFrame()) && (!currItem->asLatexFrame()))
+#else
+		if ((currItem->asImageFrame()) && (!currItem->asLatexFrame()))
+#endif
 		{
 			bool inlineF = attrs.valueAsBool("isInlineImage", false);
 			QString dat  = attrs.valueAsString("ImageData", "");
@@ -2181,6 +2237,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			}
 			else
 				currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE"), baseDir);
+#ifdef HAVE_OSG
+			if (currItem->asOSGFrame())
+			{
+				PageItem_OSGFrame *osgframe = currItem->asOSGFrame();
+				osgframe->modelFile = Relative2Path(attrs.valueAsString("modelFile"), baseDir);
+				osgframe->currentView = attrs.valueAsString("currentViewName", "");
+				osgframe->loadModel();
+			}
+#endif
 		}
 		currItem->IProfile    = attrs.valueAsString("PRFILE", "");
 		currItem->EmProfile   = attrs.valueAsString("EPROF" , "");

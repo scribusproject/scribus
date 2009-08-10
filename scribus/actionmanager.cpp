@@ -740,7 +740,10 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/pdf-annotations.png"), loadIcon("22/pdf-annotations.png"), "", defaultKey(name), mainWindow, modeInsertPDFTextAnnotation));
 	name="toolsPDFAnnotLink";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("goto16.png"), loadIcon("goto.png"), "", defaultKey(name), mainWindow, modeInsertPDFLinkAnnotation));
-
+#ifdef HAVE_OSG
+	name="toolsPDFAnnot3D";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/annot3d.png"), loadIcon("22/annot3d.png"), "", defaultKey(name), mainWindow, modeInsertPDF3DAnnotation));
+#endif
 	//Set the applicaton wide palette shortcuts
 	(*scrActions)["toolsProperties"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsScrapbook"]->setShortcutContext(Qt::ApplicationShortcut);
@@ -771,7 +774,9 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
-
+#ifdef HAVE_OSG
+	*modeActionNames << "toolsPDFAnnot3D";
+#endif
  	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 	{
  		(*scrActions)[*it]->setEnabled(false);
@@ -1470,6 +1475,9 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsPDFListBox"]->setTexts( tr("Insert PDF List Box"));
 	(*scrActions)["toolsPDFAnnotText"]->setTexts( tr("Insert Text Annotation"));
 	(*scrActions)["toolsPDFAnnotLink"]->setTexts( tr("Insert Link Annotation"));
+#ifdef HAVE_OSG
+	(*scrActions)["toolsPDFAnnot3D"]->setTexts( tr("Insert 3D Annotation"));
+#endif
 
 
 	//Extras Menu
@@ -1927,6 +1935,9 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "toolsPDFListBox";
 	itnmenua->second << "toolsPDFAnnotText";
 	itnmenua->second << "toolsPDFAnnotLink";
+#ifdef HAVE_OSG
+	itnmenua->second << "toolsPDFAnnot3D";
+#endif
 	itnmenua->second << "specialToggleAllPalettes";
 	itnmenua->second << "specialToggleAllGuides";
 	itnmenua->second << "specialUnicodeSequenceBegin";

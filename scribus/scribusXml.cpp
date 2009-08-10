@@ -35,6 +35,9 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_latexframe.h"
+#ifdef HAVE_OSG
+	#include "pageitem_osgframe.h"
+#endif
 #include "selection.h"
 #include "units.h"
 #include "prefsmanager.h"
@@ -54,6 +57,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_color.h"
 #include "scpattern.h"
+#include "sctextstream.h"
 #include "scxmlstreamwriter.h"
 #include "scpainter.h"
 
@@ -624,7 +628,11 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("BEXTRA"   , item->textToFrameDistBottom());
 	writer.writeAttribute("REXTRA"   , item->textToFrameDistRight());
 	writer.writeAttribute("FLOP"	,item->firstLineOffset());
-	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+#ifdef HAVE_OSG
+	if (((item->asImageFrame() && !(item->asLatexFrame() || item->asOSGFrame())) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+#else
+	if (((item->asImageFrame() && !(item->asLatexFrame())) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+#endif
 	{
 		writer.writeAttribute("ImageRes", item->pixm.imgInfo.lowResType);
 		writer.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
@@ -645,6 +653,28 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 		else
 			writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	}
+#ifdef HAVE_OSG
+	else if (item->asOSGFrame())
+	{
+		if (!item->Pfile.isEmpty())
+		{
+			writer.writeAttribute("PFILE", "");
+			writer.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
+			QFileInfo inlFi(item->Pfile);
+			writer.writeAttribute("inlineImageExt", inlFi.suffix());
+			QFile inFil(item->Pfile);
+			if (inFil.open(QIODevice::ReadOnly))
+			{
+				QByteArray ba = qCompress(inFil.readAll()).toBase64();
+				writer.writeAttribute("ImageData", QString(ba));
+				inFil.close();
+			}
+			PageItem_OSGFrame *osgframe = item->asOSGFrame();
+			writer.writeAttribute("modelFile", Path2Relative(osgframe->modelFile, baseDir));
+			writer.writeAttribute("currentViewName", osgframe->currentView);
+		}
+	}
+#endif
 	if (!item->Pfile2.isEmpty())
 		writer.writeAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else
@@ -946,6 +976,9 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	QMap<int,int> groupMap;
 	QMap<PageItem*, int> groupID;
 	QMap<int, ImageLoadRequest> loadRequests;
+#ifdef HAVE_OSG
+	QHash<QString, PageItem_OSGFrame::viewDefinition> viewMap;
+#endif
 	QList<PageItem*>  TableItems;
 	ScImageEffectList imageEffects;
 	bool VorLFound = false;
@@ -1147,6 +1180,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	QString inlineImageExt;
 	int lowResType = 1;
 	int actualPageNumber = 0;
+	QString modelFile;
+	QString currentView;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1220,6 +1255,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			LatexDPI = attrAsInt (attrs, "LatexDpi", 0);
 			LatexPream = attrAsBool(attrs, "LatexUsePreamble", true);
 			LatexConfig = attrAsString(attrs, "LatexConfig", "");
+			modelFile = attrAsString(attrs, "modelFile", "");
+			currentView = attrAsString(attrs, "currentViewName", "");
 		}
 		if (inItem && sReader.isStartElement() && tagName == "ITEXT")
 		{
@@ -1268,6 +1305,46 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			loadingInfo.useMask = attrAsBool(attrs, "useMask", true);
 			loadRequests.insert( attrAsInt(attrs, "Layer"), loadingInfo);
 		}
+#ifdef HAVE_OSG
+		if (inItem && sReader.isStartElement() && tagName == "OSGViews")
+		{
+			struct PageItem_OSGFrame::viewDefinition currentView;
+			currentView.angleFOV = attrAsDbl(attrs, "angleFOV", 0.0);
+			QString tmp = "";
+			tmp = attrAsString(attrs, "trackM", "");
+			ScTextStream fp(&tmp, QIODevice::ReadOnly);
+			double m1, m2, m3, m4;
+			double m5, m6, m7, m8;
+			double m9, m10, m11, m12;
+			double m13, m14, m15, m16;
+			fp >> m1 >> m2 >> m3 >> m4;
+			fp >> m5 >> m6 >> m7 >> m8;
+			fp >> m9 >> m10 >> m11 >> m12;
+			fp >> m13 >> m14 >> m15 >> m16;
+			currentView.trackerMatrix.set(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16);
+			tmp = "";
+			tmp = attrAsString(attrs, "trackC", "");
+			ScTextStream fp2(&tmp, QIODevice::ReadOnly);
+			double v1, v2, v3;
+			fp2 >> v1 >> v2 >> v3;
+			currentView.trackerCenter.set(v1, v2, v3);
+			tmp = "";
+			tmp = attrAsString(attrs, "cameraP", "");
+			ScTextStream fp3(&tmp, QIODevice::ReadOnly);
+			fp3 >> v1 >> v2 >> v3;
+			currentView.cameraPosition.set(v1, v2, v3);
+			tmp = "";
+			tmp = attrAsString(attrs, "cameraU", "");
+			ScTextStream fp4(&tmp, QIODevice::ReadOnly);
+			fp4 >> v1 >> v2 >> v3;
+			currentView.cameraUp.set(v1, v2, v3);
+			currentView.trackerDist = attrAsDbl(attrs, "trackerDist", 0.0);
+			currentView.trackerSize = attrAsDbl(attrs, "trackerSize", 0.0);
+			currentView.illumination = static_cast<PageItem_OSGFrame::LightType>(attrAsInt(attrs, "illumination", 1));
+			currentView.rendermode = static_cast<PageItem_OSGFrame::RenderType>(attrAsInt(attrs, "rendermode", 0));
+			viewMap.insert(attrAsString(attrs, "viewName", ""), currentView);
+		}
+#endif
 		if (inItem && sReader.isStartElement() && tagName == "CSTOP")
 		{
 			QString name = attrAsString(attrs, "NAME", "");
@@ -1312,6 +1389,13 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
 				QFileInfo pfi2(test);
 				OB.Pfile3 = pfi2.absoluteFilePath();
+			}
+			if (!modelFile.isEmpty())
+			{
+				QFileInfo pfi(fileName);
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+modelFile));
+				QFileInfo pfi2(test);
+				modelFile = pfi2.absoluteFilePath();
 			}
 		}
 		if (sReader.isEndElement() && (tagName == "ITEM"))
@@ -1358,6 +1442,16 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 					}
 				}
 			}
+#ifdef HAVE_OSG
+			if (Neu->asOSGFrame())
+			{
+				PageItem_OSGFrame *osgframe = Neu->asOSGFrame();
+				osgframe->modelFile = modelFile;
+				osgframe->currentView = currentView;
+				osgframe->viewMap = viewMap;
+				osgframe->loadModel();
+			}
+#endif
 			Neu->itemText = storyText;
 			Neu->effectsInUse = imageEffects;
 			Neu->pixm.imgInfo.RequestProps = loadRequests;
@@ -1387,6 +1481,9 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 				Neu->updatePolyClip();
 			imageEffects.clear();
 			loadRequests.clear();
+#ifdef HAVE_OSG
+			viewMap.clear();
+#endif
 			inItem = false;
 		}
 	}
@@ -2203,6 +2300,51 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("LatexUsePreamble", QString::number(static_cast<int>(latexitem->usePreamble())));
 		writer.writeTextElement("LATEX-SOURCE", item->asLatexFrame()->formula());
 	}
+#ifdef HAVE_OSG
+	if (item->asOSGFrame())
+	{
+		PageItem_OSGFrame *osgitem = item->asOSGFrame();
+		if (!item->Pfile.isEmpty())
+		{
+			QHash<QString, PageItem_OSGFrame::viewDefinition>::iterator itv;
+			for (itv = osgitem->viewMap.begin(); itv != osgitem->viewMap.end(); ++itv)
+			{
+				writer.writeStartElement("OSGViews");
+				writer.writeAttribute("viewName", itv.key());
+				writer.writeAttribute("angleFOV", itv.value().angleFOV);
+				QString trackM = "";
+				for (uint matx = 0; matx < 4; ++matx)
+				{
+					for (uint maty = 0; maty < 4; ++maty)
+					{
+						trackM += tmp.setNum(itv.value().trackerMatrix(matx, maty))+" ";
+					}
+				}
+				writer.writeAttribute("trackM", trackM);
+				QString trackC = "";
+				trackC += tmp.setNum(itv.value().trackerCenter[0])+" ";
+				trackC += tmp.setNum(itv.value().trackerCenter[1])+" ";
+				trackC += tmp.setNum(itv.value().trackerCenter[2]);
+				writer.writeAttribute("trackC", trackC);
+				QString cameraP = "";
+				cameraP += tmp.setNum(itv.value().cameraPosition[0])+" ";
+				cameraP += tmp.setNum(itv.value().cameraPosition[1])+" ";
+				cameraP += tmp.setNum(itv.value().cameraPosition[2]);
+				writer.writeAttribute("cameraP", cameraP);
+				QString cameraU = "";
+				cameraU += tmp.setNum(itv.value().cameraUp[0])+" ";
+				cameraU += tmp.setNum(itv.value().cameraUp[1])+" ";
+				cameraU += tmp.setNum(itv.value().cameraUp[2]);
+				writer.writeAttribute("cameraU", cameraU);
+				writer.writeAttribute("trackerDist", itv.value().trackerDist);
+				writer.writeAttribute("trackerSize", itv.value().trackerSize);
+				writer.writeAttribute("illumination", itv.value().illumination);
+				writer.writeAttribute("rendermode", itv.value().rendermode);
+				writer.writeEndElement();
+			}
+		}
+	}
+#endif
 	QDir::setCurrent(CurDirP);
 	WriteITEXTs(writer, doc, item);
 }

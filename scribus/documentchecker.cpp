@@ -102,7 +102,11 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		}
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(ObjectNotOnPage, 0);
+#ifdef HAVE_OSG
+		if (currItem->asImageFrame() && !currItem->asOSGFrame())
+#else
 		if (currItem->asImageFrame())
+#endif
 		{
 		 	if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 				itemError.insert(MissingImage, 0);
@@ -220,7 +224,11 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(PDFAnnotField, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(ObjectNotOnPage, 0);
+#ifdef HAVE_OSG
+		if (currItem->asImageFrame() && !currItem->asOSGFrame())
+#else
 		if (currItem->asImageFrame())
+#endif
 		{
 		 	if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 				itemError.insert(MissingImage, 0);

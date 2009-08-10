@@ -47,6 +47,9 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "text/storytext.h"
 #include "desaxe/saxio.h"
+#ifdef HAVE_CONFIG_H
+#include "scconfig.h"
+#endif
 
 class ScPainter;
 class ScribusDoc;
@@ -64,6 +67,9 @@ class PageItem_PolyLine;
 class PageItem_TextFrame;
 class PageItem_PathText;
 class PageItem_LatexFrame;
+#ifdef HAVE_OSG
+class PageItem_OSGFrame;
+#endif
 
 struct CopyPasteBuffer;
 /**
@@ -151,7 +157,8 @@ public:
 		Polygon		= 6,
 		PolyLine	= 7,
 		PathText	= 8,
-		LatexFrame  = 9,
+		LatexFrame      = 9,
+		OSGFrame        = 10,
 		Multiple	= 99
 	};
 
@@ -175,6 +182,9 @@ public:
 	virtual PageItem_PolyLine * asPolyLine() { return NULL; }
 	virtual PageItem_TextFrame * asTextFrame() { return NULL; }
 	virtual PageItem_LatexFrame * asLatexFrame() { return NULL; }
+#ifdef HAVE_OSG
+	virtual PageItem_OSGFrame * asOSGFrame() { return NULL; }
+#endif
 
 
 	/** @brief Frame Type
@@ -601,6 +611,11 @@ public:
 	//
 	bool fitImageToFrame() const { return !ScaleType; }
 	void setFitImageToFrame(bool val) { ScaleType = !val; }
+	bool isImageInline() const { return isInlineImage; }
+	void setImageInline(bool val) { isInlineImage = val; }
+	QString inlineExt;
+	void setInlineExt(QString val) { inlineExt = val; }
+	void setInlineData(QString data);
 	
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
 	double textToFrameDistLeft() const { return Extra; }
