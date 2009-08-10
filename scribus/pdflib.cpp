@@ -5313,7 +5313,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 			img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 			if (Options.UseRGB)
-				img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+			{
+				//#8329 : using realCMYK is meaningless here, when making a ScImage::RGBData request, 
+				//returned data will always be rgb
+				//img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+				img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, 72);
+			}
 			else
 			{
 #ifdef HAVE_CMS
