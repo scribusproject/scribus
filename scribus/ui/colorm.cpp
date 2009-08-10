@@ -309,7 +309,7 @@ void ColorManager::importColors()
 	
 	QString docexts("*.sla *.sla.gz *.scd *.scd.gz");
 	QString aiepsext(FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS|FormatsManager::AI, 0));
-	QString ooexts(" *.soc *.gpl");
+	QString ooexts(" *.soc *.gpl *.xml");
 	QString filter = tr("All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)").arg(docexts+" "+aiepsext+ooexts).arg(docexts).arg(aiepsext+ooexts);
 	CustomFDialog dia(this, wdir, tr("Import Colors"), filter, fdHidePreviewCheckBox);
 	

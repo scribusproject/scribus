@@ -763,7 +763,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 					bool cus = false;
 					if (ColorEn.contains("OpenOffice"))
 						cus = true;
-					if (ColorEn.startsWith("<?xml version="))
+					if ((ColorEn.startsWith("<?xml version=")) || (ColorEn.contains("VivaColors")))
 					{
 						QByteArray docBytes("");
 						loadRawText(fileName, docBytes);
@@ -773,6 +773,10 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 						docu.setContent(docText);
 						ScColor lf = ScColor();
 						QDomElement elem = docu.documentElement();
+						QString dTag = "";
+						dTag = elem.tagName();
+						QString nameMask = "%1";
+						nameMask = elem.attribute("mask", "%1");
 						QDomNode PAGE = elem.firstChild();
 						while(!PAGE.isNull())
 						{
@@ -803,6 +807,56 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 								QString nam = pg.attribute("draw:name");
 								if ((!EditColors.contains(nam)) && (!nam.isEmpty()))
 									EditColors.insert(nam, lf);
+							}
+							else if (dTag == "VivaColors")
+							{
+								int cVal = 0;
+								int mVal = 0;
+								int yVal = 0;
+								int kVal = 0;
+								QString nam = nameMask.arg(pg.attribute("name"));
+								if (pg.attribute("type") == "cmyk")
+								{
+									QDomNode colNode = pg.firstChild();
+									while(!colNode.isNull())
+									{
+										QDomElement colVal = colNode.toElement();
+										if (colVal.tagName() == "cyan")
+											cVal = colVal.text().toInt();
+										if (colVal.tagName() == "magenta")
+											mVal = colVal.text().toInt();
+										if (colVal.tagName() == "yellow")
+											yVal = colVal.text().toInt();
+										if (colVal.tagName() == "key")
+											kVal = colVal.text().toInt();
+										colNode = colNode.nextSibling();
+									}
+									lf.setColor(qRound(2.55 * cVal), qRound(2.55 * mVal), qRound(2.55 * yVal), qRound(2.55 * kVal));
+									lf.setSpotColor(false);
+									lf.setRegistrationColor(false);
+									if ((!EditColors.contains(nam)) && (!nam.isEmpty()))
+										EditColors.insert(nam, lf);
+								}
+								else if (pg.attribute("type") == "rgb")
+								{
+									QDomNode colNode = pg.firstChild();
+									while(!colNode.isNull())
+									{
+										QDomElement colVal = colNode.toElement();
+										if (colVal.tagName() == "red")
+											cVal = colVal.text().toInt();
+										if (colVal.tagName() == "green")
+											mVal = colVal.text().toInt();
+										if (colVal.tagName() == "blue")
+											yVal = colVal.text().toInt();
+										colNode = colNode.nextSibling();
+									}
+									lf.setColorRGB(cVal, mVal, yVal);
+									lf.setSpotColor(false);
+									lf.setRegistrationColor(false);
+									if ((!EditColors.contains(nam)) && (!nam.isEmpty()))
+										EditColors.insert(nam, lf);
+								}
 							}
 							PAGE=PAGE.nextSibling();
 						}
