@@ -37,6 +37,7 @@ public:
 	static bool clipboardHasScribusElem(void);
 	static bool clipboardHasScribusFragment(void);
 	static bool clipboardHasScribusText(void);
+	static bool clipboardHasPlainText(void);
 
 	static QString    clipboardScribusElem(void);
 	static QByteArray clipboardScribusFragment(void);
