@@ -16,7 +16,7 @@ ADD_SUBDIRECTORY(svgexplugin)
 ADD_SUBDIRECTORY(svgimplugin)
 ADD_SUBDIRECTORY(wmfimplugin)
 ADD_SUBDIRECTORY(xfigimplugin)
-# ADD_SUBDIRECTORY(imposition)
+ADD_SUBDIRECTORY(cvgimplugin)
 ADD_SUBDIRECTORY(tools)
 #ADD_SUBDIRECTORY(picbrowser)
 
