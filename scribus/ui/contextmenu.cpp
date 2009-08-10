@@ -370,7 +370,7 @@ void ContextMenu::createMenuItems_Selection()
 		addAction(m_AP->scrActions["editCut"]);
 	if (!(currItem->isSingleSel))
 		addAction(m_AP->scrActions["editCopy"]);
-	if ((m_doc->appMode == modeEdit) && (ScMimeData::clipboardHasScribusText()) && (currItem->itemType() == PageItem::TextFrame))
+	if ((m_doc->appMode == modeEdit) && (ScMimeData::clipboardHasScribusText()||ScMimeData::clipboardHasPlainText()) && (currItem->itemType() == PageItem::TextFrame))
 		addAction(m_AP->scrActions["editPaste"]);
 	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
 		addAction(m_AP->scrActions["itemDelete"]);

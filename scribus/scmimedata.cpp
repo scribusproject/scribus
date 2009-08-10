@@ -61,6 +61,14 @@ bool ScMimeData::clipboardHasScribusText(void)
 	return false;
 }
 
+bool ScMimeData::clipboardHasPlainText(void)
+{
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	if (mimeData)
+		return mimeData->hasText();
+	return false;
+}
+
 QString ScMimeData::clipboardScribusElem(void)
 {
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
