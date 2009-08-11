@@ -1,5 +1,6 @@
 
-
+Scribus - 1.3.6svn
+- 0008326: [PDF] PDF is corrupt (jghali) - resolved.
 Scribus - 1.3.5svn
 - 0008331: [Story Editor / Text Frames] Pasting text into a text frame with mouse doesn't work (cbradney) - resolved.
 - 0008319: [PDF] Acrobat reports "XObject master_page_obj_2_5 cannot be found" on Scribus-made PDF (jghali) - resolved.
