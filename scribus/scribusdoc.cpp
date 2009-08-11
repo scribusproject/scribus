@@ -52,7 +52,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
-#include "pageitem_osgframe.h"
+#ifdef HAVE_OSG
+	#include "pageitem_osgframe.h"
+#endif
 #include "ui/pagepalette.h"
 #include "pagesize.h"
 #include "pagestructs.h"
