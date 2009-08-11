@@ -5265,8 +5265,8 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 			QMap<QString,SpotC>::Iterator it3sc;
 			if (spotMap.count() != 0)
 			{
-			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-				PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
+				for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+					PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
 			}
 			PutDoc(">>\n");
 		}
@@ -7029,31 +7029,34 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 							components = 3;
 						}
 					}
-					PutDoc("<<\n");
-					if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
+					if (!ICCProfiles.contains(profInUse))
 					{
-						QByteArray compData = CompressArray(dataP);
-						if (compData.size() > 0)
+						PutDoc("<<\n");
+						if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
 						{
-							PutDoc("/Filter /FlateDecode\n");
-							dataP = compData;
+							QByteArray compData = CompressArray(dataP);
+							if (compData.size() > 0)
+							{
+								PutDoc("/Filter /FlateDecode\n");
+								dataP = compData;
+							}
 						}
+						PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
+						PutDoc("/N "+QString::number(components)+"\n");
+						PutDoc(">>\nstream\n");
+						EncodeArrayToStream(dataP, embeddedProfile);
+						PutDoc("\nendstream\nendobj\n");
+						uint profileResource = newObject();
+						StartObj(profileResource);
+						dataD.ResName = ResNam+QString::number(ResCount);
+						dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
+						dataD.ResNum = profileResource;
+						dataD.components = components;
+						ICCProfiles[profInUse] = dataD;
+						PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
+						PutDoc("endobj\n");
+						ResCount++;
 					}
-					PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
-					PutDoc("/N "+QString::number(components)+"\n");
-					PutDoc(">>\nstream\n");
-					EncodeArrayToStream(dataP, embeddedProfile);
-					PutDoc("\nendstream\nendobj\n");
-					uint profileResource = newObject();
-					StartObj(profileResource);
-					dataD.ResName = ResNam+QString::number(ResCount);
-					dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
-					dataD.ResNum = profileResource;
-					dataD.components = components;
-					ICCProfiles[profInUse] = dataD;
-					PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
-					PutDoc("endobj\n");
-					ResCount++;
 					if (components == 1)
 						hasGrayProfile = true;
 				}
