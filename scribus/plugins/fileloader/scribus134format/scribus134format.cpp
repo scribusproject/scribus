@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "sctextstream.h"
 #include "scxmlstreamreader.h"
+#include "undomanager.h"
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
@@ -2267,6 +2268,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
+		UndoManager::instance()->setUndoEnabled(false);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
 		if (!currItem->asLatexFrame())
@@ -2331,6 +2333,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
 		currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		currItem->setLineWidth(pw);
+		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
@@ -2345,6 +2348,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
+		UndoManager::instance()->setUndoEnabled(false);
 		if (attrs.valueAsInt("ANNOTATION", 0) && attrs.valueAsBool("ANICON", false))
 		{
 			currItem->setImageXYScale(scx, scy);
@@ -2365,12 +2369,14 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		}
 		//currItem->convertTo(pt);
+		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
+		UndoManager::instance()->setUndoEnabled(false);
 		if ((attrs.valueAsInt("ANNOTATION", 0)) && (attrs.valueAsBool("ANICON", false)))
 		{
 			currItem->setImageXYScale(scx, scy);
@@ -2390,7 +2396,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
 			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		}
-			//currItem->convertTo(pt);
+		//currItem->convertTo(pt);
+		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
@@ -2414,6 +2421,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		Q_ASSERT(false);
 		break;
 	}
+
+	UndoManager::instance()->setUndoEnabled(false);
 	currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
 	int startArrowIndex = attrs.valueAsInt("startArrowIndex", 0);
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
@@ -2801,6 +2810,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
+	UndoManager::instance()->setUndoEnabled(true);
 	return currItem;
 }
 

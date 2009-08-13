@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "sctextstream.h"
 #include "sccolorengine.h"
-
+#include "undomanager.h"
 #include "units.h"
 #include "util.h"
 #include "util_color.h"
@@ -2034,6 +2034,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
+		UndoManager::instance()->setUndoEnabled(false);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(offsX, offsY);
 		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
@@ -2102,6 +2103,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 				doc->loadPict(currItem->Pfile, currItem, true);
 			}
 		}
+		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
@@ -2116,6 +2118,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
+		UndoManager::instance()->setUndoEnabled(false);
 		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
 		{
 			currItem->setImageXYScale(scx, scy);
@@ -2136,12 +2139,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
 		//currItem->convertTo(pt);
+		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
+		UndoManager::instance()->setUndoEnabled(false);
 		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
 		{
 			currItem->setImageXYScale(scx, scy);
@@ -2161,7 +2166,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
-			//currItem->convertTo(pt);
+		//currItem->convertTo(pt);
+		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
@@ -2186,6 +2192,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		assert(false);
 		break;
 	}
+
+	UndoManager::instance()->setUndoEnabled(false);
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
@@ -2534,6 +2542,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	}
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
+	UndoManager::instance()->setUndoEnabled(true);
 	return currItem;
 }
 
