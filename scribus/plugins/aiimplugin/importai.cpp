@@ -412,13 +412,11 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 							Key = name.arg(1);
 							data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 							PoDoFo::PdfStream const *stream = data->GetStream();
-							char *Buffer;
-#if defined(pdf_long)
-							pdf_long bLen = 0;
-#else
-							long bLen = 0;
-#endif
-							stream->GetFilteredCopy(&Buffer, &bLen);
+							PoDoFo::PdfMemoryOutputStream oStream(1);
+							stream->GetFilteredCopy(&oStream);
+							oStream.Close();
+							long bLen = oStream.GetLength();
+							char *Buffer = oStream.TakeBuffer();
 							outf.write(Buffer, bLen);
 							free( Buffer );
 						}
@@ -431,13 +429,11 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 								if (data == NULL)
 									break;
 								PoDoFo::PdfStream const *stream = data->GetStream();
-								char *Buffer;
-#if defined(pdf_long)
-								pdf_long bLen = 0;
-#else
-								long bLen = 0;
-#endif
-								stream->GetFilteredCopy(&Buffer, &bLen);
+								PoDoFo::PdfMemoryOutputStream oStream(1);
+								stream->GetFilteredCopy(&oStream);
+								oStream.Close();
+								long bLen = oStream.GetLength();
+								char *Buffer = oStream.TakeBuffer();
 								outf.write(Buffer, bLen);
 								free( Buffer );
 							}

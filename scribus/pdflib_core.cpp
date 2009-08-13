@@ -6462,12 +6462,20 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			}
 			*/
 			char * mbuffer = NULL;
-#if defined(pdf_long)
-			pdf_long mlen = 0;
-#else
 			long mlen = 0;
-#endif
+
+#if ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR == 7) && (PODOFO_VERSION_PATCH == 99) ) || ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR > 7) )
+			// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
+			PoDoFo::PdfMemoryOutputStream oStream(1);
+			stream->GetCopy(&oStream);
+			oStream.Close();
+			mlen = oStream.GetLength();
+			mbuffer = oStream.TakeBuffer();
+#else
+
+
 			stream->GetCopy(&mbuffer, &mlen);
+#endif
 			if (mbuffer[mlen-1] == '\n')
 				--mlen;
 			PutDoc("\n/Length " + QString::number(mlen));
@@ -6722,14 +6730,20 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QM
 	copyPoDoFoDirect(obj, referencedObjects, importedObjects);
 	if (obj->HasStream())
 	{
-		char * mbuffer = NULL;
-#if defined(pdf_long)
-			pdf_long mlen = 0;
-#else
-			long mlen = 0;
-#endif
 		const PoDoFo::PdfStream* stream = obj->GetStream();
+		char * mbuffer = NULL;
+		long mlen = 0;
+
+#if ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR == 7) && (PODOFO_VERSION_PATCH == 99) ) || ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR > 7) )
+		// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
+		PoDoFo::PdfMemoryOutputStream oStream(1);
+		stream->GetCopy(&oStream);
+		oStream.Close();
+		mlen = oStream.GetLength();
+		mbuffer = oStream.TakeBuffer();
+#else
 		stream->GetCopy(&mbuffer, &mlen);
+#endif
 		if (mbuffer[mlen-1] == '\n')
 			--mlen;
 		PutDoc("\nstream\n");
