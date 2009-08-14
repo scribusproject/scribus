@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="ru_RU">
-<defaultcodec></defaultcodec>
+<!DOCTYPE TS>
+<TS version="2.0" language="ru_RU">
 <context>
     <name></name>
     <message>
@@ -3124,7 +3124,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1434"/>
         <source>Preflight &amp;Verifier</source>
-        <translation>&amp;Валидатор</translation>
+        <translation>Предпе&amp;чатная проверка...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1435"/>
@@ -6798,7 +6798,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="645"/>
         <source>Preflight Verifier</source>
-        <translation>Валидатор</translation>
+        <translation>Предпечатная проверка</translation>
     </message>
     <message>
         <location filename="../../scribus/checkDocument.cpp" line="668"/>
@@ -12086,9 +12086,9 @@ p, li { white-space: pre-wrap; }
         <translation>Вы действительно хотите удалить мастер-страницу &quot;%1&quot;?</translation>
     </message>
 </context>
-<context encoding="UTF-8">
+<context>
     <name>Measurements</name>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/measurements.cpp" line="51"/>
         <source> °</source>
         <translation> °</translation>
@@ -13492,7 +13492,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/preview.cpp" line="206"/>
         <source>Display Ink Coverage</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать предел покрытия краской</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="214"/>
@@ -14146,7 +14146,7 @@ both end points must lie outside of the polygon</source>
 и оба ее конца должны находиться вне многоугольника</translation>
     </message>
 </context>
-<context encoding="UTF-8">
+<context>
     <name>PathDialogBase</name>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="13"/>
@@ -14203,22 +14203,22 @@ both end points must lie outside of the polygon</source>
         <source>Rotate Objects by:</source>
         <translation>Вращать объекты на:</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -15272,7 +15272,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/prefs.cpp" line="100"/>
         <source>Preflight Verifier</source>
-        <translation>Валидатор</translation>
+        <translation>Предпечатная проверка</translation>
     </message>
     <message>
         <location filename="../../scribus/prefs.cpp" line="97"/>
@@ -19417,7 +19417,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="161"/>
-        <source>&#xb0;</source>
+        <source>°</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation>°</translation>
     </message>
@@ -19650,7 +19650,7 @@ is not exhaustive due to exceptions from called functions.
         <source>Xfig File</source>
         <translation>Файл XFig</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/langmgr.cpp" line="106"/>
         <source>Norwegian (Bokmål)</source>
         <translation>Норвежский (бокмол)</translation>
@@ -19992,7 +19992,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/reformdoc.cpp" line="91"/>
         <source>Preflight Verifier</source>
-        <translation>Валидатор</translation>
+        <translation>Предпечатная проверка</translation>
     </message>
     <message>
         <location filename="../../scribus/reformdoc.cpp" line="461"/>
@@ -21574,7 +21574,7 @@ Vertical gap: %3</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7725"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation>Scribus обнаружил ошибки. Вам стоит запустить валидатор, чтобы исправить их</translation>
+        <translation>Scribus обнаружил ошибки. Вам стоит запустить предпечатную проверку, чтобы исправить их</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4757"/>
@@ -21661,14 +21661,14 @@ Vertical gap: %3</source>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Обнаружены ошибки.
-Запустите валидатор  для их устранения.</translation>
+Запустите предпечатную проверку для их устранения.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7906"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Обнаружены ошибки.
-Запустите валидатор  для их устранения</translation>
+Запустите предпечатную проверку для их устранения</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8002"/>
@@ -21943,7 +21943,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="463"/>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Предпечатная подготовка свободными средствами</translation>
+        <translation>Scribus, предпечатная подготовка свободными средствами</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="471"/>
@@ -27919,7 +27919,7 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="86"/>
         <source>No data on your computer will be sent to an external location</source>
-        <translation>Никакие данные с вашего компьютера не будут передаваться наружу.</translation>
+        <translation>Никакие данные с вашего компьютера не будут передаваться наружу</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="92"/>
