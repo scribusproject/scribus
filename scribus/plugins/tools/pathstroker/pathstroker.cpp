@@ -135,7 +135,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 				stroke.setDashPattern(m_array);
 			}
 			stroke.setWidth(currItem->lineWidth());
-			QPainterPath result = stroke.createStroke(pp);
+			QPainterPath result = stroke.createStroke(pp).simplified();
 			if (currItem->startArrowIndex() != 0)
 			{
 				FPoint Start = currItem->PoLine.point(0);
@@ -218,7 +218,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						stroke.setDashPattern(m_array);
 					}
 					stroke.setWidth(ml[it].Width);
-					QPainterPath result = stroke.createStroke(pp);
+					QPainterPath result = stroke.createStroke(pp).simplified();
 					PageItem* newItem;
 					if (first)
 					{
