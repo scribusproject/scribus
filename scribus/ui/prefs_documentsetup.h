@@ -18,6 +18,8 @@ class SCRIBUS_API Prefs_DocumentSetup : public QWidget, Ui::Prefs_DocumentSetup
 	public:
 		Prefs_DocumentSetup(QWidget* parent=0);
 		~Prefs_DocumentSetup();
+
+//		setValues();
 };
 
 #endif // PREFS_DOCUMENTSETUP_H

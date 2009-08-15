@@ -627,7 +627,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File");
 	scrMenuMgr->addMenuItem(scrActions["filePreferences"], "File");
-//	scrMenuMgr->addMenuItem(scrActions["filePreferences150"], "File");
+	scrMenuMgr->addMenuItem(scrActions["filePreferences150"], "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["filePrint"], "File");
 	scrMenuMgr->addMenuItem(scrActions["PrintPreview"], "File");
@@ -1366,7 +1366,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if ((doc->appMode != modeEdit) && (doc->m_Selection->count() == 0))
 		{
 			int pg;
-			int wheelVal = prefsManager->mouseWheelValue();
+			int wheelVal = prefsManager->mouseWheelJump();
 			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 				wheelVal = qMax(qRound(wheelVal / 10.0), 1);
 			switch (kk)
@@ -1381,7 +1381,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_PageUp:
 				if (doc->masterPageMode())
-					view->scrollBy(0, -prefsManager->mouseWheelValue());
+					view->scrollBy(0, -prefsManager->mouseWheelJump());
 				else
 				{
 					pg = doc->currentPageNumber();
@@ -1397,7 +1397,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_PageDown:
 				if (doc->masterPageMode())
-					view->scrollBy(0, prefsManager->mouseWheelValue());
+					view->scrollBy(0, prefsManager->mouseWheelJump());
 				else
 				{
 					pg = doc->currentPageNumber();
@@ -3426,7 +3426,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
 
 	scrRecentFileActions.clear();
-	uint max = qMin(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
+	uint max = qMin(prefsManager->appPrefs.ui_RecentDocCount, RecentDocs.count());
 	QString strippedName, localName;
 	for (uint m = 0; m < max; ++m)
 	{
@@ -7589,10 +7589,10 @@ void ScribusMainWindow::selectPagesFromOutlines(int Page)
 void ScribusMainWindow::prefsOrg(Preferences *dia)
 {
 	//reset the appMode so we restore our tools shortcuts
-	QString oldGUILanguage = prefsManager->guiLanguage();
-	QString oldGUIStyle    = prefsManager->guiStyle();
+	QString oldUILanguage = prefsManager->uiLanguage();
+	QString oldUIStyle    = prefsManager->guiStyle();
 	bool oldShowPageShadow = prefsManager->showPageShadow();
-	int oldGUIFontSize     = prefsManager->guiFontSize();
+	int oldUIFontSize     = prefsManager->guiFontSize();
 	double oldDisplayScale = prefsManager->displayScale();
 	int oldImageQuality = prefsManager->applicationPrefs()->toolSettings.lowResType;
 
@@ -7601,25 +7601,25 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	DocDir = prefsManager->documentDir();
 //		scrapbookPalette->rebuildView();
 //		scrapbookPalette->AdjustMenu();
-	QString newGUILanguage = prefsManager->guiLanguage();
-	if (oldGUILanguage != newGUILanguage || ScQApp->currGUILanguage()!=newGUILanguage)
-		ScQApp->changeGUILanguage(newGUILanguage);
-	QString newGUIStyle = prefsManager->guiStyle();
-	if (oldGUIStyle != newGUIStyle)
+	QString newUILanguage = prefsManager->uiLanguage();
+	if (oldUILanguage != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
+		ScQApp->changeGUILanguage(newUILanguage);
+	QString newUIStyle = prefsManager->guiStyle();
+	if (oldUIStyle != newUIStyle)
 	{
-		if (newGUIStyle.isEmpty())
+		if (newUIStyle.isEmpty())
 			qApp->setStyle(prefsManager->guiSystemStyle());
 		else
-			qApp->setStyle(QStyleFactory::create(newGUIStyle));
+			qApp->setStyle(QStyleFactory::create(newUIStyle));
 		// Plain wrong, a style may set a palette different from the standard palette
 		// Eg : Windows XP and Windows Vista styles
 		// qApp->setPalette(qApp->style()->standardPalette());
 	}
-	int newGUIFontSize = prefsManager->guiFontSize();
-	if (oldGUIFontSize != newGUIFontSize)
+	int newUIFontSize = prefsManager->guiFontSize();
+	if (oldUIFontSize != newUIFontSize)
 	{
 		QFont apf = qApp->font();
-		apf.setPointSize(prefsManager->appPrefs.AppFontSize);
+		apf.setPointSize(prefsManager->appPrefs.ui_ApplicationFontSize);
 		qApp->setFont(apf);
 	}
 	propertiesPalette->Fonts->RebuildList(0);

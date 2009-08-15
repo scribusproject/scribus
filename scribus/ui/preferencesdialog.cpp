@@ -14,9 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include "preferencesdialog.h"
 
 #include "commonstrings.h"
+#include "prefsmanager.h"
+#include "scribus.h"
+#include "units.h"
 #include "util_icon.h"
-
-
 
 PreferencesDialog::PreferencesDialog( QWidget* parent )
 	: QDialog(parent),
@@ -79,6 +80,8 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(preferencesTypeList, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+
+	initPreferenceValues();
 }
 
 PreferencesDialog::~PreferencesDialog()
@@ -107,6 +110,7 @@ void PreferencesDialog::setupListWidget()
 
 int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget *tab)
 {
+	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
 	QListWidgetItem* newItem = new QListWidgetItem(icon, name, preferencesTypeList);
 	newItem->setTextAlignment(Qt::AlignHCenter);
 	prefsStackWidget->addWidget(tab);
@@ -139,6 +143,7 @@ void PreferencesDialog::changeEvent(QEvent *e)
 
 void PreferencesDialog::languageChange()
 {
+	setWindowTitle( tr( "Preferences" ) );
 }
 
 void PreferencesDialog::arrangeIcons()
@@ -183,4 +188,13 @@ void PreferencesDialog::arrangeIcons()
 
 		startY += ir.height()+5;
 	}*/
+}
+
+void PreferencesDialog::initPreferenceValues()
+{
+	prefsManager=PrefsManager::instance();
+	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
+	mainWin = (ScribusMainWindow*)parent();
+	docUnitIndex = prefsData->docUnitIndex;
+	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 }

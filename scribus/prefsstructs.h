@@ -153,14 +153,44 @@ struct toolPrefs
 
 struct ApplicationPrefs
 {
+	//User Interface
+	int ui_MouseMoveTimeout; //! Mouse move timeout for move/resize operations
+	int ui_WheelJump; //! Distance to jump with mouse wheel scrolling
+	int ui_ApplicationFontSize; //! Font size to use in the application, apart from pßalettes
+	int ui_PaletteFontSize; //! Fotn size to use in the palettes
+	QString ui_Theme; 	//! Currently used QStyle name
+	int ui_RecentDocCount; //! Number of recent documents to remember
+	QString ui_Language; //! Language of the user interface
+	bool ui_UseSmallWidgets; //! Use small widgets in the palettes
+	bool ui_ShowStartupDialog; //! Whether to show the startup dialog or not
+	//Paths
+	//Document Setup
+	//Guides
+	//Typography
+	//Item Tools
+	//Operators Tools
+	//Hyphenator
+	//Fonts
+	//Printer
+	//ColorManagement
+	//PDF Export
+	//Document Item Attributes
+	//Tables of Contents
+	//Keyboard Shortcuts
+	//Scrapbook
+	//Display
+	//External Tools
+	//Miscellaneous
+	//Plugins
+	//Short Words
+	//Scripter
+
+
 	SCFonts AvailFonts;
 	QList<ArrowDesc> arrowStyles;
 	QList<PageSet> pageSets;
 	ColorList DColors;
-	int moveTimeout;
-	int Wheelval;
-	int AppFontSize;
-	int PaletteFontSize;
+
 	bool showPageShadow;
 	QColor DpapColor;
 	QColor DFrameColor;
@@ -171,10 +201,7 @@ struct ApplicationPrefs
 	QColor DFrameAnnotationColor;
 	QColor DPageBorderColor;
 	QColor DControlCharColor;
-	//! Currently used QStyle name
-	QString GUI;
-	//! System default QStyle name for current instance
-	QString GUIsystem;
+
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSettings;
 	toolPrefs toolSettings;
@@ -198,7 +225,7 @@ struct ApplicationPrefs
 	int numScrapbookCopies;
 	bool doCopyToScrapbook;
 	bool persistentScrapbook;
-	int RecentDCount;
+
 	CMSData DCMSset;
 	QMap<QString,Keys> KeyActions;
 	QString PrinterName;
@@ -216,7 +243,7 @@ struct ApplicationPrefs
 	QString Language;
 	QHash<QString, QString> specialWords;
 	QSet<QString> ignoredWords;
-	QString guiLanguage;
+
 	bool Automatic;
 	bool AutoCheck;
 	QString DocDir;
@@ -258,10 +285,6 @@ struct ApplicationPrefs
 	MarginStruct scratch;
 	double GapHorizontal;
 	double GapVertical;
-/*	double ScratchLeft;
-	double ScratchRight;
-	double ScratchTop;
-	double ScratchBottom;*/
 	bool askBeforeSubstituite;
 	bool haveStylePreview;
 	bool showToolTips;
@@ -269,10 +292,13 @@ struct ApplicationPrefs
 	// lorem ipsum
 	bool useStandardLI;
 	int paragraphsLI;
-	bool showStartupDialog;
-	bool useSmallWidgets; // space savy widgets in palettes - PV
+
+
 	bool stickyTools;
 	bool grayscaleIcons;
+	//TODO : Remove these no longer used items
+	//! System default QStyle name for current instance, seemingly unused
+	QString ui_SystemTheme;
 };
 
 #endif

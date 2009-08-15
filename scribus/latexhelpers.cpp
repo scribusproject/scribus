@@ -286,7 +286,7 @@ QString LatexConfigParser::executable() const
 
 QString I18nXmlStreamReader::readI18nText(bool unindent)
 {
-	QString language = PrefsManager::instance()->guiLanguage();
+	QString language = PrefsManager::instance()->uiLanguage();
 	QString result;
 	int matchquality = 0;
 	bool i18n = false;

@@ -87,7 +87,7 @@ void PythonConsole::setFonts()
 {
 	QFont font = QFont("Fixed");
 	font.setStyleHint(QFont::TypeWriter);
-	font.setPointSize(PrefsManager::instance()->appPrefs.AppFontSize);
+	font.setPointSize(PrefsManager::instance()->appPrefs.ui_ApplicationFontSize);
 	commandEdit->setFont(font);	
 	outputEdit->setFont(font);
 }

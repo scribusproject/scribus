@@ -128,7 +128,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QS
 	if (startUp)
 	{
 		startUpDialog = new QCheckBox( tr( "Do not show this dialog again" ), this );
-		startUpDialog->setChecked(!prefsManager->appPrefs.showStartupDialog);
+		startUpDialog->setChecked(!prefsManager->appPrefs.ui_ShowStartupDialog);
 		Layout1->addWidget( startUpDialog );
 	}
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -398,7 +398,7 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout->setSpacing(5);
 	recentDocListBox = new QListWidget(recentDocFrame);
 	recentDocLayout->addWidget(recentDocListBox);
-	uint max = qMin(prefsManager->appPrefs.RecentDCount, recentDocList.count());
+	uint max = qMin(prefsManager->appPrefs.ui_RecentDocCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
 		recentDocListBox->addItem( QDir::convertSeparators(recentDocList[m]) );
 }

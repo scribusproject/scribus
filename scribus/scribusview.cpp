@@ -4675,7 +4675,7 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 	else
 	{
 		int dX=0,dY=0;
-		int moveBy=(w->delta() < 0) ? Prefs->Wheelval : -Prefs->Wheelval;
+		int moveBy=(w->delta() < 0) ? Prefs->ui_WheelJump : -Prefs->ui_WheelJump;
 		if ((w->orientation() != Qt::Vertical) || ( w->modifiers() == Qt::ShiftModifier ))
 			dX = moveBy;
 		else

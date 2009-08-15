@@ -183,7 +183,7 @@ void PrefsManager::initDefaults()
 	}
 	*/
 
-	appPrefs.Wheelval = 40;
+	appPrefs.ui_WheelJump = 40;
 	/** Set Default window position and size to sane default values which should work on every screen */
 //	appPrefs.mainWinSettings.xPosition = 0;
 //	appPrefs.mainWinSettings.yPosition = 0;
@@ -228,11 +228,11 @@ void PrefsManager::initDefaults()
 	appPrefs.typographicSettings.valueStrikeThruWidth = -1;
 	appPrefs.typographicSettings.valueBaseGrid = 14.4;
 	appPrefs.typographicSettings.offsetBaseGrid = 0.0;
-	appPrefs.GUI = "";
+	appPrefs.ui_Theme = "";
 	appPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
 	appPrefs.showToolTips = true;
 	appPrefs.showMouseCoordinates = true;
-	appPrefs.moveTimeout = 150;
+	appPrefs.ui_MouseMoveTimeout = 150;
 	appPrefs.stickyTools = false;
 	//FIXME
 	//Black here causes issues when a colour set is loaded without "Black" in it.
@@ -294,7 +294,7 @@ void PrefsManager::initDefaults()
 	appPrefs.GCRMode = false;
 	appPrefs.RecentDocs.clear();
 	appPrefs.RecentScrapbooks.clear();
-	appPrefs.RecentDCount = 5;
+	appPrefs.ui_RecentDocCount = 5;
 	appPrefs.doCopyToScrapbook = true;
 	appPrefs.persistentScrapbook = false;
 	appPrefs.numScrapbookCopies = 10;
@@ -420,8 +420,8 @@ void PrefsManager::initDefaults()
 	// lorem ipsum defaults
 	appPrefs.useStandardLI = false;
 	appPrefs.paragraphsLI = 10;
-	appPrefs.showStartupDialog = true;
-	appPrefs.useSmallWidgets = false;
+	appPrefs.ui_ShowStartupDialog = true;
+	appPrefs.ui_UseSmallWidgets = false;
 	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
 	appPrefs.curCheckProfile = CommonStrings::PostScript;
 	appPrefs.PDF_Options.Thumbnails = false;
@@ -519,9 +519,9 @@ void PrefsManager::applyLoadedShortCuts()
 
 void PrefsManager::initDefaultGUIFont(const QFont& guiFont)
 {
-	appPrefs.AppFontSize = guiFont.pointSize();
+	appPrefs.ui_ApplicationFontSize = guiFont.pointSize();
 	appPrefs.STEfont = guiFont.toString();
-	appPrefs.PaletteFontSize = appPrefs.AppFontSize;
+	appPrefs.ui_PaletteFontSize = appPrefs.ui_ApplicationFontSize;
 }
 
 void PrefsManager::initArrowStyles()
@@ -885,7 +885,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 {
 	mw->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
 
-	uint max = qMin(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
+	uint max = qMin(appPrefs.ui_RecentDocCount, appPrefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		QFileInfo fd(appPrefs.RecentDocs[m]);
@@ -921,7 +921,7 @@ void PrefsManager::ReadPrefsXML()
 		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 		if (userprefsContext)
 		{
-			appPrefs.guiLanguage = userprefsContext->get("gui_language","");
+			appPrefs.ui_Language = userprefsContext->get("gui_language","");
 			appPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toAscii());
             //continue here...
             //Prefs."blah blah" =...
@@ -951,7 +951,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	appPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
 	appPrefs.mainWinState = ScCore->primaryMainWindow()->saveState();
 	appPrefs.RecentDocs.clear();
-	uint max = qMin(appPrefs.RecentDCount, ScCore->primaryMainWindow()->RecentDocs.count());
+	uint max = qMin(appPrefs.ui_RecentDocCount, ScCore->primaryMainWindow()->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		appPrefs.RecentDocs.append(ScCore->primaryMainWindow()->RecentDocs[m]);
@@ -975,7 +975,7 @@ void PrefsManager::SavePrefsXML()
 		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 		if (userprefsContext)
 		{
-			userprefsContext->set("gui_language", appPrefs.guiLanguage);
+			userprefsContext->set("gui_language", appPrefs.ui_Language);
 			userprefsContext->set("mainwinstate", QString::fromAscii(appPrefs.mainWinState.toBase64()));
             //continue here...
             //Prefs."blah blah" =...
@@ -1019,9 +1019,9 @@ void PrefsManager::setDocumentDir(const QString& dirname)
 	appPrefs.DocDir = dirname;
 }
 
-int PrefsManager::mouseWheelValue() const
+int PrefsManager::mouseWheelJump() const
 {
-	return appPrefs.Wheelval;
+	return appPrefs.ui_WheelJump;
 }
 
 //Changed to return false when we have no fonts
@@ -1033,7 +1033,7 @@ bool PrefsManager::GetAllFonts(bool showFontInfo)
 
 void PrefsManager::setShowStartupDialog(const bool showDialog)
 {
-	appPrefs.showStartupDialog=showDialog;
+	appPrefs.ui_ShowStartupDialog=showDialog;
 }
 
 const ColorList& PrefsManager::colorSet()
@@ -1188,29 +1188,29 @@ double PrefsManager::displayScale() const
 	return appPrefs.DisScale;
 }
 
-const QString& PrefsManager::guiLanguage() const
+const QString& PrefsManager::uiLanguage() const
 {
-	return appPrefs.guiLanguage;
+	return appPrefs.ui_Language;
 }
 
 const QString& PrefsManager::guiStyle() const
 {
-	return appPrefs.GUI;
+	return appPrefs.ui_Theme;
 }
 
 const QString& PrefsManager::guiSystemStyle() const
 {
-	return appPrefs.GUIsystem;
+	return appPrefs.ui_SystemTheme;
 }
 
 const int& PrefsManager::guiFontSize() const
 {
-	return appPrefs.AppFontSize;
+	return appPrefs.ui_ApplicationFontSize;
 }
 
 const int& PrefsManager::paletteFontSize() const
 {
-	return appPrefs.PaletteFontSize;
+	return appPrefs.ui_PaletteFontSize;
 }
 
 bool PrefsManager::showPageShadow() const
@@ -1226,14 +1226,14 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement elem=docu.documentElement();
 	elem.setAttribute("VERSION","1.3.5");
 	QDomElement dc=docu.createElement("GUI");
-	dc.setAttribute("STILT",appPrefs.GUI);
-	dc.setAttribute("RAD",appPrefs.Wheelval);
-	dc.setAttribute("MOVT", appPrefs.moveTimeout);
-	dc.setAttribute("APF",appPrefs.AppFontSize);
-	dc.setAttribute("PFS",appPrefs.PaletteFontSize);
+	dc.setAttribute("UI_THEME",appPrefs.ui_Theme);
+	dc.setAttribute("UI_WHEELJUMP",appPrefs.ui_WheelJump);
+	dc.setAttribute("UI_MOUSEMOVETIMEOUT", appPrefs.ui_MouseMoveTimeout);
+	dc.setAttribute("UI_APPLICATIONFONTSIZE",appPrefs.ui_ApplicationFontSize);
+	dc.setAttribute("UI_PALETTEFONTSIZE",appPrefs.ui_PaletteFontSize);
 	dc.setAttribute("GRAB",appPrefs.guidesSettings.grabRad);
 	dc.setAttribute("UNIT",appPrefs.docUnitIndex);
-	dc.setAttribute("RCD", appPrefs.RecentDCount);
+	dc.setAttribute("UI_RECENTDOCCOUNT", appPrefs.ui_RecentDocCount);
 	dc.setAttribute("DOC", appPrefs.DocDir);
 	dc.setAttribute("PROFILES", appPrefs.ProfileDir);
 	dc.setAttribute("SCRIPTS", appPrefs.ScriptDir);
@@ -1259,8 +1259,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("STECOLOR", appPrefs.STEcolor.name());
 	dc.setAttribute("STEFONT", appPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
-	dc.setAttribute("StartUp", static_cast<int>(appPrefs.showStartupDialog));
-	dc.setAttribute("UseSmallWidgets", static_cast<int>(appPrefs.useSmallWidgets));
+	dc.setAttribute("UI_SHOWSTARTUPDIALOG", static_cast<int>(appPrefs.ui_ShowStartupDialog));
+	dc.setAttribute("UI_USESMALLWIDGETS", static_cast<int>(appPrefs.ui_UseSmallWidgets));
 	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.showToolTips));
 	dc.setAttribute("showMouseCoordinates", static_cast<int>(appPrefs.showMouseCoordinates));
 	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.stickyTools));
@@ -1756,14 +1756,32 @@ bool PrefsManager::ReadPref(QString ho)
 		QDomElement dc=DOC.toElement();
 		if (dc.tagName()=="GUI")
 		{
-			appPrefs.GUI = dc.attribute("STILT","Default");
-			appPrefs.Wheelval = dc.attribute("RAD").toInt();
-			appPrefs.moveTimeout = dc.attribute("MOVT", "150").toInt();
+			if (dc.hasAttribute("STILT"))
+				appPrefs.ui_Theme = dc.attribute("STILT");
+			else
+				appPrefs.ui_Theme = dc.attribute("UI_THEME","Default");
+			if (dc.hasAttribute("RAD"))
+				appPrefs.ui_WheelJump = dc.attribute("RAD").toInt();
+			else
+				appPrefs.ui_WheelJump = dc.attribute("UI_WHEELJUMP").toInt();
+			if (dc.hasAttribute("MOVT"))
+				appPrefs.ui_MouseMoveTimeout = dc.attribute("MOVT").toInt();
+			else
+				appPrefs.ui_MouseMoveTimeout = dc.attribute("UI_MOUSEMOVETIMEOUT", "150").toInt();
 			appPrefs.guidesSettings.grabRad = dc.attribute("GRAB", "4").toInt();
 			appPrefs.docUnitIndex = dc.attribute("UNIT", "0").toInt();
-			appPrefs.AppFontSize = dc.attribute("APF", "12").toInt();
-			appPrefs.PaletteFontSize = dc.attribute("PFS", "10").toInt();
-			appPrefs.RecentDCount = dc.attribute("RCD","5").toUInt();
+			if (dc.hasAttribute("APF"))
+				appPrefs.ui_ApplicationFontSize = dc.attribute("APF").toInt();
+			else
+				appPrefs.ui_ApplicationFontSize = dc.attribute("UI_APPLICATIONFONTSIZE", "12").toInt();
+			if (dc.hasAttribute("PFS"))
+				appPrefs.ui_PaletteFontSize = dc.attribute("PFS").toInt();
+			else
+				appPrefs.ui_PaletteFontSize = dc.attribute("UI_PALETTEFONTSIZE", "10").toInt();
+			if (dc.hasAttribute("RCD"))
+				appPrefs.ui_RecentDocCount = dc.attribute("RCD").toInt();
+			else
+				appPrefs.ui_RecentDocCount = dc.attribute("UI_RECENTDOCCOUNT","5").toUInt();
 			appPrefs.DocDir = dc.attribute("DOC","");
 			appPrefs.ProfileDir = dc.attribute("PROFILES","");
 			appPrefs.ScriptDir = dc.attribute("SCRIPTS","");
@@ -1781,8 +1799,14 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesSettings.showBleed = static_cast<bool>(dc.attribute("showBleed", "1").toInt());
 			appPrefs.guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
-			appPrefs.showStartupDialog = static_cast<bool>(dc.attribute("StartUp", "1").toInt());
-			appPrefs.useSmallWidgets = static_cast<bool>(dc.attribute("UseSmallWidgets", "0").toInt());
+			if (dc.hasAttribute("StartUp"))
+				appPrefs.ui_ShowStartupDialog = dc.attribute("StartUp").toInt();
+			else
+				appPrefs.ui_ShowStartupDialog = static_cast<bool>(dc.attribute("UI_SHOWSTARTUPDIALOG", "1").toInt());
+			if (dc.hasAttribute("UseSmallWidgets"))
+				appPrefs.ui_UseSmallWidgets = dc.attribute("UseSmallWidgets").toInt();
+			else
+				appPrefs.ui_UseSmallWidgets = static_cast<bool>(dc.attribute("UI_USESMALLWIDGETS", "0").toInt());
 			appPrefs.scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
 			appPrefs.scratch.Left   = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
 			appPrefs.scratch.Right  = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
@@ -2355,16 +2379,16 @@ bool PrefsManager::ReadPref(QString ho)
 		DOC=DOC.nextSibling();
 	}
 	appPrefs.DColors.ensureBlackAndWhite();
-	appPrefs.GUIsystem = qApp->style()->objectName();
-	if (appPrefs.GUI.length() > 0)
+	appPrefs.ui_SystemTheme = qApp->style()->objectName();
+	if (appPrefs.ui_Theme.length() > 0)
 	{
-		qApp->setStyle(QStyleFactory::create(appPrefs.GUI));
+		qApp->setStyle(QStyleFactory::create(appPrefs.ui_Theme));
 		// Plain wrong, a style may set a palette different from the standard palette
 		// Eg : Windows XP and Windows Vista styles
 		// qApp->setPalette(qApp->style()->standardPalette());
 	}
 	QFont apf = qApp->font();
-	apf.setPointSize(appPrefs.AppFontSize);
+	apf.setPointSize(appPrefs.ui_ApplicationFontSize);
 	qApp->setFont(apf);
 	return true;
 }

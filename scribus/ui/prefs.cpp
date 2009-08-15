@@ -343,20 +343,20 @@ void Preferences::updatePreferences()
 {
 	double prefsUnitRatio = unitGetRatioFromIndex(tabDocument->unitCombo->currentIndex());
 
-	prefsManager->appPrefs.AppFontSize = tabGeneral->GFsize->value();
-	prefsManager->appPrefs.PaletteFontSize = tabGeneral->GTFsize->value();
+	prefsManager->appPrefs.ui_ApplicationFontSize = tabGeneral->GFsize->value();
+	prefsManager->appPrefs.ui_PaletteFontSize = tabGeneral->GTFsize->value();
 	ScQApp->neverSplash(!tabGeneral->showSplashCheckBox->isChecked());
-	prefsManager->appPrefs.showStartupDialog = tabGeneral->startUpDialog->isChecked();
-	prefsManager->appPrefs.Wheelval = tabGeneral->wheelJumpSpin->value();
-	prefsManager->appPrefs.moveTimeout = tabGeneral->spinTimeout->value();
-	prefsManager->appPrefs.RecentDCount = tabGeneral->recentDocs->value();
+	prefsManager->appPrefs.ui_ShowStartupDialog = tabGeneral->startUpDialog->isChecked();
+	prefsManager->appPrefs.ui_WheelJump = tabGeneral->wheelJumpSpin->value();
+	prefsManager->appPrefs.ui_MouseMoveTimeout = tabGeneral->spinTimeout->value();
+	prefsManager->appPrefs.ui_RecentDocCount = tabGeneral->recentDocs->value();
 	prefsManager->appPrefs.DocDir = QDir::fromNativeSeparators( tabGeneral->Docs->text() );
 	prefsManager->appPrefs.ProfileDir = QDir::fromNativeSeparators( tabGeneral->ProPfad->text() );
 	prefsManager->appPrefs.ScriptDir = QDir::fromNativeSeparators( tabGeneral->ScriptPfad->text() );
 	prefsManager->appPrefs.documentTemplatesDir = QDir::fromNativeSeparators( tabGeneral->DocumentTemplateDir->text() );
-	prefsManager->appPrefs.guiLanguage=tabGeneral->selectedGUILang;
-	prefsManager->appPrefs.GUI = tabGeneral->GUICombo->currentText();
-	prefsManager->appPrefs.useSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
+	prefsManager->appPrefs.ui_Language=tabGeneral->selectedGUILang;
+	prefsManager->appPrefs.ui_Theme = tabGeneral->GUICombo->currentText();
+	prefsManager->appPrefs.ui_UseSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
 
 //	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
 //	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapBelow = tabView->gapVertical->value() / prefsUnitRatio;

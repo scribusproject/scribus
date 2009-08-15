@@ -142,11 +142,11 @@ public:
 	//! \brief Get the users preferred document directory
 	const QString documentDir();
 	void setDocumentDir(const QString& dirname);
-	int mouseWheelValue() const;
+	int mouseWheelJump() const;
 	//! \brief Get the user set display scale
 	double displayScale() const;
 	//! \brief Get the GUI language from preferences
-	const QString& guiLanguage() const;
+	const QString& uiLanguage() const;
 	//! \brief Get the GUI style from preferences
 	const QString& guiStyle() const;
 	const QString& guiSystemStyle() const;

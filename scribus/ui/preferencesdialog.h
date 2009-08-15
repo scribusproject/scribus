@@ -38,6 +38,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_pdfexport.h"
 #include "ui/prefs_documentitemattributes.h"
 
+class PrefsManager;
+class ScribusMainWindow;
+
 
 /*! \brief The Scribus Preferences Dialog
 */
@@ -60,6 +63,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		int addItem(QString name, QPixmap icon, QWidget *tab);
 		void setupListWidget();
 		void arrangeIcons();
+		void initPreferenceValues();
 
 		Prefs_ColorManagement *prefs_ColorManagement;
 		Prefs_UserInterface *prefs_UserInterface;
@@ -86,6 +90,10 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 		QMap<QListWidgetItem*, int> stackWidgetMap;
 		int counter;
+		double unitRatio;
+		int docUnitIndex;
+		ScribusMainWindow* mainWin;
+		PrefsManager* prefsManager;
 };
 
 #endif

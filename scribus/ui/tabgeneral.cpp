@@ -71,21 +71,21 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 
 void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	selectedGUILang = prefsData->guiLanguage;
+	selectedGUILang = prefsData->ui_Language;
 	setCurrentComboItem(guiLangCombo, LanguageManager::instance()->getLangFromAbbrev(selectedGUILang));
-	setCurrentComboItem(GUICombo, prefsData->GUI);
-	GFsize->setValue( prefsData->AppFontSize );
-	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
-	wheelJumpSpin->setValue( prefsData->Wheelval );
-	spinTimeout->setValue(prefsData->moveTimeout);
-	recentDocs->setValue( prefsData->RecentDCount );
+	setCurrentComboItem(GUICombo, prefsData->ui_Theme);
+	GFsize->setValue( prefsData->ui_ApplicationFontSize );
+	GTFsize->setValue( prefsData->ui_PaletteFontSize); // temp solution
+	wheelJumpSpin->setValue( prefsData->ui_WheelJump );
+	spinTimeout->setValue(prefsData->ui_MouseMoveTimeout);
+	recentDocs->setValue( prefsData->ui_RecentDocCount );
 	Docs->setText(QDir::convertSeparators(prefsData->DocDir));
 	ProPfad->setText(QDir::convertSeparators(prefsData->ProfileDir));
 	ScriptPfad->setText(QDir::convertSeparators(prefsData->ScriptDir));
 	DocumentTemplateDir->setText(QDir::convertSeparators(prefsData->documentTemplatesDir));
-	startUpDialog->setChecked(prefsData->showStartupDialog);
+	startUpDialog->setChecked(prefsData->ui_ShowStartupDialog);
 	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
-	useSmallWidgetsCheck->setChecked(prefsData->useSmallWidgets);
+	useSmallWidgetsCheck->setChecked(prefsData->ui_UseSmallWidgets);
 }
 
 void TabGeneral::setSelectedGUILang( const QString &newLang )
