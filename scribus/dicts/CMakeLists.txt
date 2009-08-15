@@ -4,5 +4,5 @@ ${CMAKE_SOURCE_DIR}/scribus
 )
 
 #Install our hyphenation dict files, selected from *.dic in this directory
-FILE( GLOB SCRIBUS_DICT_FILES *.dic )
+FILE( GLOB SCRIBUS_DICT_FILES *.dic *.txt )
 INSTALL(FILES ${SCRIBUS_DICT_FILES} DESTINATION ${SHAREDIR}dicts)
