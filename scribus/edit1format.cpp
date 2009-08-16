@@ -405,11 +405,17 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(toggleLsp(int )));
 	connect(fontKern, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 
-
+	int oldAboveVMax = AboveV->maxValue();
+	int oldBelowVMax = BelowV->maxValue();
+	int oldDropDistMax = DropDist->maxValue();
 	int decimals = unitGetDecimalsFromIndex(dEin);
 	AboveV->setDecimals(decimals);
 	BelowV->setDecimals(decimals);
 	DropDist->setDecimals(decimals);
+	// #8348 : set maxValue to old value to mimic 1.3.3.12 behavior
+	AboveV->setMaxValue(oldAboveVMax);
+	BelowV->setMaxValue(oldBelowVMax);
+	DropDist->setMaxValue(oldDropDistMax);
 	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
 	QString ein = unitGetSuffixFromIndex(dEin);
 	AboveV->setSuffix(ein);
