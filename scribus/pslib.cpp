@@ -1782,7 +1782,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	double gy = 0.0;
 	double gw = 0.0;
 	double gh = 0.0;;
-	dum.clear();
 	PS_set_Info("Author", Doc->documentInfo.getAuthor());
 	PS_set_Info("Title", Doc->documentInfo.getTitle());
 	if (!farb)
@@ -1945,26 +1944,27 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		if (usingGUI)
 			ScQApp->processEvents();
 		a = pageNs[aa]-1;
+		Page* page = Doc->Pages->at(a);
 		//if ((!Art) && (view->SelItem.count() != 0))
 		if ((!Art) && (Doc->m_Selection->count() != 0))
 		{
 			MarginStruct Ma;
 			Ma.Left = gx;
 			Ma.Top = gy;
-			Ma.Bottom = Doc->Pages->at(a)->height() - (gy + gh);
-			Ma.Right = Doc->Pages->at(a)->width() - (gx + gw);
-			PS_begin_page(Doc->Pages->at(a), &Ma, true);
+			Ma.Bottom = page->height() - (gy + gh);
+			Ma.Right  = page->width() - (gx + gw);
+			PS_begin_page(page, &Ma, true);
 		}
 		else
-			PS_begin_page(Doc->Pages->at(a), &Doc->Pages->at(a)->Margins, doClip);
+			PS_begin_page(page, &page->Margins, doClip);
 		if (Hm)
 		{
-			PS_translate(Doc->Pages->at(a)->width(), 0);
+			PS_translate(page->width(), 0);
 			PS_scale(-1, 1);
 		}
 		if (Vm)
 		{
-			PS_translate(0, Doc->Pages->at(a)->height());
+			PS_translate(0, page->height());
 			PS_scale(1, -1);
 		}
 		if (sep)
@@ -1982,200 +1982,22 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			else
 				PS_plate(4, SepNam);
 		}
-		if (!Doc->Pages->at(a)->MPageNam.isEmpty() && !abortExport && !errorOccured)
+		ScLayer ll;
+		ll.isPrintable = false;
+		for (int lam = 0; lam < Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
 		{
-			int h, s, v, k;
-			QByteArray chstrc;
-			QString chstr;
-			int Lnr = 0;
-			ScLayer ll;
-			ll.isPrintable = false;
-			ll.LNr = 0;
-			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages->at(a)->MPageNam]);
-			if (Doc->MasterItems.count() != 0)
+			Doc->Layers.levelToLayer(ll, lam);
+			if (!ll.isPrintable)
+				continue;
+			if (!page->MPageNam.isEmpty() && !abortExport && !errorOccured)
 			{
-				for (int lam = 0; lam < Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
-				{
-					Doc->Layers.levelToLayer(ll, Lnr);
-					if (ll.isPrintable)
-					{
-						for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count() && !abortExport; ++am)
-						{
-							QString tmps;
-							PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
-							if (usingGUI)
-								ScQApp->processEvents();
-							if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
-								continue;
-							if (ite->isGroupControl)
-							{
-								PS_save();
-								FPointArray cl = ite->PoLine.copy();
-								QMatrix mm;
-								mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - Doc->Pages->at(a)->height());
-								mm.rotate(ite->rotation());
-								cl.map( mm );
-								SetClipPath(&cl);
-								PS_closepath();
-								PS_clip(true);
-								groupStack.push(ite->groupsLastItem);
-								continue;
-							}
-							if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
-							{
-								int mpIndex = Doc->MasterNames[Doc->Pages->at(a)->MPageNam];
-								PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(ite->ItemNr));
-							}
-							else if (ite->asImageFrame())
-							{
-								PS_save();
-								// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
-								errorOccured = !ProcessItem(Doc, mPage, ite, a, sep, farb, Ic, gcr, false, false, true);
-								if (errorOccured) break;
-								PS_restore();
-							}
-							else if (ite->asTextFrame())
-							{
-								PS_save();
-								if (ite->doOverprint)
-								{
-									PutStream("true setoverprint\n");
-									PutStream("true setoverprintmode\n");
-								}
-								if (ite->fillColor() != CommonStrings::None)
-								{
-									SetColor(ite->fillColor(), ite->fillShade(), &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								}
-								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
-								if (ite->rotation() != 0)
-									PS_rotate(-ite->rotation());
-								if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
-								{
-									SetClipPath(&ite->PoLine);
-									PS_closepath();
-									if (ite->GrType != 0)
-										HandleGradient(ite, ite->width(), ite->height(), gcr);
-									else
-										putColor(ite->fillColor(), ite->fillShade(), true);
-								}
-								if (ite->imageFlippedH())
-								{
-									PS_translate(ite->width(), 0);
-									PS_scale(-1, 1);
-								}
-								if (ite->imageFlippedV())
-								{
-									PS_translate(0, -ite->height());
-									PS_scale(1, -1);
-								}
-								setTextSt(Doc, ite, gcr, a, mPage, sep, farb, Ic, true);
-								if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
-								{
-									if (ite->NamedLStyle.isEmpty()) // && (ite->lineWidth() != 0.0))
-									{
-										SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
-										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										PS_setlinewidth(ite->lineWidth());
-										PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
-										PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
-										SetClipPath(&ite->PoLine);
-										PS_closepath();
-										putColor(ite->lineColor(), ite->lineShade(), false);
-									}
-									else
-									{
-										multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
-										for (int it = ml.size()-1; it > -1; it--)
-										{
-											if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
-											{
-												SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-												PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												PS_setlinewidth(ml[it].Width);
-												PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-												PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-												SetClipPath(&ite->PoLine);
-												PS_closepath();
-												putColor(ml[it].Color, ml[it].Shade, false);
-											}
-										}
-									}
-								}
-								PS_restore();
-							}
-							if (groupStack.count() != 0)
-							{
-								while (ite == groupStack.top())
-								{
-									PS_restore();
-									groupStack.pop();
-									if (groupStack.count() == 0)
-										break;
-								}
-							}
-						}
-					}
-					for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count() && !abortExport; ++am)
-					{
-						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
-						if (!ite->isTableItem)
-							continue;
-						if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
-							continue;
-						if (ite->printEnabled())
-						{
-							PS_save();
-							if (ite->doOverprint)
-							{
-								PutStream("true setoverprint\n");
-								PutStream("true setoverprintmode\n");
-							}
-							if (ite->lineColor() != CommonStrings::None)
-							{
-								SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							}
-							PS_setlinewidth(ite->lineWidth());
-							PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
-							PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
-							PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
-							if (ite->rotation() != 0)
-								PS_rotate(-ite->rotation());
-							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
-							{
-								if (ite->TopLine)
-								{
-									PS_moveto(0, 0);
-									PS_lineto(ite->width(), 0);
-								}
-								if (ite->RightLine)
-								{
-									PS_moveto(ite->width(), 0);
-									PS_lineto(ite->width(), -ite->height());
-								}
-								if (ite->BottomLine)
-								{
-									PS_moveto(0, -ite->height());
-									PS_lineto(ite->width(), -ite->height());
-								}
-								if (ite->LeftLine)
-								{
-									PS_moveto(0, 0);
-									PS_lineto(0, -ite->height());
-								}
-								putColor(ite->lineColor(), ite->lineShade(), false);
-							}
-							PS_restore();
-						}
-					}
-					Lnr++;
-				}
-				if (abortExport || errorOccured) break;
+				errorOccured |= !ProcessMasterPageLayer(Doc, page, ll, a, sep, farb, Ic, gcr);
+			}
+			if (!abortExport && !errorOccured)
+			{
+				errorOccured |= !ProcessPageLayer(Doc, page, ll, a+1, sep, farb, Ic, gcr);
 			}
 		}
-		if (!abortExport && !errorOccured)
-			ProcessPage(Doc, Doc->Pages->at(a), a+1, sep, farb, Ic, gcr);
 		if (!abortExport && !errorOccured)
 			PS_end_page();
 		if (sep)
@@ -2214,7 +2036,6 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	int d;
 	ScText *hl;
 	QVector<double> dum;
-	dum.clear();
 	QChar chstr;
 	QString tmps;
 	if (c->printEnabled())
@@ -3233,6 +3054,336 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 		}
 		Lnr++;
 	}
+}
+
+bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+{
+	bool success = true;
+	int h, s, v, k;
+	QVector<double> dum;
+	QStack<PageItem*> groupStack;
+	Page* mPage = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
+	if (layer.isPrintable)
+	{
+		for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
+		{
+			QString tmps;
+			PageItem *ite = page->FromMaster.at(am);
+			if (usingGUI)
+				ScQApp->processEvents();
+			if ((ite->LayerNr != layer.LNr) || (!ite->printEnabled()))
+				continue;
+			if (ite->isGroupControl)
+			{
+				PS_save();
+				FPointArray cl = ite->PoLine.copy();
+				QMatrix mm;
+				mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - page->height());
+				mm.rotate(ite->rotation());
+				cl.map( mm );
+				SetClipPath(&cl);
+				PS_closepath();
+				PS_clip(true);
+				groupStack.push(ite->groupsLastItem);
+				continue;
+			}
+			if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
+			{
+				int mpIndex = Doc->MasterNames[page->MPageNam];
+				PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(ite->ItemNr));
+			}
+			else if (ite->asImageFrame())
+			{
+				PS_save();
+				// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
+				success &= ProcessItem(Doc, mPage, ite, PNr, sep, farb, ic, gcr, false, false, true);
+				PS_restore();
+			}
+			else if (ite->asTextFrame())
+			{
+				PS_save();
+				if (ite->doOverprint)
+				{
+					PutStream("true setoverprint\n");
+					PutStream("true setoverprintmode\n");
+				}
+				if (ite->fillColor() != CommonStrings::None)
+				{
+					SetColor(ite->fillColor(), ite->fillShade(), &h, &s, &v, &k, gcr);
+					PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				}
+				PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
+				if (ite->rotation() != 0)
+					PS_rotate(-ite->rotation());
+				if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
+				{
+					SetClipPath(&ite->PoLine);
+					PS_closepath();
+					if (ite->GrType != 0)
+						HandleGradient(ite, ite->width(), ite->height(), gcr);
+					else
+						putColor(ite->fillColor(), ite->fillShade(), true);
+				}
+				if (ite->imageFlippedH())
+				{
+					PS_translate(ite->width(), 0);
+					PS_scale(-1, 1);
+				}
+				if (ite->imageFlippedV())
+				{
+					PS_translate(0, -ite->height());
+					PS_scale(1, -1);
+				}
+				setTextSt(Doc, ite, gcr, PNr, mPage, sep, farb, ic, true);
+				if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
+				{
+					if (ite->NamedLStyle.isEmpty()) // && (ite->lineWidth() != 0.0))
+					{
+						SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_setlinewidth(ite->lineWidth());
+						PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
+						PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
+						SetClipPath(&ite->PoLine);
+						PS_closepath();
+						putColor(ite->lineColor(), ite->lineShade(), false);
+					}
+					else
+					{
+						multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
+						{
+							if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
+							{
+								SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								PS_setlinewidth(ml[it].Width);
+								PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+								PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+								SetClipPath(&ite->PoLine);
+								PS_closepath();
+								putColor(ml[it].Color, ml[it].Shade, false);
+							}
+						}
+					}
+				}
+				PS_restore();
+			}
+			if (groupStack.count() != 0)
+			{
+				while (ite == groupStack.top())
+				{
+					PS_restore();
+					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
+				}
+			}
+			if (!success) break;
+		}
+	}
+	for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
+	{
+		PageItem *ite = page->FromMaster.at(am);
+		if (!ite->isTableItem)
+			continue;
+		if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
+			continue;
+		if (ite->printEnabled())
+		{
+			PS_save();
+			if (ite->doOverprint)
+			{
+				PutStream("true setoverprint\n");
+				PutStream("true setoverprintmode\n");
+			}
+			if (ite->lineColor() != CommonStrings::None)
+			{
+				SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			}
+			PS_setlinewidth(ite->lineWidth());
+			PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
+			PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
+			PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
+			if (ite->rotation() != 0)
+				PS_rotate(-ite->rotation());
+			if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
+			{
+				if (ite->TopLine)
+				{
+					PS_moveto(0, 0);
+					PS_lineto(ite->width(), 0);
+				}
+				if (ite->RightLine)
+				{
+					PS_moveto(ite->width(), 0);
+					PS_lineto(ite->width(), -ite->height());
+				}
+				if (ite->BottomLine)
+				{
+					PS_moveto(0, -ite->height());
+					PS_lineto(ite->width(), -ite->height());
+				}
+				if (ite->LeftLine)
+				{
+					PS_moveto(0, 0);
+					PS_lineto(0, -ite->height());
+				}
+				putColor(ite->lineColor(), ite->lineShade(), false);
+			}
+			PS_restore();
+		}
+	}
+	return success;
+}
+
+bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+{
+	bool success = true;
+	int b, h, s, v, k;
+	QList<PageItem*> items;
+	QStack<PageItem*> groupStack;
+	items = (page->pageName().isEmpty()) ? Doc->DocItems : Doc->MasterItems;
+	if (layer.isPrintable && !abortExport)
+	{
+		for (b = 0; b < items.count() && !abortExport; ++b)
+		{
+			PageItem *item = items.at(b);
+			if (usingGUI)
+				ScQApp->processEvents();
+			if (item->LayerNr != layer.LNr)
+				continue;
+			if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
+				continue;
+			if ((!page->pageName().isEmpty()) && (item->asImageFrame()) && ((sep) || (!farb)))
+				continue;
+			//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
+			if ((!Art) && (!item->isSelected()) && (Doc->m_Selection->count() != 0))
+				continue;
+			double bLeft, bRight, bBottom, bTop;
+			GetBleeds(page, bLeft, bRight, bBottom, bTop);
+			double x  = page->xOffset() - bLeft;
+			double y  = page->yOffset() - bTop;
+			double w  = page->width() + bLeft + bRight;
+			double h1 = page->height() + bBottom + bTop;
+			double ilw = item->lineWidth();
+			double x2 = item->BoundingX - ilw / 2.0;
+			double y2 = item->BoundingY - ilw / 2.0;
+			double w2 = qMax(item->BoundingW + ilw, 1.0);
+			double h2 = qMax(item->BoundingH + ilw, 1.0);
+			if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+				continue;
+			if (item->ChangedMasterItem)
+				continue;
+			if ((!page->pageName().isEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
+				continue;
+			if (item->isGroupControl)
+			{
+				PS_save();
+				FPointArray cl = item->PoLine.copy();
+				QMatrix mm;
+				mm.translate(item->xPos() - page->xOffset(), (item->yPos() - page->yOffset()) - page->height());
+				mm.rotate(item->rotation());
+				cl.map( mm );
+				SetClipPath(&cl);
+				PS_closepath();
+				PS_clip(true);
+				groupStack.push(item->groupsLastItem);
+				continue;
+			}
+			success &= ProcessItem(Doc, page, item, PNr, sep, farb, ic, gcr, false);
+			if (groupStack.count() != 0)
+			{
+				while (item == groupStack.top())
+				{
+					PS_restore();
+					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
+				}
+			}
+			if (!success) break;
+		}
+	}
+	if (!success)
+		return false;
+	for (b = 0; b < items.count() && !abortExport; ++b)
+	{
+		PageItem* item = items.at(b);
+		if (usingGUI)
+			ScQApp->processEvents();
+		if (item->LayerNr != layer.LNr)
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->asImageFrame()) && ((sep) || (!farb)))
+			continue;
+		double bLeft, bRight, bBottom, bTop;
+		GetBleeds(page, bLeft, bRight, bBottom, bTop);
+		double x  = page->xOffset() - bLeft;
+		double y  = page->yOffset() - bTop;
+		double w  = page->width() + bLeft + bRight;
+		double h1 = page->height() + bBottom + bTop;
+		double ilw= item->lineWidth();
+		double x2 = item->BoundingX - ilw / 2.0;
+		double y2 = item->BoundingY - ilw / 2.0;
+		double w2 = qMax(item->BoundingW + ilw, 1.0);
+		double h2 = qMax(item->BoundingH + ilw, 1.0);
+		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+			continue;
+		if (item->ChangedMasterItem)
+			continue;
+		if (!item->isTableItem || !item->printEnabled())
+			continue;
+		if (item->lineColor() == CommonStrings::None) //|| (item->lineWidth() == 0.0))
+			continue;
+		if ((!page->pageName().isEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
+			continue;
+		PS_save();
+		if (item->doOverprint)
+		{
+			PutStream("true setoverprint\n");
+			PutStream("true setoverprintmode\n");
+		}
+		if (item->lineColor() != CommonStrings::None)
+		{
+			SetColor(item->lineColor(), item->lineShade(), &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		PS_setlinewidth(item->lineWidth());
+		PS_setcapjoin(item->PLineEnd, item->PLineJoin);
+		PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
+		PS_translate(item->xPos() - page->xOffset(), page->height() - (item->yPos() - page->yOffset()));
+		if (item->rotation() != 0)
+			PS_rotate(-item->rotation());
+		if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
+		{
+			if (item->TopLine)
+			{
+				PS_moveto(0, 0);
+				PS_lineto(item->width(), 0);
+			}
+			if (item->RightLine)
+			{
+				PS_moveto(item->width(), 0);
+				PS_lineto(item->width(), -item->height());
+			}
+			if (item->BottomLine)
+			{
+				PS_moveto(0, -item->height());
+				PS_lineto(item->width(), -item->height());
+			}
+			if (item->LeftLine)
+			{
+				PS_moveto(0, 0);
+				PS_lineto(0, -item->height());
+			}
+			putColor(item->lineColor(), item->lineShade(), false);
+		}
+		PS_restore();
+	}
+	return success;
 }
 
 void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)

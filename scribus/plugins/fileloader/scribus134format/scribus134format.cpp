@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 #include "util_color.h"
+#include "util_layer.h"
 #include "scgzfile.h"
 #include "scpattern.h"
 #include <QCursor>
@@ -556,12 +557,18 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
 	}
-	m_Doc->setActiveLayer(layerToSetActive);
+
 	m_Doc->setMasterPageMode(false);
 	m_Doc->reformPages();
 
+	handleOldLayerBehavior(m_Doc);
 	if (m_Doc->Layers.count() == 0)
-		m_Doc->Layers.newLayer( QObject::tr("Background") );
+	{
+		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );
+		nl->flowControl  = false;
+		layerToSetActive = nl->LNr;
+	}
+	m_Doc->setActiveLayer(layerToSetActive);
 
 	// reestablish textframe links
 	if (itemNext.count() != 0)

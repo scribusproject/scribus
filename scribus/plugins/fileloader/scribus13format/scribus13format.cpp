@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_color.h"
+#include "util_layer.h"
 #include "util_math.h"
 #include "util_text.h"
 #include "scclocale.h"
@@ -1104,14 +1105,19 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				ta->BottomLink = 0;
 		}
 	}
-	m_Doc->setActiveLayer(layerToSetActive);
 	m_Doc->setMasterPageMode(false);
 	m_Doc->setLoading(false);
 	m_Doc->reformPages(true);
 	m_Doc->setLoading(true);
 
+	handleOldLayerBehavior(m_Doc);
 	if (m_Doc->Layers.count() == 0)
-		m_Doc->Layers.newLayer( QObject::tr("Background") );
+	{
+		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );
+		nl->flowControl  = false;
+		layerToSetActive = nl->LNr;
+	}
+	m_Doc->setActiveLayer(layerToSetActive);
 	
 	// reestablish textframe links
 	if (itemNext.count() != 0)

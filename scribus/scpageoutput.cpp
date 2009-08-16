@@ -89,272 +89,245 @@ void ScPageOutput::drawPage( Page* page, ScPainterExBase* painter)
 	int clipy = static_cast<int>(page->yOffset());
 	int clipw = qRound(page->width());
 	int cliph = qRound(page->height());
-	drawMasterItems(painter, page, QRect(clipx, clipy, clipw, cliph));
-	drawPageItems(painter, page, QRect(clipx, clipy, clipw, cliph));
+	ScLayer layer;
+	layer.isViewable = false;
+	uint layerCount = m_doc->layerCount();
+	for (uint la = 0; la < layerCount; ++la)
+	{
+		m_doc->Layers.levelToLayer(layer, la);
+		drawMasterItems(painter, page, layer, QRect(clipx, clipy, clipw, cliph));
+		drawPageItems(painter, page, layer, QRect(clipx, clipy, clipw, cliph));
+	}
 	drawMarks(page, painter, m_marksOptions);
 }
 
-void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, const QRect& clip)
+void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip)
 {
+	PageItem* currItem;
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupClips;
-	if (!page->MPageNam.isEmpty())
+	if (page->MPageNam.isEmpty())
+		return;
+	if (page->FromMaster.count() <= 0)
+		return;
+	if (!layer.isViewable || !layer.isPrintable)
+		return;
+	Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
+	uint pageFromMasterCount = page->FromMaster.count();
+	for (uint a = 0; a < pageFromMasterCount; ++a)
 	{
-		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
-		if (page->FromMaster.count() != 0)
+		currItem = page->FromMaster.at(a);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
+			continue;
+		if (!currItem->printEnabled())
+			continue;
+		if (currItem->isGroupControl)
 		{
-			int Lnr;
-			ScLayer ll;
-			PageItem *currItem;
-			ll.isViewable = false;
-			ll.LNr = 0;
-			Lnr = 0;
-			uint layerCount = m_doc->layerCount();
-			for (uint la = 0; la < layerCount; ++la)
+			painter->save();
+			groupClips.push(currItem);
+			groupStack.push(currItem->groupsLastItem);
+			continue;
+		}
+		int savedOwnPage = currItem->OwnPage;
+		double OldX = currItem->xPos();
+		double OldY = currItem->yPos();
+		double OldBX = currItem->BoundingX;
+		double OldBY = currItem->BoundingY;
+		currItem->OwnPage = page->pageNr();
+		if (!currItem->ChangedMasterItem)
+		{
+			currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
+			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+		}
+		/*if (evSpon)
+			currItem->Dirty = true;*/
+		QRect oldR(currItem->getRedrawBounding(1.0));
+		if (clip.intersects(oldR))
+		{
+			// relayout necessary to get page number ok
+			currItem->invalidateLayout();
+			currItem->layout();
+			drawItem(currItem, painter, clip);
+		}
+		currItem->OwnPage = savedOwnPage;
+		if (!currItem->ChangedMasterItem)
+		{
+			currItem->setXYPos(OldX, OldY, true);
+			currItem->BoundingX = OldBX;
+			currItem->BoundingY = OldBY;
+		}
+		if (groupStack.count() != 0)
+		{
+			while (currItem == groupStack.top())
 			{
-				m_doc->Layers.levelToLayer(ll, Lnr);
-				bool pr = true;
-				if ( !ll.isPrintable )
-					pr = false;
-				if ((ll.isViewable) && (pr))
-				{
-					uint pageFromMasterCount=page->FromMaster.count();
-					for (uint a = 0; a < pageFromMasterCount; ++a)
-					{
-						currItem = page->FromMaster.at(a);
-						if (currItem->LayerNr != ll.LNr)
-							continue;
-						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
-							continue;
-						if (!currItem->printEnabled())
-							continue;
-						if (currItem->isGroupControl)
-						{
-							painter->save();
-							groupClips.push(currItem);
-							groupStack.push(currItem->groupsLastItem);
-							continue;
-						}
-						int savedOwnPage = currItem->OwnPage;
-						double OldX = currItem->xPos();
-						double OldY = currItem->yPos();
-						double OldBX = currItem->BoundingX;
-						double OldBY = currItem->BoundingY;
-						currItem->OwnPage = page->pageNr();
-						if (!currItem->ChangedMasterItem)
-						{
-							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-						}
-						/*if (evSpon)
-							currItem->Dirty = true;*/
-						QRect oldR(currItem->getRedrawBounding(1.0));
-						if (clip.intersects(oldR))
-						{
-							// relayout necessary to get page number ok
-							currItem->invalidateLayout();
-							currItem->layout();
-							drawItem(currItem, painter, clip);
-						}
-						currItem->OwnPage = savedOwnPage;
-						if (!currItem->ChangedMasterItem)
-						{
-							currItem->setXYPos(OldX, OldY, true);
-							currItem->BoundingX = OldBX;
-							currItem->BoundingY = OldBY;
-						}
-						if (groupStack.count() != 0)
-						{
-							while (currItem == groupStack.top())
-							{
-								QMatrix mm;
-								PageItem *tmpItem = groupClips.pop();
-								FPointArray cl = tmpItem->PoLine.copy();
-								mm.translate(tmpItem->xPos(), tmpItem->yPos());
-								mm.rotate(tmpItem->rotation());
-								cl.map( mm );
-								painter->setupPolygon(&cl);
-								painter->setClipPath();
-								painter->restore();
-								groupStack.pop();
-								if (groupStack.count() == 0)
-									break;
-							}
-						}
-					}
-					for (uint a = 0; a < pageFromMasterCount; ++a)
-					{
-						currItem = page->FromMaster.at(a);
-						if (currItem->LayerNr != ll.LNr)
-							continue;
-						if (!currItem->isTableItem)
-							continue;
-						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
-							continue;
-						double OldX = currItem->xPos();
-						double OldY = currItem->yPos();
-						double OldBX = currItem->BoundingX;
-						double OldBY = currItem->BoundingY;
-						if (!currItem->ChangedMasterItem)
-						{
-							currItem->setXPos(OldX - Mp->xOffset() + page->xOffset(), true);
-							currItem->setYPos(OldY - Mp->yOffset() + page->yOffset(), true);
-							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-						}
-						QRect oldR(currItem->getRedrawBounding(1.0));
-						if (clip.intersects(oldR))
-						{
-							painter->save();
-							painter->translate(currItem->xPos(), currItem->yPos());
-							painter->rotate(currItem->rotation());
-							if (currItem->lineColor() != CommonStrings::None)
-							{
-								ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade());
-								if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-								{
-									painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-									if (currItem->TopLine)
-										painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-									if (currItem->RightLine)
-										painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-									if (currItem->BottomLine)
-										painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-									if (currItem->LeftLine)
-										painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-								}
-							}
-							painter->restore();
-						}
-						if (!currItem->ChangedMasterItem)
-						{
-							currItem->setXPos(OldX, true);
-							currItem->setYPos(OldY, true);
-							currItem->BoundingX = OldBX;
-							currItem->BoundingY = OldBY;
-						}
-					}
-				}
-				Lnr++;
+				QMatrix mm;
+				PageItem *tmpItem = groupClips.pop();
+				FPointArray cl = tmpItem->PoLine.copy();
+				mm.translate(tmpItem->xPos(), tmpItem->yPos());
+				mm.rotate(tmpItem->rotation());
+				cl.map( mm );
+				painter->setupPolygon(&cl);
+				painter->setClipPath();
+				painter->restore();
+				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
 			}
+		}
+	}
+	for (uint a = 0; a < pageFromMasterCount; ++a)
+	{
+		currItem = page->FromMaster.at(a);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if (!currItem->isTableItem)
+			continue;
+		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
+			continue;
+		double OldX = currItem->xPos();
+		double OldY = currItem->yPos();
+		double OldBX = currItem->BoundingX;
+		double OldBY = currItem->BoundingY;
+		if (!currItem->ChangedMasterItem)
+		{
+			currItem->setXPos(OldX - Mp->xOffset() + page->xOffset(), true);
+			currItem->setYPos(OldY - Mp->yOffset() + page->yOffset(), true);
+			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+		}
+		QRect oldR(currItem->getRedrawBounding(1.0));
+		if (clip.intersects(oldR))
+		{
+			painter->save();
+			painter->translate(currItem->xPos(), currItem->yPos());
+			painter->rotate(currItem->rotation());
+			if (currItem->lineColor() != CommonStrings::None)
+			{
+				ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade());
+				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
+				{
+					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
+					if (currItem->TopLine)
+						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
+					if (currItem->RightLine)
+						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
+					if (currItem->BottomLine)
+						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
+					if (currItem->LeftLine)
+						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
+				}
+			}
+			painter->restore();
+		}
+		if (!currItem->ChangedMasterItem)
+		{
+			currItem->setXPos(OldX, true);
+			currItem->setYPos(OldY, true);
+			currItem->BoundingX = OldBX;
+			currItem->BoundingY = OldBY;
 		}
 	}
 }
 
-void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, const QRect& clip)
+void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip)
 {
-	//linkedFramesToShow.clear();
+	PageItem *currItem;
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupClips;
-	if (m_doc->Items->count() != 0)
+	if (m_doc->Items->count() <= 0)
+		return;
+	if (!layer.isViewable || !layer.isPrintable)
+		return;
+	int docCurrPageNo = static_cast<int>(page->pageNr());
+	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
-		int Lnr=0;
-		ScLayer ll;
-		PageItem *currItem;
-		ll.isViewable = false;
-		ll.LNr = 0;
-		uint layerCount = m_doc->layerCount();
-		//int docCurrPageNo=static_cast<int>(m_doc->currentPageNumber());
-		int docCurrPageNo=static_cast<int>(page->pageNr());
-		for (uint la2 = 0; la2 < layerCount; ++la2)
+		currItem = m_doc->Items->at(it);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if (!currItem->printEnabled())
+			continue;
+		if ((m_doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
+			continue;
+		if (!m_doc->masterPageMode() && !currItem->OnMasterPage.isEmpty())
 		{
-			m_doc->Layers.levelToLayer(ll, Lnr);
-			bool pr = true;
-			if (!ll.isPrintable)
-				pr = false;
-			if ((ll.isViewable) && (pr))
+			if (currItem->OnMasterPage != page->pageName())
+				continue;
+		}
+		if (currItem->isGroupControl)
+		{
+			painter->save();
+			groupClips.push(currItem);
+			groupStack.push(currItem->groupsLastItem);
+			continue;
+		}
+		QRect oldR(currItem->getRedrawBounding(1.0));
+		if (clip.intersects(oldR))
+		{
+			drawItem( currItem, painter, clip );
+			if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 			{
-				for (int it = 0; it < m_doc->Items->count(); ++it)
+				PageItem *nextItem = currItem;
+				while (nextItem != 0)
 				{
-					currItem = m_doc->Items->at(it);
-					if (currItem->LayerNr != ll.LNr)
-						continue;
-					if (!currItem->printEnabled())
-						continue;
-					if ((m_doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
-						continue;
-					if (!m_doc->masterPageMode() && !currItem->OnMasterPage.isEmpty())
-					{
-						if (currItem->OnMasterPage != page->pageName())
-							continue;
-					}
-					if (currItem->isGroupControl)
-					{
-						painter->save();
-						groupClips.push(currItem);
-						groupStack.push(currItem->groupsLastItem);
-						continue;
-					}
-					QRect oldR(currItem->getRedrawBounding(1.0));
-					if (clip.intersects(oldR))
-					{
-						drawItem( currItem, painter, clip );
-						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
-						{
-							PageItem *nextItem = currItem;
-							while (nextItem != 0)
-							{
-								if (nextItem->prevInChain() != 0)
-									nextItem = nextItem->prevInChain();
-								else
-									break;
-							}
-						}
-					}
-					if (groupStack.count() != 0)
-					{
-						while (currItem == groupStack.top())
-						{
-							QMatrix mm;
-							PageItem *tmpItem = groupClips.pop();
-							FPointArray cl = tmpItem->PoLine.copy();
-							mm.translate(tmpItem->xPos(), tmpItem->yPos());
-							mm.rotate(tmpItem->rotation());
-							cl.map( mm );
-							painter->setupPolygon(&cl);
-							painter->setClipPath();
-							painter->restore();
-							groupStack.pop();
-							if (groupStack.count() == 0)
-								break;
-						}
-					}
-				}
-				for (int it = 0; it < m_doc->Items->count(); ++it)
-				{
-					currItem = m_doc->Items->at(it);
-					if (currItem->LayerNr != ll.LNr)
-						continue;
-					if (!currItem->isTableItem)
-						continue;
-					QRect oldR(currItem->getRedrawBounding(1.0));
-					if (clip.intersects(oldR))
-					{
-						painter->save();
-						painter->translate(currItem->xPos(), currItem->yPos());
-						painter->rotate(currItem->rotation());
-						if (currItem->lineColor() != CommonStrings::None)
-						{
-							ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade() );
-							if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-							{
-								painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-								if (currItem->TopLine)
-									painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-								if (currItem->RightLine)
-									painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-								if (currItem->BottomLine)
-									painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-								if (currItem->LeftLine)
-									painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-							}
-						}
-						painter->restore();
-					}
+					if (nextItem->prevInChain() != 0)
+						nextItem = nextItem->prevInChain();
+					else
+						break;
 				}
 			}
-			Lnr++;
+		}
+		if (groupStack.count() != 0)
+		{
+			while (currItem == groupStack.top())
+			{
+				QMatrix mm;
+				PageItem *tmpItem = groupClips.pop();
+				FPointArray cl = tmpItem->PoLine.copy();
+				mm.translate(tmpItem->xPos(), tmpItem->yPos());
+				mm.rotate(tmpItem->rotation());
+				cl.map( mm );
+				painter->setupPolygon(&cl);
+				painter->setClipPath();
+				painter->restore();
+				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
+			}
+		}
+	}
+	for (int it = 0; it < m_doc->Items->count(); ++it)
+	{
+		currItem = m_doc->Items->at(it);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if (!currItem->isTableItem)
+			continue;
+		QRect oldR(currItem->getRedrawBounding(1.0));
+		if (clip.intersects(oldR))
+		{
+			painter->save();
+			painter->translate(currItem->xPos(), currItem->yPos());
+			painter->rotate(currItem->rotation());
+			if (currItem->lineColor() != CommonStrings::None)
+			{
+				ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade() );
+				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
+				{
+					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
+					if (currItem->TopLine)
+						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
+					if (currItem->RightLine)
+						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
+					if (currItem->BottomLine)
+						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
+					if (currItem->LeftLine)
+						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
+				}
+			}
+			painter->restore();
 		}
 	}
 }

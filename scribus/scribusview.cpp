@@ -2927,6 +2927,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 {
 	QImage pm;
 	QImage im;
+	ScLayer layer;
+	layer.isViewable = false;
 	int Nr = Doc->MasterNames[name];
 	int clipx = static_cast<int>(Doc->scratch.Left);
 	int clipy = static_cast<int>(Doc->scratch.Top);
@@ -2961,7 +2963,12 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 			painter->drawRect(clipx, clipy, clipw, cliph);
 		}
 		painter->beginLayer(1.0, 0);
-		m_canvas->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+		int layerCount = Doc->layerCount();
+		for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+		{
+			Doc->Layers.levelToLayer(layer, layerLevel);
+			m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+		}
 		painter->endLayer();
 		painter->end();
 		double sx = pm.width() / static_cast<double>(maxGr);
@@ -3086,8 +3093,15 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 				}
 			}
 
-			m_canvas->DrawMasterItems(painter, Doc->DocPages.at(Nr), QRect(clipx, clipy, clipw, cliph));
-			m_canvas->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+			ScLayer layer;
+			layer.isViewable = false;
+			int layerCount = Doc->layerCount();
+			for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+			{
+				Doc->Layers.levelToLayer(layer, layerLevel);
+				m_canvas->DrawMasterItems(painter, Doc->DocPages.at(Nr), layer, QRect(clipx, clipy, clipw, cliph));
+				m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+			}
 			painter->endLayer();
 			painter->end();
 			delete painter;

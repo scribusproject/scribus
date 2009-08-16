@@ -195,7 +195,7 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	Options = Opts;
 	QFileInfo fiBase(fName);
 	baseDir = fiBase.absolutePath();
-	Page *Seite;
+	Page *page;
 	GradCount = 0;
 	ClipCount = 0;
 	PattCount = 0;
@@ -203,9 +203,9 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
 	docu.setContent(st);
-	Seite = m_Doc->currentPage();
-	double pageWidth  = Seite->width();
-	double pageHeight = Seite->height();
+	page = m_Doc->currentPage();
+	double pageWidth  = page->width();
+	double pageHeight = page->height();
 	docElement = docu.documentElement();
 	docElement.setAttribute("width", FToStr(pageWidth)+"pt");
 	docElement.setAttribute("height", FToStr(pageHeight)+"pt");
@@ -239,10 +239,19 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 		backG.setAttribute("style", "fill:"+m_Doc->papColor.name()+";" + "stroke:none;");
 		docElement.appendChild(backG);
 	}
-	Seite = m_Doc->MasterPages.at(m_Doc->MasterNames[m_Doc->currentPage()->MPageNam]);
-	ProcessPage(Seite);
-	Seite = m_Doc->currentPage();
-	ProcessPage(Seite);
+	ScLayer ll;
+	ll.isPrintable = false;
+	for (int la = 0; la < m_Doc->Layers.count(); la++)
+	{
+		m_Doc->Layers.levelToLayer(ll, la);
+		if (ll.isPrintable)
+		{
+			page = m_Doc->MasterPages.at(m_Doc->MasterNames[m_Doc->currentPage()->MPageNam]);
+			ProcessPageLayer(page, ll);
+			page = m_Doc->currentPage();
+			ProcessPageLayer(page, ll);
+		}
+	}
 	if(Options.compressFile)
 	{
 		// zipped saving
@@ -265,134 +274,126 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	return true;
 }
 
-void SVGExPlug::ProcessPage(Page *Seite)
+void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
 {
-	int Lnr = 0;
-	ScLayer ll;
-	ll.isPrintable = false;
-	ll.LNr = 0;
 	QDomElement layerGroup;
 	PageItem *Item;
 	QList<PageItem*> Items;
 	QStack<PageItem*> groupStack;
 	QStack<QDomElement> groupStack2;
 	Page* SavedAct = m_Doc->currentPage();
-	if (Seite->pageName().isEmpty())
+	if (page->pageName().isEmpty())
 		Items = m_Doc->DocItems;
 	else
 		Items = m_Doc->MasterItems;
 	if (Items.count() == 0)
 		return;
-	m_Doc->setCurrentPage(Seite);
-	for (int la = 0; la < m_Doc->Layers.count(); la++)
+	if (!layer.isPrintable)
+		return;
+	m_Doc->setCurrentPage(page);
+
+	layerGroup = docu.createElement("g");
+	layerGroup.setAttribute("id", layer.Name);
+	if (layer.transparency != 1.0)
+		layerGroup.setAttribute("opacity", FToStr(layer.transparency));
+	for(int j = 0; j < Items.count(); ++j)
 	{
-		m_Doc->Layers.levelToLayer(ll, Lnr);
-		if (ll.isPrintable)
+		Item = Items.at(j);
+		if (Item->LayerNr != layer.LNr)
+			continue;
+		if (!Item->printEnabled())
+			continue;
+		double x = page->xOffset();
+		double y = page->yOffset();
+		double w = page->width();
+		double h = page->height();
+		double x2 = Item->BoundingX;
+		double y2 = Item->BoundingY;
+		double w2 = Item->BoundingW;
+		double h2 = Item->BoundingH;
+		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
+			continue;
+		if (Item->isGroupControl)
 		{
+			groupStack.push(Item->groupsLastItem);
+			groupStack2.push(layerGroup);
 			layerGroup = docu.createElement("g");
-			layerGroup.setAttribute("id", ll.Name);
-			if (ll.transparency != 1.0)
-				layerGroup.setAttribute("opacity", FToStr(ll.transparency));
-			for(int j = 0; j < Items.count(); ++j)
-			{
-				Item = Items.at(j);
-				if (Item->LayerNr != ll.LNr)
-					continue;
-				if (!Item->printEnabled())
-					continue;
-				double x = Seite->xOffset();
-				double y = Seite->yOffset();
-				double w = Seite->width();
-				double h = Seite->height();
-				double x2 = Item->BoundingX;
-				double y2 = Item->BoundingY;
-				double w2 = Item->BoundingW;
-				double h2 = Item->BoundingH;
-				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
-					continue;
-				if (Item->isGroupControl)
-				{
-					groupStack.push(Item->groupsLastItem);
-					groupStack2.push(layerGroup);
-					layerGroup = docu.createElement("g");
-					if (!Item->AutoName)
-						layerGroup.setAttribute("id", Item->itemName());
-					if (Item->fillTransparency() != 0)
-						layerGroup.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
-					QDomElement ob = docu.createElement("clipPath");
-					ob.setAttribute("id", "Clip"+IToStr(ClipCount));
-					QDomElement cl = docu.createElement("path");
-					cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
-					QString trans = "translate("+FToStr(Item->xPos()-Seite->xOffset())+", "+FToStr(Item->yPos()-Seite->yOffset())+")";
-					if (Item->rotation() != 0)
-						trans += " rotate("+FToStr(Item->rotation())+")";
-					cl.setAttribute("transform", trans);
-					ob.appendChild(cl);
-					globalDefs.appendChild(ob);
-					layerGroup.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
-					ClipCount++;
-					continue;
-				}
-				ProcessItemOnPage(Item->xPos()-Seite->xOffset(), Item->yPos()-Seite->yOffset(), Item, &layerGroup);
-				if (groupStack.count() != 0)
-				{
-					while (Item == groupStack.top())
-					{
-						groupStack.pop();
-						groupStack2.top().appendChild(layerGroup);
-						layerGroup = groupStack2.pop();
-						if (groupStack.count() == 0)
-							break;
-					}
-				}
-			}
-			for(int j = 0; j < Items.count(); ++j)
-			{
-				Item = Items.at(j);
-				if (Item->LayerNr != ll.LNr)
-					continue;
-				if (!Item->printEnabled())
-					continue;
-				double x = Seite->xOffset();
-				double y = Seite->yOffset();
-				double w = Seite->width();
-				double h = Seite->height();
-				double x2 = Item->BoundingX;
-				double y2 = Item->BoundingY;
-				double w2 = Item->BoundingW;
-				double h2 = Item->BoundingH;
-				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
-					continue;
-				if (!Item->isTableItem)
-					continue;
-				if ((Item->lineColor() == CommonStrings::None) || (Item->lineWidth() == 0.0))
-					continue;
-				if ((Item->TopLine) || (Item->RightLine) || (Item->BottomLine) || (Item->LeftLine))
-				{
-					QString trans = "translate("+FToStr(Item->xPos()-Seite->xOffset())+", "+FToStr(Item->yPos()-Seite->yOffset())+")";
-					if (Item->rotation() != 0)
-						trans += " rotate("+FToStr(Item->rotation())+")";
-					QString stroke = getStrokeStyle(Item);
-					QDomElement ob = docu.createElement("path");
-					ob.setAttribute("transform", trans);
-					ob.setAttribute("style", "fill:none; " + stroke);
-					QString pathAttr = "";
-					if (Item->TopLine)
-						pathAttr += "M 0 0 L "+FToStr(Item->width())+" 0";
-					if (Item->RightLine)
-						pathAttr += " M " + FToStr(Item->width()) + "0 L "+FToStr(Item->width())+" "+FToStr(Item->height());
-					if (Item->BottomLine)
-						pathAttr += " M 0 " + FToStr(Item->height()) + " L "+FToStr(Item->width())+" "+FToStr(Item->height());
-					if (Item->LeftLine)
-						pathAttr += " M 0 0 L 0 "+FToStr(Item->height());
-					ob.setAttribute("d", pathAttr);
-					layerGroup.appendChild(ob);
-				}
-			}
-			docElement.appendChild(layerGroup);
+			if (!Item->AutoName)
+				layerGroup.setAttribute("id", Item->itemName());
+			if (Item->fillTransparency() != 0)
+				layerGroup.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
+			QDomElement ob = docu.createElement("clipPath");
+			ob.setAttribute("id", "Clip"+IToStr(ClipCount));
+			QDomElement cl = docu.createElement("path");
+			cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
+			QString trans = "translate("+FToStr(Item->xPos()-page->xOffset())+", "+FToStr(Item->yPos()-page->yOffset())+")";
+			if (Item->rotation() != 0)
+				trans += " rotate("+FToStr(Item->rotation())+")";
+			cl.setAttribute("transform", trans);
+			ob.appendChild(cl);
+			globalDefs.appendChild(ob);
+			layerGroup.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
+			ClipCount++;
+			continue;
 		}
-		Lnr++;
+		ProcessItemOnPage(Item->xPos()-page->xOffset(), Item->yPos()-page->yOffset(), Item, &layerGroup);
+		if (groupStack.count() != 0)
+		{
+			while (Item == groupStack.top())
+			{
+				groupStack.pop();
+				groupStack2.top().appendChild(layerGroup);
+				layerGroup = groupStack2.pop();
+				if (groupStack.count() == 0)
+					break;
+			}
+		}
 	}
+	for(int j = 0; j < Items.count(); ++j)
+	{
+		Item = Items.at(j);
+		if (Item->LayerNr != layer.LNr)
+			continue;
+		if (!Item->printEnabled())
+			continue;
+		double x = page->xOffset();
+		double y = page->yOffset();
+		double w = page->width();
+		double h = page->height();
+		double x2 = Item->BoundingX;
+		double y2 = Item->BoundingY;
+		double w2 = Item->BoundingW;
+		double h2 = Item->BoundingH;
+		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
+			continue;
+		if (!Item->isTableItem)
+			continue;
+		if ((Item->lineColor() == CommonStrings::None) || (Item->lineWidth() == 0.0))
+			continue;
+		if ((Item->TopLine) || (Item->RightLine) || (Item->BottomLine) || (Item->LeftLine))
+		{
+			QString trans = "translate("+FToStr(Item->xPos()-page->xOffset())+", "+FToStr(Item->yPos()-page->yOffset())+")";
+			if (Item->rotation() != 0)
+				trans += " rotate("+FToStr(Item->rotation())+")";
+			QString stroke = getStrokeStyle(Item);
+			QDomElement ob = docu.createElement("path");
+			ob.setAttribute("transform", trans);
+			ob.setAttribute("style", "fill:none; " + stroke);
+			QString pathAttr = "";
+			if (Item->TopLine)
+				pathAttr += "M 0 0 L "+FToStr(Item->width())+" 0";
+			if (Item->RightLine)
+				pathAttr += " M " + FToStr(Item->width()) + "0 L "+FToStr(Item->width())+" "+FToStr(Item->height());
+			if (Item->BottomLine)
+				pathAttr += " M 0 " + FToStr(Item->height()) + " L "+FToStr(Item->width())+" "+FToStr(Item->height());
+			if (Item->LeftLine)
+				pathAttr += " M 0 0 L 0 "+FToStr(Item->height());
+			ob.setAttribute("d", pathAttr);
+			layerGroup.appendChild(ob);
+		}
+	}
+	docElement.appendChild(layerGroup);
+
 	m_Doc->setCurrentPage(SavedAct);
 }
 

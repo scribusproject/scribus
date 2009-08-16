@@ -2689,17 +2689,9 @@ uint PDFLibCore::writeObject(QString type, QString dictionary)
 
 bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
-	QStack<PageItem*> groupStack;
-	QStack<PageItem*> groupStackS;
-	QStack<QString>      groupDataStack;
-	QString tmp, output;
 	ActPageP = pag;
-	PageItem* ite;
-	QList<PageItem*> PItems;
-	int Lnr = 0;
 	ScLayer ll;
 	ll.isPrintable = false;
-	ll.LNr = 0;
 	if (Options.UseLPI)
 		PutPage("/"+HTName+" gs\n");
 	double bleedRight = 0.0;
@@ -2728,278 +2720,297 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		PutPage(FToStr(ActPageP->Margins.Left)+" "+FToStr(ActPageP->Margins.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" re W n\n");
 	//	PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
 	}
-	if (!pag->MPageNam.isEmpty())
-	{
-		const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
-		int   mPageIndex  = doc.MasterPages.indexOf((Page* const) mPage) + 1;
-		if (doc.MasterItems.count() != 0)
-		{
-			if (!Options.MirrorH)
-				PutPage("1 0 0 1 0 0 cm\n");
-			for (int lam = 0; lam < doc.Layers.count() && !abortExport; ++lam)
-			{
-				doc.Layers.levelToLayer(ll, Lnr);
-				Lnr++;
-				if ((ll.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
-				{
-					if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
-						PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-					for (int am = 0; am < pag->FromMaster.count() && !abortExport; ++am)
-					{
-						ite = pag->FromMaster.at(am);
-						if (usingGUI)
-							qApp->processEvents();
-						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
-							continue;
-						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-							continue;
-						QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(ite->ItemNr);
-						if (ite->isGroupControl)
-						{
-							PutPage("q\n");
-							FPointArray cl = ite->PoLine.copy();
-							FPointArray clb = ite->PoLine.copy();
-							QMatrix mm;
-							mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - mPage->height());
-							mm.rotate(ite->rotation());
-							cl.map( mm );
-							ite->PoLine = cl;
-							PutPage(SetClipPath(ite));
-							PutPage("h W* n\n");
-							groupStack.push(ite->groupsLastItem);
-							ite->PoLine = clb.copy();
-							continue;
-						}
-						if (! ite->asTextFrame())
-							PutPage(name+" Do\n");
-						else
-						{
-							double oldX = ite->xPos();
-							double oldY = ite->yPos();
-							double OldBX = ite->BoundingX;
-							double OldBY = ite->BoundingY;
-							ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
-							ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
-							if (!PDF_ProcessItem(output, ite, pag, pag->pageNr()))
-								return false;
-							PutPage(output);
-							ite->setXYPos(oldX, oldY, true);
-							ite->BoundingX = OldBX;
-							ite->BoundingY = OldBY;
-						}
-						if (groupStack.count() != 0)
-						{
-							while (ite == groupStack.top())
-							{
-								PutPage("Q\n");
-								groupStack.pop();
-								if (groupStack.count() == 0)
-									break;
-							}
-						}
-					}
-					for (int am = 0; am < pag->FromMaster.count(); ++am)
-					{
-						ite = pag->FromMaster.at(am);
-						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
-							continue;
-						if (ite->ChangedMasterItem)
-							continue;
-						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-							continue;
-						if (!ite->isTableItem)
-							continue;
-						double oldX = ite->xPos();
-						double oldY = ite->yPos();
-						double OldBX = ite->BoundingX;
-						double OldBY = ite->BoundingY;
-						ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
-						ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
-						PutPage(PDF_ProcessTableItem(ite, pag));
-						ite->setXYPos(oldX, oldY, true);
-						ite->BoundingX = OldBX;
-						ite->BoundingY = OldBY;
-					}
-					if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
-						PutPage("EMC\n");
-				}
-			}
-		}
-	}
-	ll.isPrintable = false;
-	ll.LNr = 0;
-	Lnr = 0;
 	//CB *2 because the Pitems count loop runs twice.. y.. dunno.
 	if (usingGUI && pag->pageName().isEmpty())
 		progressDialog->setProgress("ECPI", 0, doc.DocItems.count()*2);
-	int pc_exportpagesitems=0;
-	PItems = (pag->pageName().isEmpty()) ? doc.DocItems : doc.MasterItems;
-	for (int la = 0; la < doc.Layers.count() && !abortExport; ++la)
+	for (int lam = 0; lam < doc.Layers.count() && !abortExport; ++lam)
 	{
-		doc.Layers.levelToLayer(ll, Lnr);
-		if ((ll.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
+		ll.isPrintable = false;
+		doc.Layers.levelToLayer(ll, lam);
+		if (!PDF_ProcessMasterElements(ll, pag, PNr))
+			return false;
+		if (!PDF_ProcessPageElements(ll, pag, PNr))
+			return false;
+	}
+	PutPage("Q\n"); // Restore
+	return true;
+}
+
+bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const Page* pag, uint PNr)
+{
+	PageItem* ite;
+	QString output;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupStackS;
+	QStack<QString>   groupDataStack;
+	QList<PageItem*> PItems;
+
+	if (pag->MPageNam.isEmpty())
+		return true;
+	if (doc.MasterItems.count() <= 0)
+		return true;
+	const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
+	int   mPageIndex  = doc.MasterPages.indexOf((Page* const) mPage) + 1;
+
+	if (!Options.MirrorH)
+		PutPage("1 0 0 1 0 0 cm\n");
+	if ((layer.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
+	{
+		if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
+			PutPage("/OC /"+OCGEntries[layer.Name].Name+" BDC\n");
+		for (int am = 0; am < pag->FromMaster.count() && !abortExport; ++am)
 		{
-			QString inh = "";
-			if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
-				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-			for (int a = 0; a < PItems.count() && !abortExport; ++a)
+			ite = pag->FromMaster.at(am);
+			if (usingGUI)
+				qApp->processEvents();
+			if ((ite->LayerNr != layer.LNr) || (!ite->printEnabled()))
+				continue;
+			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+				continue;
+			QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(ite->ItemNr);
+			if (ite->isGroupControl)
 			{
-				if (usingGUI)
+				PutPage("q\n");
+				FPointArray cl = ite->PoLine.copy();
+				FPointArray clb = ite->PoLine.copy();
+				QMatrix mm;
+				mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - mPage->height());
+				mm.rotate(ite->rotation());
+				cl.map( mm );
+				ite->PoLine = cl;
+				PutPage(SetClipPath(ite));
+				PutPage("h W* n\n");
+				groupStack.push(ite->groupsLastItem);
+				ite->PoLine = clb.copy();
+				continue;
+			}
+			if (! ite->asTextFrame())
+				PutPage(name+" Do\n");
+			else
+			{
+				double oldX = ite->xPos();
+				double oldY = ite->yPos();
+				double OldBX = ite->BoundingX;
+				double OldBY = ite->BoundingY;
+				ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
+				ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
+				if (!PDF_ProcessItem(output, ite, pag, pag->pageNr()))
+					return false;
+				PutPage(output);
+				ite->setXYPos(oldX, oldY, true);
+				ite->BoundingX = OldBX;
+				ite->BoundingY = OldBY;
+			}
+			if (groupStack.count() != 0)
+			{
+				while (ite == groupStack.top())
 				{
-					progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
-					qApp->processEvents();
+					PutPage("Q\n");
+					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
 				}
-				ite = PItems.at(a);
-				if (ite->LayerNr != ll.LNr)
-					continue;
-				QString grcon = "";
-				if (ite->isGroupControl)
+			}
+		}
+		for (int am = 0; am < pag->FromMaster.count(); ++am)
+		{
+			ite = pag->FromMaster.at(am);
+			if ((ite->LayerNr != layer.LNr) || (!ite->printEnabled()))
+				continue;
+			if (ite->ChangedMasterItem)
+				continue;
+			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+				continue;
+			if (!ite->isTableItem)
+				continue;
+			double oldX = ite->xPos();
+			double oldY = ite->yPos();
+			double OldBX = ite->BoundingX;
+			double OldBY = ite->BoundingY;
+			ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
+			ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
+			PutPage(PDF_ProcessTableItem(ite, pag));
+			ite->setXYPos(oldX, oldY, true);
+			ite->BoundingX = OldBX;
+			ite->BoundingY = OldBY;
+		}
+		if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
+			PutPage("EMC\n");
+	}
+	return true;
+}
+
+bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, uint PNr)
+{
+	PageItem* ite;
+	QString output;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupStackS;
+	QStack<QString>   groupDataStack;
+	QList<PageItem*> PItems;
+
+	int pc_exportpagesitems = usingGUI ? progressDialog->progress("ECPI") : 0;
+	PItems = (pag->pageName().isEmpty()) ? doc.DocItems : doc.MasterItems;
+	if ((layer.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
+	{
+		QString inh = "";
+		if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
+			PutPage("/OC /"+OCGEntries[layer.Name].Name+" BDC\n");
+		for (int a = 0; a < PItems.count() && !abortExport; ++a)
+		{
+			ite = PItems.at(a);
+			if (ite->LayerNr != layer.LNr)
+				continue;
+			if (usingGUI)
+			{
+				progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
+				qApp->processEvents();
+			}
+			QString grcon = "";
+			if (ite->isGroupControl)
+			{
+				grcon += "q\n";
+				FPointArray cl = ite->PoLine.copy();
+				FPointArray clb = ite->PoLine.copy();
+				QMatrix mm;
+				mm.translate(ite->xPos() - pag->xOffset(), (ite->yPos() - pag->yOffset()) - pag->height());
+				mm.rotate(ite->rotation());
+				cl.map( mm );
+				ite->PoLine = cl;
+				grcon += SetClipPath(ite);
+				grcon += "h W* n\n";
+				groupStack.push(ite->groupsLastItem);
+				groupStackS.push(ite);
+				if (((layer.transparency != 1) || (layer.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				{
-					grcon += "q\n";
-					FPointArray cl = ite->PoLine.copy();
-					FPointArray clb = ite->PoLine.copy();
-					QMatrix mm;
-					mm.translate(ite->xPos() - pag->xOffset(), (ite->yPos() - pag->yOffset()) - pag->height());
-					mm.rotate(ite->rotation());
-					cl.map( mm );
-					ite->PoLine = cl;
-					grcon += SetClipPath(ite);
-					grcon += "h W* n\n";
-					groupStack.push(ite->groupsLastItem);
-					groupStackS.push(ite);
-					if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
+					inh += grcon;
+					groupDataStack.push(inh);
+					inh = "";
+				}
+				else
+				{
+					PutPage(grcon);
+					groupDataStack.push(Content);
+					Content = "";
+				}
+				ite->PoLine = clb.copy();
+				continue;
+			}
+			if (!PDF_ProcessItem(output, ite, pag, PNr))
+				return false;
+			if (((layer.transparency != 1) || (layer.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
+				inh += output;
+			else
+				PutPage(output);
+			if (groupStack.count() != 0)
+			{
+				while (ite == groupStack.top())
+				{
+					QString tmpData;
+					PageItem *controlItem = groupStackS.pop();
+					if (((layer.transparency != 1) || (layer.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					{
-						inh += grcon;
-						groupDataStack.push(inh);
-						inh = "";
+						tmpData = inh;
+						inh = groupDataStack.pop();
+						if (Options.Version >= PDFOptions::PDFVersion_14)
+							inh += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
+						else
+							inh += tmpData;
+						inh += "Q\n";
 					}
 					else
 					{
-						PutPage(grcon);
-						groupDataStack.push(Content);
-						Content = "";
-					}
-					ite->PoLine = clb.copy();
-					continue;
-				}
-				if (!PDF_ProcessItem(output, ite, pag, PNr))
-					return false;
-				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
-					inh += output;
-				else
-					PutPage(output);
-				if (groupStack.count() != 0)
-				{
-					while (ite == groupStack.top())
-					{
-						QString tmpData;
-						PageItem *controlItem = groupStackS.pop();
-						if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
-						{
-							tmpData = inh;
-							inh = groupDataStack.pop();
-							if (Options.Version >= PDFOptions::PDFVersion_14)
-								inh += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
-							else
-								inh += tmpData;
-							inh += "Q\n";
-						}
+						tmpData = Content;
+						Content = groupDataStack.pop();
+						if (Options.Version >= PDFOptions::PDFVersion_14)
+							Content += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
 						else
-						{
-							tmpData = Content;
-							Content = groupDataStack.pop();
-							if (Options.Version >= PDFOptions::PDFVersion_14)
-								Content += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
-							else
-								Content += tmpData;
-							PutPage("Q\n");
-						}
-						groupStack.pop();
-						if (groupStack.count() == 0)
-							break;
+							Content += tmpData;
+						PutPage("Q\n");
 					}
+					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
 				}
 			}
-			for (int a = 0; a < PItems.count() && !abortExport; ++a)
-			{
-				if (usingGUI)
-				{
-					progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
-					qApp->processEvents();
-				}
-				ite = PItems.at(a);
-				if (ite->LayerNr != ll.LNr)
-					continue;
-				if (!ite->isTableItem)
-					continue;
-				double bLeft, bRight, bBottom, bTop;
-				getBleeds(ActPageP, bLeft, bRight, bBottom, bTop);
-				double x  = pag->xOffset() - bLeft;
-				double y  = pag->yOffset() - bTop;
-				double w  = pag->width()  + bLeft + bRight;
-				double h1 = pag->height() + bBottom + bTop;
-				double ilw= ite->lineWidth();
-				double x2 = ite->BoundingX - ilw / 2.0;
-				double y2 = ite->BoundingY - ilw / 2.0;
-				double w2 = qMax(ite->BoundingW + ilw, 1.0);
-				double h2 = qMax(ite->BoundingH + ilw, 1.0);
-				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
-					continue;
-				if (ite->ChangedMasterItem)
-					continue;
-				if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-					continue;
-				if (!ite->printEnabled())
-					continue;
-				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
-					inh += PDF_ProcessTableItem(ite, pag);
-				else
-					PutPage(PDF_ProcessTableItem(ite, pag));
-			}
-			if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
-			{
-				int Gobj = newObject();
-				StartObj(Gobj);
-				PutDoc("<< /Type /Group\n");
-				PutDoc("/S /Transparency\n");
-				PutDoc("/I false\n");
-				PutDoc("/K false\n");
-				PutDoc(">>\nendobj\n");
-				QString ShName = ResNam+QString::number(ResCount);
-				ResCount++;
-				Transpar[ShName] = writeGState("/CA "+FToStr(ll.transparency)+"\n"
-											   + "/ca "+FToStr(ll.transparency)+"\n"
-											   + "/SMask /None\n/AIS false\n/OPM 1\n"
-											   + "/BM /" + blendMode(ll.blendMode) + "\n");
-				uint formObject = newObject();
-				StartObj(formObject);
-				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-				double bleedRight = 0.0;
-				double bleedLeft  = 0.0;
-				getBleeds(ActPageP, bleedLeft, bleedRight);
-				double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
-				double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
-				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
-				PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
-				if (Options.Compress)
-					inh = CompressStr(&inh);
-				PutDoc("/Length "+QString::number(inh.length()+1));
-				if (Options.Compress)
-					PutDoc("\n/Filter /FlateDecode");
-				PutDoc(" >>\nstream\n"+EncStream(inh, formObject)+"\nendstream\nendobj\n");
-				QString name = ll.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_") + QString::number(ll.LNr) + QString::number(PNr);
-				Seite.XObjects[name] = formObject;
-				PutPage("q\n");
-				PutPage("/"+ShName+" gs\n");
-				PutPage("/"+name+" Do\n");
-				PutPage("Q\n");
-			}
-			if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
-				PutPage("EMC\n");
 		}
-		Lnr++;
+		for (int a = 0; a < PItems.count() && !abortExport; ++a)
+		{
+			ite = PItems.at(a);
+			if (ite->LayerNr != layer.LNr)
+				continue;
+			if (usingGUI)
+			{
+				progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
+				qApp->processEvents();
+			}
+			if (!ite->isTableItem)
+				continue;
+			double bLeft, bRight, bBottom, bTop;
+			getBleeds(ActPageP, bLeft, bRight, bBottom, bTop);
+			double x  = pag->xOffset() - bLeft;
+			double y  = pag->yOffset() - bTop;
+			double w  = pag->width()  + bLeft + bRight;
+			double h1 = pag->height() + bBottom + bTop;
+			double ilw= ite->lineWidth();
+			double x2 = ite->BoundingX - ilw / 2.0;
+			double y2 = ite->BoundingY - ilw / 2.0;
+			double w2 = qMax(ite->BoundingW + ilw, 1.0);
+			double h2 = qMax(ite->BoundingH + ilw, 1.0);
+			if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+				continue;
+			if (ite->ChangedMasterItem)
+				continue;
+			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+				continue;
+			if (!ite->printEnabled())
+				continue;
+			if (((layer.transparency != 1) || (layer.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
+				inh += PDF_ProcessTableItem(ite, pag);
+			else
+				PutPage(PDF_ProcessTableItem(ite, pag));
+		}
+		if (((layer.transparency != 1) || (layer.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
+		{
+			int Gobj = newObject();
+			StartObj(Gobj);
+			PutDoc("<< /Type /Group\n");
+			PutDoc("/S /Transparency\n");
+			PutDoc("/I false\n");
+			PutDoc("/K false\n");
+			PutDoc(">>\nendobj\n");
+			QString ShName = ResNam+QString::number(ResCount);
+			ResCount++;
+			Transpar[ShName] = writeGState("/CA "+FToStr(layer.transparency)+"\n"
+										   + "/ca "+FToStr(layer.transparency)+"\n"
+										   + "/SMask /None\n/AIS false\n/OPM 1\n"
+										   + "/BM /" + blendMode(layer.blendMode) + "\n");
+			uint formObject = newObject();
+			StartObj(formObject);
+			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+			double bleedRight = 0.0;
+			double bleedLeft  = 0.0;
+			getBleeds(ActPageP, bleedLeft, bleedRight);
+			double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
+			double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
+			PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+			PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+			if (Options.Compress)
+				inh = CompressStr(&inh);
+			PutDoc("/Length "+QString::number(inh.length()+1));
+			if (Options.Compress)
+				PutDoc("\n/Filter /FlateDecode");
+			PutDoc(" >>\nstream\n"+EncStream(inh, formObject)+"\nendstream\nendobj\n");
+			QString name = layer.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_") + QString::number(layer.LNr) + QString::number(PNr);
+			Seite.XObjects[name] = formObject;
+			PutPage("q\n");
+			PutPage("/"+ShName+" gs\n");
+			PutPage("/"+name+" Do\n");
+			PutPage("Q\n");
+		}
+		if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
+			PutPage("EMC\n");
 	}
-	PutPage("Q\n"); // Restore
 	return true;
 }
 

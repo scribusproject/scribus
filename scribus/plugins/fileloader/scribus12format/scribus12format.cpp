@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_color.h"
+#include "util_layer.h"
 #include "scgzfile.h"
 #include <QCursor>
 #include <QFileInfo>
@@ -717,6 +718,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	//m_Doc->Items = m_Doc->DocItems;
 	m_Doc->setMasterPageMode(false);
 	m_View->reformPages();
+
+	handleOldLayerBehavior(m_Doc);
 	if (m_Doc->layerCount() == 0)
 	{
 		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );

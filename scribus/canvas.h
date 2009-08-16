@@ -40,6 +40,7 @@ scribusview.h  -  description
 
 class Page;
 class PageItem;
+class ScLayer;
 class ScPainter;
 class ScribusDoc;
 class ScribusView;
@@ -183,8 +184,8 @@ public:
 	int previewVisual() const { return m_viewMode.previewVisual; }
 	void setPreviewVisual(int mode) { m_viewMode.previewVisual = qMax(0, mode); m_viewMode.viewAsPreview = (mode >= 0); }
 	
-	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
-	void DrawPageItems(ScPainter *painter, QRect clip);
+	void DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRect clip);
+	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip);
 	virtual void paintEvent ( QPaintEvent * p );
 	void displayXYHUD(QPoint m);
 	void displayCorrectedXYHUD(QPoint m, double x, double y);

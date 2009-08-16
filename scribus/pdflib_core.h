@@ -27,6 +27,7 @@ class Page;
 class PDFOptions;
 class PrefsContext;
 class MultiProgressDialog;
+class ScLayer;
 class ScText;
 
 #include "scribusstructs.h"
@@ -83,6 +84,8 @@ private:
 	void PDF_End_Page();
 	bool PDF_TemplatePage(const Page* pag, bool clip = false);
 	bool PDF_ProcessPage(const Page* pag, uint PNr, bool clip = false);
+	bool PDF_ProcessMasterElements(const ScLayer& layer, const Page* page, uint PNr);
+	bool PDF_ProcessPageElements(const ScLayer& layer, const Page* page, uint PNr);
 	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	bool closeAndCleanup();
 

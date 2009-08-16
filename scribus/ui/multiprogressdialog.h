@@ -76,6 +76,17 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 */
 		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const QList<bool>& barsNumerical);
 		/**
+		 * Get the overall progress for the dialog
+		 * @return overall progress 
+		 */
+		int overallProgress() const;
+		/**
+		 * Get the progress for a user defined progress bar
+		 * @param barName 
+		 * @return progress for specified user bar
+		 */
+		int progress(const QString &barName) const;
+		/**
 		 * Set a new label for a user defined progress bar
 		 * @param barName Progress bar name
 		 * @param newLabel New label

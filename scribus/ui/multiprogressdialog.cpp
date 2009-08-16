@@ -81,6 +81,22 @@ bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, cons
 	return true;
 }
 
+int MultiProgressDialog::overallProgress() const
+{
+	return overallProgressBar->value();
+}
+
+int MultiProgressDialog::progress(const QString &barName) const
+{
+	int progress = 0;
+	if (progressBars.contains(barName))
+	{
+		progress = progressBars[barName]->value();
+		return true;
+	}
+	return false;
+}
+
 bool MultiProgressDialog::setLabel(const QString &barName, const QString & newLabel)
 {
 	if (progressLabels.contains(barName))

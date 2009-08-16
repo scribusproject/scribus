@@ -755,6 +755,7 @@ SET(SCRIBUS_SOURCES
   util_formats.cpp
   util_ghostscript.cpp
   util_icon.cpp
+  util_layer.cpp
   util_math.cpp
   util_printer.cpp
   util_text.cpp

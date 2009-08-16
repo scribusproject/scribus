@@ -895,6 +895,10 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	painter->setLineWidth(1);
 	painter->setFillMode(ScPainter::Solid);
+
+	ScLayer layer;
+	layer.isViewable = false;
+	layer.LNr = 0;
 	
 //	Tsetup = tim.elapsed();
 	if (!m_doc->masterPageMode())
@@ -910,15 +914,21 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		else
 			painter->beginLayer(1.0, 0);
 		
+		m_viewMode.linkedFramesToShow.clear();
 		if ((m_doc->guidesSettings.before) && (!m_viewMode.viewAsPreview))
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
-		for (uint a = 0; a < docPagesCount; ++a)
+		int layerCount = m_doc->layerCount();
+		for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
 		{
-			DrawMasterItems(painter, m_doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
+			m_doc->Layers.levelToLayer(layer, layerLevel);
+			for (uint a = 0; a < docPagesCount; ++a)
+			{
+				DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
+			}
+			DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
 		}
-		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->endLayer();
 //		Tcontents = tim.elapsed();
 		if ((!m_doc->guidesSettings.before) && (!m_viewMode.viewAsPreview))
@@ -928,11 +938,17 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	}
 	else // masterPageMode
 	{			
+		m_viewMode.linkedFramesToShow.clear();
 		drawBackgroundMasterpage(painter, clipx, clipy, clipw, cliph);
 		
 //		Tbackground = tim.elapsed();
 		painter->beginLayer(1.0, 0);
-		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+		int layerCount = m_doc->layerCount();
+		for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+		{
+			m_doc->Layers.levelToLayer(layer, layerLevel);
+			DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+		}
 		painter->endLayer();
 //		Tcontents = tim.elapsed();
 		
@@ -1243,378 +1259,354 @@ void Canvas::drawControlsFreehandLine(QPainter* pp)
 
 
 /**
-  draws masterpage items in layer order
+  draws masterpage items of a specific layer
  */
-void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
+void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRect clip)
 {
+	if ((m_viewMode.previewMode) && (!layer.isPrintable))
+		return;
+	if ((m_viewMode.viewAsPreview) && (!layer.isPrintable))
+		return;
+	if (!layer.isViewable)
+		return;
+	if (page->MPageNam.isEmpty())
+		return;
+	if (page->FromMaster.count() <= 0)
+		return;
+
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
-	if (!page->MPageNam.isEmpty())
+
+	PageItem *currItem;
+	Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
+	uint layerCount = m_doc->layerCount();
+	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
+		painter->beginLayer(layer.transparency, layer.blendMode);
+	uint pageFromMasterCount=page->FromMaster.count();
+	for (uint a = 0; a < pageFromMasterCount; ++a)
 	{
-		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
-		if (page->FromMaster.count() != 0)
+		currItem = page->FromMaster.at(a);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
+			continue;
+		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
+			continue;
+		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
+			continue;
+		double OldX = currItem->xPos();
+		double OldY = currItem->yPos();
+		double OldBX = currItem->BoundingX;
+		double OldBY = currItem->BoundingY;
+		if (!currItem->ChangedMasterItem)
 		{
-			int Lnr;
-			ScLayer ll;
-			PageItem *currItem;
-			ll.isViewable = false;
-			ll.LNr = 0;
-			Lnr = 0;
-			uint layerCount=m_doc->layerCount();
-			for (uint la = 0; la < layerCount; ++la)
+			//Hack to not check for undo changes, indicate drawing only
+			currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
+			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+		}
+		if (currItem->isGroupControl)
+		{
+			painter->save();
+			currItem->savedOwnPage = currItem->OwnPage;
+			currItem->OwnPage = page->pageNr();
+			if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+				currItem->DrawObj(painter, cullingArea);
+			FPointArray cl = currItem->PoLine.copy();
+			QMatrix mm;
+			mm.translate(currItem->xPos(), currItem->yPos());
+			mm.rotate(currItem->rotation());
+			cl.map( mm );
+			painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
+			groupStack.push(currItem->groupsLastItem);
+			groupStack2.push(currItem);
+			currItem->OwnPage = currItem->savedOwnPage;
+			if (!currItem->ChangedMasterItem)
 			{
-				m_doc->Layers.levelToLayer(ll, Lnr);
-				bool pr = true;
-				if ((m_viewMode.previewMode) && (!ll.isPrintable))
-					pr = false;
-				if ((m_viewMode.viewAsPreview) && (!ll.isPrintable))
-					pr = false;
-				if ((ll.isViewable) && (pr))
-				{
-					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
-						painter->beginLayer(ll.transparency, ll.blendMode);
-					uint pageFromMasterCount=page->FromMaster.count();
-					for (uint a = 0; a < pageFromMasterCount; ++a)
-					{
-						currItem = page->FromMaster.at(a);
-						if (currItem->LayerNr != ll.LNr)
-							continue;
-						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
-							continue;
-						if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
-							continue;
-						if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
-							continue;
-						double OldX = currItem->xPos();
-						double OldY = currItem->yPos();
-						double OldBX = currItem->BoundingX;
-						double OldBY = currItem->BoundingY;
-						if (!currItem->ChangedMasterItem)
-						{
-							//Hack to not check for undo changes, indicate drawing only
-							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-						}
-						if (currItem->isGroupControl)
-						{
-							painter->save();
-							currItem->savedOwnPage = currItem->OwnPage;
-							currItem->OwnPage = page->pageNr();
-							if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
-								currItem->DrawObj(painter, cullingArea);
-							FPointArray cl = currItem->PoLine.copy();
-							QMatrix mm;
-							mm.translate(currItem->xPos(), currItem->yPos());
-							mm.rotate(currItem->rotation());
-							cl.map( mm );
-							painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
-							groupStack.push(currItem->groupsLastItem);
-							groupStack2.push(currItem);
-							currItem->OwnPage = currItem->savedOwnPage;
-							if (!currItem->ChangedMasterItem)
-							{
-								//Hack to not check for undo changes, indicate drawing only
-								currItem->setXYPos(OldX, OldY, true);
-								currItem->BoundingX = OldBX;
-								currItem->BoundingY = OldBY;
-							}
-							continue;
-						}
-						currItem->savedOwnPage = currItem->OwnPage;
-						currItem->OwnPage = page->pageNr();
+				//Hack to not check for undo changes, indicate drawing only
+				currItem->setXYPos(OldX, OldY, true);
+				currItem->BoundingX = OldBX;
+				currItem->BoundingY = OldBY;
+			}
+			continue;
+		}
+		currItem->savedOwnPage = currItem->OwnPage;
+		currItem->OwnPage = page->pageNr();
 //FIXME						if (!evSpon || forceRedraw)
-		//					currItem->invalid = true;
-						if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-						{
-							if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
-							{
-								if (m_viewMode.forceRedraw)
-									currItem->invalidateLayout();
-								currItem->DrawObj(painter, cullingArea);
-							}
+//					currItem->invalid = true;
+		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+		{
+			if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
+			{
+				if (m_viewMode.forceRedraw)
+					currItem->invalidateLayout();
+				currItem->DrawObj(painter, cullingArea);
+			}
 //							else 
 //								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
-						}
-						currItem->OwnPage = currItem->savedOwnPage;
-						if (!currItem->ChangedMasterItem)
-						{
-							//Hack to not check for undo changes, indicate drawing only
-							currItem->setXYPos(OldX, OldY, true);
-							currItem->BoundingX = OldBX;
-							currItem->BoundingY = OldBY;
-						}
-						if (groupStack.count() != 0)
-						{
-							while (currItem == groupStack.top())
-							{
-								painter->endLayer();
-								painter->restore();
-								PageItem *cite = groupStack2.pop();
-								double OldX = cite->xPos();
-								double OldY = cite->yPos();
-								double OldBX = cite->BoundingX;
-								double OldBY = cite->BoundingY;
-								if (!cite->ChangedMasterItem)
-								{
-									//Hack to not check for undo changes, indicate drawing only
-									cite->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-									cite->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-									cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-								}
-								if ((cullingArea.intersects(cite->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
-									cite->DrawObj(painter, cullingArea);
-								cite->OwnPage = cite->savedOwnPage;
-								if (!currItem->ChangedMasterItem)
-								{
-									//Hack to not check for undo changes, indicate drawing only
-									cite->setXYPos(OldX, OldY, true);
-									cite->BoundingX = OldBX;
-									cite->BoundingY = OldBY;
-								}
-								groupStack.pop();
-								if (groupStack.count() == 0)
-									break;
-							}
-						}
-					}
-					for (uint a = 0; a < pageFromMasterCount; ++a)
-					{
-						currItem = page->FromMaster.at(a);
-						if (currItem->LayerNr != ll.LNr)
-							continue;
-						if (!currItem->isTableItem)
-							continue;
-						if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
-							continue;
-						if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
-							continue;
-						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
-							continue;
-						if (currItem->isGroupControl)
-							continue;
-						double OldX = currItem->xPos();
-						double OldY = currItem->yPos();
-						double OldBX = currItem->BoundingX;
-						double OldBY = currItem->BoundingY;
-						if (!currItem->ChangedMasterItem)
-						{
-							//Hack to not check for undo changes, indicate drawing only
-							currItem->setXYPos(OldX - Mp->xOffset() + page->xOffset(), OldY - Mp->yOffset() + page->yOffset(), true);
-							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-						}
-						if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-						{
-							painter->save();
-							painter->translate(currItem->xPos(), currItem->yPos());
-							painter->rotate(currItem->rotation());
-							if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
-							{
-								QColor tmp;
-								currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
-								if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-								{
-									painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-									if (currItem->TopLine)
-										painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-									if (currItem->RightLine)
-										painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-									if (currItem->BottomLine)
-										painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-									if (currItem->LeftLine)
-										painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-								}
-							}
-							painter->restore();
-						}
-						if (!currItem->ChangedMasterItem)
-						{
-							//Hack to not check for undo changes, indicate drawing only
-							currItem->setXYPos(OldX, OldY, true);
-							currItem->BoundingX = OldBX;
-							currItem->BoundingY = OldBY;
-						}
-					}
-					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
-						painter->endLayer();
+		}
+		currItem->OwnPage = currItem->savedOwnPage;
+		if (!currItem->ChangedMasterItem)
+		{
+			//Hack to not check for undo changes, indicate drawing only
+			currItem->setXYPos(OldX, OldY, true);
+			currItem->BoundingX = OldBX;
+			currItem->BoundingY = OldBY;
+		}
+		if (groupStack.count() != 0)
+		{
+			while (currItem == groupStack.top())
+			{
+				painter->endLayer();
+				painter->restore();
+				PageItem *cite = groupStack2.pop();
+				double OldX = cite->xPos();
+				double OldY = cite->yPos();
+				double OldBX = cite->BoundingX;
+				double OldBY = cite->BoundingY;
+				if (!cite->ChangedMasterItem)
+				{
+					//Hack to not check for undo changes, indicate drawing only
+					cite->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
+					cite->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+					cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 				}
-				Lnr++;
+				if ((cullingArea.intersects(cite->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+					cite->DrawObj(painter, cullingArea);
+				cite->OwnPage = cite->savedOwnPage;
+				if (!currItem->ChangedMasterItem)
+				{
+					//Hack to not check for undo changes, indicate drawing only
+					cite->setXYPos(OldX, OldY, true);
+					cite->BoundingX = OldBX;
+					cite->BoundingY = OldBY;
+				}
+				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
 			}
 		}
 	}
+	for (uint a = 0; a < pageFromMasterCount; ++a)
+	{
+		currItem = page->FromMaster.at(a);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if (!currItem->isTableItem)
+			continue;
+		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
+			continue;
+		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
+			continue;
+		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
+			continue;
+		if (currItem->isGroupControl)
+			continue;
+		double OldX = currItem->xPos();
+		double OldY = currItem->yPos();
+		double OldBX = currItem->BoundingX;
+		double OldBY = currItem->BoundingY;
+		if (!currItem->ChangedMasterItem)
+		{
+			//Hack to not check for undo changes, indicate drawing only
+			currItem->setXYPos(OldX - Mp->xOffset() + page->xOffset(), OldY - Mp->yOffset() + page->yOffset(), true);
+			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+		}
+		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+		{
+			painter->save();
+			painter->translate(currItem->xPos(), currItem->yPos());
+			painter->rotate(currItem->rotation());
+			if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
+			{
+				QColor tmp;
+				currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
+				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
+				{
+					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
+					if (currItem->TopLine)
+						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
+					if (currItem->RightLine)
+						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
+					if (currItem->BottomLine)
+						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
+					if (currItem->LeftLine)
+						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
+				}
+			}
+			painter->restore();
+		}
+		if (!currItem->ChangedMasterItem)
+		{
+			//Hack to not check for undo changes, indicate drawing only
+			currItem->setXYPos(OldX, OldY, true);
+			currItem->BoundingX = OldBX;
+			currItem->BoundingY = OldBY;
+		}
+	}
+	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
+		painter->endLayer();
 }
 
 
 /**
-  draws page items in layer order
+  draws page items contained in a specific Layer
  */
-void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
+void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 {
+	if ((m_viewMode.previewMode) && (!layer.isPrintable))
+		return;
+	if ((m_viewMode.viewAsPreview) && (!layer.isPrintable))
+		return;
+	if (!layer.isViewable)
+		return;
+	if (m_doc->Items->count() <= 0)
+		return;
+
 // 	qDebug()<<"Canvas::DrawPageItems"<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
-	m_viewMode.linkedFramesToShow.clear();
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
-	if (m_doc->Items->count() != 0)
+
+	PageItem *currItem;
+	uint layerCount = m_doc->layerCount();
+	int docCurrPageNo=static_cast<int>(m_doc->currentPageNumber());
+	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
+		painter->beginLayer(layer.transparency, layer.blendMode);
+	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
-		int Lnr=0;
-		ScLayer ll;
-		PageItem *currItem;
-		ll.isViewable = false;
-		ll.LNr = 0;
-		uint layerCount=m_doc->layerCount();
-		int docCurrPageNo=static_cast<int>(m_doc->currentPageNumber());
-		for (uint la2 = 0; la2 < layerCount; ++la2)
+		currItem = m_doc->Items->at(it);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
+			continue;
+		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
+			continue;
+		if ((m_doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
+			continue;
+		if (!m_doc->masterPageMode() && !currItem->OnMasterPage.isEmpty())
 		{
-			m_doc->Layers.levelToLayer(ll, Lnr);
-			bool pr = true;
-			if ((m_viewMode.previewMode) && (!ll.isPrintable))
-				pr = false;
-			if ((m_viewMode.viewAsPreview) && (!ll.isPrintable))
-				pr = false;
-			if ((ll.isViewable) && (pr))
-			{
-				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
-					painter->beginLayer(ll.transparency, ll.blendMode);
-				for (int it = 0; it < m_doc->Items->count(); ++it)
-				{
-					currItem = m_doc->Items->at(it);
-					if (currItem->LayerNr != ll.LNr)
-						continue;
-					if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
-						continue;
-					if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
-						continue;
-					if ((m_doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
-						continue;
-					if (!m_doc->masterPageMode() && !currItem->OnMasterPage.isEmpty())
-					{
-						if (currItem->OnMasterPage != m_doc->currentPage()->pageName())
-							continue;
-					}
-					if (currItem->isGroupControl)
-					{
-						painter->save();
-						FPointArray cl = currItem->PoLine.copy();
-						QMatrix mm;
-						mm.translate(currItem->xPos(), currItem->yPos());
-						mm.rotate(currItem->rotation());
-						cl.map( mm );
-						painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
-						groupStack.push(currItem->groupsLastItem);
-						groupStack2.push(currItem);
-						continue;
-					}
-					if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-					{
+			if (currItem->OnMasterPage != m_doc->currentPage()->pageName())
+				continue;
+		}
+		if (currItem->isGroupControl)
+		{
+			painter->save();
+			FPointArray cl = currItem->PoLine.copy();
+			QMatrix mm;
+			mm.translate(currItem->xPos(), currItem->yPos());
+			mm.rotate(currItem->rotation());
+			cl.map( mm );
+			painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
+			groupStack.push(currItem->groupsLastItem);
+			groupStack2.push(currItem);
+			continue;
+		}
+		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+		{
 //FIXME						if (!evSpon || forceRedraw) 
-		//					currItem->invalid = true;
+//					currItem->invalid = true;
 //						if ((!m_MouseButtonPressed) || (m_doc->appMode == modeEditClip))
-						if (((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
-						{
+			if (((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
+			{
 //							qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
-						}
-						else if(m_viewMode.operItemSelecting)
-						{
-							currItem->invalid = false;
-							currItem->DrawObj(painter, cullingArea);
-						}
-						else
-						{
-							// I comment it because the "view" should not
-							// alter the "data". And it really prevents optimisation - pm
+			}
+			else if(m_viewMode.operItemSelecting)
+			{
+				currItem->invalid = false;
+				currItem->DrawObj(painter, cullingArea);
+			}
+			else
+			{
+				// I comment it because the "view" should not
+				// alter the "data". And it really prevents optimisation - pm
 // 							if (m_viewMode.forceRedraw)
 // 								currItem->invalidateLayout();
-							currItem->DrawObj(painter, cullingArea);
-						}
-//						currItem->Redrawn = true;
-						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
-						{
-							PageItem *nextItem = currItem;
-							while (nextItem != 0)
-							{
-								if (nextItem->prevInChain() != 0)
-									nextItem = nextItem->prevInChain();
-								else
-									break;
-							}
-							if (!m_viewMode.linkedFramesToShow.contains(nextItem))
-								m_viewMode.linkedFramesToShow.append(nextItem);
-						}
-						/* FIXME:av -
-						what to fix exactly? - pm
-						*/
-						if ((m_doc->appMode == modeEdit) && (currItem->isSelected()) && (currItem->itemType() == PageItem::TextFrame))
-						{
-						
-							setupEditHRuler(currItem);
-						}
-					}
-					if (groupStack.count() != 0)
-					{
-						while (currItem == groupStack.top())
-						{
-							painter->endLayer();
-							painter->restore();
-							PageItem *cite = groupStack2.pop();
-							if ((cullingArea.intersects(cite->getBoundingRect())) && (((m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
-								cite->DrawObj(painter, cullingArea);
-							groupStack.pop();
-							if (groupStack.count() == 0)
-								break;
-						}
-					}
-				}
-				for (int it = 0; it < m_doc->Items->count(); ++it)
-				{
-					currItem = m_doc->Items->at(it);
-					if (currItem->LayerNr != ll.LNr)
-						continue;
-					if (!currItem->isTableItem)
-						continue;
-					if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
-						continue;
-					if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
-						continue;
-					if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-					{
-						painter->save();
-						painter->translate(currItem->xPos(), currItem->yPos());
-						painter->rotate(currItem->rotation());
-						if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
-						{
-							QColor tmp;
-							currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
-							if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-							{
-								painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-								if (currItem->TopLine)
-									painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-								if (currItem->RightLine)
-									painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-								if (currItem->BottomLine)
-									painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-								if (currItem->LeftLine)
-									painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-							}
-						}
-						painter->restore();
-					}
-				}
-				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
-					painter->endLayer();
+				currItem->DrawObj(painter, cullingArea);
 			}
-			Lnr++;
+//						currItem->Redrawn = true;
+			if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
+			{
+				PageItem *nextItem = currItem;
+				while (nextItem != 0)
+				{
+					if (nextItem->prevInChain() != 0)
+						nextItem = nextItem->prevInChain();
+					else
+						break;
+				}
+				if (!m_viewMode.linkedFramesToShow.contains(nextItem))
+					m_viewMode.linkedFramesToShow.append(nextItem);
+			}
+			/* FIXME:av -
+			what to fix exactly? - pm
+			*/
+			if ((m_doc->appMode == modeEdit) && (currItem->isSelected()) && (currItem->itemType() == PageItem::TextFrame))
+			{
+			
+				setupEditHRuler(currItem);
+			}
+		}
+		if (groupStack.count() != 0)
+		{
+			while (currItem == groupStack.top())
+			{
+				painter->endLayer();
+				painter->restore();
+				PageItem *cite = groupStack2.pop();
+				if ((cullingArea.intersects(cite->getBoundingRect())) && (((m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
+					cite->DrawObj(painter, cullingArea);
+				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
+			}
 		}
 	}
+	for (int it = 0; it < m_doc->Items->count(); ++it)
+	{
+		currItem = m_doc->Items->at(it);
+		if (currItem->LayerNr != layer.LNr)
+			continue;
+		if (!currItem->isTableItem)
+			continue;
+		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
+			continue;
+		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
+			continue;
+		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+		{
+			painter->save();
+			painter->translate(currItem->xPos(), currItem->yPos());
+			painter->rotate(currItem->rotation());
+			if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
+			{
+				QColor tmp;
+				currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
+				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
+				{
+					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
+					if (currItem->TopLine)
+						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
+					if (currItem->RightLine)
+						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
+					if (currItem->BottomLine)
+						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
+					if (currItem->LeftLine)
+						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
+				}
+			}
+			painter->restore();
+		}
+	}
+	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
+		painter->endLayer();
 }
-
 
 /**
   Draws the canvas background for masterpages, incl. bleeds

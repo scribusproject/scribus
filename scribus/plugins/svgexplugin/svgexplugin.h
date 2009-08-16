@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 
 class QString;
+class ScLayer;
 class ScribusDoc;
 class ScribusMainWindow;
 class PageItem;
@@ -77,7 +78,7 @@ private:
 	\brief Process a page to export to SVG format
 	\param Seite Page *
 	*/
-	void ProcessPage(Page *Seite);
+	void ProcessPageLayer(Page *page, ScLayer& layer);
 	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
 	QDomElement processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke);
 	QDomElement processLineItem(PageItem *Item, QString trans, QString stroke);

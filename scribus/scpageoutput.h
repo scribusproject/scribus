@@ -15,11 +15,9 @@ for which a new license (GPL+exception) is in place.
 #include "scpainterexbase.h"
 #include "scimage.h"
 
-class ScribusDoc;
-class Page;
 class CharStyle;
 struct GlyphLayout;
-
+class Page;
 class PageItem;
 class PageItem_ImageFrame;
 class PageItem_Line;
@@ -27,6 +25,8 @@ class PageItem_PathText;
 class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_TextFrame;
+class ScLayer;
+class ScribusDoc;
 
 class SCRIBUS_API MarksOptions
 {
@@ -59,8 +59,8 @@ protected:
 	virtual void fillPath( PageItem* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void strokePath( PageItem* item, ScPainterExBase* painter, const QRect& clip );
 
-	virtual void drawMasterItems( ScPainterExBase *painter, Page *page, const QRect& clip);
-	virtual void drawPageItems( ScPainterExBase *painter, Page *page, const QRect& clip);
+	virtual void drawMasterItems( ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip);
+	virtual void drawPageItems( ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip);
 
 	virtual void drawItem( PageItem* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_Pre( PageItem* item, ScPainterExBase* painter );

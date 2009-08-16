@@ -36,13 +36,13 @@ public:
 
 class SCRIBUS_API ScLayers : public QList<ScLayer>
 {
-protected:
+public:
+
 	/**
 	 * @brief  Get layer max identifier
 	 * @return Layer max identifier or -1 is list is empty
 	 */
 	int getMaxNumber(void);
-public:
 
 	/**
 	 * @brief  Get bottom layer

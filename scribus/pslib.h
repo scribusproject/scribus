@@ -46,6 +46,7 @@ class ScribusDoc;
 class PageItem;
 class MultiProgressDialog;
 class ScImage;
+class ScLayer;
 
 /**
   *@author Franz Schmid
@@ -122,7 +123,9 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(QString Name);
 		virtual bool ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
-		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+		virtual void ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, Page* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+		virtual bool ProcessPageLayer(ScribusDoc* Doc, Page* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual void drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex, bool gcr);
 		virtual void putColor(const QString& color, double shade, bool fill);
 		virtual void GetBleeds(Page* page, double& left, double& right);
