@@ -5711,7 +5711,12 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 		PutDoc("/MS /M\n");
 		PutDoc("/C2W ["+osgframe->getPDFMatrix(itv.key())+" ]\n");
 		PutDoc("/LS << /Subtype /" + lightModes[itv.value().illumination] + " >>\n");
-		PutDoc("/RM << /Subtype /" + renderModes[itv.value().rendermode] + " >>\n");
+		PutDoc("/RM\n<<\n");
+		PutDoc("/Subtype /" + renderModes[itv.value().rendermode] + "\n");
+		PutDoc("/AC [/DeviceRGB " + FToStr(itv.value().colorAC.redF()) + " " + FToStr(itv.value().colorAC.greenF()) + " " + FToStr(itv.value().colorAC.blueF()) + "]\n");
+		PutDoc("/FC [/DeviceRGB " + FToStr(itv.value().colorFC.redF()) + " " + FToStr(itv.value().colorFC.greenF()) + " " + FToStr(itv.value().colorFC.blueF()) + "]\n");
+		PutDoc("/O " + FToStr(1.0 - itv.value().addedTransparency) + "\n");
+		PutDoc(">>\n");
 		PutDoc("/P << /FOV "+FToStr(itv.value().angleFOV)+" /PS /Min /Subtype /P >>\n");
 		PutDoc("/CO "+FToStr(osgframe->distanceToObj)+"\n");
 		if (ite->fillColor() != CommonStrings::None)

@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 #ifndef ADAPT_H
-#define ADAPTC_H
+#define ADAPT_H
 
 #include <QtCore>
 #include <osg/Vec3>

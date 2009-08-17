@@ -365,6 +365,9 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 				osg.insert("trackerSize", toXMLString(itv.value().trackerSize));
 				osg.insert("illumination", toXMLString(itv.value().illumination));
 				osg.insert("rendermode", toXMLString(itv.value().rendermode));
+				osg.insert("trans", toXMLString(itv.value().addedTransparency));
+				osg.insert("colorAC", toXMLString(itv.value().colorAC.name()));
+				osg.insert("colorFC", toXMLString(itv.value().colorFC.name()));
 				handler.begin("OSGViews", osg);
 				handler.end("OSGViews");
 			}
@@ -416,6 +419,9 @@ class OSGViews_body : public Action_body
 			defaultView.trackerSize = parseDouble(attr["trackerSize"]);
 			defaultView.illumination = static_cast<PageItem_OSGFrame::LightType>(parseInt(attr["illumination"]));
 			defaultView.rendermode = static_cast<PageItem_OSGFrame::RenderType>(parseInt(attr["rendermode"]));
+			defaultView.addedTransparency = parseDouble(attr["trans"]);
+			defaultView.colorAC = QColor(attr["colorAC"]);
+			defaultView.colorFC = QColor(attr["colorFC"]);
 			QString name = attr["viewName"];
 			osgframe->viewMap.insert(name, defaultView);
 		}

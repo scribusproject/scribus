@@ -33,6 +33,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "pageitem_osgframe.h"
+#include <osg/StateSet>
+#include <osg/Group>
+#include <osg/Drawable>
+#include <osg/Geometry>
 
 class SCRIBUS_API OSGEditorDialog : public QDialog, Ui::OSGEditor
 {
@@ -50,17 +54,29 @@ class SCRIBUS_API OSGEditorDialog : public QDialog, Ui::OSGEditor
 		void removeView();
 		void renameView(QString newName);
 		void changeRenderMode(int mode);
+		void changeACcolor();
+		void changeFCcolor();
+		void changeTransparency(int value);
 		void changeLightMode(int mode);
 		void reportCamera();
 		void openFile();
 		void accept();
+
+	private:
+		void analyse(osg::Node *nd, double transparency);
+		void analyseGeode(osg::Geode *geode, double transparency);
 
 	protected:
 		PageItem_OSGFrame *currItem;
 		QHash<QString, PageItem_OSGFrame::viewDefinition> viewMap;
 		PageItem_OSGFrame::viewDefinition currentView;
 		QString currentViewName;
+		osg::ref_ptr<osg::Group> rootnode;
+		osg::ref_ptr<osg::Group> decorator;
 		osg::ref_ptr<osg::Node> loadedModel;
+		osg::ref_ptr<osg::Node> usedModel;
+		osg::ref_ptr<osg::Node> usedModel2;
+		osg::ref_ptr<osg::StateSet> default_stateset;
 		QString modelFile;
 };
 

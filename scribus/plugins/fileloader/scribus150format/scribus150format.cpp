@@ -1832,6 +1832,9 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			currentView.trackerSize = tAtt.valueAsDouble("trackerSize");
 			currentView.illumination = static_cast<PageItem_OSGFrame::LightType>(tAtt.valueAsInt("illumination"));
 			currentView.rendermode = static_cast<PageItem_OSGFrame::RenderType>(tAtt.valueAsInt("rendermode"));
+			currentView.addedTransparency = tAtt.valueAsDouble("trans");
+			currentView.colorAC = QColor(tAtt.valueAsString("colorAC"));
+			currentView.colorFC = QColor(tAtt.valueAsString("colorFC"));
 			if (newItem->asOSGFrame())
 				newItem->asOSGFrame()->viewMap.insert(tAtt.valueAsString("viewName"), currentView);
 		}

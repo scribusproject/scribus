@@ -1292,6 +1292,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("trackerSize", itv.value().trackerSize);
 					docu.writeAttribute("illumination", itv.value().illumination);
 					docu.writeAttribute("rendermode", itv.value().rendermode);
+					docu.writeAttribute("trans", itv.value().addedTransparency);
+					docu.writeAttribute("colorAC", itv.value().colorAC.name());
+					docu.writeAttribute("colorFC", itv.value().colorFC.name());
 					docu.writeEndElement();
 				}
 			}

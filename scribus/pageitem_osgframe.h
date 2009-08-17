@@ -99,6 +99,9 @@ class SCRIBUS_API PageItem_OSGFrame : public PageItem_ImageFrame
 			double trackerSize;
 			LightType illumination;
 			RenderType rendermode;
+			double addedTransparency;
+			QColor colorAC;
+			QColor colorFC;
 		};
 		QHash<QString, viewDefinition> viewMap;
 		QString currentView;

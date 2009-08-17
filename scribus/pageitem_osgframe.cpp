@@ -52,6 +52,9 @@ PageItem_OSGFrame::PageItem_OSGFrame(ScribusDoc *pa, double x, double y, double 
 	defaultView.trackerSize = 0.0;
 	defaultView.illumination = Headlamp;
 	defaultView.rendermode = Solid;
+	defaultView.addedTransparency = 0.5;
+	defaultView.colorAC = QColor(Qt::black);
+	defaultView.colorFC = QColor(Qt::white);
 	viewMap.insert( tr("Default"), defaultView);
 	currentView = tr("Default");
 	loadedModel = NULL;
@@ -123,6 +126,9 @@ void PageItem_OSGFrame::clearContents()
 	defaultView.trackerSize = 0.0;
 	defaultView.illumination = Headlamp;
 	defaultView.rendermode = Solid;
+	defaultView.addedTransparency = 0.5;
+	defaultView.colorAC = QColor(Qt::black);
+	defaultView.colorFC = QColor(Qt::white);
 	viewMap.insert( tr("Default"), defaultView);
 	currentView = tr("Default");
 	loadedModel = NULL;

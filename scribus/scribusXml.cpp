@@ -1342,6 +1342,9 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			currentView.trackerSize = attrAsDbl(attrs, "trackerSize", 0.0);
 			currentView.illumination = static_cast<PageItem_OSGFrame::LightType>(attrAsInt(attrs, "illumination", 1));
 			currentView.rendermode = static_cast<PageItem_OSGFrame::RenderType>(attrAsInt(attrs, "rendermode", 0));
+			currentView.addedTransparency = attrAsDbl(attrs, "trans", 0.5);
+			currentView.colorAC = QColor(attrAsString(attrs, "colorAC", ""));
+			currentView.colorFC = QColor(attrAsString(attrs, "colorFC", ""));
 			viewMap.insert(attrAsString(attrs, "viewName", ""), currentView);
 		}
 #endif
@@ -2340,6 +2343,9 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 				writer.writeAttribute("trackerSize", itv.value().trackerSize);
 				writer.writeAttribute("illumination", itv.value().illumination);
 				writer.writeAttribute("rendermode", itv.value().rendermode);
+				writer.writeAttribute("trans", itv.value().addedTransparency);
+				writer.writeAttribute("colorAC", itv.value().colorAC.name());
+				writer.writeAttribute("colorFC", itv.value().colorFC.name());
 				writer.writeEndElement();
 			}
 		}
