@@ -516,7 +516,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				
 				for (int k = 0; k < pastedObjects.count(); k++)
 				{
-					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+					if (pastedObjects.itemAt(k)->LayerID == j) gs->addItem(pastedObjects.itemAt(k));
 				}
 				
 				if (gs->count() > 0)
@@ -704,7 +704,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				
 				for (int k = 0; k < pastedObjects.count(); k++)
 				{
-					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+					if (pastedObjects.itemAt(k)->LayerID == j) gs->addItem(pastedObjects.itemAt(k));
 				}
 				
 				if (gs->count() > 0)
@@ -867,7 +867,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				
 				for (int k = 0; k < pastedObjects.count(); k++)
 				{
-					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+					if (pastedObjects.itemAt(k)->LayerID == j) gs->addItem(pastedObjects.itemAt(k));
 				}
 				
 				if (gs->count() > 0)
@@ -1021,7 +1021,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				
 				for (int k = 0; k < pastedObjects.count(); k++)
 				{
-					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+					if (pastedObjects.itemAt(k)->LayerID == j) gs->addItem(pastedObjects.itemAt(k));
 				}
 				
 				if (gs->count() > 0)

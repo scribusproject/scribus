@@ -387,9 +387,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				int lnr   = pg.attribute("NUMMER").toInt();
+				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
-				ScLayer la( pg.attribute("NAME"), level, lnr);
+				ScLayer la( pg.attribute("NAME"), level, lId);
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				m_Doc->Layers.append(la);
@@ -495,7 +495,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					tmpf = obj.attribute("IFONT", m_Doc->toolSettings.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
-					OB.LayerNr = obj.attribute("LAYER", "0").toInt();
+					OB.LayerID = obj.attribute("LAYER", "0").toInt();
 					OB.Language = obj.attribute("LANGUAGE", m_Doc->Language);
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
@@ -724,7 +724,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	{
 		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );
 		nl->flowControl = false;
-		activeLayer = nl->LNr;
+		activeLayer = nl->ID;
 	}
 	m_Doc->setActiveLayer(activeLayer);
 	
@@ -1163,7 +1163,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	uint layerCount=m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
-		maxLayer = qMax(m_Doc->Layers[la2].LNr, maxLayer);
+		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 	DoVorl.clear();
@@ -1217,21 +1217,21 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				int lnr   = pg.attribute("NUMMER").toInt();
+				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
-				ScLayer la( pg.attribute("NAME"), level, lnr );
+				ScLayer la( pg.attribute("NAME"), level, lId );
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.flowControl = true;
 				const ScLayer* la2 = m_Doc->Layers.layerByName(la.Name);
 				if (la2)
-					layerTrans.insert(la.LNr, la2->LNr);
+					layerTrans.insert(la.ID, la2->ID);
 				else
 				{
 					maxLayer++;
 					maxLevel++;
-					layerTrans.insert(la.LNr, maxLayer);
-					la.LNr = maxLayer;
+					layerTrans.insert(la.ID, maxLayer);
+					la.ID = maxLayer;
 					la.Level = maxLevel;
 					m_Doc->Layers.append(la);
 				}
@@ -1348,7 +1348,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						tmpf = m_Doc->toolSettings.defFont;
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
-					OB.LayerNr = layerTrans[obj.attribute("LAYER", "0").toInt()];
+					OB.LayerID = layerTrans[obj.attribute("LAYER", "0").toInt()];
 					OB.Language = obj.attribute("LANGUAGE", m_Doc->Language);
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))

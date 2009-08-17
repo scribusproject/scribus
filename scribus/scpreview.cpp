@@ -468,7 +468,7 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.Height = 0;
 				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1), static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 			}
-			OB.LayerNr = -1;
+			OB.LayerID = -1;
 			OB.startArrowIndex =  arrowID[pg.attribute("startArrowIndex", "0").toInt()];
 			OB.endArrowIndex =  arrowID[pg.attribute("endArrowIndex", "0").toInt()];
 			if(static_cast<bool>(pg.attribute("isGroupControl", "0").toInt()))

@@ -881,7 +881,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 					if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 						continue;
 					//CB Finally Items are selected here
-					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
 					{
 					//CB set draw to true to (dis)enable some actions via emit to HaveNewSel in scapp.
 					//CB FIXME emit from selection when multiple selected instead

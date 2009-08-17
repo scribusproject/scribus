@@ -1235,9 +1235,9 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 
 void Scribus150Format::readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs)
 {
-	int lnr   = attrs.valueAsInt("NUMMER");
+	int lId   = attrs.valueAsInt("NUMMER");
 	int level = attrs.valueAsInt("LEVEL");
-	layer = ScLayer( attrs.valueAsString("NAME"), level, lnr);
+	layer = ScLayer( attrs.valueAsString("NAME"), level, lId);
 	layer.isViewable   = attrs.valueAsInt("SICHTBAR");
 	layer.isPrintable  = attrs.valueAsInt("DRUCKEN");
 	layer.isEditable   = attrs.valueAsInt("EDIT", 1);
@@ -2579,7 +2579,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->Cols   = attrs.valueAsInt("COLUMNS", 1);
 	currItem->ColGap = attrs.valueAsDouble("COLGAP", 0.0);
 	if (attrs.valueAsInt("LAYER", 0) != -1)
-		currItem->LayerNr = attrs.valueAsInt("LAYER", 0);
+		currItem->LayerID = attrs.valueAsInt("LAYER", 0);
 	tmp = "";
 
 	if (attrs.hasAttribute("GROUPS") && (attrs.valueAsInt("NUMGROUP", 0) != 0))
@@ -2801,7 +2801,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	uint layerCount=m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
-		maxLayer = qMax(m_Doc->Layers[la2].LNr, maxLayer);
+		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 
@@ -2863,13 +2863,13 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			readLayers(newLayer, attrs);
 			const ScLayer* la2 = m_Doc->Layers.layerByName(newLayer.Name);
 			if (la2)
-				layerTrans.insert(newLayer.LNr, la2->LNr);
+				layerTrans.insert(newLayer.ID, la2->ID);
 			else
 			{
 				maxLayer++;
 				maxLevel++;
-				layerTrans.insert(newLayer.LNr, maxLayer);
-				newLayer.LNr = maxLayer;
+				layerTrans.insert(newLayer.ID, maxLayer);
+				newLayer.ID = maxLayer;
 				newLayer.Level = maxLevel;
 				m_Doc->Layers.append(newLayer);
 			}

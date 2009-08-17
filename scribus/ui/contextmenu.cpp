@@ -283,7 +283,7 @@ void ContextMenu::createMenuItems_Selection()
 		{
 			QMap<int,int> layerMap;
 			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
-				layerMap.insert((*it).Level, (*it).LNr);
+				layerMap.insert((*it).Level, (*it).ID);
 			int i=layerMap.count()-1;
 			while (i>=0)
 			{

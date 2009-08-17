@@ -98,7 +98,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 	double actStrokeShade = -1;
 	QColor cachedFillQ;
 	QColor cachedStrokeQ;
-	if (!m_Doc->layerOutline(LayerNr))
+	if (!m_Doc->layerOutline(LayerID))
 	{
 		if (PoShow)
 		{

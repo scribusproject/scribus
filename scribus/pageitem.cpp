@@ -146,7 +146,7 @@ PageItem::PageItem(const PageItem & other)
 	OldH2(other.OldH2),
 	Sizing(other.Sizing),
 	toPixmap(other.toPixmap),
-	LayerNr(other.LayerNr),
+	LayerID(other.LayerID),
 	ScaleType(other.ScaleType),
 	AspectRatio(other.AspectRatio),
 	Groups(other.Groups),
@@ -431,7 +431,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	IRender = 1;
 	EmProfile = "";
 	Groups.clear();
-	LayerNr = m_Doc->activeLayer();
+	LayerID = m_Doc->activeLayer();
 	ScaleType = true;
 	AspectRatio = true;
 	Reverse = false;
@@ -978,7 +978,7 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 	}
 	
 	DrawObj_Pre(p, sc);
-	if (m_Doc->layerOutline(LayerNr))
+	if (m_Doc->layerOutline(LayerID))
 	{
 		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine) && (!isGroupControl))
 			DrawObj_Item(p, cullingArea, sc);
@@ -999,9 +999,9 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
 	p->rotate(Rot);
-	if (m_Doc->layerOutline(LayerNr))
+	if (m_Doc->layerOutline(LayerID))
 	{
-		p->setPen(m_Doc->layerMarker(LayerNr), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -1116,11 +1116,11 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	ScribusView* view = m_Doc->view();
 	if (!isGroupControl)
 	{
-		if (m_Doc->layerOutline(LayerNr))
+		if (m_Doc->layerOutline(LayerID))
 		{
 			if (itemType()!=Line)
 			{
-				p->setPen(m_Doc->layerMarker(LayerNr), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(ScPainter::None);
 				p->setBrushOpacity(1.0);
 				p->setPenOpacity(1.0);
@@ -1265,11 +1265,11 @@ void PageItem::DrawObj_Post(ScPainter *p)
 #endif
 			p->strokePath();
 		}
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))
 		{
 			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
-			p->setBrush(m_Doc->layerMarker(LayerNr));
+			p->setBrush(m_Doc->layerMarker(LayerID));
 			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
 			double ofwh = 10;
@@ -2017,10 +2017,10 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 //				   .arg(gly.size()).arg(a).arg(b).arg(c).arg(d)
 //				   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy());
 			p->setupPolygon(&gly, true);
-			if (m_Doc->layerOutline(LayerNr))
+			if (m_Doc->layerOutline(LayerID))
 			{
 				p->save();
-				p->setPen(m_Doc->layerMarker(LayerNr), 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(m_Doc->layerMarker(LayerID), 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(ScPainter::None);
 				p->setBrushOpacity(1.0);
 				p->setPenOpacity(1.0);
@@ -2894,21 +2894,21 @@ void PageItem::convertTo(ItemType newType)
 	emit frameType(m_ItemType);
 }
 
-void PageItem::setLayer(int layerId)
+void PageItem::setLayer(int newLayerID)
 {
-	if (LayerNr == layerId)
+	if (LayerID == newLayerID)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SendToLayer,
-										  QString(Um::FromTo).arg(LayerNr).arg(layerId),
+										  QString(Um::FromTo).arg(LayerID).arg(newLayerID),
 										  Um::ILayerAction);
 		ss->set("SEND_TO_LAYER", "send_to_layer");
-		ss->set("OLD_LAYER", LayerNr);
-		ss->set("NEW_LAYER", layerId);
+		ss->set("OLD_LAYER", LayerID);
+		ss->set("NEW_LAYER", newLayerID);
 		undoManager->action(this, ss);
 	}
-	LayerNr = layerId;
+	LayerID = newLayerID;
 }
 
 void PageItem::checkChanges(bool force)
@@ -4096,7 +4096,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->IRender = IRender;
 	Buffer->UseEmbedded = UseEmbedded;
 	Buffer->EmProfile = EmProfile;
-	Buffer->LayerNr = LayerNr;
+	Buffer->LayerID = LayerID;
 	Buffer->ScaleType = ScaleType;
 	Buffer->AspectRatio = AspectRatio;
 	Buffer->Locked = locked();
@@ -4948,7 +4948,7 @@ void PageItem::drawArrow(ScPainter *p, QMatrix &arrowTrans, int arrowIndex)
 	}
 	arrow.map(arrowTrans);
 	p->setupPolygon(&arrow);
-	if (m_Doc->layerOutline(LayerNr))
+	if (m_Doc->layerOutline(LayerID))
 		p->strokePath();
 	else
 	{

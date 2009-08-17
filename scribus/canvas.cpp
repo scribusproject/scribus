@@ -375,7 +375,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		{
 			currItem = m_doc->currentPage()->FromMaster.at(currNr);
 			QMatrix itemPos;
-			if ((currItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerNr)))
+			if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 			{
 				if (!currItem->ChangedMasterItem)
 				{
@@ -432,7 +432,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			--currNr;
 			continue;
 		}
-		if ((currItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerNr)))
+		if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 		{
 			QMatrix itemPos = currItem->getTransform();
 			QPainterPath currPath(itemPos.map(QPointF(0,0)));
@@ -479,14 +479,14 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 		return NULL;
 	
 	QRectF baseRect(item->getBoundingRect());
-	int itemLevel = m_doc->layerLevelFromNumber(item->LayerNr);
+	int itemLevel = m_doc->layerLevelFromID(item->LayerID);
 	if (itemLevel < 0)
 		return NULL;
 
 	for(index = indice - 1; index >= 0; --index)
 	{
 		PageItem* item1 = m_doc->Items->at(index);
-		int level = m_doc->layerLevelFromNumber(item1->LayerNr);
+		int level = m_doc->layerLevelFromID(item1->LayerID);
 		if ((item != item1) && (level >= 0) && (level <= itemLevel))
 		{
 			if ((level == itemLevel) && (item1->ItemNr > item->ItemNr))
@@ -898,7 +898,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 
 	ScLayer layer;
 	layer.isViewable = false;
-	layer.LNr = 0;
+	layer.ID = 0;
 	
 //	Tsetup = tim.elapsed();
 	if (!m_doc->masterPageMode())
@@ -1289,7 +1289,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 	for (uint a = 0; a < pageFromMasterCount; ++a)
 	{
 		currItem = page->FromMaster.at(a);
-		if (currItem->LayerNr != layer.LNr)
+		if (currItem->LayerID != layer.ID)
 			continue;
 		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
 			continue;
@@ -1393,7 +1393,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 	for (uint a = 0; a < pageFromMasterCount; ++a)
 	{
 		currItem = page->FromMaster.at(a);
-		if (currItem->LayerNr != layer.LNr)
+		if (currItem->LayerID != layer.ID)
 			continue;
 		if (!currItem->isTableItem)
 			continue;
@@ -1482,7 +1482,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
 		currItem = m_doc->Items->at(it);
-		if (currItem->LayerNr != layer.LNr)
+		if (currItem->LayerID != layer.ID)
 			continue;
 		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
 			continue;
@@ -1571,7 +1571,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
 		currItem = m_doc->Items->at(it);
-		if (currItem->LayerNr != layer.LNr)
+		if (currItem->LayerID != layer.ID)
 			continue;
 		if (!currItem->isTableItem)
 			continue;

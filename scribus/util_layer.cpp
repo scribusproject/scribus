@@ -64,9 +64,9 @@ void handleOldLayerBehavior(ScribusDoc* doc)
 		{
 			// Create new layer for master elements
 			ScLayer masterElemLayer(*layer);
-			int oldId = masterElemLayer.LNr;
-			int newId = newLayers.getMaxNumber() + 1;
-			masterElemLayer.LNr  = newId;
+			int oldId = masterElemLayer.ID;
+			int newId = newLayers.getMaxID() + 1;
+			masterElemLayer.ID  = newId;
 			masterElemLayer.Name = layer->Name + QObject::tr(" (mp items)");
 			newLayers.append(masterElemLayer);
 			layerMap.insert(oldId, newId);
@@ -82,8 +82,8 @@ void handleOldLayerBehavior(ScribusDoc* doc)
 	for (int i = 0; i < mpCount; ++i)
 	{
 		item = doc->MasterItems.at(i);
-		idIt = layerMap.find(item->LayerNr);
+		idIt = layerMap.find(item->LayerID);
 		if (idIt != layerMap.end())
-			item->LayerNr = idIt.value();
+			item->LayerID = idIt.value();
 	}
 }

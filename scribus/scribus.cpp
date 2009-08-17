@@ -3608,25 +3608,25 @@ void ScribusMainWindow::rebuildLayersList()
 		{
 			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 			{
-				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).LNr));
-				scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
+				scrLayersActions.insert(QString("%1").arg((*it).ID), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).ID));
+				scrLayersActions[QString("%1").arg((*it).ID)]->setToggleAction(true);
 				QPixmap pm(20,15);
 				pm.fill((*it).markerColor);
-				scrLayersActions[QString("%1").arg((*it).LNr)]->setIcon(pm);
+				scrLayersActions[QString("%1").arg((*it).ID)]->setIcon(pm);
 			}
 		}
 		int currActiveLayer=doc->activeLayer();
 		bool found=false;
 		for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 		{
-			if ((*it).LNr == currActiveLayer)
+			if ((*it).ID == currActiveLayer)
 			{
 				found=true;
 				break;
 			}
 		}
 		Q_ASSERT(found);
-		scrLayersActions[QString("%1").arg((*it).LNr)]->setChecked(true);
+		scrLayersActions[QString("%1").arg((*it).ID)]->setChecked(true);
 
 		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
@@ -3647,7 +3647,7 @@ void ScribusMainWindow::updateItemLayerList()
 			(*it)->setChecked(false);
 		}
 		if (doc->m_Selection->count()>0 && doc->m_Selection->itemAt(0))
-			scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerNr)]->setChecked(true);
+			scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerID)]->setChecked(true);
 		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 	}
@@ -5221,7 +5221,7 @@ void ScribusMainWindow::slotEditPaste()
 					QByteArray fragment = ScMimeData::clipboardScribusFragment();
 					Selection pastedObjects = doc->serializer()->deserializeObjects(fragment);
 					for (int i=0; i < pastedObjects.count(); ++i)
-						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
+						pastedObjects.itemAt(i)->LayerID = doc->activeLayer();
 
 					/*double x = doc->currentPage()->xOffset();
 					double y = doc->currentPage()->yOffset();
@@ -5297,7 +5297,7 @@ void ScribusMainWindow::SelectAllOnLayer()
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
 			currItem = doc->Items->at(a);
-			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
+			if ((currItem->LayerID == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerID)))
 			{
 				if ((range == 0) && (currItem->OwnPage != docCurrentPage))
 					continue;
@@ -5393,7 +5393,7 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
 			currItem = doc->Items->at(a);
-			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
+			if ((currItem->LayerID == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerID)))
 			{
 				if (docWideSelect)
 					doc->m_Selection->addItem(currItem);

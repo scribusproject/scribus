@@ -264,14 +264,14 @@ void MasterPagesPalette::duplicateMasterPage()
 				for (uint ite = 0; ite < oldItems; ++ite)
 				{
 					PageItem *itemToCopy = currentDoc->Items->at(ite);
-					if (itemToCopy->OwnPage == inde && (it->LNr == itemToCopy->LayerNr))
+					if (itemToCopy->OwnPage == inde && (it->ID == itemToCopy->LayerID))
 						currentDoc->m_Selection->addItem(itemToCopy, true);
 				}
 				if (currentDoc->m_Selection->count() != 0)
 				{
 					ScriXmlDoc *ss = new ScriXmlDoc();
 					QString buffer = ss->WriteElem(currentDoc, currentView, currentDoc->m_Selection);
-					ss->ReadElemToLayer(buffer, prefsManager->appPrefs.AvailFonts, currentDoc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.GFontSub, currentView, it->LNr);
+					ss->ReadElemToLayer(buffer, prefsManager->appPrefs.AvailFonts, currentDoc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.GFontSub, currentView, it->ID);
 					currentDoc->m_Selection->clear();
 					delete ss;
 				}

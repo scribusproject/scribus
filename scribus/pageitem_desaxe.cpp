@@ -49,7 +49,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	const PageItem* nxt = item->nextInChain(); 
 	if (nxt)
 		result.insert("nextframe", "obj" + toXMLString(nxt->getUId())); 
-	result.insert("layer", toXMLString(item->LayerNr));
+	result.insert("layer", toXMLString(item->LayerID));
 	result.insert("level", toXMLString(item->ItemNr));
 	result.insert("itemtype", toXMLString(item->realItemType()));
 	

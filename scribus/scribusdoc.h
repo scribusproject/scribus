@@ -202,18 +202,18 @@ public:
 	int addLayer(const QString& layerName=QString::null, const bool activate=false);
 	/**
 	 * @brief Copies a layer from the current document
-	 * @param layerNumberToCopy source layer
+	 * @param layerIDToCopy source layer
 	 * @param whereToInsert target layer
 	 * @return Success or failure
 	 */
-	void copyLayer(int layerNumberToCopy, int whereToInsert);
+	void copyLayer(int layerIDToCopy, int whereToInsert);
 	/**
 	 * @brief Delete a layer from the current document
-	 * @param layerNumber of layer
+	 * @param layerID of layer
 	 * @param deleteItems the items on the layer too?
 	 * @return Success or failure
 	 */
-	bool deleteLayer(const int layerNumber, const bool deleteItems);
+	bool deleteLayer(const int layerID, const bool deleteItems);
 	/**
 	 * @brief Return the number of the current layer
 	 * @return Active layer number
@@ -239,120 +239,120 @@ public:
 	bool setActiveLayer(const QString & layerNameToActivate);
 	/**
 	 * @brief Set the layer printable via the layer number
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @param isPrintable bool true = layer is prantable
 	 * @return Success or failure
 	 */
-	bool setLayerPrintable(const int layerNumber, const bool isPrintable);
+	bool setLayerPrintable(const int layerID, const bool isPrintable);
 	/**
 	 * @brief Is the layer printable
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Printable or not
 	 */
-	bool layerPrintable(const int layerNumber);
+	bool layerPrintable(const int layerID);
 	/**
 	 * @brief Set the layer visible via the layer number
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @param isViewable true = layer is visible
 	 * @return Success or failure
 	 */
-	bool setLayerVisible(const int layerNumber, const bool isViewable);
+	bool setLayerVisible(const int layerID, const bool isViewable);
 	/**
 	 * @brief Is the layer visible
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Visible or not
 	 */
-	bool layerVisible(const int layerNumber);
+	bool layerVisible(const int layerID);
 	/**
 	 * @brief Set the layer locked via the layer number
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @param isLocked true = layer is locked
 	 * @return Success or failure
 	 */
-	bool setLayerLocked(const int layerNumber, const bool isLocked);
+	bool setLayerLocked(const int layerID, const bool isLocked);
 	/**
 	 * @brief Is the layer locked
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Locked or not
 	 */
-	bool layerLocked(const int layerNumber);
+	bool layerLocked(const int layerID);
 	/**
 	 * @brief Set the layer flow via the layer number
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @param flow true = Text flows around objects on this layer
 	 * @return Success or failure
 	 */
-	bool setLayerFlow(const int layerNumber, const bool flow);
+	bool setLayerFlow(const int layerID, const bool flow);
 	/**
 	 * @brief does text flow around objects on this layer
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return flow or not
 	 */
-	bool layerFlow(const int layerNumber);
+	bool layerFlow(const int layerID);
 	/**
 	 * @brief Set the layer transparency via the layer number
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @param trans transparency value 0.0 - 1.0
 	 * @return Success or failure
 	 */
-	bool setLayerTransparency(const int layerNumber, double trans);
+	bool setLayerTransparency(const int layerID, double trans);
 	/**
 	 * @brief returns the layer transparency
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return transparency value 0.0 - 1.0
 	 */
-	double layerTransparency(const int layerNumber);
+	double layerTransparency(const int layerID);
 	/**
 	 * @brief Set the layer layerBlendMode via the layer number
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @param blend layerBlendMode
 	 * @return Success or failure
 	 */
-	bool setLayerBlendMode(const int layerNumber, int blend);
+	bool setLayerBlendMode(const int ID, int blend);
 	/**
 	 * @brief returns the layer BlendMode
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return layerBlendMode
 	 */
-	int layerBlendMode(const int layerNumber);
+	int layerBlendMode(const int ID);
 	/**
 	 * @brief Return the level of the requested layer
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Level of the layer
 	 */
-	int layerLevelFromNumber(const int layerNumber);
+	int layerLevelFromID(const int layerID);
 	/**
 	 * @brief Set the layer marker color
-	 * @param layerNumber Number of the layer
+	 * @param ID Number of the layer
 	 * @param color color of the marker
 	 * @return Success or failure
 	 */
-	bool setLayerMarker(const int layerNumber, QColor color);
+	bool setLayerMarker(const int layerID, QColor color);
 	/**
 	 * @brief returns the layer marker color
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return marker color
 	 */
-	QColor layerMarker(const int layerNumber);
+	QColor layerMarker(const int layerID);
 	/**
 	 * @brief Set the layer outline mode via the layer number
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @param outline true = layer is displayed in outlines only
 	 * @return Success or failure
 	 */
-	bool setLayerOutline(const int layerNumber, const bool outline);
+	bool setLayerOutline(const int layerID, const bool outline);
 	/**
 	 * @brief is this layer in outline mode
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return outline or not
 	 */
-	bool layerOutline(const int layerNumber);
+	bool layerOutline(const int layerID);
 	/**
 	 * @brief Return the number of the layer at a certain level
 	 * @param layerLevel Layer level
-	 * @return Layer number
+	 * @return Layer ID
 	 */
-	int layerNumberFromLevel(const int layerLevel);
+	int layerIDFromLevel(const int layerLevel);
 	/**
 	 * @brief Return the layer count
 	 * @return Number of layers in doc
@@ -360,10 +360,10 @@ public:
 	int layerCount() const;
 	/**
 	 * @brief Lower a layer
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Success or failure
 	 */
-	bool lowerLayer(const int layerNumber);
+	bool lowerLayer(const int layerID);
 	/**
 	 * @brief Lower a layer using the level
 	 * @param layerLevel Level of the layer
@@ -372,10 +372,10 @@ public:
 	bool lowerLayerByLevel(const int layerLevel);
 	/**
 	 * @brief Raise a layer
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Success or failure
 	 */
-	bool raiseLayer(const int layerNumber);
+	bool raiseLayer(const int layerID);
 	/**
 	 * @brief Raise a layer using the level
 	 * @param layerLevel Level of the layer
@@ -384,30 +384,30 @@ public:
 	bool raiseLayerByLevel(const int layerLevel);
 	/**
 	 * @brief Return the layer name
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Name of the layer
 	 */
-	QString layerName(const int layerNumber) const;
+	QString layerName(const int layerID) const;
 	/**
 	 * @brief Change the name of a layer
-	 * @param layerNumber number of the layer
+	 * @param layerID ID of the layer
 	 * @param newName new name of the layer
 	 * @return Success or failure
 	 */
-	bool changeLayerName(const int layerNumber, const QString& newName);
+	bool changeLayerName(const int layerID, const QString& newName);
 	/**
 	 * @brief Does the layer have items on it?
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return Layer contains items bool
 	 */
-	bool layerContainsItems(const int layerNumber);
+	bool layerContainsItems(const int layerID);
 	/**
 	 * @brief Renumber a layer. Used in particular for reinsertion for undo/redo
-	 * @param layerNumber old layer number
-	 * @param newLayerNumber New layer number
+	 * @param layerID old layer ID
+	 * @param newLayerID New layer ID
 	 * @return Success or failure
 	 */
-	bool renumberLayer(const int layerNumber, const int newLayerNumber);
+	bool renumberLayer(const int layerID, const int newLayerID);
 	/**
 	 * @brief Return a list of the layers in their order
 	 * @param list QStringList to insert the layer names into
@@ -1166,7 +1166,7 @@ public slots:
 	void itemSelection_FlipV();
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
-	void itemSelection_SendToLayer(int layerNumber);
+	void itemSelection_SendToLayer(int layerID);
 	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy, Selection* customSelection=0);

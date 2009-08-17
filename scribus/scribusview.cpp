@@ -933,7 +933,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//Should make a nice function for this.
 		for (int i=0; i<Doc->Items->count(); ++i)
 		{
-			if (Doc->Items->at(i)->LayerNr==Doc->activeLayer())
+			if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
 			{
 				Doc->m_Selection->delaySignalsOn();
 				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
@@ -973,7 +973,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->toolSettings.dWidth, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
-			b->LayerNr = Doc->activeLayer();
+			b->LayerID = Doc->activeLayer();
 			Doc->LoadPict(url.toLocalFile(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
@@ -1240,7 +1240,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				for (int a = 0; a < Doc->m_Selection->count(); ++a)
 				{
 					PageItem *currItem = Doc->m_Selection->itemAt(a);
-					currItem->LayerNr = Doc->activeLayer();
+					currItem->LayerID = Doc->activeLayer();
 					currItem->gXpos = currItem->xPos() - gx;
 					currItem->gYpos = currItem->yPos() - gy;
 					currItem->gWidth = gw;
@@ -1256,7 +1256,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			{
 				Doc->m_Selection->connectItemToGUI();
 				currItem = Doc->m_Selection->itemAt(0);
-				currItem->LayerNr = Doc->activeLayer();
+				currItem->LayerID = Doc->activeLayer();
 				if (Doc->useRaster)
 				{
 					double nx = currItem->xPos();
@@ -2253,7 +2253,7 @@ void ScribusView::PasteToPage()
 		if (currItem->isBookmark)
 			emit AddBM(currItem);
 		newObjects.addItem(currItem);
-		currItem->LayerNr = Doc->activeLayer();
+		currItem->LayerID = Doc->activeLayer();
 	}
 	if (newObjects.count() > 1)
 	{
@@ -2849,13 +2849,13 @@ void ScribusView::setLayerMenuText(const QString &layerName)
 void ScribusView::GotoLa(int l)
 {
 	int level = Doc->layerCount()-l-1;
-	int layerNumber=Doc->layerNumberFromLevel(level);
-	if (layerNumber==-1)
+	int layerID=Doc->layerIDFromLevel(level);
+	if (layerID==-1)
 		return;
-	Doc->setActiveLayer(layerNumber);
+	Doc->setActiveLayer(layerID);
 	//CB TODO fix this to use view calls after 1.3.2 release
 	m_ScMW->changeLayer(Doc->activeLayer());
-	emit changeLA(layerNumber);
+	emit changeLA(layerID);
 }
 
 void ScribusView::ChgUnit(int art)
@@ -3755,8 +3755,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->Cols = Buffer->Cols;
 	currItem->ColGap = Buffer->ColGap;
 	currItem->setFirstLineOffset(Buffer->firstLineOffsetP);
-	if (Buffer->LayerNr != -1)
-		currItem->LayerNr = Buffer->LayerNr;
+	if (Buffer->LayerID != -1)
+		currItem->LayerID = Buffer->LayerID;
 	currItem->PoLine = Buffer->PoLine.copy();
 	//currItem->setTextFlowUsesContourLine(Buffer->UseContour);
 	currItem->setTextFlowMode((PageItem::TextFlowMode) Buffer->TextflowMode);

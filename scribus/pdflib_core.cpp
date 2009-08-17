@@ -1726,7 +1726,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		ScLayer ll;
 		struct OCGInfo ocg;
 		ll.isPrintable = false;
-		ll.LNr = 0;
+		ll.ID = 0;
 		int Lnr = 0;
 		QString ocgNam("oc");
 		uint docLayersCount=doc.Layers.count();
@@ -1735,7 +1735,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			uint optionalContent = newObject();
 			QString tmp("");
 			doc.Layers.levelToLayer(ll, Lnr);
-			ocg.Name = ocgNam+tmp.setNum(ll.LNr);
+			ocg.Name = ocgNam+tmp.setNum(ll.ID);
 			ocg.ObjNum = optionalContent;
 			ocg.visible = ll.isViewable;
 			OCGEntries.insert(ll.Name, ocg);
@@ -1773,7 +1773,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 	int Lnr = 0;
 	ScLayer ll;
 	ll.isPrintable = false;
-	ll.LNr = 0;
+	ll.ID = 0;
 	Content = "";
 	Seite.AObjects.clear();
 	for (int la = 0; la < doc.Layers.count(); ++la)
@@ -1788,7 +1788,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 			{
 				Content = "";
 				ite =PItems.at(a);
-				if (ite->LayerNr != ll.LNr)
+				if (ite->LayerID != ll.ID)
 					continue;
 				double bLeft, bRight, bBottom, bTop;
 				getBleeds(pag, bLeft, bRight, bBottom, bTop);
@@ -2763,7 +2763,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const Page* pag
 			ite = pag->FromMaster.at(am);
 			if (usingGUI)
 				qApp->processEvents();
-			if ((ite->LayerNr != layer.LNr) || (!ite->printEnabled()))
+			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
 				continue;
 			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 				continue;
@@ -2815,7 +2815,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const Page* pag
 		for (int am = 0; am < pag->FromMaster.count(); ++am)
 		{
 			ite = pag->FromMaster.at(am);
-			if ((ite->LayerNr != layer.LNr) || (!ite->printEnabled()))
+			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
 				continue;
 			if (ite->ChangedMasterItem)
 				continue;
@@ -2859,7 +2859,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, 
 		for (int a = 0; a < PItems.count() && !abortExport; ++a)
 		{
 			ite = PItems.at(a);
-			if (ite->LayerNr != layer.LNr)
+			if (ite->LayerID != layer.ID)
 				continue;
 			if (usingGUI)
 			{
@@ -2937,7 +2937,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, 
 		for (int a = 0; a < PItems.count() && !abortExport; ++a)
 		{
 			ite = PItems.at(a);
-			if (ite->LayerNr != layer.LNr)
+			if (ite->LayerID != layer.ID)
 				continue;
 			if (usingGUI)
 			{
@@ -3001,7 +3001,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, 
 			if (Options.Compress)
 				PutDoc("\n/Filter /FlateDecode");
 			PutDoc(" >>\nstream\n"+EncStream(inh, formObject)+"\nendstream\nendobj\n");
-			QString name = layer.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_") + QString::number(layer.LNr) + QString::number(PNr);
+			QString name = layer.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_") + QString::number(layer.ID) + QString::number(PNr);
 			Seite.XObjects[name] = formObject;
 			PutPage("q\n");
 			PutPage("/"+ShName+" gs\n");
@@ -7555,7 +7555,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("/Properties <<\n");
 		ScLayer ll;
 		ll.isPrintable = false;
-		ll.LNr = 0;
+		ll.ID = 0;
 		int Lnr = 0;
 		for (int la = 0; la < doc.Layers.count(); ++la)
 		{
@@ -7735,7 +7735,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("/D << /Order [ ");
 		ScLayer ll;
 		ll.isPrintable = false;
-		ll.LNr = 0;
+		ll.ID = 0;
 		int Lnr = 0;
 		for (int la = 0; la < doc.Layers.count(); ++la)
 		{

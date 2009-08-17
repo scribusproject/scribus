@@ -51,7 +51,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos && PoLine.size()>=4)
 	{
-		if (!m_Doc->layerOutline(LayerNr))
+		if (!m_Doc->layerOutline(LayerID))
 		{
 			if ((fillColor() != CommonStrings::None) || (GrType != 0))
 			{

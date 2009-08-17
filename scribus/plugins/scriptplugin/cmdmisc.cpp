@@ -214,7 +214,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 			if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Layer))
 			{
-				i->LayerNr = static_cast<int>(lam);
+				i->LayerID = static_cast<int>(lam);
 				found = true;
 				break;
 			}
@@ -702,7 +702,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
 			ScLayer it2 = ScCore->primaryMainWindow()->doc->Layers.at(lam);
-			int num2 = it2.LNr;
+			int num2 = it2.ID;
 			if (!num2)
 			{
 				// FIXME: WTF DOES THIS DO?

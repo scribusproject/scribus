@@ -2391,7 +2391,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					QRect apr2(docItem->getRedrawBounding(1.0));
 					if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 						continue;
-					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
 					{
 						bool redrawSelection=false;
 						m_view->SelectItemNr(a, redrawSelection);
@@ -3931,7 +3931,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 						continue;
 					//CB Finally Items are selected here
-					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
 					{
 					//CB set draw to true to (dis)enable some actions via emit to HaveNewSel in scapp.
 					//CB FIXME emit from selection when multiple selected instead
@@ -4486,7 +4486,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		for (a = 0; a < m_doc->currentPage()->FromMaster.count(); ++a)
 		{
 			p = QMatrix();
-			if ((currItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerNr)))
+			if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 			{
 				double OldX = currItem->xPos();
 				double OldY = currItem->yPos();
@@ -4638,7 +4638,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		currItem = m_doc->Items->at(a);
 		if ((m_doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(m_doc->currentPage()->pageNr())))))
 			continue;
-		if ((currItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerNr)))
+		if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 		{
 			p = QMatrix();
 			m_canvas->Transform(currItem, p);
@@ -5060,7 +5060,7 @@ void LegacyMode::importToPage()
 		for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 		{
 			PageItem *currItem = m_doc->m_Selection->itemAt(a);
-			currItem->LayerNr = m_doc->activeLayer();
+			currItem->LayerID = m_doc->activeLayer();
 		}
 		m_doc->useRaster = savedAlignGrid;
 		m_doc->SnapGuides = savedAlignGuides;

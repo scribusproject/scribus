@@ -592,7 +592,7 @@ void Scribus134Format::writeLayers(ScXmlStreamWriter & docu)
 	for (uint lay = 0; lay < layerCount; ++lay)
 	{
 		docu.writeEmptyElement("LAYERS");
-		docu.writeAttribute("NUMMER",m_Doc->Layers[lay].LNr);
+		docu.writeAttribute("NUMMER",m_Doc->Layers[lay].ID);
 		docu.writeAttribute("LEVEL",m_Doc->Layers[lay].Level);
 		docu.writeAttribute("NAME",m_Doc->Layers[lay].Name);
 		docu.writeAttribute("SICHTBAR", static_cast<int>(m_Doc->Layers[lay].isViewable));
@@ -1161,7 +1161,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (! item->itemText.defaultStyle().isInhAlignment())
 			docu.writeAttribute("ALIGN", item->itemText.defaultStyle().alignment());
 		
-		docu.writeAttribute("LAYER", item->LayerNr);
+		docu.writeAttribute("LAYER", item->LayerID);
 		docu.writeAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 
 		if (item->nextInChain() != 0)

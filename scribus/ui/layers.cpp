@@ -205,9 +205,9 @@ void LayerPalette::rebuildList()
 	Table->setRowCount(layerCount);
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
-		int layerNumber=(*it).LNr;
+		int layerID=(*it).ID;
 		//TODO once "layers" is not set anymore, need to get layer number differently
-		int layerLevel = m_Doc->layerLevelFromNumber(layerNumber);
+		int layerLevel = m_Doc->layerLevelFromID(layerID);
 		tmp = tmp.setNum(layerLevel);
 		int row = layerCount-layerLevel-1;
 		QToolButton *pb = new QToolButton(this);
@@ -215,7 +215,7 @@ void LayerPalette::rebuildList()
 		pb->setAutoRaise(true);
 		pb->setText( "" );
 		QPixmap pm(20,15);
-		pm.fill(m_Doc->layerMarker(layerNumber));
+		pm.fill(m_Doc->layerMarker(layerID));
 		pb->setIcon(pm);
 		Table->setCellWidget(row, 0, pb);
 		connect(pb, SIGNAL(clicked()), this, SLOT(markLayer()));
@@ -223,28 +223,28 @@ void LayerPalette::rebuildList()
 		cp2->setObjectName(tmp);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
 		Table->setCellWidget(row, 1, cp2);
-		cp2->setChecked(m_Doc->layerVisible(layerNumber));
+		cp2->setChecked(m_Doc->layerVisible(layerID));
 		QCheckBox *cp = new QCheckBox(this);
 		cp->setObjectName(tmp);
 		Table->setCellWidget(row, 2, cp);
-		cp->setChecked(m_Doc->layerPrintable(layerNumber));
+		cp->setChecked(m_Doc->layerPrintable(layerID));
 		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
 		QCheckBox *cp3 = new QCheckBox(this);
 		cp3->setObjectName(tmp);
 		connect(cp3, SIGNAL(clicked()), this, SLOT(lockLayer()));
 		Table->setCellWidget(row, 3, cp3);
-		cp3->setChecked(m_Doc->layerLocked(layerNumber));
+		cp3->setChecked(m_Doc->layerLocked(layerID));
 		QCheckBox *cp4 = new QCheckBox(this);
 		cp4->setObjectName(tmp);
 		connect(cp4, SIGNAL(clicked()), this, SLOT(flowToggleLayer()));
 		Table->setCellWidget(row, 4, cp4);
-		cp4->setChecked(m_Doc->layerFlow(layerNumber));
+		cp4->setChecked(m_Doc->layerFlow(layerID));
 		QCheckBox *cp5 = new QCheckBox(this);
 		cp5->setObjectName(tmp);
 		connect(cp5, SIGNAL(clicked()), this, SLOT(outlineToggleLayer()));
 		Table->setCellWidget(row, 5, cp5);
-		cp5->setChecked(m_Doc->layerOutline(layerNumber));
-		Table->setItem(row, 6, new QTableWidgetItem(m_Doc->layerName(layerNumber)));
+		cp5->setChecked(m_Doc->layerOutline(layerID));
+		Table->setItem(row, 6, new QTableWidgetItem(m_Doc->layerName(layerID)));
 	}
 	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
@@ -283,9 +283,9 @@ void LayerPalette::removeLayer()
 	if (layerCount < 2)
 		return;
 	int level = layerCount-1-Table->currentRow();
-	int layerNumber=m_Doc->layerNumberFromLevel(level);
+	int layerID=m_Doc->layerIDFromLevel(level);
 	bool delToo = false;
-	if (m_Doc->layerContainsItems(layerNumber))
+	if (m_Doc->layerContainsItems(layerID))
 	{
 		int scmReturn = QMessageBox::warning(this, tr("Delete Layer"),
 									tr("Do you want to delete all objects on this layer too?"),
@@ -295,7 +295,7 @@ void LayerPalette::removeLayer()
 		delToo = (scmReturn != QMessageBox::No);
 	}
 
-	if (!m_Doc->deleteLayer(layerNumber, delToo))
+	if (!m_Doc->deleteLayer(layerID, delToo))
 		return;
 
 	rebuildList();
@@ -337,9 +337,9 @@ void LayerPalette::changeName(int row, int col)
 	if (col == 6)
 	{
 		int layerLevel = m_Doc->layerCount()-1-row;
-		int layerNumber=m_Doc->layerNumberFromLevel(layerLevel);
-		if (layerNumber!=-1)
-			m_Doc->changeLayerName(layerNumber, Table->item(row, col)->text());
+		int layerID=m_Doc->layerIDFromLevel(layerLevel);
+		if (layerID!=-1)
+			m_Doc->changeLayerName(layerID, Table->item(row, col)->text());
 	}
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 }
@@ -347,13 +347,13 @@ void LayerPalette::changeName(int row, int col)
 void LayerPalette::visibleLayer()
 {
 	int level = QString(sender()->objectName()).toInt();
-	int layerNumber=m_Doc->layerNumberFromLevel(level);
-	if (layerNumber==-1)
+	int layerID=m_Doc->layerIDFromLevel(level);
+	if (layerID==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerVisible(layerID,((QCheckBox*)(senderBox))->isChecked());
 		setActiveLayer(Table->currentRow(), -1);
 		emit LayerChanged();
 	}
@@ -362,13 +362,13 @@ void LayerPalette::visibleLayer()
 void LayerPalette::printLayer()
 {
 	int level = QString(sender()->objectName()).toInt();
-	int layerNumber=m_Doc->layerNumberFromLevel(level);
-	if (layerNumber==-1)
+	int layerID=m_Doc->layerIDFromLevel(level);
+	if (layerID==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerPrintable(layerID,((QCheckBox*)(senderBox))->isChecked());
 		setActiveLayer(Table->currentRow(), -1);
 	}
 }
@@ -376,13 +376,13 @@ void LayerPalette::printLayer()
 void LayerPalette::lockLayer()
 {
 	int level = QString(sender()->objectName()).toInt();
-	int layerNumber=m_Doc->layerNumberFromLevel(level);
-	if (layerNumber==-1)
+	int layerID=m_Doc->layerIDFromLevel(level);
+	if (layerID==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerLocked(layerID,((QCheckBox*)(senderBox))->isChecked());
 		deleteLayerButton->setEnabled(!((QCheckBox*)(senderBox))->isChecked());
 		setActiveLayer(Table->currentRow(), -1);
 	}
@@ -392,13 +392,13 @@ void LayerPalette::lockLayer()
 void LayerPalette::flowToggleLayer()
 {
 	int level = QString(sender()->objectName()).toInt();
-	int layerNumber=m_Doc->layerNumberFromLevel(level);
-	if (layerNumber==-1)
+	int layerID=m_Doc->layerIDFromLevel(level);
+	if (layerID==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerFlow(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerFlow(layerID,((QCheckBox*)(senderBox))->isChecked());
 		setActiveLayer(Table->currentRow(), -1);
 	}
 }
@@ -406,13 +406,13 @@ void LayerPalette::flowToggleLayer()
 void LayerPalette::outlineToggleLayer()
 {
 	int level = QString(sender()->objectName()).toInt();
-	int layerNumber=m_Doc->layerNumberFromLevel(level);
-	if (layerNumber==-1)
+	int layerID=m_Doc->layerIDFromLevel(level);
+	if (layerID==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerOutline(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerOutline(layerID,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
 		setActiveLayer(Table->currentRow(), -1);
 	}
@@ -426,7 +426,7 @@ void LayerPalette::toggleAllfromHeader(int index)
 		int layerCount = m_Doc->layerCount();
 		for (it = layers->begin(); it != layers->end(); ++it)
 		{
-			int row = layerCount - m_Doc->layerLevelFromNumber((*it).LNr) - 1;
+			int row = layerCount - m_Doc->layerLevelFromID((*it).ID) - 1;
 			if (index == 1)
 			{
 				((QCheckBox*)(Table->cellWidget(row, 1)))->toggle();
@@ -460,20 +460,20 @@ void LayerPalette::toggleAllfromHeader(int index)
 void LayerPalette::markLayer()
 {
 	int level = QString(sender()->objectName()).toInt();
-	int layerNumber=m_Doc->layerNumberFromLevel(level);
-	if (layerNumber==-1)
+	int layerID=m_Doc->layerIDFromLevel(level);
+	if (layerID==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QToolButton") == 0)
 	{
 		QColor neu = QColor();
-		neu = QColorDialog::getColor(m_Doc->layerMarker(layerNumber), this);
+		neu = QColorDialog::getColor(m_Doc->layerMarker(layerID), this);
 		if (neu.isValid())
 		{
 			QPixmap pm(20,15);
 			pm.fill(neu);
 			((QToolButton*)(senderBox))->setIcon(pm);
-			m_Doc->setLayerMarker(layerNumber,neu);
+			m_Doc->setLayerMarker(layerID,neu);
 			emit LayerChanged();
 		}
 		setActiveLayer(Table->currentRow(), -1);
@@ -492,15 +492,15 @@ void LayerPalette::changeBlendMode(int blend)
 	emit LayerChanged();
 }
 
-void LayerPalette::markActiveLayer(int layerNumber)
+void LayerPalette::markActiveLayer(int layerID)
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
-	int layerToMark=layerNumber;
-	if (layerNumber==-1)
+	int layerToMark=layerID;
+	if (layerID==-1)
 		layerToMark=m_Doc->activeLayer();
-	Table->setCurrentCell(m_Doc->layerCount()-1-m_Doc->layerLevelFromNumber(layerToMark), 6);
+	Table->setCurrentCell(m_Doc->layerCount()-1-m_Doc->layerLevelFromID(layerToMark), 6);
 	opacitySpinBox->setValue(qRound(m_Doc->layerTransparency(layerToMark) * 100));
 	blendMode->setCurrentIndex(m_Doc->layerBlendMode(layerToMark));
 	deleteLayerButton->setEnabled(m_Doc->layerCount()>1 && !m_Doc->layerLocked( m_Doc->activeLayer() ));
@@ -529,8 +529,8 @@ void LayerPalette::setActiveLayer(int row, int col)
 	}
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
-	int layerNumber=m_Doc->layerNumberFromLevel(m_Doc->layerCount()-1-row);
-	bool found=m_Doc->setActiveLayer(layerNumber);
+	int layerID=m_Doc->layerIDFromLevel(m_Doc->layerCount()-1-row);
+	bool found=m_Doc->setActiveLayer(layerID);
 	if (found)
 	{
 		m_Doc->scMW()->changeLayer(m_Doc->activeLayer());

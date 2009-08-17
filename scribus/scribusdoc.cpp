@@ -1312,9 +1312,9 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 				deleteLayer(ss->getInt("LAYER_NR"), false);
 			else
 			{
-				int layerNumber=addLayer( ss->get("NAME"), false );
-				int newLayerNumber=ss->getInt("LAYER_NR");
-				bool renumberedOk=renumberLayer(layerNumber, newLayerNumber);
+				int layerID=addLayer( ss->get("NAME"), false );
+				int newLayerID=ss->getInt("LAYER_NR");
+				bool renumberedOk=renumberLayer(layerID, newLayerID);
 				Q_ASSERT(renumberedOk);
 			}
 			layersUndo=true;
@@ -1323,15 +1323,15 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		{
 			if (isUndo)
 			{
-				int layerNumber=addLayer( ss->get("NAME"), false );
-				int newLayerNumber=ss->getInt("LAYER_NR");
-				bool renumberedOk=renumberLayer(layerNumber, newLayerNumber);
+				int layerID=addLayer( ss->get("NAME"), false );
+				int newLayerID=ss->getInt("LAYER_NR");
+				bool renumberedOk=renumberLayer(layerID, newLayerID);
 				Q_ASSERT(renumberedOk);
-				layerNumber=newLayerNumber;
+				layerID=newLayerID;
 				//Layer is at the top now, lower it until it reaches the old level
 				int level = ss->getInt("LEVEL");
-				while (layerLevelFromNumber(layerNumber)!=level)
-					lowerLayer(layerNumber);
+				while (layerLevelFromID(layerID)!=level)
+					lowerLayer(layerID);
 			}
 			else
 				deleteLayer(ss->getInt("LAYER_NR"), ss->getBool("DELETE"));
@@ -1910,12 +1910,12 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 
 int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 {
-	int lnr = Layers.addLayer(layerName);
-	if (lnr==-1)
+	int lId = Layers.addLayer(layerName);
+	if (lId==-1)
 		return -1;
 	if (activate)
-		setActiveLayer(lnr);
-	const ScLayer* ll = Layers.layerByNumber(lnr);
+		setActiveLayer(lId);
+	const ScLayer* ll = Layers.layerByID(lId);
 	if (!ll)
 		qWarning() << "Layer added without undo, could not get layer back for undo action creation";
 	else
@@ -1925,14 +1925,14 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 		ss->set("ADD_LAYER", "add_layer");
 		ss->set("ACTIVE", ActiveLayer);
 		ss->set("NAME", ll->Name);
-		ss->set("LAYER_NR", ll->LNr);
+		ss->set("LAYER_NR", ll->ID);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
-	return lnr;
+	return lId;
 }
 
 
-void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
+void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 {
 	if(!setActiveLayer(whereToInsert))
 		return;
@@ -1940,7 +1940,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 	for (int ite(0); ite < Items->count(); ++ite)
 	{
 		PageItem *itemToCopy = Items->at(ite);
-		if (itemToCopy->LayerNr == layerNumberToCopy)
+		if (itemToCopy->LayerID == layerIDToCopy)
 		{
 			sourceSelection.addItem(itemToCopy);
 		}
@@ -1953,11 +1953,11 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 }
 
 
-bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
+bool ScribusDoc::deleteLayer(const int layerID, const bool deleteItems)
 {
 	if (Layers.count() < 2)
 		return false;
-	const ScLayer* lToRemove = Layers.layerByNumber(layerNumber);
+	const ScLayer* lToRemove = Layers.layerByID(layerID);
 	if (!lToRemove)
 		return false;
 	int layerLevel = lToRemove->Level;
@@ -1968,7 +1968,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 
 	rebuildItemLists();
 	if (ScCore->usingGUI())
-		removeLayer(layerNumber, deleteItems);
+		removeLayer(layerID, deleteItems);
 
 	/*
 	//Layer found, do we want to delete its items too?
@@ -1978,7 +1978,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 		DocPages = Pages;
 	for (uint b = 0; b < MasterItems.count(); ++b)
 	{
-		if (MasterItems.at(b)->LayerNr == layerNumber)
+		if (MasterItems.at(b)->LayerID == layerID)
 		{
 			if (deleteItems)
 			{
@@ -1994,7 +1994,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 //	view->SelItem.clear();
 	for (uint b = 0; b < DocItems.count(); ++b)
 	{
-		if (DocItems.at(b)->LayerNr == l)
+		if (DocItems.at(b)->LayerID == l)
 		{
 			if (deleteItems)
 			{
@@ -2013,23 +2013,23 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 
 	*/
 	//Now delete the layer
-	Layers.removeLayerByNumber(layerNumber);
+	Layers.removeLayerByID(layerID);
 
 	if (activeTransaction)
 	{
 		SimpleState *ss = new SimpleState(Um::DeleteLayer, "", Um::IDelete);
 		ss->set("REMOVE_LAYER", "remove_layer");
-		ss->set("ACTIVE", layerNumber);
+		ss->set("ACTIVE", layerID);
 		ss->set("LEVEL", layerLevel);
 		ss->set("NAME", name);
-		ss->set("LAYER_NR", layerNumber);
+		ss->set("LAYER_NR", layerID);
 		ss->set("DELETE", deleteItems);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 		activeTransaction->commit();
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-//	setActiveLayer(layerNumberFromLevel(0));
+//	setActiveLayer(layerIDFromLevel(0));
 	return true;
 }
 
@@ -2042,7 +2042,7 @@ int ScribusDoc::activeLayer()
 
 const QString& ScribusDoc::activeLayerName()
 {
-	const ScLayer* ll = Layers.layerByNumber(ActiveLayer);
+	const ScLayer* ll = Layers.layerByID(ActiveLayer);
 	Q_ASSERT(ll);
 	return ll->Name;
 }
@@ -2050,7 +2050,7 @@ const QString& ScribusDoc::activeLayerName()
 
 bool ScribusDoc::setActiveLayer(const int layerToActivate)
 {
-	const ScLayer* ll = Layers.layerByNumber(layerToActivate);
+	const ScLayer* ll = Layers.layerByID(layerToActivate);
 	Q_ASSERT(ll);
 	if (ll)
 		ActiveLayer=layerToActivate;
@@ -2063,19 +2063,19 @@ bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
 	const ScLayer* ll = Layers.layerByName(layerNameToActivate);
 	Q_ASSERT(ll);
 	if (ll)
-		ActiveLayer=ll->LNr;
+		ActiveLayer=ll->ID;
 	return (ll != NULL);
 }
 
 
-bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable)
+bool ScribusDoc::setLayerPrintable(const int layerID, const bool isPrintable)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			bool oldPrintable = (*it).isPrintable;
 			(*it).isPrintable = isPrintable;
@@ -2085,7 +2085,7 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 				SimpleState *ss = new SimpleState(isPrintable ? Um::PrintLayer : Um::DoNotPrintLayer,
 						                          "", Um::IPrint);
 				ss->set("PRINT_LAYER", "print_layer");
-				ss->set("ACTIVE", (*it).LNr);
+				ss->set("ACTIVE", (*it).ID);
 				ss->set("PRINT", isPrintable);
 				undoManager->action(this, ss, DocName, Um::IDocument);
 			}
@@ -2099,27 +2099,27 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 }
 
 
-bool ScribusDoc::layerPrintable(const int layerNumber)
+bool ScribusDoc::layerPrintable(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return (*it).isPrintable;
 	}
 	return false;
 }
 
 
-bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
+bool ScribusDoc::setLayerVisible(const int layerID, const bool isViewable)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			(*it).isViewable = isViewable;
 			found=true;
@@ -2132,27 +2132,27 @@ bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
 }
 
 
-bool ScribusDoc::layerVisible(const int layerNumber)
+bool ScribusDoc::layerVisible(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return (*it).isViewable;
 	}
 	return false;
 }
 
 
-bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
+bool ScribusDoc::setLayerLocked(const int layerID, const bool isLocked)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			(*it).isEditable = !isLocked;
 			found=true;
@@ -2165,27 +2165,27 @@ bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
 }
 
 
-bool ScribusDoc::layerLocked(const int layerNumber)
+bool ScribusDoc::layerLocked(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return !(*it).isEditable;
 	}
 	return false;
 }
 
 
-bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
+bool ScribusDoc::setLayerFlow(const int layerID, const bool flow)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			(*it).flowControl = flow;
 			found=true;
@@ -2198,27 +2198,27 @@ bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 }
 
 
-bool ScribusDoc::layerFlow(const int layerNumber)
+bool ScribusDoc::layerFlow(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return (*it).flowControl;
 	}
 	return false;
 }
 
 
-bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
+bool ScribusDoc::setLayerTransparency(const int layerID, double trans)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			(*it).transparency = trans;
 			found=true;
@@ -2231,27 +2231,27 @@ bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 }
 
 
-double ScribusDoc::layerTransparency(const int layerNumber)
+double ScribusDoc::layerTransparency(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return (*it).transparency;
 	}
 	return 1.0;
 }
 
 
-bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
+bool ScribusDoc::setLayerBlendMode(const int layerID, int blend)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			(*it).blendMode = blend;
 			found=true;
@@ -2264,27 +2264,27 @@ bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 }
 
 
-int ScribusDoc::layerBlendMode(const int layerNumber)
+int ScribusDoc::layerBlendMode(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return (*it).blendMode;
 	}
 	return 0;
 }
 
 
-bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
+bool ScribusDoc::setLayerOutline(const int layerID, const bool outline)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			(*it).outlineMode = outline;
 			found=true;
@@ -2297,27 +2297,27 @@ bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
 }
 
 
-bool ScribusDoc::layerOutline(const int layerNumber)
+bool ScribusDoc::layerOutline(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return (*it).outlineMode;
 	}
 	return false;
 }
 
 
-bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
+bool ScribusDoc::setLayerMarker(const int layerID, QColor color)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 		{
 			(*it).markerColor = color;
 			found=true;
@@ -2330,25 +2330,25 @@ bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
 }
 
 
-QColor ScribusDoc::layerMarker(const int layerNumber)
+QColor ScribusDoc::layerMarker(const int layerID)
 {
 	ScLayers::iterator itend=Layers.end();
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if ((*it).ID == layerID)
 			return (*it).markerColor;
 	}
 	return QColor(0, 0, 0);
 }
 
 
-int ScribusDoc::layerLevelFromNumber(const int layerNumber)
+int ScribusDoc::layerLevelFromID(const int layerID)
 {
 	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
 	{
-		if (Layers[i].LNr == layerNumber)
+		if (Layers[i].ID == layerID)
 			return Layers[i].Level;
 	}
 	return -1;
@@ -2361,21 +2361,21 @@ int ScribusDoc::layerCount() const
 }
 
 
-int ScribusDoc::layerNumberFromLevel(const int layerLevel)
+int ScribusDoc::layerIDFromLevel(const int layerLevel)
 {
 	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].Level == layerLevel)
-			return Layers[i].LNr;
+			return Layers[i].ID;
 	}
 	return -1;
 }
 
 
-bool ScribusDoc::lowerLayer(const int layerNumber)
+bool ScribusDoc::lowerLayer(const int layerID)
 {
-	return lowerLayerByLevel(layerLevelFromNumber(layerNumber));
+	return lowerLayerByLevel(layerLevelFromID(layerID));
 }
 
 
@@ -2411,9 +2411,9 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 }
 
 
-bool ScribusDoc::raiseLayer(const int layerNumber)
+bool ScribusDoc::raiseLayer(const int layerID)
 {
-	return raiseLayerByLevel(layerLevelFromNumber(layerNumber));
+	return raiseLayerByLevel(layerLevelFromID(layerID));
 }
 
 
@@ -2449,25 +2449,25 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 }
 
 
-QString ScribusDoc::layerName(const int layerNumber) const
+QString ScribusDoc::layerName(const int layerID) const
 {
 	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
 	{
-		if (Layers[i].LNr == layerNumber)
+		if (Layers[i].ID == layerID)
 			return Layers[i].Name;
 	}
 	return QString::null;
 }
 
 
-bool ScribusDoc::changeLayerName(const int layerNumber, const QString& newName)
+bool ScribusDoc::changeLayerName(const int layerID, const QString& newName)
 {
 	uint layerCount=Layers.count();
 	bool found=false;
 	for (uint i=0; i < layerCount; ++i)
 	{
-		if (Layers[i].LNr == layerNumber)
+		if (Layers[i].ID == layerID)
 		{
 			if (Layers[i].Name != newName)
 			{
@@ -2494,18 +2494,18 @@ bool ScribusDoc::changeLayerName(const int layerNumber, const QString& newName)
 }
 
 
-bool ScribusDoc::layerContainsItems(const int layerNumber)
+bool ScribusDoc::layerContainsItems(const int layerID)
 {
 	uint masterItemsCount=MasterItems.count();
 	for (uint i = 0; i < masterItemsCount; ++i)
 	{
-		if (MasterItems.at(i)->LayerNr == layerNumber)
+		if (MasterItems.at(i)->LayerID == layerID)
 			return true;
 	}
 	uint docItemsCount=DocItems.count();
 	for (uint i = 0; i < docItemsCount; ++i)
 	{
-		if (DocItems.at(i)->LayerNr == layerNumber)
+		if (DocItems.at(i)->LayerID == layerID)
 			return true;
 	}
 	return false;
@@ -2531,7 +2531,7 @@ void ScribusDoc::orderedLayerList(QStringList* list)
 }
 
 
-bool ScribusDoc::renumberLayer(const int layerNumber, const int newLayerNumber)
+bool ScribusDoc::renumberLayer(const int layerID, const int newLayerID)
 {
 	uint layerCount=Layers.count();
 	uint foundIndex = 0;
@@ -2539,18 +2539,18 @@ bool ScribusDoc::renumberLayer(const int layerNumber, const int newLayerNumber)
 	//Find layer to renumber, if found the new number, return as it exists already.
 	for (uint i=0; i < layerCount; ++i)
 	{
-		if (Layers[i].LNr == layerNumber)
+		if (Layers[i].ID == layerID)
 		{
 			foundIndex=i;
 			found=true;
 		}
 		else
-		if (Layers[i].LNr == newLayerNumber)
+		if (Layers[i].ID == newLayerID)
 			return false;
 	}
 	if (!found)
 		return false;
-	Layers[foundIndex].LNr=newLayerNumber;
+	Layers[foundIndex].ID=newLayerID;
 	return true;
 }
 
@@ -3460,11 +3460,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				int currActiveLayer = activeLayer();
 				for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 				{
-					setActiveLayer((*it).LNr);
+					setActiveLayer((*it).ID);
 					for (uint ite = 0; ite < end2; ++ite)
 					{
 						PageItem *itemToCopy = MasterItems.at(ite);
-						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && ((*it).LNr == itemToCopy->LayerNr))
+						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && ((*it).ID == itemToCopy->LayerID))
 							tempSelection.addItem(itemToCopy, true);
 					}
 					if (tempSelection.count() != 0)
@@ -3489,11 +3489,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		int currActiveLayer = activeLayer();
 		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 		{
-			setActiveLayer((*it).LNr);
+			setActiveLayer((*it).ID);
 			for (uint ite = 0; ite < end; ++ite)
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
-				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
+				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && ((*it).ID == itemToCopy->LayerID))
 					tempSelection.addItem(itemToCopy, true);
 			}
 			if (tempSelection.count() != 0)
@@ -3911,11 +3911,11 @@ void ScribusDoc::rebuildItemLists()
 	for (uint la = 0; la < layerCount; ++la)
 	{
 		PageItem* currItem;
-		int layerNr = Layers.at(la).LNr;
+		int layerID = Layers.at(la).ID;
 		for (int it = 0; it < DocItems.count(); ++it)
 		{
 			currItem = DocItems.at(it);
-			if (currItem->LayerNr != layerNr)
+			if (currItem->LayerID != layerID)
 				continue;
 			newDocItems.append(currItem);
 			currItem->ItemNr = itemIndex++;
@@ -3923,7 +3923,7 @@ void ScribusDoc::rebuildItemLists()
 		for (int it = 0; it < MasterItems.count(); ++it)
 		{
 			currItem = MasterItems.at(it);
-			if (currItem->LayerNr != layerNr)
+			if (currItem->LayerID != layerID)
 				continue;
 			newMasterItems.append(currItem);
 			currItem->ItemNr = masterIndex++;
@@ -4871,11 +4871,11 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			int currActiveLayer = activeLayer();
 			for (it = Layers.begin(); it != Layers.end(); ++it)
 			{
-				setActiveLayer((*it).LNr);
+				setActiveLayer((*it).ID);
 				for (uint ite = 0; ite < oldItems; ++ite)
 				{
 					PageItem *itemToCopy = Items->at(ite);
-					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
+					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && ((*it).ID == itemToCopy->LayerID))
 						m_Selection->addItem(itemToCopy, true);
 				}
 				if (m_Selection->count() != 0)
@@ -4959,7 +4959,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
 					{
 						ScriXmlDoc *ss = new ScriXmlDoc();
-						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).LNr);
+						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).ID);
 						delete ss;
 					}
 					lcount++;
@@ -6864,9 +6864,9 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	//FIXME: stop using m_View
 	m_View->Deselect();
 	Selection tmpSelection(this, false);
-	int newLayerNr = 0;
+	int newLayerID = 0;
 	// Find the new layer identifier
-	const ScLayer* lcurr = Layers.layerByNumber(l);
+	const ScLayer* lcurr = Layers.layerByID(l);
 	if (lcurr)
 	{
 		const ScLayer* lbelow = Layers.layerBelow(lcurr->Level);
@@ -6874,14 +6874,14 @@ void ScribusDoc::removeLayer(int l, bool dl)
 		{
 			const ScLayer* labove = Layers.layerAbove(lcurr->Level);
 			if (labove)
-				newLayerNr = labove->LNr;
+				newLayerID = labove->ID;
 		}
 		else if (lbelow)
-			newLayerNr = lbelow->LNr;
+			newLayerID = lbelow->ID;
 	}
 	for (int b = 0; b < MasterItems.count(); ++b)
 	{
-		if (MasterItems.at(b)->LayerNr == l)
+		if (MasterItems.at(b)->LayerID == l)
 		{
 			if (dl)
 			{
@@ -6889,7 +6889,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 				MasterItems.at(b)->setLocked(false);
 			}
 			else
-				MasterItems.at(b)->setLayer(newLayerNr);
+				MasterItems.at(b)->setLayer(newLayerID);
 		}
 	}
 	if (tmpSelection.count() != 0)
@@ -6897,7 +6897,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	tmpSelection.clear();
 	for (int b = 0; b < DocItems.count(); ++b)
 	{
-		if (DocItems.at(b)->LayerNr == l)
+		if (DocItems.at(b)->LayerID == l)
 		{
 			if (dl)
 			{
@@ -6905,7 +6905,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 				DocItems.at(b)->setLocked(false);
 			}
 			else
-				DocItems.at(b)->setLayer(newLayerNr);
+				DocItems.at(b)->setLayer(newLayerID);
 		}
 	}
 	if (tmpSelection.count() != 0)
@@ -6915,7 +6915,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	m_ScMW->rebuildLayersList();
 	//FIXME: stop using m_View
 	m_View->updateLayerMenu();
-	setActiveLayer(newLayerNr);
+	setActiveLayer(newLayerID);
 }
 
 
@@ -7578,7 +7578,7 @@ void ScribusDoc::itemSelection_DoDeHyphenate()
 }
 
 
-void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
+void ScribusDoc::itemSelection_SendToLayer(int layerID)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -7592,7 +7592,7 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = m_Selection->itemAt(a);
-			currItem->setLayer(layerNumber);
+			currItem->setLayer(layerID);
 			if (selectedItemCount <= Um::ItemsInvolvedLimit)
 				tooltip += "\t" + currItem->getUName() + "\n";
 		}

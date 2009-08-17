@@ -1888,7 +1888,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			int Lnr = 0;
 			ScLayer ll;
 			ll.isPrintable = false;
-			ll.LNr = 0;
+			ll.ID = 0;
 			for (int lam = 0; lam < Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
 			{
 				Doc->Layers.levelToLayer(ll, Lnr);
@@ -1900,7 +1900,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						PageItem *it = Doc->MasterItems.at(api);
 						if (usingGUI)
 							ScQApp->processEvents();
-						if ((it->LayerNr != ll.LNr) || (!it->printEnabled()))
+						if ((it->LayerID != ll.ID) || (!it->printEnabled()))
 							continue;
 						double bLeft, bRight, bBottom, bTop;
 						GetBleeds(Doc->MasterPages.at(ap), bLeft, bRight, bBottom, bTop);
@@ -2909,7 +2909,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	int Lnr = 0;
 	ScLayer ll;
 	ll.isPrintable = false;
-	ll.LNr = 0;
+	ll.ID = 0;
 	PItems = (a->pageName().isEmpty()) ? Doc->DocItems : Doc->MasterItems;
 	for (int la = 0; la < Doc->Layers.count(); ++la)
 	{
@@ -2921,7 +2921,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				c = PItems.at(b);
 				if (usingGUI)
 					ScQApp->processEvents();
-				if (c->LayerNr != ll.LNr)
+				if (c->LayerID != ll.ID)
 					continue;
 				if ((!a->pageName().isEmpty()) && (c->asTextFrame()))
 					continue;
@@ -2979,7 +2979,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 			c = PItems.at(b);
 			if (usingGUI)
 				ScQApp->processEvents();
-			if (c->LayerNr != ll.LNr)
+			if (c->LayerID != ll.ID)
 				continue;
 			if ((!a->pageName().isEmpty()) && (c->asTextFrame()))
 				continue;
@@ -3071,7 +3071,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 			PageItem *ite = page->FromMaster.at(am);
 			if (usingGUI)
 				ScQApp->processEvents();
-			if ((ite->LayerNr != layer.LNr) || (!ite->printEnabled()))
+			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
 				continue;
 			if (ite->isGroupControl)
 			{
@@ -3252,7 +3252,7 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint P
 			PageItem *item = items.at(b);
 			if (usingGUI)
 				ScQApp->processEvents();
-			if (item->LayerNr != layer.LNr)
+			if (item->LayerID != layer.ID)
 				continue;
 			if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
 				continue;
@@ -3313,7 +3313,7 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint P
 		PageItem* item = items.at(b);
 		if (usingGUI)
 			ScQApp->processEvents();
-		if (item->LayerNr != layer.LNr)
+		if (item->LayerID != layer.ID)
 			continue;
 		if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
 			continue;

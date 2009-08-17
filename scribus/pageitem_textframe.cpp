@@ -126,7 +126,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 	QRegion result(clip);
 	if (!isEmbedded)
 	{
-		int LayerLev = m_Doc->layerLevelFromNumber(LayerNr);
+		int LayerLev = m_Doc->layerLevelFromID(LayerID);
 		uint docItemsCount=m_Doc->Items->count();
 		Page* Mp=0;
 		Page* Dp=0;
@@ -142,8 +142,8 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 			for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 			{
 				docItem = m_Doc->MasterItems.at(a);
-				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerNr)))
+				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
+				if (((docItem->ItemNr > ItemNr) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
 					if (docItem->Groups.count() == 0)
 						currentGroup = -1;
@@ -179,8 +179,8 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 			for (uint a = 0; a < docItemsCount; ++a)
 			{
 				docItem = m_Doc->Items->at(a);
-				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerNr)))
+				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
+				if (((docItem->ItemNr > ItemNr) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
 					if (docItem->Groups.count() == 0)
 						currentGroup = -1;
@@ -2353,7 +2353,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 	}
 	
 	pf2.rotate(Rot);
-	if (!m_Doc->layerOutline(LayerNr))
+	if (!m_Doc->layerOutline(LayerID))
 	{
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{
@@ -2601,9 +2601,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
 	ScribusView* view = m_Doc->view();
-	if (m_Doc->layerOutline(LayerNr))
+	if (m_Doc->layerOutline(LayerID))
 	{
-		p->setPen(m_Doc->layerMarker(LayerNr), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -2702,11 +2702,11 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.colBordersShown) && (!view->m_canvas->isPreviewMode()))
 			drawColumnBorders(p);
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (!view->m_canvas->isPreviewMode()))
 		{
 			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
-			p->setBrush(m_Doc->layerMarker(LayerNr));
+			p->setBrush(m_Doc->layerMarker(LayerID));
 			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
 			double ofwh = 10;

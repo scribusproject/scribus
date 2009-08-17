@@ -525,9 +525,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				int lnr   = pg.attribute("NUMMER").toInt();
+				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
-				ScLayer la( pg.attribute("NAME"), level, lnr);
+				ScLayer la( pg.attribute("NAME"), level, lId);
 				la.isViewable   = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable  = pg.attribute("DRUCKEN").toInt();
 				la.isEditable   = pg.attribute("EDIT", "1").toInt();
@@ -1115,7 +1115,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	{
 		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );
 		nl->flowControl  = false;
-		layerToSetActive = nl->LNr;
+		layerToSetActive = nl->ID;
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
 	
@@ -1473,7 +1473,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	for (uint lay = 0; lay < layerCount; ++lay)
 	{
 		QDomElement la = docu.createElement("LAYERS");
-		la.setAttribute("NUMMER",m_Doc->Layers[lay].LNr);
+		la.setAttribute("NUMMER",m_Doc->Layers[lay].ID);
 		la.setAttribute("LEVEL",m_Doc->Layers[lay].Level);
 		la.setAttribute("NAME",m_Doc->Layers[lay].Name);
 		la.setAttribute("SICHTBAR", static_cast<int>(m_Doc->Layers[lay].isViewable));
@@ -2407,7 +2407,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->Cols   = obj->attribute("COLUMNS", "1").toInt();
 	currItem->ColGap = ScCLocale::toDoubleC(obj->attribute("COLGAP"), 0.0);
 	if (obj->attribute("LAYER", "0").toInt() != -1)
-		currItem->LayerNr = obj->attribute("LAYER", "0").toInt();
+		currItem->LayerID = obj->attribute("LAYER", "0").toInt();
 	tmp = "";
 	if ((obj->hasAttribute("GROUPS")) && (obj->attribute("NUMGROUP", "0").toInt() != 0))
 	{
@@ -2585,7 +2585,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	uint layerCount=m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
-		maxLayer = qMax(m_Doc->Layers[la2].LNr, maxLayer);
+		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 	DoVorl.clear();
@@ -2644,9 +2644,9 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				int lnr   = pg.attribute("NUMMER").toInt();
+				int lId   = pg.attribute("NUMMER").toInt();
 				int level = pg.attribute("LEVEL").toInt();
-				ScLayer la( pg.attribute("NAME"), level, lnr );
+				ScLayer la( pg.attribute("NAME"), level, lId );
 				la.isViewable   = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable  = pg.attribute("DRUCKEN").toInt();
 				la.isEditable   = pg.attribute("EDIT", "1").toInt();
@@ -2658,13 +2658,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
 				const ScLayer* la2 = m_Doc->Layers.layerByName(la.Name);
 				if (la2)
-					layerTrans.insert(la.LNr, la2->LNr);
+					layerTrans.insert(la.ID, la2->ID);
 				else
 				{
 					maxLayer++;
 					maxLevel++;
-					layerTrans.insert(la.LNr, maxLayer);
-					la.LNr = maxLayer;
+					layerTrans.insert(la.ID, maxLayer);
+					la.ID = maxLayer;
 					la.Level = maxLevel;
 					m_Doc->Layers.append(la);
 				}
@@ -3590,7 +3590,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			ob.setAttribute("NEXTITEM", item->nextInChain()->ItemNr);
 		else
 			ob.setAttribute("NEXTITEM", -1);
-		ob.setAttribute("LAYER", item->LayerNr);
+		ob.setAttribute("LAYER", item->LayerID);
 
 		//CB PageItemAttributes
 		QDomElement docItemAttrs = docu->createElement("PageItemAttributes");

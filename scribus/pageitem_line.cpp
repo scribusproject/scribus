@@ -52,7 +52,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos)
 	{
-		if (m_Doc->layerOutline(LayerNr))
+		if (m_Doc->layerOutline(LayerID))
 			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 		else
 		{

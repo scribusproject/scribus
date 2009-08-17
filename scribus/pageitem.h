@@ -76,6 +76,10 @@ struct CopyPasteBuffer;
   *@author Franz Schmid
   */
 
+#if defined(_MSC_VER)
+#define _unlink unlink
+#endif
+
 class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, public SingleObservable<PageItem>
 {
 	Q_OBJECT
@@ -480,7 +484,7 @@ public:
 	double OldH2;
 	bool Sizing;
 	bool toPixmap;
-	int LayerNr;
+	int  LayerID;
 	bool ScaleType;
 	bool AspectRatio;
 	QStack<int> Groups;

@@ -1510,7 +1510,7 @@ void XfigPlug::resortItems()
 			m_Doc->Items->append(ite);
 			ite->ItemNr = m_Doc->Items->count()-1;
 			if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
-				ite->LayerNr = currentLayer;
+				ite->LayerID = currentLayer;
 		}
 	}
 }

@@ -933,8 +933,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				m_canvas->Transform(docItem, p);
 			//	QRegion apr = QRegion(docItem->Clip * p);
 				QRect apr2(docItem->getRedrawBounding(m_canvas->scale()));
-			//	if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
-				if ((Sele.contains(apr2)) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+			//	if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
+				if ((Sele.contains(apr2)) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
 				{
 					bool redrawSelection=false;
 					m_view->SelectItemNr(a, redrawSelection);
@@ -1425,7 +1425,7 @@ void CanvasMode_Normal::importToPage()
 		for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 		{
 			PageItem *currItem = m_doc->m_Selection->itemAt(a);
-			currItem->LayerNr = m_doc->activeLayer();
+			currItem->LayerID = m_doc->activeLayer();
 		}
 		m_doc->useRaster = savedAlignGrid;
 		m_doc->SnapGuides = savedAlignGuides;

@@ -57,7 +57,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	errorCodes layerError;
 	int Lnr;
 	ScLayer ll;
-	ll.LNr = 0;
+	ll.ID = 0;
 	Lnr = 0;
 	uint layerCount= currDoc->layerCount();
 	for (uint la = 0; la < layerCount; ++la)
@@ -74,14 +74,14 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			layerError.insert(BlendMode, 1);
 		Lnr++;
 		if (layerError.count() != 0)
-			currDoc->docLayerErrors.insert(ll.LNr, layerError);
+			currDoc->docLayerErrors.insert(ll.ID, layerError);
 	}
 	for (int d = 0; d < currDoc->MasterItems.count(); ++d)
 	{
 		currItem = currDoc->MasterItems.at(d);
 		if (!currItem->printEnabled())
 			continue;
-		if (!(currDoc->layerPrintable(currItem->LayerNr)) && (checkerSettings.ignoreOffLayers))
+		if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
 			continue;
 		itemError.clear();
 		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
@@ -203,7 +203,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		currItem = currDoc->DocItems.at(d);
 		if (!currItem->printEnabled())
 			continue;
-		if (!(currDoc->layerPrintable(currItem->LayerNr)) && (checkerSettings.ignoreOffLayers))
+		if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
 			continue;
 		itemError.clear();
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))

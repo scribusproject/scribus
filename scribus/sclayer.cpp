@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 ScLayer::ScLayer(void)
 {
 	Name         = QObject::tr("New Layer");
-	LNr          = 0;
+	ID          = 0;
 	Level        = 0;
 	isPrintable  = true;
 	isViewable   = true;
@@ -26,10 +26,10 @@ ScLayer::ScLayer(void)
 	markerColor  = QColor(0, 0, 0);
 }
 
-ScLayer::ScLayer(const QString& name, int level, int nr)
+ScLayer::ScLayer(const QString& name, int level, int id)
 {
 	Name         = name;
-	LNr          = nr;
+	ID           = id;
 	Level        = level;
 	isPrintable  = true;
 	isViewable   = true;
@@ -39,7 +39,7 @@ ScLayer::ScLayer(const QString& name, int level, int nr)
 	transparency = 1.0;
 	blendMode    = 0;
 	markerColor  = QColor(0, 0, 0);
-	switch (LNr % 7)
+	switch (ID % 7)
 	{
 		case 0:
 			markerColor = Qt::black;
@@ -73,7 +73,7 @@ bool ScLayer::operator< (const ScLayer& other) const
 bool ScLayer::operator== (const ScLayer& other) const
 {
 	// ignore markerColor?
-	if (Name == other.Name && LNr == other.LNr && Level == other.Level      &&
+	if (Name == other.Name && ID == other.ID && Level == other.Level      &&
 		isPrintable  == other.isPrintable  && isViewable  == other.isViewable  &&
 		flowControl  == other.flowControl  && outlineMode == other.outlineMode && 
 		transparency == other.transparency && isEditable == other.isEditable &&
@@ -84,12 +84,12 @@ bool ScLayer::operator== (const ScLayer& other) const
 	return false;
 }
 
-int ScLayers::getMaxNumber(void)
+int ScLayers::getMaxID(void)
 {
 	int nr, maxNr = -1;
 	for (int i = 0; i < this->count(); ++i)
 	{
-		nr = this->at(i).LNr;;
+		nr = this->at(i).ID;
 		if (nr > maxNr)
 			maxNr = nr;
 	}
@@ -131,7 +131,7 @@ void ScLayers::levelToLayer (ScLayer& layer, int level) const
 			layer.isViewable   = ll.isViewable;
 			layer.isPrintable  = ll.isPrintable;
 			layer.isEditable   = ll.isEditable;
-			layer.LNr          = ll.LNr;
+			layer.ID          = ll.ID;
 			layer.Name         = ll.Name;
 			layer.flowControl  = ll.flowControl;
 			layer.transparency = ll.transparency;
@@ -152,12 +152,12 @@ ScLayer* ScLayers::byLevel(const int level)
 	return NULL;
 }
 
-ScLayer* ScLayers::byNumber(const int nr)
+ScLayer* ScLayers::byID(const int nr)
 {
 	ScLayers::Iterator itend = end();
 	for (ScLayers::Iterator it = 0; it != itend; ++it)
 	{
-		if( it->LNr == nr)
+		if( it->ID == nr)
 			return &(*it);
 	}
 	return NULL;
@@ -189,7 +189,7 @@ ScLayer* ScLayers::top(void)
 
 ScLayer* ScLayers::above (int nr)
 {
-	ScLayer* lyr = byNumber(nr);
+	ScLayer* lyr = byID(nr);
 	if (lyr)
 	{
 		ScLayer *rlyr = top();
@@ -211,7 +211,7 @@ ScLayer* ScLayers::above (int nr)
 
 ScLayer* ScLayers::below (int nr)
 {
-	ScLayer* lyr = byNumber(nr);
+	ScLayer* lyr = byID(nr);
 	if (lyr)
 	{
 		ScLayer *rlyr = bottom();
@@ -243,13 +243,13 @@ const ScLayer* ScLayers::layerByLevel (int level) const
 	return NULL;
 }
 
-const ScLayer* ScLayers::layerByNumber (int nr) const
+const ScLayer* ScLayers::layerByID (int nr) const
 {
 	const ScLayer *layer = NULL;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
-		if( layer->LNr == nr)
+		if( layer->ID == nr)
 			return layer;
 	}
 	return NULL;
@@ -357,18 +357,18 @@ int ScLayers::addLayer(const QString& layerName)
 {
 	ScLayer* nl = newLayer(layerName);
 	if (nl)
-		return nl->LNr;
+		return nl->ID;
 	return -1;
 }
 
 int ScLayers::addLayer(const ScLayer& layer)
 {
-	int   newID = layer.LNr;
-	const ScLayer* lid = layerByNumber(newID);
+	int   newID = layer.ID;
+	const ScLayer* lid = layerByID(newID);
 	if (lid)
 	{
 		ScLayer newLyr(layer);
-		newLyr.LNr = newID = getMaxNumber() + 1;
+		newLyr.ID = newID = getMaxID() + 1;
 		append(newLyr);
 	}
 	else
@@ -380,27 +380,27 @@ int ScLayers::addLayer(const ScLayer& layer)
 ScLayer* ScLayers::newLayer(const QString& layerName)
 {
 	QString lname;
-	int     lnr    = getMaxNumber() + 1;
+	int     lId    = getMaxID() + 1;
 	int     llevel = count();
 	if (layerName.isEmpty())
 	{
 		QString tmp;
-		lname = QObject::tr("New Layer")+" "+tmp.setNum(lnr);
+		lname = QObject::tr("New Layer")+" "+tmp.setNum(lId);
 	}
 	else
 		lname = layerName;
-	ScLayer ll(lname, llevel, lnr);
+	ScLayer ll(lname, llevel, lId);
 	ScLayers::Iterator it = insert(end(), ll);
 	return &(*it);
 }
 
-bool ScLayers::removeLayerByNumber(int nr)
+bool ScLayers::removeLayerByID(int id)
 {
 	int index = -1;
 	int layerLevel = -1;
 	for (int i = 0; i < count(); ++i)
 	{
-		if (this->at(i).LNr == nr)
+		if (this->at(i).ID == id)
 		{
 			index      = i;
 			layerLevel = this->at(i).Level;
@@ -447,29 +447,29 @@ bool ScLayers::removeLayerByLevel(int level)
 
 bool ScLayers::raiseLayer(int nr)
 {
-	ScLayer* clyr = byNumber(nr);
+	ScLayer* clyr = byID(nr);
 	if (!clyr)
 		return false;
-	ScLayer* alyr = above(clyr->LNr);
+	ScLayer* alyr = above(clyr->ID);
 	if ((!alyr) || (clyr == alyr))
 		return false;
 	
-	clyr->LNr += 1;
-	alyr->LNr -= 1;
+	clyr->ID += 1;
+	alyr->ID -= 1;
 	return true;
 }
 
 bool ScLayers::lowerLayer(int nr)
 {
-	ScLayer* clyr = byNumber(nr);
+	ScLayer* clyr = byID(nr);
 	if (!clyr)
 		return false;
-	ScLayer* blyr = below(clyr->LNr);
+	ScLayer* blyr = below(clyr->ID);
 	if (!blyr || (clyr == blyr))
 		return false;
 
-	clyr->LNr -= 1;
-	blyr->LNr += 1;
+	clyr->ID -= 1;
+	blyr->ID += 1;
 	return true;
 }
 
@@ -482,17 +482,17 @@ void ScLayers::sort(void)
 		it->Level = level;
 }
 
-bool ScLayers::layerPrintable(const int layerNumber) const
+bool ScLayers::layerPrintable(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return layer->isPrintable;
 	return false;
 }
 
-bool ScLayers::setLayerPrintable(const int layerNumber, const bool isPrintable)
+bool ScLayers::setLayerPrintable(const int layerID, const bool isPrintable)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->isPrintable = isPrintable;
@@ -501,17 +501,17 @@ bool ScLayers::setLayerPrintable(const int layerNumber, const bool isPrintable)
 	return false;
 }
 
-bool ScLayers::layerVisible(const int layerNumber) const
+bool ScLayers::layerVisible(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return layer->isViewable;
 	return false;
 }
 
-bool ScLayers::setLayerVisible(const int layerNumber, const bool isViewable)
+bool ScLayers::setLayerVisible(const int layerID, const bool isViewable)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->isViewable = isViewable;
@@ -520,17 +520,17 @@ bool ScLayers::setLayerVisible(const int layerNumber, const bool isViewable)
 	return false;
 }
 
-bool ScLayers::layerLocked(const int layerNumber) const
+bool ScLayers::layerLocked(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return !(layer->isEditable);
 	return false;
 }
 
-bool ScLayers::setLayerLocked(const int layerNumber, const bool isLocked)
+bool ScLayers::setLayerLocked(const int layerID, const bool isLocked)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->isEditable = !isLocked;
@@ -539,17 +539,17 @@ bool ScLayers::setLayerLocked(const int layerNumber, const bool isLocked)
 	return false;
 }
 
-bool ScLayers::layerFlow(const int layerNumber) const
+bool ScLayers::layerFlow(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return layer->flowControl;
 	return false;
 }
 
-bool ScLayers::setLayerFlow(const int layerNumber, const bool flow)
+bool ScLayers::setLayerFlow(const int layerID, const bool flow)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->flowControl = flow;
@@ -558,17 +558,17 @@ bool ScLayers::setLayerFlow(const int layerNumber, const bool flow)
 	return false;
 }
 
-bool ScLayers::layerOutline(const int layerNumber) const
+bool ScLayers::layerOutline(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return layer->outlineMode;
 	return false;
 }
 
-bool ScLayers::setLayerOutline(const int layerNumber, const bool outline)
+bool ScLayers::setLayerOutline(const int layerID, const bool outline)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->outlineMode = outline;
@@ -577,17 +577,17 @@ bool ScLayers::setLayerOutline(const int layerNumber, const bool outline)
 	return false;
 }
 
-double ScLayers::layerTransparency(const int layerNumber) const
+double ScLayers::layerTransparency(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return layer->transparency;
 	return 1.0;
 }
 
-bool ScLayers::setLayerTransparency(const int layerNumber, double trans)
+bool ScLayers::setLayerTransparency(const int layerID, double trans)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->transparency = trans;
@@ -596,17 +596,17 @@ bool ScLayers::setLayerTransparency(const int layerNumber, double trans)
 	return false;
 }
 
-int ScLayers::layerBlendMode(const int layerNumber) const
+int ScLayers::layerBlendMode(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return layer->blendMode;
 	return 0;
 }
 
-bool ScLayers::setLayerBlendMode(const int layerNumber, int blend)
+bool ScLayers::setLayerBlendMode(const int layerID, int blend)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->blendMode = blend;
@@ -615,17 +615,17 @@ bool ScLayers::setLayerBlendMode(const int layerNumber, int blend)
 	return false;
 }
 
-QColor ScLayers::layerMarker(const int layerNumber) const
+QColor ScLayers::layerMarker(const int layerID) const
 {
-	const ScLayer* layer = layerByNumber(layerNumber);
+	const ScLayer* layer = layerByID(layerID);
 	if (layer)
 		return layer->markerColor;
 	return Qt::black;
 }
 
-bool ScLayers::setLayerMarker(const int layerNumber, QColor color)
+bool ScLayers::setLayerMarker(const int layerID, QColor color)
 {
-	ScLayer* layer = byNumber(layerNumber);
+	ScLayer* layer = byID(layerID);
 	if (layer)
 	{
 		layer->markerColor = color;

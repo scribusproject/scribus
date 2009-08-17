@@ -57,7 +57,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/, double sc)
 {
 	if(!m_Doc->RePos)
 	{
-		if (!m_Doc->layerOutline(LayerNr))
+		if (!m_Doc->layerOutline(LayerID))
 		{
 			p->setFillRule(true);
 			if ((fillColor() != CommonStrings::None) || (GrType != 0))

@@ -62,7 +62,7 @@ public slots:
 	void changeBlendMode(int blend);
 	void setActiveLayer(int row, int col);
 	void ClearInhalt();
-	void markActiveLayer(int layerNumber=-1);
+	void markActiveLayer(int layerID=-1);
 	void languageChange();
 
 signals:
