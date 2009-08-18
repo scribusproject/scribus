@@ -125,7 +125,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	loading(false),
 	modified(false),
 	ActiveLayer(0),
-	docUnitIndex(prefsData.docUnitIndex),
+	docUnitIndex(prefsData.docSetupPrefs.docUnitIndex),
 	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
 	rotMode(0),
 	automaticTextFrames(0),
@@ -222,7 +222,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	m_docUpdater(NULL)
 {
 	init();
-	bleeds = prefsData.bleeds;
+	bleeds = prefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
 	Print_Options.firstUse = true;
 }
@@ -265,7 +265,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_Selection(new Selection(this, true)),
 	pageWidth(pagesize.width()), pageHeight(pagesize.height()),
 	pageMargins(margins),
-	marginPreset(prefsData.marginPreset),
+	marginPreset(prefsData.docSetupPrefs.marginPreset),
 	pageSets(prefsData.pageSets),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	currentPageLayout(pagesSetup.pageArrangement),
@@ -335,7 +335,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 {
 	pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
-	bleeds = prefsData.bleeds;
+	bleeds = prefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
 	Print_Options.firstUse = true;
 }

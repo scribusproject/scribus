@@ -71,21 +71,21 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 
 void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	selectedGUILang = prefsData->ui_Language;
+	selectedGUILang = prefsData->uiPrefs.language;
 	setCurrentComboItem(guiLangCombo, LanguageManager::instance()->getLangFromAbbrev(selectedGUILang));
-	setCurrentComboItem(GUICombo, prefsData->ui_Theme);
-	GFsize->setValue( prefsData->ui_ApplicationFontSize );
-	GTFsize->setValue( prefsData->ui_PaletteFontSize); // temp solution
-	wheelJumpSpin->setValue( prefsData->ui_WheelJump );
-	spinTimeout->setValue(prefsData->ui_MouseMoveTimeout);
-	recentDocs->setValue( prefsData->ui_RecentDocCount );
-	Docs->setText(QDir::convertSeparators(prefsData->DocDir));
-	ProPfad->setText(QDir::convertSeparators(prefsData->ProfileDir));
-	ScriptPfad->setText(QDir::convertSeparators(prefsData->ScriptDir));
-	DocumentTemplateDir->setText(QDir::convertSeparators(prefsData->documentTemplatesDir));
-	startUpDialog->setChecked(prefsData->ui_ShowStartupDialog);
+	setCurrentComboItem(GUICombo, prefsData->uiPrefs.style);
+	GFsize->setValue( prefsData->uiPrefs.applicationFontSize );
+	GTFsize->setValue( prefsData->uiPrefs.paletteFontSize); // temp solution
+	wheelJumpSpin->setValue( prefsData->uiPrefs.wheelJump );
+	spinTimeout->setValue(prefsData->uiPrefs.mouseMoveTimeout);
+	recentDocs->setValue( prefsData->uiPrefs.recentDocCount );
+	Docs->setText(QDir::convertSeparators(prefsData->pathPrefs.documents));
+	ProPfad->setText(QDir::convertSeparators(prefsData->pathPrefs.colorProfiles));
+	ScriptPfad->setText(QDir::convertSeparators(prefsData->pathPrefs.scripts));
+	DocumentTemplateDir->setText(QDir::convertSeparators(prefsData->pathPrefs.documentTemplates));
+	startUpDialog->setChecked(prefsData->uiPrefs.showStartupDialog);
 	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
-	useSmallWidgetsCheck->setChecked(prefsData->ui_UseSmallWidgets);
+	useSmallWidgetsCheck->setChecked(prefsData->uiPrefs.useSmallWidgets);
 }
 
 void TabGeneral::setSelectedGUILang( const QString &newLang )

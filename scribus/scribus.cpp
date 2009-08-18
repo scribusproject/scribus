@@ -1994,7 +1994,7 @@ void ScribusMainWindow::startUpDialog()
 {
 	bool docSet = false;
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
-	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
 	if (dia->exec())
 	{
 		if (dia->tabSelected() == NewDoc::NewDocumentTab)
@@ -2316,7 +2316,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 
 void ScribusMainWindow::newFileFromTemplate()
 {
-	nftdialog* nftdia = new nftdialog(this, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	nftdialog* nftdia = new nftdialog(this, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
 	if (nftdia->exec())
 	{
 		if (nftdia->nftGui->currentDocumentTemplate)
@@ -3426,7 +3426,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
 
 	scrRecentFileActions.clear();
-	uint max = qMin(prefsManager->appPrefs.ui_RecentDocCount, RecentDocs.count());
+	uint max = qMin(prefsManager->appPrefs.uiPrefs.recentDocCount, RecentDocs.count());
 	QString strippedName, localName;
 	for (uint m = 0; m < max; ++m)
 	{
@@ -7619,7 +7619,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	if (oldUIFontSize != newUIFontSize)
 	{
 		QFont apf = qApp->font();
-		apf.setPointSize(prefsManager->appPrefs.ui_ApplicationFontSize);
+		apf.setPointSize(prefsManager->appPrefs.uiPrefs.applicationFontSize);
 		qApp->setFont(apf);
 	}
 	propertiesPalette->Fonts->RebuildList(0);

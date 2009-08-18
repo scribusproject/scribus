@@ -3216,7 +3216,7 @@ void StoryEditor::SaveTextFile()
 	QString LoadEnc = "";
 	QString fileName = "";
 	PrefsContext* dirs = prefsManager->prefsFile->getContext("dirs");
-	QString wdir = dirs->get("story_save", prefsManager->appPrefs.DocDir);
+	QString wdir = dirs->get("story_save", prefsManager->appPrefs.pathPrefs.documents);
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), fdShowCodecs);
 	qApp->processEvents();
 	if (dia.exec() != QDialog::Accepted)

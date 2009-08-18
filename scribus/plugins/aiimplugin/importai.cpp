@@ -141,8 +141,8 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
-	b = PrefsManager::instance()->appPrefs.PageWidth;
-	h = PrefsManager::instance()->appPrefs.PageHeight;
+	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);

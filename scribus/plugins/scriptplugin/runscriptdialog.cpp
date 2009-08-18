@@ -17,7 +17,7 @@ RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
 
 	m_extEnable = extEnable;
 	PrefsManager *prefsManager = PrefsManager::instance();
-	QString       scriptDir    = prefsManager->appPrefs.ScriptDir;
+	QString scriptDir(prefsManager->appPrefs.pathPrefs.scripts);
 	if (!m_lastScriptDir.isEmpty() && QDir(m_lastScriptDir).exists())
 		fileWidget->setDirectory(m_lastScriptDir);
 	else if (!scriptDir.isEmpty() && QDir(scriptDir).exists())

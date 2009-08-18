@@ -18,6 +18,9 @@ class SCRIBUS_API Prefs_UserInterface : public QWidget, Ui::Prefs_UserInterface
 	public:
 		Prefs_UserInterface(QWidget* parent=0);
 		~Prefs_UserInterface();
+
+//		setValues();
+
 };
 
 #endif // PREFS_USERINTERFACE_H

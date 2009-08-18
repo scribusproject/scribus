@@ -41,7 +41,7 @@ TabPrinter::TabPrinter(QWidget* parent, const char* name)
 
 void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	docUnitIndex = prefsData->docUnitIndex;
+	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
 	bleedTop->setNewUnit(docUnitIndex);

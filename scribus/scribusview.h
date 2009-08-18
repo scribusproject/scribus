@@ -483,7 +483,7 @@ inline QPoint ScribusView::mousePressLocation()
 
 inline bool ScribusView::moveTimerElapsed()
 {
-	return (m_moveTimer.elapsed() > Prefs->ui_MouseMoveTimeout);
+	return (m_moveTimer.elapsed() > Prefs->uiPrefs.mouseMoveTimeout);
 }
 
 

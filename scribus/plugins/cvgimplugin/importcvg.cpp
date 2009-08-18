@@ -107,9 +107,9 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	}
 	parseHeader(fName, b, h);
 	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.PageWidth;
+		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.PageHeight;
+		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	baseX = 0;

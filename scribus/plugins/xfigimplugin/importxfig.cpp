@@ -172,9 +172,9 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	docX = x;
 	docY = y;
 	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.PageWidth;
+		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.PageHeight;
+		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b - x;
 	docHeight = h - y;
 	baseX = 0;

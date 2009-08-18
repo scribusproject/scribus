@@ -53,7 +53,7 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 	prefsContextName(QString::null),
 	visibleOnStartup(false)
 {
-	if (PrefsManager::instance()->appPrefs.ui_UseSmallWidgets)
+	if (PrefsManager::instance()->appPrefs.uiPrefs.useSmallWidgets)
 	{
 		setStyleSheet("	QToolButton { margin: 0px; padding: 0px; font-size: 10px; } \
 						QToolButton:pressed { padding-top: 2px; padding-left: 2px } \
@@ -119,7 +119,7 @@ void ScrPaletteBase::setPaletteShown(bool visible)
 void ScrPaletteBase::setFontSize()
 {
 	QFont newfont(font());
-	newfont.setPointSize(PrefsManager::instance()->appPrefs.ui_PaletteFontSize);
+	newfont.setPointSize(PrefsManager::instance()->appPrefs.uiPrefs.paletteFontSize);
 	setFont(newfont);
 }
 

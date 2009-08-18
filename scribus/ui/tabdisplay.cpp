@@ -62,7 +62,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 
 void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, QList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
 {
-	docUnitIndex = prefsData->docUnitIndex;
+	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 
 	DisScale = prefsData->DisScale;

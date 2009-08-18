@@ -99,8 +99,8 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
-	b = PrefsManager::instance()->appPrefs.PageWidth;
-	h = PrefsManager::instance()->appPrefs.PageHeight;
+	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	if (extensionIndicatesEPSorPS(ext))
 	{
 		QString tmp, BBox, tmp2, FarNam;

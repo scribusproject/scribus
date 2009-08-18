@@ -195,6 +195,6 @@ void PreferencesDialog::initPreferenceValues()
 	prefsManager=PrefsManager::instance();
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	mainWin = (ScribusMainWindow*)parent();
-	docUnitIndex = prefsData->docUnitIndex;
+	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 }

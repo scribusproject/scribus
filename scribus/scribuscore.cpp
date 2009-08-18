@@ -132,7 +132,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	}
 	else
 	{
-		if (PrefsManager::instance()->appPrefs.ui_ShowStartupDialog)
+		if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog)
 			scribus->startUpDialog();
 		else
 			scribus->setFocus();
@@ -358,7 +358,7 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 	QString pfad = ScPaths::instance().libDir();
 	pfad += "profiles/";
 	profDirs = ScPaths::getSystemProfilesDirs();
-	profDirs.prepend( prefsManager->appPrefs.ProfileDir );
+	profDirs.prepend( prefsManager->appPrefs.pathPrefs.colorProfiles );
 	profDirs.prepend( pfad );
 	for(int i = 0; i < profDirs.count(); i++)
 	{

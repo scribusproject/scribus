@@ -151,20 +151,48 @@ struct toolPrefs
 	double constrain;
 };
 
+//User Interface
+struct UIPrefs
+{
+	int mouseMoveTimeout; //! Mouse move timeout for move/resize operations
+	int wheelJump; //! Distance to jump with mouse wheel scrolling
+	int applicationFontSize; //! Font size to use in the application, apart from pßalettes
+	int paletteFontSize; //! Fotn size to use in the palettes
+	QString style; 	//! Currently used QStyle name
+	int recentDocCount; //! Number of recent documents to remember
+	QString language; //! Language of the user interface
+	bool useSmallWidgets; //! Use small widgets in the palettes
+	bool showStartupDialog; //! Whether to show the startup dialog or not
+};
+
+//Paths
+struct PathPrefs
+{
+	QString documents; //! Default document location
+	QString colorProfiles; //! Default color profile location
+	QString scripts; //! Default script location
+	QString documentTemplates; //! Default document template location
+};
+
+//Document Setup
+struct DocumentSetupPrefs
+{
+	QString pageSize; //! Default page size of a document
+	int pageOrientation; //! Default orientation of the page
+	double pageWidth; //! Width of a page
+	double pageHeight; //! Height of a page
+	MarginStruct margins; //! Margins for a page
+	MarginStruct bleeds; //! Bleeds for a page
+	int marginPreset; //! Use a preset ratio margin setup
+	int pagePositioning; //! Show pages in 1,2,3,4 pages side by side on screen
+	int docUnitIndex; //! The index of the default unit
+};
+
 struct ApplicationPrefs
 {
-	//User Interface
-	int ui_MouseMoveTimeout; //! Mouse move timeout for move/resize operations
-	int ui_WheelJump; //! Distance to jump with mouse wheel scrolling
-	int ui_ApplicationFontSize; //! Font size to use in the application, apart from pßalettes
-	int ui_PaletteFontSize; //! Fotn size to use in the palettes
-	QString ui_Theme; 	//! Currently used QStyle name
-	int ui_RecentDocCount; //! Number of recent documents to remember
-	QString ui_Language; //! Language of the user interface
-	bool ui_UseSmallWidgets; //! Use small widgets in the palettes
-	bool ui_ShowStartupDialog; //! Whether to show the startup dialog or not
-	//Paths
-	//Document Setup
+	UIPrefs uiPrefs;
+	PathPrefs pathPrefs;
+	DocumentSetupPrefs docSetupPrefs;
 	//Guides
 	//Typography
 	//Item Tools
@@ -207,11 +235,11 @@ struct ApplicationPrefs
 	toolPrefs toolSettings;
 	CheckerPrefsList checkerProfiles;
 	QString curCheckProfile;
-	int docUnitIndex;
+
 	windowPrefs mainWinSettings;
 	QByteArray mainWinState;
 	
-	MarginStruct bleeds;
+
 
 	PDFOptions PDF_Options;
 	ObjAttrVector defaultItemAttributes;
@@ -231,13 +259,7 @@ struct ApplicationPrefs
 	QString PrinterName;
 	QString PrinterFile;
 	QString PrinterCommand;
-	QString pageSize;
-	int pageOrientation;
-	double PageWidth;
-	double PageHeight;
-	MarginStruct margins;
-	int marginPreset;
-	int FacingPages;
+
 	int MinWordLen;
 	int HyCount;
 	QString Language;
@@ -246,10 +268,7 @@ struct ApplicationPrefs
 
 	bool Automatic;
 	bool AutoCheck;
-	QString DocDir;
-	QString ProfileDir;
-	QString ScriptDir;
-	QString documentTemplatesDir;
+
 	QMap<QString,QString> GFontSub;
 	bool AutoSave;
 	int AutoSaveTime;

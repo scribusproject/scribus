@@ -66,7 +66,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	prefsManager=PrefsManager::instance();
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	ap = (ScribusMainWindow*)parent;
-	docUnitIndex = prefsData->docUnitIndex;
+	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 
 
@@ -114,8 +114,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 								DocFonts,
 								prefsData->PDF_Options.PresentVals,
 								docUnitIndex,
-								prefsData->PageHeight,
-								prefsData->PageWidth,
+								prefsData->docSetupPrefs.pageHeight,
+								prefsData->docSetupPrefs.pageWidth,
 								0 );
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
 
@@ -151,7 +151,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	setupGui();
 	addPlugins();
 
-	setDS(prefsData->FacingPages);
+	setDS(prefsData->docSetupPrefs.pagePositioning);
 
 	resize( minimumSizeHint() );
 	prefsSelection->arrangeIcons();
@@ -201,7 +201,7 @@ void Preferences::setupGui()
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
-	tabView->restoreDefaults(prefsData, prefsData->guidesSettings, prefsData->pageSets, prefsData->FacingPages, prefsData->scratch);
+	tabView->restoreDefaults(prefsData, prefsData->guidesSettings, prefsData->pageSets, prefsData->docSetupPrefs.pagePositioning, prefsData->scratch);
 	tabView->gapHorizontal->setValue(prefsData->GapHorizontal); // * unitRatio);
 	tabView->gapVertical->setValue(prefsData->GapVertical); // * unitRatio);
 	tabScrapbook->restoreDefaults(prefsData);
@@ -222,8 +222,8 @@ void Preferences::setupGui()
 							DocFonts,
 							prefsData->PDF_Options.PresentVals,
 							docUnitIndex,
-							prefsData->PageHeight,
-							prefsData->PageWidth,
+							prefsData->docSetupPrefs.pageHeight,
+							prefsData->docSetupPrefs.pageWidth,
 							0, false);
 
 	if (ScCore->haveCMS())
@@ -343,23 +343,21 @@ void Preferences::updatePreferences()
 {
 	double prefsUnitRatio = unitGetRatioFromIndex(tabDocument->unitCombo->currentIndex());
 
-	prefsManager->appPrefs.ui_ApplicationFontSize = tabGeneral->GFsize->value();
-	prefsManager->appPrefs.ui_PaletteFontSize = tabGeneral->GTFsize->value();
+	prefsManager->appPrefs.uiPrefs.applicationFontSize = tabGeneral->GFsize->value();
+	prefsManager->appPrefs.uiPrefs.paletteFontSize = tabGeneral->GTFsize->value();
 	ScQApp->neverSplash(!tabGeneral->showSplashCheckBox->isChecked());
-	prefsManager->appPrefs.ui_ShowStartupDialog = tabGeneral->startUpDialog->isChecked();
-	prefsManager->appPrefs.ui_WheelJump = tabGeneral->wheelJumpSpin->value();
-	prefsManager->appPrefs.ui_MouseMoveTimeout = tabGeneral->spinTimeout->value();
-	prefsManager->appPrefs.ui_RecentDocCount = tabGeneral->recentDocs->value();
-	prefsManager->appPrefs.DocDir = QDir::fromNativeSeparators( tabGeneral->Docs->text() );
-	prefsManager->appPrefs.ProfileDir = QDir::fromNativeSeparators( tabGeneral->ProPfad->text() );
-	prefsManager->appPrefs.ScriptDir = QDir::fromNativeSeparators( tabGeneral->ScriptPfad->text() );
-	prefsManager->appPrefs.documentTemplatesDir = QDir::fromNativeSeparators( tabGeneral->DocumentTemplateDir->text() );
-	prefsManager->appPrefs.ui_Language=tabGeneral->selectedGUILang;
-	prefsManager->appPrefs.ui_Theme = tabGeneral->GUICombo->currentText();
-	prefsManager->appPrefs.ui_UseSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
+	prefsManager->appPrefs.uiPrefs.showStartupDialog = tabGeneral->startUpDialog->isChecked();
+	prefsManager->appPrefs.uiPrefs.wheelJump = tabGeneral->wheelJumpSpin->value();
+	prefsManager->appPrefs.uiPrefs.mouseMoveTimeout = tabGeneral->spinTimeout->value();
+	prefsManager->appPrefs.uiPrefs.recentDocCount = tabGeneral->recentDocs->value();
+	prefsManager->appPrefs.pathPrefs.documents = QDir::fromNativeSeparators( tabGeneral->Docs->text() );
+	prefsManager->appPrefs.pathPrefs.colorProfiles = QDir::fromNativeSeparators( tabGeneral->ProPfad->text() );
+	prefsManager->appPrefs.pathPrefs.scripts = QDir::fromNativeSeparators( tabGeneral->ScriptPfad->text() );
+	prefsManager->appPrefs.pathPrefs.documentTemplates = QDir::fromNativeSeparators( tabGeneral->DocumentTemplateDir->text() );
+	prefsManager->appPrefs.uiPrefs.language=tabGeneral->selectedGUILang;
+	prefsManager->appPrefs.uiPrefs.style = tabGeneral->GUICombo->currentText();
+	prefsManager->appPrefs.uiPrefs.useSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
 
-//	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
-//	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapBelow = tabView->gapVertical->value() / prefsUnitRatio;
 	prefsManager->appPrefs.GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
 	prefsManager->appPrefs.GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
 	prefsManager->appPrefs.marginColored = tabView->checkUnprintable->isChecked();
@@ -400,21 +398,21 @@ void Preferences::updatePreferences()
 									&prefsManager->appPrefs.toolSettings.polyR,
 									&prefsManager->appPrefs.toolSettings.polyCurvature);
 
-	prefsManager->appPrefs.pageSize = tabDocument->prefsPageSizeName;
-	prefsManager->appPrefs.pageOrientation = tabDocument->pageOrientationComboBox->currentIndex();
-	prefsManager->appPrefs.PageWidth = tabDocument->pageW;
-	prefsManager->appPrefs.PageHeight = tabDocument->pageH;
+	prefsManager->appPrefs.docSetupPrefs.pageSize = tabDocument->prefsPageSizeName;
+	prefsManager->appPrefs.docSetupPrefs.pageOrientation = tabDocument->pageOrientationComboBox->currentIndex();
+	prefsManager->appPrefs.docSetupPrefs.pageWidth = tabDocument->pageW;
+	prefsManager->appPrefs.docSetupPrefs.pageHeight = tabDocument->pageH;
 
-	prefsManager->appPrefs.margins.Top = tabDocument->marginGroup->top();
-	prefsManager->appPrefs.margins.Bottom = tabDocument->marginGroup->bottom();
-	prefsManager->appPrefs.margins.Left = tabDocument->marginGroup->left();
-	prefsManager->appPrefs.margins.Right = tabDocument->marginGroup->right();
-	prefsManager->appPrefs.marginPreset = tabDocument->marginGroup->getMarginPreset();
-	prefsManager->appPrefs.FacingPages  = tabDocument->choosenLayout;
-	prefsManager->appPrefs.bleeds.Bottom = tabDocument->marginGroup->bottomBleed();
-	prefsManager->appPrefs.bleeds.Top = tabDocument->marginGroup->topBleed();
-	prefsManager->appPrefs.bleeds.Left = tabDocument->marginGroup->leftBleed();
-	prefsManager->appPrefs.bleeds.Right = tabDocument->marginGroup->rightBleed();
+	prefsManager->appPrefs.docSetupPrefs.margins.Top = tabDocument->marginGroup->top();
+	prefsManager->appPrefs.docSetupPrefs.margins.Bottom = tabDocument->marginGroup->bottom();
+	prefsManager->appPrefs.docSetupPrefs.margins.Left = tabDocument->marginGroup->left();
+	prefsManager->appPrefs.docSetupPrefs.margins.Right = tabDocument->marginGroup->right();
+	prefsManager->appPrefs.docSetupPrefs.marginPreset = tabDocument->marginGroup->getMarginPreset();
+	prefsManager->appPrefs.docSetupPrefs.pagePositioning  = tabDocument->choosenLayout;
+	prefsManager->appPrefs.docSetupPrefs.bleeds.Bottom = tabDocument->marginGroup->bottomBleed();
+	prefsManager->appPrefs.docSetupPrefs.bleeds.Top = tabDocument->marginGroup->topBleed();
+	prefsManager->appPrefs.docSetupPrefs.bleeds.Left = tabDocument->marginGroup->leftBleed();
+	prefsManager->appPrefs.docSetupPrefs.bleeds.Right = tabDocument->marginGroup->rightBleed();
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage = tabDocument->docLayout->firstPage->currentIndex();
 
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());
@@ -439,7 +437,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.useStandardLI = tabMiscellaneous->useStandardLI->isChecked();
 	prefsManager->appPrefs.paragraphsLI = tabMiscellaneous->paragraphsLI->value();
 
-	prefsManager->appPrefs.docUnitIndex = tabDocument->unitCombo->currentIndex();
+	prefsManager->appPrefs.docSetupPrefs.docUnitIndex = tabDocument->unitCombo->currentIndex();
 
 	prefsManager->appPrefs.toolSettings.defFont = tabTools->fontComboText->currentText();
 	prefsManager->appPrefs.toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
