@@ -1152,7 +1152,9 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	psx->translate(out.x(), out.y());
 //	psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-	Transform(currItem, psx);
+	//Transform(currItem, psx);
+	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+	psx->rotate(currItem->rotation());
 	psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	psx->setBrush(Qt::NoBrush);
 	psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), QPointF(currItem->GrEndX, currItem->GrEndY));
