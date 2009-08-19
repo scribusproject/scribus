@@ -49,12 +49,21 @@ public:
 	virtual void drawControls(QPainter* p);
 
 private:
+
+	typedef enum 
+	{
+		noPointDefined,
+		useGradientStart,
+		useGradientEnd
+	} eGradientPoint;
+
 	inline bool GetItem(PageItem** pi);
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
 	bool m_cursorVisible;
 	bool m_lastPosWasOverGuide;
+	eGradientPoint m_gradientPoint;
 };
 
 

@@ -57,6 +57,7 @@
 CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	Mxp = Myp = -1;
+	m_gradientPoint = noPointDefined;
 }
 
 inline bool CanvasMode_EditGradient::GetItem(PageItem** pi)
@@ -167,6 +168,9 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
+	if (m_gradientPoint == noPointDefined)
+		return;
+
 	if (m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -175,12 +179,12 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
 		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
 		FPoint np(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
-		if (m->buttons() & Qt::LeftButton)
+		if (m_gradientPoint == useGradientStart)
 		{
 			currItem->GrStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
 			currItem->GrStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
 		}
-		if (m->buttons() & Qt::RightButton)
+		if (m_gradientPoint == useGradientEnd)
 		{
 			currItem->GrEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
 			currItem->GrEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
@@ -205,6 +209,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
+	m_gradientPoint = noPointDefined;
 	Mxp = mousePointDoc.x(); //m->x();
 	Myp = mousePointDoc.y(); //m->y();
 	if (m->button() == Qt::MidButton)
@@ -214,6 +219,18 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
+	QMatrix itemMatrix;
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	itemMatrix.translate(currItem->xPos(), currItem->yPos());
+	itemMatrix.rotate(currItem->rotation());
+	QPointF gradientStart(currItem->GrStartX, currItem->GrStartY);
+	gradientStart = itemMatrix.map(gradientStart);
+	QPointF gradientEnd(currItem->GrEndX, currItem->GrEndY);
+	gradientEnd = itemMatrix.map(gradientEnd);
+	if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
+		m_gradientPoint = useGradientStart;
+	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
+		m_gradientPoint = useGradientEnd;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 }
@@ -227,5 +244,6 @@ void CanvasMode_EditGradient::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
+	m_gradientPoint = noPointDefined;
 //	m_view->stopDragTimer();
 }
