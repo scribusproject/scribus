@@ -54,8 +54,11 @@ class PRCExporter
 		void convertFile(QString fileName, PageItem_OSGFrame *frame);
 	private:
 		void analyse ( osg::Node *nd, prcfile *out );
+		void getCurrentMaterial(osg::Geode *geode);
+		void getCurrentMaterial(osg::Drawable *geode);
 		void analyseGeode ( osg::Geode *geode, prcfile *out );
 		void analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::Geometry *geom, const osg::Vec3Array *verts );
+		PRCMaterial currentMaterial;
 };
 
 #endif

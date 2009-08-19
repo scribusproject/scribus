@@ -24,6 +24,57 @@ for which a new license (GPL+exception) is in place.
 #include <string>
 #include "exportPRC.h"
 
+void PRCExporter::getCurrentMaterial ( osg::Geode *geode )
+{
+	osg::StateAttribute* pRAP;
+	osg::StateSet* theState = geode->getStateSet();
+	if ( theState )
+	{
+		pRAP = theState->getAttribute ( osg::StateAttribute::MATERIAL );
+		if ( pRAP != NULL )
+		{
+			osg::Material *material = dynamic_cast<osg::Material*> ( pRAP );
+			if ( material != NULL )
+			{
+				const osg::Vec4& Diffuse = material->getDiffuse ( osg::Material::FRONT_AND_BACK );
+				const osg::Vec4& Ambient = material->getAmbient ( osg::Material::FRONT_AND_BACK );
+				const osg::Vec4& Emissive = material->getEmission ( osg::Material::FRONT_AND_BACK );
+				const osg::Vec4& Specular = material->getSpecular ( osg::Material::FRONT_AND_BACK );
+				RGBAColour amb = RGBAColour ( Ambient[0], Ambient[1], Ambient[2], Ambient[3] );
+				RGBAColour dif = RGBAColour ( Diffuse[0], Diffuse[1], Diffuse[2], Diffuse[3] );
+				RGBAColour emi = RGBAColour ( Emissive[0], Emissive[1], Emissive[2], Emissive[3] );
+				RGBAColour spe = RGBAColour ( Specular[0], Specular[1], Specular[2], Specular[3] );
+				currentMaterial = PRCMaterial ( amb, dif, emi, spe, Diffuse[3], material->getShininess ( osg::Material::FRONT_AND_BACK ) );
+			}
+		}
+	}
+}
+
+void PRCExporter::getCurrentMaterial ( osg::Drawable *geode )
+{
+	osg::StateAttribute* pRAP;
+	osg::StateSet* theState = geode->getStateSet();
+	if ( theState )
+	{
+		pRAP = theState->getAttribute ( osg::StateAttribute::MATERIAL );
+		if ( pRAP != NULL )
+		{
+			osg::Material *material = dynamic_cast<osg::Material*> ( pRAP );
+			if ( material != NULL )
+			{
+				const osg::Vec4& Diffuse = material->getDiffuse ( osg::Material::FRONT_AND_BACK );
+				const osg::Vec4& Ambient = material->getAmbient ( osg::Material::FRONT_AND_BACK );
+				const osg::Vec4& Emissive = material->getEmission ( osg::Material::FRONT_AND_BACK );
+				const osg::Vec4& Specular = material->getSpecular ( osg::Material::FRONT_AND_BACK );
+				RGBAColour amb = RGBAColour ( Ambient[0], Ambient[1], Ambient[2], Ambient[3] );
+				RGBAColour dif = RGBAColour ( Diffuse[0], Diffuse[1], Diffuse[2], Diffuse[3] );
+				RGBAColour emi = RGBAColour ( Emissive[0], Emissive[1], Emissive[2], Emissive[3] );
+				RGBAColour spe = RGBAColour ( Specular[0], Specular[1], Specular[2], Specular[3] );
+				currentMaterial = PRCMaterial ( amb, dif, emi, spe, Diffuse[3], material->getShininess ( osg::Material::FRONT_AND_BACK ) );
+			}
+		}
+	}
+}
 
 void PRCExporter::analyse ( osg::Node *nd, prcfile *out )
 {
@@ -55,10 +106,12 @@ void PRCExporter::analyse ( osg::Node *nd, prcfile *out )
 
 void PRCExporter::analyseGeode ( osg::Geode *geode, prcfile *out )
 {
+	getCurrentMaterial ( geode );
 	for ( unsigned int i=0; i<geode->getNumDrawables(); i++ )
 	{
 		osg::Drawable *drawable=geode->getDrawable ( i );
 		osg::Geometry *geom=dynamic_cast<osg::Geometry *> ( drawable );
+		getCurrentMaterial ( drawable );
 		for ( unsigned int ipr=0; ipr<geom->getNumPrimitiveSets(); ipr++ )
 		{
 			osg::PrimitiveSet* prset=geom->getPrimitiveSet ( ipr );
@@ -70,11 +123,11 @@ void PRCExporter::analyseGeode ( osg::Geode *geode, prcfile *out )
 void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::Geometry *geom, const osg::Vec3Array *verts )
 {
 	unsigned int ic;
-	const osg::Vec4Array *Diffuse = dynamic_cast<const osg::Vec4Array*> ( geom->getColorArray() );
-	double r = ( *Diffuse ) [0].x();
-	double g = ( *Diffuse ) [0].y();
-	double b = ( *Diffuse ) [0].z();
-	double a = ( *Diffuse ) [0].w();
+//	const osg::Vec4Array *Diffuse = dynamic_cast<const osg::Vec4Array*> ( geom->getColorArray() );
+//	double r = ( *Diffuse ) [0].x();
+//	double g = ( *Diffuse ) [0].y();
+//	double b = ( *Diffuse ) [0].z();
+//	double a = ( *Diffuse ) [0].w();
 	// you might want to handle each type of primset differently: such as:
 	switch ( prset->getMode() )
 	{
@@ -105,7 +158,8 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::G
 				points[3][0] = ( * verts ) [prset->index ( ic+2 ) ].x();
 				points[3][1] = ( * verts ) [prset->index ( ic+2 ) ].y();
 				points[3][2] = ( * verts ) [prset->index ( ic+2 ) ].z();
-				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
+				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, currentMaterial ) );
+//				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
 			}
 			break;
 		case osg::PrimitiveSet::TRIANGLE_STRIP: // look up how tristrips are coded
@@ -138,7 +192,8 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::G
 				points[3][0] = ( * verts ) [prset->index ( ic+2 ) ].x();
 				points[3][1] = ( * verts ) [prset->index ( ic+2 ) ].y();
 				points[3][2] = ( * verts ) [prset->index ( ic+2 ) ].z();
-				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
+				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, currentMaterial ) );
+//				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
 			}
 			break;
 		case osg::PrimitiveSet::QUAD_STRIP: // look up how tristrips are coded
@@ -148,14 +203,14 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::G
 	}
 }
 
-void PRCExporter::convertFile(QString fileName, PageItem_OSGFrame *frame)
+void PRCExporter::convertFile ( QString fileName, PageItem_OSGFrame *frame )
 {
 	if ( !fileName.isEmpty() )
 	{
-		if (frame->loadedModel)
+		if ( frame->loadedModel )
 		{
 			prcfile oPRC ( fileName.toStdString() );
-			analyse (frame->loadedModel.get(), &oPRC );
+			analyse ( frame->loadedModel.get(), &oPRC );
 			oPRC.finish();
 		}
 	}
