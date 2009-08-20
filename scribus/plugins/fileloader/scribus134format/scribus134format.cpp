@@ -1685,7 +1685,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (!loadPage)
 	{
-		if (tagName == "PAGEOBJECT" || tagName =="FRAMEOBJECT")
+		if (tagName == "PAGEOBJECT" || tagName =="FRAMEOBJECT" || tagName =="PatternItem")
 			doc->setMasterPageMode(false);
 		else
 			doc->setMasterPageMode(true);
@@ -1895,8 +1895,14 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 {
 	ScPattern pat;
 	ScXmlStreamAttributes attrs = reader.scAttributes();
-	QString patterName = attrs.valueAsString("Name");
+	QString patternName = attrs.valueAsString("Name");
 	bool success = true;
+
+	if (patternName.isEmpty())
+	{
+		reader.readToElementEnd();
+		return true;
+	}
 
 	QMap<PageItem*, int> groupID2;
 	QMap<int,int> TableID2;
@@ -1922,7 +1928,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
-		if (!reader.isStartElement() || reader.name() != "PAGEOBJECT") 
+		if (!reader.isStartElement() || reader.name() != "PatternItem") 
 			continue;
 
 		QStringRef tName = reader.name();
@@ -1989,20 +1995,22 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	}
 
 	uint itemCount2 = m_Doc->Items->count();
-
-	PageItem* currItem = doc->Items->at(itemCount1), *newItem;
-	pat.pattern = currItem->DrawObj_toImage();
-	pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
-	for (uint as = itemCount1; as < itemCount2; ++as)
+	if (itemCount2 > itemCount1)
 	{
-		newItem = doc->Items->takeAt(itemCount1);
-		newItem->moveBy(pat.xoffset, pat.yoffset, true);
-		newItem->gXpos += pat.xoffset;
-		newItem->gYpos += pat.yoffset;
-		newItem->ItemNr = pat.items.count();
-		pat.items.append(newItem);
+		PageItem* currItem = doc->Items->at(itemCount1), *newItem;
+		pat.pattern = currItem->DrawObj_toImage();
+		pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
+		for (uint as = itemCount1; as < itemCount2; ++as)
+		{
+			newItem = doc->Items->takeAt(itemCount1);
+			newItem->moveBy(pat.xoffset, pat.yoffset, true);
+			newItem->gXpos += pat.xoffset;
+			newItem->gYpos += pat.yoffset;
+			newItem->ItemNr = pat.items.count();
+			pat.items.append(newItem);
+		}
 	}
-	doc->docPatterns.insert(patterName, pat);
+	doc->docPatterns.insert(patternName, pat);
 
 	return success;
 }
@@ -3491,6 +3499,7 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num2 = counter2;
 	return success;
 }
+
 
 
 

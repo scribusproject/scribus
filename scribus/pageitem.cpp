@@ -369,7 +369,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BaseOffs = 0;
 	textPathType = 0;
 	textPathFlipped = false;
-	OwnPage = m_Doc->currentPage()->pageNr();
+	OwnPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageNr() : -1;
 	oldOwnPage = OwnPage;
 	savedOwnPage = OwnPage;
 	PicArt = true;
@@ -509,7 +509,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	groupsLastItem = 0;
 	ChangedMasterItem = false;
 	isEmbedded = false;
-	OnMasterPage = m_Doc->currentPage()->pageName();
+	OnMasterPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageName() : QString();
 	m_startArrowIndex = m_Doc->toolSettings.dStartArrow;
 	m_endArrowIndex = m_Doc->toolSettings.dEndArrow;
 	effectsInUse.clear();
