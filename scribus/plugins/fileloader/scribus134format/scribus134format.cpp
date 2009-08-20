@@ -1374,19 +1374,24 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				pat.scaleY = ScCLocale::toDoubleC( pg.attribute("scaleY"), 0.0);
 				pat.xoffset = ScCLocale::toDoubleC( pg.attribute("xoffset"), 0.0);
 				pat.yoffset = ScCLocale::toDoubleC( pg.attribute("yoffset"), 0.0);
-				PageItem* currItem = m_Doc->Items->at(ac);
-				pat.pattern = currItem->DrawObj_toImage();
-				pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
-				for (uint as = ac; as < ae; ++as)
+				if (ae > ac)
 				{
-					Neu = m_Doc->Items->takeAt(ac);
-					Neu->moveBy(pat.xoffset, pat.yoffset, true);
-					Neu->gXpos += pat.xoffset;
-					Neu->gYpos += pat.yoffset;
-					Neu->ItemNr = pat.items.count();
-					pat.items.append(Neu);
+					PageItem* currItem = m_Doc->Items->at(ac);
+					pat.pattern = currItem->DrawObj_toImage();
+					pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
+					for (uint as = ac; as < ae; ++as)
+					{
+						Neu = m_Doc->Items->takeAt(ac);
+						Neu->moveBy(pat.xoffset, pat.yoffset, true);
+						Neu->gXpos += pat.xoffset;
+						Neu->gYpos += pat.yoffset;
+						Neu->ItemNr = pat.items.count();
+						pat.items.append(Neu);
+					}
 				}
-				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
+				QString patName = pg.attribute("Name");
+				if (!patName.isEmpty())
+					m_Doc->docPatterns.insert(patName, pat);
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -3246,21 +3251,26 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 				m_Doc->useRaster = savedAlignGrid;
 				m_Doc->SnapGuides = savedAlignGuides;
-				uint ae = m_Doc->Items->count();
 				pat.setDoc(m_Doc);
-				PageItem* currItem = m_Doc->Items->at(ac);
-				pat.pattern = currItem->DrawObj_toImage();
-				for (uint as = ac; as < ae; ++as)
-				{
-					Neu = m_Doc->Items->takeAt(ac);
-					Neu->ItemNr = pat.items.count();
-					pat.items.append(Neu);
-				}
-				pat.width = ScCLocale::toDoubleC( pg.attribute("width"), 0.0);
+				pat.width  = ScCLocale::toDoubleC( pg.attribute("width"), 0.0);
 				pat.height = ScCLocale::toDoubleC( pg.attribute("height"), 0.0);
 				pat.scaleX = ScCLocale::toDoubleC( pg.attribute("scaleX"), 0.0);
 				pat.scaleY = ScCLocale::toDoubleC( pg.attribute("scaleY"), 0.0);
-				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
+				uint ae = m_Doc->Items->count();
+				if (ae > ac)
+				{
+					PageItem* currItem = m_Doc->Items->at(ac);
+					pat.pattern = currItem->DrawObj_toImage();
+					for (uint as = ac; as < ae; ++as)
+					{
+						Neu = m_Doc->Items->takeAt(ac);
+						Neu->ItemNr = pat.items.count();
+						pat.items.append(Neu);
+					}
+				}
+				QString patName = pg.attribute("Name");
+				if (!patName.isEmpty())
+					m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -3622,6 +3632,7 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num2 = counter2;
 	return true;
 }
+
 
 
 
