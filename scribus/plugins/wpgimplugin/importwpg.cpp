@@ -76,22 +76,35 @@ void ScrPainter::startGraphics(double width, double height)
 	currentGradient.clearStops();
 	currentGradient.setRepeatMethod( VGradient::none );
 	dashArray.clear();
-//	printf("RawPainter::startGraphics(width: %.4fin, height: %.4fin)\n", width, height);
+	if (flags & LoadSavePlugin::lfCreateDoc)
+	{
+		m_Doc->setPage(72 * width, 72 * height, 0, 0, 0, 0, 0, 0, false, false);
+		if (width > height)
+			m_Doc->PageOri = 1;
+		else
+			m_Doc->PageOri = 0;
+		m_Doc->m_pageSize = "Custom";
+		m_Doc->changePageMargins(0, 0, 0, 0, 72 * height, 72 * width, 72 * height, 72 * width, m_Doc->PageOri, m_Doc->m_pageSize, m_Doc->currentPage()->pageNr(), 0);
+	}
+	firstLayer = true;
 }
 
 void ScrPainter::endGraphics()
 {
-//	printf("RawPainter::endGraphics\n");
 }
 
 void ScrPainter::startLayer(unsigned int id)
 {
-	printf("RawPainter::startLayer %d\n", id);
+	if (flags & LoadSavePlugin::lfCreateDoc)
+	{
+		if (!firstLayer)
+			m_Doc->addLayer(QString("Layer %1").arg(id), true);
+		firstLayer = false;
+	}
 }
 
 void ScrPainter::endLayer(unsigned int id)
 {
-	printf("RawPainter::endLayer %d\n", id);
 }
 
 void ScrPainter::setPen(const libwpg::WPGPen& pen)
@@ -396,7 +409,6 @@ bool WpgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
@@ -426,7 +438,6 @@ bool WpgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-//	parseHeader(fName, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
@@ -653,6 +664,7 @@ bool WpgPlug::convert(QString fn)
 	painter.m_Doc = m_Doc;
 	painter.baseX = baseX;
 	painter.baseY = baseY;
+	painter.flags = importerFlags;
 	libwpg::WPGraphics::parse(&input, &painter);
 	Elements = painter.Elements;
 	importedColors = painter.importedColors;

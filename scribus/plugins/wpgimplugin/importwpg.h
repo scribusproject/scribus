@@ -65,6 +65,8 @@ public:
 	bool isGradient;
 	VGradient currentGradient;
 	QVector<double> dashArray;
+	int flags;
+	bool firstLayer;
 };
 
 //! \brief WPG importer plugin
@@ -104,7 +106,6 @@ private:
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
-	qreal scPg;
 
 	QStringList importedColors;
 
@@ -114,8 +115,6 @@ private:
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
 	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
 
 public slots:
 	void cancelRequested() { cancel = true; }
