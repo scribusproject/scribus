@@ -21,7 +21,7 @@ public:
 	double GetZeroFaktor();
 	double GetMaxFaktor();
 	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature);
-	void restoreDefaults(struct toolPrefs *prefsData);
+	void restoreDefaults(struct ToolPrefs *prefsData);
 	double PFactor;
 
 public slots:

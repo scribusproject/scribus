@@ -78,7 +78,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabDocument = new TabDocument( prefsWidgets, "tabDocument" );
 	addItem( tr("Document"), loadIcon("scribusdoc.png"), tabDocument);
 
-	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
+	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesPrefs, &prefsData->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabTypo = new TabTypograpy(prefsWidgets, &prefsData->typographicSettings);
@@ -201,12 +201,12 @@ void Preferences::setupGui()
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
-	tabView->restoreDefaults(prefsData, prefsData->guidesSettings, prefsData->pageSets, prefsData->docSetupPrefs.pagePositioning, prefsData->scratch);
+	tabView->restoreDefaults(prefsData, prefsData->guidesPrefs, prefsData->pageSets, prefsData->docSetupPrefs.pagePositioning, prefsData->scratch);
 	tabView->gapHorizontal->setValue(prefsData->GapHorizontal); // * unitRatio);
 	tabView->gapVertical->setValue(prefsData->GapVertical); // * unitRatio);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
-	tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
+	tabGuides->restoreDefaults(&prefsData->guidesPrefs, &prefsData->typographicSettings, docUnitIndex);
 	tabTypo->restoreDefaults(&prefsData->typographicSettings);
 	tabTools->restoreDefaults(&prefsData->toolSettings, docUnitIndex);
 	// main performance issue in availFonts->GetFonts(HomeP)!
@@ -378,13 +378,13 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.DControlCharColor = tabView->colorControlChars;
 	// Guides
 
-	prefsManager->appPrefs.guidesSettings.framesShown = tabView->checkFrame->isChecked();
-	prefsManager->appPrefs.guidesSettings.showBleed = tabView->checkBleed->isChecked();
-	prefsManager->appPrefs.guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
-	prefsManager->appPrefs.guidesSettings.rulerMode = tabView->checkRuler->isChecked();
-	prefsManager->appPrefs.guidesSettings.showPic = tabView->checkPictures->isChecked();
-	prefsManager->appPrefs.guidesSettings.linkShown = tabView->checkLink->isChecked();
-	prefsManager->appPrefs.guidesSettings.showControls = tabView->checkControl->isChecked();
+	prefsManager->appPrefs.guidesPrefs.framesShown = tabView->checkFrame->isChecked();
+	prefsManager->appPrefs.guidesPrefs.showBleed = tabView->checkBleed->isChecked();
+	prefsManager->appPrefs.guidesPrefs.layerMarkersShown = tabView->checkLayerM->isChecked();
+	prefsManager->appPrefs.guidesPrefs.rulerMode = tabView->checkRuler->isChecked();
+	prefsManager->appPrefs.guidesPrefs.showPic = tabView->checkPictures->isChecked();
+	prefsManager->appPrefs.guidesPrefs.linkShown = tabView->checkLink->isChecked();
+	prefsManager->appPrefs.guidesPrefs.showControls = tabView->checkControl->isChecked();
 	prefsManager->appPrefs.DisScale = tabView->DisScale;
 
 	prefsManager->appPrefs.doCopyToScrapbook = tabScrapbook->useScrapBookasExtension->isChecked();
@@ -429,7 +429,7 @@ void Preferences::updatePreferences()
 	prefsManager->setLatexCommands(tabExtTools->newLatexCommands());
 	prefsManager->setLatexEditorExecutable(tabExtTools->newLatexEditor());
 
-	prefsManager->appPrefs.guidesSettings.before = tabGuides->inBackground->isChecked();
+	prefsManager->appPrefs.guidesPrefs.guidePlacement = tabGuides->inBackground->isChecked();
 	
 	prefsManager->appPrefs.askBeforeSubstituite = tabMiscellaneous->AskForSubs->isChecked();
 	prefsManager->appPrefs.haveStylePreview = tabMiscellaneous->stylePreview->isChecked();
@@ -442,19 +442,19 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.defFont = tabTools->fontComboText->currentText();
 	prefsManager->appPrefs.toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 
-	prefsManager->appPrefs.guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
-	prefsManager->appPrefs.guidesSettings.gridShown = tabGuides->checkGrid->isChecked();
-	prefsManager->appPrefs.guidesSettings.guidesShown = tabGuides->guideBox->isChecked();
-	prefsManager->appPrefs.guidesSettings.baseShown = tabGuides->baselineBox->isChecked();
-	prefsManager->appPrefs.guidesSettings.grabRad = tabGuides->grabDistance->value();
-	prefsManager->appPrefs.guidesSettings.guideRad = tabGuides->snapDistance->value();
-	prefsManager->appPrefs.guidesSettings.minorGrid = tabGuides->minorSpace->value() / prefsUnitRatio;
-	prefsManager->appPrefs.guidesSettings.majorGrid = tabGuides->majorSpace->value() / prefsUnitRatio;
-	prefsManager->appPrefs.guidesSettings.minorColor = tabGuides->colorMinorGrid;
-	prefsManager->appPrefs.guidesSettings.majorColor = tabGuides->colorMajorGrid;
-	prefsManager->appPrefs.guidesSettings.margColor = tabGuides->colorMargin;
-	prefsManager->appPrefs.guidesSettings.guideColor = tabGuides->colorGuides;
-	prefsManager->appPrefs.guidesSettings.baseColor = tabGuides->colorBaselineGrid;
+	prefsManager->appPrefs.guidesPrefs.marginsShown = tabGuides->marginBox->isChecked();
+	prefsManager->appPrefs.guidesPrefs.gridShown = tabGuides->checkGrid->isChecked();
+	prefsManager->appPrefs.guidesPrefs.guidesShown = tabGuides->guideBox->isChecked();
+	prefsManager->appPrefs.guidesPrefs.baselineGridShown = tabGuides->baselineBox->isChecked();
+	prefsManager->appPrefs.guidesPrefs.grabRadius = tabGuides->grabDistance->value();
+	prefsManager->appPrefs.guidesPrefs.guideRad = tabGuides->snapDistance->value();
+	prefsManager->appPrefs.guidesPrefs.minorGridSpacing = tabGuides->minorSpace->value() / prefsUnitRatio;
+	prefsManager->appPrefs.guidesPrefs.majorGridSpacing = tabGuides->majorSpace->value() / prefsUnitRatio;
+	prefsManager->appPrefs.guidesPrefs.minorGridColor = tabGuides->colorMinorGrid;
+	prefsManager->appPrefs.guidesPrefs.majorGridColor = tabGuides->colorMajorGrid;
+	prefsManager->appPrefs.guidesPrefs.marginColor = tabGuides->colorMargin;
+	prefsManager->appPrefs.guidesPrefs.guideColor = tabGuides->colorGuides;
+	prefsManager->appPrefs.guidesPrefs.baselineGridColor = tabGuides->colorBaselineGrid;
 	prefsManager->appPrefs.checkerProfiles = tabDocChecker->checkerProfile;
 	prefsManager->appPrefs.curCheckProfile = tabDocChecker->curCheckProfile->currentText();
 	prefsManager->appPrefs.typographicSettings.valueSuperScript = tabTypo->superDisplacement->value();
@@ -463,8 +463,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typographicSettings.scalingSubScript = tabTypo->subScaling->value();
 	prefsManager->appPrefs.typographicSettings.valueSmallCaps = tabTypo->capsScaling->value();
 	prefsManager->appPrefs.typographicSettings.autoLineSpacing = tabTypo->autoLine->value();
-	prefsManager->appPrefs.typographicSettings.valueBaseGrid = tabGuides->baseGrid->value(); // / prefsUnitRatio;
-	prefsManager->appPrefs.typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value(); // / prefsUnitRatio;
+	prefsManager->appPrefs.guidesPrefs.valueBaselineGrid = tabGuides->baseGrid->value(); // / prefsUnitRatio;
+	prefsManager->appPrefs.guidesPrefs.offsetBaselineGrid = tabGuides->baseOffset->value(); // / prefsUnitRatio;
 	prefsManager->appPrefs.typographicSettings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);

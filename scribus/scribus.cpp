@@ -2486,7 +2486,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
 	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
 	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baseShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
 	scrActions["viewShowImages"]->setChecked(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
 	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
@@ -2562,7 +2562,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
 	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
 	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baseShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
 	scrActions["viewShowImages"]->setChecked(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
 	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
@@ -5911,7 +5911,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		doc->guidesSettings.framesShown = guidesStatus[2];
 		doc->guidesSettings.gridShown = guidesStatus[3];
 		doc->guidesSettings.guidesShown = guidesStatus[4];
-		doc->guidesSettings.baseShown = guidesStatus[5];
+		doc->guidesSettings.baselineGridShown = guidesStatus[5];
 		doc->guidesSettings.linkShown = guidesStatus[6];
 		doc->guidesSettings.showControls = guidesStatus[7];
 		doc->guidesSettings.rulerMode = guidesStatus[8];
@@ -5939,7 +5939,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		guidesStatus[2] = !doc->guidesSettings.framesShown;
 		guidesStatus[3] = !doc->guidesSettings.gridShown;
 		guidesStatus[4] = !doc->guidesSettings.guidesShown;
-		guidesStatus[5] = !doc->guidesSettings.baseShown;
+		guidesStatus[5] = !doc->guidesSettings.baselineGridShown;
 		guidesStatus[6] = !doc->guidesSettings.linkShown;
 		guidesStatus[7] = !doc->guidesSettings.showControls;
 		guidesStatus[8] = !doc->guidesSettings.rulerMode;
@@ -5951,7 +5951,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		doc->guidesSettings.framesShown = false;
 		doc->guidesSettings.gridShown = false;
 		doc->guidesSettings.guidesShown = false;
-		doc->guidesSettings.baseShown = false;
+		doc->guidesSettings.baselineGridShown = false;
 		doc->guidesSettings.linkShown = false;
 		doc->guidesSettings.showControls = false;
 		doc->guidesSettings.rulerMode = false;
@@ -5968,7 +5968,7 @@ void ScribusMainWindow::ToggleAllGuides()
 	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
 	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
 	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baseShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
 	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
 	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
 	scrActions["viewShowRulers"]->setChecked(doc->guidesSettings.rulersShown);
@@ -6051,7 +6051,7 @@ void ScribusMainWindow::ToggleBase()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.baseShown = !doc->guidesSettings.baseShown;
+		doc->guidesSettings.baselineGridShown = !doc->guidesSettings.baselineGridShown;
 		view->DrawNew();
 	}
 }

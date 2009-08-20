@@ -211,7 +211,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
-	int radius = m_doc->guidesSettings.grabRad;
+	int radius = m_doc->guidesSettings.grabRadius;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
@@ -221,7 +221,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
-	int radius = m_doc->guidesSettings.grabRad;
+	int radius = m_doc->guidesSettings.grabRadius;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
@@ -273,7 +273,7 @@ static double length2(const QPointF& p)
 Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) const
 {
 	FrameHandle result = INSIDE;
-	const double radius = m_doc->guidesSettings.grabRad / m_viewMode.scale;
+	const double radius = m_doc->guidesSettings.grabRadius / m_viewMode.scale;
 	const double radius2 = radius * radius;
 	double resultDistance = radius2 * 10.0; // far off
 	
@@ -362,7 +362,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) cons
 PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool allowInGroup, bool allowMasterItems) const
 {
 	PageItem* currItem;
-	QRectF mouseArea = globalToCanvas(QRect(globalPos, QSize(2*m_doc->guidesSettings.grabRad, 2*m_doc->guidesSettings.grabRad)));
+	QRectF mouseArea = globalToCanvas(QRect(globalPos, QSize(2*m_doc->guidesSettings.grabRadius, 2*m_doc->guidesSettings.grabRadius)));
 	// look for masterpage items first
 	if (allowMasterItems && !m_doc->masterPageMode() && m_doc->currentPage()->FromMaster.count() != 0)
 	{
@@ -915,7 +915,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 			painter->beginLayer(1.0, 0);
 		
 		m_viewMode.linkedFramesToShow.clear();
-		if ((m_doc->guidesSettings.before) && (!m_viewMode.viewAsPreview))
+		if ((m_doc->guidesSettings.guidePlacement) && (!m_viewMode.viewAsPreview))
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
@@ -931,7 +931,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		}
 		painter->endLayer();
 //		Tcontents = tim.elapsed();
-		if ((!m_doc->guidesSettings.before) && (!m_viewMode.viewAsPreview))
+		if ((!m_doc->guidesSettings.guidePlacement) && (!m_viewMode.viewAsPreview))
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
@@ -958,7 +958,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		double h = m_doc->currentPage()->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
 		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-		if ((!m_doc->guidesSettings.before) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
+		if ((!m_doc->guidesSettings.guidePlacement) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 	}
 	if (((m_doc->m_Selection->count() != 0) || (m_viewMode.linkedFramesToShow.count() != 0))  && (!m_viewMode.viewAsPreview))
@@ -1647,7 +1647,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 			painter->drawRect(m_doc->scratch.Left, m_doc->scratch.Top, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 		}
 		painter->setAntialiasing(true);
-		if (m_doc->guidesSettings.before)
+		if (m_doc->guidesSettings.guidePlacement)
 			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 //		painter->endLayer();
 	}
@@ -1826,11 +1826,11 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	//Draw the margins
 	if (m_doc->guidesSettings.marginsShown)
 	{
-		p->setPen(m_doc->guidesSettings.margColor);
+		p->setPen(m_doc->guidesSettings.marginColor);
 		if (m_doc->marginColored)
 		{
 			p->setFillMode(ScPainter::Solid);
-			p->setBrush(m_doc->guidesSettings.margColor);
+			p->setBrush(m_doc->guidesSettings.marginColor);
 			p->drawRect(0, 0, pageWidth, page->Margins.Top);
 			p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
 			p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
@@ -1846,10 +1846,10 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 //		p->drawLine(FPoint(pageWidth - page->Margins.Right, 0), FPoint(pageWidth - page->Margins.Right, pageHeight));
 	}
 	//Draw the baseline grid
-	if (m_doc->guidesSettings.baseShown)
+	if (m_doc->guidesSettings.baselineGridShown)
 	{
-		p->setPen(m_doc->guidesSettings.baseColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		for (double yg = m_doc->typographicSettings.offsetBaseGrid; yg < pageHeight; yg += m_doc->typographicSettings.valueBaseGrid)
+		p->setPen(m_doc->guidesSettings.baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		for (double yg = m_doc->guidesSettings.offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesSettings.valueBaselineGrid)
 			p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
 	}
 	//Draw the grid lines
@@ -1862,8 +1862,8 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		if (m_viewMode.scale > 0.49)
 		{
 			double i,start;
-			i = m_doc->guidesSettings.majorGrid;
-			p->setPen(m_doc->guidesSettings.majorColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			i = m_doc->guidesSettings.majorGridSpacing;
+			p->setPen(m_doc->guidesSettings.majorGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			start=floor(lowerBy/i);
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)
@@ -1876,8 +1876,8 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 			{
 				p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
 			}
-			i = m_doc->guidesSettings.minorGrid;
-			p->setPen(m_doc->guidesSettings.minorColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			i = m_doc->guidesSettings.minorGridSpacing;
+			p->setPen(m_doc->guidesSettings.minorGridColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			start=floor(lowerBy/i);
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)

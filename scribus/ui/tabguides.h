@@ -27,9 +27,9 @@ class SCRIBUS_API TabGuides : public QWidget
 	Q_OBJECT
 
 public:
-	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
+	TabGuides( QWidget* parent, struct GuidesPrefs *prefsData, struct TypoPrefs *prefsData2, int unitIndex);
 	~TabGuides() {};
-	void restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
+	void restoreDefaults(struct GuidesPrefs *prefsData, struct TypoPrefs *prefsData2, int unitIndex);
 	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
 
 	ScrSpinBox* majorSpace;

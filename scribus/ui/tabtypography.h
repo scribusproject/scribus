@@ -21,9 +21,9 @@ class SCRIBUS_API TabTypograpy : public QWidget
 	Q_OBJECT
 
 public:
-	TabTypograpy( QWidget* parent, struct typoPrefs *prefsData);
+	TabTypograpy( QWidget* parent, struct TypoPrefs *prefsData);
 	~TabTypograpy() {};
-	void restoreDefaults(struct typoPrefs *prefsData);
+	void restoreDefaults(struct TypoPrefs *prefsData);
 
 	QGroupBox* groupBox1a;
 	QLabel* textLabel1a;

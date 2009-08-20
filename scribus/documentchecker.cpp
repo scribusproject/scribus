@@ -35,7 +35,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
 	PageItem* currItem;
 	QString chstr;
-	struct checkerPrefs checkerSettings;
+	struct CheckerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = currDoc->checkerProfiles[currDoc->curCheckProfile].ignoreErrors;
 	checkerSettings.autoCheck = currDoc->checkerProfiles[currDoc->curCheckProfile].autoCheck;
 	checkerSettings.checkGlyphs = currDoc->checkerProfiles[currDoc->curCheckProfile].checkGlyphs;

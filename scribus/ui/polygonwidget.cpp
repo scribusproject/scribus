@@ -52,7 +52,7 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	connect(CurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
 }
 
-void PolygonWidget::restoreDefaults(struct toolPrefs *prefsData)
+void PolygonWidget::restoreDefaults(struct ToolPrefs *prefsData)
 {
 	disconnect(Faktor, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin(int)));
 	disconnect(Faktor2, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin2(int)));

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "units.h"
 
-TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex) : QWidget( parent )
+TabGuides::TabGuides( QWidget* parent, struct GuidesPrefs *prefsData, struct TypoPrefs *prefsData2, int unitIndex) : QWidget( parent )
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString unit = unitGetSuffixFromIndex(unitIndex);
@@ -235,7 +235,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	marginBox->setToolTip( tr("Turns the margins on or off"));
 }
 
-void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex)
+void TabGuides::restoreDefaults(struct GuidesPrefs *prefsData, struct TypoPrefs *prefsData2, int unitIndex)
 {
 	QString unit = unitGetSuffixFromIndex(unitIndex);
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
@@ -246,36 +246,36 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	colorGuides = prefsData->guideColor;
 	guideColor->setIcon(pm3);
 	QPixmap pm6(54, 14);
-	pm6.fill(prefsData->margColor);
-	colorMargin = prefsData->margColor;
+	pm6.fill(prefsData->marginColor);
+	colorMargin = prefsData->marginColor;
 	marginColor->setIcon(pm6);
 	QPixmap pm1(54, 14);
-	pm1.fill(prefsData->majorColor);
-	colorMajorGrid = prefsData->majorColor;
+	pm1.fill(prefsData->majorGridColor);
+	colorMajorGrid = prefsData->majorGridColor;
 	majorGridColor->setIcon(pm1);
 	QPixmap pm(54, 14);
-	pm.fill(prefsData->minorColor);
-	colorMinorGrid = prefsData->minorColor;
+	pm.fill(prefsData->minorGridColor);
+	colorMinorGrid = prefsData->minorGridColor;
 	minorGridColor->setIcon(pm);
 	QPixmap pm4(54, 14);
-	pm4.fill(prefsData->baseColor);
-	colorBaselineGrid = prefsData->baseColor;
+	pm4.fill(prefsData->baselineGridColor);
+	colorBaselineGrid = prefsData->baselineGridColor;
 	baselineColor->setIcon(pm4);
 	minorSpace->setDecimals( decimals );
-	minorSpace->setValue(prefsData->minorGrid  * unitRatio);
+	minorSpace->setValue(prefsData->minorGridSpacing  * unitRatio);
 	minorSpace->setSuffix( unit );
 	majorSpace->setDecimals( decimals );
-	majorSpace->setValue(prefsData->majorGrid * unitRatio);
+	majorSpace->setValue(prefsData->majorGridSpacing * unitRatio);
 	majorSpace->setSuffix( unit );
 	snapDistance->setValue(qRound(prefsData->guideRad));
 	snapDistance->setSuffix( " " + tr( "px" ) );
-	grabDistance->setValue(prefsData->grabRad);
+	grabDistance->setValue(prefsData->grabRadius);
 	grabDistance->setSuffix( " " + tr( " px" ) );
-	baseGrid->setValue(prefsData2->valueBaseGrid);
-	baseOffset->setValue(prefsData2->offsetBaseGrid);
-	inBackground->setChecked( prefsData->before );
-	inForeground->setChecked( !prefsData->before );
-	baselineBox->setChecked(prefsData->baseShown);
+	baseGrid->setValue(prefsData->valueBaselineGrid);
+	baseOffset->setValue(prefsData->offsetBaselineGrid);
+	inBackground->setChecked( prefsData->guidePlacement );
+	inForeground->setChecked( !prefsData->guidePlacement );
+	baselineBox->setChecked(prefsData->baselineGridShown);
 	checkGrid->setChecked(prefsData->gridShown);
 	marginBox->setChecked(prefsData->marginsShown);
 	guideBox->setChecked(prefsData->guidesShown);

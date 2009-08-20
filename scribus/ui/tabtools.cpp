@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 
 
-TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent )
+TabTools::TabTools( QWidget* parent, struct ToolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent )
 {
 	docu = doc;
 	fontPreview = false;
@@ -609,7 +609,7 @@ void TabTools::enableSignals(bool on)
 	}
 }
 
-void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
+void TabTools::restoreDefaults(struct ToolPrefs *prefsData, int unitIndex)
 {
 	enableSignals(false);
 

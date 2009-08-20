@@ -931,8 +931,8 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
-double PageItem::gridOffset() const { return m_Doc->typographicSettings.offsetBaseGrid; }
-double PageItem::gridDistance() const { return m_Doc->typographicSettings.valueBaseGrid; }
+double PageItem::gridOffset() const { return m_Doc->guidesSettings.offsetBaselineGrid; }
+double PageItem::gridDistance() const { return m_Doc->guidesSettings.valueBaselineGrid; }
 
 void PageItem::setGridOffset(double) { } // FIXME
 void PageItem::setGridDistance(double) { } // FIXME

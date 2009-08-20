@@ -288,8 +288,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->typographicSettings.valueSubScript = dc.attribute("VTIEF").toInt();
 		m_Doc->typographicSettings.scalingSubScript = dc.attribute("VTIEFSC").toInt();
 		m_Doc->typographicSettings.valueSmallCaps = dc.attribute("VKAPIT").toInt();
-		m_Doc->typographicSettings.valueBaseGrid  = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
-		m_Doc->typographicSettings.offsetBaseGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
+		m_Doc->guidesSettings.valueBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
+		m_Doc->guidesSettings.offsetBaselineGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
 		m_Doc->typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
 		m_Doc->typographicSettings.valueUnderlinePos = dc.attribute("UnderlinePos", "-1").toInt();
 		m_Doc->typographicSettings.valueUnderlineWidth = dc.attribute("UnderlineWidth", "-1").toInt();
@@ -332,15 +332,15 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
-		m_Doc->guidesSettings.minorGrid = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesSettings.minorGrid);
-		m_Doc->guidesSettings.majorGrid = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesSettings.majorGrid);
+		m_Doc->guidesSettings.minorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
+		m_Doc->guidesSettings.majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
 		m_Doc->guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
 		m_Doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
 		m_Doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 		m_Doc->guidesSettings.framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
 		m_Doc->guidesSettings.layerMarkersShown = static_cast<bool>(dc.attribute("SHOWLAYERM", "0").toInt());
 		m_Doc->guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
-		m_Doc->guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
+		m_Doc->guidesSettings.baselineGridShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
 		m_Doc->guidesSettings.showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
 		m_Doc->guidesSettings.linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
 		m_Doc->guidesSettings.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
@@ -412,19 +412,19 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		if (dc.hasAttribute("PAGEC"))
 			m_Doc->papColor = QColor(dc.attribute("PAGEC"));
 		if (dc.hasAttribute("MARGC"))
-			m_Doc->guidesSettings.margColor = QColor(dc.attribute("MARGC"));
+			m_Doc->guidesSettings.marginColor = QColor(dc.attribute("MARGC"));
 		if (dc.hasAttribute("MINORC"))
-			m_Doc->guidesSettings.minorColor = QColor(dc.attribute("MINORC"));
+			m_Doc->guidesSettings.minorGridColor = QColor(dc.attribute("MINORC"));
 		if (dc.hasAttribute("MAJORC"))
-			m_Doc->guidesSettings.majorColor = QColor(dc.attribute("MAJORC"));
+			m_Doc->guidesSettings.majorGridColor = QColor(dc.attribute("MAJORC"));
 		if (dc.hasAttribute("GuideC"))
 			m_Doc->guidesSettings.guideColor = QColor(dc.attribute("GuideC"));
 		if (dc.hasAttribute("BaseC"))
-			m_Doc->guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
+			m_Doc->guidesSettings.baselineGridColor = QColor(dc.attribute("BaseC"));
 		m_Doc->marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
-		m_Doc->guidesSettings.before = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
+		m_Doc->guidesSettings.guidePlacement = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
 		m_Doc->guidesSettings.guideRad = ScCLocale::toDoubleC(dc.attribute("GuideRad"), 10.0);
-		m_Doc->guidesSettings.grabRad  = dc.attribute("GRAB", "4").toInt();
+		m_Doc->guidesSettings.grabRadius  = dc.attribute("GRAB", "4").toInt();
 		if (dc.hasAttribute("currentProfile"))
 		{
 			m_Doc->checkerProfiles.clear();
@@ -477,7 +477,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			}
 			if (pg.tagName()=="CheckProfile")
 			{
-				struct checkerPrefs checkerSettings;
+				struct CheckerPrefs checkerSettings;
 				checkerSettings.ignoreErrors = static_cast<bool>(pg.attribute("ignoreErrors", "0").toInt());
 				checkerSettings.autoCheck = static_cast<bool>(pg.attribute("autoCheck", "1").toInt());
 				checkerSettings.checkGlyphs = static_cast<bool>(pg.attribute("checkGlyphs", "1").toInt());
@@ -875,7 +875,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					//m_Doc->Pages = &m_Doc->MasterPages;
 					m_Doc->setMasterPageMode(true);
 				}
-				int docGc = m_Doc->GroupCounter, pagenr = -1;
+				//unused int docGc = m_Doc->GroupCounter,
+				int pagenr = -1;
 				if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 				{
 					m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
@@ -1217,8 +1218,8 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("VTIEF",m_Doc->typographicSettings.valueSubScript);
 	dc.setAttribute("VTIEFSC",m_Doc->typographicSettings.scalingSubScript);
 	dc.setAttribute("VKAPIT",m_Doc->typographicSettings.valueSmallCaps);
-	dc.setAttribute("BASEGRID",m_Doc->typographicSettings.valueBaseGrid);
-	dc.setAttribute("BASEO", m_Doc->typographicSettings.offsetBaseGrid);
+	dc.setAttribute("BASEGRID",m_Doc->guidesSettings.valueBaselineGrid);
+	dc.setAttribute("BASEO", m_Doc->guidesSettings.offsetBaselineGrid);
 	dc.setAttribute("AUTOL", m_Doc->typographicSettings.autoLineSpacing);
 	dc.setAttribute("UnderlinePos", m_Doc->typographicSettings.valueUnderlinePos);
 	dc.setAttribute("UnderlineWidth", m_Doc->typographicSettings.valueUnderlineWidth);
@@ -1248,15 +1249,15 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("GUIDELOCK", static_cast<int>(m_Doc->GuideLock));
 	dc.setAttribute("SnapToGuides", static_cast<int>(m_Doc->SnapGuides));
 	dc.setAttribute("SnapToGrid", static_cast<int>(m_Doc->useRaster));
-	dc.setAttribute("MINGRID", m_Doc->guidesSettings.minorGrid);
-	dc.setAttribute("MAJGRID", m_Doc->guidesSettings.majorGrid);
+	dc.setAttribute("MINGRID", m_Doc->guidesSettings.minorGridSpacing);
+	dc.setAttribute("MAJGRID", m_Doc->guidesSettings.majorGridSpacing);
 	dc.setAttribute("SHOWGRID", static_cast<int>(m_Doc->guidesSettings.gridShown));
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(m_Doc->guidesSettings.guidesShown));
 	dc.setAttribute("showcolborders", static_cast<int>(m_Doc->guidesSettings.colBordersShown));
 	dc.setAttribute("SHOWFRAME", static_cast<int>(m_Doc->guidesSettings.framesShown));
 	dc.setAttribute("SHOWLAYERM", static_cast<int>(m_Doc->guidesSettings.layerMarkersShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(m_Doc->guidesSettings.marginsShown));
-	dc.setAttribute("SHOWBASE", static_cast<int>(m_Doc->guidesSettings.baseShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(m_Doc->guidesSettings.baselineGridShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(m_Doc->guidesSettings.showPic));
 	dc.setAttribute("SHOWControl", static_cast<int>(m_Doc->guidesSettings.showControls));
 	dc.setAttribute("SHOWLINK", static_cast<int>(m_Doc->guidesSettings.linkShown));
@@ -1265,7 +1266,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("rulerXoffset", m_Doc->rulerXoffset);
 	dc.setAttribute("rulerYoffset", m_Doc->rulerYoffset);
 	dc.setAttribute("GuideRad", m_Doc->guidesSettings.guideRad);
-	dc.setAttribute("GRAB",m_Doc->guidesSettings.grabRad);
+	dc.setAttribute("GRAB",m_Doc->guidesSettings.grabRadius);
 	dc.setAttribute("POLYC", m_Doc->toolSettings.polyC);
 	dc.setAttribute("POLYF", m_Doc->toolSettings.polyF);
 	dc.setAttribute("POLYR", m_Doc->toolSettings.polyR);
@@ -1308,14 +1309,14 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("PASPECT", static_cast<int>(m_Doc->toolSettings.aspectRatio));
 	dc.setAttribute("EmbeddedPath", static_cast<int>(m_Doc->toolSettings.useEmbeddedPath));
 	dc.setAttribute("HalfRes", m_Doc->toolSettings.lowResType);
-	dc.setAttribute("MINORC",m_Doc->guidesSettings.minorColor.name());
-	dc.setAttribute("MAJORC",m_Doc->guidesSettings.majorColor.name());
+	dc.setAttribute("MINORC",m_Doc->guidesSettings.minorGridColor.name());
+	dc.setAttribute("MAJORC",m_Doc->guidesSettings.majorGridColor.name());
 	dc.setAttribute("GuideC", m_Doc->guidesSettings.guideColor.name());
-	dc.setAttribute("BaseC", m_Doc->guidesSettings.baseColor.name());
+	dc.setAttribute("BaseC", m_Doc->guidesSettings.baselineGridColor.name());
 	dc.setAttribute("GuideZ", m_Doc->guidesSettings.guideRad);
-	dc.setAttribute("BACKG", static_cast<int>(m_Doc->guidesSettings.before));
+	dc.setAttribute("BACKG", static_cast<int>(m_Doc->guidesSettings.guidePlacement));
 	dc.setAttribute("PAGEC",m_Doc->papColor.name());
-	dc.setAttribute("MARGC",m_Doc->guidesSettings.margColor.name());
+	dc.setAttribute("MARGC",m_Doc->guidesSettings.marginColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
 	dc.setAttribute("currentProfile", m_Doc->curCheckProfile);
 	CheckerPrefsList::Iterator itcp;

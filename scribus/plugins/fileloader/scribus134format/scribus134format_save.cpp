@@ -124,8 +124,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("VTIEF"  , m_Doc->typographicSettings.valueSubScript);
 	docu.writeAttribute("VTIEFSC", m_Doc->typographicSettings.scalingSubScript);
 	docu.writeAttribute("VKAPIT" , m_Doc->typographicSettings.valueSmallCaps);
-	docu.writeAttribute("BASEGRID",m_Doc->typographicSettings.valueBaseGrid);
-	docu.writeAttribute("BASEO"  , m_Doc->typographicSettings.offsetBaseGrid);
+	docu.writeAttribute("BASEGRID",m_Doc->guidesSettings.valueBaselineGrid);
+	docu.writeAttribute("BASEO"  , m_Doc->guidesSettings.offsetBaselineGrid);
 	docu.writeAttribute("AUTOL"  , m_Doc->typographicSettings.autoLineSpacing);
 	docu.writeAttribute("UnderlinePos"   , m_Doc->typographicSettings.valueUnderlinePos);
 	docu.writeAttribute("UnderlineWidth" , m_Doc->typographicSettings.valueUnderlineWidth);
@@ -155,15 +155,15 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("GUIDELOCK", static_cast<int>(m_Doc->GuideLock));
 	docu.writeAttribute("SnapToGuides", static_cast<int>(m_Doc->SnapGuides));
 	docu.writeAttribute("SnapToGrid", static_cast<int>(m_Doc->useRaster));
-	docu.writeAttribute("MINGRID", m_Doc->guidesSettings.minorGrid);
-	docu.writeAttribute("MAJGRID", m_Doc->guidesSettings.majorGrid);
+	docu.writeAttribute("MINGRID", m_Doc->guidesSettings.minorGridSpacing);
+	docu.writeAttribute("MAJGRID", m_Doc->guidesSettings.majorGridSpacing);
 	docu.writeAttribute("SHOWGRID", static_cast<int>(m_Doc->guidesSettings.gridShown));
 	docu.writeAttribute("SHOWGUIDES", static_cast<int>(m_Doc->guidesSettings.guidesShown));
 	docu.writeAttribute("showcolborders", static_cast<int>(m_Doc->guidesSettings.colBordersShown));
 	docu.writeAttribute("SHOWFRAME", static_cast<int>(m_Doc->guidesSettings.framesShown));
 	docu.writeAttribute("SHOWLAYERM", static_cast<int>(m_Doc->guidesSettings.layerMarkersShown));
 	docu.writeAttribute("SHOWMARGIN", static_cast<int>(m_Doc->guidesSettings.marginsShown));
-	docu.writeAttribute("SHOWBASE", static_cast<int>(m_Doc->guidesSettings.baseShown));
+	docu.writeAttribute("SHOWBASE", static_cast<int>(m_Doc->guidesSettings.baselineGridShown));
 	docu.writeAttribute("SHOWPICT", static_cast<int>(m_Doc->guidesSettings.showPic));
 	docu.writeAttribute("SHOWControl", static_cast<int>(m_Doc->guidesSettings.showControls));
 	docu.writeAttribute("SHOWLINK", static_cast<int>(m_Doc->guidesSettings.linkShown));
@@ -173,7 +173,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("rulerXoffset", m_Doc->rulerXoffset);
 	docu.writeAttribute("rulerYoffset", m_Doc->rulerYoffset);
 	docu.writeAttribute("GuideRad", m_Doc->guidesSettings.guideRad);
-	docu.writeAttribute("GRAB",m_Doc->guidesSettings.grabRad);
+	docu.writeAttribute("GRAB",m_Doc->guidesSettings.grabRadius);
 	docu.writeAttribute("POLYC", m_Doc->toolSettings.polyC);
 	docu.writeAttribute("POLYF", m_Doc->toolSettings.polyF);
 	docu.writeAttribute("POLYR", m_Doc->toolSettings.polyR);
@@ -222,14 +222,14 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("dispX", m_Doc->toolSettings.dispX);
 	docu.writeAttribute("dispY", m_Doc->toolSettings.dispY);
 	docu.writeAttribute("constrain", m_Doc->toolSettings.constrain);
-	docu.writeAttribute("MINORC",m_Doc->guidesSettings.minorColor.name());
-	docu.writeAttribute("MAJORC",m_Doc->guidesSettings.majorColor.name());
+	docu.writeAttribute("MINORC",m_Doc->guidesSettings.minorGridColor.name());
+	docu.writeAttribute("MAJORC",m_Doc->guidesSettings.majorGridColor.name());
 	docu.writeAttribute("GuideC", m_Doc->guidesSettings.guideColor.name());
-	docu.writeAttribute("BaseC", m_Doc->guidesSettings.baseColor.name());
+	docu.writeAttribute("BaseC", m_Doc->guidesSettings.baselineGridColor.name());
 	docu.writeAttribute("GuideZ", m_Doc->guidesSettings.guideRad);
-	docu.writeAttribute("BACKG", static_cast<int>(m_Doc->guidesSettings.before));
+	docu.writeAttribute("BACKG", static_cast<int>(m_Doc->guidesSettings.guidePlacement));
 	docu.writeAttribute("PAGEC",m_Doc->papColor.name());
-	docu.writeAttribute("MARGC",m_Doc->guidesSettings.margColor.name());
+	docu.writeAttribute("MARGC",m_Doc->guidesSettings.marginColor.name());
 	docu.writeAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
 	docu.writeAttribute("currentProfile", m_Doc->curCheckProfile);
 

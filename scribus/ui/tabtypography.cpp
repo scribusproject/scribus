@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "scribusstructs.h"
 
-TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWidget( parent )
+TabTypograpy::TabTypograpy( QWidget* parent, struct TypoPrefs *prefsData) : QWidget( parent )
 {
 	tabTypoLayout = new QGridLayout( this );
 	tabTypoLayout->setMargin(0);
@@ -159,7 +159,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	strikethruWidth->setToolTip( tr( "Line width expressed as a percentage of the font size" ) );
 }
 
-void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
+void TabTypograpy::restoreDefaults(struct TypoPrefs *prefsData)
 {
 	capsScaling->setValue( prefsData->valueSmallCaps );
 	subDisplacement->setValue( prefsData->valueSubScript );

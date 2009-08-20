@@ -269,7 +269,7 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Rxpd = Mxp - Rxp;
@@ -1012,7 +1012,7 @@ void FreehandMode::selectPage(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);

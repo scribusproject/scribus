@@ -249,8 +249,8 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 			{
 				if (m_doc->useRaster)
 				{
-					newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-					newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+					newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
+					newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 				}
 				if (m->modifiers() & Qt::ControlModifier)
 				{
@@ -317,7 +317,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	canvasPressCoord = mousePointDoc;
 	createObjectMode = m_doc->appMode;
@@ -416,7 +416,7 @@ void CreateMode::selectPage(QMouseEvent *m)
 	m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	canvasPressCoord     = mousePointDoc;
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);

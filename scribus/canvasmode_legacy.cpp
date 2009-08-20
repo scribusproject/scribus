@@ -509,7 +509,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
 	{
-		if( ((m_doc->guidesSettings.before) && (m_canvas->itemUnderCursor(m->globalPos()))) == false )
+		if( ((m_doc->guidesSettings.guidePlacement) && (m_canvas->itemUnderCursor(m->globalPos()))) == false )
 		{
 			if (!guideMoveGesture)
 			{
@@ -627,8 +627,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
 			{
-				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
+				newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 			}
 			m_canvas->newRedrawPolygon() << QPoint(qRound(newX - currItem->xPos()), qRound(newY - currItem->yPos()));
 			m_view->updateContents();
@@ -646,8 +646,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			}
 			if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
 			{
-				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
+				newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 			}
 			QMatrix mp = currItem->getTransform();
 //			mp.translate(currItem->xPos(),// - m_doc->minCanvasCoordinate.x(), 
@@ -665,8 +665,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (m_doc->useRaster)
 			{
-				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
+				newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 			}
 			double newRot=xy2Deg(newX - currItem->xPos(), newY - currItem->yPos());
 			//Constrain rotation angle, when the mouse is being dragged around for a new line
@@ -1229,7 +1229,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					break;
 				QMatrix p;
 				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
 					&& ((m_doc->appMode == modeNormal) || (m_doc->appMode == modeRotation) || (m_doc->appMode == modeEdit)))
@@ -1341,7 +1341,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	if (m_doc->appMode != modeEdit)
 	{
@@ -4216,7 +4216,7 @@ void LegacyMode::selectPage(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
@@ -4270,14 +4270,14 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
+	double grabRadius = m_doc->guidesSettings.grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 // 	int a;
-	if(!m_doc->guidesSettings.before) // guides are on foreground and want to be processed first
+	if(!m_doc->guidesSettings.guidePlacement) // guides are on foreground and want to be processed first
 	{
 		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
 		{
@@ -4886,12 +4886,12 @@ int LegacyMode::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
 	FPoint n1(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 	//	n1 -= QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-	if (d1 < m_doc->guidesSettings.grabRad)
+	if (d1 < m_doc->guidesSettings.grabRadius)
 		distance.insert(d1, 1);
 	n1 = FPoint(0, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 	//	n1 -= QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-	if (d1 < m_doc->guidesSettings.grabRad)
+	if (d1 < m_doc->guidesSettings.grabRadius)
 		distance.insert(d1, 2);
 	if (!currItem->asLine())
 	{
@@ -4899,32 +4899,32 @@ int LegacyMode::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
 		n1 = FPoint(currItem->width(), 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 		//		n1 -= docMinCanvasCoordinate;
 		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
+		if (d1 < m_doc->guidesSettings.grabRadius)
 			distance.insert(d1, 3);
 		n1 = FPoint(0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 		//		n1 -= docMinCanvasCoordinate;
 		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
+		if (d1 < m_doc->guidesSettings.grabRadius)
 			distance.insert(d1, 4);
 		n1 = FPoint(currItem->width()/2, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 		//		n1 -= docMinCanvasCoordinate;
 		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
+		if (d1 < m_doc->guidesSettings.grabRadius)
 			distance.insert(d1, 5);
 		n1 = FPoint(currItem->width(), currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 		//		n1 -= docMinCanvasCoordinate;
 		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
+		if (d1 < m_doc->guidesSettings.grabRadius)
 			distance.insert(d1, 6);
 		n1 = FPoint(0, currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 		//		n1 -= docMinCanvasCoordinate;
 		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
+		if (d1 < m_doc->guidesSettings.grabRadius)
 			distance.insert(d1, 7);
 		n1 = FPoint(currItem->width()/2, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
 		//		n1 -= docMinCanvasCoordinate;
 		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
+		if (d1 < m_doc->guidesSettings.grabRadius)
 			distance.insert(d1, 8);
 	}
 	QList<int> result = distance.values();

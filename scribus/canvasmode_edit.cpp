@@ -1306,7 +1306,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
+	double grabRadius = m_doc->guidesSettings.grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);

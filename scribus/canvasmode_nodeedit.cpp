@@ -341,8 +341,8 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
 			{
-				if ( (*it) + m_doc->currentPage()->yOffset() < npf.y() + m_doc->guidesSettings.grabRad * sc &&
-					 (*it) + m_doc->currentPage()->yOffset() > npf.y() - m_doc->guidesSettings.grabRad * sc )
+				if ( (*it) + m_doc->currentPage()->yOffset() < npf.y() + m_doc->guidesSettings.grabRadius * sc &&
+					 (*it) + m_doc->currentPage()->yOffset() > npf.y() - m_doc->guidesSettings.grabRadius * sc )
 				{
 					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
 						MoveGY = true;
@@ -358,8 +358,8 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			tmpGuides = m_doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it!= tmpGuides.end(); ++it)
 			{
-				if ( (*it) + m_doc->currentPage()->xOffset() < npf.x() + m_doc->guidesSettings.grabRad * sc &&
-					 (*it) + m_doc->currentPage()->xOffset() > npf.x() - m_doc->guidesSettings.grabRad * sc)
+				if ( (*it) + m_doc->currentPage()->xOffset() < npf.x() + m_doc->guidesSettings.grabRadius * sc &&
+					 (*it) + m_doc->currentPage()->xOffset() > npf.x() - m_doc->guidesSettings.grabRadius * sc)
 				{
 					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
 						MoveGX = true;
@@ -743,7 +743,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			FPoint tangent = FPoint(0, 0);
 			FPoint nearPoint = FPoint(0, 0);
 			double nearT = 0.0;
-			QRect mpo2(0, 0, m_doc->guidesSettings.grabRad*3, m_doc->guidesSettings.grabRad*3);
+			QRect mpo2(0, 0, m_doc->guidesSettings.grabRadius*3, m_doc->guidesSettings.grabRadius*3);
 			mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 			for (uint poi=0; poi<Clip.size()-3; poi += 4)
 			{
@@ -991,7 +991,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		FPoint tangent = FPoint(0, 0);
 		FPoint nearPoint = FPoint(0, 0);
 		double nearT = 0.0;
-		QRect mpo2(0, 0, m_doc->guidesSettings.grabRad*3, m_doc->guidesSettings.grabRad*3);
+		QRect mpo2(0, 0, m_doc->guidesSettings.grabRadius*3, m_doc->guidesSettings.grabRadius*3);
 		mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 		for (uint poi=0; poi<Clip.size()-3; poi += 4)
 		{

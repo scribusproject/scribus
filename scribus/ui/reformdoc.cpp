@@ -306,7 +306,7 @@ void ReformDoc::updateDocumentSettings()
 		item->moveBy(LeftD, TopD);
 		item->setRedrawBounding();
 	}
-	currDoc->guidesSettings.before = tabGuides->inBackground->isChecked();
+	currDoc->guidesSettings.guidePlacement = tabGuides->inBackground->isChecked();
 	currDoc->marginColored = tabView->checkUnprintable->isChecked();
 	currDoc->papColor = tabView->colorPaper;
 	currDoc->guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
@@ -315,20 +315,20 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
 	currDoc->guidesSettings.gridShown = tabGuides->checkGrid->isChecked();
 	currDoc->guidesSettings.guidesShown = tabGuides->guideBox->isChecked();
-	currDoc->guidesSettings.baseShown = tabGuides->baselineBox->isChecked();
+	currDoc->guidesSettings.baselineGridShown = tabGuides->baselineBox->isChecked();
 	currDoc->guidesSettings.showPic = tabView->checkPictures->isChecked();
 	currDoc->guidesSettings.linkShown = tabView->checkLink->isChecked();
 	currDoc->guidesSettings.showControls = tabView->checkControl->isChecked();
 	currDoc->guidesSettings.rulerMode = tabView->checkRuler->isChecked();
-	currDoc->guidesSettings.grabRad = tabGuides->grabDistance->value();
+	currDoc->guidesSettings.grabRadius = tabGuides->grabDistance->value();
 	currDoc->guidesSettings.guideRad = tabGuides->snapDistance->value();
-	currDoc->guidesSettings.minorGrid = tabGuides->minorSpace->value() / currDoc->unitRatio();
-	currDoc->guidesSettings.majorGrid = tabGuides->majorSpace->value() / currDoc->unitRatio();
-	currDoc->guidesSettings.minorColor = tabGuides->colorMinorGrid;
-	currDoc->guidesSettings.majorColor = tabGuides->colorMajorGrid;
-	currDoc->guidesSettings.margColor = tabGuides->colorMargin;
+	currDoc->guidesSettings.minorGridSpacing = tabGuides->minorSpace->value() / currDoc->unitRatio();
+	currDoc->guidesSettings.majorGridSpacing = tabGuides->majorSpace->value() / currDoc->unitRatio();
+	currDoc->guidesSettings.minorGridColor = tabGuides->colorMinorGrid;
+	currDoc->guidesSettings.majorGridColor = tabGuides->colorMajorGrid;
+	currDoc->guidesSettings.marginColor = tabGuides->colorMargin;
 	currDoc->guidesSettings.guideColor = tabGuides->colorGuides;
-	currDoc->guidesSettings.baseColor = tabGuides->colorBaselineGrid;
+	currDoc->guidesSettings.baselineGridColor = tabGuides->colorBaselineGrid;
 	currDoc->checkerProfiles = tabDocChecker->checkerProfile;
 	currDoc->curCheckProfile = tabDocChecker->curCheckProfile->currentText();
 	currDoc->typographicSettings.valueSuperScript = tabTypo->superDisplacement->value();
@@ -337,8 +337,8 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->typographicSettings.scalingSubScript = tabTypo->subScaling->value();
 	currDoc->typographicSettings.valueSmallCaps = tabTypo->capsScaling->value();
 	currDoc->typographicSettings.autoLineSpacing = tabTypo->autoLine->value();
-	currDoc->typographicSettings.valueBaseGrid = tabGuides->baseGrid->value(); // / currDoc->unitRatio();
-	currDoc->typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value(); // / currDoc->unitRatio();
+	currDoc->guidesSettings.valueBaselineGrid = tabGuides->baseGrid->value(); // / currDoc->unitRatio();
+	currDoc->guidesSettings.offsetBaselineGrid = tabGuides->baseOffset->value(); // / currDoc->unitRatio();
 	currDoc->typographicSettings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
 	currDoc->typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
 	currDoc->typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);

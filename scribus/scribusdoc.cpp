@@ -173,7 +173,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	CurrentSel(-1),
 	nodeEdit(),
 	typographicSettings(prefsData.typographicSettings),
-	guidesSettings(prefsData.guidesSettings),
+	guidesSettings(prefsData.guidesPrefs),
 	toolSettings(prefsData.toolSettings),
 	checkerProfiles(prefsData.checkerProfiles),
 	curCheckProfile(prefsData.curCheckProfile),
@@ -285,7 +285,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	CurrentSel(-1),
 	nodeEdit(),
 	typographicSettings(prefsData.typographicSettings),
-	guidesSettings(prefsData.guidesSettings),
+	guidesSettings(prefsData.guidesPrefs),
 	toolSettings(prefsData.toolSettings),
 	checkerProfiles(prefsData.checkerProfiles),
 	curCheckProfile(prefsData.curCheckProfile),
@@ -5857,7 +5857,7 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 		}
 		else
 		{
-			storyStyle.setLineSpacing(typographicSettings.valueBaseGrid-1);
+			storyStyle.setLineSpacing(guidesSettings.valueBaselineGrid-1);
 		}
 		itemSelection_ApplyParagraphStyle(storyStyle, customSelection);
 	}
@@ -9096,8 +9096,8 @@ QPoint ScribusDoc::ApplyGrid(const QPoint& in)
 	int onp = OnPage(in.x(), in.y());
 	if (useRaster && (onp != -1))
 	{
-		np.setX(static_cast<int>(qRound((in.x() - Pages->at(onp)->xOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->xOffset()));
-		np.setY(static_cast<int>(qRound((in.y() - Pages->at(onp)->yOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->yOffset()));
+		np.setX(static_cast<int>(qRound((in.x() - Pages->at(onp)->xOffset()) / guidesSettings.minorGridSpacing) * guidesSettings.minorGridSpacing + Pages->at(onp)->xOffset()));
+		np.setY(static_cast<int>(qRound((in.y() - Pages->at(onp)->yOffset()) / guidesSettings.minorGridSpacing) * guidesSettings.minorGridSpacing + Pages->at(onp)->yOffset()));
 	}
 	else
 		np = in;
@@ -9111,8 +9111,8 @@ FPoint ScribusDoc::ApplyGridF(const FPoint& in)
 	int onp = OnPage(in.x(), in.y());
 	if (useRaster && (onp != -1))
 	{
-		np.setX(qRound((in.x() - Pages->at(onp)->xOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->xOffset());
-		np.setY(qRound((in.y() - Pages->at(onp)->yOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->yOffset());
+		np.setX(qRound((in.x() - Pages->at(onp)->xOffset()) / guidesSettings.minorGridSpacing) * guidesSettings.minorGridSpacing + Pages->at(onp)->xOffset());
+		np.setY(qRound((in.y() - Pages->at(onp)->yOffset()) / guidesSettings.minorGridSpacing) * guidesSettings.minorGridSpacing + Pages->at(onp)->yOffset());
 	}
 	else
 		np = in;

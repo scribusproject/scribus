@@ -194,28 +194,28 @@ void PrefsManager::initDefaults()
 	appPrefs.mainWinSettings.yPosition=(d->availableGeometry().height()-appPrefs.mainWinSettings.height)/2;
 	appPrefs.mainWinSettings.maximized = false;
 	appPrefs.mainWinState = QByteArray();
-	appPrefs.guidesSettings.marginsShown = true;
-	appPrefs.guidesSettings.framesShown = true;
-	appPrefs.guidesSettings.layerMarkersShown = false;
-	appPrefs.guidesSettings.gridShown = false;
-	appPrefs.guidesSettings.guidesShown = true;
-	appPrefs.guidesSettings.colBordersShown = true;
-	appPrefs.guidesSettings.baseShown = false;
-	appPrefs.guidesSettings.showPic = true;
-	appPrefs.guidesSettings.showControls = false;
-	appPrefs.guidesSettings.linkShown = false;
-	appPrefs.guidesSettings.rulersShown = true;
-	appPrefs.guidesSettings.showBleed = true;
-	appPrefs.guidesSettings.rulerMode = true;
-	appPrefs.guidesSettings.grabRad = 4;
-	appPrefs.guidesSettings.guideRad = 10;
-	appPrefs.guidesSettings.minorGrid = 20;
-	appPrefs.guidesSettings.majorGrid = 100;
-	appPrefs.guidesSettings.minorColor = QColor(Qt::green);
-	appPrefs.guidesSettings.majorColor = QColor(Qt::green);
-	appPrefs.guidesSettings.margColor = QColor(Qt::blue);
-	appPrefs.guidesSettings.guideColor = QColor(Qt::darkBlue);
-	appPrefs.guidesSettings.baseColor = QColor(Qt::lightGray);
+	appPrefs.guidesPrefs.marginsShown = true;
+	appPrefs.guidesPrefs.framesShown = true;
+	appPrefs.guidesPrefs.layerMarkersShown = false;
+	appPrefs.guidesPrefs.gridShown = false;
+	appPrefs.guidesPrefs.guidesShown = true;
+	appPrefs.guidesPrefs.colBordersShown = true;
+	appPrefs.guidesPrefs.baselineGridShown = false;
+	appPrefs.guidesPrefs.showPic = true;
+	appPrefs.guidesPrefs.showControls = false;
+	appPrefs.guidesPrefs.linkShown = false;
+	appPrefs.guidesPrefs.rulersShown = true;
+	appPrefs.guidesPrefs.showBleed = true;
+	appPrefs.guidesPrefs.rulerMode = true;
+	appPrefs.guidesPrefs.grabRadius = 4;
+	appPrefs.guidesPrefs.guideRad = 10;
+	appPrefs.guidesPrefs.minorGridSpacing = 20;
+	appPrefs.guidesPrefs.majorGridSpacing = 100;
+	appPrefs.guidesPrefs.minorGridColor = QColor(Qt::green);
+	appPrefs.guidesPrefs.majorGridColor = QColor(Qt::green);
+	appPrefs.guidesPrefs.marginColor = QColor(Qt::blue);
+	appPrefs.guidesPrefs.guideColor = QColor(Qt::darkBlue);
+	appPrefs.guidesPrefs.baselineGridColor = QColor(Qt::lightGray);
 	appPrefs.typographicSettings.valueSuperScript = 33;
 	appPrefs.typographicSettings.scalingSuperScript = 66;
 	appPrefs.typographicSettings.valueSubScript = 33;
@@ -226,8 +226,8 @@ void PrefsManager::initDefaults()
 	appPrefs.typographicSettings.valueUnderlineWidth = -1;
 	appPrefs.typographicSettings.valueStrikeThruPos = -1;
 	appPrefs.typographicSettings.valueStrikeThruWidth = -1;
-	appPrefs.typographicSettings.valueBaseGrid = 14.4;
-	appPrefs.typographicSettings.offsetBaseGrid = 0.0;
+	appPrefs.guidesPrefs.valueBaselineGrid = 14.4;
+	appPrefs.guidesPrefs.offsetBaselineGrid = 0.0;
 	appPrefs.uiPrefs.style = "";
 	appPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
 	appPrefs.showToolTips = true;
@@ -281,7 +281,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.shadePict = 100;
 	appPrefs.toolSettings.scaleX = 1;
 	appPrefs.toolSettings.scaleY = 1;
-	appPrefs.guidesSettings.before = true;
+	appPrefs.guidesPrefs.guidePlacement = true;
 	appPrefs.docSetupPrefs.docUnitIndex = 0;
 	appPrefs.toolSettings.polyC = 4;
 	appPrefs.toolSettings.polyF = 0.5;
@@ -1056,7 +1056,7 @@ bool PrefsManager::isToolColor(const QString& name)
 	return isToolColor(appPrefs.toolSettings, name);
 }
 
-bool PrefsManager::isToolColor(const struct toolPrefs& settings, const QString& name)
+bool PrefsManager::isToolColor(const struct ToolPrefs& settings, const QString& name)
 {
 	if (settings.dPenText == name)
 		return true;
@@ -1082,7 +1082,7 @@ QStringList PrefsManager::toolColorNames()
 	return toolColorNames(appPrefs.toolSettings);
 }
 
-QStringList PrefsManager::toolColorNames(const struct toolPrefs& settings)
+QStringList PrefsManager::toolColorNames(const struct ToolPrefs& settings)
 {
 	QStringList names;
 	names.append(settings.dPenText);
@@ -1108,7 +1108,7 @@ void PrefsManager::replaceToolColors(const QMap<QString, QString> replaceMap)
 	replaceToolColors(appPrefs.toolSettings, replaceMap);
 }
 
-void PrefsManager::replaceToolColors(struct toolPrefs& settings, const QMap<QString, QString> replaceMap)
+void PrefsManager::replaceToolColors(struct ToolPrefs& settings, const QMap<QString, QString> replaceMap)
 {
 	if (replaceMap.contains(settings.dPenText))
 		settings.dPenText = replaceMap[settings.dPenText];
@@ -1231,25 +1231,25 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("UI_MOUSEMOVETIMEOUT", appPrefs.uiPrefs.mouseMoveTimeout);
 	dc.setAttribute("UI_APPLICATIONFONTSIZE",appPrefs.uiPrefs.applicationFontSize);
 	dc.setAttribute("UI_PALETTEFONTSIZE",appPrefs.uiPrefs.paletteFontSize);
-	dc.setAttribute("GRAB",appPrefs.guidesSettings.grabRad);
+	dc.setAttribute("GRAB",appPrefs.guidesPrefs.grabRadius);
 	dc.setAttribute("UNIT",appPrefs.docSetupPrefs.docUnitIndex);
 	dc.setAttribute("UI_RECENTDOCCOUNT", appPrefs.uiPrefs.recentDocCount);
 	dc.setAttribute("DOC", appPrefs.pathPrefs.documents);
 	dc.setAttribute("PROFILES", appPrefs.pathPrefs.colorProfiles);
 	dc.setAttribute("SCRIPTS", appPrefs.pathPrefs.scripts);
 	dc.setAttribute("TEMPLATES", appPrefs.pathPrefs.documentTemplates);
-	dc.setAttribute("SHOWGUIDES", static_cast<int>(appPrefs.guidesSettings.guidesShown));
-	dc.setAttribute("showcolborders", static_cast<int>(appPrefs.guidesSettings.colBordersShown));
-	dc.setAttribute("FRV", static_cast<int>(appPrefs.guidesSettings.framesShown));
-	dc.setAttribute("SHOWLAYERM", static_cast<int>(appPrefs.guidesSettings.layerMarkersShown));
-	dc.setAttribute("SHOWMARGIN", static_cast<int>(appPrefs.guidesSettings.marginsShown));
-	dc.setAttribute("SHOWBASE", static_cast<int>(appPrefs.guidesSettings.baseShown));
-	dc.setAttribute("SHOWLINK", static_cast<int>(appPrefs.guidesSettings.linkShown));
-	dc.setAttribute("SHOWPICT", static_cast<int>(appPrefs.guidesSettings.showPic));
-	dc.setAttribute("SHOWControl", static_cast<int>(appPrefs.guidesSettings.showControls));
-	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesSettings.rulersShown));
-	dc.setAttribute("showBleed", static_cast<int>(appPrefs.guidesSettings.showBleed));
-	dc.setAttribute("rulerMode", static_cast<int>(appPrefs.guidesSettings.rulerMode));
+	dc.setAttribute("SHOWGUIDES", static_cast<int>(appPrefs.guidesPrefs.guidesShown));
+	dc.setAttribute("showcolborders", static_cast<int>(appPrefs.guidesPrefs.colBordersShown));
+	dc.setAttribute("FRV", static_cast<int>(appPrefs.guidesPrefs.framesShown));
+	dc.setAttribute("SHOWLAYERM", static_cast<int>(appPrefs.guidesPrefs.layerMarkersShown));
+	dc.setAttribute("SHOWMARGIN", static_cast<int>(appPrefs.guidesPrefs.marginsShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(appPrefs.guidesPrefs.baselineGridShown));
+	dc.setAttribute("SHOWLINK", static_cast<int>(appPrefs.guidesPrefs.linkShown));
+	dc.setAttribute("SHOWPICT", static_cast<int>(appPrefs.guidesPrefs.showPic));
+	dc.setAttribute("SHOWControl", static_cast<int>(appPrefs.guidesPrefs.showControls));
+	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesPrefs.rulersShown));
+	dc.setAttribute("showBleed", static_cast<int>(appPrefs.guidesPrefs.showBleed));
+	dc.setAttribute("rulerMode", static_cast<int>(appPrefs.guidesPrefs.rulerMode));
 	dc.setAttribute("ScratchBottom", appPrefs.scratch.Bottom);
 	dc.setAttribute("ScratchLeft", appPrefs.scratch.Left);
 	dc.setAttribute("ScratchRight", appPrefs.scratch.Right);
@@ -1266,15 +1266,15 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.stickyTools));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
-	dc1.setAttribute("MINOR",ScCLocale::toQStringC(appPrefs.guidesSettings.minorGrid));
-	dc1.setAttribute("MAJOR",ScCLocale::toQStringC(appPrefs.guidesSettings.majorGrid));
-	dc1.setAttribute("MINORC",appPrefs.guidesSettings.minorColor.name());
-	dc1.setAttribute("MAJORC",appPrefs.guidesSettings.majorColor.name());
-	dc1.setAttribute("GuideC", appPrefs.guidesSettings.guideColor.name());
-	dc1.setAttribute("BaseC", appPrefs.guidesSettings.baseColor.name());
-	dc1.setAttribute("GuideZ", ScCLocale::toQStringC(appPrefs.guidesSettings.guideRad));
-	dc1.setAttribute("BACKG", static_cast<int>(appPrefs.guidesSettings.before));
-	dc1.setAttribute("SHOW", static_cast<int>(appPrefs.guidesSettings.gridShown));
+	dc1.setAttribute("MINOR",ScCLocale::toQStringC(appPrefs.guidesPrefs.minorGridSpacing));
+	dc1.setAttribute("MAJOR",ScCLocale::toQStringC(appPrefs.guidesPrefs.majorGridSpacing));
+	dc1.setAttribute("MINORC",appPrefs.guidesPrefs.minorGridColor.name());
+	dc1.setAttribute("MAJORC",appPrefs.guidesPrefs.majorGridColor.name());
+	dc1.setAttribute("GuideC", appPrefs.guidesPrefs.guideColor.name());
+	dc1.setAttribute("BaseC", appPrefs.guidesPrefs.baselineGridColor.name());
+	dc1.setAttribute("GuideZ", ScCLocale::toQStringC(appPrefs.guidesPrefs.guideRad));
+	dc1.setAttribute("BACKG", static_cast<int>(appPrefs.guidesPrefs.guidePlacement));
+	dc1.setAttribute("SHOW", static_cast<int>(appPrefs.guidesPrefs.gridShown));
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
 	dc1a.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.showPageShadow));
@@ -1287,7 +1287,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc1a.setAttribute("DFrameAnnotationColor",appPrefs.DFrameAnnotationColor.name());
 	dc1a.setAttribute("DPageBorderColor",appPrefs.DPageBorderColor.name());
 	dc1a.setAttribute("DControlCharColor",appPrefs.DControlCharColor.name());
-	dc1a.setAttribute("MARGC",appPrefs.guidesSettings.margColor.name());
+	dc1a.setAttribute("MARGC",appPrefs.guidesPrefs.marginColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.marginColored));
 	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.DisScale));
 	elem.appendChild(dc1a);
@@ -1303,8 +1303,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc3.setAttribute("HOCHSC",appPrefs.typographicSettings.scalingSuperScript);
 	dc3.setAttribute("SMCAPS",appPrefs.typographicSettings.valueSmallCaps);
 	dc3.setAttribute("AUTOL", appPrefs.typographicSettings.autoLineSpacing);
-	dc3.setAttribute("BASE", ScCLocale::toQStringC(appPrefs.typographicSettings.valueBaseGrid));
-	dc3.setAttribute("BASEO", ScCLocale::toQStringC(appPrefs.typographicSettings.offsetBaseGrid));
+	dc3.setAttribute("BASE", ScCLocale::toQStringC(appPrefs.guidesPrefs.valueBaselineGrid));
+	dc3.setAttribute("BASEO", ScCLocale::toQStringC(appPrefs.guidesPrefs.offsetBaselineGrid));
 	if (appPrefs.typographicSettings.valueUnderlinePos == -1)
 		dc3.setAttribute("UnderlinePos", appPrefs.typographicSettings.valueUnderlinePos);
 	else
@@ -1793,19 +1793,19 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.pathPrefs.scripts = dc.attribute("SCRIPTS","");
 			appPrefs.pathPrefs.documentTemplates = dc.attribute("TEMPLATES","");
 			appPrefs.docSetupPrefs.docUnitIndex = dc.attribute("UNIT", "0").toInt();
-			appPrefs.guidesSettings.grabRad = dc.attribute("GRAB", "4").toInt();
-			appPrefs.guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
-			appPrefs.guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
-			appPrefs.guidesSettings.framesShown = static_cast<bool>(dc.attribute("FRV", "1").toInt());
-			appPrefs.guidesSettings.layerMarkersShown = static_cast<bool>(dc.attribute("SHOWLAYERM", "0").toInt());
-			appPrefs.guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
-			appPrefs.guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "1").toInt());
-			appPrefs.guidesSettings.linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
-			appPrefs.guidesSettings.showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
-			appPrefs.guidesSettings.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
-			appPrefs.guidesSettings.rulersShown = static_cast<bool>(dc.attribute("rulersShown", "1").toInt());
-			appPrefs.guidesSettings.showBleed = static_cast<bool>(dc.attribute("showBleed", "1").toInt());
-			appPrefs.guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
+			appPrefs.guidesPrefs.grabRadius = dc.attribute("GRAB", "4").toInt();
+			appPrefs.guidesPrefs.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+			appPrefs.guidesPrefs.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
+			appPrefs.guidesPrefs.framesShown = static_cast<bool>(dc.attribute("FRV", "1").toInt());
+			appPrefs.guidesPrefs.layerMarkersShown = static_cast<bool>(dc.attribute("SHOWLAYERM", "0").toInt());
+			appPrefs.guidesPrefs.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
+			appPrefs.guidesPrefs.baselineGridShown = static_cast<bool>(dc.attribute("SHOWBASE", "1").toInt());
+			appPrefs.guidesPrefs.linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
+			appPrefs.guidesPrefs.showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
+			appPrefs.guidesPrefs.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
+			appPrefs.guidesPrefs.rulersShown = static_cast<bool>(dc.attribute("rulersShown", "1").toInt());
+			appPrefs.guidesPrefs.showBleed = static_cast<bool>(dc.attribute("showBleed", "1").toInt());
+			appPrefs.guidesPrefs.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
 
 			appPrefs.scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
@@ -1824,18 +1824,18 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="GRID")
 		{
-			appPrefs.guidesSettings.minorGrid  = ScCLocale::toDoubleC(dc.attribute("MINOR"), 20.0);
-			appPrefs.guidesSettings.majorGrid  = ScCLocale::toDoubleC(dc.attribute("MAJOR"), 100.0);
-			appPrefs.guidesSettings.minorColor = QColor(dc.attribute("MINORC"));
-			appPrefs.guidesSettings.majorColor = QColor(dc.attribute("MAJORC"));
-			appPrefs.guidesSettings.before = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
-			appPrefs.guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOW", "0").toInt());
+			appPrefs.guidesPrefs.minorGridSpacing  = ScCLocale::toDoubleC(dc.attribute("MINOR"), 20.0);
+			appPrefs.guidesPrefs.majorGridSpacing  = ScCLocale::toDoubleC(dc.attribute("MAJOR"), 100.0);
+			appPrefs.guidesPrefs.minorGridColor = QColor(dc.attribute("MINORC"));
+			appPrefs.guidesPrefs.majorGridColor = QColor(dc.attribute("MAJORC"));
+			appPrefs.guidesPrefs.guidePlacement = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
+			appPrefs.guidesPrefs.gridShown = static_cast<bool>(dc.attribute("SHOW", "0").toInt());
 			if (dc.hasAttribute("GuideC"))
-				appPrefs.guidesSettings.guideColor = QColor(dc.attribute("GuideC"));
+				appPrefs.guidesPrefs.guideColor = QColor(dc.attribute("GuideC"));
 			if (dc.hasAttribute("GuideZ"))
-				appPrefs.guidesSettings.guideRad = ScCLocale::toDoubleC(dc.attribute("GuideZ"), 10.0);
+				appPrefs.guidesPrefs.guideRad = ScCLocale::toDoubleC(dc.attribute("GuideZ"), 10.0);
 			if (dc.hasAttribute("BaseC"))
-				appPrefs.guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
+				appPrefs.guidesPrefs.baselineGridColor = QColor(dc.attribute("BaseC"));
 		}
 		if (dc.tagName()=="PAGE")
 		{
@@ -1849,7 +1849,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.DFrameAnnotationColor = QColor(dc.attribute("DFrameAnnotationColor","#0000ff"));
 			appPrefs.DPageBorderColor = QColor(dc.attribute("DPageBorderColor","#ff0000"));
 			appPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
-			appPrefs.guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
+			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
 			appPrefs.DisScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.DisScale);
 		}
@@ -1860,8 +1860,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.typographicSettings.valueSubScript = dc.attribute("TIEF").toInt();
 			appPrefs.typographicSettings.scalingSubScript = dc.attribute("TIEFSC").toInt();
 			appPrefs.typographicSettings.valueSmallCaps  = dc.attribute("SMCAPS").toInt();
-			appPrefs.typographicSettings.valueBaseGrid   = ScCLocale::toDoubleC(dc.attribute("BASE"), 12.0);
-			appPrefs.typographicSettings.offsetBaseGrid  = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
+			appPrefs.guidesPrefs.valueBaselineGrid   = ScCLocale::toDoubleC(dc.attribute("BASE"), 12.0);
+			appPrefs.guidesPrefs.offsetBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
 			appPrefs.typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
 			double ulp = ScCLocale::toDoubleC(dc.attribute("UnderlinePos"), -1.0);
 			if (ulp != -1)
@@ -2097,7 +2097,7 @@ bool PrefsManager::ReadPref(QString ho)
 			QString name=dc.attribute("Name");
 			if ((name == tr("PostScript")) ||  (name == tr("Postscript")) || (name == "Postscript"))
 				name = CommonStrings::PostScript;
-			struct checkerPrefs checkerSettings;
+			struct CheckerPrefs checkerSettings;
 			checkerSettings.ignoreErrors = static_cast<bool>(dc.attribute("ignoreErrors", "0").toInt());
 			checkerSettings.autoCheck = static_cast<bool>(dc.attribute("autoCheck", "1").toInt());
 			checkerSettings.checkGlyphs = static_cast<bool>(dc.attribute("checkGlyphs", "1").toInt());
@@ -2398,7 +2398,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 {
 	if (cp!=NULL)
 	{
-		struct checkerPrefs checkerSettings;
+		struct CheckerPrefs checkerSettings;
 		checkerSettings.ignoreErrors = false;
 		checkerSettings.autoCheck = true;
 		checkerSettings.checkGlyphs = true;

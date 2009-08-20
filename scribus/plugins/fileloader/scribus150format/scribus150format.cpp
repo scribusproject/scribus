@@ -820,15 +820,15 @@ void Scribus150Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& 
 void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
 	PrefsManager* prefsManager = PrefsManager::instance();
-	doc->guidesSettings.minorGrid = attrs.valueAsDouble("MINGRID", prefsManager->appPrefs.guidesSettings.minorGrid);
-	doc->guidesSettings.majorGrid = attrs.valueAsDouble("MAJGRID", prefsManager->appPrefs.guidesSettings.majorGrid);
+	doc->guidesSettings.minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
+	doc->guidesSettings.majorGridSpacing = attrs.valueAsDouble("MAJGRID", prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
 	doc->guidesSettings.gridShown    = attrs.valueAsBool("SHOWGRID", false);
 	doc->guidesSettings.guidesShown  =attrs.valueAsBool("SHOWGUIDES", true);
 	doc->guidesSettings.colBordersShown  = attrs.valueAsBool("showcolborders", false);
 	doc->guidesSettings.framesShown  = attrs.valueAsBool("SHOWFRAME", true);
 	doc->guidesSettings.layerMarkersShown = attrs.valueAsBool("SHOWLAYERM", false);
 	doc->guidesSettings.marginsShown = attrs.valueAsBool("SHOWMARGIN", true);
-	doc->guidesSettings.baseShown    = attrs.valueAsBool("SHOWBASE", false);
+	doc->guidesSettings.baselineGridShown    = attrs.valueAsBool("SHOWBASE", false);
 	doc->guidesSettings.showPic      = attrs.valueAsBool("SHOWPICT", true);
 	doc->guidesSettings.linkShown    = attrs.valueAsBool("SHOWLINK", false);
 	doc->guidesSettings.showControls = attrs.valueAsBool("SHOWControl", false);
@@ -836,18 +836,18 @@ void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 	doc->guidesSettings.rulersShown  = attrs.valueAsBool("showrulers", true);
 	doc->guidesSettings.showBleed    = attrs.valueAsBool("showBleed", true);
 	if (attrs.hasAttribute("MARGC"))
-		doc->guidesSettings.margColor  = QColor(attrs.valueAsString("MARGC"));
+		doc->guidesSettings.marginColor  = QColor(attrs.valueAsString("MARGC"));
 	if (attrs.hasAttribute("MINORC"))
-		doc->guidesSettings.minorColor = QColor(attrs.valueAsString("MINORC"));
+		doc->guidesSettings.minorGridColor = QColor(attrs.valueAsString("MINORC"));
 	if (attrs.hasAttribute("MAJORC"))
-		doc->guidesSettings.majorColor = QColor(attrs.valueAsString("MAJORC"));
+		doc->guidesSettings.majorGridColor = QColor(attrs.valueAsString("MAJORC"));
 	if (attrs.hasAttribute("GuideC"))
 		doc->guidesSettings.guideColor = QColor(attrs.valueAsString("GuideC"));
 	if (attrs.hasAttribute("BaseC"))
-		doc->guidesSettings.baseColor  = QColor(attrs.valueAsString("BaseC"));
-	doc->guidesSettings.before   = attrs.valueAsBool("BACKG", true);
+		doc->guidesSettings.baselineGridColor  = QColor(attrs.valueAsString("BaseC"));
+	doc->guidesSettings.guidePlacement   = attrs.valueAsBool("BACKG", true);
 	doc->guidesSettings.guideRad = attrs.valueAsDouble("GuideRad", 10.0);
-	doc->guidesSettings.grabRad  = attrs.valueAsInt("GRAB", 4);
+	doc->guidesSettings.grabRadius  = attrs.valueAsInt("GRAB", 4);
 }
 
 void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
@@ -921,8 +921,8 @@ void Scribus150Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttri
 	doc->typographicSettings.valueSubScript     = attrs.valueAsInt("VTIEF");
 	doc->typographicSettings.scalingSubScript   = attrs.valueAsInt("VTIEFSC");
 	doc->typographicSettings.valueSmallCaps     = attrs.valueAsInt("VKAPIT");
-	doc->typographicSettings.valueBaseGrid      = attrs.valueAsDouble("BASEGRID", 12.0);
-	doc->typographicSettings.offsetBaseGrid     = attrs.valueAsDouble("BASEO", 0.0);
+	doc->guidesSettings.valueBaselineGrid      = attrs.valueAsDouble("BASEGRID", 12.0);
+	doc->guidesSettings.offsetBaselineGrid     = attrs.valueAsDouble("BASEO", 0.0);
 	doc->typographicSettings.autoLineSpacing    = attrs.valueAsInt("AUTOL", 20);
 	doc->typographicSettings.valueUnderlinePos  = attrs.valueAsInt("UnderlinePos", -1);
 	doc->typographicSettings.valueUnderlineWidth  = attrs.valueAsInt("UnderlineWidth", -1);
@@ -973,7 +973,7 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 
 bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
-	struct checkerPrefs checkerSettings;
+	struct CheckerPrefs checkerSettings;
 	QString profileName = attrs.valueAsString("Name");
 	if (profileName.isEmpty())
 		return true;

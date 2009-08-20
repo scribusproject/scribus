@@ -188,8 +188,8 @@ void LineMove::adjustBounds(QMouseEvent *m)
 	
 	if (m_doc->useRaster)
 	{
-		newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-		newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+		newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
+		newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 	}
 	//<<#8099
 	FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));

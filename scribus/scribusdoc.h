@@ -999,10 +999,10 @@ public: // Public attributes
 
 	NodeEditContext nodeEdit;
 
-	typoPrefs typographicSettings;
-	guidesPrefs guidesSettings;
-	toolPrefs toolSettings;
-	QMap<QString, checkerPrefs> checkerProfiles;
+	TypoPrefs typographicSettings;
+	GuidesPrefs guidesSettings;
+	ToolPrefs toolSettings;
+	QMap<QString, CheckerPrefs> checkerProfiles;
 	QString curCheckProfile;
 	/** \brief Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;

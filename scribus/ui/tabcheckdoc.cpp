@@ -240,7 +240,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 
 void TabCheckDoc::addProf()
 {
-	struct checkerPrefs checkerSettings;
+	struct CheckerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = ignoreErrors->isChecked();
 	checkerSettings.autoCheck = automaticCheck->isChecked();
 	checkerSettings.checkGlyphs = missingGlyphs->isChecked();

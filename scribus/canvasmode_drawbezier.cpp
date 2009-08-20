@@ -236,8 +236,8 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 			{
 				if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
 				{
-					newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-					newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+					newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
+					newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 				}
 				m_canvas->newRedrawPolygon() << QPoint(qRound(newX - currItem->xPos()), qRound(newY - currItem->yPos()));
 				m_view->updateCanvas();
@@ -296,7 +296,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Rxpd = Mxp - Rxp;
@@ -485,7 +485,7 @@ void BezierMode::selectPage(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);

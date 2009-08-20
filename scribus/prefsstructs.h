@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "scfonts.h"
 
-struct checkerPrefs
+struct CheckerPrefs
 {
 	bool ignoreErrors;
 	bool autoCheck;
@@ -37,9 +37,9 @@ struct checkerPrefs
 	bool ignoreOffLayers;
 };
 
-typedef QMap<QString, checkerPrefs> CheckerPrefsList;
+typedef QMap<QString, CheckerPrefs> CheckerPrefsList;
 
-struct typoPrefs
+struct TypoPrefs
 {
 	int valueSuperScript;
 	int scalingSuperScript;
@@ -51,11 +51,9 @@ struct typoPrefs
 	int valueUnderlineWidth;
 	int valueStrikeThruPos;
 	int valueStrikeThruWidth;
-	double valueBaseGrid;
-	double offsetBaseGrid;
 };
 
-struct windowPrefs
+struct WindowPrefs
 {
 	int xPosition;
 	int yPosition;
@@ -66,34 +64,7 @@ struct windowPrefs
 	bool maximized;
 };
 
-struct guidesPrefs
-{
-	bool gridShown;
-	QColor majorColor;
-	double majorGrid;
-	double minorGrid;
-	QColor minorColor;
-	double guideRad;
-	int grabRad;
-	bool framesShown;
-	bool guidesShown;
-	bool colBordersShown;
-	bool marginsShown;
-	bool baseShown;
-	bool linkShown;
-	bool showPic;
-	bool showControls;
-	bool showBleed;
-	bool rulerMode;
-	bool rulersShown;
-	bool layerMarkersShown;
-	bool before;
-	QColor guideColor;
-	QColor baseColor;
-	QColor margColor;
-};
-
-struct toolPrefs
+struct ToolPrefs
 {
 	/* Texttool */
 	QString defFont;
@@ -188,12 +159,50 @@ struct DocumentSetupPrefs
 	int docUnitIndex; //! The index of the default unit
 };
 
+//Guides
+struct GuidesPrefs
+{
+	bool guidePlacement;
+
+	int grabRadius;
+	double guideRad;
+
+	bool guidesShown;
+	bool marginsShown;
+	bool gridShown;
+	bool baselineGridShown;
+	bool framesShown;
+	bool colBordersShown;
+	bool layerMarkersShown;
+	bool linkShown;
+	bool rulersShown;
+
+	double majorGridSpacing;
+	double minorGridSpacing;
+	double valueBaselineGrid;
+	double offsetBaselineGrid;
+
+	bool showPic;
+	bool showControls;
+	bool showBleed;
+	bool rulerMode;
+
+
+
+	QColor guideColor;
+	QColor marginColor;
+	QColor majorGridColor;
+	QColor minorGridColor;
+	QColor baselineGridColor;
+};
+
+
 struct ApplicationPrefs
 {
 	UIPrefs uiPrefs;
 	PathPrefs pathPrefs;
 	DocumentSetupPrefs docSetupPrefs;
-	//Guides
+	GuidesPrefs guidesPrefs;
 	//Typography
 	//Item Tools
 	//Operators Tools
@@ -230,13 +239,12 @@ struct ApplicationPrefs
 	QColor DPageBorderColor;
 	QColor DControlCharColor;
 
-	guidesPrefs guidesSettings;
-	typoPrefs typographicSettings;
-	toolPrefs toolSettings;
+	TypoPrefs typographicSettings;
+	ToolPrefs toolSettings;
 	CheckerPrefsList checkerProfiles;
 	QString curCheckProfile;
 
-	windowPrefs mainWinSettings;
+	WindowPrefs mainWinSettings;
 	QByteArray mainWinState;
 	
 

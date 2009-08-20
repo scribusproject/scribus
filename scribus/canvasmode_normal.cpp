@@ -264,7 +264,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	m_mouseCurrentPoint = mousePointDoc;
 	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
 	{
-		if( ((m_doc->guidesSettings.before) && (m_canvas->itemUnderCursor(m->globalPos()))) == false )
+		if( ((m_doc->guidesSettings.guidePlacement) && (m_canvas->itemUnderCursor(m->globalPos()))) == false )
 		{
 			if (!guideMoveGesture)
 			{
@@ -541,7 +541,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					break;
 				QMatrix p;
 				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))
 				{
@@ -611,7 +611,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	MoveGX = MoveGY = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 
 	if (m->button() == Qt::MidButton)
@@ -1024,14 +1024,14 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_mouseCurrentPoint  = mousePointDoc;
-	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
+	double grabRadius = m_doc->guidesSettings.grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 
-	if(!m_doc->guidesSettings.before) // guides are on foreground and want to be processed first
+	if(!m_doc->guidesSettings.guidePlacement) // guides are on foreground and want to be processed first
 	{
 		if ((m_doc->guidesSettings.guidesShown) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
 		{

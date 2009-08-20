@@ -252,14 +252,14 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 bool FileLoader::LoadFile(ScribusDoc* currDoc)
 {
 	newReplacement = false;
-	currDoc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesSettings.marginsShown;
-	currDoc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
-	currDoc->guidesSettings.layerMarkersShown = prefsManager->appPrefs.guidesSettings.layerMarkersShown;
-	currDoc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
-	currDoc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
-	currDoc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
-	currDoc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
-	currDoc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
+	currDoc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesPrefs.marginsShown;
+	currDoc->guidesSettings.framesShown = prefsManager->appPrefs.guidesPrefs.framesShown;
+	currDoc->guidesSettings.layerMarkersShown = prefsManager->appPrefs.guidesPrefs.layerMarkersShown;
+	currDoc->guidesSettings.gridShown = prefsManager->appPrefs.guidesPrefs.gridShown;
+	currDoc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesPrefs.guidesShown;
+	currDoc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesPrefs.colBordersShown;
+	currDoc->guidesSettings.baselineGridShown = prefsManager->appPrefs.guidesPrefs.baselineGridShown;
+	currDoc->guidesSettings.linkShown = prefsManager->appPrefs.guidesPrefs.linkShown;
 	currDoc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
 	currDoc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
 	currDoc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
