@@ -238,6 +238,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 			}
 		}
 	}
+/*
 	switch(brush.style)
 	{
 		case libwpg::WPGBrush::NoBrush:  break;
@@ -246,6 +247,9 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 		case libwpg::WPGBrush::Gradient: break;
 		default: printf("unknown\n"); break;
 	}
+	printf("  Foreground color: RGB %d %d %d\n", brush.foreColor.red, brush.foreColor.green, brush.foreColor.blue);
+	printf("  Background color: RGB %d %d %d\n", brush.backColor.red, brush.backColor.green, brush.backColor.blue);
+*/
 }
 
 void ScrPainter::setFillRule(FillRule rule)
@@ -376,9 +380,29 @@ void ScrPainter::finishItem(PageItem* ite)
 	isGradient = false;
 }
 
-void ScrPainter::drawBitmap(const libwpg::WPGBitmap& /*bitmap*/)
+void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap)
 {
-	printf("RawPainter::drawBitmap\n");
+	QImage image = QImage(bitmap.width(), bitmap.height(), QImage::Format_RGB32);
+	for(int x = 0; x < bitmap.width(); x++)
+	{
+		for(int y = 0; y < bitmap.height(); y++)
+		{
+			libwpg::WPGColor color = bitmap.pixel(x, y);
+			image.setPixel(x, y, qRgb(color.red, color.green, color.blue));
+		}
+	}
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1+baseX, bitmap.rect.y1+baseY, bitmap.width(), bitmap.height(), 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+	PageItem *ite = m_Doc->Items->at(z);
+	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
+	ite->tempImageFile->open();
+	QString fileName = getLongPathName(ite->tempImageFile->fileName());
+	ite->tempImageFile->close();
+	ite->isInlineImage = true;
+	image.setDotsPerMeterX(2834);
+	image.setDotsPerMeterY(2834);
+	image.save(fileName, "PNG");
+	m_Doc->LoadPict(fileName, z);
+	finishItem(ite);
 }
 
 void ScrPainter::drawImageObject(const libwpg::WPGBinaryData& /*binaryData*/)
