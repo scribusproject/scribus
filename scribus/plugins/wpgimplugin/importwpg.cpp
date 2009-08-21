@@ -60,7 +60,7 @@ ScrPainter::ScrPainter(): libwpg::WPGPaintInterface()
 
 void ScrPainter::startGraphics(double width, double height)
 {
-	CurrColorFill = "White";
+	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
@@ -112,7 +112,7 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 	LineW = 72 * pen.width;
 	ScColor tmp;
 	ColorList::Iterator it;
-	CurrColorStroke = CommonStrings::None;
+	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
 	if (LineW != 0.0)
 	{
@@ -160,9 +160,8 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 {
 	ScColor tmp;
 	ColorList::Iterator it;
-	CurrColorFill = CommonStrings::None;
+	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
-	QColor c;
 	int Rc, Gc, Bc, hR, hG, hB;
 	if (brush.style != libwpg::WPGBrush::NoBrush)
 	{
@@ -238,18 +237,6 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 			}
 		}
 	}
-/*
-	switch(brush.style)
-	{
-		case libwpg::WPGBrush::NoBrush:  break;
-		case libwpg::WPGBrush::Solid:    break;
-		case libwpg::WPGBrush::Pattern:  printf("pattern\n"); break;
-		case libwpg::WPGBrush::Gradient: break;
-		default: printf("unknown\n"); break;
-	}
-	printf("  Foreground color: RGB %d %d %d\n", brush.foreColor.red, brush.foreColor.green, brush.foreColor.blue);
-	printf("  Background color: RGB %d %d %d\n", brush.backColor.red, brush.backColor.green, brush.backColor.blue);
-*/
 }
 
 void ScrPainter::setFillRule(FillRule rule)
@@ -333,12 +320,16 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 				break;
 		}
 	}
-
-	if(path.closed)
-		Coords.svgClosePath();
 	if (Coords.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		int z;
+		if(path.closed)
+		{
+			Coords.svgClosePath();
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		}
+		else
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -378,6 +369,17 @@ void ScrPainter::finishItem(PageItem* ite)
 	ite->updateClip();
 	Elements.append(ite);
 	isGradient = false;
+	CurrColorFill = "Black";
+	CurrFillShade = 100.0;
+	CurrColorStroke = "Black";
+	CurrStrokeShade = 100.0;
+	CurrStrokeTrans = 0.0;
+	CurrFillTrans = 0.0;
+	Coords.resize(0);
+	Coords.svgInit();
+	LineW = 1.0;
+	fillrule = false;
+	gradientAngle = 0.0;
 }
 
 void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap)
