@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 #include <QList>
+#include <QPointer>
 #include "sctextstruct.h"
 #include "scfonts.h"
 #include "pageitem.h"
@@ -15,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 struct InlineFrameData
 {
-	PageItem* item;
+	QPointer<PageItem> item;
 	int refs;
 	
 	void reserve()  
