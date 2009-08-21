@@ -6819,6 +6819,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		ImInfo2 = SharedImages[fn];
 	if ((!SharedImages.contains(fn))
 		 || (fromAN)
+		 || (c->asLatexFrame())
 		 || (c->effectsInUse.count() != 0)
 		 || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc))
 		 || (ImInfo2.RequestProps != c->pixm.imgInfo.RequestProps))
