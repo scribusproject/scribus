@@ -1012,7 +1012,8 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 				putCStylePT(docu, lastStyle);
 			else*/
 				putCStyle(docu, lastStyle);
-			docu.writeAttribute("CH", QString(ch));
+			tmpnum.setNum(ch.unicode());
+			docu.writeAttribute("Unicode", tmpnum);
 			docu.writeAttribute("COBJ", item->itemText.object(k)->ItemNr);		
 		}
 		else if (ch == SpecialChars::PARSEP)	// stores also the paragraphstyle for preceding chars
