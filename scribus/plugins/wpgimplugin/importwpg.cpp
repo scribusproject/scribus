@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 #include <stdio.h>
-#include <libwpg/WPGStreamImplementation.h>
+#include "wpg/WPGStreamImplementation.h"
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
@@ -72,6 +72,8 @@ void ScrPainter::startGraphics(double width, double height)
 	fillrule = false;
 	gradientAngle = 0.0;
 	isGradient = false;
+	fillSet = false;
+	strokeSet = false;
 	currentGradient = VGradient(VGradient::linear);
 	currentGradient.clearStops();
 	currentGradient.setRepeatMethod( VGradient::none );
@@ -153,6 +155,7 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 				dashArray.append(pen.dashArray.at(i)*LineW);
 			}
 		}
+		strokeSet = true;
 	}
 }
 
@@ -236,6 +239,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), fabs(brush.gradient.stopOffset(c)), 0.5, 1.0, currStopColor, 100 );
 			}
 		}
+		fillSet = true;
 	}
 }
 
@@ -323,6 +327,16 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 	if (Coords.size() > 0)
 	{
 		int z;
+		if (fillSet)
+		{
+			if (!path.filled)
+				CurrColorFill = CommonStrings::None;
+		}
+		if (strokeSet)
+		{
+			if (!path.framed)
+				CurrColorStroke = CommonStrings::None;
+		}
 		if(path.closed)
 		{
 			Coords.svgClosePath();
@@ -369,6 +383,8 @@ void ScrPainter::finishItem(PageItem* ite)
 	ite->updateClip();
 	Elements.append(ite);
 	isGradient = false;
+	fillSet = false;
+	strokeSet = false;
 	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";
@@ -382,7 +398,7 @@ void ScrPainter::finishItem(PageItem* ite)
 	gradientAngle = 0.0;
 }
 
-void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap)
+void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres)
 {
 	QImage image = QImage(bitmap.width(), bitmap.height(), QImage::Format_RGB32);
 	for(int x = 0; x < bitmap.width(); x++)
@@ -393,15 +409,15 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap)
 			image.setPixel(x, y, qRgb(color.red, color.green, color.blue));
 		}
 	}
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1+baseX, bitmap.rect.y1+baseY, bitmap.width(), bitmap.height(), 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1+baseX, bitmap.rect.y1+baseY, bitmap.width() / hres * 72.0, bitmap.height() / vres * 72.0, 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
 	ite->tempImageFile->open();
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
 	ite->tempImageFile->close();
 	ite->isInlineImage = true;
-	image.setDotsPerMeterX(2834);
-	image.setDotsPerMeterY(2834);
+	image.setDotsPerMeterX ((int) (hres / 0.0254));
+	image.setDotsPerMeterY ((int) (vres / 0.0254));
 	image.save(fileName, "PNG");
 	m_Doc->LoadPict(fileName, z);
 	finishItem(ite);

@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMatrix>
 #include <QMultiMap>
 #include <QVector>
-#include <libwpg/libwpg.h>
+#include "wpg/libwpg.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -45,7 +45,7 @@ public:
 	void drawEllipse(const libwpg::WPGPoint& center, double rx, double ry);
 	void drawPolygon(const libwpg::WPGPointArray& vertices);
 	void drawPath(const libwpg::WPGPath& path);
-	void drawBitmap(const libwpg::WPGBitmap& bitmap);
+	void drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres);
 	void drawImageObject(const libwpg::WPGBinaryData& binaryData);
 	void finishItem(PageItem* ite);
 	QList<PageItem*> Elements;
@@ -63,6 +63,8 @@ public:
 	bool fillrule;
 	double gradientAngle;
 	bool isGradient;
+	bool fillSet;
+	bool strokeSet;
 	VGradient currentGradient;
 	QVector<double> dashArray;
 	int flags;
