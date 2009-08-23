@@ -463,8 +463,9 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 					return false;
 			}
 		}
-		PutStream("/Pattern"+patterns[c]+" 8 dict def\n");
-		PutStream("Pattern"+patterns[c]+" begin\n");
+		uint patHash = qHash(patterns[c]);
+		PutStream("/Pattern"+QString::number(patHash)+" 8 dict def\n");
+		PutStream("Pattern"+QString::number(patHash)+" begin\n");
 		PutStream("/PatternType 1 def\n");
 		PutStream("/PaintType 1 def\n");
 		PutStream("/TilingType 1 def\n");
@@ -3451,12 +3452,13 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			break;
 		case 8:
 			pat = &m_Doc->docPatterns[c->pattern()];
+			uint patHash = qHash(c->pattern());
 			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
-			PutStream("Pattern"+c->pattern()+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
+			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
 			if (fillRule)
 				PutStream("eofill\n");
 			else

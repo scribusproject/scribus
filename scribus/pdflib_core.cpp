@@ -5286,9 +5286,9 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 		if (Options.Compress)
 			PutDoc("\n/Filter /FlateDecode");
 		PutDoc(" >>\nstream\n"+EncStream(tmp2, patObject)+"\nendstream\nendobj\n");
-		Patterns.insert("Pattern"+currItem->pattern()+QString::number(ResCount), patObject);
+		Patterns.insert("Pattern"+QString::number(patObject), patObject);
 		QString tmp = "/Pattern cs\n";
-		tmp += "/Pattern"+currItem->pattern()+QString::number(ResCount)+" scn\n";
+		tmp += "/Pattern"+QString::number(patObject)+" scn\n";
 		tmp += SetClipPath(currItem);
 		if (currItem->fillRule)
 			tmp += "h\nf*\n";
