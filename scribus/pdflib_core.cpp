@@ -6539,12 +6539,15 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = xObj;
 			imgInfo.ResNum = ResCount;
 			ResCount++;
-			imgInfo.Width = pagesize.GetWidth();
-			imgInfo.Height = pagesize.GetHeight();
-			imgInfo.xa = sx;
-			imgInfo.ya = sy;
-			imgInfo.sxa = sx;
-			imgInfo.sya = sy;
+			// Avoid a divide-by-zero if width/height are less than 1 point:
+			imgInfo.Width  = qMax(1, (int) pagesize.GetWidth());
+			imgInfo.Height = qMax(1, (int) pagesize.GetHeight());
+			imgInfo.xa  = sx * pagesize.GetWidth()/imgInfo.Width;
+			imgInfo.ya  = sy * pagesize.GetHeight()/imgInfo.Height;
+			// Width/Height are integers and may not exactly equal pagesize.GetWidth()/
+			// pagesize.GetHeight(). Adjust scale factor to compensate for the difference.
+			imgInfo.sxa = sx * pagesize.GetWidth()/imgInfo.Width;
+			imgInfo.sya = sy * pagesize.GetHeight()/imgInfo.Height;
 			
 			return true;
 		}
@@ -6660,12 +6663,15 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = xObj;
 			imgInfo.ResNum = ResCount;
 			ResCount++;
-			imgInfo.Width = pagesize.GetWidth();
-			imgInfo.Height = pagesize.GetHeight();
-			imgInfo.xa = sx;
-			imgInfo.ya = sy;
-			imgInfo.sxa = sx;
-			imgInfo.sya = sy;
+			// Avoid a divide-by-zero if width/height are less than 1 point:
+			imgInfo.Width  = qMax(1, (int) pagesize.GetWidth());
+			imgInfo.Height = qMax(1, (int) pagesize.GetHeight());
+			imgInfo.xa  = sx * pagesize.GetWidth()/imgInfo.Width;
+			imgInfo.ya  = sy * pagesize.GetHeight()/imgInfo.Height;
+			// Width/Height are integers and may not exactly equal pagesize.GetWidth()/
+			// pagesize.GetHeight(). Adjust scale factor to compensate for the difference.
+			imgInfo.sxa = sx * pagesize.GetWidth()/imgInfo.Width;
+			imgInfo.sya = sy * pagesize.GetHeight()/imgInfo.Height;
 			
 			return true;
 		}
