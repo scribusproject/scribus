@@ -411,7 +411,9 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 			image.setPixel(x, y, qRgb(color.red, color.green, color.blue));
 		}
 	}
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1+baseX, bitmap.rect.y1+baseY, bitmap.width() / hres * 72.0, bitmap.height() / vres * 72.0, 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+	double w = (bitmap.rect.x2 - bitmap.rect.x1) * 72.0;
+	double h = (bitmap.rect.y2 - bitmap.rect.y1) * 72.0;
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + baseX, bitmap.rect.y1 * 72 + baseY, w, h, 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
 	ite->tempImageFile->open();
@@ -422,6 +424,8 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 	image.setDotsPerMeterY ((int) (vres / 0.0254));
 	image.save(fileName, "PNG");
 	m_Doc->LoadPict(fileName, z);
+	ite->setImageScalingMode(false, false);
+	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
 }
 
