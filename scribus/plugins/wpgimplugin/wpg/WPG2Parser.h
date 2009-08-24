@@ -152,6 +152,7 @@ public:
 private:
 	void handleStartWPG();
 	void handleEndWPG();
+	void handleFormSettings();
 	void handleLayer();
 	void handleCompoundPolygon();
 

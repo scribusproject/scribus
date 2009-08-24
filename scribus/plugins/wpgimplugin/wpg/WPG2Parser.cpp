@@ -250,7 +250,7 @@ bool WPG2Parser::parse()
 	{
 		{ 0x01, "Start WPG",            &WPG2Parser::handleStartWPG },
 		{ 0x02, "End WPG",              &WPG2Parser::handleEndWPG },
-		{ 0x03, "Form Settings",        0 },     // ignored
+		{ 0x03, "Form Settings",        &WPG2Parser::handleFormSettings },
 		{ 0x04, "Ruler Settings",       0 },     // ignored
 		{ 0x05, "Grid Settings",        0 },     // ignored
 		{ 0x06, "Layer",                &WPG2Parser::handleLayer },
@@ -585,6 +585,26 @@ void WPG2Parser::handleEndWPG()
 	m_exit = true;
 }
 
+void WPG2Parser::handleFormSettings()
+{
+	unsigned int w = (m_doublePrecision) ? readU32() : readU16();
+	unsigned int h = (m_doublePrecision) ? readU32() : readU16();
+	double width = (TO_DOUBLE(w)) / m_xres;
+	double height = (TO_DOUBLE(h)) / m_yres;
+	m_input->seek(((m_doublePrecision) ? 4 : 2), WPX_SEEK_CUR);
+	unsigned int ml = (m_doublePrecision) ? readU32() : readU16();
+	unsigned int mr = (m_doublePrecision) ? readU32() : readU16();
+	unsigned int mt = (m_doublePrecision) ? readU32() : readU16();
+	unsigned int mb = (m_doublePrecision) ? readU32() : readU16();
+	double margL = (TO_DOUBLE(ml)) / m_xres;
+	double margR = (TO_DOUBLE(mr)) / m_xres;
+	double margT = (TO_DOUBLE(mt)) / m_xres;
+	double margB = (TO_DOUBLE(mb)) / m_xres;
+	
+	WPG_DEBUG_MSG(("Form Settings: width: %f height : %f\n", width, height));
+	WPG_DEBUG_MSG(("Form Margins:  left: %f right : %f top: %f bottom: %f\n", margL, margR, margT, margB));
+}
+
 void WPG2Parser::handleLayer()
 {
 	if (!m_graphicsStarted)
@@ -702,8 +722,13 @@ void WPG2Parser::handlePenForeColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned char red = readU8();
 	unsigned char green = readU8();
 	unsigned char blue = readU8();
@@ -718,8 +743,13 @@ void WPG2Parser::handleDPPenForeColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	// we just ignore the least significant 8 bits
 	unsigned int red = (m_doublePrecision)   ? readU16()>>8 : readU8();
 	unsigned int green = (m_doublePrecision) ? readU16()>>8 : readU8();
@@ -735,8 +765,13 @@ void WPG2Parser::handlePenBackColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned char red = readU8();
 	unsigned char green = readU8();
 	unsigned char blue = readU8();
@@ -751,8 +786,13 @@ void WPG2Parser::handleDPPenBackColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	// we just ignore the least significant 8 bits
 	unsigned int red = (m_doublePrecision)   ? readU16()>>8 : readU8();
 	unsigned int green = (m_doublePrecision) ? readU16()>>8 : readU8();
@@ -768,8 +808,13 @@ void WPG2Parser::handlePenStyle()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned int style = readU16();
 
 	m_pen.dashArray = m_penStyles[style];
@@ -783,8 +828,13 @@ void WPG2Parser::handlePenSize()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned int width = readU16();
 	unsigned int height = readU16();
 
@@ -799,8 +849,13 @@ void WPG2Parser::handleDPPenSize()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned long width = readU32();
 	unsigned long height = readU32();
 
@@ -815,8 +870,13 @@ void WPG2Parser::handleBrushGradient()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned angleFraction = readU16();
 	unsigned angleInteger = readU16();
 	unsigned xref = readU16();
@@ -845,8 +905,13 @@ void WPG2Parser::handleDPBrushGradient()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned angleFraction = readU16();
 	unsigned angleInteger = readU16();
 	unsigned xref = readU16();
@@ -875,8 +940,13 @@ void WPG2Parser::handleBrushForeColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned char gradientType = readU8();
 	WPG_DEBUG_MSG(("   Gradient type : %d (%s)\n", gradientType, describeGradient(gradientType)));
 
@@ -942,8 +1012,13 @@ void WPG2Parser::handleDPBrushForeColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned char gradientType = readU8();
 	WPG_DEBUG_MSG(("   Gradient type : %d (%s)\n", gradientType, describeGradient(gradientType)));
 
@@ -1009,8 +1084,13 @@ void WPG2Parser::handleBrushBackColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	unsigned char red = readU8();
 	unsigned char green = readU8();
 	unsigned char blue = readU8();
@@ -1027,8 +1107,13 @@ void WPG2Parser::handleDPBrushBackColor()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 	// we just ignore the least significant 8 bits
 	unsigned int red = (m_doublePrecision)   ? readU16()>>8 : readU8();
 	unsigned int green = (m_doublePrecision) ? readU16()>>8 : readU8();
@@ -1046,8 +1131,13 @@ void WPG2Parser::handleBrushPattern()
 {
 	if (!m_graphicsStarted)
 		return;
-	if (!m_groupStack.empty() && m_groupStack.top().isCompoundPolygon())
-		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
 #ifdef DEBUG
 	unsigned int pattern = readU16();
 #endif
@@ -1400,8 +1490,12 @@ void WPG2Parser::handleBitmap()
 	m_bitmap.y1 = TO_DOUBLE(ys1) / m_yres;
 	m_bitmap.x2 = TO_DOUBLE(xs2) / m_xres;
 	m_bitmap.y2 = TO_DOUBLE(ys2) / m_yres;
-        m_bitmap.hres = hres;
-        m_bitmap.vres = vres;
+	if (hres == 0)
+		hres = 72;
+	m_bitmap.hres = hres;
+	if (vres == 0)
+		vres = 72;
+	m_bitmap.vres = vres;
 
 	WPG_DEBUG_MSG(("   x1 : %li\n", x1));
 	WPG_DEBUG_MSG(("   y1 : %li\n", y1));

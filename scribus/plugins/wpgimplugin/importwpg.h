@@ -36,17 +36,16 @@ public:
 	void endGraphics();
 	void startLayer(unsigned int id);
 	void endLayer(unsigned int id);
-
 	void setPen(const libwpg::WPGPen& pen);
 	void setBrush(const libwpg::WPGBrush& brush);
 	void setFillRule(FillRule rule);
-
 	void drawRectangle(const libwpg::WPGRect& rect, double rx, double ry);
 	void drawEllipse(const libwpg::WPGPoint& center, double rx, double ry);
 	void drawPolygon(const libwpg::WPGPointArray& vertices);
 	void drawPath(const libwpg::WPGPath& path);
 	void drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres);
 	void drawImageObject(const libwpg::WPGBinaryData& binaryData);
+
 	void finishItem(PageItem* ite);
 	QList<PageItem*> Elements;
 	QStringList importedColors;

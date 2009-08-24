@@ -157,6 +157,8 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 		}
 		strokeSet = true;
 	}
+	else
+		CurrColorStroke = CommonStrings::None;
 }
 
 void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
