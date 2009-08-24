@@ -457,10 +457,14 @@ void ScribusView::togglePreview()
 	previewToolbarButton->setChecked(m_canvas->m_viewMode.viewAsPreview);
 #endif
 	visualMenu->setEnabled(m_canvas->m_viewMode.viewAsPreview);
+	ScGuardedPtr<ScribusDoc> docPtr = Doc->guardedPtr();
 	Doc->recalculateColors();
 	Doc->recalcPicturesRes();
 //	repaintContents(QRect());
-	DrawNew();
+	if (docPtr) // document may have been destroyed in-between
+	{
+		DrawNew();
+	}
 }
 
 void ScribusView::changed(QRectF re)
