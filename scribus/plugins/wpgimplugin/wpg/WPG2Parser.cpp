@@ -287,8 +287,8 @@ bool WPG2Parser::parse()
 		{ 0x2a, "Pen Pattern",          0 },
 		{ 0x2b, "Pen Size",             &WPG2Parser::handlePenSize },
 		{ 0x2c, "DP Pen Size",          &WPG2Parser::handleDPPenSize  },
-		{ 0x2d, "Line Cap",             0 },
-		{ 0x2e, "Line Join",            0 },
+		{ 0x2d, "Line Cap",             &WPG2Parser::handleLineCap },
+		{ 0x2e, "Line Join",            &WPG2Parser::handleLineJoin },
 		{ 0x2f, "Brush Gradient",       &WPG2Parser::handleBrushGradient },
 		{ 0x30, "DP Brush Gradient",    &WPG2Parser::handleDPBrushGradient },
 		{ 0x31, "Brush Fore Color",     &WPG2Parser::handleBrushForeColor },
@@ -587,6 +587,7 @@ void WPG2Parser::handleEndWPG()
 
 void WPG2Parser::handleFormSettings()
 {
+#ifdef DEBUG
 	unsigned int w = (m_doublePrecision) ? readU32() : readU16();
 	unsigned int h = (m_doublePrecision) ? readU32() : readU16();
 	double width = (TO_DOUBLE(w)) / m_xres;
@@ -603,6 +604,7 @@ void WPG2Parser::handleFormSettings()
 	
 	WPG_DEBUG_MSG(("Form Settings: width: %f height : %f\n", width, height));
 	WPG_DEBUG_MSG(("Form Margins:  left: %f right : %f top: %f bottom: %f\n", margL, margR, margT, margB));
+#endif
 }
 
 void WPG2Parser::handleLayer()
@@ -648,6 +650,8 @@ void WPG2Parser::flushCompoundPolygon()
 	else
 		m_painter->setFillRule(libwpg::WPGPaintInterface::AlternatingFill);
 	context.compoundPath.closed = context.compoundClosed;
+	context.compoundPath.filled = context.compoundFilled;
+	context.compoundPath.framed = context.compoundFramed;
 	m_painter->drawPath(context.compoundPath);
 }
 
@@ -864,6 +868,38 @@ void WPG2Parser::handleDPPenSize()
 
 	WPG_DEBUG_MSG(("   Width: %li\n", width));
 	WPG_DEBUG_MSG(("  Height: %li\n", height));
+}
+
+void WPG2Parser::handleLineCap()
+{
+	if (!m_graphicsStarted)
+		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
+	unsigned int style = readU8();
+	m_pen.capstyle = style;
+	WPG_DEBUG_MSG(("   Line cap : %d\n", style));
+}
+
+void WPG2Parser::handleLineJoin()
+{
+	if (!m_graphicsStarted)
+		return;
+	if(!m_groupStack.empty())
+	{
+		if (m_groupStack.top().isCompoundPolygon())
+			return;
+		if (m_groupStack.top().parentType == 0x01) // we don't handle Page Attributes for now
+			return;
+	}
+	unsigned int style = readU8();
+	m_pen.joinstyle = style;
+	WPG_DEBUG_MSG(("   Line join : %d\n", style));
 }
 
 void WPG2Parser::handleBrushGradient()

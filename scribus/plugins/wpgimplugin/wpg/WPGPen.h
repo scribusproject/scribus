@@ -56,6 +56,8 @@ public:
 	double width;
 	double height;
 	bool solid;
+	int joinstyle;
+	int capstyle;
 	WPGDashArray dashArray;
 
 	WPGPen(); 

@@ -69,6 +69,8 @@ void ScrPainter::startGraphics(double width, double height)
 	Coords.resize(0);
 	Coords.svgInit();
 	LineW = 1.0;
+	lineJoin = Qt::MiterJoin;
+	lineEnd = Qt::FlatCap;
 	fillrule = false;
 	gradientAngle = 0.0;
 	isGradient = false;
@@ -116,8 +118,8 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 	ColorList::Iterator it;
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
-	if (LineW != 0.0)
-	{
+//	if (LineW != 0.0)
+//	{
 		int Rc, Gc, Bc, hR, hG, hB;
 		bool found = false;
 		Rc = pen.foreColor.red;
@@ -155,10 +157,40 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 				dashArray.append(pen.dashArray.at(i)*LineW);
 			}
 		}
+		switch (pen.joinstyle)
+		{
+			case 1:
+				lineJoin = Qt::BevelJoin;
+				break;
+			case 2:
+				lineJoin = Qt::MiterJoin;
+				break;
+			case 3:
+				lineJoin = Qt::RoundJoin;
+				break;
+			default:
+				lineJoin = Qt::MiterJoin;
+				break;
+		}
+		switch (pen.capstyle)
+		{
+			case 0:
+				lineEnd = Qt::FlatCap;
+				break;
+			case 1:
+				lineEnd = Qt::RoundCap;
+				break;
+			case 2:
+				lineEnd = Qt::SquareCap;
+				break;
+			default:
+				lineEnd = Qt::FlatCap;
+				break;
+		}
 		strokeSet = true;
-	}
-	else
-		CurrColorStroke = CommonStrings::None;
+//	}
+//	else
+//		CurrColorStroke = CommonStrings::None;
 }
 
 void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
@@ -257,7 +289,7 @@ void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry
 {
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, rect.width() * 72.0, rect.height() * 72.0, LineW, CurrColorFill, CurrColorStroke, true);
 	PageItem *ite = m_Doc->Items->at(z);
-	if ((rx != 0) || (ry != 0))
+	if ((rx > 0) && (ry > 0))
 	{
 		ite->setCornerRadius(qMax(72*rx, 72*ry));
 		ite->SetFrameRound();
@@ -363,6 +395,8 @@ void ScrPainter::finishItem(PageItem* ite)
 	ite->setLineShade(CurrStrokeShade);
 	ite->setFillTransparency(CurrFillTrans);
 	ite->setLineTransparency(CurrStrokeTrans);
+	ite->setLineJoin(lineJoin);
+	ite->setLineEnd(lineEnd);
 	ite->DashValues = dashArray;
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
@@ -378,7 +412,7 @@ void ScrPainter::finishItem(PageItem* ite)
 		m1.rotate(-gradientAngle);
 		ite->GrStartX = 0;
 		ite->GrStartY = 0;
-		QPointF target = m1.map(QPointF(ite->width(), 0.0));
+		QPointF target = m1.map(QPointF(0.0, ite->height()));
 		ite->GrEndX = target.x();
 		ite->GrEndY = target.y();
 	}
@@ -395,6 +429,8 @@ void ScrPainter::finishItem(PageItem* ite)
 	CurrFillTrans = 0.0;
 	Coords.resize(0);
 	Coords.svgInit();
+	lineJoin = Qt::MiterJoin;
+	lineEnd = Qt::FlatCap;
 	LineW = 1.0;
 	fillrule = false;
 	gradientAngle = 0.0;

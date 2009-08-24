@@ -79,6 +79,8 @@ libwpg::WPGPen::WPGPen():
 	width(0), 
 	height(0), 
 	solid(true) ,
+	joinstyle(2),
+	capstyle(0),
 	dashArray(WPGDashArray())
 {
 }
@@ -89,6 +91,8 @@ libwpg::WPGPen::WPGPen(const WPGColor& fore):
 	width(0), 
 	height(0), 
 	solid(true),
+	joinstyle(2),
+	capstyle(0),
 	dashArray(WPGDashArray()) 
 {
 }
@@ -99,6 +103,8 @@ libwpg::WPGPen::WPGPen(const WPGColor& fore, const WPGColor& back):
 	width(0), 
 	height(0), 
 	solid(true) ,
+	joinstyle(2),
+	capstyle(0),
 	dashArray(WPGDashArray())
 {
 }
@@ -109,6 +115,8 @@ libwpg::WPGPen::WPGPen(const WPGPen& pen):
 	width(pen.width),
 	height(pen.height),
 	solid(pen.solid),
+	joinstyle(pen.joinstyle),
+	capstyle(pen.capstyle),
 	dashArray(pen.dashArray)
 {
 }
@@ -120,6 +128,8 @@ libwpg::WPGPen& libwpg::WPGPen::operator=(const libwpg::WPGPen& pen)
 	width = pen.width;
 	height = pen.height;
 	solid = pen.solid;
+	joinstyle = pen.joinstyle;
+	capstyle = pen.capstyle;
 	dashArray = pen.dashArray;
 	return *this;
 }

@@ -66,6 +66,8 @@ public:
 	bool strokeSet;
 	VGradient currentGradient;
 	QVector<double> dashArray;
+	Qt::PenJoinStyle lineJoin;
+	Qt::PenCapStyle lineEnd;
 	int flags;
 	bool firstLayer;
 };

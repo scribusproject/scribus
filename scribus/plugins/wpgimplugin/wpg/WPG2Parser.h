@@ -167,6 +167,8 @@ private:
 	void handlePenStyle();
 	void handlePenSize();
 	void handleDPPenSize();
+	void handleLineCap();
+	void handleLineJoin();
 	void handleBrushGradient();
 	void handleDPBrushGradient();
 	void handleBrushForeColor();
