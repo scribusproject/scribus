@@ -6623,6 +6623,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 {
 	int cc = 0;
 	int ca = 0;
+	ScGuardedPtr<ScribusDoc> docPtr = guardedPtr();
 	m_ScMW->mainWindowProgressBar->reset();
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
@@ -6670,6 +6671,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			if (!docPtr) return;
 		}
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
@@ -6688,6 +6690,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			if (!docPtr) return;
 		}
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
@@ -6706,6 +6709,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			if (!docPtr) return;
 		}
 	}
 	for (int c = 0; c < patterns.count(); ++c)
@@ -6727,6 +6731,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				ca++;
 				m_ScMW->mainWindowProgressBar->setValue(ca);
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+				if (!docPtr) return;
 			}
 		}
 		PageItem *ite = pa.items.at(0);
