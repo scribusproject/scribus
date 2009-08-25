@@ -366,7 +366,7 @@ void WPG1Parser::handleLine()
 
 	m_painter->setBrush(m_brush);
 	m_painter->setPen(m_pen);
-	m_painter->drawPolygon(points);
+	m_painter->drawPolygon(points, true);
 
 	WPG_DEBUG_MSG(("Line\n"));
 	WPG_DEBUG_MSG(("    Starting point: %d,%d\n", sx, sy));
@@ -389,7 +389,7 @@ void WPG1Parser::handlePolyline()
 
 	m_painter->setBrush(libwpg::WPGBrush()); // not filled
 	m_painter->setPen(m_pen);
-	m_painter->drawPolygon(points);
+	m_painter->drawPolygon(points, false);
 
 	WPG_DEBUG_MSG(("Polyline\n"));
 }
@@ -436,7 +436,7 @@ void WPG1Parser::handlePolygon()
 
 	m_painter->setBrush(m_brush);
 	m_painter->setPen(m_pen);
-	m_painter->drawPolygon(points);
+	m_painter->drawPolygon(points, true);
 
 	WPG_DEBUG_MSG(("Polygon\n"));
 }

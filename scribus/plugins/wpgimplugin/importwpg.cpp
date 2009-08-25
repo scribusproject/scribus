@@ -298,6 +298,7 @@ void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry
 	QMatrix mm = QMatrix();
 	mm.translate(72*rect.x1, 72*rect.y1);
 	ite->PoLine.map(mm);
+	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
 }
 
@@ -306,12 +307,13 @@ void ScrPainter::drawEllipse(const libwpg::WPGPoint& center, double rx, double r
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 144.0, ry * 144.0, LineW, CurrColorFill, CurrColorStroke, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	QMatrix mm = QMatrix();
-	mm.translate(72*center.x, 72*center.y);
+	mm.translate(72*(center.x - rx), 72*(center.y - ry));
 	ite->PoLine.map(mm);
+	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
 }
 
-void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices)
+void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices, bool closed)
 {
 	if(vertices.count() < 2)
 		return;
@@ -323,10 +325,15 @@ void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices)
 	{
 		Coords.svgLineTo(72 * vertices[i].x, 72 * vertices[i].y);
 	}
-	Coords.svgClosePath();
+	if (closed)
+		Coords.svgClosePath();
 	if (Coords.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		int z;
+		if (closed)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		else
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());

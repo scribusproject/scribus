@@ -41,7 +41,7 @@ public:
 	void setFillRule(FillRule rule);
 	void drawRectangle(const libwpg::WPGRect& rect, double rx, double ry);
 	void drawEllipse(const libwpg::WPGPoint& center, double rx, double ry);
-	void drawPolygon(const libwpg::WPGPointArray& vertices);
+	void drawPolygon(const libwpg::WPGPointArray& vertices, bool closed);
 	void drawPath(const libwpg::WPGPath& path);
 	void drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres);
 	void drawImageObject(const libwpg::WPGBinaryData& binaryData);

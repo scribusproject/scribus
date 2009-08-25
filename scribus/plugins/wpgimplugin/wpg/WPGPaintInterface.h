@@ -60,7 +60,7 @@ public:
 
 	virtual void drawEllipse(const WPGPoint& center, double rx, double ry) = 0;
 
-	virtual void drawPolygon(const WPGPointArray& vertices) = 0;
+	virtual void drawPolygon(const WPGPointArray& vertices, bool closed) = 0;
 
 	virtual void drawPath(const WPGPath& path) = 0;
 

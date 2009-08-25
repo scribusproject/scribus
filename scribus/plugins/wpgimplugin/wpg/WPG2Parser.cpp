@@ -1317,7 +1317,7 @@ void WPG2Parser::handlePolyline()
 			m_painter->setFillRule(libwpg::WPGPaintInterface::WindingFill);
 		else
 			m_painter->setFillRule(libwpg::WPGPaintInterface::AlternatingFill);
-		m_painter->drawPolygon(points);
+		m_painter->drawPolygon(points, objCh.filled);
 	}
 
 	WPG_DEBUG_MSG(("   Vertices count : %li\n", count));
