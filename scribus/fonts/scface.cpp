@@ -196,6 +196,76 @@ const ScFace& ScFace::none()
 	return NONE; 
 }
 
+qreal ScFace::ascent(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->ascent(sz); 
+}
+
+qreal ScFace::descent(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->descent(sz); 
+}
+qreal ScFace::xHeight(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->xHeight(sz); 
+}
+
+qreal ScFace::capHeight(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->capHeight(sz); 
+}
+
+qreal ScFace::height(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->height(sz); 
+}
+
+qreal ScFace::strikeoutPos(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->strikeoutPos(sz); 
+}
+
+qreal ScFace::underlinePos(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->underlinePos(sz); 
+}
+
+qreal ScFace::strokeWidth(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->strokeWidth(sz); 
+}
+
+qreal ScFace::maxAdvanceWidth(qreal sz) const 
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->maxAdvanceWidth(sz); 
+}
 
 void ScFace::increaseUsage() const
 {

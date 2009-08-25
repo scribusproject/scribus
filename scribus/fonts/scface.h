@@ -301,20 +301,20 @@ public:
 	QString variant()  const { return m->variant; }
 	
 	// font metrics
-	qreal ascent(qreal sz=1.0)          const { return m->ascent(sz); }
 	QString ascentAsString()    const { return m->ascentAsString() ; }
 	QString descentAsString()    const { return m->descentAsString() ; }
 	QString capHeightAsString()    const { return m->capHeightAsString() ; }
 	QString FontBBoxAsString()    const { return m->FontBBoxAsString() ; }
 	QString ItalicAngleAsString()    const { return m->ItalicAngleAsString() ; }
-	qreal descent(qreal sz=1.0)         const { return m->descent(sz); }
-	qreal xHeight(qreal sz=1.0)         const { return m->xHeight(sz); }
-	qreal capHeight(qreal sz=1.0)       const { return m->capHeight(sz); }
-	qreal height(qreal sz=1.0)          const { return m->height(sz); }
-	qreal strikeoutPos(qreal sz=1.0)    const { return m->strikeoutPos(sz); }
-	qreal underlinePos(qreal sz=1.0)    const { return m->underlinePos(sz); }
-	qreal strokeWidth(qreal sz=1.0)     const { return m->strokeWidth(sz); }
-	qreal maxAdvanceWidth(qreal sz=1.0) const { return m->maxAdvanceWidth(sz); }
+	qreal ascent(qreal sz=1.0)          const;
+	qreal descent(qreal sz=1.0)         const;
+	qreal xHeight(qreal sz=1.0)         const;
+	qreal capHeight(qreal sz=1.0)       const;
+	qreal height(qreal sz=1.0)          const;
+	qreal strikeoutPos(qreal sz=1.0)    const;
+	qreal underlinePos(qreal sz=1.0)    const;
+	qreal strokeWidth(qreal sz=1.0)     const;
+	qreal maxAdvanceWidth(qreal sz=1.0) const;
 	
 	/// deprecated
 	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
