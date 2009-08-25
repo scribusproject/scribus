@@ -71,7 +71,7 @@ void ScrPainter::startGraphics(double width, double height)
 	LineW = 1.0;
 	lineJoin = Qt::MiterJoin;
 	lineEnd = Qt::FlatCap;
-	fillrule = false;
+	fillrule = true;
 	gradientAngle = 0.0;
 	isGradient = false;
 	fillSet = false;
@@ -200,8 +200,8 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
 	int Rc, Gc, Bc, hR, hG, hB;
-	if (brush.style != libwpg::WPGBrush::NoBrush)
-	{
+//	if (brush.style != libwpg::WPGBrush::NoBrush)
+//	{
 		if(brush.style == libwpg::WPGBrush::Solid)
 		{
 			bool found = false;
@@ -273,8 +273,10 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), fabs(brush.gradient.stopOffset(c)), 0.5, 1.0, currStopColor, 100 );
 			}
 		}
+		else if (brush.style == libwpg::WPGBrush::NoBrush)
+			CurrColorFill = CommonStrings::None;
 		fillSet = true;
-	}
+//	}
 }
 
 void ScrPainter::setFillRule(FillRule rule)
@@ -283,6 +285,7 @@ void ScrPainter::setFillRule(FillRule rule)
 		fillrule = false;
 	else
 		fillrule = true;
+//	qDebug() << "Fill Rule " << fillrule;
 }
 
 void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry)
@@ -300,6 +303,7 @@ void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry
 	ite->PoLine.map(mm);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
+//	qDebug() << "draw Rect";
 }
 
 void ScrPainter::drawEllipse(const libwpg::WPGPoint& center, double rx, double ry)
@@ -311,6 +315,7 @@ void ScrPainter::drawEllipse(const libwpg::WPGPoint& center, double rx, double r
 	ite->PoLine.map(mm);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
+//	qDebug() << "draw Ellipse";
 }
 
 void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices, bool closed)
@@ -339,6 +344,7 @@ void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices, bool closed)
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
 	}
+//	qDebug() << "draw Polygon";
 }
 
 void ScrPainter::drawPath(const libwpg::WPGPath& path)
@@ -390,6 +396,7 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
 	}
+//	qDebug() << "draw Path";
 }
 
 void ScrPainter::finishItem(PageItem* ite)
@@ -439,7 +446,7 @@ void ScrPainter::finishItem(PageItem* ite)
 	lineJoin = Qt::MiterJoin;
 	lineEnd = Qt::FlatCap;
 	LineW = 1.0;
-	fillrule = false;
+	fillrule = true;
 	gradientAngle = 0.0;
 }
 
@@ -470,11 +477,12 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 	ite->setImageScalingMode(false, false);
 	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
+//	qDebug() << "drawBitmap";
 }
 
 void ScrPainter::drawImageObject(const libwpg::WPGBinaryData& /*binaryData*/)
 {
-	printf("RawPainter::drawBinaryData\n");
+//	qDebug() << "drawBinaryData";
 }
 
 
