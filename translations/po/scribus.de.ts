@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="de_DE">
-<defaultcodec></defaultcodec>
+<!DOCTYPE TS>
+<TS version="2.0" language="de_DE">
 <context>
     <name></name>
     <message>
@@ -19424,7 +19424,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Vertikaler Versatz:</translation>
     </message>
 </context>
-<context encoding="UTF-8">
+<context>
     <name>Measurements</name>
     <message>
         <location filename="../../scribus/measurements.cpp" line="127"/>
@@ -19476,7 +19476,7 @@ p, li { white-space: pre-wrap; }
         <source>pt</source>
         <translation type="obsolete">pt</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/measurements.cpp" line="51"/>
         <source> °</source>
         <translation>°</translation>
@@ -19890,7 +19890,7 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     <message>
         <location filename="../../scribus/multiprogressdialog.cpp" line="74"/>
         <source>%v of %m</source>
-        <translation>% von %m</translation>
+        <translation type="unfinished">%v von %m</translation>
     </message>
 </context>
 <context>
@@ -22215,7 +22215,7 @@ both end points must lie outside of the polygon</source>
 beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     </message>
 </context>
-<context encoding="UTF-8">
+<context>
     <name>PathDialogBase</name>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="13"/>
@@ -22257,7 +22257,7 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
         <source>Vertical Offset</source>
         <translation>Vertikaler Versatz</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="72"/>
         <source>Rotate Object by 90°</source>
         <translation type="obsolete">Objekt um 90° rotieren</translation>
@@ -22277,22 +22277,22 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
         <source>Rotate Objects by:</source>
         <translation>Objekt rotieren um:</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -28371,7 +28371,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="106"/>
-        <source>Norwegian (Bokm&#xc3;&#xa5;l)</source>
+        <source>Norwegian (BokmÃ¥l)</source>
         <translation>Norwegisch (Bokmål)</translation>
     </message>
     <message>
@@ -28721,7 +28721,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="161"/>
-        <source>&#xb0;</source>
+        <source>°</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation>°</translation>
     </message>
