@@ -400,6 +400,10 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
 			m_canvas->repaint();
+			double itemRotation;
+			FPoint itemPos;
+			getNewItemPosition(currItem, itemPos, itemRotation);
+			m_canvas->displayRotHUD(m->globalPos(), itemRotation);
 		}
 		if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
