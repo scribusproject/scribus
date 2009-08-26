@@ -2253,6 +2253,8 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 
 void Canvas::displayRotHUD(QPoint m, double rot)
 {
+	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+		return;
 	double r;
 	if (rot < 0.0)
 		r = rot * -1.0;
