@@ -118,13 +118,89 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 	ColorList::Iterator it;
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
-//	if (LineW != 0.0)
-//	{
-		int Rc, Gc, Bc, hR, hG, hB;
+	int Rc, Gc, Bc, hR, hG, hB;
+	bool found = false;
+	Rc = pen.foreColor.red;
+	Gc = pen.foreColor.green;
+	Bc = pen.foreColor.blue;
+	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+	{
+		if (it.value().getColorModel() == colorModelRGB)
+		{
+			it.value().getRGB(&hR, &hG, &hB);
+			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
+			{
+				CurrColorStroke = it.key();
+				found = true;
+				break;
+			}
+		}
+	}
+	if (!found)
+	{
+		tmp.setColorRGB(Rc, Gc, Bc);
+		tmp.setSpotColor(false);
+		tmp.setRegistrationColor(false);
+		QString newColorName = "FromWPG"+tmp.name();
+		m_Doc->PageColors.insert(newColorName, tmp);
+		importedColors.append(newColorName);
+		CurrColorStroke = newColorName;
+	}
+	CurrStrokeTrans = pen.foreColor.alpha / 256.0;
+	if(!pen.solid)
+	{
+		dashArray.clear();
+		for(unsigned i = 0; i < pen.dashArray.count(); i++)
+		{
+			dashArray.append(pen.dashArray.at(i)*LineW);
+		}
+	}
+	switch (pen.joinstyle)
+	{
+		case 1:
+			lineJoin = Qt::BevelJoin;
+			break;
+		case 2:
+			lineJoin = Qt::MiterJoin;
+			break;
+		case 3:
+			lineJoin = Qt::RoundJoin;
+			break;
+		default:
+			lineJoin = Qt::MiterJoin;
+			break;
+	}
+	switch (pen.capstyle)
+	{
+		case 0:
+			lineEnd = Qt::FlatCap;
+			break;
+		case 1:
+			lineEnd = Qt::RoundCap;
+			break;
+		case 2:
+			lineEnd = Qt::SquareCap;
+			break;
+		default:
+			lineEnd = Qt::FlatCap;
+			break;
+	}
+	strokeSet = true;
+}
+
+void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
+{
+	ScColor tmp;
+	ColorList::Iterator it;
+	CurrColorFill = "Black";
+	CurrFillShade = 100.0;
+	int Rc, Gc, Bc, hR, hG, hB;
+	if(brush.style == libwpg::WPGBrush::Solid)
+	{
 		bool found = false;
-		Rc = pen.foreColor.red;
-		Gc = pen.foreColor.green;
-		Bc = pen.foreColor.blue;
+		Rc = brush.foreColor.red;
+		Gc = brush.foreColor.green;
+		Bc = brush.foreColor.blue;
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
 			if (it.value().getColorModel() == colorModelRGB)
@@ -132,7 +208,7 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 				it.value().getRGB(&hR, &hG, &hB);
 				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 				{
-					CurrColorStroke = it.key();
+					CurrColorFill = it.key();
 					found = true;
 					break;
 				}
@@ -146,68 +222,23 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 			QString newColorName = "FromWPG"+tmp.name();
 			m_Doc->PageColors.insert(newColorName, tmp);
 			importedColors.append(newColorName);
-			CurrColorStroke = newColorName;
+			CurrColorFill = newColorName;
 		}
-		CurrStrokeTrans = pen.foreColor.alpha / 256.0;
-		if(!pen.solid)
+		CurrFillTrans = brush.foreColor.alpha / 256.0;
+	}
+	else if (brush.style == libwpg::WPGBrush::Gradient)
+	{
+		gradientAngle = brush.gradient.angle();
+		isGradient = true;
+		currentGradient = VGradient(VGradient::linear);
+		currentGradient.clearStops();
+		for(unsigned c = 0; c < brush.gradient.count(); c++)
 		{
-			dashArray.clear();
-			for(unsigned i = 0; i < pen.dashArray.count(); i++)
-			{
-				dashArray.append(pen.dashArray.at(i)*LineW);
-			}
-		}
-		switch (pen.joinstyle)
-		{
-			case 1:
-				lineJoin = Qt::BevelJoin;
-				break;
-			case 2:
-				lineJoin = Qt::MiterJoin;
-				break;
-			case 3:
-				lineJoin = Qt::RoundJoin;
-				break;
-			default:
-				lineJoin = Qt::MiterJoin;
-				break;
-		}
-		switch (pen.capstyle)
-		{
-			case 0:
-				lineEnd = Qt::FlatCap;
-				break;
-			case 1:
-				lineEnd = Qt::RoundCap;
-				break;
-			case 2:
-				lineEnd = Qt::SquareCap;
-				break;
-			default:
-				lineEnd = Qt::FlatCap;
-				break;
-		}
-		strokeSet = true;
-//	}
-//	else
-//		CurrColorStroke = CommonStrings::None;
-}
-
-void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
-{
-	ScColor tmp;
-	ColorList::Iterator it;
-	CurrColorFill = "Black";
-	CurrFillShade = 100.0;
-	int Rc, Gc, Bc, hR, hG, hB;
-//	if (brush.style != libwpg::WPGBrush::NoBrush)
-//	{
-		if(brush.style == libwpg::WPGBrush::Solid)
-		{
+			QString currStopColor = CommonStrings::None;
 			bool found = false;
-			Rc = brush.foreColor.red;
-			Gc = brush.foreColor.green;
-			Bc = brush.foreColor.blue;
+			Rc = brush.gradient.stopColor(c).red;
+			Gc = brush.gradient.stopColor(c).green;
+			Bc = brush.gradient.stopColor(c).blue;
 			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 			{
 				if (it.value().getColorModel() == colorModelRGB)
@@ -215,7 +246,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 					it.value().getRGB(&hR, &hG, &hB);
 					if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 					{
-						CurrColorFill = it.key();
+						currStopColor = it.key();
 						found = true;
 						break;
 					}
@@ -229,54 +260,15 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 				QString newColorName = "FromWPG"+tmp.name();
 				m_Doc->PageColors.insert(newColorName, tmp);
 				importedColors.append(newColorName);
-				CurrColorFill = newColorName;
+				currStopColor = newColorName;
 			}
-			CurrFillTrans = brush.foreColor.alpha / 256.0;
+			const ScColor& gradC = m_Doc->PageColors[currStopColor];
+			currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), fabs(brush.gradient.stopOffset(c)), 0.5, 1.0, currStopColor, 100 );
 		}
-		else if (brush.style == libwpg::WPGBrush::Gradient)
-		{
-			gradientAngle = brush.gradient.angle();
-			isGradient = true;
-			currentGradient = VGradient(VGradient::linear);
-			currentGradient.clearStops();
-			for(unsigned c = 0; c < brush.gradient.count(); c++)
-			{
-				QString currStopColor = CommonStrings::None;
-				bool found = false;
-				Rc = brush.gradient.stopColor(c).red;
-				Gc = brush.gradient.stopColor(c).green;
-				Bc = brush.gradient.stopColor(c).blue;
-				for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-				{
-					if (it.value().getColorModel() == colorModelRGB)
-					{
-						it.value().getRGB(&hR, &hG, &hB);
-						if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-						{
-							currStopColor = it.key();
-							found = true;
-							break;
-						}
-					}
-				}
-				if (!found)
-				{
-					tmp.setColorRGB(Rc, Gc, Bc);
-					tmp.setSpotColor(false);
-					tmp.setRegistrationColor(false);
-					QString newColorName = "FromWPG"+tmp.name();
-					m_Doc->PageColors.insert(newColorName, tmp);
-					importedColors.append(newColorName);
-					currStopColor = newColorName;
-				}
-				const ScColor& gradC = m_Doc->PageColors[currStopColor];
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), fabs(brush.gradient.stopOffset(c)), 0.5, 1.0, currStopColor, 100 );
-			}
-		}
-		else if (brush.style == libwpg::WPGBrush::NoBrush)
-			CurrColorFill = CommonStrings::None;
-		fillSet = true;
-//	}
+	}
+	else if (brush.style == libwpg::WPGBrush::NoBrush)
+		CurrColorFill = CommonStrings::None;
+	fillSet = true;
 }
 
 void ScrPainter::setFillRule(FillRule rule)
@@ -432,22 +424,8 @@ void ScrPainter::finishItem(PageItem* ite)
 	}
 	ite->updateClip();
 	Elements.append(ite);
-	isGradient = false;
-	fillSet = false;
-	strokeSet = false;
-	CurrColorFill = "Black";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	CurrStrokeTrans = 0.0;
-	CurrFillTrans = 0.0;
 	Coords.resize(0);
 	Coords.svgInit();
-	lineJoin = Qt::MiterJoin;
-	lineEnd = Qt::FlatCap;
-	LineW = 1.0;
-	fillrule = true;
-	gradientAngle = 0.0;
 }
 
 void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres)
