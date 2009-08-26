@@ -2251,6 +2251,16 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
+void Canvas::displayRotHUD(QPoint m, double rot)
+{
+	double r;
+	if (rot < 0.0)
+		r = rot * -1.0;
+	else
+		r = 360.0 - rot;
+	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(r, SC_DEGREES, true, true)), this);
+}
+
 void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 {
 	static QString rulerItemRef;
