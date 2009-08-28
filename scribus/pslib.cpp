@@ -450,6 +450,8 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutStream(Fonts);
 	if (GraySc)
 		PutStream(GrayCalc);
+	Optimization optim = optimization;
+	optimization = OptimizeSize;
 	QStringList patterns = m_Doc->getUsedPatterns();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -566,6 +568,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutStream("} def\n");
 		PutStream("end\n");
 	}
+	optimization = optim;
 //	PutStream("end\n");
 //	PutStream("%%EndSetup\n");
 	Prolog = "";

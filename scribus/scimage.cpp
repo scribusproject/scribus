@@ -1807,6 +1807,8 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		if	(pDataLoader)
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
+	else if (ext == "pat")
+		pDataLoader = new ScImgDataLoader_GIMP();
 	else
 		pDataLoader = new ScImgDataLoader_QT();
 
