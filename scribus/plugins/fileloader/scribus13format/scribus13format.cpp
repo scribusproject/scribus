@@ -2225,7 +2225,10 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->setCornerRadius(ScCLocale::toDoubleC(obj->attribute("RADRECT"), 0.0));
 	currItem->ClipEdited = obj->attribute("CLIPEDIT", "0").toInt();
 	currItem->setFillColor(Pcolor);
-	currItem->setLineColor(Pcolor2);
+	if (currItem->lineWidth() == 0.0)
+		currItem->setLineColor(CommonStrings::None);
+	else
+		currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(Pshade);
 	currItem->setLineShade(Pshade2);
 	ParagraphStyle pstyle;

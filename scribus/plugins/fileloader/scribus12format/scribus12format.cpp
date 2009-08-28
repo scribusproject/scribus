@@ -802,6 +802,8 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 		OB->Pcolor2 = obj->attribute("PCOLOR2");
 		OB->TxtFill = obj->attribute("TXTFILL", "Black");
 	}
+	if (OB->Pwidth == 0.0)
+		OB->Pcolor2 = CommonStrings::None;
 	OB->Shade = obj->attribute("SHADE").toInt();
 	OB->Shade2 = obj->attribute("SHADE2").toInt();
 	OB->FillRule = obj->attribute("fillRule", "1").toInt();
