@@ -1954,7 +1954,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
-		if (!reader.isStartElement() || reader.name() != "PAGEOBJECT") 
+		if (!reader.isStartElement() || reader.name() != "PatternItem") 
 			continue;
 
 		QStringRef tName = reader.name();
