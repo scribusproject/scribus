@@ -450,6 +450,8 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutStream(Fonts);
 	if (GraySc)
 		PutStream(GrayCalc);
+	Optimization optim = optimization;
+	optimization = OptimizeSize;
 	QStringList patterns = m_Doc->getUsedPatterns();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -566,6 +568,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutStream("} def\n");
 		PutStream("end\n");
 	}
+	optimization = optim;
 //	PutStream("end\n");
 //	PutStream("%%EndSetup\n");
 	Prolog = "";
@@ -1421,11 +1424,14 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	}
 	image.applyEffect(c->effectsInUse, colorsToUse, true);
 	QByteArray maskArray;
-	bool alphaLoaded = image.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, maskArray, false, true, 300);
-	if (!alphaLoaded)
+	if (c->pixm.imgInfo.type != ImageType7)
 	{
-		PS_Error_MaskLoadFailure(fn);
-		return false;
+		bool alphaLoaded = image.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, maskArray, false, true, 300);
+		if (!alphaLoaded)
+		{
+			PS_Error_MaskLoadFailure(fn);
+			return false;
+		}
 	}
 	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
 	{

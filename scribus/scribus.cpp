@@ -9594,7 +9594,9 @@ void ScribusMainWindow::PutToPatterns()
 	pat.height = currItem->gHeight;
 	for (int as = ac; as < ae; ++as)
 	{
-		pat.items.append(doc->Items->takeAt(ac));
+		PageItem* paItem = doc->Items->takeAt(ac);
+		paItem->setItemName(patternName+QString("_%1").arg(as-ac));
+		pat.items.append(paItem);
 	}
 	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();
