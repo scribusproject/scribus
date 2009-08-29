@@ -984,6 +984,7 @@ void ScPainter::drawVPath( int mode )
 		}
 		else if (fillMode == 3)
 		{
+			cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
 			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
@@ -1003,6 +1004,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_paint_with_alpha (m_cr, fill_trans);
 			cairo_pattern_destroy (m_pat);
 			cairo_surface_destroy (image2);
+			cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
 		}
 	}
 	else
@@ -1086,6 +1088,8 @@ void ScPainter::drawVPath(int mode)
 		}
 		else if (fillMode == 3)
 		{
+			painter.setRenderHint(QPainter::Antialiasing, false);
+			painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
 			QMatrix qmatrix;
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
@@ -1096,6 +1100,8 @@ void ScPainter::drawVPath(int mode)
 			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
 			painter.setOpacity(fill_trans);
 			painter.fillPath(m_path, brush);
+			painter.setRenderHint(QPainter::Antialiasing, true);
+			painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 		}
 	}
 	else
