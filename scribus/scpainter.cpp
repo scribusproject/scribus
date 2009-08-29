@@ -994,6 +994,7 @@ void ScPainter::drawVPath( int mode )
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
 			qmatrix.scale(patternScaleX, patternScaleY);
+			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
 			cairo_matrix_invert(&matrix);
 			cairo_pattern_set_matrix (m_pat, &matrix);
@@ -1089,6 +1090,7 @@ void ScPainter::drawVPath(int mode)
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
 			qmatrix.scale(patternScaleX, patternScaleY);
+			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 			QBrush brush = QBrush(*m_pattern->getPattern());
 			brush.setMatrix(qmatrix);
 			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
