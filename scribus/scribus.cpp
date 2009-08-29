@@ -9499,6 +9499,7 @@ void ScribusMainWindow::PutToPatterns()
 	}
 	else
 		return;
+	bool wasUndo = undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
 	int ac = doc->Items->count();
 	uint oldNum = doc->TotalItems;
@@ -9539,7 +9540,7 @@ void ScribusMainWindow::PutToPatterns()
 	doc->m_Selection->copy(itemSelection, false);
 	doc->m_Selection->delaySignalsOff();
 	view->DrawNew();
-	undoManager->setUndoEnabled(true);
+	undoManager->setUndoEnabled(wasUndo);
 }
 
 void ScribusMainWindow::managePatterns()

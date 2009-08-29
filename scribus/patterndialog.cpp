@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "query.h"
 #include "util.h"
+#include "undomanager.h"
 #include "stencilreader.h"
 #include "scconfig.h"
 #include "loadsaveplugin.h"
@@ -339,6 +340,8 @@ void PatternDialog::loadPattern()
 
 void PatternDialog::loadVectors(QString data)
 {
+	bool wasUndo = UndoManager::undoEnabled();
+	UndoManager::instance()->setUndoEnabled(false);
 	m_doc->setLoading(true);
 	QFileInfo fi(data);
 	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
@@ -423,6 +426,7 @@ void PatternDialog::loadVectors(QString data)
 	}
 	m_doc->setLoading(false);
 	m_doc->view()->Deselect(false);
+	UndoManager::instance()->setUndoEnabled(wasUndo);
 	m_doc->view()->DrawNew();
 }
 
