@@ -210,7 +210,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SetCross();
 }
 
-void Annota::SetCo(qreal x, qreal y)
+void Annota::SetCo(double x, double y)
 {
 	SpinBox2->setValue(static_cast<int>(x*Breite));
 	SpinBox3->setValue(static_cast<int>(y*Hoehe));
