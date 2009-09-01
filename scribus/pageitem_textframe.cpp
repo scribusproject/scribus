@@ -1447,12 +1447,16 @@ void PageItem_TextFrame::layout()
 						// remember fill char
 //						qDebug() << QString("tab: %1 '%2'").arg(tCurX).arg(tabs.fillChar);
 						if (!tabs.fillChar.isNull()) {
-							hl->glyph.grow();
-							GlyphLayout * tglyph = hl->glyph.more;
-							tglyph->glyph = charStyle.font().char2CMap(tabs.fillChar);
-							tglyph->yoffset = hl->glyph.yoffset;
-							tglyph->scaleV = tglyph->scaleH = chs / charStyle.fontSize();
-							tglyph->xadvance = 0;
+							hl->glyph.growWithTabLayout();
+							TabLayout * tglyph = dynamic_cast<TabLayout*>(hl->glyph.more);
+							if (tglyph)
+							{
+								tglyph->fillChar = tabs.fillChar;
+								tglyph->glyph    = charStyle.font().char2CMap(tabs.fillChar);
+								tglyph->yoffset  = hl->glyph.yoffset;
+								tglyph->scaleV   = tglyph->scaleH = chs / charStyle.fontSize();
+								tglyph->xadvance = 0;
+							}
 						}
 					}
 					current.xPos -= (legacy ? 1.0 : 0.0);

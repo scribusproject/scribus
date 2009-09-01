@@ -3973,12 +3973,9 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				if ((ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 				{
 					QChar tabFillChar;
-					double tCurX = CurX - colLeft + 1;
-					for (int yg = static_cast<int>(tTabValues.count()-1); yg > -1; yg--)
-					{
-						if (tCurX < tTabValues[yg].tabPosition)
-							tabFillChar = tTabValues[yg].tabFillChar;
-					}
+					const TabLayout* tabLayout = dynamic_cast<const TabLayout*>(hl->glyph.more);
+					if (tabLayout)
+						tabFillChar = tabLayout->fillChar;
 					if (!tabFillChar.isNull())
 					{
 						ScText hl2;
@@ -3990,7 +3987,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						int coun     = static_cast<int>(len / wt);
 						// #6728 : update code according to fillInTabLeaders() and PageItem::layout() - JG
 						double sPos  = 0.0 /*CurX - len + chstyle.fontSize() / 10.0 * 0.7 + 1*/;
-						hl2.ch = tTabValues[tabCc].tabFillChar;
+						hl2.ch = tabFillChar;
 						hl2.setTracking(0);
 						hl2.setScaleH(1000);
 						hl2.setScaleV(1000);
