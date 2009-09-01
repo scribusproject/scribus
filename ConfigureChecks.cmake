@@ -29,6 +29,13 @@ else(PNG_FOUND)
    set(HAVE_LIBPNG 0)
 endif(PNG_FOUND)
 
+#check for OSG
+#if(OSG_FOUND)
+#   set(HAVE_OSG 1)
+#else(OSG_FOUND)
+#   set(HAVE_OSG 0)
+#endif(OSG_FOUND)
+
 if(BZIP2_FOUND)
    set(HAVE_BZIP2_SUPPORT 1)
    if(BZIP2_NEED_PREFIX)

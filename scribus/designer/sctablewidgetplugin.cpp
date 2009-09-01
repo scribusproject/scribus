@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QtPlugin>
 #include "sctablewidgetplugin.h"
-#include "sctablewidget.h"
+#include "../ui/sctablewidget.h"
 
 ScTableWidgetPlugin::ScTableWidgetPlugin(QObject* parent)
 	: QObject(parent), initialized(false)

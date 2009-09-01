@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QtPlugin>
 #include "sctextbrowserplugin.h"
-#include "sctextbrowser.h"
+#include "../ui/sctextbrowser.h"
 
 ScTextBrowserPlugin::ScTextBrowserPlugin(QObject* parent)
 	: QObject(parent), initialized(false)

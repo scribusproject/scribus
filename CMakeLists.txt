@@ -485,10 +485,10 @@ ELSE (WANT_NOOSG)
   IF(OSG_FOUND)
     MESSAGE("OSG found OK")
     SET(HAVE_OSG 1)
+    FIND_PACKAGE(OpenGL)
   ELSE(OSG_FOUND)
     MESSAGE("No OSG found, building without 3D-Extension")
   ENDIF(OSG_FOUND)
-  FIND_PACKAGE(OpenGL)
 ENDIF (WANT_NOOSG)
 
 #<< JPEG, TIFF, PYTHON
