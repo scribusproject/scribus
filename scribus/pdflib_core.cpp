@@ -4004,12 +4004,9 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				if ((ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 				{
 					QChar tabFillChar;
-					double tCurX = CurX - colLeft + 1;
-					for (int yg = static_cast<int>(tTabValues.count()-1); yg > -1; yg--)
-					{
-						if (tCurX < tTabValues[yg].tabPosition)
-							tabFillChar = tTabValues[yg].tabFillChar;
-					}
+					const TabLayout* tabLayout = dynamic_cast<const TabLayout*>(hl->glyph.more);
+					if (tabLayout)
+						tabFillChar = tabLayout->fillChar;
 					if (!tabFillChar.isNull())
 					{
 						ScText hl2;

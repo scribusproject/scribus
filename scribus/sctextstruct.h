@@ -88,7 +88,12 @@ struct SCRIBUS_API GlyphLayout {
 			more = new GlyphLayout();
 		}
 	}
-	
+	virtual void growWithTabLayout();
+};
+
+struct SCRIBUS_API TabLayout : public GlyphLayout
+{
+	QChar fillChar;
 };
 
 struct InlineFrameData;

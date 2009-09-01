@@ -13,6 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusdoc.h"
 
+void GlyphLayout::growWithTabLayout()
+{
+	if (more)
+		shrink();
+	more = new TabLayout();
+}
 
 struct InlineFrameData
 {
