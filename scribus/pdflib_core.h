@@ -69,6 +69,7 @@ private:
 		int ResNum;
 		int Width;
 		int Height;
+		int Page;
 		double reso;
 		double sxa;
 		double sya;

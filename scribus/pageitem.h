@@ -418,6 +418,7 @@ public:
 	QString Pfile3;
 	QString externalFile() const { return Pfile; }
 	void setExternalFile(QString val);
+	void setImagePagenumber(int num) { pixm.imgInfo.actualPageNumber = num; }
 	
 	//FIXME: maybe these should go into annotation?
 	QString fileIconPressed() const { return Pfile2; }

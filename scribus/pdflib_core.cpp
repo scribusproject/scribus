@@ -6811,6 +6811,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	ImInfo.reso = Options.Resolution / 72.0;
 	ImInfo.Width = 0;
 	ImInfo.Height = 0;
+	ImInfo.Page = 0;
 	ImInfo.xa = x;
 	ImInfo.ya = y;
 	ImInfo.origXsc = c->imageXScale();
@@ -6825,7 +6826,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		 || (c->asLatexFrame())
 		 || (c->effectsInUse.count() != 0)
 		 || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc))
-		 || (ImInfo2.RequestProps != c->pixm.imgInfo.RequestProps))
+		 || (ImInfo2.RequestProps != c->pixm.imgInfo.RequestProps)
+		 || (ImInfo2.Page != c->pixm.imgInfo.actualPageNumber))
 	{
 		bool imageLoaded = false;
 		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))) && c->effectsInUse.count() == 0)
@@ -6853,6 +6855,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			else
 				imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, Profil, Embedded, Intent, ImInfo, output);
 			isEmbeddedPDF = true;
+			ImInfo.Page = c->pixm.imgInfo.actualPageNumber;
 		}
 		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
 			qDebug() << "Failed to embed the PDF file";

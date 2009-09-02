@@ -2109,7 +2109,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	}
 	if (CurItem->asImageFrame())
 	{
+		disconnect(imagePageNumber, SIGNAL(valueChanged(int)), this, SLOT(NewPage()));
 		imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
+		imagePageNumber->setValue(CurItem->pixm.imgInfo.actualPageNumber);
+		connect(imagePageNumber, SIGNAL(valueChanged(int)), this, SLOT(NewPage()));
 	}
 	Revert->setChecked(CurItem->reversed());
 	setTextFlowMode(CurItem->textFlowMode());

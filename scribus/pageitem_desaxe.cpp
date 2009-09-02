@@ -130,6 +130,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("image-embedded-profile", item->embeddedImageProfile());
 	result.insert("image-flipped-hor", toXMLString(item->imageFlippedH()));
 	result.insert("image-flipped-vert", toXMLString(item->imageFlippedV()));
+	result.insert("pagenumber", toXMLString(item->pixm.imgInfo.actualPageNumber));
 	result.insert("cms-profile", item->cmsProfile());
 	result.insert("cms-intent", toXMLString(item->cmsRenderingIntent()));
 	
@@ -767,6 +768,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setImageYScale, "image-y-scale", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setImageXOffset, "image-x-position", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setImageYOffset, "image-y-position", &parseDouble ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setImagePagenumber, "pagenumber", &parseInt ));
 	//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>("image-x-dpi", &parseDouble ));  //NYI
 	//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>("image-y-dpi", &parseDouble ));  //NYI
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setImageShown, "image-shown", &parseBool ));
