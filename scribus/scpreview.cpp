@@ -143,7 +143,7 @@ QPixmap ScPreview::createPreview(QString data)
 //				FT_Face face;
 //				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf].fontFilePath(), prefsManager->appPrefs.AvailFonts[tmpf].faceIndex(), &face );
 				if ( prefsManager->appPrefs.AvailFonts[tmpf].usable() )
-					tmpf = prefsManager->appPrefs.toolSettings.defFont;
+					tmpf = prefsManager->appPrefs.itemToolPrefs.defFont;
 /*				if (prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics()) {
 //already done in ScFonts::addScalaableFont():
 //					prefsManager->appPrefs.AvailFonts[tmpf]->CharWidth[13] = 0;
@@ -698,14 +698,14 @@ QPixmap ScPreview::createPreview(QString data)
 						if (hl->effects() != ScStyle_Default)
 						{
 							if (hl->effects() & 1)
-								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
+								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typoPrefs.scalingSuperScript / 100);
 							if (hl->effects() & 2)
-								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
+								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typoPrefs.scalingSubScript / 100);
 							if (hl->effects() & 64)
 							{
 								if (chstr.toUpper() != chstr)
 								{
-									chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
+									chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typoPrefs.valueSmallCaps / 100);
 									chstr = chstr.toUpper();
 								}
 							}
@@ -929,19 +929,19 @@ QPixmap ScPreview::createPreview(QString data)
 					{
 						if (chst & 1)
 						{
-							CurY -= asce * prefsManager->appPrefs.typographicSettings.valueSuperScript / 100;
-							chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
+							CurY -= asce * prefsManager->appPrefs.typoPrefs.valueSuperScript / 100;
+							chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typoPrefs.scalingSuperScript / 100);
 						}
 						if (chst & 2)
 						{
-							CurY += asce * prefsManager->appPrefs.typographicSettings.valueSubScript / 100;
-							chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
+							CurY += asce * prefsManager->appPrefs.typoPrefs.valueSubScript / 100;
+							chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typoPrefs.scalingSubScript / 100);
 						}
 						if (chst & 64)
 						{
 							if (chstr.toUpper() != chstr)
 							{
-								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
+								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typoPrefs.valueSmallCaps / 100);
 								chstr = chstr.toUpper();
 							}
 						}

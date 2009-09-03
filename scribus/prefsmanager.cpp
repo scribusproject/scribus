@@ -125,14 +125,14 @@ void PrefsManager::initDefaults()
 	{
 		if ((itf.currentKey() == "Arial Regular") || (itf.currentKey() == "Times New Roman Regular"))
 		{
-			appPrefs.toolSettings.defFont = itf.currentKey();
+			appPrefs.itemToolPrefs.defFont = itf.currentKey();
 			goodFont = true;
 			break;
 		}
 	}
 	if (!goodFont)
-		appPrefs.toolSettings.defFont = it.currentKey();
-	appPrefs.toolSettings.defSize = 120;
+		appPrefs.itemToolPrefs.defFont = it.currentKey();
+	appPrefs.itemToolPrefs.defSize = 120;
 
 	/** Default colours **/
 	appPrefs.DColors.clear();
@@ -216,16 +216,16 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesPrefs.marginColor = QColor(Qt::blue);
 	appPrefs.guidesPrefs.guideColor = QColor(Qt::darkBlue);
 	appPrefs.guidesPrefs.baselineGridColor = QColor(Qt::lightGray);
-	appPrefs.typographicSettings.valueSuperScript = 33;
-	appPrefs.typographicSettings.scalingSuperScript = 66;
-	appPrefs.typographicSettings.valueSubScript = 33;
-	appPrefs.typographicSettings.scalingSubScript = 66;
-	appPrefs.typographicSettings.valueSmallCaps = 75;
-	appPrefs.typographicSettings.autoLineSpacing = 20;
-	appPrefs.typographicSettings.valueUnderlinePos = -1;
-	appPrefs.typographicSettings.valueUnderlineWidth = -1;
-	appPrefs.typographicSettings.valueStrikeThruPos = -1;
-	appPrefs.typographicSettings.valueStrikeThruWidth = -1;
+	appPrefs.typoPrefs.valueSuperScript = 33;
+	appPrefs.typoPrefs.scalingSuperScript = 66;
+	appPrefs.typoPrefs.valueSubScript = 33;
+	appPrefs.typoPrefs.scalingSubScript = 66;
+	appPrefs.typoPrefs.valueSmallCaps = 75;
+	appPrefs.typoPrefs.autoLineSpacing = 20;
+	appPrefs.typoPrefs.valueUnderlinePos = -1;
+	appPrefs.typoPrefs.valueUnderlineWidth = -1;
+	appPrefs.typoPrefs.valueStrikeThruPos = -1;
+	appPrefs.typoPrefs.valueStrikeThruWidth = -1;
 	appPrefs.guidesPrefs.valueBaselineGrid = 14.4;
 	appPrefs.guidesPrefs.offsetBaselineGrid = 0.0;
 	appPrefs.uiPrefs.style = "";
@@ -237,26 +237,26 @@ void PrefsManager::initDefaults()
 	//FIXME
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
-	appPrefs.toolSettings.dPen = "Black";
-	appPrefs.toolSettings.dBrush = "Black";
-	appPrefs.toolSettings.dShade = 100;
-	appPrefs.toolSettings.dShade2 = 100;
-	appPrefs.toolSettings.dLineArt = Qt::SolidLine;
-	appPrefs.toolSettings.dWidth = 0;
-	appPrefs.toolSettings.dPenLine = "Black";
-	appPrefs.toolSettings.dPenText = "Black";
-	appPrefs.toolSettings.dStrokeText = "Black";
-	appPrefs.toolSettings.dTextBackGround = CommonStrings::None;
-	appPrefs.toolSettings.dTextLineColor = CommonStrings::None;
-	appPrefs.toolSettings.dTextBackGroundShade = 100;
-	appPrefs.toolSettings.dTextLineShade = 100;
-	appPrefs.toolSettings.dTextPenShade = 100;
-	appPrefs.toolSettings.dTextStrokeShade = 100;
-	appPrefs.toolSettings.tabFillChar = "";
-	appPrefs.toolSettings.dTabWidth = 36.0;
-	appPrefs.toolSettings.dispX = 10.0;
-	appPrefs.toolSettings.dispY = 10.0;
-	appPrefs.toolSettings.constrain = 15.0;
+	appPrefs.itemToolPrefs.dPen = "Black";
+	appPrefs.itemToolPrefs.dBrush = "Black";
+	appPrefs.itemToolPrefs.dShade = 100;
+	appPrefs.itemToolPrefs.dShade2 = 100;
+	appPrefs.itemToolPrefs.dLineArt = Qt::SolidLine;
+	appPrefs.itemToolPrefs.dWidth = 0;
+	appPrefs.itemToolPrefs.dPenLine = "Black";
+	appPrefs.itemToolPrefs.dPenText = "Black";
+	appPrefs.itemToolPrefs.dStrokeText = "Black";
+	appPrefs.itemToolPrefs.dTextBackGround = CommonStrings::None;
+	appPrefs.itemToolPrefs.dTextLineColor = CommonStrings::None;
+	appPrefs.itemToolPrefs.dTextBackGroundShade = 100;
+	appPrefs.itemToolPrefs.dTextLineShade = 100;
+	appPrefs.itemToolPrefs.dTextPenShade = 100;
+	appPrefs.itemToolPrefs.dTextStrokeShade = 100;
+	appPrefs.itemToolPrefs.tabFillChar = "";
+	appPrefs.itemToolPrefs.dTabWidth = 36.0;
+	appPrefs.opToolPrefs.dispX = 10.0;
+	appPrefs.opToolPrefs.dispY = 10.0;
+	appPrefs.opToolPrefs.constrain = 15.0;
 	appPrefs.DpapColor = QColor(Qt::white);
 	appPrefs.showPageShadow = true;
 	appPrefs.DFrameColor = QColor(Qt::red);
@@ -267,28 +267,28 @@ void PrefsManager::initDefaults()
 	appPrefs.DFrameAnnotationColor = QColor(Qt::blue);
 	appPrefs.DPageBorderColor = QColor(Qt::red);
 	appPrefs.DControlCharColor = QColor(Qt::darkRed);
-	appPrefs.toolSettings.dCols = 1;
-	appPrefs.toolSettings.dGap = 0.0;
-	appPrefs.toolSettings.dShadeLine = 100;
-	appPrefs.toolSettings.dLstyleLine = Qt::SolidLine;
-	appPrefs.toolSettings.dWidthLine = 1;
-	appPrefs.toolSettings.dStartArrow = 0;
-	appPrefs.toolSettings.dEndArrow = 0;
-	appPrefs.toolSettings.magMin = 10;
-	appPrefs.toolSettings.magMax = 3200;
-	appPrefs.toolSettings.magStep = 200;
-	appPrefs.toolSettings.dBrushPict = CommonStrings::None;
-	appPrefs.toolSettings.shadePict = 100;
-	appPrefs.toolSettings.scaleX = 1;
-	appPrefs.toolSettings.scaleY = 1;
+	appPrefs.itemToolPrefs.dCols = 1;
+	appPrefs.itemToolPrefs.dGap = 0.0;
+	appPrefs.itemToolPrefs.dShadeLine = 100;
+	appPrefs.itemToolPrefs.dLstyleLine = Qt::SolidLine;
+	appPrefs.itemToolPrefs.dWidthLine = 1;
+	appPrefs.itemToolPrefs.dStartArrow = 0;
+	appPrefs.itemToolPrefs.dEndArrow = 0;
+	appPrefs.opToolPrefs.magMin = 10;
+	appPrefs.opToolPrefs.magMax = 3200;
+	appPrefs.opToolPrefs.magStep = 200;
+	appPrefs.itemToolPrefs.dBrushPict = CommonStrings::None;
+	appPrefs.itemToolPrefs.shadePict = 100;
+	appPrefs.itemToolPrefs.scaleX = 1;
+	appPrefs.itemToolPrefs.scaleY = 1;
 	appPrefs.guidesPrefs.guidePlacement = true;
 	appPrefs.docSetupPrefs.docUnitIndex = 0;
-	appPrefs.toolSettings.polyC = 4;
-	appPrefs.toolSettings.polyF = 0.5;
-	appPrefs.toolSettings.polyS = false;
-	appPrefs.toolSettings.polyFd = 0;
-	appPrefs.toolSettings.polyR = 0.0;
-	appPrefs.toolSettings.polyCurvature = 0.0;
+	appPrefs.itemToolPrefs.polyC = 4;
+	appPrefs.itemToolPrefs.polyF = 0.5;
+	appPrefs.itemToolPrefs.polyS = false;
+	appPrefs.itemToolPrefs.polyFd = 0;
+	appPrefs.itemToolPrefs.polyR = 0.0;
+	appPrefs.itemToolPrefs.polyCurvature = 0.0;
 //	appPrefs.PSize = 40;
 	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
@@ -313,10 +313,10 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.bleeds.Left = 0;
 	appPrefs.docSetupPrefs.bleeds.Right = 0;
 	appPrefs.docSetupPrefs.bleeds.Bottom = 0;
-	appPrefs.toolSettings.scaleType = true;
-	appPrefs.toolSettings.aspectRatio = true;
-	appPrefs.toolSettings.lowResType = 1;
-	appPrefs.toolSettings.useEmbeddedPath = false;
+	appPrefs.itemToolPrefs.scaleType = true;
+	appPrefs.itemToolPrefs.aspectRatio = true;
+	appPrefs.itemToolPrefs.lowResType = 1;
+	appPrefs.itemToolPrefs.useEmbeddedPath = false;
 	appPrefs.MinWordLen = 3;
 	appPrefs.HyCount = 2;
 	appPrefs.Language = "";
@@ -1053,10 +1053,10 @@ const QString& PrefsManager::colorSetName()
 
 bool PrefsManager::isToolColor(const QString& name)
 {
-	return isToolColor(appPrefs.toolSettings, name);
+	return isToolColor(appPrefs.itemToolPrefs, name);
 }
 
-bool PrefsManager::isToolColor(const struct ToolPrefs& settings, const QString& name)
+bool PrefsManager::isToolColor(const struct ItemToolPrefs& settings, const QString& name)
 {
 	if (settings.dPenText == name)
 		return true;
@@ -1079,10 +1079,10 @@ bool PrefsManager::isToolColor(const struct ToolPrefs& settings, const QString& 
 
 QStringList PrefsManager::toolColorNames()
 {
-	return toolColorNames(appPrefs.toolSettings);
+	return toolColorNames(appPrefs.itemToolPrefs);
 }
 
-QStringList PrefsManager::toolColorNames(const struct ToolPrefs& settings)
+QStringList PrefsManager::toolColorNames(const struct ItemToolPrefs& settings)
 {
 	QStringList names;
 	names.append(settings.dPenText);
@@ -1105,10 +1105,10 @@ QStringList PrefsManager::toolColorNames(const struct ToolPrefs& settings)
 
 void PrefsManager::replaceToolColors(const QMap<QString, QString> replaceMap)
 {
-	replaceToolColors(appPrefs.toolSettings, replaceMap);
+	replaceToolColors(appPrefs.itemToolPrefs, replaceMap);
 }
 
-void PrefsManager::replaceToolColors(struct ToolPrefs& settings, const QMap<QString, QString> replaceMap)
+void PrefsManager::replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString> replaceMap)
 {
 	if (replaceMap.contains(settings.dPenText))
 		settings.dPenText = replaceMap[settings.dPenText];
@@ -1132,28 +1132,28 @@ void PrefsManager::setColorSet(const ColorList& colorSet)
 {
 	// Color set may have changed and tools color not be present in the new color set
 	ColorList tmpSet = colorSet;
-	QString penText = appPrefs.toolSettings.dPenText;
+	QString penText = appPrefs.itemToolPrefs.dPenText;
 	if (!tmpSet.contains(penText) && penText != CommonStrings::None)
 		tmpSet[penText] = appPrefs.DColors[penText];
-	QString strokeText = appPrefs.toolSettings.dStrokeText;
+	QString strokeText = appPrefs.itemToolPrefs.dStrokeText;
 	if (!tmpSet.contains(strokeText) && strokeText != CommonStrings::None)
 		tmpSet[strokeText] = appPrefs.DColors[strokeText];
-	QString textBackGround = appPrefs.toolSettings.dTextBackGround;
+	QString textBackGround = appPrefs.itemToolPrefs.dTextBackGround;
 	if (!tmpSet.contains(textBackGround) && textBackGround != CommonStrings::None)
 		tmpSet[textBackGround] = appPrefs.DColors[textBackGround];
-	QString textLineColor = appPrefs.toolSettings.dTextLineColor;
+	QString textLineColor = appPrefs.itemToolPrefs.dTextLineColor;
 	if (!tmpSet.contains(textLineColor) && textLineColor != CommonStrings::None)
 		tmpSet[textLineColor] = appPrefs.DColors[textLineColor];
-	QString pen = appPrefs.toolSettings.dPen;
+	QString pen = appPrefs.itemToolPrefs.dPen;
 	if (!tmpSet.contains(pen) && pen != CommonStrings::None)
 		tmpSet[pen] = appPrefs.DColors[pen];
-	QString brush = appPrefs.toolSettings.dBrush;
+	QString brush = appPrefs.itemToolPrefs.dBrush;
 	if (!tmpSet.contains(brush) && brush != CommonStrings::None)
 		tmpSet[brush] = appPrefs.DColors[brush];
-	QString penLine = appPrefs.toolSettings.dPenLine;
+	QString penLine = appPrefs.itemToolPrefs.dPenLine;
 	if (!tmpSet.contains(penLine) && penLine != CommonStrings::None)
 		tmpSet[penLine] = appPrefs.DColors[penLine];
-	QString brushPict = appPrefs.toolSettings.dBrushPict;
+	QString brushPict = appPrefs.itemToolPrefs.dBrushPict;
 	if (!tmpSet.contains(brushPict) && brushPict != CommonStrings::None)
 		tmpSet[brushPict] = appPrefs.DColors[brushPict];
 	appPrefs.DColors = tmpSet;
@@ -1292,81 +1292,81 @@ bool PrefsManager::WritePref(QString ho)
 	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.DisScale));
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
-	dc2.setAttribute("FACE",appPrefs.toolSettings.defFont);
-	dc2.setAttribute("SIZE",appPrefs.toolSettings.defSize / 10.0);
+	dc2.setAttribute("FACE",appPrefs.itemToolPrefs.defFont);
+	dc2.setAttribute("SIZE",appPrefs.itemToolPrefs.defSize / 10.0);
 	dc2.setAttribute("AutomaticSubst", static_cast<int>(appPrefs.askBeforeSubstituite));
 	elem.appendChild(dc2);
 	QDomElement dc3=docu.createElement("TYPO");
-	dc3.setAttribute("TIEF",appPrefs.typographicSettings.valueSubScript);
-	dc3.setAttribute("TIEFSC",appPrefs.typographicSettings.scalingSubScript);
-	dc3.setAttribute("HOCH",appPrefs.typographicSettings.valueSuperScript);
-	dc3.setAttribute("HOCHSC",appPrefs.typographicSettings.scalingSuperScript);
-	dc3.setAttribute("SMCAPS",appPrefs.typographicSettings.valueSmallCaps);
-	dc3.setAttribute("AUTOL", appPrefs.typographicSettings.autoLineSpacing);
+	dc3.setAttribute("TIEF",appPrefs.typoPrefs.valueSubScript);
+	dc3.setAttribute("TIEFSC",appPrefs.typoPrefs.scalingSubScript);
+	dc3.setAttribute("HOCH",appPrefs.typoPrefs.valueSuperScript);
+	dc3.setAttribute("HOCHSC",appPrefs.typoPrefs.scalingSuperScript);
+	dc3.setAttribute("SMCAPS",appPrefs.typoPrefs.valueSmallCaps);
+	dc3.setAttribute("AUTOL", appPrefs.typoPrefs.autoLineSpacing);
 	dc3.setAttribute("BASE", ScCLocale::toQStringC(appPrefs.guidesPrefs.valueBaselineGrid));
 	dc3.setAttribute("BASEO", ScCLocale::toQStringC(appPrefs.guidesPrefs.offsetBaselineGrid));
-	if (appPrefs.typographicSettings.valueUnderlinePos == -1)
-		dc3.setAttribute("UnderlinePos", appPrefs.typographicSettings.valueUnderlinePos);
+	if (appPrefs.typoPrefs.valueUnderlinePos == -1)
+		dc3.setAttribute("UnderlinePos", appPrefs.typoPrefs.valueUnderlinePos);
 	else
-		dc3.setAttribute("UnderlinePos", appPrefs.typographicSettings.valueUnderlinePos / 10.0);
-	if (appPrefs.typographicSettings.valueUnderlineWidth == -1)
-		dc3.setAttribute("UnderlineWidth", appPrefs.typographicSettings.valueUnderlineWidth);
+		dc3.setAttribute("UnderlinePos", appPrefs.typoPrefs.valueUnderlinePos / 10.0);
+	if (appPrefs.typoPrefs.valueUnderlineWidth == -1)
+		dc3.setAttribute("UnderlineWidth", appPrefs.typoPrefs.valueUnderlineWidth);
 	else
-		dc3.setAttribute("UnderlineWidth", appPrefs.typographicSettings.valueUnderlineWidth / 10.0);
-	if (appPrefs.typographicSettings.valueStrikeThruPos == -1)
-		dc3.setAttribute("StrikeThruPos", appPrefs.typographicSettings.valueStrikeThruPos);
+		dc3.setAttribute("UnderlineWidth", appPrefs.typoPrefs.valueUnderlineWidth / 10.0);
+	if (appPrefs.typoPrefs.valueStrikeThruPos == -1)
+		dc3.setAttribute("StrikeThruPos", appPrefs.typoPrefs.valueStrikeThruPos);
 	else
-		dc3.setAttribute("StrikeThruPos", appPrefs.typographicSettings.valueStrikeThruPos / 10.0);
-	if (appPrefs.typographicSettings.valueStrikeThruWidth == -1)
-		dc3.setAttribute("StrikeThruWidth", appPrefs.typographicSettings.valueStrikeThruWidth);
+		dc3.setAttribute("StrikeThruPos", appPrefs.typoPrefs.valueStrikeThruPos / 10.0);
+	if (appPrefs.typoPrefs.valueStrikeThruWidth == -1)
+		dc3.setAttribute("StrikeThruWidth", appPrefs.typoPrefs.valueStrikeThruWidth);
 	else
-		dc3.setAttribute("StrikeThruWidth", appPrefs.typographicSettings.valueStrikeThruWidth / 10.0);
+		dc3.setAttribute("StrikeThruWidth", appPrefs.typoPrefs.valueStrikeThruWidth / 10.0);
 	elem.appendChild(dc3);
 	QDomElement dc9=docu.createElement("TOOLS");
-	dc9.setAttribute("PEN",appPrefs.toolSettings.dPen);
-	dc9.setAttribute("BRUSH",appPrefs.toolSettings.dBrush);
-	dc9.setAttribute("PENLINE",appPrefs.toolSettings.dPenLine);
-	dc9.setAttribute("PENTEXT",appPrefs.toolSettings.dPenText);
-	dc9.setAttribute("StrokeText",appPrefs.toolSettings.dStrokeText);
-	dc9.setAttribute("TextBackGround", appPrefs.toolSettings.dTextBackGround);
-	dc9.setAttribute("TextLineColor", appPrefs.toolSettings.dTextLineColor);
-	dc9.setAttribute("TextBackGroundShade", appPrefs.toolSettings.dTextBackGroundShade);
-	dc9.setAttribute("TextLineShade", appPrefs.toolSettings.dTextLineShade);
-	dc9.setAttribute("TextPenShade", appPrefs.toolSettings.dTextPenShade);
-	dc9.setAttribute("TextStrokeShade", appPrefs.toolSettings.dTextStrokeShade);
-	dc9.setAttribute("TEXTCOL",appPrefs.toolSettings.dCols);
-	dc9.setAttribute("TEXTGAP",ScCLocale::toQStringC(appPrefs.toolSettings.dGap));
-	dc9.setAttribute("TabWidth",ScCLocale::toQStringC(appPrefs.toolSettings.dTabWidth));
-	dc9.setAttribute("TabFill",appPrefs.toolSettings.tabFillChar);
-	dc9.setAttribute("STIL",appPrefs.toolSettings.dLineArt);
-	dc9.setAttribute("STILLINE",appPrefs.toolSettings.dLstyleLine);
-	dc9.setAttribute("WIDTH",ScCLocale::toQStringC(appPrefs.toolSettings.dWidth));
-	dc9.setAttribute("WIDTHLINE",ScCLocale::toQStringC(appPrefs.toolSettings.dWidthLine));
-	dc9.setAttribute("PENSHADE",appPrefs.toolSettings.dShade2);
-	dc9.setAttribute("LINESHADE",appPrefs.toolSettings.dShadeLine);
-	dc9.setAttribute("BRUSHSHADE",appPrefs.toolSettings.dShade);
-	dc9.setAttribute("MAGMIN",appPrefs.toolSettings.magMin);
-	dc9.setAttribute("MAGMAX",appPrefs.toolSettings.magMax);
-	dc9.setAttribute("MAGSTEP",appPrefs.toolSettings.magStep);
-	dc9.setAttribute("CPICT",appPrefs.toolSettings.dBrushPict);
-	dc9.setAttribute("PICTSHADE",appPrefs.toolSettings.shadePict);
-	dc9.setAttribute("PICTSCX",ScCLocale::toQStringC(appPrefs.toolSettings.scaleX));
-	dc9.setAttribute("PICTSCY",ScCLocale::toQStringC(appPrefs.toolSettings.scaleY));
-	dc9.setAttribute("POLYC", appPrefs.toolSettings.polyC);
-	dc9.setAttribute("POLYF", ScCLocale::toQStringC(appPrefs.toolSettings.polyF));
-	dc9.setAttribute("POLYR", ScCLocale::toQStringC(appPrefs.toolSettings.polyR));
-	dc9.setAttribute("POLYFD", appPrefs.toolSettings.polyFd);
-	dc9.setAttribute("POLYCUR", ScCLocale::toQStringC(appPrefs.toolSettings.polyCurvature));
-	dc9.setAttribute("POLYS", static_cast<int>(appPrefs.toolSettings.polyS));
-	dc9.setAttribute("PSCALE", static_cast<int>(appPrefs.toolSettings.scaleType));
-	dc9.setAttribute("PASPECT", static_cast<int>(appPrefs.toolSettings.aspectRatio));
-	dc9.setAttribute("EmbeddedPath", static_cast<int>(appPrefs.toolSettings.useEmbeddedPath));
-	dc9.setAttribute("HalfRes", appPrefs.toolSettings.lowResType);
-	dc9.setAttribute("StartArrow", appPrefs.toolSettings.dStartArrow);
-	dc9.setAttribute("EndArrow", appPrefs.toolSettings.dEndArrow);
-	dc9.setAttribute("dispX", ScCLocale::toQStringC(appPrefs.toolSettings.dispX));
-	dc9.setAttribute("dispY", ScCLocale::toQStringC(appPrefs.toolSettings.dispY));
-	dc9.setAttribute("constrain", ScCLocale::toQStringC(appPrefs.toolSettings.constrain));
+	dc9.setAttribute("PEN",appPrefs.itemToolPrefs.dPen);
+	dc9.setAttribute("BRUSH",appPrefs.itemToolPrefs.dBrush);
+	dc9.setAttribute("PENLINE",appPrefs.itemToolPrefs.dPenLine);
+	dc9.setAttribute("PENTEXT",appPrefs.itemToolPrefs.dPenText);
+	dc9.setAttribute("StrokeText",appPrefs.itemToolPrefs.dStrokeText);
+	dc9.setAttribute("TextBackGround", appPrefs.itemToolPrefs.dTextBackGround);
+	dc9.setAttribute("TextLineColor", appPrefs.itemToolPrefs.dTextLineColor);
+	dc9.setAttribute("TextBackGroundShade", appPrefs.itemToolPrefs.dTextBackGroundShade);
+	dc9.setAttribute("TextLineShade", appPrefs.itemToolPrefs.dTextLineShade);
+	dc9.setAttribute("TextPenShade", appPrefs.itemToolPrefs.dTextPenShade);
+	dc9.setAttribute("TextStrokeShade", appPrefs.itemToolPrefs.dTextStrokeShade);
+	dc9.setAttribute("TEXTCOL",appPrefs.itemToolPrefs.dCols);
+	dc9.setAttribute("TEXTGAP",ScCLocale::toQStringC(appPrefs.itemToolPrefs.dGap));
+	dc9.setAttribute("TabWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.dTabWidth));
+	dc9.setAttribute("TabFill",appPrefs.itemToolPrefs.tabFillChar);
+	dc9.setAttribute("STIL",appPrefs.itemToolPrefs.dLineArt);
+	dc9.setAttribute("STILLINE",appPrefs.itemToolPrefs.dLstyleLine);
+	dc9.setAttribute("WIDTH",ScCLocale::toQStringC(appPrefs.itemToolPrefs.dWidth));
+	dc9.setAttribute("WIDTHLINE",ScCLocale::toQStringC(appPrefs.itemToolPrefs.dWidthLine));
+	dc9.setAttribute("PENSHADE",appPrefs.itemToolPrefs.dShade2);
+	dc9.setAttribute("LINESHADE",appPrefs.itemToolPrefs.dShadeLine);
+	dc9.setAttribute("BRUSHSHADE",appPrefs.itemToolPrefs.dShade);
+	dc9.setAttribute("MAGMIN",appPrefs.opToolPrefs.magMin);
+	dc9.setAttribute("MAGMAX",appPrefs.opToolPrefs.magMax);
+	dc9.setAttribute("MAGSTEP",appPrefs.opToolPrefs.magStep);
+	dc9.setAttribute("CPICT",appPrefs.itemToolPrefs.dBrushPict);
+	dc9.setAttribute("PICTSHADE",appPrefs.itemToolPrefs.shadePict);
+	dc9.setAttribute("PICTSCX",ScCLocale::toQStringC(appPrefs.itemToolPrefs.scaleX));
+	dc9.setAttribute("PICTSCY",ScCLocale::toQStringC(appPrefs.itemToolPrefs.scaleY));
+	dc9.setAttribute("POLYC", appPrefs.itemToolPrefs.polyC);
+	dc9.setAttribute("POLYF", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyF));
+	dc9.setAttribute("POLYR", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyR));
+	dc9.setAttribute("POLYFD", appPrefs.itemToolPrefs.polyFd);
+	dc9.setAttribute("POLYCUR", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyCurvature));
+	dc9.setAttribute("POLYS", static_cast<int>(appPrefs.itemToolPrefs.polyS));
+	dc9.setAttribute("PSCALE", static_cast<int>(appPrefs.itemToolPrefs.scaleType));
+	dc9.setAttribute("PASPECT", static_cast<int>(appPrefs.itemToolPrefs.aspectRatio));
+	dc9.setAttribute("EmbeddedPath", static_cast<int>(appPrefs.itemToolPrefs.useEmbeddedPath));
+	dc9.setAttribute("HalfRes", appPrefs.itemToolPrefs.lowResType);
+	dc9.setAttribute("StartArrow", appPrefs.itemToolPrefs.dStartArrow);
+	dc9.setAttribute("EndArrow", appPrefs.itemToolPrefs.dEndArrow);
+	dc9.setAttribute("dispX", ScCLocale::toQStringC(appPrefs.opToolPrefs.dispX));
+	dc9.setAttribute("dispY", ScCLocale::toQStringC(appPrefs.opToolPrefs.dispY));
+	dc9.setAttribute("constrain", ScCLocale::toQStringC(appPrefs.opToolPrefs.constrain));
 	elem.appendChild(dc9);
 	QDomElement dc4=docu.createElement("MAINWINDOW");
 	dc4.setAttribute("XPOS",appPrefs.mainWinSettings.xPosition);
@@ -1855,84 +1855,84 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="TYPO")
 		{
-			appPrefs.typographicSettings.valueSuperScript = dc.attribute("HOCH").toInt();
-			appPrefs.typographicSettings.scalingSuperScript = dc.attribute("HOCHSC").toInt();
-			appPrefs.typographicSettings.valueSubScript = dc.attribute("TIEF").toInt();
-			appPrefs.typographicSettings.scalingSubScript = dc.attribute("TIEFSC").toInt();
-			appPrefs.typographicSettings.valueSmallCaps  = dc.attribute("SMCAPS").toInt();
+			appPrefs.typoPrefs.valueSuperScript = dc.attribute("HOCH").toInt();
+			appPrefs.typoPrefs.scalingSuperScript = dc.attribute("HOCHSC").toInt();
+			appPrefs.typoPrefs.valueSubScript = dc.attribute("TIEF").toInt();
+			appPrefs.typoPrefs.scalingSubScript = dc.attribute("TIEFSC").toInt();
+			appPrefs.typoPrefs.valueSmallCaps  = dc.attribute("SMCAPS").toInt();
 			appPrefs.guidesPrefs.valueBaselineGrid   = ScCLocale::toDoubleC(dc.attribute("BASE"), 12.0);
 			appPrefs.guidesPrefs.offsetBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
-			appPrefs.typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
+			appPrefs.typoPrefs.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
 			double ulp = ScCLocale::toDoubleC(dc.attribute("UnderlinePos"), -1.0);
 			if (ulp != -1)
-				appPrefs.typographicSettings.valueUnderlinePos = qRound(ulp * 10);
+				appPrefs.typoPrefs.valueUnderlinePos = qRound(ulp * 10);
 			else
-				appPrefs.typographicSettings.valueUnderlinePos = -1;
+				appPrefs.typoPrefs.valueUnderlinePos = -1;
 			double ulw = ScCLocale::toDoubleC(dc.attribute("UnderlineWidth"), -1.0);
 			if (ulw != -1)
-				appPrefs.typographicSettings.valueUnderlineWidth = qRound(ulw * 10);
+				appPrefs.typoPrefs.valueUnderlineWidth = qRound(ulw * 10);
 			else
-				appPrefs.typographicSettings.valueUnderlineWidth = -1;
+				appPrefs.typoPrefs.valueUnderlineWidth = -1;
 			double stp = ScCLocale::toDoubleC(dc.attribute("StrikeThruPos"), -1.0);
 			if (stp != -1)
-				appPrefs.typographicSettings.valueStrikeThruPos = qRound(ulp * 10);
+				appPrefs.typoPrefs.valueStrikeThruPos = qRound(ulp * 10);
 			else
-				appPrefs.typographicSettings.valueStrikeThruPos = -1;
+				appPrefs.typoPrefs.valueStrikeThruPos = -1;
 			double stw = ScCLocale::toDoubleC(dc.attribute("StrikeThruWidth"), -1.0);
 			if (stw != -1)
-				appPrefs.typographicSettings.valueStrikeThruWidth = qRound(stw * 10);
+				appPrefs.typoPrefs.valueStrikeThruWidth = qRound(stw * 10);
 			else
-				appPrefs.typographicSettings.valueStrikeThruWidth = -1;
+				appPrefs.typoPrefs.valueStrikeThruWidth = -1;
 		}
 		if (dc.tagName()=="TOOLS")
 		{
-			appPrefs.toolSettings.dPen = dc.attribute("PEN");
-			appPrefs.toolSettings.dBrush = dc.attribute("BRUSH");
-			appPrefs.toolSettings.dPenLine = dc.attribute("PENLINE");
-			appPrefs.toolSettings.dPenText = dc.attribute("PENTEXT");
-			appPrefs.toolSettings.dStrokeText = dc.attribute("StrokeText", appPrefs.toolSettings.dPenText);
-			appPrefs.toolSettings.dTextBackGround = dc.attribute("TextBackGround", CommonStrings::None);
-			appPrefs.toolSettings.dTextLineColor = dc.attribute("TextLineColor", CommonStrings::None);
-			appPrefs.toolSettings.dTextBackGroundShade = dc.attribute("TextBackGroundShade", "100").toInt();
-			appPrefs.toolSettings.dTextLineShade = dc.attribute("TextLineShade", "100").toInt();
-			appPrefs.toolSettings.dTextPenShade = dc.attribute("TextPenShade", "100").toInt();
-			appPrefs.toolSettings.dTextStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
-			appPrefs.toolSettings.dCols = dc.attribute("TEXTCOL", "1").toInt();
-			appPrefs.toolSettings.dGap  = ScCLocale::toDoubleC(dc.attribute("TEXTGAP"), 0.0);
-			appPrefs.toolSettings.tabFillChar = dc.attribute("TabFill", "");
-			appPrefs.toolSettings.dTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
-			appPrefs.toolSettings.dLineArt = dc.attribute("STIL").toInt();
-			appPrefs.toolSettings.dLstyleLine = dc.attribute("STILLINE").toInt();
-			appPrefs.toolSettings.dWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 0.0);
-			appPrefs.toolSettings.dWidthLine = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
-			appPrefs.toolSettings.dShade2 = dc.attribute("PENSHADE").toInt();
-			appPrefs.toolSettings.dShadeLine = dc.attribute("LINESHADE").toInt();
-			appPrefs.toolSettings.dShade  = dc.attribute("BRUSHSHADE").toInt();
-			appPrefs.toolSettings.magMin  = dc.attribute("MAGMIN", "10").toInt();
-			appPrefs.toolSettings.magMax  = dc.attribute("MAGMAX", "3200").toInt();
-			appPrefs.toolSettings.magStep = dc.attribute("MAGSTEP", "200").toInt();
+			appPrefs.itemToolPrefs.dPen = dc.attribute("PEN");
+			appPrefs.itemToolPrefs.dBrush = dc.attribute("BRUSH");
+			appPrefs.itemToolPrefs.dPenLine = dc.attribute("PENLINE");
+			appPrefs.itemToolPrefs.dPenText = dc.attribute("PENTEXT");
+			appPrefs.itemToolPrefs.dStrokeText = dc.attribute("StrokeText", appPrefs.itemToolPrefs.dPenText);
+			appPrefs.itemToolPrefs.dTextBackGround = dc.attribute("TextBackGround", CommonStrings::None);
+			appPrefs.itemToolPrefs.dTextLineColor = dc.attribute("TextLineColor", CommonStrings::None);
+			appPrefs.itemToolPrefs.dTextBackGroundShade = dc.attribute("TextBackGroundShade", "100").toInt();
+			appPrefs.itemToolPrefs.dTextLineShade = dc.attribute("TextLineShade", "100").toInt();
+			appPrefs.itemToolPrefs.dTextPenShade = dc.attribute("TextPenShade", "100").toInt();
+			appPrefs.itemToolPrefs.dTextStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
+			appPrefs.itemToolPrefs.dCols = dc.attribute("TEXTCOL", "1").toInt();
+			appPrefs.itemToolPrefs.dGap  = ScCLocale::toDoubleC(dc.attribute("TEXTGAP"), 0.0);
+			appPrefs.itemToolPrefs.tabFillChar = dc.attribute("TabFill", "");
+			appPrefs.itemToolPrefs.dTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
+			appPrefs.itemToolPrefs.dLineArt = dc.attribute("STIL").toInt();
+			appPrefs.itemToolPrefs.dLstyleLine = dc.attribute("STILLINE").toInt();
+			appPrefs.itemToolPrefs.dWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 0.0);
+			appPrefs.itemToolPrefs.dWidthLine = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
+			appPrefs.itemToolPrefs.dShade2 = dc.attribute("PENSHADE").toInt();
+			appPrefs.itemToolPrefs.dShadeLine = dc.attribute("LINESHADE").toInt();
+			appPrefs.itemToolPrefs.dShade  = dc.attribute("BRUSHSHADE").toInt();
+			appPrefs.opToolPrefs.magMin  = dc.attribute("MAGMIN", "10").toInt();
+			appPrefs.opToolPrefs.magMax  = dc.attribute("MAGMAX", "3200").toInt();
+			appPrefs.opToolPrefs.magStep = dc.attribute("MAGSTEP", "200").toInt();
 			//CB Reset prefs zoom step value to 200% instead of old values.
-			if (appPrefs.toolSettings.magStep<100)
-				appPrefs.toolSettings.magStep=200;
-			appPrefs.toolSettings.dBrushPict = dc.attribute("CPICT", CommonStrings::None);
-			appPrefs.toolSettings.shadePict = dc.attribute("PICTSHADE", "100").toInt();
-			appPrefs.toolSettings.scaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
-			appPrefs.toolSettings.scaleY = ScCLocale::toDoubleC(dc.attribute("PICTSCY"), 1.0);
-			appPrefs.toolSettings.scaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
-			appPrefs.toolSettings.aspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
-			appPrefs.toolSettings.useEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
-			appPrefs.toolSettings.lowResType = dc.attribute("HalfRes", "1").toInt();
-			appPrefs.toolSettings.polyC = dc.attribute("POLYC", "4").toInt();
-			appPrefs.toolSettings.polyF = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
-			appPrefs.toolSettings.polyR = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
-			appPrefs.toolSettings.polyCurvature = ScCLocale::toDoubleC(dc.attribute("POLYCUR"), 0.0);
-			appPrefs.toolSettings.polyFd = dc.attribute("POLYFD", "0").toInt();
-			appPrefs.toolSettings.polyS  = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
-			appPrefs.toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
-			appPrefs.toolSettings.dEndArrow   = dc.attribute("EndArrow", "0").toInt();
-			appPrefs.toolSettings.dispX = ScCLocale::toDoubleC(dc.attribute("dispX"), 10.0);
-			appPrefs.toolSettings.dispY = ScCLocale::toDoubleC(dc.attribute("dispY"), 10.0);
-			appPrefs.toolSettings.constrain = ScCLocale::toDoubleC(dc.attribute("constrain"), 15.0);
+			if (appPrefs.opToolPrefs.magStep<100)
+				appPrefs.opToolPrefs.magStep=200;
+			appPrefs.itemToolPrefs.dBrushPict = dc.attribute("CPICT", CommonStrings::None);
+			appPrefs.itemToolPrefs.shadePict = dc.attribute("PICTSHADE", "100").toInt();
+			appPrefs.itemToolPrefs.scaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
+			appPrefs.itemToolPrefs.scaleY = ScCLocale::toDoubleC(dc.attribute("PICTSCY"), 1.0);
+			appPrefs.itemToolPrefs.scaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
+			appPrefs.itemToolPrefs.aspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
+			appPrefs.itemToolPrefs.useEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
+			appPrefs.itemToolPrefs.lowResType = dc.attribute("HalfRes", "1").toInt();
+			appPrefs.itemToolPrefs.polyC = dc.attribute("POLYC", "4").toInt();
+			appPrefs.itemToolPrefs.polyF = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
+			appPrefs.itemToolPrefs.polyR = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
+			appPrefs.itemToolPrefs.polyCurvature = ScCLocale::toDoubleC(dc.attribute("POLYCUR"), 0.0);
+			appPrefs.itemToolPrefs.polyFd = dc.attribute("POLYFD", "0").toInt();
+			appPrefs.itemToolPrefs.polyS  = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
+			appPrefs.itemToolPrefs.dStartArrow = dc.attribute("StartArrow", "0").toInt();
+			appPrefs.itemToolPrefs.dEndArrow   = dc.attribute("EndArrow", "0").toInt();
+			appPrefs.opToolPrefs.dispX = ScCLocale::toDoubleC(dc.attribute("dispX"), 10.0);
+			appPrefs.opToolPrefs.dispY = ScCLocale::toDoubleC(dc.attribute("dispY"), 10.0);
+			appPrefs.opToolPrefs.constrain = ScCLocale::toDoubleC(dc.attribute("constrain"), 15.0);
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{
@@ -2213,8 +2213,8 @@ bool PrefsManager::ReadPref(QString ho)
 				else
 					newFont = tmpf;
 				if (!newFont.isEmpty())
-					appPrefs.toolSettings.defFont = newFont;
-				appPrefs.toolSettings.defSize = qRound( ScCLocale::toDoubleC(dc.attribute("SIZE"), 12.0) * 10.0 );
+					appPrefs.itemToolPrefs.defFont = newFont;
+				appPrefs.itemToolPrefs.defSize = qRound( ScCLocale::toDoubleC(dc.attribute("SIZE"), 12.0) * 10.0 );
 				appPrefs.askBeforeSubstituite = static_cast<bool>(dc.attribute("AutomaticSubst", "1").toInt());
 			}
 		}

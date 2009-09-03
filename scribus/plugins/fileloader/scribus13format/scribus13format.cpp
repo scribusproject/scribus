@@ -260,14 +260,14 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->PageSp = dc.attribute("AUTOSPALTEN").toInt();
 		m_Doc->PageSpa= ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
-		m_Doc->toolSettings.defSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
+		m_Doc->itemToolPrefs.defSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
 		//findFont will use that if it doesnt find the font:
-		m_Doc->toolSettings.defFont = prefsManager->appPrefs.toolSettings.defFont;
+		m_Doc->itemToolPrefs.defFont = prefsManager->appPrefs.itemToolPrefs.defFont;
 		m_AvailableFonts->findFont(Defont, m_Doc);
-		m_Doc->toolSettings.defFont = Defont;
-		m_Doc->toolSettings.dCols= dc.attribute("DCOL", "1").toInt();
-		m_Doc->toolSettings.dGap = ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
+		m_Doc->itemToolPrefs.defFont = Defont;
+		m_Doc->itemToolPrefs.dCols= dc.attribute("DCOL", "1").toInt();
+		m_Doc->itemToolPrefs.dGap = ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
 		m_Doc->documentInfo.setAuthor(dc.attribute("AUTHOR"));
 		m_Doc->documentInfo.setComments(dc.attribute("COMMENTS"));
 		m_Doc->documentInfo.setKeywords(dc.attribute("KEYWORDS",""));
@@ -350,12 +350,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->rulerYoffset = ScCLocale::toDoubleC(dc.attribute("rulerYoffset"), 0.0);
 		m_Doc->SnapGuides = static_cast<bool>(dc.attribute("SnapToGuides", "0").toInt());
 		m_Doc->useRaster = static_cast<bool>(dc.attribute("SnapToGrid", "0").toInt());
-		m_Doc->toolSettings.polyC = dc.attribute("POLYC", "4").toInt();
-		m_Doc->toolSettings.polyF = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
-		m_Doc->toolSettings.polyR = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
-		m_Doc->toolSettings.polyCurvature = 0.0;
-		m_Doc->toolSettings.polyFd = dc.attribute("POLYFD", "0").toInt();
-		m_Doc->toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
+		m_Doc->itemToolPrefs.polyC = dc.attribute("POLYC", "4").toInt();
+		m_Doc->itemToolPrefs.polyF = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
+		m_Doc->itemToolPrefs.polyR = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
+		m_Doc->itemToolPrefs.polyCurvature = 0.0;
+		m_Doc->itemToolPrefs.polyFd = dc.attribute("POLYFD", "0").toInt();
+		m_Doc->itemToolPrefs.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 		m_Doc->AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
 		m_Doc->scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
@@ -367,48 +367,48 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->scratch.Left = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
 		m_Doc->scratch.Right = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
 		m_Doc->scratch.Top   = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
-		m_Doc->toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
-		m_Doc->toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
-		m_Doc->toolSettings.scaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
-		m_Doc->toolSettings.scaleY = ScCLocale::toDoubleC(dc.attribute("PICTSCY"), 1.0);
-		m_Doc->toolSettings.scaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
-		m_Doc->toolSettings.aspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
-		m_Doc->toolSettings.lowResType = dc.attribute("HalfRes", "1").toInt();
-		m_Doc->toolSettings.useEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
+		m_Doc->itemToolPrefs.dStartArrow = dc.attribute("StartArrow", "0").toInt();
+		m_Doc->itemToolPrefs.dEndArrow = dc.attribute("EndArrow", "0").toInt();
+		m_Doc->itemToolPrefs.scaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
+		m_Doc->itemToolPrefs.scaleY = ScCLocale::toDoubleC(dc.attribute("PICTSCY"), 1.0);
+		m_Doc->itemToolPrefs.scaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
+		m_Doc->itemToolPrefs.aspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
+		m_Doc->itemToolPrefs.lowResType = dc.attribute("HalfRes", "1").toInt();
+		m_Doc->itemToolPrefs.useEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
 		if (dc.hasAttribute("PEN"))
-			m_Doc->toolSettings.dPen = dc.attribute("PEN");
+			m_Doc->itemToolPrefs.dPen = dc.attribute("PEN");
 		if (dc.hasAttribute("BRUSH"))
-			m_Doc->toolSettings.dBrush = dc.attribute("BRUSH");
+			m_Doc->itemToolPrefs.dBrush = dc.attribute("BRUSH");
 		if (dc.hasAttribute("PENLINE"))
-			m_Doc->toolSettings.dPenLine = dc.attribute("PENLINE");
+			m_Doc->itemToolPrefs.dPenLine = dc.attribute("PENLINE");
 		if (dc.hasAttribute("PENTEXT"))
-			m_Doc->toolSettings.dPenText = dc.attribute("PENTEXT");
+			m_Doc->itemToolPrefs.dPenText = dc.attribute("PENTEXT");
 		if (dc.hasAttribute("StrokeText"))
-			m_Doc->toolSettings.dStrokeText = dc.attribute("StrokeText");
-		m_Doc->toolSettings.dTextBackGround = dc.attribute("TextBackGround", CommonStrings::None);
-		m_Doc->toolSettings.dTextLineColor = dc.attribute("TextLineColor", CommonStrings::None);
-		m_Doc->toolSettings.dTextBackGroundShade = dc.attribute("TextBackGroundShade", "100").toInt();
-		m_Doc->toolSettings.dTextLineShade = dc.attribute("TextLineShade", "100").toInt();
-		m_Doc->toolSettings.dTextPenShade = dc.attribute("TextPenShade", "100").toInt();
-		m_Doc->toolSettings.dTextStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
-		m_Doc->toolSettings.dLineArt = static_cast<Qt::PenStyle>(dc.attribute("STIL").toInt());
-		m_Doc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(dc.attribute("STILLINE").toInt());
-		m_Doc->toolSettings.dWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 1.0);
-		m_Doc->toolSettings.dWidthLine = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
-		m_Doc->toolSettings.dShade2    = dc.attribute("PENSHADE", "100").toInt();
-		m_Doc->toolSettings.dShadeLine = dc.attribute("LINESHADE", "100").toInt();
-		m_Doc->toolSettings.dShade     = dc.attribute("BRUSHSHADE", "100").toInt();
-		m_Doc->toolSettings.magMin     = dc.attribute("MAGMIN", "10").toInt();
-		m_Doc->toolSettings.magMax     = dc.attribute("MAGMAX", "3200").toInt();
-		m_Doc->toolSettings.magStep    = dc.attribute("MAGSTEP", "200").toInt();
+			m_Doc->itemToolPrefs.dStrokeText = dc.attribute("StrokeText");
+		m_Doc->itemToolPrefs.dTextBackGround = dc.attribute("TextBackGround", CommonStrings::None);
+		m_Doc->itemToolPrefs.dTextLineColor = dc.attribute("TextLineColor", CommonStrings::None);
+		m_Doc->itemToolPrefs.dTextBackGroundShade = dc.attribute("TextBackGroundShade", "100").toInt();
+		m_Doc->itemToolPrefs.dTextLineShade = dc.attribute("TextLineShade", "100").toInt();
+		m_Doc->itemToolPrefs.dTextPenShade = dc.attribute("TextPenShade", "100").toInt();
+		m_Doc->itemToolPrefs.dTextStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
+		m_Doc->itemToolPrefs.dLineArt = static_cast<Qt::PenStyle>(dc.attribute("STIL").toInt());
+		m_Doc->itemToolPrefs.dLstyleLine = static_cast<Qt::PenStyle>(dc.attribute("STILLINE").toInt());
+		m_Doc->itemToolPrefs.dWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 1.0);
+		m_Doc->itemToolPrefs.dWidthLine = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
+		m_Doc->itemToolPrefs.dShade2    = dc.attribute("PENSHADE", "100").toInt();
+		m_Doc->itemToolPrefs.dShadeLine = dc.attribute("LINESHADE", "100").toInt();
+		m_Doc->itemToolPrefs.dShade     = dc.attribute("BRUSHSHADE", "100").toInt();
+		m_Doc->opToolPrefs.magMin     = dc.attribute("MAGMIN", "10").toInt();
+		m_Doc->opToolPrefs.magMax     = dc.attribute("MAGMAX", "3200").toInt();
+		m_Doc->opToolPrefs.magStep    = dc.attribute("MAGSTEP", "200").toInt();
 		//CB Reset doc zoom step value to 200% instead of old values.
-		if (m_Doc->toolSettings.magStep<100)
-			m_Doc->toolSettings.magStep=200;
-		m_Doc->toolSettings.tabFillChar = dc.attribute("TabFill","");
-		m_Doc->toolSettings.dTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
+		if (m_Doc->opToolPrefs.magStep<100)
+			m_Doc->opToolPrefs.magStep=200;
+		m_Doc->itemToolPrefs.tabFillChar = dc.attribute("TabFill","");
+		m_Doc->itemToolPrefs.dTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
 		if (dc.hasAttribute("CPICT"))
-			m_Doc->toolSettings.dBrushPict = dc.attribute("CPICT");
-		m_Doc->toolSettings.shadePict = ScCLocale::toDoubleC(dc.attribute("PICTSHADE"), 100.0);
+			m_Doc->itemToolPrefs.dBrushPict = dc.attribute("CPICT");
+		m_Doc->itemToolPrefs.shadePict = ScCLocale::toDoubleC(dc.attribute("PICTSHADE"), 100.0);
 		if (dc.hasAttribute("PAGEC"))
 			m_Doc->papColor = QColor(dc.attribute("PAGEC"));
 		if (dc.hasAttribute("MARGC"))
@@ -956,10 +956,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				delete last;
 				if (Neu->fill_gradient.Stops() == 0)
 				{
-					const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
-					const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
-					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+					const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs.dBrush];
+					const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs.dPen];
+					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.dBrush, 100);
+					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.dPen, 100);
 				}
 //				Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 				Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
@@ -1192,12 +1192,12 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("AUTOSPALTEN",m_Doc->PageSp);
 	dc.setAttribute("ABSTSPALTEN",m_Doc->PageSpa);
 	dc.setAttribute("UNITS",m_Doc->unitIndex());
-	dc.setAttribute("DFONT",m_Doc->toolSettings.defFont);
-	dc.setAttribute("DSIZE",m_Doc->toolSettings.defSize / 10.0);
-	dc.setAttribute("DCOL",m_Doc->toolSettings.dCols);
-	dc.setAttribute("DGAP",m_Doc->toolSettings.dGap);
-	dc.setAttribute("TabFill",m_Doc->toolSettings.tabFillChar);
-	dc.setAttribute("TabWidth",m_Doc->toolSettings.dTabWidth);
+	dc.setAttribute("DFONT",m_Doc->itemToolPrefs.defFont);
+	dc.setAttribute("DSIZE",m_Doc->itemToolPrefs.defSize / 10.0);
+	dc.setAttribute("DCOL",m_Doc->itemToolPrefs.dCols);
+	dc.setAttribute("DGAP",m_Doc->itemToolPrefs.dGap);
+	dc.setAttribute("TabFill",m_Doc->itemToolPrefs.tabFillChar);
+	dc.setAttribute("TabWidth",m_Doc->itemToolPrefs.dTabWidth);
 	dc.setAttribute("AUTHOR",m_Doc->documentInfo.getAuthor());
 	dc.setAttribute("COMMENTS",m_Doc->documentInfo.getComments());
 	dc.setAttribute("KEYWORDS",m_Doc->documentInfo.getKeywords());
@@ -1267,48 +1267,48 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("rulerYoffset", m_Doc->rulerYoffset);
 	dc.setAttribute("GuideRad", m_Doc->guidesSettings.guideRad);
 	dc.setAttribute("GRAB",m_Doc->guidesSettings.grabRadius);
-	dc.setAttribute("POLYC", m_Doc->toolSettings.polyC);
-	dc.setAttribute("POLYF", m_Doc->toolSettings.polyF);
-	dc.setAttribute("POLYR", m_Doc->toolSettings.polyR);
-	dc.setAttribute("POLYFD", m_Doc->toolSettings.polyFd);
-	dc.setAttribute("POLYS", static_cast<int>(m_Doc->toolSettings.polyS));
+	dc.setAttribute("POLYC", m_Doc->itemToolPrefs.polyC);
+	dc.setAttribute("POLYF", m_Doc->itemToolPrefs.polyF);
+	dc.setAttribute("POLYR", m_Doc->itemToolPrefs.polyR);
+	dc.setAttribute("POLYFD", m_Doc->itemToolPrefs.polyFd);
+	dc.setAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs.polyS));
 	dc.setAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));
 	dc.setAttribute("AutoSaveTime", m_Doc->AutoSaveTime);
 	dc.setAttribute("ScratchBottom", m_Doc->scratch.Bottom);
 	dc.setAttribute("ScratchLeft", m_Doc->scratch.Left);
 	dc.setAttribute("ScratchRight", m_Doc->scratch.Right);
 	dc.setAttribute("ScratchTop", m_Doc->scratch.Top);
-	dc.setAttribute("StartArrow", m_Doc->toolSettings.dStartArrow);
-	dc.setAttribute("EndArrow", m_Doc->toolSettings.dEndArrow);
-	dc.setAttribute("PEN",m_Doc->toolSettings.dPen);
-	dc.setAttribute("BRUSH",m_Doc->toolSettings.dBrush);
-	dc.setAttribute("PENLINE",m_Doc->toolSettings.dPenLine);
-	dc.setAttribute("PENTEXT",m_Doc->toolSettings.dPenText);
-	dc.setAttribute("StrokeText",m_Doc->toolSettings.dStrokeText);
-	dc.setAttribute("TextBackGround", m_Doc->toolSettings.dTextBackGround);
-	dc.setAttribute("TextLineColor", m_Doc->toolSettings.dTextLineColor);
-	dc.setAttribute("TextBackGroundShade", m_Doc->toolSettings.dTextBackGroundShade);
-	dc.setAttribute("TextLineShade", m_Doc->toolSettings.dTextLineShade);
-	dc.setAttribute("TextPenShade", m_Doc->toolSettings.dTextPenShade);
-	dc.setAttribute("TextStrokeShade", m_Doc->toolSettings.dTextStrokeShade);
-	dc.setAttribute("STIL",m_Doc->toolSettings.dLineArt);
-	dc.setAttribute("STILLINE",m_Doc->toolSettings.dLstyleLine);
-	dc.setAttribute("WIDTH",m_Doc->toolSettings.dWidth);
-	dc.setAttribute("WIDTHLINE",m_Doc->toolSettings.dWidthLine);
-	dc.setAttribute("PENSHADE",m_Doc->toolSettings.dShade2);
-	dc.setAttribute("LINESHADE",m_Doc->toolSettings.dShadeLine);
-	dc.setAttribute("BRUSHSHADE",m_Doc->toolSettings.dShade);
-	dc.setAttribute("MAGMIN",m_Doc->toolSettings.magMin);
-	dc.setAttribute("MAGMAX",m_Doc->toolSettings.magMax);
-	dc.setAttribute("MAGSTEP",m_Doc->toolSettings.magStep);
-	dc.setAttribute("CPICT",m_Doc->toolSettings.dBrushPict);
-	dc.setAttribute("PICTSHADE",m_Doc->toolSettings.shadePict);
-	dc.setAttribute("PICTSCX",m_Doc->toolSettings.scaleX);
-	dc.setAttribute("PICTSCY",m_Doc->toolSettings.scaleY);
-	dc.setAttribute("PSCALE", static_cast<int>(m_Doc->toolSettings.scaleType));
-	dc.setAttribute("PASPECT", static_cast<int>(m_Doc->toolSettings.aspectRatio));
-	dc.setAttribute("EmbeddedPath", static_cast<int>(m_Doc->toolSettings.useEmbeddedPath));
-	dc.setAttribute("HalfRes", m_Doc->toolSettings.lowResType);
+	dc.setAttribute("StartArrow", m_Doc->itemToolPrefs.dStartArrow);
+	dc.setAttribute("EndArrow", m_Doc->itemToolPrefs.dEndArrow);
+	dc.setAttribute("PEN",m_Doc->itemToolPrefs.dPen);
+	dc.setAttribute("BRUSH",m_Doc->itemToolPrefs.dBrush);
+	dc.setAttribute("PENLINE",m_Doc->itemToolPrefs.dPenLine);
+	dc.setAttribute("PENTEXT",m_Doc->itemToolPrefs.dPenText);
+	dc.setAttribute("StrokeText",m_Doc->itemToolPrefs.dStrokeText);
+	dc.setAttribute("TextBackGround", m_Doc->itemToolPrefs.dTextBackGround);
+	dc.setAttribute("TextLineColor", m_Doc->itemToolPrefs.dTextLineColor);
+	dc.setAttribute("TextBackGroundShade", m_Doc->itemToolPrefs.dTextBackGroundShade);
+	dc.setAttribute("TextLineShade", m_Doc->itemToolPrefs.dTextLineShade);
+	dc.setAttribute("TextPenShade", m_Doc->itemToolPrefs.dTextPenShade);
+	dc.setAttribute("TextStrokeShade", m_Doc->itemToolPrefs.dTextStrokeShade);
+	dc.setAttribute("STIL",m_Doc->itemToolPrefs.dLineArt);
+	dc.setAttribute("STILLINE",m_Doc->itemToolPrefs.dLstyleLine);
+	dc.setAttribute("WIDTH",m_Doc->itemToolPrefs.dWidth);
+	dc.setAttribute("WIDTHLINE",m_Doc->itemToolPrefs.dWidthLine);
+	dc.setAttribute("PENSHADE",m_Doc->itemToolPrefs.dShade2);
+	dc.setAttribute("LINESHADE",m_Doc->itemToolPrefs.dShadeLine);
+	dc.setAttribute("BRUSHSHADE",m_Doc->itemToolPrefs.dShade);
+	dc.setAttribute("MAGMIN",m_Doc->opToolPrefs.magMin);
+	dc.setAttribute("MAGMAX",m_Doc->opToolPrefs.magMax);
+	dc.setAttribute("MAGSTEP",m_Doc->opToolPrefs.magStep);
+	dc.setAttribute("CPICT",m_Doc->itemToolPrefs.dBrushPict);
+	dc.setAttribute("PICTSHADE",m_Doc->itemToolPrefs.shadePict);
+	dc.setAttribute("PICTSCX",m_Doc->itemToolPrefs.scaleX);
+	dc.setAttribute("PICTSCY",m_Doc->itemToolPrefs.scaleY);
+	dc.setAttribute("PSCALE", static_cast<int>(m_Doc->itemToolPrefs.scaleType));
+	dc.setAttribute("PASPECT", static_cast<int>(m_Doc->itemToolPrefs.aspectRatio));
+	dc.setAttribute("EmbeddedPath", static_cast<int>(m_Doc->itemToolPrefs.useEmbeddedPath));
+	dc.setAttribute("HalfRes", m_Doc->itemToolPrefs.lowResType);
 	dc.setAttribute("MINORC",m_Doc->guidesSettings.minorGridColor.name());
 	dc.setAttribute("MAJORC",m_Doc->guidesSettings.majorGridColor.name());
 	dc.setAttribute("GuideC", m_Doc->guidesSettings.guideColor.name());
@@ -1737,7 +1737,7 @@ const ScFace& Scribus13Format::findFont(ScribusDoc *doc, const QString& fontname
 		if ((!prefsManager->appPrefs.GFontSub.contains(fontname)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[fontname]].usable()))
 		{
 			newReplacement = true;
-			ReplacedFonts.insert(fontname, doc->toolSettings.defFont);
+			ReplacedFonts.insert(fontname, doc->itemToolPrefs.defFont);
 		}
 		else
 			ReplacedFonts.insert(fontname, prefsManager->appPrefs.GFontSub[fontname]);
@@ -1746,7 +1746,7 @@ const ScFace& Scribus13Format::findFont(ScribusDoc *doc, const QString& fontname
 	}
 	else if ( !doc->UsedFonts.contains(fontname) )
 	{
-		doc->AddFont(fontname, qRound(doc->toolSettings.defSize / 10.0));
+		doc->AddFont(fontname, qRound(doc->itemToolPrefs.defSize / 10.0));
 	}
 	return (*m_AvailableFonts)[fontname];
 }
@@ -1917,16 +1917,16 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.setGapBefore(ScCLocale::toDoubleC(pg.attribute("VOR"), 0.0));
 	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
 	
-	vg.charStyle().setFont(m_AvailableFonts->findFont(pg.attribute("FONT", doc->toolSettings.defFont), doc));
+	vg.charStyle().setFont(m_AvailableFonts->findFont(pg.attribute("FONT", doc->itemToolPrefs.defFont), doc));
 	vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
 	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 	vg.setDropCapOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 	vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-	QString fColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
+	QString fColor = pg.attribute("FCOLOR", doc->itemToolPrefs.dBrush);
 	int fShade = pg.attribute("FSHADE", "100").toInt();
 	handleOldColorShade(doc, fColor, fShade);
-	QString sColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
+	QString sColor = pg.attribute("SCOLOR", doc->itemToolPrefs.dPen);
 	int sShade = pg.attribute("SSHADE", "100").toInt();
 	handleOldColorShade(doc, sColor, sShade);
 	vg.charStyle().setFillColor(fColor);
@@ -2037,7 +2037,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -2239,7 +2239,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		pstyle.setParent(DoVorl[align-5]);
 	else if (align >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(align));
-	pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT", m_Doc->toolSettings.defFont), m_Doc));
+	pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT", m_Doc->itemToolPrefs.defFont), m_Doc));
 	pstyle.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(obj->attribute("ISIZE"), 12.0) * 10));
 	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
 	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));
@@ -2861,10 +2861,10 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
-						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs.dBrush];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs.dPen];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.dBrush, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.dPen, 100);
 					}
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 //					Neu->Language = m_Doc->Language;

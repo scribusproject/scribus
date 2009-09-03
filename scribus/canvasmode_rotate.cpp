@@ -95,10 +95,10 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 	double newAngle = xy2Deg(m_canvasCurrCoord.x() - m_rotCenter.x(), m_canvasCurrCoord.y() - m_rotCenter.y());
 	if (m_angleConstrained)
 	{
-		newAngle = constrainAngle(newAngle, m_doc->toolSettings.constrain);
-		/*double oldAngle = constrainAngle(m_startAngle, m_doc->toolSettings.constrain);
+		newAngle = constrainAngle(newAngle, m_doc->opToolPrefs.constrain);
+		/*double oldAngle = constrainAngle(m_startAngle, m_doc->opToolPrefs.constrain);
 		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - oldAngle) : newAngle;*/
-		m_view->oldW = constrainAngle(m_view->oldW, m_doc->toolSettings.constrain);
+		m_view->oldW = constrainAngle(m_view->oldW, m_doc->opToolPrefs.constrain);
 		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - m_view->oldW) : newAngle;
 	}
 	else if (m_doc->m_Selection->isMultipleSelection())
@@ -320,8 +320,8 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 		double newW = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 		if (m->modifiers() & Qt::ControlModifier)
 		{
-			newW=constrainAngle(newW, m_doc->toolSettings.constrain);
-			m_view->oldW=constrainAngle(m_view->oldW, m_doc->toolSettings.constrain);
+			newW=constrainAngle(newW, m_doc->opToolPrefs.constrain);
+			m_view->oldW=constrainAngle(m_view->oldW, m_doc->opToolPrefs.constrain);
 			//RotateGroup uses MoveBy so its pretty hard to constrain the result
 			if (m_doc->m_Selection->isMultipleSelection())
 				m_doc->rotateGroup(newW-m_view->oldW, m_view->RCenter);

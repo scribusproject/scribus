@@ -205,7 +205,7 @@ void LineMove::adjustBounds(QMouseEvent *m)
 	if (constrainRatio)
 	{
 		double newRot = rotation();
-		newRot = constrainAngle(newRot, m_doc->toolSettings.constrain);
+		newRot = constrainAngle(newRot, m_doc->opToolPrefs.constrain);
 		setRotation(newRot);
 	}
 

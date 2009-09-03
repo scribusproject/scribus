@@ -1367,7 +1367,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Size = new ScrSpinBox( 0.5, 2048, this, SC_POINTS );
 	PrefsManager* prefsManager = PrefsManager::instance();
 	Size->setSuffix( unitGetSuffixFromIndex(SC_POINTS) );
-	Size->setValue(prefsManager->appPrefs.toolSettings.defSize / 10.0);
+	Size->setValue(prefsManager->appPrefs.itemToolPrefs.defSize / 10.0);
 	sizeAction=addWidget(Size);
 	sizeAction->setVisible(true);
 	ScaleTxt = new QLabel("", this);

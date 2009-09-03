@@ -582,7 +582,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 									if (m->modifiers() & Qt::ControlModifier)
 									{
 										double newRot=xy2Deg(np.x(), np.y());
-										rba=constrainAngle(newRot, m_doc->toolSettings.constrain);
+										rba=constrainAngle(newRot, m_doc->opToolPrefs.constrain);
 										double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
 										sizeItemX = hlen * cos(rba/(180.0/M_PI));
 										sizeItemY = hlen * sin(rba/(180.0/M_PI));

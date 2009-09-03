@@ -40,10 +40,10 @@ class SCRIBUS_API TabTools : public QWidget
 	Q_OBJECT
 
 public:
-	TabTools( QWidget* parent, struct ToolPrefs *prefsData, int unitIndex, ScribusDoc* doc);
+	TabTools( QWidget* parent, struct ItemToolPrefs *prefsData, int unitIndex, ScribusDoc* doc);
 	~TabTools() {};
 
-	void restoreDefaults(struct ToolPrefs *prefsData, int unitIndex);
+	void restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct OperatorToolPrefs *opPrefsData, int unitIndex);
 
 	/*! \brief Enable sample rendering.
 	It's called when user selects this panel in preferences. First painting is very slow

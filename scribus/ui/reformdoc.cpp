@@ -78,7 +78,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTypo = new TabTypograpy( prefsWidgets, &doc->typographicSettings);
 	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
 
-	tabTools = new TabTools( prefsWidgets, &doc->toolSettings, docUnitIndex, doc);
+	tabTools = new TabTools( prefsWidgets, &doc->itemToolPrefs, docUnitIndex, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets/*, &ScMW->LangTransl*/);
@@ -149,7 +149,7 @@ void ReformDoc::restoreDefaults()
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
 	tabTypo->restoreDefaults(&currDoc->typographicSettings);
-	tabTools->restoreDefaults(&currDoc->toolSettings, docUnitIndex);
+	tabTools->restoreDefaults(&currDoc->itemToolPrefs, &currDoc->opToolPrefs, docUnitIndex);
 	tabFonts->restoreDefaults();
 	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
 	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
@@ -343,75 +343,75 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
 	currDoc->typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
 	currDoc->typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
-	currDoc->toolSettings.defFont = tabTools->fontComboText->currentText();
-	currDoc->toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
-	currDoc->toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
+	currDoc->itemToolPrefs.defFont = tabTools->fontComboText->currentText();
+	currDoc->itemToolPrefs.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
+	currDoc->itemToolPrefs.dStrokeText = tabTools->colorComboStrokeText->currentText();
 	switch (tabTools->tabFillCombo->currentIndex())
 	{
 		case 0:
-			currDoc->toolSettings.tabFillChar = "";
+			currDoc->itemToolPrefs.tabFillChar = "";
 			break;
 		case 1:
-			currDoc->toolSettings.tabFillChar = ".";
+			currDoc->itemToolPrefs.tabFillChar = ".";
 			break;
 		case 2:
-			currDoc->toolSettings.tabFillChar = "-";
+			currDoc->itemToolPrefs.tabFillChar = "-";
 			break;
 		case 3:
-			currDoc->toolSettings.tabFillChar = "_";
+			currDoc->itemToolPrefs.tabFillChar = "_";
 			break;
 		case 4:
-			currDoc->toolSettings.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
+			currDoc->itemToolPrefs.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
 			break;
 	}
-	if (currDoc->toolSettings.dStrokeText == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dStrokeText = CommonStrings::None;
-	currDoc->toolSettings.dPenText = tabTools->colorComboText->currentText();
-	if (currDoc->toolSettings.dPenText == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dPenText = CommonStrings::None;
-	currDoc->toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
-	if (currDoc->toolSettings.dTextBackGround == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dTextBackGround = CommonStrings::None;
-	currDoc->toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
-	if (currDoc->toolSettings.dTextLineColor == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dTextLineColor = CommonStrings::None;
-	currDoc->toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
-	currDoc->toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
-	currDoc->toolSettings.dTextPenShade = tabTools->shadingText->value();
-	currDoc->toolSettings.dTextStrokeShade = tabTools->shadingTextStroke->value();
-	currDoc->toolSettings.dCols = tabTools->columnsText->value();
-	currDoc->toolSettings.dGap = tabTools->gapText->value() / currDoc->unitRatio();
-	currDoc->toolSettings.dTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();
-	currDoc->toolSettings.dPen = tabTools->colorComboLineShape->currentText();
-	if (currDoc->toolSettings.dPen == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dPen = CommonStrings::None;
-	currDoc->toolSettings.dBrush = tabTools->comboFillShape->currentText();
-	if (currDoc->toolSettings.dBrush == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dBrush = CommonStrings::None;
-	currDoc->toolSettings.dShade = tabTools->shadingFillShape->value();
-	currDoc->toolSettings.dShade2 = tabTools->shadingLineShape->value();
-	currDoc->toolSettings.dLineArt = static_cast<Qt::PenStyle>(tabTools->comboStyleShape->currentIndex()) + 1;
-	currDoc->toolSettings.dWidth = tabTools->lineWidthShape->value();
-	currDoc->toolSettings.dStartArrow = tabTools->startArrow->currentIndex();
-	currDoc->toolSettings.dEndArrow = tabTools->endArrow->currentIndex();
-	currDoc->toolSettings.magMin = tabTools->minimumZoom->value();
-	currDoc->toolSettings.magMax = tabTools->maximumZoom->value();
-	currDoc->toolSettings.magStep = tabTools->zoomStep->value();
-	currDoc->toolSettings.dPenLine = tabTools->colorComboLine->currentText();
-	if (currDoc->toolSettings.dPenLine == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dPenLine = CommonStrings::None;
-	currDoc->toolSettings.dShadeLine = tabTools->shadingLine->value();
-	currDoc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(tabTools->comboStyleLine->currentIndex()) + 1;
-	currDoc->toolSettings.dWidthLine = tabTools->lineWidthLine->value();
-	currDoc->toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
-	if (currDoc->toolSettings.dBrushPict == CommonStrings::tr_NoneColor)
-		currDoc->toolSettings.dBrushPict = CommonStrings::None;
-	currDoc->toolSettings.shadePict = tabTools->shadingFillImage->value();
-	currDoc->toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
-	currDoc->toolSettings.scaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;
-	currDoc->toolSettings.scaleType = tabTools->buttonGroup3->isChecked();
-	currDoc->toolSettings.aspectRatio = tabTools->checkRatioImage->isChecked();
-	currDoc->toolSettings.useEmbeddedPath = tabTools->embeddedPath->isChecked();
+	if (currDoc->itemToolPrefs.dStrokeText == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dStrokeText = CommonStrings::None;
+	currDoc->itemToolPrefs.dPenText = tabTools->colorComboText->currentText();
+	if (currDoc->itemToolPrefs.dPenText == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dPenText = CommonStrings::None;
+	currDoc->itemToolPrefs.dTextBackGround = tabTools->colorComboTextBackground->currentText();
+	if (currDoc->itemToolPrefs.dTextBackGround == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dTextBackGround = CommonStrings::None;
+	currDoc->itemToolPrefs.dTextLineColor = tabTools->colorComboTextLine->currentText();
+	if (currDoc->itemToolPrefs.dTextLineColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dTextLineColor = CommonStrings::None;
+	currDoc->itemToolPrefs.dTextBackGroundShade = tabTools->shadingTextBack->value();
+	currDoc->itemToolPrefs.dTextLineShade = tabTools->shadingTextLine->value();
+	currDoc->itemToolPrefs.dTextPenShade = tabTools->shadingText->value();
+	currDoc->itemToolPrefs.dTextStrokeShade = tabTools->shadingTextStroke->value();
+	currDoc->itemToolPrefs.dCols = tabTools->columnsText->value();
+	currDoc->itemToolPrefs.dGap = tabTools->gapText->value() / currDoc->unitRatio();
+	currDoc->itemToolPrefs.dTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();
+	currDoc->itemToolPrefs.dPen = tabTools->colorComboLineShape->currentText();
+	if (currDoc->itemToolPrefs.dPen == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dPen = CommonStrings::None;
+	currDoc->itemToolPrefs.dBrush = tabTools->comboFillShape->currentText();
+	if (currDoc->itemToolPrefs.dBrush == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dBrush = CommonStrings::None;
+	currDoc->itemToolPrefs.dShade = tabTools->shadingFillShape->value();
+	currDoc->itemToolPrefs.dShade2 = tabTools->shadingLineShape->value();
+	currDoc->itemToolPrefs.dLineArt = static_cast<Qt::PenStyle>(tabTools->comboStyleShape->currentIndex()) + 1;
+	currDoc->itemToolPrefs.dWidth = tabTools->lineWidthShape->value();
+	currDoc->itemToolPrefs.dStartArrow = tabTools->startArrow->currentIndex();
+	currDoc->itemToolPrefs.dEndArrow = tabTools->endArrow->currentIndex();
+	currDoc->opToolPrefs.magMin = tabTools->minimumZoom->value();
+	currDoc->opToolPrefs.magMax = tabTools->maximumZoom->value();
+	currDoc->opToolPrefs.magStep = tabTools->zoomStep->value();
+	currDoc->itemToolPrefs.dPenLine = tabTools->colorComboLine->currentText();
+	if (currDoc->itemToolPrefs.dPenLine == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dPenLine = CommonStrings::None;
+	currDoc->itemToolPrefs.dShadeLine = tabTools->shadingLine->value();
+	currDoc->itemToolPrefs.dLstyleLine = static_cast<Qt::PenStyle>(tabTools->comboStyleLine->currentIndex()) + 1;
+	currDoc->itemToolPrefs.dWidthLine = tabTools->lineWidthLine->value();
+	currDoc->itemToolPrefs.dBrushPict = tabTools->comboFillImage->currentText();
+	if (currDoc->itemToolPrefs.dBrushPict == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs.dBrushPict = CommonStrings::None;
+	currDoc->itemToolPrefs.shadePict = tabTools->shadingFillImage->value();
+	currDoc->itemToolPrefs.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
+	currDoc->itemToolPrefs.scaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;
+	currDoc->itemToolPrefs.scaleType = tabTools->buttonGroup3->isChecked();
+	currDoc->itemToolPrefs.aspectRatio = tabTools->checkRatioImage->isChecked();
+	currDoc->itemToolPrefs.useEmbeddedPath = tabTools->embeddedPath->isChecked();
 	int haRes = 0;
 	if (tabTools->checkFullRes->isChecked())
 		haRes = 0;
@@ -419,22 +419,22 @@ void ReformDoc::updateDocumentSettings()
 		haRes = 1;
 	if (tabTools->checkHalfRes->isChecked())
 		haRes = 2;
-	if (currDoc->toolSettings.lowResType != haRes)
+	if (currDoc->itemToolPrefs.lowResType != haRes)
 	{
-		currDoc->toolSettings.lowResType = haRes;
+		currDoc->itemToolPrefs.lowResType = haRes;
 		viewToRecalcPictureRes=true;
 	}
 	else
 		viewToRecalcPictureRes=false;
-	currDoc->toolSettings.dispX = tabTools->genDispX->value();
-	currDoc->toolSettings.dispY = tabTools->genDispY->value();
-	currDoc->toolSettings.constrain = tabTools->genRot->value();
-	tabTools->polyWidget->getValues(&currDoc->toolSettings.polyC,
-									&currDoc->toolSettings.polyFd,
-									&currDoc->toolSettings.polyF,
-									&currDoc->toolSettings.polyS,
-									&currDoc->toolSettings.polyR,
-									&currDoc->toolSettings.polyCurvature);
+	currDoc->opToolPrefs.dispX = tabTools->genDispX->value();
+	currDoc->opToolPrefs.dispY = tabTools->genDispY->value();
+	currDoc->opToolPrefs.constrain = tabTools->genRot->value();
+	tabTools->polyWidget->getValues(&currDoc->itemToolPrefs.polyC,
+									&currDoc->itemToolPrefs.polyFd,
+									&currDoc->itemToolPrefs.polyF,
+									&currDoc->itemToolPrefs.polyS,
+									&currDoc->itemToolPrefs.polyR,
+									&currDoc->itemToolPrefs.polyCurvature);
 	currDoc->AutoSave = tabPage->GroupAS->isChecked();
 	currDoc->AutoSaveTime = tabPage->ASTime->value() * 60 * 1000;
 	currDoc->autoSaveTimer->stop();

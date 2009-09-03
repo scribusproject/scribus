@@ -37,7 +37,7 @@ CharSelect::CharSelect(QWidget* parent)
 	uniClearButton->setIcon(loadIcon("22/document-new.png"));
 
 	m_userTableModel = new CharTableModel(this, 6, m_doc,
-	                                      PrefsManager::instance()->appPrefs.toolSettings.defFont);
+										  PrefsManager::instance()->appPrefs.itemToolPrefs.defFont);
 	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
 
 	m_userTable->setModel(m_userTableModel);

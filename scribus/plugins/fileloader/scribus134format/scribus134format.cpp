@@ -863,63 +863,63 @@ void Scribus134Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	QString defFont = attrs.valueAsString("DFONT");
 	m_AvailableFonts->findFont(defFont, doc);
 
-	doc->toolSettings.defFont = defFont;
-	doc->toolSettings.defSize = qRound(attrs.valueAsDouble("DSIZE", 12.0) * 10);
-	doc->toolSettings.dCols   = attrs.valueAsInt("DCOL", 1);
-	doc->toolSettings.dGap    = attrs.valueAsDouble("DGAP", 0.0);
+	doc->itemToolPrefs.defFont = defFont;
+	doc->itemToolPrefs.defSize = qRound(attrs.valueAsDouble("DSIZE", 12.0) * 10);
+	doc->itemToolPrefs.dCols   = attrs.valueAsInt("DCOL", 1);
+	doc->itemToolPrefs.dGap    = attrs.valueAsDouble("DGAP", 0.0);
 
-	doc->toolSettings.polyC   = attrs.valueAsInt("POLYC", 4);
-	doc->toolSettings.polyF   = attrs.valueAsDouble("POLYF", 0.5);
-	doc->toolSettings.polyR   = attrs.valueAsDouble("POLYR", 0.0);
-	doc->toolSettings.polyCurvature = attrs.valueAsDouble("POLYCUR", 0.0);
-	doc->toolSettings.polyFd  = attrs.valueAsInt("POLYFD", 0);
-	doc->toolSettings.polyS   = attrs.valueAsBool("POLYS", false);
+	doc->itemToolPrefs.polyC   = attrs.valueAsInt("POLYC", 4);
+	doc->itemToolPrefs.polyF   = attrs.valueAsDouble("POLYF", 0.5);
+	doc->itemToolPrefs.polyR   = attrs.valueAsDouble("POLYR", 0.0);
+	doc->itemToolPrefs.polyCurvature = attrs.valueAsDouble("POLYCUR", 0.0);
+	doc->itemToolPrefs.polyFd  = attrs.valueAsInt("POLYFD", 0);
+	doc->itemToolPrefs.polyS   = attrs.valueAsBool("POLYS", false);
 
-	doc->toolSettings.dStartArrow = attrs.valueAsInt("StartArrow", 0);
-	doc->toolSettings.dEndArrow   = attrs.valueAsInt("EndArrow", 0);
-	doc->toolSettings.scaleX      = attrs.valueAsDouble("PICTSCX", 1.0);
-	doc->toolSettings.scaleY      = attrs.valueAsDouble("PICTSCY", 1.0);
-	doc->toolSettings.scaleType   = attrs.valueAsBool("PSCALE", true);
-	doc->toolSettings.aspectRatio = attrs.valueAsBool("PASPECT", false);
-	doc->toolSettings.lowResType  = attrs.valueAsInt("HalfRes", 1);
-	doc->toolSettings.useEmbeddedPath = attrs.valueAsBool("EmbeddedPath", false);
+	doc->itemToolPrefs.dStartArrow = attrs.valueAsInt("StartArrow", 0);
+	doc->itemToolPrefs.dEndArrow   = attrs.valueAsInt("EndArrow", 0);
+	doc->itemToolPrefs.scaleX      = attrs.valueAsDouble("PICTSCX", 1.0);
+	doc->itemToolPrefs.scaleY      = attrs.valueAsDouble("PICTSCY", 1.0);
+	doc->itemToolPrefs.scaleType   = attrs.valueAsBool("PSCALE", true);
+	doc->itemToolPrefs.aspectRatio = attrs.valueAsBool("PASPECT", false);
+	doc->itemToolPrefs.lowResType  = attrs.valueAsInt("HalfRes", 1);
+	doc->itemToolPrefs.useEmbeddedPath = attrs.valueAsBool("EmbeddedPath", false);
 	if (attrs.hasAttribute("PEN"))
-		doc->toolSettings.dPen = attrs.valueAsString("PEN");
+		doc->itemToolPrefs.dPen = attrs.valueAsString("PEN");
 	if (attrs.hasAttribute("BRUSH"))
-		doc->toolSettings.dBrush = attrs.valueAsString("BRUSH");
+		doc->itemToolPrefs.dBrush = attrs.valueAsString("BRUSH");
 	if (attrs.hasAttribute("PENLINE"))
-		doc->toolSettings.dPenLine = attrs.valueAsString("PENLINE");
+		doc->itemToolPrefs.dPenLine = attrs.valueAsString("PENLINE");
 	if (attrs.hasAttribute("PENTEXT"))
-		doc->toolSettings.dPenText = attrs.valueAsString("PENTEXT");
+		doc->itemToolPrefs.dPenText = attrs.valueAsString("PENTEXT");
 	if (attrs.hasAttribute("StrokeText"))
-		doc->toolSettings.dStrokeText = attrs.valueAsString("StrokeText");
-	doc->toolSettings.dTextBackGround  = attrs.valueAsString("TextBackGround", CommonStrings::None);
-	doc->toolSettings.dTextLineColor   = attrs.valueAsString("TextLineColor", CommonStrings::None);
-	doc->toolSettings.dTextBackGroundShade =attrs.valueAsInt("TextBackGroundShade", 100);
-	doc->toolSettings.dTextLineShade   = attrs.valueAsInt("TextLineShade", 100);
-	doc->toolSettings.dTextPenShade    = attrs.valueAsInt("TextPenShade", 100);
-	doc->toolSettings.dTextStrokeShade = attrs.valueAsInt("TextStrokeShade", 100);
-	doc->toolSettings.dLineArt    = static_cast<Qt::PenStyle>(attrs.valueAsInt("STIL"));
-	doc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(attrs.valueAsInt("STILLINE"));
-	doc->toolSettings.dWidth      = attrs.valueAsDouble("WIDTH", 0.0);
-	doc->toolSettings.dWidthLine  = attrs.valueAsDouble("WIDTHLINE", 1.0);
-	doc->toolSettings.dShade2     = attrs.valueAsInt("PENSHADE", 100);
-	doc->toolSettings.dShadeLine  = attrs.valueAsInt("LINESHADE", 100);
-	doc->toolSettings.dShade      = attrs.valueAsInt("BRUSHSHADE", 100);
-	doc->toolSettings.magMin      = attrs.valueAsInt("MAGMIN", 10);
-	doc->toolSettings.magMax      = attrs.valueAsInt("MAGMAX", 3200);
-	doc->toolSettings.magStep     = attrs.valueAsInt("MAGSTEP", 200);
-	doc->toolSettings.dispX       = attrs.valueAsDouble("dispX", 10.0);
-	doc->toolSettings.dispY       = attrs.valueAsDouble("dispY", 10.0);
-	doc->toolSettings.constrain   = attrs.valueAsDouble("constrain", 15.0);
+		doc->itemToolPrefs.dStrokeText = attrs.valueAsString("StrokeText");
+	doc->itemToolPrefs.dTextBackGround  = attrs.valueAsString("TextBackGround", CommonStrings::None);
+	doc->itemToolPrefs.dTextLineColor   = attrs.valueAsString("TextLineColor", CommonStrings::None);
+	doc->itemToolPrefs.dTextBackGroundShade =attrs.valueAsInt("TextBackGroundShade", 100);
+	doc->itemToolPrefs.dTextLineShade   = attrs.valueAsInt("TextLineShade", 100);
+	doc->itemToolPrefs.dTextPenShade    = attrs.valueAsInt("TextPenShade", 100);
+	doc->itemToolPrefs.dTextStrokeShade = attrs.valueAsInt("TextStrokeShade", 100);
+	doc->itemToolPrefs.dLineArt    = static_cast<Qt::PenStyle>(attrs.valueAsInt("STIL"));
+	doc->itemToolPrefs.dLstyleLine = static_cast<Qt::PenStyle>(attrs.valueAsInt("STILLINE"));
+	doc->itemToolPrefs.dWidth      = attrs.valueAsDouble("WIDTH", 0.0);
+	doc->itemToolPrefs.dWidthLine  = attrs.valueAsDouble("WIDTHLINE", 1.0);
+	doc->itemToolPrefs.dShade2     = attrs.valueAsInt("PENSHADE", 100);
+	doc->itemToolPrefs.dShadeLine  = attrs.valueAsInt("LINESHADE", 100);
+	doc->itemToolPrefs.dShade      = attrs.valueAsInt("BRUSHSHADE", 100);
+	doc->opToolPrefs.magMin      = attrs.valueAsInt("MAGMIN", 10);
+	doc->opToolPrefs.magMax      = attrs.valueAsInt("MAGMAX", 3200);
+	doc->opToolPrefs.magStep     = attrs.valueAsInt("MAGSTEP", 200);
+	doc->opToolPrefs.dispX       = attrs.valueAsDouble("dispX", 10.0);
+	doc->opToolPrefs.dispY       = attrs.valueAsDouble("dispY", 10.0);
+	doc->opToolPrefs.constrain   = attrs.valueAsDouble("constrain", 15.0);
 	//CB Reset doc zoom step value to 200% instead of old values.
-	if (doc->toolSettings.magStep < 100)
-		doc->toolSettings.magStep = 200;
-	doc->toolSettings.tabFillChar = attrs.valueAsString("TabFill","");
-	doc->toolSettings.dTabWidth   = attrs.valueAsDouble("TabWidth", 36.0);
+	if (doc->opToolPrefs.magStep < 100)
+		doc->opToolPrefs.magStep = 200;
+	doc->itemToolPrefs.tabFillChar = attrs.valueAsString("TabFill","");
+	doc->itemToolPrefs.dTabWidth   = attrs.valueAsDouble("TabWidth", 36.0);
 	if (attrs.hasAttribute("CPICT"))
-		doc->toolSettings.dBrushPict = attrs.valueAsString("CPICT");
-	doc->toolSettings.shadePict = attrs.valueAsInt("PICTSHADE", 100);
+		doc->itemToolPrefs.dBrushPict = attrs.valueAsString("CPICT");
+	doc->itemToolPrefs.shadePict = attrs.valueAsInt("PICTSHADE", 100);
 }
 
 void Scribus134Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
@@ -1705,7 +1705,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->OwnPage = attrs.valueAsInt("OwnPage");
 	if (tagName == "PAGEOBJECT")
 		newItem->OnMasterPage = "";
-	QString tmpf = attrs.valueAsString("IFONT", doc->toolSettings.defFont);
+	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs.defFont);
 	m_AvailableFonts->findFont(tmpf, doc);
 
 //	newItem->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
@@ -1861,10 +1861,10 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (newItem->fill_gradient.Stops() == 0)
 	{
-		const ScColor& col1 = doc->PageColors[doc->toolSettings.dBrush];
-		const ScColor& col2 = doc->PageColors[doc->toolSettings.dPen];
-		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
-		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
+		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.dBrush];
+		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.dPen];
+		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.dBrush, 100);
+		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.dPen, 100);
 	}
 
 	if (newItem->asPathText())
@@ -2281,7 +2281,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::ImageFrame:
 	case PageItem::OSGFrame:
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
-		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;

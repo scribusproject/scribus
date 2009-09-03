@@ -260,12 +260,12 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesPrefs.colBordersShown;
 	currDoc->guidesSettings.baselineGridShown = prefsManager->appPrefs.guidesPrefs.baselineGridShown;
 	currDoc->guidesSettings.linkShown = prefsManager->appPrefs.guidesPrefs.linkShown;
-	currDoc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
-	currDoc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
-	currDoc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
-	currDoc->toolSettings.polyCurvature = prefsManager->appPrefs.toolSettings.polyCurvature;
-	currDoc->toolSettings.polyFd = prefsManager->appPrefs.toolSettings.polyFd;
-	currDoc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
+	currDoc->itemToolPrefs.polyC = prefsManager->appPrefs.itemToolPrefs.polyC;
+	currDoc->itemToolPrefs.polyF = prefsManager->appPrefs.itemToolPrefs.polyF;
+	currDoc->itemToolPrefs.polyR = prefsManager->appPrefs.itemToolPrefs.polyR;
+	currDoc->itemToolPrefs.polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
+	currDoc->itemToolPrefs.polyFd = prefsManager->appPrefs.itemToolPrefs.polyFd;
+	currDoc->itemToolPrefs.polyS = prefsManager->appPrefs.itemToolPrefs.polyS;
 	currDoc->AutoSave = prefsManager->appPrefs.AutoSave;
 	currDoc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
@@ -377,7 +377,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(ScCLocale::toDoubleC(pg.attribute("VOR"), 0.0));
 	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
-	QString tmpf = pg.attribute("FONT", currDoc->toolSettings.defFont);
+	QString tmpf = pg.attribute("FONT", currDoc->itemToolPrefs.defFont);
 	currDoc->AllFonts->findFont(tmpf, currDoc);
 		vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
 		vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
@@ -385,9 +385,9 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 		vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->toolSettings.dBrush));
+		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs.dBrush));
 		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->toolSettings.dPen));
+		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs.dPen));
 		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
 			vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);

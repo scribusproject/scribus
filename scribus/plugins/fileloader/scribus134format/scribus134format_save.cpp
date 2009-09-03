@@ -97,12 +97,12 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("AUTOSPALTEN" ,m_Doc->PageSp);
 	docu.writeAttribute("ABSTSPALTEN" ,m_Doc->PageSpa);
 	docu.writeAttribute("UNITS"       , m_Doc->unitIndex());
-	docu.writeAttribute("DFONT"       ,m_Doc->toolSettings.defFont);
-	docu.writeAttribute("DSIZE"       ,m_Doc->toolSettings.defSize / 10.0);
-	docu.writeAttribute("DCOL"        ,m_Doc->toolSettings.dCols);
-	docu.writeAttribute("DGAP"        ,m_Doc->toolSettings.dGap);
-	docu.writeAttribute("TabFill"     ,m_Doc->toolSettings.tabFillChar);
-	docu.writeAttribute("TabWidth"    ,m_Doc->toolSettings.dTabWidth);
+	docu.writeAttribute("DFONT"       ,m_Doc->itemToolPrefs.defFont);
+	docu.writeAttribute("DSIZE"       ,m_Doc->itemToolPrefs.defSize / 10.0);
+	docu.writeAttribute("DCOL"        ,m_Doc->itemToolPrefs.dCols);
+	docu.writeAttribute("DGAP"        ,m_Doc->itemToolPrefs.dGap);
+	docu.writeAttribute("TabFill"     ,m_Doc->itemToolPrefs.tabFillChar);
+	docu.writeAttribute("TabWidth"    ,m_Doc->itemToolPrefs.dTabWidth);
 	docu.writeAttribute("AUTHOR"      ,m_Doc->documentInfo.getAuthor());
 	docu.writeAttribute("COMMENTS"    ,m_Doc->documentInfo.getComments());
 	docu.writeAttribute("KEYWORDS"    ,m_Doc->documentInfo.getKeywords());
@@ -174,12 +174,12 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("rulerYoffset", m_Doc->rulerYoffset);
 	docu.writeAttribute("GuideRad", m_Doc->guidesSettings.guideRad);
 	docu.writeAttribute("GRAB",m_Doc->guidesSettings.grabRadius);
-	docu.writeAttribute("POLYC", m_Doc->toolSettings.polyC);
-	docu.writeAttribute("POLYF", m_Doc->toolSettings.polyF);
-	docu.writeAttribute("POLYR", m_Doc->toolSettings.polyR);
-	docu.writeAttribute("POLYCUR", m_Doc->toolSettings.polyCurvature);
-	docu.writeAttribute("POLYFD", m_Doc->toolSettings.polyFd);
-	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->toolSettings.polyS));
+	docu.writeAttribute("POLYC", m_Doc->itemToolPrefs.polyC);
+	docu.writeAttribute("POLYF", m_Doc->itemToolPrefs.polyF);
+	docu.writeAttribute("POLYR", m_Doc->itemToolPrefs.polyR);
+	docu.writeAttribute("POLYCUR", m_Doc->itemToolPrefs.polyCurvature);
+	docu.writeAttribute("POLYFD", m_Doc->itemToolPrefs.polyFd);
+	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs.polyS));
 	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));
 	docu.writeAttribute("AutoSaveTime", m_Doc->AutoSaveTime);
 	docu.writeAttribute("ScratchBottom", m_Doc->scratch.Bottom);
@@ -188,40 +188,40 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("ScratchTop", m_Doc->scratch.Top);
 	docu.writeAttribute("GapHorizontal", m_Doc->GapHorizontal);
 	docu.writeAttribute("GapVertical", m_Doc->GapVertical);
-	docu.writeAttribute("StartArrow", m_Doc->toolSettings.dStartArrow);
-	docu.writeAttribute("EndArrow", m_Doc->toolSettings.dEndArrow);
-	docu.writeAttribute("PEN",m_Doc->toolSettings.dPen);
-	docu.writeAttribute("BRUSH",m_Doc->toolSettings.dBrush);
-	docu.writeAttribute("PENLINE",m_Doc->toolSettings.dPenLine);
-	docu.writeAttribute("PENTEXT",m_Doc->toolSettings.dPenText);
-	docu.writeAttribute("StrokeText",m_Doc->toolSettings.dStrokeText);
-	docu.writeAttribute("TextBackGround", m_Doc->toolSettings.dTextBackGround);
-	docu.writeAttribute("TextLineColor", m_Doc->toolSettings.dTextLineColor);
-	docu.writeAttribute("TextBackGroundShade", m_Doc->toolSettings.dTextBackGroundShade);
-	docu.writeAttribute("TextLineShade", m_Doc->toolSettings.dTextLineShade);
-	docu.writeAttribute("TextPenShade", m_Doc->toolSettings.dTextPenShade);
-	docu.writeAttribute("TextStrokeShade", m_Doc->toolSettings.dTextStrokeShade);
-	docu.writeAttribute("STIL",m_Doc->toolSettings.dLineArt);
-	docu.writeAttribute("STILLINE",m_Doc->toolSettings.dLstyleLine);
-	docu.writeAttribute("WIDTH",m_Doc->toolSettings.dWidth);
-	docu.writeAttribute("WIDTHLINE",m_Doc->toolSettings.dWidthLine);
-	docu.writeAttribute("PENSHADE",m_Doc->toolSettings.dShade2);
-	docu.writeAttribute("LINESHADE",m_Doc->toolSettings.dShadeLine);
-	docu.writeAttribute("BRUSHSHADE",m_Doc->toolSettings.dShade);
-	docu.writeAttribute("MAGMIN",m_Doc->toolSettings.magMin);
-	docu.writeAttribute("MAGMAX",m_Doc->toolSettings.magMax);
-	docu.writeAttribute("MAGSTEP",m_Doc->toolSettings.magStep);
-	docu.writeAttribute("CPICT",m_Doc->toolSettings.dBrushPict);
-	docu.writeAttribute("PICTSHADE",m_Doc->toolSettings.shadePict);
-	docu.writeAttribute("PICTSCX",m_Doc->toolSettings.scaleX);
-	docu.writeAttribute("PICTSCY",m_Doc->toolSettings.scaleY);
-	docu.writeAttribute("PSCALE", static_cast<int>(m_Doc->toolSettings.scaleType));
-	docu.writeAttribute("PASPECT", static_cast<int>(m_Doc->toolSettings.aspectRatio));
-	docu.writeAttribute("EmbeddedPath", static_cast<int>(m_Doc->toolSettings.useEmbeddedPath));
-	docu.writeAttribute("HalfRes", m_Doc->toolSettings.lowResType);
-	docu.writeAttribute("dispX", m_Doc->toolSettings.dispX);
-	docu.writeAttribute("dispY", m_Doc->toolSettings.dispY);
-	docu.writeAttribute("constrain", m_Doc->toolSettings.constrain);
+	docu.writeAttribute("StartArrow", m_Doc->itemToolPrefs.dStartArrow);
+	docu.writeAttribute("EndArrow", m_Doc->itemToolPrefs.dEndArrow);
+	docu.writeAttribute("PEN",m_Doc->itemToolPrefs.dPen);
+	docu.writeAttribute("BRUSH",m_Doc->itemToolPrefs.dBrush);
+	docu.writeAttribute("PENLINE",m_Doc->itemToolPrefs.dPenLine);
+	docu.writeAttribute("PENTEXT",m_Doc->itemToolPrefs.dPenText);
+	docu.writeAttribute("StrokeText",m_Doc->itemToolPrefs.dStrokeText);
+	docu.writeAttribute("TextBackGround", m_Doc->itemToolPrefs.dTextBackGround);
+	docu.writeAttribute("TextLineColor", m_Doc->itemToolPrefs.dTextLineColor);
+	docu.writeAttribute("TextBackGroundShade", m_Doc->itemToolPrefs.dTextBackGroundShade);
+	docu.writeAttribute("TextLineShade", m_Doc->itemToolPrefs.dTextLineShade);
+	docu.writeAttribute("TextPenShade", m_Doc->itemToolPrefs.dTextPenShade);
+	docu.writeAttribute("TextStrokeShade", m_Doc->itemToolPrefs.dTextStrokeShade);
+	docu.writeAttribute("STIL",m_Doc->itemToolPrefs.dLineArt);
+	docu.writeAttribute("STILLINE",m_Doc->itemToolPrefs.dLstyleLine);
+	docu.writeAttribute("WIDTH",m_Doc->itemToolPrefs.dWidth);
+	docu.writeAttribute("WIDTHLINE",m_Doc->itemToolPrefs.dWidthLine);
+	docu.writeAttribute("PENSHADE",m_Doc->itemToolPrefs.dShade2);
+	docu.writeAttribute("LINESHADE",m_Doc->itemToolPrefs.dShadeLine);
+	docu.writeAttribute("BRUSHSHADE",m_Doc->itemToolPrefs.dShade);
+	docu.writeAttribute("MAGMIN",m_Doc->opToolPrefs.magMin);
+	docu.writeAttribute("MAGMAX",m_Doc->opToolPrefs.magMax);
+	docu.writeAttribute("MAGSTEP",m_Doc->opToolPrefs.magStep);
+	docu.writeAttribute("CPICT",m_Doc->itemToolPrefs.dBrushPict);
+	docu.writeAttribute("PICTSHADE",m_Doc->itemToolPrefs.shadePict);
+	docu.writeAttribute("PICTSCX",m_Doc->itemToolPrefs.scaleX);
+	docu.writeAttribute("PICTSCY",m_Doc->itemToolPrefs.scaleY);
+	docu.writeAttribute("PSCALE", static_cast<int>(m_Doc->itemToolPrefs.scaleType));
+	docu.writeAttribute("PASPECT", static_cast<int>(m_Doc->itemToolPrefs.aspectRatio));
+	docu.writeAttribute("EmbeddedPath", static_cast<int>(m_Doc->itemToolPrefs.useEmbeddedPath));
+	docu.writeAttribute("HalfRes", m_Doc->itemToolPrefs.lowResType);
+	docu.writeAttribute("dispX", m_Doc->opToolPrefs.dispX);
+	docu.writeAttribute("dispY", m_Doc->opToolPrefs.dispY);
+	docu.writeAttribute("constrain", m_Doc->opToolPrefs.constrain);
 	docu.writeAttribute("MINORC",m_Doc->guidesSettings.minorGridColor.name());
 	docu.writeAttribute("MAJORC",m_Doc->guidesSettings.majorGridColor.name());
 	docu.writeAttribute("GuideC", m_Doc->guidesSettings.guideColor.name());
@@ -768,15 +768,15 @@ void Scribus134Format::writeTOC(ScXmlStreamWriter & docu)
 		docu.writeAttribute("Style", (*tocSetupIt).textStyle);
 		switch ((*tocSetupIt).pageLocation)
 		{
-			case Beginning:
-				docu.writeAttribute("NumberPlacement", "Beginning");
-				break;
-			case End:
-				docu.writeAttribute("NumberPlacement", "End");
-				break;
-			case NotShown:
-				docu.writeAttribute("NumberPlacement", "NotShown");
-				break;
+		case Beginning:
+			docu.writeAttribute("NumberPlacement", "Beginning");
+			break;
+		case End:
+			docu.writeAttribute("NumberPlacement", "End");
+			break;
+		case NotShown:
+			docu.writeAttribute("NumberPlacement", "NotShown");
+			break;
 		}
 	}
 	docu.writeEndElement();
@@ -795,24 +795,24 @@ void Scribus134Format::writeSections(ScXmlStreamWriter & docu)
 		docu.writeAttribute("To", (*it).toindex);
 		switch ((*it).type)
 		{
-			case Type_1_2_3:
-				docu.writeAttribute("Type", "Type_1_2_3");
-				break;
-			case Type_i_ii_iii:
-				docu.writeAttribute("Type", "Type_i_ii_iii");
-				break;
-			case Type_I_II_III:
-				docu.writeAttribute("Type", "Type_I_II_III");
-				break;
-			case Type_a_b_c:
-				docu.writeAttribute("Type", "Type_a_b_c");
-				break;
-			case Type_A_B_C:
-				docu.writeAttribute("Type", "Type_A_B_C");
-				break;
-			case Type_None:
-				docu.writeAttribute("Type", "Type_None");
-				break;
+		case Type_1_2_3:
+			docu.writeAttribute("Type", "Type_1_2_3");
+			break;
+		case Type_i_ii_iii:
+			docu.writeAttribute("Type", "Type_i_ii_iii");
+			break;
+		case Type_I_II_III:
+			docu.writeAttribute("Type", "Type_I_II_III");
+			break;
+		case Type_a_b_c:
+			docu.writeAttribute("Type", "Type_a_b_c");
+			break;
+		case Type_A_B_C:
+			docu.writeAttribute("Type", "Type_A_B_C");
+			break;
+		case Type_None:
+			docu.writeAttribute("Type", "Type_None");
+			break;
 		}
 		docu.writeAttribute("Start", (*it).sectionstartindex);
 		docu.writeAttribute("Reversed", (*it).reversed);
@@ -833,9 +833,9 @@ void Scribus134Format::writePageSets(ScXmlStreamWriter & docu)
 		docu.writeAttribute("FirstPage", (*itpgset).FirstPage);
 		docu.writeAttribute("Rows", (*itpgset).Rows);
 		docu.writeAttribute("Columns", (*itpgset).Columns);
-//		docu.writeAttribute("GapHorizontal", (*itpgset).GapHorizontal);
-//		docu.writeAttribute("GapVertical", (*itpgset).GapVertical);
-//		docu.writeAttribute("GapBelow", (*itpgset).GapBelow);
+		//		docu.writeAttribute("GapHorizontal", (*itpgset).GapHorizontal);
+		//		docu.writeAttribute("GapVertical", (*itpgset).GapVertical);
+		//		docu.writeAttribute("GapBelow", (*itpgset).GapBelow);
 		QStringList pNames = (*itpgset).pageNames;
 		QStringList::Iterator itpgsetN;
 		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
@@ -922,9 +922,9 @@ void Scribus134Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 		docu.writeAttribute("LEFT", page->LeftPg);
 		docu.writeAttribute("PRESET", page->marginPreset);
 		docu.writeAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(
-													page, GuideManagerCore::Standard));
+				page, GuideManagerCore::Standard));
 		docu.writeAttribute("HorizontalGuides", GuideManagerIO::writeHorizontalGuides(
-													page, GuideManagerCore::Standard));
+				page, GuideManagerCore::Standard));
 		docu.writeAttribute("AGhorizontalAutoGap", page->guides.horizontalAutoGap());
 		docu.writeAttribute("AGverticalAutoGap", page->guides.verticalAutoGap());
 		docu.writeAttribute("AGhorizontalAutoCount", page->guides.horizontalAutoCount());
@@ -994,7 +994,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 				/*if (item->asPathText()) // seems to cause problems when loading pathtext elements
 					putCStylePT(docu, lastStyle);
 				else*/
-					putCStyle(docu, lastStyle);
+				putCStyle(docu, lastStyle);
 				docu.writeAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, k));
 			}
 			lastStyle = style1;
@@ -1008,7 +1008,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			/*if (item->asPathText()) // seems to cause problems when loading pathtext elements
 				putCStylePT(docu, lastStyle);
 			else*/
-				putCStyle(docu, lastStyle);
+			putCStyle(docu, lastStyle);
 			tmpnum.setNum(ch.unicode());
 			docu.writeAttribute("Unicode", tmpnum);
 			docu.writeAttribute("COBJ", item->itemText.object(k)->ItemNr);		
@@ -1066,7 +1066,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 		/*if (item->asPathText())
 			putCStylePT(docu, lastStyle);
 		else*/
-			putCStyle(docu, lastStyle);
+		putCStyle(docu, lastStyle);
 		docu.writeAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, item->itemText.length()));
 	}
 	// paragraphstyle for trailing chars
@@ -1084,20 +1084,20 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 	uint objects = 0;
 	switch (master)
 	{
-		case ItemSelectionMaster:
-			items = &doc->MasterItems;
-			break;
-		case ItemSelectionPage:
-			items = &doc->DocItems;
-			break;
-		case ItemSelectionFrame:
-			items = &doc->FrameItems;
-			break;
-		case ItemSelectionPattern:
-			items = some_items;
-			break;
-		default:
-			assert(false);
+	case ItemSelectionMaster:
+		items = &doc->MasterItems;
+		break;
+	case ItemSelectionPage:
+		items = &doc->DocItems;
+		break;
+	case ItemSelectionFrame:
+		items = &doc->FrameItems;
+		break;
+	case ItemSelectionPattern:
+		items = some_items;
+		break;
+	default:
+		assert(false);
 	}
 	objects = items->count();
 	for(uint j = 0; j < objects;++j)
@@ -1108,21 +1108,21 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		item = items->at(j);
 		switch (master)
 		{
-			case ItemSelectionMaster:
-//				item = doc->MasterItems.at(j);
-				docu.writeStartElement("MASTEROBJECT");
-				break;
-			case ItemSelectionPage:
-//				item = doc->DocItems.at(j);
-				docu.writeStartElement("PAGEOBJECT");
-				break;
-			case ItemSelectionFrame:
-//				item = doc->FrameItems.at(j);
-				docu.writeStartElement("FRAMEOBJECT");
-				break;
-			case ItemSelectionPattern:
-				docu.writeStartElement("PatternItem");
-				break;
+		case ItemSelectionMaster:
+			//				item = doc->MasterItems.at(j);
+			docu.writeStartElement("MASTEROBJECT");
+			break;
+		case ItemSelectionPage:
+			//				item = doc->DocItems.at(j);
+			docu.writeStartElement("PAGEOBJECT");
+			break;
+		case ItemSelectionFrame:
+			//				item = doc->FrameItems.at(j);
+			docu.writeStartElement("FRAMEOBJECT");
+			break;
+		case ItemSelectionPattern:
+			docu.writeStartElement("PatternItem");
+			break;
 		}
 		SetItemProps(docu, item, baseDir, true);
 		docu.writeAttribute("OnMasterPage", item->OnMasterPage);
@@ -1360,7 +1360,7 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("textPathFlipped", static_cast<int>(item->textPathFlipped));
 	docu.writeAttribute("FLIPPEDH", item->imageFlippedH());
 	docu.writeAttribute("FLIPPEDV", item->imageFlippedV());
-/*	docu.writeAttribute("BBOXX",item->BBoxX);
+	/*	docu.writeAttribute("BBOXX",item->BBoxX);
 	docu.writeAttribute("BBOXH",item->BBoxH); */
 	if ( ! item->itemText.defaultStyle().charStyle().isInhFont())
 		docu.writeAttribute("IFONT",item->itemText.defaultStyle().charStyle().font().scName());

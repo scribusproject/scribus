@@ -322,7 +322,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	{
 		selectPage(m);
 		m_createTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction());
-		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
+		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidthLine, CommonStrings::None, m_doc->itemToolPrefs.dPenLine, true);
 		currItem = m_doc->Items->at(z);
 		m_doc->m_Selection->clear();
 		m_doc->m_Selection->addItem(currItem);

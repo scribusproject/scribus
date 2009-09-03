@@ -172,9 +172,10 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	papColor(prefsData.DpapColor),
 	CurrentSel(-1),
 	nodeEdit(),
-	typographicSettings(prefsData.typographicSettings),
+	typographicSettings(prefsData.typoPrefs),
 	guidesSettings(prefsData.guidesPrefs),
-	toolSettings(prefsData.toolSettings),
+	itemToolPrefs(prefsData.itemToolPrefs),
+	opToolPrefs(prefsData.opToolPrefs),
 	checkerProfiles(prefsData.checkerProfiles),
 	curCheckProfile(prefsData.curCheckProfile),
 	LastAuto(0), FirstAuto(0),
@@ -284,9 +285,10 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	papColor(prefsData.DpapColor),
 	CurrentSel(-1),
 	nodeEdit(),
-	typographicSettings(prefsData.typographicSettings),
+	typographicSettings(prefsData.typoPrefs),
 	guidesSettings(prefsData.guidesPrefs),
-	toolSettings(prefsData.toolSettings),
+	itemToolPrefs(prefsData.itemToolPrefs),
+	opToolPrefs(prefsData.opToolPrefs),
 	checkerProfiles(prefsData.checkerProfiles),
 	curCheckProfile(prefsData.curCheckProfile),
 	LastAuto(0), FirstAuto(0),
@@ -387,38 +389,38 @@ void ScribusDoc::init()
 	PDF_Options.Intent = CMSSettings.DefaultIntentColors;
 	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
 
-	AddFont(prefsData.toolSettings.defFont);//, prefsData.AvailFonts[prefsData.toolSettings.defFont]->Font);
-	toolSettings.defFont = prefsData.toolSettings.defFont;
-	toolSettings.defSize = prefsData.toolSettings.defSize;
-	toolSettings.tabFillChar = prefsData.toolSettings.tabFillChar;
-	toolSettings.dispX = prefsData.toolSettings.dispX;
-	toolSettings.dispY = prefsData.toolSettings.dispY;
-	toolSettings.constrain = prefsData.toolSettings.constrain;
+	AddFont(prefsData.itemToolPrefs.defFont);//, prefsData.AvailFonts[prefsData.itemToolPrefs.defFont]->Font);
+	itemToolPrefs.defFont = prefsData.itemToolPrefs.defFont;
+	itemToolPrefs.defSize = prefsData.itemToolPrefs.defSize;
+	itemToolPrefs.tabFillChar = prefsData.itemToolPrefs.tabFillChar;
+	opToolPrefs.dispX = prefsData.opToolPrefs.dispX;
+	opToolPrefs.dispY = prefsData.opToolPrefs.dispY;
+	opToolPrefs.constrain = prefsData.opToolPrefs.constrain;
 
 	PageColors.ensureBlackAndWhite();
-	if (prefsData.toolSettings.dPen != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dPen, prefsData.DColors[prefsData.toolSettings.dPen]);
-	toolSettings.dPen = prefsData.toolSettings.dPen;
-	if (prefsData.toolSettings.dPenLine != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dPenLine, prefsData.DColors[prefsData.toolSettings.dPenLine]);
-	toolSettings.dPenLine = prefsData.toolSettings.dPenLine;
-	if (prefsData.toolSettings.dPenText != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dPenText, prefsData.DColors[prefsData.toolSettings.dPenText]);
-	toolSettings.dPenText = prefsData.toolSettings.dPenText;
-	if (prefsData.toolSettings.dStrokeText != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dStrokeText, prefsData.DColors[prefsData.toolSettings.dStrokeText]);
-	toolSettings.dStrokeText = prefsData.toolSettings.dStrokeText;
-	if (prefsData.toolSettings.dBrush != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dBrush, prefsData.DColors[prefsData.toolSettings.dBrush]);
-	toolSettings.dBrush = prefsData.toolSettings.dBrush;
-	if (prefsData.toolSettings.dBrushPict != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dBrushPict, prefsData.DColors[prefsData.toolSettings.dBrushPict]);
-	toolSettings.dBrushPict = prefsData.toolSettings.dBrushPict;
-	if (prefsData.toolSettings.dTextBackGround != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dTextBackGround, prefsData.DColors[prefsData.toolSettings.dTextBackGround]);
-	toolSettings.dTextBackGround = prefsData.toolSettings.dTextBackGround;
-	if (prefsData.toolSettings.dTextLineColor != CommonStrings::None)
-		PageColors.insert(prefsData.toolSettings.dTextLineColor, prefsData.DColors[prefsData.toolSettings.dTextLineColor]);
+	if (prefsData.itemToolPrefs.dPen != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dPen, prefsData.DColors[prefsData.itemToolPrefs.dPen]);
+	itemToolPrefs.dPen = prefsData.itemToolPrefs.dPen;
+	if (prefsData.itemToolPrefs.dPenLine != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dPenLine, prefsData.DColors[prefsData.itemToolPrefs.dPenLine]);
+	itemToolPrefs.dPenLine = prefsData.itemToolPrefs.dPenLine;
+	if (prefsData.itemToolPrefs.dPenText != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dPenText, prefsData.DColors[prefsData.itemToolPrefs.dPenText]);
+	itemToolPrefs.dPenText = prefsData.itemToolPrefs.dPenText;
+	if (prefsData.itemToolPrefs.dStrokeText != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dStrokeText, prefsData.DColors[prefsData.itemToolPrefs.dStrokeText]);
+	itemToolPrefs.dStrokeText = prefsData.itemToolPrefs.dStrokeText;
+	if (prefsData.itemToolPrefs.dBrush != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dBrush, prefsData.DColors[prefsData.itemToolPrefs.dBrush]);
+	itemToolPrefs.dBrush = prefsData.itemToolPrefs.dBrush;
+	if (prefsData.itemToolPrefs.dBrushPict != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dBrushPict, prefsData.DColors[prefsData.itemToolPrefs.dBrushPict]);
+	itemToolPrefs.dBrushPict = prefsData.itemToolPrefs.dBrushPict;
+	if (prefsData.itemToolPrefs.dTextBackGround != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dTextBackGround, prefsData.DColors[prefsData.itemToolPrefs.dTextBackGround]);
+	itemToolPrefs.dTextBackGround = prefsData.itemToolPrefs.dTextBackGround;
+	if (prefsData.itemToolPrefs.dTextLineColor != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.dTextLineColor, prefsData.DColors[prefsData.itemToolPrefs.dTextLineColor]);
 
 	
 	ParagraphStyle pstyle;
@@ -440,13 +442,13 @@ void ScribusDoc::init()
 	CharStyle cstyle;
 	cstyle.setDefaultStyle(true);
 	cstyle.setName(CommonStrings::DefaultCharacterStyle);
-	cstyle.setFont(prefsData.AvailFonts[toolSettings.defFont]);
-	cstyle.setFontSize(toolSettings.defSize);
+	cstyle.setFont(prefsData.AvailFonts[itemToolPrefs.defFont]);
+	cstyle.setFontSize(itemToolPrefs.defSize);
 	cstyle.setFeatures(QStringList(CharStyle::INHERIT));
-	cstyle.setFillColor(toolSettings.dPenText);
-	cstyle.setFillShade(toolSettings.dTextPenShade);
-	cstyle.setStrokeColor(toolSettings.dStrokeText);
-	cstyle.setStrokeShade(toolSettings.dTextStrokeShade);
+	cstyle.setFillColor(itemToolPrefs.dPenText);
+	cstyle.setFillShade(itemToolPrefs.dTextPenShade);
+	cstyle.setStrokeColor(itemToolPrefs.dStrokeText);
+	cstyle.setStrokeShade(itemToolPrefs.dTextStrokeShade);
 	cstyle.setBaselineOffset(0);
 	cstyle.setShadowXOffset(50);
 	cstyle.setShadowYOffset(-50);
@@ -1891,7 +1893,7 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 		                     addToPage->Margins.Left+addToPage->xOffset(),
 		                     addToPage->Margins.Top+addToPage->yOffset(), pageWidth-addToPage->Margins.Right-addToPage->Margins.Left,
 		                     pageHeight-addToPage->Margins.Bottom-addToPage->Margins.Top,
-							 1, CommonStrings::None, toolSettings.dPen, true);
+							 1, CommonStrings::None, itemToolPrefs.dPen, true);
 		Items->at(z)->isAutoText = true;
 		Items->at(z)->Cols = qRound(PageSp);
 		Items->at(z)->ColGap = PageSpa;
@@ -2611,8 +2613,8 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	{
 		found = false;
 		// Tool preferences colors
-		if ((it.key() == toolSettings.dBrush) || (it.key() == toolSettings.dPen) || (it.key() == toolSettings.dBrushPict)
-		        || (it.key() == toolSettings.dPenLine) || (it.key() == toolSettings.dPenText))
+		if ((it.key() == itemToolPrefs.dBrush) || (it.key() == itemToolPrefs.dPen) || (it.key() == itemToolPrefs.dBrushPict)
+				|| (it.key() == itemToolPrefs.dPenLine) || (it.key() == itemToolPrefs.dPenText))
 		{
 			if (spot)
 			{
@@ -2863,8 +2865,8 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 		}
 	}
 	PrefsManager* prefsManager=PrefsManager::instance();
-	AddFont(prefsManager->appPrefs.toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
-	AddFont(toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
+	AddFont(prefsManager->appPrefs.itemToolPrefs.defFont);//, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.itemToolPrefs.defFont]->Font);
+	AddFont(itemToolPrefs.defFont);//, prefsManager->appPrefs.AvailFonts[itemToolPrefs.defFont]->Font);
 //	qDebug( "Time elapsed: %d ms", t.elapsed() );
 	return Really;
 }
@@ -3543,7 +3545,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		//Q_ASSERTs here will warn on creation issues when a coder specifies the frameType incorrectly
 		//for items that do not have/need a frameType for creation.
 		case PageItem::ImageFrame:
-			newItem = new PageItem_ImageFrame(this, x, y, b, h, w, toolSettings.dBrushPict, CommonStrings::None);
+			newItem = new PageItem_ImageFrame(this, x, y, b, h, w, itemToolPrefs.dBrushPict, CommonStrings::None);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::TextFrame:
@@ -3572,12 +3574,12 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		case PageItem::LatexFrame:
-			newItem = new PageItem_LatexFrame(this, x, y, b, h, w, toolSettings.dBrushPict, CommonStrings::None);
+			newItem = new PageItem_LatexFrame(this, x, y, b, h, w, itemToolPrefs.dBrushPict, CommonStrings::None);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #ifdef HAVE_OSG
 		case PageItem::OSGFrame:
-			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, toolSettings.dBrushPict, CommonStrings::None);
+			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, itemToolPrefs.dBrushPict, CommonStrings::None);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #endif
@@ -3702,7 +3704,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=iafData.width;
 			h1=iafData.height;
 		}
-		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, toolSettings.dWidth, CommonStrings::None, toolSettings.dPenText, true);
+		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, itemToolPrefs.dWidth, CommonStrings::None, itemToolPrefs.dPenText, true);
 		if (z!=-1)
 		{
 			PageItem* currItem=Items->at(z);
@@ -3771,30 +3773,30 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	switch( itemType )
 	{
 		case PageItem::ImageFrame:
-			newItem->setImageXYScale(toolSettings.scaleX, toolSettings.scaleY);
-			newItem->ScaleType = toolSettings.scaleType;
-			newItem->AspectRatio = toolSettings.aspectRatio;
+			newItem->setImageXYScale(itemToolPrefs.scaleX, itemToolPrefs.scaleY);
+			newItem->ScaleType = itemToolPrefs.scaleType;
+			newItem->AspectRatio = itemToolPrefs.aspectRatio;
 			newItem->IProfile = CMSSettings.DefaultImageRGBProfile;
 			newItem->IRender = CMSSettings.DefaultIntentImages;
-			newItem->setFillShade(toolSettings.shadePict);
+			newItem->setFillShade(itemToolPrefs.shadePict);
 			break;
 		case PageItem::LatexFrame:
 #ifdef HAVE_OSG
 		case PageItem::OSGFrame:
 #endif
-			newItem->setFillShade(toolSettings.shadePict);
+			newItem->setFillShade(itemToolPrefs.shadePict);
 			break;
 		case PageItem::TextFrame:
-//			newItem->setFontFillShade(toolSettings.dTextPenShade);
-//			newItem->setFontStrokeShade(toolSettings.dTextStrokeShade);
-			newItem->setFillColor(toolSettings.dTextBackGround);
-			newItem->setFillShade(toolSettings.dTextBackGroundShade);
-			newItem->setLineColor(toolSettings.dTextLineColor);
-			newItem->setLineShade(toolSettings.dTextLineShade);
+//			newItem->setFontFillShade(itemToolPrefs.dTextPenShade);
+//			newItem->setFontStrokeShade(itemToolPrefs.dTextStrokeShade);
+			newItem->setFillColor(itemToolPrefs.dTextBackGround);
+			newItem->setFillShade(itemToolPrefs.dTextBackGroundShade);
+			newItem->setLineColor(itemToolPrefs.dTextLineColor);
+			newItem->setLineShade(itemToolPrefs.dTextLineShade);
 			break;
 		case PageItem::Line:
-			newItem->PLineArt = Qt::PenStyle(toolSettings.dLstyleLine);
-			newItem->setLineShade(toolSettings.dShadeLine);
+			newItem->PLineArt = Qt::PenStyle(itemToolPrefs.dLstyleLine);
+			newItem->setLineShade(itemToolPrefs.dShadeLine);
 			break;
 		case PageItem::Polygon:
 			if(frameType!=PageItem::Rectangle && frameType!=PageItem::Ellipse)
@@ -3834,9 +3836,9 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	//ItemType Polygon
 	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine)
 	{
-		newItem->PLineArt = Qt::PenStyle(toolSettings.dLineArt);
-		newItem->setFillShade(toolSettings.dShade);
-		newItem->setLineShade(toolSettings.dShade2);
+		newItem->PLineArt = Qt::PenStyle(itemToolPrefs.dLineArt);
+		newItem->setFillShade(itemToolPrefs.dShade);
+		newItem->setLineShade(itemToolPrefs.dShade2);
 		if (itemType == PageItem::Polygon)
 			newItem->ContourLine = newItem->PoLine.copy();
 	}
@@ -5644,15 +5646,15 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 							{
 								case PageItem::ImageFrame:
 								case PageItem::LatexFrame:
-									currItem->setFillColor(toolSettings.dBrushPict);
+									currItem->setFillColor(itemToolPrefs.dBrushPict);
 								case PageItem::TextFrame:
 								case PageItem::PathText:
-									currItem->setFillColor(toolSettings.dTextBackGround);
+									currItem->setFillColor(itemToolPrefs.dTextBackGround);
 									break;
 								case PageItem::Line:
 								case PageItem::PolyLine:
 								case PageItem::Polygon:
-									currItem->setFillColor(toolSettings.dBrush);
+									currItem->setFillColor(itemToolPrefs.dBrush);
 									break;
 								default:
 									break;
@@ -6689,7 +6691,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
-				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+				currItem->pixm.imgInfo.lowResType = itemToolPrefs.lowResType;
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -6708,7 +6710,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
-				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+				currItem->pixm.imgInfo.lowResType = itemToolPrefs.lowResType;
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -6727,7 +6729,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
-				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+				currItem->pixm.imgInfo.lowResType = itemToolPrefs.lowResType;
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -6749,7 +6751,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				bool fho = currItem->imageFlippedH();
 				bool fvo = currItem->imageFlippedV();
 				if (applyNewRes)
-					currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+					currItem->pixm.imgInfo.lowResType = itemToolPrefs.lowResType;
 				loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
@@ -10264,7 +10266,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		double gh = maxy - miny;
 		PageItem *high = Items->at(highestItem);
 		undoManager->setUndoEnabled(false);
-		int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, toolSettings.dBrush, toolSettings.dPen, true);
+		int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, itemToolPrefs.dBrush, itemToolPrefs.dPen, true);
 		PageItem *neu = Items->takeAt(z);
 		Items->insert(lowestItem, neu);
 		neu->setItemName( tr("Group%1").arg(GroupCounter));

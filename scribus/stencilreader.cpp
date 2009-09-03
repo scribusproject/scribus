@@ -1330,8 +1330,8 @@ void StencilReader::writeDefaults(QDomElement &ob)
 	ob.setAttribute("RADRECT", 0);
 	ob.setAttribute("FRTYPE",  3);
 	ob.setAttribute("CLIPEDIT", 1);
-	ob.setAttribute("TXTFILL", prefsManager->appPrefs.toolSettings.dPenText);
-	ob.setAttribute("TXTSTROKE", prefsManager->appPrefs.toolSettings.dStrokeText);
+	ob.setAttribute("TXTFILL", prefsManager->appPrefs.itemToolPrefs.dPenText);
+	ob.setAttribute("TXTSTROKE", prefsManager->appPrefs.itemToolPrefs.dStrokeText);
 	ob.setAttribute("TXTSTRSH", 100);
 	ob.setAttribute("TXTFILLSH", 100);
 	ob.setAttribute("TXTSCALE", 100);
@@ -1364,8 +1364,8 @@ void StencilReader::writeDefaults(QDomElement &ob)
 	ob.setAttribute("BASEOF", 0);
 	ob.setAttribute("FLIPPEDH", 0);
 	ob.setAttribute("FLIPPEDV", 0);
-	ob.setAttribute("IFONT", prefsManager->appPrefs.toolSettings.defFont);
-	ob.setAttribute("ISIZE", prefsManager->appPrefs.toolSettings.defSize / 10.0);
+	ob.setAttribute("IFONT", prefsManager->appPrefs.itemToolPrefs.defFont);
+	ob.setAttribute("ISIZE", prefsManager->appPrefs.itemToolPrefs.defSize / 10.0);
 	ob.setAttribute("SCALETYPE", 1);
 	ob.setAttribute("RATIO", 0);
 	ob.setAttribute("PRINTABLE", 1);

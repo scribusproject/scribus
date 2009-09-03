@@ -211,7 +211,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	previewQualitySwitcher->addItem(tr("Normal"));
 	previewQualitySwitcher->addItem(tr("Low"));
 // 	setCurrentComboItem(previewQualitySwitcher, tr("Normal"));
-	previewQualitySwitcher->setCurrentIndex(Prefs->toolSettings.lowResType);
+	previewQualitySwitcher->setCurrentIndex(Prefs->itemToolPrefs.lowResType);
 
 	zoomSpinBox = new ScrSpinBox( 10, 3200, this, 6 );
 	zoomSpinBox->setTabAdvance(false);
@@ -978,7 +978,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 		if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
 		{
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->toolSettings.dWidth, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs.dWidth, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			b->LayerID = Doc->activeLayer();
 			Doc->LoadPict(url.toLocalFile(), b->ItemNr);
@@ -2731,7 +2731,7 @@ void ScribusView::slotZoomIn(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	double newScale = m_canvas->scale() * static_cast<double>(Doc->toolSettings.magStep)/100.0;
+	double newScale = m_canvas->scale() * static_cast<double>(Doc->opToolPrefs.magStep)/100.0;
 	zoom(oldX, oldY, newScale, true);
 }
 
@@ -2749,7 +2749,7 @@ void ScribusView::slotZoomOut(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	double newScale = m_canvas->scale() / (static_cast<double>(Doc->toolSettings.magStep)/100.0);
+	double newScale = m_canvas->scale() / (static_cast<double>(Doc->opToolPrefs.magStep)/100.0);
 	zoom(oldX, oldY, newScale, true);
 }
 
@@ -3444,7 +3444,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
@@ -3575,7 +3575,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			if (Doc->AllFonts->contains(Buffer->IFont))
 				pstyle.charStyle().setFont((*Doc->AllFonts)[Buffer->IFont]);
 			else
-				pstyle.charStyle().setFont((*Doc->AllFonts)[Doc->toolSettings.defFont]);
+				pstyle.charStyle().setFont((*Doc->AllFonts)[Doc->itemToolPrefs.defFont]);
 			pstyle.charStyle().setFontSize(Buffer->ISize);
 			pstyle.charStyle().setFillColor(Buffer->TxtFill);
 			pstyle.charStyle().setStrokeColor(Buffer->TxtStroke);
@@ -3611,7 +3611,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	case PageItem::LatexFrame:
 		{
-		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
@@ -4772,14 +4772,15 @@ void ScribusView::slotUpdateContents(const QRect &r) // deprecated
 void ScribusView::setScale(const double newScale)
 {
 	double Scale=newScale;
-	if (Scale < Doc->toolSettings.magMin*Prefs->DisScale/100.0)
-		Scale=Doc->toolSettings.magMin*Prefs->DisScale/100.0;
-
-	if (Scale > Doc->toolSettings.magMax*Prefs->DisScale/100.0)
-		Scale=Doc->toolSettings.magMax*Prefs->DisScale/100.0;
-
-	if (Scale > 32*Prefs->DisScale)
-		Scale=32*Prefs->DisScale;
+	double v=Doc->opToolPrefs.magMin*Prefs->DisScale/100.0;
+	if (Scale < v)
+		Scale=v;
+	double v2=Doc->opToolPrefs.magMax*Prefs->DisScale/100.0;
+	if (Scale > v2)
+		Scale=v2;
+	double v3=32*Prefs->DisScale;
+	if (Scale > v3)
+		Scale=v3;
 
 	m_canvas->setScale(Scale);
 

@@ -104,7 +104,7 @@ void CreateMode::drawControls(QPainter* p)
 		}
 		else if (createObjectMode == modeDrawRegularPolygon)
 		{
-			QPainterPath path = RegularPolygon(localRect.width(), localRect.height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR, m_doc->toolSettings.polyCurvature);
+			QPainterPath path = RegularPolygon(localRect.width(), localRect.height(), m_doc->itemToolPrefs.polyC, m_doc->itemToolPrefs.polyS, m_doc->itemToolPrefs.polyF, m_doc->itemToolPrefs.polyR, m_doc->itemToolPrefs.polyCurvature);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
@@ -258,7 +258,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 					double newRot = xy2Deg(bounds.width(), bounds.height());
 					if (newRot < 0.0)
 						newRot += 360;
-					newRot = constrainAngle(newRot, m_doc->toolSettings.constrain);
+					newRot = constrainAngle(newRot, m_doc->opToolPrefs.constrain);
 					double len = qMax(0.01, distance(bounds.width(), bounds.height()));
 					bounds.setSize(len * QSizeF(cosd(newRot), sind(newRot)));
 					newX = bounds.right();
@@ -586,33 +586,33 @@ PageItem* CreateMode::doCreateNewObject(void)
 		case 0:
 			if (modifiers == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 				m_doc->Items->at(z)->FrameType = 0;
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 				m_doc->Items->at(z)->FrameType = 0;
 			}
 			break;
 		case 1:
 			if (modifiers == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 				m_doc->Items->at(z)->FrameType = 1;
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 				m_doc->Items->at(z)->FrameType = 1;
 			}
 			break;
 		default:
 			if (modifiers == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
@@ -621,7 +621,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
@@ -638,54 +638,54 @@ PageItem* CreateMode::doCreateNewObject(void)
 		if (rot < 0.0) 
 			rot += 360;
 		len = qMax(0.01, distance(Rxpd, Rypd));
-		z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, len, 1, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
+		z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, len, 1, m_doc->itemToolPrefs.dWidthLine, CommonStrings::None, m_doc->itemToolPrefs.dPenLine, true);
 		m_doc->Items->at(z)->setRotation(rot);
 		m_doc->Items->at(z)->setRedrawBounding();
 		break;
 	case modeDrawLatex:
 		if (modifiers == Qt::ShiftModifier)
 		{
-			z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		}
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawImage:
 		if (modifiers == Qt::ShiftModifier)
 		{
-			z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		}
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawText:
 		if (modifiers == Qt::ShiftModifier)
 		{
-			z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
+			z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, true);
 		}	
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
+			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, true);
 		}
 		break;
 	case modeDrawRegularPolygon:
 		{
 			if (modifiers == Qt::ShiftModifier)
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, true);
 			}
 			currItem = m_doc->Items->at(z);
-			QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR, m_doc->toolSettings.polyCurvature);
+			QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyC, m_doc->itemToolPrefs.polyS, m_doc->itemToolPrefs.polyF, m_doc->itemToolPrefs.polyR, m_doc->itemToolPrefs.polyCurvature);
 			currItem->PoLine.fromQPainterPath(path);
 			m_doc->AdjustItemSize(currItem);
 			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
@@ -718,7 +718,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeInsertPDFTextAnnotation:
 	case modeInsertPDFLinkAnnotation:
 		m_doc->ApplyGuides(&Rxp, &Ryp);
-		z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
+		z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, true);
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);
 		currItem->AutoName = false;
@@ -819,7 +819,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
 				{
-					z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
+					z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, true);
 					currItem = m_doc->Items->at(z);
 					currItem->isTableItem = true;
 					currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
@@ -865,12 +865,12 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeInsertPDF3DAnnotation:
 		if (modifiers == Qt::ShiftModifier)
 		{
-			z = m_doc->itemAddArea(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAddArea(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		}
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		}
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);

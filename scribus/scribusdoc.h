@@ -1001,7 +1001,9 @@ public: // Public attributes
 
 	TypoPrefs typographicSettings;
 	GuidesPrefs guidesSettings;
-	ToolPrefs toolSettings;
+	ItemToolPrefs itemToolPrefs;
+	OperatorToolPrefs opToolPrefs;
+
 	QMap<QString, CheckerPrefs> checkerProfiles;
 	QString curCheckProfile;
 	/** \brief Letztes Element fuer AutoTextrahmen */

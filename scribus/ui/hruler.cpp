@@ -170,7 +170,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			ParagraphStyle::TabRecord tb;
 			tb.tabPosition = newY / Scaling;
 			tb.tabType = 0;
-			tb.tabFillChar = currDoc->toolSettings.tabFillChar[0];
+			tb.tabFillChar = currDoc->itemToolPrefs.tabFillChar[0];
 			TabValues.prepend(tb);
 			ActTab = 0;
 			RulerCode = rc_tab;

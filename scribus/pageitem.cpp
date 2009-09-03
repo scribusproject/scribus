@@ -317,7 +317,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternRotation = 0;
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
-	PLineArt = Qt::PenStyle(m_Doc->toolSettings.dLineArt);
+	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs.dLineArt);
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
 	Select = false;
@@ -334,7 +334,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	MaxChars = 0;
 	Pfile = "";
 	pixm = ScImage();
-	pixm.imgInfo.lowResType = m_Doc->toolSettings.lowResType;
+	pixm.imgInfo.lowResType = m_Doc->itemToolPrefs.lowResType;
 	Pfile2 = "";
 	Pfile3 = "";
 	oldLocalScX = LocalScX = 1;
@@ -451,12 +451,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	else
 	{
-		if (m_Doc->toolSettings.dBrush != CommonStrings::None)
+		if (m_Doc->itemToolPrefs.dBrush != CommonStrings::None)
 		{
-			const ScColor& col = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+			const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.dBrush];
 			QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.dBrush, 100);
+			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.dBrush, 100);
 		}
 		else
 		{
@@ -469,12 +469,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 			else
 			{
-				if (m_Doc->toolSettings.dPen != CommonStrings::None)
+				if (m_Doc->itemToolPrefs.dPen != CommonStrings::None)
 				{
-					const ScColor& col = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.dPen];
 					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
-					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.dPen, 100);
+					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.dPen, 100);
 				}
 				else if (m_Doc->PageColors.contains("Black"))
 				{
@@ -487,8 +487,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		}
 	}
 	firstLineOffsetP = FLOPRealGlyphHeight;
-	Cols = m_Doc->toolSettings.dCols;
-	ColGap = m_Doc->toolSettings.dGap;
+	Cols = m_Doc->itemToolPrefs.dCols;
+	ColGap = m_Doc->itemToolPrefs.dGap;
 	LeftLink = 0;
 	RightLink = 0;
 	TopLink = 0;
@@ -510,8 +510,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ChangedMasterItem = false;
 	isEmbedded = false;
 	OnMasterPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageName() : QString();
-	m_startArrowIndex = m_Doc->toolSettings.dStartArrow;
-	m_endArrowIndex = m_Doc->toolSettings.dEndArrow;
+	m_startArrowIndex = m_Doc->itemToolPrefs.dStartArrow;
+	m_endArrowIndex = m_Doc->itemToolPrefs.dEndArrow;
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
@@ -2278,15 +2278,15 @@ void PageItem::setFillColor(const QString &newColor)
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					tmp = m_Doc->toolSettings.dBrushPict;
+					tmp = m_Doc->itemToolPrefs.dBrushPict;
 				case TextFrame:
 				case PathText:
-					tmp = m_Doc->toolSettings.dTextBackGround;
+					tmp = m_Doc->itemToolPrefs.dTextBackGround;
 					break;
 				case Line:
 				case PolyLine:
 				case Polygon:
-					tmp = m_Doc->toolSettings.dBrush;
+					tmp = m_Doc->itemToolPrefs.dBrush;
 					break;
 				default:
 					break;
@@ -2381,17 +2381,17 @@ void PageItem::setLineColor(const QString &newColor)
 			{
 				case TextFrame:
 				case PathText:
-					tmp = m_Doc->toolSettings.dTextLineColor;
+					tmp = m_Doc->itemToolPrefs.dTextLineColor;
 					break;
 				case Line:
-					tmp = m_Doc->toolSettings.dPenLine;
+					tmp = m_Doc->itemToolPrefs.dPenLine;
 					break;
 				case PolyLine:
 				case Polygon:
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					tmp = m_Doc->toolSettings.dPen;
+					tmp = m_Doc->itemToolPrefs.dPen;
 					break;
 				default:
 					break;
@@ -2450,24 +2450,24 @@ void PageItem::setLineQColor()
 			{
 				case TextFrame:
 				case PathText:
-					lineColorVal = m_Doc->toolSettings.dTextLineColor;
+					lineColorVal = m_Doc->itemToolPrefs.dTextLineColor;
 					break;
 				case Line:
-					lineColorVal = m_Doc->toolSettings.dPenLine;
+					lineColorVal = m_Doc->itemToolPrefs.dPenLine;
 					break;
 				case PolyLine:
 				case Polygon:
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					lineColorVal = m_Doc->toolSettings.dPen;
+					lineColorVal = m_Doc->itemToolPrefs.dPen;
 					break;
 				default:
 					break;
 			}
 		}
 		if (!m_Doc->PageColors.contains(lineColorVal))
-			lineColorVal = m_Doc->toolSettings.dPen;
+			lineColorVal = m_Doc->itemToolPrefs.dPen;
 		const ScColor& col = m_Doc->PageColors[lineColorVal];
 		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
 	}
@@ -2489,15 +2489,15 @@ void PageItem::setFillQColor()
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					fillColorVal = m_Doc->toolSettings.dBrushPict;
+					fillColorVal = m_Doc->itemToolPrefs.dBrushPict;
 				case TextFrame:
 				case PathText:
-					fillColorVal = m_Doc->toolSettings.dTextBackGround;
+					fillColorVal = m_Doc->itemToolPrefs.dTextBackGround;
 					break;
 				case Line:
 				case PolyLine:
 				case Polygon:
-					fillColorVal = m_Doc->toolSettings.dBrush;
+					fillColorVal = m_Doc->itemToolPrefs.dBrush;
 					break;
 				default:
 					break;
@@ -4693,7 +4693,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			oldLocalX = LocalX = 0;
 			oldLocalY = LocalY = 0;
 			
-			if ((m_Doc->toolSettings.useEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
+			if ((m_Doc->itemToolPrefs.useEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
 			{
 				pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
 				clPath = pixm.imgInfo.clipPath;

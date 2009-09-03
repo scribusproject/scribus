@@ -2555,7 +2555,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
 		view->previewQualitySwitcher->blockSignals(true);
-		view->previewQualitySwitcher->setCurrentIndex(doc->toolSettings.lowResType);
+		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs.lowResType);
 		view->previewQualitySwitcher->blockSignals(false);
 	}
 	propertiesPalette->Fonts->RebuildList(doc);
@@ -7369,7 +7369,7 @@ void ScribusMainWindow::slotReplaceColors()
 		{
 			ResourceCollection colorrsc;
 			colorrsc.mapColors(dia2->replaceMap);
-			PrefsManager::replaceToolColors(doc->toolSettings, colorrsc.colors());
+			PrefsManager::replaceToolColors(doc->itemToolPrefs, colorrsc.colors());
 			doc->replaceNamedResources(colorrsc);
 			doc->replaceLineStyleColors(dia2->replaceMap);
 			doc->recalculateColors();
@@ -7411,7 +7411,7 @@ void ScribusMainWindow::slotEditColors()
 				ResourceCollection colorrsc;
 				colorrsc.mapColors(dia->replaceMap);
 				// Update tools colors
-				PrefsManager::replaceToolColors(doc->toolSettings, colorrsc.colors());
+				PrefsManager::replaceToolColors(doc->itemToolPrefs, colorrsc.colors());
 				// Update objects and styles colors
 				doc->replaceNamedResources(colorrsc);
 				// Temporary code until LineStyle is effectively used
@@ -7499,7 +7499,7 @@ void ScribusMainWindow::duplicateItem()
 	for (int b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
-		doc->MoveItem(doc->toolSettings.dispX, doc->toolSettings.dispY, doc->m_Selection->itemAt(b));
+		doc->MoveItem(doc->opToolPrefs.dispX, doc->opToolPrefs.dispY, doc->m_Selection->itemAt(b));
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
@@ -7598,7 +7598,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	bool oldShowPageShadow = prefsManager->showPageShadow();
 	int oldUIFontSize     = prefsManager->guiFontSize();
 	double oldDisplayScale = prefsManager->displayScale();
-	int oldImageQuality = prefsManager->applicationPrefs()->toolSettings.lowResType;
+	int oldImageQuality = prefsManager->applicationPrefs()->itemToolPrefs.lowResType;
 
 	dia->updatePreferences();
 	prefsManager->SavePrefs();
@@ -7631,7 +7631,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	ScCore->recheckGS();
 	prefsManager->applyLoadedShortCuts();
 
-	int newImageQuality = prefsManager->appPrefs.toolSettings.lowResType;
+	int newImageQuality = prefsManager->appPrefs.itemToolPrefs.lowResType;
 	if (oldImageQuality != newImageQuality)
 		view->previewQualitySwitcher->setCurrentIndex(newImageQuality);
 

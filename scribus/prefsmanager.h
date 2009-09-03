@@ -168,13 +168,13 @@ public:
 	const QString& colorSetName();
 	/*! \brief Return if a color belongs to tools prefs colors */
 	bool isToolColor(const QString& name);
-	static bool isToolColor(const struct ToolPrefs& settings, const QString& name);
+	static bool isToolColor(const struct ItemToolPrefs& settings, const QString& name);
 	/*! \brief Return the list of used colors in tool prefs */
 	QStringList toolColorNames();
-	static QStringList toolColorNames(const struct ToolPrefs& settings);
+	static QStringList toolColorNames(const struct ItemToolPrefs& settings);
 	/*! \brief Replace used colors in tool prefs */
 	void replaceToolColors(const QMap<QString, QString> replaceMap);
-	static void replaceToolColors(struct ToolPrefs& settings, const QMap<QString, QString> replaceMap);
+	static void replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString> replaceMap);
 	/*! \brief Finds the fonts on the system
 	Must be run after: PrefsManager::setup()
 	Must be run before: PrefsManager::initDefaults()

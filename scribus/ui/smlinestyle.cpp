@@ -173,12 +173,12 @@ QString SMLineStyle::newStyle()
 	if (!doc_)
 		return QString::null;
 	struct SingleLine sl;
-	sl.Color = doc_->toolSettings.dPenLine;
-	sl.Shade = doc_->toolSettings.dShadeLine;
-	sl.Dash = Qt::SolidLine;//Docu->toolSettings.;
-	sl.LineEnd = Qt::FlatCap;//Docu->toolSettings.;
-	sl.LineJoin = Qt::MiterJoin;//Docu->toolSettings.;
-	sl.Width = doc_->toolSettings.dWidthLine;
+	sl.Color = doc_->itemToolPrefs.dPenLine;
+	sl.Shade = doc_->itemToolPrefs.dShadeLine;
+	sl.Dash = Qt::SolidLine;//Docu->itemToolPrefs.;
+	sl.LineEnd = Qt::FlatCap;//Docu->itemToolPrefs.;
+	sl.LineJoin = Qt::MiterJoin;//Docu->itemToolPrefs.;
+	sl.Width = doc_->itemToolPrefs.dWidthLine;
 	multiLine ml;
 	ml.push_back(sl);
 	QString name = getUniqueName( tr("New Style"));

@@ -1413,15 +1413,16 @@ void PageItem_TextFrame::layout()
 					tTabValues = style.tabValues();
 					if (tTabValues.isEmpty())
 					{
+						double dtw=m_Doc->itemToolPrefs.dTabWidth;
 						if ((current.xPos - current.colLeft) != 0)
 						{
-							if (current.xPos == current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth)
-								current.xPos += m_Doc->toolSettings.dTabWidth;
+							if (current.xPos == current.colLeft + ceil((current.xPos-current.colLeft) / dtw) * dtw)
+								current.xPos += dtw;
 							else
-								current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth;
+								current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / dtw) * dtw;
 						}
 						else
-							current.xPos = current.colLeft + m_Doc->toolSettings.dTabWidth;
+							current.xPos = current.colLeft + dtw;
 						tabs.status = TabNONE;
 						tabs.active = false;
 					}
@@ -1440,7 +1441,7 @@ void PageItem_TextFrame::layout()
 						}
 						tabs.active = (tabs.status != TabLEFT);
 						if (tCurX == oCurX-wide)
-							current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth;
+							current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->itemToolPrefs.dTabWidth) * m_Doc->itemToolPrefs.dTabWidth;
 						else
 							current.xPos = current.colLeft + tCurX;
 						

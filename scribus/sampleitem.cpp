@@ -56,17 +56,17 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 	bgShade = 100;
 	tmpStyle.setName("(preview temporary)");
 	tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-	tmpStyle.setLineSpacing((m_Doc->toolSettings.defSize / 10.0)
+	tmpStyle.setLineSpacing((m_Doc->itemToolPrefs.defSize / 10.0)
 		* static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100
-		+ (m_Doc->toolSettings.defSize / 10.0));
+		+ (m_Doc->itemToolPrefs.defSize / 10.0));
 	tmpStyle.setAlignment(ParagraphStyle::Leftaligned);
 	tmpStyle.setLeftMargin(0);
 	tmpStyle.setFirstIndent(0);
 	tmpStyle.setRightMargin(0);
 	tmpStyle.setGapBefore(0);
 	tmpStyle.setGapAfter(0);
-	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[m_Doc->toolSettings.defFont]);
-	tmpStyle.charStyle().setFontSize(m_Doc->toolSettings.defSize);
+	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[m_Doc->itemToolPrefs.defFont]);
+	tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs.defSize);
 //	tmpStyle.tabValues().clear();
 	tmpStyle.setHasDropCap(false);
 	tmpStyle.setDropCapLines(0);//2;
@@ -331,7 +331,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
 
-	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->toolSettings.defSize / 10.0));
+	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->itemToolPrefs.defSize / 10.0));
 //	m_Doc->docParagraphStyles.create(tmpStyle);
 //	int tmpIndex = m_Doc->docParagraphStyles.count() - 1;
 

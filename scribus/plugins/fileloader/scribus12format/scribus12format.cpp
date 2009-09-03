@@ -295,13 +295,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->guidesSettings.showPic = true;
 		m_Doc->guidesSettings.showControls = false;
 // 		DoFonts.clear();
-		m_Doc->toolSettings.defSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
+		m_Doc->itemToolPrefs.defSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
-		m_Doc->toolSettings.defFont = prefsManager->appPrefs.toolSettings.defFont;
+		m_Doc->itemToolPrefs.defFont = prefsManager->appPrefs.itemToolPrefs.defFont;
 		m_AvailableFonts->findFont(Defont, m_Doc);
-		m_Doc->toolSettings.defFont = Defont;
-		m_Doc->toolSettings.dCols=dc.attribute("DCOL", "1").toInt();
-		m_Doc->toolSettings.dGap=ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
+		m_Doc->itemToolPrefs.defFont = Defont;
+		m_Doc->itemToolPrefs.dCols=dc.attribute("DCOL", "1").toInt();
+		m_Doc->itemToolPrefs.dGap=ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
 		m_Doc->documentInfo.setAuthor(dc.attribute("AUTHOR"));
 		m_Doc->documentInfo.setComments(dc.attribute("COMMENTS"));
 		m_Doc->documentInfo.setKeywords(dc.attribute("KEYWORDS",""));
@@ -353,8 +353,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->useRaster = static_cast<bool>(dc.attribute("SnapToGrid", "0").toInt());
 		m_Doc->guidesSettings.minorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
 		m_Doc->guidesSettings.majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
-		m_Doc->toolSettings.dStartArrow = 0;
-		m_Doc->toolSettings.dEndArrow = 0;
+		m_Doc->itemToolPrefs.dStartArrow = 0;
+		m_Doc->itemToolPrefs.dEndArrow = 0;
 		m_Doc->LastAuto = 0;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
@@ -492,7 +492,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
-					tmpf = obj.attribute("IFONT", m_Doc->toolSettings.defFont);
+					tmpf = obj.attribute("IFONT", m_Doc->itemToolPrefs.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerID = obj.attribute("LAYER", "0").toInt();
@@ -1056,7 +1056,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmp2.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
 	tmp2.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
-	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
+	tmpf = it->attribute("CFONT", doc->itemToolPrefs.defFont);
 	doc->AllFonts->findFont(tmpf, doc);
 	int size = qRound(ScCLocale::toDoubleC(it->attribute("CSIZE")) * 10);
 	QString fcolor = it->attribute("CCOLOR");
@@ -1345,9 +1345,9 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
 						m_Doc->OldBM = true;
 					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
-					tmpf = obj.attribute("IFONT", m_Doc->toolSettings.defFont);
+					tmpf = obj.attribute("IFONT", m_Doc->itemToolPrefs.defFont);
 					if (tmpf.isEmpty())
-						tmpf = m_Doc->toolSettings.defFont;
+						tmpf = m_Doc->itemToolPrefs.defFont;
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerID = layerTrans[obj.attribute("LAYER", "0").toInt()];
@@ -1518,9 +1518,9 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg->attribute("ALIGN").toInt()));
 	vg->setGapBefore(ScCLocale::toDoubleC(pg->attribute("VOR"), 0.0));
 	vg->setGapAfter(ScCLocale::toDoubleC(pg->attribute("NACH"), 0.0));
-	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
+	tmpf = pg->attribute("FONT", doc->itemToolPrefs.defFont);
 	if (tmpf.isEmpty())
-		tmpf = doc->toolSettings.defFont;
+		tmpf = doc->itemToolPrefs.defFont;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	prefsManager->appPrefs.AvailFonts.findFont(tmpf, doc);
 	vg->charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
@@ -1529,10 +1529,10 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
 	vg->setDropCapOffset(ScCLocale::toDoubleC(pg->attribute("DROPDIST"), 0.0));
 	vg->charStyle().setFeatures(static_cast<StyleFlag>((pg->attribute("EFFECT", "0").toInt())).featureList());
-	fColor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
+	fColor = pg->attribute("FCOLOR", doc->itemToolPrefs.dBrush);
 	fShade = pg->attribute("FSHADE", "100").toInt();
 	handleOldColorShade(doc, fColor, fShade);
-	sColor = pg->attribute("SCOLOR", doc->toolSettings.dPen);
+	sColor = pg->attribute("SCOLOR", doc->itemToolPrefs.dPen);
 	sShade = pg->attribute("SSHADE", "100").toInt();
 	handleOldColorShade(doc, sColor, sShade);
 	vg->charStyle().setFillColor(fColor);
