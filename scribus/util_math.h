@@ -53,7 +53,7 @@ double SCRIBUS_API constrainAngle(double angle, double constrain);
    \param def the value that should be return if matrix is not a rotation matrix
    \retval double the rotation angle
  */
-double SCRIBUS_API getRotationFromMatrix(QMatrix& matrix, double def);
+double SCRIBUS_API getRotationFromMatrix(QTransform& matrix, double def);
 
 
 // IMPLEMENTATION

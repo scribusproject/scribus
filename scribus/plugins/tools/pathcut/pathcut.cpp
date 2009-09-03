@@ -137,14 +137,14 @@ bool PathCutPlugin::run(ScribusDoc* doc, QString)
 		QPainterPathStroker stroke;
 		stroke.setWidth(Item1->lineWidth());
 		QPainterPath cutter = stroke.createStroke(path.toQPainterPath(false));
-		QMatrix ms;
+		QTransform ms;
 		ms.translate(Item1->xPos() - Item2->xPos(), Item1->yPos() - Item2->yPos());
 		ms.rotate(Item1->rotation());
 		cutter = ms.map(cutter);
 		path.map(ms);
 		FPoint start = path.point(0);
 		FPoint end = path.point(path.size()-2);
-		QMatrix mm;
+		QTransform mm;
 		mm.rotate(Item2->rotation());
 		QPainterPath objekt = mm.map(Item2->PoLine.toQPainterPath(true));
 		if ((objekt.contains(QPointF(start.x(), start.y()))) || (objekt.contains(QPointF(end.x(), end.y()))))

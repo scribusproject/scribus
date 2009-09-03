@@ -202,7 +202,7 @@ private:
 	void PaintSizeRect(QRect neu);
 	void PaintSizeRect(QPolygon neu);
 	void Transform(PageItem *currItem, QPainter *p);
-	void Transform(PageItem *currItem, QMatrix& m);
+	void Transform(PageItem *currItem, QTransform& m);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 

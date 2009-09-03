@@ -121,7 +121,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QMatrix arrowTrans;
+					QTransform arrowTrans;
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
 					drawArrow(p, arrowTrans, m_startArrowIndex);
@@ -138,7 +138,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QMatrix arrowTrans;
+					QTransform arrowTrans;
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
 					drawArrow(p, arrowTrans, m_endArrowIndex);

@@ -2339,7 +2339,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		{
 			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[clPath].copy();
 			currItem->pixm.imgInfo.usedPath = clPath;
-			QMatrix cl;
+			QTransform cl;
 			cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);

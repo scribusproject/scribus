@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QColor>
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 
 #include "fpoint.h"
 #include "scribusapi.h"
@@ -128,7 +128,7 @@ public:
 	FPoint vector() const { return m_vector; }
 	void setVector( const FPoint &vector ) { m_vector = vector; }
 
-	void transform( const QMatrix& m );
+	void transform( const QTransform& m );
 
 protected:
 	QList<VColorStop*>        m_colorStops;

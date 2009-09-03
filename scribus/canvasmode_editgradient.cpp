@@ -219,7 +219,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	QMatrix itemMatrix;
+	QTransform itemMatrix;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	itemMatrix.translate(currItem->xPos(), currItem->yPos());
 	itemMatrix.rotate(currItem->rotation());

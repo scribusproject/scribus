@@ -91,7 +91,7 @@ public:
 	bool cspaceValid;
 	VGradient gradient;
 	bool gradientValid;
-	QMatrix matrix;
+	QTransform matrix;
 	bool matrixValid;
 	QString reference;
 	int Type;
@@ -166,8 +166,8 @@ public:
 	double GY2;
 	bool InherCol;
 	double LWidth;
-	QMatrix matrix;
-	QMatrix matrixg;
+	QTransform matrix;
+	QTransform matrixg;
 	Qt::PenStyle PLineArt;
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
@@ -230,7 +230,7 @@ public:
 	double  fromPercentage(const QString &s );
 	double  parseFontSize(const QString& fsize);
 	double  parseUnit(const QString &unit);
-	QMatrix parseTransform(const QString &transform);
+	QTransform parseTransform(const QString &transform);
 	bool    parseSVG( const QString &s, FPointArray *ite );
 	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );

@@ -539,7 +539,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (currItem->locked())
 					break;
-				QMatrix p;
+				QTransform p;
 				m_canvas->Transform(currItem, p);
 				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
@@ -929,7 +929,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				PageItem* docItem = m_doc->Items->at(a);
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
-				QMatrix p;
+				QTransform p;
 				m_canvas->Transform(docItem, p);
 			//	QRegion apr = QRegion(docItem->Clip * p);
 				QRect apr2(docItem->getRedrawBounding(m_canvas->scale()));
@@ -1019,7 +1019,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
-	QMatrix p;
+	QTransform p;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());

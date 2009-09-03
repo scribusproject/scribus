@@ -290,7 +290,7 @@ void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	QMatrix mm = QMatrix();
+	QTransform mm = QTransform();
 	mm.translate(72*rect.x1, 72*rect.y1);
 	ite->PoLine.map(mm);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -302,7 +302,7 @@ void ScrPainter::drawEllipse(const libwpg::WPGPoint& center, double rx, double r
 {
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 144.0, ry * 144.0, LineW, CurrColorFill, CurrColorStroke, true);
 	PageItem *ite = m_Doc->Items->at(z);
-	QMatrix mm = QMatrix();
+	QTransform mm = QTransform();
 	mm.translate(72*(center.x - rx), 72*(center.y - ry));
 	ite->PoLine.map(mm);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -414,7 +414,7 @@ void ScrPainter::finishItem(PageItem* ite)
 	{
 		ite->fill_gradient = currentGradient;
 		ite->GrType = 6;
-		QMatrix m1;
+		QTransform m1;
 		m1.rotate(-gradientAngle);
 		ite->GrStartX = 0;
 		ite->GrStartY = 0;

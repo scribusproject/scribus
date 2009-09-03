@@ -193,7 +193,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* im
 	dy *= scale;
 	
 	// Set the world transformation matrix
-	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
+	QTransform matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter.setWorldMatrix( matrix );
 
 	image->fill( qRgba(255, 255, 255, 255) );
@@ -410,7 +410,7 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, Page* page, PrintOption
 	scaley *= ( logPixelsY / 72.0 );
 	dx     *= ( logPixelsX / 72.0 );
 	dy     *= ( logPixelsY / 72.0 );
-	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
+	QTransform matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter.setWorldMatrix( matrix );
 
 	pageOutput.drawPage(page, &painter);

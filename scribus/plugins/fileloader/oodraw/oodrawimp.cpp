@@ -819,7 +819,7 @@ QList<PageItem*> OODPlug::parsePath(const QDomElement &e)
 	}
 	else
 	{
-		QMatrix mat;
+		QTransform mat;
 		double x = parseUnit(e.attribute("svg:x"));
 		double y = parseUnit(e.attribute("svg:y")) ;
 		double w = parseUnit(e.attribute("svg:width"));
@@ -1426,7 +1426,7 @@ QString OODPlug::parseColor( const QString &s )
 void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 {
 	double dx, dy;
-	QMatrix result;
+	QTransform result;
 	QStringList subtransforms = transform.split(')', QString::SkipEmptyParts);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
@@ -1441,7 +1441,7 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
 		if(subtransform[0] == "rotate")
 		{
-			result = QMatrix();
+			result = QTransform();
 			result.rotate(-parseUnit(params[0]) * 180 / M_PI);
 			composite->map(result);
 		}
@@ -1457,19 +1457,19 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 				dx = parseUnit(params[0]);
 				dy =0.0;
 			}
-			result = QMatrix();
+			result = QTransform();
 			result.translate(dx, dy);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "skewx")
 		{
-			result = QMatrix();
+			result = QTransform();
 			result.shear(-tan(ScCLocale::toDoubleC(params[0])), 0.0);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "skewy")
 		{
-			result = QMatrix();
+			result = QTransform();
 			result.shear(0.0, -tan(ScCLocale::toDoubleC(params[0])));
 			composite->map(result);
 		}
@@ -1528,7 +1528,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 		composite->addPoint(firstP);
 		composite->addPoint(firstP);
 	}
-	QMatrix mat;
+	QTransform mat;
 	mat.translate(x, y);
 	mat.scale(sx, sy);
 	composite->map(mat);

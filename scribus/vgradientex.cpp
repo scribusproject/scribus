@@ -174,7 +174,7 @@ void VGradientEx::removeStop( uint n )
 	delete m_colorStops.takeAt(n);
 }
 
-void VGradientEx::transform( const QMatrix &m )
+void VGradientEx::transform( const QTransform &m )
 {
 	double mx, my;
 	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();

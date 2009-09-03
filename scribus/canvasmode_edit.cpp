@@ -378,7 +378,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->asImageFrame())
 			{
-				QMatrix ro;
+				QTransform ro;
 				ro.rotate(-currItem->rotation());
 				QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
 				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
@@ -454,7 +454,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					double ny = np2.y();
 					m_doc->ApplyGuides(&nx, &ny);
 					np2 = FPoint(qRound(nx*sc), qRound(ny*sc));
-					QMatrix pm;
+					QTransform pm;
 					switch (frameResizeHandle)
 					{
 					case 1:
@@ -503,7 +503,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						double nh = currItem->height();
 						if ((frameResizeHandle == 1) || (frameResizeHandle == 2))
 						{
-							QMatrix mp;
+							QTransform mp;
 							switch (frameResizeHandle)
 							{
 							case 1:
@@ -512,7 +512,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 								//Shift proportional square resize
 								if ((m->modifiers() & Qt::ShiftModifier) && (!(m->modifiers() & Qt::ControlModifier)))
 								{
-									QMatrix ma;
+									QTransform ma;
 									ma.translate(currItem->xPos(), currItem->yPos());
 									ma.rotate(currItem->rotation());
 									ma = ma.inverted();
@@ -524,7 +524,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 									//Control proportional resize
 									if ((m->modifiers() & Qt::ControlModifier) && (!(m->modifiers() & Qt::ShiftModifier)))
 									{
-										QMatrix ma;
+										QTransform ma;
 										ma.translate(currItem->xPos(), currItem->yPos());
 										ma.rotate(currItem->rotation());
 										ma = ma.inverted();
@@ -560,12 +560,12 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 										erf = m_doc->SizeItem(nx, nh, currItem->ItemNr);
 									else
 										erf = m_doc->SizeItem(nx, ny, currItem->ItemNr);
-									QMatrix mp;
+									QTransform mp;
 									mp.translate(currItem->xPos(),// - m_doc->minCanvasCoordinate.x(), 
 												 currItem->yPos());// - m_doc->minCanvasCoordinate.y());
 									mp.rotate(currItem->rotation());
 									np2 = QPoint(qRound(nx), qRound(ny));
-									QMatrix pm;
+									QTransform pm;
 									m_canvas->Transform(currItem, pm);
 									m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), np2)));
 								}
@@ -573,7 +573,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 								{
 									double rba = currItem->rotation();
 									currItem->setRotation(0.0);
-									QMatrix mp;
+									QTransform mp;
 									m_canvas->Transform(currItem, mp);
 //									mp.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 									np = QPoint(m->x(), m->y()) * mp.inverted();
@@ -590,7 +590,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 									currItem->setRotation(rba);
 									np = m_doc->ApplyGrid(np);
 									erf = m_doc->SizeItem(sizeItemX, sizeItemY, currItem->ItemNr);
-									QMatrix pm;
+									QTransform pm;
 //									pm.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 									m_canvas->Transform(currItem, pm);
 									m_canvas->newRedrawPolygon() << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
@@ -607,7 +607,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 									m_doc->SnapGuides = sav;
 									if (sav)
 										currItem->Sizing = true;
-									QMatrix pm;
+									QTransform pm;
 //									pm.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 									m_canvas->Transform(currItem, pm);
 									m_canvas->newRedrawPolygon() << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
@@ -622,11 +622,11 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 									double nx = newP.x();
 									double ny = newP.y();
 									m_doc->ApplyGuides(&nx, &ny);
-									QMatrix mp;
+									QTransform mp;
 //									mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
 									mp.rotate(currItem->rotation());
 									np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
-									QMatrix pm;
+									QTransform pm;
 									m_canvas->Transform(currItem, pm);
 									m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(qRound(currItem->width()), qRound(currItem->height())))));
 								}
@@ -640,11 +640,11 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 							double nx = newP.x();
 							double ny = newP.y();
 							m_doc->ApplyGuides(&nx, &ny);
-							QMatrix mp;
+							QTransform mp;
 //							mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
 							mp.rotate(currItem->rotation());
 							np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
-							QMatrix pm;
+							QTransform pm;
 							m_canvas->Transform(currItem, pm);
 							switch (frameResizeHandle)
 							{
@@ -921,7 +921,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;
-	QMatrix pm;
+	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
@@ -1225,7 +1225,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			for (int a = 0; a < docItemCount; ++a)
 			{
 				PageItem* docItem = m_doc->Items->at(a);
-				QMatrix p;
+				QTransform p;
 				m_canvas->Transform(docItem, p);
 				QRegion apr = QRegion(docItem->Clip * p);
 				QRect apr2(docItem->getRedrawBounding(1.0));
@@ -1299,7 +1299,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
-	QMatrix p;
+	QTransform p;
 	QRectF tx, mpo;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;

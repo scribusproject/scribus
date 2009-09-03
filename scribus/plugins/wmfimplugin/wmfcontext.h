@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QBrush>
 #include <QFont>
-#include <QMatrix>
+#include <QTransform>
 #include <QPen>
 #include <QPoint>
 #include <QSize>
@@ -41,7 +41,7 @@ public:
 	double      textRotation;
 	bool        windingFill;
 	FPointArray path;
-	QMatrix     worldMatrix;
+	QTransform     worldMatrix;
 	
 public:
 	WMFGraphicsState(void);
@@ -76,7 +76,7 @@ public:
 	double       textRotation(void) { return current().textRotation; }
 	bool         windingFill(void) { return current().windingFill; }
 	FPointArray& path (void) { return current().path; }
-	QMatrix&     worldMatrix (void) { return current().worldMatrix; }
+	QTransform&     worldMatrix (void) { return current().worldMatrix; }
 	void setFont (const QFont& font) { current().font = font; }
 	void setPosition (const QPoint& pos) { current().position = pos; }
 	void setPen   (const QPen& pen) { current().pen = pen; }
@@ -89,7 +89,7 @@ public:
 	void setTextRotation (double rot) { current().textRotation = rot; }
 	void setWindingFill (const bool winding) { current().windingFill = winding; }
 	void setPath (const FPointArray& path) { current().path = path; }
-	void setWorldMatrix (const QMatrix& matrix) { current().worldMatrix = matrix; }
+	void setWorldMatrix (const QTransform& matrix) { current().worldMatrix = matrix; }
 
 	// window operations
 	void setWindowOrg(double x, double y) { current().setWindowOrg(x, y); }

@@ -2413,7 +2413,8 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 {
 	if (w == NULL)
 	{
-		ActWin = NULL;
+		if ( wsp->subWindowList().count() == 0)
+			ActWin = NULL;
 		return;
 	}
 	if (doc!=0 && doc->appMode == modeEditClip)

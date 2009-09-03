@@ -53,7 +53,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	imageMode = true;
 	svgMode = false;
 	m_image = target;
-	m_matrix = QMatrix();
+	m_matrix = QTransform();
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
 	cairo_save( m_cr );
@@ -90,7 +90,7 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double tra
 	layeredMode = true;
 	imageMode = false;
 	svgMode = true;
-	m_matrix = QMatrix();
+	m_matrix = QTransform();
 	cairo_surface_t *img = cairo_svg_surface_create(target.toLocal8Bit().constData(), w, h);
 	m_cr = cairo_create(img);
 	cairo_save( m_cr );
@@ -131,7 +131,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	imageMode = true;
 	svgMode = false;
 	m_image = target;
-	m_matrix = QMatrix();
+	m_matrix = QTransform();
 	painter.begin(m_image);
 	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
@@ -662,27 +662,26 @@ void ScPainter::clear( const QColor &c )
 #endif
 }
 
-const QMatrix ScPainter::worldMatrix()
+const QTransform ScPainter::worldMatrix()
 {
 #ifdef HAVE_CAIRO
 	cairo_matrix_t matrix;
 	cairo_get_matrix(m_cr, &matrix);
-	QMatrix mat;
-	mat.setMatrix ( matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0 );
+	QTransform mat = QTransform( matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0 );
 	return mat;
 #else
-	return painter.worldMatrix();
+	return painter.worldTransform();
 #endif
 }
 
-void ScPainter::setWorldMatrix( const QMatrix &mat )
+void ScPainter::setWorldMatrix( const QTransform &mat )
 {
 #ifdef HAVE_CAIRO
 	cairo_matrix_t matrix;
 	cairo_matrix_init(&matrix, mat.m11(), mat.m12(), mat.m21(), mat.m22(), mat.dx(), mat.dy());
 	cairo_set_matrix(m_cr, &matrix);
 #else
-	painter.setWorldMatrix(mat);
+	painter.setWorldTransform(mat);
 #endif
 }
 
@@ -990,7 +989,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
 			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_BEST);
 			cairo_matrix_t matrix;
-			QMatrix qmatrix;
+			QTransform qmatrix;
 //			qmatrix.scale(m_zoomFactor, m_zoomFactor);
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
@@ -1090,7 +1089,7 @@ void ScPainter::drawVPath(int mode)
 		{
 			painter.setRenderHint(QPainter::Antialiasing, false);
 			painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
-			QMatrix qmatrix;
+			QTransform qmatrix;
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
 			qmatrix.scale(patternScaleX, patternScaleY);

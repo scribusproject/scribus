@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef FPOINT_H
 #define FPOINT_H
 
-#include <QMatrix>
+#include <QTransform>
 #include <QPoint>
 #include "scribusapi.h"
 /**
@@ -59,7 +59,7 @@ public:
 	//Transform an existing point
 	void transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert);
 	//Transform an existing point, return a new one
-	FPoint transformPoint(const QMatrix& m, const bool invert) const;
+	FPoint transformPoint(const QTransform& m, const bool invert) const;
 	FPoint transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert) const;
 	friend class FPointArray;
 

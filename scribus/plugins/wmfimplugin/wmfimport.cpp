@@ -779,7 +779,7 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
 
 void WMFImport::finishCmdParsing( PageItem* item )
 {
-	QMatrix gcm  = m_context.worldMatrix();
+	QTransform gcm  = m_context.worldMatrix();
 	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
 	double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
 	if( item->asImageFrame() )
@@ -870,7 +870,7 @@ void WMFImport::ellipse( QList<PageItem*>& items, long, short* params )
 	double  lineWidth   = m_context.pen().width();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, lineWidth, fillColor, strokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
-	QMatrix mm(1.0, 0.0, 0.0, 1.0, px, py);
+	QTransform mm(1.0, 0.0, 0.0, 1.0, px, py);
 	ite->PoLine.map(mm);
 	finishCmdParsing(ite);
 	items.append(ite);
@@ -958,7 +958,7 @@ void WMFImport::rectangle( QList<PageItem*>& items, long, short* params )
 	double height = fabs((double) params[2] - params[0]);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
-	QMatrix mm(1.0, 0.0, 0.0, 1.0, x, y);
+	QTransform mm(1.0, 0.0, 0.0, 1.0, x, y);
 	ite->PoLine.map(mm);
 	finishCmdParsing(ite);
 	items.append(ite);
@@ -990,7 +990,7 @@ void WMFImport::roundRect( QList<PageItem*>& items, long, short* params )
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	QMatrix mm(1.0, 0.0, 0.0, 1.0, x, y);
+	QTransform mm(1.0, 0.0, 0.0, 1.0, x, y);
 	ite->PoLine.map(mm);
 	finishCmdParsing(ite);
 	items.append(ite);

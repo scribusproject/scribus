@@ -62,7 +62,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 	{
 		// m_cols should not become 0. Never.
 		int baseSize = m_viewWidth / m_cols;
-		QMatrix chma;
+		QTransform chma;
 		chma.scale(baseSize/10, baseSize/10);
 
 		ScFace face = (*m_doc->AllFonts)[m_fontInUse];

@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "vgradient.h"
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 #include <QMultiMap>
 #include <QVector>
 #include "wpg/libwpg.h"

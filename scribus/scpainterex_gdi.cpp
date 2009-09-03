@@ -72,7 +72,7 @@ ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect,  ScribusDoc* doc, bool g
 	m_lineJoin = Qt::RoundJoin;
 	m_fillGradient = VGradientEx(VGradientEx::linear);
 	m_strokeGradient = VGradientEx(VGradientEx::linear);
-	m_matrix = QMatrix();
+	m_matrix = QTransform();
 	// Grayscale conversion parameter
 	m_convertToGray = gray;
 	// Initialization of Windows GDI data
@@ -179,12 +179,12 @@ void ScPainterEx_GDI::clear( ScColorShade &c )
 	DeleteObject( brush );
 }
 
-const QMatrix ScPainterEx_GDI::worldMatrix()
+const QTransform ScPainterEx_GDI::worldMatrix()
 {
 	return m_matrix;
 }
 
-void ScPainterEx_GDI::setWorldMatrix( const QMatrix &mat )
+void ScPainterEx_GDI::setWorldMatrix( const QTransform &mat )
 {
 	m_matrix = mat;
 }
@@ -279,7 +279,7 @@ void ScPainterEx_GDI::setGradient(VGradientEx::Type mode, FPoint orig, FPoint ve
 	m_fillGradient.setFocalPoint(foc);
 }
 
-void ScPainterEx_GDI::setPattern( ScPattern* pattern, QMatrix& patternTransform )
+void ScPainterEx_GDI::setPattern( ScPattern* pattern, QTransform& patternTransform )
 {
 	m_pattern = pattern;
 	m_patternTransform = patternTransform;

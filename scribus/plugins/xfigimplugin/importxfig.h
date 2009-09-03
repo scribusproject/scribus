@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include <QList>
 #include <QStack>
-#include <QMatrix>
+#include <QTransform>
 #include <QMultiMap>
 
 class MultiProgressDialog;

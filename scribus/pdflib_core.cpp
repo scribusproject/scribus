@@ -1070,7 +1070,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					if (ig.value().size() > 3)
 					{
 						FPointArray gly = ig.value();
-						QMatrix mat;
+						QTransform mat;
 						mat.scale(100.0, -100.0);
 						gly.map(mat);
 						gly.translate(0, 1000);
@@ -1185,7 +1185,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					if (ig.value().size() > 3)
 					{
 						FPointArray gly = ig.value();
-						QMatrix mat;
+						QTransform mat;
 						mat.scale(0.1, 0.1);
 						gly.map(mat);
 						for (uint poi = 0; poi < gly.size()-3; poi += 4)
@@ -1976,13 +1976,13 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						}
 						if (ite->startArrowIndex() != 0)
 						{
-							QMatrix arrowTrans;
+							QTransform arrowTrans;
 							arrowTrans.scale(-1,1);
 							PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
 						}
 						if (ite->endArrowIndex() != 0)
 						{
-							QMatrix arrowTrans;
+							QTransform arrowTrans;
 							PutPage(drawArrow(ite, arrowTrans, ite->endArrowIndex()));
 						}
 						break;
@@ -2081,7 +2081,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 								{
 									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-									QMatrix arrowTrans;
+									QTransform arrowTrans;
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
 									PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
@@ -2098,7 +2098,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 								{
 									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-									QMatrix arrowTrans;
+									QTransform arrowTrans;
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
 									PutPage(drawArrow(ite, arrowTrans, ite->endArrowIndex()));
@@ -2773,7 +2773,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const Page* pag
 				PutPage("q\n");
 				FPointArray cl = ite->PoLine.copy();
 				FPointArray clb = ite->PoLine.copy();
-				QMatrix mm;
+				QTransform mm;
 				mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - mPage->height());
 				mm.rotate(ite->rotation());
 				cl.map( mm );
@@ -2872,7 +2872,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, 
 				grcon += "q\n";
 				FPointArray cl = ite->PoLine.copy();
 				FPointArray clb = ite->PoLine.copy();
-				QMatrix mm;
+				QTransform mm;
 				mm.translate(ite->xPos() - pag->xOffset(), (ite->yPos() - pag->yOffset()) - pag->height());
 				mm.rotate(ite->rotation());
 				cl.map( mm );
@@ -3440,13 +3440,13 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			if (ite->startArrowIndex() != 0)
 			{
-				QMatrix arrowTrans;
+				QTransform arrowTrans;
 				arrowTrans.scale(-1,1);
 				tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
 			}
 			if (ite->endArrowIndex() != 0)
 			{
-				QMatrix arrowTrans;
+				QTransform arrowTrans;
 				arrowTrans.translate(ite->width(), 0);
 				tmp += drawArrow(ite, arrowTrans, ite->endArrowIndex());
 			}
@@ -3555,7 +3555,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-						QMatrix arrowTrans;
+						QTransform arrowTrans;
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
 						tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
@@ -3572,7 +3572,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-						QMatrix arrowTrans;
+						QTransform arrowTrans;
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
 						tmp += drawArrow(ite, arrowTrans, ite->endArrowIndex());
@@ -3629,7 +3629,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	return true;
 }
 
-QString PDFLibCore::drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex)
+QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 {
 	QString tmp = "";
 	FPointArray arrow = doc.arrowStyles.at(arrowIndex-1).points.copy();
@@ -4187,13 +4187,13 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 	{
 		tmp += "q\n";
 		QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
-		QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
+		QTransform trafo = QTransform( 1, 0, 0, -1, -hl->PDx, 0 );
 		if (ite->textPathFlipped)
-			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+			trafo *= QTransform(1, 0, 0, -1, 0, 0);
 		if (ite->textPathType == 0)
-			trafo *= QMatrix( tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY );
+			trafo *= QTransform( tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY );
 		else if (ite->textPathType == 1)
-			trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
+			trafo *= QTransform(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
 		else if (ite->textPathType == 2)
 		{
 			double a = 1;
@@ -4204,9 +4204,9 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				b = 1;
 			}
 			if (fabs(tangt.x()) > 0.1)
-				trafo *= QMatrix( a, (tangt.y() / tangt.x()) * b, 0, -1, hl->PtransX, -hl->PtransY ); // ID's Skew mode
+				trafo *= QTransform( a, (tangt.y() / tangt.x()) * b, 0, -1, hl->PtransX, -hl->PtransY ); // ID's Skew mode
 			else
-				trafo *= QMatrix( a, 6 * b, 0, -1, hl->PtransX, -hl->PtransY );
+				trafo *= QTransform( a, 6 * b, 0, -1, hl->PtransX, -hl->PtransY );
 		}
 		tmp += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 		if (ite->BaseOffs != 0)
@@ -4254,7 +4254,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				tmp2 += "q\n";
 				FPointArray cl = embedded->PoLine.copy();
 				FPointArray clb = embedded->PoLine.copy();
-				QMatrix mm;
+				QTransform mm;
 				if (ite->asPathText())
 					mm.translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)) * -1);
 				else
@@ -4486,13 +4486,13 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				/*if (ite->itemType() == PageItem::PathText)
 				{
 					QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
-					QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
+					QTransform trafo = QTransform( 1, 0, 0, -1, -hl->PDx, 0 );
 					if (ite->textPathFlipped)
-						trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+						trafo *= QTransform(1, 0, 0, -1, 0, 0);
 					if (ite->textPathType == 0)
-						trafo *= QMatrix(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY);
+						trafo *= QTransform(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY);
 					else if (ite->textPathType == 1)
-						trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
+						trafo *= QTransform(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
 					tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 				}*/
 				if (!ite->asPathText())
@@ -4524,7 +4524,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				if (style.effects() & ScStyle_Outline)
 				{
 					FPointArray gly = style.font().glyphOutline(glyph);
-					QMatrix mat;
+					QTransform mat;
 					mat.scale(0.1, 0.1);
 					gly.map(mat);
 					bool nPath = true;
@@ -4591,13 +4591,13 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 					/*if (ite->itemType() == PageItem::PathText)
 					{
 						QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
-						QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
+						QTransform trafo = QTransform( 1, 0, 0, -1, -hl->PDx, 0 );
 						if (ite->textPathFlipped)
-							trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+							trafo *= QTransform(1, 0, 0, -1, 0, 0);
 						if (ite->textPathType == 0)
-							trafo *= QMatrix(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY);
+							trafo *= QTransform(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY);
 						else if (ite->textPathType == 1)
-							trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
+							trafo *= QTransform(1, 0, 0, -1, hl->PtransX, -hl->PtransY );
 						tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 					}*/
 					if (!ite->asPathText())
@@ -4625,7 +4625,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 						tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->glyph.scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
 					tmp2 += FToStr(qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1))+" 0 0 cm\n";
 					FPointArray gly = style.font().glyphOutline(glyph);
-					QMatrix mat;
+					QTransform mat;
 					mat.scale(0.1, 0.1);
 					gly.map(mat);
 					bool nPath = true;
@@ -5075,7 +5075,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				tmp2 += "q\n";
 				FPointArray cl = item->PoLine.copy();
 				FPointArray clb = item->PoLine.copy();
-				QMatrix mm;
+				QTransform mm;
 				mm.translate(item->gXpos, item->gYpos - pat->height);
 				mm.rotate(item->rotation());
 				cl.map( mm );
@@ -5205,7 +5205,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 		PutDoc("/PaintType 1\n");
 		PutDoc("/TilingType 1\n");
 		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(pat->height)+" ]\n");
-		QMatrix mpa;
+		QTransform mpa;
 		if (inPattern == 0)
 		{
 			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
@@ -6435,7 +6435,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pagesize = page->GetPageSize();
 			int rotation = page->GetRotation();
-			QMatrix pageM;
+			QTransform pageM;
 			pageM.scale(1.0/pagesize.GetWidth(), 1.0/pagesize.GetHeight());
 			pageM.rotate(-rotation);
 			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft()));

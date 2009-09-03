@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "exif.h"
-#include <QMatrix>
+#include <QTransform>
 
 //--------------------------------------------------------------------------
 // Table of Jpeg encoding process names
@@ -967,8 +967,8 @@ QImage ExifData::getThumbnail()
 	if ( !Orientation || Orientation == 1 ) return Thumbnail;
 
 	// now fix orientation
-	QMatrix M;
-	QMatrix flip = QMatrix ( -1,0,0,1,0,0 );
+	QTransform M;
+	QTransform flip = QTransform ( -1,0,0,1,0,0 );
 	switch ( Orientation )
 	{  // notice intentional fallthroughs
 		case 2: M = flip; break;

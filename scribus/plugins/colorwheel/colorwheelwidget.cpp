@@ -120,10 +120,10 @@ void ColorWheel::paintWheel()
 	widthH = width / 2;
 	for (int i = 0; i < 360; ++i)
 	{
-		QMatrix matrix;
+		QTransform matrix;
 		matrix.translate(widthH, heightH);
 		matrix.rotate((float)i);
-		p.setWorldMatrix(matrix);
+		p.setWorldTransform(matrix);
 		QColor c;
 		c.setHsv(i, 255, 255);
 		p.setPen(QPen(c, 7));

@@ -4516,7 +4516,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->ClipEdited = true;
 			if(oldItem->itemType()==PageItem::Line)
 			{
-				QMatrix ma;
+				QTransform ma;
 				newItem->Frame = false;
 				newItem->FrameType = 3;
 				ma.rotate(newItem->rotation());
@@ -6303,7 +6303,7 @@ void ScribusDoc::FlipImageV()
 void ScribusDoc::MirrorPolyH(PageItem* currItem)
 {
 	currItem->ClipEdited = true;
-	QMatrix ma;
+	QTransform ma;
 	if (nodeEdit.isContourLine)
 	{
 		if (UndoManager::undoEnabled())
@@ -6352,7 +6352,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 void ScribusDoc::MirrorPolyV(PageItem* currItem)
 {
 	currItem->ClipEdited = true;
-	QMatrix ma;
+	QTransform ma;
 	if (nodeEdit.isContourLine)
 	{
 		if (UndoManager::undoEnabled())
@@ -7651,7 +7651,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 			if (currItem->imageClip.size() != 0)
 			{
 				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-				QMatrix cl;
+				QTransform cl;
 				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
@@ -7697,7 +7697,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 			if (currItem->imageClip.size() != 0)
 			{
 				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-				QMatrix cl;
+				QTransform cl;
 				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
@@ -7747,7 +7747,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 		if (currItem->imageClip.size() != 0)
 		{
 			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-			QMatrix cl;
+			QTransform cl;
 			cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
@@ -9472,7 +9472,7 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		currItem->setYPos(yout+page->yOffset());
 	if (currItem->asLine())
 	{
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
 //		double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
@@ -9492,7 +9492,7 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		currItem->setXPos(xout+page->xOffset());
 	if (currItem->asLine())
 	{
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
 		double mx = ma.m11() * currItem->width() + ma.dx();
@@ -9622,7 +9622,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 //	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
 	if (rotMode != 0)
 	{
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.scale(1, 1);
 		ma.rotate(currItem->rotation());
@@ -9673,7 +9673,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 
 void ScribusDoc::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
 {
-	QMatrix ma;
+	QTransform ma;
 	ma.translate(currItem->xPos(), currItem->yPos());
 	ma.rotate(currItem->rotation());
 	double mxc = currItem->xPos() - (ma.m11() * npv.x() + ma.m21() * npv.y() + ma.dx());
@@ -9705,7 +9705,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	}
 	*/
 	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
-	QMatrix ma;
+	QTransform ma;
 	ma.rotate(currItem->rotation());
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
 	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
@@ -9847,7 +9847,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 	QRectF oldR(currItem->getBoundingRect());
 	if (currItem->asLine())
 	{
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
 		double mx = ma.m11() * currItem->width() + ma.dx();
@@ -9876,7 +9876,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 		if (currItem->rotation() != 0)
 		{
 			FPoint npv(newX.x(), newX.y());
-			QMatrix ma3;
+			QTransform ma3;
 			ma3.translate(currItem->xPos(), currItem->yPos());
 			ma3.rotate(currItem->rotation());
 			double mxc3 = currItem->xPos() - (ma3.m11() * npv.x() + ma3.m21() * npv.y() + ma3.dx());
@@ -9981,7 +9981,7 @@ void ScribusDoc::rotateGroup(double angle, FPoint RCenter)
 	double sc = 1; // FIXME:av Scale;
 	PageItem* currItem;
 	m_Selection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
-	QMatrix ma;
+	QTransform ma;
 	ma.translate(RCenter.x(), RCenter.y());
 	ma.scale(1, 1);
 	ma.rotate(angle);
@@ -10067,17 +10067,17 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		else
 		{
 			FPoint oldPos(bb->xPos(), bb->yPos());
-			QMatrix ma;
+			QTransform ma;
 			ma.rotate(bb->rotation());
 			bb->PoLine.map(ma);
-			QMatrix ma2;
+			QTransform ma2;
 			ma2.translate(gx-bb->xPos(), gy-bb->yPos());
 			ma2.scale(scx, scy);
 			bb->PoLine.map(ma2);
 			bb->setRotation(0.0);
 			bb->ClipEdited = true;
 			AdjustItemSize(bb);
-			QMatrix ma3;
+			QTransform ma3;
 			ma3.translate(gx, gy);
 			ma3.scale(scx, scy);
 			FPoint n(gx-oldPos.x(), gy-oldPos.y());
@@ -10087,7 +10087,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			if (oldRot != 0)
 			{
 				bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
-				QMatrix ma;
+				QTransform ma;
 				ma.rotate(-bb->rotation());
 				bb->PoLine.map(ma);
 				AdjustItemSize(bb);
@@ -10110,7 +10110,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		bb->setImageXYOffset(oldLocalX, oldLocalY);
 		bb->OldB2 = bb->width();
 		bb->OldH2 = bb->height();
-		QMatrix ma4;
+		QTransform ma4;
 		ma4.rotate(oldRot);
 		ma4.scale(scx, scy);
 		gr.map(ma4);
@@ -10413,11 +10413,11 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		{
 			bb = m_Selection->itemAt(a);
 			toDel.append(bb->ItemNr);
-			QMatrix ma;
+			QTransform ma;
 			ma.translate(bb->xPos(), bb->yPos());
 			ma.rotate(bb->rotation());
 			bb->PoLine.map(ma);
-			QMatrix ma2;
+			QTransform ma2;
 			ma2.translate(currItem->xPos(), currItem->yPos());
 			ma2.rotate(currItem->rotation());
 			ma2 = ma2.inverted();

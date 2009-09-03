@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVector>
 #include <QStack>
 #include <QColor>
-#include <QMatrix>
+#include <QTransform>
 #include <QFont>
 #include <QImage>
 #include "scribusapi.h"
@@ -47,8 +47,8 @@ public:
 	virtual void clear( const QColor & );
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QMatrix & );
-	virtual const QMatrix worldMatrix();
+	virtual void setWorldMatrix( const QTransform & );
+	virtual const QTransform worldMatrix();
 	virtual void setZoomFactor( double );
 	virtual double zoomFactor() { return m_zoomFactor; }
 	virtual void translate( double, double );
@@ -136,7 +136,7 @@ private:
 	int  m_blendMode;
 	unsigned int m_width;
 	unsigned int m_height;
-	QMatrix m_matrix;
+	QTransform m_matrix;
 	QFont m_font;
 	bool mf_underline;
 	bool mf_strikeout;

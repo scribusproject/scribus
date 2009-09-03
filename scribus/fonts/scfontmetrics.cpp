@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QDebug>
 #include <QMap>
-#include <QMatrix>
+#include <QTransform>
 #include <QPainter>
 #include <QPixmap>
 #include <QRegExp>
@@ -200,7 +200,7 @@ FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, qreal *x, qrea
 	}
 	*x = face->glyph->metrics.horiBearingX / 6400.0;
 	*y = face->glyph->metrics.horiBearingY / 6400.0;
-	QMatrix ma;
+	QTransform ma;
 	ma.scale(0.01, -0.01);
 	pts.map(ma);
 	pts.translate(0, chs);

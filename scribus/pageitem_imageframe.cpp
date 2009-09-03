@@ -267,7 +267,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (imageClip.size() != 0)
 			{
 				imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
-				QMatrix cl;
+				QTransform cl;
 				cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
 				cl.scale(imageXScale(), imageYScale());
 				imageClip.map(cl);

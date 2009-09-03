@@ -138,7 +138,7 @@ void PageItemRotationSetter::rotate(double angle, PageItem * item)
 	int rotMode = item->m_Doc->RotMode();
 	if (rotMode != 0)
 	{
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(item->xPos(), item->yPos());
 		ma.scale(1, 1);
 		ma.rotate(item->rotation());

@@ -197,7 +197,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			else
 				pathItem = currDoc->m_Selection->itemAt(selCount);
 			effectPath = pathItem->PoLine.copy();
-			QMatrix mp;
+			QTransform mp;
 			mp.rotate(pathItem->rotation());
 			effectPath.map(mp);
 			for (int bx = 0; bx < selCount; ++bx)
@@ -234,7 +234,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				pathItem = currDoc->m_Selection->itemAt(0);
 			}
 			effectPath = pathItem->PoLine.copy();
-			QMatrix mp;
+			QTransform mp;
 			mp.rotate(pathItem->rotation());
 			effectPath.map(mp);
 			originalPath = patternItem->PoLine.copy();
@@ -310,7 +310,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			FPointArray pathP = originalPathG[bx].copy();
 			double deltaX = originalXPosG[bx] - originX;
 			double deltaY = originalYPosG[bx] - originY;
-			QMatrix mm;
+			QTransform mm;
 			mm.rotate(originalRotG[bx]);
 			pathP.map(mm);
 			pathP.translate(deltaX, deltaY);
@@ -320,7 +320,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 				patternpwd2 = FPointArray2Piecewise(pathP, true);
 			bxi->PoLine = doEffect_pwd2(patternpwd2);
 			bxi->PoLine.translate(-deltaX, -deltaY);
-			QMatrix mm2;
+			QTransform mm2;
 			mm2.rotate(-originalRotG[bx]);
 			bxi->PoLine.map(mm2);
 			bxi->Frame = false;

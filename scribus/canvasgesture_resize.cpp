@@ -313,7 +313,7 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 
 void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
-	QMatrix rotation;
+	QTransform rotation;
 	FPoint docPoint = m_canvas->globalToCanvas(m->globalPos());
 	QPointF oldXY = m_bounds.topLeft();
 	// proportional resize

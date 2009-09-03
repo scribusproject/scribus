@@ -374,7 +374,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		while (currNr >= 0)
 		{
 			currItem = m_doc->currentPage()->FromMaster.at(currNr);
-			QMatrix itemPos;
+			QTransform itemPos;
 			if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 			{
 				if (!currItem->ChangedMasterItem)
@@ -434,7 +434,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		}
 		if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 		{
-			QMatrix itemPos = currItem->getTransform();
+			QTransform itemPos = currItem->getTransform();
 			QPainterPath currPath(itemPos.map(QPointF(0,0)));
 			currPath.lineTo(itemPos.map(QPointF(currItem->width(), 0)));
 			currPath.lineTo(itemPos.map(QPointF(currItem->width(), currItem->height())));
@@ -1318,7 +1318,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 			if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
 				currItem->DrawObj(painter, cullingArea);
 			FPointArray cl = currItem->PoLine.copy();
-			QMatrix mm;
+			QTransform mm;
 			mm.translate(currItem->xPos(), currItem->yPos());
 			mm.rotate(currItem->rotation());
 			cl.map( mm );
@@ -1501,7 +1501,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 		{
 			painter->save();
 			FPointArray cl = currItem->PoLine.copy();
-			QMatrix mm;
+			QTransform mm;
 			mm.translate(currItem->xPos(), currItem->yPos());
 			mm.rotate(currItem->rotation());
 			cl.map( mm );
@@ -1983,7 +1983,7 @@ void Canvas::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end)
 	painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	painter->setPenOpacity(1.0);
 	painter->drawLine(start, end);
-	QMatrix arrowTrans;
+	QTransform arrowTrans;
 	arrowTrans.translate(end.x(), end.y());
 	double r = atan2(end.y()-start.y(), end.x()-start.x())*(180.0/M_PI);
 	arrowTrans.rotate(r);
@@ -2060,7 +2060,7 @@ void Canvas::Transform(PageItem *currItem, QPainter *p)
 	p->rotate(currItem->rotation());
 }
 
-void Canvas::Transform(PageItem *currItem, QMatrix& m)
+void Canvas::Transform(PageItem *currItem, QTransform& m)
 {
 	m.translate(currItem->xPos()*m_viewMode.scale, currItem->yPos()*m_viewMode.scale);
 	m.scale(m_viewMode.scale, m_viewMode.scale);
@@ -2171,7 +2171,7 @@ void Canvas::displayXYHUD(QPoint m)
 		gh = currItem->height();
 		r = currItem->rotation();
 	}
-	QMatrix ma;
+	QTransform ma;
 	ma.translate(gx, gy);
 	ma.rotate(r);
 	FPoint n;

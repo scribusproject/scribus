@@ -42,8 +42,8 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 		FPoint min = getMinClipF(&Path);
 		Path.translate(-min.x(), -min.y());
 		FPoint max = Path.WidthHeight();
-		QMatrix mm;
-		QMatrix mm2;
+		QTransform mm;
+		QTransform mm2;
 		if (arrowDirection)
 		{
 			mm2.scale(-1, 1);

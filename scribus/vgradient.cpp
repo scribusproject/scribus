@@ -199,7 +199,7 @@ void VGradient::filterStops(void)
 	}
 }
 
-void VGradient::transform( const QMatrix &m )
+void VGradient::transform( const QTransform &m )
 {
 	double mx, my;
 	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();

@@ -294,7 +294,7 @@ double constrainAngle(double angle, double constrain)
 	return newAngle;
 }
 
-double getRotationFromMatrix(QMatrix& matrix, double def)
+double getRotationFromMatrix(QTransform& matrix, double def)
 {
 	double value = def;
 	double norm = sqrt(fabs(matrix.det()));
@@ -306,7 +306,7 @@ double getRotationFromMatrix(QMatrix& matrix, double def)
 		double m22 = matrix.m22() / norm;
 		if (fabs(m11) <= 1.0 && fabs(m12) <= 1.0 && fabs(m21) <= 1.0 && fabs(m22) <= 1.0)
 		{
-			QMatrix mat(m11, m12, m21, m22, 0, 0);
+			QTransform mat(m11, m12, m21, m22, 0, 0);
 			if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
 			{
 				double ac = acos(mat.m11());

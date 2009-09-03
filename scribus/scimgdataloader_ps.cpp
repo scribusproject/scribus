@@ -384,7 +384,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size()) > 0 ? true : false;
 								if (m_imageInfoRecord.PDSpathData.size() > 0)
 								{
-									QMatrix mm;
+									QTransform mm;
 									mm.scale(m_imageInfoRecord.xres / 72.0, m_imageInfoRecord.yres / 72.0);
 									QMap<QString, FPointArray>::Iterator it;
 									for (it = m_imageInfoRecord.PDSpathData.begin(); it != m_imageInfoRecord.PDSpathData.end(); ++it)

@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QMatrix>
+#include <QTransform>
 #include <QMenu>
 #include <QString>
 #include "ui_transformdialogbase.h"
@@ -54,7 +54,7 @@ class PLUGIN_API TransformDialog : public QDialog, Ui::TransformDialogBase
 public:
 	TransformDialog(QWidget* parent, ScribusDoc *doc);
 	~TransformDialog() {};
-	QMatrix getTransformMatrix();
+	QTransform getTransformMatrix();
 	int getCount();
 	int getBasepoint();
 

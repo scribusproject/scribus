@@ -257,7 +257,7 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 //	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;
-	QMatrix pm;
+	QTransform pm;
 	m_MouseButtonPressed = true;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
@@ -392,7 +392,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			double itemY = 0.0;
 			if (m_doc->appMode == modeDrawLine)
 			{
-				QMatrix p = currItem->getTransform();
+				QTransform p = currItem->getTransform();
 				FPoint np = m_doc->ApplyGridF(mousePointDoc).transformPoint(p, true);
 				itemX = sqrt(pow(np.x(),2.0)+pow(np.y(),2.0));
 				itemY = 1.0;
@@ -677,7 +677,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 								m_doc->SnapGuides = sav;
 								m_doc->ApplyGuides(&nx, &ny);
 								m_doc->SnapGuides = false;
-								QMatrix ma;
+								QTransform ma;
 								ma.translate(currItem->xPos(), currItem->yPos());
 								ma.rotate(currItem->rotation());
 								double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
@@ -874,7 +874,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 				for (int a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = m_doc->Items->at(a);
-					QMatrix p;
+					QTransform p;
 					m_canvas->Transform(docItem, p);
 					QRegion apr = QRegion(docItem->Clip * p);
 					QRect apr2(docItem->getRedrawBounding(1.0));

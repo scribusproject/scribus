@@ -20,7 +20,7 @@
 
 #include "canvasmode.h"
 
-#include <QMatrix>
+#include <QTransform>
 #include <QRect>
 
 class PageItem;
@@ -57,7 +57,7 @@ private:
 	inline bool GetItem(PageItem** pi); 
 	void handleNodeEditPress(QMouseEvent*, QRect);
 	void handleNodeEditDrag(QMouseEvent*, PageItem*);
-	bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, QMatrix);
+	bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, QTransform);
 	
 	ScribusMainWindow* m_ScMW;
 	

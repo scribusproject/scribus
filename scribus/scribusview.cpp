@@ -1354,7 +1354,7 @@ void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 
 void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 {
-	QMatrix matrix;
+	QTransform matrix;
 	QRect rect = currItem->getRedrawBounding(m_canvas->scale());
 	m_canvas->Transform(currItem, matrix);
 	FPointArray fpNew;
@@ -1425,7 +1425,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 {
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	currItem->ClipEdited = true;
-	QMatrix ma;
+	QTransform ma;
 	if (Doc->nodeEdit.isContourLine)
 	{
 		FPoint tp2(getMinClipF(&currItem->ContourLine));
@@ -1553,7 +1553,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(offsX, offsY);
 	Doc->AdjustItemSize(currItem);
-	QMatrix ma2;
+	QTransform ma2;
 	ma2.translate(oldPos.x(), oldPos.y());
 	ma2.scale(1, 1);
 	ma2.translate(offsX, offsY);
@@ -1780,7 +1780,7 @@ void ScribusView::dragTimerTimeOut()
 void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 {
 	QPoint tx, tx2;
-	QMatrix ma;
+	QTransform ma;
 //	ma.translate(-Doc->minCanvasCoordinate.x()*m_canvas->scale(), -Doc->minCanvasCoordinate.y()*m_canvas->scale());
 	m_canvas->Transform(currItem, ma);
 	tx = ma.map(QPoint(static_cast<int>(currItem->width()), 0));
@@ -4071,14 +4071,14 @@ void ScribusView::TextToPath()
 //					double csi = static_cast<double>(chs) / 100.0;
 					uint chr = chstr[0].unicode();
 					QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
-					QMatrix chma, chma2, chma3, chma4, chma6;
-					QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
+					QTransform chma, chma2, chma3, chma4, chma6;
+					QTransform trafo = QTransform( 1, 0, 0, -1, -hl->PDx, 0 );
 					if (currItem->textPathFlipped)
-						trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+						trafo *= QTransform(1, 0, 0, -1, 0, 0);
 					if (currItem->textPathType == 0)
-						trafo *= QMatrix( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), hl->PtransX, hl->PtransY );
+						trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), hl->PtransX, hl->PtransY );
 					else if (currItem->textPathType == 1)
-						trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, hl->PtransY );
+						trafo *= QTransform(1, 0, 0, -1, hl->PtransX, hl->PtransY );
 					else if (currItem->textPathType == 2)
 					{
 						double a = 1;
@@ -4089,14 +4089,14 @@ void ScribusView::TextToPath()
 							b = 1;
 						}
 						if (fabs(tangt.x()) > 0.1)
-							trafo *= QMatrix( a, (tangt.y() / tangt.x()) * b, 0, -1, hl->PtransX, hl->PtransY ); // ID's Skew mode
+							trafo *= QTransform( a, (tangt.y() / tangt.x()) * b, 0, -1, hl->PtransX, hl->PtransY ); // ID's Skew mode
 						else
-							trafo *= QMatrix( a, 6 * b, 0, -1, hl->PtransX, hl->PtransY );
+							trafo *= QTransform( a, 6 * b, 0, -1, hl->PtransX, hl->PtransY );
 					}
-					//trafo *= QMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
+					//trafo *= QTransform( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
 					if (currItem->rotation() != 0)
 					{
-						QMatrix sca;
+						QTransform sca;
 						sca.translate(-currItem->xPos(), -currItem->yPos());
 						sca.rotate(currItem->rotation());
 						trafo *= sca;
@@ -4117,10 +4117,10 @@ void ScribusView::TextToPath()
 					if (hl->baselineOffset() != 0)
 						chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
 					uint gl = hl->font().char2CMap(chr);
-					QMatrix finalMat = QMatrix(chma * chma2 * chma3 * chma4 * chma6 * trafo);
+					QTransform finalMat = QTransform(chma * chma2 * chma3 * chma4 * chma6 * trafo);
 					if (currItem->rotation() != 0)
 					{
-						QMatrix sca;
+						QTransform sca;
 						sca.translate(currItem->xPos(), currItem->yPos());
 						pts.map(sca);
 					}
@@ -4128,10 +4128,10 @@ void ScribusView::TextToPath()
 					if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstc))
 						|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstc.isSpace() && !SpecialChars::isBreak(chstc)))
 					{
-						QMatrix stro = QMatrix(chma2 * chma3 * chma6 * trafo);
+						QTransform stro = QTransform(chma2 * chma3 * chma6 * trafo);
 						if (currItem->rotation() != 0)
 						{
-							QMatrix sca;
+							QTransform sca;
 							sca.translate(currItem->xPos(), currItem->yPos());
 							stro *= sca;
 						}
@@ -4211,7 +4211,7 @@ void ScribusView::TextToPath()
 							bb->setItemName(currItem->itemName()+"+Sh"+ccounter.setNum(a));
 							bb->AutoName = false;
 							bb->PoLine = pts.copy();
-							QMatrix shmap;
+							QTransform shmap;
 							shmap.translate(glxTr, glyTr);
 							bb->PoLine.map(finalMat * shmap);
 							bb->setFillColor(hl->strokeColor());
@@ -4271,10 +4271,10 @@ void ScribusView::TextToPath()
 					}
 					if (charStyle.effects() & ScStyle_Strikethrough)
 					{
-						QMatrix stro = QMatrix(chma2 * chma3 * chma6 * trafo);
+						QTransform stro = QTransform(chma2 * chma3 * chma6 * trafo);
 						if (currItem->rotation() != 0)
 						{
-							QMatrix sca;
+							QTransform sca;
 							sca.translate(currItem->xPos(), currItem->yPos());
 							stro *= sca;
 						}
@@ -4364,7 +4364,7 @@ void ScribusView::TextToPath()
 							chstr = chstr.toUpper();
 						double csi = static_cast<double>(chs) / 100.0;
 						uint chr = chstr[0].unicode();
-						QMatrix chma, chma2, chma3, chma4, chma6;
+						QTransform chma, chma2, chma3, chma4, chma6;
 						uint gl = hl->font().char2CMap(chr);
 						FPoint origin = hl->font().glyphOrigin(gl);
 						x = origin.x() * csi;
@@ -4440,10 +4440,10 @@ void ScribusView::TextToPath()
 							pts = hl->font().glyphOutline(gl);
 							if (pts.size() < 4)
 								continue;
-							chma = QMatrix();
+							chma = QTransform();
 							chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
 							pts.map(chma);
-							chma = QMatrix();
+							chma = QTransform();
 							if (currItem->imageFlippedH() && (!currItem->reversed()))
 								chma.scale(-1, 1);
 							if (currItem->imageFlippedV())
@@ -4482,7 +4482,7 @@ void ScribusView::TextToPath()
 									x *= hl->glyph.scaleH;
 									y *= hl->glyph.scaleV;
 								}
-								chma6 = QMatrix();
+								chma6 = QTransform();
 								if (charStyle.baselineOffset() != 0)
 									textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
 								if (a < currItem->itemText.length()-1)
@@ -4540,7 +4540,7 @@ void ScribusView::TextToPath()
 								x *= hl->glyph.scaleH;
 								y *= hl->glyph.scaleV;
 							}
-							chma6 = QMatrix();
+							chma6 = QTransform();
 							if (charStyle.baselineOffset() != 0)
 								textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
 							if (a < currItem->itemText.length()-1)

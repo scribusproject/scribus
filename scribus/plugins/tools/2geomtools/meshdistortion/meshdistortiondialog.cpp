@@ -157,13 +157,13 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 		else
 		{
 			PageItem* parent = groupStack3.top();
-			QMatrix mm;
+			QTransform mm;
 			mm.rotate(-parent->rotation());
 			mm.translate(-parent->xPos(), -parent->yPos());
 			pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
 		}
 		QPainterPath pathO = pp;
-		QMatrix mmO;
+		QTransform mmO;
 		mmO.translate(-w4, -w4);
 		pathO = pItem->mapToScene(pathO);
 		pathO = mmO.map(pathO);
@@ -222,13 +222,13 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 				{
 					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-					QMatrix qmatrix;
+					QTransform qmatrix;
 					qmatrix.translate(patternOffsetX, patternOffsetY);
 					qmatrix.rotate(patternRotation);
 					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
 					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
 					QBrush brush = QBrush(pat);
-					brush.setMatrix(qmatrix);
+					brush.setTransform(qmatrix);
 					pItem->setBrush(brush);
 				}
 			}

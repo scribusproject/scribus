@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
-#include <QMatrix>
+#include <QTransform>
 #include <QList>
 #include <QString>
 #include <QStringList>
@@ -528,9 +528,9 @@ void PrefsManager::initArrowStyles()
 {
 	struct ArrowDesc arrow;
 	FPointArray points;
-	QMatrix arrowScaling;
+	QTransform arrowScaling;
 	arrowScaling.scale(0.5, 0.5);
-	QMatrix arrowRotate;
+	QTransform arrowRotate;
 	arrowRotate.rotate(180);
 	arrow.name = "Arrow1L";
 	arrow.userArrow = false;

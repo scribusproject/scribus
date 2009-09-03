@@ -25,7 +25,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 	ScPainter *p = new ScPainter(&pix, size, size);
 	p->clear();
 	pixm.fill(Qt::white);
-	QMatrix chma;
+	QTransform chma;
 	chma.scale(4.8, 4.8);
 
 	uint gl = face.char2CMap(currentChar);

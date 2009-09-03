@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "fpoint.h"
 
-#include <QMatrix>
+#include <QTransform>
 
 //Create transformed point
 FPoint::FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
@@ -44,7 +44,7 @@ bool FPoint::operator!=(const FPoint &rhs) const
 
 void FPoint::transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
 {
-	QMatrix ma;
+	QTransform ma;
 	ma.translate(dx, dy);
 	ma.scale(sx, sy);
 	ma.rotate(rot);
@@ -56,9 +56,9 @@ void FPoint::transform(const double dx, const double dy, const double rot, const
 	xp = newxp;
 }
 
-FPoint FPoint::transformPoint(const QMatrix& m, const bool invert) const
+FPoint FPoint::transformPoint(const QTransform& m, const bool invert) const
 {
-	QMatrix ma;
+	QTransform ma;
 	if (invert)
 		ma = m.inverted();
 	else
@@ -71,7 +71,7 @@ FPoint FPoint::transformPoint(const QMatrix& m, const bool invert) const
 
 FPoint FPoint::transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert) const
 {
-	QMatrix ma;
+	QTransform ma;
 	ma.translate(dx, dy);
 	ma.scale(sx, sy);
 	ma.rotate(rot);

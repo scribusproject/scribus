@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QLabel>
 #include <QListView>
-#include <QMatrix>
+#include <QTransform>
 #include <QMenu>
 #include <QMessageBox>
 #include <QObject>
@@ -2822,7 +2822,7 @@ void PropertiesPalette::setXY(double x, double y)
 	disconnect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
 	bool tmp = HaveItem;
 	double inX, inY, b, h, r, dummy1, dummy2;
-	QMatrix ma;
+	QTransform ma;
 	FPoint n;
 	if (HaveItem)
 	{
@@ -2888,7 +2888,7 @@ void PropertiesPalette::setBH(double x, double y)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	QMatrix ma;
+	QTransform ma;
 	QPoint dp;
 	if ((LMode) && (CurItem->asLine()))
 	{
@@ -3451,7 +3451,7 @@ void PropertiesPalette::NewX()
 	if ((HaveDoc) && (HaveItem))
 	{
 		double x,y,w,h, gx, gy, gh, gw, base;
-		QMatrix ma;
+		QTransform ma;
 		x = Xpos->value() / m_unitRatio;
 		y = Ypos->value() / m_unitRatio;
 		w = Width->value() / m_unitRatio;
@@ -3532,7 +3532,7 @@ void PropertiesPalette::NewY()
 		return;
 
 	double x,y,w,h, gx, gy, gh, gw, base;
-	QMatrix ma;
+	QTransform ma;
 	x = Xpos->value() / m_unitRatio;
 	y = Ypos->value() / m_unitRatio;
 	w = Width->value() / m_unitRatio;
@@ -4432,7 +4432,7 @@ void PropertiesPalette::NewRotMode(int m)
 		else
 		{
 			double b, h, r;
-			QMatrix ma;
+			QTransform ma;
 			FPoint n;
 			b = CurItem->width();
 			h = CurItem->height();

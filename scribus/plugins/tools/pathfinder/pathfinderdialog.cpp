@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPixmap>
 #include <QPainter>
-#include <QMatrix>
+#include <QTransform>
 
 PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *shape1, PageItem *shape2) : QDialog( parent )
 {
@@ -56,7 +56,7 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *s
 	setCurrentComboItem(otherColorComboLine, shape1->lineColor());
 	setCurrentComboItem(otherColorComboFill, shape1->fillColor());
 	opMode = 0;
-	QMatrix ms;
+	QTransform ms;
 	ms.rotate(shape1->rotation());
 	input1 = ms.map(shape1->PoLine.toQPainterPath(true));
 	if (shape1->fillEvenOdd())
@@ -65,7 +65,7 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *s
 		input1.setFillRule(Qt::WindingFill);
 	double dx = shape2->xPos() - shape1->xPos();
 	double dy = shape2->yPos() - shape1->yPos();
-	QMatrix mm;
+	QTransform mm;
 	mm.translate(dx, dy);
 	mm.rotate(shape2->rotation());
 	input2 = mm.map(shape2->PoLine.toQPainterPath(true));

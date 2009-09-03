@@ -591,7 +591,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 			{
 				double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-				QMatrix arrowTrans;
+				QTransform arrowTrans;
 				if (arrow_typeAF == 0)
 					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5");
 				else if (arrow_typeAF == 1)
@@ -651,7 +651,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 			{
 				double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-				QMatrix arrowTrans;
+				QTransform arrowTrans;
 				if (arrow_typeAB == 0)
 					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5");
 				else if (arrow_typeAB == 1)
@@ -1420,7 +1420,7 @@ void XfigPlug::processText(QString data)
 	QRectF br = painterPath.boundingRect();
 	if ((angle == 0) && (br.width() > w))
 	{
-		QMatrix m;
+		QTransform m;
 		m.scale(w / br.width(), w / br.width());
 		painterPath = m.map(painterPath);
 	}

@@ -475,7 +475,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				pS->save();
 				FPointArray cl = OB.PoLine.copy();
-				QMatrix mm;
+				QTransform mm;
 				mm.translate(OB.Xpos, OB.Ypos);
 				mm.rotate(static_cast<double>(OB.Rot));
 				cl.map( mm );
@@ -526,7 +526,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				else
 					pS->fill_gradient = OB.fill_gradient;
-				QMatrix grm;
+				QTransform grm;
 				grm.rotate(OB.Rot);
 				FPointArray gra;
 				switch (OB.GrType)
@@ -748,7 +748,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				if (OB.startArrowIndex != 0)
 				{
-					QMatrix arrowTrans;
+					QTransform arrowTrans;
 					FPointArray arrow = arrowStyles.at(OB.startArrowIndex-1).points.copy();
 					arrowTrans.translate(0, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -762,7 +762,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				if (OB.endArrowIndex != 0)
 				{
-					QMatrix arrowTrans;
+					QTransform arrowTrans;
 					FPointArray arrow = arrowStyles.at(OB.endArrowIndex-1).points.copy();
 					arrowTrans.translate(OB.Width, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -851,7 +851,7 @@ QPixmap ScPreview::createPreview(QString data)
 						if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 						{
 							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-							QMatrix arrowTrans;
+							QTransform arrowTrans;
 							FPointArray arrow = arrowStyles.at(OB.startArrowIndex-1).points.copy();
 							arrowTrans.translate(Start.x(), Start.y());
 							arrowTrans.rotate(r);
@@ -875,7 +875,7 @@ QPixmap ScPreview::createPreview(QString data)
 						if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 						{
 							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-							QMatrix arrowTrans;
+							QTransform arrowTrans;
 							FPointArray arrow = arrowStyles.at(OB.endArrowIndex-1).points.copy();
 							arrowTrans.translate(End.x(), End.y());
 							arrowTrans.rotate(r);
@@ -1066,21 +1066,21 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 	if (prefsManager->appPrefs.AvailFonts[ZFo].canRender(ccx[0]))
 	{
 		wide = prefsManager->appPrefs.AvailFonts[ZFo].charWidth(ccx[0])*(Siz / 10.0);
-		QMatrix chma;
+		QTransform chma;
 		chma.scale(csi, csi);
 		uint gl = prefsManager->appPrefs.AvailFonts[ZFo].char2CMap(ccx[0]);
 		FPointArray gly = prefsManager->appPrefs.AvailFonts[ZFo].glyphOutline(gl);
 		if (gly.size() < 4)
 			return;
 		gly.map(chma);
-		chma = QMatrix();
+		chma = QTransform();
 		p->setFillMode(1);
 		if (Reverse)
 		{
 			chma.scale(-1, 1);
 			chma.translate(-wide, 0);
 			gly.map(chma);
-			chma = QMatrix();
+			chma = QTransform();
 			chma.translate(xco, yco-(Siz / 10.0));
 		}
 		else

@@ -649,12 +649,12 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 				newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
 			}
-			QMatrix mp = currItem->getTransform();
+			QTransform mp = currItem->getTransform();
 //			mp.translate(currItem->xPos(),// - m_doc->minCanvasCoordinate.x(), 
 //						 currItem->yPos()); // - m_doc->minCanvasCoordinate.y());
 //			mp.rotate(currItem->rotation());
 			np2 = QPoint(static_cast<int>(newX), static_cast<int>(newY)) * mp.inverted();
-			QMatrix pm;
+			QTransform pm;
 			m_canvas->Transform(currItem, pm);
 			m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), np2)));
 //			emit ItemGeom(newX - currItem->xPos(), newY - currItem->yPos());
@@ -695,7 +695,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->asImageFrame())
 			{
-				QMatrix ro;
+				QTransform ro;
 				ro.rotate(-currItem->rotation());
 				QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
 				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
@@ -760,7 +760,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					double ny = np2.y();
 					m_doc->ApplyGuides(&nx, &ny);
 					np2 = FPoint(qRound(nx*sc), qRound(ny*sc));
-					QMatrix pm;
+					QTransform pm;
 					switch (frameResizeHandle)
 					{
 					case 1:
@@ -809,7 +809,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						double nh = currItem->height();
 						if ((frameResizeHandle == 1) || (frameResizeHandle == 2))
 						{
-							QMatrix mp;
+							QTransform mp;
 							switch (frameResizeHandle)
 							{
 							case 1:
@@ -818,7 +818,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 								//Shift proportional square resize
 								if ((m->modifiers() & Qt::ShiftModifier) && (!(m->modifiers() & Qt::ControlModifier)))
 								{
-									QMatrix ma;
+									QTransform ma;
 									ma.translate(currItem->xPos(), currItem->yPos());
 									ma.rotate(currItem->rotation());
 									ma = ma.inverted();
@@ -830,7 +830,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 									//Control proportional resize
 									if ((m->modifiers() & Qt::ControlModifier) && (!(m->modifiers() & Qt::ShiftModifier)))
 									{
-										QMatrix ma;
+										QTransform ma;
 										ma.translate(currItem->xPos(), currItem->yPos());
 										ma.rotate(currItem->rotation());
 										ma = ma.inverted();
@@ -866,12 +866,12 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 										erf = m_doc->SizeItem(nx, nh, currItem->ItemNr);
 									else
 										erf = m_doc->SizeItem(nx, ny, currItem->ItemNr);
-									QMatrix mp;
+									QTransform mp;
 									mp.translate(currItem->xPos(),// - m_doc->minCanvasCoordinate.x(), 
 												 currItem->yPos());// - m_doc->minCanvasCoordinate.y());
 									mp.rotate(currItem->rotation());
 									np2 = QPoint(qRound(nx), qRound(ny));
-									QMatrix pm;
+									QTransform pm;
 									m_canvas->Transform(currItem, pm);
 									m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), np2)));
 								}
@@ -879,7 +879,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 								{
 									double rba = currItem->rotation();
 									currItem->setRotation(0.0);
-									QMatrix mp;
+									QTransform mp;
 									m_canvas->Transform(currItem, mp);
 //									mp.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 									np = QPoint(m->x(), m->y()) * mp.inverted();
@@ -896,7 +896,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 									currItem->setRotation(rba);
 									np = m_doc->ApplyGrid(np);
 									erf = m_doc->SizeItem(sizeItemX, sizeItemY, currItem->ItemNr);
-									QMatrix pm;
+									QTransform pm;
 //									pm.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 									m_canvas->Transform(currItem, pm);
 									m_canvas->newRedrawPolygon() << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
@@ -913,7 +913,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 									m_doc->SnapGuides = sav;
 									if (sav)
 										currItem->Sizing = true;
-									QMatrix pm;
+									QTransform pm;
 //									pm.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 									m_canvas->Transform(currItem, pm);
 									m_canvas->newRedrawPolygon() << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
@@ -928,11 +928,11 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 									double nx = newP.x();
 									double ny = newP.y();
 									m_doc->ApplyGuides(&nx, &ny);
-									QMatrix mp;
+									QTransform mp;
 //									mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
 									mp.rotate(currItem->rotation());
 									np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
-									QMatrix pm;
+									QTransform pm;
 									m_canvas->Transform(currItem, pm);
 									m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(qRound(currItem->width()), qRound(currItem->height())))));
 //									p.end();
@@ -947,11 +947,11 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 							double nx = newP.x();
 							double ny = newP.y();
 							m_doc->ApplyGuides(&nx, &ny);
-							QMatrix mp;
+							QTransform mp;
 //							mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
 							mp.rotate(currItem->rotation());
 							np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
-							QMatrix pm;
+							QTransform pm;
 							m_canvas->Transform(currItem, pm);
 							switch (frameResizeHandle)
 							{
@@ -1227,7 +1227,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (currItem->locked())
 					break;
-				QMatrix p;
+				QTransform p;
 				m_canvas->Transform(currItem, p);
 				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
@@ -1328,7 +1328,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;
-	QMatrix pm;
+	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
@@ -1898,7 +1898,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
-					QMatrix mat;
+					QTransform mat;
 					m_canvas->Transform(currItem, mat);
 					m_doc->RotMode ( 2);
 //					RCenter = FPoint(currItem->xPos()+currItem->width()/2, currItem->yPos()+currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, true);
@@ -2385,7 +2385,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				for (int a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = m_doc->Items->at(a);
-					QMatrix p;
+					QTransform p;
 					m_canvas->Transform(docItem, p);
 					QRegion apr = QRegion(docItem->Clip * p);
 					QRect apr2(docItem->getRedrawBounding(1.0));
@@ -2781,7 +2781,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			double itemY = 0.0;
 			if (m_doc->appMode == modeDrawLine)
 			{
-				QMatrix p;
+				QTransform p;
 				m_canvas->Transform(currItem, p);
 				QPoint np = m->pos() * p.inverted();
 				np = m_doc->ApplyGrid(np);
@@ -2974,7 +2974,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		if ((m_doc->appMode == modeDrawLine) && (inItemCreation))
 		{
 			currItem = m_doc->m_Selection->itemAt(0);
-			QMatrix p;
+			QTransform p;
 			m_canvas->Transform(currItem, p);
 			QPoint np = m->pos() * p.inverted();
 			np = m_doc->ApplyGrid(np);
@@ -3356,7 +3356,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 								m_doc->SnapGuides = sav;
 								m_doc->ApplyGuides(&nx, &ny);
 								m_doc->SnapGuides = false;
-								QMatrix ma;
+								QTransform ma;
 								ma.translate(currItem->xPos(), currItem->yPos());
 								ma.rotate(currItem->rotation());
 								double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
@@ -3924,7 +3924,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				for (int a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = m_doc->Items->at(a);
-					QMatrix p;
+					QTransform p;
 					m_canvas->Transform(docItem, p);
 					QRegion apr = QRegion(docItem->Clip * p);
 					QRect apr2(docItem->getRedrawBounding(1.0));
@@ -4085,7 +4085,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		QMatrix pm;
+		QTransform pm;
 //		pm.translate(-m_doc->minCanvasCoordinate.x()*m_canvas->scale(), -m_doc->minCanvasCoordinate.y()*m_canvas->scale());
 		m_canvas->Transform(currItem, pm);
 		FPoint npf = FPoint(m->pos() * pm.inverted());
@@ -4263,7 +4263,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
-	QMatrix p;
+	QTransform p;
 	QRectF tx, mpo;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -4485,7 +4485,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		int currNr = m_doc->currentPage()->FromMaster.count()-1;
 		for (a = 0; a < m_doc->currentPage()->FromMaster.count(); ++a)
 		{
-			p = QMatrix();
+			p = QTransform();
 			if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 			{
 				double OldX = currItem->xPos();
@@ -4640,7 +4640,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			continue;
 		if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
 		{
-			p = QMatrix();
+			p = QTransform();
 			m_canvas->Transform(currItem, p);
 			if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
 			        (QRegion(currItem->Clip * p).contains(mpo.toRect())))

@@ -295,8 +295,8 @@ public:
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	QRectF getBoundingRect() const;
 	QRectF getVisualBoundingRect() const;
-	void getTransform(QMatrix& mat) const;
-	QMatrix getTransform() const;
+	void getTransform(QTransform& mat) const;
+	QTransform getTransform() const;
 	/**
 	 * @brief Check if a QPoint is within the items boundaries
 	 * No coordinates transformation is performed
@@ -1026,7 +1026,7 @@ public:
 protected:
 
 	void drawLockedMarker(ScPainter *p);
-	void drawArrow(ScPainter *p, QMatrix &arrowTrans, int arrowIndex);
+	void drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex);
 	
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager * const undoManager;

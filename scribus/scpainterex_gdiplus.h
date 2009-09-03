@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QGlobalStatic>
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 #include <QPixmap>
 #include <QStack>
 
@@ -77,8 +77,8 @@ public:
 	virtual void clear( ScColorShade & );
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QMatrix & );
-	virtual const QMatrix worldMatrix();
+	virtual void setWorldMatrix( const QTransform & );
+	virtual const QTransform worldMatrix();
 	virtual void translate( double, double );
 	virtual void rotate( double );
 	virtual void scale( double, double );
@@ -97,7 +97,7 @@ public:
 	virtual void setFillMode( int fill );
 	virtual int  fillMode() { return m_fillMode; }
 	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void setPattern ( ScPattern* pattern, QMatrix& patternTransform );
+	virtual void setPattern ( ScPattern* pattern, QTransform& patternTransform );
 	virtual void setClipPath();
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
@@ -141,7 +141,7 @@ private:
 
 	unsigned int m_width;
 	unsigned int m_height;
-	QMatrix  m_matrix;
+	QTransform  m_matrix;
 	QFont m_font;
 /* Filling */
 	ScColorShade m_fillColor;
@@ -164,7 +164,7 @@ private:
 	QList<double> m_array;
 	double m_offset;
 /* Transformation Stack */
-	QStack<QMatrix> m_stack;
+	QStack<QTransform> m_stack;
 
 /* Some data to describe state of drawing */	
 	bool m_pathIsClosed;

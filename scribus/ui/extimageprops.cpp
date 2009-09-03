@@ -242,7 +242,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			FPoint min = getMinClipF(&Path);
 			Path.translate(-min.x(), -min.y());
 			FPoint max = Path.WidthHeight();
-			QMatrix mm;
+			QTransform mm;
 			mm.scale(34.0 / qMax(max.x(), max.y()), 34.0 / qMax(max.x(), max.y()));
 			Path.map(mm);
 			p->setupPolygon(&Path);
@@ -313,7 +313,7 @@ void ExtImageProps::leaveOK()
 		{
 			currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
 			currentItem->pixm.imgInfo.usedPath = sel[0]->text();
-			QMatrix cl;
+			QTransform cl;
 			cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
 			cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 			currentItem->imageClip.map(cl);
@@ -352,7 +352,7 @@ void ExtImageProps::changePreview()
 			{
 				currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
 				currentItem->pixm.imgInfo.usedPath = sel[0]->text();
-				QMatrix cl;
+				QTransform cl;
 				cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
 				cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 				currentItem->imageClip.map(cl);
@@ -444,7 +444,7 @@ void ExtImageProps::selPath(QListWidgetItem *c)
 	{
 		currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
 		currentItem->pixm.imgInfo.usedPath = c->text();
-		QMatrix cl;
+		QTransform cl;
 		cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
 		cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 		currentItem->imageClip.map(cl);

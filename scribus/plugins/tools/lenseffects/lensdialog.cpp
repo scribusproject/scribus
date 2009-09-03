@@ -280,7 +280,7 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		else
 		{
 			PageItem* parent = groupStack3.top();
-			QMatrix mm;
+			QTransform mm;
 			mm.rotate(-parent->rotation());
 			mm.translate(-parent->xPos(), -parent->yPos());
 			pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
@@ -334,13 +334,13 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 				{
 					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-					QMatrix qmatrix;
+					QTransform qmatrix;
 					qmatrix.translate(patternOffsetX, patternOffsetY);
 					qmatrix.rotate(patternRotation);
 					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
 					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
 					QBrush brush = QBrush(pat);
-					brush.setMatrix(qmatrix);
+					brush.setTransform(qmatrix);
 					pItem->setBrush(brush);
 				}
 			}

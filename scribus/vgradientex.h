@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #define __VGRADIENTEX_H__
 
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 
 #include "fpoint.h"
 #include "sccolor.h"
@@ -126,7 +126,7 @@ public:
 	FPoint vector() const { return m_vector; }
 	void setVector( const FPoint &vector ) { m_vector = vector; }
 
-	void transform( const QMatrix& m );
+	void transform( const QTransform& m );
 
 protected:
 	QList<VColorStopEx*>        m_colorStops;

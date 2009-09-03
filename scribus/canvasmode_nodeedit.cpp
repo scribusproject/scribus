@@ -305,7 +305,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (!currItem->locked())
 			{
-				QMatrix p; // = currItem->getTransform();
+				QTransform p; // = currItem->getTransform();
 				QRect mpo; // = QRect(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 				//				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				handleNodeEditMove(m, mpo, currItem, p);
@@ -661,12 +661,12 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	FPointArray Clip = m_doc->nodeEdit.beginTransaction(currItem);
 	bool edited = false;
 	bool pfound = false;
-//	QMatrix pm;
+//	QTransform pm;
 //	pm.translate(-m_doc->minCanvasCoordinate.x()*m_canvas->scale(), -m_doc->minCanvasCoordinate.y()*m_canvas->scale());
 //	m_canvas->Transform(currItem, pm);
 //	npf2 = FPoint(m->pos() * pm.inverted());
 	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, true);
-	QMatrix pm2 = currItem->getTransform();
+	QTransform pm2 = currItem->getTransform();
 	for (int a=0; a < signed(Clip.size()); ++a)
 	{
 		if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
@@ -1100,9 +1100,9 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 
 
 
-bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, QMatrix)
+bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, QTransform)
 {
-	QMatrix itemPos = currItem->getTransform();
+	QTransform itemPos = currItem->getTransform();
 	FPointArray Clip;
 	m_doc->nodeEdit.ClRe2 = -1;
 	m_doc->nodeEdit.SegP1 = -1;

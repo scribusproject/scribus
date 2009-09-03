@@ -163,7 +163,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer
 		{
 			while (currItem == groupStack.top())
 			{
-				QMatrix mm;
+				QTransform mm;
 				PageItem *tmpItem = groupClips.pop();
 				FPointArray cl = tmpItem->PoLine.copy();
 				mm.translate(tmpItem->xPos(), tmpItem->yPos());
@@ -283,7 +283,7 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, ScLayer& 
 		{
 			while (currItem == groupStack.top())
 			{
-				QMatrix mm;
+				QTransform mm;
 				PageItem *tmpItem = groupClips.pop();
 				FPointArray cl = tmpItem->PoLine.copy();
 				mm.translate(tmpItem->xPos(), tmpItem->yPos());
@@ -377,7 +377,7 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 		}
 		else
 		{
-			QMatrix patternTransform;
+			QTransform patternTransform;
 			ScPattern& pattern = m_doc->docPatterns[item->pattern()];
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
@@ -393,7 +393,7 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 	{
 		painter->setFillMode(ScPainterExBase::Gradient);
 		painter->m_fillGradient = VGradientEx(item->fill_gradient, *m_doc);
-		QMatrix grm;
+		QTransform grm;
 		grm.rotate(item->rotation());
 		FPointArray gra;
 		switch (item->GrType)
@@ -507,7 +507,7 @@ void ScPageOutput::drawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 	
 	//if (style.font().canRender(QChar(glyph)))
 	{
-		QMatrix chma, chma2, chma3, chma4, chma5, chma6;
+		QTransform chma, chma2, chma3, chma4, chma5, chma6;
 		chma.scale(glyphs.scaleH * style.fontSize() / 100.00, glyphs.scaleV * style.fontSize() / 100.0);
 		FPointArray gly = style.font().glyphOutline(glyph);
 		// Do underlining first so you can get typographically correct
@@ -671,7 +671,7 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 		{
 			p->save();
 			FPointArray cl = embedded->PoLine.copy();
-			QMatrix mm;
+			QTransform mm;
 			mm.translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
 			if (style.baselineOffset() != 0)
 				mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
@@ -780,7 +780,7 @@ void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, const 
 
 	// Compute pattern tansformation matrix and its inverse for converting pattern coordinates
 	// to pageitem coordinates 
-	QMatrix matrix, invMat;
+	QTransform matrix, invMat;
 	matrix.translate(patternOffsetX, patternOffsetY);
 	matrix.rotate(patternRotation);
 	matrix.scale(pattern.scaleX, pattern.scaleY);
@@ -974,14 +974,14 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	}
 	if (startArrowIndex != 0)
 	{
-		QMatrix arrowTrans;
+		QTransform arrowTrans;
 		arrowTrans.translate(0, 0);
 		arrowTrans.scale(-1,1);
 		drawArrow(painter, item, arrowTrans, startArrowIndex);
 	}
 	if (endArrowIndex != 0)
 	{
-		QMatrix arrowTrans;
+		QTransform arrowTrans;
 		arrowTrans.translate(item->width(), 0);
 		drawArrow(painter, item, arrowTrans, endArrowIndex);
 	}
@@ -1117,27 +1117,27 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		hl->PtransY = point.y();
 		hl->PRot    = currAngle * M_PI / 180.0;
 		hl->PDx     = dx;
-		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx, 0 );
+		QTransform trafo = QTransform( 1, 0, 0, -1, -dx, 0 );
 		if (item->textPathFlipped)
-			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+			trafo *= QTransform(1, 0, 0, -1, 0, 0);
 		if (item->textPathType == 0)
-			trafo *= QMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
+			trafo *= QTransform( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
 		else if (item->textPathType == 1)
-			trafo *= QMatrix( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
+			trafo *= QTransform( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
 		else if (item->textPathType == 2)
 		{
 			double a = 1;
 			if (tangent.x() < 0)
 				a = -1;
 			if (fabs(tangent.x()) > 0.1)
-				trafo *= QMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
+				trafo *= QTransform( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
 			else
-				trafo *= QMatrix( a, 4 * a, 0, -1, point.x(), point.y() );
+				trafo *= QTransform( a, 4 * a, 0, -1, point.x(), point.y() );
 		}
-		QMatrix sca = painter->worldMatrix();
+		QTransform sca = painter->worldMatrix();
 		trafo *= sca;
 		painter->save();
-		QMatrix savWM = painter->worldMatrix();
+		QTransform savWM = painter->worldMatrix();
 		painter->setWorldMatrix(trafo);
 
 		actFill = itemText.charStyle(a).fillColor();
@@ -1252,7 +1252,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QMatrix arrowTrans;
+					QTransform arrowTrans;
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
 					drawArrow(painter, item, arrowTrans, startArrowIndex);
@@ -1269,7 +1269,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QMatrix arrowTrans;
+					QTransform arrowTrans;
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
 					drawArrow(painter, item, arrowTrans, endArrowIndex);
@@ -1282,7 +1282,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 
 void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip )
 {
-	QMatrix wm;
+	QTransform wm;
 	QPoint pt1, pt2;
 	FPoint ColBound;
 	QRegion cm;
@@ -1408,7 +1408,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	painter->restore();
 }
 
-void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QMatrix &arrowTrans, int arrowIndex)
+void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex)
 {
 	FPointArray arrow = m_doc->arrowStyles.at(arrowIndex-1).points.copy();
 	if (item->NamedLStyle.isEmpty())

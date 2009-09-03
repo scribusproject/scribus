@@ -111,7 +111,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			int nrOfCopies = dia->getCount();
-			QMatrix matrix = dia->getTransformMatrix();
+			QTransform matrix = dia->getTransformMatrix();
 			int baseP = dia->getBasepoint();
 			if (nrOfCopies == 0)
 			{
@@ -131,8 +131,8 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 					PageItem *currItem = currDoc->m_Selection->itemAt(a);
 					double deltaX = currItem->xPos() - gx;
 					double deltaY = currItem->yPos() - gy;
-					QMatrix matrixPre = QMatrix();
-					QMatrix matrixAft = QMatrix();
+					QTransform matrixPre = QTransform();
+					QTransform matrixAft = QTransform();
 					switch (baseP)
 					{
 						case 2:
@@ -179,7 +179,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				currDoc->view()->updatesOn(false);
 				currDoc->m_Selection->delaySignalsOn();
 				currDoc->scMW()->ScriptRunning = true;
-				QMatrix comulatedMatrix = matrix;
+				QTransform comulatedMatrix = matrix;
 				PageItem *currItem = currDoc->m_Selection->itemAt(0);
 				Elements.append(currItem);
 				int rotBack = currDoc->RotMode();
@@ -205,8 +205,8 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 						currItem = currDoc->m_Selection->itemAt(a);
 						double deltaX = currItem->xPos() - gx;
 						double deltaY = currItem->yPos() - gy;
-						QMatrix matrixPre = QMatrix();
-						QMatrix matrixAft = QMatrix();
+						QTransform matrixPre = QTransform();
+						QTransform matrixAft = QTransform();
 						switch (baseP)
 						{
 							case 2:

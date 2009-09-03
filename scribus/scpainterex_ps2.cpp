@@ -81,8 +81,8 @@ ScPainterEx_Ps2::ScPainterEx_Ps2(QIODevice* iodev, QRect& rect, ScPs2OutputParam
 	m_lineJoin = Qt::RoundJoin;
 	m_fillGradient = VGradientEx(VGradientEx::linear);
 	m_strokeGradient = VGradientEx(VGradientEx::linear);
-	m_matrix = QMatrix();
-	m_pageTrans = QMatrix();
+	m_matrix = QTransform();
+	m_pageTrans = QTransform();
 	// Path state
 	m_pathIsClosed = true;
 	m_drawingClosedPath = false;
@@ -153,12 +153,12 @@ void ScPainterEx_Ps2::clear( ScColorShade &c )
 
 }
 
-const QMatrix ScPainterEx_Ps2::worldMatrix()
+const QTransform ScPainterEx_Ps2::worldMatrix()
 {
 	return m_matrix;
 }
 
-void ScPainterEx_Ps2::setWorldMatrix( const QMatrix &mat )
+void ScPainterEx_Ps2::setWorldMatrix( const QTransform &mat )
 {
 	m_matrix = mat;
 }
@@ -249,7 +249,7 @@ void ScPainterEx_Ps2::setGradient(VGradientEx::Type mode, FPoint orig, FPoint ve
 	m_fillGradient.setFocalPoint(foc);
 }
 
-void ScPainterEx_Ps2::setPattern( ScPattern* pattern, QMatrix& patternTransform )
+void ScPainterEx_Ps2::setPattern( ScPattern* pattern, QTransform& patternTransform )
 {
 	m_pattern = pattern;
 	m_patternTransform = patternTransform;

@@ -97,15 +97,15 @@ void ScPainterEx_Cairo::clear( ScColorShade &c )
 	m_graphics->FillRectangle(&brush, 0, 0, m_width, m_height);*/
 }
 
-const QMatrix ScPainterEx_Cairo::worldMatrix()
+const QTransform ScPainterEx_Cairo::worldMatrix()
 {
 	cairo_matrix_t matrix;
 	cairo_get_matrix(m_cr, &matrix);
-	QMatrix mat(matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0);
+	QTransform mat(matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0);
 	return mat;
 }
 
-void ScPainterEx_Cairo::setWorldMatrix( const QMatrix &mat )
+void ScPainterEx_Cairo::setWorldMatrix( const QTransform &mat )
 {
 	cairo_matrix_t matrix;
 	cairo_matrix_init(&matrix, mat.m11(), mat.m12(), mat.m21(), mat.m22(), mat.dx(), mat.dy());
@@ -170,7 +170,7 @@ void ScPainterEx_Cairo::setGradient(VGradientEx::Type mode, FPoint orig, FPoint 
 	m_fillGradient.setFocalPoint(foc);
 }
 
-void ScPainterEx_Cairo::setPattern( ScPattern* pattern, QMatrix& patternTransform )
+void ScPainterEx_Cairo::setPattern( ScPattern* pattern, QTransform& patternTransform )
 {
 	m_pattern = pattern;
 	m_patternTransform = patternTransform;

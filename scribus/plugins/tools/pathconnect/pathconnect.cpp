@@ -197,11 +197,11 @@ FPointArray PathConnectPlugin::computePath(int pointOne, int pointTwo, int mode,
 	FPointArray result;
 	FPointArray path1 = p1.copy();
 	FPointArray path2 = p2.copy();
-	QMatrix ma;
+	QTransform ma;
 	ma.translate(Item2->xPos(), Item2->yPos());
 	ma.rotate(Item2->rotation());
 	path2.map(ma);
-	QMatrix ma2;
+	QTransform ma2;
 	ma2.translate(originalXPos, originalYPos);
 	ma2.rotate(Item1->rotation());
 	ma2 = ma2.inverted();

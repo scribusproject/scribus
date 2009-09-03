@@ -55,7 +55,7 @@ void WMFGraphicsState::updateWorldMatrix(void)
 	double yscale = (windowExt.height() != 0.0) ? (viewportExt.height() / windowExt.height()) : 1.0;
 	double dx     = viewportOrg.x() - xscale * windowOrg.x();
 	double dy     = viewportOrg.y() - yscale * windowOrg.y();
-	worldMatrix.setMatrix( xscale, 0, 0, yscale, dx, dy );
+	worldMatrix = QTransform( xscale, 0.0, 0.0, yscale, dx, dy );
 }
 
 WMFContext::WMFContext(void)

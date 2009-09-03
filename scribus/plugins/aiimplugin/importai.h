@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define IMPORTAI_H
 
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 #include <QObject>
 #include <QString>
 
@@ -123,15 +123,15 @@ private:
 	QMap<QString, VGradient> m_gradients;
 	VGradient currentGradient;
 	QString currentGradientName;
-	QMatrix currentGradientMatrix;
+	QTransform currentGradientMatrix;
 	QPointF currentGradientOrigin;
 	double currentGradientAngle;
 	double currentGradientLenght;
 	bool gradientMode;
 	bool wasBC;
 	bool itemRendered;
-	QMatrix startMatrix;
-	QMatrix endMatrix;
+	QTransform startMatrix;
+	QTransform endMatrix;
 	bool patternMode;
 	QString currentPatternDefName;
 	QString currentPatternName;
@@ -169,7 +169,7 @@ private:
 	QString docOrganisation;
 	QString docTitle;
 	int textMode;
-	QMatrix textMatrix;
+	QTransform textMatrix;
 	StoryText textData;
 	QString textFont;
 	double textSize;

@@ -78,14 +78,14 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 		}
 		if (m_startArrowIndex != 0)
 		{
-			QMatrix arrowTrans;
+			QTransform arrowTrans;
 			arrowTrans.translate(0, 0);
 			arrowTrans.scale(-1,1);
 			drawArrow(p, arrowTrans, m_startArrowIndex);
 		}
 		if (m_endArrowIndex != 0)
 		{
-			QMatrix arrowTrans;
+			QTransform arrowTrans;
 			arrowTrans.translate(Width, 0);
 			drawArrow(p, arrowTrans, m_endArrowIndex);
 		}

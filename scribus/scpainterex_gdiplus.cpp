@@ -155,12 +155,12 @@ void ScPainterEx_GDIPlus::clear( ScColorShade &c )
 	m_graphics->FillRectangle(&brush, 0, 0, m_width, m_height);
 }
 
-const QMatrix ScPainterEx_GDIPlus::worldMatrix()
+const QTransform ScPainterEx_GDIPlus::worldMatrix()
 {
 	return m_matrix;
 }
 
-void ScPainterEx_GDIPlus::setWorldMatrix( const QMatrix &mat )
+void ScPainterEx_GDIPlus::setWorldMatrix( const QTransform &mat )
 {
 	m_matrix = mat;
 }
@@ -259,7 +259,7 @@ void ScPainterEx_GDIPlus::setGradient(VGradientEx::Type mode, FPoint orig, FPoin
 	m_fillGradient.setFocalPoint(foc);
 }
 
-void ScPainterEx_GDIPlus::setPattern( ScPattern* pattern, QMatrix& patternTransform )
+void ScPainterEx_GDIPlus::setPattern( ScPattern* pattern, QTransform& patternTransform )
 {
 	m_pattern = pattern;
 	m_patternTransform = patternTransform;

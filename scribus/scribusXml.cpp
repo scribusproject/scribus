@@ -1467,7 +1467,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			{
 				Neu->imageClip = Neu->pixm.imgInfo.PDSpathData[itemClip].copy();
 				Neu->pixm.imgInfo.usedPath = itemClip;
-				QMatrix cl;
+				QTransform cl;
 				cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
 				cl.scale(Neu->imageXScale(), Neu->imageYScale());
 				Neu->imageClip.map(cl);
@@ -1765,7 +1765,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			{
 				Neu->imageClip = Neu->pixm.imgInfo.PDSpathData[patClipPath].copy();
 				Neu->pixm.imgInfo.usedPath = patClipPath;
-				QMatrix cl;
+				QTransform cl;
 				cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
 				cl.scale(Neu->imageXScale(), Neu->imageYScale());
 				Neu->imageClip.map(cl);
@@ -1931,7 +1931,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		{
 			painter->save();
 			FPointArray cl = embedded->PoLine.copy();
-			QMatrix mm;
+			QTransform mm;
 			mm.translate(embedded->gXpos, embedded->gYpos);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );

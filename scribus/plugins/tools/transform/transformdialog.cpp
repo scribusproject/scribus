@@ -313,9 +313,9 @@ void TransformDialog::removeTransform()
 	}
 }
 
-QMatrix TransformDialog::getTransformMatrix()
+QTransform TransformDialog::getTransformMatrix()
 {
-	QMatrix ret = QMatrix();
+	QTransform ret = QTransform();
 	for (int a = 0; a < transformSelector->count(); a++)
 	{
 		QListWidgetItem *it = transformSelector->item(a);

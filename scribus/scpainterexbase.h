@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QGlobalStatic>
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 #include <QPixmap>
 #include <QStack>
 
@@ -72,8 +72,8 @@ public:
 	virtual void clear( ScColorShade& ) = 0;
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QMatrix & ) = 0;
-	virtual const QMatrix worldMatrix() = 0;
+	virtual void setWorldMatrix( const QTransform & ) = 0;
+	virtual const QTransform worldMatrix() = 0;
 	virtual void translate( double, double ) = 0;
 	virtual void rotate( double ) = 0;
 	virtual void scale( double, double ) = 0;
@@ -92,7 +92,7 @@ public:
 	virtual void setFillMode( int fill ) = 0;
 	virtual int  fillMode() = 0;
 	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0) ) = 0;
-	virtual void setPattern ( ScPattern* pattern, QMatrix& patternTransform ) = 0;
+	virtual void setPattern ( ScPattern* pattern, QTransform& patternTransform ) = 0;
 	virtual void setClipPath() = 0;
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) = 0;
@@ -125,7 +125,7 @@ public:
 	VGradientEx m_fillGradient;
 	VGradientEx m_strokeGradient;
 	ScPattern*  m_pattern;
-	QMatrix     m_patternTransform;
+	QTransform     m_patternTransform;
 };
 
 #endif

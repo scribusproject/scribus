@@ -192,7 +192,7 @@ public:
 	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 //	void ToView(QPainter *p);
-//	void ToView(QMatrix& m);
+//	void ToView(QTransform& m);
 // 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);

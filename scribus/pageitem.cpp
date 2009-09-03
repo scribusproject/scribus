@@ -1056,7 +1056,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				{
 					p->setFillMode(ScPainter::Gradient);
 					p->fill_gradient = fill_gradient;
-					QMatrix grm;
+					QTransform grm;
 					grm.rotate(Rot);
 					FPointArray gra;
 					switch (GrType)
@@ -1321,7 +1321,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		{
 			p->save();
 			FPointArray cl = embedded->PoLine.copy();
-			QMatrix mm;
+			QTransform mm;
 			mm.translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
 			if (style.baselineOffset() != 0)
 				mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
@@ -1610,7 +1610,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 		{
 			painter->save();
 			FPointArray cl = embedded->PoLine.copy();
-			QMatrix mm;
+			QTransform mm;
 			mm.translate(embedded->gXpos, embedded->gYpos);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );
@@ -1857,7 +1857,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			glyph -= ScFace::CONTROL_GLYPHS;
 		else
 			glyph = 32;
-		QMatrix chma, chma4, chma5;
+		QTransform chma, chma4, chma5;
 		FPointArray points;
 		if (glyph == SpecialChars::TAB.unicode())
 		{
@@ -4228,15 +4228,15 @@ void PageItem::SetFrameRound()
 
 
 
-void PageItem::getTransform(QMatrix& mat) const
+void PageItem::getTransform(QTransform& mat) const
 {
 	mat.translate(Xpos, Ypos);
 	mat.rotate(Rot);
 }
 
-QMatrix PageItem::getTransform() const
+QTransform PageItem::getTransform() const
 {
-	QMatrix result;
+	QTransform result;
 	getTransform(result);
 	return result;
 }
@@ -4291,7 +4291,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
-		QMatrix arrowTrans;
+		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
@@ -4344,7 +4344,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	}
 	if (m_endArrowIndex != 0)
 	{
-		QMatrix arrowTrans;
+		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
@@ -4446,7 +4446,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
-		QMatrix arrowTrans;
+		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
@@ -4499,7 +4499,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	}
 	if (m_endArrowIndex != 0)
 	{
-		QMatrix arrowTrans;
+		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
@@ -4636,7 +4636,7 @@ bool PageItem::pointWithinItem(const int x, const int y) const
 
 bool PageItem::mouseWithinItem(const int x, const int y, double scale) const
 {
-	QMatrix p;
+	QTransform p;
 	QRectF transRect;
 	p.translate(Xpos * scale, Ypos*scale);
 	p.scale(scale, scale);
@@ -4701,7 +4701,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				{
 					imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
 					pixm.imgInfo.usedPath = clPath;
-					QMatrix cl;
+					QTransform cl;
 					cl.translate(LocalX*LocalScX, LocalY*LocalScY);
 					cl.scale(LocalScX, LocalScY);
 					imageClip.map(cl);
@@ -4714,7 +4714,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		{
 			imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
 			pixm.imgInfo.usedPath = clPath;
-			QMatrix cl;
+			QTransform cl;
 			cl.translate(LocalX*LocalScX, LocalY*LocalScY);
 			cl.scale(LocalScX, LocalScY);
 			imageClip.map(cl);
@@ -4932,7 +4932,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1*3.5, ofy+scp1));
 }
 
-void PageItem::drawArrow(ScPainter *p, QMatrix &arrowTrans, int arrowIndex)
+void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 {
 	FPointArray arrow = m_Doc->arrowStyles.at(arrowIndex-1).points.copy();
 	if (NamedLStyle.isEmpty())
@@ -5037,7 +5037,7 @@ void PageItem::AdjustPictScale()
 	if (imageClip.size() != 0)
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
-		QMatrix cl;
+		QTransform cl;
 		cl.translate(LocalX*LocalScX, LocalY*LocalScY);
 		cl.scale(LocalScX, LocalScY);
 		imageClip.map(cl);
@@ -5178,7 +5178,7 @@ void PageItem::setPolyClip(int up, int down)
 	for (int a = 0; a < cl.size()-1; ++a)
 	{
 		rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
-		QMatrix ma;
+		QTransform ma;
 		ma.rotate(rot);
 		np = QPoint(0, -upval) * ma;
 		np2 = QPoint(0, -downval) * ma;
@@ -5390,7 +5390,7 @@ void PageItem::moveImageInFrame(double newX, double newY)
 	if (imageClip.size() != 0)
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
-		QMatrix cl;
+		QTransform cl;
 		cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
 		cl.scale(imageXScale(), imageYScale());
 		imageClip.map(cl);
@@ -5465,7 +5465,7 @@ void PageItem::updateClip()
 			{
 				double scx = width() / OldB2;
 				double scy = height() / OldH2;
-				QMatrix ma;
+				QTransform ma;
 				ma.scale(scx, scy);
 				FPointArray gr;
 				gr.addPoint(GrStartX, GrStartY);
@@ -5517,7 +5517,7 @@ void PageItem::updateClip()
 				return;
 			double scx = width() / OldB2;
 			double scy = height() / OldH2;
-			QMatrix ma;
+			QTransform ma;
 			ma.scale(scx, scy);
 			FPointArray gr;
 			gr.addPoint(GrStartX, GrStartY);

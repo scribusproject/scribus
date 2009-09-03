@@ -107,7 +107,7 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 		newAngle = item->rotation() - (m_startAngle - newAngle);
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(m_rotCenter.x(), m_rotCenter.y());
 		ma.scale(1, 1);
 		ma.rotate(newAngle);
@@ -118,7 +118,7 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 	else if (m_rotMode != 0)
 	{
 		FPoint n(0,0);
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(item->xPos(), item->yPos());
 		ma.scale(1, 1);
 		ma.rotate(item->rotation());
@@ -202,7 +202,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
 	QRect tx;
-	QMatrix pm;
+	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
@@ -253,7 +253,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 		}
 		else
 		{
-			QMatrix mat;
+			QTransform mat;
 			m_canvas->Transform(currItem, mat);
 			m_rotMode   = 2;
 			m_rotCenter = FPoint(currItem->width()/2, currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, false);
@@ -433,7 +433,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (currItem->locked())
 					break;
-				QMatrix p;
+				QTransform p;
 				m_canvas->Transform(currItem, p);
 				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))

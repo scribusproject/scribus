@@ -65,7 +65,7 @@ void ScPageOutput_Ps2::drawPage(Page* page)
 	double dy = -clipy * scaley;
 	if (  m_options.mirrorH ) dx += clipw;
 	if ( !m_options.mirrorV ) dy += cliph;
-	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
+	QTransform matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter.setWorldMatrix( matrix );
 	// Draw page
 	ScPageOutput::drawPage(page, &painter);

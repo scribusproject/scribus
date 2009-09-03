@@ -1285,8 +1285,8 @@ void AIPlug::processData(QString data)
 			gradientMode = true;
 			wasBC = false;
 			itemRendered = false;
-			startMatrix = QMatrix();
-			endMatrix = QMatrix();
+			startMatrix = QTransform();
+			endMatrix = QTransform();
 		}
 		else if (command == "Xm")
 		{
@@ -1306,8 +1306,8 @@ void AIPlug::processData(QString data)
 				gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 				startMatrix.translate(m5, -m6);
 //				endMatrix.scale(m1, m4);
-				endMatrix *= QMatrix(m1, m2, m3, m4, 0, 0);
-//				endMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
+				endMatrix *= QTransform(m1, m2, m3, m4, 0, 0);
+//				endMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 				wasBC = true;
 			}
 		}
@@ -1322,7 +1322,7 @@ void AIPlug::processData(QString data)
 					ite->GrType = 6;
 				else
 					ite->GrType = 7;
-				QMatrix m1;
+				QTransform m1;
 				m1.translate(currentGradientOrigin.x() - ite->xPos(), currentGradientOrigin.y() - ite->yPos());
 				m1.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 				m1.rotate(-currentGradientAngle);
@@ -1336,7 +1336,7 @@ void AIPlug::processData(QString data)
 					QPointF newS = startMatrix.map(QPointF(ite->GrStartX, ite->GrStartY));
 					ite->GrStartX = newS.x();
 					ite->GrStartY = newS.y();
-					QMatrix m2;
+					QTransform m2;
 //					m2.translate(ite->GrStartX, ite->GrStartY);
 					m2.rotate(-currentGradientAngle);
 					m2 *= endMatrix;
@@ -1346,7 +1346,7 @@ void AIPlug::processData(QString data)
 				}
 			}
 			wasBC = false;
-			currentGradientMatrix = QMatrix();
+			currentGradientMatrix = QTransform();
 			currentGradientOrigin = QPointF(0.0, 0.0);
 			currentGradientAngle = 0.0;
 			currentGradientLenght = 1.0;
@@ -1363,7 +1363,7 @@ void AIPlug::processData(QString data)
 			double xOrig, yOrig, m1, m2, m3, m4, m5, m6;
 			gVals >> xOrig >> yOrig >> currentGradientAngle >> currentGradientLenght >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 			currentGradientOrigin = QPointF(xOrig - docX, docHeight - (yOrig - docY));
-			currentGradientMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
+			currentGradientMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 		}
 /* End Graphics state commands */
 /* Start Color commands */
@@ -1694,7 +1694,7 @@ void AIPlug::processData(QString data)
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> textMode;
 			textData.clear();
-			textMatrix = QMatrix();
+			textMatrix = QTransform();
 			maxWidth = 0;
 			tempW = 0;
 			maxHeight = 0;
@@ -1709,7 +1709,7 @@ void AIPlug::processData(QString data)
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			double m1, m2, m3, m4, m5, m6;
 			gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
-			textMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
+			textMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 		}
 		else if (command == "Tx") // || (command == "TX"))
 		{
@@ -2186,7 +2186,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		psdata.resize(dataSize);
 		ts.readRawData(psdata.data(), dataSize);
 	}
-	QMatrix imgMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
+	QTransform imgMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
 	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 	pos += QPointF(baseX, -baseY);
@@ -2439,7 +2439,7 @@ bool AIPlug::convert(QString fn)
 	currentGradient.clearStops();
 	currentGradient.setRepeatMethod( VGradient::none );
 	currentGradientName = "";
-	currentGradientMatrix = QMatrix();
+	currentGradientMatrix = QTransform();
 	currentGradientOrigin = QPointF(0.0, 0.0);
 	currentGradientAngle = 0.0;
 	currentGradientLenght = 1.0;

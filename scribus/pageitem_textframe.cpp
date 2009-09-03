@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDebug>
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 #include <QPalette>
 #include <QPoint>
 #include <QPolygon>
@@ -86,7 +86,7 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 {
 	QRegion res;
-	QMatrix pp;
+	QTransform pp;
 //	pp.begin(view->viewport());
 	pp.translate(docItem->xPos() - xOffset, docItem->yPos() - yOffset);
 	pp.rotate(docItem->rotation());
@@ -470,7 +470,7 @@ struct LineControl {
 	}
 	
 	/// find x position to start current line
-	double startOfLine(const QRegion& shape, const QMatrix& pf2, double ascent, double descent, double morespace)
+	double startOfLine(const QRegion& shape, const QTransform& pf2, double ascent, double descent, double morespace)
 	{
 		QPoint pt1, pt2;
 		double tmpX = xPos;
@@ -491,7 +491,7 @@ struct LineControl {
 	}
 	
 	/// find x position where this line must end
-	double endOfLine(const QRegion& shape, const QMatrix& pf2, double ascent, double descent, double morespace = 0)
+	double endOfLine(const QRegion& shape, const QTransform& pf2, double ascent, double descent, double morespace = 0)
 	{
 		// Keep old code for reference
 		/*double EndX = floor(qMax(line.x, qMin(colRight,breakXPos) - 1));
@@ -831,7 +831,7 @@ void PageItem_TextFrame::layout()
 	
 //	qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame());
 //	ScribusView* view = m_Doc->view();
-	QMatrix pf2;
+	QTransform pf2;
 	QPoint pt1, pt2;
 	/*QRegion cm;*/
 	double chs, chsd = 0;
@@ -2326,7 +2326,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 		layout();
 	if (invalid)
 		return;
-	QMatrix pf2;
+	QTransform pf2;
 	QPoint pt1, pt2;
 	double wide, lineCorr;
 	QChar chstr0;

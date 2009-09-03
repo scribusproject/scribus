@@ -126,7 +126,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, Page* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual bool ProcessPageLayer(ScribusDoc* Doc, Page* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
-		virtual void drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex, bool gcr);
+		virtual void drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, bool gcr);
 		virtual void putColor(const QString& color, double shade, bool fill);
 		virtual void GetBleeds(Page* page, double& left, double& right);
 		virtual void GetBleeds(Page* page, double& left, double& right, double& bottom, double& top);

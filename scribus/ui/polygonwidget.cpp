@@ -134,20 +134,20 @@ void PolygonWidget::UpdatePreView()
 	QRectF br = pp.boundingRect();
 	if (br.x() < 0)
 	{
-		QMatrix m;
+		QTransform m;
 		m.translate(-br.x(), 0);
 		pp = pp * m;
 	}
 	if (br.y() < 0)
 	{
-		QMatrix m;
+		QTransform m;
 		m.translate(0, -br.y());
 		pp = pp * m;
 	}
 	br = pp.boundingRect();
 	if ((br.height() > Preview->height() - 6) || (br.width() > Preview->width() - 6))
 	{
-		QMatrix ma;
+		QTransform ma;
 		double sca = static_cast<double>(qMax(Preview->height() - 6, Preview->width() - 6)) / static_cast<double>(qMax(br.width(), br.height()));
 		ma.scale(sca, sca);
 		pp = pp * ma;

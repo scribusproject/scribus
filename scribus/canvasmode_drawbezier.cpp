@@ -284,7 +284,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 //	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;
-	QMatrix pm;
+	QTransform pm;
 	m_MouseButtonPressed = true;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
@@ -371,7 +371,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		QMatrix pm = currItem->getTransform();
+		QTransform pm = currItem->getTransform();
 		FPoint npf = m_doc->ApplyGridF(mousePointDoc).transformPoint(pm, true);
 		currItem->PoLine.addPoint(npf);
 		bool ssiz = currItem->Sizing;

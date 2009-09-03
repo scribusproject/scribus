@@ -241,7 +241,7 @@ FPoint FPointArray::WidthHeight() const
 	return FPoint(maxx - minx,maxy - miny);
 }
 
-void FPointArray::map( QMatrix m )
+void FPointArray::map( QTransform m )
 {
 	const double m11 = m.m11();
 	const double m12 = m.m12();
