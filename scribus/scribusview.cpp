@@ -108,6 +108,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "ui/scrapbookpalette.h"
 #include "scribuscore.h"
+#include "scribuswin.h"
 #include "scribusXml.h"
 #include "selection.h"
 #include "serializer.h"
@@ -916,7 +917,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		activateWindow();
 		if (!m_ScMW->ScriptRunning)
 			raise();
-		m_ScMW->newActWin(Doc->WinHan);
+		m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
 		updateContents();
 		//>>
 		QFileInfo fi(url.toLocalFile());

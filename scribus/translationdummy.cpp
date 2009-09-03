@@ -109,7 +109,7 @@ tr("Minimize");
 tr("Maximize");
 tr("Close");
 }
-QWorkspace::QWorkspace()
+QMdiArea::QMdiArea()
 {
 tr("&Restore");
 tr("&Move");

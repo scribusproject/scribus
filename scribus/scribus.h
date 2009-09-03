@@ -60,7 +60,8 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QToolTip>
 #include <QWheelEvent>
-#include <QWorkspace>
+#include <QMdiArea>
+#include <QMdiSubWindow>
 
 
 // application specific includes
@@ -224,7 +225,7 @@ public:
 	StoryEditor* storyEditor;
 	StoryEditor* CurrStED;
 // 	QMap<QString,QString> Sprachen; // <language not translated, file name>
-	QWorkspace *wsp;
+	QMdiArea *wsp;
 	ScribusWin* ActWin;
 	QClipboard *ClipB;
 	QString LoadEnc;
@@ -269,7 +270,7 @@ public slots:
 	void windowsMenuAboutToShow();
 	//! \brief Handle the Extras menu for its items availability.
 	void extrasMenuAboutToShow();
-	void newActWin(QWidget *w);
+	void newActWin(QMdiSubWindow *w);
 	void closeActiveWindowMasterPageEditor();
 	void updateActiveWindowCaption(const QString &newCaption);
 	void windowsMenuActivated(int id);

@@ -332,12 +332,15 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	initKeyboardShortcuts();
 
 	resize(610, 600);
-	wsp = new QWorkspace( this );
+	wsp = new QMdiArea(this);
+	wsp->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+	wsp->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+//	wsp->setViewMode(QMdiArea::TabbedView);
 	setCentralWidget( wsp );
-	connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
+	connect(wsp, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on wsp created.
-	connect( scrActions["windowsCascade"], SIGNAL(triggered()) , wsp, SLOT(cascade()) );
-	connect( scrActions["windowsTile"], SIGNAL(triggered()) , wsp, SLOT(tile()) );
+	connect( scrActions["windowsCascade"], SIGNAL(triggered()) , wsp, SLOT(cascadeSubWindows()) );
+	connect( scrActions["windowsTile"], SIGNAL(triggered()) , wsp, SLOT(tileSubWindows()) );
 	initPalettes();
 
 	prefsManager->setupMainWindow(this);
@@ -1226,8 +1229,8 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 //AV -> CanvasMode
 void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 {
-	QWidgetList windows;
-	QWidget* w = NULL;
+	QList<QMdiSubWindow *> windows;
+	QMdiSubWindow* w = NULL;
 	int kk = k->key();
 	QString uc = k->text();
 // 	QString cr, Tcha, Twort;
@@ -1433,12 +1436,12 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_Tab:
 				keyrep = false;
-				windows = wsp->windowList();
+				windows = wsp->subWindowList();
 				if (windows.count() > 1)
 				{
 					for (int i = 0; i < static_cast<int>(windows.count()); ++i)
 					{
-						if (wsp->activeWindow() == windows.at(i))
+						if (wsp->activeSubWindow() == windows.at(i))
 						{
 							if (i == static_cast<int>(windows.count()-1))
 								w = windows.at(0);
@@ -1931,9 +1934,9 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		ce->ignore();
 		return;
 	}
-	QWidgetList windows = wsp->windowList();
+	QList<QMdiSubWindow *> windows = wsp->subWindowList();
 	ScribusWin* tw;
-	disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
+	disconnect(wsp, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
 	if (!windows.isEmpty())
 	{
 		uint windowCount=windows.count();
@@ -1946,7 +1949,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 			if (tw == ActWin)
 			{
 				ce->ignore();
-				connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
+				connect(wsp, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
 				return;
 			}
 		}
@@ -2245,9 +2248,9 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		actionManager->connectNewDocActions(tempDoc);
 	}
 	//<<View and window code
-	QWorkspace* qwsp=0;
+	QMdiArea* qwsp = 0;
 	if (requiresGUI)
-		qwsp=wsp;
+		qwsp = wsp;
 	ScribusWin* w = new ScribusWin(qwsp, tempDoc);
 	w->setMainWindow(this);
 	if (requiresGUI && view!=NULL)
@@ -2281,7 +2284,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	//>>
 	if (requiresGUI)
 	{
-		wsp->addWindow(w);
+		w->setSubWin(wsp->addSubWindow(w));
 		connect(undoManager, SIGNAL(undoRedoBegin()), tempDoc, SLOT(undoRedoBegin()));
 		connect(undoManager, SIGNAL(undoRedoDone()), tempDoc, SLOT(undoRedoDone()));
 		connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
@@ -2292,7 +2295,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	//Independent finishing tasks after tempDoc setup
 	if (showView)
 	{
-		if ( wsp->windowList().isEmpty() )
+		if ( wsp->subWindowList().count() == 1)
 			w->showMaximized();
 		else
 			w->show();
@@ -2359,7 +2362,7 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 		scrMenuMgr->removeMenuItem((*it), "Windows");
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
-	QWidgetList windows = wsp->windowList();
+	QList<QMdiSubWindow *> windows = wsp->subWindowList();
 	bool windowsListNotEmpty=!windows.isEmpty();
 	scrActions["windowsCascade"]->setEnabled(windowsListNotEmpty);
 	scrActions["windowsTile"]->setEnabled(windowsListNotEmpty);
@@ -2376,7 +2379,7 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 			connect( scrWindowsActions[docInWindow], SIGNAL(triggeredData(int)), this, SLOT(windowsMenuActivated(int)) );
 			if (windowCount>1)
 				scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows");
-			scrWindowsActions[docInWindow]->setChecked(wsp->activeWindow() == windows.at(i));
+			scrWindowsActions[docInWindow]->setChecked(wsp->activeSubWindow() == windows.at(i));
 		}
 	}
 }
@@ -2406,7 +2409,7 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 	scrActions["extrasManageImages"]->setEnabled(enablePicManager);
 }
 
-void ScribusMainWindow::newActWin(QWidget *w)
+void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 {
 	if (w == NULL)
 	{
@@ -2415,7 +2418,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	}
 	if (doc!=0 && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	ScribusWin* scw = (ScribusWin*)w;
+	ScribusWin* scw = (ScribusWin*)w->widget();
 	if (scw && scw->doc())
 		if (!scw->doc()->hasGUI())
 			return;
@@ -2463,11 +2466,11 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		scanDocument();
 		docCheckerPalette->buildErrorList(doc);
 		SwitchWin();
-		QWidgetList windows = wsp->windowList();
+		QList<QMdiSubWindow *> windows = wsp->subWindowList();
 		ScribusWin* swin;
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 		{
-			swin = (ScribusWin*)windows.at(i);
+			swin = (ScribusWin*)windows.at(i)->widget();
 			if (swin==ActWin && doc->masterPageMode())
 				swin->setMasterPagesPaletteShown(true);
 			else
@@ -2478,7 +2481,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		view->requestMode(doc->appMode);
 	}
 	view->setFocus();
-	wsp->setScrollBarsEnabled(!(w->isMaximized()));
+//	wsp->setScrollBarsEnabled(!(w->isMaximized()));
 	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
 	scrActions["viewShowFrames"]->setChecked(doc->guidesSettings.framesShown);
@@ -2530,7 +2533,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 
 void ScribusMainWindow::windowsMenuActivated( int id )
 {
-	QWidget* windowWidget = wsp->windowList().at( id );
+	QMdiSubWindow* windowWidget = wsp->subWindowList().at( id );
 	if ( windowWidget )
 		windowWidget->showNormal();
 	newActWin(windowWidget);
@@ -3840,7 +3843,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	if (HaveDoc)
 		outlinePalette->buildReopenVals();
 	bool ret = false;
-	QWidgetList windows = wsp->windowList();
+	QList<QMdiSubWindow *> windows = wsp->subWindowList();
 	ScribusWin* ActWinOld = NULL;
 	if (windows.count() != 0)
 		ActWinOld = ActWin;
@@ -3853,7 +3856,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	for ( uint i = 0; i < windowCount; ++i )
 	{
 		QString docNameUnmodified(windows.at(i)->windowTitle());
-		ScribusWin * mx = qobject_cast<ScribusWin*>(windows.at(i));
+		ScribusWin * mx = qobject_cast<ScribusWin*>(windows.at(i)->widget());
 		if (mx && mx->doc()->isModified() && docNameUnmodified.endsWith("*"))
 			docNameUnmodified.resize(docNameUnmodified.length() - 1);
 
@@ -3909,7 +3912,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		alignDistributePalette->setDoc(doc);
 		ActWin = w;
 		doc->WinHan = w;
-		wsp->addWindow(w);
+		w->setSubWin(wsp->addSubWindow(w));
 		w->setUpdatesEnabled(false);
 		view->updatesOn(false);
 		doc->SoftProofing = false;
@@ -3936,7 +3939,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			ActWin = NULL;
 			undoManager->setUndoEnabled(true);
 			if (windows.count() != 0)
-				newActWin(ActWinOld);
+				newActWin(ActWinOld->getSubWin());
 			return false;
 		}
 		outlinePalette->setDoc(doc);
@@ -4167,18 +4170,18 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		delete fileLoader;
 		view->updatesOn(true);
 		w->setUpdatesEnabled(true);
-		disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
-		if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
+		disconnect(wsp, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
+		if ((wsp->subWindowList().isEmpty()) || (wsp->subWindowList().count() == 1))
 			w->showMaximized();
 		else
 			w->show();
 		view->show();
-		newActWin(w);
+		newActWin(w->getSubWin());
 		doc->setCurrentPage(doc->DocPages.at(0));
 		view->cmsToolbarButton->setChecked(doc->HasCMS);
 		view->zoom();
 		view->GotoPage(0);
-		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
+		connect(wsp, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
@@ -4607,7 +4610,7 @@ bool ScribusMainWindow::DoFileClose()
 	outlinePalette->unsetDoc();
 	alignDistributePalette->setDoc(NULL);
 	//>>
-	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
+	if ((wsp->subWindowList().isEmpty()) || (wsp->subWindowList().count() == 1))
 	{
 		PluginManager& pluginManager(PluginManager::instance());
 		pluginManager.enableOnlyStartupPluginActions(this);
@@ -7631,14 +7634,14 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	if (oldImageQuality != newImageQuality)
 		view->previewQualitySwitcher->setCurrentIndex(newImageQuality);
 
-	QWidgetList windows = wsp->windowList();
+	QList<QMdiSubWindow *> windows = wsp->subWindowList();
 	bool shadowChanged = oldShowPageShadow != prefsManager->showPageShadow();
 	if (!windows.isEmpty())
 	{
 		int windowCount=static_cast<int>(windows.count());
 		for ( int i = 0; i < windowCount; ++i )
 		{
-			QWidget* w = windows.at(i);
+			QWidget* w = windows.at(i)->widget();
 			ScribusWin* scw = (ScribusWin*) w;
 			if (oldDisplayScale != prefsManager->displayScale())
 			{
@@ -9060,13 +9063,13 @@ void ScribusMainWindow::emergencySave()
 {
 	emergencyActivated=true;
 	std::cout << "Calling Emergency Save" << std::endl;
-	QWidgetList windows = wsp->windowList();
+	QList<QMdiSubWindow *> windows = wsp->subWindowList();
 	if (!windows.isEmpty())
 	{
 		uint windowCount=windows.count();
 		for (uint i=0; i<windowCount ; ++i)
 		{
-			ActWin = (ScribusWin*)windows.at(i);
+			ActWin = (ScribusWin*)windows.at(i)->widget();
 			doc = ActWin->doc();
 			view = ActWin->view();
 			doc->setModified(false);

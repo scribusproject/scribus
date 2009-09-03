@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 #include <QResizeEvent>
 #include <QHBoxLayout>
+#include <QMdiSubWindow>
 
 class ScribusDoc;
 class ScribusMainWindow;
@@ -53,6 +54,8 @@ public:
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
 	ScribusDoc* doc() const { return m_Doc;}
+	QMdiSubWindow* getSubWin() { return subWindow; }
+	void setSubWin(QMdiSubWindow *win) { subWindow = win; }
 	void setMasterPagesPalette(MasterPagesPalette* newMPP);
 	MasterPagesPalette* masterPagesPalette() const;
 	void setMenuStatus(int index, bool value) { if (index>=0 && index <=6) MenuStat[index]=value;}
@@ -74,6 +77,7 @@ protected:
 	ScribusDoc* m_Doc;
 	MasterPagesPalette* m_masterPagesPalette;
 	QFrame *statusFrame;
+	QMdiSubWindow* subWindow;
 	bool MenuStat[7];
 	int winIndex;
 };
