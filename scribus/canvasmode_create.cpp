@@ -396,7 +396,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 		delete m_createTransaction;
 		m_createTransaction = NULL;
 	}
-	if (!PrefsManager::instance()->appPrefs.stickyTools)
+	if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 	{
 		m_view->requestMode(modeNormal);
 	}

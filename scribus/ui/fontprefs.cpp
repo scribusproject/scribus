@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontlistview.h"
 
 
-FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent )
+FontPrefsTab::FontPrefsTab( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent )
 {
 	RList = PrefsManager::instance()->appPrefs.GFontSub;
 	HomeP = PPath;
@@ -139,21 +139,21 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
 }
 
-void FontPrefs::restoreDefaults()
+void FontPrefsTab::restoreDefaults()
 {
 	rebuildDialog();
 }
 
-void FontPrefs::ReplaceSel(int, int)
+void FontPrefsTab::ReplaceSel(int, int)
 {
 	DelB->setEnabled(true);
 }
 
-void FontPrefs::UpdateFliste()
+void FontPrefsTab::UpdateFliste()
 {
 	QString tmp;
 	UsedFonts.clear();
-	SCFonts fonts = PrefsManager::instance()->appPrefs.AvailFonts;
+	SCFonts fonts = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts;
 	SCFontsIterator it(fonts);
 	for ( ; it.hasNext() ; it.next())
 	{
@@ -174,7 +174,7 @@ void FontPrefs::UpdateFliste()
 	}
 }
 
-void FontPrefs::DelEntry()
+void FontPrefsTab::DelEntry()
 {
 	int r = Table3->currentRow();
 	QString tmp = Table3->item(r, 0)->text();
@@ -184,7 +184,7 @@ void FontPrefs::DelEntry()
 	DelB->setEnabled(false);
 }
 
-void FontPrefs::readPaths()
+void FontPrefsTab::readPaths()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
@@ -194,7 +194,7 @@ void FontPrefs::readPaths()
 		PathList->addItem( QDir::convertSeparators(fontPathTable->get(i,0)) );
 }
 
-void FontPrefs::writePaths()
+void FontPrefsTab::writePaths()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
@@ -204,7 +204,7 @@ void FontPrefs::writePaths()
 		fontPathTable->set(i, 0, QDir::fromNativeSeparators(PathList->item(i)->text()));
 }
 
-void FontPrefs::SelectPath(QListWidgetItem *c)
+void FontPrefsTab::SelectPath(QListWidgetItem *c)
 {
 	if (!DocAvail)
 	{
@@ -214,7 +214,7 @@ void FontPrefs::SelectPath(QListWidgetItem *c)
 	CurrentPath = c->text();
 }
 
-void FontPrefs::AddPath()
+void FontPrefsTab::AddPath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -233,7 +233,7 @@ void FontPrefs::AddPath()
 		ChangeB->setEnabled(false);
 		RemoveB->setEnabled(false);
 		CurrentPath = s;
-		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 		QString dir = QDir::fromNativeSeparators(s2);
 		availFonts->AddScalableFonts(dir +"/");
 		availFonts->updateFontMap();
@@ -241,7 +241,7 @@ void FontPrefs::AddPath()
 	}
 }
 
-void FontPrefs::ChangePath()
+void FontPrefsTab::ChangePath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
@@ -253,7 +253,7 @@ void FontPrefs::ChangePath()
 		if (PathList->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
 		QString path = PathList->currentItem()->text();
-		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 		SCFontsIterator it(*availFonts);
 		for ( ; it.hasNext(); it.next())
 		{
@@ -275,7 +275,7 @@ void FontPrefs::ChangePath()
 	}
 }
 
-void FontPrefs::DelPath()
+void FontPrefsTab::DelPath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	QFile fx(HomeP+"/scribusfont13.rc");
@@ -290,7 +290,7 @@ void FontPrefs::DelPath()
 	}
 	else
 		return;
-	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	SCFontsIterator it(*availFonts);
 	for ( ; it.hasNext(); it.next())
 	{
@@ -307,10 +307,10 @@ void FontPrefs::DelPath()
 	RemoveB->setEnabled(false);
 }
 
-void FontPrefs::rebuildDialog()
+void FontPrefsTab::rebuildDialog()
 {
 // 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
-	fontList->setFonts(PrefsManager::instance()->appPrefs.AvailFonts);
+	fontList->setFonts(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	/*
 	DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
 	It's just a performance vs. functionality test.

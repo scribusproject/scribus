@@ -1470,7 +1470,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		if (loadRawText(fn, tmp))
 		{
 			PutStream("bEPS\n");
-			PutStream(ToStr(PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * scalex) + " " + ToStr(PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * scaley) + " sc\n");
+			PutStream(ToStr(PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 72.0 * scalex) + " " + ToStr(PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 72.0 * scaley) + " sc\n");
 			PutStream(ToStr(-c->BBoxX+x * scalex) + " " + ToStr(y * scalex) + " tr\n");
 			if (!Name.isEmpty())
 			{
@@ -1524,8 +1524,8 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
 		if ((extensionIndicatesPDF(ext)) && (!c->asLatexFrame()))
 		{
-			scalex *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
-			scaley *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
+			scalex *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 300.0;
+			scaley *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 300.0;
 		}
 //		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
 		PutStream(ToStr(qRound(scalex*w)) + " " + ToStr(qRound(scaley*h)) + " sc\n");

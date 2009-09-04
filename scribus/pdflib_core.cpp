@@ -179,7 +179,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		PDF_Error( tr("Qt build miss both \"UTF-16\" and \"ISO-10646-UCS-2\" text codecs, pdf export is not possible") );
 		return false;
 	}
-	if (PDF_Begin_Doc(fn, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, doc.scMW()->bookmarkPalette->BView))
+	if (PDF_Begin_Doc(fn, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, usedFonts, doc.scMW()->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
@@ -7403,8 +7403,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		}
 		else
 		{
-			ImInfo.sxa *= PrefsManager::instance()->appPrefs.gs_Resolution / 72.0;
-			ImInfo.sya *= PrefsManager::instance()->appPrefs.gs_Resolution / 72.0;
+			ImInfo.sxa *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 72.0;
+			ImInfo.sya *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 72.0;
 		}
 	}
 	if (!fromAN && output)

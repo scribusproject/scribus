@@ -89,19 +89,19 @@ const QStringList TabExternalToolsWidget::newLatexConfigs() const
 
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	psToolLineEdit->setText(QDir::convertSeparators(prefsData->gs_exe));
-	psAntialiasTextCheckBox->setChecked(prefsData->gs_AntiAliasText);
-	psAntialiasGraphicsCheckBox->setChecked(prefsData->gs_AntiAliasGraphics);
-	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
-	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->imageEditorExecutable));
-	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extBrowserExecutable));
-	latexResolutionSpinBox->setValue(prefsData->latexResolution);
-	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
-	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
-	latexEmptyFrameCheckBox->setCheckState(prefsData->latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
+	psToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.gs_exe));
+	psAntialiasTextCheckBox->setChecked(prefsData->extToolPrefs.gs_AntiAliasText);
+	psAntialiasGraphicsCheckBox->setChecked(prefsData->extToolPrefs.gs_AntiAliasGraphics);
+	psResolutionSpinBox->setValue(prefsData->extToolPrefs.gs_Resolution);
+	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.imageEditorExecutable));
+	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.extBrowserExecutable));
+	latexResolutionSpinBox->setValue(prefsData->extToolPrefs.latexResolution);
+	latexEditorLineEdit->setText(prefsData->extToolPrefs.latexEditorExecutable);
+	latexForceDpiCheckBox->setCheckState(prefsData->extToolPrefs.latexForceDpi?Qt::Checked:Qt::Unchecked);
+	latexEmptyFrameCheckBox->setCheckState(prefsData->extToolPrefs.latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
 	latexConfigsListWidget->clear();
-	QStringList configs = prefsData->latexConfigs;
-	commands = prefsData->latexCommands;
+	QStringList configs = prefsData->extToolPrefs.latexConfigs;
+	commands = prefsData->extToolPrefs.latexCommands;
 	foreach (QString config, configs) {
 		insertConfigItem(config);
 	}

@@ -1633,7 +1633,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
 		{
 //			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
-			if (PrefsManager::instance()->appPrefs.showPageShadow)
+			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
 				painter->drawRect(m_doc->scratch.Left - pageBleeds.Left+5, m_doc->scratch.Top - pageBleeds.Top+5, m_doc->currentPage()->width() + pageBleeds.Left + pageBleeds.Right, m_doc->currentPage()->height() + pageBleeds.Bottom + pageBleeds.Top);
 			painter->setBrush(m_doc->papColor);
 			painter->drawRect(m_doc->scratch.Left - pageBleeds.Left, m_doc->scratch.Top - pageBleeds.Top, m_doc->currentPage()->width() + pageBleeds.Left + pageBleeds.Right, m_doc->currentPage()->height() + pageBleeds.Bottom + pageBleeds.Top);
@@ -1641,7 +1641,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		else
 		{
 //			painter->drawRect(m_doc->scratch.Left+5 / m_viewMode.scale, m_doc->scratch.Top+5 / m_viewMode.scale, m_doc->currentPage()->width(), m_doc->currentPage()->height());
-			if (PrefsManager::instance()->appPrefs.showPageShadow)
+			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
 				painter->drawRect(m_doc->scratch.Left+5, m_doc->scratch.Top+5, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 			painter->setBrush(m_doc->papColor);
 			painter->drawRect(m_doc->scratch.Left, m_doc->scratch.Top, m_doc->currentPage()->width(), m_doc->currentPage()->height());
@@ -1662,7 +1662,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 {
 // 	qDebug()<<"Canvas::drawBackgroundPageOutlines"<< clipx<< clipy<< clipw<<cliph;
 	uint docPagesCount=m_doc->Pages->count();
-	if (PrefsManager::instance()->appPrefs.showPageShadow && !m_viewMode.viewAsPreview)
+	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow && !m_viewMode.viewAsPreview)
 	{
 		painter->setBrush(QColor(128,128,128));
 		painter->setAntialiasing(false);
@@ -1897,7 +1897,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		page->guides.drawPage(p, m_doc, lineWidth);
 	if (m_doc->currentPage() == page)
 	{
-		p->setPen(PrefsManager::instance()->appPrefs.DPageBorderColor, 2 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DPageBorderColor, 2 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawRect(0, 0, pageWidth, pageHeight);
 	}
 	p->setAntialiasing(true);
@@ -2153,7 +2153,7 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 
 void Canvas::displayXYHUD(QPoint m)
 {
-	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double gx, gy, gh, gw, r;
 	if (m_doc->m_Selection->isMultipleSelection())
@@ -2199,7 +2199,7 @@ void Canvas::displayXYHUD(QPoint m)
 
 void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 {
-	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double gx = x;
 	double gy = y;
@@ -2215,7 +2215,7 @@ void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 
 void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
 {
-	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double gx = val;
 	if (isX)
@@ -2236,14 +2236,14 @@ void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
 
 void Canvas::displayXYHUD(QPoint m, double x, double y)
 {
-	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 {
-	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	if (isLine)
 		QToolTip::showText(m + QPoint(5, 5), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, SC_DEGREES, true, true)), this);
@@ -2253,7 +2253,7 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 
 void Canvas::displayRotHUD(QPoint m, double rot)
 {
-	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	double r;
 	if (rot < 0.0)

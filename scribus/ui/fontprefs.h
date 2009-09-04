@@ -4,8 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef FONTPREFS_H
-#define FONTPREFS_H
+#ifndef FONTPREFSTAB_H
+#define FONTPREFSTAB_H
 
 #include <QTabWidget>
 #include <QList>
@@ -27,13 +27,13 @@ class ScribusDoc;
 class ScComboBox;
 
 /*! \brief A configuration Widget for Font Preferences */
-class SCRIBUS_API FontPrefs : public QTabWidget
+class SCRIBUS_API FontPrefsTab : public QTabWidget
 {
 	Q_OBJECT
 
 public:
-	FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc );
-	~FontPrefs() {};
+	FontPrefsTab( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc );
+	~FontPrefsTab() {};
 	void restoreDefaults();
 
 	QMap<QString,QString> RList;

@@ -66,7 +66,7 @@ PrefsManager::PrefsManager(QObject *parent)
 
 PrefsManager::~PrefsManager()
 {
-	appPrefs.AvailFonts.clear();
+	appPrefs.fontPrefs.AvailFonts.clear();
 	delete prefsFile;
 }
 
@@ -119,9 +119,9 @@ void PrefsManager::setup()
 void PrefsManager::initDefaults()
 {
 	/** Default font and size **/
-	SCFontsIterator it(appPrefs.AvailFonts);
+	SCFontsIterator it(appPrefs.fontPrefs.AvailFonts);
 	bool goodFont = false;
-	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
+	for ( SCFontsIterator itf(appPrefs.fontPrefs.AvailFonts); itf.hasNext(); itf.next())
 	{
 		if ((itf.currentKey() == "Arial Regular") || (itf.currentKey() == "Times New Roman Regular"))
 		{
@@ -185,15 +185,15 @@ void PrefsManager::initDefaults()
 
 	appPrefs.uiPrefs.wheelJump = 40;
 	/** Set Default window position and size to sane default values which should work on every screen */
-//	appPrefs.mainWinSettings.xPosition = 0;
-//	appPrefs.mainWinSettings.yPosition = 0;
-	appPrefs.mainWinSettings.width = 640;
-	appPrefs.mainWinSettings.height = 480;
+//	appPrefs.uiPrefs.mainWinSettings.xPosition = 0;
+//	appPrefs.uiPrefs.mainWinSettings.yPosition = 0;
+	appPrefs.uiPrefs.mainWinSettings.width = 640;
+	appPrefs.uiPrefs.mainWinSettings.height = 480;
 	QDesktopWidget *d = QApplication::desktop();
-	appPrefs.mainWinSettings.xPosition=(d->availableGeometry().width()-appPrefs.mainWinSettings.width)/2;
-	appPrefs.mainWinSettings.yPosition=(d->availableGeometry().height()-appPrefs.mainWinSettings.height)/2;
-	appPrefs.mainWinSettings.maximized = false;
-	appPrefs.mainWinState = QByteArray();
+	appPrefs.uiPrefs.mainWinSettings.xPosition=(d->availableGeometry().width()-appPrefs.uiPrefs.mainWinSettings.width)/2;
+	appPrefs.uiPrefs.mainWinSettings.yPosition=(d->availableGeometry().height()-appPrefs.uiPrefs.mainWinSettings.height)/2;
+	appPrefs.uiPrefs.mainWinSettings.maximized = false;
+	appPrefs.uiPrefs.mainWinState = QByteArray();
 	appPrefs.guidesPrefs.marginsShown = true;
 	appPrefs.guidesPrefs.framesShown = true;
 	appPrefs.guidesPrefs.layerMarkersShown = false;
@@ -229,11 +229,11 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesPrefs.valueBaselineGrid = 14.4;
 	appPrefs.guidesPrefs.offsetBaselineGrid = 0.0;
 	appPrefs.uiPrefs.style = "";
-	appPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
-	appPrefs.showToolTips = true;
-	appPrefs.showMouseCoordinates = true;
+	appPrefs.uiPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
+	appPrefs.displayPrefs.showToolTips = true;
+	appPrefs.displayPrefs.showMouseCoordinates = true;
 	appPrefs.uiPrefs.mouseMoveTimeout = 150;
-	appPrefs.stickyTools = false;
+	appPrefs.uiPrefs.stickyTools = false;
 	//FIXME
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
@@ -257,16 +257,16 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.dispX = 10.0;
 	appPrefs.opToolPrefs.dispY = 10.0;
 	appPrefs.opToolPrefs.constrain = 15.0;
-	appPrefs.DpapColor = QColor(Qt::white);
-	appPrefs.showPageShadow = true;
-	appPrefs.DFrameColor = QColor(Qt::red);
-	appPrefs.DFrameNormColor = QColor(Qt::black);
-	appPrefs.DFrameGroupColor = QColor(Qt::darkCyan);
-	appPrefs.DFrameLockColor = QColor(Qt::darkRed);
-	appPrefs.DFrameLinkColor = QColor(Qt::red);
-	appPrefs.DFrameAnnotationColor = QColor(Qt::blue);
-	appPrefs.DPageBorderColor = QColor(Qt::red);
-	appPrefs.DControlCharColor = QColor(Qt::darkRed);
+	appPrefs.displayPrefs.DpapColor = QColor(Qt::white);
+	appPrefs.displayPrefs.showPageShadow = true;
+	appPrefs.displayPrefs.DFrameColor = QColor(Qt::red);
+	appPrefs.displayPrefs.DFrameNormColor = QColor(Qt::black);
+	appPrefs.displayPrefs.DFrameGroupColor = QColor(Qt::darkCyan);
+	appPrefs.displayPrefs.DFrameLockColor = QColor(Qt::darkRed);
+	appPrefs.displayPrefs.DFrameLinkColor = QColor(Qt::red);
+	appPrefs.displayPrefs.DFrameAnnotationColor = QColor(Qt::blue);
+	appPrefs.displayPrefs.DPageBorderColor = QColor(Qt::red);
+	appPrefs.displayPrefs.DControlCharColor = QColor(Qt::darkRed);
 	appPrefs.itemToolPrefs.dCols = 1;
 	appPrefs.itemToolPrefs.dGap = 0.0;
 	appPrefs.itemToolPrefs.dShadeLine = 100;
@@ -290,15 +290,15 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.polyR = 0.0;
 	appPrefs.itemToolPrefs.polyCurvature = 0.0;
 //	appPrefs.PSize = 40;
-	appPrefs.ClipMargin = false;
+	appPrefs.printerPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
-	appPrefs.RecentDocs.clear();
-	appPrefs.RecentScrapbooks.clear();
+	appPrefs.uiPrefs.RecentDocs.clear();
+	appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
 	appPrefs.uiPrefs.recentDocCount = 5;
-	appPrefs.doCopyToScrapbook = true;
-	appPrefs.persistentScrapbook = false;
-	appPrefs.numScrapbookCopies = 10;
-	appPrefs.marginColored = false;
+	appPrefs.scrapbookPrefs.doCopyToScrapbook = true;
+	appPrefs.scrapbookPrefs.persistentScrapbook = false;
+	appPrefs.scrapbookPrefs.numScrapbookCopies = 10;
+	appPrefs.displayPrefs.marginColored = false;
 	appPrefs.docSetupPrefs.pageSize = "A4";
 	appPrefs.docSetupPrefs.pageOrientation = 0;
 	PageSize a4("A4");
@@ -317,22 +317,22 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.aspectRatio = true;
 	appPrefs.itemToolPrefs.lowResType = 1;
 	appPrefs.itemToolPrefs.useEmbeddedPath = false;
-	appPrefs.MinWordLen = 3;
-	appPrefs.HyCount = 2;
-	appPrefs.Language = "";
-	appPrefs.specialWords.clear();
-	appPrefs.ignoredWords.clear();
-	appPrefs.Automatic = true;
-	appPrefs.AutoCheck = false;
+	appPrefs.hyphPrefs.MinWordLen = 3;
+	appPrefs.hyphPrefs.HyCount = 2;
+	appPrefs.hyphPrefs.Language = "";
+	appPrefs.hyphPrefs.specialWords.clear();
+	appPrefs.hyphPrefs.ignoredWords.clear();
+	appPrefs.hyphPrefs.Automatic = true;
+	appPrefs.hyphPrefs.AutoCheck = false;
 	appPrefs.AutoSave = true;
 	appPrefs.AutoSaveTime = 600000;
 
 	int dpi = qApp->desktop()->logicalDpiX();
 	if ((dpi < 60) || (dpi > 200))
 		dpi = 72;
-	appPrefs.DisScale = dpi / 72.0;
+	appPrefs.displayPrefs.DisScale = dpi / 72.0;
 
-//	appPrefs.DisScale = 1.0;
+//	appPrefs.displayPrefs.DisScale = 1.0;
 	appPrefs.pathPrefs.documents = ScPaths::getUserDocumentDir();
 	appPrefs.pathPrefs.colorProfiles = "";
 	appPrefs.pathPrefs.scripts = "";
@@ -348,18 +348,18 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_K = true;
 	appPrefs.PrPr_InkCoverage = false;
 	appPrefs.PrPr_InkThreshold = 250;
-	appPrefs.imageEditorExecutable = "gimp";
-	appPrefs.extBrowserExecutable = "";
-	appPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
-	appPrefs.latexCommands.clear();
-	appPrefs.latexEditorExecutable = "";
-	appPrefs.latexResolution = 72;
-	appPrefs.latexForceDpi = true;
-	appPrefs.latexStartWithEmptyFrames = false;
-	appPrefs.gs_AntiAliasGraphics = true;
-	appPrefs.gs_AntiAliasText = true;
-	appPrefs.gs_exe = getGSDefaultExeName();
-	appPrefs.gs_Resolution = 72;
+	appPrefs.extToolPrefs.imageEditorExecutable = "gimp";
+	appPrefs.extToolPrefs.extBrowserExecutable = "";
+	appPrefs.extToolPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
+	appPrefs.extToolPrefs.latexCommands.clear();
+	appPrefs.extToolPrefs.latexEditorExecutable = "";
+	appPrefs.extToolPrefs.latexResolution = 72;
+	appPrefs.extToolPrefs.latexForceDpi = true;
+	appPrefs.extToolPrefs.latexStartWithEmptyFrames = false;
+	appPrefs.extToolPrefs.gs_AntiAliasGraphics = true;
+	appPrefs.extToolPrefs.gs_AntiAliasText = true;
+	appPrefs.extToolPrefs.gs_exe = getGSDefaultExeName();
+	appPrefs.extToolPrefs.gs_Resolution = 72;
 	appPrefs.STEcolor = QColor(Qt::white);
 	appPrefs.DCMSset.DefaultMonitorProfile = "";
 	appPrefs.DCMSset.DefaultPrinterProfile = "";
@@ -374,12 +374,12 @@ void PrefsManager::initDefaults()
 	appPrefs.DCMSset.DefaultIntentColors = 1;
 	appPrefs.DCMSset.DefaultIntentImages = 0;
 	appPrefs.GFontSub.clear();
-	appPrefs.scratch.Left = 100;
-	appPrefs.scratch.Right = 100;
-	appPrefs.scratch.Top = 20;
-	appPrefs.scratch.Bottom = 20;
-	appPrefs.GapHorizontal = 0.0;
-	appPrefs.GapVertical = 40.0;
+	appPrefs.displayPrefs.scratch.Left = 100;
+	appPrefs.displayPrefs.scratch.Right = 100;
+	appPrefs.displayPrefs.scratch.Top = 20;
+	appPrefs.displayPrefs.scratch.Bottom = 20;
+	appPrefs.displayPrefs.GapHorizontal = 0.0;
+	appPrefs.displayPrefs.GapVertical = 40.0;
 	struct PageSet pageS;
 	pageS.Name = CommonStrings::pageSet1;
 	pageS.FirstPage = 0;
@@ -415,81 +415,81 @@ void PrefsManager::initDefaults()
 	pageS.pageNames.append(CommonStrings::pageLocRight);
 	appPrefs.pageSets.append(pageS);
 	appPrefs.docSetupPrefs.pagePositioning = singlePage;
-	appPrefs.askBeforeSubstituite = true;
-	appPrefs.haveStylePreview = true;
+	appPrefs.fontPrefs.askBeforeSubstitute = true;
+	appPrefs.miscPrefs.haveStylePreview = true;
 	// lorem ipsum defaults
-	appPrefs.useStandardLI = false;
-	appPrefs.paragraphsLI = 10;
+	appPrefs.miscPrefs.useStandardLI = false;
+	appPrefs.miscPrefs.paragraphsLI = 10;
 	appPrefs.uiPrefs.showStartupDialog = true;
 	appPrefs.uiPrefs.useSmallWidgets = false;
-	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
+	initDefaultCheckerPrefs(&appPrefs.checkerPrefsList);
 	appPrefs.curCheckProfile = CommonStrings::PostScript;
-	appPrefs.PDF_Options.Thumbnails = false;
-	appPrefs.PDF_Options.Articles = false;
-	appPrefs.PDF_Options.useLayers = false;
-	appPrefs.PDF_Options.Compress = true;
-	appPrefs.PDF_Options.CompressMethod = PDFOptions::Compression_Auto;
-	appPrefs.PDF_Options.Quality = 0;
-	appPrefs.PDF_Options.RecalcPic = false;
-	appPrefs.PDF_Options.embedPDF  = false;
-	appPrefs.PDF_Options.Bookmarks = false;
-	appPrefs.PDF_Options.PicRes = 300;
-	appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
-	appPrefs.PDF_Options.Resolution = 300;
-	appPrefs.PDF_Options.Binding = 0;
-	appPrefs.PDF_Options.EmbedList.clear();
-	appPrefs.PDF_Options.SubsetList.clear();
-	appPrefs.PDF_Options.MirrorH = false;
-	appPrefs.PDF_Options.MirrorV = false;
-	appPrefs.PDF_Options.doClip = false;
-	appPrefs.PDF_Options.RotateDeg = 0;
-	appPrefs.PDF_Options.PresentMode = false;
-	appPrefs.PDF_Options.fileName = "";
-	appPrefs.PDF_Options.PresentVals.clear();
-	appPrefs.PDF_Options.isGrayscale = false;
-	appPrefs.PDF_Options.UseRGB = true;
-	appPrefs.PDF_Options.UseProfiles = false;
-	appPrefs.PDF_Options.UseProfiles2 = false;
-	appPrefs.PDF_Options.SolidProf = "";
-	appPrefs.PDF_Options.SComp = 3;
-	appPrefs.PDF_Options.ImageProf = "";
-	appPrefs.PDF_Options.PrintProf = "";
-	appPrefs.PDF_Options.Info = "";
-	appPrefs.PDF_Options.Intent = 0;
-	appPrefs.PDF_Options.Intent2 = 0;
-	appPrefs.PDF_Options.bleeds.Top = 0;
-	appPrefs.PDF_Options.bleeds.Left = 0;
-	appPrefs.PDF_Options.bleeds.Right = 0;
-	appPrefs.PDF_Options.bleeds.Bottom = 0;
-	appPrefs.PDF_Options.useDocBleeds = true;
-	appPrefs.PDF_Options.cropMarks = false;
-	appPrefs.PDF_Options.bleedMarks = false;
-	appPrefs.PDF_Options.registrationMarks = false;
-	appPrefs.PDF_Options.colorMarks = false;
-	appPrefs.PDF_Options.docInfoMarks = false;
-	appPrefs.PDF_Options.markOffset = 0;
-	appPrefs.PDF_Options.EmbeddedI = false;
-	appPrefs.PDF_Options.Encrypt = false;
-	appPrefs.PDF_Options.PassOwner = "";
-	appPrefs.PDF_Options.PassUser = "";
-	appPrefs.PDF_Options.Permissions = -4;
-	appPrefs.PDF_Options.UseLPI = false;
-	appPrefs.PDF_Options.LPISettings.clear();
-	appPrefs.PDF_Options.UseSpotColors = true;
-	appPrefs.PDF_Options.doMultiFile = false;
-	appPrefs.PDF_Options.displayBookmarks = false;
-	appPrefs.PDF_Options.displayFullscreen = false;
-	appPrefs.PDF_Options.displayLayers = false;
-	appPrefs.PDF_Options.displayThumbs = false;
-	appPrefs.PDF_Options.hideMenuBar = false;
-	appPrefs.PDF_Options.hideToolBar = false;
-	appPrefs.PDF_Options.fitWindow = false;
-	appPrefs.PDF_Options.PageLayout = PDFOptions::SinglePage;
-	appPrefs.PDF_Options.openAction = "";
+	appPrefs.pdfPrefs.Thumbnails = false;
+	appPrefs.pdfPrefs.Articles = false;
+	appPrefs.pdfPrefs.useLayers = false;
+	appPrefs.pdfPrefs.Compress = true;
+	appPrefs.pdfPrefs.CompressMethod = PDFOptions::Compression_Auto;
+	appPrefs.pdfPrefs.Quality = 0;
+	appPrefs.pdfPrefs.RecalcPic = false;
+	appPrefs.pdfPrefs.embedPDF  = false;
+	appPrefs.pdfPrefs.Bookmarks = false;
+	appPrefs.pdfPrefs.PicRes = 300;
+	appPrefs.pdfPrefs.Version = PDFOptions::PDFVersion_14;
+	appPrefs.pdfPrefs.Resolution = 300;
+	appPrefs.pdfPrefs.Binding = 0;
+	appPrefs.pdfPrefs.EmbedList.clear();
+	appPrefs.pdfPrefs.SubsetList.clear();
+	appPrefs.pdfPrefs.MirrorH = false;
+	appPrefs.pdfPrefs.MirrorV = false;
+	appPrefs.pdfPrefs.doClip = false;
+	appPrefs.pdfPrefs.RotateDeg = 0;
+	appPrefs.pdfPrefs.PresentMode = false;
+	appPrefs.pdfPrefs.fileName = "";
+	appPrefs.pdfPrefs.PresentVals.clear();
+	appPrefs.pdfPrefs.isGrayscale = false;
+	appPrefs.pdfPrefs.UseRGB = true;
+	appPrefs.pdfPrefs.UseProfiles = false;
+	appPrefs.pdfPrefs.UseProfiles2 = false;
+	appPrefs.pdfPrefs.SolidProf = "";
+	appPrefs.pdfPrefs.SComp = 3;
+	appPrefs.pdfPrefs.ImageProf = "";
+	appPrefs.pdfPrefs.PrintProf = "";
+	appPrefs.pdfPrefs.Info = "";
+	appPrefs.pdfPrefs.Intent = 0;
+	appPrefs.pdfPrefs.Intent2 = 0;
+	appPrefs.pdfPrefs.bleeds.Top = 0;
+	appPrefs.pdfPrefs.bleeds.Left = 0;
+	appPrefs.pdfPrefs.bleeds.Right = 0;
+	appPrefs.pdfPrefs.bleeds.Bottom = 0;
+	appPrefs.pdfPrefs.useDocBleeds = true;
+	appPrefs.pdfPrefs.cropMarks = false;
+	appPrefs.pdfPrefs.bleedMarks = false;
+	appPrefs.pdfPrefs.registrationMarks = false;
+	appPrefs.pdfPrefs.colorMarks = false;
+	appPrefs.pdfPrefs.docInfoMarks = false;
+	appPrefs.pdfPrefs.markOffset = 0;
+	appPrefs.pdfPrefs.EmbeddedI = false;
+	appPrefs.pdfPrefs.Encrypt = false;
+	appPrefs.pdfPrefs.PassOwner = "";
+	appPrefs.pdfPrefs.PassUser = "";
+	appPrefs.pdfPrefs.Permissions = -4;
+	appPrefs.pdfPrefs.UseLPI = false;
+	appPrefs.pdfPrefs.LPISettings.clear();
+	appPrefs.pdfPrefs.UseSpotColors = true;
+	appPrefs.pdfPrefs.doMultiFile = false;
+	appPrefs.pdfPrefs.displayBookmarks = false;
+	appPrefs.pdfPrefs.displayFullscreen = false;
+	appPrefs.pdfPrefs.displayLayers = false;
+	appPrefs.pdfPrefs.displayThumbs = false;
+	appPrefs.pdfPrefs.hideMenuBar = false;
+	appPrefs.pdfPrefs.hideToolBar = false;
+	appPrefs.pdfPrefs.fitWindow = false;
+	appPrefs.pdfPrefs.PageLayout = PDFOptions::SinglePage;
+	appPrefs.pdfPrefs.openAction = "";
 
 	//Attribute setup
-	appPrefs.defaultItemAttributes.clear();
-	appPrefs.defaultToCSetups.clear();
+	appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
+	appPrefs.tocPrefs.defaultToCSetups.clear();
 	
 	initDefaultActionKeys();
 }
@@ -500,14 +500,14 @@ void PrefsManager::initDefaultActionKeys()
 	QMap<QString, QKeySequence > *map=ActionManager::defaultShortcuts();
 	for( QMap<QString, QKeySequence >::ConstIterator it = map->begin(); it!=map->end(); ++it )
 	{
-		appPrefs.KeyActions[it.key()].actionName = it.key();
-		appPrefs.KeyActions[it.key()].keySequence = it.value();
+		appPrefs.keyShortcutPrefs.KeyActions[it.key()].actionName = it.key();
+		appPrefs.keyShortcutPrefs.KeyActions[it.key()].keySequence = it.value();
 	}
 }
 
 void PrefsManager::applyLoadedShortCuts()
 {
-	for (QMap<QString,Keys>::Iterator it = appPrefs.KeyActions.begin(); it != appPrefs.KeyActions.end(); ++it )
+	for (QMap<QString,Keys>::Iterator it = appPrefs.keyShortcutPrefs.KeyActions.begin(); it != appPrefs.keyShortcutPrefs.KeyActions.end(); ++it )
 	{
 		if (!it.value().actionName.isEmpty())
 		{
@@ -883,34 +883,34 @@ void PrefsManager::ReadPrefs(const QString & fname)
 
 void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 {
-	mw->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
+	mw->setDefaultPrinter(appPrefs.printerPrefs.PrinterName, appPrefs.printerPrefs.PrinterFile, appPrefs.printerPrefs.PrinterCommand);
 
-	uint max = qMin(appPrefs.uiPrefs.recentDocCount, appPrefs.RecentDocs.count());
+	uint max = qMin(appPrefs.uiPrefs.recentDocCount, appPrefs.uiPrefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		QFileInfo fd(appPrefs.RecentDocs[m]);
+		QFileInfo fd(appPrefs.uiPrefs.RecentDocs[m]);
 		if (fd.exists())
 		{
-			mw->RecentDocs.append(appPrefs.RecentDocs[m]);
-			ScCore->fileWatcher->addFile(appPrefs.RecentDocs[m]);
+			mw->RecentDocs.append(appPrefs.uiPrefs.RecentDocs[m]);
+			ScCore->fileWatcher->addFile(appPrefs.uiPrefs.RecentDocs[m]);
 		}
 	}
 	mw->rebuildRecentFileMenu();
-	mw->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
-	mw->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
-	if (appPrefs.mainWinSettings.maximized)
+	mw->move(appPrefs.uiPrefs.mainWinSettings.xPosition, appPrefs.uiPrefs.mainWinSettings.yPosition);
+	mw->resize(appPrefs.uiPrefs.mainWinSettings.width, appPrefs.uiPrefs.mainWinSettings.height);
+	if (appPrefs.uiPrefs.mainWinSettings.maximized)
 		mw->setWindowState((ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
 	//For 1.3.5, we dump prefs first time around.
 	if (!firstTimeIgnoreOldPrefs)
 		ReadPrefsXML();
-	if (appPrefs.checkerProfiles.count() == 0)
+	if (appPrefs.checkerPrefsList.count() == 0)
 	{
-		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
+		initDefaultCheckerPrefs(&appPrefs.checkerPrefsList);
 		appPrefs.curCheckProfile = CommonStrings::PostScript;
 	}
-	if (!appPrefs.mainWinState.isEmpty())
+	if (!appPrefs.uiPrefs.mainWinState.isEmpty())
 	{
-		mw->restoreState(appPrefs.mainWinState);
+		mw->restoreState(appPrefs.uiPrefs.mainWinState);
 	}
 }
 
@@ -922,7 +922,7 @@ void PrefsManager::ReadPrefsXML()
 		if (userprefsContext)
 		{
 			appPrefs.uiPrefs.language = userprefsContext->get("gui_language","");
-			appPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toAscii());
+			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toAscii());
             //continue here...
             //Prefs."blah blah" =...
 		}
@@ -944,19 +944,19 @@ void PrefsManager::SavePrefs(const QString & fname)
 	// The caller is responsible for ensuring we aren't called under those
 	// conditions.
 	Q_ASSERT(!emergencyActivated);
-	appPrefs.mainWinSettings.xPosition = abs(ScCore->primaryMainWindow()->pos().x());
-	appPrefs.mainWinSettings.yPosition = abs(ScCore->primaryMainWindow()->pos().y());
-	appPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
-	appPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
-	appPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
-	appPrefs.mainWinState = ScCore->primaryMainWindow()->saveState();
-	appPrefs.RecentDocs.clear();
+	appPrefs.uiPrefs.mainWinSettings.xPosition = abs(ScCore->primaryMainWindow()->pos().x());
+	appPrefs.uiPrefs.mainWinSettings.yPosition = abs(ScCore->primaryMainWindow()->pos().y());
+	appPrefs.uiPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
+	appPrefs.uiPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
+	appPrefs.uiPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
+	appPrefs.uiPrefs.mainWinState = ScCore->primaryMainWindow()->saveState();
+	appPrefs.uiPrefs.RecentDocs.clear();
 	uint max = qMin(appPrefs.uiPrefs.recentDocCount, ScCore->primaryMainWindow()->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		appPrefs.RecentDocs.append(ScCore->primaryMainWindow()->RecentDocs[m]);
+		appPrefs.uiPrefs.RecentDocs.append(ScCore->primaryMainWindow()->RecentDocs[m]);
 	}
-	ScCore->primaryMainWindow()->getDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
+	ScCore->primaryMainWindow()->getDefaultPrinter(appPrefs.printerPrefs.PrinterName, appPrefs.printerPrefs.PrinterFile, appPrefs.printerPrefs.PrinterCommand);
 	SavePrefsXML();
 	QString realFile;
 	if (fname.isNull())
@@ -976,7 +976,7 @@ void PrefsManager::SavePrefsXML()
 		if (userprefsContext)
 		{
 			userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
-			userprefsContext->set("mainwinstate", QString::fromAscii(appPrefs.mainWinState.toBase64()));
+			userprefsContext->set("mainwinstate", QString::fromAscii(appPrefs.uiPrefs.mainWinState.toBase64()));
             //continue here...
             //Prefs."blah blah" =...
 		}
@@ -986,27 +986,27 @@ void PrefsManager::SavePrefsXML()
 
 void PrefsManager::setGhostscriptExecutable(const QString& executableName)
 {
-	appPrefs.gs_exe=executableName;
+	appPrefs.extToolPrefs.gs_exe=executableName;
 }
 
 void PrefsManager::setImageEditorExecutable(const QString& executableName)
 {
-	appPrefs.imageEditorExecutable=executableName;
+	appPrefs.extToolPrefs.imageEditorExecutable=executableName;
 }
 
 void PrefsManager::setExtBrowserExecutable(const QString& executableName)
 {
-	appPrefs.extBrowserExecutable=executableName;
+	appPrefs.extToolPrefs.extBrowserExecutable=executableName;
 }
 
 void PrefsManager::setLatexConfigs(const QStringList& configs)
 {
-	appPrefs.latexConfigs=configs;
+	appPrefs.extToolPrefs.latexConfigs=configs;
 }
 
 void PrefsManager::setLatexEditorExecutable(const QString& executableName)
 {
-	appPrefs.latexEditorExecutable=executableName;
+	appPrefs.extToolPrefs.latexEditorExecutable=executableName;
 }
 
 const QString PrefsManager::documentDir()
@@ -1027,8 +1027,8 @@ int PrefsManager::mouseWheelJump() const
 //Changed to return false when we have no fonts
 bool PrefsManager::GetAllFonts(bool showFontInfo)
 {
-	appPrefs.AvailFonts.GetFonts(prefsLocation, showFontInfo);
-	return !appPrefs.AvailFonts.isEmpty();
+	appPrefs.fontPrefs.AvailFonts.GetFonts(prefsLocation, showFontInfo);
+	return !appPrefs.fontPrefs.AvailFonts.isEmpty();
 }
 
 void PrefsManager::setShowStartupDialog(const bool showDialog)
@@ -1176,7 +1176,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 			ke.keySequence = keyseq;
 			ke.cleanMenuText=cleanMenuText;
 			ke.tableRow=rowNumber;
-			appPrefs.KeyActions.insert(actName, ke);
+			appPrefs.keyShortcutPrefs.KeyActions.insert(actName, ke);
 		}
 		else
 			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).toAscii().constData());
@@ -1185,7 +1185,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 
 double PrefsManager::displayScale() const
 {
-	return appPrefs.DisScale;
+	return appPrefs.displayPrefs.DisScale;
 }
 
 const QString& PrefsManager::uiLanguage() const
@@ -1215,7 +1215,7 @@ const int& PrefsManager::paletteFontSize() const
 
 bool PrefsManager::showPageShadow() const
 {
-	return appPrefs.showPageShadow;
+	return appPrefs.displayPrefs.showPageShadow;
 }
 
 bool PrefsManager::WritePref(QString ho)
@@ -1250,20 +1250,20 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesPrefs.rulersShown));
 	dc.setAttribute("showBleed", static_cast<int>(appPrefs.guidesPrefs.showBleed));
 	dc.setAttribute("rulerMode", static_cast<int>(appPrefs.guidesPrefs.rulerMode));
-	dc.setAttribute("ScratchBottom", appPrefs.scratch.Bottom);
-	dc.setAttribute("ScratchLeft", appPrefs.scratch.Left);
-	dc.setAttribute("ScratchRight", appPrefs.scratch.Right);
-	dc.setAttribute("ScratchTop", appPrefs.scratch.Top);
-	dc.setAttribute("GapHorizontal", ScCLocale::toQStringC(appPrefs.GapHorizontal));
-	dc.setAttribute("GapVertical", ScCLocale::toQStringC(appPrefs.GapVertical));
+	dc.setAttribute("ScratchBottom", appPrefs.displayPrefs.scratch.Bottom);
+	dc.setAttribute("ScratchLeft", appPrefs.displayPrefs.scratch.Left);
+	dc.setAttribute("ScratchRight", appPrefs.displayPrefs.scratch.Right);
+	dc.setAttribute("ScratchTop", appPrefs.displayPrefs.scratch.Top);
+	dc.setAttribute("GapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.GapHorizontal));
+	dc.setAttribute("GapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.GapVertical));
 	dc.setAttribute("STECOLOR", appPrefs.STEcolor.name());
 	dc.setAttribute("STEFONT", appPrefs.STEfont);
-	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
+	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.miscPrefs.haveStylePreview));
 	dc.setAttribute("UI_SHOWSTARTUPDIALOG", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
 	dc.setAttribute("UI_USESMALLWIDGETS", static_cast<int>(appPrefs.uiPrefs.useSmallWidgets));
-	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.showToolTips));
-	dc.setAttribute("showMouseCoordinates", static_cast<int>(appPrefs.showMouseCoordinates));
-	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.stickyTools));
+	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.displayPrefs.showToolTips));
+	dc.setAttribute("showMouseCoordinates", static_cast<int>(appPrefs.displayPrefs.showMouseCoordinates));
+	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.uiPrefs.stickyTools));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",ScCLocale::toQStringC(appPrefs.guidesPrefs.minorGridSpacing));
@@ -1277,24 +1277,24 @@ bool PrefsManager::WritePref(QString ho)
 	dc1.setAttribute("SHOW", static_cast<int>(appPrefs.guidesPrefs.gridShown));
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
-	dc1a.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.showPageShadow));
-	dc1a.setAttribute("PAGEC",appPrefs.DpapColor.name());
-	dc1a.setAttribute("SELEC",appPrefs.DFrameColor.name());
-	dc1a.setAttribute("DFrameNormColor",appPrefs.DFrameNormColor.name());
-	dc1a.setAttribute("DFrameGroupColor",appPrefs.DFrameGroupColor.name());
-	dc1a.setAttribute("DFrameLockColor",appPrefs.DFrameLockColor.name());
-	dc1a.setAttribute("DFrameLinkColor",appPrefs.DFrameLinkColor.name());
-	dc1a.setAttribute("DFrameAnnotationColor",appPrefs.DFrameAnnotationColor.name());
-	dc1a.setAttribute("DPageBorderColor",appPrefs.DPageBorderColor.name());
-	dc1a.setAttribute("DControlCharColor",appPrefs.DControlCharColor.name());
+	dc1a.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.displayPrefs.showPageShadow));
+	dc1a.setAttribute("PAGEC",appPrefs.displayPrefs.DpapColor.name());
+	dc1a.setAttribute("SELEC",appPrefs.displayPrefs.DFrameColor.name());
+	dc1a.setAttribute("DFrameNormColor",appPrefs.displayPrefs.DFrameNormColor.name());
+	dc1a.setAttribute("DFrameGroupColor",appPrefs.displayPrefs.DFrameGroupColor.name());
+	dc1a.setAttribute("DFrameLockColor",appPrefs.displayPrefs.DFrameLockColor.name());
+	dc1a.setAttribute("DFrameLinkColor",appPrefs.displayPrefs.DFrameLinkColor.name());
+	dc1a.setAttribute("DFrameAnnotationColor",appPrefs.displayPrefs.DFrameAnnotationColor.name());
+	dc1a.setAttribute("DPageBorderColor",appPrefs.displayPrefs.DPageBorderColor.name());
+	dc1a.setAttribute("DControlCharColor",appPrefs.displayPrefs.DControlCharColor.name());
 	dc1a.setAttribute("MARGC",appPrefs.guidesPrefs.marginColor.name());
-	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.marginColored));
-	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.DisScale));
+	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.displayPrefs.marginColored));
+	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.displayPrefs.DisScale));
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
 	dc2.setAttribute("FACE",appPrefs.itemToolPrefs.defFont);
 	dc2.setAttribute("SIZE",appPrefs.itemToolPrefs.defSize / 10.0);
-	dc2.setAttribute("AutomaticSubst", static_cast<int>(appPrefs.askBeforeSubstituite));
+	dc2.setAttribute("AutomaticSubst", static_cast<int>(appPrefs.fontPrefs.askBeforeSubstitute));
 	elem.appendChild(dc2);
 	QDomElement dc3=docu.createElement("TYPO");
 	dc3.setAttribute("TIEF",appPrefs.typoPrefs.valueSubScript);
@@ -1369,20 +1369,20 @@ bool PrefsManager::WritePref(QString ho)
 	dc9.setAttribute("constrain", ScCLocale::toQStringC(appPrefs.opToolPrefs.constrain));
 	elem.appendChild(dc9);
 	QDomElement dc4=docu.createElement("MAINWINDOW");
-	dc4.setAttribute("XPOS",appPrefs.mainWinSettings.xPosition);
-	dc4.setAttribute("YPOS",appPrefs.mainWinSettings.yPosition);
-	dc4.setAttribute("WIDTH",appPrefs.mainWinSettings.width);
-	dc4.setAttribute("HEIGHT",appPrefs.mainWinSettings.height);
-	dc4.setAttribute("MAXIMIZED",static_cast<int>(appPrefs.mainWinSettings.maximized));
+	dc4.setAttribute("XPOS",appPrefs.uiPrefs.mainWinSettings.xPosition);
+	dc4.setAttribute("YPOS",appPrefs.uiPrefs.mainWinSettings.yPosition);
+	dc4.setAttribute("WIDTH",appPrefs.uiPrefs.mainWinSettings.width);
+	dc4.setAttribute("HEIGHT",appPrefs.uiPrefs.mainWinSettings.height);
+	dc4.setAttribute("MAXIMIZED",static_cast<int>(appPrefs.uiPrefs.mainWinSettings.maximized));
 	elem.appendChild(dc4);
 	QDomElement dc73=docu.createElement("SCRAPBOOK");
-	dc73.setAttribute("CopyToScrapbook",static_cast<int>(appPrefs.doCopyToScrapbook));
-	dc73.setAttribute("persistentScrapbook",static_cast<int>(appPrefs.persistentScrapbook));
-	dc73.setAttribute("numScrapbookCopies",appPrefs.numScrapbookCopies);
-	for (int rd=0; rd<appPrefs.RecentScrapbooks.count(); ++rd)
+	dc73.setAttribute("CopyToScrapbook",static_cast<int>(appPrefs.scrapbookPrefs.doCopyToScrapbook));
+	dc73.setAttribute("persistentScrapbook",static_cast<int>(appPrefs.scrapbookPrefs.persistentScrapbook));
+	dc73.setAttribute("numScrapbookCopies",appPrefs.scrapbookPrefs.numScrapbookCopies);
+	for (int rd=0; rd<appPrefs.scrapbookPrefs.RecentScrapbooks.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
-		rde.setAttribute("NAME",appPrefs.RecentScrapbooks[rd]);
+		rde.setAttribute("NAME",appPrefs.scrapbookPrefs.RecentScrapbooks[rd]);
 		dc73.appendChild(rde);
 	}
 	elem.appendChild(dc73);
@@ -1435,8 +1435,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc79ac.setAttribute("currentProfile", appPrefs.curCheckProfile);
 	elem.appendChild(dc79ac);
 	CheckerPrefsList::Iterator itcp;
-	CheckerPrefsList::Iterator itcpend=appPrefs.checkerProfiles.end();
-	for (itcp = appPrefs.checkerProfiles.begin(); itcp != itcpend; ++itcp)
+	CheckerPrefsList::Iterator itcpend=appPrefs.checkerPrefsList.end();
+	for (itcp = appPrefs.checkerPrefsList.begin(); itcp != itcpend; ++itcp)
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());
@@ -1474,10 +1474,10 @@ bool PrefsManager::WritePref(QString ho)
 	dc81.setAttribute("DIIm",appPrefs.DCMSset.DefaultIntentImages);
 	elem.appendChild(dc81);
 	QDomElement dc82=docu.createElement("PRINTER");
-	dc82.setAttribute("NAME",appPrefs.PrinterName);
-	dc82.setAttribute("FILE",appPrefs.PrinterFile);
-	dc82.setAttribute("COMMAND",appPrefs.PrinterCommand);
-	dc82.setAttribute("CLIPMARGIN", static_cast<int>(appPrefs.ClipMargin));
+	dc82.setAttribute("NAME",appPrefs.printerPrefs.PrinterName);
+	dc82.setAttribute("FILE",appPrefs.printerPrefs.PrinterFile);
+	dc82.setAttribute("COMMAND",appPrefs.printerPrefs.PrinterCommand);
+	dc82.setAttribute("CLIPMARGIN", static_cast<int>(appPrefs.printerPrefs.ClipMargin));
 	dc82.setAttribute("GMODE", static_cast<int>(appPrefs.GCRMode));
 	elem.appendChild(dc82);
 	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
@@ -1496,35 +1496,35 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("GIMP", imageEditorExecutable());
 	dc8Ex.setAttribute("GS", ghostscriptExecutable());
 	dc8Ex.setAttribute("WebBrowser", extBrowserExecutable());
-	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.gs_AntiAliasGraphics));
-	dc8Ex.setAttribute("AlphaText", static_cast<int>(appPrefs.gs_AntiAliasText));
-	dc8Ex.setAttribute("Resolution", appPrefs.gs_Resolution);
+	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.extToolPrefs.gs_AntiAliasGraphics));
+	dc8Ex.setAttribute("AlphaText", static_cast<int>(appPrefs.extToolPrefs.gs_AntiAliasText));
+	dc8Ex.setAttribute("Resolution", appPrefs.extToolPrefs.gs_Resolution);
 	dc8Ex.setAttribute("LatexEditor", latexEditorExecutable());
 	dc8Ex.setAttribute("LatexResolution", latexResolution());
-	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.latexForceDpi));
-	dc8Ex.setAttribute("LatexStartWithEmptyFrames", static_cast<int>(appPrefs.latexStartWithEmptyFrames));
+	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.extToolPrefs.latexForceDpi));
+	dc8Ex.setAttribute("LatexStartWithEmptyFrames", static_cast<int>(appPrefs.extToolPrefs.latexStartWithEmptyFrames));
 	QStringList configs = latexConfigs();
 	foreach (QString config, configs) {
 		QDomElement domConfig = docu.createElement("LatexConfig");
 		domConfig.setAttribute("file", config);
-		domConfig.setAttribute("command", appPrefs.latexCommands[config]);
+		domConfig.setAttribute("command", appPrefs.extToolPrefs.latexCommands[config]);
 		dc8Ex.appendChild(domConfig);
 	}
 	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
-	rde.setAttribute("LANG", appPrefs.Language);
-	rde.setAttribute("WORDLEN", appPrefs.MinWordLen);
-	rde.setAttribute("HYCOUNT", appPrefs.HyCount);
-	rde.setAttribute("MODE", static_cast<int>(appPrefs.Automatic));
-	rde.setAttribute("INMODE", static_cast<int>(appPrefs.AutoCheck));
-	for (QHash<QString, QString>::Iterator hyit = appPrefs.specialWords.begin(); hyit != appPrefs.specialWords.end(); ++hyit)
+	rde.setAttribute("LANG", appPrefs.hyphPrefs.Language);
+	rde.setAttribute("WORDLEN", appPrefs.hyphPrefs.MinWordLen);
+	rde.setAttribute("HYCOUNT", appPrefs.hyphPrefs.HyCount);
+	rde.setAttribute("MODE", static_cast<int>(appPrefs.hyphPrefs.Automatic));
+	rde.setAttribute("INMODE", static_cast<int>(appPrefs.hyphPrefs.AutoCheck));
+	for (QHash<QString, QString>::Iterator hyit = appPrefs.hyphPrefs.specialWords.begin(); hyit != appPrefs.hyphPrefs.specialWords.end(); ++hyit)
 	{
 		QDomElement hyelm = docu.createElement("EXCEPTION");
 		hyelm.setAttribute("WORD", hyit.key());
 		hyelm.setAttribute("HYPHENATED", hyit.value());
 		rde.appendChild(hyelm);
 	}
-	for (QSet<QString>::Iterator hyit2 = appPrefs.ignoredWords.begin(); hyit2 != appPrefs.ignoredWords.end(); ++hyit2)
+	for (QSet<QString>::Iterator hyit2 = appPrefs.hyphPrefs.ignoredWords.begin(); hyit2 != appPrefs.hyphPrefs.ignoredWords.end(); ++hyit2)
 	{
 		QDomElement hyelm2 = docu.createElement("IGNORE");
 		hyelm2.setAttribute("WORD", (*hyit2));
@@ -1544,7 +1544,7 @@ bool PrefsManager::WritePref(QString ho)
 		co.setAttribute("Register", static_cast<int>(itc.value().isRegistrationColor()));
 		elem.appendChild(co);
 	}
-	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
+	for ( SCFontsIterator itf(appPrefs.fontPrefs.AvailFonts); itf.hasNext(); itf.next())
 	{
 		if (!itf.currentKey().isEmpty())
 		{
@@ -1556,13 +1556,13 @@ bool PrefsManager::WritePref(QString ho)
 			elem.appendChild(fn);
 		}
 	}
-	for (int rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
+	for (int rd=0; rd<appPrefs.uiPrefs.RecentDocs.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
-		rde.setAttribute("NAME",appPrefs.RecentDocs[rd]);
+		rde.setAttribute("NAME",appPrefs.uiPrefs.RecentDocs[rd]);
 		elem.appendChild(rde);
 	}
-	for (QMap<QString,Keys>::Iterator ksc=appPrefs.KeyActions.begin(); ksc!=appPrefs.KeyActions.end(); ++ksc)
+	for (QMap<QString,Keys>::Iterator ksc=appPrefs.keyShortcutPrefs.KeyActions.begin(); ksc!=appPrefs.keyShortcutPrefs.KeyActions.end(); ++ksc)
 	{
 		if (ksc.value().actionName.isEmpty())
 			continue;
@@ -1589,61 +1589,61 @@ bool PrefsManager::WritePref(QString ho)
 	cosd.setAttribute("NAME",appPrefs.DColorSet);
 	elem.appendChild(cosd);
 	QDomElement pdf = docu.createElement("PDF");
-	pdf.setAttribute("Thumbnails", static_cast<int>(appPrefs.PDF_Options.Thumbnails));
-	pdf.setAttribute("Articles", static_cast<int>(appPrefs.PDF_Options.Articles));
-	pdf.setAttribute("Bookmarks", static_cast<int>(appPrefs.PDF_Options.Bookmarks));
-	pdf.setAttribute("Compress", static_cast<int>(appPrefs.PDF_Options.Compress));
-	pdf.setAttribute("CMethod", appPrefs.PDF_Options.CompressMethod);
-	pdf.setAttribute("Quality", appPrefs.PDF_Options.Quality);
-	pdf.setAttribute("EmbedPDF", static_cast<int>(appPrefs.PDF_Options.embedPDF));
-	pdf.setAttribute("MirrorH", static_cast<int>(appPrefs.PDF_Options.MirrorH));
-	pdf.setAttribute("MirrorV", static_cast<int>(appPrefs.PDF_Options.MirrorV));
-	pdf.setAttribute("Clip", static_cast<int>(appPrefs.PDF_Options.doClip));
-	pdf.setAttribute("RotateDeg", static_cast<int>(appPrefs.PDF_Options.RotateDeg));
-	pdf.setAttribute("PresentMode", static_cast<int>(appPrefs.PDF_Options.PresentMode));
-	pdf.setAttribute("RecalcPic", static_cast<int>(appPrefs.PDF_Options.RecalcPic));
-	pdf.setAttribute("Grayscale", static_cast<int>(appPrefs.PDF_Options.isGrayscale));
-	pdf.setAttribute("RGBMode", static_cast<int>(appPrefs.PDF_Options.UseRGB));
-	pdf.setAttribute("UseProfiles", static_cast<int>(appPrefs.PDF_Options.UseProfiles));
-	pdf.setAttribute("UseProfiles2", static_cast<int>(appPrefs.PDF_Options.UseProfiles2));
-	pdf.setAttribute("Binding", appPrefs.PDF_Options.Binding);
-	pdf.setAttribute("PicRes", appPrefs.PDF_Options.PicRes);
-	pdf.setAttribute("Resolution", appPrefs.PDF_Options.Resolution);
-	pdf.setAttribute("Version", appPrefs.PDF_Options.Version);
-	pdf.setAttribute("Intent", appPrefs.PDF_Options.Intent);
-	pdf.setAttribute("Intent2", appPrefs.PDF_Options.Intent2);
-	pdf.setAttribute("SolidP", appPrefs.PDF_Options.SolidProf);
-	pdf.setAttribute("ImageP", appPrefs.PDF_Options.ImageProf);
-	pdf.setAttribute("PrintP", appPrefs.PDF_Options.PrintProf);
-	pdf.setAttribute("InfoString", appPrefs.PDF_Options.Info);
-	pdf.setAttribute("BTop", ScCLocale::toQStringC(appPrefs.PDF_Options.bleeds.Top));
-	pdf.setAttribute("BLeft", ScCLocale::toQStringC(appPrefs.PDF_Options.bleeds.Left));
-	pdf.setAttribute("BRight", ScCLocale::toQStringC(appPrefs.PDF_Options.bleeds.Right));
-	pdf.setAttribute("BBottom", ScCLocale::toQStringC(appPrefs.PDF_Options.bleeds.Bottom));
-	pdf.setAttribute("useDocBleeds", static_cast<int>(appPrefs.PDF_Options.useDocBleeds));
-	pdf.setAttribute("cropMarks", static_cast<int>(appPrefs.PDF_Options.cropMarks));
-	pdf.setAttribute("bleedMarks", static_cast<int>(appPrefs.PDF_Options.bleedMarks));
-	pdf.setAttribute("registrationMarks", static_cast<int>(appPrefs.PDF_Options.registrationMarks));
-	pdf.setAttribute("colorMarks", static_cast<int>(appPrefs.PDF_Options.colorMarks));
-	pdf.setAttribute("docInfoMarks", static_cast<int>(appPrefs.PDF_Options.docInfoMarks));
-	pdf.setAttribute("markOffset", appPrefs.PDF_Options.markOffset);
-	pdf.setAttribute("ImagePr", static_cast<int>(appPrefs.PDF_Options.EmbeddedI));
-	pdf.setAttribute("PassOwner", appPrefs.PDF_Options.PassOwner);
-	pdf.setAttribute("PassUser", appPrefs.PDF_Options.PassUser);
-	pdf.setAttribute("Permissions", appPrefs.PDF_Options.Permissions);
-	pdf.setAttribute("Encrypt", static_cast<int>(appPrefs.PDF_Options.Encrypt));
-	pdf.setAttribute("UseLayers", static_cast<int>(appPrefs.PDF_Options.useLayers));
-	pdf.setAttribute("UseLpi", static_cast<int>(appPrefs.PDF_Options.UseLPI));
-	pdf.setAttribute("UseSpotColors", static_cast<int>(appPrefs.PDF_Options.UseSpotColors));
-	pdf.setAttribute("doMultiFile", static_cast<int>(appPrefs.PDF_Options.doMultiFile));
-	pdf.setAttribute("displayBookmarks", static_cast<int>(appPrefs.PDF_Options.displayBookmarks));
-	pdf.setAttribute("displayFullscreen", static_cast<int>(appPrefs.PDF_Options.displayFullscreen));
-	pdf.setAttribute("displayLayers", static_cast<int>(appPrefs.PDF_Options.displayLayers));
-	pdf.setAttribute("displayThumbs", static_cast<int>(appPrefs.PDF_Options.displayThumbs));
-	pdf.setAttribute("PageLayout", appPrefs.PDF_Options.PageLayout);
-	pdf.setAttribute("openAction", appPrefs.PDF_Options.openAction);
+	pdf.setAttribute("Thumbnails", static_cast<int>(appPrefs.pdfPrefs.Thumbnails));
+	pdf.setAttribute("Articles", static_cast<int>(appPrefs.pdfPrefs.Articles));
+	pdf.setAttribute("Bookmarks", static_cast<int>(appPrefs.pdfPrefs.Bookmarks));
+	pdf.setAttribute("Compress", static_cast<int>(appPrefs.pdfPrefs.Compress));
+	pdf.setAttribute("CMethod", appPrefs.pdfPrefs.CompressMethod);
+	pdf.setAttribute("Quality", appPrefs.pdfPrefs.Quality);
+	pdf.setAttribute("EmbedPDF", static_cast<int>(appPrefs.pdfPrefs.embedPDF));
+	pdf.setAttribute("MirrorH", static_cast<int>(appPrefs.pdfPrefs.MirrorH));
+	pdf.setAttribute("MirrorV", static_cast<int>(appPrefs.pdfPrefs.MirrorV));
+	pdf.setAttribute("Clip", static_cast<int>(appPrefs.pdfPrefs.doClip));
+	pdf.setAttribute("RotateDeg", static_cast<int>(appPrefs.pdfPrefs.RotateDeg));
+	pdf.setAttribute("PresentMode", static_cast<int>(appPrefs.pdfPrefs.PresentMode));
+	pdf.setAttribute("RecalcPic", static_cast<int>(appPrefs.pdfPrefs.RecalcPic));
+	pdf.setAttribute("Grayscale", static_cast<int>(appPrefs.pdfPrefs.isGrayscale));
+	pdf.setAttribute("RGBMode", static_cast<int>(appPrefs.pdfPrefs.UseRGB));
+	pdf.setAttribute("UseProfiles", static_cast<int>(appPrefs.pdfPrefs.UseProfiles));
+	pdf.setAttribute("UseProfiles2", static_cast<int>(appPrefs.pdfPrefs.UseProfiles2));
+	pdf.setAttribute("Binding", appPrefs.pdfPrefs.Binding);
+	pdf.setAttribute("PicRes", appPrefs.pdfPrefs.PicRes);
+	pdf.setAttribute("Resolution", appPrefs.pdfPrefs.Resolution);
+	pdf.setAttribute("Version", appPrefs.pdfPrefs.Version);
+	pdf.setAttribute("Intent", appPrefs.pdfPrefs.Intent);
+	pdf.setAttribute("Intent2", appPrefs.pdfPrefs.Intent2);
+	pdf.setAttribute("SolidP", appPrefs.pdfPrefs.SolidProf);
+	pdf.setAttribute("ImageP", appPrefs.pdfPrefs.ImageProf);
+	pdf.setAttribute("PrintP", appPrefs.pdfPrefs.PrintProf);
+	pdf.setAttribute("InfoString", appPrefs.pdfPrefs.Info);
+	pdf.setAttribute("BTop", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Top));
+	pdf.setAttribute("BLeft", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Left));
+	pdf.setAttribute("BRight", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Right));
+	pdf.setAttribute("BBottom", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Bottom));
+	pdf.setAttribute("useDocBleeds", static_cast<int>(appPrefs.pdfPrefs.useDocBleeds));
+	pdf.setAttribute("cropMarks", static_cast<int>(appPrefs.pdfPrefs.cropMarks));
+	pdf.setAttribute("bleedMarks", static_cast<int>(appPrefs.pdfPrefs.bleedMarks));
+	pdf.setAttribute("registrationMarks", static_cast<int>(appPrefs.pdfPrefs.registrationMarks));
+	pdf.setAttribute("colorMarks", static_cast<int>(appPrefs.pdfPrefs.colorMarks));
+	pdf.setAttribute("docInfoMarks", static_cast<int>(appPrefs.pdfPrefs.docInfoMarks));
+	pdf.setAttribute("markOffset", appPrefs.pdfPrefs.markOffset);
+	pdf.setAttribute("ImagePr", static_cast<int>(appPrefs.pdfPrefs.EmbeddedI));
+	pdf.setAttribute("PassOwner", appPrefs.pdfPrefs.PassOwner);
+	pdf.setAttribute("PassUser", appPrefs.pdfPrefs.PassUser);
+	pdf.setAttribute("Permissions", appPrefs.pdfPrefs.Permissions);
+	pdf.setAttribute("Encrypt", static_cast<int>(appPrefs.pdfPrefs.Encrypt));
+	pdf.setAttribute("UseLayers", static_cast<int>(appPrefs.pdfPrefs.useLayers));
+	pdf.setAttribute("UseLpi", static_cast<int>(appPrefs.pdfPrefs.UseLPI));
+	pdf.setAttribute("UseSpotColors", static_cast<int>(appPrefs.pdfPrefs.UseSpotColors));
+	pdf.setAttribute("doMultiFile", static_cast<int>(appPrefs.pdfPrefs.doMultiFile));
+	pdf.setAttribute("displayBookmarks", static_cast<int>(appPrefs.pdfPrefs.displayBookmarks));
+	pdf.setAttribute("displayFullscreen", static_cast<int>(appPrefs.pdfPrefs.displayFullscreen));
+	pdf.setAttribute("displayLayers", static_cast<int>(appPrefs.pdfPrefs.displayLayers));
+	pdf.setAttribute("displayThumbs", static_cast<int>(appPrefs.pdfPrefs.displayThumbs));
+	pdf.setAttribute("PageLayout", appPrefs.pdfPrefs.PageLayout);
+	pdf.setAttribute("openAction", appPrefs.pdfPrefs.openAction);
 	QMap<QString,LPIData>::Iterator itlp;
-	for (itlp = appPrefs.PDF_Options.LPISettings.begin(); itlp != appPrefs.PDF_Options.LPISettings.end(); ++itlp)
+	for (itlp = appPrefs.pdfPrefs.LPISettings.begin(); itlp != appPrefs.pdfPrefs.LPISettings.end(); ++itlp)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());
@@ -1654,7 +1654,7 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	elem.appendChild(pdf);
 	QDomElement docItemAttrs = docu.createElement("DefaultItemAttributes");
-	for(ObjAttrVector::Iterator objAttrIt = appPrefs.defaultItemAttributes.begin() ; objAttrIt != appPrefs.defaultItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::Iterator objAttrIt = appPrefs.itemAttrPrefs.defaultItemAttributes.begin() ; objAttrIt != appPrefs.itemAttrPrefs.defaultItemAttributes.end(); ++objAttrIt )
 	{
 		QDomElement itemAttr = docu.createElement("ItemAttribute");
 		itemAttr.setAttribute("Name", (*objAttrIt).name);
@@ -1668,7 +1668,7 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	elem.appendChild(docItemAttrs);
 	QDomElement tocElem = docu.createElement("TablesOfContents");
-	for(ToCSetupVector::Iterator tocSetupIt = appPrefs.defaultToCSetups.begin() ; tocSetupIt != appPrefs.defaultToCSetups.end(); ++tocSetupIt )
+	for(ToCSetupVector::Iterator tocSetupIt = appPrefs.tocPrefs.defaultToCSetups.begin() ; tocSetupIt != appPrefs.tocPrefs.defaultToCSetups.end(); ++tocSetupIt )
 	{
 		QDomElement tocsetup = docu.createElement("TableOfContents");
 		tocsetup.setAttribute("Name", (*tocSetupIt).name);
@@ -1682,8 +1682,8 @@ bool PrefsManager::WritePref(QString ho)
 	elem.appendChild(tocElem);
 	// lorem ipsum
 	QDomElement liElem = docu.createElement("LoremIpsum");
-	liElem.setAttribute("useStandardLI", static_cast<int>(appPrefs.useStandardLI));
-	liElem.setAttribute("paragraphsLI", appPrefs.paragraphsLI);
+	liElem.setAttribute("useStandardLI", static_cast<int>(appPrefs.miscPrefs.useStandardLI));
+	liElem.setAttribute("paragraphsLI", appPrefs.miscPrefs.paragraphsLI);
 	elem.appendChild(liElem);
 	// write file
 	bool result = false;
@@ -1746,11 +1746,11 @@ bool PrefsManager::ReadPref(QString ho)
 	if (!prefs135FileFound)
 		return false;
 	appPrefs.DColors.clear();
-	appPrefs.latexCommands.clear();
+	appPrefs.extToolPrefs.latexCommands.clear();
 	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
-		appPrefs.checkerProfiles.clear();
+		appPrefs.checkerPrefsList.clear();
 	while(!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
@@ -1806,21 +1806,21 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesPrefs.rulersShown = static_cast<bool>(dc.attribute("rulersShown", "1").toInt());
 			appPrefs.guidesPrefs.showBleed = static_cast<bool>(dc.attribute("showBleed", "1").toInt());
 			appPrefs.guidesPrefs.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
-			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
+			appPrefs.miscPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
 
-			appPrefs.scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
-			appPrefs.scratch.Left   = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
-			appPrefs.scratch.Right  = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
-			appPrefs.scratch.Top    = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
-			appPrefs.GapHorizontal  = ScCLocale::toDoubleC(dc.attribute("GapHorizontal"), 0.0);
-			appPrefs.GapVertical    = ScCLocale::toDoubleC(dc.attribute("GapVertical"), 40.0);
+			appPrefs.displayPrefs.scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
+			appPrefs.displayPrefs.scratch.Left   = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
+			appPrefs.displayPrefs.scratch.Right  = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
+			appPrefs.displayPrefs.scratch.Top    = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
+			appPrefs.displayPrefs.GapHorizontal  = ScCLocale::toDoubleC(dc.attribute("GapHorizontal"), 0.0);
+			appPrefs.displayPrefs.GapVertical    = ScCLocale::toDoubleC(dc.attribute("GapVertical"), 40.0);
 			if (dc.hasAttribute("STECOLOR"))
 				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
 				appPrefs.STEfont = dc.attribute("STEFONT");
-			appPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
-			appPrefs.showMouseCoordinates = static_cast<bool>(dc.attribute("showMouseCoordinates", "1").toInt());
-			appPrefs.stickyTools = static_cast<bool>(dc.attribute("stickyTools", "0").toInt());
+			appPrefs.displayPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
+			appPrefs.displayPrefs.showMouseCoordinates = static_cast<bool>(dc.attribute("showMouseCoordinates", "1").toInt());
+			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("stickyTools", "0").toInt());
 		}
 		if (dc.tagName()=="GRID")
 		{
@@ -1839,19 +1839,19 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="PAGE")
 		{
-			appPrefs.showPageShadow = static_cast<bool>(dc.attribute("ShowPageShadow", "1").toInt());
-			appPrefs.DpapColor = QColor(dc.attribute("PAGEC"));
-			appPrefs.DFrameColor = QColor(dc.attribute("SELEC","#ff0000"));
-			appPrefs.DFrameNormColor = QColor(dc.attribute("DFrameNormColor","#000000"));
-			appPrefs.DFrameGroupColor = QColor(dc.attribute("DFrameGroupColor","#008080"));
-			appPrefs.DFrameLockColor = QColor(dc.attribute("DFrameLockColor","#800000"));
-			appPrefs.DFrameLinkColor = QColor(dc.attribute("DFrameLinkColor","#ff0000"));
-			appPrefs.DFrameAnnotationColor = QColor(dc.attribute("DFrameAnnotationColor","#0000ff"));
-			appPrefs.DPageBorderColor = QColor(dc.attribute("DPageBorderColor","#ff0000"));
-			appPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
+			appPrefs.displayPrefs.showPageShadow = static_cast<bool>(dc.attribute("ShowPageShadow", "1").toInt());
+			appPrefs.displayPrefs.DpapColor = QColor(dc.attribute("PAGEC"));
+			appPrefs.displayPrefs.DFrameColor = QColor(dc.attribute("SELEC","#ff0000"));
+			appPrefs.displayPrefs.DFrameNormColor = QColor(dc.attribute("DFrameNormColor","#000000"));
+			appPrefs.displayPrefs.DFrameGroupColor = QColor(dc.attribute("DFrameGroupColor","#008080"));
+			appPrefs.displayPrefs.DFrameLockColor = QColor(dc.attribute("DFrameLockColor","#800000"));
+			appPrefs.displayPrefs.DFrameLinkColor = QColor(dc.attribute("DFrameLinkColor","#ff0000"));
+			appPrefs.displayPrefs.DFrameAnnotationColor = QColor(dc.attribute("DFrameAnnotationColor","#0000ff"));
+			appPrefs.displayPrefs.DPageBorderColor = QColor(dc.attribute("DPageBorderColor","#ff0000"));
+			appPrefs.displayPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
 			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MARGC","#0000ff"));
-			appPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
-			appPrefs.DisScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.DisScale);
+			appPrefs.displayPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
+			appPrefs.displayPrefs.DisScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.displayPrefs.DisScale);
 		}
 		if (dc.tagName()=="TYPO")
 		{
@@ -1936,11 +1936,11 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{
-			appPrefs.mainWinSettings.xPosition = dc.attribute("XPOS", "0").toInt();
-			appPrefs.mainWinSettings.yPosition = dc.attribute("YPOS", "0").toInt();
-			appPrefs.mainWinSettings.width = dc.attribute("WIDTH", "640").toInt();
-			appPrefs.mainWinSettings.height = dc.attribute("HEIGHT", "480").toInt();
-			appPrefs.mainWinSettings.maximized = static_cast<bool>(dc.attribute("MAXIMIZED", "0").toInt());
+			appPrefs.uiPrefs.mainWinSettings.xPosition = dc.attribute("XPOS", "0").toInt();
+			appPrefs.uiPrefs.mainWinSettings.yPosition = dc.attribute("YPOS", "0").toInt();
+			appPrefs.uiPrefs.mainWinSettings.width = dc.attribute("WIDTH", "640").toInt();
+			appPrefs.uiPrefs.mainWinSettings.height = dc.attribute("HEIGHT", "480").toInt();
+			appPrefs.uiPrefs.mainWinSettings.maximized = static_cast<bool>(dc.attribute("MAXIMIZED", "0").toInt());
 			QDesktopWidget *d = QApplication::desktop();
 			QSize gStrut = QApplication::globalStrut();
 			int minX = 0;
@@ -1949,28 +1949,28 @@ bool PrefsManager::ReadPref(QString ho)
 			// on Mac you're dead if the titlebar is not on screen
 			minY = 22;
 #endif
-			if (appPrefs.mainWinSettings.xPosition < minX )
-				appPrefs.mainWinSettings.xPosition = minX;
-			if (appPrefs.mainWinSettings.yPosition <  minY)
-				appPrefs.mainWinSettings.yPosition = minY;
+			if (appPrefs.uiPrefs.mainWinSettings.xPosition < minX )
+				appPrefs.uiPrefs.mainWinSettings.xPosition = minX;
+			if (appPrefs.uiPrefs.mainWinSettings.yPosition <  minY)
+				appPrefs.uiPrefs.mainWinSettings.yPosition = minY;
 			int minWidth = 5*gStrut.width();
 			int minHeight = 5*gStrut.width();
 			int maxWidth = d->width();
 			int maxHeight = d->height();
-			if (appPrefs.mainWinSettings.width > maxWidth)
-				appPrefs.mainWinSettings.width = maxWidth;
-			if (appPrefs.mainWinSettings.width < minWidth)
-				appPrefs.mainWinSettings.width = minWidth;
-			if (appPrefs.mainWinSettings.height > maxHeight)
-				appPrefs.mainWinSettings.height = maxHeight;
-			if (appPrefs.mainWinSettings.height < minHeight)
-				appPrefs.mainWinSettings.height = minHeight;
+			if (appPrefs.uiPrefs.mainWinSettings.width > maxWidth)
+				appPrefs.uiPrefs.mainWinSettings.width = maxWidth;
+			if (appPrefs.uiPrefs.mainWinSettings.width < minWidth)
+				appPrefs.uiPrefs.mainWinSettings.width = minWidth;
+			if (appPrefs.uiPrefs.mainWinSettings.height > maxHeight)
+				appPrefs.uiPrefs.mainWinSettings.height = maxHeight;
+			if (appPrefs.uiPrefs.mainWinSettings.height < minHeight)
+				appPrefs.uiPrefs.mainWinSettings.height = minHeight;
 			int maxX = d->width() - minWidth;
 			int maxY = d->height() - minHeight;
-			if (appPrefs.mainWinSettings.xPosition >= maxX)
-				appPrefs.mainWinSettings.xPosition = maxX;
-			if (appPrefs.mainWinSettings.yPosition >= maxY)
-				appPrefs.mainWinSettings.yPosition = maxY;
+			if (appPrefs.uiPrefs.mainWinSettings.xPosition >= maxX)
+				appPrefs.uiPrefs.mainWinSettings.xPosition = maxX;
+			if (appPrefs.uiPrefs.mainWinSettings.yPosition >= maxY)
+				appPrefs.uiPrefs.mainWinSettings.yPosition = maxY;
 		}
 		if (dc.tagName()=="PAGEPALETTE")
 		{
@@ -1979,9 +1979,9 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="SCRAPBOOK")
 		{
-			appPrefs.doCopyToScrapbook = static_cast<bool>(dc.attribute("CopyToScrapbook", "1").toInt());
-			appPrefs.persistentScrapbook = static_cast<bool>(dc.attribute("persistentScrapbook", "0").toInt());
-			appPrefs.numScrapbookCopies = dc.attribute("numScrapbookCopies", "10").toInt();
+			appPrefs.scrapbookPrefs.doCopyToScrapbook = static_cast<bool>(dc.attribute("CopyToScrapbook", "1").toInt());
+			appPrefs.scrapbookPrefs.persistentScrapbook = static_cast<bool>(dc.attribute("persistentScrapbook", "0").toInt());
+			appPrefs.scrapbookPrefs.numScrapbookCopies = dc.attribute("numScrapbookCopies", "10").toInt();
 			QDomNode scrp = dc.firstChild();
 			while(!scrp.isNull())
 			{
@@ -1991,7 +1991,7 @@ bool PrefsManager::ReadPref(QString ho)
 					QString nam = scrpElem.attribute("NAME");
 					QFileInfo fd(nam);
 					if (fd.exists())
-						appPrefs.RecentScrapbooks.append(nam);
+						appPrefs.scrapbookPrefs.RecentScrapbooks.append(nam);
 				}
 				scrp = scrp.nextSibling();
 			}
@@ -2044,10 +2044,10 @@ bool PrefsManager::ReadPref(QString ho)
 							PGSN = PGSN.nextSibling();
 						}
 						appPrefs.pageSets.append(pageS);
-						if ((appPrefs.pageSets.count() == appPrefs.docSetupPrefs.pagePositioning) && ((appPrefs.GapHorizontal < 0) && (appPrefs.GapVertical < 0)))
+						if ((appPrefs.pageSets.count() == appPrefs.docSetupPrefs.pagePositioning) && ((appPrefs.displayPrefs.GapHorizontal < 0) && (appPrefs.displayPrefs.GapVertical < 0)))
 						{
-							appPrefs.GapHorizontal = ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0);
-							appPrefs.GapVertical   = ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 40.0);
+							appPrefs.displayPrefs.GapHorizontal = ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0);
+							appPrefs.displayPrefs.GapVertical   = ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 40.0);
 						}
 					}
 					PGS = PGS.nextSibling();
@@ -2072,15 +2072,15 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (!importingFrom12 && dc.tagName()=="SHORTCUT")
 		{
-//			if (appPrefs.KeyActions.contains(dc.attribute("ACTION")))
+//			if (appPrefs.keyShortcutPrefs.KeyActions.contains(dc.attribute("ACTION")))
 //			{
-				appPrefs.KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
+				appPrefs.keyShortcutPrefs.KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
 				QKeySequence newKeySequence = QKeySequence(dc.attribute("SEQUENCE"));
-				appPrefs.KeyActions[dc.attribute("ACTION")].keySequence = newKeySequence;
+				appPrefs.keyShortcutPrefs.KeyActions[dc.attribute("ACTION")].keySequence = newKeySequence;
 //			}
 		}
 		if (dc.tagName()=="RECENT")
-			appPrefs.RecentDocs.append(dc.attribute("NAME"));
+			appPrefs.uiPrefs.RecentDocs.append(dc.attribute("NAME"));
 		if (dc.tagName()=="Checker")
 		{
 			appPrefs.curCheckProfile = dc.attribute("currentProfile", CommonStrings::PostScript);
@@ -2112,14 +2112,14 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
 			checkerSettings.checkForGIF = static_cast<bool>(dc.attribute("checkForGIF", "1").toInt());
 			checkerSettings.ignoreOffLayers = static_cast<bool>(dc.attribute("ignoreOffLayers", "0").toInt());
-			appPrefs.checkerProfiles[name] = checkerSettings;
+			appPrefs.checkerPrefsList[name] = checkerSettings;
 		}
 		if (dc.tagName()=="PRINTER")
 		{
-			appPrefs.PrinterName = dc.attribute("NAME");
-			appPrefs.PrinterFile = dc.attribute("FILE");
-			appPrefs.PrinterCommand = dc.attribute("COMMAND");
-			appPrefs.ClipMargin = static_cast<bool>(dc.attribute("CLIPMARGIN", "1").toInt());
+			appPrefs.printerPrefs.PrinterName = dc.attribute("NAME");
+			appPrefs.printerPrefs.PrinterFile = dc.attribute("FILE");
+			appPrefs.printerPrefs.PrinterCommand = dc.attribute("COMMAND");
+			appPrefs.printerPrefs.ClipMargin = static_cast<bool>(dc.attribute("CLIPMARGIN", "1").toInt());
 			appPrefs.GCRMode = static_cast<bool>(dc.attribute("GMODE", "1").toInt());
 		}
 		if (dc.tagName()=="PRINTPREVIEW")
@@ -2141,12 +2141,12 @@ bool PrefsManager::ReadPref(QString ho)
 			bool gsa2 = testGSAvailability(ghostscriptExecutable());
 			if( (gsa1 == true) || (gsa2 == false) )
 				setGhostscriptExecutable(dc.attribute("GS", "gs"));
-			appPrefs.gs_AntiAliasText = static_cast<bool>(dc.attribute("AlphaText", "0").toInt());
-			appPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
-			appPrefs.gs_Resolution = dc.attribute("Resolution", "72").toInt();
-			appPrefs.latexResolution = dc.attribute("LatexResolution", "72").toInt();
-			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "1").toInt());
-			appPrefs.latexStartWithEmptyFrames = static_cast<bool>(dc.attribute("LatexStartWithEmptyFrames", "0").toInt());
+			appPrefs.extToolPrefs.gs_AntiAliasText = static_cast<bool>(dc.attribute("AlphaText", "0").toInt());
+			appPrefs.extToolPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
+			appPrefs.extToolPrefs.gs_Resolution = dc.attribute("Resolution", "72").toInt();
+			appPrefs.extToolPrefs.latexResolution = dc.attribute("LatexResolution", "72").toInt();
+			appPrefs.extToolPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "1").toInt());
+			appPrefs.extToolPrefs.latexStartWithEmptyFrames = static_cast<bool>(dc.attribute("LatexStartWithEmptyFrames", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
@@ -2160,7 +2160,7 @@ bool PrefsManager::ReadPref(QString ho)
 				bool configExists = !confFile.isEmpty() && (QFile::exists(confFile) || QFile::exists(latexBase+confFile));
 				if (!configs.contains(confFile) && configExists) {
 					configs.append(confFile);
-					appPrefs.latexCommands[confFile] = command;
+					appPrefs.extToolPrefs.latexCommands[confFile] = command;
 				}
 			}
 			if (!configs.isEmpty()) {
@@ -2173,11 +2173,11 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="HYPHEN")
 		{
 			if (!dc.attribute("LANG", "").isEmpty())
-				appPrefs.Language = dc.attribute("LANG");
-			appPrefs.MinWordLen = dc.attribute("WORDLEN", "3").toInt();
-			appPrefs.HyCount = dc.attribute("HYCOUNT", "2").toInt();
-			appPrefs.Automatic = static_cast<bool>(dc.attribute("MODE", "1").toInt());
-			appPrefs.AutoCheck = static_cast<bool>(dc.attribute("INMODE", "1").toInt());
+				appPrefs.hyphPrefs.Language = dc.attribute("LANG");
+			appPrefs.hyphPrefs.MinWordLen = dc.attribute("WORDLEN", "3").toInt();
+			appPrefs.hyphPrefs.HyCount = dc.attribute("HYCOUNT", "2").toInt();
+			appPrefs.hyphPrefs.Automatic = static_cast<bool>(dc.attribute("MODE", "1").toInt());
+			appPrefs.hyphPrefs.AutoCheck = static_cast<bool>(dc.attribute("INMODE", "1").toInt());
 			QDomNode hyelm = dc.firstChild();
 			while(!hyelm.isNull())
 			{
@@ -2186,12 +2186,12 @@ bool PrefsManager::ReadPref(QString ho)
 				{
 					QString word = hyElem.attribute("WORD");
 					QString hyph = hyElem.attribute("HYPHENATED");
-					appPrefs.specialWords.insert(word, hyph);
+					appPrefs.hyphPrefs.specialWords.insert(word, hyph);
 				}
 				else if (hyElem.tagName()=="IGNORE")
 				{
 					QString word = hyElem.attribute("WORD");
-					appPrefs.ignoredWords.insert(word);
+					appPrefs.hyphPrefs.ignoredWords.insert(word);
 				}
 				hyelm = hyelm.nextSibling();
 			}
@@ -2202,7 +2202,7 @@ bool PrefsManager::ReadPref(QString ho)
 			if (!tmpf.isEmpty())
 			{
 				QString newFont = "";
-				if (!appPrefs.AvailFonts.contains(tmpf))
+				if (!appPrefs.fontPrefs.AvailFonts.contains(tmpf))
 				{
 					ScCore->showSplash(false);
 					MissingFont *dia = new MissingFont(0, tmpf, 0);
@@ -2215,17 +2215,17 @@ bool PrefsManager::ReadPref(QString ho)
 				if (!newFont.isEmpty())
 					appPrefs.itemToolPrefs.defFont = newFont;
 				appPrefs.itemToolPrefs.defSize = qRound( ScCLocale::toDoubleC(dc.attribute("SIZE"), 12.0) * 10.0 );
-				appPrefs.askBeforeSubstituite = static_cast<bool>(dc.attribute("AutomaticSubst", "1").toInt());
+				appPrefs.fontPrefs.askBeforeSubstitute = static_cast<bool>(dc.attribute("AutomaticSubst", "1").toInt());
 			}
 		}
 		if (dc.tagName()=="FONT")
 		{
 			QString tmpf(dc.attribute("NAME"));
-			if (!tmpf.isEmpty() && appPrefs.AvailFonts.contains(tmpf))
+			if (!tmpf.isEmpty() && appPrefs.fontPrefs.AvailFonts.contains(tmpf))
 			{
-				appPrefs.AvailFonts[tmpf].embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
-				appPrefs.AvailFonts[tmpf].usable(appPrefs.AvailFonts[tmpf].usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
-				appPrefs.AvailFonts[tmpf].subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
+				appPrefs.fontPrefs.AvailFonts[tmpf].embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
+				appPrefs.fontPrefs.AvailFonts[tmpf].usable(appPrefs.fontPrefs.AvailFonts[tmpf].usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
+				appPrefs.fontPrefs.AvailFonts[tmpf].subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
 			}
 		}
 		if (dc.tagName()=="COLOR")
@@ -2252,62 +2252,62 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.DColorSet = dc.attribute("NAME");
 		if(dc.tagName()=="PDF")
 		{
-			appPrefs.PDF_Options.Articles = static_cast<bool>(dc.attribute("Articles").toInt());
-			appPrefs.PDF_Options.Thumbnails = static_cast<bool>(dc.attribute("Thumbnails").toInt());
-			appPrefs.PDF_Options.Compress = static_cast<bool>(dc.attribute("Compress").toInt());
-			appPrefs.PDF_Options.CompressMethod = (PDFOptions::PDFCompression) dc.attribute("CMethod", "0").toInt();
-			appPrefs.PDF_Options.Quality = dc.attribute("Quality", "0").toInt();
-			appPrefs.PDF_Options.embedPDF  = dc.attribute("EmbedPDF", "0").toInt();
-			appPrefs.PDF_Options.RecalcPic = static_cast<bool>(dc.attribute("RecalcPic").toInt());
-			appPrefs.PDF_Options.Bookmarks = static_cast<bool>(dc.attribute("Bookmarks").toInt());
-			appPrefs.PDF_Options.MirrorH = static_cast<bool>(dc.attribute("MirrorH").toInt());
-			appPrefs.PDF_Options.MirrorV = static_cast<bool>(dc.attribute("MirrorV").toInt());
-			appPrefs.PDF_Options.doClip = static_cast<bool>(dc.attribute("Clip").toInt());
-			appPrefs.PDF_Options.RotateDeg = dc.attribute("RotateDeg", "0").toInt();
-			appPrefs.PDF_Options.PresentMode = static_cast<bool>(dc.attribute("PresentMode").toInt());
-			appPrefs.PDF_Options.PicRes = dc.attribute("PicRes").toInt();
-			appPrefs.PDF_Options.Version = (PDFOptions::PDFVersion)dc.attribute("Version").toInt();
-			appPrefs.PDF_Options.Resolution = dc.attribute("Resolution").toInt();
-			appPrefs.PDF_Options.Binding = dc.attribute("Binding").toInt();
-			appPrefs.PDF_Options.fileName = "";
-			appPrefs.PDF_Options.isGrayscale = static_cast<bool>(dc.attribute("Grayscale", "0").toInt());
-			appPrefs.PDF_Options.UseRGB = static_cast<bool>(dc.attribute("RGBMode", "0").toInt());
-			appPrefs.PDF_Options.UseProfiles = static_cast<bool>(dc.attribute("UseProfiles", "0").toInt());
-			appPrefs.PDF_Options.UseProfiles2 = static_cast<bool>(dc.attribute("UseProfiles2", "0").toInt());
-			appPrefs.PDF_Options.Intent = dc.attribute("Intent", "1").toInt();
-			appPrefs.PDF_Options.Intent2 = dc.attribute("Intent2", "1").toInt();
-			appPrefs.PDF_Options.SolidProf = dc.attribute("SolidP", "");
-			appPrefs.PDF_Options.ImageProf = dc.attribute("ImageP", "");
-			appPrefs.PDF_Options.PrintProf = dc.attribute("PrintP", "");
-			appPrefs.PDF_Options.Info = dc.attribute("InfoString", "");
-			appPrefs.PDF_Options.bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BTop"), 0.0);
-			appPrefs.PDF_Options.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BLeft"), 0.0);
-			appPrefs.PDF_Options.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BRight"), 0.0);
-			appPrefs.PDF_Options.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BBottom"), 0.0);
-			appPrefs.PDF_Options.useDocBleeds = static_cast<bool>(dc.attribute("useDocBleeds", "1").toInt());
-			appPrefs.PDF_Options.cropMarks = static_cast<bool>(dc.attribute("cropMarks", "0").toInt());
-			appPrefs.PDF_Options.bleedMarks = static_cast<bool>(dc.attribute("bleedMarks", "0").toInt());
-			appPrefs.PDF_Options.registrationMarks = static_cast<bool>(dc.attribute("registrationMarks", "0").toInt());
-			appPrefs.PDF_Options.colorMarks = static_cast<bool>(dc.attribute("colorMarks", "0").toInt());
-			appPrefs.PDF_Options.docInfoMarks = static_cast<bool>(dc.attribute("docInfoMarks", "0").toInt());
-			appPrefs.PDF_Options.markOffset = ScCLocale::toDoubleC(dc.attribute("markOffset"), 0.0);
-			appPrefs.PDF_Options.EmbeddedI  = static_cast<bool>(dc.attribute("ImagePr", "0").toInt());
-			appPrefs.PDF_Options.PassOwner  = dc.attribute("PassOwner", "");
-			appPrefs.PDF_Options.PassUser   = dc.attribute("PassUser", "");
-			appPrefs.PDF_Options.Permissions = dc.attribute("Permissions", "-4").toInt();
-			appPrefs.PDF_Options.Encrypt = static_cast<bool>(dc.attribute("Encrypt", "0").toInt());
-			appPrefs.PDF_Options.useLayers = static_cast<bool>(dc.attribute("UseLayers", "0").toInt());
-			appPrefs.PDF_Options.UseLPI = static_cast<bool>(dc.attribute("UseLpi", "0").toInt());
-			appPrefs.PDF_Options.UseSpotColors = static_cast<bool>(dc.attribute("UseSpotColors", "1").toInt());
-			appPrefs.PDF_Options.doMultiFile = static_cast<bool>(dc.attribute("doMultiFile", "0").toInt());
-			appPrefs.PDF_Options.displayBookmarks = static_cast<bool>(dc.attribute("displayBookmarks", "0").toInt());
-			appPrefs.PDF_Options.displayFullscreen = static_cast<bool>(dc.attribute("displayFullscreen", "0").toInt());
-			appPrefs.PDF_Options.displayLayers = static_cast<bool>(dc.attribute("displayLayers", "0").toInt());
-			appPrefs.PDF_Options.displayThumbs = static_cast<bool>(dc.attribute("displayThumbs", "0").toInt());
-			appPrefs.PDF_Options.PageLayout = dc.attribute("PageLayout", "0").toInt();
-			appPrefs.PDF_Options.openAction = dc.attribute("openAction", "");
+			appPrefs.pdfPrefs.Articles = static_cast<bool>(dc.attribute("Articles").toInt());
+			appPrefs.pdfPrefs.Thumbnails = static_cast<bool>(dc.attribute("Thumbnails").toInt());
+			appPrefs.pdfPrefs.Compress = static_cast<bool>(dc.attribute("Compress").toInt());
+			appPrefs.pdfPrefs.CompressMethod = (PDFOptions::PDFCompression) dc.attribute("CMethod", "0").toInt();
+			appPrefs.pdfPrefs.Quality = dc.attribute("Quality", "0").toInt();
+			appPrefs.pdfPrefs.embedPDF  = dc.attribute("EmbedPDF", "0").toInt();
+			appPrefs.pdfPrefs.RecalcPic = static_cast<bool>(dc.attribute("RecalcPic").toInt());
+			appPrefs.pdfPrefs.Bookmarks = static_cast<bool>(dc.attribute("Bookmarks").toInt());
+			appPrefs.pdfPrefs.MirrorH = static_cast<bool>(dc.attribute("MirrorH").toInt());
+			appPrefs.pdfPrefs.MirrorV = static_cast<bool>(dc.attribute("MirrorV").toInt());
+			appPrefs.pdfPrefs.doClip = static_cast<bool>(dc.attribute("Clip").toInt());
+			appPrefs.pdfPrefs.RotateDeg = dc.attribute("RotateDeg", "0").toInt();
+			appPrefs.pdfPrefs.PresentMode = static_cast<bool>(dc.attribute("PresentMode").toInt());
+			appPrefs.pdfPrefs.PicRes = dc.attribute("PicRes").toInt();
+			appPrefs.pdfPrefs.Version = (PDFOptions::PDFVersion)dc.attribute("Version").toInt();
+			appPrefs.pdfPrefs.Resolution = dc.attribute("Resolution").toInt();
+			appPrefs.pdfPrefs.Binding = dc.attribute("Binding").toInt();
+			appPrefs.pdfPrefs.fileName = "";
+			appPrefs.pdfPrefs.isGrayscale = static_cast<bool>(dc.attribute("Grayscale", "0").toInt());
+			appPrefs.pdfPrefs.UseRGB = static_cast<bool>(dc.attribute("RGBMode", "0").toInt());
+			appPrefs.pdfPrefs.UseProfiles = static_cast<bool>(dc.attribute("UseProfiles", "0").toInt());
+			appPrefs.pdfPrefs.UseProfiles2 = static_cast<bool>(dc.attribute("UseProfiles2", "0").toInt());
+			appPrefs.pdfPrefs.Intent = dc.attribute("Intent", "1").toInt();
+			appPrefs.pdfPrefs.Intent2 = dc.attribute("Intent2", "1").toInt();
+			appPrefs.pdfPrefs.SolidProf = dc.attribute("SolidP", "");
+			appPrefs.pdfPrefs.ImageProf = dc.attribute("ImageP", "");
+			appPrefs.pdfPrefs.PrintProf = dc.attribute("PrintP", "");
+			appPrefs.pdfPrefs.Info = dc.attribute("InfoString", "");
+			appPrefs.pdfPrefs.bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BTop"), 0.0);
+			appPrefs.pdfPrefs.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BLeft"), 0.0);
+			appPrefs.pdfPrefs.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BRight"), 0.0);
+			appPrefs.pdfPrefs.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BBottom"), 0.0);
+			appPrefs.pdfPrefs.useDocBleeds = static_cast<bool>(dc.attribute("useDocBleeds", "1").toInt());
+			appPrefs.pdfPrefs.cropMarks = static_cast<bool>(dc.attribute("cropMarks", "0").toInt());
+			appPrefs.pdfPrefs.bleedMarks = static_cast<bool>(dc.attribute("bleedMarks", "0").toInt());
+			appPrefs.pdfPrefs.registrationMarks = static_cast<bool>(dc.attribute("registrationMarks", "0").toInt());
+			appPrefs.pdfPrefs.colorMarks = static_cast<bool>(dc.attribute("colorMarks", "0").toInt());
+			appPrefs.pdfPrefs.docInfoMarks = static_cast<bool>(dc.attribute("docInfoMarks", "0").toInt());
+			appPrefs.pdfPrefs.markOffset = ScCLocale::toDoubleC(dc.attribute("markOffset"), 0.0);
+			appPrefs.pdfPrefs.EmbeddedI  = static_cast<bool>(dc.attribute("ImagePr", "0").toInt());
+			appPrefs.pdfPrefs.PassOwner  = dc.attribute("PassOwner", "");
+			appPrefs.pdfPrefs.PassUser   = dc.attribute("PassUser", "");
+			appPrefs.pdfPrefs.Permissions = dc.attribute("Permissions", "-4").toInt();
+			appPrefs.pdfPrefs.Encrypt = static_cast<bool>(dc.attribute("Encrypt", "0").toInt());
+			appPrefs.pdfPrefs.useLayers = static_cast<bool>(dc.attribute("UseLayers", "0").toInt());
+			appPrefs.pdfPrefs.UseLPI = static_cast<bool>(dc.attribute("UseLpi", "0").toInt());
+			appPrefs.pdfPrefs.UseSpotColors = static_cast<bool>(dc.attribute("UseSpotColors", "1").toInt());
+			appPrefs.pdfPrefs.doMultiFile = static_cast<bool>(dc.attribute("doMultiFile", "0").toInt());
+			appPrefs.pdfPrefs.displayBookmarks = static_cast<bool>(dc.attribute("displayBookmarks", "0").toInt());
+			appPrefs.pdfPrefs.displayFullscreen = static_cast<bool>(dc.attribute("displayFullscreen", "0").toInt());
+			appPrefs.pdfPrefs.displayLayers = static_cast<bool>(dc.attribute("displayLayers", "0").toInt());
+			appPrefs.pdfPrefs.displayThumbs = static_cast<bool>(dc.attribute("displayThumbs", "0").toInt());
+			appPrefs.pdfPrefs.PageLayout = dc.attribute("PageLayout", "0").toInt();
+			appPrefs.pdfPrefs.openAction = dc.attribute("openAction", "");
 			QDomNode PFO = DOC.firstChild();
-			appPrefs.PDF_Options.LPISettings.clear();
+			appPrefs.pdfPrefs.LPISettings.clear();
 			while(!PFO.isNull())
 			{
 				QDomElement pdfF = PFO.toElement();
@@ -2317,7 +2317,7 @@ bool PrefsManager::ReadPref(QString ho)
 					lpo.Angle = pdfF.attribute("Angle").toInt();
 					lpo.Frequency = pdfF.attribute("Frequency").toInt();
 					lpo.SpotFunc = pdfF.attribute("SpotFunction").toInt();
-					appPrefs.PDF_Options.LPISettings[pdfF.attribute("Color")] = lpo;
+					appPrefs.pdfPrefs.LPISettings[pdfF.attribute("Color")] = lpo;
 				}
 				PFO = PFO.nextSibling();
 			}
@@ -2325,7 +2325,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if(dc.tagName()=="DefaultItemAttributes")
 		{
 			QDomNode DIA = DOC.firstChild();
-			appPrefs.defaultItemAttributes.clear();
+			appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
 			while(!DIA.isNull())
 			{
 				QDomElement itemAttr = DIA.toElement();
@@ -2339,7 +2339,7 @@ bool PrefsManager::ReadPref(QString ho)
 					objattr.relationship=itemAttr.attribute("Relationship");
 					objattr.relationshipto=itemAttr.attribute("RelationshipTo");
 					objattr.autoaddto=itemAttr.attribute("AutoAddTo");
-					appPrefs.defaultItemAttributes.append(objattr);
+					appPrefs.itemAttrPrefs.defaultItemAttributes.append(objattr);
 				}
 				DIA = DIA.nextSibling();
 			}
@@ -2347,7 +2347,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if(dc.tagName()=="TablesOfContents")
 		{
 			QDomNode TOC = DOC.firstChild();
-			appPrefs.defaultToCSetups.clear();
+			appPrefs.tocPrefs.defaultToCSetups.clear();
 			while(!TOC.isNull())
 			{
 				QDomElement tocElem = TOC.toElement();
@@ -2366,7 +2366,7 @@ bool PrefsManager::ReadPref(QString ho)
 						tocsetup.pageLocation=End;
 					if (numberPlacement=="NotShown")
 						tocsetup.pageLocation=NotShown;
-					appPrefs.defaultToCSetups.append(tocsetup);
+					appPrefs.tocPrefs.defaultToCSetups.append(tocsetup);
 				}
 				TOC = TOC.nextSibling();
 			}
@@ -2374,8 +2374,8 @@ bool PrefsManager::ReadPref(QString ho)
 		// lorem ispum
 		if (dc.tagName() == "LoremIpsum")
 		{
-			appPrefs.useStandardLI = static_cast<bool>(dc.attribute("useStandardLI", "0").toInt());
-			appPrefs.paragraphsLI = dc.attribute("paragraphsLI", "10").toInt();
+			appPrefs.miscPrefs.useStandardLI = static_cast<bool>(dc.attribute("useStandardLI", "0").toInt());
+			appPrefs.miscPrefs.paragraphsLI = dc.attribute("paragraphsLI", "10").toInt();
 		}
 		DOC=DOC.nextSibling();
 	}
@@ -2468,5 +2468,5 @@ void PrefsManager::alertLoadPrefsFailed() const
 
 int PrefsManager::gsResolution()
 {
-	return appPrefs.gs_Resolution;
+	return appPrefs.extToolPrefs.gs_Resolution;
 }

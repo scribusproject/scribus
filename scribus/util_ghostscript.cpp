@@ -66,9 +66,9 @@ int callGS(const QStringList& args_in, const QString device)
 	else
 		args.append( "-sDEVICE=pngalpha" );
 	// and antialiasing
-	if (prefsManager->appPrefs.gs_AntiAliasText)
+	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasText)
 		args.append( "-dTextAlphaBits=4" );
-	if (prefsManager->appPrefs.gs_AntiAliasGraphics)
+	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasGraphics)
 		args.append( "-dGraphicsAlphaBits=4" );
 
 	// Add any extra font paths being used by Scribus to gs's font search path
@@ -103,9 +103,9 @@ int callGS(const QString& args_in, const QString device)
 	else
 		cmd1 += " -sDEVICE=pngalpha";
 	// and antialiasing
-	if (prefsManager->appPrefs.gs_AntiAliasText)
+	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasText)
 		cmd1 += " -dTextAlphaBits=4";
-	if (prefsManager->appPrefs.gs_AntiAliasGraphics)
+	if (prefsManager->appPrefs.extToolPrefs.gs_AntiAliasGraphics)
 		cmd1 += " -dGraphicsAlphaBits=4";
 
 	// Add any extra font paths being used by Scribus to gs's font search path

@@ -58,7 +58,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 		Language = doc->Language;
 	else
 	{
-		Language = PrefsManager::instance()->appPrefs.Language;
+		Language = PrefsManager::instance()->appPrefs.hyphPrefs.Language;
 		doc->Language = Language;
 	}
 // 	pfad += ScCore->primaryMainWindow()->Sprachen[Language];

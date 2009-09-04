@@ -84,13 +84,13 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabHyphenator = new HySettings(prefsWidgets/*, &ScMW->LangTransl*/);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(prefsWidgets, true, PrefsManager::instance()->preferencesLocation(), doc);
+	tabFonts = new FontPrefsTab(prefsWidgets, true, PrefsManager::instance()->preferencesLocation(), doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
-	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
+	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
 								ScCore->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								docUnitIndex, doc->pageHeight, doc->pageWidth, doc );
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
@@ -152,7 +152,7 @@ void ReformDoc::restoreDefaults()
 	tabTools->restoreDefaults(&currDoc->itemToolPrefs, &currDoc->opToolPrefs, docUnitIndex);
 	tabFonts->restoreDefaults();
 	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
-	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
+	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
 							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, currDoc, false);
 	if (ScCore->haveCMS())

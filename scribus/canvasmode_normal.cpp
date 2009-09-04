@@ -956,7 +956,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (m_doc->appMode != modeEdit)
 	{
-		if (!PrefsManager::instance()->appPrefs.stickyTools)
+		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 			m_view->requestMode(modeNormal);
 		else
 		{

@@ -1821,7 +1821,7 @@ void AIPlug::processData(QString data)
 			family.replace( QRegExp( "'" ) , QChar( ' ' ) );
 			textFont = m_Doc->itemToolPrefs.defFont;
 			bool found = false;
-			SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
+			SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 			for ( ; it.hasNext(); it.next())
 			{
 				QString fam;

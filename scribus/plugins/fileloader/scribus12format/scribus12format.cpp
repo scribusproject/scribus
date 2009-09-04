@@ -1522,8 +1522,8 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	if (tmpf.isEmpty())
 		tmpf = doc->itemToolPrefs.defFont;
 	PrefsManager *prefsManager=PrefsManager::instance();
-	prefsManager->appPrefs.AvailFonts.findFont(tmpf, doc);
-	vg->charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
+	prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(tmpf, doc);
+	vg->charStyle().setFont(prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf]);
 	vg->charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg->attribute("FONTSIZE"), 12.0) * 10.0));
 	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
 	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());

@@ -459,7 +459,7 @@ static PyObject *Printer_print(Printer *self)
 	}
 #endif
 
-	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
+	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
 	if (dd != NULL)
 	{
 		if (!fil)

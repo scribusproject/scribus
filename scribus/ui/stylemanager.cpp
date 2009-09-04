@@ -1081,8 +1081,8 @@ bool StyleManager::shortcutExists(const QString &keys)
 	}
 
 	ApplicationPrefs *prefsData=&(PrefsManager::instance()->appPrefs);
-	for (QMap<QString,Keys>::Iterator it=prefsData->KeyActions.begin();
-	     it!=prefsData->KeyActions.end(); ++it)
+	for (QMap<QString,Keys>::Iterator it=prefsData->keyShortcutPrefs.KeyActions.begin();
+		 it!=prefsData->keyShortcutPrefs.KeyActions.end(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 			return true;

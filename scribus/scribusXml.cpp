@@ -789,11 +789,11 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 		tmpf = doc->itemToolPrefs.defFont;
 	tmf = tmpf;
 	if (!DoFonts.contains(tmpf))
-		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
+		tmpf = AskForFont(prefsManager->appPrefs.fontPrefs.AvailFonts, tmpf, doc);
 	else
 		tmpf = DoFonts[tmf];
 
-	vg.charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
+	vg.charStyle().setFont(prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf]);
 	vg.charStyle().setFontSize(qRound(attrAsDbl(attrs, "FONTSIZE", 12.0) * 10.0));
 	vg.charStyle().setFeatures(static_cast<StyleFlag>(attrAsInt(attrs, "EFFECT", 0)).featureList());
 	vg.charStyle().setFillColor(attrAsString(attrs, "FCOLOR", doc->itemToolPrefs.dBrush));
@@ -2572,7 +2572,7 @@ void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle&
 
 	ScFace dummy = ScFace::none();
 	ApplicationPrefs& appPrefs = prefsManager->appPrefs;
-	if (hasFont && ((!appPrefs.AvailFonts.contains(tmpf)) || (!appPrefs.AvailFonts[tmpf].usable())))
+	if (hasFont && ((!appPrefs.fontPrefs.AvailFonts.contains(tmpf)) || (!appPrefs.fontPrefs.AvailFonts[tmpf].usable())))
 	{
 		bool isThere = false;
 		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
@@ -2590,7 +2590,7 @@ void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle&
 			dummyScFaces.append(dummy);
 		}
 		unknown = true;
-		if ((!appPrefs.GFontSub.contains(tmpf)) || (!appPrefs.AvailFonts[appPrefs.GFontSub[tmpf]].usable()))
+		if ((!appPrefs.GFontSub.contains(tmpf)) || (!appPrefs.fontPrefs.AvailFonts[appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, appPrefs.itemToolPrefs.defFont);

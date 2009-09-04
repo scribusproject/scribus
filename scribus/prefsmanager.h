@@ -126,19 +126,19 @@ public:
 	void setImageEditorExecutable(const QString&);
 	void setExtBrowserExecutable(const QString&);
 	void setLatexConfigs(const QStringList&);
-	void setLatexCommands(const QMap<QString, QString>& commands) { appPrefs.latexCommands=commands; }
+	void setLatexCommands(const QMap<QString, QString>& commands) { appPrefs.extToolPrefs.latexCommands=commands; }
 	void setLatexEditorExecutable(const QString&);
-	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
-	QString imageEditorExecutable() const {return appPrefs.imageEditorExecutable;};
-	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
-	QStringList latexConfigs() const {return appPrefs.latexConfigs;}
-	QMap<QString, QString> latexCommands() const {return appPrefs.latexCommands;}
-	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
-	bool latexStartWithEmptyFrames() const {return appPrefs.latexStartWithEmptyFrames;}
+	QString ghostscriptExecutable() const {return appPrefs.extToolPrefs.gs_exe;};
+	QString imageEditorExecutable() const {return appPrefs.extToolPrefs.imageEditorExecutable;};
+	QString extBrowserExecutable() const {return appPrefs.extToolPrefs.extBrowserExecutable;};
+	QStringList latexConfigs() const {return appPrefs.extToolPrefs.latexConfigs;}
+	QMap<QString, QString> latexCommands() const {return appPrefs.extToolPrefs.latexCommands;}
+	QString latexEditorExecutable() const {return appPrefs.extToolPrefs.latexEditorExecutable;}
+	bool latexStartWithEmptyFrames() const {return appPrefs.extToolPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution
 	int gsResolution();
-	int latexResolution() const {return appPrefs.latexResolution;}
-	bool latexForceDpi() const {return appPrefs.latexForceDpi;}
+	int latexResolution() const {return appPrefs.extToolPrefs.latexResolution;}
+	bool latexForceDpi() const {return appPrefs.extToolPrefs.latexForceDpi;}
 	//! \brief Get the users preferred document directory
 	const QString documentDir();
 	void setDocumentDir(const QString& dirname);

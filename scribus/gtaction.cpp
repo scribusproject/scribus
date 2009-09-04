@@ -543,7 +543,7 @@ ScFace gtAction::validateFont(gtFont* font)
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
 		useFont = textFrame->itemText.defaultStyle().charStyle().font().scName();
-	else if (prefsManager->appPrefs.AvailFonts[font->getName()].isNone())
+	else if (prefsManager->appPrefs.fontPrefs.AvailFonts[font->getName()].isNone())
 	{
 		bool found = false;
 		// Do not empty otherwise user may be asked to replace an empty font 
@@ -599,7 +599,7 @@ ScFace gtAction::validateFont(gtFont* font)
 
 	if(!textFrame->doc()->UsedFonts.contains(useFont))
 		textFrame->doc()->AddFont(useFont);
-	return prefsManager->appPrefs.AvailFonts[useFont];
+	return prefsManager->appPrefs.fontPrefs.AvailFonts[useFont];
 }
 
 QString gtAction::findFontName(gtFont* font)
@@ -608,7 +608,7 @@ QString gtAction::findFontName(gtFont* font)
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
-		if (! prefsManager->appPrefs.AvailFonts[nname].isNone())
+		if (! prefsManager->appPrefs.fontPrefs.AvailFonts[nname].isNone())
 		{
 			ret = nname;
 			break;

@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 FontListModel::FontListModel(QObject * parent, ScribusDoc * doc)
 	: QAbstractTableModel(parent),
 	m_doc(doc),
-	m_fonts(PrefsManager::instance()->appPrefs.AvailFonts)
+	m_fonts(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts)
 {
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");

@@ -157,7 +157,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 			selection_.append(&tmpStyles_[index]);
 	}
 
-	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), PrefsManager::instance()->appPrefs.Language);
+	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), PrefsManager::instance()->appPrefs.hyphPrefs.Language);
 
 	setupConnections();
 }
@@ -1335,7 +1335,7 @@ void SMParagraphStyle::slotFont(QString s)
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetFont();
 	else {
-		ScFace sf = PrefsManager::instance()->appPrefs.AvailFonts[s];
+		ScFace sf = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[s];
 		
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().setFont(sf);
@@ -1532,7 +1532,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 			selection_.append(&tmpStyles_[index]);
 
 	}
-	page_->show(selection_, cstyles, PrefsManager::instance()->appPrefs.Language, doc_->unitIndex());
+	page_->show(selection_, cstyles, PrefsManager::instance()->appPrefs.hyphPrefs.Language, doc_->unitIndex());
 	setupConnections();
 }
 
@@ -2262,7 +2262,7 @@ void SMCharacterStyle::slotFont(QString s)
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetFont();
 	else {
-		sf = PrefsManager::instance()->appPrefs.AvailFonts[s];
+		sf = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[s];
 
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setFont(sf);

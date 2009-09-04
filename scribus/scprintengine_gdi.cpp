@@ -439,7 +439,7 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions
 	options2.pageNumbers.push_back(page->pageNr() + 1 );
 
 	tempFilePath = PrefsManager::instance()->preferencesLocation() + "/tmp.ps";
-	PSLib *dd = new PSLib(options2, false, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors );
+	PSLib *dd = new PSLib(options2, false, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors );
 	dd->PS_set_file( tempFilePath );
 	ret = dd->CreatePS( doc, options2);
 	delete dd;

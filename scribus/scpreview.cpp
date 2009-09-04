@@ -123,9 +123,9 @@ QPixmap ScPreview::createPreview(QString data)
 		if(pg.tagName()=="FONT")
 		{
 			tmpf = GetAttr(&pg, "NAME");
-			if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
+			if ((!prefsManager->appPrefs.fontPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf].usable()))
 			{
-				if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
+				if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.fontPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 				{
 					ScCore->showSplash(false);
 					MissingFont *dia = new MissingFont(0, tmpf, 0);
@@ -142,7 +142,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 //				FT_Face face;
 //				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf].fontFilePath(), prefsManager->appPrefs.AvailFonts[tmpf].faceIndex(), &face );
-				if ( prefsManager->appPrefs.AvailFonts[tmpf].usable() )
+				if ( prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf].usable() )
 					tmpf = prefsManager->appPrefs.itemToolPrefs.defFont;
 /*				if (prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics()) {
 //already done in ScFonts::addScalaableFont():
@@ -411,7 +411,7 @@ QPixmap ScPreview::createPreview(QString data)
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);
 					it++;
-					hg->setFont(prefsManager->appPrefs.AvailFonts[*it]);
+					hg->setFont(prefsManager->appPrefs.fontPrefs.AvailFonts[*it]);
 					it++;
 					hg->setFontSize(qRound(ScCLocale::toDoubleC((*it)) * 10.0));
 					it++;
@@ -1063,13 +1063,13 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 	double wide;
 	double csi = Siz / 100.0;
 //	uint chr = ccx[0].unicode();
-	if (prefsManager->appPrefs.AvailFonts[ZFo].canRender(ccx[0]))
+	if (prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].canRender(ccx[0]))
 	{
-		wide = prefsManager->appPrefs.AvailFonts[ZFo].charWidth(ccx[0])*(Siz / 10.0);
+		wide = prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].charWidth(ccx[0])*(Siz / 10.0);
 		QTransform chma;
 		chma.scale(csi, csi);
-		uint gl = prefsManager->appPrefs.AvailFonts[ZFo].char2CMap(ccx[0]);
-		FPointArray gly = prefsManager->appPrefs.AvailFonts[ZFo].glyphOutline(gl);
+		uint gl = prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].char2CMap(ccx[0]);
+		FPointArray gly = prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].glyphOutline(gl);
 		if (gly.size() < 4)
 			return;
 		gly.map(chma);
@@ -1092,19 +1092,19 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 			p->fillPath();
 		if ((Style & 4) && ((mod % 2) != 0))
 		{
-			p->setLineWidth(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * Siz / 20);
+			p->setLineWidth(prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].strokeWidth() * Siz / 20);
 			p->strokePath();
 		}
 		if (Style & 16)
 		{
-			double st = prefsManager->appPrefs.AvailFonts[ZFo].strikeoutPos() * (Siz / 10.0);
-			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1.0));
+			double st = prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].strikeoutPos() * (Siz / 10.0);
+			p->setLineWidth(qMax(prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1.0));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 		if (Style & 8)
 		{
-			double st = prefsManager->appPrefs.AvailFonts[ZFo].underlinePos() * (Siz / 10.0);
-			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1.0));
+			double st = prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].underlinePos() * (Siz / 10.0);
+			p->setLineWidth(qMax(prefsManager->appPrefs.fontPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1.0));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 	}

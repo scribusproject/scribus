@@ -18,7 +18,7 @@ TabScrapbook::TabScrapbook(QWidget* parent)
 
 void TabScrapbook::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	useScrapBookasExtension->setChecked(prefsData->doCopyToScrapbook);
-	persistentScrapbook->setChecked(prefsData->persistentScrapbook);
-	numScrapCopies->setValue(prefsData->numScrapbookCopies);
+	useScrapBookasExtension->setChecked(prefsData->scrapbookPrefs.doCopyToScrapbook);
+	persistentScrapbook->setChecked(prefsData->scrapbookPrefs.persistentScrapbook);
+	numScrapCopies->setValue(prefsData->scrapbookPrefs.numScrapbookCopies);
 }

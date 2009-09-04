@@ -65,7 +65,7 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 	tmpStyle.setRightMargin(0);
 	tmpStyle.setGapBefore(0);
 	tmpStyle.setGapAfter(0);
-	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[m_Doc->itemToolPrefs.defFont]);
+	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[m_Doc->itemToolPrefs.defFont]);
 	tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs.defSize);
 //	tmpStyle.tabValues().clear();
 	tmpStyle.setHasDropCap(false);
@@ -188,7 +188,7 @@ void SampleItem::setGapAfter(double gapAfter)
 
 void SampleItem::setFont(QString font)
 {
-	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[font]);
+	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
 }
 
 void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
@@ -324,7 +324,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	if (m_Doc->view() != NULL)
 	{
 		sca = m_Doc->view()->scale();
-		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.DisScale);
+		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.displayPrefs.DisScale);
 	}
 	painter->setZoomFactor(m_Doc->view()->scale());
 

@@ -980,7 +980,7 @@ bool Biblio::copyObj(int id)
 	if (bv == tempBView)
 	{
 		tempCount++;
-		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
+		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
@@ -1295,7 +1295,7 @@ void Biblio::ObjFromMenu(QString text)
 	delete pre;
 	if (Frame3->currentIndex() == 1)
 	{
-		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
+		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
@@ -1363,7 +1363,7 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 	p.end();
 	new QListWidgetItem(QIcon(pm2), nam, tempBView);
 	delete pre;
-	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
+	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
 		it = tempBView->objectMap.begin();

@@ -34,7 +34,7 @@ class TabGuides;
 class TabTools;
 class TabCheckDoc;
 class TabPDFOptions;
-class FontPrefs;
+class FontPrefsTab;
 class DocumentItemAttributes;
 class TOCIndexPrefs;
 class MarginWidget;
@@ -73,7 +73,7 @@ protected:
 	TabTypograpy* tabTypo;
 	TabTools* tabTools;
 	HySettings* tabHyphenator;
-	FontPrefs* tabFonts;
+	FontPrefsTab* tabFonts;
 	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
 	TabPDFOptions* tabPDF;

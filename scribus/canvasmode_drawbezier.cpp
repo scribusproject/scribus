@@ -426,7 +426,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 			finalizeItem(currItem);
 		}
 		
-		if (!PrefsManager::instance()->appPrefs.stickyTools)
+		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 		{
 //			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			m_view->requestMode(modeNormal);

@@ -403,7 +403,7 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font on a non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	if (PrefsManager::instance()->appPrefs.AvailFonts.contains(QString::fromUtf8(Font)))
+	if (PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(QString::fromUtf8(Font)))
 	{
 		int Apm = ScCore->primaryMainWindow()->doc->appMode;
 		ScCore->primaryMainWindow()->doc->m_Selection->clear();

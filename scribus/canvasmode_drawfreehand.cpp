@@ -370,7 +370,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->changed();
 //			m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()).adjusted(-10, -10, 20, 20));
 		}
-		if (!PrefsManager::instance()->appPrefs.stickyTools)
+		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 		{
 			m_view->requestMode(modeNormal);
 //			m_view->requestMode(submodePaintingDone);
@@ -510,7 +510,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 					currItem->OldH2 = currItem->height();
 					currItem->Sizing = false;
 					m_doc->SnapGuides = oldSnap;
-					if (!PrefsManager::instance()->appPrefs.stickyTools)
+					if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 					{
 						m_view->requestMode(modeNormal);
 //						m_view->requestMode(submodePaintingDone);
@@ -912,7 +912,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (m_doc->appMode != modeEdit)
 		{
-			if (!PrefsManager::instance()->appPrefs.stickyTools)
+			if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 			{
 //				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				m_view->requestMode(modeNormal);

@@ -1209,13 +1209,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		{
 			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
-					p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((BackBox != 0) || (NextBox != 0))
-					p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (m_Locked)
-					p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(0);
 				if (itemType()==PathText)
 				{
@@ -1449,9 +1449,9 @@ void PageItem::paintObj(QPainter *p)
 			{
 				//Locked line colour selection
 				if (m_Locked)
-					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+					p->setPen(QPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameLockColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				else
-					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+					p->setPen(QPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(Qt::NoBrush);
 				double lw2 = 1.0 / sc;
 				double lw = 1.0 / sc;
@@ -1480,7 +1480,7 @@ void PageItem::paintObj(QPainter *p)
 				else
 					p->drawRect(QRectF(0, 0, Width, Height));
 //				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				p->setBrush(PrefsManager::instance()->appPrefs.DFrameColor);
+				p->setBrush(PrefsManager::instance()->appPrefs.displayPrefs.DFrameColor);
 				p->setPen(Qt::NoPen);
 				if ((!m_Locked) && (!m_SizeLocked))
 				{
@@ -1510,14 +1510,14 @@ void PageItem::paintObj(QPainter *p)
 			}
 			else
 			{
-				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setPen(QPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(Qt::NoBrush);
 				p->drawRect(QRectF(0.0, 0.0, Width, Height));
 				if (m_Doc->m_Selection->count() == 1)
 				{
 					p->setPen(Qt::NoPen);
 //					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-					p->setBrush(PrefsManager::instance()->appPrefs.DFrameGroupColor);
+					p->setBrush(PrefsManager::instance()->appPrefs.displayPrefs.DFrameGroupColor);
 					p->drawRect(QRectF(0.0, 0.0, handleSize, handleSize));
 					p->drawRect(QRectF(Width - handleSize, Height - handleSize, handleSize, handleSize));
 					p->drawRect(QRectF(Width - handleSize, 0.0, handleSize, handleSize));
@@ -1915,7 +1915,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		p->setupPolygon(&points, true);
 		QColor oldBrush = p->brush();
 		p->setBrush( (style.effects() & ScStyle_SuppressSpace) ? Qt::green
-					: PrefsManager::instance()->appPrefs.DControlCharColor);
+					: PrefsManager::instance()->appPrefs.displayPrefs.DControlCharColor);
 		if (stroke)
 		{
 			QColor tmp = p->pen();
@@ -2037,7 +2037,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			}
 			if (glyph == 0)
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DControlCharColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
 				p->strokePath();
 			}

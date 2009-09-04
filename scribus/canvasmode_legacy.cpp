@@ -2415,7 +2415,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (m_doc->appMode == modeRotation)
 				m_doc->RotMode ( RotMode );
-			if (!PrefsManager::instance()->appPrefs.stickyTools)
+			if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 				m_view->requestMode(modeNormal);
 			else
 			{
@@ -4861,7 +4861,7 @@ void LegacyMode::SetupDrawNoResize(int nr)
 	m_doc->m_Selection->addItem(currItem);
 	m_doc->m_Selection->delaySignalsOff();
 //	m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-	if (!PrefsManager::instance()->appPrefs.stickyTools)
+	if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 		m_view->requestMode(modeNormal);
 //	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;

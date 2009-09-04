@@ -353,17 +353,17 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Hyphenator") );
-	QString preLang = prefsManager->appPrefs.Language;
+	QString preLang(prefsManager->appPrefs.hyphPrefs.Language);
 	initHyphenator();
 	if (!LanguageManager::instance()->getHyphFilename( preLang, false ).isEmpty() )
-		prefsManager->appPrefs.Language = preLang;
+		prefsManager->appPrefs.hyphPrefs.Language = preLang;
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Reading Scrapbook") );
 	initScrapbook();
 
-	scrActions["helpTooltips"]->setChecked(prefsManager->appPrefs.showToolTips);
-	scrActions["showMouseCoordinates"]->setChecked(prefsManager->appPrefs.showMouseCoordinates);
-	scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.stickyTools);
+	scrActions["helpTooltips"]->setChecked(prefsManager->appPrefs.displayPrefs.showToolTips);
+	scrActions["showMouseCoordinates"]->setChecked(prefsManager->appPrefs.displayPrefs.showMouseCoordinates);
+	scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.uiPrefs.stickyTools);
 	ToggleTips();
 	ToggleMouseTips();
 	propertiesPalette->setFontSize();
@@ -582,7 +582,7 @@ void ScribusMainWindow::initScrapbook()
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
-	scrapbookPalette->setOpenScrapbooks(prefsManager->appPrefs.RecentScrapbooks);
+	scrapbookPalette->setOpenScrapbooks(prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks);
 	rebuildRecentPasteMenu();
 	connect(scrapbookPalette, SIGNAL(updateRecentMenue()), this, SLOT(rebuildRecentPasteMenu()));
 }
@@ -1147,7 +1147,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 	bool retVal;
 	if (e->type() == QEvent::ToolTip)
 	{
-		return (!prefsManager->appPrefs.showToolTips);
+		return (!prefsManager->appPrefs.displayPrefs.showToolTips);
 	}
 	if ( e->type() == QEvent::KeyPress )
 	{
@@ -1324,8 +1324,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		slotSelect();
 		if (doc->m_Selection->count() == 0)
 			HaveNewSel(-1);
-		prefsManager->appPrefs.stickyTools = false;
-		scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.stickyTools);
+		prefsManager->appPrefs.uiPrefs.stickyTools = false;
+		scrActions["stickyTools"]->setChecked(false);
 		return;
 	}
 	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
@@ -1969,10 +1969,10 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
-	if (!prefsManager->appPrefs.persistentScrapbook)
+	if (!prefsManager->appPrefs.scrapbookPrefs.persistentScrapbook)
 		scrapbookPalette->CleanUpTemp();
-	prefsManager->appPrefs.RecentScrapbooks.clear();
-	prefsManager->appPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
+	prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
+	prefsManager->appPrefs.scrapbookPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
@@ -2263,8 +2263,8 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		view = tempView;
 	tempDoc->setCurrentPage(tempDoc->Pages->at(0));
 	tempDoc->setGUI(requiresGUI, this, tempView);
-	tempDoc->docHyphenator->ignoredWords = prefsManager->appPrefs.ignoredWords;
-	tempDoc->docHyphenator->specialWords = prefsManager->appPrefs.specialWords;
+	tempDoc->docHyphenator->ignoredWords = prefsManager->appPrefs.hyphPrefs.ignoredWords;
+	tempDoc->docHyphenator->specialWords = prefsManager->appPrefs.hyphPrefs.specialWords;
 	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
 
@@ -3448,7 +3448,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		scrMenuMgr->removeMenuItem((*it), recentPasteMenuName);
 
 	scrRecentPasteActions.clear();
-	int max = qMin(prefsManager->appPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
+	int max = qMin(prefsManager->appPrefs.scrapbookPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
 	if (max > 0)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
@@ -3893,8 +3893,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 
 		ScCore->getCMSProfilesDir(fi.absolutePath()+"/", false, false);
-		prefsManager->appPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", FName);
-		prefsManager->appPrefs.AvailFonts.updateFontMap();
+		prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", FName);
+		prefsManager->appPrefs.fontPrefs.AvailFonts.updateFontMap();
 		doc=new ScribusDoc();
 		doc->is12doc=is12doc;
 		doc->appMode = modeNormal;
@@ -4970,7 +4970,7 @@ void ScribusMainWindow::slotEditCut()
 			std::string xml(xmlString.str());
 			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
 
-			if (prefsManager->appPrefs.doCopyToScrapbook)
+			if (prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook)
 			{
 				ScriXmlDoc ss;
 				QString buffer = ss.WriteElem(doc, view, doc->m_Selection);
@@ -5055,7 +5055,7 @@ void ScribusMainWindow::slotEditCopy()
 			doc->itemSelection_DeleteItem(&objects);
 #endif
 
-			if ((prefsManager->appPrefs.doCopyToScrapbook) && (!internalCopy))
+			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
 				ScriXmlDoc ss;
 				QString buffer = ss.WriteElem(doc, view, doc->m_Selection);
@@ -5491,12 +5491,12 @@ void ScribusMainWindow::slotOnlineHelpClosed()
 
 void ScribusMainWindow::ToggleTips()
 {
-	prefsManager->appPrefs.showToolTips = scrActions["helpTooltips"]->isChecked();
+	prefsManager->appPrefs.displayPrefs.showToolTips = scrActions["helpTooltips"]->isChecked();
 }
 
 void ScribusMainWindow::ToggleMouseTips()
 {
-	prefsManager->appPrefs.showMouseCoordinates = scrActions["showMouseCoordinates"]->isChecked();
+	prefsManager->appPrefs.displayPrefs.showMouseCoordinates = scrActions["showMouseCoordinates"]->isChecked();
 }
 
 void ScribusMainWindow::SaveText()
@@ -5776,9 +5776,9 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 
 void ScribusMainWindow::ToggleStickyTools()
 {
-	prefsManager->appPrefs.stickyTools = !prefsManager->appPrefs.stickyTools;
-	scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.stickyTools);
-	if (HaveDoc && doc->appMode!=modeNormal && !prefsManager->appPrefs.stickyTools)
+	prefsManager->appPrefs.uiPrefs.stickyTools = !prefsManager->appPrefs.uiPrefs.stickyTools;
+	scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.uiPrefs.stickyTools);
+	if (HaveDoc && doc->appMode!=modeNormal && !prefsManager->appPrefs.uiPrefs.stickyTools)
 		view->requestMode(modeNormal);
 }
 
@@ -6458,7 +6458,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		int docSelectionCount=doc->m_Selection->count();
 		if (mode == modeDrawBezierLine)
 		{
-			if ((docSelectionCount != 0) && (!prefsManager->appPrefs.stickyTools))
+			if ((docSelectionCount != 0) && (!prefsManager->appPrefs.uiPrefs.stickyTools))
 				view->Deselect(true);
 			view->FirstPoly = true;
 		}
@@ -6890,7 +6890,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	QString nf2(nf);
 	if (!doc->UsedFonts.contains(nf))
 	{
-		if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
+		if (doc->AddFont(nf)) //, prefsManager->appPrefs.fontPrefs.AvailFonts[nf]->Font))
 		{
 		}
 		else
@@ -7283,11 +7283,11 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 			QString nf = doc->paragraphStyles()[a].charStyle().font().scName();
 			if (!doc->UsedFonts.contains(nf))
 			{
-				if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
+				if (doc->AddFont(nf)) //, prefsManager->appPrefs.fontPrefs.AvailFonts[nf]->Font))
 				{
 				}
 //				else
-//FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]));
+//FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.fontPrefs.AvailFonts[doc->toolSettings.defFont]));
 			}
 		}
 	}
@@ -7842,7 +7842,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	options.bleeds.Left = 0.0;
 	options.bleeds.Right = 0.0;
 	options.bleeds.Bottom = 0.0;
-	PSLib *dd = new PSLib(options, false, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
+	PSLib *dd = new PSLib(options, false, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
@@ -8027,7 +8027,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
 	MarginStruct optBleeds = doc->PDF_Options.bleeds;
-	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
+	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.fontPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
 	if (dia.exec())
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -8220,7 +8220,7 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 		view->requestMode(submodeEndNodeEdit);
 
 	ScriXmlDoc ss;
-	if(ss.ReadElem(xml, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
+	if(ss.ReadElem(xml, prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -8792,7 +8792,7 @@ void ScribusMainWindow::ModifyAnnot()
 
 void ScribusMainWindow::SetShortCut()
 {
-	for (QMap<QString,Keys>::Iterator it = prefsManager->appPrefs.KeyActions.begin(); it != prefsManager->appPrefs.KeyActions.end(); ++it )
+	for (QMap<QString,Keys>::Iterator it = prefsManager->appPrefs.keyShortcutPrefs.KeyActions.begin(); it != prefsManager->appPrefs.keyShortcutPrefs.KeyActions.end(); ++it )
 	{
 		if (!it.value().actionName.isEmpty())
 			if (scrActions[it.value().actionName])
@@ -8948,7 +8948,7 @@ void ScribusMainWindow::initHyphenator()
 	//For each hyphenation file, grab the strings and the hyphenation data.
 	QString lang = QString(QLocale::system().name()).left(2);
 	LangTransl.clear();
-	prefsManager->appPrefs.Language = "English";
+	prefsManager->appPrefs.hyphPrefs.Language = "English";
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 	{
 		LanguageManager *langmgr(LanguageManager::instance());
@@ -8965,10 +8965,10 @@ void ScribusMainWindow::initHyphenator()
 			langmgr->addHyphLang(fileLangAbbrev, hyphDir[dc]);
 // 			Sprachen.insert(datein, hyphDir[dc]);
 			if (fileLangAbbrev == lang)
-				prefsManager->appPrefs.Language = datein;
+				prefsManager->appPrefs.hyphPrefs.Language = datein;
 		}
 		if (datein.isEmpty())
-			prefsManager->appPrefs.Language = "English";
+			prefsManager->appPrefs.hyphPrefs.Language = "English";
 	}
 //	propertiesPalette->fillLangCombo(LangTransl);
 }
@@ -9292,9 +9292,9 @@ void ScribusMainWindow::generateTableOfContents()
 void ScribusMainWindow::insertSampleText()
 {
 	LoremManager m(doc, this);
-	if (prefsManager->appPrefs.useStandardLI)
+	if (prefsManager->appPrefs.miscPrefs.useStandardLI)
 	{
-		m.insertLoremIpsum("la.xml", prefsManager->appPrefs.paragraphsLI);
+		m.insertLoremIpsum("la.xml", prefsManager->appPrefs.miscPrefs.paragraphsLI);
 		return;
 	}
 

@@ -347,7 +347,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	}
 	m_doc->RotMode( m_oldRotMode );
 	m_view->RCenter = m_oldRotCenter;
-	if (!PrefsManager::instance()->appPrefs.stickyTools)
+	if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 		m_view->requestMode(modeNormal);
 	else
 	{

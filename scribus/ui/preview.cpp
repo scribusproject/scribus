@@ -603,7 +603,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.bleeds.Left = 0.0;
 		options.bleeds.Right = 0.0;
 		options.bleeds.Bottom = 0.0;
-		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
+		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{
 			dd->PS_set_file( ScPaths::getTempFileDir() + "/tmp.ps");
@@ -706,7 +706,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		options.bleeds.Left = 0.0;
 		options.bleeds.Right = 0.0;
 		options.bleeds.Bottom = 0.0;
-		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
+		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{
 			dd->PS_set_file(ScPaths::getTempFileDir()+"/tmp.ps");

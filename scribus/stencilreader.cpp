@@ -1397,7 +1397,7 @@ void StencilReader::writeDefaults(QDomElement &ob)
 	ob.setAttribute("LeftLine", 0);
 	ob.setAttribute("RightLine", 0);
 	ob.setAttribute("BottomLine", 0);
-	ob.setAttribute("LANGUAGE", prefsManager->appPrefs.Language);
+	ob.setAttribute("LANGUAGE", prefsManager->appPrefs.hyphPrefs.Language);
 	ob.setAttribute("startArrowIndex", 0);
 	ob.setAttribute("endArrowIndex", 0);
 	ob.setAttribute("NUMDASH", 0);

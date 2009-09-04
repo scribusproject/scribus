@@ -48,7 +48,7 @@ QPixmap loadIcon(const QString nam, bool forceUseColor)
 		pm->load(iconFilePath);
 		if (pm->isNull())
 			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.toAscii().constData());
-		if (PrefsManager::instance()->appPrefs.grayscaleIcons && !forceUseColor)
+		if (PrefsManager::instance()->appPrefs.uiPrefs.grayscaleIcons && !forceUseColor)
 		{
 			QImage qi(pm->toImage());
 			int h=qi.height();

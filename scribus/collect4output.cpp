@@ -271,9 +271,9 @@ bool CollectForOutput::collectFonts()
 	QMap<QString,int>::Iterator it3end = m_Doc->UsedFonts.end();
 	for (it3 = m_Doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
-		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()].fontFilePath());
-		copyFileAtomic(prefsManager->appPrefs.AvailFonts[it3.key()].fontFilePath(), outputDirectory + itf.fileName());
-		if (prefsManager->appPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
+		QFileInfo itf = QFileInfo(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
+		copyFileAtomic(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath(), outputDirectory + itf.fileName());
+		if (prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
 		{
 			QStringList metrics;
 			QString fontDir  = itf.absolutePath();

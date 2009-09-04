@@ -476,7 +476,7 @@ template<>
 ScFace parse<ScFace>(const Xml_string& str)
 {
 	// FIXME: enable font substitution here
-	return PrefsManager::instance()->appPrefs.AvailFonts[str];
+	return PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[str];
 }
 
 

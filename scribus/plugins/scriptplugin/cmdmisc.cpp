@@ -33,14 +33,14 @@ PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 PyObject *scribus_fontnames(PyObject* /* self */)
 {
 	int cc2 = 0;
-	SCFontsIterator it2(PrefsManager::instance()->appPrefs.AvailFonts);
+	SCFontsIterator it2(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	for ( ; it2.hasNext() ; it2.next())
 	{
 		if (it2.current().usable())
 			cc2++;
 	}
 	PyObject *l = PyList_New(cc2);
-	SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
+	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	int cc = 0;
 	for ( ; it.hasNext() ; it.next())
 	{
@@ -55,8 +55,8 @@ PyObject *scribus_fontnames(PyObject* /* self */)
 
 PyObject *scribus_xfontnames(PyObject* /* self */)
 {
-	PyObject *l = PyList_New(PrefsManager::instance()->appPrefs.AvailFonts.count());
-	SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
+	PyObject *l = PyList_New(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.count());
+	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	int cc = 0;
 	PyObject *row;
 	for ( ; it.hasNext() ; it.next())
@@ -94,7 +94,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "esesesi|es", kwargs,
 				"utf-8", &Name, "utf-8", &FileName, "utf-8", &Sample, &Size, "ascii", &format))
 		return NULL;
-	if (!PrefsManager::instance()->appPrefs.AvailFonts.contains(QString::fromUtf8(Name)))
+	if (!PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Font not found.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -108,7 +108,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (!format)
 		// User specified no format, so use the historical default of PPM format.
 		format =  const_cast<char*>("PPM");
-	QPixmap pm = FontSample(PrefsManager::instance()->appPrefs.AvailFonts[QString::fromUtf8(Name)], Size, ts, Qt::white);
+	QPixmap pm = FontSample(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[QString::fromUtf8(Name)], Size, ts, Qt::white);
 	// If the user specified an empty filename, return the image data as
 	// a string. Otherwise, save it to disk.
 	if (QString::fromUtf8(FileName).isEmpty())

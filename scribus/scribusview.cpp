@@ -536,7 +536,7 @@ void ScribusView::stopGesture()
 		m_canvasMode->deactivate(false);
 		m_canvasMode = m_canvasMode->delegate();
 		m_canvasMode->activate(true);
-		if (PrefsManager::instance()->appPrefs.stickyTools)
+		if (PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 		{
 			m_canvas->m_viewMode.forceRedraw = true;
 //			Doc->m_Selection->clear();
@@ -2704,7 +2704,7 @@ void ScribusView::setZoom()
 	int w = qRound(qMin(visibleWidth() / m_canvas->scale(), Doc->currentPage()->width()));
 	int h = qRound(qMin(visibleHeight() / m_canvas->scale(), Doc->currentPage()->height()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	zoom(oldX, oldY, zoomSpinBox->value() / 100.0 * Prefs->DisScale, false);
+	zoom(oldX, oldY, zoomSpinBox->value() / 100.0 * Prefs->displayPrefs.DisScale, false);
 	setFocus();
 }
 
@@ -2715,7 +2715,7 @@ void ScribusView::slotZoom100()
 	int w = qRound(qMin(visibleWidth() / m_canvas->scale(), Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 	int h = qRound(qMin(visibleHeight() / m_canvas->scale(), Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	zoom(oldX, oldY, Prefs->DisScale, false);
+	zoom(oldX, oldY, Prefs->displayPrefs.DisScale, false);
 }
 
 void ScribusView::slotZoomIn(int mx,int my)
@@ -2808,7 +2808,7 @@ void ScribusView::DrawNew()
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage()->pageNr());
 	disconnect(zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
-	zoomSpinBox->setValue(m_canvas->scale()/Prefs->DisScale*100);
+	zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.DisScale*100);
 	connect(zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 }
 
@@ -4772,20 +4772,20 @@ void ScribusView::slotUpdateContents(const QRect &r) // deprecated
 void ScribusView::setScale(const double newScale)
 {
 	double Scale=newScale;
-	double v=Doc->opToolPrefs.magMin*Prefs->DisScale/100.0;
+	double v=Doc->opToolPrefs.magMin*Prefs->displayPrefs.DisScale/100.0;
 	if (Scale < v)
 		Scale=v;
-	double v2=Doc->opToolPrefs.magMax*Prefs->DisScale/100.0;
+	double v2=Doc->opToolPrefs.magMax*Prefs->displayPrefs.DisScale/100.0;
 	if (Scale > v2)
 		Scale=v2;
-	double v3=32*Prefs->DisScale;
+	double v3=32*Prefs->displayPrefs.DisScale;
 	if (Scale > v3)
 		Scale=v3;
 
 	m_canvas->setScale(Scale);
 
 	zoomSpinBox->blockSignals(true);
-	zoomSpinBox->setValue(m_canvas->scale()/Prefs->DisScale*100);
+	zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.DisScale*100);
 	zoomSpinBox->blockSignals(false);
 
 	unitChange();
@@ -4979,7 +4979,7 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 {
 	QPoint canvasPoint;
 	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
-	double newScale    = (scale > 32*Prefs->DisScale) ? (32*Prefs->DisScale) : scale;
+	double newScale    = (scale > 32*Prefs->displayPrefs.DisScale) ? (32*Prefs->displayPrefs.DisScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
 	setScale(newScale);

@@ -90,13 +90,13 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabHyphenator = new HySettings(prefsWidgets/*, &ap->LangTransl*/);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(prefsWidgets, false, prefsManager->preferencesLocation(), ap->doc);
+	tabFonts = new FontPrefsTab(prefsWidgets, false, prefsManager->preferencesLocation(), ap->doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabPrinter = new TabPrinter(prefsWidgets, "tabPrinter");
 	addItem( tr("Printer"), loadIcon("printer.png"), tabPrinter);
 
-	tabDocChecker = new TabCheckDoc(prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
+	tabDocChecker = new TabCheckDoc(prefsWidgets, prefsData->checkerPrefsList, prefsData->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	if (ScCore->haveCMS())
@@ -108,11 +108,11 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QMap<QString, int> DocFonts;
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
-								prefsData->PDF_Options,
-								prefsData->AvailFonts,
+								prefsData->pdfPrefs,
+								prefsData->fontPrefs.AvailFonts,
 								ScCore->PDFXProfiles,
 								DocFonts,
-								prefsData->PDF_Options.PresentVals,
+								prefsData->pdfPrefs.PresentVals,
 								docUnitIndex,
 								prefsData->docSetupPrefs.pageHeight,
 								prefsData->docSetupPrefs.pageWidth,
@@ -121,15 +121,15 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	tabDefaultItemAttributes = new DocumentItemAttributes(prefsWidgets);
 	QStringList defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
-	tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
+	tabDefaultItemAttributes->setup(&prefsData->itemAttrPrefs.defaultItemAttributes);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDefaultItemAttributes);
 
 	tabDefaultTOCIndexPrefs = new TOCIndexPrefs(prefsWidgets );
 	tabDefaultTOCIndexPrefs->setupItemAttrs( defaultAttributesList );
-	tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
+	tabDefaultTOCIndexPrefs->setup(&prefsData->tocPrefs.defaultToCSetups, NULL);
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabDefaultTOCIndexPrefs);
 
-	tabKeyboardShortcuts = new TabKeyboardShortcutsWidget(prefsData->KeyActions, prefsWidgets);
+	tabKeyboardShortcuts = new TabKeyboardShortcutsWidget(prefsData->keyShortcutPrefs.KeyActions, prefsWidgets);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeyboardShortcuts);
 
 	tabScrapbook = new TabScrapbook( prefsWidgets );
@@ -201,9 +201,9 @@ void Preferences::setupGui()
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
-	tabView->restoreDefaults(prefsData, prefsData->guidesPrefs, prefsData->pageSets, prefsData->docSetupPrefs.pagePositioning, prefsData->scratch);
-	tabView->gapHorizontal->setValue(prefsData->GapHorizontal); // * unitRatio);
-	tabView->gapVertical->setValue(prefsData->GapVertical); // * unitRatio);
+	tabView->restoreDefaults(prefsData, prefsData->guidesPrefs, prefsData->pageSets, prefsData->docSetupPrefs.pagePositioning, prefsData->displayPrefs.scratch);
+	tabView->gapHorizontal->setValue(prefsData->displayPrefs.GapHorizontal); // * unitRatio);
+	tabView->gapVertical->setValue(prefsData->displayPrefs.GapVertical); // * unitRatio);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
 	tabGuides->restoreDefaults(&prefsData->guidesPrefs, &prefsData->typoPrefs, docUnitIndex);
@@ -212,15 +212,15 @@ void Preferences::setupGui()
 	// main performance issue in availFonts->GetFonts(HomeP)!
 	// no prefsData here
 	tabFonts->restoreDefaults();
-	tabDocChecker->restoreDefaults(&prefsData->checkerProfiles, prefsData->curCheckProfile);
+	tabDocChecker->restoreDefaults(&prefsData->checkerPrefsList, prefsData->curCheckProfile);
 
 	QMap<QString, int> DocFonts;
 	DocFonts.clear();
-	tabPDF->restoreDefaults(prefsData->PDF_Options,
-							prefsData->AvailFonts,
+	tabPDF->restoreDefaults(prefsData->pdfPrefs,
+							prefsData->fontPrefs.AvailFonts,
 							ScCore->PDFXProfiles,
 							DocFonts,
-							prefsData->PDF_Options.PresentVals,
+							prefsData->pdfPrefs.PresentVals,
 							docUnitIndex,
 							prefsData->docSetupPrefs.pageHeight,
 							prefsData->docSetupPrefs.pageWidth,
@@ -231,9 +231,9 @@ void Preferences::setupGui()
 										 &ScCore->InputProfilesCMYK,
 										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	QStringList defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
-	tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
+	tabDefaultItemAttributes->setup(&prefsData->itemAttrPrefs.defaultItemAttributes);
 	tabDefaultTOCIndexPrefs->setupItemAttrs( defaultAttributesList );
-	tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
+	tabDefaultTOCIndexPrefs->setup(&prefsData->tocPrefs.defaultToCSetups, NULL);
 	tabKeyboardShortcuts->restoreDefaults();
 	tabExtTools->restoreDefaults(prefsData);
 	tabMiscellaneous->restoreDefaults(prefsData);
@@ -358,24 +358,24 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.uiPrefs.style = tabGeneral->GUICombo->currentText();
 	prefsManager->appPrefs.uiPrefs.useSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
 
-	prefsManager->appPrefs.GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
-	prefsManager->appPrefs.GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
-	prefsManager->appPrefs.marginColored = tabView->checkUnprintable->isChecked();
-	prefsManager->appPrefs.scratch.Bottom = tabView->bottomScratch->value() / prefsUnitRatio;
-	prefsManager->appPrefs.scratch.Left = tabView->leftScratch->value() / prefsUnitRatio;
-	prefsManager->appPrefs.scratch.Right = tabView->rightScratch->value() / prefsUnitRatio;
-	prefsManager->appPrefs.scratch.Top = tabView->topScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.marginColored = tabView->checkUnprintable->isChecked();
+	prefsManager->appPrefs.displayPrefs.scratch.Bottom = tabView->bottomScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.scratch.Left = tabView->leftScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.scratch.Right = tabView->rightScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.scratch.Top = tabView->topScratch->value() / prefsUnitRatio;
 	// GUI colors
-	prefsManager->appPrefs.showPageShadow = tabView->checkShowPageShadow->isChecked();
-	prefsManager->appPrefs.DpapColor = tabView->colorPaper;
-	prefsManager->appPrefs.DFrameColor = tabView->colorFrame;
-	prefsManager->appPrefs.DFrameNormColor = tabView->colorFrameNorm;
-	prefsManager->appPrefs.DFrameGroupColor = tabView->colorFrameGroup;
-	prefsManager->appPrefs.DFrameLockColor = tabView->colorFrameLocked;
-	prefsManager->appPrefs.DFrameLinkColor = tabView->colorFrameLinked;
-	prefsManager->appPrefs.DFrameAnnotationColor = tabView->colorFrameAnnotation;
-	prefsManager->appPrefs.DPageBorderColor = tabView->colorPageBorder;
-	prefsManager->appPrefs.DControlCharColor = tabView->colorControlChars;
+	prefsManager->appPrefs.displayPrefs.showPageShadow = tabView->checkShowPageShadow->isChecked();
+	prefsManager->appPrefs.displayPrefs.DpapColor = tabView->colorPaper;
+	prefsManager->appPrefs.displayPrefs.DFrameColor = tabView->colorFrame;
+	prefsManager->appPrefs.displayPrefs.DFrameNormColor = tabView->colorFrameNorm;
+	prefsManager->appPrefs.displayPrefs.DFrameGroupColor = tabView->colorFrameGroup;
+	prefsManager->appPrefs.displayPrefs.DFrameLockColor = tabView->colorFrameLocked;
+	prefsManager->appPrefs.displayPrefs.DFrameLinkColor = tabView->colorFrameLinked;
+	prefsManager->appPrefs.displayPrefs.DFrameAnnotationColor = tabView->colorFrameAnnotation;
+	prefsManager->appPrefs.displayPrefs.DPageBorderColor = tabView->colorPageBorder;
+	prefsManager->appPrefs.displayPrefs.DControlCharColor = tabView->colorControlChars;
 	// Guides
 
 	prefsManager->appPrefs.guidesPrefs.framesShown = tabView->checkFrame->isChecked();
@@ -385,11 +385,11 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.guidesPrefs.showPic = tabView->checkPictures->isChecked();
 	prefsManager->appPrefs.guidesPrefs.linkShown = tabView->checkLink->isChecked();
 	prefsManager->appPrefs.guidesPrefs.showControls = tabView->checkControl->isChecked();
-	prefsManager->appPrefs.DisScale = tabView->DisScale;
+	prefsManager->appPrefs.displayPrefs.DisScale = tabView->DisScale;
 
-	prefsManager->appPrefs.doCopyToScrapbook = tabScrapbook->useScrapBookasExtension->isChecked();
-	prefsManager->appPrefs.persistentScrapbook = tabScrapbook->persistentScrapbook->isChecked();
-	prefsManager->appPrefs.numScrapbookCopies = tabScrapbook->numScrapCopies->value();
+	prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook = tabScrapbook->useScrapBookasExtension->isChecked();
+	prefsManager->appPrefs.scrapbookPrefs.persistentScrapbook = tabScrapbook->persistentScrapbook->isChecked();
+	prefsManager->appPrefs.scrapbookPrefs.numScrapbookCopies = tabScrapbook->numScrapCopies->value();
 
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.itemToolPrefs.polyC,
 									&prefsManager->appPrefs.itemToolPrefs.polyFd,
@@ -417,25 +417,25 @@ void Preferences::updatePreferences()
 
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());
 	prefsManager->setExtBrowserExecutable(tabExtTools->newExtBrowserTool());
-	prefsManager->appPrefs.gs_AntiAliasGraphics = tabExtTools->newAntialiasGraphics();
-	prefsManager->appPrefs.gs_AntiAliasText = tabExtTools->newAntialiasText();
+	prefsManager->appPrefs.extToolPrefs.gs_AntiAliasGraphics = tabExtTools->newAntialiasGraphics();
+	prefsManager->appPrefs.extToolPrefs.gs_AntiAliasText = tabExtTools->newAntialiasText();
 	prefsManager->setGhostscriptExecutable(tabExtTools->newPSTool());
-	prefsManager->appPrefs.gs_Resolution = tabExtTools->newPSToolResolution();
+	prefsManager->appPrefs.extToolPrefs.gs_Resolution = tabExtTools->newPSToolResolution();
 	
-	prefsManager->appPrefs.latexResolution = tabExtTools->newLatexToolResolution();
-	prefsManager->appPrefs.latexForceDpi = tabExtTools->newLatexForceDpi();
-	prefsManager->appPrefs.latexStartWithEmptyFrames = tabExtTools->newLatexStartWithEmptyFrames();
+	prefsManager->appPrefs.extToolPrefs.latexResolution = tabExtTools->newLatexToolResolution();
+	prefsManager->appPrefs.extToolPrefs.latexForceDpi = tabExtTools->newLatexForceDpi();
+	prefsManager->appPrefs.extToolPrefs.latexStartWithEmptyFrames = tabExtTools->newLatexStartWithEmptyFrames();
 	prefsManager->setLatexConfigs(tabExtTools->newLatexConfigs());
 	prefsManager->setLatexCommands(tabExtTools->newLatexCommands());
 	prefsManager->setLatexEditorExecutable(tabExtTools->newLatexEditor());
 
 	prefsManager->appPrefs.guidesPrefs.guidePlacement = tabGuides->inBackground->isChecked();
 	
-	prefsManager->appPrefs.askBeforeSubstituite = tabMiscellaneous->AskForSubs->isChecked();
-	prefsManager->appPrefs.haveStylePreview = tabMiscellaneous->stylePreview->isChecked();
+	prefsManager->appPrefs.fontPrefs.askBeforeSubstitute = tabMiscellaneous->AskForSubs->isChecked();
+	prefsManager->appPrefs.miscPrefs.haveStylePreview = tabMiscellaneous->stylePreview->isChecked();
 	// lorem ipsum
-	prefsManager->appPrefs.useStandardLI = tabMiscellaneous->useStandardLI->isChecked();
-	prefsManager->appPrefs.paragraphsLI = tabMiscellaneous->paragraphsLI->value();
+	prefsManager->appPrefs.miscPrefs.useStandardLI = tabMiscellaneous->useStandardLI->isChecked();
+	prefsManager->appPrefs.miscPrefs.paragraphsLI = tabMiscellaneous->paragraphsLI->value();
 
 	prefsManager->appPrefs.docSetupPrefs.docUnitIndex = tabDocument->unitCombo->currentIndex();
 
@@ -455,7 +455,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.guidesPrefs.marginColor = tabGuides->colorMargin;
 	prefsManager->appPrefs.guidesPrefs.guideColor = tabGuides->colorGuides;
 	prefsManager->appPrefs.guidesPrefs.baselineGridColor = tabGuides->colorBaselineGrid;
-	prefsManager->appPrefs.checkerProfiles = tabDocChecker->checkerProfile;
+	prefsManager->appPrefs.checkerPrefsList = tabDocChecker->checkerProfile;
 	prefsManager->appPrefs.curCheckProfile = tabDocChecker->curCheckProfile->currentText();
 	prefsManager->appPrefs.typoPrefs.valueSuperScript = tabTypo->superDisplacement->value();
 	prefsManager->appPrefs.typoPrefs.scalingSuperScript = tabTypo->superScaling->value();
@@ -549,13 +549,13 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.opToolPrefs.constrain = tabTools->genRot->value();
 	prefsManager->appPrefs.AutoSave = tabDocument->GroupAS->isChecked();
 	prefsManager->appPrefs.AutoSaveTime = tabDocument->ASTime->value() * 60 * 1000;
-	prefsManager->appPrefs.MinWordLen = tabHyphenator->getWordLen();
-	prefsManager->appPrefs.Language = ScCore->primaryMainWindow()->GetLang(tabHyphenator->getLanguage());
-	prefsManager->appPrefs.Automatic = !tabHyphenator->getVerbose();
-	prefsManager->appPrefs.AutoCheck = tabHyphenator->getInput();
-	prefsManager->appPrefs.HyCount = tabHyphenator->getMaxCount();
-	prefsManager->appPrefs.ignoredWords = tabHyphenator->getIgnoreList();
-	prefsManager->appPrefs.specialWords = tabHyphenator->getExceptionList();
+	prefsManager->appPrefs.hyphPrefs.MinWordLen = tabHyphenator->getWordLen();
+	prefsManager->appPrefs.hyphPrefs.Language = ScCore->primaryMainWindow()->GetLang(tabHyphenator->getLanguage());
+	prefsManager->appPrefs.hyphPrefs.Automatic = !tabHyphenator->getVerbose();
+	prefsManager->appPrefs.hyphPrefs.AutoCheck = tabHyphenator->getInput();
+	prefsManager->appPrefs.hyphPrefs.HyCount = tabHyphenator->getMaxCount();
+	prefsManager->appPrefs.hyphPrefs.ignoredWords = tabHyphenator->getIgnoreList();
+	prefsManager->appPrefs.hyphPrefs.specialWords = tabHyphenator->getExceptionList();
 	if (ScCore->haveCMS())
 		tabColorManagement->setValues();
 	// not required propably as it's done already in the dialog prefsManager->appPrefs.AvailFonts == get fonts from fontprefs
@@ -565,11 +565,11 @@ void Preferences::updatePreferences()
 	for (QMap<QString,QString>::Iterator itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
 		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
 	
-	prefsManager->appPrefs.defaultItemAttributes = *(tabDefaultItemAttributes->getNewAttributes());
-	prefsManager->appPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());
+	prefsManager->appPrefs.itemAttrPrefs.defaultItemAttributes = *(tabDefaultItemAttributes->getNewAttributes());
+	prefsManager->appPrefs.tocPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());
 // 	prefsManager->appPrefs.KeyActions = tabKeys->getNewKeyMap();
-	prefsManager->appPrefs.KeyActions = tabKeyboardShortcuts->getNewKeyMap();
-	tabPDF->storeValues(prefsManager->appPrefs.PDF_Options);
+	prefsManager->appPrefs.keyShortcutPrefs.KeyActions = tabKeyboardShortcuts->getNewKeyMap();
+	tabPDF->storeValues(prefsManager->appPrefs.pdfPrefs);
 	tabPrinter->storeValues();
 }
 
