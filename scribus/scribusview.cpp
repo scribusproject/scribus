@@ -3634,7 +3634,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 	case PageItem::OSGFrame:
 #ifdef HAVE_OSG
-		z = Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+		z = Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
