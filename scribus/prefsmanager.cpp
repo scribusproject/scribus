@@ -350,6 +350,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_InkThreshold = 250;
 	appPrefs.extToolPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extToolPrefs.extBrowserExecutable = "";
+	appPrefs.extToolPrefs.uniconvExecutable = "uniconv";
 	appPrefs.extToolPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
 	appPrefs.extToolPrefs.latexCommands.clear();
 	appPrefs.extToolPrefs.latexEditorExecutable = "";
@@ -999,6 +1000,11 @@ void PrefsManager::setExtBrowserExecutable(const QString& executableName)
 	appPrefs.extToolPrefs.extBrowserExecutable=executableName;
 }
 
+void PrefsManager::setUniconvExecutable(const QString& executableName)
+{
+	appPrefs.extToolPrefs.uniconvExecutable=executableName;
+}
+
 void PrefsManager::setLatexConfigs(const QStringList& configs)
 {
 	appPrefs.extToolPrefs.latexConfigs=configs;
@@ -1499,6 +1505,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.extToolPrefs.gs_AntiAliasGraphics));
 	dc8Ex.setAttribute("AlphaText", static_cast<int>(appPrefs.extToolPrefs.gs_AntiAliasText));
 	dc8Ex.setAttribute("Resolution", appPrefs.extToolPrefs.gs_Resolution);
+	dc8Ex.setAttribute("Uniconv", uniconvExecutable());
 	dc8Ex.setAttribute("LatexEditor", latexEditorExecutable());
 	dc8Ex.setAttribute("LatexResolution", latexResolution());
 	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.extToolPrefs.latexForceDpi));
@@ -2149,6 +2156,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.extToolPrefs.latexStartWithEmptyFrames = static_cast<bool>(dc.attribute("LatexStartWithEmptyFrames", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
+			setUniconvExecutable(dc.attribute("Uniconv", "uniconv"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 			QStringList configs;
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");

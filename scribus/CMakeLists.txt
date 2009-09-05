@@ -631,6 +631,7 @@ SET(SCRIBUS_SOURCES
   scimagestructs.cpp
   scimgdataloader.cpp
   scimgdataloader_gimp.cpp
+  scimgdataloader_gmagick.cpp
   scimgdataloader_jpeg.cpp
   scimgdataloader_pdf.cpp
   scimgdataloader_ps.cpp
@@ -810,6 +811,13 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${FREETYPE_INCLUDE_DIRS}
 )
+INCLUDE_DIRECTORIES(
+  BEFORE ${GMAGICK_INCLUDES}
+)
+MESSAGE(STATUS "${GMAGICK_LIBRARIES}, ${GMAGICK_INCLUDES}, ${GMAGICK_LDFLAGS}")
+LINK_DIRECTORIES(
+    ${GMAGICK_LDFLAGS}
+)
 
 IF(HAVE_PODOFO)
   INCLUDE_DIRECTORIES(
@@ -908,6 +916,7 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
   ${JPEG_LIBRARIES}
   ${ZLIB_LIBRARIES}
   ${WIN32_ONLY_LIBS}
+  ${GMAGICK_LIBRARIES}
 )
 
 IF(WIN32)

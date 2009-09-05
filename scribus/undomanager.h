@@ -528,6 +528,7 @@ public:
 	static QString PathText;
 	static QString ConvertTo;
 	static QString ImportSVG;
+	static QString ImportUniconv;
 	static QString ImportEPS;
 	static QString ImportBarcode;
 	static QString ImportOOoDraw;
@@ -627,6 +628,7 @@ public:
 	static QPixmap *ITable;
 	static QPixmap *IFont;
 	static QPixmap *ISVG;
+	static QPixmap *IUniconv;
 	static QPixmap *IEPS;
 	static QPixmap *IAI;
 	static QPixmap *IXFIG;

@@ -31,3 +31,4 @@
 #cmakedefine FT_FREETYPE_H
 #cmakedefine COMPILE_PYTHON 1
 #cmakedefine WORDS_BIGENDIAN 1
+#cmakedefine GMAGICK_FOUND 1

@@ -125,12 +125,14 @@ public:
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
 	void setExtBrowserExecutable(const QString&);
+	void setUniconvExecutable(const QString&);
 	void setLatexConfigs(const QStringList&);
 	void setLatexCommands(const QMap<QString, QString>& commands) { appPrefs.extToolPrefs.latexCommands=commands; }
 	void setLatexEditorExecutable(const QString&);
 	QString ghostscriptExecutable() const {return appPrefs.extToolPrefs.gs_exe;};
 	QString imageEditorExecutable() const {return appPrefs.extToolPrefs.imageEditorExecutable;};
 	QString extBrowserExecutable() const {return appPrefs.extToolPrefs.extBrowserExecutable;};
+	QString uniconvExecutable() const {return appPrefs.extToolPrefs.uniconvExecutable;}
 	QStringList latexConfigs() const {return appPrefs.extToolPrefs.latexConfigs;}
 	QMap<QString, QString> latexCommands() const {return appPrefs.extToolPrefs.latexCommands;}
 	QString latexEditorExecutable() const {return appPrefs.extToolPrefs.latexEditorExecutable;}

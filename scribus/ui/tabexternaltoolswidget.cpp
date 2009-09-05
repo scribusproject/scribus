@@ -28,10 +28,12 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QProcess>
+#include <QMessageBox>
 #include "util_ghostscript.h"
 #include "scpaths.h"
 #include "prefsstructs.h"
 #include "latexhelpers.h"
+#include "commonstrings.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent)
 : QWidget(parent)
@@ -45,6 +47,7 @@ TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsDat
 	connect(extBrowserToolChangeButton, SIGNAL(clicked()), this, SLOT(changeExtBrowserTool()));
 	connect(latexEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexEditor()));
 	connect(rescanButton, SIGNAL(clicked()), this, SLOT(rescanForTools()));
+	connect(uniconvToolChangeButton, SIGNAL(clicked()), this, SLOT(changeUniconvTool()));
 	connect(latexConfigUpButton, SIGNAL(clicked()), this, SLOT(upButtonPressed()));
 	connect(latexConfigDownButton, SIGNAL(clicked()), this, SLOT(downButtonPressed()));
 	connect(latexConfigAddButton, SIGNAL(clicked()), this, SLOT(addConfig()));
@@ -71,6 +74,11 @@ const QString TabExternalToolsWidget::newExtBrowserTool() const
 	return QDir::fromNativeSeparators(extBrowserToolLineEdit->text()); 
 }
 
+const QString TabExternalToolsWidget::newUniconvTool() const 
+{
+	return QDir::fromNativeSeparators(uniconvToolLineEdit->text());
+}
+
 const QString TabExternalToolsWidget::newLatexEditor() const
 {
 	return QDir::fromNativeSeparators(latexEditorLineEdit->text());
@@ -95,6 +103,7 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	psResolutionSpinBox->setValue(prefsData->extToolPrefs.gs_Resolution);
 	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.imageEditorExecutable));
 	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.extBrowserExecutable));
+	uniconvToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.uniconvExecutable));
 	latexResolutionSpinBox->setValue(prefsData->extToolPrefs.latexResolution);
 	latexEditorLineEdit->setText(prefsData->extToolPrefs.latexEditorExecutable);
 	latexForceDpiCheckBox->setCheckState(prefsData->extToolPrefs.latexForceDpi?Qt::Checked:Qt::Unchecked);
@@ -130,6 +139,14 @@ void TabExternalToolsWidget::changeExtBrowserTool()
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your web browser"), fi.path());
 	if (!s.isEmpty())
 		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
+}
+
+void TabExternalToolsWidget::changeUniconvTool()
+{
+	QFileInfo fi(uniconvToolLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(this, tr("Locate the uniconvertor executable"), fi.path());
+	if (!s.isEmpty())
+		uniconvToolLineEdit->setText( QDir::convertSeparators(s) );
 }
 
 void TabExternalToolsWidget::changeLatexEditor()
@@ -242,6 +259,17 @@ void TabExternalToolsWidget::rescanForTools()
 	
 	if (!fileInPath(imageToolLineEdit->text()))
 		imageToolLineEdit->setText("gimp");
+
+	if (!fileInPath(uniconvToolLineEdit->text())) {
+		if (fileInPath("uniconvertor")) {
+			uniconvToolLineEdit->setText("uniconvertor");
+		} else if (fileInPath("uniconv")) {
+			uniconvToolLineEdit->setText("uniconv");
+		} else {
+			QMessageBox::warning(0, CommonStrings::trWarning, tr("Uniconvertor executable not found!"), 1, 0, 0);
+			uniconvToolLineEdit->setText("");
+		}
+	}
 	
 	if (!fileInPath(latexEditorLineEdit->text())) {
 		QStringList editors;

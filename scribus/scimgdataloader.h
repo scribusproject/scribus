@@ -64,6 +64,7 @@ public:
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) = 0;
 	virtual void loadEmbeddedProfile(const QString& fn, int page = 0) = 0;
 	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail) = 0;
+	virtual bool useRawImage() { return false; }
 };
 
 #endif

@@ -415,6 +415,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.docSetupPrefs.bleeds.Right = tabDocument->marginGroup->rightBleed();
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage = tabDocument->docLayout->firstPage->currentIndex();
 
+	prefsManager->setUniconvExecutable(tabExtTools->newUniconvTool());
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());
 	prefsManager->setExtBrowserExecutable(tabExtTools->newExtBrowserTool());
 	prefsManager->appPrefs.extToolPrefs.gs_AntiAliasGraphics = tabExtTools->newAntialiasGraphics();

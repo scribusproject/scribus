@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_gimp.h"
+#include "scimgdataloader_gmagick.h"
 #include "scimgdataloader_jpeg.h"
 #include "scimgdataloader_ps.h"
 #include "scimgdataloader_psd.h"
@@ -1810,9 +1811,14 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	else if (ext == "pat")
 		pDataLoader = new ScImgDataLoader_GIMP();
 	else
+	#ifdef GMAGICK_FOUND
+		#warning "Compiling with GraphicsMagick support!"
+		pDataLoader = new ScImgDataLoader_GMagick();
+	#else
 		pDataLoader = new ScImgDataLoader_QT();
+	#endif
 
-	if	(pDataLoader)
+	if (pDataLoader)
 	{
 		bool hasAlpha    = false;
 		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, page, gsRes, hasAlpha);
@@ -1822,7 +1828,7 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 			return alphaLoaded;
 		}
 		QImage rImage;
-		if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+		if (pDataLoader->useRawImage() || extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 		{
 			if (pDataLoader->imageInfoRecord().valid)
 			{
@@ -1917,8 +1923,12 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 		pDataLoader = new ScImgDataLoader_TIFF();
 	else if (extensionIndicatesJPEG(ext))
 		pDataLoader = new ScImgDataLoader_JPEG();
+	#ifdef FOUND_GMAGICK
+	else
+		pDataLoader = new ScImgDataLoader_GMagick();
+	#endif
 
-	if	(pDataLoader)
+	if (pDataLoader)
 	{
 		pDataLoader->loadEmbeddedProfile(fn, page);
 		QByteArray embeddedProfile = pDataLoader->embeddedProfile();
@@ -1996,9 +2006,13 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else
+	#ifdef GMAGICK_FOUND
+		pDataLoader.reset( new ScImgDataLoader_GMagick() );
+	#else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
+	#endif
 
-	if	(pDataLoader->loadPicture(fn, page, gsRes, (requestType == Thumbnail)))
+	if (pDataLoader->loadPicture(fn, page, gsRes, (requestType == Thumbnail)))
 	{
 		QImage::operator=(pDataLoader->image());
 		imgInfo = pDataLoader->imageInfoRecord();
@@ -2033,7 +2047,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		return false;
 	}
 
-	if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext)))
+	if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())) //TODO: Unsure about this one!
 	{
 		if (isNull())
 			return  ret;
@@ -2108,7 +2122,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
 		if ( inputProfColorSpace == icSigRgbData )
 			inputProfFormat = isPsdTiff ? TYPE_RGBA_8 : TYPE_BGRA_8; // Later make tiff and psd loader use TYPE_BGRA_8
-		else if (( inputProfColorSpace == icSigCmykData ) && isPsdTiff)
+		else if (( inputProfColorSpace == icSigCmykData ) && (isPsdTiff || pDataLoader->useRawImage()))
 		{
 			if (pDataLoader->r_image.channels() == 5)
 				inputProfFormat = (COLORSPACE_SH(PT_CMYK)|EXTRA_SH(1)|CHANNELS_SH(4)|BYTES_SH(1));
@@ -2148,7 +2162,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
 			else
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
@@ -2186,7 +2200,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			break;
 		case RawData: // no Conversion just raw Data
 			xform = 0;
-			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 			{
 				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 				profileName = imgInfo.profileName;
@@ -2201,7 +2215,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		}
 		if (xform)
 		{
-			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 			{
 				QImage::operator=(QImage(pDataLoader->r_image.width(), pDataLoader->r_image.height(), QImage::Format_ARGB32));
 				profileName = imgInfo.profileName;
@@ -2216,7 +2230,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 					ptr2 = pDataLoader->r_image.scanLine(i);
 				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != CMYKData) )
 				{
@@ -2245,7 +2259,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				}
 				else
 				{
-					if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+					if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage()) //TODO: Unsure about this one
 					{
 						cmsDoTransform(xform, ptr2, ptr, width());
 					}
@@ -2254,7 +2268,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				}
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
-				if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext)))
+				if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage()))
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb *p;
@@ -2323,7 +2337,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		case CMYKData:
 			if (!isCMYK)
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
@@ -2351,7 +2365,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			else
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 					profileName = imgInfo.profileName;
@@ -2369,7 +2383,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		case Thumbnail:
 			if (isCMYK)
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true));
 					profileName = imgInfo.profileName;
@@ -2400,7 +2414,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			else
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
@@ -2414,7 +2428,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			break;
 		case RawData:
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 					profileName = imgInfo.profileName;

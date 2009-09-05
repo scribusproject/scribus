@@ -30,8 +30,10 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::SVG,  QStringList() << "svg" << "svgz");
 	m_fmts.insert(FormatsManager::AI,   QStringList() << "ai");
 	m_fmts.insert(FormatsManager::XFIG, QStringList() << "fig");
-	m_fmts.insert(FormatsManager::CVG, QStringList() << "cvg");
-	m_fmts.insert(FormatsManager::WPG, QStringList() << "wpg");
+	m_fmts.insert(FormatsManager::CVG,  QStringList() << "cvg");
+	m_fmts.insert(FormatsManager::WPG,  QStringList() << "wpg");
+	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "wpg" << "tga" << "ptif" << "ppm" << "pnm" << "pict" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
+	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "cgm" << "aff" << "sk" << "sk1");
 	
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
@@ -47,8 +49,10 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::SVG]  = QObject::tr("Scalable Vector Graphics");
 	m_fmtNames[FormatsManager::AI]   = QObject::tr("Adobe Illustrator");
 	m_fmtNames[FormatsManager::XFIG] = QObject::tr("Xfig File");
-	m_fmtNames[FormatsManager::CVG] = QObject::tr("Calamus Cvg File");
-	m_fmtNames[FormatsManager::WPG] = QObject::tr("Word Perfect Wpg File");
+	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus Cvg File");
+	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect Wpg File");
+	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick File");
+	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
 	
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");

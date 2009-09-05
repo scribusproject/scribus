@@ -45,6 +45,7 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		const QString newPSTool() const;
 		const QString newImageTool() const;
 		const QString newExtBrowserTool() const;
+		const QString newUniconvTool() const;
 		const QString newLatexEditor() const;
 		const QStringList newLatexConfigs() const;
 		const QMap<QString, QString> newLatexCommands() const;
@@ -64,6 +65,7 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		void changePostScriptTool();
 		void changeImageTool();
 		void changeExtBrowserTool();
+		void changeUniconvTool();
 		void changeLatexEditor();
 		void rescanForTools();
 		void upButtonPressed();

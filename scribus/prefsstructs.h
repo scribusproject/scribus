@@ -286,6 +286,7 @@ struct ExternalToolsPrefs
 	int gs_Resolution;
 	QString imageEditorExecutable;
 	QString extBrowserExecutable;
+	QString uniconvExecutable;
 	QStringList latexConfigs;
 	QMap<QString, QString> latexCommands;
 	QString latexEditorExecutable;
