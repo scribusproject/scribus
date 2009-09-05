@@ -32,7 +32,9 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::XFIG, QStringList() << "fig");
 	m_fmts.insert(FormatsManager::CVG,  QStringList() << "cvg");
 	m_fmts.insert(FormatsManager::WPG,  QStringList() << "wpg");
+#ifdef GMAGICK_FOUND
 	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "wpg" << "tga" << "ptif" << "ppm" << "pnm" << "pict" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
+#endif
 	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "cgm" << "aff" << "sk" << "sk1");
 	
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
@@ -51,7 +53,9 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::XFIG] = QObject::tr("Xfig File");
 	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus Cvg File");
 	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect Wpg File");
+#ifdef GMAGICK_FOUND
 	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick File");
+#endif
 	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
 	
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");

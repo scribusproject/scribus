@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 #include "scribusapi.h"
+#include "scconfig.h"
 
 bool SCRIBUS_API extensionIndicatesEPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesEPSorPS(const QString &ext);
@@ -37,7 +38,11 @@ class SCRIBUS_API FormatsManager
 		enum ScImageFormatType
 		{
 			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768,
+#ifdef GMAGICK_FOUND
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|65536,  // all Types suitable for Image Frames
+#else
 			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512,  // all Types suitable for Image Frames
+#endif
 			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072,  // All pure vector image types
 			RASTORIMAGES	= 2|4|8|32|512|65536,  // All pure rastor image types
 			EPS				= 1,      // Encapsulated PostScript
@@ -56,7 +61,9 @@ class SCRIBUS_API FormatsManager
 			XFIG			= 8192,   // Xfig files
 			CVG				= 16384,  // Calamus Cvg files
 			WPG				= 32768,  // Word Perfect WPG files
+#ifdef GMAGICK_FOUND
 			GMAGICK			= 65536,  // GraphicsMagick
+#endif
 			UNICONV			= 131072, // UniConvertor
 		};
 	
