@@ -225,7 +225,7 @@ public:
 	StoryEditor* storyEditor;
 	StoryEditor* CurrStED;
 // 	QMap<QString,QString> Sprachen; // <language not translated, file name>
-	QMdiArea *wsp;
+	QMdiArea *mdiArea;
 	ScribusWin* ActWin;
 	QClipboard *ClipB;
 	QString LoadEnc;
