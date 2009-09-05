@@ -37,6 +37,13 @@ IF(HAVE_OSG)
   pageitem_osgframe.cpp
   )
 ENDIF (HAVE_OSG)
+
+IF (GMAGICK_FOUND)
+    SET(SCRIBUS_GMAGICK_SRC scimgdataloader_gmagick.cpp)
+ELSE(GMAGICK_FOUND)
+    SET(SCRIBUS_GMAGICK_SRC)
+ENDIF(GMAGICK_FOUND)
+
 # We setup something like a group to gather setter related stuff
 # because it could expand into a huge amount of file at some point.
 SET(SCRIBUS_ITEMSETTERS_UI_SRC
@@ -631,7 +638,6 @@ SET(SCRIBUS_SOURCES
   scimagestructs.cpp
   scimgdataloader.cpp
   scimgdataloader_gimp.cpp
-  scimgdataloader_gmagick.cpp
   scimgdataloader_jpeg.cpp
   scimgdataloader_pdf.cpp
   scimgdataloader_ps.cpp
@@ -765,6 +771,7 @@ SET(SCRIBUS_SOURCES
   ui/vruler.cpp
   ${SCRIBUS_ITEMSETTERS_SRC}
   ${SCRIBUS_OSG_SRC}
+  ${SCRIBUS_GMAGICK_SRC}
 )
 
 IF(WIN32)
@@ -811,13 +818,16 @@ INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${FREETYPE_INCLUDE_DIRS}
 )
-INCLUDE_DIRECTORIES(
-  BEFORE ${GMAGICK_INCLUDES}
-)
-MESSAGE(STATUS "${GMAGICK_LIBRARIES}, ${GMAGICK_INCLUDES}, ${GMAGICK_LDFLAGS}")
-LINK_DIRECTORIES(
-    ${GMAGICK_LDFLAGS}
-)
+
+IF (GMAGICK_FOUND)
+    MESSAGE(STATUS "GMAGICK: Libs: ${GMAGICK_LIBRARIES}, Inc: ${GMAGICK_INCLUDES}, Ldflags: ${GMAGICK_LDFLAGS}")
+    INCLUDE_DIRECTORIES(
+        BEFORE ${GMAGICK_INCLUDES}
+    )
+    LINK_DIRECTORIES(
+        ${GMAGICK_LDFLAGS} #TODO
+    )
+ENDIF(GMAGICK_FOUND)
 
 IF(HAVE_PODOFO)
   INCLUDE_DIRECTORIES(

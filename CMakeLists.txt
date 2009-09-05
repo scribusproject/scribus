@@ -653,13 +653,15 @@ ELSE(LIBPODOFO_FOUND)
 ENDIF(LIBPODOFO_FOUND)
 #>>PoDoFo for AI PDF import
 
+#<<GraphicksMagick++ for image import
 SET(GMAGICK_DIR ${CMAKE_MODULE_PATH})
 FIND_PACKAGE(GMAGICK)
 IF(GMAGICK_FOUND)
-  MESSAGE("GraphicksMagick++ Library Found OK")
+  MESSAGE("GraphicksMagick++ Found OK")
 ELSE(GMAGICK_FOUND)
-  MESSAGE("GraphicksMagick++ Library NOT found! Building without additional image format support!")
+  MESSAGE("GraphicksMagick++ NOT found! Building without additional image format support!")
 ENDIF(GMAGICK_FOUND)
+#>>GraphicksMagick++ for image import
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
