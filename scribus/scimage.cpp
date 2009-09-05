@@ -12,7 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_gimp.h"
+#ifdef GMAGICK_FOUND
 #include "scimgdataloader_gmagick.h"
+#endif
 #include "scimgdataloader_jpeg.h"
 #include "scimgdataloader_ps.h"
 #include "scimgdataloader_psd.h"
