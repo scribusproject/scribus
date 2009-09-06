@@ -1016,7 +1016,10 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 		else if (ch == SpecialChars::PARSEP)	// stores also the paragraphstyle for preceding chars
 			putPStyle(docu, item->itemText.paragraphStyle(k), "para");
 		else if (ch == SpecialChars::TAB)
+		{
 			docu.writeEmptyElement("tab");
+			putCStyle(docu, lastStyle);
+		}
 		else if (ch == SpecialChars::LINEBREAK)
 			docu.writeEmptyElement("breakline");
 		else if (ch == SpecialChars::COLBREAK)

@@ -1777,7 +1777,14 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, lastStyle->Style);
 		}
 		else if (tName == "tab")
+		{
+			CharStyle newStyle;
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::TAB);
+			readCharacterStyleAttrs(doc, tAtt, newStyle);
+			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
+			lastStyle->StyleStart = newItem->itemText.length()-1;
+			lastStyle->Style = newStyle;
+		}
 		else if (tName == "breakline")
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::LINEBREAK);
 		else if (tName == "breakcol")
