@@ -78,8 +78,13 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 		StopM.append(center);
 	}
 	QImage pixm(width()-20, 37, QImage::Format_ARGB32);
+	QPainter pb;
+	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	pb.begin(&pixm);
+	pb.fillRect(0, 0, pixm.width(), pixm.height(), b);
+	pb.end();
 	ScPainter *p = new ScPainter(&pixm, width()-20, 37);
-	p->clear(Qt::white);
+//	p->clear(Qt::white);
 	p->setPen(Qt::black);
 	p->setLineWidth(1);
 	p->setFillMode(2);
