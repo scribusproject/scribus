@@ -138,21 +138,9 @@ void FDialogPreview::GenPreview(QString name)
 	int h = pixmap()->height();
 	bool mode = false;
 	QString ext = fi.suffix().toLower();
-	QList<QByteArray> formats(QImageReader::supportedImageFormats());
-// 	FormatsManager::instance()->imageFormatSupported(ext);
-	formats.append("jpg");
-	formats.append("tif");
-	formats.append("tiff");
-	formats.append("psd");
-	formats.append("eps");
-	formats.append("epsi");
-	formats.append("pdf");
-	formats.append("ps");
+	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1));
+ 	QStringList formats = formatD.split("|");
 	formats.append("pat");
-// 	QString allFormats = formats.join( " " );
-// 	formats.clear();
-// 	allFormats = allFormats.toLower();
-// 	formats = QStringList::split( " ", allFormats );
 	if (ext.isEmpty())
 		ext = getImageType(name);
 	if (formats.contains(ext.toUtf8()))
