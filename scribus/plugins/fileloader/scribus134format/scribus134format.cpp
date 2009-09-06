@@ -1017,7 +1017,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
 						else if (it.tagName()=="tab")
+						{
+							CharStyle newStyle;
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
+							GetCStyle(&it, m_Doc, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
+							last->StyleStart = Neu->itemText.length()-1;
+							last->Style = newStyle;
+						}
 						else if (it.tagName()=="breakline")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
 						else if (it.tagName()=="breakcol")
@@ -1242,7 +1249,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
 						else if (it.tagName()=="tab")
+						{
+							CharStyle newStyle;
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
+							GetCStyle(&it, m_Doc, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
+							last->StyleStart = Neu->itemText.length()-1;
+							last->Style = newStyle;
+						}
 						else if (it.tagName()=="breakline")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
 						else if (it.tagName()=="breakcol")
@@ -2999,7 +3013,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
 						else if (it.tagName()=="tab")
+						{
+							CharStyle newStyle;
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
+							GetCStyle(&it, m_Doc, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
+							last->StyleStart = Neu->itemText.length()-1;
+							last->Style = newStyle;
+						}
 						else if (it.tagName()=="breakline")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
 						else if (it.tagName()=="breakcol")
