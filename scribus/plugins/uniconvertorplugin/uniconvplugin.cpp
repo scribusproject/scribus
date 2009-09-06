@@ -154,7 +154,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 	uniconv.start(PrefsManager::instance()->uniconvExecutable(), arguments);
 	
 	//handle errors
-	if (!uniconv.waitForStarted(10000)) {
+	if (!uniconv.waitForStarted(120000)) {
 		qWarning() << "Uniconvertor failed:" << 
 			PrefsManager::instance()->uniconvExecutable() << arguments;
 		QMessageBox::warning(mw, CommonStrings::trWarning,
@@ -164,7 +164,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 			"were set. (%1)").arg(uniconv.errorString()));
 		return false;
 	}
-	if (!uniconv.waitForFinished(10000)) {
+	if (!uniconv.waitForFinished(120000)) {
 		qDebug() << "Uniconv exit code:" << uniconv.exitCode();
 		QMessageBox::warning(mw, CommonStrings::trWarning,
 			tr("Uniconvertor did not exit correctly: %1").arg(
