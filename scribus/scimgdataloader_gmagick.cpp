@@ -14,6 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include <Magick++.h>
 using namespace Magick;
 
+#ifndef ScaleQuantumToChar
+    #define MagickLib::ScaleQuantumToChar
+#endif
+
 static bool read_cmyk(Image *input, RawImage *output, int width, int height)
 {
 	/* Mapping:
@@ -214,3 +218,4 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 	}
 	return true;
 }
+
