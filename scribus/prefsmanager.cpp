@@ -135,7 +135,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.defSize = 120;
 
 	/** Default colours **/
-	appPrefs.DColors.clear();
+	appPrefs.colorPrefs.DColors.clear();
 	
 	ColorSetManager csm;
 	csm.initialiseDefaultPrefs(appPrefs);
@@ -147,15 +147,15 @@ void PrefsManager::initDefaults()
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
-		appPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
-		appPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
-		appPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
-		appPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
-		appPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
-		appPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
-		appPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
-		appPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-		appPrefs.DColorSet = "Scribus-Small";
+		appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
+		appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
+		appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
+		appPrefs.colorPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
+		appPrefs.colorPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
+		appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
+		appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
+		appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
+		appPrefs.colorPrefs.DColorSet = "Scribus-Small";
 	}
 	else
 	{
@@ -175,11 +175,11 @@ void PrefsManager::initDefaults()
 				CoE >> Cname;
 				ScColor tmp;
 				tmp.setColorRGB(Rval, Gval, Bval);
-				appPrefs.DColors.insert(Cname, tmp);
+				appPrefs.colorPrefs.DColors.insert(Cname, tmp);
 			}
 			fiC.close();
 		}
-		appPrefs.DColorSet = "X11 RGB-Set";
+		appPrefs.colorPrefs.DColorSet = "X11 RGB-Set";
 	}
 	*/
 
@@ -291,7 +291,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.polyCurvature = 0.0;
 //	appPrefs.PSize = 40;
 	appPrefs.printerPrefs.ClipMargin = false;
-	appPrefs.GCRMode = false;
+	appPrefs.printerPrefs.GCRMode = false;
 	appPrefs.uiPrefs.RecentDocs.clear();
 	appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
 	appPrefs.uiPrefs.recentDocCount = 5;
@@ -324,8 +324,8 @@ void PrefsManager::initDefaults()
 	appPrefs.hyphPrefs.ignoredWords.clear();
 	appPrefs.hyphPrefs.Automatic = true;
 	appPrefs.hyphPrefs.AutoCheck = false;
-	appPrefs.AutoSave = true;
-	appPrefs.AutoSaveTime = 600000;
+	appPrefs.docSetupPrefs.AutoSave = true;
+	appPrefs.docSetupPrefs.AutoSaveTime = 600000;
 
 	int dpi = qApp->desktop()->logicalDpiX();
 	if ((dpi < 60) || (dpi > 200))
@@ -337,17 +337,17 @@ void PrefsManager::initDefaults()
 	appPrefs.pathPrefs.colorProfiles = "";
 	appPrefs.pathPrefs.scripts = "";
 	appPrefs.pathPrefs.documentTemplates = "";
-	appPrefs.CustomColorSets.clear();
-	appPrefs.PrPr_Mode = false;
-	appPrefs.Gcr_Mode = true;
-	appPrefs.PrPr_AntiAliasing = false;
-	appPrefs.PrPr_Transparency = false;
-	appPrefs.PrPr_C = true;
-	appPrefs.PrPr_M = true;
-	appPrefs.PrPr_Y = true;
-	appPrefs.PrPr_K = true;
-	appPrefs.PrPr_InkCoverage = false;
-	appPrefs.PrPr_InkThreshold = 250;
+	appPrefs.colorPrefs.CustomColorSets.clear();
+	appPrefs.printPreviewPrefs.PrPr_Mode = false;
+	//appPrefs.Gcr_Mode = true;
+	appPrefs.printPreviewPrefs.PrPr_AntiAliasing = false;
+	appPrefs.printPreviewPrefs.PrPr_Transparency = false;
+	appPrefs.printPreviewPrefs.PrPr_C = true;
+	appPrefs.printPreviewPrefs.PrPr_M = true;
+	appPrefs.printPreviewPrefs.PrPr_Y = true;
+	appPrefs.printPreviewPrefs.PrPr_K = true;
+	appPrefs.printPreviewPrefs.PrPr_InkCoverage = false;
+	appPrefs.printPreviewPrefs.PrPr_InkThreshold = 250;
 	appPrefs.extToolPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extToolPrefs.extBrowserExecutable = "";
 	appPrefs.extToolPrefs.uniconvExecutable = "uniconv";
@@ -361,20 +361,20 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.gs_AntiAliasText = true;
 	appPrefs.extToolPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.extToolPrefs.gs_Resolution = 72;
-	appPrefs.STEcolor = QColor(Qt::white);
-	appPrefs.DCMSset.DefaultMonitorProfile = "";
-	appPrefs.DCMSset.DefaultPrinterProfile = "";
-	appPrefs.DCMSset.DefaultImageRGBProfile = "";
-	appPrefs.DCMSset.DefaultSolidColorRGBProfile = "";
-	appPrefs.DCMSset.DefaultSolidColorCMYKProfile = "";
-	appPrefs.DCMSset.CMSinUse = false;
-	appPrefs.DCMSset.SoftProofOn = false;
-	appPrefs.DCMSset.SoftProofFullOn = false;
-	appPrefs.DCMSset.GamutCheck = false;
-	appPrefs.DCMSset.BlackPoint = true;
-	appPrefs.DCMSset.DefaultIntentColors = 1;
-	appPrefs.DCMSset.DefaultIntentImages = 0;
-	appPrefs.GFontSub.clear();
+	appPrefs.storyEditorPrefs.STEcolor = QColor(Qt::white);
+	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = "";
+	appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = "";
+	appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = "";
+	appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = "";
+	appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = "";
+	appPrefs.colorPrefs.DCMSset.CMSinUse = false;
+	appPrefs.colorPrefs.DCMSset.SoftProofOn = false;
+	appPrefs.colorPrefs.DCMSset.SoftProofFullOn = false;
+	appPrefs.colorPrefs.DCMSset.GamutCheck = false;
+	appPrefs.colorPrefs.DCMSset.BlackPoint = true;
+	appPrefs.colorPrefs.DCMSset.DefaultIntentColors = 1;
+	appPrefs.colorPrefs.DCMSset.DefaultIntentImages = 0;
+	appPrefs.fontPrefs.GFontSub.clear();
 	appPrefs.displayPrefs.scratch.Left = 100;
 	appPrefs.displayPrefs.scratch.Right = 100;
 	appPrefs.displayPrefs.scratch.Top = 20;
@@ -521,7 +521,7 @@ void PrefsManager::applyLoadedShortCuts()
 void PrefsManager::initDefaultGUIFont(const QFont& guiFont)
 {
 	appPrefs.uiPrefs.applicationFontSize = guiFont.pointSize();
-	appPrefs.STEfont = guiFont.toString();
+	appPrefs.storyEditorPrefs.STEfont = guiFont.toString();
 	appPrefs.uiPrefs.paletteFontSize = appPrefs.uiPrefs.applicationFontSize;
 }
 
@@ -1044,17 +1044,17 @@ void PrefsManager::setShowStartupDialog(const bool showDialog)
 
 const ColorList& PrefsManager::colorSet()
 {
-	return appPrefs.DColors;
+	return appPrefs.colorPrefs.DColors;
 }
 
 ColorList* PrefsManager::colorSetPtr()
 {
-	return &appPrefs.DColors;
+	return &appPrefs.colorPrefs.DColors;
 }
 
 const QString& PrefsManager::colorSetName()
 {
-	return appPrefs.DColorSet;
+	return appPrefs.colorPrefs.DColorSet;
 }
 
 bool PrefsManager::isToolColor(const QString& name)
@@ -1140,34 +1140,34 @@ void PrefsManager::setColorSet(const ColorList& colorSet)
 	ColorList tmpSet = colorSet;
 	QString penText = appPrefs.itemToolPrefs.dPenText;
 	if (!tmpSet.contains(penText) && penText != CommonStrings::None)
-		tmpSet[penText] = appPrefs.DColors[penText];
+		tmpSet[penText] = appPrefs.colorPrefs.DColors[penText];
 	QString strokeText = appPrefs.itemToolPrefs.dStrokeText;
 	if (!tmpSet.contains(strokeText) && strokeText != CommonStrings::None)
-		tmpSet[strokeText] = appPrefs.DColors[strokeText];
+		tmpSet[strokeText] = appPrefs.colorPrefs.DColors[strokeText];
 	QString textBackGround = appPrefs.itemToolPrefs.dTextBackGround;
 	if (!tmpSet.contains(textBackGround) && textBackGround != CommonStrings::None)
-		tmpSet[textBackGround] = appPrefs.DColors[textBackGround];
+		tmpSet[textBackGround] = appPrefs.colorPrefs.DColors[textBackGround];
 	QString textLineColor = appPrefs.itemToolPrefs.dTextLineColor;
 	if (!tmpSet.contains(textLineColor) && textLineColor != CommonStrings::None)
-		tmpSet[textLineColor] = appPrefs.DColors[textLineColor];
+		tmpSet[textLineColor] = appPrefs.colorPrefs.DColors[textLineColor];
 	QString pen = appPrefs.itemToolPrefs.dPen;
 	if (!tmpSet.contains(pen) && pen != CommonStrings::None)
-		tmpSet[pen] = appPrefs.DColors[pen];
+		tmpSet[pen] = appPrefs.colorPrefs.DColors[pen];
 	QString brush = appPrefs.itemToolPrefs.dBrush;
 	if (!tmpSet.contains(brush) && brush != CommonStrings::None)
-		tmpSet[brush] = appPrefs.DColors[brush];
+		tmpSet[brush] = appPrefs.colorPrefs.DColors[brush];
 	QString penLine = appPrefs.itemToolPrefs.dPenLine;
 	if (!tmpSet.contains(penLine) && penLine != CommonStrings::None)
-		tmpSet[penLine] = appPrefs.DColors[penLine];
+		tmpSet[penLine] = appPrefs.colorPrefs.DColors[penLine];
 	QString brushPict = appPrefs.itemToolPrefs.dBrushPict;
 	if (!tmpSet.contains(brushPict) && brushPict != CommonStrings::None)
-		tmpSet[brushPict] = appPrefs.DColors[brushPict];
-	appPrefs.DColors = tmpSet;
+		tmpSet[brushPict] = appPrefs.colorPrefs.DColors[brushPict];
+	appPrefs.colorPrefs.DColors = tmpSet;
 }
 
 void PrefsManager::setColorSetName(const QString& colorSetName)
 {
-	appPrefs.DColorSet=colorSetName;
+	appPrefs.colorPrefs.DColorSet=colorSetName;
 }
 
 
@@ -1262,8 +1262,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("ScratchTop", appPrefs.displayPrefs.scratch.Top);
 	dc.setAttribute("GapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.GapHorizontal));
 	dc.setAttribute("GapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.GapVertical));
-	dc.setAttribute("STECOLOR", appPrefs.STEcolor.name());
-	dc.setAttribute("STEFONT", appPrefs.STEfont);
+	dc.setAttribute("STECOLOR", appPrefs.storyEditorPrefs.STEcolor.name());
+	dc.setAttribute("STEFONT", appPrefs.storyEditorPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.miscPrefs.haveStylePreview));
 	dc.setAttribute("UI_SHOWSTARTUPDIALOG", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
 	dc.setAttribute("UI_USESMALLWIDGETS", static_cast<int>(appPrefs.uiPrefs.useSmallWidgets));
@@ -1393,8 +1393,8 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	elem.appendChild(dc73);
 	QDomElement dc75=docu.createElement("PAGEPALETTE");
-	dc75.setAttribute("THUMBS", static_cast<int>(appPrefs.SepalT));
-	dc75.setAttribute("NAMES", static_cast<int>(appPrefs.SepalN));
+	dc75.setAttribute("THUMBS", static_cast<int>(appPrefs.uiPrefs.SepalT));
+	dc75.setAttribute("NAMES", static_cast<int>(appPrefs.uiPrefs.SepalN));
 	elem.appendChild(dc75);
 	QDomElement dc76=docu.createElement("DOKUMENT");
 	dc76.setAttribute("PAGESIZE",appPrefs.docSetupPrefs.pageSize);
@@ -1407,8 +1407,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("RANDR",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.Right));
 	dc76.setAttribute("PRESET",appPrefs.docSetupPrefs.marginPreset);
 	dc76.setAttribute("DOPPEL", appPrefs.docSetupPrefs.pagePositioning);
-	dc76.setAttribute("AutoSave", static_cast<int>(appPrefs.AutoSave));
-	dc76.setAttribute("AutoSaveTime", appPrefs.AutoSaveTime);
+	dc76.setAttribute("AutoSave", static_cast<int>(appPrefs.docSetupPrefs.AutoSave));
+	dc76.setAttribute("AutoSaveTime", appPrefs.docSetupPrefs.AutoSaveTime);
 	dc76.setAttribute("BleedTop", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.Top));
 	dc76.setAttribute("BleedLeft", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.Left));
 	dc76.setAttribute("BleedRight", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.Right));
@@ -1463,40 +1463,40 @@ bool PrefsManager::WritePref(QString ho)
 		elem.appendChild(dc79a);
 	}
 	QDomElement dc81=docu.createElement("CMS");
-	dc81.setAttribute("DPSo", static_cast<int>(appPrefs.DCMSset.SoftProofOn));
-	dc81.setAttribute("DPSFo", static_cast<int>(appPrefs.DCMSset.SoftProofFullOn));
-	dc81.setAttribute("DPuse", static_cast<int>(appPrefs.DCMSset.CMSinUse));
-	dc81.setAttribute("DPgam", static_cast<int>(appPrefs.DCMSset.GamutCheck));
-	dc81.setAttribute("DPbla", static_cast<int>(appPrefs.DCMSset.BlackPoint));
-	dc81.setAttribute("DPMo",appPrefs.DCMSset.DefaultMonitorProfile);
-	dc81.setAttribute("DPPr",appPrefs.DCMSset.DefaultPrinterProfile);
-	dc81.setAttribute("DPIn",appPrefs.DCMSset.DefaultImageRGBProfile);
-	dc81.setAttribute("DPInCMYK",appPrefs.DCMSset.DefaultImageCMYKProfile);
-	dc81.setAttribute("DPIn2",appPrefs.DCMSset.DefaultSolidColorRGBProfile);
-	dc81.setAttribute("DPIn3",appPrefs.DCMSset.DefaultSolidColorCMYKProfile);
-	//dc81.setAttribute("DIPr",appPrefs.DCMSset.DefaultIntentPrinter);
-	//dc81.setAttribute("DIMo",appPrefs.DCMSset.DefaultIntentMonitor);
-	dc81.setAttribute("DISc",appPrefs.DCMSset.DefaultIntentColors);
-	dc81.setAttribute("DIIm",appPrefs.DCMSset.DefaultIntentImages);
+	dc81.setAttribute("DPSo", static_cast<int>(appPrefs.colorPrefs.DCMSset.SoftProofOn));
+	dc81.setAttribute("DPSFo", static_cast<int>(appPrefs.colorPrefs.DCMSset.SoftProofFullOn));
+	dc81.setAttribute("DPuse", static_cast<int>(appPrefs.colorPrefs.DCMSset.CMSinUse));
+	dc81.setAttribute("DPgam", static_cast<int>(appPrefs.colorPrefs.DCMSset.GamutCheck));
+	dc81.setAttribute("DPbla", static_cast<int>(appPrefs.colorPrefs.DCMSset.BlackPoint));
+	dc81.setAttribute("DPMo",appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
+	dc81.setAttribute("DPPr",appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
+	dc81.setAttribute("DPIn",appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
+	dc81.setAttribute("DPInCMYK",appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile);
+	dc81.setAttribute("DPIn2",appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
+	dc81.setAttribute("DPIn3",appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
+	//dc81.setAttribute("DIPr",appPrefs.colorPrefs.DCMSset.DefaultIntentPrinter);
+	//dc81.setAttribute("DIMo",appPrefs.colorPrefs.DCMSset.DefaultIntentMonitor);
+	dc81.setAttribute("DISc",appPrefs.colorPrefs.DCMSset.DefaultIntentColors);
+	dc81.setAttribute("DIIm",appPrefs.colorPrefs.DCMSset.DefaultIntentImages);
 	elem.appendChild(dc81);
 	QDomElement dc82=docu.createElement("PRINTER");
 	dc82.setAttribute("NAME",appPrefs.printerPrefs.PrinterName);
 	dc82.setAttribute("FILE",appPrefs.printerPrefs.PrinterFile);
 	dc82.setAttribute("COMMAND",appPrefs.printerPrefs.PrinterCommand);
 	dc82.setAttribute("CLIPMARGIN", static_cast<int>(appPrefs.printerPrefs.ClipMargin));
-	dc82.setAttribute("GMODE", static_cast<int>(appPrefs.GCRMode));
+	dc82.setAttribute("GMODE", static_cast<int>(appPrefs.printerPrefs.GCRMode));
 	elem.appendChild(dc82);
 	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
-	dc8Pr.setAttribute("Mode", static_cast<int>(appPrefs.PrPr_Mode));
-	dc8Pr.setAttribute("GcrMode", static_cast<int>(appPrefs.Gcr_Mode));
-	dc8Pr.setAttribute("AntiAliasing", static_cast<int>(appPrefs.PrPr_AntiAliasing));
-	dc8Pr.setAttribute("Transparency", static_cast<int>(appPrefs.PrPr_Transparency));
-	dc8Pr.setAttribute("Cyan", static_cast<int>(appPrefs.PrPr_C));
-	dc8Pr.setAttribute("Magenta", static_cast<int>(appPrefs.PrPr_M));
-	dc8Pr.setAttribute("Yellow", static_cast<int>(appPrefs.PrPr_Y));
-	dc8Pr.setAttribute("Black", static_cast<int>(appPrefs.PrPr_K));
-	dc8Pr.setAttribute("InkCoverage", static_cast<int>(appPrefs.PrPr_InkCoverage));
-	dc8Pr.setAttribute("InkThreshold", appPrefs.PrPr_InkThreshold);
+	dc8Pr.setAttribute("Mode", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_Mode));
+	//dc8Pr.setAttribute("GcrMode", static_cast<int>(appPrefs.Gcr_Mode));
+	dc8Pr.setAttribute("AntiAliasing", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_AntiAliasing));
+	dc8Pr.setAttribute("Transparency", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_Transparency));
+	dc8Pr.setAttribute("Cyan", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_C));
+	dc8Pr.setAttribute("Magenta", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_M));
+	dc8Pr.setAttribute("Yellow", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_Y));
+	dc8Pr.setAttribute("Black", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_K));
+	dc8Pr.setAttribute("InkCoverage", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_InkCoverage));
+	dc8Pr.setAttribute("InkThreshold", appPrefs.printPreviewPrefs.PrPr_InkThreshold);
 	elem.appendChild(dc8Pr);
 	QDomElement dc8Ex = docu.createElement("EXTERNAL");
 	dc8Ex.setAttribute("GIMP", imageEditorExecutable());
@@ -1539,7 +1539,7 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	elem.appendChild(rde);
 	ColorList::Iterator itc;
-	for (itc = appPrefs.DColors.begin(); itc != appPrefs.DColors.end(); ++itc)
+	for (itc = appPrefs.colorPrefs.DColors.begin(); itc != appPrefs.colorPrefs.DColors.end(); ++itc)
 	{
 		QDomElement co=docu.createElement("COLOR");
 		co.setAttribute("NAME",itc.key());
@@ -1579,21 +1579,21 @@ bool PrefsManager::WritePref(QString ho)
 		elem.appendChild(kscc);
 	}
 	QMap<QString,QString>::Iterator itfsu;
-	for (itfsu = appPrefs.GFontSub.begin(); itfsu != appPrefs.GFontSub.end(); ++itfsu)
+	for (itfsu = appPrefs.fontPrefs.GFontSub.begin(); itfsu != appPrefs.fontPrefs.GFontSub.end(); ++itfsu)
 	{
 		QDomElement fosu = docu.createElement("Substitute");
 		fosu.setAttribute("Name",itfsu.key());
 		fosu.setAttribute("Replace",itfsu.value());
 		elem.appendChild(fosu);
 	}
-	for (int ccs=0; ccs<appPrefs.CustomColorSets.count(); ++ccs)
+	for (int ccs=0; ccs<appPrefs.colorPrefs.CustomColorSets.count(); ++ccs)
 	{
 		QDomElement cos=docu.createElement("COLORSET");
-		cos.setAttribute("NAME",appPrefs.CustomColorSets[ccs]);
+		cos.setAttribute("NAME",appPrefs.colorPrefs.CustomColorSets[ccs]);
 		elem.appendChild(cos);
 	}
 	QDomElement cosd=docu.createElement("DCOLORSET");
-	cosd.setAttribute("NAME",appPrefs.DColorSet);
+	cosd.setAttribute("NAME",appPrefs.colorPrefs.DColorSet);
 	elem.appendChild(cosd);
 	QDomElement pdf = docu.createElement("PDF");
 	pdf.setAttribute("Thumbnails", static_cast<int>(appPrefs.pdfPrefs.Thumbnails));
@@ -1752,7 +1752,7 @@ bool PrefsManager::ReadPref(QString ho)
 	firstTimeIgnoreOldPrefs=!prefs135FileFound;
 	if (!prefs135FileFound)
 		return false;
-	appPrefs.DColors.clear();
+	appPrefs.colorPrefs.DColors.clear();
 	appPrefs.extToolPrefs.latexCommands.clear();
 	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
@@ -1822,9 +1822,9 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.displayPrefs.GapHorizontal  = ScCLocale::toDoubleC(dc.attribute("GapHorizontal"), 0.0);
 			appPrefs.displayPrefs.GapVertical    = ScCLocale::toDoubleC(dc.attribute("GapVertical"), 40.0);
 			if (dc.hasAttribute("STECOLOR"))
-				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
+				appPrefs.storyEditorPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
-				appPrefs.STEfont = dc.attribute("STEFONT");
+				appPrefs.storyEditorPrefs.STEfont = dc.attribute("STEFONT");
 			appPrefs.displayPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
 			appPrefs.displayPrefs.showMouseCoordinates = static_cast<bool>(dc.attribute("showMouseCoordinates", "1").toInt());
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("stickyTools", "0").toInt());
@@ -1981,8 +1981,8 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="PAGEPALETTE")
 		{
-			appPrefs.SepalT = static_cast<bool>(dc.attribute("THUMBS").toInt());
-			appPrefs.SepalN = static_cast<bool>(dc.attribute("NAMES").toInt());
+			appPrefs.uiPrefs.SepalT = static_cast<bool>(dc.attribute("THUMBS").toInt());
+			appPrefs.uiPrefs.SepalN = static_cast<bool>(dc.attribute("NAMES").toInt());
 		}
 		if (dc.tagName()=="SCRAPBOOK")
 		{
@@ -2015,8 +2015,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.docSetupPrefs.margins.Right  = ScCLocale::toDoubleC(dc.attribute("RANDR"), 9.0);
 			appPrefs.docSetupPrefs.marginPreset   = dc.attribute("PRESET", "0").toInt();
 			appPrefs.docSetupPrefs.pagePositioning    = dc.attribute("DOPPEL", "0").toInt();
-			appPrefs.AutoSave      = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
-			appPrefs.AutoSaveTime  = dc.attribute("AutoSaveTime", "600000").toInt();
+			appPrefs.docSetupPrefs.AutoSave      = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
+			appPrefs.docSetupPrefs.AutoSaveTime  = dc.attribute("AutoSaveTime", "600000").toInt();
 			appPrefs.docSetupPrefs.bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
 			appPrefs.docSetupPrefs.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0);
 			appPrefs.docSetupPrefs.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0);
@@ -2063,19 +2063,19 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="CMS")
 		{
-			appPrefs.DCMSset.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
-			appPrefs.DCMSset.SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
-			appPrefs.DCMSset.CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
-			appPrefs.DCMSset.GamutCheck = static_cast<bool>(dc.attribute("DPgam", "0").toInt());
-			appPrefs.DCMSset.BlackPoint = static_cast<bool>(dc.attribute("DPbla", "1").toInt());
-			appPrefs.DCMSset.DefaultMonitorProfile = dc.attribute("DPMo","");
-			appPrefs.DCMSset.DefaultPrinterProfile = dc.attribute("DPPr","");
-			appPrefs.DCMSset.DefaultImageRGBProfile = dc.attribute("DPIn","");
-			appPrefs.DCMSset.DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
-			appPrefs.DCMSset.DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
-			appPrefs.DCMSset.DefaultSolidColorCMYKProfile = dc.attribute("DPIn3","");
-			appPrefs.DCMSset.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
-			appPrefs.DCMSset.DefaultIntentImages = dc.attribute("DIIm", "0").toInt();
+			appPrefs.colorPrefs.DCMSset.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
+			appPrefs.colorPrefs.DCMSset.SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
+			appPrefs.colorPrefs.DCMSset.CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
+			appPrefs.colorPrefs.DCMSset.GamutCheck = static_cast<bool>(dc.attribute("DPgam", "0").toInt());
+			appPrefs.colorPrefs.DCMSset.BlackPoint = static_cast<bool>(dc.attribute("DPbla", "1").toInt());
+			appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = dc.attribute("DPMo","");
+			appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = dc.attribute("DPPr","");
+			appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = dc.attribute("DPIn","");
+			appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
+			appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
+			appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = dc.attribute("DPIn3","");
+			appPrefs.colorPrefs.DCMSset.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
+			appPrefs.colorPrefs.DCMSset.DefaultIntentImages = dc.attribute("DIIm", "0").toInt();
 		}
 		if (!importingFrom12 && dc.tagName()=="SHORTCUT")
 		{
@@ -2127,20 +2127,20 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.printerPrefs.PrinterFile = dc.attribute("FILE");
 			appPrefs.printerPrefs.PrinterCommand = dc.attribute("COMMAND");
 			appPrefs.printerPrefs.ClipMargin = static_cast<bool>(dc.attribute("CLIPMARGIN", "1").toInt());
-			appPrefs.GCRMode = static_cast<bool>(dc.attribute("GMODE", "1").toInt());
+			appPrefs.printerPrefs.GCRMode = static_cast<bool>(dc.attribute("GMODE", "1").toInt());
 		}
 		if (dc.tagName()=="PRINTPREVIEW")
 		{
-			appPrefs.PrPr_Mode = static_cast<bool>(dc.attribute("Mode", "0").toInt());
-			appPrefs.Gcr_Mode = static_cast<bool>(dc.attribute("GcrMode", "1").toInt());
-			appPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "0").toInt());
-			appPrefs.PrPr_Transparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
-			appPrefs.PrPr_C = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
-			appPrefs.PrPr_M = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
-			appPrefs.PrPr_Y = static_cast<bool>(dc.attribute("Yellow", "1").toInt());
-			appPrefs.PrPr_K = static_cast<bool>(dc.attribute("Black", "1").toInt());
-			appPrefs.PrPr_InkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
-			appPrefs.PrPr_InkThreshold = dc.attribute("InkThreshold", "250").toInt();
+			appPrefs.printPreviewPrefs.PrPr_Mode = static_cast<bool>(dc.attribute("Mode", "0").toInt());
+			//appPrefs.Gcr_Mode = static_cast<bool>(dc.attribute("GcrMode", "1").toInt());
+			appPrefs.printPreviewPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "0").toInt());
+			appPrefs.printPreviewPrefs.PrPr_Transparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
+			appPrefs.printPreviewPrefs.PrPr_C = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
+			appPrefs.printPreviewPrefs.PrPr_M = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
+			appPrefs.printPreviewPrefs.PrPr_Y = static_cast<bool>(dc.attribute("Yellow", "1").toInt());
+			appPrefs.printPreviewPrefs.PrPr_K = static_cast<bool>(dc.attribute("Black", "1").toInt());
+			appPrefs.printPreviewPrefs.PrPr_InkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
+			appPrefs.printPreviewPrefs.PrPr_InkThreshold = dc.attribute("InkThreshold", "250").toInt();
 		}
 		if (dc.tagName()=="EXTERNAL")
 		{
@@ -2250,14 +2250,14 @@ bool PrefsManager::ReadPref(QString ho)
 				lf.setRegistrationColor(static_cast<bool>(dc.attribute("Register").toInt()));
 			else
 				lf.setRegistrationColor(false);
-			appPrefs.DColors[dc.attribute("NAME")] = lf;
+			appPrefs.colorPrefs.DColors[dc.attribute("NAME")] = lf;
 		}
 		if (dc.tagName()=="Substitute")
-		  appPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
+		  appPrefs.fontPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
 		if (dc.tagName()=="COLORSET")
-			appPrefs.CustomColorSets.append(dc.attribute("NAME"));
+			appPrefs.colorPrefs.CustomColorSets.append(dc.attribute("NAME"));
 		if (dc.tagName()=="DCOLORSET")
-			appPrefs.DColorSet = dc.attribute("NAME");
+			appPrefs.colorPrefs.DColorSet = dc.attribute("NAME");
 		if(dc.tagName()=="PDF")
 		{
 			appPrefs.pdfPrefs.Articles = static_cast<bool>(dc.attribute("Articles").toInt());
@@ -2387,7 +2387,7 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		DOC=DOC.nextSibling();
 	}
-	appPrefs.DColors.ensureBlackAndWhite();
+	appPrefs.colorPrefs.DColors.ensureBlackAndWhite();
 	appPrefs.ui_SystemTheme = qApp->style()->objectName();
 	if (appPrefs.uiPrefs.style.length() > 0)
 	{

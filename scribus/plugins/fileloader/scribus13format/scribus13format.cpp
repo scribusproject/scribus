@@ -3045,7 +3045,7 @@ QString Scribus13Format::AskForFont(QString fStr, ScribusDoc *doc)
 	QString tmpf = fStr;
 	if ((!(*m_AvailableFonts).contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
 	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
+		if ((!prefsManager->appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
@@ -3053,10 +3053,10 @@ QString Scribus13Format::AskForFont(QString fStr, ScribusDoc *doc)
 			tmpf = dia->getReplacementFont();
 			delete dia;
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			prefsManager->appPrefs.GFontSub[fStr] = tmpf;
+			prefsManager->appPrefs.fontPrefs.GFontSub[fStr] = tmpf;
 		}
 		else
-			tmpf = prefsManager->appPrefs.GFontSub[tmpf];
+			tmpf = prefsManager->appPrefs.fontPrefs.GFontSub[tmpf];
 		ReplacedFonts[fStr] = tmpf;
 	}
 	if (!doc->UsedFonts.contains(tmpf))

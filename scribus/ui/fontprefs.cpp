@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 
 FontPrefsTab::FontPrefsTab( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent )
 {
-	RList = PrefsManager::instance()->appPrefs.GFontSub;
+	RList = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub;
 	HomeP = PPath;
 	DocAvail = Hdoc;
 	UsedFonts.clear();
@@ -373,7 +373,7 @@ void FontPrefsTab::rebuildDialog()
 // 	UsedFonts.sort();
 	FlagsRepl.clear();
 	Table3->clearContents();
-	Table3->setRowCount(PrefsManager::instance()->appPrefs.GFontSub.count());
+	Table3->setRowCount(PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.count());
 	int a = 0;
 	QMap<QString,QString>::Iterator itfsu;
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)

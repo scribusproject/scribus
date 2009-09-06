@@ -3984,63 +3984,63 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultImageRGBProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
-				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
+				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
 			}
 			if (!ScCore->InputProfilesCMYK.contains(doc->CMSSettings.DefaultImageCMYKProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultImageCMYKProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile);
-				doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile);
+				doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultSolidColorRGBProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultSolidColorRGBProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile);
-				doc->CMSSettings.DefaultSolidColorRGBProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
+				doc->CMSSettings.DefaultSolidColorRGBProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 			}
 			if (!ScCore->InputProfilesCMYK.contains(doc->CMSSettings.DefaultSolidColorCMYKProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultSolidColorCMYKProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile);
-				doc->CMSSettings.DefaultSolidColorCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile;
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
+				doc->CMSSettings.DefaultSolidColorCMYKProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
 			}
 			if (!ScCore->MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultMonitorProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile);
-				doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
+				doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 			}
 			if (!ScCore->PrinterProfiles.contains(doc->CMSSettings.DefaultPrinterProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultPrinterProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile);
-				doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
+				doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 			}
 			if (!ScCore->PrinterProfiles.contains(doc->PDF_Options.PrintProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.PrintProf);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile);
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
 				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->PDF_Options.ImageProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.ImageProf);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
 				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultImageRGBProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->PDF_Options.SolidProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.SolidProf);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile);
+				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
 				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			}
 			if (cmsWarning)
@@ -4807,7 +4807,7 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, doc->Print_Options.devMode, prefsManager->appPrefs.GCRMode, spots);
+	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, doc->Print_Options.devMode, prefsManager->appPrefs.printerPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -5866,8 +5866,8 @@ void ScribusMainWindow::setPagePalette(bool visible)
 {
 	if (!visible)
 	{
-		prefsManager->appPrefs.SepalT = pagePalette->getThumb();
-		prefsManager->appPrefs.SepalN = pagePalette->getNamen();
+		prefsManager->appPrefs.uiPrefs.SepalT = pagePalette->getThumb();
+		prefsManager->appPrefs.uiPrefs.SepalN = pagePalette->getNamen();
 	}
 }
 
@@ -7392,7 +7392,7 @@ void ScribusMainWindow::slotEditColors()
 		edc = doc->PageColors;
 	else
 		edc = prefsManager->colorSet();
-	ColorManager* dia = new ColorManager(this, edc, doc, prefsManager->colorSetName(), prefsManager->appPrefs.CustomColorSets);
+	ColorManager* dia = new ColorManager(this, edc, doc, prefsManager->colorSetName(), prefsManager->appPrefs.colorPrefs.CustomColorSets);
 	if (dia->exec())
 	{
 		if (HaveDoc)
@@ -7437,7 +7437,7 @@ void ScribusMainWindow::slotEditColors()
 		}
 	}
 	if (!HaveDoc)
-		prefsManager->appPrefs.CustomColorSets = dia->customColSet;
+		prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
 	delete dia;
 }
 
@@ -7743,24 +7743,24 @@ void ScribusMainWindow::doPrintPreview()
 		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();
 		PrefsManager *prefsManager=PrefsManager::instance();
-		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-		prefsManager->appPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
-		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
 		if ( !ScCore->haveTIFFSep() || !dia->postscriptPreview )
 		{
-			prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
-			prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
-			prefsManager->appPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
-			prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
 		}
 		else
 		{
-			prefsManager->appPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
-			prefsManager->appPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
-			prefsManager->appPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
-			prefsManager->appPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
-			prefsManager->appPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
-			prefsManager->appPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
+			prefsManager->appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
 		}
 //		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
 		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
@@ -7830,7 +7830,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	options.mirrorH = false;
 	options.mirrorV = false;
 	options.useICC = true;
-	options.doGCR = prefsManager->appPrefs.GCRMode;
+	options.doGCR = prefsManager->appPrefs.printerPrefs.GCRMode;
 	options.setDevParam = false;
 	options.doClip = true;
 	options.cropMarks = false;
@@ -8220,7 +8220,7 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 		view->requestMode(submodeEndNodeEdit);
 
 	ScriXmlDoc ss;
-	if(ss.ReadElem(xml, prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
+	if(ss.ReadElem(xml, prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.fontPrefs.GFontSub, vie))
 	{
 		vie->DrawNew();
 		if (doc == docc)

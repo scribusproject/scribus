@@ -125,7 +125,7 @@ QPixmap ScPreview::createPreview(QString data)
 			tmpf = GetAttr(&pg, "NAME");
 			if ((!prefsManager->appPrefs.fontPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf].usable()))
 			{
-				if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.fontPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
+				if ((!prefsManager->appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.fontPrefs.AvailFonts[prefsManager->appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
 				{
 					ScCore->showSplash(false);
 					MissingFont *dia = new MissingFont(0, tmpf, 0);
@@ -133,10 +133,10 @@ QPixmap ScPreview::createPreview(QString data)
 					tmpf = dia->getReplacementFont();
 					delete dia;
 					ScCore->showSplash(true);
-					prefsManager->appPrefs.GFontSub[pg.attribute("NAME")] = tmpf;
+					prefsManager->appPrefs.fontPrefs.GFontSub[pg.attribute("NAME")] = tmpf;
 				}
 				else
-					tmpf = prefsManager->appPrefs.GFontSub[tmpf];
+					tmpf = prefsManager->appPrefs.fontPrefs.GFontSub[tmpf];
 			}
 			if (!DoFonts.contains(tmpf))
 			{

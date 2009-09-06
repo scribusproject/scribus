@@ -34,18 +34,18 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
-		appPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
-		appPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
+		appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
+		appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
 		ScColor cc = ScColor(255, 255, 255, 255);
 		cc.setRegistrationColor(true);
-		appPrefs.DColors.insert("Registration", cc);
-		appPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
-		appPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
-		appPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
-		appPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
-		appPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
-		appPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-		appPrefs.DColorSet = "Scribus-Small";
+		appPrefs.colorPrefs.DColors.insert("Registration", cc);
+		appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
+		appPrefs.colorPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
+		appPrefs.colorPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
+		appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
+		appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
+		appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
+		appPrefs.colorPrefs.DColorSet = "Scribus-Small";
 	}
 	else
 	{
@@ -83,7 +83,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 							lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 						else
 							lf.setRegistrationColor(false);
-						appPrefs.DColors.insert(pg.attribute("NAME"), lf);
+						appPrefs.colorPrefs.DColors.insert(pg.attribute("NAME"), lf);
 					}
 					PAGE=PAGE.nextSibling();
 				}
@@ -100,12 +100,12 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 					CoE >> Cname;
 					ScColor tmp;
 					tmp.setColorRGB(Rval, Gval, Bval);
-					appPrefs.DColors.insert(Cname, tmp);
+					appPrefs.colorPrefs.DColors.insert(Cname, tmp);
 				}
 			}
 			fiC.close();
 		}
-		appPrefs.DColorSet = "Scribus Basic";
+		appPrefs.colorPrefs.DColorSet = "Scribus Basic";
 	}
 }
 

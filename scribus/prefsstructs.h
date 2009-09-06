@@ -70,17 +70,19 @@ struct UIPrefs
 	int mouseMoveTimeout; //! Mouse move timeout for move/resize operations
 	int wheelJump; //! Distance to jump with mouse wheel scrolling
 	int applicationFontSize; //! Font size to use in the application, apart from pßalettes
-	int paletteFontSize; //! Fotn size to use in the palettes
+	int paletteFontSize; //! Font size to use in the palettes
 	QString style; 	//! Currently used QStyle name
 	int recentDocCount; //! Number of recent documents to remember
-	QStringList RecentDocs;
+	QStringList RecentDocs; //! List of recent documents
 	QString language; //! Language of the user interface
 	bool useSmallWidgets; //! Use small widgets in the palettes
 	bool showStartupDialog; //! Whether to show the startup dialog or not
-	bool stickyTools;
-	bool grayscaleIcons;
+	bool stickyTools; //! Whether a user's tool section remains after use or the normal tool is reselected
+	bool grayscaleIcons; //! Show icons in toolbars as grayscale
 	WindowPrefs mainWinSettings;
 	QByteArray mainWinState;
+	bool SepalT; //! Page Palette - show page thumbnails
+	bool SepalN; //! Page Palette - show names on pages
 };
 
 //Paths
@@ -104,6 +106,8 @@ struct DocumentSetupPrefs
 	int marginPreset; //! Use a preset ratio margin setup
 	int pagePositioning; //! Show pages in 1,2,3,4 pages side by side on screen
 	int docUnitIndex; //! The index of the default unit
+	bool AutoSave;
+	int AutoSaveTime;
 };
 
 //Guides
@@ -195,66 +199,72 @@ struct ItemToolPrefs
 struct OperatorToolPrefs
 {
 	/* Magnifier Tool */
-	int magMin;
-	int magMax;
-	int magStep;
+	int magMin; //! Magnification minimum
+	int magMax; //! Magnification maximum
+	int magStep; //! Default step between magnification levels
 	/* Item Duplicate Offset */
 	double dispX;
 	double dispY;
 	/* Rotation Tool constrain value */
-	double constrain;
+	double constrain; //! Angle to constrain rotation to when constraining is active
 };
 
 struct HyphenatorPrefs
 {
-	int MinWordLen;
-	int HyCount;
-	QString Language;
-	QHash<QString, QString> specialWords;
-	QSet<QString> ignoredWords;
+	int MinWordLen; //! Minimum word length to hyphenate
+	int HyCount; //! Maximum number of consecutive rows to hyphenate
+	QString Language; //! Language to use for hyphenation
+	QHash<QString, QString> specialWords; //! List of special words to hyphenate
+	QSet<QString> ignoredWords; //! List of words the hyphenator ignores
 	bool Automatic;
 	bool AutoCheck;
 };
 
 struct FontPrefs
 {
-	SCFonts AvailFonts;
-	bool askBeforeSubstitute;
+	SCFonts AvailFonts; //! Fonts that Scribus has available to it, or the current document has available to use
+	bool askBeforeSubstitute; //! Request that the user confirms a font substituion or not
+	QMap<QString,QString> GFontSub;
 };
 
 struct PrinterPrefs
 {
-	QString PrinterName;
-	QString PrinterFile;
-	QString PrinterCommand;
-	bool ClipMargin;
+	QString PrinterName; //! Default Printer name (source from CUPS)
+	QString PrinterFile; //! File to print to
+	QString PrinterCommand; //! Special printer command to use
+	bool ClipMargin; //! When printing, clip the print job to the margins
+	bool GCRMode;
 };
 
-struct ColorManagementPrefs
+struct ColorPrefs
 {
+	ColorList DColors;
+	QString DColorSet;
+	QStringList CustomColorSets;
+	CMSData DCMSset;
 };
 
 struct ItemAttrPrefs
 {
-	ObjAttrVector defaultItemAttributes;
+	ObjAttrVector defaultItemAttributes; //! The default item attributes
 };
 
 struct TOCPrefs
 {
-	ToCSetupVector defaultToCSetups;
+	ToCSetupVector defaultToCSetups; //! Default Tables of Contents
 };
 
 struct KeyboardShortcutsPrefs
 {
-	QMap<QString,Keys> KeyActions;
+	QMap<QString,Keys> KeyActions; //! Keyboard Shortcuts lists for the ScrActions
 };
 
 struct ScrapbookPrefs
 {
-	QStringList RecentScrapbooks;
+	QStringList RecentScrapbooks; //! List of recently used scrapbooks
 	int numScrapbookCopies;
-	bool doCopyToScrapbook;
-	bool persistentScrapbook;
+	bool doCopyToScrapbook; //! When copying (copy/paste), also copy to a scrapbook
+	bool persistentScrapbook; //! Keep the scrapbook contents between sessions
 };
 
 struct DisplayPrefs
@@ -304,6 +314,25 @@ struct MiscellaneousPrefs
 	int paragraphsLI;
 };
 
+struct StoryEditorPrefs
+{
+	QColor STEcolor;
+	QString STEfont;
+};
+
+struct PrintPreviewPrefs
+{
+	bool PrPr_Mode;
+	bool PrPr_AntiAliasing;
+	bool PrPr_Transparency;
+	bool PrPr_C;
+	bool PrPr_M;
+	bool PrPr_Y;
+	bool PrPr_K;
+	bool PrPr_InkCoverage;
+	int PrPr_InkThreshold;
+};
+
 struct PluginPrefs
 {
 };
@@ -328,7 +357,7 @@ struct ApplicationPrefs
 	HyphenatorPrefs hyphPrefs;
 	FontPrefs fontPrefs;
 	PrinterPrefs printerPrefs;
-	ColorManagementPrefs colorMgmtPrefs;
+	ColorPrefs colorPrefs;
 	PDFOptions pdfPrefs;
 	ItemAttrPrefs itemAttrPrefs;
 	TOCPrefs tocPrefs;
@@ -341,41 +370,18 @@ struct ApplicationPrefs
 	ShortWordPrefs shortwordPrefs;
 	ScripterPrefs scripterPrefs;
 	CheckerPrefsList checkerPrefsList;
+	StoryEditorPrefs storyEditorPrefs;
+	PrintPreviewPrefs printPreviewPrefs;
 
-
-	// Remaining to sort out
 	QList<ArrowDesc> arrowStyles;
 	QList<PageSet> pageSets;
-	ColorList DColors;
 	QString curCheckProfile;
-	bool SepalT;
-	bool SepalN;
-	CMSData DCMSset;
-	QMap<QString,QString> GFontSub;
-	bool AutoSave;
-	int AutoSaveTime;
-	QString DColorSet;
-	QStringList CustomColorSets;
-	bool PrPr_Mode;
-	bool Gcr_Mode;
-	bool PrPr_AntiAliasing;
-	bool PrPr_Transparency;
-	bool PrPr_C;
-	bool PrPr_M;
-	bool PrPr_Y;
-	bool PrPr_K;
-	bool PrPr_InkCoverage;
-	int PrPr_InkThreshold;
-	bool GCRMode;
-	QColor STEcolor;
-	QString STEfont;
-
-
 
 
 	//TODO : Remove these no longer used items
 	//! System default QStyle name for current instance, seemingly unused
 	QString ui_SystemTheme;
+	//	bool Gcr_Mode;
 };
 
 #endif

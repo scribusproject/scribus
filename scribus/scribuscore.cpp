@@ -599,35 +599,35 @@ void ScribusCore::initCMS()
 	if (m_HaveCMS)
 	{
 		ProfilesL::Iterator ip;
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile)))
+		if ((prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile)))
 		{
 			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
+			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
+		if ((prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile)))
 		{
 			ip = InputProfilesCMYK.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
+			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile)))
+		if ((prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile)))
 		{
 			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile = ip.key();
+			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile)))
+		if ((prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile)))
 		{
 			ip = InputProfilesCMYK.begin();
-			prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile = ip.key();
+			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
+		if ((prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile)))
 		{
 			ip = MonitorProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
+			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
+		if ((prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile)))
 		{
 			ip = PrinterProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
+			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = ip.key();
 		}
 		InitDefaultColorTransforms();
 	}

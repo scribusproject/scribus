@@ -101,7 +101,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	if (ScCore->haveCMS())
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->colorPrefs.DCMSset, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
@@ -227,7 +227,7 @@ void Preferences::setupGui()
 							0, false);
 
 	if (ScCore->haveCMS())
-		tabColorManagement->restoreDefaults(&prefsData->DCMSset, &ScCore->InputProfiles,
+		tabColorManagement->restoreDefaults(&prefsData->colorPrefs.DCMSset, &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
 										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	QStringList defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
@@ -548,8 +548,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.opToolPrefs.dispX = tabTools->genDispX->value();
 	prefsManager->appPrefs.opToolPrefs.dispY = tabTools->genDispY->value();
 	prefsManager->appPrefs.opToolPrefs.constrain = tabTools->genRot->value();
-	prefsManager->appPrefs.AutoSave = tabDocument->GroupAS->isChecked();
-	prefsManager->appPrefs.AutoSaveTime = tabDocument->ASTime->value() * 60 * 1000;
+	prefsManager->appPrefs.docSetupPrefs.AutoSave = tabDocument->GroupAS->isChecked();
+	prefsManager->appPrefs.docSetupPrefs.AutoSaveTime = tabDocument->ASTime->value() * 60 * 1000;
 	prefsManager->appPrefs.hyphPrefs.MinWordLen = tabHyphenator->getWordLen();
 	prefsManager->appPrefs.hyphPrefs.Language = ScCore->primaryMainWindow()->GetLang(tabHyphenator->getLanguage());
 	prefsManager->appPrefs.hyphPrefs.Automatic = !tabHyphenator->getVerbose();
@@ -562,9 +562,9 @@ void Preferences::updatePreferences()
 	// not required propably as it's done already in the dialog prefsManager->appPrefs.AvailFonts == get fonts from fontprefs
 	uint a = 0;
 	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();
-	prefsManager->appPrefs.GFontSub.clear();
+	prefsManager->appPrefs.fontPrefs.GFontSub.clear();
 	for (QMap<QString,QString>::Iterator itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
-		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
+		prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
 	
 	prefsManager->appPrefs.itemAttrPrefs.defaultItemAttributes = *(tabDefaultItemAttributes->getNewAttributes());
 	prefsManager->appPrefs.tocPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());

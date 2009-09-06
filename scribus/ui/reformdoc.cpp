@@ -517,11 +517,11 @@ void ReformDoc::updateDocumentSettings()
 // 		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
 // 	}
 	uint a = 0;
-	prefsManager->appPrefs.GFontSub.clear();
+	prefsManager->appPrefs.fontPrefs.GFontSub.clear();
 	QMap<QString,QString>::Iterator itfsu;
 	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();
 	for (itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
-		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
+		prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
 	QStringList uf = currDoc->UsedFonts.keys();
 	QMap<QString,int>::Iterator it3;
 //	for (it3 = currDoc->UsedFonts.begin(); it3 != currDoc->UsedFonts.end(); ++it3)

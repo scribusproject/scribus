@@ -1898,7 +1898,7 @@ void StoryEditor::buildGUI()
 
 //	Editor->setPaper(prefsManager->appPrefs.STEcolor);
 	QFont fo;
-	fo.fromString(prefsManager->appPrefs.STEfont);
+	fo.fromString(prefsManager->appPrefs.storyEditorPrefs.STEfont);
 	Editor->setFont(fo);
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
@@ -2175,16 +2175,15 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 void StoryEditor::setBackPref()
 {
 	blockUpdate = true;
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(Editor->palette().color(QPalette::Base), this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(Editor->palette().color(QPalette::Base), this));
+	if (newColor.isValid())
 	{
 		QPalette pal;
-		pal.setColor(QPalette::Active, QPalette::Base, neu);
-		pal.setColor(QPalette::Inactive, QPalette::Base, neu);
-		pal.setColor(QPalette::Disabled, QPalette::Base, neu);
+		pal.setColor(QPalette::Active, QPalette::Base, newColor);
+		pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
+		pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
 		Editor->setPalette(pal);
-		prefsManager->appPrefs.STEcolor = neu;
+		prefsManager->appPrefs.storyEditorPrefs.STEcolor = newColor;
 	}
 	blockUpdate = false;
 }
@@ -2193,7 +2192,7 @@ void StoryEditor::setFontPref()
 {
 	blockUpdate = true;
 	Editor->setFont( QFontDialog::getFont( 0, Editor->font(), this ) );
-	prefsManager->appPrefs.STEfont = Editor->font().toString();
+	prefsManager->appPrefs.storyEditorPrefs.STEfont = Editor->font().toString();
 	EditorBar->doRepaint();
 	blockUpdate = false;
 }
@@ -2262,16 +2261,9 @@ void StoryEditor::newTxStyle(int s)
 	charStyle.setFeatures(Editor->CurrentStyle.featureList());
 	Editor->updateSel(charStyle);
 	Editor->setStyle(s);
-	if ((s & ScStyle_Outline) || (s & ScStyle_Shadowed))
-	{
-		StrokeTools->TxStroke->setEnabled(true);
-		StrokeTools->PM1->setEnabled(true);
-	}
-	else
-	{
-		StrokeTools->TxStroke->setEnabled(false);
-		StrokeTools->PM1->setEnabled(false);
-	}
+	bool setter=((s & ScStyle_Outline) || (s & ScStyle_Shadowed));
+	StrokeTools->TxStroke->setEnabled(setter);
+	StrokeTools->PM1->setEnabled(setter);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2370,10 +2362,11 @@ void StoryEditor::updateProps(QTextCursor &cur)
 
 void StoryEditor::updateProps(int p, int ch)
 {
-	ColorList::Iterator it;
-	int c = 0;
 	if (Editor->wasMod)
 		return;
+	ColorList::Iterator it;
+	int c = 0;
+
 	if ((p >= static_cast<int>(Editor->StyledText.nrOfParagraphs())) || (Editor->StyledText.length() == 0) || (!firstSet))
 	{
 		int pos = Editor->StyledText.startOfParagraph(p) + ch;

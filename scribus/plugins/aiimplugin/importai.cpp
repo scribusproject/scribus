@@ -1838,7 +1838,7 @@ void AIPlug::processData(QString data)
 				textFont = family;
 			else
 			{
-				if (!PrefsManager::instance()->appPrefs.GFontSub.contains(family))
+				if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					MissingFont *dia = new MissingFont(0, family, m_Doc);
@@ -1846,10 +1846,10 @@ void AIPlug::processData(QString data)
 					QString tmpf = dia->getReplacementFont();
 					delete dia;
 					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-					PrefsManager::instance()->appPrefs.GFontSub[family] = tmpf;
+					PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = tmpf;
 				}
 				else
-					textFont = PrefsManager::instance()->appPrefs.GFontSub[family];
+					textFont = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
 			}
 			textSize *= 10.0;
 		}

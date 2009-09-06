@@ -199,8 +199,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	AutoSave(prefsData.AutoSave),
-	AutoSaveTime(prefsData.AutoSaveTime),
+	AutoSave(prefsData.docSetupPrefs.AutoSave),
+	AutoSaveTime(prefsData.docSetupPrefs.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
 	arrowStyles(prefsData.arrowStyles),
@@ -312,8 +312,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	AutoSave(prefsData.AutoSave),
-	AutoSaveTime(prefsData.AutoSaveTime),
+	AutoSave(prefsData.docSetupPrefs.AutoSave),
+	AutoSaveTime(prefsData.docSetupPrefs.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
 	arrowStyles(prefsData.arrowStyles),
@@ -382,7 +382,7 @@ void ScribusDoc::init()
 	m_pagesChanged.connectObserver(m_docUpdater);
 
 	PrefsManager *prefsManager = PrefsManager::instance();
-	CMSSettings = prefsManager->appPrefs.DCMSset;
+	CMSSettings = prefsManager->appPrefs.colorPrefs.DCMSset;
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
 	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
@@ -399,28 +399,28 @@ void ScribusDoc::init()
 
 	PageColors.ensureBlackAndWhite();
 	if (prefsData.itemToolPrefs.dPen != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dPen, prefsData.DColors[prefsData.itemToolPrefs.dPen]);
+		PageColors.insert(prefsData.itemToolPrefs.dPen, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dPen]);
 	itemToolPrefs.dPen = prefsData.itemToolPrefs.dPen;
 	if (prefsData.itemToolPrefs.dPenLine != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dPenLine, prefsData.DColors[prefsData.itemToolPrefs.dPenLine]);
+		PageColors.insert(prefsData.itemToolPrefs.dPenLine, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dPenLine]);
 	itemToolPrefs.dPenLine = prefsData.itemToolPrefs.dPenLine;
 	if (prefsData.itemToolPrefs.dPenText != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dPenText, prefsData.DColors[prefsData.itemToolPrefs.dPenText]);
+		PageColors.insert(prefsData.itemToolPrefs.dPenText, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dPenText]);
 	itemToolPrefs.dPenText = prefsData.itemToolPrefs.dPenText;
 	if (prefsData.itemToolPrefs.dStrokeText != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dStrokeText, prefsData.DColors[prefsData.itemToolPrefs.dStrokeText]);
+		PageColors.insert(prefsData.itemToolPrefs.dStrokeText, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dStrokeText]);
 	itemToolPrefs.dStrokeText = prefsData.itemToolPrefs.dStrokeText;
 	if (prefsData.itemToolPrefs.dBrush != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dBrush, prefsData.DColors[prefsData.itemToolPrefs.dBrush]);
+		PageColors.insert(prefsData.itemToolPrefs.dBrush, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dBrush]);
 	itemToolPrefs.dBrush = prefsData.itemToolPrefs.dBrush;
 	if (prefsData.itemToolPrefs.dBrushPict != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dBrushPict, prefsData.DColors[prefsData.itemToolPrefs.dBrushPict]);
+		PageColors.insert(prefsData.itemToolPrefs.dBrushPict, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dBrushPict]);
 	itemToolPrefs.dBrushPict = prefsData.itemToolPrefs.dBrushPict;
 	if (prefsData.itemToolPrefs.dTextBackGround != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dTextBackGround, prefsData.DColors[prefsData.itemToolPrefs.dTextBackGround]);
+		PageColors.insert(prefsData.itemToolPrefs.dTextBackGround, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dTextBackGround]);
 	itemToolPrefs.dTextBackGround = prefsData.itemToolPrefs.dTextBackGround;
 	if (prefsData.itemToolPrefs.dTextLineColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.dTextLineColor, prefsData.DColors[prefsData.itemToolPrefs.dTextLineColor]);
+		PageColors.insert(prefsData.itemToolPrefs.dTextLineColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.dTextLineColor]);
 
 	
 	ParagraphStyle pstyle;
@@ -559,7 +559,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PageColors.ensureBlackAndWhite();
 	PageColors.setDocument(this);
 
-	CMSSettings = prefsManager->appPrefs.DCMSset;
+	CMSSettings = prefsManager->appPrefs.colorPrefs.DCMSset;
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
 	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
@@ -3475,7 +3475,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 						ScriXmlDoc *ss = new ScriXmlDoc();
 						QString dataS = ss->WriteElem(this, view(), &tempSelection);
 						setCurrentPage(targetPage);
-						ss->ReadElem(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
+						ss->ReadElem(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, view());
 						delete ss;
 						setMasterPageMode(false);
 					}
@@ -3504,7 +3504,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				QString dataS = ss->WriteElem(this, view(), &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
-				ss->ReadElem(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
+				ss->ReadElem(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, view());
 				delete ss;
 				setMasterPageMode(false);
 			}
@@ -4961,7 +4961,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
 					{
 						ScriXmlDoc *ss = new ScriXmlDoc();
-						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).ID);
+						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.fontPrefs.GFontSub, view(),(*it).ID);
 						delete ss;
 					}
 					lcount++;

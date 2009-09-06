@@ -483,7 +483,7 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 	QString tmpf = fStr;
 	if ((!avail.contains(tmpf)) || (!avail[tmpf].usable()))
 	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
+		if ((!prefsManager->appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
@@ -491,10 +491,10 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 			tmpf = dia->getReplacementFont();
 			delete dia;
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			prefsManager->appPrefs.GFontSub[fStr] = tmpf;
+			prefsManager->appPrefs.fontPrefs.GFontSub[fStr] = tmpf;
 		}
 		else
-			tmpf = prefsManager->appPrefs.GFontSub[tmpf];
+			tmpf = prefsManager->appPrefs.fontPrefs.GFontSub[tmpf];
 		ReplacedFonts[fStr] = tmpf;
 	}
 	if (!doc->UsedFonts.contains(tmpf))
@@ -2590,13 +2590,13 @@ void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle&
 			dummyScFaces.append(dummy);
 		}
 		unknown = true;
-		if ((!appPrefs.GFontSub.contains(tmpf)) || (!appPrefs.fontPrefs.AvailFonts[appPrefs.GFontSub[tmpf]].usable()))
+		if ((!appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!appPrefs.fontPrefs.AvailFonts[appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, appPrefs.itemToolPrefs.defFont);
 		}
 		else
-			ReplacedFonts.insert(tmpf, appPrefs.GFontSub[tmpf]);
+			ReplacedFonts.insert(tmpf, appPrefs.fontPrefs.GFontSub[tmpf]);
 //		tmpf = ReplacedFonts[tmpf];
 	}
 	else if (hasFont)

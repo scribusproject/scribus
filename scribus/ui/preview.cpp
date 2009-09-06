@@ -127,17 +127,17 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	Layout2->setAlignment( Qt::AlignTop );
 	AntiAlias = new QCheckBox(devTitle);
 	AntiAlias->setText( tr("Enable &Antialiasing"));
-	AntiAlias->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_AntiAliasing : false);
+	AntiAlias->setChecked( postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing : false);
 	AntiAlias->setEnabled( postscriptPreview );
 	Layout2->addWidget(AntiAlias);
 	AliasTr = new QCheckBox(devTitle);
 	AliasTr->setText( tr("Display Trans&parency"));
-	AliasTr->setChecked(prefsManager->appPrefs.PrPr_Transparency);
+	AliasTr->setChecked(prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency);
 	AliasTr->setEnabled( postscriptPreview );
 	Layout2->addWidget(AliasTr);
 	EnableCMYK = new QCheckBox(devTitle);
 	EnableCMYK->setText( tr("&Display CMYK"));
-	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_Mode : false);
+	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode : false);
 	EnableCMYK->setEnabled( postscriptPreview );
 	Layout2->addWidget(EnableCMYK);
 	if (HaveTiffSep)
@@ -166,28 +166,28 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(0, 0, cp);
-		cp->setChecked(prefsManager->appPrefs.PrPr_C);
+		cp->setChecked(prefsManager->appPrefs.printPreviewPrefs.PrPr_C);
 		flagsVisible.insert("Cyan", cp);
 		Table->setItem(1, 1, new QTableWidgetItem( tr("Magenta")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(1, 0, cp);
-		cp->setChecked(prefsManager->appPrefs.PrPr_M);
+		cp->setChecked(prefsManager->appPrefs.printPreviewPrefs.PrPr_M);
 		flagsVisible.insert("Magenta", cp);
 		Table->setItem(2, 1, new QTableWidgetItem( tr("Yellow")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(2, 0, cp);
-		cp->setChecked(prefsManager->appPrefs.PrPr_Y);
+		cp->setChecked(prefsManager->appPrefs.printPreviewPrefs.PrPr_Y);
 		flagsVisible.insert("Yellow", cp);
 		Table->setItem(3, 1, new QTableWidgetItem( tr("Black")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(3, 0, cp);
-		cp->setChecked(prefsManager->appPrefs.PrPr_K);
+		cp->setChecked(prefsManager->appPrefs.printPreviewPrefs.PrPr_K);
 		flagsVisible.insert("Black", cp);
 		for (int sp = 0; sp < spots.count(); ++sp)
 		{
@@ -204,7 +204,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 
 		EnableInkCover = new QCheckBox(devTitle);
 		EnableInkCover->setText( tr("Display Ink Coverage"));
-		EnableInkCover->setChecked(prefsManager->appPrefs.PrPr_InkCoverage);
+		EnableInkCover->setChecked(prefsManager->appPrefs.printPreviewPrefs.PrPr_InkCoverage);
 		EnableInkCover->setEnabled( postscriptPreview );
 		Layout2->addWidget(EnableInkCover);
 		connect(EnableInkCover, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
@@ -219,7 +219,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		CoverThresholdValue->setMinimum(0);
 		CoverThresholdValue->setSingleStep(10);
 		CoverThresholdValue->setSpecialValueText( tr("None"));
-		CoverThresholdValue->setValue(prefsManager->appPrefs.PrPr_InkThreshold);
+		CoverThresholdValue->setValue(prefsManager->appPrefs.printPreviewPrefs.PrPr_InkThreshold);
 		if ((EnableCMYK->isChecked()) && (EnableInkCover->isChecked()))
 			CoverThresholdValue->setEnabled(true);
 		else
@@ -234,22 +234,22 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	{
 		EnableCMYK_C = new QCheckBox(devTitle);
 		EnableCMYK_C->setText( tr("&C"));
-		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_C : true);
+		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_C : true);
 		EnableCMYK_C->setEnabled(postscriptPreview);
 		Layout2->addWidget(EnableCMYK_C);
 		EnableCMYK_M = new QCheckBox(devTitle);
 		EnableCMYK_M->setText( tr("&M"));
-		EnableCMYK_M->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_M : true);
+		EnableCMYK_M->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_M : true);
 		EnableCMYK_M->setEnabled(postscriptPreview);
 		Layout2->addWidget(EnableCMYK_M);
 		EnableCMYK_Y = new QCheckBox(devTitle);
 		EnableCMYK_Y->setText( tr("&Y"));
-		EnableCMYK_Y->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_Y : true);
+		EnableCMYK_Y->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_Y : true);
 		EnableCMYK_Y->setEnabled(postscriptPreview);
 		Layout2->addWidget(EnableCMYK_Y);
 		EnableCMYK_K = new QCheckBox(devTitle);
 		EnableCMYK_K->setText( tr("&K"));
-		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_K : true);
+		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.printPreviewPrefs.PrPr_K : true);
 		EnableCMYK_K->setEnabled(postscriptPreview);
 		Layout2->addWidget(EnableCMYK_K);
 	}
@@ -338,7 +338,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	Anzeige->setWidget(Anz);
 	int w = Anz->width() + tbWidth + 50;
 	resize(qMin(QApplication::desktop()->width()-30,w), 500);
-	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
+	if (!PrefsManager::instance()->appPrefs.printPreviewPrefs.PrPr_Mode)
 	{
 		if (HaveTiffSep)
 			Table->setEnabled(false);

@@ -583,16 +583,16 @@ ScFace gtAction::validateFont(gtFont* font)
 			}
 			if (!found)
 			{
-				if (!prefsManager->appPrefs.GFontSub.contains(font->getName()))
+				if (!prefsManager->appPrefs.fontPrefs.GFontSub.contains(font->getName()))
 				{
 					MissingFont *dia = new MissingFont(0, useFont, textFrame->doc());
 					dia->exec();
 					useFont = dia->getReplacementFont();
-					prefsManager->appPrefs.GFontSub[font->getName()] = useFont;
+					prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()] = useFont;
 					delete dia;
 				}
 				else
-					useFont = prefsManager->appPrefs.GFontSub[font->getName()];
+					useFont = prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()];
 			}
 		}
 	}

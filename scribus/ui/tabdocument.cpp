@@ -233,8 +233,8 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	marginGroup->setPageSize(prefsPageSizeName);
 	marginGroup->setNewBleeds(prefsData->docSetupPrefs.bleeds);
 	marginGroup->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
-	GroupAS->setChecked( prefsData->AutoSave );
-	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
+	GroupAS->setChecked( prefsData->docSetupPrefs.AutoSave );
+	ASTime->setValue(prefsData->docSetupPrefs.AutoSaveTime / 1000 / 60);
 	connect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));

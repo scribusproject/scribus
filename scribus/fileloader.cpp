@@ -266,8 +266,8 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->itemToolPrefs.polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
 	currDoc->itemToolPrefs.polyFd = prefsManager->appPrefs.itemToolPrefs.polyFd;
 	currDoc->itemToolPrefs.polyS = prefsManager->appPrefs.itemToolPrefs.polyS;
-	currDoc->AutoSave = prefsManager->appPrefs.AutoSave;
-	currDoc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
+	currDoc->AutoSave = prefsManager->appPrefs.docSetupPrefs.AutoSave;
+	currDoc->AutoSaveTime = prefsManager->appPrefs.docSetupPrefs.AutoSaveTime;
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
 	//dummyScFaces.clear();
 	bool ret = false;
@@ -514,7 +514,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 				for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 				{
 					if (dia.stickyReplacements->isChecked())
-						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.value();
+						prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
 				}
 				currDoc->AllFonts->setSubstitutions(ReplacedFonts, currDoc);
 				ResourceCollection repl;

@@ -1248,7 +1248,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		if (mdoc != 0 && exporting)
 			tp = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
 		else
-			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+			tp = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	}
 	ProfilesL::Iterator itp;
 	ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
@@ -1270,7 +1270,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		if (mdoc != 0 && exporting)
 			tp1 = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
 		else
-			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+			tp1 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	}
 	ProfilesL::Iterator itp2;
 	ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
@@ -1299,7 +1299,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		if (mdoc != 0 && exporting)
 			tp3 = mdoc->CMSSettings.DefaultPrinterProfile;
 		else
-			tp3 = PrefsManager::instance()->appPrefs.DCMSset.DefaultPrinterProfile;
+			tp3 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 	}
 	PrintProfC->clear();
 	for (itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
@@ -1670,7 +1670,7 @@ void TabPDFOptions::EnableLPI(int a)
 			if (doc != 0)
 				tp = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			else
-				tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				tp = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 		}
 		SolidPr->clear();
 		ProfilesL::Iterator itp;
@@ -1692,7 +1692,7 @@ void TabPDFOptions::EnableLPI(int a)
 			if (doc != 0)
 				tp1 = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			else
-				tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				tp1 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 		}
 		ImageP->clear();
 		ProfilesL::Iterator itp2;
