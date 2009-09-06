@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 using namespace Magick;
 
 #ifndef ScaleQuantumToChar
-    #define MagickLib::ScaleQuantumToChar
+    #define ScaleQuantumToChar MagickLib::ScaleQuantumToChar
 #endif
 
 static bool read_cmyk(Image *input, RawImage *output, int width, int height)
