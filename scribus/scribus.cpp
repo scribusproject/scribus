@@ -2417,12 +2417,18 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 			ActWin = NULL;
 		return;
 	}
+	if (w->widget() == NULL)
+		return;
 	if (doc!=0 && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	ScribusWin* scw = (ScribusWin*)w->widget();
+	ScribusWin* scw = dynamic_cast<ScribusWin *>(w->widget());
+	if (!scw)
+		return;
 	if (scw && scw->doc())
+	{
 		if (!scw->doc()->hasGUI())
 			return;
+	}
 	ActWin = scw;
 	if (ActWin->doc()==NULL)
 		return;
