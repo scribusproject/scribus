@@ -7,10 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTCVG_H
 #define IMPORTCVG_H
 
-#include "qglobal.h"
-#include "qobject.h"
-#include "qstring.h"
-
 #include "pluginapi.h"
 #include "pageitem.h"
 #include "sccolor.h"
@@ -18,6 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
 
 class MultiProgressDialog;
 class ScribusDoc;

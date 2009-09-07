@@ -7,10 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTXFIG_H
 #define IMPORTXFIG_H
 
-#include "qglobal.h"
-#include "qobject.h"
-#include "qstring.h"
-
 #include "pluginapi.h"
 #include "sccolor.h"
 #include "fpointarray.h"
@@ -18,6 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QTransform>
 #include <QMultiMap>
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
 
 class MultiProgressDialog;
 class PageItem;
