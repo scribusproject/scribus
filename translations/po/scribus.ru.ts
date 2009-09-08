@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -6942,7 +6942,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/colorm.cpp" line="82"/>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Добавить</translation>
     </message>
     <message>
         <location filename="../../scribus/colorm.cpp" line="84"/>
@@ -9059,7 +9059,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/effectsdialog.cpp" line="1419"/>
         <source>Blur</source>
-        <translation>Размытие</translation>
+        <translation>Размывание</translation>
     </message>
     <message>
         <location filename="../../scribus/effectsdialog.cpp" line="1397"/>
@@ -10183,7 +10183,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="45"/>
         <source>Se&amp;arch</source>
-        <translation>Ис&amp;кать</translation>
+        <translation>По&amp;иск</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="96"/>
@@ -12086,9 +12086,9 @@ p, li { white-space: pre-wrap; }
         <translation>Вы действительно хотите удалить мастер-страницу &quot;%1&quot;?</translation>
     </message>
 </context>
-<context>
+<context encoding="UTF-8">
     <name>Measurements</name>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/measurements.cpp" line="51"/>
         <source> °</source>
         <translation> °</translation>
@@ -14146,7 +14146,7 @@ both end points must lie outside of the polygon</source>
 и оба ее конца должны находиться вне многоугольника</translation>
     </message>
 </context>
-<context>
+<context encoding="UTF-8">
     <name>PathDialogBase</name>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="13"/>
@@ -14203,22 +14203,22 @@ both end points must lie outside of the polygon</source>
         <source>Rotate Objects by:</source>
         <translation>Вращать объекты на:</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -19417,7 +19417,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="161"/>
-        <source>°</source>
+        <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation>°</translation>
     </message>
@@ -19650,7 +19650,7 @@ is not exhaustive due to exceptions from called functions.
         <source>Xfig File</source>
         <translation>Файл XFig</translation>
     </message>
-    <message utf8="true">
+    <message encoding="UTF-8">
         <location filename="../../scribus/langmgr.cpp" line="106"/>
         <source>Norwegian (Bokmål)</source>
         <translation>Норвежский (бокмол)</translation>
