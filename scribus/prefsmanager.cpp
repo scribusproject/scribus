@@ -257,16 +257,16 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.dispX = 10.0;
 	appPrefs.opToolPrefs.dispY = 10.0;
 	appPrefs.opToolPrefs.constrain = 15.0;
-	appPrefs.displayPrefs.DpapColor = QColor(Qt::white);
+	appPrefs.displayPrefs.paperColor = QColor(Qt::white);
 	appPrefs.displayPrefs.showPageShadow = true;
-	appPrefs.displayPrefs.DFrameColor = QColor(Qt::red);
-	appPrefs.displayPrefs.DFrameNormColor = QColor(Qt::black);
-	appPrefs.displayPrefs.DFrameGroupColor = QColor(Qt::darkCyan);
-	appPrefs.displayPrefs.DFrameLockColor = QColor(Qt::darkRed);
-	appPrefs.displayPrefs.DFrameLinkColor = QColor(Qt::red);
-	appPrefs.displayPrefs.DFrameAnnotationColor = QColor(Qt::blue);
-	appPrefs.displayPrefs.DPageBorderColor = QColor(Qt::red);
-	appPrefs.displayPrefs.DControlCharColor = QColor(Qt::darkRed);
+	appPrefs.displayPrefs.frameColor = QColor(Qt::red);
+	appPrefs.displayPrefs.frameNormColor = QColor(Qt::black);
+	appPrefs.displayPrefs.frameGroupColor = QColor(Qt::darkCyan);
+	appPrefs.displayPrefs.frameLockColor = QColor(Qt::darkRed);
+	appPrefs.displayPrefs.frameLinkColor = QColor(Qt::red);
+	appPrefs.displayPrefs.frameAnnotationColor = QColor(Qt::blue);
+	appPrefs.displayPrefs.pageBorderColor = QColor(Qt::red);
+	appPrefs.displayPrefs.controlCharColor = QColor(Qt::darkRed);
 	appPrefs.itemToolPrefs.dCols = 1;
 	appPrefs.itemToolPrefs.dGap = 0.0;
 	appPrefs.itemToolPrefs.dShadeLine = 100;
@@ -330,9 +330,8 @@ void PrefsManager::initDefaults()
 	int dpi = qApp->desktop()->logicalDpiX();
 	if ((dpi < 60) || (dpi > 200))
 		dpi = 72;
-	appPrefs.displayPrefs.DisScale = dpi / 72.0;
+	appPrefs.displayPrefs.displayScale = dpi / 72.0;
 
-//	appPrefs.displayPrefs.DisScale = 1.0;
 	appPrefs.pathPrefs.documents = ScPaths::getUserDocumentDir();
 	appPrefs.pathPrefs.colorProfiles = "";
 	appPrefs.pathPrefs.scripts = "";
@@ -379,16 +378,13 @@ void PrefsManager::initDefaults()
 	appPrefs.displayPrefs.scratch.Right = 100;
 	appPrefs.displayPrefs.scratch.Top = 20;
 	appPrefs.displayPrefs.scratch.Bottom = 20;
-	appPrefs.displayPrefs.GapHorizontal = 0.0;
-	appPrefs.displayPrefs.GapVertical = 40.0;
+	appPrefs.displayPrefs.pageGapHorizontal = 0.0;
+	appPrefs.displayPrefs.pageGapVertical = 40.0;
 	struct PageSet pageS;
 	pageS.Name = CommonStrings::pageSet1;
 	pageS.FirstPage = 0;
 	pageS.Rows = 1;
 	pageS.Columns = 1;
-//	pageS.GapHorizontal = 0.0;
-//	pageS.GapVertical = 0.0;
-//	pageS.GapBelow = 40.0;
 	pageS.pageNames.clear();
 	appPrefs.pageSets.append(pageS);
 	pageS.Name = CommonStrings::pageSet2;
@@ -1191,7 +1187,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 
 double PrefsManager::displayScale() const
 {
-	return appPrefs.displayPrefs.DisScale;
+	return appPrefs.displayPrefs.displayScale;
 }
 
 const QString& PrefsManager::uiLanguage() const
@@ -1260,8 +1256,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("ScratchLeft", appPrefs.displayPrefs.scratch.Left);
 	dc.setAttribute("ScratchRight", appPrefs.displayPrefs.scratch.Right);
 	dc.setAttribute("ScratchTop", appPrefs.displayPrefs.scratch.Top);
-	dc.setAttribute("GapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.GapHorizontal));
-	dc.setAttribute("GapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.GapVertical));
+	dc.setAttribute("GapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapHorizontal));
+	dc.setAttribute("GapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapVertical));
 	dc.setAttribute("STECOLOR", appPrefs.storyEditorPrefs.STEcolor.name());
 	dc.setAttribute("STEFONT", appPrefs.storyEditorPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.miscPrefs.haveStylePreview));
@@ -1284,18 +1280,18 @@ bool PrefsManager::WritePref(QString ho)
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
 	dc1a.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.displayPrefs.showPageShadow));
-	dc1a.setAttribute("PAGEC",appPrefs.displayPrefs.DpapColor.name());
-	dc1a.setAttribute("SELEC",appPrefs.displayPrefs.DFrameColor.name());
-	dc1a.setAttribute("DFrameNormColor",appPrefs.displayPrefs.DFrameNormColor.name());
-	dc1a.setAttribute("DFrameGroupColor",appPrefs.displayPrefs.DFrameGroupColor.name());
-	dc1a.setAttribute("DFrameLockColor",appPrefs.displayPrefs.DFrameLockColor.name());
-	dc1a.setAttribute("DFrameLinkColor",appPrefs.displayPrefs.DFrameLinkColor.name());
-	dc1a.setAttribute("DFrameAnnotationColor",appPrefs.displayPrefs.DFrameAnnotationColor.name());
-	dc1a.setAttribute("DPageBorderColor",appPrefs.displayPrefs.DPageBorderColor.name());
-	dc1a.setAttribute("DControlCharColor",appPrefs.displayPrefs.DControlCharColor.name());
+	dc1a.setAttribute("PAGEC",appPrefs.displayPrefs.paperColor.name());
+	dc1a.setAttribute("SELEC",appPrefs.displayPrefs.frameColor.name());
+	dc1a.setAttribute("DFrameNormColor",appPrefs.displayPrefs.frameNormColor.name());
+	dc1a.setAttribute("DFrameGroupColor",appPrefs.displayPrefs.frameGroupColor.name());
+	dc1a.setAttribute("DFrameLockColor",appPrefs.displayPrefs.frameLockColor.name());
+	dc1a.setAttribute("DFrameLinkColor",appPrefs.displayPrefs.frameLinkColor.name());
+	dc1a.setAttribute("DFrameAnnotationColor",appPrefs.displayPrefs.frameAnnotationColor.name());
+	dc1a.setAttribute("DPageBorderColor",appPrefs.displayPrefs.pageBorderColor.name());
+	dc1a.setAttribute("DControlCharColor",appPrefs.displayPrefs.controlCharColor.name());
 	dc1a.setAttribute("MARGC",appPrefs.guidesPrefs.marginColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.displayPrefs.marginColored));
-	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.displayPrefs.DisScale));
+	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.displayPrefs.displayScale));
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
 	dc2.setAttribute("FACE",appPrefs.itemToolPrefs.defFont);
@@ -1819,8 +1815,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.displayPrefs.scratch.Left   = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
 			appPrefs.displayPrefs.scratch.Right  = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
 			appPrefs.displayPrefs.scratch.Top    = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
-			appPrefs.displayPrefs.GapHorizontal  = ScCLocale::toDoubleC(dc.attribute("GapHorizontal"), 0.0);
-			appPrefs.displayPrefs.GapVertical    = ScCLocale::toDoubleC(dc.attribute("GapVertical"), 40.0);
+			appPrefs.displayPrefs.pageGapHorizontal  = ScCLocale::toDoubleC(dc.attribute("GapHorizontal"), 0.0);
+			appPrefs.displayPrefs.pageGapVertical    = ScCLocale::toDoubleC(dc.attribute("GapVertical"), 40.0);
 			if (dc.hasAttribute("STECOLOR"))
 				appPrefs.storyEditorPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
@@ -1847,18 +1843,18 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="PAGE")
 		{
 			appPrefs.displayPrefs.showPageShadow = static_cast<bool>(dc.attribute("ShowPageShadow", "1").toInt());
-			appPrefs.displayPrefs.DpapColor = QColor(dc.attribute("PAGEC"));
-			appPrefs.displayPrefs.DFrameColor = QColor(dc.attribute("SELEC","#ff0000"));
-			appPrefs.displayPrefs.DFrameNormColor = QColor(dc.attribute("DFrameNormColor","#000000"));
-			appPrefs.displayPrefs.DFrameGroupColor = QColor(dc.attribute("DFrameGroupColor","#008080"));
-			appPrefs.displayPrefs.DFrameLockColor = QColor(dc.attribute("DFrameLockColor","#800000"));
-			appPrefs.displayPrefs.DFrameLinkColor = QColor(dc.attribute("DFrameLinkColor","#ff0000"));
-			appPrefs.displayPrefs.DFrameAnnotationColor = QColor(dc.attribute("DFrameAnnotationColor","#0000ff"));
-			appPrefs.displayPrefs.DPageBorderColor = QColor(dc.attribute("DPageBorderColor","#ff0000"));
-			appPrefs.displayPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
+			appPrefs.displayPrefs.paperColor = QColor(dc.attribute("PAGEC"));
+			appPrefs.displayPrefs.frameColor = QColor(dc.attribute("SELEC","#ff0000"));
+			appPrefs.displayPrefs.frameNormColor = QColor(dc.attribute("DFrameNormColor","#000000"));
+			appPrefs.displayPrefs.frameGroupColor = QColor(dc.attribute("DFrameGroupColor","#008080"));
+			appPrefs.displayPrefs.frameLockColor = QColor(dc.attribute("DFrameLockColor","#800000"));
+			appPrefs.displayPrefs.frameLinkColor = QColor(dc.attribute("DFrameLinkColor","#ff0000"));
+			appPrefs.displayPrefs.frameAnnotationColor = QColor(dc.attribute("DFrameAnnotationColor","#0000ff"));
+			appPrefs.displayPrefs.pageBorderColor = QColor(dc.attribute("DPageBorderColor","#ff0000"));
+			appPrefs.displayPrefs.controlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
 			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.displayPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
-			appPrefs.displayPrefs.DisScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.displayPrefs.DisScale);
+			appPrefs.displayPrefs.displayScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.displayPrefs.displayScale);
 		}
 		if (dc.tagName()=="TYPO")
 		{
@@ -2051,10 +2047,10 @@ bool PrefsManager::ReadPref(QString ho)
 							PGSN = PGSN.nextSibling();
 						}
 						appPrefs.pageSets.append(pageS);
-						if ((appPrefs.pageSets.count() == appPrefs.docSetupPrefs.pagePositioning) && ((appPrefs.displayPrefs.GapHorizontal < 0) && (appPrefs.displayPrefs.GapVertical < 0)))
+						if ((appPrefs.pageSets.count() == appPrefs.docSetupPrefs.pagePositioning) && ((appPrefs.displayPrefs.pageGapHorizontal < 0) && (appPrefs.displayPrefs.pageGapVertical < 0)))
 						{
-							appPrefs.displayPrefs.GapHorizontal = ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0);
-							appPrefs.displayPrefs.GapVertical   = ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 40.0);
+							appPrefs.displayPrefs.pageGapHorizontal = ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0);
+							appPrefs.displayPrefs.pageGapVertical   = ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 40.0);
 						}
 					}
 					PGS = PGS.nextSibling();

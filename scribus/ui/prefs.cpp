@@ -202,8 +202,8 @@ void Preferences::setupGui()
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
 	tabView->restoreDefaults(prefsData, prefsData->guidesPrefs, prefsData->pageSets, prefsData->docSetupPrefs.pagePositioning, prefsData->displayPrefs.scratch);
-	tabView->gapHorizontal->setValue(prefsData->displayPrefs.GapHorizontal); // * unitRatio);
-	tabView->gapVertical->setValue(prefsData->displayPrefs.GapVertical); // * unitRatio);
+	tabView->gapHorizontal->setValue(prefsData->displayPrefs.pageGapHorizontal);
+	tabView->gapVertical->setValue(prefsData->displayPrefs.pageGapVertical);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
 	tabGuides->restoreDefaults(&prefsData->guidesPrefs, &prefsData->typoPrefs, docUnitIndex);
@@ -358,8 +358,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.uiPrefs.style = tabGeneral->GUICombo->currentText();
 	prefsManager->appPrefs.uiPrefs.useSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
 
-	prefsManager->appPrefs.displayPrefs.GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
-	prefsManager->appPrefs.displayPrefs.GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.pageGapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
+	prefsManager->appPrefs.displayPrefs.pageGapVertical = tabView->gapVertical->value() / prefsUnitRatio;
 	prefsManager->appPrefs.displayPrefs.marginColored = tabView->checkUnprintable->isChecked();
 	prefsManager->appPrefs.displayPrefs.scratch.Bottom = tabView->bottomScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.displayPrefs.scratch.Left = tabView->leftScratch->value() / prefsUnitRatio;
@@ -367,15 +367,15 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.displayPrefs.scratch.Top = tabView->topScratch->value() / prefsUnitRatio;
 	// GUI colors
 	prefsManager->appPrefs.displayPrefs.showPageShadow = tabView->checkShowPageShadow->isChecked();
-	prefsManager->appPrefs.displayPrefs.DpapColor = tabView->colorPaper;
-	prefsManager->appPrefs.displayPrefs.DFrameColor = tabView->colorFrame;
-	prefsManager->appPrefs.displayPrefs.DFrameNormColor = tabView->colorFrameNorm;
-	prefsManager->appPrefs.displayPrefs.DFrameGroupColor = tabView->colorFrameGroup;
-	prefsManager->appPrefs.displayPrefs.DFrameLockColor = tabView->colorFrameLocked;
-	prefsManager->appPrefs.displayPrefs.DFrameLinkColor = tabView->colorFrameLinked;
-	prefsManager->appPrefs.displayPrefs.DFrameAnnotationColor = tabView->colorFrameAnnotation;
-	prefsManager->appPrefs.displayPrefs.DPageBorderColor = tabView->colorPageBorder;
-	prefsManager->appPrefs.displayPrefs.DControlCharColor = tabView->colorControlChars;
+	prefsManager->appPrefs.displayPrefs.paperColor = tabView->colorPaper;
+	prefsManager->appPrefs.displayPrefs.frameColor = tabView->colorFrame;
+	prefsManager->appPrefs.displayPrefs.frameNormColor = tabView->colorFrameNorm;
+	prefsManager->appPrefs.displayPrefs.frameGroupColor = tabView->colorFrameGroup;
+	prefsManager->appPrefs.displayPrefs.frameLockColor = tabView->colorFrameLocked;
+	prefsManager->appPrefs.displayPrefs.frameLinkColor = tabView->colorFrameLinked;
+	prefsManager->appPrefs.displayPrefs.frameAnnotationColor = tabView->colorFrameAnnotation;
+	prefsManager->appPrefs.displayPrefs.pageBorderColor = tabView->colorPageBorder;
+	prefsManager->appPrefs.displayPrefs.controlCharColor = tabView->colorControlChars;
 	// Guides
 
 	prefsManager->appPrefs.guidesPrefs.framesShown = tabView->checkFrame->isChecked();
@@ -385,7 +385,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.guidesPrefs.showPic = tabView->checkPictures->isChecked();
 	prefsManager->appPrefs.guidesPrefs.linkShown = tabView->checkLink->isChecked();
 	prefsManager->appPrefs.guidesPrefs.showControls = tabView->checkControl->isChecked();
-	prefsManager->appPrefs.displayPrefs.DisScale = tabView->DisScale;
+	prefsManager->appPrefs.displayPrefs.displayScale = tabView->DisScale;
 
 	prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook = tabScrapbook->useScrapBookasExtension->isChecked();
 	prefsManager->appPrefs.scrapbookPrefs.persistentScrapbook = tabScrapbook->persistentScrapbook->isChecked();

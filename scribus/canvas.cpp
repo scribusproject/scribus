@@ -1897,7 +1897,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		page->guides.drawPage(p, m_doc, lineWidth);
 	if (m_doc->currentPage() == page)
 	{
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DPageBorderColor, 2 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.pageBorderColor, 2 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawRect(0, 0, pageWidth, pageHeight);
 	}
 	p->setAntialiasing(true);

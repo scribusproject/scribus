@@ -562,7 +562,7 @@ void ScPageOutput::drawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 			painter->setupPolygon(&gly, true);
 			if (glyph == 0)
 			{
-				ScColorShade tmp(PrefsManager::instance()->appPrefs.displayPrefs.DControlCharColor, 100);
+				ScColorShade tmp(PrefsManager::instance()->appPrefs.displayPrefs.controlCharColor, 100);
 				painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				painter->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
 				painter->strokePath();

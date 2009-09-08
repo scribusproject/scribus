@@ -324,7 +324,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	if (m_Doc->view() != NULL)
 	{
 		sca = m_Doc->view()->scale();
-		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.displayPrefs.DisScale);
+		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
 	}
 	painter->setZoomFactor(m_Doc->view()->scale());
 

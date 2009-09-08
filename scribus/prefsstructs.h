@@ -269,31 +269,31 @@ struct ScrapbookPrefs
 
 struct DisplayPrefs
 {
-	bool marginColored;
-	bool showPageShadow;
-	QColor DpapColor;
-	QColor DFrameColor;
-	QColor DFrameNormColor;
-	QColor DFrameGroupColor;
-	QColor DFrameLinkColor;
-	QColor DFrameLockColor;
-	QColor DFrameAnnotationColor;
-	QColor DPageBorderColor;
-	QColor DControlCharColor;
-	bool showToolTips;
-	bool showMouseCoordinates;
-	MarginStruct scratch;
-	double GapHorizontal;
-	double GapVertical;
-	double DisScale;
+	bool marginColored; //! Indicates if the margin to edge of page area will be colored in some other color or not
+	bool showPageShadow; //! Show a shadow around the pages
+	QColor paperColor; //! Color of paper (onscreen only)
+	QColor frameColor; //! Color of frame border (onscreen only)
+	QColor frameNormColor; //! Color of normal frame border (onscreen only)
+	QColor frameGroupColor; //! Color of border of grouped frames (onscreen only)
+	QColor frameLinkColor; //! Color of frame link indicators (onscreen only)
+	QColor frameLockColor; //! Color of locked frame border (onscreen only)
+	QColor frameAnnotationColor; //! Color of annotation frames border (onscreen only)
+	QColor pageBorderColor; //! Color of page border (onscreen only)
+	QColor controlCharColor; //! Color of control characters in text frames if they are shown (onscreen only)
+	bool showToolTips; //! Show tool tips in the GUI or not.
+	bool showMouseCoordinates; //! Show mouse coordinates when interaction with frames
+	MarginStruct scratch; //! Scratch space distances
+	double pageGapHorizontal; //! Horizontal gap between pages
+	double pageGapVertical; //! Vertical gap between pages
+	double displayScale; //! Display scale, typically used to set the scale of the display to 100% of real values.
 };
 
 struct ExternalToolsPrefs
 {
-	QString gs_exe;
-	bool gs_AntiAliasText;
-	bool gs_AntiAliasGraphics;
-	int gs_Resolution;
+	QString gs_exe; //! Location on the system of the Ghostscript interpreter (gs, gswin32c.exe, etc) incl path
+	bool gs_AntiAliasText; //! Tell Ghostscript to antialias text or not
+	bool gs_AntiAliasGraphics; //! Tell Ghostscript to antialias graphics or not
+	int gs_Resolution; //! Resolution of Ghostscript rendered graphics
 	QString imageEditorExecutable;
 	QString extBrowserExecutable;
 	QString uniconvExecutable;

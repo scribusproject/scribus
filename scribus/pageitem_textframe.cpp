@@ -2662,13 +2662,13 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
 		if ((Frame) && (m_Doc->guidesSettings.framesShown))
 		{
-			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if (m_Locked)
-				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 			p->setFillMode(0);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
@@ -3399,13 +3399,13 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	double ly1= ofy;
 	double lx2= ofx+ofwh;
 	double ly2= ofy+ofwh;
-	p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameNormColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if ((isBookmark) || (m_isAnnotation))
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameAnnotationColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if ((BackBox != 0) || (NextBox != 0))
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameLinkColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if (m_Locked)
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.DFrameLockColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if (m_Doc->m_Selection->containsItem(this))
 		p->setPen(Qt::red, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
