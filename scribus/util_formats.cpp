@@ -36,6 +36,7 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "wpg" << "tga" << "ptif" << "ppm" << "pnm" << "pict" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
 	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "cgm" << "aff" << "sk" << "sk1");
+	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pict");
 	
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
@@ -57,6 +58,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick File");
 #endif
 	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
+	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macinthosh Pict File");
 	
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
@@ -74,6 +76,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::XFIG, QStringList() << "image/x-xfig");
 	m_fmtMimeTypes.insert(FormatsManager::CVG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::WPG,  QStringList() << "");
+	m_fmtMimeTypes.insert(FormatsManager::PCT,  QStringList() << "");
 			
 	QMapIterator<int, QStringList> i(m_fmts);
 	while (i.hasNext()) 

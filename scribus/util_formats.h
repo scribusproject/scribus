@@ -43,7 +43,7 @@ class SCRIBUS_API FormatsManager
 #else
 			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512,  // all Types suitable for Image Frames
 #endif
-			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072,  // All pure vector image types
+			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072|262144,  // All pure vector image types
 			RASTORIMAGES	= 2|4|8|32|512|65536,  // All pure rastor image types
 			EPS				= 1,      // Encapsulated PostScript
 			GIF				= 2,      // GIF files
@@ -65,6 +65,7 @@ class SCRIBUS_API FormatsManager
 			GMAGICK			= 65536,  // GraphicsMagick
 #endif
 			UNICONV			= 131072, // UniConvertor
+			PCT			= 262144  // Mac Pict
 		};
 	
 /*
