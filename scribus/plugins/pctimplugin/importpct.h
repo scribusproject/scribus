@@ -60,8 +60,15 @@ private:
 	bool convert(QString fn);
 	void parsePictVersion1(QDataStream &ts);
 	void parsePictVersion2(QDataStream &ts);
+	void alignStreamToWord(QDataStream &ts, uint len);
 	void handleColorRGB(QDataStream &ts, bool back);
 	void handlePolygon(QDataStream &ts, quint16 opCode);
+	void handlePenSize(QDataStream &ts);
+	void handleShortLine(QDataStream &ts);
+	void handleShortLineFrom(QDataStream &ts);
+	void handleLine(QDataStream &ts);
+	void handleLineFrom(QDataStream &ts);
+	void handleLineModeEnd();
 	void finishItem(PageItem* ite);
 	
 	QList<PageItem*> Elements;
@@ -81,6 +88,8 @@ private:
 	QStringList importedColors;
 
 	FPointArray Coords;
+	QPoint currentPoint;
+	bool lineMode;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;
