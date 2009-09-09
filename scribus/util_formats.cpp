@@ -36,7 +36,7 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "wpg" << "tga" << "ptif" << "ppm" << "pnm" << "pict" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
 	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "cgm" << "aff" << "sk" << "sk1");
-	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pict");
+	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
 	
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
