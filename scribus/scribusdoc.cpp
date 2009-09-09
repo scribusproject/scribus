@@ -7311,7 +7311,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = itemSelection->itemAt(offs);
-		if ((((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
+		if ((((currItem->isSingleSel) && (currItem->Groups.count() != 0)) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
 		{
 			offs++;
 			continue;
