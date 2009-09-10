@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pslib.h"
+#include <cmath>
 
 #include <QFileInfo>
 #include <QImage>
@@ -40,24 +41,24 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scconfig.h"
 #include "pluginapi.h"
+#include "pageitem_latexframe.h"
 #include "prefsmanager.h"
 #include "scclocale.h"
+#include "sccolorengine.h"
+#include "scfonts.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "scribuscore.h"
-#include "scfonts.h"
 #include "selection.h"
-#include <cmath>
-#include "util.h"
-#include "util_formats.h"
-#include "util_math.h"
-#include "ui/multiprogressdialog.h"
-#include "pageitem_latexframe.h"
-#include "scribusapp.h"
 #include "scpattern.h"
-#include "sccolorengine.h"
 #include "scstreamfilter_ascii85.h"
 #include "scstreamfilter_flate.h"
+#include "ui/multiprogressdialog.h"
+#include "util.h"
+#include "util_cms.h"
+#include "util_formats.h"
+#include "util_math.h"
 
 #include "text/nlsconfig.h"
 
@@ -1795,7 +1796,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		PS_setGray();
 	applyICC = Ic;
 	if ((Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
-		solidTransform = cmsCreateTransform(Doc->DocInputCMYKProf, TYPE_CMYK_16, Doc->DocPrinterProf, TYPE_CMYK_16, Doc->IntentColors, 0);
+		solidTransform = scCmsCreateTransform(Doc->DocInputCMYKProf, TYPE_CMYK_16, Doc->DocPrinterProf, TYPE_CMYK_16, Doc->IntentColors, 0);
 	else
 		applyICC = false;
 	if (usingGUI)
