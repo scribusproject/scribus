@@ -329,7 +329,7 @@ bool PctPlug::convert(QString fn)
 	Coords.resize(0);
 	Coords.svgInit();
 	LineW = 1.0;
-	currentPoint = QPoint(0, 0);
+	currentPoint = QPoint(-1, -1);
 	lineMode = false;
 	importedColors.clear();
 	QList<PageItem*> gElements;
@@ -353,12 +353,23 @@ bool PctPlug::convert(QString fn)
 		}
 		QDataStream ts(&f);
 		ts.device()->seek(522);
-		quint16 vers;
+		quint16 vers = 0;
 		ts >> vers;
+		while (vers == 0)
+		{
+			ts >> vers;
+			if (vers == 0x00FF)
+			{
+				if (progressDialog)
+					progressDialog->close();
+				f.close();
+				return false;
+			}
+		}
 		if (vers == 0x1101)
 		{
 			pctVersion = 1;		// Pict Version 1
-			parsePictVersion1(ts);
+			parsePictVersion2(ts);
 		}
 		else
 		{
@@ -408,7 +419,13 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 		quint16 opCode, dataLen;
 		quint8 dataLenByte;
 		quint32 dataLenLong;
-		ts >> opCode;
+		if (pctVersion == 1)
+		{
+			ts >> dataLenByte;
+			opCode = dataLenByte;
+		}
+		else
+			ts >> opCode;
 		QString tmp;
 		tmp.sprintf("%04X", opCode);
 		notImpl = "0x"+tmp;
@@ -462,18 +479,22 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0002:		// Background Pattern
+					handleLineModeEnd();
 					qDebug() << "Background Pattern";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0003:		// Text Font
+					handleLineModeEnd();
 					qDebug() << "Text Font";
 					alignStreamToWord(ts, 2);
 					break;
 				case 0x0004:		// Text Style
+					handleLineModeEnd();
 					qDebug() << "Text Style";
 					alignStreamToWord(ts, 1);
 					break;
 				case 0x0005:		// Text Mode
+					handleLineModeEnd();
 					qDebug() << "Text Mode";
 					alignStreamToWord(ts, 2);
 					break;
@@ -485,14 +506,17 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					handlePenSize(ts);
 					break;
 				case 0x0008:		// Pen Mode
+					handleLineModeEnd();
 					qDebug() << "Pen Mode";
 					alignStreamToWord(ts, 2);
 					break;
 				case 0x0009:		// Pen Pattern
+					handleLineModeEnd();
 					qDebug() << "Pen Pattern";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x000A:		// Fill Pattern
+					handleLineModeEnd();
 					qDebug() << "Fill Pattern";
 					alignStreamToWord(ts, 8);
 					break;
@@ -505,18 +529,22 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x000D:		// Text Size
+					handleLineModeEnd();
 					qDebug() << "Text Size";
 					alignStreamToWord(ts, 2);
 					break;
 				case 0x000E:		// Foreground Color
+					handleLineModeEnd();
 					qDebug() << "Foreground Color";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x000F:		// Background Color
+					handleLineModeEnd();
 					qDebug() << "Background Color";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x0010:		// Text Ratio
+					handleLineModeEnd();
 					qDebug() << "Text Ratio";
 					alignStreamToWord(ts, 8);
 					break;
@@ -525,6 +553,7 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, 1);
 					break;
 				case 0x0015:		// Fractional pen position
+					handleLineModeEnd();
 					qDebug() << "Fractional pen position";
 					alignStreamToWord(ts, 2);
 					break;
@@ -574,6 +603,7 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x0028:		// Long Text
+					handleLineModeEnd();
 					qDebug() << "Long Text";
 					ts >> dataLen;	// y Pos Text
 					ts >> dataLen;	// x Pos Text
@@ -581,18 +611,21 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLenByte);
 					break;
 				case 0x0029:		// Text DH
+					handleLineModeEnd();
 					qDebug() << "Text DH";
 					ts >> dataLenByte;	// y Pos Text
 					ts >> dataLenByte;
 					alignStreamToWord(ts, dataLenByte);
 					break;
 				case 0x002A:		// Text DV
+					handleLineModeEnd();
 					qDebug() << "Text DV";
 					ts >> dataLenByte;	// y Pos Text
 					ts >> dataLenByte;
 					alignStreamToWord(ts, dataLenByte);
 					break;
 				case 0x002B:		// Text DHV
+					handleLineModeEnd();
 					qDebug() << "Text DHV";
 					ts >> dataLenByte;	// y Pos Text
 					ts >> dataLenByte;	// y Pos Text
@@ -600,17 +633,21 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLenByte);
 					break;
 				case 0x002C:		// Font Name
+					handleLineModeEnd();
 					qDebug() << "Font Name";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x002D:		// Line justify
+					handleLineModeEnd();
 					qDebug() << "Line justify";
 					alignStreamToWord(ts, 10);
 					break;
 				case 0x002E:		// Glyph state
+					handleLineModeEnd();
 					qDebug() << "Glyph state";
-					alignStreamToWord(ts, 8);
+					ts >> dataLen;
+					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x002F:		// Reserved by Apple
 					qDebug() << "Reserved by Apple";
@@ -618,22 +655,27 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x0030:		// Frame rect
+					handleLineModeEnd();
 					qDebug() << "Frame rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0031:		// Paint rect
+					handleLineModeEnd();
 					qDebug() << "Paint rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0032:		// Erase rect
+					handleLineModeEnd();
 					qDebug() << "Erase rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0033:		// Invert rect
+					handleLineModeEnd();
 					qDebug() << "Invert rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0034:		// Fill rect
+					handleLineModeEnd();
 					qDebug() << "Fill rect";
 					alignStreamToWord(ts, 8);
 					break;
@@ -644,18 +686,23 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0038:		// Frame same rect
+					handleLineModeEnd();
 					qDebug() << "Frame same rect";
 					break;
 				case 0x0039:		// Paint same rect
+					handleLineModeEnd();
 					qDebug() << "Paint same rect";
 					break;
 				case 0x003A:		// Erase same rect
+					handleLineModeEnd();
 					qDebug() << "Erase same rect";
 					break;
 				case 0x003B:		// Invert same rect
+					handleLineModeEnd();
 					qDebug() << "Invert same rect";
 					break;
 				case 0x003C:		// Fill same rect
+					handleLineModeEnd();
 					qDebug() << "Fill same rect";
 					break;
 				case 0x003D:
@@ -664,22 +711,27 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0040:		// Frame round rect
+					handleLineModeEnd();
 					qDebug() << "Frame round rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0041:		// Paint round rect
+					handleLineModeEnd();
 					qDebug() << "Paint round rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0042:		// Erase round rect
+					handleLineModeEnd();
 					qDebug() << "Erase round rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0043:		// Invert round rect
+					handleLineModeEnd();
 					qDebug() << "Invert round rect";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0044:		// Fill round rect
+					handleLineModeEnd();
 					qDebug() << "Fill round rect";
 					alignStreamToWord(ts, 8);
 					break;
@@ -690,18 +742,23 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0048:		// Frame same round rect
+					handleLineModeEnd();
 					qDebug() << "Frame same round rect";
 					break;
 				case 0x0049:		// Paint same round rect
+					handleLineModeEnd();
 					qDebug() << "Paint same round rect";
 					break;
 				case 0x004A:		// Erase same round rect
+					handleLineModeEnd();
 					qDebug() << "Erase same round rect";
 					break;
 				case 0x004B:		// Invert same round rect
+					handleLineModeEnd();
 					qDebug() << "Invert same round rect";
 					break;
 				case 0x004C:		// Fill same round rect
+					handleLineModeEnd();
 					qDebug() << "Fill same round rect";
 					break;
 				case 0x004D:
@@ -710,22 +767,27 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0050:		// Frame oval
+					handleLineModeEnd();
 					qDebug() << "Frame oval";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0051:		// Paint oval
+					handleLineModeEnd();
 					qDebug() << "Paint oval";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0052:		// Erase oval
+					handleLineModeEnd();
 					qDebug() << "Erase oval";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0053:		// Invert oval
+					handleLineModeEnd();
 					qDebug() << "Invert oval";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0054:		// Fill oval
+					handleLineModeEnd();
 					qDebug() << "Fill oval";
 					alignStreamToWord(ts, 8);
 					break;
@@ -736,18 +798,23 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0058:		// Frame same oval
+					handleLineModeEnd();
 					qDebug() << "Frame same oval";
 					break;
 				case 0x0059:		// Paint same oval
+					handleLineModeEnd();
 					qDebug() << "Paint same oval";
 					break;
 				case 0x005A:		// Erase same oval
+					handleLineModeEnd();
 					qDebug() << "Erase same oval";
 					break;
 				case 0x005B:		// Invert same oval
+					handleLineModeEnd();
 					qDebug() << "Invert same oval";
 					break;
 				case 0x005C:		// Fill same oval
+					handleLineModeEnd();
 					qDebug() << "Fill same oval";
 					break;
 				case 0x005D:
@@ -756,22 +823,27 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0060:		// Frame arc
+					handleLineModeEnd();
 					qDebug() << "Frame arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0061:		// Paint arc
+					handleLineModeEnd();
 					qDebug() << "Paint arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0062:		// Erase arc
+					handleLineModeEnd();
 					qDebug() << "Erase arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0063:		// Invert arc
+					handleLineModeEnd();
 					qDebug() << "Invert arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0064:		// Fill arc
+					handleLineModeEnd();
 					qDebug() << "Fill arc";
 					alignStreamToWord(ts, 12);
 					break;
@@ -782,22 +854,27 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0068:		// Frame same arc
+					handleLineModeEnd();
 					qDebug() << "Frame same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x0069:		// Paint same arc
+					handleLineModeEnd();
 					qDebug() << "Paint same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x006A:		// Erase same arc
+					handleLineModeEnd();
 					qDebug() << "Erase same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x006B:		// Invert same arc
+					handleLineModeEnd();
 					qDebug() << "Invert same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x006C:		// Fill same arc
+					handleLineModeEnd();
 					qDebug() << "Fill same arc";
 					alignStreamToWord(ts, 4);
 					break;
@@ -822,18 +899,23 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0078:		// Frame same poly
+					handleLineModeEnd();
 					qDebug() << "Frame same poly";
 					break;
 				case 0x0079:		// Paint same poly
+					handleLineModeEnd();
 					qDebug() << "Paint same poly";
 					break;
 				case 0x007A:		// Erase same poly
+					handleLineModeEnd();
 					qDebug() << "Erase same poly";
 					break;
 				case 0x007B:		// Invert same poly
+					handleLineModeEnd();
 					qDebug() << "Invert same poly";
 					break;
 				case 0x007C:		// Fill same poly
+					handleLineModeEnd();
 					qDebug() << "Fill same poly";
 					break;
 				case 0x007D:
@@ -847,21 +929,25 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0081:		// Paint region
+					handleLineModeEnd();
 					qDebug() << "Paint region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0082:		// Erase region
+					handleLineModeEnd();
 					qDebug() << "Erase region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0083:		// Invert region
+					handleLineModeEnd();
 					qDebug() << "Invert region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0084:		// Fill region
+					handleLineModeEnd();
 					qDebug() << "Fill region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
@@ -874,18 +960,23 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0088:		// Frame same region
+					handleLineModeEnd();
 					qDebug() << "Frame same region";
 					break;
 				case 0x0089:		// Paint same region
+					handleLineModeEnd();
 					qDebug() << "Paint same region";
 					break;
 				case 0x008A:		// Erase same region
+					handleLineModeEnd();
 					qDebug() << "Erase same region";
 					break;
 				case 0x008B:		// Invert same region
+					handleLineModeEnd();
 					qDebug() << "Invert same region";
 					break;
 				case 0x008C:		// Fill same region
+					handleLineModeEnd();
 					qDebug() << "Fill same region";
 					break;
 				case 0x008D:
@@ -934,6 +1025,8 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 void PctPlug::alignStreamToWord(QDataStream &ts, uint len)
 {
 	ts.skipRawData(len);
+	if (pctVersion == 1)
+		return;
 	uint adj = ts.device()->pos() % 2;
 	if (adj != 0)
 		ts.skipRawData(1);
@@ -983,6 +1076,7 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 
 void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 {
+	qDebug() << "Handle Polygon";
 	handleLineModeEnd();
 	quint16 polySize;
 	ts >> polySize;				// read polygon size
@@ -1023,6 +1117,7 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 
 void PctPlug::handlePenSize(QDataStream &ts)
 {
+	qDebug() << "Handle Pen Size";
 	handleLineModeEnd();
 	quint16 x, y;
 	ts >> y >> x;
@@ -1031,6 +1126,7 @@ void PctPlug::handlePenSize(QDataStream &ts)
 
 void PctPlug::handleShortLine(QDataStream &ts)
 {
+	qDebug() << "Handle Short Line";
 	quint16 x, y;
 	qint8 dh, dv;
 	ts >> y >> x;
@@ -1045,6 +1141,7 @@ void PctPlug::handleShortLine(QDataStream &ts)
 
 void PctPlug::handleShortLineFrom(QDataStream &ts)
 {
+	qDebug() << "Handle Short Line From";
 	qint8 dh, dv;
 	ts >> dh >> dv;
 	QPoint s = currentPoint;
@@ -1055,6 +1152,7 @@ void PctPlug::handleShortLineFrom(QDataStream &ts)
 
 void PctPlug::handleLine(QDataStream &ts)
 {
+	qDebug() << "Handle Line";
 	quint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
@@ -1068,6 +1166,7 @@ void PctPlug::handleLine(QDataStream &ts)
 
 void PctPlug::handleLineFrom(QDataStream &ts)
 {
+	qDebug() << "Handle Line From";
 	quint16 x, y;
 	ts >> y >> x;
 	Coords.svgLineTo(x, y);
@@ -1085,6 +1184,9 @@ void PctPlug::handleLineModeEnd()
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
 	}
+	Coords.resize(0);
+	Coords.svgInit();
+	currentPoint = QPoint(-1, -1);
 	lineMode = false;
 }
 
