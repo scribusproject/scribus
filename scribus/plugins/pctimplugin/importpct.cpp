@@ -369,25 +369,25 @@ bool PctPlug::convert(QString fn)
 		if (vers == 0x1101)
 		{
 			pctVersion = 1;		// Pict Version 1
-			parsePictVersion2(ts);
+			parsePict(ts);
 		}
 		else
 		{
 			ts.skipRawData(4);	// skip the next 4 Bytes
 			ts >> vers;		// read the version info
-			if (vers == 0x0FFFE)
+//			if (vers == 0x0FFFE)
 				pctVersion = 2;	// Pict Extended Version 2
-			else if (vers == 0x0FFFF)
-				pctVersion = 3;	// Pict Version 2
-			else
-			{
-				if (progressDialog)
-					progressDialog->close();
-				f.close();
-				return false;	// bail out, no Mac Pict
-			}
+//			else if (vers == 0x0FFFF)
+//				pctVersion = 3;	// Pict Version 2
+//			else
+//			{
+//				if (progressDialog)
+//					progressDialog->close();
+//				f.close();
+//				return false;	// bail out, no Mac Pict
+//			}
 			ts.skipRawData(22);
-			parsePictVersion2(ts);
+			parsePict(ts);
 		}
 		if (Elements.count() == 0)
 		{
@@ -406,12 +406,7 @@ bool PctPlug::convert(QString fn)
 	return true;
 }
 
-void PctPlug::parsePictVersion1(QDataStream &ts)
-{
-	qDebug() << "Pict Version 1 not supported yet";
-}
-
-void PctPlug::parsePictVersion2(QDataStream &ts)
+void PctPlug::parsePict(QDataStream &ts)
 {
 	QString notImpl;
 	while (!ts.atEnd())
@@ -984,6 +979,30 @@ void PctPlug::parsePictVersion2(QDataStream &ts)
 				case 0x008F:		// Reserved by Apple
 					qDebug() << "Reserved by Apple";
 					break;
+				case 0x0090:		// Bits Rect
+					qDebug() << "Bits Rect";
+					handlePixmap(ts, opCode);
+					break;
+				case 0x0091:		// Bits Region
+					qDebug() << "Bits Region";
+					handlePixmap(ts, opCode);
+					break;
+				case 0x0098:		// Pack Bits Rect
+					qDebug() << "Pack Bits Rect";
+					handlePixmap(ts, opCode);
+					break;
+				case 0x0099:		// Pack Bits Region
+					qDebug() << "Pack Bits Region";
+					handlePixmap(ts, opCode);
+					break;
+				case 0x009A:		// Direct Bits Rect
+					qDebug() << "Direct Bits Rect";
+					handlePixmap(ts, opCode);
+					break;
+				case 0x009B:		// Direct Bits Region
+					qDebug() << "Direct Bits Region";
+					handlePixmap(ts, opCode);
+					break;
 				case 0x00FF:		// End of Pict
 					handleLineModeEnd();
 					qDebug() << "End of Pict";
@@ -1172,6 +1191,202 @@ void PctPlug::handleLineFrom(QDataStream &ts)
 	Coords.svgLineTo(x, y);
 	currentPoint = QPoint(x, y);
 	lineMode = true;
+}
+
+void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
+{
+	quint16 bytesPerLine, packType, pixel_type, bits_per_pixel, component_count, component_size;
+	quint32 packSize, horizontal_resolution, vertical_resolution, color_table, plane_bytes;
+	if ((opCode == 0x009A) || (opCode == 0x009B))
+		ts.skipRawData(4);
+	ts >> bytesPerLine;
+	QRect bounds = readRect(ts);
+	bool isPixmap = bytesPerLine & 0x8000;
+	bytesPerLine &= 0x7FFF;
+	qDebug() << "Bytes per Line" << bytesPerLine << "Pixmap" << isPixmap;
+	qDebug() << "Bounds" << bounds.right() - bounds.left() << bounds.bottom() - bounds.top();
+	QVector<QRgb> colors;
+	if (isPixmap)
+	{
+		ts.skipRawData(2);	// skip Version info, always 0
+		ts >> packType;
+		ts >> packSize;
+		ts >> horizontal_resolution >> vertical_resolution;
+		ts >> pixel_type >> bits_per_pixel >> component_count >> component_size;
+		ts >> plane_bytes >> color_table;
+		ts.skipRawData(4);
+		qDebug() << "Pack Type" << packType;
+		qDebug() << "Pack Size" << packSize;
+		qDebug() << "Pixel Type" << pixel_type;
+		qDebug() << "Bits per Pixel" << bits_per_pixel;
+		qDebug() << "Component Count" << component_count << "Size" << component_size;
+	// now reading color Table
+		if ((opCode != 0x009A) && (opCode != 0x009B))
+		{
+			quint32 ct_seed;
+			quint16 ct_flags, ct_size;
+			ts >> ct_seed;
+			ts >> ct_flags >> ct_size;
+			qDebug() << "ColorTable has" << ct_size << "Entries";
+			for (quint16 cc = 0; cc < ct_size+1; cc++)
+			{
+				quint16 cev, cRed, cGreen, cBlue;
+				ts >> cev >> cRed >> cGreen >> cBlue;
+				colors.append(qRgb(cRed, cGreen, cBlue));
+			}
+		}
+	}
+// reading scrRect
+	QRect scrRect = readRect(ts);
+	qDebug() << "Src Rect" << scrRect;
+// reading dstRect
+	QRect dstRect = readRect(ts);
+	qDebug() << "Dst Rect" << dstRect;
+	ts.skipRawData(2);
+	if ((opCode == 0x0091) || (opCode == 0x0099) || (opCode == 0x009B))
+	{
+		quint16 dataLen;
+		ts >> dataLen;
+		alignStreamToWord(ts, dataLen-2);
+	}
+	quint16 pixRows = bounds.bottom() - bounds.top();
+	quint16 pixCols = bounds.right() - bounds.left();
+	QImage image;
+	if (isPixmap)
+	{
+		if (component_count == 1)
+		{
+			image = QImage(pixCols, pixRows, QImage::Format_Indexed8);
+			image.setColorTable(colors);
+		}
+		else
+			image = QImage(pixCols, pixRows, QImage::Format_ARGB32);
+	}
+	else
+		image = QImage(pixCols, pixRows, QImage::Format_Mono);
+	for (quint16 rr = 0; rr < pixRows; rr++)
+	{
+		quint16 pixByteCount;
+		if (bytesPerLine < 250)
+		{
+			quint8 byteCount;
+			ts >> byteCount;
+			pixByteCount = byteCount;
+		}
+		else
+			ts >> pixByteCount;
+		QByteArray data;
+		data.resize(pixByteCount);
+		ts.readRawData(data.data(), pixByteCount);
+		QByteArray img;
+		if (bytesPerLine < 8)
+			img = data;
+		else
+			img = decodeRLE(data, bytesPerLine);
+		if ((opCode == 0x0098) || (opCode == 0x0099))
+		{
+			if (!isPixmap)
+			{
+				memcpy(image.scanLine(rr), img.data(), bytesPerLine);
+			}
+			else if (component_count == 1)
+			{
+				memcpy(image.scanLine(rr), img.data(), bytesPerLine);
+			}
+		}
+		else if ((opCode == 0x009A) || (opCode == 0x009B))
+		{
+			if (component_size == 8)
+			{
+				QRgb *q = (QRgb*)(image.scanLine(rr));
+				for (quint16 xx = 0; xx < pixCols; xx++)
+				{
+					uchar r, g, b;
+					r = img[xx];
+					g = img[xx + pixCols];
+					b = img[xx + 2 * pixCols];
+					*q++ = qRgba(r, g, b, 255);
+				}
+			}
+		}
+		else
+		{
+			ts.skipRawData(pixByteCount);
+		}
+	}
+	image = image.convertToFormat(QImage::Format_ARGB32);
+	if (!isPixmap)
+		image.invertPixels();
+	quint16 imgRows = dstRect.bottom() - dstRect.top();
+	quint16 imgCols = dstRect.right() - dstRect.left();
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 1, m_Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+	PageItem *ite = m_Doc->Items->at(z);
+	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
+	ite->tempImageFile->open();
+	QString fileName = getLongPathName(ite->tempImageFile->fileName());
+	ite->tempImageFile->close();
+	ite->isInlineImage = true;
+	image.save(fileName, "PNG");
+	m_Doc->LoadPict(fileName, z);
+	ite->setImageScalingMode(false, false);
+	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+	finishItem(ite);
+//	image.save("/home/franz/testpic.png");
+//	qDebug() << "Current File Position" << ts.device()->pos();
+}
+
+QRect PctPlug::readRect(QDataStream &ts)
+{
+	quint16 RectX, RectY, RectW, RectH;
+	ts >> RectX >> RectY >> RectW >> RectH;
+	return QRect(QPoint(RectY, RectX), QPoint(RectH, RectW));
+}
+
+QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine)
+{
+	QByteArray ret = QByteArray(bytesPerLine, ' ');
+	uchar *ptrOut, *ptrIn;
+	ptrOut = (uchar*)ret.data();
+	ptrIn = (uchar*)in.data();
+	quint16 count = 0;
+	uchar c;
+	quint16 len;
+	while( count < in.size() )
+	{
+		c = *ptrIn++;
+		count++;
+		len = c;
+		if( len < 128 )
+		{
+			// Copy next len+1 bytes literally.
+			len++;
+			while( len != 0 )
+			{
+				*ptrOut++ = *ptrIn++;
+				len--;
+				count++;
+			}
+		}
+		else if( len > 128 )
+		{
+			// Next -len+1 bytes in the dest are replicated from next source byte.
+			// (Interpret len as a negative 8-bit int.)
+			len ^= 0xFF;
+			len += 2;
+			c = *ptrIn++;
+			count++;
+			while( len != 0 )
+			{
+				*ptrOut++ = c;
+				len--;
+			}
+		}
+		else if( len == 128 )
+		{
+			// No-op.
+		}
+	}
+	return ret;
 }
 
 void PctPlug::handleLineModeEnd()

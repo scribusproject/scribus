@@ -58,8 +58,7 @@ public:
 private:
 	void parseHeader(QString fName, double &b, double &h);
 	bool convert(QString fn);
-	void parsePictVersion1(QDataStream &ts);
-	void parsePictVersion2(QDataStream &ts);
+	void parsePict(QDataStream &ts);
 	void alignStreamToWord(QDataStream &ts, uint len);
 	void handleColorRGB(QDataStream &ts, bool back);
 	void handlePolygon(QDataStream &ts, quint16 opCode);
@@ -68,6 +67,9 @@ private:
 	void handleShortLineFrom(QDataStream &ts);
 	void handleLine(QDataStream &ts);
 	void handleLineFrom(QDataStream &ts);
+	void handlePixmap(QDataStream &ts, quint16 opCode);
+	QRect readRect(QDataStream &ts);
+	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine);
 	void handleLineModeEnd();
 	void finishItem(PageItem* ite);
 	
@@ -85,6 +87,7 @@ private:
 	double CurrStrokeShade;
 	double CurrFillShade;
 	QRect currRect;
+	QRect lastImageRect;
 	QStringList importedColors;
 
 	FPointArray Coords;
