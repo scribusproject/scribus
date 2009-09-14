@@ -37,8 +37,24 @@ static bool read_cmyk(Image *input, RawImage *output, int width, int height)
 	bool hasAlpha = input->matte();
 	if (!output->create(width, height, hasAlpha ? 5 : 4)) return false;
 	const PixelPacket *pixels = input->getConstPixels(0, 0, width, height);
-	const IndexPacket *alpha  = input->getConstIndexes();
+	if (!pixels) {
+	   qCritical() << QObject::tr("Could not get pixel data!");
+	   return false;
+    }
+
+    const IndexPacket *alpha;
+    if (hasAlpha) {
+        alpha = input->getConstIndexes();
+        if (!alpha) {
+            qCritical() << QObject::tr("Could not get alpha channel data!");
+            return false;
+        }
+    }
 	unsigned char *buffer = output->bits();
+	if (!buffer) {
+	   qCritical() << QObject::tr("Could not allocate output buffer!");
+	   return false;
+    }
 
 	int i;
 	for (i = 0; i < width*height; i++) {
@@ -64,8 +80,16 @@ static bool read_rgb(Image *input, QImage *output, int width, int height)
 	
 	bool hasAlpha = input->matte();
 	const PixelPacket *pixels = input->getConstPixels(0, 0, width, height);
+    if (!pixels) {
+	   qCritical() << QObject::tr("Could not get pixel data!");
+	   return false;
+    }
 	unsigned char *buffer = output->bits();
-
+	if (!buffer) {
+	   qCritical() << QObject::tr("Could not allocate output buffer!");
+	   return false;
+    }
+    
 	int i;
 	for (i = 0; i < width*height; i++) {
 		*buffer++ = ScaleQuantumToChar(GetBlueSample(pixels[i]));
@@ -187,11 +211,6 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 		double yres = image.yResolution();
 		int resInf = m_imageInfoRecord.lowResType;
 		
-		/*NOTE: 
-			- The BGRO bit ordering was found by try'n'error
-			- Always use "O" for the alpha channel! "A" is inverted!
-			- image.write() is broken for cmyk images!
-		*/
 		if (image.colorSpace() == CMYKColorspace) {
 			qDebug() << "CMYK image";
 			m_useRawImage = true;
