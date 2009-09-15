@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QList>
 #include <QByteArray>
+#include <QImageReader>
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
@@ -1788,6 +1789,12 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	alpha.resize(0);
 	QString tmp, BBox, tmp2;
 	QString ext = fi.suffix().toLower();
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+	QStringList fmtImg;
+	for (int i = 0; i < fmtList.count(); i++)
+	{
+		fmtImg.append( QString(fmtList[i].toLower()) );
+	}
 	if (extensionIndicatesJPEG(ext))
 		return true;
 	if (extensionIndicatesPDF(ext))
@@ -1812,14 +1819,21 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	}
 	else if (ext == "pat")
 		pDataLoader = new ScImgDataLoader_GIMP();
+	else if (fmtImg.contains(ext))
+		pDataLoader = new ScImgDataLoader_QT();
+	#ifdef GMAGICK_FOUND
+		#warning "Compiling with GraphicsMagick support!"
 	else
+		pDataLoader = new ScImgDataLoader_GMagick();
+	#endif
+/*	else
 	#ifdef GMAGICK_FOUND
 		#warning "Compiling with GraphicsMagick support!"
 		pDataLoader = new ScImgDataLoader_GMagick();
 	#else
 		pDataLoader = new ScImgDataLoader_QT();
 	#endif
-
+*/
 	if (pDataLoader)
 	{
 		bool hasAlpha    = false;
@@ -1981,6 +1995,12 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	QChar tc;
 	QString profileName = "";
 	bool hasEmbeddedProfile = false;
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+	QStringList fmtImg;
+	for (int i = 0; i < fmtList.count(); i++)
+	{
+		fmtImg.append( QString(fmtList[i].toLower()) );
+	}
 //	bool found = false;
 
 	if (ext.isEmpty())
@@ -2007,13 +2027,18 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
-	else
+	else if (fmtImg.contains(ext))
+		pDataLoader.reset( new ScImgDataLoader_QT() );
 	#ifdef GMAGICK_FOUND
+	else
+		pDataLoader.reset( new ScImgDataLoader_GMagick() );
+	#endif
+/*	#ifdef GMAGICK_FOUND
 		pDataLoader.reset( new ScImgDataLoader_GMagick() );
 	#else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 	#endif
-
+*/
 	if (pDataLoader->loadPicture(fn, page, gsRes, (requestType == Thumbnail)))
 	{
 		QImage::operator=(pDataLoader->image());
