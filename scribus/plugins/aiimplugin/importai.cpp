@@ -2495,6 +2495,7 @@ bool AIPlug::convert(QString fn)
 			progressDialog->setProgress("GI", ts.device()->pos());
 			qApp->processEvents();
 		}
+		f.close();
 	}
 	if (progressDialog)
 		progressDialog->close();
