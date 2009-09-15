@@ -330,7 +330,9 @@ bool PctPlug::convert(QString fn)
 	Coords.svgInit();
 	LineW = 1.0;
 	currentPoint = QPoint(-1, -1);
+	ovalSize = QPoint(0, 0);
 	lineMode = false;
+	skipOpcode = false;
 	importedColors.clear();
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
@@ -516,8 +518,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x000B:		// Oval Size
-					qDebug() << "Oval Size";
-					alignStreamToWord(ts, 4);
+					handleOvalSize(ts);
 					break;
 				case 0x000C:		// Origin
 					qDebug() << "Origin";
@@ -650,29 +651,11 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x0030:		// Frame rect
-					handleLineModeEnd();
-					qDebug() << "Frame rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0031:		// Paint rect
-					handleLineModeEnd();
-					qDebug() << "Paint rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0032:		// Erase rect
-					handleLineModeEnd();
-					qDebug() << "Erase rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0033:		// Invert rect
-					handleLineModeEnd();
-					qDebug() << "Invert rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0034:		// Fill rect
-					handleLineModeEnd();
-					qDebug() << "Fill rect";
-					alignStreamToWord(ts, 8);
+					handleRect(ts, opCode);
 					break;
 				case 0x0035:
 				case 0x0036:
@@ -681,24 +664,11 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0038:		// Frame same rect
-					handleLineModeEnd();
-					qDebug() << "Frame same rect";
-					break;
 				case 0x0039:		// Paint same rect
-					handleLineModeEnd();
-					qDebug() << "Paint same rect";
-					break;
 				case 0x003A:		// Erase same rect
-					handleLineModeEnd();
-					qDebug() << "Erase same rect";
-					break;
 				case 0x003B:		// Invert same rect
-					handleLineModeEnd();
-					qDebug() << "Invert same rect";
-					break;
 				case 0x003C:		// Fill same rect
-					handleLineModeEnd();
-					qDebug() << "Fill same rect";
+					handleSameRect(ts, opCode);
 					break;
 				case 0x003D:
 				case 0x003E:
@@ -706,29 +676,11 @@ void PctPlug::parsePict(QDataStream &ts)
 					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0040:		// Frame round rect
-					handleLineModeEnd();
-					qDebug() << "Frame round rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0041:		// Paint round rect
-					handleLineModeEnd();
-					qDebug() << "Paint round rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0042:		// Erase round rect
-					handleLineModeEnd();
-					qDebug() << "Erase round rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0043:		// Invert round rect
-					handleLineModeEnd();
-					qDebug() << "Invert round rect";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0044:		// Fill round rect
-					handleLineModeEnd();
-					qDebug() << "Fill round rect";
-					alignStreamToWord(ts, 8);
+					handleRect(ts, opCode);
 					break;
 				case 0x0045:
 				case 0x0046:
@@ -737,24 +689,11 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0048:		// Frame same round rect
-					handleLineModeEnd();
-					qDebug() << "Frame same round rect";
-					break;
 				case 0x0049:		// Paint same round rect
-					handleLineModeEnd();
-					qDebug() << "Paint same round rect";
-					break;
 				case 0x004A:		// Erase same round rect
-					handleLineModeEnd();
-					qDebug() << "Erase same round rect";
-					break;
 				case 0x004B:		// Invert same round rect
-					handleLineModeEnd();
-					qDebug() << "Invert same round rect";
-					break;
 				case 0x004C:		// Fill same round rect
-					handleLineModeEnd();
-					qDebug() << "Fill same round rect";
+					handleSameRect(ts, opCode);
 					break;
 				case 0x004D:
 				case 0x004E:
@@ -981,27 +920,45 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0090:		// Bits Rect
 					qDebug() << "Bits Rect";
+					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0091:		// Bits Region
 					qDebug() << "Bits Region";
+					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0098:		// Pack Bits Rect
 					qDebug() << "Pack Bits Rect";
+					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0099:		// Pack Bits Region
 					qDebug() << "Pack Bits Region";
+					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009A:		// Direct Bits Rect
 					qDebug() << "Direct Bits Rect";
+					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009B:		// Direct Bits Region
 					qDebug() << "Direct Bits Region";
+					handleLineModeEnd();
 					handlePixmap(ts, opCode);
+					break;
+				case 0x00A0:		// Short Comment
+					handleLineModeEnd();
+					ts >> dataLen;
+					qDebug() << "Short Comment type:" << dataLen;
+					break;
+				case 0x00A1:		// Long Comment
+					handleLineModeEnd();
+					ts >> dataLen;
+					qDebug() << "Long Comment type:" << dataLen;
+					ts >> dataLen;
+					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x00FF:		// End of Pict
 					handleLineModeEnd();
@@ -1016,11 +973,13 @@ void PctPlug::parsePict(QDataStream &ts)
 					qDebug() << "Compressed QuickTime";
 					ts >> dataLenLong;
 					alignStreamToWord(ts, dataLenLong);
+					skipOpcode = false;
 					break;
 				case 0x8201:		// Uncompressed QuickTime
 					qDebug() << "Uncompressed QuickTime";
 					ts >> dataLenLong;
 					alignStreamToWord(ts, dataLenLong);
+					skipOpcode = false;
 					break;
 				case 0xFFFF:		// Reserved by Apple
 					qDebug() << "Reserved by Apple";
@@ -1134,6 +1093,86 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 	}
 }
 
+void PctPlug::handleRect(QDataStream &ts, quint16 opCode)
+{
+	qDebug() << "Handle Rect";
+	handleLineModeEnd();
+	QRect bounds = readRect(ts);
+	int z;
+	PageItem *ite;
+	if (opCode == 0x0030)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+	else if ((opCode == 0x0031) || (opCode == 0x0034))
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+	else if (opCode == 0x0040)
+	{
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+		ite = m_Doc->Items->at(z);
+		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	else if ((opCode == 0x0041) || (opCode == 0x0044))
+	{
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+		ite = m_Doc->Items->at(z);
+		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	else
+	{
+		QString tmp;
+		tmp.sprintf("%04X", opCode);
+		tmp.prepend("0x");
+		qDebug() << "Not implemented OpCode: " << tmp;
+		return;
+	}
+	ite = m_Doc->Items->at(z);
+	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+	currRect = bounds;
+	finishItem(ite);
+}
+
+void PctPlug::handleSameRect(QDataStream &ts, quint16 opCode)
+{
+	qDebug() << "Handle Same Rect";
+	handleLineModeEnd();
+	int z;
+	PageItem *ite;
+	if (opCode == 0x0038)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+	else if ((opCode == 0x0039) || (opCode == 0x003C))
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+	else if (opCode == 0x0048)
+	{
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+		ite = m_Doc->Items->at(z);
+		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	else if ((opCode == 0x0049) || (opCode == 0x004C))
+	{
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+		ite = m_Doc->Items->at(z);
+		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	else
+	{
+		QString tmp;
+		tmp.sprintf("%04X", opCode);
+		tmp.prepend("0x");
+		qDebug() << "Not implemented OpCode: " << tmp;
+		return;
+	}
+	ite = m_Doc->Items->at(z);
+	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+	finishItem(ite);
+}
+
 void PctPlug::handlePenSize(QDataStream &ts)
 {
 	qDebug() << "Handle Pen Size";
@@ -1141,6 +1180,15 @@ void PctPlug::handlePenSize(QDataStream &ts)
 	quint16 x, y;
 	ts >> y >> x;
 	LineW = qMax(x, y);
+}
+
+void PctPlug::handleOvalSize(QDataStream &ts)
+{
+	qDebug() << "Handle Oval Size";
+	handleLineModeEnd();
+	quint16 x, y;
+	ts >> y >> x;
+	ovalSize = QPoint(x, y);
 }
 
 void PctPlug::handleShortLine(QDataStream &ts)
@@ -1275,37 +1323,43 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		}
 		else
 			ts >> pixByteCount;
-		QByteArray data;
-		data.resize(pixByteCount);
-		ts.readRawData(data.data(), pixByteCount);
-		QByteArray img;
-		if (bytesPerLine < 8)
-			img = data;
-		else
-			img = decodeRLE(data, bytesPerLine);
-		if ((opCode == 0x0098) || (opCode == 0x0099))
+		if (!skipOpcode)
 		{
-			if (!isPixmap)
+			QByteArray data;
+			data.resize(pixByteCount);
+			ts.readRawData(data.data(), pixByteCount);
+			QByteArray img;
+			if (bytesPerLine < 8)
+				img = data;
+			else
+				img = decodeRLE(data, bytesPerLine);
+			if ((opCode == 0x0098) || (opCode == 0x0099))
 			{
-				memcpy(image.scanLine(rr), img.data(), bytesPerLine);
-			}
-			else if (component_count == 1)
-			{
-				memcpy(image.scanLine(rr), img.data(), bytesPerLine);
-			}
-		}
-		else if ((opCode == 0x009A) || (opCode == 0x009B))
-		{
-			if (component_size == 8)
-			{
-				QRgb *q = (QRgb*)(image.scanLine(rr));
-				for (quint16 xx = 0; xx < pixCols; xx++)
+				if (!isPixmap)
 				{
-					uchar r, g, b;
-					r = img[xx];
-					g = img[xx + pixCols];
-					b = img[xx + 2 * pixCols];
-					*q++ = qRgba(r, g, b, 255);
+					memcpy(image.scanLine(rr), img.data(), bytesPerLine);
+				}
+				else if (component_count == 1)
+				{
+					memcpy(image.scanLine(rr), img.data(), bytesPerLine);
+				}
+			}
+			else if ((opCode == 0x009A) || (opCode == 0x009B))
+			{
+				if (component_size == 8)
+				{
+					QRgb *q = (QRgb*)(image.scanLine(rr));
+					for (quint16 xx = 0; xx < pixCols; xx++)
+					{
+						uchar r, g, b;
+						uchar a = 255;
+						r = img[xx];
+						g = img[xx + pixCols];
+						b = img[xx + 2 * pixCols];
+						if (component_count == 4)
+							a = img[xx + 3 * pixCols];
+						*q++ = qRgba(r, g, b, a);
+					}
 				}
 			}
 		}
@@ -1313,6 +1367,12 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		{
 			ts.skipRawData(pixByteCount);
 		}
+	}
+	if (skipOpcode)
+	{
+		qDebug() << "Opcode ignored because of following a QuickTime opcode";
+		skipOpcode = false;
+		return;
 	}
 	image = image.convertToFormat(QImage::Format_ARGB32);
 	if (!isPixmap)
@@ -1332,7 +1392,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
 //	image.save("/home/franz/testpic.png");
-//	qDebug() << "Current File Position" << ts.device()->pos();
+	qDebug() << "Current File Position" << ts.device()->pos();
 }
 
 QRect PctPlug::readRect(QDataStream &ts)

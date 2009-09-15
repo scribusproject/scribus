@@ -62,7 +62,10 @@ private:
 	void alignStreamToWord(QDataStream &ts, uint len);
 	void handleColorRGB(QDataStream &ts, bool back);
 	void handlePolygon(QDataStream &ts, quint16 opCode);
+	void handleRect(QDataStream &ts, quint16 opCode);
+	void handleSameRect(QDataStream &ts, quint16 opCode);
 	void handlePenSize(QDataStream &ts);
+	void handleOvalSize(QDataStream &ts);
 	void handleShortLine(QDataStream &ts);
 	void handleShortLineFrom(QDataStream &ts);
 	void handleLine(QDataStream &ts);
@@ -89,6 +92,7 @@ private:
 	QRect currRect;
 	QRect lastImageRect;
 	QStringList importedColors;
+	QPoint ovalSize;
 
 	FPointArray Coords;
 	QPoint currentPoint;
@@ -102,6 +106,7 @@ private:
 	int oldDocItemCount;
 	QString baseFile;
 	int pctVersion;
+	bool skipOpcode;
 
 public slots:
 	void cancelRequested() { cancel = true; }
