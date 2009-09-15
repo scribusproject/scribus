@@ -443,7 +443,7 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 	double h = (bitmap.rect.y2 - bitmap.rect.y1) * 72.0;
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + baseX, bitmap.rect.y1 * 72 + baseY, w, h, 1, m_Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 	PageItem *ite = m_Doc->Items->at(z);
-	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
+	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_wpg_XXXXXX.png");
 	ite->tempImageFile->open();
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
 	ite->tempImageFile->close();
