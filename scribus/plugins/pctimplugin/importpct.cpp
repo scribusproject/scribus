@@ -432,32 +432,32 @@ void PctPlug::parsePict(QDataStream &ts)
 		if (((opCode >= 0x0092) && (opCode <= 0x0097)) || ((opCode >= 0x009C) && (opCode <= 0x009F)) || ((opCode >= 0x00A2) && (opCode <= 0x00AF)))
 		{
 			// Reserved by Apple
-			qDebug() << "Reserved by Apple";
+//			qDebug() << "Reserved by Apple";
 			ts >> dataLen;
 			alignStreamToWord(ts, dataLen);
 		}
 		else if (((opCode >= 0x00B0) && (opCode <= 0x00CF)) || ((opCode >= 0x8000) && (opCode <= 0x80FF)))
 		{
 			// Reserved by Apple
-			qDebug() << "Reserved by Apple";
+//			qDebug() << "Reserved by Apple";
 		}
 		else if (((opCode >= 0x00D0) && (opCode <= 0x00FE)) || ((opCode >= 0x8100) && (opCode <= 0x81FF)))
 		{
 			// Reserved by Apple
-			qDebug() << "Reserved by Apple";
+//			qDebug() << "Reserved by Apple";
 			ts >> dataLenLong;
 			alignStreamToWord(ts, dataLenLong);
 		}
 		else if (((opCode >= 0x0100) && (opCode <= 0x01FF)) || ((opCode >= 0x02FF) && (opCode <= 0x0BFE)))
 		{
 			// Reserved by Apple
-			qDebug() << "Reserved by Apple";
+//			qDebug() << "Reserved by Apple";
 			alignStreamToWord(ts, 2);
 		}
 		else if ((opCode >= 0x0C00) && (opCode <= 0x7EFF))
 		{
 			// Reserved by Apple
-			qDebug() << "Reserved by Apple";
+//			qDebug() << "Reserved by Apple";
 			alignStreamToWord(ts, 24);
 		}
 		else if ((opCode >= 0x7F00) && (opCode <= 0x7FFF))
@@ -471,10 +471,10 @@ void PctPlug::parsePict(QDataStream &ts)
 			switch (opCode)
 			{
 				case 0x0000:		// NOP
-					qDebug() << "NOP";
+//					qDebug() << "NOP";
 					break;
 				case 0x0001:		// Clipping Region
-					qDebug() << "Clipping Region";
+//					qDebug() << "Clipping Region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
@@ -549,7 +549,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0015:		// Fractional pen position
 					handleLineModeEnd();
-					qDebug() << "Fractional pen position";
+//					qDebug() << "Fractional pen position at" << ts.device()->pos();
 					alignStreamToWord(ts, 2);
 					break;
 				case 0x0016:		// Extra char space
@@ -559,13 +559,15 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0017:
 				case 0x0018:
 				case 0x0019:
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					break;
 				case 0x001A:		// Foreground color RGB
 					handleColorRGB(ts, false);
+//					qDebug() << "Foreground color RGB" << CurrColorStroke;
 					break;
 				case 0x001B:		// Background color RGB
 					handleColorRGB(ts, true);
+//					qDebug() << "Background color RGB" << CurrColorFill;
 					break;
 				case 0x001C:		// Highlight mode
 					qDebug() << "Highlight mode";
@@ -593,7 +595,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0025:
 				case 0x0026:
 				case 0x0027:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen);
 					break;
@@ -624,7 +626,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x002F:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen);
 					break;
@@ -638,7 +640,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0035:
 				case 0x0036:
 				case 0x0037:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0038:		// Frame same rect
@@ -651,7 +653,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x003D:
 				case 0x003E:
 				case 0x003F:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0040:		// Frame round rect
 				case 0x0041:		// Paint round rect
@@ -663,7 +665,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0045:
 				case 0x0046:
 				case 0x0047:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0048:		// Frame same round rect
@@ -676,7 +678,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x004D:
 				case 0x004E:
 				case 0x004F:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0050:		// Frame oval
 				case 0x0051:		// Paint oval
@@ -688,7 +690,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0055:
 				case 0x0056:
 				case 0x0057:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0058:		// Frame same oval
@@ -701,7 +703,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x005D:
 				case 0x005E:
 				case 0x005F:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0060:		// Frame arc
 					handleLineModeEnd();
@@ -731,7 +733,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0065:
 				case 0x0066:
 				case 0x0067:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0068:		// Frame same arc
@@ -762,7 +764,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x006D:
 				case 0x006E:
 				case 0x006F:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x0070:		// Frame poly
@@ -775,7 +777,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0075:
 				case 0x0076:
 				case 0x0077:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
@@ -802,7 +804,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x007D:
 				case 0x007E:
 				case 0x007F:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0080:		// Frame region
 					qDebug() << "Frame region";
@@ -836,7 +838,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0085:
 				case 0x0086:
 				case 0x0087:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
@@ -863,41 +865,41 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x008D:
 				case 0x008E:
 				case 0x008F:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0090:		// Bits Rect
-					qDebug() << "Bits Rect";
+//					qDebug() << "Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0091:		// Bits Region
-					qDebug() << "Bits Region";
+//					qDebug() << "Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0098:		// Pack Bits Rect
-					qDebug() << "Pack Bits Rect";
+//					qDebug() << "Pack Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0099:		// Pack Bits Region
-					qDebug() << "Pack Bits Region";
+//					qDebug() << "Pack Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009A:		// Direct Bits Rect
-					qDebug() << "Direct Bits Rect";
+//					qDebug() << "Direct Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009B:		// Direct Bits Region
-					qDebug() << "Direct Bits Region";
+//					qDebug() << "Direct Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x00A0:		// Short Comment
 					handleLineModeEnd();
 					ts >> dataLen;
-					qDebug() << "Short Comment type:" << dataLen;
+//					qDebug() << "Short Comment type:" << dataLen;
 					break;
 				case 0x00A1:		// Long Comment
 					handleLineModeEnd();
 					ts >> dataLen;
-					qDebug() << "Long Comment type:" << dataLen;
+//					qDebug() << "Long Comment type:" << dataLen;
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen);
 					break;
@@ -907,7 +909,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					return;
 					break;
 				case 0x0200:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x8200:		// Compressed QuickTime
@@ -923,7 +925,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					skipOpcode = false;
 					break;
 				case 0xFFFF:		// Reserved by Apple
-					qDebug() << "Reserved by Apple";
+//					qDebug() << "Reserved by Apple";
 					ts >> dataLenLong;
 					alignStreamToWord(ts, dataLenLong);
 					break;
@@ -1038,10 +1040,10 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 
 void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 {
-	QString tmp;
-	tmp.sprintf("%04X", opCode);
-	tmp.prepend("0x");
-	qDebug() << "Handle Rect/Oval" << tmp;
+//	QString tmp;
+//	tmp.sprintf("%04X", opCode);
+//	tmp.prepend("0x");
+//	qDebug() << "Handle Rect/Oval" << tmp;
 	handleLineModeEnd();
 	QRect bounds = readRect(ts);
 	int z;
@@ -1098,10 +1100,10 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 
 void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 {
-	QString tmp;
-	tmp.sprintf("%04X", opCode);
-	tmp.prepend("0x");
-	qDebug() << "Handle Same Rect/Oval" << tmp;
+//	QString tmp;
+//	tmp.sprintf("%04X", opCode);
+//	tmp.prepend("0x");
+//	qDebug() << "Handle Same Rect/Oval" << tmp;
 	handleLineModeEnd();
 	int z;
 	PageItem *ite;
@@ -1171,7 +1173,7 @@ void PctPlug::handleFontName(QDataStream &ts)
 		if (adj != 0)
 			ts.skipRawData(1);
 	}
-	qDebug() << "Handle FontName" << fontName << "ID" << fontID;
+//	qDebug() << "Handle FontName" << fontName << "ID" << fontID;
 }
 
 void PctPlug::handleTextSize(QDataStream &ts)
@@ -1180,7 +1182,7 @@ void PctPlug::handleTextSize(QDataStream &ts)
 	quint16 fontSize;
 	ts >> fontSize;
 	currentTextSize = fontSize;
-	qDebug() << "Handle Text Size" << fontSize;
+//	qDebug() << "Handle Text Size" << fontSize;
 }
 
 void PctPlug::handleTextFont(QDataStream &ts)
@@ -1189,7 +1191,7 @@ void PctPlug::handleTextFont(QDataStream &ts)
 	quint16 fontID;
 	ts >> fontID;
 	currentFontID = fontID;
-	qDebug() << "Handle Text Font" << fontID;
+//	qDebug() << "Handle Text Font" << fontID;
 }
 
 void PctPlug::handleLongText(QDataStream &ts)
@@ -1279,14 +1281,15 @@ void PctPlug::createTextPath(QString textString)
 		return;
 	QString fontName = fontMap[currentFontID];
 	QFont textFont = QFont(fontName, currentTextSize);
-	QFontMetrics fm(textFont);
+	textFont.setPixelSize(currentTextSize);
+//	QFontMetrics fm(textFont);
 	FPointArray textPath;
 	QPainterPath painterPath;
-	painterPath.addText( currentPoint.x(), currentPoint.y() - fm.descent(), textFont, textString );
+	painterPath.addText( currentPoint.x(), currentPoint.y(), textFont, textString );
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath;
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -1321,7 +1324,10 @@ void PctPlug::handleShortLine(QDataStream &ts)
 	ts >> dh >> dv;
 	QPoint s = QPoint(x, y);
 	if (currentPoint != s)
+	{
+		handleLineModeEnd();
 		Coords.svgMoveTo(x, y);
+	}
 	Coords.svgLineTo(x+dh, y+dv);
 	currentPoint = QPoint(x+dh, y+dv);
 	lineMode = true;
@@ -1346,7 +1352,10 @@ void PctPlug::handleLine(QDataStream &ts)
 	ts >> y2 >> x2;
 	QPoint s = QPoint(x1, y1);
 	if (currentPoint != s)
+	{
+		handleLineModeEnd();
 		Coords.svgMoveTo(x1, y1);
+	}
 	Coords.svgLineTo(x2, y2);
 	currentPoint = QPoint(x2, y2);
 	lineMode = true;
@@ -1573,7 +1582,7 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine)
 
 void PctPlug::handleLineModeEnd()
 {
-	if ((Coords.size() > 4) && lineMode)
+	if ((Coords.size() > 3) && lineMode)
 	{
 		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
@@ -1602,4 +1611,7 @@ void PctPlug::finishItem(PageItem* ite)
 	ite->OldH2 = ite->height();
 	ite->updateClip();
 	Elements.append(ite);
+	lastCoords = Coords;
+	Coords.resize(0);
+	Coords.svgInit();
 }

@@ -104,6 +104,7 @@ private:
 	QMap<int, QString> fontMap;
 	int currentTextSize;
 	int currentFontID;
+	FPointArray lastCoords;
 
 	FPointArray Coords;
 	QPoint currentPoint;
