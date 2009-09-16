@@ -56,14 +56,22 @@ public:
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 
 private:
-	void parseHeader(QString fName, double &b, double &h);
+	void parseHeader(QString fName, double &x, double &y, double &b, double &h);
 	bool convert(QString fn);
 	void parsePict(QDataStream &ts);
 	void alignStreamToWord(QDataStream &ts, uint len);
 	void handleColorRGB(QDataStream &ts, bool back);
 	void handlePolygon(QDataStream &ts, quint16 opCode);
-	void handleRect(QDataStream &ts, quint16 opCode);
-	void handleSameRect(QDataStream &ts, quint16 opCode);
+	void handleShape(QDataStream &ts, quint16 opCode);
+	void handleSameShape(QDataStream &ts, quint16 opCode);
+	void handleFontName(QDataStream &ts);
+	void handleTextSize(QDataStream &ts);
+	void handleTextFont(QDataStream &ts);
+	void handleLongText(QDataStream &ts);
+	void handleDHText(QDataStream &ts);
+	void handleDVText(QDataStream &ts);
+	void handleDHVText(QDataStream &ts);
+	void createTextPath(QString textString);
 	void handlePenSize(QDataStream &ts);
 	void handleOvalSize(QDataStream &ts);
 	void handleShortLine(QDataStream &ts);
@@ -93,6 +101,9 @@ private:
 	QRect lastImageRect;
 	QStringList importedColors;
 	QPoint ovalSize;
+	QMap<int, QString> fontMap;
+	int currentTextSize;
+	int currentFontID;
 
 	FPointArray Coords;
 	QPoint currentPoint;

@@ -105,7 +105,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	parseHeader(fName, b, h);
+	parseHeader(fName, x, y, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
@@ -119,8 +119,8 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
-		baseY = 0;
+		baseX = -x;
+		baseY = -y;
 	}
 	else
 	{
@@ -129,16 +129,14 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
+			baseX = m_Doc->currentPage()->xOffset() - x;
+			baseY = m_Doc->currentPage()->yOffset() - y;
 		}
 	}
 	if ((!ret) && (interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		baseX = m_Doc->currentPage()->xOffset() - x;
+		baseY = m_Doc->currentPage()->yOffset() - y;
 	}
 	if ((ret) || (!interactive))
 	{
@@ -303,7 +301,7 @@ PctPlug::~PctPlug()
 	delete tmpSel;
 }
 
-void PctPlug::parseHeader(QString fName, double &b, double &h)
+void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)
 {
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
@@ -312,17 +310,19 @@ void PctPlug::parseHeader(QString fName, double &b, double &h)
 		ts.device()->seek(512);
 		quint16 pgX, pgY, pgW, pgH, dummy;
 		ts >> dummy >> pgX >> pgY >> pgW >> pgH;
-		b = pgW - pgX;
-		h = pgH - pgY;
+		h = pgW - pgX;
+		b = pgH - pgY;
+		x = pgY;
+		y = pgX;
 		f.close();
-		qDebug() << "W" << pgW << "H" << pgH;
+//		qDebug() << "W" << b << "H" << h;
 	}
 }
 
 bool PctPlug::convert(QString fn)
 {
 	QString tmp;
-	CurrColorFill = "White";
+	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
@@ -331,6 +331,9 @@ bool PctPlug::convert(QString fn)
 	LineW = 1.0;
 	currentPoint = QPoint(-1, -1);
 	ovalSize = QPoint(0, 0);
+	fontMap.clear();
+	currentTextSize = 12;
+	currentFontID = 0;
 	lineMode = false;
 	skipOpcode = false;
 	importedColors.clear();
@@ -481,9 +484,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0003:		// Text Font
-					handleLineModeEnd();
-					qDebug() << "Text Font";
-					alignStreamToWord(ts, 2);
+					handleTextFont(ts);
 					break;
 				case 0x0004:		// Text Style
 					handleLineModeEnd();
@@ -525,9 +526,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x000D:		// Text Size
-					handleLineModeEnd();
-					qDebug() << "Text Size";
-					alignStreamToWord(ts, 2);
+					handleTextSize(ts);
 					break;
 				case 0x000E:		// Foreground Color
 					handleLineModeEnd();
@@ -599,40 +598,19 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x0028:		// Long Text
-					handleLineModeEnd();
-					qDebug() << "Long Text";
-					ts >> dataLen;	// y Pos Text
-					ts >> dataLen;	// x Pos Text
-					ts >> dataLenByte;
-					alignStreamToWord(ts, dataLenByte);
+					handleLongText(ts);
 					break;
 				case 0x0029:		// Text DH
-					handleLineModeEnd();
-					qDebug() << "Text DH";
-					ts >> dataLenByte;	// y Pos Text
-					ts >> dataLenByte;
-					alignStreamToWord(ts, dataLenByte);
+					handleDHText(ts);
 					break;
 				case 0x002A:		// Text DV
-					handleLineModeEnd();
-					qDebug() << "Text DV";
-					ts >> dataLenByte;	// y Pos Text
-					ts >> dataLenByte;
-					alignStreamToWord(ts, dataLenByte);
+					handleDVText(ts);
 					break;
 				case 0x002B:		// Text DHV
-					handleLineModeEnd();
-					qDebug() << "Text DHV";
-					ts >> dataLenByte;	// y Pos Text
-					ts >> dataLenByte;	// y Pos Text
-					ts >> dataLenByte;
-					alignStreamToWord(ts, dataLenByte);
+					handleDHVText(ts);
 					break;
 				case 0x002C:		// Font Name
-					handleLineModeEnd();
-					qDebug() << "Font Name";
-					ts >> dataLen;
-					alignStreamToWord(ts, dataLen);
+					handleFontName(ts);
 					break;
 				case 0x002D:		// Line justify
 					handleLineModeEnd();
@@ -655,7 +633,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0032:		// Erase rect
 				case 0x0033:		// Invert rect
 				case 0x0034:		// Fill rect
-					handleRect(ts, opCode);
+					handleShape(ts, opCode);
 					break;
 				case 0x0035:
 				case 0x0036:
@@ -668,7 +646,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x003A:		// Erase same rect
 				case 0x003B:		// Invert same rect
 				case 0x003C:		// Fill same rect
-					handleSameRect(ts, opCode);
+					handleSameShape(ts, opCode);
 					break;
 				case 0x003D:
 				case 0x003E:
@@ -680,7 +658,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0042:		// Erase round rect
 				case 0x0043:		// Invert round rect
 				case 0x0044:		// Fill round rect
-					handleRect(ts, opCode);
+					handleShape(ts, opCode);
 					break;
 				case 0x0045:
 				case 0x0046:
@@ -693,7 +671,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x004A:		// Erase same round rect
 				case 0x004B:		// Invert same round rect
 				case 0x004C:		// Fill same round rect
-					handleSameRect(ts, opCode);
+					handleSameShape(ts, opCode);
 					break;
 				case 0x004D:
 				case 0x004E:
@@ -701,29 +679,11 @@ void PctPlug::parsePict(QDataStream &ts)
 					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0050:		// Frame oval
-					handleLineModeEnd();
-					qDebug() << "Frame oval";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0051:		// Paint oval
-					handleLineModeEnd();
-					qDebug() << "Paint oval";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0052:		// Erase oval
-					handleLineModeEnd();
-					qDebug() << "Erase oval";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0053:		// Invert oval
-					handleLineModeEnd();
-					qDebug() << "Invert oval";
-					alignStreamToWord(ts, 8);
-					break;
 				case 0x0054:		// Fill oval
-					handleLineModeEnd();
-					qDebug() << "Fill oval";
-					alignStreamToWord(ts, 8);
+					handleShape(ts, opCode);
 					break;
 				case 0x0055:
 				case 0x0056:
@@ -732,24 +692,11 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0058:		// Frame same oval
-					handleLineModeEnd();
-					qDebug() << "Frame same oval";
-					break;
 				case 0x0059:		// Paint same oval
-					handleLineModeEnd();
-					qDebug() << "Paint same oval";
-					break;
 				case 0x005A:		// Erase same oval
-					handleLineModeEnd();
-					qDebug() << "Erase same oval";
-					break;
 				case 0x005B:		// Invert same oval
-					handleLineModeEnd();
-					qDebug() << "Invert same oval";
-					break;
 				case 0x005C:		// Fill same oval
-					handleLineModeEnd();
-					qDebug() << "Fill same oval";
+					handleSameShape(ts, opCode);
 					break;
 				case 0x005D:
 				case 0x005E:
@@ -920,32 +867,26 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0090:		// Bits Rect
 					qDebug() << "Bits Rect";
-					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0091:		// Bits Region
 					qDebug() << "Bits Region";
-					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0098:		// Pack Bits Rect
 					qDebug() << "Pack Bits Rect";
-					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0099:		// Pack Bits Region
 					qDebug() << "Pack Bits Region";
-					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009A:		// Direct Bits Rect
 					qDebug() << "Direct Bits Rect";
-					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009B:		// Direct Bits Region
 					qDebug() << "Direct Bits Region";
-					handleLineModeEnd();
 					handlePixmap(ts, opCode);
 					break;
 				case 0x00A0:		// Short Comment
@@ -1054,7 +995,7 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 
 void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 {
-	qDebug() << "Handle Polygon";
+//	qDebug() << "Handle Polygon";
 	handleLineModeEnd();
 	quint16 polySize;
 	ts >> polySize;				// read polygon size
@@ -1076,8 +1017,10 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 		int z;
 		if (opCode == 0x0070)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
-		else if ((opCode == 0x0071) || (opCode == 0x0074))
+		else if (opCode == 0x0071)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		else if (opCode == 0x0074)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
 		else
 		{
 			QString tmp;
@@ -1093,17 +1036,22 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 	}
 }
 
-void PctPlug::handleRect(QDataStream &ts, quint16 opCode)
+void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 {
-	qDebug() << "Handle Rect";
+	QString tmp;
+	tmp.sprintf("%04X", opCode);
+	tmp.prepend("0x");
+	qDebug() << "Handle Rect/Oval" << tmp;
 	handleLineModeEnd();
 	QRect bounds = readRect(ts);
 	int z;
 	PageItem *ite;
 	if (opCode == 0x0030)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
-	else if ((opCode == 0x0031) || (opCode == 0x0034))
+	else if (opCode == 0x0031)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+	else if (opCode == 0x0034)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0040)
 	{
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
@@ -1112,7 +1060,7 @@ void PctPlug::handleRect(QDataStream &ts, quint16 opCode)
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	else if ((opCode == 0x0041) || (opCode == 0x0044))
+	else if (opCode == 0x0041)
 	{
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
@@ -1120,6 +1068,20 @@ void PctPlug::handleRect(QDataStream &ts, quint16 opCode)
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
+	else if (opCode == 0x0044)
+	{
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CommonStrings::None, true);
+		ite = m_Doc->Items->at(z);
+		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	else if (opCode == 0x0050)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+	else if (opCode == 0x0051)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+	else if (opCode == 0x0054)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorFill, CommonStrings::None, true);
 	else
 	{
 		QString tmp;
@@ -1134,16 +1096,21 @@ void PctPlug::handleRect(QDataStream &ts, quint16 opCode)
 	finishItem(ite);
 }
 
-void PctPlug::handleSameRect(QDataStream &ts, quint16 opCode)
+void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 {
-	qDebug() << "Handle Same Rect";
+	QString tmp;
+	tmp.sprintf("%04X", opCode);
+	tmp.prepend("0x");
+	qDebug() << "Handle Same Rect/Oval" << tmp;
 	handleLineModeEnd();
 	int z;
 	PageItem *ite;
 	if (opCode == 0x0038)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
-	else if ((opCode == 0x0039) || (opCode == 0x003C))
+	else if (opCode == 0x0039)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+	else if (opCode == 0x003C)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0048)
 	{
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
@@ -1152,7 +1119,7 @@ void PctPlug::handleSameRect(QDataStream &ts, quint16 opCode)
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	else if ((opCode == 0x0049) || (opCode == 0x004C))
+	else if (opCode == 0x0049)
 	{
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
@@ -1160,6 +1127,20 @@ void PctPlug::handleSameRect(QDataStream &ts, quint16 opCode)
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
+	else if (opCode == 0x004C)
+	{
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CommonStrings::None, true);
+		ite = m_Doc->Items->at(z);
+		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	else if (opCode == 0x0058)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+	else if (opCode == 0x0059)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CurrColorStroke, true);
+	else if (opCode == 0x005C)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorFill, CommonStrings::None, true);
 	else
 	{
 		QString tmp;
@@ -1173,9 +1154,149 @@ void PctPlug::handleSameRect(QDataStream &ts, quint16 opCode)
 	finishItem(ite);
 }
 
+void PctPlug::handleFontName(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint16 dataLen, fontID;
+	quint8 nameLen;
+	ts >> dataLen >> fontID;
+	ts >> nameLen;
+	QByteArray fontName;
+	fontName.resize(nameLen);
+	ts.readRawData(fontName.data(), nameLen);
+	fontMap.insert(fontID, fontName);
+	if (pctVersion != 1)
+	{
+		uint adj = ts.device()->pos() % 2;
+		if (adj != 0)
+			ts.skipRawData(1);
+	}
+	qDebug() << "Handle FontName" << fontName << "ID" << fontID;
+}
+
+void PctPlug::handleTextSize(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint16 fontSize;
+	ts >> fontSize;
+	currentTextSize = fontSize;
+	qDebug() << "Handle Text Size" << fontSize;
+}
+
+void PctPlug::handleTextFont(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint16 fontID;
+	ts >> fontID;
+	currentFontID = fontID;
+	qDebug() << "Handle Text Font" << fontID;
+}
+
+void PctPlug::handleLongText(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint8 textLen;
+	quint16 x, y;
+	ts >> y >> x;
+	ts >> textLen;
+	QByteArray text;
+	text.resize(textLen);
+	ts.readRawData(text.data(), textLen);
+	currentPoint = QPoint(x, y);
+	if (pctVersion != 1)
+	{
+		uint adj = ts.device()->pos() % 2;
+		if (adj != 0)
+			ts.skipRawData(1);
+	}
+	createTextPath(text);
+//	qDebug() << "Handle Long Text at" << x << y << text;
+}
+
+void PctPlug::handleDHText(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint8 textLen, dh;
+	ts >> dh >> textLen;
+	QByteArray text;
+	text.resize(textLen);
+	ts.readRawData(text.data(), textLen);
+	QPoint s = currentPoint;
+	currentPoint = QPoint(s.x()+dh, s.y());
+	if (pctVersion != 1)
+	{
+		uint adj = ts.device()->pos() % 2;
+		if (adj != 0)
+			ts.skipRawData(1);
+	}
+	createTextPath(text);
+//	qDebug() << "Handle DH Text at" << currentPoint << text;
+}
+
+void PctPlug::handleDVText(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint8 textLen, dv;
+	ts >> dv >> textLen;
+	QByteArray text;
+	text.resize(textLen);
+	ts.readRawData(text.data(), textLen);
+	QPoint s = currentPoint;
+	currentPoint = QPoint(s.x(), s.y()+dv);
+	if (pctVersion != 1)
+	{
+		uint adj = ts.device()->pos() % 2;
+		if (adj != 0)
+			ts.skipRawData(1);
+	}
+	createTextPath(text);
+//	qDebug() << "Handle DV Text at" << currentPoint << text;
+}
+
+void PctPlug::handleDHVText(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint8 textLen, dv, dh;
+	ts >> dh >> dv >> textLen;
+	QByteArray text;
+	text.resize(textLen);
+	ts.readRawData(text.data(), textLen);
+	QPoint s = currentPoint;
+	currentPoint = QPoint(s.x()+dh, s.y()+dv);
+	if (pctVersion != 1)
+	{
+		uint adj = ts.device()->pos() % 2;
+		if (adj != 0)
+			ts.skipRawData(1);
+	}
+	createTextPath(text);
+//	qDebug() << "Handle DHV Text at" << currentPoint << text;
+}
+
+void PctPlug::createTextPath(QString textString)
+{
+	if (!fontMap.contains(currentFontID))
+		return;
+	QString fontName = fontMap[currentFontID];
+	QFont textFont = QFont(fontName, currentTextSize);
+	QFontMetrics fm(textFont);
+	FPointArray textPath;
+	QPainterPath painterPath;
+	painterPath.addText( currentPoint.x(), currentPoint.y() - fm.descent(), textFont, textString );
+	textPath.fromQPainterPath(painterPath);
+	if (textPath.size() > 0)
+	{
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorFill, CommonStrings::None, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->PoLine = textPath;
+		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		finishItem(ite);
+	}
+}
+
 void PctPlug::handlePenSize(QDataStream &ts)
 {
-	qDebug() << "Handle Pen Size";
+//	qDebug() << "Handle Pen Size";
 	handleLineModeEnd();
 	quint16 x, y;
 	ts >> y >> x;
@@ -1184,7 +1305,7 @@ void PctPlug::handlePenSize(QDataStream &ts)
 
 void PctPlug::handleOvalSize(QDataStream &ts)
 {
-	qDebug() << "Handle Oval Size";
+//	qDebug() << "Handle Oval Size";
 	handleLineModeEnd();
 	quint16 x, y;
 	ts >> y >> x;
@@ -1193,7 +1314,7 @@ void PctPlug::handleOvalSize(QDataStream &ts)
 
 void PctPlug::handleShortLine(QDataStream &ts)
 {
-	qDebug() << "Handle Short Line";
+//	qDebug() << "Handle Short Line";
 	quint16 x, y;
 	qint8 dh, dv;
 	ts >> y >> x;
@@ -1208,7 +1329,7 @@ void PctPlug::handleShortLine(QDataStream &ts)
 
 void PctPlug::handleShortLineFrom(QDataStream &ts)
 {
-	qDebug() << "Handle Short Line From";
+//	qDebug() << "Handle Short Line From";
 	qint8 dh, dv;
 	ts >> dh >> dv;
 	QPoint s = currentPoint;
@@ -1219,7 +1340,7 @@ void PctPlug::handleShortLineFrom(QDataStream &ts)
 
 void PctPlug::handleLine(QDataStream &ts)
 {
-	qDebug() << "Handle Line";
+//	qDebug() << "Handle Line";
 	quint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
@@ -1233,7 +1354,7 @@ void PctPlug::handleLine(QDataStream &ts)
 
 void PctPlug::handleLineFrom(QDataStream &ts)
 {
-	qDebug() << "Handle Line From";
+//	qDebug() << "Handle Line From";
 	quint16 x, y;
 	ts >> y >> x;
 	Coords.svgLineTo(x, y);
@@ -1243,6 +1364,7 @@ void PctPlug::handleLineFrom(QDataStream &ts)
 
 void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 {
+	handleLineModeEnd();
 	quint16 bytesPerLine, packType, pixel_type, bits_per_pixel, component_count, component_size;
 	quint32 packSize, horizontal_resolution, vertical_resolution, color_table, plane_bytes;
 	if ((opCode == 0x009A) || (opCode == 0x009B))
@@ -1251,8 +1373,8 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	QRect bounds = readRect(ts);
 	bool isPixmap = bytesPerLine & 0x8000;
 	bytesPerLine &= 0x7FFF;
-	qDebug() << "Bytes per Line" << bytesPerLine << "Pixmap" << isPixmap;
-	qDebug() << "Bounds" << bounds.right() - bounds.left() << bounds.bottom() - bounds.top();
+//	qDebug() << "Bytes per Line" << bytesPerLine << "Pixmap" << isPixmap;
+//	qDebug() << "Bounds" << bounds.right() - bounds.left() << bounds.bottom() - bounds.top();
 	QVector<QRgb> colors;
 	if (isPixmap)
 	{
@@ -1263,11 +1385,11 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		ts >> pixel_type >> bits_per_pixel >> component_count >> component_size;
 		ts >> plane_bytes >> color_table;
 		ts.skipRawData(4);
-		qDebug() << "Pack Type" << packType;
-		qDebug() << "Pack Size" << packSize;
-		qDebug() << "Pixel Type" << pixel_type;
-		qDebug() << "Bits per Pixel" << bits_per_pixel;
-		qDebug() << "Component Count" << component_count << "Size" << component_size;
+//		qDebug() << "Pack Type" << packType;
+//		qDebug() << "Pack Size" << packSize;
+//		qDebug() << "Pixel Type" << pixel_type;
+//		qDebug() << "Bits per Pixel" << bits_per_pixel;
+//		qDebug() << "Component Count" << component_count << "Size" << component_size;
 	// now reading color Table
 		if ((opCode != 0x009A) && (opCode != 0x009B))
 		{
@@ -1275,7 +1397,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 			quint16 ct_flags, ct_size;
 			ts >> ct_seed;
 			ts >> ct_flags >> ct_size;
-			qDebug() << "ColorTable has" << ct_size << "Entries";
+//			qDebug() << "ColorTable has" << ct_size << "Entries";
 			for (quint16 cc = 0; cc < ct_size+1; cc++)
 			{
 				quint16 cev, cRed, cGreen, cBlue;
@@ -1286,10 +1408,10 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	}
 // reading scrRect
 	QRect scrRect = readRect(ts);
-	qDebug() << "Src Rect" << scrRect;
+//	qDebug() << "Src Rect" << scrRect;
 // reading dstRect
 	QRect dstRect = readRect(ts);
-	qDebug() << "Dst Rect" << dstRect;
+//	qDebug() << "Dst Rect" << dstRect;
 	ts.skipRawData(2);
 	if ((opCode == 0x0091) || (opCode == 0x0099) || (opCode == 0x009B))
 	{
@@ -1392,7 +1514,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
 //	image.save("/home/franz/testpic.png");
-	qDebug() << "Current File Position" << ts.device()->pos();
+//	qDebug() << "Current File Position" << ts.device()->pos();
 }
 
 QRect PctPlug::readRect(QDataStream &ts)
@@ -1461,7 +1583,7 @@ void PctPlug::handleLineModeEnd()
 	}
 	Coords.resize(0);
 	Coords.svgInit();
-	currentPoint = QPoint(-1, -1);
+//	currentPoint = QPoint(-1, -1);
 	lineMode = false;
 }
 
