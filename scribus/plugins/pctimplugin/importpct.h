@@ -79,6 +79,7 @@ private:
 	void handleLine(QDataStream &ts);
 	void handleLineFrom(QDataStream &ts);
 	void handlePixmap(QDataStream &ts, quint16 opCode);
+	void handleQuickTime(QDataStream &ts, quint16 opCode);
 	QRect readRect(QDataStream &ts);
 	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine);
 	void handleLineModeEnd();
@@ -105,6 +106,7 @@ private:
 	int currentTextSize;
 	int currentFontID;
 	FPointArray lastCoords;
+	QByteArray imageData;
 
 	FPointArray Coords;
 	QPoint currentPoint;

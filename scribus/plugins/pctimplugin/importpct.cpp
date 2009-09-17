@@ -913,16 +913,8 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x8200:		// Compressed QuickTime
-					qDebug() << "Compressed QuickTime";
-					ts >> dataLenLong;
-					alignStreamToWord(ts, dataLenLong);
-					skipOpcode = false;
-					break;
 				case 0x8201:		// Uncompressed QuickTime
-					qDebug() << "Uncompressed QuickTime";
-					ts >> dataLenLong;
-					alignStreamToWord(ts, dataLenLong);
-					skipOpcode = false;
+					handleQuickTime(ts, opCode);
 					break;
 				case 0xFFFF:		// Reserved by Apple
 //					qDebug() << "Reserved by Apple";
@@ -1430,6 +1422,8 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	}
 	quint16 pixRows = bounds.bottom() - bounds.top();
 	quint16 pixCols = bounds.right() - bounds.left();
+	quint16 imgRows = dstRect.bottom() - dstRect.top();
+	quint16 imgCols = dstRect.right() - dstRect.left();
 	QImage image;
 	if (isPixmap)
 	{
@@ -1501,16 +1495,16 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	}
 	if (skipOpcode)
 	{
-		qDebug() << "Opcode ignored because of following a QuickTime opcode";
 		skipOpcode = false;
-		return;
+		image.loadFromData(imageData);
+		isPixmap = true;
+		imgRows = dstRect.height();
+		imgCols = dstRect.width();
 	}
 	image = image.convertToFormat(QImage::Format_ARGB32);
 	if (!isPixmap)
 		image.invertPixels();
-	quint16 imgRows = dstRect.bottom() - dstRect.top();
-	quint16 imgCols = dstRect.right() - dstRect.left();
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 1, m_Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 	ite->tempImageFile->open();
@@ -1518,12 +1512,79 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	ite->tempImageFile->close();
 	ite->isInlineImage = true;
 	image.save(fileName, "PNG");
-	m_Doc->LoadPict(fileName, z);
-	ite->setImageScalingMode(false, false);
 	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
-//	image.save("/home/franz/testpic.png");
-//	qDebug() << "Current File Position" << ts.device()->pos();
+	m_Doc->LoadPict(fileName, z);
+	ite->setImageScalingMode(false, false);
+}
+
+void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
+{
+//	qDebug() << "Handle QuickTime Data";
+	quint32 dataLenLong, matteSize, maskSize, dataLen;
+	quint16 mode;
+	ts >> dataLenLong;
+	uint pos = ts.device()->pos();
+	handleLineModeEnd();
+	alignStreamToWord(ts, 38);		// Skip version and Matrix information
+	ts >> matteSize;
+	QRect matteRect = readRect(ts);
+	if (opCode == 0x8200)
+	{
+		ts >> mode;
+		QRect srcRect = readRect(ts);
+		alignStreamToWord(ts, 4);
+		ts >> maskSize;
+		if (matteSize != 0)
+		{
+			ts >> dataLen;
+			alignStreamToWord(ts, dataLen);
+			alignStreamToWord(ts, matteSize);
+		}
+		if (maskSize != 0)
+		{
+			ts >> dataLen;
+			alignStreamToWord(ts, dataLen);
+			alignStreamToWord(ts, maskSize);
+		}
+		quint32 cType, vendor, dummyLong, imgDataSize;
+		quint16 width, height, dummyShort;
+		ts >> dataLen;
+		ts >> cType;
+		if (cType == 0x6A706567)
+		{
+			ts >> dummyLong;
+			ts >> dummyShort;
+			ts >> dummyShort;
+			ts >> dummyShort;
+			ts >> dummyShort;
+			ts >> vendor;
+			ts >> dummyLong;
+			ts >> dummyLong;
+			ts >> width;
+			ts >> height;
+			ts >> dummyLong;
+			ts >> dummyLong;
+			ts >> imgDataSize;
+			alignStreamToWord(ts, 38);
+			imageData.resize(imgDataSize);
+			ts.readRawData(imageData.data(), imgDataSize);
+			skipOpcode = true;
+		}
+	}
+	else
+	{
+		if (matteSize != 0)
+		{
+			ts >> dataLen;
+			alignStreamToWord(ts, dataLen);
+			alignStreamToWord(ts, matteSize);
+		}
+		ts >> mode;
+		handlePixmap(ts, mode);
+		skipOpcode = true;
+	}
+	ts.device()->seek(pos + dataLenLong);
 }
 
 QRect PctPlug::readRect(QDataStream &ts)
