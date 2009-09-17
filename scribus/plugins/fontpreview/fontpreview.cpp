@@ -70,7 +70,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		if (m_Doc->m_Selection->count() != 0)
 			searchName = m_Doc->currentStyle.charStyle().font().scName();
 		else
-			searchName = PrefsManager::instance()->appPrefs.itemToolPrefs.defFont;
+			searchName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
 	}
 	QModelIndexList found = fontModel->match(fontModel->index(0, 0),
 											 Qt::DisplayRole, searchName,

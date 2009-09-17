@@ -89,9 +89,9 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 
 void ModeToolBar::GetPolyProps()
 {
-	PolygonProps* dia = new PolygonProps(this, m_ScMW->doc->itemToolPrefs.polyC, m_ScMW->doc->itemToolPrefs.polyFd, m_ScMW->doc->itemToolPrefs.polyF, m_ScMW->doc->itemToolPrefs.polyS, m_ScMW->doc->itemToolPrefs.polyR, m_ScMW->doc->itemToolPrefs.polyCurvature);
+	PolygonProps* dia = new PolygonProps(this, m_ScMW->doc->itemToolPrefs.polyCorners, m_ScMW->doc->itemToolPrefs.polyFactorValue, m_ScMW->doc->itemToolPrefs.polyFactorValue2, m_ScMW->doc->itemToolPrefs.polyUseFactor, m_ScMW->doc->itemToolPrefs.polyRotation, m_ScMW->doc->itemToolPrefs.polyCurvature);
 	if (dia->exec())
-		dia->getValues(&m_ScMW->doc->itemToolPrefs.polyC, &m_ScMW->doc->itemToolPrefs.polyFd, &m_ScMW->doc->itemToolPrefs.polyF, &m_ScMW->doc->itemToolPrefs.polyS, &m_ScMW->doc->itemToolPrefs.polyR, &m_ScMW->doc->itemToolPrefs.polyCurvature);
+		dia->getValues(&m_ScMW->doc->itemToolPrefs.polyCorners, &m_ScMW->doc->itemToolPrefs.polyFactorValue, &m_ScMW->doc->itemToolPrefs.polyFactorValue2, &m_ScMW->doc->itemToolPrefs.polyUseFactor, &m_ScMW->doc->itemToolPrefs.polyRotation, &m_ScMW->doc->itemToolPrefs.polyCurvature);
 	delete dia;
 }
 

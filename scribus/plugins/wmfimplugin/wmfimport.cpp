@@ -576,7 +576,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	//gc->Family = m_Doc->toolSettings.defFont;
+	//gc->Family = m_Doc->toolSettings.textFont;
 	m_Doc->PageColors.ensureBlackAndWhite();
 	//m_gc.push( gc );
 	QList<PageItem*> Elements = parseWmfCommands();
@@ -640,7 +640,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			double gw = maxx - minx;
 			double gh = maxy - miny;
 			PageItem *high = m_Doc->Items->at(highestItem);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.dBrush, m_Doc->itemToolPrefs.dPen, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeBrush, m_Doc->itemToolPrefs.shapePen, true);
 			PageItem *neu = m_Doc->Items->takeAt(z);
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);

@@ -425,7 +425,12 @@ TabTools::TabTools( QWidget* parent, struct ItemToolPrefs *prefsData, int unitIn
 	polygonHeadLine = new QLabel( tr( "Regular Polygons" ), subTabPolygon);
 	polygonHeadLine->setFont(f);
 	subTabPolygonLayout->addWidget( polygonHeadLine, 0, 0, Qt::AlignHCenter | Qt::AlignTop );
-	polyWidget = new PolygonWidget(subTabPolygon, prefsData->polyC, prefsData->polyFd, prefsData->polyF, prefsData->polyS, prefsData->polyR, prefsData->polyCurvature);
+	polyWidget = new PolygonWidget(subTabPolygon, prefsData->polyCorners,
+								   prefsData->polyFactorValue,
+								   prefsData->polyFactorValue2,
+								   prefsData->polyUseFactor,
+								   prefsData->polyRotation,
+								   prefsData->polyCurvature);
 	subTabPolygonLayout->addWidget( polyWidget, 1, 0 );
 	subStackTools->addWidget( subTabPolygon );
 
@@ -620,7 +625,7 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 
 	for (int fc=0; fc<fontComboText->count(); ++fc)
 	{
-		if (fontComboText->itemText(fc) == itemPrefsData->defFont)
+		if (fontComboText->itemText(fc) == itemPrefsData->textFont)
 		{
 			fontComboText->setCurrentIndex(fc);
 			break;
@@ -633,7 +638,7 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 		sizeComboText->addItem(ar_sizes[s] + tr(" pt"));
 	for (int a = 0; a < sizeComboText->count(); ++a)
 	{
-		if (sizeComboText->itemText(a).left(2).toInt() == itemPrefsData->defSize / 10)
+		if (sizeComboText->itemText(a).left(2).toInt() == itemPrefsData->textSize / 10)
 		{
 			sizeComboText->setCurrentIndex(a);
 			break;
@@ -645,56 +650,56 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 	ColorList* colorList = (docu != 0) ? (&docu->PageColors) : prefsManager->colorSetPtr();
 	colorComboText->clear();
 	colorComboText->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->dPenText == CommonStrings::None)
+	if (itemPrefsData->textColor == CommonStrings::None)
 		colorComboText->setCurrentIndex(colorComboText->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboText->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dPenText)
+		if (itc.key() == itemPrefsData->textColor)
 			colorComboText->setCurrentIndex(colorComboText->count()-1);
 	}
 
-	shadingText->setValue(itemPrefsData->dTextPenShade);
+	shadingText->setValue(itemPrefsData->textShade);
 
 	colorComboStrokeText->clear();
 	colorComboStrokeText->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->dStrokeText == CommonStrings::None)
+	if (itemPrefsData->textStrokeColor == CommonStrings::None)
 		colorComboStrokeText->setCurrentIndex(colorComboStrokeText->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboStrokeText->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dStrokeText)
+		if (itc.key() == itemPrefsData->textStrokeColor)
 			colorComboStrokeText->setCurrentIndex(colorComboStrokeText->count()-1);
 	}
-	shadingTextStroke->setValue(itemPrefsData->dTextStrokeShade);
+	shadingTextStroke->setValue(itemPrefsData->textStrokeShade);
 
 	colorComboTextBackground->clear();
 	colorComboTextBackground->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->dTextBackGround == CommonStrings::None)
+	if (itemPrefsData->textBackground == CommonStrings::None)
 		colorComboTextBackground->setCurrentIndex(colorComboTextBackground->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboTextBackground->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dTextBackGround)
+		if (itc.key() == itemPrefsData->textBackground)
 			colorComboTextBackground->setCurrentIndex(colorComboTextBackground->count()-1);
 	}
-	shadingTextBack->setValue(itemPrefsData->dTextBackGroundShade);
+	shadingTextBack->setValue(itemPrefsData->textBackgroundShade);
 
 	colorComboTextLine->clear();
 	colorComboTextLine->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->dTextLineColor == CommonStrings::None)
+	if (itemPrefsData->textLineColor == CommonStrings::None)
 		colorComboTextLine->setCurrentIndex(colorComboTextLine->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboTextLine->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dTextLineColor)
+		if (itc.key() == itemPrefsData->textLineColor)
 			colorComboTextLine->setCurrentIndex(colorComboTextLine->count()-1);
 	}
-	shadingTextLine->setValue(itemPrefsData->dTextLineShade);
+	shadingTextLine->setValue(itemPrefsData->textLineShade);
 
 	tabFillCombo->clear();
 	tabFillCombo->addItem( tr("None", "tab fill" ));
@@ -702,19 +707,19 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 	tabFillCombo->addItem( tr("Hyphen"));
 	tabFillCombo->addItem( tr("Underscore"));
 	tabFillCombo->addItem( tr("Custom"));
-	if (itemPrefsData->tabFillChar.isEmpty())
+	if (itemPrefsData->textTabFillChar.isEmpty())
 	{
 		tabFillCombo->setCurrentIndex(0);
 	}
-	else if (itemPrefsData->tabFillChar == ".")
+	else if (itemPrefsData->textTabFillChar == ".")
 	{
 		tabFillCombo->setCurrentIndex(1);
 	}
-	else if (itemPrefsData->tabFillChar == "-")
+	else if (itemPrefsData->textTabFillChar == "-")
 	{
 		tabFillCombo->setCurrentIndex(2);
 	}
-	else if (itemPrefsData->tabFillChar == "_")
+	else if (itemPrefsData->textTabFillChar == "_")
 	{
 		tabFillCombo->setCurrentIndex(3);
 	}
@@ -722,58 +727,59 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 	{
 		tabFillCombo->setCurrentIndex(4);
 		tabFillCombo->setEditable(true);
-		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill + itemPrefsData->tabFillChar);
+		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill + itemPrefsData->textTabFillChar);
 	}
 	gapText->setNewUnit(unitIndex);
 	gapTab->setNewUnit(unitIndex);
-	gapTab->setValue(itemPrefsData->dTabWidth * unitRatio);
-	columnsText->setValue(itemPrefsData->dCols);
-	gapText->setValue(itemPrefsData->dGap * unitRatio);
+	gapTab->setValue(itemPrefsData->textTabWidth * unitRatio);
+	columnsText->setValue(itemPrefsData->textColumns);
+	gapText->setValue(itemPrefsData->textColumnGap * unitRatio);
 
 	colorComboLineShape->clear();
 	colorComboLineShape->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->dPen == CommonStrings::None)
+	if (itemPrefsData->shapePen == CommonStrings::None)
 		colorComboLineShape->setCurrentIndex(colorComboLineShape->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboLineShape->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dPen)
+		if (itc.key() == itemPrefsData->shapePen)
 			colorComboLineShape->setCurrentIndex(colorComboLineShape->count()-1);
 	}
-	shadingLineShape->setValue(itemPrefsData->dShade2);
+	shadingLineShape->setValue(itemPrefsData->shapeShade2);
 
 	comboFillShape->clear();
 	comboFillShape->addItem( tr("None"));
-	if (itemPrefsData->dBrush == CommonStrings::None)
+	if (itemPrefsData->shapeBrush == CommonStrings::None)
 		comboFillShape->setCurrentIndex(comboFillShape->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		comboFillShape->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dBrush)
+		if (itc.key() == itemPrefsData->shapeBrush)
 			comboFillShape->setCurrentIndex(comboFillShape->count()-1);
 	}
 
-	shadingFillShape->setValue(itemPrefsData->dShade);
-	comboStyleShape->setCurrentIndex(static_cast<int>(itemPrefsData->dLineArt) - 1);
-	lineWidthShape->setValue(itemPrefsData->dWidth);
+	shadingFillShape->setValue(itemPrefsData->shapeShade);
+	comboStyleShape->setCurrentIndex(static_cast<int>(itemPrefsData->shapeLineArt) - 1);
+	//CB: shapeWidth? or lineWidth?
+	lineWidthShape->setValue(itemPrefsData->shapeWidth);
 
 	colorComboLine->clear();
 	colorComboLine->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->dPenLine == CommonStrings::None)
+	if (itemPrefsData->lineColor == CommonStrings::None)
 		colorComboLine->setCurrentIndex(colorComboLine->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboLine->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dPenLine)
+		if (itc.key() == itemPrefsData->lineColor)
 			colorComboLine->setCurrentIndex(colorComboLine->count()-1);
 	}
 
-	shadingLine->setValue(itemPrefsData->dShadeLine);
+	shadingLine->setValue(itemPrefsData->lineShade);
 
-	comboStyleLine->setCurrentIndex(static_cast<int>(itemPrefsData->dLstyleLine) - 1);
+	comboStyleLine->setCurrentIndex(static_cast<int>(itemPrefsData->lineStyle) - 1);
 	if (docu != 0)
 	{
 		startArrow->rebuildList(&docu->arrowStyles);
@@ -784,31 +790,31 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 		startArrow->rebuildList(&prefsManager->appPrefs.arrowStyles);
 		endArrow->rebuildList(&prefsManager->appPrefs.arrowStyles);
 	}
-	startArrow->setCurrentIndex(itemPrefsData->dStartArrow);
-	endArrow->setCurrentIndex(itemPrefsData->dEndArrow);
-	lineWidthLine->setValue(itemPrefsData->dWidthLine);
+	startArrow->setCurrentIndex(itemPrefsData->lineStartArrow);
+	endArrow->setCurrentIndex(itemPrefsData->lineEndArrow);
+	lineWidthLine->setValue(itemPrefsData->lineWidth);
 
-	buttonGroup3->setChecked( itemPrefsData->scaleType );
-	scalingHorizontal->setValue(qRound(itemPrefsData->scaleX * 100));
-	scalingVertical->setValue(qRound(itemPrefsData->scaleY * 100));
-	buttonGroup5->setChecked( !itemPrefsData->scaleType );
-	checkRatioImage->setChecked(itemPrefsData->aspectRatio);
+	buttonGroup3->setChecked( itemPrefsData->imageScaleType );
+	scalingHorizontal->setValue(qRound(itemPrefsData->imageScaleX * 100));
+	scalingVertical->setValue(qRound(itemPrefsData->imageScaleY * 100));
+	buttonGroup5->setChecked( !itemPrefsData->imageScaleType );
+	checkRatioImage->setChecked(itemPrefsData->imageAspectRatio);
 
 	comboFillImage->clear();
 	comboFillImage->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->dBrushPict == CommonStrings::None)
+	if (itemPrefsData->imageFillColor == CommonStrings::None)
 		comboFillImage->setCurrentIndex(comboFillImage->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		comboFillImage->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->dBrushPict)
+		if (itc.key() == itemPrefsData->imageFillColor)
 			comboFillImage->setCurrentIndex(comboFillImage->count()-1);
 	}
 
-	shadingFillImage->setValue( itemPrefsData->shadePict );
-	embeddedPath->setChecked(itemPrefsData->useEmbeddedPath);
-	switch (itemPrefsData->lowResType)
+	shadingFillImage->setValue( itemPrefsData->imageFillShade );
+	embeddedPath->setChecked(itemPrefsData->imageUseEmbeddedPath);
+	switch (itemPrefsData->imageLowResType)
 	{
 		case 0:
 			checkFullRes->setChecked(true);

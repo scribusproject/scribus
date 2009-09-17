@@ -784,9 +784,9 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 	vg.setDropCapLines ( attrAsInt(attrs, "DROPLIN", 2) );
 	vg.setDropCapOffset( attrAsDbl(attrs, "DROPDIST", 0.0) );
 
-	tmpf = attrAsString(attrs, "FONT", doc->itemToolPrefs.defFont);
+	tmpf = attrAsString(attrs, "FONT", doc->itemToolPrefs.textFont);
 	if (tmpf.isEmpty())
-		tmpf = doc->itemToolPrefs.defFont;
+		tmpf = doc->itemToolPrefs.textFont;
 	tmf = tmpf;
 	if (!DoFonts.contains(tmpf))
 		tmpf = AskForFont(prefsManager->appPrefs.fontPrefs.AvailFonts, tmpf, doc);
@@ -796,9 +796,9 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 	vg.charStyle().setFont(prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf]);
 	vg.charStyle().setFontSize(qRound(attrAsDbl(attrs, "FONTSIZE", 12.0) * 10.0));
 	vg.charStyle().setFeatures(static_cast<StyleFlag>(attrAsInt(attrs, "EFFECT", 0)).featureList());
-	vg.charStyle().setFillColor(attrAsString(attrs, "FCOLOR", doc->itemToolPrefs.dBrush));
+	vg.charStyle().setFillColor(attrAsString(attrs, "FCOLOR", doc->itemToolPrefs.shapeBrush));
 	vg.charStyle().setFillShade(attrAsInt(attrs, "FSHADE", 100));
-	vg.charStyle().setStrokeColor(attrAsString(attrs, "SCOLOR", doc->itemToolPrefs.dPen));
+	vg.charStyle().setStrokeColor(attrAsString(attrs, "SCOLOR", doc->itemToolPrefs.shapePen));
 	vg.charStyle().setStrokeShade(attrAsInt(attrs, "SSHADE", 100));
 	vg.charStyle().setShadowXOffset(qRound(attrAsDbl(attrs, "TXTSHX", 5.0) * 10));
 	vg.charStyle().setShadowYOffset(qRound(attrAsDbl(attrs, "TXTSHY", -5.0) * 10));
@@ -1039,7 +1039,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 		return false;
 
 	DoFonts.clear();
-	DoFonts[doc->itemToolPrefs.defFont] = doc->itemToolPrefs.defFont;
+	DoFonts[doc->itemToolPrefs.textFont] = doc->itemToolPrefs.textFont;
 	DoVorl.clear();
 	DoVorl[0] = "0";
 	DoVorl[1] = "1";
@@ -1216,11 +1216,11 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 				OB.NamedLStyle = "";
 			OB.itemText        = "";
 			OB.textAlignment   = attrAsInt(attrs, "ALIGN", 0);
-			tmf = attrAsString(attrs, "IFONT", doc->itemToolPrefs.defFont);
+			tmf = attrAsString(attrs, "IFONT", doc->itemToolPrefs.textFont);
 			if (tmf.isEmpty())
-				tmf = doc->itemToolPrefs.defFont;
+				tmf = doc->itemToolPrefs.textFont;
 			if (DoFonts[tmf].isEmpty())
-				OB.IFont = doc->itemToolPrefs.defFont;
+				OB.IFont = doc->itemToolPrefs.textFont;
 			else
 				OB.IFont = DoFonts[tmf];
 			// #7725
@@ -1461,7 +1461,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
 			Neu->pixm.imgInfo.lowResType = lowResType;
 			Neu->pixm.imgInfo.actualPageNumber = actualPageNumber;
-			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0) || (doc->itemToolPrefs.lowResType != lowResType))
+			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0) || (doc->itemToolPrefs.imageLowResType != lowResType))
 				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
 			if (Neu->pixm.imgInfo.PDSpathData.contains(itemClip))
 			{
@@ -1610,11 +1610,11 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 				OB.NamedLStyle = "";
 			OB.itemText        = "";
 			OB.textAlignment   = attrAsInt(attrs1, "ALIGN");
-			tmf = attrAsString(attrs1, "IFONT", doc->itemToolPrefs.defFont);
+			tmf = attrAsString(attrs1, "IFONT", doc->itemToolPrefs.textFont);
 			if (tmf.isEmpty())
-				tmf = doc->itemToolPrefs.defFont;
+				tmf = doc->itemToolPrefs.textFont;
 			if (DoFonts[tmf].isEmpty())
-				OB.IFont = doc->itemToolPrefs.defFont;
+				OB.IFont = doc->itemToolPrefs.textFont;
 			else
 				OB.IFont = DoFonts[tmf];
 			OB.LayerID  = attrAsInt(attrs1, "LAYER");
@@ -1759,7 +1759,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
 			Neu->pixm.imgInfo.lowResType = lowResType;
 			Neu->pixm.imgInfo.actualPageNumber = actualPageNumber;
-			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0) || (doc->itemToolPrefs.lowResType != lowResType))
+			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0) || (doc->itemToolPrefs.imageLowResType != lowResType))
 				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
 			if (Neu->pixm.imgInfo.PDSpathData.contains(patClipPath))
 			{
@@ -2567,7 +2567,7 @@ void ScriXmlDoc::WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& s
 void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle& newStyle, ScribusDoc* doc)
 {
 	bool hasFont = attrHasValue(attrs, "CFONT");
-	QString tmpf = attrAsString(attrs, "CFONT", doc->itemToolPrefs.defFont);
+	QString tmpf = attrAsString(attrs, "CFONT", doc->itemToolPrefs.textFont);
 	bool unknown = false;
 
 	ScFace dummy = ScFace::none();
@@ -2593,7 +2593,7 @@ void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle&
 		if ((!appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!appPrefs.fontPrefs.AvailFonts[appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
-			ReplacedFonts.insert(tmpf, appPrefs.itemToolPrefs.defFont);
+			ReplacedFonts.insert(tmpf, appPrefs.itemToolPrefs.textFont);
 		}
 		else
 			ReplacedFonts.insert(tmpf, appPrefs.fontPrefs.GFontSub[tmpf]);
@@ -2688,7 +2688,7 @@ void ScriXmlDoc::ReadCStyle(const QXmlStreamAttributes& attrs, CharStyle & newSt
 		newStyle.setParent(attrAsString(attrs, "CPARENT", ""));
 	
 	if ( attrHasValue(attrs, "FONT"))
-		newStyle.setFont(doc->AllFonts->findFont(attrAsString(attrs, "FONT", doc->itemToolPrefs.defFont),doc));
+		newStyle.setFont(doc->AllFonts->findFont(attrAsString(attrs, "FONT", doc->itemToolPrefs.textFont),doc));
 	
 	if ( attrHasValue(attrs, "FONTSIZE"))
 		newStyle.setFontSize(qRound(attrAsDbl(attrs, "FONTSIZE", 12) * 10));

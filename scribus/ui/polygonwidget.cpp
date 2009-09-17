@@ -65,14 +65,14 @@ void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	disconnect(CurvatureSpin, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin3(int)));
 	disconnect(CurvatureSlider, SIGNAL(valueChanged(int)), CurvatureSpin, SLOT(setValue(int)));
 	disconnect(CurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	PFactor = prefsData->polyS;
-	Ecken->setValue(prefsData->polyC);	
-	Faktor2->setValue(static_cast<int>(prefsData->polyR));
-	Slider2->setValue(static_cast<int>(prefsData->polyR));
-	Konvex->setChecked(prefsData->polyS);
-	Faktor->setValue(prefsData->polyFd);
-	Slider1->setValue(prefsData->polyFd);
-	if (prefsData->polyFd == 0)
+	PFactor = prefsData->polyUseFactor;
+	Ecken->setValue(prefsData->polyCorners);
+	Faktor2->setValue(static_cast<int>(prefsData->polyRotation));
+	Slider2->setValue(static_cast<int>(prefsData->polyRotation));
+	Konvex->setChecked(prefsData->polyUseFactor);
+	Faktor->setValue(prefsData->polyFactorValue);
+	Slider1->setValue(prefsData->polyFactorValue);
+	if (prefsData->polyFactorValue == 0)
 		Konvex->setChecked(false);
 	CurvatureSpin->setValue(qRound(prefsData->polyCurvature * 100));
 	CurvatureSlider->setValue(qRound(prefsData->polyCurvature * 100));

@@ -150,50 +150,50 @@ struct GuidesPrefs
 struct ItemToolPrefs
 {
 	/* Texttool */
-	QString defFont;
-	int defSize;
-	QString dPenText;
-	int dTextPenShade;
-	QString dStrokeText;
-	int dTextStrokeShade;
-	QString dTextBackGround;
-	QString dTextLineColor;
-	int dTextBackGroundShade;
-	int dTextLineShade;
-	int dCols;
-	double dGap;
-	QString tabFillChar;
-	double dTabWidth;
+	QString textFont;
+	int textSize;
+	QString textColor;
+	int textShade;
+	QString textStrokeColor;
+	int textStrokeShade;
+	QString textBackground;
+	QString textLineColor;
+	int textBackgroundShade;
+	int textLineShade;
+	int textColumns;
+	double textColumnGap;
+	QString textTabFillChar;
+	double textTabWidth;
 	/* ShapeTool */
-	QString dPen;
-	QString dBrush;
-	int dShade;
-	int dShade2;
-	int dLineArt;
-	double dWidth;
+	QString shapePen;
+	QString shapeBrush;
+	int shapeShade;
+	int shapeShade2;
+	int shapeLineArt;
+	double shapeWidth;
 	/* Line Tool */
-	QString dPenLine;
-	int dShadeLine;
-	double dWidthLine;
-	int dLstyleLine;
-	int dStartArrow;
-	int dEndArrow;
+	QString lineColor;
+	int lineShade;
+	double lineWidth;
+	int lineStyle;
+	int lineStartArrow;
+	int lineEndArrow;
 	/* Regular Polygon Tool */
-	int polyC;
-	int polyFd;
-	double polyF;
-	bool polyS;
-	double polyR;
-	double polyCurvature;
-	/* Picture Tool */
-	QString dBrushPict;
-	int shadePict;
-	double scaleX;
-	double scaleY;
-	bool scaleType;
-	bool aspectRatio;
-	int lowResType;
-	bool useEmbeddedPath;
+	int polyCorners;  //! Number of corners for a polygon
+	int polyFactorValue; //! Factor as an integer????
+	double polyFactorValue2; //! Convex/Concave factor as a double
+	bool polyUseFactor; //! Whether to use a factor for shaping
+	double polyRotation; //! Rotation of a polygon
+	double polyCurvature; //! Curvature of polygon
+	/* Image Tool */
+	QString imageFillColor;
+	int imageFillShade;
+	double imageScaleX;
+	double imageScaleY;
+	bool imageScaleType;
+	bool imageAspectRatio;
+	int imageLowResType;
+	bool imageUseEmbeddedPath;
 };
 
 struct OperatorToolPrefs
@@ -294,30 +294,30 @@ struct ExternalToolsPrefs
 	bool gs_AntiAliasText; //! Tell Ghostscript to antialias text or not
 	bool gs_AntiAliasGraphics; //! Tell Ghostscript to antialias graphics or not
 	int gs_Resolution; //! Resolution of Ghostscript rendered graphics
-	QString imageEditorExecutable;
-	QString extBrowserExecutable;
-	QString uniconvExecutable;
+	QString imageEditorExecutable; //! Editor for graphics, defaults to Gimp
+	QString extBrowserExecutable; //! External browser for launching URLs in
+	QString uniconvExecutable; //! Uniconverter executable location
 	QStringList latexConfigs;
 	QMap<QString, QString> latexCommands;
-	QString latexEditorExecutable;
-	int latexResolution;
+	QString latexEditorExecutable; //! LaTeX executable location
+	int latexResolution; //! LaTeX export resolution
 	bool latexForceDpi;
 	bool latexStartWithEmptyFrames;
 };
 
 struct MiscellaneousPrefs
 {
-	bool haveStylePreview;
+	bool haveStylePreview; //! Show previews in the Style setup areas like Style Manager
 
 	// lorem ipsum
-	bool useStandardLI;
-	int paragraphsLI;
+	bool useStandardLI; //! Use the standard Lorem Ipsum text
+	int paragraphsLI; //! Number of paragraphs to insert with Lorem Ipsum text
 };
 
 struct StoryEditorPrefs
 {
-	QColor STEcolor;
-	QString STEfont;
+	QColor guiFontColor; //! Color of the text used in the Story Editor window
+	QString guiFont; //! Font of the text used in the Story Editor window
 };
 
 struct PrintPreviewPrefs

@@ -2561,7 +2561,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
 		view->previewQualitySwitcher->blockSignals(true);
-		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs.lowResType);
+		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs.imageLowResType);
 		view->previewQualitySwitcher->blockSignals(false);
 	}
 	propertiesPalette->Fonts->RebuildList(doc);
@@ -7293,7 +7293,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 				{
 				}
 //				else
-//FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.fontPrefs.AvailFonts[doc->toolSettings.defFont]));
+//FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.fontPrefs.AvailFonts[doc->toolSettings.textFont]));
 			}
 		}
 	}
@@ -7604,7 +7604,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	bool oldShowPageShadow = prefsManager->showPageShadow();
 	int oldUIFontSize     = prefsManager->guiFontSize();
 	double oldDisplayScale = prefsManager->displayScale();
-	int oldImageQuality = prefsManager->applicationPrefs()->itemToolPrefs.lowResType;
+	int oldImageQuality = prefsManager->applicationPrefs()->itemToolPrefs.imageLowResType;
 
 	dia->updatePreferences();
 	prefsManager->SavePrefs();
@@ -7637,7 +7637,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	ScCore->recheckGS();
 	prefsManager->applyLoadedShortCuts();
 
-	int newImageQuality = prefsManager->appPrefs.itemToolPrefs.lowResType;
+	int newImageQuality = prefsManager->appPrefs.itemToolPrefs.imageLowResType;
 	if (oldImageQuality != newImageQuality)
 		view->previewQualitySwitcher->setCurrentIndex(newImageQuality);
 

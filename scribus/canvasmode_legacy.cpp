@@ -1587,14 +1587,14 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			case 0:
 				if (m->modifiers() == Qt::ShiftModifier)
 				{
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->FrameType = 0;
 					SetupDrawNoResize(z);
 				}
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->FrameType = 0;
 					SetupDraw(z);
 				}
@@ -1602,14 +1602,14 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			case 1:
 				if (m->modifiers() == Qt::ShiftModifier)
 				{
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->FrameType = 1;
 					SetupDrawNoResize(z);
 				}
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->FrameType = 1;
 					SetupDraw(z);
 				}
@@ -1617,7 +1617,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			default:
 				if (m->modifiers() == Qt::ShiftModifier)
 				{
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 					m_doc->setRedrawBounding(m_doc->Items->at(z));
 					m_doc->Items->at(z)->FrameType = m_doc->SubMode+2;
@@ -1626,7 +1626,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 					m_doc->setRedrawBounding(m_doc->Items->at(z));
 					m_doc->Items->at(z)->FrameType = m_doc->SubMode+2;
@@ -1641,13 +1641,13 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDrawNoResize(z);
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDraw(z);
 			}
 			break;
@@ -1657,13 +1657,13 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDrawNoResize(z);
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDraw(z);
 			}
 			break;
@@ -1673,13 +1673,13 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDrawNoResize(z);
 			}	
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDraw(z);
 			}
 			break;
@@ -1851,7 +1851,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				break;
 			selectPage(m);
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, m_doc->itemToolPrefs.dWidthLine, CommonStrings::None, m_doc->itemToolPrefs.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
+			z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, m_doc->itemToolPrefs.lineWidth, CommonStrings::None, m_doc->itemToolPrefs.lineColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 			currItem = m_doc->Items->at(z);
 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
 			m_doc->m_Selection->delaySignalsOn();
@@ -2004,14 +2004,14 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					break;
 				selectPage(m);
 				if (m->modifiers() == Qt::ShiftModifier)
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dBrush, m_doc->itemToolPrefs.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				}
 				currItem = m_doc->Items->at(z);
-				QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyC, m_doc->itemToolPrefs.polyS, m_doc->itemToolPrefs.polyF, m_doc->itemToolPrefs.polyR, m_doc->itemToolPrefs.polyCurvature);
+				QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactorValue2, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
 				currItem->PoLine.fromQPainterPath(path);
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
@@ -2043,7 +2043,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			if (FirstPoly)
 			{
 				selectPage(m);
-				z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidthLine, CommonStrings::None, m_doc->itemToolPrefs.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.lineWidth, CommonStrings::None, m_doc->itemToolPrefs.lineColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				currItem = m_doc->Items->at(z);
 				m_doc->m_Selection->clear();
 				m_doc->m_Selection->addItem(currItem);
@@ -2082,7 +2082,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				break;
 			selectPage(m);
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, !m_canvas->m_viewMode.m_MouseButtonPressed);
+			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 			currItem = m_doc->Items->at(z);
 			currItem->setIsAnnotation(true);
 			currItem->AutoName = false;
@@ -2647,8 +2647,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
 				{
-					//z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs.dWidth, m_doc->itemToolPrefs.dPenText);
-					z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenText, !m_canvas->m_viewMode.m_MouseButtonPressed);
+					//z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.textColor);
+					z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					currItem = m_doc->Items->at(z);
 					currItem->isTableItem = true;
 					//currItem->setTextFlowsAroundFrame(true);
@@ -2707,7 +2707,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (RecordP.size() > 1)
 		{
-			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs.dWidth, CommonStrings::None, m_doc->itemToolPrefs.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
+			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.lineColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
 			currItem->PoLine.addPoint(RecordP.point(0));
@@ -4832,8 +4832,8 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 void LegacyMode::SetupDraw(int nr)
 {
 	PageItem* currItem = m_doc->Items->at(nr);
-	//	currItem->setFont(Doc->itemToolPrefs.defFont);
-	//	currItem->setFontSize(Doc->itemToolPrefs.defSize);
+	//	currItem->setFont(Doc->itemToolPrefs.textFont);
+	//	currItem->setFontSize(Doc->itemToolPrefs.textSize);
 	m_canvas->m_viewMode.operItemResizing = true;
 	frameResizeHandle = 1;
 	qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
@@ -4854,8 +4854,8 @@ void LegacyMode::SetupDraw(int nr)
 void LegacyMode::SetupDrawNoResize(int nr)
 {
 	PageItem* currItem = m_doc->Items->at(nr);
-	//	currItem->setFont(Doc->itemToolPrefs.defFont);
-	//	currItem->setFontSize(Doc->itemToolPrefs.defSize);
+	//	currItem->setFont(Doc->itemToolPrefs.textFont);
+	//	currItem->setFontSize(Doc->itemToolPrefs.textSize);
 	m_doc->m_Selection->delaySignalsOn();
 	m_doc->m_Selection->clear();
 	m_doc->m_Selection->addItem(currItem);

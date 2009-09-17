@@ -143,14 +143,14 @@ QPixmap ScPreview::createPreview(QString data)
 //				FT_Face face;
 //				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf].fontFilePath(), prefsManager->appPrefs.AvailFonts[tmpf].faceIndex(), &face );
 				if ( prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf].usable() )
-					tmpf = prefsManager->appPrefs.itemToolPrefs.defFont;
+					tmpf = prefsManager->appPrefs.itemToolPrefs.textFont;
 /*				if (prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics()) {
 //already done in ScFonts::addScalaableFont():
 //					prefsManager->appPrefs.AvailFonts[tmpf]->CharWidth[13] = 0;
 				}
 				else
 				{
-					tmpf = prefsManager->appPrefs.toolSettings.defFont;
+					tmpf = prefsManager->appPrefs.toolSettings.textFont;
 //					prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics();
 //already done in ScFonts::addScalaableFont():
 //					prefsManager->appPrefs.AvailFonts[tmpf]->CharWidth[13] = 0;

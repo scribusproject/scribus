@@ -211,7 +211,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	previewQualitySwitcher->addItem(tr("Normal"));
 	previewQualitySwitcher->addItem(tr("Low"));
 // 	setCurrentComboItem(previewQualitySwitcher, tr("Normal"));
-	previewQualitySwitcher->setCurrentIndex(Prefs->itemToolPrefs.lowResType);
+	previewQualitySwitcher->setCurrentIndex(Prefs->itemToolPrefs.imageLowResType);
 
 	zoomSpinBox = new ScrSpinBox( 10, 3200, this, 6 );
 	zoomSpinBox->setTabAdvance(false);
@@ -978,7 +978,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 		if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
 		{
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs.dWidth, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs.shapeWidth, Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			b->LayerID = Doc->activeLayer();
 			Doc->LoadPict(url.toLocalFile(), b->ItemNr);
@@ -3444,7 +3444,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
@@ -3575,7 +3575,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			if (Doc->AllFonts->contains(Buffer->IFont))
 				pstyle.charStyle().setFont((*Doc->AllFonts)[Buffer->IFont]);
 			else
-				pstyle.charStyle().setFont((*Doc->AllFonts)[Doc->itemToolPrefs.defFont]);
+				pstyle.charStyle().setFont((*Doc->AllFonts)[Doc->itemToolPrefs.textFont]);
 			pstyle.charStyle().setFontSize(Buffer->ISize);
 			pstyle.charStyle().setFillColor(Buffer->TxtFill);
 			pstyle.charStyle().setStrokeColor(Buffer->TxtStroke);
@@ -3611,7 +3611,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	case PageItem::LatexFrame:
 		{
-		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
@@ -3634,7 +3634,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 	case PageItem::OSGFrame:
 #ifdef HAVE_OSG
-		z = Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+		z = Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
@@ -3815,7 +3815,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
 //	if (!(currItem->asTextFrame()) && !(currItem->asPathText()))
-//		currItem->setFont(Doc->toolSettings.defFont);
+//		currItem->setFont(Doc->toolSettings.textFont);
 	if (currItem->asPathText())
 	{
 		currItem->ClipEdited = true;

@@ -1367,7 +1367,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Size = new ScrSpinBox( 0.5, 2048, this, SC_POINTS );
 	PrefsManager* prefsManager = PrefsManager::instance();
 	Size->setSuffix( unitGetSuffixFromIndex(SC_POINTS) );
-	Size->setValue(prefsManager->appPrefs.itemToolPrefs.defSize / 10.0);
+	Size->setValue(prefsManager->appPrefs.itemToolPrefs.textSize / 10.0);
 	sizeAction=addWidget(Size);
 	sizeAction->setVisible(true);
 	ScaleTxt = new QLabel("", this);
@@ -1898,7 +1898,7 @@ void StoryEditor::buildGUI()
 
 //	Editor->setPaper(prefsManager->appPrefs.STEcolor);
 	QFont fo;
-	fo.fromString(prefsManager->appPrefs.storyEditorPrefs.STEfont);
+	fo.fromString(prefsManager->appPrefs.storyEditorPrefs.guiFont);
 	Editor->setFont(fo);
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
@@ -2183,7 +2183,7 @@ void StoryEditor::setBackPref()
 		pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
 		pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
 		Editor->setPalette(pal);
-		prefsManager->appPrefs.storyEditorPrefs.STEcolor = newColor;
+		prefsManager->appPrefs.storyEditorPrefs.guiFontColor = newColor;
 	}
 	blockUpdate = false;
 }
@@ -2192,7 +2192,7 @@ void StoryEditor::setFontPref()
 {
 	blockUpdate = true;
 	Editor->setFont( QFontDialog::getFont( 0, Editor->font(), this ) );
-	prefsManager->appPrefs.storyEditorPrefs.STEfont = Editor->font().toString();
+	prefsManager->appPrefs.storyEditorPrefs.guiFont = Editor->font().toString();
 	EditorBar->doRepaint();
 	blockUpdate = false;
 }

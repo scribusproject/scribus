@@ -229,8 +229,8 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 			if (!currDoc->UsedFonts.contains(itfsu.data()))
 			{
 //				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
-//				fo.setPointSize(qRound(ScMW->doc->toolSettings.defSize / 10.0));
-				currDoc->AddFont(itfsu.data(), qRound(currDoc->toolSettings.defSize / 10.0));
+//				fo.setPointSize(qRound(ScMW->doc->toolSettings.textSize / 10.0));
+				currDoc->AddFont(itfsu.data(), qRound(currDoc->toolSettings.textSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
@@ -260,12 +260,12 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesPrefs.colBordersShown;
 	currDoc->guidesSettings.baselineGridShown = prefsManager->appPrefs.guidesPrefs.baselineGridShown;
 	currDoc->guidesSettings.linkShown = prefsManager->appPrefs.guidesPrefs.linkShown;
-	currDoc->itemToolPrefs.polyC = prefsManager->appPrefs.itemToolPrefs.polyC;
-	currDoc->itemToolPrefs.polyF = prefsManager->appPrefs.itemToolPrefs.polyF;
-	currDoc->itemToolPrefs.polyR = prefsManager->appPrefs.itemToolPrefs.polyR;
+	currDoc->itemToolPrefs.polyCorners = prefsManager->appPrefs.itemToolPrefs.polyCorners;
+	currDoc->itemToolPrefs.polyFactorValue2 = prefsManager->appPrefs.itemToolPrefs.polyFactorValue2;
+	currDoc->itemToolPrefs.polyRotation = prefsManager->appPrefs.itemToolPrefs.polyRotation;
 	currDoc->itemToolPrefs.polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
-	currDoc->itemToolPrefs.polyFd = prefsManager->appPrefs.itemToolPrefs.polyFd;
-	currDoc->itemToolPrefs.polyS = prefsManager->appPrefs.itemToolPrefs.polyS;
+	currDoc->itemToolPrefs.polyFactorValue = prefsManager->appPrefs.itemToolPrefs.polyFactorValue;
+	currDoc->itemToolPrefs.polyUseFactor = prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
 	currDoc->AutoSave = prefsManager->appPrefs.docSetupPrefs.AutoSave;
 	currDoc->AutoSaveTime = prefsManager->appPrefs.docSetupPrefs.AutoSaveTime;
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
@@ -377,7 +377,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(ScCLocale::toDoubleC(pg.attribute("VOR"), 0.0));
 	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
-	QString tmpf = pg.attribute("FONT", currDoc->itemToolPrefs.defFont);
+	QString tmpf = pg.attribute("FONT", currDoc->itemToolPrefs.textFont);
 	currDoc->AllFonts->findFont(tmpf, currDoc);
 		vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
 		vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
@@ -385,9 +385,9 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 		vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs.dBrush));
+		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs.shapeBrush));
 		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs.dPen));
+		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs.shapePen));
 		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
 			vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
@@ -575,8 +575,8 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 			if (!currDoc->UsedFonts.contains(itfsu.data()))
 			{
 //				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
-//				fo.setPointSize(qRound(ScMW->doc->toolSettings.defSize / 10.0));
-				currDoc->AddFont(itfsu.data(), qRound(currDoc->toolSettings.defSize / 10.0));
+//				fo.setPointSize(qRound(ScMW->doc->toolSettings.textSize / 10.0));
+				currDoc->AddFont(itfsu.data(), qRound(currDoc->toolSettings.textSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
