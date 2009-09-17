@@ -308,7 +308,7 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 	{
 		QDataStream ts(&f);
 		ts.device()->seek(512);
-		quint16 pgX, pgY, pgW, pgH, dummy;
+		qint16 pgX, pgY, pgW, pgH, dummy;
 		ts >> dummy >> pgX >> pgY >> pgW >> pgH;
 		h = pgW - pgX;
 		b = pgH - pgY;
@@ -334,6 +334,8 @@ bool PctPlug::convert(QString fn)
 	fontMap.clear();
 	currentTextSize = 12;
 	currentFontID = 0;
+	currentFontStyle = 0;
+	imageData.resize(0);
 	lineMode = false;
 	skipOpcode = false;
 	importedColors.clear();
@@ -487,9 +489,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					handleTextFont(ts);
 					break;
 				case 0x0004:		// Text Style
-					handleLineModeEnd();
-					qDebug() << "Text Style";
-					alignStreamToWord(ts, 1);
+					handleTextStyle(ts);
 					break;
 				case 0x0005:		// Text Mode
 					handleLineModeEnd();
@@ -868,43 +868,61 @@ void PctPlug::parsePict(QDataStream &ts)
 //					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0090:		// Bits Rect
-//					qDebug() << "Bits Rect";
+					qDebug() << "Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0091:		// Bits Region
-//					qDebug() << "Bits Region";
+					qDebug() << "Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0098:		// Pack Bits Rect
-//					qDebug() << "Pack Bits Rect";
+					qDebug() << "Pack Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0099:		// Pack Bits Region
-//					qDebug() << "Pack Bits Region";
+					qDebug() << "Pack Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009A:		// Direct Bits Rect
-//					qDebug() << "Direct Bits Rect";
+					qDebug() << "Direct Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009B:		// Direct Bits Region
-//					qDebug() << "Direct Bits Region";
+					qDebug() << "Direct Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x00A0:		// Short Comment
 					handleLineModeEnd();
 					ts >> dataLen;
-//					qDebug() << "Short Comment type:" << dataLen;
+					qDebug() << "Short Comment type:" << dataLen;
 					break;
 				case 0x00A1:		// Long Comment
 					handleLineModeEnd();
 					ts >> dataLen;
-//					qDebug() << "Long Comment type:" << dataLen;
+					qDebug() << "Long Comment type:" << dataLen;
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen);
 					break;
 				case 0x00FF:		// End of Pict
 					handleLineModeEnd();
+					if (imageData.size() > 0)
+					{
+						QImage image;
+						image.loadFromData(imageData);
+						image = image.convertToFormat(QImage::Format_ARGB32);
+						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+						PageItem *ite = m_Doc->Items->at(z);
+						ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
+						ite->tempImageFile->open();
+						QString fileName = getLongPathName(ite->tempImageFile->fileName());
+						ite->tempImageFile->close();
+						ite->isInlineImage = true;
+						image.save(fileName, "PNG");
+						ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+						finishItem(ite);
+						m_Doc->LoadPict(fileName, z);
+						ite->setImageScalingMode(false, false);
+					}
 					qDebug() << "End of Pict";
 					return;
 					break;
@@ -1159,12 +1177,7 @@ void PctPlug::handleFontName(QDataStream &ts)
 	fontName.resize(nameLen);
 	ts.readRawData(fontName.data(), nameLen);
 	fontMap.insert(fontID, fontName);
-	if (pctVersion != 1)
-	{
-		uint adj = ts.device()->pos() % 2;
-		if (adj != 0)
-			ts.skipRawData(1);
-	}
+	alignStreamToWord(ts, 0);
 //	qDebug() << "Handle FontName" << fontName << "ID" << fontID;
 }
 
@@ -1186,6 +1199,16 @@ void PctPlug::handleTextFont(QDataStream &ts)
 //	qDebug() << "Handle Text Font" << fontID;
 }
 
+void PctPlug::handleTextStyle(QDataStream &ts)
+{
+	handleLineModeEnd();
+	quint8 style;
+	ts >> style;
+	alignStreamToWord(ts, 0);
+	currentFontStyle = style;
+//	qDebug() << "Text Style" << style;
+}
+
 void PctPlug::handleLongText(QDataStream &ts)
 {
 	handleLineModeEnd();
@@ -1197,12 +1220,7 @@ void PctPlug::handleLongText(QDataStream &ts)
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
 	currentPoint = QPoint(x, y);
-	if (pctVersion != 1)
-	{
-		uint adj = ts.device()->pos() % 2;
-		if (adj != 0)
-			ts.skipRawData(1);
-	}
+	alignStreamToWord(ts, 0);
 	createTextPath(text);
 //	qDebug() << "Handle Long Text at" << x << y << text;
 }
@@ -1217,12 +1235,7 @@ void PctPlug::handleDHText(QDataStream &ts)
 	ts.readRawData(text.data(), textLen);
 	QPoint s = currentPoint;
 	currentPoint = QPoint(s.x()+dh, s.y());
-	if (pctVersion != 1)
-	{
-		uint adj = ts.device()->pos() % 2;
-		if (adj != 0)
-			ts.skipRawData(1);
-	}
+	alignStreamToWord(ts, 0);
 	createTextPath(text);
 //	qDebug() << "Handle DH Text at" << currentPoint << text;
 }
@@ -1237,12 +1250,7 @@ void PctPlug::handleDVText(QDataStream &ts)
 	ts.readRawData(text.data(), textLen);
 	QPoint s = currentPoint;
 	currentPoint = QPoint(s.x(), s.y()+dv);
-	if (pctVersion != 1)
-	{
-		uint adj = ts.device()->pos() % 2;
-		if (adj != 0)
-			ts.skipRawData(1);
-	}
+	alignStreamToWord(ts, 0);
 	createTextPath(text);
 //	qDebug() << "Handle DV Text at" << currentPoint << text;
 }
@@ -1257,23 +1265,28 @@ void PctPlug::handleDHVText(QDataStream &ts)
 	ts.readRawData(text.data(), textLen);
 	QPoint s = currentPoint;
 	currentPoint = QPoint(s.x()+dh, s.y()+dv);
-	if (pctVersion != 1)
-	{
-		uint adj = ts.device()->pos() % 2;
-		if (adj != 0)
-			ts.skipRawData(1);
-	}
+	alignStreamToWord(ts, 0);
 	createTextPath(text);
 //	qDebug() << "Handle DHV Text at" << currentPoint << text;
 }
 
 void PctPlug::createTextPath(QString textString)
 {
+	QFont textFont;
 	if (!fontMap.contains(currentFontID))
-		return;
-	QString fontName = fontMap[currentFontID];
-	QFont textFont = QFont(fontName, currentTextSize);
+		textFont = QFont();
+	else
+	{
+		QString fontName = fontMap[currentFontID];
+		textFont = QFont(fontName, currentTextSize);
+	}
 	textFont.setPixelSize(currentTextSize);
+	if (currentFontStyle & 1)
+		textFont.setBold(true);
+	if (currentFontStyle & 2)
+		textFont.setItalic(true);
+	if (currentFontStyle & 4)
+		textFont.setUnderline(true);
 //	QFontMetrics fm(textFont);
 	FPointArray textPath;
 	QPainterPath painterPath;
@@ -1453,11 +1466,14 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 			QByteArray data;
 			data.resize(pixByteCount);
 			ts.readRawData(data.data(), pixByteCount);
+			int twoByte = 1;
+			if (component_size == 5)
+				twoByte = 2;
 			QByteArray img;
 			if (bytesPerLine < 8)
 				img = data;
 			else
-				img = decodeRLE(data, bytesPerLine);
+				img = decodeRLE(data, bytesPerLine, twoByte);
 			if ((opCode == 0x0098) || (opCode == 0x0099))
 			{
 				if (!isPixmap)
@@ -1501,21 +1517,24 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		imgRows = dstRect.height();
 		imgCols = dstRect.width();
 	}
-	image = image.convertToFormat(QImage::Format_ARGB32);
-	if (!isPixmap)
-		image.invertPixels();
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
-	PageItem *ite = m_Doc->Items->at(z);
-	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
-	ite->tempImageFile->open();
-	QString fileName = getLongPathName(ite->tempImageFile->fileName());
-	ite->tempImageFile->close();
-	ite->isInlineImage = true;
-	image.save(fileName, "PNG");
-	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-	finishItem(ite);
-	m_Doc->LoadPict(fileName, z);
-	ite->setImageScalingMode(false, false);
+	if ((component_size == 8) || (component_size == 1))
+	{
+		image = image.convertToFormat(QImage::Format_ARGB32);
+		if (!isPixmap)
+			image.invertPixels();
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs.dBrushPict, CommonStrings::None, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
+		ite->tempImageFile->open();
+		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		ite->tempImageFile->close();
+		ite->isInlineImage = true;
+		image.save(fileName, "PNG");
+		ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		finishItem(ite);
+		m_Doc->LoadPict(fileName, z);
+		ite->setImageScalingMode(false, false);
+	}
 }
 
 void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
@@ -1585,23 +1604,24 @@ void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
 		skipOpcode = true;
 	}
 	ts.device()->seek(pos + dataLenLong);
+//	qDebug() << "File Pos" << ts.device()->pos();
 }
 
 QRect PctPlug::readRect(QDataStream &ts)
 {
-	quint16 RectX, RectY, RectW, RectH;
+	qint16 RectX, RectY, RectW, RectH;
 	ts >> RectX >> RectY >> RectW >> RectH;
 	return QRect(QPoint(RectY, RectX), QPoint(RectH, RectW));
 }
 
-QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine)
+QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte)
 {
 	QByteArray ret = QByteArray(bytesPerLine, ' ');
 	uchar *ptrOut, *ptrIn;
 	ptrOut = (uchar*)ret.data();
 	ptrIn = (uchar*)in.data();
 	quint16 count = 0;
-	uchar c;
+	uchar c, c2;
 	quint16 len;
 	while( count < in.size() )
 	{
@@ -1612,11 +1632,18 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine)
 		{
 			// Copy next len+1 bytes literally.
 			len++;
+			len *= multByte;
 			while( len != 0 )
 			{
 				*ptrOut++ = *ptrIn++;
 				len--;
 				count++;
+				if (multByte == 2)
+				{
+					*ptrOut++ = *ptrIn++;
+					len--;
+					count++;
+				}
 			}
 		}
 		else if( len > 128 )
@@ -1625,12 +1652,30 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine)
 			// (Interpret len as a negative 8-bit int.)
 			len ^= 0xFF;
 			len += 2;
-			c = *ptrIn++;
-			count++;
-			while( len != 0 )
+			len *= multByte;
+			if (multByte == 2)
 			{
-				*ptrOut++ = c;
-				len--;
+				c = *ptrIn++;
+				count++;
+				c2 = *ptrIn++;
+				count++;
+				while( len != 0 )
+				{
+					*ptrOut++ = c;
+					*ptrOut++ = c2;
+					len--;
+					len--;
+				}
+			}
+			else
+			{
+				c = *ptrIn++;
+				count++;
+				while( len != 0 )
+				{
+					*ptrOut++ = c;
+					len--;
+				}
 			}
 		}
 		else if( len == 128 )

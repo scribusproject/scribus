@@ -67,6 +67,7 @@ private:
 	void handleFontName(QDataStream &ts);
 	void handleTextSize(QDataStream &ts);
 	void handleTextFont(QDataStream &ts);
+	void handleTextStyle(QDataStream &ts);
 	void handleLongText(QDataStream &ts);
 	void handleDHText(QDataStream &ts);
 	void handleDVText(QDataStream &ts);
@@ -81,7 +82,7 @@ private:
 	void handlePixmap(QDataStream &ts, quint16 opCode);
 	void handleQuickTime(QDataStream &ts, quint16 opCode);
 	QRect readRect(QDataStream &ts);
-	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine);
+	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte);
 	void handleLineModeEnd();
 	void finishItem(PageItem* ite);
 	
@@ -105,6 +106,7 @@ private:
 	QMap<int, QString> fontMap;
 	int currentTextSize;
 	int currentFontID;
+	int currentFontStyle;
 	FPointArray lastCoords;
 	QByteArray imageData;
 
