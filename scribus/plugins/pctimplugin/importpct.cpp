@@ -1487,7 +1487,21 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 			}
 			else if ((opCode == 0x009A) || (opCode == 0x009B))
 			{
-				if (component_size == 8)
+				if (component_size == 5)
+				{
+					QRgb *q = (QRgb*)(image.scanLine(rr));
+					int imgDcount = 0;
+					for (quint16 xx = 0; xx < pixCols; xx++)
+					{
+						uchar i = img[imgDcount++];
+						uchar j = img[imgDcount++];
+						quint16 r = (i & 0x7c) << 1;
+						quint16 g = ((i & 0x03) << 6) | ((j & 0xe0) >> 2);
+						quint16 b = (j & 0x1f) << 3;
+						*q++ = qRgba(r, g, b, 255);
+					}
+				}
+				else if (component_size == 8)
 				{
 					QRgb *q = (QRgb*)(image.scanLine(rr));
 					for (quint16 xx = 0; xx < pixCols; xx++)
@@ -1517,7 +1531,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		imgRows = dstRect.height();
 		imgCols = dstRect.width();
 	}
-	if ((component_size == 8) || (component_size == 1))
+	if ((component_size == 8) || (component_size == 1) || (component_size == 5))
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
