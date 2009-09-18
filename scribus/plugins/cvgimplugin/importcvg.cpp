@@ -443,7 +443,6 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		ite->ClipEdited = true;
-		ite->Frame = false;
 		ite->FrameType = 3;
 		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(CurrStrokeShade);

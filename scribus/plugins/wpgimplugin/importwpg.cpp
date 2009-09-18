@@ -394,7 +394,6 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 void ScrPainter::finishItem(PageItem* ite)
 {
 	ite->ClipEdited = true;
-	ite->Frame = false;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
 	ite->setFillEvenOdd(fillrule);

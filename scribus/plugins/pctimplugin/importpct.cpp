@@ -1403,8 +1403,8 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	QRect bounds = readRect(ts);
 	bool isPixmap = bytesPerLine & 0x8000;
 	bytesPerLine &= 0x7FFF;
-	qDebug() << "Bytes per Line" << bytesPerLine << "Pixmap" << isPixmap;
-	qDebug() << "Bounds" << bounds.right() - bounds.left() << bounds.bottom() - bounds.top();
+//	qDebug() << "Bytes per Line" << bytesPerLine << "Pixmap" << isPixmap;
+//	qDebug() << "Bounds" << bounds.right() - bounds.left() << bounds.bottom() - bounds.top();
 	QVector<QRgb> colors;
 	if (isPixmap)
 	{
@@ -1415,11 +1415,11 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		ts >> pixel_type >> bits_per_pixel >> component_count >> component_size;
 		ts >> plane_bytes >> color_table;
 		ts.skipRawData(4);
-		qDebug() << "Pack Type" << packType;
-		qDebug() << "Pack Size" << packSize;
-		qDebug() << "Pixel Type" << pixel_type;
-		qDebug() << "Bits per Pixel" << bits_per_pixel;
-		qDebug() << "Component Count" << component_count << "Size" << component_size;
+//		qDebug() << "Pack Type" << packType;
+//		qDebug() << "Pack Size" << packSize;
+//		qDebug() << "Pixel Type" << pixel_type;
+//		qDebug() << "Bits per Pixel" << bits_per_pixel;
+//		qDebug() << "Component Count" << component_count << "Size" << component_size;
 	// now reading color Table
 		if ((opCode != 0x009A) && (opCode != 0x009B))
 		{
@@ -1438,10 +1438,10 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	}
 // reading scrRect
 	QRect scrRect = readRect(ts);
-	qDebug() << "Src Rect" << scrRect;
+//	qDebug() << "Src Rect" << scrRect;
 // reading dstRect
 	QRect dstRect = readRect(ts);
-	qDebug() << "Dst Rect" << dstRect;
+//	qDebug() << "Dst Rect" << dstRect;
 	ts.skipRawData(2);
 	if ((opCode == 0x0091) || (opCode == 0x0099) || (opCode == 0x009B))
 	{
@@ -1498,7 +1498,19 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 				}
 				else if (component_count == 1)
 				{
-					memcpy(image.scanLine(rr), img.data(), bytesPerLine);
+					if (component_size == 4)
+					{
+						uchar *q = (uchar*)(image.scanLine(rr));
+						for (quint16 xx = 0; xx < img.size(); xx++)
+						{
+							uchar i = (img[xx] >> 4) & 0x0F;
+							uchar j = img[xx] & 0x0F;
+							*q++ = i;
+							*q++ = j;
+						}
+					}
+					else
+						memcpy(image.scanLine(rr), img.data(), bytesPerLine);
 				}
 			}
 			else if ((opCode == 0x009A) || (opCode == 0x009B))
@@ -1541,13 +1553,11 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	}
 	if (skipOpcode)
 	{
-		skipOpcode = false;
 		image.loadFromData(imageData);
 		isPixmap = true;
-		imgRows = dstRect.height();
-		imgCols = dstRect.width();
+		imageData.resize(0);
 	}
-	if ((component_size == 8) || (component_size == 1) || (component_size == 5) || (!isPixmap))
+	if ((component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
@@ -1564,6 +1574,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		finishItem(ite);
 		m_Doc->LoadPict(fileName, z);
 		ite->setImageScalingMode(false, false);
+		skipOpcode = false;
 	}
 }
 
@@ -1728,14 +1739,12 @@ void PctPlug::handleLineModeEnd()
 	}
 	Coords.resize(0);
 	Coords.svgInit();
-//	currentPoint = QPoint(-1, -1);
 	lineMode = false;
 }
 
 void PctPlug::finishItem(PageItem* ite)
 {
 	ite->ClipEdited = true;
-	ite->Frame = false;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(CurrStrokeShade);
