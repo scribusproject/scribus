@@ -329,7 +329,7 @@ bool PctPlug::convert(QString fn)
 	Coords.resize(0);
 	Coords.svgInit();
 	LineW = 1.0;
-	currentPoint = QPoint(-1, -1);
+	currentPoint = QPoint(0, 0);
 	ovalSize = QPoint(0, 0);
 	fontMap.clear();
 	currentTextSize = 12;
@@ -505,12 +505,13 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0008:		// Pen Mode
 					handleLineModeEnd();
-					qDebug() << "Pen Mode";
-					alignStreamToWord(ts, 2);
+					ts >> dataLen;
+					qDebug() << "Pen Mode" << dataLen;
+//					alignStreamToWord(ts, 2);
 					break;
 				case 0x0009:		// Pen Pattern
 					handleLineModeEnd();
-					qDebug() << "Pen Pattern";
+//					qDebug() << "Pen Pattern";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x000A:		// Fill Pattern
@@ -894,12 +895,12 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x00A0:		// Short Comment
 					handleLineModeEnd();
 					ts >> dataLen;
-					qDebug() << "Short Comment type:" << dataLen;
+//					qDebug() << "Short Comment type:" << dataLen;
 					break;
 				case 0x00A1:		// Long Comment
 					handleLineModeEnd();
 					ts >> dataLen;
-					qDebug() << "Long Comment type:" << dataLen;
+//					qDebug() << "Long Comment type:" << dataLen;
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen);
 					break;
@@ -1007,13 +1008,13 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 
 void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 {
-//	qDebug() << "Handle Polygon";
+	qDebug() << "Handle Polygon";
 	handleLineModeEnd();
 	quint16 polySize;
 	ts >> polySize;				// read polygon size
 	ts.skipRawData(8);			// skip bounding rect;
 	polySize -= 14;				// subtract size count, bounding rect and first point from size
-	quint16 x, y;
+	qint16 x, y;
 	ts >> y >> x;
 	Coords.resize(0);
 	Coords.svgInit();
@@ -1056,6 +1057,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 //	qDebug() << "Handle Rect/Oval" << tmp;
 	handleLineModeEnd();
 	QRect bounds = readRect(ts);
+//	qDebug() << "Rect" << bounds;
 	int z;
 	PageItem *ite;
 	if (opCode == 0x0030)
@@ -1228,7 +1230,8 @@ void PctPlug::handleLongText(QDataStream &ts)
 void PctPlug::handleDHText(QDataStream &ts)
 {
 	handleLineModeEnd();
-	quint8 textLen, dh;
+	quint8 textLen;
+	quint8 dh;
 	ts >> dh >> textLen;
 	QByteArray text;
 	text.resize(textLen);
@@ -1243,7 +1246,8 @@ void PctPlug::handleDHText(QDataStream &ts)
 void PctPlug::handleDVText(QDataStream &ts)
 {
 	handleLineModeEnd();
-	quint8 textLen, dv;
+	quint8 textLen;
+	quint8 dv;
 	ts >> dv >> textLen;
 	QByteArray text;
 	text.resize(textLen);
@@ -1258,7 +1262,8 @@ void PctPlug::handleDVText(QDataStream &ts)
 void PctPlug::handleDHVText(QDataStream &ts)
 {
 	handleLineModeEnd();
-	quint8 textLen, dv, dh;
+	quint8 textLen;
+	quint8 dv, dh;
 	ts >> dh >> dv >> textLen;
 	QByteArray text;
 	text.resize(textLen);
@@ -1267,7 +1272,7 @@ void PctPlug::handleDHVText(QDataStream &ts)
 	currentPoint = QPoint(s.x()+dh, s.y()+dv);
 	alignStreamToWord(ts, 0);
 	createTextPath(text);
-//	qDebug() << "Handle DHV Text at" << currentPoint << text;
+//	qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPoint << text;
 }
 
 void PctPlug::createTextPath(QString textString)
@@ -1322,11 +1327,12 @@ void PctPlug::handleOvalSize(QDataStream &ts)
 
 void PctPlug::handleShortLine(QDataStream &ts)
 {
-//	qDebug() << "Handle Short Line";
-	quint16 x, y;
+	qint16 x, y;
 	qint8 dh, dv;
 	ts >> y >> x;
 	ts >> dh >> dv;
+	if ((dh == 0) && (dv == 0))
+		return;
 	QPoint s = QPoint(x, y);
 	if (currentPoint != s)
 	{
@@ -1336,23 +1342,28 @@ void PctPlug::handleShortLine(QDataStream &ts)
 	Coords.svgLineTo(x+dh, y+dv);
 	currentPoint = QPoint(x+dh, y+dv);
 	lineMode = true;
+//	qDebug() << "Handle Short Line" << x << y << "+" << dh << dv << "->" << currentPoint;
 }
 
 void PctPlug::handleShortLineFrom(QDataStream &ts)
 {
-//	qDebug() << "Handle Short Line From";
 	qint8 dh, dv;
 	ts >> dh >> dv;
+	if ((dh == 0) && (dv == 0))
+		return;
 	QPoint s = currentPoint;
+	if (Coords.size() == 0)
+		Coords.svgMoveTo(s.x(), s.y());
 	Coords.svgLineTo(s.x()+dh, s.y()+dv);
 	currentPoint = QPoint(s.x()+dh, s.y()+dv);
 	lineMode = true;
+//	qDebug() << "Handle Short Line from" << dh << dv << "->" << currentPoint;
 }
 
 void PctPlug::handleLine(QDataStream &ts)
 {
 //	qDebug() << "Handle Line";
-	quint16 x1, x2, y1, y2;
+	qint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
 	QPoint s = QPoint(x1, y1);
@@ -1371,6 +1382,11 @@ void PctPlug::handleLineFrom(QDataStream &ts)
 //	qDebug() << "Handle Line From";
 	quint16 x, y;
 	ts >> y >> x;
+	if ((x == 0) && (y == 0))
+		return;
+	QPoint s = currentPoint;
+	if (Coords.size() == 0)
+		Coords.svgMoveTo(s.x(), s.y());
 	Coords.svgLineTo(x, y);
 	currentPoint = QPoint(x, y);
 	lineMode = true;
@@ -1387,8 +1403,8 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	QRect bounds = readRect(ts);
 	bool isPixmap = bytesPerLine & 0x8000;
 	bytesPerLine &= 0x7FFF;
-//	qDebug() << "Bytes per Line" << bytesPerLine << "Pixmap" << isPixmap;
-//	qDebug() << "Bounds" << bounds.right() - bounds.left() << bounds.bottom() - bounds.top();
+	qDebug() << "Bytes per Line" << bytesPerLine << "Pixmap" << isPixmap;
+	qDebug() << "Bounds" << bounds.right() - bounds.left() << bounds.bottom() - bounds.top();
 	QVector<QRgb> colors;
 	if (isPixmap)
 	{
@@ -1399,11 +1415,11 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		ts >> pixel_type >> bits_per_pixel >> component_count >> component_size;
 		ts >> plane_bytes >> color_table;
 		ts.skipRawData(4);
-//		qDebug() << "Pack Type" << packType;
-//		qDebug() << "Pack Size" << packSize;
-//		qDebug() << "Pixel Type" << pixel_type;
-//		qDebug() << "Bits per Pixel" << bits_per_pixel;
-//		qDebug() << "Component Count" << component_count << "Size" << component_size;
+		qDebug() << "Pack Type" << packType;
+		qDebug() << "Pack Size" << packSize;
+		qDebug() << "Pixel Type" << pixel_type;
+		qDebug() << "Bits per Pixel" << bits_per_pixel;
+		qDebug() << "Component Count" << component_count << "Size" << component_size;
 	// now reading color Table
 		if ((opCode != 0x009A) && (opCode != 0x009B))
 		{
@@ -1422,10 +1438,10 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 	}
 // reading scrRect
 	QRect scrRect = readRect(ts);
-//	qDebug() << "Src Rect" << scrRect;
+	qDebug() << "Src Rect" << scrRect;
 // reading dstRect
 	QRect dstRect = readRect(ts);
-//	qDebug() << "Dst Rect" << dstRect;
+	qDebug() << "Dst Rect" << dstRect;
 	ts.skipRawData(2);
 	if ((opCode == 0x0091) || (opCode == 0x0099) || (opCode == 0x009B))
 	{
@@ -1531,7 +1547,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		imgRows = dstRect.height();
 		imgCols = dstRect.width();
 	}
-	if ((component_size == 8) || (component_size == 1) || (component_size == 5))
+	if ((component_size == 8) || (component_size == 1) || (component_size == 5) || (!isPixmap))
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
