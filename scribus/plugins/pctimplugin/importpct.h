@@ -60,7 +60,9 @@ private:
 	bool convert(QString fn);
 	void parsePict(QDataStream &ts);
 	void alignStreamToWord(QDataStream &ts, uint len);
+	void handleColor(QDataStream &ts, bool back);
 	void handleColorRGB(QDataStream &ts, bool back);
+	void handlePenPattern(QDataStream &ts);
 	void handlePolygon(QDataStream &ts, quint16 opCode);
 	void handleShape(QDataStream &ts, quint16 opCode);
 	void handleSameShape(QDataStream &ts, quint16 opCode);
@@ -99,6 +101,9 @@ private:
 	QString CurrColorStroke;
 	double CurrStrokeShade;
 	double CurrFillShade;
+	bool patternMode;
+	quint32 patternPart1;
+	quint32 patternPart2;
 	QRect currRect;
 	QRect lastImageRect;
 	QStringList importedColors;
@@ -112,6 +117,7 @@ private:
 
 	FPointArray Coords;
 	QPoint currentPoint;
+	QPoint currentPointT;
 	bool lineMode;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
