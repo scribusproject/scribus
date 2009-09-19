@@ -1942,15 +1942,19 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		uint windowCount=windows.count();
 		for ( uint i = 0; i < windowCount; ++i )
 		{
-			newActWin(windows.at(i));
-			tw = ActWin;
-			slotSelect();
-			ActWin->close();
-			if (tw == ActWin)
+			tw = dynamic_cast<ScribusWin *>(windows.at(i));
+			if (tw)
 			{
-				ce->ignore();
-				connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
-				return;
+				newActWin(windows.at(i));
+				tw = ActWin;
+				slotSelect();
+				ActWin->close();
+				if (tw == ActWin)
+				{
+					ce->ignore();
+					connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
+					return;
+				}
 			}
 		}
 	}
@@ -2477,11 +2481,14 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		ScribusWin* swin;
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 		{
-			swin = (ScribusWin*)windows.at(i)->widget();
-			if (swin==ActWin && doc->masterPageMode())
-				swin->setMasterPagesPaletteShown(true);
-			else
-				swin->setMasterPagesPaletteShown(false);
+			swin = dynamic_cast<ScribusWin *>(windows.at(i)->widget());
+			if (swin)
+			{
+				if (swin==ActWin && doc->masterPageMode())
+					swin->setMasterPagesPaletteShown(true);
+				else
+					swin->setMasterPagesPaletteShown(false);
+			}
 		}
 		//if (doc->masterPageMode())
 		//	ActWin->setMasterPagesPaletteShown(true);
