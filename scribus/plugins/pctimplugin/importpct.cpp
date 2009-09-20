@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMimeData>
 #include <QRegExp>
+#include <QTextCodec>
 #include <QStack>
 #include <QDebug>
 
@@ -967,7 +968,7 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 	quint16 Rc, Gc, Bc;
 	quint32 colVal;
 	ts >> colVal;
-	qDebug() << "Color" << colVal << back;
+//	qDebug() << "Color" << colVal << back;
 	switch (colVal)
 	{
 		case 30:
@@ -1324,7 +1325,7 @@ void PctPlug::handleDHText(QDataStream &ts)
 	currentPointT = QPoint(s.x()+dh, s.y());
 	alignStreamToWord(ts, 0);
 	createTextPath(text);
-//	qDebug() << "Handle DH Text at" << currentPoint << text;
+//	qDebug() << "Handle DH Text at" << currentPointT << text << ts.device()->pos();
 }
 
 void PctPlug::handleDVText(QDataStream &ts)
@@ -1340,7 +1341,7 @@ void PctPlug::handleDVText(QDataStream &ts)
 	currentPointT = QPoint(s.x(), s.y()+dv);
 	alignStreamToWord(ts, 0);
 	createTextPath(text);
-//	qDebug() << "Handle DV Text at" << currentPoint << text;
+//	qDebug() << "Handle DV Text at" << currentPointT << text;
 }
 
 void PctPlug::handleDHVText(QDataStream &ts)
@@ -1356,11 +1357,13 @@ void PctPlug::handleDHVText(QDataStream &ts)
 	currentPointT = QPoint(s.x()+dh, s.y()+dv);
 	alignStreamToWord(ts, 0);
 	createTextPath(text);
-//	qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPoint << text;
+//	qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPointT << text;
 }
 
-void PctPlug::createTextPath(QString textString)
+void PctPlug::createTextPath(QByteArray textString)
 {
+	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
+	QString string = codec->toUnicode(textString);
 	QFont textFont;
 	if (!fontMap.contains(currentFontID))
 		textFont = QFont();
@@ -1378,7 +1381,7 @@ void PctPlug::createTextPath(QString textString)
 		textFont.setUnderline(true);
 	FPointArray textPath;
 	QPainterPath painterPath;
-	painterPath.addText( currentPointT.x(), currentPointT.y(), textFont, textString );
+	painterPath.addText( currentPointT.x(), currentPointT.y(), textFont, string);
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
@@ -1624,11 +1627,19 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 					{
 						uchar r, g, b;
 						uchar a = 255;
-						r = img[xx];
-						g = img[xx + pixCols];
-						b = img[xx + 2 * pixCols];
-						if (component_count == 4)
-							a = img[xx + 3 * pixCols];
+						if (component_count == 3)
+						{
+							r = img[xx];
+							g = img[xx + pixCols];
+							b = img[xx + 2 * pixCols];
+						}
+						else if (component_count == 4)
+						{
+							a = 255 - img[xx];
+							r = img[xx + pixCols];
+							g = img[xx + 2 * pixCols];
+							b = img[xx + 3 * pixCols];
+						}
 						*q++ = qRgba(r, g, b, a);
 					}
 				}
@@ -1668,7 +1679,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 
 void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
 {
-//	qDebug() << "Handle QuickTime Data";
+	qDebug() << "Handle QuickTime Data";
 	quint32 dataLenLong, matteSize, maskSize, dataLen;
 	quint16 mode;
 	ts >> dataLenLong;

@@ -74,7 +74,7 @@ private:
 	void handleDHText(QDataStream &ts);
 	void handleDVText(QDataStream &ts);
 	void handleDHVText(QDataStream &ts);
-	void createTextPath(QString textString);
+	void createTextPath(QByteArray textString);
 	void handlePenSize(QDataStream &ts);
 	void handleOvalSize(QDataStream &ts);
 	void handleShortLine(QDataStream &ts);
