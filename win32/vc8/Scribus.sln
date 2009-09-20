@@ -163,14 +163,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-lib2geom", "scribus
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathalongpath", "pathalongpath\pathalongpath.vcproj", "{CAF6D555-0E2E-4ABB-9585-00860B8B183E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meshdistortion", "meshdistortion\meshdistortion.vcproj", "{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathconnect", "pathconnect\pathconnect.vcproj", "{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}"
@@ -199,6 +199,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wpgimport", "wpgimport\wpgi
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pctimport", "pctimport\pctimport.vcproj", "{DB5B98E3-34C2-4909-87C6-4950BCFC9CA3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uniconvimport", "uniconvimport\uniconvimport.vcproj", "{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
@@ -547,6 +552,14 @@ Global
 		{DB5B98E3-34C2-4909-87C6-4950BCFC9CA3}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{DB5B98E3-34C2-4909-87C6-4950BCFC9CA3}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{DB5B98E3-34C2-4909-87C6-4950BCFC9CA3}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
