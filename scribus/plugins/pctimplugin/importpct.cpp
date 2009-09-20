@@ -1592,7 +1592,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 					if (component_size == 4)
 					{
 						uchar *q = (uchar*)(image.scanLine(rr));
-						for (quint16 xx = 0; xx < img.size(); xx++)
+						for (int xx = 0; xx < img.size(); xx++)
 						{
 							uchar i = (img[xx] >> 4) & 0x0F;
 							uchar j = img[xx] & 0x0F;
@@ -1623,7 +1623,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 				else if (component_size == 8)
 				{
 					QRgb *q = (QRgb*)(image.scanLine(rr));
-					for (quint16 xx = 0; xx < pixCols; xx++)
+					for (uint xx = 0; xx < (uint) pixCols; xx++)
 					{
 						uchar r, g, b;
 						uchar a = 255;
