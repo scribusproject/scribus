@@ -1102,6 +1102,9 @@ void StyleManager::slotApplyStyle(QString keyString)
 	loadType(slist[0]);
 	m_item->toSelection(slist[1]);
 	slotDocSelectionChanged();
+
+	m_rcStyle = QString::null;
+	m_rcType  = QString::null;
 }
 
 bool StyleManager::nameIsUnique(const QString &name)
@@ -1177,6 +1180,9 @@ void StyleManager::slotApplyStyle(QTreeWidgetItem *item)
 	m_item->toSelection(sitem->text(NAME_COL)); // apply selected style to the selection
 
 	slotDocSelectionChanged();
+
+	m_rcStyle = QString::null;
+	m_rcType  = QString::null;
 }
 
 void StyleManager::slotApplyStyle(QTreeWidgetItem *newitem, QTreeWidgetItem *)
