@@ -292,14 +292,20 @@ bool OODPlug::convert(int flags)
 	if (isOODraw2)
 	{
 		style = m_styles[master->attribute( "style:page-layout-name" )];
-		properties = style->namedItem( "style:page-layout-properties" ).toElement();
+		if (style)
+		{
+			properties = style->namedItem( "style:page-layout-properties" ).toElement();
+		}
 	}
 	else
 	{
 		style = m_styles[master->attribute( "style:page-master-name" )];
-		properties = style->namedItem( "style:properties" ).toElement();
+		if (style)
+		{
+			properties = style->namedItem( "style:properties" ).toElement();
+		}
 	}
-	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
+	double width  = !properties.attribute( "fo:page-width" ).isEmpty()  ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 		ScMW->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
@@ -926,9 +932,15 @@ void OODPlug::fillStyleStack( const QDomElement& object )
 
 void OODPlug::addStyles( const QDomElement* style )
 {
-	if( style->hasAttribute( "style:parent-style-name" ) )
-		addStyles( m_styles[style->attribute( "style:parent-style-name" )] );
-	m_styleStack.push( *style );
+	if (style)
+	{
+		if( style->hasAttribute( "style:parent-style-name" ) )
+		{
+			QDomElement* elem = m_styles[style->attribute( "style:parent-style-name" )];
+			addStyles( m_styles[style->attribute( "style:parent-style-name" )] );
+		}
+		m_styleStack.push( *style );
+	}
 }
 
 void OODPlug::storeObjectStyles( const QDomElement& object )
@@ -1613,4 +1625,5 @@ void OODPlug::svgClosePath(FPointArray *i)
 
 OODPlug::~OODPlug()
 {}
+
 
