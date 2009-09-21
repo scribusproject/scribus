@@ -25,10 +25,10 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
+#include "pageitem_imageframe.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "prefsmanager.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "ui/propertiespalette.h"
@@ -327,8 +327,9 @@ bool PctPlug::convert(QString fn)
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
 	patternMode = false;
-	patternPart1 = 0;
-	patternPart2 = 0;
+	patternData.resize(0);
+	backColor = Qt::white;
+	foreColor = Qt::black;
 	Coords.resize(0);
 	Coords.svgInit();
 	LineW = 1.0;
@@ -342,6 +343,8 @@ bool PctPlug::convert(QString fn)
 	imageData.resize(0);
 	lineMode = false;
 	skipOpcode = false;
+	postscriptMode = false;
+	textIsPostScript = false;
 	importedColors.clear();
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
@@ -493,8 +496,9 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0005:		// Text Mode
 					handleLineModeEnd();
-					qDebug() << "Text Mode";
-					alignStreamToWord(ts, 2);
+					ts >> dataLen;
+					qDebug() << "Text Mode" << dataLen;
+//					alignStreamToWord(ts, 2);
 					break;
 				case 0x0006:		// Extra Space
 					qDebug() << "Extra Space";
@@ -535,7 +539,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0010:		// Text Ratio
 					handleLineModeEnd();
-					qDebug() << "Text Ratio";
+//					qDebug() << "Text Ratio";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0011:		// Version
@@ -558,11 +562,9 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x001A:		// Foreground color RGB
 					handleColorRGB(ts, false);
-//					qDebug() << "Foreground color RGB" << CurrColorStroke;
 					break;
 				case 0x001B:		// Background color RGB
 					handleColorRGB(ts, true);
-//					qDebug() << "Background color RGB" << CurrColorFill;
 					break;
 				case 0x001C:		// Highlight mode
 					qDebug() << "Highlight mode";
@@ -887,16 +889,10 @@ void PctPlug::parsePict(QDataStream &ts)
 					handlePixmap(ts, opCode);
 					break;
 				case 0x00A0:		// Short Comment
-					handleLineModeEnd();
-					ts >> dataLen;
-//					qDebug() << "Short Comment type:" << dataLen;
+					handleShortComment(ts);
 					break;
 				case 0x00A1:		// Long Comment
-					handleLineModeEnd();
-					ts >> dataLen;
-//					qDebug() << "Long Comment type:" << dataLen;
-					ts >> dataLen;
-					alignStreamToWord(ts, dataLen);
+					handleLongComment(ts);
 					break;
 				case 0x00FF:		// End of Pict
 					handleLineModeEnd();
@@ -968,7 +964,7 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 	quint16 Rc, Gc, Bc;
 	quint32 colVal;
 	ts >> colVal;
-//	qDebug() << "Color" << colVal << back;
+	qDebug() << "Color" << colVal << back;
 	switch (colVal)
 	{
 		case 30:
@@ -1046,9 +1042,15 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 		importedColors.append(tmpName);
 	}
 	if (back)
+	{
 		CurrColorFill = tmpName;
+		backColor = c;
+	}
 	else
+	{
 		CurrColorStroke = tmpName;
+		foreColor = c;
+	}
 }
 
 void PctPlug::handleColorRGB(QDataStream &ts, bool back)
@@ -1088,23 +1090,35 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 		importedColors.append(tmpName);
 	}
 	if (back)
+	{
 		CurrColorFill = tmpName;
+		backColor = c;
+	}
 	else
+	{
 		CurrColorStroke = tmpName;
+		foreColor = c;
+	}
 }
 
 void PctPlug::handlePenPattern(QDataStream &ts)
 {
-	quint32 data, data2;
 	handleLineModeEnd();
-	ts >> data >> data2;
-	if (((data == 0xFFFFFFFF) && (data2 == 0xFFFFFFFF)) || ((data == 0) && (data2 == 0)))
-		patternMode = false;
-	else
-		patternMode = true;
-	patternPart1 = data;
-	patternPart2 = data2;
-//	qDebug() << QString("Pen Pattern 0x%1%2").arg(data, 8, 16, QLatin1Char('0')).arg(data2, 8, 16, QLatin1Char('0'));
+	patternData.resize(8);
+	ts.readRawData(patternData.data(), 8);
+	patternMode = false;
+	for (int a = 0; a < patternData.size(); a++)
+	{
+		uchar d = patternData[a];
+		if ((d != 0x00) && (d != 0xFF))
+		{
+			patternMode = true;
+			break;
+		}
+	}
+	QString pa = QString(patternData);
+	QString hpa = String2Hex(&pa);
+	qDebug() << "Pen Pattern" << "0x" << hpa << patternMode;
 }
 
 void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
@@ -1144,6 +1158,8 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
+		if ((patternMode) && (opCode != 0x0070))
+			setFillPattern(ite);
 	}
 }
 
@@ -1199,6 +1215,8 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	currRect = bounds;
 	finishItem(ite);
+	if ((patternMode) && ((opCode != 0x0030) || (opCode != 0x0040) || (opCode != 0x0050)))
+		setFillPattern(ite);
 }
 
 void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
@@ -1251,6 +1269,8 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 	ite = m_Doc->Items->at(z);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
+	if ((patternMode) && ((opCode != 0x0038) || (opCode != 0x0048) || (opCode != 0x0058)))
+		setFillPattern(ite);
 }
 
 void PctPlug::handleFontName(QDataStream &ts)
@@ -1260,9 +1280,22 @@ void PctPlug::handleFontName(QDataStream &ts)
 	quint8 nameLen;
 	ts >> dataLen >> fontID;
 	ts >> nameLen;
-	QByteArray fontName;
-	fontName.resize(nameLen);
-	ts.readRawData(fontName.data(), nameLen);
+	QByteArray fontRawName;
+	fontRawName.resize(nameLen);
+	ts.readRawData(fontRawName.data(), nameLen);
+	QString fontName = fontRawName;
+	fontName = fontName.simplified();
+	SCFonts fonts = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts;
+	SCFontsIterator it(fonts);
+	for ( ; it.hasNext() ; it.next())
+	{
+		
+		if (fonts[it.currentKey()].scName().simplified() == fontName)
+		{
+			fontName = fonts[it.currentKey()].family();
+			break;
+		}
+	}
 	fontMap.insert(fontID, fontName);
 	alignStreamToWord(ts, 0);
 //	qDebug() << "Handle FontName" << fontName << "ID" << fontID;
@@ -1300,64 +1333,73 @@ void PctPlug::handleLongText(QDataStream &ts)
 {
 	handleLineModeEnd();
 	quint8 textLen;
-	quint16 x, y;
+	qint16 x, y;
 	ts >> y >> x;
 	ts >> textLen;
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	currentPointT = QPoint(x, y);
+	if (!textIsPostScript)
+	{
+		currentPointT = QPoint(x, y);
+		createTextPath(text);
+//		qDebug() << "Handle Long Text at" << x << y << text;
+	}
 	alignStreamToWord(ts, 0);
-	createTextPath(text);
-//	qDebug() << "Handle Long Text at" << x << y << text;
 }
 
 void PctPlug::handleDHText(QDataStream &ts)
 {
 	handleLineModeEnd();
-	quint8 textLen;
-	quint8 dh;
+	quint8 textLen, dh;
 	ts >> dh >> textLen;
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	QPoint s = currentPointT;
-	currentPointT = QPoint(s.x()+dh, s.y());
+	if (!textIsPostScript)
+	{
+		QPoint s = currentPointT;
+		currentPointT = QPoint(s.x()+dh, s.y());
+		createTextPath(text);
+//		qDebug() << "Handle DH Text at" << currentPointT << text;
+	}
 	alignStreamToWord(ts, 0);
-	createTextPath(text);
-//	qDebug() << "Handle DH Text at" << currentPointT << text << ts.device()->pos();
 }
 
 void PctPlug::handleDVText(QDataStream &ts)
 {
 	handleLineModeEnd();
-	quint8 textLen;
-	quint8 dv;
+	quint8 textLen, dv;
 	ts >> dv >> textLen;
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	QPoint s = currentPointT;
-	currentPointT = QPoint(s.x(), s.y()+dv);
+	if (!textIsPostScript)
+	{
+		QPoint s = currentPointT;
+		currentPointT = QPoint(s.x(), s.y()+dv);
+		createTextPath(text);
+//		qDebug() << "Handle DV Text at" << currentPointT << text;
+	}
 	alignStreamToWord(ts, 0);
-	createTextPath(text);
-//	qDebug() << "Handle DV Text at" << currentPointT << text;
 }
 
 void PctPlug::handleDHVText(QDataStream &ts)
 {
 	handleLineModeEnd();
-	quint8 textLen;
-	quint8 dv, dh;
+	quint8 textLen, dv, dh;
 	ts >> dh >> dv >> textLen;
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	QPoint s = currentPointT;
-	currentPointT = QPoint(s.x()+dh, s.y()+dv);
+	if (!textIsPostScript)
+	{
+		QPoint s = currentPointT;
+		currentPointT = QPoint(s.x()+dh, s.y()+dv);
+		createTextPath(text);
+//		qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPointT << text;
+	}
 	alignStreamToWord(ts, 0);
-	createTextPath(text);
-//	qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPointT << text;
 }
 
 void PctPlug::createTextPath(QByteArray textString)
@@ -1371,6 +1413,8 @@ void PctPlug::createTextPath(QByteArray textString)
 	{
 		QString fontName = fontMap[currentFontID];
 		textFont = QFont(fontName, currentTextSize);
+		QFontInfo inf(textFont);
+//		qDebug() << "Using Font" << inf.family() << "for" << fontName;
 	}
 	textFont.setPixelSize(currentTextSize);
 	if (currentFontStyle & 1)
@@ -1390,6 +1434,8 @@ void PctPlug::createTextPath(QByteArray textString)
 		ite->PoLine = textPath;
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
+		if (patternMode)
+			setFillPattern(ite);
 	}
 }
 
@@ -1679,7 +1725,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 
 void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
 {
-	qDebug() << "Handle QuickTime Data";
+//	qDebug() << "Handle QuickTime Data";
 	quint32 dataLenLong, matteSize, maskSize, dataLen;
 	quint16 mode;
 	ts >> dataLenLong;
@@ -1745,6 +1791,39 @@ void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
 	}
 	ts.device()->seek(pos + dataLenLong);
 //	qDebug() << "File Pos" << ts.device()->pos();
+}
+
+void PctPlug::handleShortComment(QDataStream &ts)
+{
+	quint16 commentCode;
+	handleLineModeEnd();
+	ts >> commentCode;
+	qDebug() << "Short Comment type:" << commentCode;
+	switch (commentCode)
+	{
+		case 190:			// PostScriptBegin
+			postscriptMode = true;
+			break;
+		case 191:			// PostScriptEnd
+			postscriptMode = false;
+			textIsPostScript = false;
+			break;
+		case 194:			// TextIsPostScript
+			textIsPostScript = true;
+			break;
+		default:
+			break;
+	}
+}
+
+void PctPlug::handleLongComment(QDataStream &ts)
+{
+	quint16 commentCode, dataLen;
+	handleLineModeEnd();
+	ts >> commentCode;
+//	qDebug() << "Long Comment type:" << commentCode;
+	ts >> dataLen;
+	alignStreamToWord(ts, dataLen);
 }
 
 QRect PctPlug::readRect(QDataStream &ts)
@@ -1824,6 +1903,54 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte
 		}
 	}
 	return ret;
+}
+
+void PctPlug::setFillPattern(PageItem* ite)
+{
+	uint oldNum = m_Doc->TotalItems;
+	QImage image = QImage(8, 8, QImage::Format_Mono);
+	QVector<QRgb> colors;
+	colors.append(foreColor.rgb());
+	colors.append(backColor.rgb());
+	image.setColorTable(colors);
+	for (int rr = 0; rr < 8; rr++)
+	{
+		uchar *q = (uchar*)(image.scanLine(rr));
+		*q = patternData[rr];
+	}
+	image = image.convertToFormat(QImage::Format_ARGB32);
+	ScPattern pat = ScPattern();
+	pat.setDoc(m_Doc);
+	PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+	newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
+	newItem->tempImageFile->open();
+	QString fileName = getLongPathName(newItem->tempImageFile->fileName());
+	newItem->tempImageFile->close();
+	newItem->isInlineImage = true;
+	image.save(fileName, "PNG");
+	if (newItem->loadImage(fileName, false, 72, false))
+	{
+		pat.width = image.width();
+		pat.height = image.height();
+		pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+		pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+		pat.pattern = newItem->pixm.qImage().copy();
+		newItem->setWidth(pat.pattern.width());
+		newItem->setHeight(pat.pattern.height());
+		newItem->SetRectFrame();
+		newItem->gXpos = 0.0;
+		newItem->gYpos = 0.0;
+		newItem->gWidth = pat.pattern.width();
+		newItem->gHeight = pat.pattern.height();
+		pat.items.append(newItem);
+		newItem->ItemNr = pat.items.count();
+	}
+	QString patternName = "Pattern_"+newItem->itemName();
+	patternName = patternName.trimmed().simplified().replace(" ", "_");
+	m_Doc->addPattern(patternName, pat);
+	ite->setPattern(patternName);
+	ite->GrType = 8;
+	m_Doc->TotalItems = oldNum;
 }
 
 void PctPlug::handleLineModeEnd()

@@ -83,8 +83,11 @@ private:
 	void handleLineFrom(QDataStream &ts);
 	void handlePixmap(QDataStream &ts, quint16 opCode);
 	void handleQuickTime(QDataStream &ts, quint16 opCode);
+	void handleShortComment(QDataStream &ts);
+	void handleLongComment(QDataStream &ts);
 	QRect readRect(QDataStream &ts);
 	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte);
+	void setFillPattern(PageItem* ite);
 	void handleLineModeEnd();
 	void finishItem(PageItem* ite);
 	
@@ -98,12 +101,13 @@ private:
 
 	double LineW;
 	QString CurrColorFill;
+	QColor backColor;
 	QString CurrColorStroke;
+	QColor foreColor;
 	double CurrStrokeShade;
 	double CurrFillShade;
 	bool patternMode;
-	quint32 patternPart1;
-	quint32 patternPart2;
+	QByteArray patternData;
 	QRect currRect;
 	QRect lastImageRect;
 	QStringList importedColors;
@@ -119,6 +123,8 @@ private:
 	QPoint currentPoint;
 	QPoint currentPointT;
 	bool lineMode;
+	bool postscriptMode;
+	bool textIsPostScript;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;
