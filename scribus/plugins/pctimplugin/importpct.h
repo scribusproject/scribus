@@ -108,7 +108,10 @@ private:
 	double CurrFillShade;
 	bool patternMode;
 	QByteArray patternData;
+	QMap<QString, QString> patternMap;
 	QRect currRect;
+	int currRectItemNr;
+	int currRectType;
 	QRect lastImageRect;
 	QStringList importedColors;
 	QPoint ovalSize;

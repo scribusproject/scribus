@@ -1116,9 +1116,6 @@ void PctPlug::handlePenPattern(QDataStream &ts)
 			break;
 		}
 	}
-	QString pa = QString(patternData);
-	QString hpa = String2Hex(&pa);
-	qDebug() << "Pen Pattern" << "0x" << hpa << patternMode;
 }
 
 void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
@@ -1214,6 +1211,10 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	ite = m_Doc->Items->at(z);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	currRect = bounds;
+	currRectItemNr = z;
+	currRectType = 0;
+	if (opCode > 0x0044)
+		currRectType = 1;
 	finishItem(ite);
 	if ((patternMode) && ((opCode != 0x0030) || (opCode != 0x0040) || (opCode != 0x0050)))
 		setFillPattern(ite);
@@ -1222,53 +1223,70 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 {
 //	qDebug() << QString("Handle Same Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
+	int rectType = 0;
+	if (opCode > 0x0050)
+		rectType = 1;
 	handleLineModeEnd();
 	int z;
 	PageItem *ite;
-	if (opCode == 0x0038)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
-	else if (opCode == 0x0039)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
-	else if (opCode == 0x003C)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
-	else if (opCode == 0x0048)
+	if (currRectType == rectType)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
-		ite = m_Doc->Items->at(z);
-		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
-		ite->SetFrameRound();
-		m_Doc->setRedrawBounding(ite);
+		ite = m_Doc->Items->at(currRectItemNr);
+		if ((opCode == 0x0038) || (opCode == 0x0048) || (opCode == 0x0058))
+		{
+			ite->setLineColor(CurrColorStroke);
+			ite->setLineWidth(LineW);
+		}
+		else
+			ite->setFillColor(CurrColorStroke);
 	}
-	else if (opCode == 0x0049)
-	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
-		ite = m_Doc->Items->at(z);
-		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
-		ite->SetFrameRound();
-		m_Doc->setRedrawBounding(ite);
-	}
-	else if (opCode == 0x004C)
-	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
-		ite = m_Doc->Items->at(z);
-		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
-		ite->SetFrameRound();
-		m_Doc->setRedrawBounding(ite);
-	}
-	else if (opCode == 0x0058)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
-	else if (opCode == 0x0059)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
-	else if (opCode == 0x005C)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
 	else
 	{
-		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
-		return;
+		if (opCode == 0x0038)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+		else if (opCode == 0x0039)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		else if (opCode == 0x003C)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		else if (opCode == 0x0048)
+		{
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+			ite = m_Doc->Items->at(z);
+			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+			ite->SetFrameRound();
+			m_Doc->setRedrawBounding(ite);
+		}
+		else if (opCode == 0x0049)
+		{
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			ite = m_Doc->Items->at(z);
+			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+			ite->SetFrameRound();
+			m_Doc->setRedrawBounding(ite);
+		}
+		else if (opCode == 0x004C)
+		{
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			ite = m_Doc->Items->at(z);
+			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+			ite->SetFrameRound();
+			m_Doc->setRedrawBounding(ite);
+		}
+		else if (opCode == 0x0058)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+		else if (opCode == 0x0059)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		else if (opCode == 0x005C)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		else
+		{
+			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
+			return;
+		}
+		ite = m_Doc->Items->at(z);
+		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		finishItem(ite);
 	}
-	ite = m_Doc->Items->at(z);
-	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-	finishItem(ite);
 	if ((patternMode) && ((opCode != 0x0038) || (opCode != 0x0048) || (opCode != 0x0058)))
 		setFillPattern(ite);
 }
@@ -1798,7 +1816,7 @@ void PctPlug::handleShortComment(QDataStream &ts)
 	quint16 commentCode;
 	handleLineModeEnd();
 	ts >> commentCode;
-	qDebug() << "Short Comment type:" << commentCode;
+//	qDebug() << "Short Comment type:" << commentCode;
 	switch (commentCode)
 	{
 		case 190:			// PostScriptBegin
@@ -1908,49 +1926,61 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte
 void PctPlug::setFillPattern(PageItem* ite)
 {
 	uint oldNum = m_Doc->TotalItems;
-	QImage image = QImage(8, 8, QImage::Format_Mono);
-	QVector<QRgb> colors;
-	colors.append(backColor.rgb());
-	colors.append(foreColor.rgb());
-	image.setColorTable(colors);
-	for (int rr = 0; rr < 8; rr++)
+	QString patternName;
+	quint32 patDat1, patDat2;
+	QDataStream bu(&patternData, QIODevice::ReadOnly);
+	bu >> patDat1 >> patDat2;
+	QString patNa = QString("%1%2%3%4").arg(backColor.name()).arg(foreColor.name()).arg(patDat1, 8, 16, QLatin1Char('0')).arg(patDat2, 8, 16, QLatin1Char('0'));
+	if (!patternMap.contains(patNa))
 	{
-		uchar *q = (uchar*)(image.scanLine(rr));
-		*q = patternData[rr];
+		QImage image = QImage(8, 8, QImage::Format_Mono);
+		QVector<QRgb> colors;
+		colors.append(backColor.rgb());
+		colors.append(foreColor.rgb());
+		image.setColorTable(colors);
+		for (int rr = 0; rr < 8; rr++)
+		{
+			uchar *q = (uchar*)(image.scanLine(rr));
+			*q = patternData[rr];
+		}
+		image = image.convertToFormat(QImage::Format_ARGB32);
+		ScPattern pat = ScPattern();
+		pat.setDoc(m_Doc);
+		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+		newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
+		newItem->tempImageFile->open();
+		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
+		newItem->tempImageFile->close();
+		newItem->isInlineImage = true;
+		image.save(fileName, "PNG");
+		if (newItem->loadImage(fileName, false, 72, false))
+		{
+			pat.width = image.width();
+			pat.height = image.height();
+			pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.pattern = newItem->pixm.qImage().copy();
+			newItem->setWidth(pat.pattern.width());
+			newItem->setHeight(pat.pattern.height());
+			newItem->SetRectFrame();
+			newItem->gXpos = 0.0;
+			newItem->gYpos = 0.0;
+			newItem->gWidth = pat.pattern.width();
+			newItem->gHeight = pat.pattern.height();
+			pat.items.append(newItem);
+			newItem->ItemNr = pat.items.count();
+		}
+		patternName = "Pattern_"+newItem->itemName();
+		patternName = patternName.trimmed().simplified().replace(" ", "_");
+		m_Doc->addPattern(patternName, pat);
+		patternMap.insert(patNa, patternName);
 	}
-	image = image.convertToFormat(QImage::Format_ARGB32);
-	ScPattern pat = ScPattern();
-	pat.setDoc(m_Doc);
-	PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-	newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
-	newItem->tempImageFile->open();
-	QString fileName = getLongPathName(newItem->tempImageFile->fileName());
-	newItem->tempImageFile->close();
-	newItem->isInlineImage = true;
-	image.save(fileName, "PNG");
-	if (newItem->loadImage(fileName, false, 72, false))
-	{
-		pat.width = image.width();
-		pat.height = image.height();
-		pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-		pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-		pat.pattern = newItem->pixm.qImage().copy();
-		newItem->setWidth(pat.pattern.width());
-		newItem->setHeight(pat.pattern.height());
-		newItem->SetRectFrame();
-		newItem->gXpos = 0.0;
-		newItem->gYpos = 0.0;
-		newItem->gWidth = pat.pattern.width();
-		newItem->gHeight = pat.pattern.height();
-		pat.items.append(newItem);
-		newItem->ItemNr = pat.items.count();
-	}
-	QString patternName = "Pattern_"+newItem->itemName();
-	patternName = patternName.trimmed().simplified().replace(" ", "_");
-	m_Doc->addPattern(patternName, pat);
+	else
+		patternName = patternMap[patNa];
 	ite->setPattern(patternName);
 	ite->GrType = 8;
 	m_Doc->TotalItems = oldNum;
+//	qDebug() << "Using Pattern" << patternName << "internal Name" << patNa;
 }
 
 void PctPlug::handleLineModeEnd()
