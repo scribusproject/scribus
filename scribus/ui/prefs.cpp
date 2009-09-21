@@ -470,19 +470,19 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typoPrefs.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
 	prefsManager->appPrefs.typoPrefs.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
 	prefsManager->appPrefs.typoPrefs.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
-	prefsManager->appPrefs.itemToolPrefs.textBackground = tabTools->colorComboTextBackground->currentText();
-	if (prefsManager->appPrefs.itemToolPrefs.textBackground == CommonStrings::tr_NoneColor)
-		prefsManager->appPrefs.itemToolPrefs.textBackground = CommonStrings::None;
+	prefsManager->appPrefs.itemToolPrefs.textFillColor = tabTools->colorComboTextBackground->currentText();
+	if (prefsManager->appPrefs.itemToolPrefs.textFillColor == CommonStrings::tr_NoneColor)
+		prefsManager->appPrefs.itemToolPrefs.textFillColor = CommonStrings::None;
 	prefsManager->appPrefs.itemToolPrefs.textLineColor = tabTools->colorComboTextLine->currentText();
 	if (prefsManager->appPrefs.itemToolPrefs.textLineColor == CommonStrings::tr_NoneColor)
 		prefsManager->appPrefs.itemToolPrefs.textLineColor = CommonStrings::None;
-	prefsManager->appPrefs.itemToolPrefs.textBackgroundShade = tabTools->shadingTextBack->value();
-	prefsManager->appPrefs.itemToolPrefs.textLineShade = tabTools->shadingTextLine->value();
+	prefsManager->appPrefs.itemToolPrefs.textFillColorShade = tabTools->shadingTextBack->value();
+	prefsManager->appPrefs.itemToolPrefs.textLineColorShade = tabTools->shadingTextLine->value();
 	prefsManager->appPrefs.itemToolPrefs.textShade = tabTools->shadingText->value();
 	prefsManager->appPrefs.itemToolPrefs.textStrokeShade = tabTools->shadingTextStroke->value();
-	prefsManager->appPrefs.itemToolPrefs.shapePen = tabTools->colorComboLineShape->currentText();
-	if (prefsManager->appPrefs.itemToolPrefs.shapePen == CommonStrings::tr_NoneColor)
-		prefsManager->appPrefs.itemToolPrefs.shapePen = CommonStrings::None;
+	prefsManager->appPrefs.itemToolPrefs.shapeLineColor = tabTools->colorComboLineShape->currentText();
+	if (prefsManager->appPrefs.itemToolPrefs.shapeLineColor == CommonStrings::tr_NoneColor)
+		prefsManager->appPrefs.itemToolPrefs.shapeLineColor = CommonStrings::None;
 	prefsManager->appPrefs.itemToolPrefs.textColor = tabTools->colorComboText->currentText();
 	if (prefsManager->appPrefs.itemToolPrefs.textColor == CommonStrings::tr_NoneColor)
 		prefsManager->appPrefs.itemToolPrefs.textColor = CommonStrings::None;
@@ -492,11 +492,11 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.itemToolPrefs.textColumns = tabTools->columnsText->value();
 	prefsManager->appPrefs.itemToolPrefs.textColumnGap = tabTools->gapText->value() / prefsUnitRatio;
 	prefsManager->appPrefs.itemToolPrefs.textTabWidth = tabTools->gapTab->value() / prefsUnitRatio;
-	prefsManager->appPrefs.itemToolPrefs.shapeBrush = tabTools->comboFillShape->currentText();
-	if (prefsManager->appPrefs.itemToolPrefs.shapeBrush == CommonStrings::tr_NoneColor)
-		prefsManager->appPrefs.itemToolPrefs.shapeBrush = CommonStrings::None;
-	prefsManager->appPrefs.itemToolPrefs.shapeShade = tabTools->shadingFillShape->value();
-	prefsManager->appPrefs.itemToolPrefs.shapeShade2 = tabTools->shadingLineShape->value();
+	prefsManager->appPrefs.itemToolPrefs.shapeFillColor = tabTools->comboFillShape->currentText();
+	if (prefsManager->appPrefs.itemToolPrefs.shapeFillColor == CommonStrings::tr_NoneColor)
+		prefsManager->appPrefs.itemToolPrefs.shapeFillColor = CommonStrings::None;
+	prefsManager->appPrefs.itemToolPrefs.shapeFillColorShade = tabTools->shadingFillShape->value();
+	prefsManager->appPrefs.itemToolPrefs.shapeLineColorShade = tabTools->shadingLineShape->value();
 	switch (tabTools->tabFillCombo->currentIndex())
 	{
 		case 0:
@@ -515,12 +515,12 @@ void Preferences::updatePreferences()
 			prefsManager->appPrefs.itemToolPrefs.textTabFillChar = tabTools->tabFillCombo->currentText().right(1);
 			break;
 	}
-	prefsManager->appPrefs.itemToolPrefs.shapeLineArt = static_cast<Qt::PenStyle>(tabTools->comboStyleShape->currentIndex()) + 1;
-	prefsManager->appPrefs.itemToolPrefs.shapeWidth = tabTools->lineWidthShape->value();
+	prefsManager->appPrefs.itemToolPrefs.shapeLineStyle = static_cast<Qt::PenStyle>(tabTools->comboStyleShape->currentIndex()) + 1;
+	prefsManager->appPrefs.itemToolPrefs.shapeLineWidth = tabTools->lineWidthShape->value();
 	prefsManager->appPrefs.itemToolPrefs.lineColor = tabTools->colorComboLine->currentText();
 	if (prefsManager->appPrefs.itemToolPrefs.lineColor == CommonStrings::tr_NoneColor)
 		prefsManager->appPrefs.itemToolPrefs.lineColor = CommonStrings::None;
-	prefsManager->appPrefs.itemToolPrefs.lineShade = tabTools->shadingLine->value();
+	prefsManager->appPrefs.itemToolPrefs.lineColorShade = tabTools->shadingLine->value();
 	prefsManager->appPrefs.itemToolPrefs.lineStyle = static_cast<Qt::PenStyle>(tabTools->comboStyleLine->currentIndex()) + 1;
 	prefsManager->appPrefs.itemToolPrefs.lineWidth = tabTools->lineWidthLine->value();
 	prefsManager->appPrefs.itemToolPrefs.lineStartArrow = tabTools->startArrow->currentIndex();
@@ -531,7 +531,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.itemToolPrefs.imageFillColor = tabTools->comboFillImage->currentText();
 	if (prefsManager->appPrefs.itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
 		prefsManager->appPrefs.itemToolPrefs.imageFillColor = CommonStrings::None;
-	prefsManager->appPrefs.itemToolPrefs.imageFillShade = tabTools->shadingFillImage->value();
+	prefsManager->appPrefs.itemToolPrefs.imageFillColorShade = tabTools->shadingFillImage->value();
 	prefsManager->appPrefs.itemToolPrefs.imageScaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
 	prefsManager->appPrefs.itemToolPrefs.imageScaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;
 	prefsManager->appPrefs.itemToolPrefs.imageScaleType = tabTools->buttonGroup3->isChecked();

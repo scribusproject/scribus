@@ -677,16 +677,16 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 
 	colorComboTextBackground->clear();
 	colorComboTextBackground->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->textBackground == CommonStrings::None)
+	if (itemPrefsData->textFillColor == CommonStrings::None)
 		colorComboTextBackground->setCurrentIndex(colorComboTextBackground->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboTextBackground->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->textBackground)
+		if (itc.key() == itemPrefsData->textFillColor)
 			colorComboTextBackground->setCurrentIndex(colorComboTextBackground->count()-1);
 	}
-	shadingTextBack->setValue(itemPrefsData->textBackgroundShade);
+	shadingTextBack->setValue(itemPrefsData->textFillColorShade);
 
 	colorComboTextLine->clear();
 	colorComboTextLine->addItem(CommonStrings::tr_NoneColor);
@@ -699,7 +699,7 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 		if (itc.key() == itemPrefsData->textLineColor)
 			colorComboTextLine->setCurrentIndex(colorComboTextLine->count()-1);
 	}
-	shadingTextLine->setValue(itemPrefsData->textLineShade);
+	shadingTextLine->setValue(itemPrefsData->textLineColorShade);
 
 	tabFillCombo->clear();
 	tabFillCombo->addItem( tr("None", "tab fill" ));
@@ -737,33 +737,33 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 
 	colorComboLineShape->clear();
 	colorComboLineShape->addItem(CommonStrings::tr_NoneColor);
-	if (itemPrefsData->shapePen == CommonStrings::None)
+	if (itemPrefsData->shapeLineColor == CommonStrings::None)
 		colorComboLineShape->setCurrentIndex(colorComboLineShape->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboLineShape->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->shapePen)
+		if (itc.key() == itemPrefsData->shapeLineColor)
 			colorComboLineShape->setCurrentIndex(colorComboLineShape->count()-1);
 	}
-	shadingLineShape->setValue(itemPrefsData->shapeShade2);
+	shadingLineShape->setValue(itemPrefsData->shapeLineColorShade);
 
 	comboFillShape->clear();
 	comboFillShape->addItem( tr("None"));
-	if (itemPrefsData->shapeBrush == CommonStrings::None)
+	if (itemPrefsData->shapeFillColor == CommonStrings::None)
 		comboFillShape->setCurrentIndex(comboFillShape->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		comboFillShape->insertFancyItem( itc.value(), docu, itc.key() );
-		if (itc.key() == itemPrefsData->shapeBrush)
+		if (itc.key() == itemPrefsData->shapeFillColor)
 			comboFillShape->setCurrentIndex(comboFillShape->count()-1);
 	}
 
-	shadingFillShape->setValue(itemPrefsData->shapeShade);
-	comboStyleShape->setCurrentIndex(static_cast<int>(itemPrefsData->shapeLineArt) - 1);
+	shadingFillShape->setValue(itemPrefsData->shapeFillColorShade);
+	comboStyleShape->setCurrentIndex(static_cast<int>(itemPrefsData->shapeLineStyle) - 1);
 	//CB: shapeWidth? or lineWidth?
-	lineWidthShape->setValue(itemPrefsData->shapeWidth);
+	lineWidthShape->setValue(itemPrefsData->shapeLineWidth);
 
 	colorComboLine->clear();
 	colorComboLine->addItem(CommonStrings::tr_NoneColor);
@@ -777,7 +777,7 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 			colorComboLine->setCurrentIndex(colorComboLine->count()-1);
 	}
 
-	shadingLine->setValue(itemPrefsData->lineShade);
+	shadingLine->setValue(itemPrefsData->lineColorShade);
 
 	comboStyleLine->setCurrentIndex(static_cast<int>(itemPrefsData->lineStyle) - 1);
 	if (docu != 0)
@@ -812,7 +812,7 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 			comboFillImage->setCurrentIndex(comboFillImage->count()-1);
 	}
 
-	shadingFillImage->setValue( itemPrefsData->imageFillShade );
+	shadingFillImage->setValue( itemPrefsData->imageFillColorShade );
 	embeddedPath->setChecked(itemPrefsData->imageUseEmbeddedPath);
 	switch (itemPrefsData->imageLowResType)
 	{

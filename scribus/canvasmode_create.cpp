@@ -586,33 +586,33 @@ PageItem* CreateMode::doCreateNewObject(void)
 		case 0:
 			if (modifiers == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 0;
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 0;
 			}
 			break;
 		case 1:
 			if (modifiers == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 1;
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 1;
 			}
 			break;
 		default:
 			if (modifiers == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
@@ -621,7 +621,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.shapePen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
@@ -650,7 +650,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawImage:
@@ -661,28 +661,28 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawText:
 		if (modifiers == Qt::ShiftModifier)
 		{
-			z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textFont, true);
+			z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs.textFont, true);
 		}	
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textFont, true);
+			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs.textFont, true);
 		}
 		break;
 	case modeDrawRegularPolygon:
 		{
 			if (modifiers == Qt::ShiftModifier)
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.lineColor, true);
+				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.lineColor, true);
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.shapeBrush, m_doc->itemToolPrefs.lineColor, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.lineColor, true);
 			}
 			currItem = m_doc->Items->at(z);
 			QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactorValue2, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
@@ -718,7 +718,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeInsertPDFTextAnnotation:
 	case modeInsertPDFLinkAnnotation:
 		m_doc->ApplyGuides(&Rxp, &Ryp);
-		z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, true);
+		z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, true);
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);
 		currItem->AutoName = false;
@@ -819,7 +819,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
 				{
-					z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs.shapeWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, true);
+					z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs.shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, true);
 					currItem = m_doc->Items->at(z);
 					currItem->isTableItem = true;
 					currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
@@ -870,7 +870,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		}
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);

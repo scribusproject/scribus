@@ -796,9 +796,9 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 	vg.charStyle().setFont(prefsManager->appPrefs.fontPrefs.AvailFonts[tmpf]);
 	vg.charStyle().setFontSize(qRound(attrAsDbl(attrs, "FONTSIZE", 12.0) * 10.0));
 	vg.charStyle().setFeatures(static_cast<StyleFlag>(attrAsInt(attrs, "EFFECT", 0)).featureList());
-	vg.charStyle().setFillColor(attrAsString(attrs, "FCOLOR", doc->itemToolPrefs.shapeBrush));
+	vg.charStyle().setFillColor(attrAsString(attrs, "FCOLOR", doc->itemToolPrefs.shapeFillColor));
 	vg.charStyle().setFillShade(attrAsInt(attrs, "FSHADE", 100));
-	vg.charStyle().setStrokeColor(attrAsString(attrs, "SCOLOR", doc->itemToolPrefs.shapePen));
+	vg.charStyle().setStrokeColor(attrAsString(attrs, "SCOLOR", doc->itemToolPrefs.shapeLineColor));
 	vg.charStyle().setStrokeShade(attrAsInt(attrs, "SSHADE", 100));
 	vg.charStyle().setShadowXOffset(qRound(attrAsDbl(attrs, "TXTSHX", 5.0) * 10));
 	vg.charStyle().setShadowYOffset(qRound(attrAsDbl(attrs, "TXTSHY", -5.0) * 10));

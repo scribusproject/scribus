@@ -398,9 +398,9 @@ void ScribusDoc::init()
 	opToolPrefs.constrain = prefsData.opToolPrefs.constrain;
 
 	PageColors.ensureBlackAndWhite();
-	if (prefsData.itemToolPrefs.shapePen != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.shapePen, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.shapePen]);
-	itemToolPrefs.shapePen = prefsData.itemToolPrefs.shapePen;
+	if (prefsData.itemToolPrefs.shapeLineColor != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.shapeLineColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.shapeLineColor]);
+	itemToolPrefs.shapeLineColor = prefsData.itemToolPrefs.shapeLineColor;
 	if (prefsData.itemToolPrefs.lineColor != CommonStrings::None)
 		PageColors.insert(prefsData.itemToolPrefs.lineColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.lineColor]);
 	itemToolPrefs.lineColor = prefsData.itemToolPrefs.lineColor;
@@ -410,15 +410,15 @@ void ScribusDoc::init()
 	if (prefsData.itemToolPrefs.textStrokeColor != CommonStrings::None)
 		PageColors.insert(prefsData.itemToolPrefs.textStrokeColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textStrokeColor]);
 	itemToolPrefs.textStrokeColor = prefsData.itemToolPrefs.textStrokeColor;
-	if (prefsData.itemToolPrefs.shapeBrush != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.shapeBrush, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.shapeBrush]);
-	itemToolPrefs.shapeBrush = prefsData.itemToolPrefs.shapeBrush;
+	if (prefsData.itemToolPrefs.shapeFillColor != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.shapeFillColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.shapeFillColor]);
+	itemToolPrefs.shapeFillColor = prefsData.itemToolPrefs.shapeFillColor;
 	if (prefsData.itemToolPrefs.imageFillColor != CommonStrings::None)
 		PageColors.insert(prefsData.itemToolPrefs.imageFillColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.imageFillColor]);
 	itemToolPrefs.imageFillColor = prefsData.itemToolPrefs.imageFillColor;
-	if (prefsData.itemToolPrefs.textBackground != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.textBackground, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textBackground]);
-	itemToolPrefs.textBackground = prefsData.itemToolPrefs.textBackground;
+	if (prefsData.itemToolPrefs.textFillColor != CommonStrings::None)
+		PageColors.insert(prefsData.itemToolPrefs.textFillColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textFillColor]);
+	itemToolPrefs.textFillColor = prefsData.itemToolPrefs.textFillColor;
 	if (prefsData.itemToolPrefs.textLineColor != CommonStrings::None)
 		PageColors.insert(prefsData.itemToolPrefs.textLineColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textLineColor]);
 
@@ -1893,7 +1893,7 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 		                     addToPage->Margins.Left+addToPage->xOffset(),
 		                     addToPage->Margins.Top+addToPage->yOffset(), pageWidth-addToPage->Margins.Right-addToPage->Margins.Left,
 		                     pageHeight-addToPage->Margins.Bottom-addToPage->Margins.Top,
-							 1, CommonStrings::None, itemToolPrefs.shapePen, true);
+							 1, CommonStrings::None, itemToolPrefs.shapeLineColor, true);
 		Items->at(z)->isAutoText = true;
 		Items->at(z)->Cols = qRound(PageSp);
 		Items->at(z)->ColGap = PageSpa;
@@ -2613,7 +2613,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	{
 		found = false;
 		// Tool preferences colors
-		if ((it.key() == itemToolPrefs.shapeBrush) || (it.key() == itemToolPrefs.shapePen) || (it.key() == itemToolPrefs.imageFillColor)
+		if ((it.key() == itemToolPrefs.shapeFillColor) || (it.key() == itemToolPrefs.shapeLineColor) || (it.key() == itemToolPrefs.imageFillColor)
 				|| (it.key() == itemToolPrefs.lineColor) || (it.key() == itemToolPrefs.textColor))
 		{
 			if (spot)
@@ -3704,7 +3704,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=iafData.width;
 			h1=iafData.height;
 		}
-		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, itemToolPrefs.shapeWidth, CommonStrings::None, itemToolPrefs.textColor, true);
+		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, itemToolPrefs.shapeLineWidth, CommonStrings::None, itemToolPrefs.textColor, true);
 		if (z!=-1)
 		{
 			PageItem* currItem=Items->at(z);
@@ -3778,25 +3778,25 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->AspectRatio = itemToolPrefs.imageAspectRatio;
 			newItem->IProfile = CMSSettings.DefaultImageRGBProfile;
 			newItem->IRender = CMSSettings.DefaultIntentImages;
-			newItem->setFillShade(itemToolPrefs.imageFillShade);
+			newItem->setFillShade(itemToolPrefs.imageFillColorShade);
 			break;
 		case PageItem::LatexFrame:
 #ifdef HAVE_OSG
 		case PageItem::OSGFrame:
 #endif
-			newItem->setFillShade(itemToolPrefs.imageFillShade);
+			newItem->setFillShade(itemToolPrefs.imageFillColorShade);
 			break;
 		case PageItem::TextFrame:
 //			newItem->setFontFillShade(itemToolPrefs.textShade);
 //			newItem->setFontStrokeShade(itemToolPrefs.textStrokeShade);
-			newItem->setFillColor(itemToolPrefs.textBackground);
-			newItem->setFillShade(itemToolPrefs.textBackgroundShade);
+			newItem->setFillColor(itemToolPrefs.textFillColor);
+			newItem->setFillShade(itemToolPrefs.textFillColorShade);
 			newItem->setLineColor(itemToolPrefs.textLineColor);
-			newItem->setLineShade(itemToolPrefs.textLineShade);
+			newItem->setLineShade(itemToolPrefs.textLineColorShade);
 			break;
 		case PageItem::Line:
 			newItem->PLineArt = Qt::PenStyle(itemToolPrefs.lineStyle);
-			newItem->setLineShade(itemToolPrefs.lineShade);
+			newItem->setLineShade(itemToolPrefs.lineColorShade);
 			break;
 		case PageItem::Polygon:
 			if(frameType!=PageItem::Rectangle && frameType!=PageItem::Ellipse)
@@ -3836,9 +3836,9 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	//ItemType Polygon
 	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine)
 	{
-		newItem->PLineArt = Qt::PenStyle(itemToolPrefs.shapeLineArt);
-		newItem->setFillShade(itemToolPrefs.shapeShade);
-		newItem->setLineShade(itemToolPrefs.shapeShade2);
+		newItem->PLineArt = Qt::PenStyle(itemToolPrefs.shapeLineStyle);
+		newItem->setFillShade(itemToolPrefs.shapeFillColorShade);
+		newItem->setLineShade(itemToolPrefs.shapeLineColorShade);
 		if (itemType == PageItem::Polygon)
 			newItem->ContourLine = newItem->PoLine.copy();
 	}
@@ -5649,12 +5649,12 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 									currItem->setFillColor(itemToolPrefs.imageFillColor);
 								case PageItem::TextFrame:
 								case PageItem::PathText:
-									currItem->setFillColor(itemToolPrefs.textBackground);
+									currItem->setFillColor(itemToolPrefs.textFillColor);
 									break;
 								case PageItem::Line:
 								case PageItem::PolyLine:
 								case PageItem::Polygon:
-									currItem->setFillColor(itemToolPrefs.shapeBrush);
+									currItem->setFillColor(itemToolPrefs.shapeFillColor);
 									break;
 								default:
 									break;
@@ -10266,7 +10266,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		double gh = maxy - miny;
 		PageItem *high = Items->at(highestItem);
 		undoManager->setUndoEnabled(false);
-		int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, itemToolPrefs.shapeBrush, itemToolPrefs.shapePen, true);
+		int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, itemToolPrefs.shapeFillColor, itemToolPrefs.shapeLineColor, true);
 		PageItem *neu = Items->takeAt(z);
 		Items->insert(lowestItem, neu);
 		neu->setItemName( tr("Group%1").arg(GroupCounter));

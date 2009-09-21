@@ -174,7 +174,7 @@ QString SMLineStyle::newStyle()
 		return QString::null;
 	struct SingleLine sl;
 	sl.Color = doc_->itemToolPrefs.lineColor;
-	sl.Shade = doc_->itemToolPrefs.lineShade;
+	sl.Shade = doc_->itemToolPrefs.lineColorShade;
 	sl.Dash = Qt::SolidLine;//Docu->itemToolPrefs.;
 	sl.LineEnd = Qt::FlatCap;//Docu->itemToolPrefs.;
 	sl.LineJoin = Qt::MiterJoin;//Docu->itemToolPrefs.;

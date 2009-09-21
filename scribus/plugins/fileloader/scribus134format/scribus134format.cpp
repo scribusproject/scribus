@@ -883,28 +883,28 @@ void Scribus134Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs.imageLowResType  = attrs.valueAsInt("HalfRes", 1);
 	doc->itemToolPrefs.imageUseEmbeddedPath = attrs.valueAsBool("EmbeddedPath", false);
 	if (attrs.hasAttribute("PEN"))
-		doc->itemToolPrefs.shapePen = attrs.valueAsString("PEN");
+		doc->itemToolPrefs.shapeLineColor = attrs.valueAsString("PEN");
 	if (attrs.hasAttribute("BRUSH"))
-		doc->itemToolPrefs.shapeBrush = attrs.valueAsString("BRUSH");
+		doc->itemToolPrefs.shapeFillColor = attrs.valueAsString("BRUSH");
 	if (attrs.hasAttribute("PENLINE"))
 		doc->itemToolPrefs.lineColor = attrs.valueAsString("PENLINE");
 	if (attrs.hasAttribute("PENTEXT"))
 		doc->itemToolPrefs.textColor = attrs.valueAsString("PENTEXT");
 	if (attrs.hasAttribute("StrokeText"))
 		doc->itemToolPrefs.textStrokeColor = attrs.valueAsString("StrokeText");
-	doc->itemToolPrefs.textBackground  = attrs.valueAsString("TextBackGround", CommonStrings::None);
+	doc->itemToolPrefs.textFillColor  = attrs.valueAsString("TextBackGround", CommonStrings::None);
 	doc->itemToolPrefs.textLineColor   = attrs.valueAsString("TextLineColor", CommonStrings::None);
-	doc->itemToolPrefs.textBackgroundShade =attrs.valueAsInt("TextBackGroundShade", 100);
-	doc->itemToolPrefs.textLineShade   = attrs.valueAsInt("TextLineShade", 100);
+	doc->itemToolPrefs.textFillColorShade =attrs.valueAsInt("TextBackGroundShade", 100);
+	doc->itemToolPrefs.textLineColorShade   = attrs.valueAsInt("TextLineShade", 100);
 	doc->itemToolPrefs.textShade    = attrs.valueAsInt("TextPenShade", 100);
 	doc->itemToolPrefs.textStrokeShade = attrs.valueAsInt("TextStrokeShade", 100);
-	doc->itemToolPrefs.shapeLineArt    = static_cast<Qt::PenStyle>(attrs.valueAsInt("STIL"));
+	doc->itemToolPrefs.shapeLineStyle    = static_cast<Qt::PenStyle>(attrs.valueAsInt("STIL"));
 	doc->itemToolPrefs.lineStyle = static_cast<Qt::PenStyle>(attrs.valueAsInt("STILLINE"));
-	doc->itemToolPrefs.shapeWidth      = attrs.valueAsDouble("WIDTH", 0.0);
+	doc->itemToolPrefs.shapeLineWidth      = attrs.valueAsDouble("WIDTH", 0.0);
 	doc->itemToolPrefs.lineWidth  = attrs.valueAsDouble("WIDTHLINE", 1.0);
-	doc->itemToolPrefs.shapeShade2     = attrs.valueAsInt("PENSHADE", 100);
+	doc->itemToolPrefs.shapeLineColorShade     = attrs.valueAsInt("PENSHADE", 100);
 	doc->itemToolPrefs.lineColor  = attrs.valueAsInt("LINESHADE", 100);
-	doc->itemToolPrefs.shapeShade      = attrs.valueAsInt("BRUSHSHADE", 100);
+	doc->itemToolPrefs.shapeFillColorShade      = attrs.valueAsInt("BRUSHSHADE", 100);
 	doc->opToolPrefs.magMin      = attrs.valueAsInt("MAGMIN", 10);
 	doc->opToolPrefs.magMax      = attrs.valueAsInt("MAGMAX", 3200);
 	doc->opToolPrefs.magStep     = attrs.valueAsInt("MAGSTEP", 200);
@@ -918,7 +918,7 @@ void Scribus134Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs.textTabWidth   = attrs.valueAsDouble("TabWidth", 36.0);
 	if (attrs.hasAttribute("CPICT"))
 		doc->itemToolPrefs.imageFillColor = attrs.valueAsString("CPICT");
-	doc->itemToolPrefs.imageFillShade = attrs.valueAsInt("PICTSHADE", 100);
+	doc->itemToolPrefs.imageFillColorShade = attrs.valueAsInt("PICTSHADE", 100);
 }
 
 void Scribus134Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
@@ -1867,10 +1867,10 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (newItem->fill_gradient.Stops() == 0)
 	{
-		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.shapeBrush];
-		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.shapePen];
-		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.shapeBrush, 100);
-		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapePen, 100);
+		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.shapeFillColor];
+		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.shapeLineColor];
+		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.shapeFillColor, 100);
+		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
 	}
 
 	if (newItem->asPathText())

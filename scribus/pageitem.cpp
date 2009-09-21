@@ -317,7 +317,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternRotation = 0;
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
-	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs.shapeLineArt);
+	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs.shapeLineStyle);
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
 	Select = false;
@@ -451,12 +451,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	else
 	{
-		if (m_Doc->itemToolPrefs.shapeBrush != CommonStrings::None)
+		if (m_Doc->itemToolPrefs.shapeFillColor != CommonStrings::None)
 		{
-			const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeBrush];
+			const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeFillColor];
 			QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeBrush, 100);
-			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeBrush, 100);
+			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
+			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
 		}
 		else
 		{
@@ -469,12 +469,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 			else
 			{
-				if (m_Doc->itemToolPrefs.shapePen != CommonStrings::None)
+				if (m_Doc->itemToolPrefs.shapeLineColor != CommonStrings::None)
 				{
-					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapePen];
+					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeLineColor];
 					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapePen, 100);
-					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapePen, 100);
+					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
+					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
 				}
 				else if (m_Doc->PageColors.contains("Black"))
 				{
@@ -2281,12 +2281,12 @@ void PageItem::setFillColor(const QString &newColor)
 					tmp = m_Doc->itemToolPrefs.imageFillColor;
 				case TextFrame:
 				case PathText:
-					tmp = m_Doc->itemToolPrefs.textBackground;
+					tmp = m_Doc->itemToolPrefs.textFillColor;
 					break;
 				case Line:
 				case PolyLine:
 				case Polygon:
-					tmp = m_Doc->itemToolPrefs.shapeBrush;
+					tmp = m_Doc->itemToolPrefs.shapeFillColor;
 					break;
 				default:
 					break;
@@ -2391,7 +2391,7 @@ void PageItem::setLineColor(const QString &newColor)
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					tmp = m_Doc->itemToolPrefs.shapePen;
+					tmp = m_Doc->itemToolPrefs.shapeLineColor;
 					break;
 				default:
 					break;
@@ -2460,14 +2460,14 @@ void PageItem::setLineQColor()
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					lineColorVal = m_Doc->itemToolPrefs.shapePen;
+					lineColorVal = m_Doc->itemToolPrefs.shapeLineColor;
 					break;
 				default:
 					break;
 			}
 		}
 		if (!m_Doc->PageColors.contains(lineColorVal))
-			lineColorVal = m_Doc->itemToolPrefs.shapePen;
+			lineColorVal = m_Doc->itemToolPrefs.shapeLineColor;
 		const ScColor& col = m_Doc->PageColors[lineColorVal];
 		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
 	}
@@ -2492,12 +2492,12 @@ void PageItem::setFillQColor()
 					fillColorVal = m_Doc->itemToolPrefs.imageFillColor;
 				case TextFrame:
 				case PathText:
-					fillColorVal = m_Doc->itemToolPrefs.textBackground;
+					fillColorVal = m_Doc->itemToolPrefs.textFillColor;
 					break;
 				case Line:
 				case PolyLine:
 				case Polygon:
-					fillColorVal = m_Doc->itemToolPrefs.shapeBrush;
+					fillColorVal = m_Doc->itemToolPrefs.shapeFillColor;
 					break;
 				default:
 					break;

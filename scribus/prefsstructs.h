@@ -150,34 +150,34 @@ struct GuidesPrefs
 struct ItemToolPrefs
 {
 	/* Texttool */
-	QString textFont;
-	int textSize;
-	QString textColor;
-	int textShade;
-	QString textStrokeColor;
-	int textStrokeShade;
-	QString textBackground;
-	QString textLineColor;
-	int textBackgroundShade;
-	int textLineShade;
-	int textColumns;
-	double textColumnGap;
-	QString textTabFillChar;
-	double textTabWidth;
+	QString textFont; //! Default font for text frames, should be default font for default style
+	int textSize; //! Default font size
+	QString textColor; //! Default text color
+	int textShade; //! Default text color shade
+	QString textStrokeColor; //! Default text stroke color
+	int textStrokeShade; //! Default text stroke color shade
+	QString textFillColor; //! Default text frame fill color
+	QString textLineColor; //! Default text frame line color
+	int textFillColorShade; //! Default text frame fill shade
+	int textLineColorShade; //! Default text frame line shade
+	int textColumns; //! Default number of columns in a text frame
+	double textColumnGap; //! Default gap between columns of a text frame
+	QString textTabFillChar; //! Default tab fill character
+	double textTabWidth; //! Default tab width
 	/* ShapeTool */
-	QString shapePen;
-	QString shapeBrush;
-	int shapeShade;
-	int shapeShade2;
-	int shapeLineArt;
-	double shapeWidth;
+	QString shapeLineColor; //! Default shape line color
+	QString shapeFillColor; //! Default shape fill color
+	int shapeFillColorShade; //! Default shape fill color shade
+	int shapeLineColorShade; //! Default shape line color shade
+	int shapeLineStyle; //! Line style of shapes
+	double shapeLineWidth; //! Line width of shape
 	/* Line Tool */
-	QString lineColor;
-	int lineShade;
-	double lineWidth;
-	int lineStyle;
-	int lineStartArrow;
-	int lineEndArrow;
+	QString lineColor; //! Color of a line
+	int lineColorShade; //! Shade of line color
+	double lineWidth; //! Width of line
+	int lineStyle; //! Style of line
+	int lineStartArrow; //! Starting arrow, 0 = none
+	int lineEndArrow; //! Ending arrow, 0 = none
 	/* Regular Polygon Tool */
 	int polyCorners;  //! Number of corners for a polygon
 	int polyFactorValue; //! Factor as an integer????
@@ -186,14 +186,14 @@ struct ItemToolPrefs
 	double polyRotation; //! Rotation of a polygon
 	double polyCurvature; //! Curvature of polygon
 	/* Image Tool */
-	QString imageFillColor;
-	int imageFillShade;
-	double imageScaleX;
-	double imageScaleY;
-	bool imageScaleType;
-	bool imageAspectRatio;
-	int imageLowResType;
-	bool imageUseEmbeddedPath;
+	QString imageFillColor; //! Default fill color of an image frame
+	int imageFillColorShade; //! Default shade of fill color of an image grame
+	double imageScaleX; //! X scale of an image within an image frame
+	double imageScaleY; //! Y scale of an image within an image frame
+	bool imageScaleType; //! Scale type of image
+	bool imageAspectRatio; //! Use stored aspect ratio for the image
+	int imageLowResType; //! Preview type for an image frame
+	bool imageUseEmbeddedPath; //! Use embedded path, eg from an EPS etc.
 };
 
 struct OperatorToolPrefs

@@ -385,9 +385,9 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 		vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs.shapeBrush));
+		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs.shapeFillColor));
 		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs.shapePen));
+		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs.shapeLineColor));
 		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
 			vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
