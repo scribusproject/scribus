@@ -1910,8 +1910,8 @@ void PctPlug::setFillPattern(PageItem* ite)
 	uint oldNum = m_Doc->TotalItems;
 	QImage image = QImage(8, 8, QImage::Format_Mono);
 	QVector<QRgb> colors;
-	colors.append(foreColor.rgb());
 	colors.append(backColor.rgb());
+	colors.append(foreColor.rgb());
 	image.setColorTable(colors);
 	for (int rr = 0; rr < 8; rr++)
 	{
