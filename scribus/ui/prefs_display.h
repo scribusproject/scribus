@@ -18,6 +18,10 @@ class SCRIBUS_API Prefs_Display : public QWidget, Ui::Prefs_Display
 	public:
 		Prefs_Display(QWidget* parent=0);
 		~Prefs_Display();
+		void restoreDefaults(struct ApplicationPrefs *prefsData);
+
+	protected:
+		int docUnitIndex;
 };
 
 #endif // PREFS_DISPLAY_H

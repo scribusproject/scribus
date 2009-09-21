@@ -82,6 +82,8 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	connect(preferencesTypeList, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 
 	initPreferenceValues();
+
+	prefs_Display->restoreDefaults(&(prefsManager->appPrefs));
 }
 
 PreferencesDialog::~PreferencesDialog()

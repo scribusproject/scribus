@@ -44,9 +44,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-250</y>
+        <y>-254</y>
         <width>678</width>
-        <height>1122</height>
+        <height>1127</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -73,63 +73,63 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QCheckBox" name="checkBox">
+          <widget class="QCheckBox" name="showImagesCheckBox">
            <property name="text">
             <string>Show Images</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_2">
+          <widget class="QCheckBox" name="showControlCharsCheckBox">
            <property name="text">
             <string>Show Text Control Characters</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_3">
+          <widget class="QCheckBox" name="showRulersRelativeToPageCheckBox">
            <property name="text">
-            <string>Rulers Relative to Page</string>
+            <string>Show Rulers Relative to Page</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_5">
+          <widget class="QCheckBox" name="showTextChainsCheckBox">
            <property name="text">
             <string>Show Text Chains</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_10">
+          <widget class="QCheckBox" name="showFramesCheckBox">
            <property name="text">
             <string>Show Frames</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_11">
+          <widget class="QCheckBox" name="showLayerIndicatorsCheckBox">
            <property name="text">
             <string>Show Layer Indicators</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_9">
+          <widget class="QCheckBox" name="showUnprintableAreaInMarginColorCheckBox">
            <property name="text">
-            <string>Display Unprintable Area in Margin Color</string>
+            <string>Show Unprintable Area in Margin Color</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_8">
+          <widget class="QCheckBox" name="showBleedAreaCheckBox">
            <property name="text">
             <string>Show Bleed Area</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_7">
+          <widget class="QCheckBox" name="showPageShadowCheckBox">
            <property name="text">
             <string>Show Page Shadow</string>
            </property>
@@ -207,16 +207,16 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="ScrSpinBox" name="spinBox"/>
+          <widget class="ScrSpinBox" name="scratchSpaceLeftSpinBox"/>
          </item>
          <item row="1" column="1">
-          <widget class="ScrSpinBox" name="spinBox_2"/>
+          <widget class="ScrSpinBox" name="scratchSpaceRightSpinBox"/>
          </item>
          <item row="2" column="1">
-          <widget class="ScrSpinBox" name="spinBox_3"/>
+          <widget class="ScrSpinBox" name="scratchSpaceTopSpinBox"/>
          </item>
          <item row="3" column="1">
-          <widget class="ScrSpinBox" name="spinBox_4"/>
+          <widget class="ScrSpinBox" name="scratchSpaceBottomSpinBox"/>
          </item>
         </layout>
        </item>
@@ -272,7 +272,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="ScrSpinBox" name="spinBox_5"/>
+          <widget class="ScrSpinBox" name="pageGapHorizontalSpinBox"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_10">
@@ -282,7 +282,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="ScrSpinBox" name="spinBox_6"/>
+          <widget class="ScrSpinBox" name="pageGapVerticalSpinBox"/>
          </item>
         </layout>
        </item>
@@ -325,7 +325,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QSlider" name="CaliSlider">
+          <widget class="QSlider" name="adjustDisplaySlider">
            <property name="minimum">
             <number>-150</number>
            </property>
@@ -365,7 +365,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLabel" name="CaliRuler">
+          <widget class="QLabel" name="displaySizeRuler">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -425,12 +425,12 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_15">
            <property name="text">
-            <string>Page Fill Color:</string>
+            <string>Page Fill:</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_8">
+          <widget class="QPushButton" name="pageFillColorButton">
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -444,7 +444,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_7">
+          <widget class="QPushButton" name="selectedPageBorderButton">
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -458,7 +458,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QPushButton" name="pushButton_10">
+          <widget class="QPushButton" name="frameColorButton">
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -472,7 +472,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QPushButton" name="pushButton_9">
+          <widget class="QPushButton" name="frameLockedColorButton">
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -486,23 +486,9 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="QPushButton" name="frameSelectedColorButton">
            <property name="text">
             <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="label_29">
-           <property name="text">
-            <string>Annotation Frames:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="label_30">
-           <property name="text">
-            <string>Grouped Frames:</string>
            </property>
           </widget>
          </item>
@@ -513,36 +499,50 @@
            </property>
           </widget>
          </item>
+         <item row="5" column="1">
+          <widget class="QPushButton" name="frameLinkedColorButton">
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_30">
+           <property name="text">
+            <string>Grouped Frames:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QPushButton" name="frameGroupedColorButton">
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
          <item row="7" column="0">
+          <widget class="QLabel" name="label_29">
+           <property name="text">
+            <string>Annotation Frames:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0">
           <widget class="QLabel" name="label_32">
            <property name="text">
             <string>Text Control Characters:</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
          <item row="7" column="1">
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="frameAnnotationColorButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="1">
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <widget class="QPushButton" name="pushButton_4">
+         <item row="8" column="1">
+          <widget class="QPushButton" name="textControlCharsButton">
            <property name="text">
             <string>PushButton</string>
            </property>
