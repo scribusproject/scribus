@@ -2011,7 +2011,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				}
 				currItem = m_doc->Items->at(z);
-				QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactorValue2, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
+				QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactor, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
 				currItem->PoLine.fromQPainterPath(path);
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));

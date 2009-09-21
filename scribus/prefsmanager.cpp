@@ -284,9 +284,9 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesPrefs.guidePlacement = true;
 	appPrefs.docSetupPrefs.docUnitIndex = 0;
 	appPrefs.itemToolPrefs.polyCorners = 4;
-	appPrefs.itemToolPrefs.polyFactorValue2 = 0.5;
+	appPrefs.itemToolPrefs.polyFactor = 0.5;
 	appPrefs.itemToolPrefs.polyUseFactor = false;
-	appPrefs.itemToolPrefs.polyFactorValue = 0;
+//	appPrefs.itemToolPrefs.polyFactorValue = 0;
 	appPrefs.itemToolPrefs.polyRotation = 0.0;
 	appPrefs.itemToolPrefs.polyCurvature = 0.0;
 //	appPrefs.PSize = 40;
@@ -1355,9 +1355,9 @@ bool PrefsManager::WritePref(QString ho)
 	dc9.setAttribute("PICTSCX",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleX));
 	dc9.setAttribute("PICTSCY",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleY));
 	dc9.setAttribute("POLYC", appPrefs.itemToolPrefs.polyCorners);
-	dc9.setAttribute("POLYF", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyFactorValue2));
+	dc9.setAttribute("POLYF", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyFactor));
 	dc9.setAttribute("POLYR", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyRotation));
-	dc9.setAttribute("POLYFD", appPrefs.itemToolPrefs.polyFactorValue);
+//	dc9.setAttribute("POLYFD", appPrefs.itemToolPrefs.polyFactorValue);
 	dc9.setAttribute("POLYCUR", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyCurvature));
 	dc9.setAttribute("POLYS", static_cast<int>(appPrefs.itemToolPrefs.polyUseFactor));
 	dc9.setAttribute("PSCALE", static_cast<int>(appPrefs.itemToolPrefs.imageScaleType));
@@ -1926,10 +1926,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.imageUseEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
 			appPrefs.itemToolPrefs.imageLowResType = dc.attribute("HalfRes", "1").toInt();
 			appPrefs.itemToolPrefs.polyCorners = dc.attribute("POLYC", "4").toInt();
-			appPrefs.itemToolPrefs.polyFactorValue2 = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
+			appPrefs.itemToolPrefs.polyFactor = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
 			appPrefs.itemToolPrefs.polyRotation = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
 			appPrefs.itemToolPrefs.polyCurvature = ScCLocale::toDoubleC(dc.attribute("POLYCUR"), 0.0);
-			appPrefs.itemToolPrefs.polyFactorValue = dc.attribute("POLYFD", "0").toInt();
+//			appPrefs.itemToolPrefs.polyFactorValue = dc.attribute("POLYFD", "0").toInt();
 			appPrefs.itemToolPrefs.polyUseFactor  = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 			appPrefs.itemToolPrefs.lineStartArrow = dc.attribute("StartArrow", "0").toInt();
 			appPrefs.itemToolPrefs.lineEndArrow   = dc.attribute("EndArrow", "0").toInt();

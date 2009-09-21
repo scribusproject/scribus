@@ -261,10 +261,10 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->guidesSettings.baselineGridShown = prefsManager->appPrefs.guidesPrefs.baselineGridShown;
 	currDoc->guidesSettings.linkShown = prefsManager->appPrefs.guidesPrefs.linkShown;
 	currDoc->itemToolPrefs.polyCorners = prefsManager->appPrefs.itemToolPrefs.polyCorners;
-	currDoc->itemToolPrefs.polyFactorValue2 = prefsManager->appPrefs.itemToolPrefs.polyFactorValue2;
+	currDoc->itemToolPrefs.polyFactor = prefsManager->appPrefs.itemToolPrefs.polyFactor;
 	currDoc->itemToolPrefs.polyRotation = prefsManager->appPrefs.itemToolPrefs.polyRotation;
 	currDoc->itemToolPrefs.polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
-	currDoc->itemToolPrefs.polyFactorValue = prefsManager->appPrefs.itemToolPrefs.polyFactorValue;
+//	currDoc->itemToolPrefs.polyFactorValue = prefsManager->appPrefs.itemToolPrefs.polyFactorValue;
 	currDoc->itemToolPrefs.polyUseFactor = prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
 	currDoc->AutoSave = prefsManager->appPrefs.docSetupPrefs.AutoSave;
 	currDoc->AutoSaveTime = prefsManager->appPrefs.docSetupPrefs.AutoSaveTime;

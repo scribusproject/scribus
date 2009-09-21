@@ -104,7 +104,7 @@ void CreateMode::drawControls(QPainter* p)
 		}
 		else if (createObjectMode == modeDrawRegularPolygon)
 		{
-			QPainterPath path = RegularPolygon(localRect.width(), localRect.height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactorValue2, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
+			QPainterPath path = RegularPolygon(localRect.width(), localRect.height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactor, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
@@ -685,7 +685,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.lineColor, true);
 			}
 			currItem = m_doc->Items->at(z);
-			QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactorValue2, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
+			QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs.polyCorners, m_doc->itemToolPrefs.polyUseFactor, m_doc->itemToolPrefs.polyFactor, m_doc->itemToolPrefs.polyRotation, m_doc->itemToolPrefs.polyCurvature);
 			currItem->PoLine.fromQPainterPath(path);
 			m_doc->AdjustItemSize(currItem);
 			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);

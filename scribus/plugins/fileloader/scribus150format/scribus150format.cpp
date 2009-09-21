@@ -860,10 +860,10 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs.textColumnGap    = attrs.valueAsDouble("DGAP", 0.0);
 
 	doc->itemToolPrefs.polyCorners      = attrs.valueAsInt("POLYC", 4);
-	doc->itemToolPrefs.polyFactorValue2 = attrs.valueAsDouble("POLYF", 0.5);
+	doc->itemToolPrefs.polyFactor = attrs.valueAsDouble("POLYF", 0.5);
 	doc->itemToolPrefs.polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
 	doc->itemToolPrefs.polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
-	doc->itemToolPrefs.polyFactorValue  = attrs.valueAsInt("POLYFD", 0);
+//	doc->itemToolPrefs.polyFactorValue  = attrs.valueAsInt("POLYFD", 0);
 	doc->itemToolPrefs.polyUseFactor    = attrs.valueAsBool("POLYS", false);
 
 	doc->itemToolPrefs.lineStartArrow = attrs.valueAsInt("StartArrow", 0);
