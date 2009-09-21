@@ -316,13 +316,15 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	QDomElement properties;
 	if (isOODraw2)
 	{
-		style = m_styles[master->attribute( "style:page-layout-name" )];
-		properties = style->namedItem( "style:page-layout-properties" ).toElement();
+		style = m_styles.value(master->attribute( "style:page-layout-name" ), NULL);
+		if (style)
+			properties = style->namedItem("style:page-layout-properties" ).toElement();
 	}
 	else
 	{
-		style = m_styles[master->attribute( "style:page-master-name" )];
-		properties = style->namedItem( "style:properties" ).toElement();
+		style = m_styles.value(master->attribute( "style:page-master-name" ), NULL);
+		if (style)
+			properties = style->namedItem( "style:properties" ).toElement();
 	}
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
@@ -1300,20 +1302,23 @@ void OODPlug::insertStyles( const QDomElement& styles )
 void OODPlug::fillStyleStack( const QDomElement& object )
 {
 	if( object.hasAttribute( "presentation:style-name" ) )
-		addStyles( m_styles[object.attribute( "presentation:style-name" )] );
+		addStyles( m_styles.value(object.attribute( "presentation:style-name" ), NULL) );
 	if( object.hasAttribute( "draw:style-name" ) )
-		addStyles( m_styles[object.attribute( "draw:style-name" )] );
+		addStyles( m_styles.value(object.attribute( "draw:style-name" ), NULL) );
 	if( object.hasAttribute( "draw:text-style-name" ) )
-		addStyles( m_styles[object.attribute( "draw:text-style-name" )] );
+		addStyles( m_styles.value(object.attribute( "draw:text-style-name" ), NULL) );
 	if( object.hasAttribute( "text:style-name" ) )
-		addStyles( m_styles[object.attribute( "text:style-name" )] );
+		addStyles( m_styles.value(object.attribute( "text:style-name" ), NULL) );
 }
 
 void OODPlug::addStyles( const QDomElement* style )
 {
-	if( style->hasAttribute( "style:parent-style-name" ) )
-		addStyles( m_styles[style->attribute( "style:parent-style-name" )] );
-	m_styleStack.push( *style );
+	if (style)
+	{
+		if( style->hasAttribute( "style:parent-style-name" ) )
+			addStyles( m_styles.value(style->attribute( "style:parent-style-name" ), NULL) );
+		m_styleStack.push( *style );
+	}
 }
 
 void OODPlug::storeObjectStyles( const QDomElement& object )
