@@ -1942,8 +1942,10 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		uint windowCount=windows.count();
 		for ( uint i = 0; i < windowCount; ++i )
 		{
-			tw = dynamic_cast<ScribusWin *>(windows.at(i));
-			if (tw)
+			tw = (ScribusWin *)(windows.at(i));
+			QMdiSubWindow *tws = windows.at(i);
+			ScribusWin* scw = dynamic_cast<ScribusWin *>(tws->widget());
+			if (scw)
 			{
 				newActWin(windows.at(i));
 				tw = ActWin;
