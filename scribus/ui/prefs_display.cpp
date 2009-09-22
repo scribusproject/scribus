@@ -5,26 +5,67 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "prefs_display.h"
+#include <QApplication>
+#include <QColor>
+#include <QColorDialog>
+#include <QDesktopWidget>
+#include <QPainter>
 
+#include "prefs_display.h"
 #include "prefsstructs.h"
 #include "units.h"
+#include "util_icon.h"
 
 Prefs_Display::Prefs_Display(QWidget* parent)
 	: QWidget(parent)
 {
 	setupUi(this);
+	languageChange();
+
+	buttonRestoreDPI->setIcon(QIcon(loadIcon("screen.png")));
+
+	connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changePaperColor()));
+	connect(frameSelectedColorButton, SIGNAL(clicked()), this, SLOT(changeFrameColor()));
+	connect(frameColorButton, SIGNAL(clicked()), this, SLOT(changeNormFrameColor()));
+	connect(frameGroupedColorButton, SIGNAL(clicked()), this, SLOT(changeGroupFrameColor()));
+	connect(frameLinkedColorButton, SIGNAL(clicked()), this, SLOT(changeChainFrameColor()));
+	connect(frameLockedColorButton, SIGNAL(clicked()), this, SLOT(changeLockFrameColor()));
+	connect(frameAnnotationColorButton, SIGNAL(clicked()), this, SLOT(changeAnnotFrameColor()));
+	connect(selectedPageBorderButton, SIGNAL(clicked()), this, SLOT(changePageBorderColor()));
+	connect(textControlCharsButton, SIGNAL(clicked()), this, SLOT(changeControlCharsColor()));
+
+	connect(buttonRestoreDPI, SIGNAL(clicked()), this, SLOT(restoreDisScale()));
+	connect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+	connect(rulerUnitComboBox, SIGNAL(activated(int)), this, SLOT(drawRuler()));
 }
 
 Prefs_Display::~Prefs_Display()
 {
 }
 
+void Prefs_Display::languageChange()
+{
+	pageFillColorButton->setToolTip( "<qt>" + tr( "Color for paper (onscreen)" ) + "</qt>");
+	showUnprintableAreaInMarginColorCheckBox->setToolTip( "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
+	showTextChainsCheckBox->setToolTip( "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
+	showControlCharsCheckBox->setToolTip( "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
+	showFramesCheckBox->setToolTip( "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
+	showLayerIndicatorsCheckBox->setToolTip( "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
+	showImagesCheckBox->setToolTip( "<qt>" + tr("Turns the display of images on or off") + "</qt>");
+	showPageShadowCheckBox->setToolTip( "<qt>" + tr("Turns the page shadow on or off") + "</qt>");
+	scratchSpaceLeftSpinBox->setToolTip( "<qt>" + tr( "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	scratchSpaceRightSpinBox->setToolTip( "<qt>" + tr( "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	scratchSpaceTopSpinBox->setToolTip( "<qt>" + tr( "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	scratchSpaceBottomSpinBox->setToolTip( "<qt>" + tr( "Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	buttonRestoreDPI->setToolTip( "<qt>" + tr( "Set the default zoom level" )  + "</qt>");
+	adjustDisplaySlider->setToolTip( "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
+}
+
 void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
+//	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
 
 	showImagesCheckBox->setChecked(prefsData->guidesPrefs.showPic);
@@ -59,54 +100,263 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageGapHorizontalSpinBox->setValue(prefsData->displayPrefs.pageGapHorizontal);
 	pageGapVerticalSpinBox->setValue(prefsData->displayPrefs.pageGapVertical);
 
-	/*
-	DisScale = prefsData->displayPrefs.displayScale;
-
-	QPixmap pm(54, 14);
+	QPixmap pm(100, 30);
 	pm.fill(prefsData->displayPrefs.paperColor);
 	colorPaper = prefsData->displayPrefs.paperColor;
-	backColor->setIcon(pm);
-	backColor->setText( QString::null );
+	pageFillColorButton->setText( QString::null );
+	pageFillColorButton->setIcon(pm);
+
+
 	pm.fill(prefsData->displayPrefs.frameColor);
 	colorFrame = prefsData->displayPrefs.frameColor;
-	buttonFrameSelected->setText( QString::null );
-	buttonFrameSelected->setIcon(pm);
+	frameSelectedColorButton->setText( QString::null );
+	frameSelectedColorButton->setIcon(pm);
+
 	pm.fill(prefsData->displayPrefs.frameNormColor);
 	colorFrameNorm = prefsData->displayPrefs.frameNormColor;
-	buttonFrameNormal->setText( QString::null );
-	buttonFrameNormal->setIcon(pm);
+	frameColorButton->setText( QString::null );
+	frameColorButton->setIcon(pm);
+
 	pm.fill(prefsData->displayPrefs.frameGroupColor);
 	colorFrameGroup = prefsData->displayPrefs.frameGroupColor;
-	buttonFrameGrouped->setText( QString::null );
-	buttonFrameGrouped->setIcon(pm);
+	frameGroupedColorButton->setText( QString::null );
+	frameGroupedColorButton->setIcon(pm);
+
 	pm.fill(prefsData->displayPrefs.frameLinkColor);
 	colorFrameLinked = prefsData->displayPrefs.frameLinkColor;
-	buttonFrameLinked->setText( QString::null );
-	buttonFrameLinked->setIcon(pm);
+	frameLinkedColorButton->setText( QString::null );
+	frameLinkedColorButton->setIcon(pm);
+
 	pm.fill(prefsData->displayPrefs.frameLockColor);
 	colorFrameLocked = prefsData->displayPrefs.frameLockColor;
-	buttonFrameLocked->setText( QString::null );
-	buttonFrameLocked->setIcon(pm);
+	frameLockedColorButton->setText( QString::null );
+	frameLockedColorButton->setIcon(pm);
+
 	pm.fill(prefsData->displayPrefs.frameAnnotationColor);
 	colorFrameAnnotation = prefsData->displayPrefs.frameAnnotationColor;
-	buttonFrameAnnotation->setText( QString::null );
-	buttonFrameAnnotation->setIcon(pm);
+	frameAnnotationColorButton->setText( QString::null );
+	frameAnnotationColorButton->setIcon(pm);
+
 	pm.fill(prefsData->displayPrefs.pageBorderColor);
 	colorPageBorder = prefsData->displayPrefs.pageBorderColor;
-	buttonSelectedPage->setText( QString::null );
-	buttonSelectedPage->setIcon(pm);
+	selectedPageBorderButton->setText( QString::null );
+	selectedPageBorderButton->setIcon(pm);
+
 	pm.fill(prefsData->displayPrefs.controlCharColor);
 	colorControlChars = prefsData->displayPrefs.controlCharColor;
-	buttonControlChars->setText( QString::null );
-	buttonControlChars->setIcon(pm);
+	textControlCharsButton->setText( QString::null );
+	textControlCharsButton->setIcon(pm);
 
+	displayScale=prefsData->displayPrefs.displayScale;
 
-	CaliSlider->setValue(qRound(100 * DisScale) - 150);
-	CaliAnz->setText(QString::number(qRound(DisScale*72.0))+ tr(" dpi"));
-	rulerUnitCombo->clear();
-	rulerUnitCombo->addItems(unitGetTextUnitList());
-	rulerUnitCombo->setCurrentIndex(docUnitIndex);
+	adjustDisplaySlider->setValue(qRound(100 * displayScale) - 150);
+	displayDPI->setText(QString::number(qRound(displayScale*72.0))+ tr(" dpi"));
+	rulerUnitComboBox->clear();
+	rulerUnitComboBox->addItems(unitGetTextUnitList());
+	rulerUnitComboBox->setCurrentIndex(docUnitIndex);
 	drawRuler();
-*/
+
 }
 
+void Prefs_Display::drawRuler()
+{
+	int index = rulerUnitComboBox->currentIndex();
+	double iter = unitRulerGetIter1FromIndex(index);
+	double iter2 = unitRulerGetIter2FromIndex(index);
+	double maxi;
+	switch (index)
+	{
+		case 0:
+			maxi = 200.0;
+			break;
+		case 1:
+			maxi = iter2;
+			break;
+		case 2:
+			maxi = 2 * iter2;
+			break;
+		case 3:
+			maxi = 240.0;
+			break;
+		case 4:
+			maxi = 240.0;
+			break;
+		default:
+			iter = 10.0;
+			iter2 = iter * 10.0;
+			maxi = 200.0;
+			break;
+	}
+
+	QPixmap pm(qMin(qMax(displaySizeRuler->width(), qRound(maxi)+30), qRound(maxi*displayScale+30)), 21);
+	pm.fill();
+	QPainter p;
+	p.begin(&pm);
+	p.drawLine(0, 19, pm.width(), 19);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
+	p.scale(displayScale, 1.0);
+	double xl;
+	for (xl = 0; xl < maxi; xl += iter)
+		p.drawLine(QPointF(xl, 13.0), QPointF(xl, 19.0));
+	for (xl = 0; xl < maxi+10; xl += iter2)
+	{
+		p.drawLine(QPointF(xl, 6.0), QPointF(xl, 19.0));
+		p.save();
+		p.scale(1.0 / displayScale, 1.0);
+		switch (index)
+		{
+			case 2:
+			case 4:
+				p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(xl / iter2));
+				break;
+			case 3:
+			case 5:
+				p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(xl / iter));
+				break;
+			default:
+				p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(xl / iter * 10));
+				break;
+		}
+		p.restore();
+	}
+	p.end();
+	displaySizeRuler->setPixmap(pm);
+}
+
+void Prefs_Display::restoreDisScale()
+{
+	disconnect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+	int dpi = qApp->desktop()->logicalDpiX();
+	if ((dpi < 60) || (dpi > 250))
+		dpi = 72;
+	displayScale = dpi / 72.0;
+	adjustDisplaySlider->setValue(qRound(100 * displayScale) - 150);
+	drawRuler();
+	displayDPI->setText(QString::number(qRound(displayScale*72.0))+ tr(" dpi"));
+	connect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+}
+
+void Prefs_Display::setDisScale()
+{
+	displayScale = qMax((150.0 + adjustDisplaySlider->value()) / 100.0, 0.01);
+	drawRuler();
+	displayDPI->setText(QString::number(qRound(displayScale*72.0))+ tr(" dpi"));
+}
+
+void Prefs_Display::changePaperColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorPaper, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorPaper = neu;
+		pageFillColorButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changeFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrame, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrame = neu;
+		frameSelectedColorButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changeNormFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameNorm, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameNorm = neu;
+		frameColorButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changeGroupFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameGroup, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameGroup = neu;
+		frameGroupedColorButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changeChainFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameLinked, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameLinked = neu;
+		frameLinkedColorButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changeLockFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameLocked, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameLocked = neu;
+		frameLockedColorButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changeAnnotFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameAnnotation, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameAnnotation = neu;
+		frameAnnotationColorButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changePageBorderColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorPageBorder, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorPageBorder = neu;
+		selectedPageBorderButton->setIcon(pm);
+	}
+}
+
+void Prefs_Display::changeControlCharsColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorControlChars, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorControlChars = neu;
+		textControlCharsButton->setIcon(pm);
+	}
+}

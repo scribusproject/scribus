@@ -20,8 +20,53 @@ class SCRIBUS_API Prefs_Display : public QWidget, Ui::Prefs_Display
 		~Prefs_Display();
 		void restoreDefaults(struct ApplicationPrefs *prefsData);
 
+	public slots:
+		void languageChange();
+
+	protected slots:
+		/*!
+		\author Franz Schmid
+		\brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
+		*/
+		void drawRuler();
+		/*!
+		\author Franz Schmid
+		\brief Sets Scale for ruler scale from the display value
+		*/
+		void restoreDisScale();
+		/*!
+		\author Franz Schmid
+		\brief Preferences (Display, Display Size). Sets Scale for ruler scale
+		*/
+		void setDisScale();
+		/*!
+		\author Franz Schmid
+		\brief Slots for changing colors
+		*/
+		virtual void changePaperColor();
+		virtual void changeFrameColor();
+		virtual void changeNormFrameColor();
+		virtual void changeGroupFrameColor();
+		virtual void changeChainFrameColor();
+		virtual void changeLockFrameColor();
+		virtual void changeAnnotFrameColor();
+		virtual void changePageBorderColor();
+		virtual void changeControlCharsColor();
+
+
 	protected:
 		int docUnitIndex;
+		QColor colorPaper;
+		QColor colorFrame;
+		QColor colorFrameNorm;
+		QColor colorFrameGroup;
+		QColor colorFrameLocked;
+		QColor colorFrameLinked;
+		QColor colorFrameAnnotation;
+		QColor colorPageBorder;
+		QColor colorControlChars;
+		double displayScale;
+
 };
 
 #endif // PREFS_DISPLAY_H

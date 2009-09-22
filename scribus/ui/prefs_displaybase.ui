@@ -44,7 +44,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-254</y>
+        <y>-279</y>
         <width>678</width>
         <height>1127</height>
        </rect>
@@ -341,7 +341,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="CaliAnz">
+          <widget class="QLabel" name="displayDPI">
            <property name="text">
             <string>Scale%</string>
            </property>
@@ -390,7 +390,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="rulerUnitCombo"/>
+          <widget class="QComboBox" name="rulerUnitComboBox"/>
          </item>
         </layout>
        </item>
