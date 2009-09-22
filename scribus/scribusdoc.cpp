@@ -3446,11 +3446,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				int currActiveLayer = activeLayer();
 				for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 				{
-					setActiveLayer((*it).LNr);
+					setActiveLayer(it->LNr);
 					for (uint ite = 0; ite < end2; ++ite)
 					{
 						PageItem *itemToCopy = MasterItems.at(ite);
-						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && ((*it).LNr == itemToCopy->LayerNr))
+						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && (it->LNr == itemToCopy->LayerNr))
 							tempSelection.addItem(itemToCopy, true);
 					}
 					if (tempSelection.count() != 0)
@@ -3475,11 +3475,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		int currActiveLayer = activeLayer();
 		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 		{
-			setActiveLayer((*it).LNr);
+			setActiveLayer(it->LNr);
 			for (uint ite = 0; ite < end; ++ite)
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
-				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
+				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && (it->LNr == itemToCopy->LayerNr))
 					tempSelection.addItem(itemToCopy, true);
 			}
 			if (tempSelection.count() != 0)
@@ -3488,7 +3488,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				QString dataS = ss->WriteElem(this, view(), &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
-				ss->ReadElem(dataS, prefsData.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
+				ss->ReadElemToLayer(dataS, prefsData.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view(), it->LNr);
 				delete ss;
 				setMasterPageMode(false);
 			}
