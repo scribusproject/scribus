@@ -8133,6 +8133,13 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad, bool showInfo)
 					continue;
 				Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
+				if (nam.isEmpty())
+				{
+					cmsCloseProfile(hIn);
+					if (showInfo)
+						sDebug(QString("Color profile %s is broken : no valid description").arg(fi.filePath()));
+					continue;
+				}
 				switch (static_cast<int>(cmsGetDeviceClass(hIn)))
 				{
 				case icSigInputClass:
