@@ -3462,11 +3462,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				int currActiveLayer = activeLayer();
 				for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 				{
-					setActiveLayer((*it).ID);
+					setActiveLayer(it->ID);
 					for (uint ite = 0; ite < end2; ++ite)
 					{
 						PageItem *itemToCopy = MasterItems.at(ite);
-						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && ((*it).ID == itemToCopy->LayerID))
+						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && (it->ID == itemToCopy->LayerID))
 							tempSelection.addItem(itemToCopy, true);
 					}
 					if (tempSelection.count() != 0)
@@ -3475,7 +3475,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 						ScriXmlDoc *ss = new ScriXmlDoc();
 						QString dataS = ss->WriteElem(this, view(), &tempSelection);
 						setCurrentPage(targetPage);
-						ss->ReadElem(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, view());
+						ss->ReadElemToLayer(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, view(), it->ID);
 						delete ss;
 						setMasterPageMode(false);
 					}
@@ -3491,11 +3491,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		int currActiveLayer = activeLayer();
 		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 		{
-			setActiveLayer((*it).ID);
+			setActiveLayer(it->ID);
 			for (uint ite = 0; ite < end; ++ite)
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
-				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && ((*it).ID == itemToCopy->LayerID))
+				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && (it->ID == itemToCopy->LayerID))
 					tempSelection.addItem(itemToCopy, true);
 			}
 			if (tempSelection.count() != 0)
@@ -3504,7 +3504,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				QString dataS = ss->WriteElem(this, view(), &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
-				ss->ReadElem(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, view());
+				ss->ReadElemToLayer(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, view(), it->ID);
 				delete ss;
 				setMasterPageMode(false);
 			}
