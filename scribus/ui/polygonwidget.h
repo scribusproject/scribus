@@ -16,11 +16,11 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 	Q_OBJECT
 
 public:
-	PolygonWidget(QWidget* parent, int polyC, /*int polyFd, */double polyF, bool polyS, double polyR, double polyCurvature);
+	PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR, double polyCurvature);
 	~PolygonWidget() {};
 	double GetZeroFaktor();
 	double GetMaxFaktor();
-	void getValues(int* polyC, /*int* polyFd, */double* polyF, bool* polyS, double* polyR, double* polyCurvature);
+	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature);
 	void restoreDefaults(struct ItemToolPrefs *prefsData);
 	double PFactor;
 

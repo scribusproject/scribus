@@ -354,7 +354,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->itemToolPrefs.polyFactor = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
 		m_Doc->itemToolPrefs.polyRotation = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
 		m_Doc->itemToolPrefs.polyCurvature = 0.0;
-//		m_Doc->itemToolPrefs.polyFactorValue = dc.attribute("POLYFD", "0").toInt();
+		m_Doc->itemToolPrefs.polyFactorGuiVal = dc.attribute("POLYFD", "0").toInt();
 		m_Doc->itemToolPrefs.polyUseFactor = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 		m_Doc->AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
@@ -1270,7 +1270,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("POLYC", m_Doc->itemToolPrefs.polyCorners);
 	dc.setAttribute("POLYF", m_Doc->itemToolPrefs.polyFactor);
 	dc.setAttribute("POLYR", m_Doc->itemToolPrefs.polyRotation);
-//	dc.setAttribute("POLYFD", m_Doc->itemToolPrefs.polyFactorValue);
+	dc.setAttribute("POLYFD", m_Doc->itemToolPrefs.polyFactorGuiVal);
 	dc.setAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs.polyUseFactor));
 	dc.setAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));
 	dc.setAttribute("AutoSaveTime", m_Doc->AutoSaveTime);

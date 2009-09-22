@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-PolygonWidget::PolygonWidget(QWidget* parent, int polyC, /*int polyFd, */double polyF, bool polyS, double polyR, double polyCurvature) : QWidget( parent )
+PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR, double polyCurvature) : QWidget( parent )
 {
 	setupUi(this);
 	PFactor = polyF;
@@ -30,10 +30,9 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, /*int polyFd, */double 
 	Faktor2->setValue(static_cast<int>(polyR));
 	Slider2->setValue(static_cast<int>(polyR));
 	Konvex->setChecked(polyS);
-	Faktor->setValue(polyF);
-	Slider1->setValue(polyF);
-	if (polyF == 0.0)
-		Konvex->setChecked(false);
+	Faktor->setValue(polyFd);
+	Slider1->setValue(polyFd);
+	Konvex->setChecked(polyS);
 	CurvatureSpin->setValue(qRound(polyCurvature * 100));
 	CurvatureSlider->setValue(qRound(polyCurvature * 100));
 
@@ -70,10 +69,9 @@ void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	Faktor2->setValue(static_cast<int>(prefsData->polyRotation));
 	Slider2->setValue(static_cast<int>(prefsData->polyRotation));
 	Konvex->setChecked(prefsData->polyUseFactor);
-	Faktor->setValue(prefsData->polyFactor);
-	Slider1->setValue(prefsData->polyFactor);
-	if (prefsData->polyFactor == 0.0)
-		Konvex->setChecked(false);
+	Faktor->setValue(prefsData->polyFactorGuiVal);
+	Slider1->setValue(prefsData->polyFactorGuiVal);
+	Konvex->setChecked(prefsData->polyUseFactor);
 	CurvatureSpin->setValue(qRound(prefsData->polyCurvature * 100));
 	CurvatureSlider->setValue(qRound(prefsData->polyCurvature * 100));
 	UpdatePreView();
@@ -90,12 +88,12 @@ void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	connect(CurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
 }
 
-void PolygonWidget::getValues(int* polyC, /*int* polyFd, */double* polyF, bool* polyS, double* polyR, double* polyCurvature)
+void PolygonWidget::getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature)
 {
 	*polyC = Ecken->value();
-	*polyF = Slider1->value();
+	*polyF = PFactor;
 	*polyS = Konvex->isChecked();
-//	*polyFd = Slider1->value();
+	*polyFd = Slider1->value();
 	*polyR = Faktor2->value();
 	*polyCurvature = CurvatureSpin->value() / 100.0;
 }

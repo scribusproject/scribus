@@ -180,7 +180,7 @@ struct ItemToolPrefs
 	int lineEndArrow; //! Ending arrow, 0 = none
 	/* Regular Polygon Tool */
 	int polyCorners;  //! Number of corners for a polygon
-//	int polyFactorValue; //! Factor as an integer????
+	int polyFactorGuiVal; //! Factor value suitable for our GUI
 	double polyFactor; //! Convex/Concave factor as a double
 	bool polyUseFactor; //! Whether to use a factor for shaping
 	double polyRotation; //! Rotation of a polygon

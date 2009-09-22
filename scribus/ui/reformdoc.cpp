@@ -430,7 +430,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->opToolPrefs.dispY = tabTools->genDispY->value();
 	currDoc->opToolPrefs.constrain = tabTools->genRot->value();
 	tabTools->polyWidget->getValues(&currDoc->itemToolPrefs.polyCorners,
-//									&currDoc->itemToolPrefs.polyFactorValue,
+									&currDoc->itemToolPrefs.polyFactorGuiVal,
 									&currDoc->itemToolPrefs.polyFactor,
 									&currDoc->itemToolPrefs.polyUseFactor,
 									&currDoc->itemToolPrefs.polyRotation,

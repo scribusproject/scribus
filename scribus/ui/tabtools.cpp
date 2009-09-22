@@ -426,7 +426,7 @@ TabTools::TabTools( QWidget* parent, struct ItemToolPrefs *prefsData, int unitIn
 	polygonHeadLine->setFont(f);
 	subTabPolygonLayout->addWidget( polygonHeadLine, 0, 0, Qt::AlignHCenter | Qt::AlignTop );
 	polyWidget = new PolygonWidget(subTabPolygon, prefsData->polyCorners,
-//								   prefsData->polyFactorValue,
+								   prefsData->polyFactorGuiVal,
 								   prefsData->polyFactor,
 								   prefsData->polyUseFactor,
 								   prefsData->polyRotation,
