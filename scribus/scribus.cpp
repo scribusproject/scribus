@@ -1435,28 +1435,31 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Qt::Key_Tab:
-				keyrep = false;
-				windows = mdiArea->subWindowList();
-				if (windows.count() > 1)
+				if (buttonModifiers == Qt::ControlModifier)
 				{
-					for (int i = 0; i < static_cast<int>(windows.count()); ++i)
+					keyrep = false;
+					windows = mdiArea->subWindowList();
+					if (windows.count() > 1)
 					{
-						if (mdiArea->activeSubWindow() == windows.at(i))
+						for (int i = 0; i < static_cast<int>(windows.count()); ++i)
 						{
-							if (i == static_cast<int>(windows.count()-1))
-								w = windows.at(0);
-							else
-								w = windows.at(i+1);
-							break;
+							if (mdiArea->activeSubWindow() == windows.at(i))
+							{
+								if (i == static_cast<int>(windows.count()-1))
+									w = windows.at(0);
+								else
+									w = windows.at(i+1);
+								break;
+							}
 						}
+						outlinePalette->buildReopenVals();
+						docCheckerPalette->clearErrorList();
+						if ( w )
+							w->showNormal();
+						newActWin(w);
 					}
-					outlinePalette->buildReopenVals();
-					docCheckerPalette->clearErrorList();
-					if ( w )
-						w->showNormal();
-					newActWin(w);
+					return;
 				}
-				return;
 				break;
 			}
 		}
