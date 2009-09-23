@@ -84,6 +84,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 	FNamen = "%%DocumentCustomColors: ";
 	ColorList::Iterator itf;
 	int c, m, y, k;
+	int spotCount = 1;
 	bool erst = true;
 	colorsToUse = DocColors;
 	spotMap.clear();
@@ -93,7 +94,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 		if (((DocColors[itf.key()].isSpotColor()) || (DocColors[itf.key()].isRegistrationColor())) && (useSpotColors))
 		{
 			DocColors[itf.key()].getCMYK(&c, &m, &y, &k);
-			colorDesc += "/Spot"+PSEncode(itf.key())+" { [ /Separation (";
+			colorDesc += "/Spot"+QString::number(spotCount)+" { [ /Separation (";
 			if (DocColors[itf.key()].isRegistrationColor())
 				colorDesc += "All";
 			else
@@ -103,7 +104,8 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 			colorDesc += ToStr(static_cast<double>(m) / 255)+"\nmul exch dup ";
 			colorDesc += ToStr(static_cast<double>(y) / 255)+"\nmul exch ";
 			colorDesc += ToStr(static_cast<double>(k) / 255)+" mul }] setcolorspace setcolor} bind def\n";
-			spotMap.insert(itf.key(), "Spot"+PSEncode(itf.key()));
+			spotMap.insert(itf.key(), "Spot"+QString::number(spotCount));
+			++spotCount;
 		}
 		if ((itf.key() != "Cyan") && (itf.key() != "Magenta") && (itf.key() != "Yellow") && (itf.key() != "Black") && DocColors[itf.key()].isSpotColor())
 		{
