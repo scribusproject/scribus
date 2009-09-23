@@ -97,17 +97,18 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	CMYKColor cmykValues;
 	ColorList::Iterator itf;
 	int c, m, y, k;
+	int spotCount = 1;
 	bool erst = true;
 	colorsToUse = DocColors;
 	spotMap.clear();
 	colorDesc = "";
 	for (itf = DocColors.begin(); itf != DocColors.end(); ++itf)
 	{
-		if (((DocColors[itf.key()].isSpotColor()) || (DocColors[itf.key()].isRegistrationColor())) && (useSpotColors))
+		if (((itf->isSpotColor()) || (itf->isRegistrationColor())) && (useSpotColors))
 		{
-			ScColorEngine::getCMYKValues(DocColors[itf.key()], DocColors.document(), cmykValues);
+			ScColorEngine::getCMYKValues(*itf, DocColors.document(), cmykValues);
 			cmykValues.getValues(c, m, y, k);
-			colorDesc += "/Spot"+PSEncode(itf.key())+" { [ /Separation (";
+			colorDesc += "/Spot"+QString::number(spotCount)+" { [ /Separation (";
 			if (DocColors[itf.key()].isRegistrationColor())
 				colorDesc += "All";
 			else
@@ -117,7 +118,8 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			colorDesc += ToStr(static_cast<double>(m) / 255)+"\nmul exch dup ";
 			colorDesc += ToStr(static_cast<double>(y) / 255)+"\nmul exch ";
 			colorDesc += ToStr(static_cast<double>(k) / 255)+" mul }] setcolorspace setcolor} bind def\n";
-			spotMap.insert(itf.key(), "Spot"+PSEncode(itf.key()));
+			spotMap.insert(itf.key(), "Spot"+QString::number(spotCount));
+			++spotCount;
 		}
 		if ((itf.key() != "Cyan") && (itf.key() != "Magenta") && (itf.key() != "Yellow") && (itf.key() != "Black") && DocColors[itf.key()].isSpotColor())
 		{
@@ -266,7 +268,8 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 
 void PSLib::PutStream(const QString& c)
 {
-	spoolStream.writeRawData(c.toUtf8().data(), c.length());
+	QByteArray utf8Array = c.toUtf8();
+	spoolStream.writeRawData(utf8Array.data(), utf8Array.length());
 }
 
 void PSLib::PutStream(const QByteArray& array, bool hexEnc)
