@@ -4,14 +4,10 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef IMPORTCVG_H
-#define IMPORTCVG_H
+#ifndef SCIMGDATALOADER_PICT_H
+#define SCIMGDATALOADER_PICT_H
 
-
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
+#include "scimgdataloader.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
@@ -19,45 +15,23 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QString>
 #include <QRect>
+#include <QPainter>
+#include <QPainterPath>
 
-class MultiProgressDialog;
-class ScribusDoc;
-class Selection;
-class TransactionSettings;
-
-//! \brief Pct (Mac Pict) importer plugin
-class PctPlug : public QObject
+class ScImgDataLoader_PICT : public ScImgDataLoader
 {
-	Q_OBJECT
+protected:
+
+	void initSupportedFormatList();
 
 public:
-	/*!
-	\author Franz Schmid
-	\date
-	\brief Create the Pct importer window.
-	\param fName QString
-	\param flags combination of loadFlags
-	\param showProgress if progress must be displayed
-	\retval EPSPlug plugin
-	*/
-	PctPlug( ScribusDoc* doc, int flags );
-	~PctPlug();
+	ScImgDataLoader_PICT(void);
 
-	/*!
-	\author Franz Schmid
-	\date
-	\brief Perform import.
-	\param fn QString
-	\param trSettings undo transaction settings
-	\param flags combination of loadFlags
-	\param showProgress if progress must be displayed
-	\retval bool true if import was ok
-	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
+	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
+	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 
 private:
-	void parseHeader(QString fName, double &x, double &y, double &b, double &h);
-	bool convert(QString fn);
 	void parsePict(QDataStream &ts);
 	void alignStreamToWord(QDataStream &ts, uint len);
 	void handleColor(QDataStream &ts, bool back);
@@ -70,11 +44,13 @@ private:
 	void handleTextSize(QDataStream &ts);
 	void handleTextFont(QDataStream &ts);
 	void handleTextStyle(QDataStream &ts);
+	void handleTextMode(QDataStream &ts);
 	void handleLongText(QDataStream &ts);
 	void handleDHText(QDataStream &ts);
 	void handleDVText(QDataStream &ts);
 	void handleDHVText(QDataStream &ts);
 	void createTextPath(QByteArray textString);
+	void handlePenMode(QDataStream &ts);
 	void handlePenSize(QDataStream &ts);
 	void handleOvalSize(QDataStream &ts);
 	void handleShortLine(QDataStream &ts);
@@ -86,60 +62,37 @@ private:
 	void handleComment(QDataStream &ts, bool longComment);
 	QRect readRect(QDataStream &ts);
 	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte);
-	void setFillPattern(PageItem* ite);
-	void handleLineModeEnd();
-	void finishItem(PageItem* ite);
-	
-	QList<PageItem*> Elements;
-	int currentItemNr;
-	QStack<QList<PageItem*> > groupStack;
-	ColorList CustColors;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	QBrush setFillPattern();
+
+	int baseX, baseY;
+	int docWidth;
+	int docHeight;
 
 	double LineW;
-	QString CurrColorFill;
 	QColor backColor;
-	QString CurrColorStroke;
 	QColor foreColor;
-	double CurrStrokeShade;
-	double CurrFillShade;
 	bool patternMode;
 	QByteArray patternData;
-	QMap<QString, QString> patternMap;
 	QRect currRect;
+	QBrush currPatternBrush;
 	int currRectItemNr;
 	int currRectType;
 	QRect lastImageRect;
-	QStringList importedColors;
 	QPoint ovalSize;
 	QMap<int, QString> fontMap;
 	int currentTextSize;
 	int currentFontID;
 	int currentFontStyle;
-	FPointArray lastCoords;
 	QByteArray imageData;
 
-	FPointArray Coords;
+	QPainterPath Coords;
 	QPoint currentPoint;
 	QPoint currentPointT;
-	bool lineMode;
+	QPainter imagePainter;
 	bool postscriptMode;
 	bool textIsPostScript;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
 	int pctVersion;
 	bool skipOpcode;
-
-public slots:
-	void cancelRequested() { cancel = true; }
 };
 
 #endif

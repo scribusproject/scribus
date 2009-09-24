@@ -640,6 +640,7 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_gimp.cpp
   scimgdataloader_jpeg.cpp
   scimgdataloader_pdf.cpp
+  scimgdataloader_pict.cpp
   scimgdataloader_ps.cpp
   scimgdataloader_psd.cpp
   scimgdataloader_qt.cpp

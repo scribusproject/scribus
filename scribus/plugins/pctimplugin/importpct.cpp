@@ -889,10 +889,10 @@ void PctPlug::parsePict(QDataStream &ts)
 					handlePixmap(ts, opCode);
 					break;
 				case 0x00A0:		// Short Comment
-					handleShortComment(ts);
+					handleComment(ts, false);
 					break;
 				case 0x00A1:		// Long Comment
-					handleLongComment(ts);
+					handleComment(ts, true);
 					break;
 				case 0x00FF:		// End of Pict
 					handleLineModeEnd();
@@ -964,7 +964,7 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 	quint16 Rc, Gc, Bc;
 	quint32 colVal;
 	ts >> colVal;
-	qDebug() << "Color" << colVal << back;
+//	qDebug() << "Color" << colVal << back;
 	switch (colVal)
 	{
 		case 30:
@@ -1144,6 +1144,8 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
 		else if (opCode == 0x0071)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None, true);
+//		else if (opCode == 0x0072)
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
 		else if (opCode == 0x0074)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None, true);
 		else
@@ -1162,17 +1164,19 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 
 void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 {
-//	qDebug() << QString("Handle Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 	handleLineModeEnd();
 	QRect bounds = readRect(ts);
+//	qDebug() << QString("Handle Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 	int z;
 	PageItem *ite;
 	if (opCode == 0x0030)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
 	else if (opCode == 0x0031)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+//	else if (opCode == 0x0032)
+//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0034)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 	else if (opCode == 0x0040)
 	{
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
@@ -1183,15 +1187,23 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	}
 	else if (opCode == 0x0041)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
+//	else if (opCode == 0x0042)
+//	{
+//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//		ite = m_Doc->Items->at(z);
+//		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+//		ite->SetFrameRound();
+//		m_Doc->setRedrawBounding(ite);
+//	}
 	else if (opCode == 0x0044)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
@@ -1200,9 +1212,11 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	else if (opCode == 0x0050)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
 	else if (opCode == 0x0051)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+//	else if (opCode == 0x0052)
+//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0054)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 	else
 	{
 		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
@@ -1237,6 +1251,8 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 			ite->setLineColor(CurrColorStroke);
 			ite->setLineWidth(LineW);
 		}
+//		else if ((opCode == 0x003A) || (opCode == 0x004A) || (opCode == 0x005A))
+//			ite->setFillColor(CurrColorFill);
 		else
 			ite->setFillColor(CurrColorStroke);
 	}
@@ -1245,12 +1261,14 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 		if (opCode == 0x0038)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
 		else if (opCode == 0x0039)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+//		else if (opCode == 0x003A)
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 		else if (opCode == 0x003C)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 		else if (opCode == 0x0048)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CommonStrings::None, CurrColorStroke, true);
 			ite = m_Doc->Items->at(z);
 			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 			ite->SetFrameRound();
@@ -1258,15 +1276,23 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 		}
 		else if (opCode == 0x0049)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 			ite = m_Doc->Items->at(z);
 			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 			ite->SetFrameRound();
 			m_Doc->setRedrawBounding(ite);
 		}
+//		else if (opCode == 0x004A)
+//		{
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//			ite = m_Doc->Items->at(z);
+//			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+//			ite->SetFrameRound();
+//			m_Doc->setRedrawBounding(ite);
+//		}
 		else if (opCode == 0x004C)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 			ite = m_Doc->Items->at(z);
 			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 			ite->SetFrameRound();
@@ -1275,9 +1301,11 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 		else if (opCode == 0x0058)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
 		else if (opCode == 0x0059)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+//		else if (opCode == 0x005A)
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 		else if (opCode == 0x005C)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 		else
 		{
 			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
@@ -1739,6 +1767,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		ite->setImageScalingMode(false, false);
 		skipOpcode = false;
 	}
+	alignStreamToWord(ts, 0);
 }
 
 void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
@@ -1811,37 +1840,153 @@ void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
 //	qDebug() << "File Pos" << ts.device()->pos();
 }
 
-void PctPlug::handleShortComment(QDataStream &ts)
+void PctPlug::handleComment(QDataStream &ts, bool longComment)
 {
 	quint16 commentCode;
 	handleLineModeEnd();
 	ts >> commentCode;
-//	qDebug() << "Short Comment type:" << commentCode;
 	switch (commentCode)
 	{
+		case 100:			// picAppComment
+			qDebug() << "Comment type: picAppComment";
+			break;
+		case 130:			// picDwgBeg
+			qDebug() << "Comment type: picDwgBeg";
+			break;
+		case 131:			// picDwgEnd
+			qDebug() << "Comment type: picDwgEnd";
+			break;
+		case 140:			// picGrpBeg
+			qDebug() << "Comment type: picGrpBeg";
+			break;
+		case 141:			// picGrpEnd
+			qDebug() << "Comment type: picGrpEnd";
+			break;
+		case 142:			// picBitBeg
+			qDebug() << "Comment type: picBitBeg";
+			break;
+		case 143:			// picBitEnd
+			qDebug() << "Comment type: picBitEnd";
+			break;
+		case 150:			// TextBegin
+			qDebug() << "Comment type: TextBegin";
+			break;
+		case 151:			// TextEnd
+			qDebug() << "Comment type: TextEnd";
+			break;
+		case 152:			// StringBegin
+			qDebug() << "Comment type: StringBegin";
+			break;
+		case 153:			// StringEnd
+			qDebug() << "Comment type: StringEnd";
+			break;
+		case 154:			// TextCenter
+			qDebug() << "Comment type: TextCenter";
+			break;
+		case 155:			// LineLayoutOff
+			qDebug() << "Comment type: LineLayoutOff";
+			break;
+		case 156:			// LineLayoutOn
+			qDebug() << "Comment type: LineLayoutOn";
+			break;
+		case 157:			// ClientLineLayout
+			qDebug() << "Comment type: ClientLineLayout";
+			break;
+		case 160:			// PolyBegin
+			qDebug() << "Comment type: PolyBegin";
+			break;
+		case 161:			// PolyEnd
+			qDebug() << "Comment type: PolyEnd";
+			break;
+		case 163:			// PolyIgnore
+			qDebug() << "Comment type: PolyIgnore";
+			break;
+		case 164:			// PolySmooth
+			qDebug() << "Comment type: PolySmooth";
+			break;
+		case 165:			// PolyClose
+			qDebug() << "Comment type: PolyClose";
+			break;
+		case 170:			// picArrw1 Arrowhead on 2nd point of line
+			qDebug() << "Comment type: picArrw1";
+			break;
+		case 171:			// picArrw2 Arrowhead on 1nd point of line
+			qDebug() << "Comment type: picArrw2";
+			break;
+		case 172:			// picArrw3 Arrowhead on both endpoints
+			qDebug() << "Comment type: picArrw3";
+			break;
+		case 173:			// picArrwEnd End of arrowhead comment
+			qDebug() << "Comment type: picArrwEnd";
+			break;
+		case 180:			// DashedLine
+			qDebug() << "Comment type: DashedLine";
+			break;
+		case 181:			// DashedStop
+			qDebug() << "Comment type: DashedStop";
+			break;
+		case 182:			// SetLineWidth
+			qDebug() << "Comment type: SetLineWidth";
+			break;
 		case 190:			// PostScriptBegin
 			postscriptMode = true;
+			qDebug() << "Comment type: PostScriptBegin";
 			break;
 		case 191:			// PostScriptEnd
 			postscriptMode = false;
 			textIsPostScript = false;
+			qDebug() << "Comment type: PostScriptEnd";
+			break;
+		case 192:			// PostScriptHandle
+			qDebug() << "Comment type: PostScriptHandle";
+			break;
+		case 193:			// PostScriptFile
+			qDebug() << "Comment type: PostScriptFile";
 			break;
 		case 194:			// TextIsPostScript
 			textIsPostScript = true;
+			qDebug() << "Comment type: TextIsPostScript";
+			break;
+		case 195:			// ResourcePS
+			qDebug() << "Comment type: ResourcePS";
+			break;
+		case 196:			// PSBeginNoSave
+			qDebug() << "Comment type: PSBeginNoSave";
+			break;
+		case 200:			// RotateBegin
+			qDebug() << "Comment type: RotateBegin";
+			break;
+		case 201:			// RotateEnd
+			qDebug() << "Comment type: RotateEnd";
+			break;
+		case 210:			// FormsPrinting
+			qDebug() << "Comment type: FormsPrinting";
+			break;
+		case 211:			// EndFormsPrinting
+			qDebug() << "Comment type: EndFormsPrinting";
+			break;
+		case 220:			// CMBeginProfile
+			qDebug() << "Comment type: CMBeginProfile";
+			break;
+		case 221:			// CMEndProfile
+			qDebug() << "Comment type: CMEndProfile";
+			break;
+		case 222:			// CMEnableMatching
+			qDebug() << "Comment type: CMEnableMatching";
+			break;
+		case 223:			// CMDisableMatching
+			qDebug() << "Comment type: CMDisableMatching";
 			break;
 		default:
+			qDebug() << "Unknown Pict-Comment" << commentCode;
 			break;
 	}
-}
-
-void PctPlug::handleLongComment(QDataStream &ts)
-{
-	quint16 commentCode, dataLen;
-	handleLineModeEnd();
-	ts >> commentCode;
-//	qDebug() << "Long Comment type:" << commentCode;
-	ts >> dataLen;
-	alignStreamToWord(ts, dataLen);
+	if (longComment)
+	{
+		quint16 dataLen;
+		ts >> dataLen;
+		alignStreamToWord(ts, dataLen);
+	}
 }
 
 QRect PctPlug::readRect(QDataStream &ts)

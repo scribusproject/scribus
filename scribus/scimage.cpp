@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_gmagick.h"
 #endif
 #include "scimgdataloader_jpeg.h"
+#include "scimgdataloader_pict.h"
 #include "scimgdataloader_ps.h"
 #include "scimgdataloader_psd.h"
 #include "scimgdataloader_pdf.h"
@@ -1819,6 +1820,8 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	}
 	else if (ext == "pat")
 		pDataLoader = new ScImgDataLoader_GIMP();
+	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
+		pDataLoader = new ScImgDataLoader_PICT();
 	else if (fmtImg.contains(ext))
 		pDataLoader = new ScImgDataLoader_QT();
 	#ifdef GMAGICK_FOUND
@@ -2027,6 +2030,8 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
+	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
+		pDataLoader.reset( new ScImgDataLoader_PICT() );
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 	#ifdef GMAGICK_FOUND
