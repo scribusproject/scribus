@@ -2905,7 +2905,12 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		currItem = doc->m_Selection->itemAt(0);
 	}
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
-
+	if (docSelectionCount == 0)
+		setStatusBarInfoText("");
+	else if (docSelectionCount == 1)
+		setStatusBarInfoText( tr("1 Object selected"));
+	else
+		setStatusBarInfoText( tr("%1 Objects selected").arg(docSelectionCount));
 	actionManager->disconnectNewSelectionActions();
 	scrActions["editSelectAllOnLayer"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
