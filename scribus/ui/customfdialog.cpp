@@ -97,7 +97,8 @@ QIcon ImIconProvider::icon(const QFileInfo &fi) const
 			return oosxdpm;
 		else if (ext.endsWith("sxw", Qt::CaseInsensitive))
 			return oosxwpm;
-		else if (ext.endsWith("svg", Qt::CaseInsensitive) || ext.endsWith("svgz", Qt::CaseInsensitive))
+		else if (ext.endsWith("svg") || ext.endsWith("svgz") || ext.endsWith("cvg") || ext.endsWith("wpg") || ext.endsWith("fig")
+				 || ext.endsWith("ai") || ext.endsWith("wmf") || ext.endsWith("pct") || ext.endsWith("pict") || ext.endsWith("pic"))
 			return vectorpm;
 		else
 			return QFileIconProvider::icon(fi);
