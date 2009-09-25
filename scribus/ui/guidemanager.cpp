@@ -5,21 +5,21 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                              guidemanager.cpp
-                             -------------------
-    begin                : Fri Jan 30 2004
-    copyright            : (C) 2004 by Alessandro Rimoldi
-    copyright            : (C) by Franz Schmid
-    e-mail               : http://www.ideale.ch/contact
+							  guidemanager.cpp
+							 -------------------
+	begin			   : Fri Jan 30 2004
+	copyright		   : (C) 2004 by Alessandro Rimoldi
+	copyright		   : (C) by Franz Schmid
+	e-mail			 : http://www.ideale.ch/contact
  ***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
+ *																	   *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
+ *   the Free Software Foundation; either version 2 of the License, or   *
+ *   (at your option) any later version.								   *
+ *																	   *
  ***************************************************************************/
 
 #include "guidemanager.h"
@@ -199,7 +199,7 @@ void GuideManager::storePageValues(Page *page)
 	page->guides.setHorizontalAutoGap(gapValue);
 	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
 	page->guides.setHorizontalAutoRefer(horizontalRefer());
-	page->guides.addHorizontals(getAutoHorizontals(), GuideManagerCore::Auto);
+	page->guides.addHorizontals(getAutoHorizontals(page), GuideManagerCore::Auto);
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
@@ -207,7 +207,7 @@ void GuideManager::storePageValues(Page *page)
 	page->guides.setVerticalAutoGap(gapValue);
 	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
 	page->guides.setVerticalAutoRefer(verticalRefer());
-	page->guides.addVerticals(getAutoVerticals(), GuideManagerCore::Auto);
+	page->guides.addVerticals(getAutoVerticals(page), GuideManagerCore::Auto);
 }
 
 void GuideManager::changeEvent(QEvent *e)
@@ -362,9 +362,15 @@ void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 			continue;
 		tmpPage->guides.clearHorizontals(t);
 		tmpPage->guides.clearVerticals(t);
-		currentPage->guides.copy(&tmpPage->guides, t);
-		if (t == GuideManagerCore::Auto)
-			storePageValues(tmpPage);
+		switch (t)
+		{
+			case GuideManagerCore::Standard:
+				currentPage->guides.copy(&tmpPage->guides, t);
+				break;
+			case GuideManagerCore::Auto:
+				storePageValues(tmpPage);
+				break;
+		}
 	}
 	drawGuides();
 }
@@ -481,8 +487,8 @@ void GuideManager::drawGuides()
 	if (!m_Doc || !m_drawGuides)
 		return;
 
-	currentPage->guides.addHorizontals(getAutoHorizontals(), GuideManagerCore::Auto);
-	currentPage->guides.addVerticals(getAutoVerticals(), GuideManagerCore::Auto);
+	currentPage->guides.addHorizontals(getAutoHorizontals(currentPage), GuideManagerCore::Auto);
+	currentPage->guides.addVerticals(getAutoVerticals(currentPage), GuideManagerCore::Auto);
 	ScCore->primaryMainWindow()->view->DrawNew();
 }
 
@@ -550,13 +556,13 @@ void GuideManager::windowActivationChange(bool oldActive)
 	QDialog::windowActivationChange( oldActive );
 }
 
-Guides GuideManager::getAutoVerticals()
+Guides GuideManager::getAutoVerticals(Page * p)
 {
 	Guides retval;
 	double columnSize;
 	int value = verticalAutoCountSpin->value();
 	double offset = 0.0;
-	double newPageWidth = currentPage->width();
+	double newPageWidth = p->width();
 
 	if (value == 0)
 		return retval;
@@ -564,30 +570,30 @@ Guides GuideManager::getAutoVerticals()
 
 	if (verticalRefer() == 1)
 	{
-		newPageWidth = newPageWidth - currentPage->Margins.Left - currentPage->Margins.Right;
-		offset = currentPage->Margins.Left;
+		newPageWidth = newPageWidth - p->Margins.Left - p->Margins.Right;
+		offset = p->Margins.Left;
 	}
 	else if (verticalRefer() == 2)
 	{
-		if (qRound(currentPage->guides.gx) != 0)
+		if (qRound(p->guides.gx) != 0)
 		{
-			offset = currentPage->guides.gx;
-			newPageWidth = currentPage->guides.gw;
+			offset = p->guides.gx;
+			newPageWidth = p->guides.gw;
 		}
 	}
 
-	if (currentPage->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
-		columnSize = (newPageWidth - (value - 1) * currentPage->guides.verticalAutoGap()) / value;
+	if (p->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
+		columnSize = (newPageWidth - (value - 1) * p->guides.verticalAutoGap()) / value;
 	else
 		columnSize = newPageWidth / value;
 
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
-		if (currentPage->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
+		if (p->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
 		{
-			retval.append(offset + i * columnSize + gapCount * currentPage->guides.verticalAutoGap());
+			retval.append(offset + i * columnSize + gapCount * p->guides.verticalAutoGap());
 			++gapCount;
-			retval.append(offset + i * columnSize + gapCount * currentPage->guides.verticalAutoGap());
+			retval.append(offset + i * columnSize + gapCount * p->guides.verticalAutoGap());
 		}
 		else
 			retval.append(offset + columnSize * i);
@@ -595,13 +601,13 @@ Guides GuideManager::getAutoVerticals()
 	return retval;
 }
 
-Guides GuideManager::getAutoHorizontals()
+Guides GuideManager::getAutoHorizontals(Page * p)
 {
 	Guides retval;
 	double rowSize;
 	int value = horizontalAutoCountSpin->value();
 	double offset = 0.0;
-	double newPageHeight = currentPage->height();
+	double newPageHeight = p->height();
 
 	if (value == 0)
 		return retval;
@@ -609,30 +615,30 @@ Guides GuideManager::getAutoHorizontals()
 
 	if (horizontalRefer() == 1)
 	{
-		newPageHeight = newPageHeight - currentPage->Margins.Top - currentPage->Margins.Bottom;
-		offset = currentPage->Margins.Top;
+		newPageHeight = newPageHeight - p->Margins.Top - p->Margins.Bottom;
+		offset = p->Margins.Top;
 	}
 	else if (horizontalRefer() == 2)
 	{
-		if (qRound(currentPage->guides.gy) != 0.0)
+		if (qRound(p->guides.gy) != 0.0)
 		{
-			offset = currentPage->guides.gy;
-			newPageHeight = currentPage->guides.gh;
+			offset = p->guides.gy;
+			newPageHeight = p->guides.gh;
 		}
 	}
 
-	if (currentPage->guides.horizontalAutoGap() > 0.0 && horizontalAutoGapCheck->isChecked())
-		rowSize = (newPageHeight - (value - 1) * currentPage->guides.horizontalAutoGap()) / value;
+	if (p->guides.horizontalAutoGap() > 0.0 && horizontalAutoGapCheck->isChecked())
+		rowSize = (newPageHeight - (value - 1) * p->guides.horizontalAutoGap()) / value;
 	else
 		rowSize = newPageHeight / value;
 
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
-		if (currentPage->guides.horizontalAutoGap() > 0.0&& horizontalAutoGapCheck->isChecked())
+		if (p->guides.horizontalAutoGap() > 0.0&& horizontalAutoGapCheck->isChecked())
 		{
-			retval.append(offset + i * rowSize + gapCount * currentPage->guides.horizontalAutoGap());
+			retval.append(offset + i * rowSize + gapCount * p->guides.horizontalAutoGap());
 			++gapCount;
-			retval.append(offset + i * rowSize + gapCount * currentPage->guides.horizontalAutoGap());
+			retval.append(offset + i * rowSize + gapCount * p->guides.horizontalAutoGap());
 		}
 		else
 			retval.append(offset + rowSize * i);

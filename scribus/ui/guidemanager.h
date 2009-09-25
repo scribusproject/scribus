@@ -105,12 +105,16 @@ private:
 	void windowActivationChange(bool oldActive);
 
 	/*! \brief Create automatic horizontal guides.
-	Calculates positions of the guides. */
-	Guides getAutoHorizontals();
+	Calculates positions of the guides.
+	\param p a Page for what should be calculation performed
+	*/
+	Guides getAutoHorizontals(Page * p);
 
 	/*! \brief Create automatic vertical guides.
-	Calculates positions of the guides. */
-	Guides getAutoVerticals();
+	Calculates positions of the guides.
+	\param p a Page for what should be calculation performed
+	*/
+	Guides getAutoVerticals(Page * p);
 
 	/*! \brief Recalculate the selection position and measurements for the current page.
 	It's used for automatic guides position. It's called for every
