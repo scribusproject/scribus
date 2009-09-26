@@ -121,7 +121,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 //	setMaximumSize( sizeHint() );
 //tooltips
 	multiFile->setToolTip( "<qt>" + tr( "This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.") + "</qt>" );
-	OK->setToolTip( "<qt>" + tr( "The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.") + "</qt>" );
+	OK->setToolTip( "<qt>" + tr( "The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.") + "</qt>" );
 	// signals and slots connections
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
 	connect( OK, SIGNAL( clicked() ), this, SLOT( DoExport() ) );
@@ -309,7 +309,11 @@ void PDFExportDialog::updateDocOptions()
 	if (Options->PDFVersionCombo->currentIndex() == 2)
 		Opts.Version = PDFOptions::PDFVersion_15;
 	if (Options->PDFVersionCombo->currentIndex() == 3)
+		Opts.Version = PDFOptions::PDFVersion_X1a;
+	if (Options->PDFVersionCombo->currentIndex() == 4)
 		Opts.Version = PDFOptions::PDFVersion_X3;
+	if (Options->PDFVersionCombo->currentIndex() == 5)
+		Opts.Version = PDFOptions::PDFVersion_X4;
 	if (Options->OutCombo->currentIndex() == 0)
 	{
 		Opts.UseRGB = true;
@@ -334,13 +338,16 @@ void PDFExportDialog::updateDocOptions()
 			{
 				Opts.UseProfiles = Options->EmbedProfs->isChecked();
 				Opts.UseProfiles2 = Options->EmbedProfs2->isChecked();
-				Opts.Intent = Options->IntendS->currentIndex();
-				Opts.Intent2 = Options->IntendI->currentIndex();
-				Opts.EmbeddedI = Options->NoEmbedded->isChecked();
-				Opts.SolidProf = Options->SolidPr->currentText();
-				Opts.ImageProf = Options->ImageP->currentText();
+				if (Opts.Version != PDFOptions::PDFVersion_X1a)
+				{
+					Opts.Intent = Options->IntendS->currentIndex();
+					Opts.Intent2 = Options->IntendI->currentIndex();
+					Opts.EmbeddedI = Options->NoEmbedded->isChecked();
+					Opts.SolidProf = Options->SolidPr->currentText();
+					Opts.ImageProf = Options->ImageP->currentText();
+				}
 				Opts.PrintProf = Options->PrintProfC->currentText();
-				if (Opts.Version == PDFOptions::PDFVersion_X3)
+				if ((Opts.Version == PDFOptions::PDFVersion_X3) || (Opts.Version == PDFOptions::PDFVersion_X1a) || (Opts.Version == PDFOptions::PDFVersion_X4))
 				{
 					cmsHPROFILE hIn;
 					QByteArray profilePath( appPrinterProfiles[Opts.PrintProf].toLocal8Bit() );

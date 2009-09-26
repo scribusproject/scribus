@@ -1196,6 +1196,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\pdf_analyzer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pdflib.cpp"
 				>
 			</File>
@@ -1509,6 +1513,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\scimgdataloader_pdf.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scimgdataloader_pict.cpp"
 				>
 			</File>
 			<File
@@ -8245,6 +8253,54 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\pdf_analyzer.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pdflib.h"
 				>
 				<FileConfiguration
@@ -10910,6 +10966,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\scimgdataloader_pdf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scimgdataloader_pict.h"
 				>
 			</File>
 			<File
@@ -15648,6 +15708,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_patterndialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_pdf_analyzer.cpp"
 				>
 			</File>
 			<File

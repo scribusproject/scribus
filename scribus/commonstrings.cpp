@@ -146,7 +146,9 @@ QString CommonStrings::trPostScript = "";
 QString CommonStrings::PDF_1_3      = "";
 QString CommonStrings::PDF_1_4      = "";
 QString CommonStrings::PDF_1_5      = "";
+QString CommonStrings::PDF_X1a		= "";
 QString CommonStrings::PDF_X3       = "";
+QString CommonStrings::PDF_X4		= "";
 
 QString CommonStrings::PostScript1   = "";
 QString CommonStrings::trPostScript1 = "";
@@ -264,7 +266,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trNo       = tr("No");
 	CommonStrings::trYesKey   = tr("&Yes");
 	CommonStrings::trNoKey    = tr("&No");
-	
+
 	CommonStrings::itemType_TextFrame  = tr("Text Frame");
 	CommonStrings::itemType_ImageFrame = tr("Image Frame");
 	CommonStrings::itemType_Line       = tr("Line");
@@ -282,7 +284,7 @@ void CommonStrings::languageChange()
 	CommonStrings::itemSubType_PDF_TextAnnotation = tr("PDF Text Annotation");
 	CommonStrings::itemSubType_PDF_LinkAnnotation = tr("PDF Link Annotation");
 
-	
+
 	CommonStrings::customPageSize = "Custom";
 	CommonStrings::trCustomPageSize = tr( "Custom", "CommonStrings, custom page size" );
 
@@ -305,7 +307,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trPageLocMiddleLeft  = tr( "Middle Left", "Middle Left page location" );
 	CommonStrings::trPageLocMiddleRight = tr( "Middle Right", "Middle Right page location" );
 	CommonStrings::trPageLocRight       = tr( "Right Page", "Right page location" );
-	
+
 	CommonStrings::masterPageNormal         = "Normal";
 	CommonStrings::trMasterPageNormal       = tr( "Normal", "Default single master page" );
 	CommonStrings::masterPageNormalLeft     = "Normal Left";
@@ -314,13 +316,13 @@ void CommonStrings::languageChange()
 	CommonStrings::trMasterPageNormalMiddle = tr( "Normal Middle", "Default middle master page" );
 	CommonStrings::masterPageNormalRight    = "Normal Right";
 	CommonStrings::trMasterPageNormalRight  = tr( "Normal Right", "Default right master page" );
-	
+
 	CommonStrings::trPenStyle_SolidLine      = tr("Solid Line");
 	CommonStrings::trPenStyle_DashedLine     = tr("Dashed Line");
 	CommonStrings::trPenStyle_DottedLine     = tr("Dotted Line");
 	CommonStrings::trPenStyle_DashDotLine    = tr("Dash Dot Line");
 	CommonStrings::trPenStyle_DashDotDotLine = tr("Dash Dot Dot Line");
-	
+
 	CommonStrings::DefaultParagraphStyle     = "Default Paragraph Style";
 	CommonStrings::DefaultCharacterStyle     = "Default Character Style";
 	CommonStrings::DefaultLineStyle          = "Default Line Style";
@@ -328,7 +330,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trDefaultCharacterStyle   = tr("Default Character Style");
 	CommonStrings::trDefaultLineStyle        = tr("Default Line Style");
 
-	
+
 	CommonStrings::monday    = tr("Monday");
 	CommonStrings::tuesday   = tr("Tuesday");
 	CommonStrings::wednesday = tr("Wednesday");
@@ -354,26 +356,26 @@ void CommonStrings::languageChange()
 	CommonStrings::trGrayscale = tr("Grayscale", "Colorspace");
 	CommonStrings::trDuotone   = tr("Duotone", "Colorspace");
 	CommonStrings::trUnknownCS = tr("Unknown", "Colorspace (Unknown)");
-	
+
 	CommonStrings::trVisionNormal         = tr("Normal Vision", "Color Blindness - Normal Vision");
 	CommonStrings::trVisionProtanopia     = tr("Protanopia (Red)", "Color Blindness - Red Color Blind");
 	CommonStrings::trVisionDeuteranopia   = tr("Deuteranopia (Green)", "Color Blindness - Greed Color Blind");
 	CommonStrings::trVisionTritanopia     = tr("Tritanopia (Blue)", "Color Blindness - Blue Color Blind");
 	CommonStrings::trVisionFullColorBlind = tr("Full Color Blindness", "Color Blindness - Full Color Blindness");
-	
+
 	CommonStrings::trCustomTabFill = tr("Custom: ","Custom Tab Fill Option");
-	
+
 	CommonStrings::trOpticalMarginsNone            = tr("None", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsLeftProtruding  = tr("Left Protruding", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsRightProtruding = tr("Right Protruding", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsLeftHangPunct   = tr("Left Hanging Punctuation", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsRightHangPunct  = tr("Right Hanging Punctuation", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsDefault         = tr("Default", "Optical Margin Setting");
-	
+
 	//Paragraph Style Word Tracking
 	CommonStrings::trMinWordTracking = tr("Min. Word Tracking");
 	CommonStrings::trMaxWordTracking = tr("Max. Word Tracking");
-	
+
 	//Paragraph Style Glyph Extension
 	CommonStrings::trMinGlyphExtension = tr("Min. Glyph Extension");
 	CommonStrings::trMaxGlyphExtension = tr("Max. Glyph Extension");
@@ -384,7 +386,9 @@ void CommonStrings::languageChange()
 	CommonStrings::PDF_1_3      = "PDF 1.3";
 	CommonStrings::PDF_1_4      = "PDF 1.4";
 	CommonStrings::PDF_1_5      = "PDF 1.5";
+	CommonStrings::PDF_X1a      = "PDF/X-1a";
 	CommonStrings::PDF_X3       = "PDF/X-3";
+	CommonStrings::PDF_X4       = "PDF/X-4";
 
 	CommonStrings::PostScript1   = "PostScript Level 1";
 	CommonStrings::trPostScript1 = tr( "PostScript Level 1" );
@@ -394,7 +398,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trPostScript3 = tr( "PostScript Level 3" );
 	CommonStrings::WindowsGDI    = "Windows GDI";
 	CommonStrings::trWindowsGDI  = tr( "Windows GDI" );
-	
+
 	//Units
 	CommonStrings::trStrPT=unitGetStrFromIndex(SC_PT);
 	CommonStrings::trStrMM=unitGetStrFromIndex(SC_MM);
@@ -424,4 +428,5 @@ const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )
 	//if (ps == Qt::SolidLine)
 	return trPenStyle_SolidLine;
 }
+
 

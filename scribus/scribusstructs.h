@@ -387,7 +387,11 @@ typedef enum {
 	ImageDPITooHigh=9,
 	ImageIsGIF=10,
 	BlendMode=11,
-	WrongFontInAnnotation=12
+	WrongFontInAnnotation=12,
+	NotCMYKOrSpot=13,
+	DeviceColorAndOutputIntend=14,
+	FontNotEmbedded=15,
+	EmbeddedFontIsOpenType=16
 } PreflightError;
 
 typedef QMap<PreflightError, int> errorCodes;
@@ -452,8 +456,8 @@ enum PageOrientation
 typedef QList<double> Guides;
 
 //! \brief from ols scribusXml
-struct Linked 
-{ 
+struct Linked
+{
 	int Start;
 	int StPag;
 };
@@ -471,5 +475,6 @@ public:
 };
 
 #endif
+
 
 

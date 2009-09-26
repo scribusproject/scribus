@@ -113,8 +113,14 @@ void PDFOptionsIO::buildSettings()
 	QString pdfVersString;
 	switch (m_opts->Version)
 	{
+		case PDFOptions::PDFVersion_X1a:
+			pdfVersString = "X1a";
+			break;
 		case PDFOptions::PDFVersion_X3:
 			pdfVersString = "X3";
+			break;
+		case PDFOptions::PDFVersion_X4:
+			pdfVersString = "X4";
 			break;
 		default:
 			pdfVersString = QString::number(m_opts->Version);
@@ -416,9 +422,19 @@ bool PDFOptionsIO::readPDFVersion()
 	QString pdfVersString;
 	if (!readElem(m_root, "pdfVersion", &pdfVersString))
 		return false;
-	if (pdfVersString == "X3")
+	if (pdfVersString == "X1a")
+	{
+		m_opts->Version = PDFOptions::PDFVersion_X1a;
+		return true;
+	}
+	else if (pdfVersString == "X3")
 	{
 		m_opts->Version = PDFOptions::PDFVersion_X3;
+		return true;
+	}
+	else if (pdfVersString == "X4")
+	{
+		m_opts->Version = PDFOptions::PDFVersion_X4;
 		return true;
 	}
 	else if (pdfVersString == "13")

@@ -72,17 +72,17 @@ PrefsManager::~PrefsManager()
 
 PrefsManager* PrefsManager::instance()
 {
-    if (_instance == 0)
-        _instance = new PrefsManager();
+	if (_instance == 0)
+		_instance = new PrefsManager();
 
-    return _instance;
+	return _instance;
 }
 
 void PrefsManager::deleteInstance()
 {
-    if (_instance)
-        delete _instance;
-    _instance = 0;
+	if (_instance)
+		delete _instance;
+	_instance = 0;
 }
 
 
@@ -136,7 +136,7 @@ void PrefsManager::initDefaults()
 
 	/** Default colours **/
 	appPrefs.colorPrefs.DColors.clear();
-	
+
 	ColorSetManager csm;
 	csm.initialiseDefaultPrefs(appPrefs);
 	csm.findPaletteLocations();
@@ -487,7 +487,7 @@ void PrefsManager::initDefaults()
 	//Attribute setup
 	appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
 	appPrefs.tocPrefs.defaultToCSetups.clear();
-	
+
 	initDefaultActionKeys();
 }
 
@@ -920,8 +920,8 @@ void PrefsManager::ReadPrefsXML()
 		{
 			appPrefs.uiPrefs.language = userprefsContext->get("gui_language","");
 			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toAscii());
-            //continue here...
-            //Prefs."blah blah" =...
+			//continue here...
+			//Prefs."blah blah" =...
 		}
 		if (prefsFile->hasContext("print_options"))
 		{
@@ -974,8 +974,8 @@ void PrefsManager::SavePrefsXML()
 		{
 			userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
 			userprefsContext->set("mainwinstate", QString::fromAscii(appPrefs.uiPrefs.mainWinState.toBase64()));
-            //continue here...
-            //Prefs."blah blah" =...
+			//continue here...
+			//Prefs."blah blah" =...
 		}
 		prefsFile->write();
 	}
@@ -1456,6 +1456,10 @@ bool PrefsManager::WritePref(QString ho)
 		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
 		dc79a.setAttribute("minResolution",ScCLocale::toQStringC(itcp.value().minResolution));
 		dc79a.setAttribute("maxResolution",ScCLocale::toQStringC(itcp.value().maxResolution));
+		dc79a.setAttribute("checkNotCMYKOrSpot", static_cast<int>(itcp.value().checkNotCMYKOrSpot));
+		dc79a.setAttribute("checkDeviceColorsAndOutputIntend", static_cast<int>(itcp.value().checkDeviceColorsAndOutputIntend));
+		dc79a.setAttribute("checkFontNotEmbedded", static_cast<int>(itcp.value().checkFontNotEmbedded));
+		dc79a.setAttribute("checkFontIsOpenType", static_cast<int>(itcp.value().checkFontIsOpenType));
 		elem.appendChild(dc79a);
 	}
 	QDomElement dc81=docu.createElement("CMS");
@@ -1705,7 +1709,7 @@ bool PrefsManager::WritePref(QString ho)
 			result = true;
 		else
 			m_lastError = tr("Writing to preferences file \"%1\" failed: "
-				             "QIODevice status code %2")
+							 "QIODevice status code %2")
 				.arg(ho).arg(f.errorString());
 	}
 	if (f.isOpen())
@@ -2089,7 +2093,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.curCheckProfile = dc.attribute("currentProfile", CommonStrings::PostScript);
 			//#2516 work around old values until people wont have them anymore, not that these
 			//translated strings should be going into prefs anyway!
-			if ((appPrefs.curCheckProfile == tr("PostScript")) || ((appPrefs.curCheckProfile == tr("Postscript")) || 
+			if ((appPrefs.curCheckProfile == tr("PostScript")) || ((appPrefs.curCheckProfile == tr("Postscript")) ||
 				(appPrefs.curCheckProfile == "Postscript")))
 			{
 				appPrefs.curCheckProfile = CommonStrings::PostScript;
@@ -2115,6 +2119,10 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
 			checkerSettings.checkForGIF = static_cast<bool>(dc.attribute("checkForGIF", "1").toInt());
 			checkerSettings.ignoreOffLayers = static_cast<bool>(dc.attribute("ignoreOffLayers", "0").toInt());
+			checkerSettings.checkNotCMYKOrSpot = static_cast<bool>(dc.attribute("checkNotCMYKOrSpot", "0").toInt());
+			checkerSettings.checkDeviceColorsAndOutputIntend = static_cast<bool>(dc.attribute("checkDeviceColorsAndOutputIntend", "0").toInt());
+			checkerSettings.checkFontNotEmbedded = static_cast<bool>(dc.attribute("checkFontNotEmbedded", "0").toInt());
+			checkerSettings.checkFontIsOpenType = static_cast<bool>(dc.attribute("checkFontIsOpenType", "0").toInt());
 			appPrefs.checkerPrefsList[name] = checkerSettings;
 		}
 		if (dc.tagName()=="PRINTER")
@@ -2417,8 +2425,14 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.ignoreOffLayers = false;
 		checkerSettings.minResolution = 144.0;
 		checkerSettings.maxResolution = 2400.0;
+		checkerSettings.checkNotCMYKOrSpot = false;
+		checkerSettings.checkDeviceColorsAndOutputIntend = false;
+		checkerSettings.checkFontNotEmbedded = false;
+		checkerSettings.checkFontIsOpenType = false;
 		//TODO Stop translating these into settings!!!!!!!!!
 		cp->insert( CommonStrings::PostScript, checkerSettings);
+		checkerSettings.checkFontNotEmbedded = true;
+		checkerSettings.checkFontIsOpenType = true;
 		cp->insert( CommonStrings::PDF_1_3   , checkerSettings);
 		checkerSettings.checkTransparency = false;
 		cp->insert( CommonStrings::PDF_1_4   , checkerSettings);
@@ -2426,7 +2440,16 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
+		checkerSettings.checkDeviceColorsAndOutputIntend = true;
 		cp->insert( CommonStrings::PDF_X3    , checkerSettings);
+		checkerSettings.checkNotCMYKOrSpot = true;
+		checkerSettings.checkDeviceColorsAndOutputIntend = false;
+		cp->insert( CommonStrings::PDF_X1a    , checkerSettings);
+		checkerSettings.checkNotCMYKOrSpot = false;
+		checkerSettings.checkDeviceColorsAndOutputIntend = true;
+		checkerSettings.checkTransparency = false;
+		checkerSettings.checkFontIsOpenType = false;
+		cp->insert( CommonStrings::PDF_X4    , checkerSettings);
 	}
 }
 

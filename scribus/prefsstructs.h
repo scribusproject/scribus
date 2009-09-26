@@ -35,6 +35,10 @@ struct CheckerPrefs
 	bool checkRasterPDF;
 	bool checkForGIF;
 	bool ignoreOffLayers;
+	bool checkNotCMYKOrSpot; // colors must be either CMYK or spot (PDF/X-1a)
+	bool checkDeviceColorsAndOutputIntend; // unmanaged colors (device colors) must agree with output intend
+	bool checkFontNotEmbedded; // embedded PDF might use fonts without embedding
+	bool checkFontIsOpenType; // embedded PDF might use OpenType font program (only allowed in PDF/X-4 and PDF 1.6)
 };
 
 typedef QMap<QString, CheckerPrefs> CheckerPrefsList;

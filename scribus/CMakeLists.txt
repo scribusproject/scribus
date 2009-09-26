@@ -266,6 +266,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/pagepalette.h
   ui/pageselector.h
   ui/patterndialog.h
+  pdf_analyzer.h
   pdflib.h
   pdflib_core.h
   ui/pdfopts.h
@@ -567,6 +568,7 @@ SET(SCRIBUS_SOURCES
   ui/pageselector.cpp
   pagesize.cpp
   ui/patterndialog.cpp
+  pdf_analyzer.cpp
   pdflib.cpp
   pdflib_core.cpp
   pdfoptions.cpp

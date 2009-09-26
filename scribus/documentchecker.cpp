@@ -21,15 +21,20 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
+#include "commonstrings.h"
 #include "documentchecker.h"
 #include "page.h"
 #include "pageitem.h"
+#include "pdf_analyzer.h"
+#include "sccolor.h"
 #include "sclayer.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "text/nlsconfig.h"
 #include "util.h"
 #include "util_formats.h"
+
+#include <QList>
 
 bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
@@ -50,6 +55,10 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkRasterPDF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkRasterPDF;
 	checkerSettings.checkForGIF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkForGIF;
 	checkerSettings.ignoreOffLayers = currDoc->checkerProfiles[currDoc->curCheckProfile].ignoreOffLayers;
+	checkerSettings.checkNotCMYKOrSpot = currDoc->checkerProfiles[currDoc->curCheckProfile].checkNotCMYKOrSpot;
+	checkerSettings.checkDeviceColorsAndOutputIntend = currDoc->checkerProfiles[currDoc->curCheckProfile].checkDeviceColorsAndOutputIntend;
+	checkerSettings.checkFontNotEmbedded = currDoc->checkerProfiles[currDoc->curCheckProfile].checkFontNotEmbedded;
+	checkerSettings.checkFontIsOpenType = currDoc->checkerProfiles[currDoc->curCheckProfile].checkFontIsOpenType;
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
 	currDoc->docLayerErrors.clear();
@@ -108,15 +117,15 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if (currItem->asImageFrame())
 #endif
 		{
-		 	if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
+			if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 				itemError.insert(MissingImage, 0);
 			else
 			{
 				if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
-				          && (currItem->isRaster) && (checkerSettings.checkResolution))
+						  && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooLow, 0);
 				if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
-				          && (currItem->isRaster) && (checkerSettings.checkResolution))
+						  && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.suffix().toLower();
@@ -124,6 +133,80 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(PlacedPDF, 0);
 				if ((ext == "gif") && (checkerSettings.checkForGIF))
 					itemError.insert(ImageIsGIF, 0);
+
+				if (extensionIndicatesPDF(ext))
+				{
+					PDFAnalyzer analyst(currItem->Pfile);
+					QList<PDFColorSpace> usedColorSpaces;
+					bool hasTransparency = false;
+					QList<PDFFont> usedFonts;
+					int pageNum = qMin(qMax(1, currItem->pixm.imgInfo.actualPageNumber), currItem->pixm.imgInfo.numberOfPages) - 1;
+					QList<PDFImage> imgs;
+					bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
+					if (succeeded)
+					{
+						if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
+						{
+							int currPrintProfCS = -1;
+							if (currDoc->HasCMS)
+							{
+								cmsHPROFILE printerProf = currDoc->DocPrinterProf;
+								currPrintProfCS = static_cast<int>(cmsGetColorSpace(printerProf));
+							}
+							if (checkerSettings.checkNotCMYKOrSpot)
+							{
+								for (int i=0; i<usedColorSpaces.size(); ++i)
+								{
+									if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
+										|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
+									{
+										itemError.insert(NotCMYKOrSpot, 0);
+										break;
+									}
+								}
+							}
+							if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+							{
+								for (int i=0; i<usedColorSpaces.size(); ++i)
+								{
+									if (currPrintProfCS == icSigCmykData && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
+									{
+										itemError.insert(DeviceColorAndOutputIntend, 0);
+										break;
+									}
+									else if (currPrintProfCS == icSigRgbData && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+									{
+										itemError.insert(DeviceColorAndOutputIntend, 0);
+										break;
+									}
+								}
+							}
+						}
+						if (checkerSettings.checkTransparency && hasTransparency)
+							itemError.insert(Transparency, 0);
+						if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
+						{
+							for (int i=0; i<usedFonts.size(); ++i)
+							{
+								PDFFont currentFont = usedFonts[i];
+								if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
+									itemError.insert(FontNotEmbedded, 0);
+								if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
+									itemError.insert(EmbeddedFontIsOpenType, 0);
+							}
+						}
+						if (checkerSettings.checkResolution)
+						{
+							for (int i=0; i<imgs.size(); ++i)
+							{
+								if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
+									itemError.insert(ImageDPITooLow, 0);
+								if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
+									itemError.insert(ImageDPITooHigh, 0);
+							}
+						}
+					}
+				}
 			}
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
@@ -131,7 +214,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 #ifndef NLS_PROTO
 			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
 				itemError.insert(TextOverflow, 0);
-			if (currItem->isAnnotation()) 
+			if (currItem->isAnnotation())
 			{
 				ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
 				if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
@@ -195,6 +278,24 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			}
 #endif
 		}
+		if (((currItem->fillColor() != CommonStrings::None) || (currItem->lineColor() != CommonStrings::None)) && (checkerSettings.checkNotCMYKOrSpot))
+		{
+			bool rgbUsed = false;
+			if ((currItem->fillColor() != CommonStrings::None))
+			{
+				ScColor tmpC = currDoc->PageColors[currItem->fillColor()];
+				if (tmpC.getColorModel() == colorModelRGB)
+					rgbUsed = true;
+			}
+			if ((currItem->lineColor() != CommonStrings::None))
+			{
+				ScColor tmpC = currDoc->PageColors[currItem->lineColor()];
+				if (tmpC.getColorModel() == colorModelRGB)
+					rgbUsed = true;
+			}
+			if (rgbUsed)
+				itemError.insert(NotCMYKOrSpot, 0);
+		}
 		if (itemError.count() != 0)
 			currDoc->masterItemErrors.insert(currItem->ItemNr, itemError);
 	}
@@ -230,15 +331,15 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if (currItem->asImageFrame())
 #endif
 		{
-		 	if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
+			if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 				itemError.insert(MissingImage, 0);
 			else
 			{
-				if  (((qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
-				           && (currItem->isRaster) && (checkerSettings.checkResolution))
+				if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
+						   && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooLow, 0);
 				if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
-				          && (currItem->isRaster) && (checkerSettings.checkResolution))
+						  && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.suffix().toLower();
@@ -246,6 +347,79 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(PlacedPDF, 0);
 				if ((ext == "gif") && (checkerSettings.checkForGIF))
 					itemError.insert(ImageIsGIF, 0);
+				if (extensionIndicatesPDF(ext))
+				{
+					PDFAnalyzer analyst(currItem->Pfile);
+					QList<PDFColorSpace> usedColorSpaces;
+					bool hasTransparency = false;
+					QList<PDFFont> usedFonts;
+					int pageNum = qMin(qMax(1, currItem->pixm.imgInfo.actualPageNumber), currItem->pixm.imgInfo.numberOfPages) - 1;
+					QList<PDFImage> imgs;
+					bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
+					if (succeeded)
+					{
+						if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
+						{
+							int currPrintProfCS = -1;
+							if (currDoc->HasCMS)
+							{
+								cmsHPROFILE printerProf = currDoc->DocPrinterProf;
+								currPrintProfCS = static_cast<int>(cmsGetColorSpace(printerProf));
+							}
+							if (checkerSettings.checkNotCMYKOrSpot)
+							{
+								for (int i=0; i<usedColorSpaces.size(); ++i)
+								{
+									if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
+										|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
+									{
+										itemError.insert(NotCMYKOrSpot, 0);
+										break;
+									}
+								}
+							}
+							if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+							{
+								for (int i=0; i<usedColorSpaces.size(); ++i)
+								{
+									if (currPrintProfCS == icSigCmykData && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
+									{
+										itemError.insert(DeviceColorAndOutputIntend, 0);
+										break;
+									}
+									else if (currPrintProfCS == icSigRgbData && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+									{
+										itemError.insert(DeviceColorAndOutputIntend, 0);
+										break;
+									}
+								}
+							}
+						}
+						if (checkerSettings.checkTransparency && hasTransparency)
+							itemError.insert(Transparency, 0);
+						if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
+						{
+							for (int i=0; i<usedFonts.size(); ++i)
+							{
+								PDFFont currentFont = usedFonts[i];
+								if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
+									itemError.insert(FontNotEmbedded, 0);
+								if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
+									itemError.insert(EmbeddedFontIsOpenType, 0);
+							}
+						}
+						if (checkerSettings.checkResolution)
+						{
+							for (int i=0; i<imgs.size(); ++i)
+							{
+								if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
+									itemError.insert(ImageDPITooLow, 0);
+								if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
+									itemError.insert(ImageDPITooHigh, 0);
+							}
+						}
+					}
+				}
 			}
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
@@ -253,7 +427,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 #ifndef NLS_PROTO
 			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
 				itemError.insert(TextOverflow, 0);
-			if (currItem->isAnnotation()) 
+			if (currItem->isAnnotation())
 			{
 				ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
 				if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
@@ -317,9 +491,27 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			}
 #endif
 		}
+		if (((currItem->fillColor() != CommonStrings::None) || (currItem->lineColor() != CommonStrings::None)) && (checkerSettings.checkNotCMYKOrSpot))
+		{
+			bool rgbUsed = false;
+			if ((currItem->fillColor() != CommonStrings::None))
+			{
+				ScColor tmpC = currDoc->PageColors[currItem->fillColor()];
+				if (tmpC.getColorModel() == colorModelRGB)
+					rgbUsed = true;
+			}
+			if ((currItem->lineColor() != CommonStrings::None))
+			{
+				ScColor tmpC = currDoc->PageColors[currItem->lineColor()];
+				if (tmpC.getColorModel() == colorModelRGB)
+					rgbUsed = true;
+			}
+			if (rgbUsed)
+				itemError.insert(NotCMYKOrSpot, 0);
+		}
 		if (itemError.count() != 0)
 			currDoc->docItemErrors.insert(currItem->ItemNr, itemError);
 	}
-	
+
 	return ((currDoc->docItemErrors.count() != 0) || (currDoc->masterItemErrors.count() != 0) || (currDoc->docLayerErrors.count() != 0));
 }

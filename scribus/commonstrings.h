@@ -50,7 +50,7 @@ class SCRIBUS_API CommonStrings : public QObject
 	Q_OBJECT
 public:
 	CommonStrings();
-	
+
 	virtual void changeEvent(QEvent *e);
 
 	/**
@@ -105,7 +105,7 @@ public:
 	static QString trYesKey;
 	//! \brief Translated "No" with key accelerator "&No"
 	static QString trNoKey;
-	
+
 	//Item Types
 	static QString itemType_TextFrame;
 	static QString itemType_ImageFrame;
@@ -116,7 +116,7 @@ public:
 	static QString itemType_LatexFrame;
 	static QString itemType_OSGFrame;
 	static QString itemType_Multiple;
-	
+
 	static QString itemSubType_PDF_PushButton;
 	static QString itemSubType_PDF_TextField;
 	static QString itemSubType_PDF_CheckBox;
@@ -124,7 +124,7 @@ public:
 	static QString itemSubType_PDF_ListBox;
 	static QString itemSubType_PDF_TextAnnotation;
 	static QString itemSubType_PDF_LinkAnnotation;
-	
+
 	//Page Size
 	static QString customPageSize;
 	static QString trCustomPageSize;
@@ -148,7 +148,7 @@ public:
 	static QString trPageLocMiddleLeft;
 	static QString trPageLocMiddleRight;
 	static QString trPageLocRight;
-	
+
 	//Master Page Default Names
 	static QString masterPageNormal;
 	static QString trMasterPageNormal;
@@ -158,14 +158,14 @@ public:
 	static QString trMasterPageNormalMiddle;
 	static QString masterPageNormalRight;
 	static QString trMasterPageNormalRight;
-	
+
 	//Pen Styles
 	static QString trPenStyle_SolidLine;
 	static QString trPenStyle_DashedLine;
 	static QString trPenStyle_DottedLine;
 	static QString trPenStyle_DashDotLine;
 	static QString trPenStyle_DashDotDotLine;
-	
+
 	//Default Styles
 	static QString DefaultParagraphStyle;
 	static QString DefaultCharacterStyle;
@@ -173,9 +173,9 @@ public:
 	static QString trDefaultParagraphStyle;
 	static QString trDefaultCharacterStyle;
 	static QString trDefaultLineStyle;
-	
+
 	//Days and Months
-	static QString monday; 
+	static QString monday;
 	static QString tuesday;
 	static QString wednesday;
 	static QString thursday;
@@ -195,7 +195,7 @@ public:
 	static QString october;
 	static QString november;
 	static QString december;
-	
+
 	//Color Related
 	static QString trRGB;
 	static QString trCMYK;
@@ -209,10 +209,10 @@ public:
 	static QString trVisionDeuteranopia;
 	static QString trVisionTritanopia;
 	static QString trVisionFullColorBlind;
-	
+
 	//Tab Fill Custom
 	static QString trCustomTabFill;
-	
+
 	//Paragraph Style Optical Margins
 	static QString trOpticalMarginsNone;
 	static QString trOpticalMarginsLeftProtruding;
@@ -220,11 +220,11 @@ public:
 	static QString trOpticalMarginsLeftHangPunct;
 	static QString trOpticalMarginsRightHangPunct;
 	static QString trOpticalMarginsDefault;
-	
+
 	//Paragraph Style Word Tracking
 	static QString trMinWordTracking;
 	static QString trMaxWordTracking;
-	
+
 	//Paragraph Style Glyph Extension
 	static QString trMinGlyphExtension;
 	static QString trMaxGlyphExtension;
@@ -235,7 +235,9 @@ public:
 	static QString PDF_1_3;
 	static QString PDF_1_4;
 	static QString PDF_1_5;
+	static QString PDF_X1a;
 	static QString PDF_X3;
+	static QString PDF_X4;
 
 	static QString PostScript1;
 	static QString trPostScript1;
@@ -245,7 +247,7 @@ public:
 	static QString trPostScript3;
 	static QString WindowsGDI;
 	static QString trWindowsGDI;
-	
+
 	//Units strings
 	static QString trStrPT;
 	static QString trStrMM;

@@ -322,7 +322,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	PDFVersionCombo->addItem("PDF 1.5 (Acrobat 6)");
 	cms = doc ? (ScCore->haveCMS() && doc->HasCMS) : false;
 	if (cms && (!PDFXProfiles.isEmpty()))
+	{
+		PDFVersionCombo->addItem("PDF/X-1a");
 		PDFVersionCombo->addItem("PDF/X-3");
+		PDFVersionCombo->addItem("PDF/X-4");
+	}
 	GroupBox1Layout->addWidget( PDFVersionCombo, 0, 1, 1, 2 );
 	TextLabel1x = new QLabel( tr( "&Binding:" ), GroupBox1 );
 	TextLabel1x->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -847,7 +851,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	tabPDFXLayout->addWidget( BleedGroup );
 
 	X3Group = new QGroupBox( tabPDFX );
-	X3Group->setTitle( tr( "PDF/X-3 Output Intent" ) );
+	X3Group->setTitle( tr( "PDF/X Output Intent" ) );
 	X3GroupLayout = new QGridLayout( X3Group );
 	X3GroupLayout->setSpacing( 5 );
 	X3GroupLayout->setMargin( 10 );
@@ -953,7 +957,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		                                    "a token can be * for all the pages, 1-5 for "
 		                                    "a range of pages or a single page number.") + "</qt>" );
 
-	PDFVersionCombo->setToolTip( "<qt>" + tr( "Determines the PDF compatibility.<br/>The default is <b>PDF 1.3</b> which gives the widest compatibility.<br/>Choose <b>PDF 1.4</b> if your file uses features such as transparency or you require 128 bit encryption.<br/><b>PDF 1.5</b> is necessary when you wish to preserve objects in separate layers within the PDF.<br/><b>PDF/X-3</b> is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) + "</qt>");
+	PDFVersionCombo->setToolTip( "<qt>" + tr( "Determines the PDF compatibility.<br/>The default is <b>PDF 1.3</b> which gives the widest compatibility.<br/>Choose <b>PDF 1.4</b> if your file uses features such as transparency or you require 128 bit encryption.<br/><b>PDF 1.5</b> is necessary when you wish to preserve objects in separate layers within the PDF.<br/><b>PDF/X-3</b> is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.<br/><b>PDF/X-1a</b> is for blind exchange with colors strictly specified in CMYK or spot colors.<br/><b>PDF/X-4</b> is an extension of PDF/X-3 to support transparancy and layering." ) + "</qt>");
 	ComboBind->setToolTip( "<qt>" + tr( "Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left." ) + "</qt>" );
 	CheckBox1->setToolTip( "<qt>" + tr( "Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation." ) + "</qt>" );
 	Article->setToolTip( "<qt>" + tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) + "</qt>" );
@@ -999,7 +1003,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	BleedRight->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 	docBleeds->setToolTip( "<qt>" + tr( "Use the existing bleed settings from the document preferences" ) + "</qt>" );
 	PrintProfC->setToolTip( "<qt>" + tr( "Output profile for printing. If possible, get some guidance from your printer on profile selection." ) + "</qt>" );
-	InfoString->setToolTip( "<qt>" + tr( "Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document." ) + "</qt>" );
+	InfoString->setToolTip( "<qt>" + tr( "Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document." ) + "</qt>" );
 }
 
 void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
@@ -1020,8 +1024,12 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	bool cmsUse = mdoc ? (ScCore->haveCMS() && mdoc->HasCMS) : false;
 	if (cmsUse)
 	{
-		if (Opts.Version == PDFOptions::PDFVersion_X3)
+		if (Opts.Version == PDFOptions::PDFVersion_X1a)
 			PDFVersionCombo->setCurrentIndex(3);
+		if (Opts.Version == PDFOptions::PDFVersion_X3)
+			PDFVersionCombo->setCurrentIndex(4);
+		if (Opts.Version == PDFOptions::PDFVersion_X4)
+			PDFVersionCombo->setCurrentIndex(5);
 	}
 	else
 		PDFVersionCombo->setCurrentIndex(0);
@@ -1036,7 +1044,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	Article->setChecked(Opts.Articles);
 	CheckBM->setChecked(Opts.Bookmarks);
 	useLayers->setChecked(Opts.useLayers);
-	if (Opts.Version == 15)
+	if (Opts.Version == PDFOptions::PDFVersion_15 || Opts.Version == PDFOptions::PDFVersion_X4)
 		useLayers->setEnabled(true);
 	else
 		useLayers->setEnabled(false);
@@ -1190,7 +1198,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			doublePageLeft->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
 			doublePageRight->setChecked(true);
-		if (Opts.Version == 15)
+		if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
 			useLayers2->setEnabled(true);
 		else
 			useLayers2->setEnabled(false);
@@ -1326,8 +1334,12 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	docInfoMarks->setChecked(Opts.docInfoMarks);
 	if (!cmsUse)
 		X3Group->setEnabled(false);
-	if (cmsUse && (Opts.Version == 12) && (!PDFXProfiles.isEmpty()))
+	if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X1a) && (!PDFXProfiles.isEmpty()))
 		EnablePDFX(3);
+	else if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X3) && (!PDFXProfiles.isEmpty()))
+		EnablePDFX(4);
+	else if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X4) && (!PDFXProfiles.isEmpty()))
+		EnablePDFX(5);
 	else
 		X3Group->setEnabled(false);
 	if (mdoc != 0  && exporting)
@@ -1428,7 +1440,11 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	if (PDFVersionCombo->currentIndex() == 2)
 		pdfOptions.Version = PDFOptions::PDFVersion_15;
 	if (PDFVersionCombo->currentIndex() == 3)
+		pdfOptions.Version = PDFOptions::PDFVersion_X1a;
+	if (PDFVersionCombo->currentIndex() == 4)
 		pdfOptions.Version = PDFOptions::PDFVersion_X3;
+	if (PDFVersionCombo->currentIndex() == 5)
+		pdfOptions.Version = PDFOptions::PDFVersion_X4;
 	if (OutCombo->currentIndex() == 0)
 	{
 		pdfOptions.isGrayscale = false;
@@ -1496,7 +1512,7 @@ void TabPDFOptions::doDocBleeds()
 
 void TabPDFOptions::checkInfo()
 {
-	if ((PDFVersionCombo->currentIndex() == 3) && (InfoString->text().isEmpty()))
+	if ((PDFVersionCombo->currentIndex() >= 3) && (InfoString->text().isEmpty()))
 		emit noInfo();
 	else
 		emit hasInfo();
@@ -1519,9 +1535,13 @@ void TabPDFOptions::enableCMS(bool enable)
 	PDFVersionCombo->addItem("PDF 1.5 (Acrobat 6)");
 	cms=enable;
 	if (enable)
+	{
+		PDFVersionCombo->addItem("PDF/X-1a");
 		PDFVersionCombo->addItem("PDF/X-3");
+		PDFVersionCombo->addItem("PDF/X-4");
+	}
 	else
-		a = qMin(a, 3);
+		a = qMin(a, 2);
 	PDFVersionCombo->setCurrentIndex(a);
 	EnablePr(1);
 	connect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
@@ -1529,9 +1549,9 @@ void TabPDFOptions::enableCMS(bool enable)
 
 void TabPDFOptions::EnablePDFX(int a)
 {
-	useLayers->setEnabled(a == 2);
+	useLayers->setEnabled((a == 2) || (a == 5));
 	if (useLayers2)
-		useLayers2->setEnabled(a == 2);
+		useLayers2->setEnabled((a == 2) || (a == 5));
 	if (doc != 0 && pdfExport)
 	{
 		int currentEff = EffectType->currentIndex();
@@ -1570,7 +1590,7 @@ void TabPDFOptions::EnablePDFX(int a)
 		}
 		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	}
-	if (a != 3)
+	if (a < 3)  // not PDF/X
 	{
 		X3Group->setEnabled(false);
 		setTabEnabled(indexOf(tabSecurity), true);
@@ -1587,12 +1607,16 @@ void TabPDFOptions::EnablePDFX(int a)
 		}
 		return;
 	}
+	// PDF/X is selected
 	disconnect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 	OutCombo->setCurrentIndex(1);
 	OutCombo->setEnabled(false);
 	EnablePr(1);
-	EmbedProfs2->setChecked(true);
-	EmbedProfs2->setEnabled(false);
+	if ((a == 4) || (a == 5)) // X3 or X4, enforcing color profiles on images
+	{
+		EmbedProfs2->setChecked(true);
+		EmbedProfs2->setEnabled(false);
+	}
 	if (doc != 0 && pdfExport)
 	{
 //		EmbedFonts->setChecked(true);
@@ -1655,7 +1679,15 @@ void TabPDFOptions::EnablePG()
 void TabPDFOptions::EnablePr(int a)
 {
 	EnableLPI(a);
-	bool setter = a == 1 ? true : false;
+	bool setter = false;
+	if (a == 1)
+	{
+		if (PDFVersionCombo->currentIndex() == 3)
+			setter = false;
+		else
+			setter = true;
+	}
+
 	GroupBox9->setEnabled(setter);
 	ProfsGroup->setEnabled(setter);
 }
@@ -2092,7 +2124,7 @@ void TabPDFOptions::SelEFont(QListWidgetItem *c)
 {
 	if (c != NULL)
 	{
-		if ((PDFVersionCombo->currentIndex() != 3) && (c->flags() & Qt::ItemIsSelectable))
+		if ((PDFVersionCombo->currentIndex() < 3) && (c->flags() & Qt::ItemIsSelectable))
 			FromEmbed->setEnabled(true);
 		else
 			FromEmbed->setEnabled(false);
@@ -2109,7 +2141,7 @@ void TabPDFOptions::SelSFont(QListWidgetItem *c)
 {
 	if (c != NULL)
 	{
-		if (PDFVersionCombo->currentIndex() == 3)
+		if (PDFVersionCombo->currentIndex() == 4)
 		{
 			if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset()))
 				FromOutline->setEnabled(false);

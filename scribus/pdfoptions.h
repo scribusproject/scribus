@@ -52,6 +52,8 @@ public:
 		PDFVersion_14 = 14,
 		PDFVersion_15 = 15,
 		PDFVersion_X3 = 12,
+		PDFVersion_X1a = 11,
+		PDFVersion_X4 = 10
 	};
 
 	enum PDFPageLayout

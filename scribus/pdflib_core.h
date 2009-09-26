@@ -79,7 +79,7 @@ private:
 		double origYsc;
 		QMap<int, ImageLoadRequest> RequestProps;
 	};
-	
+
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
@@ -146,7 +146,7 @@ private:
 //	QString    PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
 	QByteArray ComputeRC4Key(int ObjNum);
-	
+
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
 	QString drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
@@ -167,10 +167,11 @@ private:
 	void copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 	void copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 #endif
-		
+
+	void generateXMP(const QString& timeStamp);
 	int bytesWritten() { return Spool.pos(); }
 
-	
+
 	QString Content;
 	QString ErrorMessage;
 	ScribusDoc & doc;
@@ -293,11 +294,13 @@ private:
 	double bleedDisplacementX;
 	double bleedDisplacementY;
 	QMap<QString, QMap<uint, uint> > Type3Fonts;
-	
+	QString xmpPacket;
+
 protected slots:
 	void cancelRequested();
 };
 
 #endif
+
 
 
