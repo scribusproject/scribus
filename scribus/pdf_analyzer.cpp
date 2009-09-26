@@ -814,7 +814,7 @@ PDFAnalyzer::PDFAnalyzer(QString & filename) : QObject()
 PDFAnalyzer::~PDFAnalyzer()
 {
 }
-bool PDFAnalyzer::inspectPDF(int pageNum, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts)
+bool PDFAnalyzer::inspectPDF(int pageNum, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, QList<PDFImage> & imgs)
 {
 	return false;
 }
