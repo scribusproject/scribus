@@ -743,6 +743,7 @@ ADD_SUBDIRECTORY(doc)
 ADD_SUBDIRECTORY(icons)
 ADD_SUBDIRECTORY(keysets)
 ADD_SUBDIRECTORY(profiles)
+ADD_SUBDIRECTORY(resources/swatches)
 ADD_SUBDIRECTORY(translations/qm)
 
 #Install our READMEs etc.
