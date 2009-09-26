@@ -1,3 +1,63 @@
+Scribus - 1.5.0svn
+==================
+- 0008422: [User Interface] show how many items are selected (fschmid) - closed.
+- 0008408: [Build System] Build error svn 13953 (fschmid) - closed.
+- 0008377: [Build System] Scribus should be able to use system libwpg library (fschmid) - closed.
+- 0005820: [Usability] masterpage/ layer hierarchy not apply on regular page (jghali) - closed.
+- 0008220: [Plug-ins] [patch] make two-byte conversion happening much less often on file load (jghali) - closed.
+- 0008317: [Import / Export] Native WMF import is incorrect (jghali) - closed.
+- 0000480: [General] Being able to *switch* items in the Distribute/Align menu (cbradney) - closed.
+- 0008126: [User Interface] Paste is slow, as well as duplicate (patch attached) (cbradney) - closed.
+- 0008225: [Story Editor / Text Frames] additionnal end of line added to text when loading/saving doc (jghali) - closed.
+- 0008212: [General] Page property doesn't apply with master pages (cbradney) - closed.
+- 0008152: [Plug-ins] Selecting a picture in the Picture Browser crashes Scribus (pierremarchand) - closed.
+- 0008121: [Plug-ins] Corrected UI strings in the Picture Browser (cbradney) - closed.
+- 0006050: [Import / Export] Integrate/support the Uniconvertor library for vector file import (Herm) - closed.
+- 0008110: [Import / Export] Keyboard shortcuts for PagePlus users (cbradney) - closed.
+- 0008091: [Tables] Level change via the menu should be greyed out for table cells (cbradney) - closed.
+- 0008101: [Story Editor / Text Frames] Sample text inserted in the SE displayed wrongly (subik) - closed.
+- 0008102: [Import / Export] Keyboard shortcuts for Pagestream users (cbradney) - closed.
+- 0008103: [Import / Export] Keyboard shortcuts for iCalamus users (cbradney) - closed.
+- 0005679: [Story Editor / Text Frames] Wish: Sample Text in Story Editor (subik) - closed.
+- 0005582: [Plug-ins] Barcode generator CMYK support (subik) - closed.
+- 0006781: [General] Barcode Generator plugin only supports RGB/HSV colours (subik) - closed.
+- 0007765: [Usability] Ability of deleting guidelines by key (subik) - closed.
+- 0008064: [Plug-ins] Updated Picture Browser (pierremarchand) - closed.
+
+Scribus - 1.3.6svn
+==================
+- 0008424: [Color Management] Pure black CMYK(0,0,0,100) is wrong in PS when Color Profiles Applied (jghali) - resolved.
+- 0008385: [PDF] Tab filler characters are printed incorrectly to PDF and to PS (jghali) - resolved.
+- 0008380: [PDF] Embed EPS/PDF Files produces slightly wrong scale/position when file dimensions are not an integral number of points (jghali) - resolved.
+- 0008369: [Graphics / Image Frames] After deleting page containing inline frame, scribus crashes on exit (jghali) - resolved.
+- 0008372: [General] Scribus outputs invalid XML when saving doc with inline frame (jghali) - resolved.
+- 0008371: [PDF] patterns with spaces/special chars in their names cause PDF corruption (jghali) - closed.
+- 0008030: [Graphics / Image Frames] In-line frames do not export to pdf if shifted from one linked frame to another (jghali) - closed.
+- 0008418: [Translation] update korean translation file (jghali) - closed.
+- 0008400: [Import / Export] Imported PDF images exports the same page regardless of individual setting (fschmid) - closed.
+- 0008426: [Canvas] guides jump with double-sided layout and asymmetric margins (subik) - closed.
+- 0008453: [General] use Ctrl+Tab instead of Tab for selecting next window (jghali) - closed.
+- 0008443: [General] Layers are lost when a page is converted to a master page (jghali) - closed.
+- 0008447: [Translation] Brazilian Portuguese Translation Update (cbradney) - closed.
+- 0008421: [Translation] Updated Russian translation for 1.3.5.1/1.3.6 (cbradney) - closed.
+- 0008410: [Story Editor / Text Frames] Baseline shift is not saved for tab characters (jghali) - closed.
+- 0004632: [Graphics / Image Frames] Option to rename patterns (fschmid) - closed.
+- 0008381: [Graphics / Image Frames] Scribus crashes when window is closed while still rendering preview mode (jghali) - closed.
+- 0008396: [Graphics / Image Frames] In-line text frames do not display on screen (fschmid) - closed.
+- 0008346: [Graphics / Image Frames] No seamless construction of pattern (fschmid) - closed.
+- 0004325: [Undo/Redo] Loading of pattern(s) is included in undo/redo (fschmid) - closed.
+- 0008370: [PDF] Inline Render Frames Don't Always Export Properly to PDF (fschmid) - closed.
+- 0008383: [Import / Export] PDF export window misses progress numbers in progressbar in front of % (jghali) - closed.
+- 0008393: [Graphics / Image Frames] Import problem of old scribus-documents (fschmid) - closed.
+- 0008293: [PDF] Missing calendar date in PDF field (fschmid) - closed.
+- 0007900: [Shape Drawing] - display number of degrees during rotation of object (fschmid) - closed.
+- 0008363: [Build System] The installed Qt version 4.4.3 is too old, at least version 4.5.0 is required (cbradney) - closed.
+- 0008365: [General] Saved file cannot be reopened (jghali) - closed.
+- 0006352: [General] Mastro page not avalaible on Italian interface (jghali) - closed.
+- 0008330: [Shape Drawing] "Convert Stroke to Path" is buggy (fschmid) - closed.
+- 0008344: [Translation] Updated Russian translation (jghali) - closed.
+- 0008335: [Import / Export] Page Import blocks scribus (jghali) - closed.
+- 0008326: [PDF] PDF is corrupt (jghali) - closed.
 
 Scribus - 1.3.5svn
 - 0008017: [PDF] Exported PDF with CJK fonts corrupted (jghali) - resolved.
