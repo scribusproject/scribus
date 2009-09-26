@@ -7694,11 +7694,14 @@ void ScribusMainWindow::slotPrefsOrg()
 void ScribusMainWindow::slotPrefs150Org()
 {
 	slotSelect();
-
+	struct ApplicationPrefs oldPrefs(prefsManager->appPrefs);
 	PreferencesDialog prefsDialog(this);
 	if (prefsDialog.exec()==QDialog::Accepted)
-		qDebug()<<"New prefs window closed";
-//		prefsOrg(&prefsDialog);
+	{
+		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
+		prefsManager->setNewPrefs(newPrefs);
+		prefsManager->SavePrefs();
+	}
 }
 
 void ScribusMainWindow::ShowSubs()

@@ -79,15 +79,42 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
 	connect(preferencesTypeList, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 
 	initPreferenceValues();
+	setupGui();
 
-	prefs_Display->restoreDefaults(&(prefsManager->appPrefs));
+}
+
+void PreferencesDialog::restoreDefaults()
+{
+	prefsManager->initDefaults();
+	setupGui();
+}
+
+void PreferencesDialog::initPreferenceValues()
+{
+	prefsManager=PrefsManager::instance();
+	localPrefs=prefsManager->appPrefs;
+	mainWin = (ScribusMainWindow*)parent();
+	docUnitIndex = localPrefs.docSetupPrefs.docUnitIndex;
+	unitRatio = unitGetRatioFromIndex(docUnitIndex);
+}
+
+void PreferencesDialog::setupGui()
+{
+	prefs_Display->restoreDefaults(&localPrefs);
 }
 
 PreferencesDialog::~PreferencesDialog()
 {
+}
+
+void PreferencesDialog::accept()
+{
+	saveGuiToPrefs();
+	QDialog::accept ();
 }
 
 void PreferencesDialog::setupListWidget()
@@ -192,11 +219,15 @@ void PreferencesDialog::arrangeIcons()
 	}*/
 }
 
-void PreferencesDialog::initPreferenceValues()
+void PreferencesDialog::applyButtonClicked()
 {
-	prefsManager=PrefsManager::instance();
-	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
-	mainWin = (ScribusMainWindow*)parent();
-	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
-	unitRatio = unitGetRatioFromIndex(docUnitIndex);
+	Prefs_Pane* pp=qobject_cast<Prefs_Pane *>(prefsStackWidget->currentWidget());
+	if (pp)
+		pp->saveGuiToPrefs(&localPrefs);
 }
+
+void PreferencesDialog::saveGuiToPrefs()
+{
+	prefs_Display->saveGuiToPrefs(&localPrefs);
+}
+

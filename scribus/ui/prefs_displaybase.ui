@@ -44,9 +44,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-279</y>
+        <y>0</y>
         <width>678</width>
-        <height>1127</height>
+        <height>1143</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -393,6 +393,22 @@
           <widget class="QComboBox" name="rulerUnitComboBox"/>
          </item>
         </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="label_12">

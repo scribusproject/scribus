@@ -290,6 +290,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/prefs_keyboardshortcuts.h
   ui/prefs_miscellaneous.h
   ui/prefs_paths.h
+  ui/prefs_pane.h
   ui/prefs_plugins.h
   ui/prefs_printer.h
   ui/prefs_scrapbook.h

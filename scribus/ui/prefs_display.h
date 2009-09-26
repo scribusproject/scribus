@@ -9,19 +9,22 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_DISPLAY_H
 
 #include "ui_prefs_displaybase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_Display : public QWidget, Ui::Prefs_Display
+class SCRIBUS_API Prefs_Display : public Prefs_Pane, Ui::Prefs_Display
 {
 	Q_OBJECT
 
 	public:
 		Prefs_Display(QWidget* parent=0);
 		~Prefs_Display();
-		void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 
 	public slots:
 		void languageChange();
+
 
 	protected slots:
 		/*!
@@ -52,6 +55,7 @@ class SCRIBUS_API Prefs_Display : public QWidget, Ui::Prefs_Display
 		virtual void changeAnnotFrameColor();
 		virtual void changePageBorderColor();
 		virtual void changeControlCharsColor();
+
 
 
 	protected:

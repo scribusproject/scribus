@@ -185,6 +185,7 @@ public:
 	bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();
+	void setNewPrefs(ApplicationPrefs& newPrefs);
 	PrefsFile* applicationPrefsFile();
 	bool importingFrom12x();
 

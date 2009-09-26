@@ -91,6 +91,11 @@ ApplicationPrefs* PrefsManager::applicationPrefs()
 	return &appPrefs;
 }
 
+void PrefsManager::setNewPrefs(ApplicationPrefs& newPrefs)
+{
+	appPrefs=newPrefs;
+}
+
 PrefsFile* PrefsManager::applicationPrefsFile()
 {
 	return prefsFile;

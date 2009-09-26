@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 Prefs_Display::Prefs_Display(QWidget* parent)
-	: QWidget(parent)
+	: Prefs_Pane(parent)
 {
 	setupUi(this);
 	languageChange();
@@ -204,20 +204,22 @@ void Prefs_Display::drawRuler()
 		p.drawLine(QPointF(xl, 6.0), QPointF(xl, 19.0));
 		p.save();
 		p.scale(1.0 / displayScale, 1.0);
+		double val;
 		switch (index)
 		{
 			case 2:
 			case 4:
-				p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(xl / iter2));
+				val=xl/iter2;
 				break;
 			case 3:
 			case 5:
-				p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(xl / iter));
+				val=xl/iter;
 				break;
 			default:
-				p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(xl / iter * 10));
+				val=xl/iter*10;
 				break;
 		}
+		p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(val));
 		p.restore();
 	}
 	p.end();
@@ -359,4 +361,35 @@ void Prefs_Display::changeControlCharsColor()
 		colorControlChars = neu;
 		textControlCharsButton->setIcon(pm);
 	}
+}
+
+void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
+{
+	prefsData->guidesPrefs.showPic=showImagesCheckBox->isChecked();
+	prefsData->guidesPrefs.showControls=showControlCharsCheckBox->isChecked();
+	prefsData->guidesPrefs.rulerMode=showRulersRelativeToPageCheckBox->isChecked();
+	prefsData->guidesPrefs.linkShown=showTextChainsCheckBox->isChecked();
+	prefsData->guidesPrefs.framesShown=showFramesCheckBox->isChecked();
+	prefsData->guidesPrefs.layerMarkersShown=showLayerIndicatorsCheckBox->isChecked();
+	prefsData->displayPrefs.marginColored=showUnprintableAreaInMarginColorCheckBox->isChecked();
+	prefsData->guidesPrefs.showBleed=showBleedAreaCheckBox->isChecked();
+	prefsData->displayPrefs.showPageShadow=showPageShadowCheckBox->isChecked();
+	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
+	prefsData->displayPrefs.scratch.Left=scratchSpaceLeftSpinBox->value()/unitRatio;
+	prefsData->displayPrefs.scratch.Right=scratchSpaceRightSpinBox->value()/unitRatio;
+	prefsData->displayPrefs.scratch.Top=scratchSpaceTopSpinBox->value()/unitRatio;
+	prefsData->displayPrefs.scratch.Bottom=scratchSpaceBottomSpinBox->value()/unitRatio;
+	prefsData->displayPrefs.pageGapHorizontal=pageGapHorizontalSpinBox->value();
+	prefsData->displayPrefs.pageGapVertical=pageGapVerticalSpinBox->value();
+
+	prefsData->displayPrefs.paperColor=colorPaper;
+	prefsData->displayPrefs.frameColor=colorFrame;
+	prefsData->displayPrefs.frameNormColor=colorFrameNorm;
+	prefsData->displayPrefs.frameGroupColor=colorFrameGroup;
+	prefsData->displayPrefs.frameLinkColor=colorFrameLinked;
+	prefsData->displayPrefs.frameLockColor=colorFrameLocked;
+	prefsData->displayPrefs.frameAnnotationColor=colorFrameAnnotation;
+	prefsData->displayPrefs.pageBorderColor=colorPageBorder;
+	prefsData->displayPrefs.controlCharColor=colorControlChars;
+	prefsData->displayPrefs.displayScale=displayScale;
 }

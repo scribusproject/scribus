@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStackedWidget>
 
 #include "scribusapi.h"
+#include "prefsstructs.h"
 #include "ui_preferencesdialogbase.h"
 
 #include "ui/prefs_colormanagement.h"
@@ -53,12 +54,20 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		~PreferencesDialog();
 
 		virtual void changeEvent(QEvent *e);
+		ApplicationPrefs prefs() const { return localPrefs; }
 
 	public slots:
 		void itemSelected(QListWidgetItem* ic);
+		void restoreDefaults();
+		void setupGui();
+		void saveGuiToPrefs();
+		virtual void accept();
 
 	protected slots:
 		virtual void languageChange();
+		void applyButtonClicked();
+
+
 	private:
 		int addItem(QString name, QPixmap icon, QWidget *tab);
 		void setupListWidget();
@@ -94,6 +103,8 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		int docUnitIndex;
 		ScribusMainWindow* mainWin;
 		PrefsManager* prefsManager;
+
+		ApplicationPrefs localPrefs;
 };
 
 #endif
