@@ -2425,10 +2425,8 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 		{
 			QString db1, db2;
 			short type;
-			uint data1, data2, data3, data4, data5, data6;
 			double frac1, frac2, frac3, frac4, frac5, frac6;
-			ushort man1, man2, man3, man4, man5, man6;
-			uint offset2;
+			uint data1, offset2;
 			offset2 = 0;
 			first = false;
 			pathOpen = false;
@@ -2437,29 +2435,17 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 			{
 				s >> type;
 				s >> data1;
-				frac1 = (data1 & 0x00FFFFFF) / 16777215.0;
-				man1 = (data1 & 0x0F000000) >> 24;
-				frac1 = (frac1 + man1) * header.height;
-				s >> data2;
-				frac2 = (data2 & 0x00FFFFFF) / 16777215.0;
-				man2 = (data2 & 0x0F000000) >> 24;
-				frac2 = (frac2 + man2) * header.width;
-				s >> data3;
-				frac3 = (data3 & 0x00FFFFFF) / 16777215.0;
-				man3 = (data3 & 0x0F000000) >> 24;
-				frac3 = (frac3 + man3) * header.height;
-				s >> data4;
-				frac4 = (data4 & 0x00FFFFFF) / 16777215.0;
-				man4 = (data4 & 0x0F000000) >> 24;
-				frac4 = (frac4 + man4) * header.width;
-				s >> data5;
-				frac5 = (data5 & 0x00FFFFFF) / 16777215.0;
-				man5 = (data5 & 0x0F000000) >> 24;
-				frac5 = (frac5 + man5) * header.height;
-				s >> data6;
-				frac6 = (data6 & 0x00FFFFFF) / 16777215.0;
-				man6 = (data6 & 0x0F000000) >> 24;
-				frac6 = (frac6 + man6) * header.width;
+				frac1 = decodePSDfloat(data1) * header.height;
+				s >> data1;
+				frac2 = decodePSDfloat(data1) * header.width;
+				s >> data1;
+				frac3 = decodePSDfloat(data1) * header.height;
+				s >> data1;
+				frac4 = decodePSDfloat(data1) * header.width;
+				s >> data1;
+				frac5 = decodePSDfloat(data1) * header.height;
+				s >> data1;
+				frac6 = decodePSDfloat(data1) * header.width;
 				switch (type)
 				{
 				case 0:
@@ -2570,6 +2556,23 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 	}
 	if(offset<size)
 		s.device()->at( size );
+}
+
+double ScImage::decodePSDfloat(uint data)
+{
+	double ret = 0.0;
+	char man = (data & 0xFF000000) >> 24;
+	if (man >= 0)
+	{
+		ret = (data & 0x00FFFFFF) / 16777215.0;
+		ret = (ret + man);
+	}
+	else
+	{
+		ret = (~data & 0x00FFFFFF) / 16777215.0;
+		ret = (ret + ~man) * -1;
+	}
+	return ret;
 }
 
 bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header, int* random_table )

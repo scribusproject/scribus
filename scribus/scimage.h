@@ -231,6 +231,7 @@ private:
 	QString getPascalString(QDataStream & s);
 	void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size);
 	bool parseLayer( QDataStream & s, const PSDHeader & header, int* random_table);
+	double decodePSDfloat(uint data);
 	bool LoadPSD( QDataStream & s, const PSDHeader & header);
 	bool marker_is_icc (jpeg_saved_marker_ptr marker);
 	bool marker_is_photoshop (jpeg_saved_marker_ptr marker);
