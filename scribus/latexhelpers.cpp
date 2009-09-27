@@ -40,6 +40,10 @@ LatexHighlighter::LatexHighlighter(QTextDocument *document)
 
 void LatexHighlighter::highlightBlock(const QString &text)
 {
+	//This is required to fix a QT incompatibility. See error message below for details.
+	static bool disable_highlighting = false;
+	if (disable_highlighting) return;
+
 	if (!rules) return;
 	foreach (LatexHighlighterRule *rule, *rules) {
 		int index = text.indexOf(rule->regex);
@@ -56,7 +60,15 @@ void LatexHighlighter::highlightBlock(const QString &text)
 				break;
 			}
 			setFormat(index, length, rule->format);
-			index = text.indexOf(rule->regex, index + length);
+			
+			int oldindex = index;
+			int offset = index + length;
+			index = text.indexOf(rule->regex, offset);
+			if (index >= 0 && (index == oldindex || index <= offset)) {
+				qWarning() << QObject::tr("Highlighter error: Invalid index returned by QT's QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.") << "Additional debugging info: old index:" << oldindex << "new index:"<< index << "offset:" << offset;
+				disable_highlighting = true;
+				return;
+			}
 		}
 	}
 }
