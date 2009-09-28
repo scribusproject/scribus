@@ -248,117 +248,108 @@ void Prefs_Display::setDisScale()
 
 void Prefs_Display::changePaperColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorPaper, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorPaper, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorPaper = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorPaper = newColor;
 		pageFillColorButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changeFrameColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorFrame, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorFrame, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorFrame = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorFrame = newColor;
 		frameSelectedColorButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changeNormFrameColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorFrameNorm, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorFrameNorm, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorFrameNorm = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorFrameNorm = newColor;
 		frameColorButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changeGroupFrameColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorFrameGroup, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorFrameGroup, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorFrameGroup = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorFrameGroup = newColor;
 		frameGroupedColorButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changeChainFrameColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorFrameLinked, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorFrameLinked, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorFrameLinked = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorFrameLinked = newColor;
 		frameLinkedColorButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changeLockFrameColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorFrameLocked, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorFrameLocked, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorFrameLocked = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorFrameLocked = newColor;
 		frameLockedColorButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changeAnnotFrameColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorFrameAnnotation, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorFrameAnnotation, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorFrameAnnotation = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorFrameAnnotation = newColor;
 		frameAnnotationColorButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changePageBorderColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorPageBorder, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorPageBorder, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorPageBorder = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorPageBorder = newColor;
 		selectedPageBorderButton->setIcon(pm);
 	}
 }
 
 void Prefs_Display::changeControlCharsColor()
 {
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorControlChars, this);
-	if (neu.isValid())
+	QColor newColor(QColorDialog::getColor(colorControlChars, this));
+	if (newColor.isValid())
 	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorControlChars = neu;
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorControlChars = newColor;
 		textControlCharsButton->setIcon(pm);
 	}
 }
