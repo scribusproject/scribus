@@ -30,7 +30,7 @@ ColorSetManager::~ColorSetManager()
 void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 {
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "Scribus_Basic.txt";
+	QString pfadC2 = pfadC + "Scribus_Basic.xml";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
