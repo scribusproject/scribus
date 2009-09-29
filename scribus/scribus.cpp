@@ -3690,7 +3690,7 @@ bool ScribusMainWindow::slotDocOpen()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-	formats.remove("PDF (*.pdf *.PDF);;");
+//	formats.remove("PDF (*.pdf *.PDF);;");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
 	if (fileName.isEmpty())
 		// User cancelled

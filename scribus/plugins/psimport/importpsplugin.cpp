@@ -91,26 +91,37 @@ void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 void ImportPSPlugin::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PS); // Human readable name
-	fmt.formatId = FORMATID_PSIMPORT;
-	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS|FormatsManager::PS);// QFileDialog filter
- 	fmt.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS, 1)+")$", Qt::CaseInsensitive);
+	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::EPS); // Human readable name
+	fmt.formatId = FORMATID_EPSIMPORT;
+	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS);// QFileDialog filter
+ 	fmt.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS, 1)+")$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
-	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PS); // MIME types
+	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::EPS); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
-
+	
 	FileFormat fmt2(this);
-	fmt2.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PDF); // Human readable name
-	fmt2.formatId = FORMATID_PDFIMPORT;
-	fmt2.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF);// QFileDialog filter
-	fmt2.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", Qt::CaseInsensitive);
+	fmt2.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PS); // Human readable name
+	fmt2.formatId = FORMATID_PSIMPORT;
+	fmt2.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PS);// QFileDialog filter
+ 	fmt2.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::PS, 1)+")$", Qt::CaseInsensitive);
 	fmt2.load = true;
 	fmt2.save = false;
-	fmt2.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PDF); // MIME types
+	fmt2.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PS); // MIME types
 	fmt2.priority = 64; // Priority
 	registerFormat(fmt2);
+
+	FileFormat fmt3(this);
+	fmt3.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PDF); // Human readable name
+	fmt3.formatId = FORMATID_PDFIMPORT;
+	fmt3.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF);// QFileDialog filter
+	fmt3.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", Qt::CaseInsensitive);
+	fmt3.load = true;
+	fmt3.save = false;
+	fmt3.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PDF); // MIME types
+	fmt3.priority = 64; // Priority
+	registerFormat(fmt3);
 }
 
 bool ImportPSPlugin::fileSupported(QIODevice* /* file */, const QString & fileName) const

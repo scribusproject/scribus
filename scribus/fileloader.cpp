@@ -78,7 +78,28 @@ FileLoader::FileLoader(const QString & fileName) :
 // measure during the process of converting to file loader plugins.
 const QString FileLoader::getLoadFilterString()
 {
-	return LoadSavePlugin::fileDialogLoadFilter().join(";;");
+//	return LoadSavePlugin::fileDialogLoadFilter().join(";;");
+	QStringList fmts = LoadSavePlugin::fileDialogLoadFilter();
+	QString fmtString = QObject::tr("All Supported Formats")+" (";
+	int ind = -1;
+	for (int a = 0; a < fmts.count()-1; a++)
+	{
+		QString fmt = fmts[a];
+		int s = fmt.indexOf("(");
+		int e = fmt.lastIndexOf(")");
+		QString f = fmt.mid(s+1, e-s-1);
+		if (f.contains("pdf"))	// for removing PDF from the list
+		{
+			ind = a;
+			continue;
+		}
+		fmtString += f + " ";
+	}
+	fmtString += ");;";
+	if (ind != -1)
+		fmts.removeAt(ind);
+	fmtString += fmts.join(";;");
+	return fmtString.simplified();
 }
 
 /*!

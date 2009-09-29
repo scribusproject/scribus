@@ -356,7 +356,7 @@ void NewDoc::createOpenDocPage()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-	formats.remove("PDF (*.pdf *.PDF);;");
+//	formats.remove("PDF (*.pdf *.PDF);;");
 	openDocFrame = new QFrame(this);
 	openDocLayout = new QVBoxLayout(openDocFrame);
 	openDocLayout->setMargin(5);
@@ -366,6 +366,11 @@ void NewDoc::createOpenDocPage()
 	fileDialog = new QFileDialog(openDocFrame, tr("Open"), docDir, formats);
 	fileDialog->setFileMode(QFileDialog::ExistingFile);
 	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+#if QT_VERSION >= 0x040600
+	fileDialog->setNameFilterDetailsVisible(false);
+#else
+	fileDialog->setOption(QFileDialog::HideNameFilterDetails);
+#endif
 	fileDialog->setReadOnly(true);
 #else
 	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
