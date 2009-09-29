@@ -314,7 +314,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 				m_message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
 				m_msgType = warningMsg;
 			}
-			if (m_imageInfoRecord.exifDataValid && thumbnail)
+			if (m_imageInfoRecord.exifDataValid && !m_imageInfoRecord.exifInfo.thumbnail.isNull() && thumbnail)
 			{
 				m_image = QImage(m_imageInfoRecord.exifInfo.width, m_imageInfoRecord.exifInfo.height, QImage::Format_ARGB32 );
 				m_imageInfoRecord.exifInfo.width = cinfo.output_width;
@@ -346,7 +346,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false; // The only interest is vectormask
 			arrayPhot.clear();
 			free( PhotoshopBuffer );
-			if (m_imageInfoRecord.exifDataValid && thumbnail)
+			if (m_imageInfoRecord.exifDataValid && !m_imageInfoRecord.exifInfo.thumbnail.isNull() && thumbnail)
 			{
 				jpeg_destroy_decompress(&cinfo);
 				fclose(infile);
