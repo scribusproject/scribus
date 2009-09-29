@@ -4382,12 +4382,22 @@ void ScribusDoc::getBleeds(Page* page, MarginStruct& bleedData)
 	}
 	else
 	{
-		if (locationOfPage(page->pageNr()) == LeftPage)
+		PageLocation pageLocation = MiddlePage;
+		if (page->pageName().isEmpty()) // Standard page
+			pageLocation = locationOfPage(page->pageNr());
+		else if (page->LeftPg == 1) // Left Master page
+			pageLocation = LeftPage;
+		else if (page->LeftPg == 0) // Right Master page
+			pageLocation = RightPage;
+		else // Middle Master page
+			pageLocation = MiddlePage;
+
+		if (pageLocation == LeftPage)
 		{
 			bleedData.Right = bleeds.Left;
 			bleedData.Left = bleeds.Right;
 		}
-		else if (locationOfPage(page->pageNr()) == RightPage)
+		else if (pageLocation == RightPage)
 		{
 			bleedData.Right = bleeds.Right;
 			bleedData.Left = bleeds.Left;
