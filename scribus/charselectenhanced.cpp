@@ -140,7 +140,7 @@ void CharSelectEnhanced::scanFont()
 			charactersLetterlikeSymbols.append(charcode);
 		else if ((charcode >= 0x2150) && (charcode <= 0x218F))
 			charactersNumberForms.append(charcode);
-		else if ((charcode >= 0x2190) && (charcode <= 0x2190))
+		else if ((charcode >= 0x2190) && (charcode <= 0x21FF))
 			charactersArrows.append(charcode);
 		else if ((charcode >= 0x2200) && (charcode <= 0x22FF))
 			charactersMathematicalOperators.append(charcode);
