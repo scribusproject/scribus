@@ -197,20 +197,20 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
+	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetTarget(int)));
 	connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
-	connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 	connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
 	if (view->Doc->masterPageMode())
-		SetZiel(item->annotation().Type() - 1);
+		SetTarget(item->annotation().Type() - 1);
 	else
-		SetZiel(item->annotation().Type());
+		SetTarget(item->annotation().Type());
 	SetCross();
 }
 
-void Annota::SetCo(double x, double y)
+void Annota::SetCoords(double x, double y)
 {
 	SpinBox2->setValue(static_cast<int>(x*Breite));
 	SpinBox3->setValue(static_cast<int>(y*Hoehe));
@@ -247,11 +247,11 @@ void Annota::SetPg(int v)
 void Annota::SetCross()
 {
 	int x,y;
-	disconnect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	disconnect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 	x = static_cast<int>(static_cast<double>(SpinBox2->value())/static_cast<double>(Breite)*Pg->pmx.width());
 	y = static_cast<int>(static_cast<double>(SpinBox3->value())/static_cast<double>(Hoehe)*Pg->pmx.height());
 	Pg->drawMark(x, y);
-	connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 }
 
 void Annota::SetVals()
@@ -297,10 +297,10 @@ void Annota::SetVals()
 	accept();
 }
 
-void Annota::SetZiel(int it)
+void Annota::SetTarget(int it)
 {
 	int a = it;
-	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
+	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetTarget(int)));
 	if (view->Doc->masterPageMode())
 		a++;
 	Pg->show();
@@ -398,7 +398,7 @@ void Annota::SetZiel(int it)
 		Fram->setCurrentIndex(0);
 		break;
 	}
-	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
+	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetTarget(int)));
 }
 
 void Annota::GetFile()

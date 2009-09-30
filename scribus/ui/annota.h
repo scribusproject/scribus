@@ -68,11 +68,11 @@ public:
 	int MaxSeite;
 
 public slots:
-	void SetCo(double x, double y);
+	void SetCoords(double x, double y);
 	void SetPg(int v);
 	void SetCross();
 	void SetVals();
-	void SetZiel(int i);
+	void SetTarget(int i);
 	void GetFile();
 
 protected:
