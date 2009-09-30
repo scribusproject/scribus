@@ -190,6 +190,8 @@ void TOCIndexPrefs::setupItemAttrs( QStringList newNames )
 void TOCIndexPrefs::selectToC( int numberSelected )
 {
 	numSelected=numberSelected;
+	if (numSelected < 0)
+		return;
 	if (localToCSetupVector.isEmpty())
 		return;
 	if (localToCSetupVector.count()<numSelected)
