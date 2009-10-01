@@ -89,7 +89,7 @@ bool ScImgDataLoader_PICT::loadPicture(const QString& fn, int /*page*/, int /*re
 		m_image = QImage(docWidth, docHeight, QImage::Format_ARGB32);
 		if (m_image.isNull())
 			return false;
-//		m_image.fill(qRgba(225, 255, 255, 255));
+		m_image.fill(qRgba(255, 255, 255, 255));
 		imagePainter.begin(&m_image);
 		imagePainter.setRenderHint(QPainter::Antialiasing , true);
 		imagePainter.translate(baseX, baseY);
@@ -998,7 +998,7 @@ void ScImgDataLoader_PICT::handleTextMode(QDataStream &ts)
 	switch (mode)
 	{
 		case 0:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_Source);
+			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 			break;
 		case 1:
 			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
