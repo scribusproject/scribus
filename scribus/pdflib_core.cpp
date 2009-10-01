@@ -5130,36 +5130,20 @@ QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 
 void PDFLibCore::getBleeds(const Page* page, double &left, double &right)
 {
-	if (doc.pageSets[doc.currentPageLayout].Columns == 1)
-	{
-		right = Options.bleeds.Right;
-		left  = Options.bleeds.Left;
-	}
-	else
-	{
-		if (doc.locationOfPage(page->pageNr()) == LeftPage)
-		{
-			right = Options.bleeds.Left;
-			left = Options.bleeds.Right;
-		}
-		else if (doc.locationOfPage(page->pageNr()) == RightPage)
-		{
-			right = Options.bleeds.Right;
-			left = Options.bleeds.Left;
-		}
-		else
-		{
-			right = Options.bleeds.Left;
-			left = Options.bleeds.Left;
-		}
-	}
+	MarginStruct values;
+	doc.getBleeds(page, Options.bleeds, values);
+	left   = values.Left;
+	right  = values.Right;
 }
 
 void PDFLibCore::getBleeds(const Page* page, double &left, double &right, double &bottom, double& top)
 {
-	getBleeds(page, left, right);
-	bottom = Options.bleeds.Bottom;
-	top    = Options.bleeds.Top;
+	MarginStruct values;
+	doc.getBleeds(page, Options.bleeds, values);
+	left   = values.Left;
+	right  = values.Right;
+	bottom = values.Bottom;
+	top    = values.Top;
 }
 
 QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)

@@ -4537,36 +4537,20 @@ void PSLib::putColor(const QString& color, double shade, bool fill)
 
 void PSLib::GetBleeds(Page* page, double& left, double& right)
 {
-	if (m_Doc->pageSets[m_Doc->currentPageLayout].Columns == 1)
-	{
-		right = Options.bleeds.Right;
-		left  = Options.bleeds.Left;
-	}
-	else
-	{
-		if (m_Doc->locationOfPage(page->pageNr()) == LeftPage)
-		{
-			right = Options.bleeds.Right;
-			left  = Options.bleeds.Left;
-		}
-		else if (m_Doc->locationOfPage(page->pageNr()) == RightPage)
-		{
-			right = Options.bleeds.Left;
-			left  = Options.bleeds.Right;
-		}
-		else
-		{
-			right = Options.bleeds.Left;
-			left  = Options.bleeds.Left;
-		}
-	}
+	MarginStruct values;
+	m_Doc->getBleeds(page, Options.bleeds, values);
+	left   = values.Left;
+	right  = values.Right;
 }
 
 void PSLib::GetBleeds(Page* page, double& left, double& right, double& bottom, double& top)
 {
-	GetBleeds(page, left, right);
-	bottom = Options.bleeds.Bottom;
-	top    = Options.bleeds.Top;
+	MarginStruct values;
+	m_Doc->getBleeds(page, Options.bleeds, values);
+	left   = values.Left;
+	right  = values.Right;
+	bottom = values.Bottom;
+	top    = values.Top;
 }
 
 void PSLib::SetClipPath(FPointArray *c, bool poly)

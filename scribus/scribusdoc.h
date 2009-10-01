@@ -692,7 +692,8 @@ public:
 	double getXOffsetForPage(const int);
 	double getYOffsetForPage(const int);
 	void getBleeds(int pageNumber, MarginStruct& bleedData);
-	void getBleeds(Page* page, MarginStruct& bleedData);
+	void getBleeds(const Page* page, MarginStruct& bleedData);
+	void getBleeds(const Page* page, const MarginStruct& baseValues, MarginStruct& bleedData);
 	
 	/**
 	 * @brief Item type conversion functions
