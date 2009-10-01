@@ -1819,6 +1819,19 @@ void PropertiesPalette::SelTab(int t)
 			KnockOut->setChecked(!CurItem->doOverprint);
 			Overprint->setChecked(CurItem->doOverprint);
 		}
+		else if (t == idGroupItem)
+		{
+			TransSpin->setEnabled(true);
+			blendMode->setEnabled(true);
+			SCustom2->setEnabled(true);
+			EditShape2->setEnabled(true);
+			SRect2->setEnabled(true);
+			textFlowDisabled2->setEnabled(true);
+			textFlowUsesFrameShape2->setEnabled(true);
+			textFlowUsesBoundingBox2->setEnabled(true);
+			textFlowUsesContourLine2->setEnabled(true);
+			textFlowUsesImageClipping2->setEnabled(false);
+		}
 #ifdef HAVE_OSG
 		if (CurItem->asOSGFrame())
 		{
@@ -2039,7 +2052,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 
-	SelTab(TabStack->currentIndex());
+//	SelTab(TabStack->currentIndex());
 
 	HaveItem = false;
 	CurItem = i;
@@ -2248,10 +2261,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShapeItem, false);
 		TabStack->setItemEnabled(idGroupItem, true);
-		TabStack->setItemEnabled(idLineItem, true);
+		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, true);
-//		TabStack->setItemEnabled(idLineItem, false);
-//		TabStack->setItemEnabled(idColorsItem, false);
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
 		if (CurItem->FrameType == 0)
@@ -2262,6 +2273,16 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 			SCustom2->setIcon(SCustom2->getIconPixmap(CurItem->FrameType-2));
 		TransSpin->setValue(qRound(100 - (CurItem->fillTransparency() * 100)));
 		blendMode->setCurrentIndex(CurItem->fillBlendmode());
+		TransSpin->setEnabled(true);
+		blendMode->setEnabled(true);
+		SCustom2->setEnabled(true);
+		EditShape2->setEnabled(true);
+		SRect2->setEnabled(true);
+		textFlowDisabled2->setEnabled(true);
+		textFlowUsesFrameShape2->setEnabled(true);
+		textFlowUsesBoundingBox2->setEnabled(true);
+		textFlowUsesContourLine2->setEnabled(true);
+		textFlowUsesImageClipping2->setEnabled(false);
 	}
 	else
 		TabStack->setItemEnabled(idGroupItem, false);
@@ -2481,7 +2502,7 @@ void PropertiesPalette::NewSel(int nr)
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		NameEdit->setEnabled(false);
-		TabStack->setItemEnabled(idLineItem, true);
+		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, true);
 		if (HaveItem && CurItem)
 		{

@@ -2554,7 +2554,7 @@ void PageItem::setLineStyle(Qt::PenStyle newStyle)
 
 void PageItem::setLineWidth(double newWidth)
 {
-	if (m_lineWidth == newWidth)
+	if ((m_lineWidth == newWidth) || (isGroupControl))
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
