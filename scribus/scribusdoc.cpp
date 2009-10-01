@@ -4346,14 +4346,19 @@ void ScribusDoc::getBleeds(int pageNumber, MarginStruct &bleedData)
 }
 
 
-void ScribusDoc::getBleeds(Page* page, MarginStruct& bleedData)
+void ScribusDoc::getBleeds(const Page* page, MarginStruct& bleedData)
 {
-	bleedData.Bottom = bleeds.Bottom;
-	bleedData.Top = bleeds.Top;
+	getBleeds(page, bleeds, bleedData);
+}
+
+void ScribusDoc::getBleeds(const Page* page, const MarginStruct& baseValues, MarginStruct& bleedData)
+{
+	bleedData.Bottom = baseValues.Bottom;
+	bleedData.Top    = baseValues.Top;
 	if (pageSets[currentPageLayout].Columns == 1)
 	{
-		bleedData.Right = bleeds.Right;
-		bleedData.Left = bleeds.Left;
+		bleedData.Right = baseValues.Right;
+		bleedData.Left  = baseValues.Left;
 	}
 	else
 	{
@@ -4369,18 +4374,18 @@ void ScribusDoc::getBleeds(Page* page, MarginStruct& bleedData)
 
 		if (pageLocation == LeftPage)
 		{
-			bleedData.Right = bleeds.Left;
-			bleedData.Left = bleeds.Right;
+			bleedData.Right = baseValues.Left;
+			bleedData.Left  = baseValues.Right;
 		}
 		else if (pageLocation == RightPage)
 		{
-			bleedData.Right = bleeds.Right;
-			bleedData.Left = bleeds.Left;
+			bleedData.Right = baseValues.Right;
+			bleedData.Left  = baseValues.Left;
 		}
 		else
 		{
-			bleedData.Right = bleeds.Left;
-			bleedData.Left = bleeds.Left;
+			bleedData.Right = baseValues.Left;
+			bleedData.Left  = baseValues.Left;
 		}
 	}
 }
