@@ -1857,8 +1857,11 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		
 		int pos = obj->itemText.length();
 		if (ch == SpecialChars::OBJECT) {
-			if (iobj != -1) {
-				obj->itemText.insertObject(pos, doc->FrameItems.at(iobj));
+			if (iobj >= 0) {
+				if (iobj < doc->FrameItems.count())
+					obj->itemText.insertObject(pos, doc->FrameItems.at(iobj));
+				else
+					qDebug() << QString("scribus134format: invalid inline frame used in text object : %1").arg(iobj);
 			}
 		}
 		else if (ch == SpecialChars::SHYPHEN && pos > 0)
