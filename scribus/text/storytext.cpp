@@ -1612,6 +1612,19 @@ public:
 	{
 		StoryText* story = this->dig->top<StoryText>(1);
 		PageItem* obj = this->dig->top<PageItem>(0);
+		// FIXME : currently inline objects are added to doc items when parsing
+		// We have to remove them from object list and add them to the FrameItems list
+		// before inserting them in story object
+		QList<PageItem*> *items = obj->doc()->Items;
+		if (items->count() > 0)
+		{
+			if (items->last() == obj) // try a fast path first
+				items->removeLast();
+			else
+				items->removeAll(obj);
+		}
+		obj->doc()->FrameItems.append(obj);
+		obj->ItemNr = obj->doc()->FrameItems.count() - 1;
 		story->insertObject(-1, obj);
 	}
 };
