@@ -5283,6 +5283,11 @@ void ScribusMainWindow::slotEditPaste()
 				}
 				doc->m_Selection->delaySignalsOff();
 				int docSelectionCount=doc->m_Selection->count();
+				if (docSelectionCount > 0)
+				{
+					doc->m_Selection->itemAt(0)->connectToGUI();
+					doc->m_Selection->itemAt(0)->emitAllToGUI();
+				}
 				if (docSelectionCount > 1)
 				{
 					doc->m_Selection->setGroupRect();
@@ -5371,6 +5376,11 @@ void ScribusMainWindow::SelectAllOnLayer()
 		}
 		doc->m_Selection->delaySignalsOff();
 		int docSelectionCount = doc->m_Selection->count();
+		if (docSelectionCount > 0)
+		{
+			doc->m_Selection->itemAt(0)->connectToGUI();
+			doc->m_Selection->itemAt(0)->emitAllToGUI();
+		}
 		if (docSelectionCount > 1)
 		{
 			double x, y, w, h;
@@ -5433,6 +5443,11 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 		}
 		doc->m_Selection->delaySignalsOff();
 		int docSelectionCount=doc->m_Selection->count();
+		if (docSelectionCount > 0)
+		{
+			doc->m_Selection->itemAt(0)->connectToGUI();
+			doc->m_Selection->itemAt(0)->emitAllToGUI();
+		}
 		if (docSelectionCount > 1)
 		{
 			double x, y, w, h;

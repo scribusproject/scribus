@@ -2484,10 +2484,14 @@ void PropertiesPalette::NewSel(int nr)
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
 		HaveItem = false;
-		Xpos->setValue(0);
-		Ypos->setValue(0);
-		Width->setValue(0);
-		Height->setValue(0);
+//		Xpos->setValue(0);
+//		Ypos->setValue(0);
+//		Width->setValue(0);
+//		Height->setValue(0);
+		Xpos->setValue(gx);
+		Ypos->setValue(gy);
+		Width->setValue(gw);
+		Height->setValue(gh);
 		Rotation->setValue(0);
 		RoundRect->setValue(0);
 		HaveItem = true;
