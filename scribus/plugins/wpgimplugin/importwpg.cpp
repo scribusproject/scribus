@@ -262,7 +262,8 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 				currStopColor = newColorName;
 			}
 			const ScColor& gradC = m_Doc->PageColors[currStopColor];
-			currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), fabs(brush.gradient.stopOffset(c)), 0.5, 1.0, currStopColor, 100 );
+			double pos = qBound(0.0, fabs(brush.gradient.stopOffset(c)), 1.0);
+			currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), pos, 0.5, 1.0, currStopColor, 100 );
 		}
 	}
 	else if (brush.style == libwpg::WPGBrush::NoBrush)

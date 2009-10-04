@@ -125,7 +125,8 @@ void ScrPainterIm::setBrush(const libwpg::WPGBrush& brush)
 		for(unsigned c = 0; c < brush.gradient.count(); c++)
 		{
 			QColor stopC = QColor(brush.gradient.stopColor(c).red, brush.gradient.stopColor(c).green, brush.gradient.stopColor(c).blue);
-			currentGradient.setColorAt(fabs(brush.gradient.stopOffset(c)), stopC);
+			double pos = qBound(0.0, fabs(brush.gradient.stopOffset(c)), 1.0);
+			currentGradient.setColorAt(pos, stopC);
 		}
 	}
 	else if (brush.style == libwpg::WPGBrush::NoBrush)
