@@ -104,6 +104,7 @@ void PreferencesDialog::initPreferenceValues()
 
 void PreferencesDialog::setupGui()
 {
+	prefs_Scrapbook->restoreDefaults(&localPrefs);
 	prefs_Display->restoreDefaults(&localPrefs);
 }
 
@@ -228,6 +229,7 @@ void PreferencesDialog::applyButtonClicked()
 
 void PreferencesDialog::saveGuiToPrefs()
 {
+	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
 }
 

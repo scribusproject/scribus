@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="titleLabel">
      <property name="font">
       <font>
        <pointsize>14</pointsize>
@@ -51,14 +51,14 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="autoSendCopiedToScrapCheckBox">
          <property name="text">
           <string>Send Copied Items Automatically to the Scrapbook</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QCheckBox" name="keepCopiedAcrossSessionsCheckBox">
          <property name="text">
           <string>Keep Copied Items Permanently Across Sessions</string>
          </property>
@@ -70,14 +70,17 @@
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="itemCountKeptInScrapbookLabel">
            <property name="text">
             <string>Number of Copied Items to Keep in Scrapbook</string>
+           </property>
+           <property name="buddy">
+            <cstring>itemCountKeptInScrapbookSpinBox</cstring>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QSpinBox" name="itemCountKeptInScrapbookSpinBox"/>
          </item>
          <item>
           <spacer name="horizontalSpacer">
