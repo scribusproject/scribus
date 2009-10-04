@@ -21,6 +21,6 @@ ADD_SUBDIRECTORY(cvgimplugin)
 ADD_SUBDIRECTORY(wpgimplugin)
 ADD_SUBDIRECTORY(pctimplugin)
 ADD_SUBDIRECTORY(tools)
-# ADD_SUBDIRECTORY(picbrowser)
+ADD_SUBDIRECTORY(picbrowser)
 
 # ADD_SUBDIRECTORY(myplugin)

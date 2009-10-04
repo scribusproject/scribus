@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 //provides loadIcon()
 #include "util_icon.h"
+#include "util_formats.h"
 
 PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( parent )
 {
@@ -224,8 +225,10 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 
 
 //set namefilters for global use
-	nameFilters << "*.jpg" << "*.jpeg" << "*.gif" << "*.png" << "*.ps" << "*.psd" << "*.tif" << "*.tiff" << "*.xpm" << "*.eps" << "*.epsf" << "*.epsi" << "*.eps2" << "*.eps3" << "*.epi" << "*.epg";
+//	nameFilters << "*.jpg" << "*.jpeg" << "*.gif" << "*.png" << "*.ps" << "*.psd" << "*.tif" << "*.tiff" << "*.xpm" << "*.eps" << "*.epsf" << "*.epsi" << "*.eps2" << "*.eps3" << "*.epi" << "*.epg";
 
+	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 0));
+	nameFilters = formatD.split(" ", QString::SkipEmptyParts);
 
 //filter/search setup
 	connect ( filterTargetCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( filterTargetComboboxChanged ( int ) ) );

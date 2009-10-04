@@ -19,6 +19,7 @@ ENDIF (WANT_DESIGNER)
 IF(HAVE_OSG)
   ADD_SUBDIRECTORY(prc)
 ENDIF (HAVE_OSG)
+ADD_SUBDIRECTORY (plugins/wpgimplugin/wpg)
 
 
 IF(HAVE_OSG)
@@ -647,6 +648,7 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_psd.cpp
   scimgdataloader_qt.cpp
   scimgdataloader_tiff.cpp
+  scimgdataloader_wpg.cpp
   ui/scinputdialog.cpp
   sclayer.cpp
   ui/scmenu.cpp
@@ -802,6 +804,7 @@ LINK_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}/text
   ${CMAKE_CURRENT_BINARY_DIR}/styles
   ${CMAKE_CURRENT_BINARY_DIR}/fonts
+  ${CMAKE_CURRENT_BINARY_DIR}/plugins/wpgimplugin/wpg
 )
 
 IF(HAVE_OSG)
@@ -947,6 +950,7 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
   ${SCRIBUS_TEXT_LIB}
   ${SCRIBUS_STYLES_LIB}
   ${SCRIBUS_FONTS_LIB}
+  wpg
 )
 
 IF(HAVE_PODOFO)

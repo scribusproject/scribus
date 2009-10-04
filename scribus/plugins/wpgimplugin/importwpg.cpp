@@ -145,7 +145,7 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 		importedColors.append(newColorName);
 		CurrColorStroke = newColorName;
 	}
-	CurrStrokeTrans = pen.foreColor.alpha / 256.0;
+	CurrStrokeTrans = pen.foreColor.alpha / 255.0;
 	if(!pen.solid)
 	{
 		dashArray.clear();
@@ -223,7 +223,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 			importedColors.append(newColorName);
 			CurrColorFill = newColorName;
 		}
-		CurrFillTrans = brush.foreColor.alpha / 256.0;
+		CurrFillTrans = brush.foreColor.alpha / 255.0;
 	}
 	else if (brush.style == libwpg::WPGBrush::Gradient)
 	{
@@ -387,7 +387,7 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
 	}
-//	qDebug() << "draw Path";
+//	qDebug() << "draw Path" << CurrFillTrans;
 }
 
 void ScrPainter::finishItem(PageItem* ite)
@@ -397,8 +397,6 @@ void ScrPainter::finishItem(PageItem* ite)
 	ite->setFillShade(CurrFillShade);
 	ite->setFillEvenOdd(fillrule);
 	ite->setLineShade(CurrStrokeShade);
-	ite->setFillTransparency(CurrFillTrans);
-	ite->setLineTransparency(CurrStrokeTrans);
 	ite->setLineJoin(lineJoin);
 	ite->setLineEnd(lineEnd);
 	ite->DashValues = dashArray;
@@ -419,6 +417,11 @@ void ScrPainter::finishItem(PageItem* ite)
 		QPointF target = m1.map(QPointF(0.0, ite->height()));
 		ite->GrEndX = target.x();
 		ite->GrEndY = target.y();
+	}
+	else
+	{
+		ite->setFillTransparency(CurrFillTrans);
+		ite->setLineTransparency(CurrStrokeTrans);
 	}
 	ite->updateClip();
 	Elements.append(ite);

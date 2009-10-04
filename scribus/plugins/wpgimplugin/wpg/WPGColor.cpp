@@ -29,14 +29,14 @@ libwpg::WPGColor::WPGColor():
 	red(0),
 	green(0),
 	blue(0),
-	alpha(1)
+	alpha(0)
 {}
 
 libwpg::WPGColor::WPGColor(int r, int g, int b):
 	red(r),
 	green(g),
 	blue(b),
-	alpha(1)
+	alpha(0)
 {}
 
 libwpg::WPGColor::WPGColor(int r, int g, int b, int a):

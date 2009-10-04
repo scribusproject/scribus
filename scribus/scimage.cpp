@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_pdf.h"
 #include "scimgdataloader_qt.h"
 #include "scimgdataloader_tiff.h"
+#include "scimgdataloader_wpg.h"
 #include "sctextstream.h"
 #include <QMessageBox>
 #include <QList>
@@ -1822,6 +1823,8 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		pDataLoader = new ScImgDataLoader_GIMP();
 	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
 		pDataLoader = new ScImgDataLoader_PICT();
+	else if (ext == "wpg")
+		pDataLoader = new ScImgDataLoader_WPG();
 	else if (fmtImg.contains(ext))
 		pDataLoader = new ScImgDataLoader_QT();
 	#ifdef GMAGICK_FOUND
@@ -2032,6 +2035,8 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
 		pDataLoader.reset( new ScImgDataLoader_PICT() );
+	else if (ext == "wpg")
+		pDataLoader.reset( new ScImgDataLoader_WPG() );
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 	#ifdef GMAGICK_FOUND
