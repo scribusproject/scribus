@@ -1,6 +1,9 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual C++ Express 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-main", "Scribus.vcproj", "{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510} = {50C264A1-2CE7-46A3-8C79-CBC714C49510}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "svgexport", "svgexport\svgexport.vcproj", "{9652EA11-AFA0-4CDF-88AC-7912C653EFE6}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -196,6 +199,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wpgimport", "wpgimport\wpgimport.vcproj", "{A2A76BE2-A592-43A1-B087-068D6E082340}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510} = {50C264A1-2CE7-46A3-8C79-CBC714C49510}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pctimport", "pctimport\pctimport.vcproj", "{DB5B98E3-34C2-4909-87C6-4950BCFC9CA3}"
@@ -207,6 +211,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uniconvimport", "uniconvimp
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-wpg", "scribus-wpg\scribus-wpg.vcproj", "{50C264A1-2CE7-46A3-8C79-CBC714C49510}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -560,6 +566,14 @@ Global
 		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{9D13FB34-9EC8-4BA5-B851-3FA6864EC3FB}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

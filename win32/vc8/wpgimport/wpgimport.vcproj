@@ -64,7 +64,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\importwpg.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -150,7 +150,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\importwpg.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -236,7 +236,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcmsd.lib scribus-api.lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\importwpg.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -322,7 +322,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib scribus-api.lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\importwpg.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -490,174 +490,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\wpgimplugin\moc_importwpgplugin.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Wpg"
-			>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\libwpd_types.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\libwpg.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\libwpg_utils.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG1Parser.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG1Parser.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG2Parser.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG2Parser.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBinaryData.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBinaryData.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBitmap.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBitmap.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBrush.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBrush.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGColor.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGColor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGGradient.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGGradient.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGHeader.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGHeader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGInternalStream.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGInternalStream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGOLEStream.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGOLEStream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPaintInterface.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPath.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPath.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPen.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPoint.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPoint.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGraphics.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGraphics.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGRect.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGRect.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGStreamImplementation.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGStreamImplementation.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGString.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGString.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGXParser.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGXParser.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPXStream.h"
 				>
 			</File>
 		</Filter>
