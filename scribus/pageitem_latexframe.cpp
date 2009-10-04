@@ -158,9 +158,24 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 		imgValid = false;
 		if (firstWarning && !killed)
 		{
-			QMessageBox::critical(0, tr("Error"), "<qt>" + 
-				tr("Running the external application failed!")
-				+ "</qt>", 1, 0, 0);
+			bool editorRunning = internalEditor && internalEditor->isVisible();
+			QMessageBox msgBox;
+			msgBox.setText(tr("Running the external application failed!"));
+			QString informativeText = tr("This is usually a problem with your input. Please check the program's output.");
+			if (!editorRunning) {
+				informativeText += " "+tr("Do you want to open the editor to fix the problem?");
+				msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+				msgBox.setDefaultButton(QMessageBox::Yes);
+			} else {
+				msgBox.setStandardButtons(QMessageBox::Ok);
+				msgBox.setDefaultButton(QMessageBox::Ok);
+			}
+			msgBox.setIcon(QMessageBox::Warning);
+			msgBox.setInformativeText(informativeText);
+			msgBox.setDetailedText(output());
+			if ((msgBox.exec() == QMessageBox::Yes) && !editorRunning) {
+				runEditor();
+			}
 			firstWarning = false;
 		}
 		qCritical() << "RENDER FRAME: updateImage():" << tr("Running the external application failed!");
@@ -401,7 +416,7 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 	{
 		if (latex->error() == QProcess::FailedToStart) {
 			QMessageBox::critical(0, tr("Error"), "<qt>" +
-								  tr("The application \"%1\" failed to start!").
+								  tr("The application \"%1\" failed to start! Please check the path: ").
 								  arg(config->executable())
 								  + "</qt>", 1, 0, 0);
 		} else {
