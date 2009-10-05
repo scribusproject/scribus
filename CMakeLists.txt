@@ -741,8 +741,8 @@ ADD_CUSTOM_TARGET(uninstall
 ADD_SUBDIRECTORY(scribus)
 ADD_SUBDIRECTORY(doc)
 ADD_SUBDIRECTORY(resources/icons)
-ADD_SUBDIRECTORY(keysets)
-ADD_SUBDIRECTORY(profiles)
+ADD_SUBDIRECTORY(resources/keysets)
+ADD_SUBDIRECTORY(resources/profiles)
 ADD_SUBDIRECTORY(resources/swatches)
 ADD_SUBDIRECTORY(translations/qm)
 
