@@ -740,7 +740,7 @@ ADD_CUSTOM_TARGET(uninstall
 #Add our source subdirs
 ADD_SUBDIRECTORY(scribus)
 ADD_SUBDIRECTORY(doc)
-ADD_SUBDIRECTORY(icons)
+ADD_SUBDIRECTORY(resources/icons)
 ADD_SUBDIRECTORY(keysets)
 ADD_SUBDIRECTORY(profiles)
 ADD_SUBDIRECTORY(resources/swatches)
