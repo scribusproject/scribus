@@ -704,6 +704,7 @@ ADD_CUSTOM_TARGET(uninstall
 
 #Add our source subdirs
 ADD_SUBDIRECTORY(scribus)
+ADD_SUBDIRECTORY(resources/dicts)
 ADD_SUBDIRECTORY(resources/swatches)
 ADD_SUBDIRECTORY(resources/translations/qm)
 
