@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefsmanager.h"
 #include "prefstable.h"
 #include "ui/propertiespalette.h"
 #include "rawimage.h"

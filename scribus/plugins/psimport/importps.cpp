@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
-#include <QStack>
 
 #include <cmath>
 #include <cstdlib>

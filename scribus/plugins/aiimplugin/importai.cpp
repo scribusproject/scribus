@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
-#include <QStack>
 #include <QTemporaryFile>
 #include <QDebug>
 
@@ -30,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/multiprogressdialog.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "prefsmanager.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "ui/propertiespalette.h"
