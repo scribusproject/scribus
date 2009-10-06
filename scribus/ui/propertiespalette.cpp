@@ -5461,7 +5461,7 @@ void PropertiesPalette::languageChange()
 	textFlowUsesContourLine2->setToolTip("");
 	textFlowUsesImageClipping2->setToolTip("");
 
-	Fonts->setToolTip("");
+//	Fonts->setToolTip("");
 	Size->setToolTip("");
 	ChBase->setToolTip("");
 	ChScale->setToolTip("");
@@ -5553,7 +5553,7 @@ void PropertiesPalette::languageChange()
 	textFlowUsesContourLine2->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" );
 	textFlowUsesImageClipping2->setToolTip(  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
 
-	Fonts->setToolTip( tr("Font of selected text or object"));
+//	Fonts->setToolTip( tr("Font of selected text or object"));
 	Size->setToolTip( tr("Font Size"));
 	ChBase->setToolTip( tr("Offset to baseline of characters"));
 	ChScale->setToolTip( tr("Scaling width of characters"));
