@@ -705,6 +705,7 @@ ADD_CUSTOM_TARGET(uninstall
 #Add our source subdirs
 ADD_SUBDIRECTORY(scribus)
 ADD_SUBDIRECTORY(resources/dicts)
+ADD_SUBDIRECTORY(resources/editorconfig)
 ADD_SUBDIRECTORY(resources/icons)
 ADD_SUBDIRECTORY(resources/keysets)
 ADD_SUBDIRECTORY(resources/loremipsum)
