@@ -148,6 +148,8 @@ void FontComboH::languageChange()
 		fontFaceLabel->setText( tr("Family:"));
 		fontStyleLabel->setText( tr("Style:"));
 	}
+	fontFamily->setToolTip( tr("Font Family of Selected Text or Text Frame"));
+	fontStyle->setToolTip( tr("Font Style of Selected Text or Text Frame"));
 }
 
 void FontComboH::familySelected(int id)
