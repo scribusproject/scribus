@@ -81,7 +81,7 @@ void SMCStyleWidget::languageChange()
 // as in character styles and in paragraph style's character style
 
 	parentCombo->setToolTip(     tr("Parent Style"));
-	fontFace_->setToolTip(       tr("Font Face"));
+	fontFace_->setToolTip(       tr("Font Family"));
 	fontSize_->setToolTip(       tr("Font Size"));
 	tracking_->setToolTip(       tr("Tracking"));
 	widthSpaceSpin->setToolTip(  tr("Default width for space"));

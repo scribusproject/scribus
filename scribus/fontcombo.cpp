@@ -145,7 +145,7 @@ void FontComboH::languageChange()
 {
 	if(showLabels)
 	{
-		fontFaceLabel->setText( tr("Face:"));
+		fontFaceLabel->setText( tr("Family:"));
 		fontStyleLabel->setText( tr("Style:"));
 	}
 }
