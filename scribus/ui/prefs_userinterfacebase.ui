@@ -219,7 +219,7 @@
            <item row="0" column="1">
             <widget class="QSpinBox" name="fontSizeMenuSpinBox">
              <property name="suffix">
-              <string>pt</string>
+              <string> pt</string>
              </property>
             </widget>
            </item>
@@ -236,7 +236,7 @@
            <item row="1" column="1">
             <widget class="QSpinBox" name="fontSizePaletteSpinBox">
              <property name="suffix">
-              <string>pt</string>
+              <string> pt</string>
              </property>
             </widget>
            </item>
@@ -313,7 +313,7 @@
          <item>
           <widget class="QSpinBox" name="resizeMoveDelaySpinBox">
            <property name="suffix">
-            <string>ms</string>
+            <string> ms</string>
            </property>
           </widget>
          </item>
