@@ -155,6 +155,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	SeleItem(m);
 	if (GetItem(&currItem))
 	{
+		double sx, sy, ex, ey, r;
 		currItem->ColGap = m_doc->ElemToLink->ColGap;
 		currItem->Cols = m_doc->ElemToLink->Cols;
 		currItem->BottomLine = m_doc->ElemToLink->BottomLine;
@@ -162,6 +163,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 		currItem->LeftLine = m_doc->ElemToLink->LeftLine;
 		currItem->RightLine = m_doc->ElemToLink->RightLine;
 		currItem->setTextToFrameDist(m_doc->ElemToLink->textToFrameDistLeft(), m_doc->ElemToLink->textToFrameDistRight(), m_doc->ElemToLink->textToFrameDistTop(), m_doc->ElemToLink->textToFrameDistBottom());
+		// Stroke Properties
 		currItem->setLineStyle(m_doc->ElemToLink->lineStyle());
 		currItem->setLineWidth(m_doc->ElemToLink->lineWidth());
 		currItem->setLineTransparency(m_doc->ElemToLink->lineTransparency());
@@ -172,9 +174,21 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 		currItem->setCustomLineStyle(m_doc->ElemToLink->customLineStyle());
 		currItem->setEndArrowIndex(m_doc->ElemToLink->endArrowIndex());
 		currItem->setStartArrowIndex(m_doc->ElemToLink->startArrowIndex());
+		// Fill Properties
 		currItem->setFillColor(m_doc->ElemToLink->fillColor());
 		currItem->setFillShade(m_doc->ElemToLink->fillShade());
 		currItem->setFillTransparency(m_doc->ElemToLink->fillTransparency());
+		// Gradient Properties
+		currItem->fill_gradient = m_doc->ElemToLink->fill_gradient;
+		m_doc->ElemToLink->gradientVector(sx, sy, ex, ey);
+		currItem->setGradientVector(sx, sy, ex, ey);
+		// Pattern Properties
+		currItem->setPattern(m_doc->ElemToLink->pattern());
+		m_doc->ElemToLink->patternTransform(sx, sy, ex, ey, r);
+		currItem->setPatternTransform(sx, sy, ex, ey, r);
+		// Set Gradient type after all properties
+		currItem->setGradientType(m_doc->ElemToLink->gradientType());
+		// Update Item
 		m_doc->ElemToLink = currItem;
 		currItem->update();
 //		emit DocChanged();
