@@ -62,6 +62,12 @@ public:
 	bool outside;
 	bool onlyselect;
 	int ActStop;
+	int contextStop;
+	QPoint mPos;
+
+private slots:
+	void addStop();
+	void removeStop();
 
 signals:
 	void selectedColor(QString, int);
