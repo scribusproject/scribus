@@ -52,6 +52,7 @@ private slots:
 	void sortByPage();
 	void slotRightClick();
 	void imageSelected(QListWidgetItem *ite);
+	void newImageSelected();
 	/*!
 	\author Franz Schmid
 	\brief Enables or disables printing of the selected Image.

@@ -68,7 +68,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	fillTable();
 	workTab->setCurrentIndex(0);
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(imageViewArea, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(imageSelected(QListWidgetItem*)));
+	connect(imageViewArea, SIGNAL(itemSelectionChanged()), this, SLOT(newImageSelected()));
 	connect(isPrinting, SIGNAL(clicked()), this, SLOT(PrintPic()));
 	connect(isVisibleCheck, SIGNAL(clicked()), this, SLOT(visiblePic()));
 	connect(goPageButton, SIGNAL(clicked()), this, SLOT(GotoPic()));
@@ -237,6 +237,12 @@ void PicStatus::slotRightClick()
 	connect(Act2, SIGNAL(triggered()), this, SLOT(sortByPage()));
 	pmen->exec(QCursor::pos());
 	delete pmen;
+}
+
+void PicStatus::newImageSelected()
+{
+	QList<QListWidgetItem*> items = imageViewArea->selectedItems();
+	imageSelected((items.count() > 0) ? items.at(0) : NULL);
 }
 
 void PicStatus::imageSelected(QListWidgetItem *ite)

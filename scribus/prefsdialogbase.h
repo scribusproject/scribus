@@ -57,6 +57,7 @@ public:
 
 public slots:
 	void itemSelected(QListWidgetItem* ic);
+	void newItemSelected();
 
 signals:
 	void aboutToShow(QWidget *);
