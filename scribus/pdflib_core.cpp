@@ -6914,7 +6914,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	ImInfo.ResNum = 0;
 	ImInfo.sxa = 0;
 	ImInfo.sya = 0;
-	ImInfo.reso = Options.Resolution / 72.0;
+	if (Options.RecalcPic)
+		ImInfo.reso = Options.PicRes / 72.0;
+	else
+		ImInfo.reso = Options.Resolution / 72.0;
 	ImInfo.Width = 0;
 	ImInfo.Height = 0;
 	ImInfo.Page = 0;
@@ -7084,7 +7087,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				}
 				if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
 				{
-					double afl = qMin(Options.PicRes, Options.Resolution);
+					double afl = Options.PicRes;
 					a2 = (72.0 / sx) / afl;
 					a1 = (72.0 / sy) / afl;
 					origWidth = img.width();
