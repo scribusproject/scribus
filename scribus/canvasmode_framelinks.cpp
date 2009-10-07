@@ -261,13 +261,9 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 	{
 		m_view->updateContents();
-		if (m_doc->ElemToLink != 0)
-			return;
-		else
-		{
+		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools || m_doc->ElemToLink == 0)
 			m_view->requestMode(submodePaintingDone);
-			return;
-		}
+		return;
 	}
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
