@@ -1941,8 +1941,8 @@ void TabPDFOptions::DoDownsample()
 		ValC->setEnabled(true);
 		if (ValC->value() > Resolution->value())
 			ValC->setValue(Resolution->value());
-		ValC->setMaximum(Resolution->value());
-		ValC->setMinimum(35);
+//		ValC->setMaximum(Resolution->value());
+//		ValC->setMinimum(35);
 	}
 	else
 		ValC->setEnabled(false);
