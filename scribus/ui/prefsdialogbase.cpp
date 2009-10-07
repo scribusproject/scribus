@@ -147,7 +147,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent )
 	layout4->addWidget( buttonCancel );
 	prefsLayout->addLayout( layout4 );
 	languageChange();
-	connect(prefsSelection, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(prefsSelection, SIGNAL(itemSelectionChanged()), this, SLOT(newItemSelected()));
 	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveButton_clicked()));
@@ -160,6 +160,12 @@ int PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 	itemMap.insert(icx, counter);
 	counter++;
 	return counter-1;
+}
+
+void PrefsDialogBase::newItemSelected()
+{
+	QList<QListWidgetItem*> items = prefsSelection->selectedItems();
+	itemSelected((items.count() > 0) ? items.at(0) : NULL);
 }
 
 void PrefsDialogBase::itemSelected(QListWidgetItem* ic)

@@ -58,6 +58,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 	public slots:
 		void itemSelected(QListWidgetItem* ic);
+		void newItemSelected();
 		void restoreDefaults();
 		void setupGui();
 		void saveGuiToPrefs();

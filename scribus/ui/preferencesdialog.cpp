@@ -80,7 +80,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
-	connect(preferencesTypeList, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(preferencesTypeList, SIGNAL(itemSelectionChanged()), this, SLOT(newItemSelected()));
 
 	initPreferenceValues();
 	setupGui();
@@ -149,6 +149,11 @@ int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget *tab)
 	return counter-1;
 }
 
+void PreferencesDialog::newItemSelected()
+{
+	QList<QListWidgetItem*> items = preferencesTypeList->selectedItems();
+	itemSelected((items.count() > 0) ? items.at(0) : NULL);
+}
 
 void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 {
