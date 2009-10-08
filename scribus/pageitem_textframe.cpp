@@ -2755,18 +2755,18 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	QString cr, Tcha, Twort;
 	uint Tcoun;
 	int len, pos;
-	int KeyMod=0;
+	int keyModifiers=0;
 	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
 	if (k->modifiers() & Qt::ShiftModifier)
-		KeyMod |= Qt::SHIFT;
+		keyModifiers |= Qt::SHIFT;
 	if (k->modifiers() & Qt::ControlModifier)
-		KeyMod |= Qt::CTRL;
+		keyModifiers |= Qt::CTRL;
 	if (k->modifiers() & Qt::AltModifier)
-		KeyMod |= Qt::ALT;
+		keyModifiers |= Qt::ALT;
 
 	//<< ISO 14755
 	//Check if we are trying to enter Unicode sequence mode first
-	QKeySequence currKeySeq = QKeySequence(k->key() | KeyMod);
+	QKeySequence currKeySeq = QKeySequence(k->key() | keyModifiers);
 	if(currKeySeq.matches(doc()->scMW()->scrActions["specialUnicodeSequenceBegin"]->shortcut())==QKeySequence::ExactMatch)
 	{
 		unicodeTextEditMode = true;
@@ -3155,7 +3155,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		break;
 	default:
 		bool doUpdate = false;
-		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000))
+		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000 && keyModifiers==0))
 		{
 			deleteSelectedTextFromFrame();
 			doUpdate = true;
