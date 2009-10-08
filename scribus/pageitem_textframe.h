@@ -103,6 +103,7 @@ private:
 	void setShadow();
 	QString currentShadow;
 	QMap<QString,StoryText> shadows;
+	bool checkKeyIsShortcut(QKeyEvent *k);
 	
 private slots:
 	void slotInvalidateLayout();

@@ -3155,10 +3155,20 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		break;
 	default:
 		bool doUpdate = false;
-		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000 && keyModifiers==0))
+		if (itemText.lengthOfSelection() > 0) //(kk < 0x1000)
 		{
-			deleteSelectedTextFromFrame();
-			doUpdate = true;
+			if (!k->text().isEmpty())
+			{
+				deleteSelectedTextFromFrame();
+				doUpdate = true;
+			}
+			/*
+			qDebug()<<"Text:"<<k->text();
+			qDebug()<<"Modifiers:"<<k->modifiers();
+			qDebug()<<"Native Modifiers:"<<k->nativeModifiers();
+			qDebug()<<"Native Scan Code:"<<k->nativeScanCode();
+			qDebug()<<"Native Virtual Key:"<<k->nativeVirtualKey();
+			*/
 		}
 		//if ((kk == Qt::Key_Tab) || ((kk == Qt::Key_Return) && (buttonState & Qt::ShiftButton)))
 		if (kk == Qt::Key_Tab)
@@ -3283,6 +3293,32 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 	cursorBiasBackward = (dir < 0);
 }
 
+bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
+{
+	QMap<QString, Keys> keyMap=PrefsManager::instance()->appPrefs.keyShortcutPrefs.KeyActions;
+
+	bool ret = false;
+	int keyCode =0;
+	if (k->modifiers() & Qt::ShiftModifier)
+		keyCode |= Qt::SHIFT;
+	if (k->modifiers() & Qt::ControlModifier)
+		keyCode |= Qt::CTRL;
+	if (k->modifiers() & Qt::AltModifier)
+		keyCode |= Qt::ALT;
+	keyCode|=k->key();
+
+	QKeySequence key = QKeySequence(keyCode);
+	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
+	{
+		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
+		{
+			ret = true;
+			break;
+		}
+	}
+	return ret;
+
+}
 
 
 // jjsa added on 15-mar-2004 expand / decrease selection
