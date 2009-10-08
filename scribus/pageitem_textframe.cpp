@@ -3154,10 +3154,20 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		break;
 	default:
 		bool doUpdate = false;
-		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000 && keyModifiers == 0))
+		if (itemText.lengthOfSelection() > 0) // && (kk < 0x1000)
 		{
-			deleteSelectedTextFromFrame();
-			doUpdate = true;
+			if (!k->text().isEmpty())
+			{
+				deleteSelectedTextFromFrame();
+				doUpdate = true;
+			}
+			/*
+			qDebug()<<"Text:"<<k->text();
+			qDebug()<<"Modifiers:"<<k->modifiers();
+			qDebug()<<"Native Modifiers:"<<k->nativeModifiers();
+			qDebug()<<"Native Scan Code:"<<k->nativeScanCode();
+			qDebug()<<"Native Virtual Key:"<<k->nativeVirtualKey();
+			*/
 		}
 		//if ((kk == Qt::Key_Tab) || ((kk == Qt::Key_Return) && (buttonState & Qt::ShiftButton)))
 		if (kk == Qt::Key_Tab)
