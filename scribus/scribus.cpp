@@ -3030,8 +3030,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrMenuMgr->setMenuEnabled("EditContents", true);
 		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.length() != 0);
-		scrActions["extrasHyphenateText"]->setEnabled(currItem->itemText.length() != 0);
-		scrActions["extrasDeHyphenateText"]->setEnabled(currItem->itemText.length() != 0);
+		scrActions["extrasHyphenateText"]->setEnabled(true);
+		scrActions["extrasDeHyphenateText"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		//scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
