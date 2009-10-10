@@ -26,25 +26,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <QWidget>
 #include <QPointer>
-class QComboBox;
-class QCheckBox;
-class QEvent;
-class QFrame;
-class QGridLayout;
-class QGroupBox;
-class QHBoxLayout;
-class QLabel;
-class QListWidget;
-class QListWidgetItem;
-class QPixmap;
-class QSpacerItem;
-class QSpinBox;
-class QToolButton;
-class QVBoxLayout;
+#include <QGroupBox>
+#include <QPushButton>
 #include "scribusapi.h"
 #include "gradienteditor.h"
 #include "scribusdoc.h"
 #include "ui/scrpalettebase.h"
+#include "ui_colorpalette.h"
 
 class PageItem;
 class ColorListBox;
@@ -87,7 +75,49 @@ protected:
 	ScrSpinBox* gY2;
 };
 
-class SCRIBUS_API Cpalette : public QWidget
+class SCRIBUS_API PatternPropsDialog : public QDialog
+{
+	Q_OBJECT
+
+public:
+	PatternPropsDialog(QWidget* parent, int unitIndex);
+	~PatternPropsDialog() {};
+	virtual void changeEvent(QEvent *e);
+	ScrSpinBox* spinXoffset;
+	ScrSpinBox* spinYoffset;
+	ScrSpinBox* spinXscaling;
+	ScrSpinBox* spinYscaling;
+	ScrSpinBox* spinAngle;
+
+public slots:
+	void languageChange();
+	void changePatternProps();
+	void ToggleKette();
+	void HChange();
+	void VChange();
+
+signals:
+	void NewPatternProps(double, double, double, double, double);
+
+protected:
+	QGroupBox* groupOffset;
+	QLabel* textLabel1;
+	QLabel* textLabel2;
+	QGroupBox* groupScale;
+	QLabel* textLabel5;
+	QLabel* textLabel6;
+	LinkButton* keepScaleRatio;
+	QGroupBox* groupRotation;
+	QLabel* textLabel7;
+	QVBoxLayout* frame3Layout;
+	QHBoxLayout* groupOffsetLayout;
+	QGridLayout* groupScaleLayout;
+	QHBoxLayout* groupRotationLayout;
+	QPushButton* buttonOk;
+	QHBoxLayout* buttonLayout;
+};
+
+class SCRIBUS_API Cpalette : public QWidget, Ui::colorPalette
 {
 	Q_OBJECT
 
@@ -107,36 +137,28 @@ public slots:
 	void editLineColorSelectorButton();
 	void editFillColorSelectorButton();
 	void SetColors(ColorList newColorList);
+	void setActTrans(double, double);
+	void setActBlend(int, int);
+	void slotTransS(int val);
+	void slotTransF(int val);
 	void updateCList();
+	void ToggleColorDisplay();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
 	void selectPattern(QListWidgetItem *c);
-	void changePatternProps();
-	void ToggleKette();
-	void HChange();
-	void VChange();
 	void updatePatternList();
-	void updateBoxS(QString Farbe);
-	void selectColor(QListWidgetItem *c);
-	QColor setColor(QString farbe, int shad);
-	void slotGrad(int nr);
-	void slotColor(QString n, int s);
-	void ChooseGrad(int nr);
-	void setActFarben(QString p, QString b, int shp, int shb);
-	void setActGradient(int typ);
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
-	void setSpecialGradient(double x1, double y1, double x2, double y2);
+	void setActFarben(QString p, QString b, int shp, int shb);
+	void selectColorS(QListWidgetItem *c);
+	void selectColorF(QListWidgetItem *c);
+	void ChooseGrad(int nr);
+	void slotGrad(int nr);
+	void slotGradType(int type);
+	void setActGradient(int typ);
 	void editGradientVector();
 	void setActiveGradDia(bool active);
-	void setActShade();
-	void setActTrans(double, double);
-	void changeBlendMode(int);
-	void setActBlend(int, int);
-	void setGradTrans(double val);
-	void slotTrans(int val);
-	void unitChange(double old, double neww, int ein);
-	void languageChange();
-	void ToggleColorDisplay();
-
+	void setSpecialGradient(double x1, double y1, double x2, double y2);
+	void changePatternProps();
+	void unitChange(double, double, int unitIndex);
 signals:
 	void NewPen(QString);
 	void NewBrush(QString);
@@ -150,81 +172,22 @@ signals:
 	void NewTransS(double);
 	void NewBlend(int);
 	void NewBlendS(int);
-	void modeChanged();
 	void gradientChanged();
 	void editGradient();
 
 protected:
-	QVBoxLayout* Form1Layout;
-	QHBoxLayout* Layout1;
-	QGridLayout* Layout1t;
-	QVBoxLayout* GradLayout;
-//	QGridLayout* freeGradientLayout;
-	QPixmap alertIcon;
-	QPixmap cmykIcon;
-	QPixmap rgbIcon;
-	QPixmap spotIcon;
-	QPixmap regIcon;
-
-	ColorListBox *colorListQLBox;
-	QFrame* patternFrame;
-	QListWidget *patternBox;
-	QGroupBox* groupOffset;
-	QLabel* textLabel1;
-	ScrSpinBox* spinXoffset;
-	QLabel* textLabel2;
-	ScrSpinBox* spinYoffset;
-	QGroupBox* groupScale;
-	QLabel* textLabel5;
-	ScrSpinBox* spinXscaling;
-	QLabel* textLabel6;
-	ScrSpinBox* spinYscaling;
-	LinkButton* keepScaleRatio;
-	QGroupBox* groupRotation;
-	QLabel* textLabel7;
-	ScrSpinBox* spinAngle;
-	QVBoxLayout* frame3Layout;
-	QHBoxLayout* groupOffsetLayout;
-	QGridLayout* groupScaleLayout;
-	QHBoxLayout* groupRotationLayout;
-
-	QToolButton *editLineColorSelector;
-	QToolButton *editFillColorSelector;
-	QSpinBox *PM1;
-	QComboBox* gradientQCombo;
-	GradientEditor* gradEdit;
 	GradientVectorDialog* CGradDia;
-/*	QFrame* freeGradientQFrame;
-	QLabel* GTextX1;
-	QLabel* GTextY1;
-	QLabel* GTextX2;
-	QLabel* GTextY2;
-	ScrSpinBox* gY1;
-	ScrSpinBox* gX2;
-	ScrSpinBox* gX1;
-	ScrSpinBox* gY2; */
-	QToolButton *gradEditButton;
-	QLabel* TransTxt;
-	QLabel* TransTxt2;
-	QLabel* ShadeTxt;
-	QGroupBox* TransGroup;
-	QSpinBox* TransSpin;
 	QPointer<ScribusDoc> currentDoc;
 	PageItem* currentItem;
-	ScComboBox* blendMode;
-	int Mode;
 	QString sFarbe;
 	ColorList colorList;
 	QMap<QString, ScPattern> *patternList;
-	bool CSichtbar;
-	QString Color;
-	int Shade;
-	QString Color3;
-	int Shade3;
-	bool GradientMode;
-	int currentGradient;
-	QSpacerItem *selectorQSpacer;
-	QCheckBox* displayAllColors;
+	double m_Pattern_scaleX;
+	double m_Pattern_scaleY;
+	double m_Pattern_offsetX;
+	double m_Pattern_offsetY;
+	double m_Pattern_rotation;
+	int currentUnit;
 };
 
 #endif

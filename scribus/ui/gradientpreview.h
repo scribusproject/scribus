@@ -21,53 +21,55 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef GRADEDITOR_H
-#define GRADEDITOR_H
+#ifndef GRADIENTPREVIEW_H
+#define GRADIENTPREVIEW_H
 
-#include <QLabel>
-#include <QSpinBox>
-#include <QLayout>
 #include <QList>
 #include <QFrame>
+#include <QPaintEvent>
+#include <QMouseEvent>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class QEvent;
 
 #include "scribusapi.h"
 #include "vgradient.h"
-#include "gradientpreview.h"
-#include "ui_gradienteditor.h"
-#include "sccolorengine.h"
 
-class SCRIBUS_API GradientEditor : public QFrame, Ui::GradientEditorBase
+class SCRIBUS_API GradientPreview : public QFrame
 {
 	Q_OBJECT
 
 public:
-	GradientEditor(QWidget *pa);
-	~GradientEditor() {};
-	void setGradient(VGradient grad);
-	const VGradient gradient();
-	void setColors(ColorList &colorList);
-	QColor setColor(QString colorName, int shad);
-	virtual void changeEvent(QEvent *e);
+	GradientPreview(QWidget *pa);
+	~GradientPreview() {};
+	void paintEvent(QPaintEvent *e);
+	void mousePressEvent(QMouseEvent *m);
+	void mouseReleaseEvent(QMouseEvent *);
+	void mouseMoveEvent(QMouseEvent *m);
+	void leaveEvent(QEvent*);
+	void enterEvent(QEvent*);
+	void updateDisplay();
+	void setActColor(QColor c, QString n, int s);
+	void setActTrans(double t);
+	void setActStep(double t);
+	VGradient fill_gradient;
+	QList<int> StopM;
+	bool Mpressed;
+	bool outside;
+	bool onlyselect;
+	int ActStop;
+	int contextStop;
+	QPoint mPos;
 
-public slots:
-	void setPos(double);
-	void changePos(int);
-	void slotColor(QString name, int shade);
-	void setGradTrans(double val);
-	void setStopColor(const QString &);
-	void setStopTrans(int val);
-	void setStopShade(int val);
-	void languageChange();
+private slots:
+	void addStop();
+	void removeStop();
 
 signals:
+	void selectedColor(QString, int);
+	void currTrans(double);
+	void currStep(double);
 	void gradientChanged();
-
-protected:
-	ColorList m_colorList;
-	virtual bool event ( QEvent * event );
 };
-
 #endif
-

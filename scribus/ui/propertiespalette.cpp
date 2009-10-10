@@ -1666,7 +1666,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	connect(this, SIGNAL(NewFont(const QString&)), m_ScMW, SLOT(SetNewFont(const QString&)));
 	connect(this, SIGNAL(UpdtGui(int)), m_ScMW, SLOT(HaveNewSel(int)));
 //CB unused in 135 	connect(this->Cpal, SIGNAL(modeChanged()), m_ScMW, SLOT(setCSMenu()));
-	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
+//	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(DoUnGroup, SIGNAL(clicked()), m_ScMW, SLOT(UnGroupObj()) );
 	
@@ -1814,8 +1814,7 @@ void PropertiesPalette::SelTab(int t)
 		{
 			Cpal->setActGradient(CurItem->GrType);
 			updateColorSpecialGradient();
-			Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
-			Cpal->gradEdit->Preview->updateDisplay();
+			Cpal->gradEdit->setGradient(CurItem->fill_gradient);
 			KnockOut->setChecked(!CurItem->doOverprint);
 			Overprint->setChecked(CurItem->doOverprint);
 		}
@@ -2052,10 +2051,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 
-//	SelTab(TabStack->currentIndex());
 
 	HaveItem = false;
 	CurItem = i;
+	SelTab(TabStack->currentIndex());
 
 	Cpal->setCurrentItem(CurItem);
 	Cpal->updateFromItem();
@@ -2064,6 +2063,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	updateColorSpecialGradient();
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 	Cpal->gradEdit->Preview->updateDisplay(); */
+	updateColorSpecialGradient();
+	Cpal->gradEdit->setGradient(CurItem->fill_gradient);
 	if (CurItem->FrameType == 0)
 		SCustom->setIcon(SCustom->getIconPixmap(0));
 	if (CurItem->FrameType == 1)
@@ -2739,96 +2740,19 @@ void PropertiesPalette::unitChange()
 	double oldRatio = m_unitRatio;
 	m_unitRatio = doc->unitRatio();
 	m_unitIndex = doc->unitIndex();
-    Xpos->setNewUnit( m_unitIndex );
-    Ypos->setNewUnit( m_unitIndex );
-    Width->setNewUnit( m_unitIndex );
-    Height->setNewUnit( m_unitIndex );
-    imageXOffsetSpinBox->setNewUnit( m_unitIndex );
-    imageYOffsetSpinBox->setNewUnit( m_unitIndex );
-    dGap->setNewUnit( m_unitIndex );
-    DLeft->setNewUnit( m_unitIndex );
-    DTop->setNewUnit( m_unitIndex );
-    DBottom->setNewUnit( m_unitIndex );
-    DRight->setNewUnit( m_unitIndex );
-    RoundRect->setNewUnit( m_unitIndex );
-    LSize->setNewUnit( m_unitIndex );
-/*
-	double maxXYWHVal=30000 * m_unitRatio;
-	double minXYVal=-30000 * m_unitRatio;
-
-	double ratioDivisor = m_unitRatio / oldRatio;
-	double newX = Xpos->value() * ratioDivisor;
-	double newY = Ypos->value() * ratioDivisor;
-	double newW = Width->value() * ratioDivisor;
-	double newH = Height->value() * ratioDivisor;
-	double newLX = imageXOffsetSpinBox->value() * ratioDivisor;
-	double newLY = imageYOffsetSpinBox->value() * ratioDivisor;
-	double newG = dGap->value() * ratioDivisor;
-	double newGM = dGap->maximum() * ratioDivisor;
-	double newDT = DTop->value() * ratioDivisor;
-	double newDL = DLeft->value() * ratioDivisor;
-	double newDB = DBottom->value() * ratioDivisor;
-	double newDR = DRight->value() * ratioDivisor;
-	double newRR = RoundRect->value() * ratioDivisor;
-	double newRM = RoundRect->maximum() * ratioDivisor;
-	double newLZ = LSize->value() * ratioDivisor;
-
-	if (doc->unitIndex() > unitGetMaxIndex())
-		doc->setUnitIndex(0);
-	QString ein = unitGetSuffixFromIndex(doc->unitIndex());
-
-	Xpos->setSuffix( ein );
-	Ypos->setSuffix( ein );
-	Width->setSuffix( ein );
-	Height->setSuffix( ein );
-	imageXOffsetSpinBox->setSuffix( ein );
-	imageYOffsetSpinBox->setSuffix( ein );
-	dGap->setSuffix( ein );
-	DLeft->setSuffix( ein );
-	DTop->setSuffix( ein );
-	DBottom->setSuffix( ein );
-	DRight->setSuffix( ein );
-	RoundRect->setSuffix( ein );
-	LSize->setSuffix( ein );
-	LSize->setValue(newLZ);
-
-	int decimals = unitGetDecimalsFromIndex(doc->unitIndex());
-
-	Xpos->setValues( minXYVal, maxXYWHVal, decimals, newX );
-	Ypos->setValues( minXYVal, maxXYWHVal, decimals, newY );
-	Width->setValues( m_unitRatio, maxXYWHVal, decimals, newW );
-	Height->setValues( m_unitRatio, maxXYWHVal, decimals, newH );
-
-	imageXOffsetSpinBox->setDecimals(decimals);
-	imageXOffsetSpinBox->setMaximum( maxXYWHVal );
-	imageXOffsetSpinBox->setValue(newLX);
-
-	imageYOffsetSpinBox->setDecimals(decimals);
-	imageYOffsetSpinBox->setMaximum( maxXYWHVal );
-	imageYOffsetSpinBox->setValue(newLY);
-
-	dGap->setDecimals(decimals);
-	dGap->setMaximum(newGM);
-	dGap->setValue(newG);
-
-	DLeft->setDecimals(decimals);
-	DLeft->setMaximum( 300 );
-	DLeft->setValue(newDL);
-
-	DTop->setDecimals(decimals);
-	DTop->setMaximum( 300 );
-	DTop->setValue(newDT);
-
-	DBottom->setDecimals(decimals);
-	DBottom->setMaximum( 300 );
-	DBottom->setValue(newDB);
-
-	DRight->setDecimals(decimals);
-	DRight->setMaximum( 300 );
-	DRight->setValue(newDR);
-
-	RoundRect->setValues(-newRM, newRM, decimals, newRR);
-*/
+	Xpos->setNewUnit( m_unitIndex );
+	Ypos->setNewUnit( m_unitIndex );
+	Width->setNewUnit( m_unitIndex );
+	Height->setNewUnit( m_unitIndex );
+	imageXOffsetSpinBox->setNewUnit( m_unitIndex );
+	imageYOffsetSpinBox->setNewUnit( m_unitIndex );
+	dGap->setNewUnit( m_unitIndex );
+	DLeft->setNewUnit( m_unitIndex );
+	DTop->setNewUnit( m_unitIndex );
+	DBottom->setNewUnit( m_unitIndex );
+	DRight->setNewUnit( m_unitIndex );
+	RoundRect->setNewUnit( m_unitIndex );
+	LSize->setNewUnit( m_unitIndex );
 	Cpal->unitChange(oldRatio, m_unitRatio, doc->unitIndex());
 	HaveItem = tmp;
 }
@@ -5622,7 +5546,7 @@ void PropertiesPalette::languageChange()
 
 const VGradient PropertiesPalette::getFillGradient()
 {
-	return Cpal->gradEdit->Preview->fill_gradient;
+	return Cpal->gradEdit->gradient();
 }
 
 void PropertiesPalette::setGradientEditMode(bool on)

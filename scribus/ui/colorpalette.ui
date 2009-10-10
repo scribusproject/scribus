@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>colorPalette</class>
+ <widget class="QWidget" name="colorPalette">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>258</width>
+    <height>408</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="editLineColorSelector">
+       <property name="toolTip">
+        <string>Edit Line Color Properties</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="editFillColorSelector">
+       <property name="toolTip">
+        <string>Edit Fill Color Properties</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="pageStroke">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0" colspan="2">
+        <widget class="ColorListBox" name="colorListStroke"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Shade:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="strokeShade">
+         <property name="toolTip">
+          <string>Saturation of color</string>
+         </property>
+         <property name="suffix">
+          <string> %</string>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Opacity:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QSpinBox" name="strokeOpacity">
+         <property name="toolTip">
+          <string>Set the transparency for the color selected</string>
+         </property>
+         <property name="suffix">
+          <string> %</string>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="singleStep">
+          <number>10</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Blend Mode:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="ScComboBox" name="blendModeStroke">
+         <item>
+          <property name="text">
+           <string>Normal</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Darken</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Lighten</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Multiply</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Screen</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Overlay</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hard Light</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Soft Light</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Difference</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Exclusion</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Color Dodge</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Color Burn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hue</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Saturation</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Color</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Luminosity</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pageFill">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0" colspan="2">
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tabSolid">
+          <attribute name="title">
+           <string>Solid</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="ColorListBox" name="colorListFill"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Shade:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="fillShade">
+               <property name="toolTip">
+                <string>Saturation of color</string>
+               </property>
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabGradient">
+          <attribute name="title">
+           <string>Gradient</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Typ:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QComboBox" name="gradientType">
+             <item>
+              <property name="text">
+               <string>Linear</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Radial</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="GradientEditor" name="gradEdit">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QToolButton" name="gradEditButton">
+               <property name="text">
+                <string>Move Vector</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabPattern">
+          <attribute name="title">
+           <string>Pattern</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QListWidget" name="patternBox">
+             <property name="movement">
+              <enum>QListView::Snap</enum>
+             </property>
+             <property name="flow">
+              <enum>QListView::LeftToRight</enum>
+             </property>
+             <property name="isWrapping" stdset="0">
+              <bool>true</bool>
+             </property>
+             <property name="resizeMode">
+              <enum>QListView::Adjust</enum>
+             </property>
+             <property name="viewMode">
+              <enum>QListView::IconMode</enum>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="spacing">
+              <number>5</number>
+             </property>
+             <item>
+              <widget class="QToolButton" name="editPatternProps">
+               <property name="text">
+                <string>Properties...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Opacity:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="fillOpacity">
+         <property name="toolTip">
+          <string>Set the transparency for the color selected</string>
+         </property>
+         <property name="suffix">
+          <string> %</string>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="singleStep">
+          <number>10</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Blend Mode:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="ScComboBox" name="blendModeFill">
+         <item>
+          <property name="text">
+           <string>Normal</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Darken</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Lighten</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Multiply</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Screen</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Overlay</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hard Light</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Soft Light</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Difference</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Exclusion</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Color Dodge</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Color Burn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hue</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Saturation</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Color</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Luminosity</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="displayAllColors">
+     <property name="text">
+      <string>Display only used Colors</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ui/sccombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ColorListBox</class>
+   <extends>QListWidget</extends>
+   <header>ui/colorlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>GradientEditor</class>
+   <extends>QFrame</extends>
+   <header>ui/gradienteditor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
