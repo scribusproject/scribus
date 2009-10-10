@@ -3158,11 +3158,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (itemText.lengthOfSelection() > 0) //(kk < 0x1000)
 		{
 			bool x11Hack=false;
+			bool controlCharHack=false;
+			if ((k->text().size()==1) && (k->text().at(0).unicode()<32))
+				controlCharHack=true;
 #if defined (Q_WS_X11)
 			if ((k->text().size()==1) && (k->modifiers() & Qt::ShiftModifier) && (k->modifiers() & Qt::ControlModifier) && (k->nativeVirtualKey() < 1000))
 				x11Hack=true;
 #endif
-			if (!x11Hack && !k->text().isEmpty())
+			if (!controlCharHack && !x11Hack && !k->text().isEmpty())
 			{
 				deleteSelectedTextFromFrame();
 				doUpdate = true;
