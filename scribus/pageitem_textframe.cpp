@@ -3157,13 +3157,20 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		bool doUpdate = false;
 		if (itemText.lengthOfSelection() > 0) //(kk < 0x1000)
 		{
-			if (!k->text().isEmpty())
+			bool x11Hack=false;
+#if defined (Q_WS_X11)
+			if ((k->text().size()==1) && (k->modifiers() & Qt::ShiftModifier) && (k->modifiers() & Qt::ControlModifier) && (k->nativeVirtualKey() < 1000))
+				x11Hack=true;
+#endif
+			if (!x11Hack && !k->text().isEmpty())
 			{
 				deleteSelectedTextFromFrame();
 				doUpdate = true;
 			}
 			/*
+			qDebug()<<"Key:"<<k->key();
 			qDebug()<<"Text:"<<k->text();
+			qDebug()<<"Size:"<<k->text().size();
 			qDebug()<<"Modifiers:"<<k->modifiers();
 			qDebug()<<"Native Modifiers:"<<k->nativeModifiers();
 			qDebug()<<"Native Scan Code:"<<k->nativeScanCode();
