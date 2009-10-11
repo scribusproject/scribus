@@ -308,7 +308,6 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	modifiers = m->modifiers();
 	
 	double Rxp = 0, Ryp = 0;
-	double Rxpd = 0,Rypd = 0;
 	m_MouseButtonPressed = true;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
@@ -325,14 +324,14 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	createObjectPos  = m_doc->ApplyGridF(canvasPressCoord);
 	
 	Rxp  = m_doc->ApplyGridF(canvasPressCoord).x();
-	Rxpd = canvasPressCoord.x() - Rxp;
 	canvasPressCoord.setX(qRound(Rxp));
 	Ryp  = m_doc->ApplyGridF(canvasPressCoord).y();
-	Rypd = canvasPressCoord.y() - Ryp;
-
 	canvasPressCoord.setXY(qRound(Rxp), qRound(Ryp));
+
 	canvasCurrCoord = canvasPressCoord;
+	m_doc->ApplyGuides(&Rxp, &Ryp);
 	createObjectPos.setXY(Rxp, Ryp);
+
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -591,7 +590,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 			}
 			else
 			{
-				m_doc->ApplyGuides(&Rxp, &Ryp);
 				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 0;
 			}
@@ -604,7 +602,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 			}
 			else
 			{
-				m_doc->ApplyGuides(&Rxp, &Ryp);
 				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 1;
 			}
@@ -620,7 +617,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 			}
 			else
 			{
-				m_doc->ApplyGuides(&Rxp, &Ryp);
 				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.shapeLineColor, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->AdjustItemSize(m_doc->Items->at(z));
@@ -649,7 +645,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 		}
 		else
 		{
-			m_doc->ApplyGuides(&Rxp, &Ryp);
 			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		}
 		break;
@@ -660,7 +655,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 		}
 		else
 		{
-			m_doc->ApplyGuides(&Rxp, &Ryp);
 			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		}
 		break;
@@ -671,7 +665,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 		}	
 		else
 		{
-			m_doc->ApplyGuides(&Rxp, &Ryp);
 			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs.textFont, true);
 		}
 		break;
@@ -681,7 +674,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.lineColor, true);
 			else
 			{
-				m_doc->ApplyGuides(&Rxp, &Ryp);
 				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.shapeFillColor, m_doc->itemToolPrefs.lineColor, true);
 			}
 			currItem = m_doc->Items->at(z);
@@ -717,7 +709,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeInsertPDFListbox:
 	case modeInsertPDFTextAnnotation:
 	case modeInsertPDFLinkAnnotation:
-		m_doc->ApplyGuides(&Rxp, &Ryp);
 		z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs.textColor, true);
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);
@@ -869,7 +860,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 		}
 		else
 		{
-			m_doc->ApplyGuides(&Rxp, &Ryp);
 			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs.shapeLineWidth, m_doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		}
 		currItem = m_doc->Items->at(z);
