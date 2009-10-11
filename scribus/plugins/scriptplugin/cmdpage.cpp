@@ -177,6 +177,49 @@ PyObject *scribus_pagedimension(PyObject* /* self */)
 	return t;
 }
 
+PyObject *scribus_pagensize(PyObject* /* self */, PyObject* args)
+{
+	int e;
+	if (!PyArg_ParseTuple(args, "i", &e))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	e--;
+	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PyObject *t;
+	t = Py_BuildValue(
+			"(dd)",
+			PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->width()),
+			PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->height())
+		);
+	return t;
+}
+
+PyObject *scribus_pagenmargins(PyObject* /* self */, PyObject* args)
+{
+	int e;
+	if (!PyArg_ParseTuple(args, "i", &e))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	e--;
+	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PyObject *margins = NULL;
+	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Top),
+									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Left),
+									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Right),
+									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Bottom));
+	return margins;
+}
+
 PyObject *scribus_getpageitems(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
@@ -469,5 +512,6 @@ void cmdpagedocwarnings()
 	  << scribus_getHguides__doc__     << scribus_setHguides__doc__
 	  << scribus_getVguides__doc__     << scribus_setVguides__doc__
 	  << scribus_pagedimension__doc__  << scribus_getpageitems__doc__
-	  << scribus_getpagemargins__doc__ << scribus_importpage__doc__;
+	  << scribus_getpagemargins__doc__ << scribus_importpage__doc__
+	  << scribus_pagensize__doc__      << scribus_pagenmargins__doc__;
 }

@@ -157,6 +157,32 @@ e.g. when is the doc in picas returns picas ;)
 PyObject *scribus_pagedimension(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_pagensize__doc__,
+QT_TR_NOOP("getPageNSize() -> tuple\n\
+\n\
+Returns a tuple with a particular page's size measured in the document's current units.\n\
+See UNIT_<type> constants and getPageMargins()\n\
+"));
+/**
+returns a tuple with a particular page's size  in used system
+e.g. when is the doc in picas returns picas ;)
+*/
+PyObject *scribus_pagensize(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_pagenmargins__doc__,
+QT_TR_NOOP("getPageNMargins() -> tuple\n\
+\n\
+Returns a tuple with a particular page's margins measured in the document's current units.\n\
+See UNIT_<type> constants and getPageMargins()\n\
+"));
+/**
+returns a tuple with a particular page's size  in used system
+e.g. when is the doc in picas returns picas ;)
+*/
+PyObject *scribus_pagenmargins(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getpageitems__doc__,
 QT_TR_NOOP("getPageItems() -> list\n\
 \n\
