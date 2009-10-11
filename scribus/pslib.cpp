@@ -3597,6 +3597,14 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, boo
 
 void PSLib::SetColor(const QString& farb, double shade, int *h, int *s, int *v, int *k, bool gcr)
 {
+	if (farb == CommonStrings::None)
+	{
+		*h = 0;
+		*s = 0;
+		*v = 0;
+		*k = 0;
+		return;
+	}
 	ScColor& col = m_Doc->PageColors[farb];
 	SetColor(col, shade, h, s, v, k, gcr);
 }

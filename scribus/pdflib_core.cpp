@@ -4958,6 +4958,26 @@ QString PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 	RGBColor rgb;
 	CMYKColor cmyk;
 	int h, s, v, k;
+	if (farbe == CommonStrings::None)
+	{
+		if (Options.isGrayscale)
+			tmp = "0.0";
+		if (Options.UseRGB)
+			tmp = "1.0 1.0 1.0";
+		else
+		{
+			if ((doc.HasCMS) && (Options.UseProfiles))
+			{
+				if (Options.SComp == 3)
+					tmp = "1.0 1.0 1.0";
+				else
+					tmp = "0.0 0.0 0.0 0.0";
+			}
+			else
+				tmp = "0.0 0.0 0.0 0.0";
+		}
+		return tmp;
+	}
 	ScColor tmpC(doc.PageColors[farbe]);
 	QColor tmpR;
 	if (Options.isGrayscale)
@@ -5722,8 +5742,18 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 			if (oneSameSpot)
 			{
 				PutDoc("/Domain [0.0 1.0]\n");
-				ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
-				cmykValues.getValues(cc, mc, yc, kc);
+				if (colorNames[c] == CommonStrings::None)
+				{
+					cc = 0;
+					mc = 0;
+					yc = 0;
+					kc = 0;
+				}
+				else
+				{
+					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+				}
 				colorDesc = "{\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul exch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul exch\n";
@@ -5733,15 +5763,35 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 			else if (twoSpot)
 			{
 				PutDoc("/Domain [0.0 1.0 0.0 1.0]\n");
-				ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
-				cmykValues.getValues(cc, mc, yc, kc);
+				if (colorNames[c] == CommonStrings::None)
+				{
+					cc = 0;
+					mc = 0;
+					yc = 0;
+					kc = 0;
+				}
+				else
+				{
+					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+				}
 				colorDesc = "{\nexch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub exch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub exch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub exch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub exch pop 5 -1 roll\n";
-				ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
-				cmykValues.getValues(cc, mc, yc, kc);
+				if (colorNames[c+1] == CommonStrings::None)
+				{
+					cc = 0;
+					mc = 0;
+					yc = 0;
+					kc = 0;
+				}
+				else
+				{
+					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+				}
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n";
@@ -5752,13 +5802,33 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 				PutDoc("/Domain [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
 				if (oneSpot1)
 				{
-					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
-					cmykValues.getValues(cc, mc, yc, kc);
+					if (colorNames[c] == CommonStrings::None)
+					{
+						cc = 0;
+						mc = 0;
+						yc = 0;
+						kc = 0;
+					}
+					else
+					{
+						ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
+						cmykValues.getValues(cc, mc, yc, kc);
+					}
 				}
 				else
 				{
-					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
-					cmykValues.getValues(cc, mc, yc, kc);
+					if (colorNames[c+1] == CommonStrings::None)
+					{
+						cc = 0;
+						mc = 0;
+						yc = 0;
+						kc = 0;
+					}
+					else
+					{
+						ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
+						cmykValues.getValues(cc, mc, yc, kc);
+					}
 				}
 				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll 1.0 exch sub mul 1.0 exch sub 5 1 roll\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)  +" mul 1.0 exch sub 5 -1 roll 1.0 exch sub mul 1.0 exch sub 4 1 roll\n";

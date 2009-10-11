@@ -136,6 +136,8 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 
 QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)
 {
+	if (color == CommonStrings::None)
+		return QColor(0, 0, 0, 0);
 	const ScColor& col = currentDoc->PageColors[color];
 	return ScColorEngine::getShadeColorProof(col, currentDoc, shad);
 }

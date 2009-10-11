@@ -55,7 +55,7 @@ const VGradient GradientEditor::gradient()
 void GradientEditor::setColors(ColorList &colorList)
 {
 	m_colorList = colorList;
-	stopColor->updateBox(colorList, ColorCombo::fancyPixmaps, false);
+	stopColor->updateBox(colorList, ColorCombo::fancyPixmaps, true);
 }
 
 void GradientEditor::setPos(double p)
@@ -77,7 +77,19 @@ void GradientEditor::slotColor(QString name, int shade)
 	disconnect(stopColor, SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
 	disconnect(stopShade, SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
 	stopShade->setValue(shade);
-	setCurrentComboItem(stopColor, name);
+	QString nam = name;
+	if (name == CommonStrings::None)
+	{
+		stopShade->setEnabled(false);
+		stopOpacity->setEnabled(false);
+		nam = CommonStrings::tr_NoneColor;
+	}
+	else
+	{
+		stopShade->setEnabled(true);
+		stopOpacity->setEnabled(true);
+	}
+	setCurrentComboItem(stopColor, nam);
 	connect(stopColor, SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
 	connect(stopShade, SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
 }
@@ -96,7 +108,20 @@ QColor GradientEditor::setColor(QString colorName, int shad)
 
 void GradientEditor::setStopColor(const QString &Color)
 {
-	Preview->setActColor(setColor(Color, stopShade->value()), Color, stopShade->value());
+	if (Color == CommonStrings::tr_NoneColor)
+	{
+		Preview->setActColor(QColor(255, 255, 255, 0), CommonStrings::None, 100);
+		Preview->setActTrans(0.0);
+		stopShade->setEnabled(false);
+		stopOpacity->setEnabled(false);
+	}
+	else
+	{
+		Preview->setActColor(setColor(Color, stopShade->value()), Color, stopShade->value());
+		Preview->setActTrans(stopOpacity->value() / 100.0);
+		stopShade->setEnabled(true);
+		stopOpacity->setEnabled(true);
+	}
 	emit gradientChanged();
 }
 

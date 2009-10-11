@@ -1561,7 +1561,10 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 				{
 					QDomElement itcl = docu.createElement("stop");
 					itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
-					itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+					if (cstops.at(cst)->name == CommonStrings::None)
+						itcl.setAttribute("stop-opacity", FToStr(0));
+					else
+						itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
 					itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 					grad.appendChild(itcl);
 				}
@@ -1711,6 +1714,8 @@ QString SVGExPlug::MatrixToStr(QTransform &mat)
 
 QString SVGExPlug::SetColor(QString farbe, int shad)
 {
+	if (farbe == CommonStrings::None)
+		return "#FFFFFF";
 	const ScColor& col = m_Doc->PageColors[farbe];
 	return ScColorEngine::getShadeColorProof(col, m_Doc, shad).name();
 }
