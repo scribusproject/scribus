@@ -2624,10 +2624,10 @@ bool ScribusMainWindow::slotDocSetup()
 
 void ScribusMainWindow::SwitchWin()
 {
-	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
 // 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
+	propertiesPalette->Cpal->ChooseGrad(0);
 	pagePalette->setView(view);
 	propertiesPalette->Fonts->RebuildList(doc);
 	layerPalette->setDoc(doc);

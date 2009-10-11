@@ -2054,7 +2054,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 
 	HaveItem = false;
 	CurItem = i;
-	SelTab(TabStack->currentIndex());
+//	SelTab(TabStack->currentIndex());
 
 	Cpal->setCurrentItem(CurItem);
 	Cpal->updateFromItem();
@@ -2350,6 +2350,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		Rotation->setEnabled(!((CurItem->isTableItem) && (CurItem->isSingleSel)));
 	}
 	HaveItem = true;
+	SelTab(TabStack->currentIndex());
 	if (CurItem->asLine())
 	{
 		keepFrameWHRatioButton->setEnabled(false);

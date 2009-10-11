@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>220</width>
-    <height>198</height>
+    <width>212</width>
+    <height>186</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,6 +20,12 @@
    <enum>QFrame::Plain</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="margin">
+    <number>5</number>
+   </property>
+   <property name="spacing">
+    <number>5</number>
+   </property>
    <item row="0" column="0" colspan="2">
     <widget class="GradientPreview" name="Preview">
      <property name="minimumSize">

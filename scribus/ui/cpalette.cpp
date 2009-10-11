@@ -303,8 +303,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
 	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
-	disconnect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
-	disconnect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
+	connect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
+	connect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
 	connect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
 	connect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
@@ -317,181 +317,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
-/*
-	Form1Layout = new QVBoxLayout(this);
-	Form1Layout->setMargin(0);
-	Form1Layout->setSpacing(0);
-	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 4 );
-	Layout1->setMargin( 1 );
-	editLineColorSelector = new QToolButton(this);
-	editLineColorSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
-	editLineColorSelector->setCheckable(true);
-	editLineColorSelector->setAutoExclusive(true); // #7323
-	Layout1->addWidget(editLineColorSelector);
-	editFillColorSelector = new QToolButton(this);
-	editFillColorSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
-	editFillColorSelector->setCheckable(true);
-	editFillColorSelector->setAutoExclusive(true); // #7323
-	editFillColorSelector->setChecked(true);
-	Layout1->addWidget(editFillColorSelector);
-	selectorQSpacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( selectorQSpacer );
-	Mode = 2;
-	ShadeTxt = new QLabel( this);
-	Layout1->addWidget( ShadeTxt);
-	PM1 = new QSpinBox( this );
-	PM1->setMinimum(0);
-	PM1->setMaximum(100);
-	PM1->setSingleStep(10);
-	PM1->setValue(100);
-	Layout1->addWidget(PM1);
-	Form1Layout->addLayout(Layout1);
-	GradLayout = new QVBoxLayout;
-	GradLayout->setMargin(0);
-	GradLayout->setSpacing(5);
-	QFont fo = QFont(font());
-	gradientQCombo = new ScComboBox( this );
-#ifndef Q_WS_WIN 
-	fo.setPointSize(fo.pointSize()-1);
-	gradientQCombo->setFont(fo);
-#endif
-	GradLayout->addWidget( gradientQCombo );
-	gradEdit = new GradientEditor(this);
-	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
-	gradEditButton = new QToolButton(this);
-	gradEditButton->setCheckable(true);
-	GradLayout->addWidget(gradEditButton);
-	Form1Layout->setMargin(5);
-	Form1Layout->setSpacing(5);
-	Form1Layout->addLayout(GradLayout);
-	colorListQLBox = new ColorListBox(this);
-	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
-	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-	Form1Layout->addWidget(colorListQLBox);
-	displayAllColors = new QCheckBox( this );
-	displayAllColors->setText( tr( "Display only used Colors" ) );
-	displayAllColors->setChecked(false);
-	Form1Layout->addWidget(displayAllColors);
-
-	patternFrame = new QFrame( this );
-	patternFrame->setFrameShape( QFrame::NoFrame );
-	frame3Layout = new QVBoxLayout( patternFrame );
-	frame3Layout->setMargin(0);
-	frame3Layout->setSpacing(2);
-    patternBox = new QListWidget(patternFrame);
-    patternBox->setFlow(QListView::LeftToRight);
-    patternBox->setWrapping(true);
-	patternBox->setWordWrap(true);
-    patternBox->setResizeMode(QListView::Adjust);
-    patternBox->setViewMode(QListView::IconMode);
-	patternBox->setMinimumSize( QSize( 150, 30 ) );
-	patternBox->setSelectionMode(QAbstractItemView::SingleSelection);
-	patternBox->setDragDropMode(QAbstractItemView::NoDragDrop);
-	patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-	frame3Layout->addWidget( patternBox );
-
-	groupOffset = new QGroupBox( patternFrame );
-	groupOffsetLayout = new QHBoxLayout( groupOffset );
-	groupOffsetLayout->setSpacing( 2 );
-	groupOffsetLayout->setMargin( 3 );
-	groupOffsetLayout->setAlignment( Qt::AlignTop );
-	textLabel1 = new QLabel( groupOffset );
-	groupOffsetLayout->addWidget( textLabel1 );
-	spinXoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
-	groupOffsetLayout->addWidget( spinXoffset );
-	textLabel2 = new QLabel( groupOffset );
-	groupOffsetLayout->addWidget( textLabel2 );
-	spinYoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
-	groupOffsetLayout->addWidget( spinYoffset );
-	frame3Layout->addWidget( groupOffset );
-
-	groupScale = new QGroupBox( patternFrame );
-	groupScaleLayout = new QGridLayout( groupScale );
-	groupScaleLayout->setSpacing( 2 );
-	groupScaleLayout->setMargin( 3 );
-	groupScaleLayout->setAlignment( Qt::AlignTop );
-	textLabel5 = new QLabel( groupScale );
-	groupScaleLayout->addWidget( textLabel5, 0, 0 );
-	spinXscaling = new ScrSpinBox( 1, 500, groupScale, 0);
-	spinXscaling->setValue( 100 );
-	groupScaleLayout->addWidget( spinXscaling, 0, 1 );
-	textLabel6 = new QLabel( groupScale );
-	groupScaleLayout->addWidget( textLabel6, 1, 0 );
-	spinYscaling = new ScrSpinBox( 1, 500, groupScale, 0 );
-	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
-	keepScaleRatio = new LinkButton( groupScale );
-	keepScaleRatio->setCheckable( true );
-	keepScaleRatio->setAutoRaise( true );
-	keepScaleRatio->setMaximumSize( QSize( 15, 32767 ) );
-	groupScaleLayout->addWidget( keepScaleRatio, 0, 2, 2, 1 );
-	frame3Layout->addWidget( groupScale );
-
-	groupRotation = new QGroupBox( patternFrame );
-	groupRotationLayout = new QHBoxLayout( groupRotation );
-	groupRotationLayout->setSpacing( 2 );
-	groupRotationLayout->setMargin( 3 );
-	groupRotationLayout->setAlignment( Qt::AlignTop );
-	textLabel7 = new QLabel( groupRotation );
-	groupRotationLayout->addWidget( textLabel7 );
-	spinAngle = new ScrSpinBox( -180, 180, groupRotation, 6 );
-	groupRotationLayout->addWidget( spinAngle );
-	frame3Layout->addWidget( groupRotation );
-	Form1Layout->addWidget(patternFrame);
-	patternFrame->hide();
-
-	TransGroup = new QGroupBox(this);
-	Layout1t = new QGridLayout( TransGroup );
-	Layout1t->setAlignment( Qt::AlignTop );
-	Layout1t->setSpacing( 5 );
-	Layout1t->setMargin( 5 );
-	TransTxt = new QLabel( TransGroup );
-	Layout1t->addWidget( TransTxt, 0, 0 );
-	TransSpin = new QSpinBox( TransGroup );
-	TransSpin->setMinimum(0);
-	TransSpin->setMaximum(100);
-	TransSpin->setSingleStep(10);
-	TransSpin->setValue(100);
-	Layout1t->addWidget(TransSpin, 0, 1);
-	TransTxt2 = new QLabel( TransGroup );
-	Layout1t->addWidget( TransTxt2, 1, 0 );
-	blendMode = new ScComboBox( TransGroup );
-	Layout1t->addWidget( blendMode, 1, 1 );
-	Form1Layout->addWidget(TransGroup);
-
-	editFillColorSelector->setChecked(true);
-	editFillColorSelectorButton();
-	GradientMode = false;
-	
-	setFocusPolicy(Qt::NoFocus);
-
-	languageChange();
-	Mode = 2;
-	setActGradient(0);
-
-	connect(editLineColorSelector, SIGNAL(clicked()), this, SLOT(editLineColorSelectorButton()));
-	connect(editFillColorSelector, SIGNAL(clicked()), this, SLOT(editFillColorSelectorButton()));
-	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
-	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(ToggleColorDisplay()));
-	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
-	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
-	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
-	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
-	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
-	connect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(gradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
-	connect(gradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
-	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(gradEdit->Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
-	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
-	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double)));
-	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
-*/
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -547,6 +372,7 @@ void Cpalette::updateCList()
 		if (currentDoc != NULL)
 			currentDoc->getUsedColors(colorList);
 	}
+	gradEdit->setColors(colorList);
 	colorListFill->insertItems(colorList, ColorListBox::fancyPixmap);
 	colorListStroke->insertItems(colorList, ColorListBox::fancyPixmap);
 	if (colorListFill->currentItem())
@@ -563,7 +389,6 @@ void Cpalette::ToggleColorDisplay()
 	{
 		colorListStroke->cList = &currentDoc->PageColors;
 		colorListFill->cList = &currentDoc->PageColors;
-		gradEdit->setColors(currentDoc->PageColors);
 		colorList = currentDoc->PageColors;
 		updateFromItem();
 	}
@@ -739,6 +564,7 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 
 void Cpalette::ChooseGrad(int number)
 {
+	disconnect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
 	if (number==-1)
 	{
 		tabWidget->setCurrentIndex(0);
@@ -763,6 +589,7 @@ void Cpalette::ChooseGrad(int number)
 		else
 			tabWidget->setCurrentIndex(2);
 	}
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
 }
 
 void Cpalette::slotGrad(int number)
@@ -791,9 +618,7 @@ void Cpalette::slotGradType(int type)
 
 void Cpalette::setActGradient(int typ)
 {
-	disconnect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
 	ChooseGrad(typ);
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
 }
 
 void Cpalette::editGradientVector()
