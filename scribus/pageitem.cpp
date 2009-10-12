@@ -2808,16 +2808,17 @@ void PageItem::checkTextFlowInteractions(bool allItems)
 	if(!m_Doc->isLoading())
 	{
 		QRectF baseRect(getBoundingRect());
-		for(int idx = (allItems ? m_Doc->Items->count()-1 : ItemNr-1); idx >= 0 ; --idx)
+		QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
+		for(int idx = (allItems ? items->count()-1 : ItemNr-1); idx >= 0 ; --idx)
 		{
 			if(idx != static_cast<int>(ItemNr)) // avoids itself
 			{
-				if(m_Doc->Items->at(idx)->asTextFrame()) // do not bother with no text frames
+				if(items->at(idx)->asTextFrame()) // do not bother with no text frames
 				{
-					QRectF uRect(m_Doc->Items->at(idx)->getBoundingRect());
+					QRectF uRect(items->at(idx)->getBoundingRect());
 					if(baseRect.intersects(uRect))
 					{
-						m_Doc->Items->at(idx)->update();
+						items->at(idx)->update();
 					}
 				}
 			}
