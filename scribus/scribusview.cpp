@@ -2972,8 +2972,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					//NOTE: this does not cover groups, strangely enough. Thats done in scaleGroup()
 					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & AltButton))
 					{
-						double scx = currItem->width() / currItem->OldB2;
-						double scy = currItem->height() / currItem->OldH2;
+						double divx = (currItem->OldB2 == 0.0) ? 1.0 : currItem->OldB2;
+						double divy = (currItem->OldH2 == 0.0) ? 1.0 : currItem->OldH2;
+						double scx = currItem->width()  / divx;
+						double scy = currItem->height() / divy;
 						scx = scx != scy ? scx / scy : 1.0;
 						if (currItem->itemText.count() != 0)
 						{
@@ -3960,7 +3962,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 										ma.rotate(currItem->rotation());
 										ma = ma.invert();
 										double nX = ma.m11() * newX + ma.m21() * newY + ma.dx();
-										nh = nX / currItem->OldB2 * currItem->OldH2;
+										double div = (currItem->OldB2 == 0) ? 1.0 : currItem->OldB2;
+										nh = nX / div * currItem->OldH2;
 										mop = QPoint(m->x(), m->y());
 									}
 									else
