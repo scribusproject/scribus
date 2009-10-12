@@ -216,7 +216,7 @@ PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if ((e < 0) || (e > 3))
+	if ((e < UNITMIN) || (e > UNITMAX))
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error").toLocal8Bit().constData());
 		return NULL;
