@@ -211,6 +211,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	importFailed = false;
 	importCanceled = true;
 	importedColors.clear();
+	importedGradients.clear();
 	importedPatterns.clear();
 	docDesc = "";
 	docTitle = "";
@@ -352,6 +353,13 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 				m_Doc->PageColors.remove(importedColors[cd]);
 			}
 		}
+		if (importedGradients.count() != 0)
+		{
+			for (int cd = 0; cd < importedGradients.count(); cd++)
+			{
+				m_Doc->docGradients.remove(importedGradients[cd]);
+			}
+		}
 		if (importedPatterns.count() != 0)
 		{
 			for (int cd = 0; cd < importedPatterns.count(); cd++)
@@ -470,6 +478,13 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 				for (int cd = 0; cd < importedColors.count(); cd++)
 				{
 					m_Doc->PageColors.remove(importedColors[cd]);
+				}
+			}
+			if (importedGradients.count() != 0)
+			{
+				for (int cd = 0; cd < importedGradients.count(); cd++)
+				{
+					m_Doc->docGradients.remove(importedGradients[cd]);
 				}
 			}
 			if (importedPatterns.count() != 0)
@@ -627,6 +642,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			if (gc->GradCo.Stops() > 1)
 			{
 				item->fill_gradient = gc->GradCo;
+				item->setGradient(importedGradTrans[gc->GCol1]);
 				if (!gc->CSpace)
 				{
 					item->GrStartX = gc->GX1 * item->width();
@@ -2110,6 +2126,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 					obj->Gradient = m_gradients[key2].Type;
 				if (obj->Gradient != 8)
 				{
+					obj->GCol1 = key2;
 					if (m_gradients[key2].gradientValid)
 						obj->GradCo = m_gradients[key2].gradient;
 					if (m_gradients[key2].cspaceValid)
@@ -2154,6 +2171,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 						obj->GY2 = m_gradients[key].Y2;
 					if (m_gradients[key].matrixValid)
 						obj->matrixg = m_gradients[key].matrix;
+					obj->GCol1 = key;
 				}
 				else
 				{
@@ -2522,6 +2540,8 @@ void SVGPlug::parseGradient( const QDomElement &e )
 		}
 		gradhelper.reference = href;
 	}
+	QString id = e.attribute("id", "");
+	QString origName = id;
 	if (e.tagName() == "linearGradient")
 	{
 		if (e.hasAttribute("x1"))
@@ -2604,7 +2624,10 @@ void SVGPlug::parseGradient( const QDomElement &e )
 			gradhelper.gradient.setRepeatMethod( VGradient::repeat );
 	}
 	parseColorStops(&gradhelper, e);
-	m_gradients.insert(e.attribute("id"), gradhelper);
+	m_gradients.insert(id, gradhelper);
+	m_Doc->addGradient(id, gradhelper.gradient);
+	importedGradients.append(id);
+	importedGradTrans.insert(origName, id);
 }
 
 SVGPlug::~SVGPlug()

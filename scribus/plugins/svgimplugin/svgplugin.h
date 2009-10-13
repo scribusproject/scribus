@@ -158,7 +158,7 @@ public:
 	QString fillRule;
 	QString GCol1;
 	QString GCol2;
-	VGradient	GradCo;
+	VGradient GradCo;
 	int Gradient;
 	double GX1;
 	double GX2;
@@ -264,6 +264,8 @@ public:
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
 	QStringList importedColors;
+	QStringList importedGradients;
+	QMap<QString, QString> importedGradTrans;
 	QStringList importedPatterns;
 	QMap<QString, QString> importedPattTrans;
 	double inGroupXOrigin;

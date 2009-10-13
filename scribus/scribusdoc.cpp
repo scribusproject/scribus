@@ -2699,8 +2699,9 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 
 bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
 {
+	QString tmp;
 	if (docGradients.contains(name))
-		name = tr("Copy_of_")+name;
+		name += "("+tmp.setNum(docGradients.count())+")";
 	docGradients.insert(name, gradient);
 	return true;
 }
@@ -2713,8 +2714,10 @@ void ScribusDoc::setGradients(QMap<QString, VGradient> &gradients)
 
 bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 {
+	QString tmp;
 	if (docPatterns.contains(name))
-		name = tr("Copy_of_")+name;
+		name += "("+tmp.setNum(docPatterns.count())+")";
+//		name = tr("Copy_of_")+name;
 	docPatterns.insert(name, pattern);
 	return true;
 }
