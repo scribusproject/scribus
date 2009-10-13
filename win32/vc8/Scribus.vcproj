@@ -860,7 +860,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\gradientaddedit.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\gradienteditor.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradientmanager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradientpreview.cpp"
 				>
 			</File>
 			<File
@@ -5377,7 +5389,151 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\gradientaddedit.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\gradienteditor.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradientmanager.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradientpreview.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -15010,6 +15166,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_colorpalette.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_copypagetomasterpage.h"
 				>
 			</File>
@@ -15023,6 +15183,18 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\ui_docsections.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_gradientaddedit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_gradienteditor.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_gradientmanager.h"
 				>
 			</File>
 			<File
@@ -15539,7 +15711,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_gradientaddedit.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_gradienteditor.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_gradientmanager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_gradientpreview.cpp"
 				>
 			</File>
 			<File
@@ -16524,6 +16708,54 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\colorpalette.ui"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\copypagetomasterpage.ui"
 				>
 				<FileConfiguration
@@ -16710,6 +16942,150 @@
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
 						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradientaddedit.ui"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradienteditor.ui"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradientmanager.ui"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
@@ -19841,6 +20217,106 @@
 			>
 			<File
 				RelativePath="win-config.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="colorMngt"
+			>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtelem.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtengine.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtengine.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtenginedata.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtimplelem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtimplelem.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtstructs.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolormngtstructs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolorprofile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolorprofile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolorprofilecache.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolorprofilecache.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolorprofiledata.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolortransform.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolortransform.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolortransformdata.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolortransformpool.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sccolortransformpool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sclcmscolormngtengineimpl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sclcmscolormngtengineimpl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sclcmscolorprofileimpl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sclcmscolorprofileimpl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sclcmscolortransformimpl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormngt\sclcmscolortransformimpl.h"
 				>
 			</File>
 		</Filter>
