@@ -285,7 +285,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_10">
              <property name="text">
-              <string>Typ:</string>
+              <string>Type:</string>
              </property>
             </widget>
            </item>
@@ -545,7 +545,7 @@
       <string>Display all colors from the document color list, or only the already used colors</string>
      </property>
      <property name="text">
-      <string>Display only used Colors</string>
+      <string>Display only used colors</string>
      </property>
     </widget>
    </item>
