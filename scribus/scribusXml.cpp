@@ -1147,6 +1147,29 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			if (!doc->MLineStyles.contains(mlName))
 				doc->MLineStyles.insert(mlName, ml);
 		}
+		if (tagName == "Gradient")
+		{
+			VGradient gra;
+			QString grName = attrs.value("Name").toString();gra = VGradient(VGradient::linear);
+			gra.clearStops();
+			while(!(sReader.isEndElement() && sReader.name() == tagName))
+			{
+				if (sReader.readNext() != QXmlStreamReader::StartElement)
+					continue;
+				QString tagName1 = sReader.name().toString();
+				QXmlStreamAttributes attrs1 = sReader.attributes();
+				if (tagName1 == "CSTOP")
+				{
+					QString name = attrs1.value("NAME").toString();
+					double ramp  = ScCLocale::toDoubleC(attrs1.value("RAMP").toString());
+					double opa   = ScCLocale::toDoubleC(attrs1.value("TRANS").toString());
+					int shade    = attrAsInt(attrs1, "SHADE");
+					gra.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+				}
+			}
+			if (!doc->docGradients.contains(grName))
+				doc->docGradients.insert(grName, gra);
+		}
 		if (tagName=="STYLE")
 		{
 			GetStyle(sReader, vg, NULL, doc, true);
@@ -1182,6 +1205,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	int actualPageNumber = 0;
 	QString modelFile;
 	QString currentView;
+	QString gradName;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1201,6 +1225,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			OB.endArrowIndex   = arrowID[ attrAsInt(attrs, "endArrowIndex", 0)];
 			OB.isBookmark      = attrAsInt(attrs, "BOOKMARK");
 			OB.NamedLStyle     = attrAsString(attrs, "NAMEDLST", "");
+			gradName           = attrAsString(attrs, "GRNAME", "");
 			isGroupControl     = attrAsBool(attrs, "isGroupControl", false);
 			groupsLastItem     = attrAsInt (attrs, "groupsLastItem", 0);
 			itemOwnLink        = attrAsInt (attrs, "OwnLINK", 0);
@@ -1406,6 +1431,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			Neu->setGradient(gradName);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			if (Neu->asLatexFrame())
 			{
@@ -2102,6 +2128,23 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		}
 		writer.writeEndElement();
 	}
+	QMap<QString, VGradient>::Iterator itGrad;
+	for (itGrad = doc->docGradients.begin(); itGrad != doc->docGradients.end(); ++itGrad)
+	{
+		writer.writeStartElement("Gradient");
+		writer.writeAttribute("Name",itGrad.key());
+		VGradient gra = itGrad.value();
+		QList<VColorStop*> cstops = gra.colorStops();
+		for (uint cst = 0; cst < gra.Stops(); ++cst)
+		{
+			writer.writeEmptyElement("CSTOP");
+			writer.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
+			writer.writeAttribute("NAME", cstops.at(cst)->name);
+			writer.writeAttribute("SHADE", cstops.at(cst)->shade);
+			writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
+		}
+		writer.writeEndElement();
+	}
 	QMap<int, ArrowDesc> usedArrows;
 	QMap<int, ArrowDesc>::Iterator itar;
 	struct ArrowDesc arrow;
@@ -2223,6 +2266,7 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRSTARTY", item->GrStartY);
 		writer.writeAttribute("GRENDX"  , item->GrEndX);
 		writer.writeAttribute("GRENDY"  , item->GrEndY);
+		writer.writeAttribute("GRNAME"  , item->gradient());
 	}
 
 	if (item->effectsInUse.count() != 0)

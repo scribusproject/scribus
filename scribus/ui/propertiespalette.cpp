@@ -4676,6 +4676,7 @@ void PropertiesPalette::updateColorList()
 		return;
 	Cpal->SetColors(doc->PageColors);
 	Cpal->SetPatterns(&doc->docPatterns);
+	Cpal->SetGradients(&doc->docGradients);
 	assert (doc->PageColors.document());
 	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, false);

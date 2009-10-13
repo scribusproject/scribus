@@ -91,6 +91,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		bool readBookMark(ScribusDoc::BookMa& bookmark, int& elem, ScXmlStreamAttributes& attrs); 
 		bool readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
 		bool readColor(ColorList& colors, ScXmlStreamAttributes& attrs);
+		bool readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader);
 		void readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
 		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
@@ -116,6 +117,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writeJavascripts(ScXmlStreamWriter& docu);
 		void writeBookmarks(ScXmlStreamWriter& docu);
 		void writeColors(ScXmlStreamWriter& docu);
+		void writeGradients(ScXmlStreamWriter & docu);
 		void writeHyphenatorLists(ScXmlStreamWriter& docu);
 		void writePStyles(ScXmlStreamWriter& docu);
 		void writeCStyles(ScXmlStreamWriter& docu);

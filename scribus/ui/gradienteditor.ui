@@ -6,25 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>212</width>
-    <height>186</height>
+    <width>210</width>
+    <height>172</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Frame</string>
   </property>
   <property name="frameShape">
-   <enum>QFrame::Panel</enum>
+   <enum>QFrame::NoFrame</enum>
   </property>
   <property name="frameShadow">
    <enum>QFrame::Plain</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="margin">
-    <number>5</number>
+    <number>4</number>
    </property>
    <property name="spacing">
-    <number>5</number>
+    <number>2</number>
    </property>
    <item row="0" column="0" colspan="2">
     <widget class="GradientPreview" name="Preview">

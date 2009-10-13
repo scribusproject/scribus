@@ -240,6 +240,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeJavascripts(docu);
 	writeBookmarks(docu);
 	writeColors(docu);
+	writeGradients(docu);
 	writeHyphenatorLists(docu);
 	writePStyles(docu);
 	writeCStyles(docu);
@@ -398,6 +399,27 @@ void Scribus150Format::writeColors(ScXmlStreamWriter & docu)
 		docu.writeAttribute("Register",static_cast<int>(m_Doc->PageColors[itc.key()].isRegistrationColor()));
 	}
 	
+}
+
+void Scribus150Format::writeGradients(ScXmlStreamWriter & docu)
+{
+	QMap<QString, VGradient>::Iterator itGrad;
+	for (itGrad = m_Doc->docGradients.begin(); itGrad != m_Doc->docGradients.end(); ++itGrad)
+	{
+		docu.writeStartElement("Gradient");
+		docu.writeAttribute("Name",itGrad.key());
+		VGradient gra = itGrad.value();
+		QList<VColorStop*> cstops = gra.colorStops();
+		for (uint cst = 0; cst < gra.Stops(); ++cst)
+		{
+			docu.writeEmptyElement("CSTOP");
+			docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
+			docu.writeAttribute("NAME", cstops.at(cst)->name);
+			docu.writeAttribute("SHADE", cstops.at(cst)->shade);
+			docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+		}
+		docu.writeEndElement();
+	}
 }
 
 void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter &docu)
@@ -1160,6 +1182,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("GRSTARTY", item->GrStartY);
 				docu.writeAttribute("GRENDX", item->GrEndX);
 				docu.writeAttribute("GRENDY", item->GrEndY);
+				docu.writeAttribute("GRNAME", item->gradient());
 			}
 		}
 		if (item->itemText.defaultStyle().hasParent())

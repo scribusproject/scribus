@@ -667,6 +667,15 @@ public:
 	 */
 	void setItemName(const QString& newName);
 
+	/** @brief Get the name of the gradient of the object */
+	QString gradient() const { return gradientVal; }
+
+	/**
+	 * @brief Set the fill gradient of the object.
+	 * @param newGradient fill gradient for the object
+	 */
+	void setGradient(const QString &newGradient);
+
 	/** @brief Get the name of the pattern of the object */
 	QString pattern() const { return patternVal; }
 
@@ -1099,6 +1108,12 @@ protected:
 	 * @sa PageItem::itemName(), PageItem::setItemName()
 	 */
 	QString AnName; 
+
+	/**
+	 * @brief Fill gradient name
+	 * @sa PageItem::gradient(), PageItem::setGradient()
+	 */
+	QString gradientVal;
 
 	/**
 	 * @brief Fill pattern name

@@ -537,6 +537,8 @@ public slots:
 	void slotInsertFrame();
 	//! \brief manages the documents patterns
 	void managePatterns();
+	//! \brief manages the documents gradients
+	void manageGradients();
 	//! \brief enable or disable the unicode actions and their menus
 	void enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 	//! \brief allow SE to get the SM for edit stlyes

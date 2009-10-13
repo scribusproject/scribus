@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "canvas.h"
 #include "cmserrorhandling.h"
+#include "colorblind.h"
 #include "commonstrings.h"
 #include "fileloader.h"
 #include "filewatcher.h"
@@ -480,6 +481,7 @@ void ScribusDoc::init()
 
 	PDF_Options.firstUse = true;
 	docPatterns.clear();
+	docGradients.clear();
 
 	if (AutoSave && ScCore->usingGUI())
 		autoSaveTimer->start(AutoSaveTime);
@@ -555,6 +557,9 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
+
+	docGradients = prefsManager->appPrefs.defaultGradients;
+
 	PageColors = prefsManager->colorSet();
 	PageColors.ensureBlackAndWhite();
 	PageColors.setDocument(this);
@@ -994,6 +999,27 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 			for (int o = 0; o < pa.items.count(); o++)
 			{
 				pa.items.at(o)->replaceNamedResources(newNames);
+			}
+		}
+	}
+
+	QMap<QString,VGradient>::Iterator itg;
+	for (itg = docGradients.begin(); itg != docGradients.end(); ++itg)
+	{
+		if (newNames.gradients().contains(itg.key()))
+			docGradients.erase(itg);
+		else
+		{
+			QMap<QString,QString>::ConstIterator itc;
+			QList<VColorStop*> cstops = itg.value().colorStops();
+			for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+			{
+				itc = newNames.colors().find(cstops.at(cst)->name);
+				if (itc != newNames.colors().end())
+				{
+					if (*itc != CommonStrings::None)
+						cstops.at(cst)->name = *itc;
+				}
 			}
 		}
 	}
@@ -2671,6 +2697,19 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 	return found;
 }
 
+bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
+{
+	if (docGradients.contains(name))
+		name = tr("Copy_of_")+name;
+	docGradients.insert(name, gradient);
+	return true;
+}
+
+void ScribusDoc::setGradients(QMap<QString, VGradient> &gradients)
+{
+	docGradients.clear();
+	docGradients = gradients;
+}
 
 bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 {
@@ -2679,7 +2718,6 @@ bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 	docPatterns.insert(name, pattern);
 	return true;
 }
-
 
 void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 {
@@ -3361,6 +3399,22 @@ void ScribusDoc::recalculateColors()
 	//Adjust Items of the 3 types to the colors
 	uint itemsCount=Items->count();
 	updateAllItemQColors();
+	QMap<QString, VGradient>::Iterator itGrad;
+	for (itGrad = docGradients.begin(); itGrad != docGradients.end(); ++itGrad)
+	{
+		QList<VColorStop*> cstops = itGrad.value().colorStops();
+		for (uint cst = 0; cst < itGrad.value().Stops(); ++cst)
+		{
+			const ScColor& col = PageColors[cstops.at(cst)->name];
+			QColor tmp = ScColorEngine::getShadeColorProof(col, this, cstops.at(cst)->shade);
+			if ((view()) && (view()->m_canvas->usePreviewVisual()))
+			{
+				VisionDefectColor defect;
+				tmp = defect.convertDefect(tmp, view()->m_canvas->previewVisual());
+			}
+			cstops.at(cst)->color = tmp;
+		}
+	}
 	for (uint c=0; c<itemsCount; ++c)
 	{
 		PageItem *ite = Items->at(c);

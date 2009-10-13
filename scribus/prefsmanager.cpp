@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "scclocale.h"
+#include "sccolorengine.h"
 #include "scfonts.h"
 #include "ui/scmessagebox.h"
 #include "scpaths.h"
@@ -140,6 +141,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.textSize = 120;
 
 	/** Default colours **/
+	appPrefs.defaultGradients.clear();
 	appPrefs.colorPrefs.DColors.clear();
 
 	ColorSetManager csm;
@@ -1556,6 +1558,24 @@ bool PrefsManager::WritePref(QString ho)
 		co.setAttribute("Register", static_cast<int>(itc.value().isRegistrationColor()));
 		elem.appendChild(co);
 	}
+	QMap<QString, VGradient>::Iterator itGrad;
+	for (itGrad = appPrefs.defaultGradients.begin(); itGrad != appPrefs.defaultGradients.end(); ++itGrad)
+	{
+		QDomElement grad = docu.createElement("Gradient");
+		grad.setAttribute("Name",itGrad.key());
+		VGradient gra = itGrad.value();
+		QList<VColorStop*> cstops = gra.colorStops();
+		for (uint cst = 0; cst < gra.Stops(); ++cst)
+		{
+			QDomElement stop = docu.createElement("CSTOP");
+			stop.setAttribute("NAME", cstops.at(cst)->name);
+			stop.setAttribute("RAMP", ScCLocale::toQStringC(cstops.at(cst)->rampPoint));
+			stop.setAttribute("TRANS", ScCLocale::toQStringC(cstops.at(cst)->opacity));
+			stop.setAttribute("SHADE", cstops.at(cst)->shade);
+			grad.appendChild(stop);
+		}
+		elem.appendChild(grad);
+	}
 	for ( SCFontsIterator itf(appPrefs.fontPrefs.AvailFonts); itf.hasNext(); itf.next())
 	{
 		if (!itf.currentKey().isEmpty())
@@ -2260,6 +2280,31 @@ bool PrefsManager::ReadPref(QString ho)
 			else
 				lf.setRegistrationColor(false);
 			appPrefs.colorPrefs.DColors[dc.attribute("NAME")] = lf;
+		}
+		if (dc.tagName() == "Gradient")
+		{
+			VGradient gra = VGradient(VGradient::linear);
+			gra.clearStops();
+			QDomNode grad = dc.firstChild();
+			while(!grad.isNull())
+			{
+				QDomElement stop = grad.toElement();
+				QString name = stop.attribute("NAME");
+				double ramp  = ScCLocale::toDoubleC(stop.attribute("RAMP"), 0.0);
+				int shade    = stop.attribute("SHADE", "100").toInt();
+				double opa   = ScCLocale::toDoubleC(stop.attribute("TRANS"), 1.0);
+				QColor color;
+				if (name == CommonStrings::None)
+					color = QColor(255, 255, 255, 0);
+				else
+				{
+					const ScColor& col = appPrefs.colorPrefs.DColors[name];
+					color = ScColorEngine::getShadeColorProof(col, NULL, shade);
+				}
+				gra.addStop(color, ramp, 0.5, opa, name, shade);
+				grad = grad.nextSibling();
+			}
+			appPrefs.defaultGradients.insert(dc.attribute("Name"), gra);
 		}
 		if (dc.tagName()=="Substitute")
 		  appPrefs.fontPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");

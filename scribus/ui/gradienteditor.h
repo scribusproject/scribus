@@ -49,6 +49,7 @@ public:
 	const VGradient gradient();
 	void setColors(ColorList &colorList);
 	QColor setColor(QString colorName, int shad);
+	void setGradientEditable(bool val);
 	virtual void changeEvent(QEvent *e);
 
 public slots:

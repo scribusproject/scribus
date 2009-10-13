@@ -53,11 +53,13 @@ public:
 	void setActColor(QColor c, QString n, int s);
 	void setActTrans(double t);
 	void setActStep(double t);
+	void setGradientEditable(bool val);
 	VGradient fill_gradient;
 	QList<int> StopM;
 	bool Mpressed;
 	bool outside;
 	bool onlyselect;
+	bool isEditable;
 	int ActStop;
 	int contextStop;
 	QPoint mPos;

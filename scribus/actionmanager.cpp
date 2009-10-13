@@ -228,6 +228,8 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editPatterns";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="editGradients";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editStyles";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editMasterPages";
@@ -255,6 +257,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editColors"], SIGNAL(triggered()), mainWindow, SLOT(slotEditColors()) );
 	connect( (*scrActions)["editReplaceColors"], SIGNAL(triggered()), mainWindow, SLOT(slotReplaceColors()) );
 	connect( (*scrActions)["editPatterns"], SIGNAL(triggered()), mainWindow, SLOT(managePatterns()) );
+	connect( (*scrActions)["editGradients"], SIGNAL(triggered()), mainWindow, SLOT(manageGradients()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(triggered()), mainWindow, SLOT(manageMasterPages()) );
 	connect( (*scrActions)["editJavascripts"], SIGNAL(triggered()), mainWindow, SLOT(ManageJava()) );
 }
@@ -1304,6 +1307,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
 	(*scrActions)["editReplaceColors"]->setTexts( tr("Replace Colors..."));
 	(*scrActions)["editPatterns"]->setTexts( tr("Patterns..."));
+	(*scrActions)["editGradients"]->setTexts( tr("Gradients..."));
 	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
 	(*scrActions)["editMasterPages"]->setTexts( tr("&Master Pages..."));
 	(*scrActions)["editJavascripts"]->setTexts( tr("&JavaScripts..."));
@@ -1754,7 +1758,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "fileDocSetup" << "filePreferences" << "filePreferences150" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;
 	//Edit
-	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editSelectAllOnLayer" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editEditRenderSource" << "editExtendedImageProperties" << "editColors" << "editReplaceColors" << "editPatterns" << "editStyles" << "editMasterPages" << "editJavascripts";
+	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editSelectAllOnLayer" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editEditRenderSource" << "editExtendedImageProperties" << "editColors" << "editReplaceColors" << "editPatterns" << "editGradients" << "editStyles" << "editMasterPages" << "editJavascripts";
 	//Style
 	++itmenu;
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};

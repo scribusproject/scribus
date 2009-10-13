@@ -295,6 +295,17 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			success = readColor(m_Doc->PageColors, attrs);
 			if (!success) break;
 		}
+		if (tagName == "Gradient")
+		{
+			VGradient gra;
+			QString grName = attrs.valueAsString("Name");
+			success = readGradient(m_Doc, gra, reader);
+			if (!success) break;
+			if (!grName.isEmpty())
+			{
+				m_Doc->docGradients.insert(grName, gra);
+			}
+		}
 		if (tagName == "STYLE")
 		{
 			readParagraphStyle(m_Doc, reader, vg, *m_AvailableFonts);
@@ -1006,6 +1017,30 @@ bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	QString name = attrs.valueAsString("NAME");
 	colors.insert((name.isEmpty()) ? color.name() : name, color);
 	return true;
+}
+
+bool Scribus150Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader)
+{
+	gra = VGradient(VGradient::linear);
+	gra.clearStops();
+	ScXmlStreamAttributes rattrs = reader.scAttributes();
+	QStringRef tagName = reader.name();
+	while(!reader.atEnd() && !reader.hasError())
+	{
+		ScXmlStreamReader::TokenType tType = reader.readNext();
+		if (tType == ScXmlStreamReader::EndElement && reader.name() == tagName)
+			break;
+		if (tType == ScXmlStreamReader::StartElement && reader.name() == "CSTOP")
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			QString name = attrs.valueAsString("NAME");
+			double ramp  = attrs.valueAsDouble("RAMP", 0.0);
+			int shade    = attrs.valueAsInt("SHADE", 100);
+			double opa   = attrs.valueAsDouble("TRANS", 1.0);
+			gra.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
+	}
+	return !reader.hasError();
 }
 
 void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle)
@@ -2725,6 +2760,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				GrShade  = attrs.valueAsInt("GRSHADE", 100);
 				GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
 			}
+			QString GrName = "";
+			GrName = attrs.valueAsString("GRNAME","");
+			if (!GrName.isEmpty())
+				currItem->setGradient(GrName);
 		}
 	}
 	if ((currItem->GrType != 0) && (currItem->GrType != 8))

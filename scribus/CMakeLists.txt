@@ -75,7 +75,9 @@ SET(SCRIBUS_UI_SRC
   ui/colorpalette.ui
   ui/docitemattrprefs.ui
   ui/docsections.ui
+  ui/gradientaddedit.ui
   ui/gradienteditor.ui
+  ui/gradientmanager.ui
   ui/gtfiledialog.ui
   ui/guidemanager.ui
   ui/hysettingsBase.ui
@@ -208,7 +210,9 @@ SET(SCRIBUS_MOC_CLASSES
   ui/fontlistview.h
   ui/fontprefs.h
   ui/fontreplacedialog.h
+  ui/gradientaddedit.h
   ui/gradienteditor.h
+  ui/gradientmanager.h
   ui/gradientpreview.h
   ui/gtdialogs.h
   ui/gtfiledialog.h
@@ -490,7 +494,9 @@ SET(SCRIBUS_SOURCES
   fpoint.cpp
   fpointarray.cpp
   fpoptimizer.cpp
+  ui/gradientaddedit.cpp
   ui/gradienteditor.cpp
+  ui/gradientmanager.cpp
   ui/gradientpreview.cpp
   gtaction.cpp
   ui/gtdialogs.cpp

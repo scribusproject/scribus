@@ -144,8 +144,11 @@ public slots:
 	void updateCList();
 	void ToggleColorDisplay();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
+	void SetGradients(QMap<QString, VGradient> *docGradients);
+	void setNamedGradient(const QString &name);
 	void selectPattern(QListWidgetItem *c);
 	void updatePatternList();
+	void updateGradientList();
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void selectColorS(QListWidgetItem *c);
@@ -182,6 +185,7 @@ protected:
 	QString sFarbe;
 	ColorList colorList;
 	QMap<QString, ScPattern> *patternList;
+	QMap<QString, VGradient> *gradientList;
 	double m_Pattern_scaleX;
 	double m_Pattern_scaleY;
 	double m_Pattern_offsetX;

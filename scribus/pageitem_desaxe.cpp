@@ -272,13 +272,14 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		}
 		else
 		{
-			Xml_attr gradient;
-			gradient.insert("GRTYPE", toXMLString(GrType));
-			gradient.insert("GRSTARTX", toXMLString(GrStartX));
-			gradient.insert("GRSTARTY", toXMLString(GrStartY));
-			gradient.insert("GRENDX", toXMLString(GrEndX));
-			gradient.insert("GRENDY", toXMLString(GrEndY));
-			handler.begin("Gradient", gradient);
+			Xml_attr gradientV;
+			gradientV.insert("GRTYPE", toXMLString(GrType));
+			gradientV.insert("GRSTARTX", toXMLString(GrStartX));
+			gradientV.insert("GRSTARTY", toXMLString(GrStartY));
+			gradientV.insert("GRENDX", toXMLString(GrEndX));
+			gradientV.insert("GRENDY", toXMLString(GrEndY));
+			gradientV.insert("GRNAME", toXMLString(gradient()));
+			handler.begin("Gradient", gradientV);
 			QList<VColorStop*> cstops = fill_gradient.colorStops();
 			for (uint cst = 0; cst < const_cast<VGradient&>(fill_gradient).Stops(); ++cst) //FIXME make const
 			{
@@ -507,6 +508,7 @@ class Gradient_body : public Action_body
 			item->GrStartY = parseDouble(attr["GRSTARTY"]);
 			item->GrEndX = parseDouble(attr["GRENDX"]);
 			item->GrEndY = parseDouble(attr["GRENDY"]);
+			item->setGradient(attr["GRNAME"]);
 			item->fill_gradient.clearStops();
 		}
 	}

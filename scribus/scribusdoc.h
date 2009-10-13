@@ -523,6 +523,11 @@ public:
 	*/
 	bool lineStylesUseColor(const QString& colorName);
 	/*!
+	* @brief Set the gradients for a document
+	*/
+	bool addGradient(QString &name, VGradient &gradient);
+	void setGradients(QMap<QString, VGradient> &gradients);
+	/*!
 	* @brief Set the patterns for a document
 	*/
 	bool addPattern(QString &name, ScPattern& pattern);
@@ -1078,6 +1083,7 @@ public:
 	QMap<QString,multiLine> MLineStyles;
 	QList<ArrowDesc> arrowStyles;
 	QMap<QString, ScPattern> docPatterns;
+	QMap<QString, VGradient> docGradients;
 	QWidget* WinHan;
 	bool DoDrawing;
 	struct OpenNodesList

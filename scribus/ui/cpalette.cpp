@@ -55,7 +55,9 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "linkbutton.h"
 #include "sccolorengine.h"
+#include "scpainter.h"
 #include "scpattern.h"
+#include "util.h"
 
 GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
 {
@@ -315,6 +317,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
+	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
 }
@@ -353,10 +356,22 @@ void Cpalette::updateFromItem()
 	setActFarben(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
 	ChooseGrad(currentItem->GrType);
 	gradEdit->setGradient(currentItem->fill_gradient);
+	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	if (!currentItem->gradient().isEmpty())
+	{
+		setCurrentComboItem(namedGradient, currentItem->gradient());
+		gradEdit->setGradientEditable(false);
+	}
+	else
+	{
+		namedGradient->setCurrentIndex(0);
+		gradEdit->setGradientEditable(true);
+	}
 	if (patternList->count() == 0)
 		tabWidget->setTabEnabled(2, false);
 	else
 		tabWidget->setTabEnabled(2, true);
+	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 }
 
 void Cpalette::updateCList()
@@ -503,6 +518,58 @@ void Cpalette::editFillColorSelectorButton()
 		editLineColorSelector->setChecked(false);
 	}
 	updateFromItem();
+}
+
+void Cpalette::updateGradientList()
+{
+	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	namedGradient->clear();
+	namedGradient->setIconSize(QSize(48, 12));
+	namedGradient->addItem( tr("Custom"));
+	for (QMap<QString, VGradient>::Iterator it = gradientList->begin(); it != gradientList->end(); ++it)
+	{
+		QImage pixm(48, 12, QImage::Format_ARGB32);
+		QPainter pb;
+		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		pb.begin(&pixm);
+		pb.fillRect(0, 0, 48, 12, b);
+		pb.end();
+		ScPainter *p = new ScPainter(&pixm, 48, 12);
+		p->setPen(Qt::black);
+		p->setLineWidth(1);
+		p->setFillMode(2);
+		p->fill_gradient = it.value();
+		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6));
+		p->drawRect(0, 0, 48, 12);
+		p->end();
+		delete p;
+		QPixmap pm;
+		pm = QPixmap::fromImage(pixm);
+		namedGradient->addItem(pm, it.key());
+	}
+	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+}
+
+void Cpalette::SetGradients(QMap<QString, VGradient> *docGradients)
+{
+	gradientList = docGradients;
+	updateGradientList();
+}
+
+void Cpalette::setNamedGradient(const QString &name)
+{
+	if (namedGradient->currentIndex() == 0)
+	{
+		gradEdit->setGradient(currentItem->fill_gradient);
+		currentItem->setGradient("");
+		gradEdit->setGradientEditable(true);
+	}
+	else
+	{
+		gradEdit->setGradient(gradientList->value(name));
+		gradEdit->setGradientEditable(false);
+		currentItem->setGradient(name);
+	}
 }
 
 void Cpalette::updatePatternList()

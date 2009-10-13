@@ -94,6 +94,15 @@ void GradientEditor::slotColor(QString name, int shade)
 	connect(stopShade, SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
 }
 
+void GradientEditor::setGradientEditable(bool val)
+{
+	stopShade->setEnabled(val);
+	stopOpacity->setEnabled(val);
+	stopColor->setEnabled(val);
+	Position->setEnabled(val);
+	Preview->setGradientEditable(val);
+}
+
 void GradientEditor::changePos(int v)
 {
 	Preview->setActStep(static_cast<double>(v) / 100.0);

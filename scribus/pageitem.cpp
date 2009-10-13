@@ -183,6 +183,7 @@ PageItem::PageItem(const PageItem & other)
 	undoManager(other.undoManager),
 	m_ItemType(other.m_ItemType),
 	AnName(other.AnName),
+	gradientVal(other.gradientVal),
 	patternVal(other.patternVal),
 	patternScaleX(other.patternScaleX),
 	patternScaleY(other.patternScaleY),
@@ -309,6 +310,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrStartY = 0;
 	GrEndX = w;
 	GrEndY = 0;
+	gradientVal = "";
 	patternVal = "";
 	patternScaleX = 100;
 	patternScaleY = 100;
@@ -1042,6 +1044,10 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 			}
 			else
 			{
+				if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
+					gradientVal = "";
+				if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
+					fill_gradient = m_Doc->docGradients[gradientVal];
 				if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
 				{
 					if (fillColor() != CommonStrings::None)
@@ -2224,6 +2230,12 @@ void PageItem::setItemName(const QString& newName)
 		undoManager->action(this, ss);
 	}
 	setUName(AnName); // set the name for the UndoObject too
+}
+
+void PageItem::setGradient(const QString &newGradient)
+{
+	if (gradientVal != newGradient)
+		gradientVal = newGradient;
 }
 
 void PageItem::setPattern(const QString &newPattern)
@@ -3940,6 +3952,10 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	it = newNames.patterns().find(pattern());
 	if (it != newNames.patterns().end())
 		setPattern(*it);
+	
+	it = newNames.gradients().find(gradient());
+	if (it != newNames.gradients().end())
+		setGradient(*it);
 
 	it = newNames.lineStyles().find(customLineStyle());
 	if (it != newNames.lineStyles().end())

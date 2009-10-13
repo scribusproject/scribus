@@ -111,6 +111,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "gtgettext.h"
+#include "ui/gradientmanager.h"
 #include "ui/guidemanager.h"
 #include "ui/helpbrowser.h"
 #include "ui/hruler.h"
@@ -683,6 +684,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editReplaceColors"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editGradients"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
@@ -705,6 +707,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editSearchReplace"]->setEnabled(false);
 	scrActions["editReplaceColors"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(false);
+//	scrActions["editGradients"]->setEnabled(false);
  	scrActions["editStyles"]->setEnabled(false);
 	scrActions["editMasterPages"]->setEnabled(false);
 	scrActions["editJavascripts"]->setEnabled(false);
@@ -2746,6 +2749,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editReplaceColors"]->setEnabled(true);
 	scrActions["editPatterns"]->setEnabled(true);
+//	scrActions["editGradients"]->setEnabled(true);
  	scrActions["editStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
@@ -4671,6 +4675,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editReplaceColors"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
+//		scrActions["editGradients"]->setEnabled(false);
  		scrActions["editStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
@@ -9678,6 +9683,38 @@ void ScribusMainWindow::managePatterns()
 		}
 		delete dia;
 		undoManager->setUndoEnabled(true);
+	}
+}
+
+void ScribusMainWindow::manageGradients()
+{
+	if (HaveDoc)
+	{
+		undoManager->setUndoEnabled(false);
+		gradientManagerDialog *dia = new gradientManagerDialog(this, &doc->docGradients, doc->PageColors, doc, this);
+		if (dia->exec())
+		{
+			doc->setGradients(dia->dialogGradients);
+			if (!dia->replaceMap.isEmpty())
+			{
+				ResourceCollection gradrsc;
+				gradrsc.mapPatterns(dia->replaceMap);
+				doc->replaceNamedResources(gradrsc);
+			}
+			propertiesPalette->updateColorList();
+			view->DrawNew();
+		}
+		delete dia;
+		undoManager->setUndoEnabled(true);
+	}
+	else
+	{
+		gradientManagerDialog *dia = new gradientManagerDialog(this, &prefsManager->appPrefs.defaultGradients, prefsManager->colorSet(), NULL, this);
+		if (dia->exec())
+		{
+			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
+		}
+		delete dia;
 	}
 }
 

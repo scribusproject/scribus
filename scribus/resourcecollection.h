@@ -20,6 +20,7 @@
 #include <QList>
 #include <QMap>
 #include <QString>
+#include "vgradient.h"
 
 /** 
 *   A simple structure which holds the names of all resources & styles used in a doc or part of a document.
@@ -40,6 +41,7 @@ public:
 	void collectFont(const QString& name)      { if (!name.isEmpty()) m_fonts.insert(name,name); }
 	void collectPattern(const QString& name)   { if (!name.isEmpty()) m_patterns.insert(name,name); }
 	void collectColor(const QString& name)     { if (!name.isEmpty()) m_colors.insert(name,name); }
+	void collectGradient(const QString& name)  { if (!name.isEmpty()) m_gradients.insert(name,name); }
 	void collectStyle(const QString& name)     { if (!name.isEmpty()) m_pstyles.insert(name,name); }
 	void collectCharStyle(const QString& name) { if (!name.isEmpty()) m_cstyles.insert(name,name); }
 	void collectLineStyle(const QString& name) { if (!name.isEmpty()) m_linestyles.insert(name,name); }
@@ -47,6 +49,7 @@ public:
 	void mapFont(const QString& oldname, const QString& newname)      { m_fonts.insert(oldname, newname); }
 	void mapPattern(const QString& oldname, const QString& newname)   { m_patterns.insert(oldname, newname); }
 	void mapColor(const QString& oldname, const QString& newname)     { m_colors.insert(oldname, newname); }
+	void mapGradients(const QString& oldname, const QString& newname) { m_gradients.insert(oldname, newname); }
 	void mapStyle(const QString& oldname, const QString& newname)     { m_pstyles.insert(oldname, newname); }
 	void mapCharStyle(const QString& oldname, const QString& newname) { m_cstyles.insert(oldname, newname); }
 	void mapLineStyle(const QString& oldname, const QString& newname) { m_linestyles.insert(oldname, newname); }
@@ -54,6 +57,7 @@ public:
 	void mapFonts(const QMap<QString,QString>& newnames)      { m_fonts = newnames; }
 	void mapPatterns(const QMap<QString,QString>& newnames)   { m_patterns = newnames; }
 	void mapColors(const QMap<QString,QString>& newnames)     { m_colors = newnames; }
+	void mapGradients(const QMap<QString,QString>& newnames)  { m_gradients = newnames; }
 	void mapStyles(const QMap<QString,QString>& newnames)     { m_pstyles = newnames; }
 	void mapCharStyles(const QMap<QString,QString>& newnames) { m_cstyles = newnames; }
 	void mapLineStyles(const QMap<QString,QString>& newnames) { m_linestyles = newnames; }
@@ -61,6 +65,7 @@ public:
 	const QMap<QString, QString>& fonts()      { return m_fonts; }
 	const QMap<QString, QString>& patterns()   { return m_patterns; }
 	const QMap<QString, QString>& colors()     { return m_colors; }
+	const QMap<QString, QString>& gradients()  { return m_gradients; }
 	const QMap<QString, QString>& styles()     { return m_pstyles; }
 	const QMap<QString, QString>& charStyles() { return m_cstyles; }
 	const QMap<QString, QString>& lineStyles() { return m_linestyles; }
@@ -68,6 +73,7 @@ public:
 	QList<QString> fontNames() const      { return m_fonts.keys(); }
 	QList<QString> patternNames() const   { return m_patterns.keys(); }
 	QList<QString> colorNames() const     { return m_colors.keys(); }
+	QList<QString> gradientNames() const  { return m_gradients.keys(); }
 	QList<QString> styleNames() const     { return m_pstyles.keys(); }
 	QList<QString> charStyleNames() const { return m_cstyles.keys(); }
 	QList<QString> lineStyleNames() const { return m_linestyles.keys(); }
@@ -79,10 +85,12 @@ public:
 	
 	SCFonts* availableFonts;
 	ColorList* availableColors;
+	QMap<QString, VGradient> *availableGradients;
 private:
 	QMap<QString,QString> m_fonts;
 	QMap<QString,QString> m_patterns;
 	QMap<QString,QString> m_colors;
+	QMap<QString,QString> m_gradients;
 	QMap<QString,QString> m_pstyles;
 	QMap<QString,QString> m_cstyles;
 	QMap<QString,QString> m_linestyles;
