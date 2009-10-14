@@ -84,10 +84,11 @@ private:
 	bool m_haveGuide;
 	int m_page;
 	double m_guide;
+	double m_currentGuide;
 	bool m_haveCursor;
 	QCursor m_cursor;
 	QPoint m_xy;
-	void movePoint(QMouseEvent *m);
+	void movePoint(QMouseEvent *m, bool mouseRelease);
 	
 	signals:
 		void guideInfo(int /*direction*/, qreal /*position*/);
