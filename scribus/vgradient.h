@@ -99,6 +99,7 @@ public:
 	~VGradient();
 
 	VGradient& operator=(const VGradient& gradient);
+	bool operator==(const VGradient& gradient) const;
 
 	VGradientType type() const { return m_type; }
 	void setType( VGradientType type ) { m_type = type; }

@@ -111,6 +111,38 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 	return *this;
 } // VGradient::operator=
 
+bool VGradient::operator==(const VGradient &gradient) const 
+{
+	if (static_cast<uint>(m_colorStops.count()) != gradient.Stops())
+		return false;
+	QList<VColorStop*> cs = gradient.colorStops();
+	bool retVal = true;
+	for (int i = 0; i < m_colorStops.count(); ++i)
+	{
+		if (m_colorStops.at(i)->rampPoint != cs.at(i)->rampPoint)
+		{
+			retVal = false;
+			break;
+		}
+		if (m_colorStops.at(i)->opacity != cs.at(i)->opacity)
+		{
+			retVal = false;
+			break;
+		}
+		if (m_colorStops.at(i)->name != cs.at(i)->name)
+		{
+			retVal = false;
+			break;
+		}
+		if (m_colorStops.at(i)->shade != cs.at(i)->shade)
+		{
+			retVal = false;
+			break;
+		}
+	}
+	return retVal;
+}
+
 const QList<VColorStop*>& VGradient::colorStops() const
 {
 	return m_colorStops;

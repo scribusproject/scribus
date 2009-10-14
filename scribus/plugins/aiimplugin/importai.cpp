@@ -1316,6 +1316,7 @@ void AIPlug::processData(QString data)
 				gradientMode = false;
 				ite = m_Doc->Items->at(m_Doc->Items->count()-1);
 				ite->fill_gradient = m_gradients[currentGradientName];
+				ite->setGradient(currentGradientName);
 				if (ite->fill_gradient.type() == 0)
 					ite->GrType = 6;
 				else
@@ -2000,6 +2001,7 @@ void AIPlug::processGradientData(QString data)
 		else if (command == "BD")
 		{
 			m_gradients.insert(currentGradientName, currentGradient);
+			m_Doc->addGradient(currentGradientName, currentGradient);
 			currentGradient = VGradient(VGradient::linear);
 			currentGradient.clearStops();
 			currentGradient.setRepeatMethod( VGradient::none );

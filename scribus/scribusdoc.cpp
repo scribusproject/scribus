@@ -2699,6 +2699,14 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 
 bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
 {
+ 	for (QMap<QString, VGradient>::Iterator it = docGradients.begin(); it != docGradients.end(); ++it)
+ 	{
+		if (it.value() == gradient)
+		{
+			name = it.key();
+			return true;
+		}
+ 	}
 	QString tmp;
 	if (docGradients.contains(name))
 		name += "("+tmp.setNum(docGradients.count())+")";
