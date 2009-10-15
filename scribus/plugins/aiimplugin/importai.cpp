@@ -80,6 +80,9 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	bool ret = false;
 	convertedPDF = false;
 	CustColors.clear();
+	importedColors.clear();
+	importedGradients.clear();
+	importedPatterns.clear();
 	QFileInfo fi = QFileInfo(fName);
 //	QString ext = fi.suffix().toLower();
 	if ( !ScCore->usingGUI() )
@@ -196,7 +199,10 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
+		{
 			m_Doc->PageColors.insert(it.key(), it.value());
+			importedColors.append(it.key());
+		}
 	}
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;
@@ -211,6 +217,30 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
+		if (Elements.count() == 0)
+		{
+			if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+			{
+				for (int cd = 0; cd < importedColors.count(); cd++)
+				{
+					m_Doc->PageColors.remove(importedColors[cd]);
+				}
+			}
+			if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
+			{
+				for (int cd = 0; cd < importedGradients.count(); cd++)
+				{
+					m_Doc->docGradients.remove(importedGradients[cd]);
+				}
+			}
+			if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+			{
+				for (int cd = 0; cd < importedPatterns.count(); cd++)
+				{
+					m_Doc->docPatterns.remove(importedPatterns[cd]);
+				}
+			}
+		}
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
@@ -316,6 +346,27 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 				qDebug("aiimport: leaving items on page");
 #endif*/
 				m_Doc->view()->updatesOn(true);
+				if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+				{
+					for (int cd = 0; cd < importedColors.count(); cd++)
+					{
+						m_Doc->PageColors.remove(importedColors[cd]);
+					}
+				}
+				if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
+				{
+					for (int cd = 0; cd < importedGradients.count(); cd++)
+					{
+						m_Doc->docGradients.remove(importedGradients[cd]);
+					}
+				}
+				if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+				{
+					for (int cd = 0; cd < importedPatterns.count(); cd++)
+					{
+						m_Doc->docPatterns.remove(importedPatterns[cd]);
+					}
+				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
@@ -663,7 +714,7 @@ QString AIPlug::parseColor(QString data)
 		tmp.setRegistrationColor(false);
 		QString namPrefix = "FromAI";
 		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-//		importedColors.append(namPrefix+tmp.name());
+		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
 	return ret;
@@ -702,7 +753,7 @@ QString AIPlug::parseColorGray(QString data)
 		tmp.setRegistrationColor(false);
 		QString namPrefix = "FromAI";
 		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-//		importedColors.append(namPrefix+tmp.name());
+		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
 	return ret;
@@ -745,7 +796,7 @@ QString AIPlug::parseColorRGB(QString data)
 		tmp.setRegistrationColor(false);
 		QString namPrefix = "FromAI";
 		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-//		importedColors.append(namPrefix+tmp.name());
+		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
 	return ret;
@@ -798,7 +849,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 		tmp.setSpotColor(true);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert(FarNam, tmp);
-//		importedColors.append(FarNam);
+		importedColors.append(FarNam);
 		ret = FarNam;
 	}
 	return ret;
@@ -879,7 +930,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 			tmp.setSpotColor(true);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert(FarNam, tmp);
-//		importedColors.append(FarNam);
+		importedColors.append(FarNam);
 		ret = FarNam;
 	}
 	return ret;
@@ -2001,7 +2052,8 @@ void AIPlug::processGradientData(QString data)
 		else if (command == "BD")
 		{
 			m_gradients.insert(currentGradientName, currentGradient);
-			m_Doc->addGradient(currentGradientName, currentGradient);
+			if (m_Doc->addGradient(currentGradientName, currentGradient))
+				importedGradients.append(currentGradientName);
 			currentGradient = VGradient(VGradient::linear);
 			currentGradient.clearStops();
 			currentGradient.setRepeatMethod( VGradient::none );
@@ -2066,6 +2118,7 @@ void AIPlug::processPattern(QDataStream &ts)
 					m_Doc->itemSelection_DeleteItem(tmpSel);
 					m_Doc->addPattern(currentPatternDefName, pat);
 				}
+				importedPatterns.append(currentPatternDefName);
 				PatternElements.clear();
 				currentPatternDefName = "";
 				break;

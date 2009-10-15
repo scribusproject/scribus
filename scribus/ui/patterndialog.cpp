@@ -126,6 +126,10 @@ void PatternDialog::updatePatternList()
 		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), patternView);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}
+	if (dialogPatterns.count() == 0)
+		buttonRemoveAll->setEnabled(false);
+	else
+		buttonRemoveAll->setEnabled(true);
 }
 
 void PatternDialog::loadPatternDir()
@@ -362,6 +366,7 @@ void PatternDialog::loadVectors(QString data)
 		delete pre;
 	}
 	uint ac = m_doc->Items->count();
+	uint ap = m_doc->docPatterns.count();
 	bool savedAlignGrid = m_doc->useRaster;
 	bool savedAlignGuides = m_doc->SnapGuides;
 	m_doc->useRaster = false;
@@ -379,7 +384,7 @@ void PatternDialog::loadVectors(QString data)
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 			if( fmt )
-				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted|LoadSavePlugin::lfKeepPatterns);
 		}
 	}
 	m_doc->useRaster = savedAlignGrid;
@@ -421,6 +426,21 @@ void PatternDialog::loadVectors(QString data)
 			{
 				dialogPatterns.insert(it.key(), it.value());
 				origNames.insert(it.key(), it.key());
+			}
+		}
+	}
+	else
+	{
+		uint ape = m_doc->docPatterns.count();
+		if (ap != ape)
+		{
+			for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
+			{
+				if (!origPatterns.contains(it.key()))
+				{
+					dialogPatterns.insert(it.key(), it.value());
+					origNames.insert(it.key(), it.key());
+				}
 			}
 		}
 	}

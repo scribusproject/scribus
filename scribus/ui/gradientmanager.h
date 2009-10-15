@@ -45,6 +45,7 @@ class SCRIBUS_API gradientManagerDialog : public QDialog, Ui::gradientManager
 		gradientManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, ScribusDoc *doc, ScribusMainWindow* scMW);
 		~gradientManagerDialog() {};
 		void updateGradientList();
+		void loadScribusFormat(QString fileName);
 		ScribusDoc *m_doc;
 		ScribusMainWindow *mainWin;
 		QMap<QString, VGradient> dialogGradients;
@@ -52,11 +53,15 @@ class SCRIBUS_API gradientManagerDialog : public QDialog, Ui::gradientManager
 		QMap<QString,QString> origNames;
 		QStringList origGradients;
 		ColorList m_colorList;
+		bool hasImportedColors;
 	public slots:
 		void gradientSelected(QListWidgetItem* it);
 		void addGradient();
 		void editGradient();
 		void removeGradient();
+		void removeAllGradients();
+		void loadGradients();
+		void saveGradients();
 };
 
 #endif

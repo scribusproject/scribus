@@ -86,6 +86,9 @@ private:
 	QList<PageItem*> PatternElements;
 	QStack<QList<PageItem*> > groupStack;
 	ColorList CustColors;
+	QStringList importedColors;
+	QStringList importedGradients;
+	QStringList importedPatterns;
 	double baseX, baseY;
 	double docX;
 	double docY;

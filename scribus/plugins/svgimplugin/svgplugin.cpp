@@ -346,21 +346,27 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (Elements.count() == 0)
 	{
 		importFailed = true;
-		if (importedColors.count() != 0)
+		if ((importedColors.count() != 0) && ((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns)))
+			importFailed = false;
+		if ((importedGradients.count() != 0) && ((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepPatterns)))
+			importFailed = false;
+		if ((importedPatterns.count() != 0) && (flags & LoadSavePlugin::lfKeepPatterns))
+			importFailed = false;
+		if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 		{
 			for (int cd = 0; cd < importedColors.count(); cd++)
 			{
 				m_Doc->PageColors.remove(importedColors[cd]);
 			}
 		}
-		if (importedGradients.count() != 0)
+		if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
 		{
 			for (int cd = 0; cd < importedGradients.count(); cd++)
 			{
 				m_Doc->docGradients.remove(importedGradients[cd]);
 			}
 		}
-		if (importedPatterns.count() != 0)
+		if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 		{
 			for (int cd = 0; cd < importedPatterns.count(); cd++)
 			{
@@ -473,21 +479,21 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->itemSelection_DeleteItem(tmpSel);
 /*#endif*/
 			m_Doc->view()->updatesOn(true);
-			if (importedColors.count() != 0)
+			if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
 				for (int cd = 0; cd < importedColors.count(); cd++)
 				{
 					m_Doc->PageColors.remove(importedColors[cd]);
 				}
 			}
-			if (importedGradients.count() != 0)
+			if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
 				for (int cd = 0; cd < importedGradients.count(); cd++)
 				{
 					m_Doc->docGradients.remove(importedGradients[cd]);
 				}
 			}
-			if (importedPatterns.count() != 0)
+			if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 			{
 				for (int cd = 0; cd < importedPatterns.count(); cd++)
 				{
@@ -2625,8 +2631,8 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	}
 	parseColorStops(&gradhelper, e);
 	m_gradients.insert(id, gradhelper);
-	m_Doc->addGradient(id, gradhelper.gradient);
-	importedGradients.append(id);
+	if (m_Doc->addGradient(id, gradhelper.gradient))
+		importedGradients.append(id);
 	importedGradTrans.insert(origName, id);
 }
 

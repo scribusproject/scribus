@@ -42,11 +42,14 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		enum loadFlags
 		{
-			lfCreateDoc = 1,
-			lfUseCurrentPage = 2,
-			lfInsertPage = 4,
-			lfInteractive = 8,
-			lfScripted = 16
+			lfCreateDoc      =   1,
+			lfUseCurrentPage =   2,
+			lfInsertPage     =   4,
+			lfInteractive    =   8,
+			lfScripted       =  16,
+			lfKeepColors     =  32,
+			lfKeepGradients  =  64,
+			lfKeepPatterns   = 128
 		};
 
 		// Static functions:

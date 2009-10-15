@@ -2704,7 +2704,7 @@ bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
 		if (it.value() == gradient)
 		{
 			name = it.key();
-			return true;
+			return false;
 		}
  	}
 	QString tmp;
