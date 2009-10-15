@@ -3490,8 +3490,8 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
 			actualStop = cstops.at(cst)->rampPoint;
-			if ((actualStop != lastStop) || (isFirst))
-			{
+//			if ((actualStop != lastStop) || (isFirst))
+//			{
 				isFirst = false;
 				lastStop = actualStop;
 				StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
@@ -3504,7 +3504,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 				Gcolors.prepend(GCol);
 				colorNames.prepend(cstops.at(cst)->name);
 				colorShades.prepend(cstops.at(cst)->shade);
-			}
+//			}
 		}
 		PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors, colorNames, colorShades);
 	}
@@ -3514,8 +3514,8 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
 			actualStop = cstops.at(cst)->rampPoint;
-			if ((actualStop != lastStop) || (isFirst))
-			{
+//			if ((actualStop != lastStop) || (isFirst))
+//			{
 				isFirst = false;
 				lastStop = actualStop;
 				double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
@@ -3531,7 +3531,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 				Gcolors.append(GCol);
 				colorNames.append(cstops.at(cst)->name);
 				colorShades.append(cstops.at(cst)->shade);
-			}
+//			}
 		}
 		PS_MultiLinGradient(w, -h, StopVec, Gcolors, colorNames, colorShades);
 	}

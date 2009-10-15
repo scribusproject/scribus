@@ -36,6 +36,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 #include "commonstrings.h"
+#include "sctextstream.h"
+#include "sccolorengine.h"
 #include <QPixmap>
 #include <QImage>
 #include <QPainter>
@@ -194,8 +196,10 @@ void gradientManagerDialog::loadGradients()
 	QString fileName;
 	QString allFormats = tr("All Supported Formats")+" (";
 	allFormats += "*.sgr *.SGR";
+	allFormats += " *.ggr *.GGR";
 	allFormats += ");;";
-	QString formats = tr("Scribus Gradient Files (*.sgr *SGR);;");
+	QString formats = tr("Scribus Gradient Files (*.sgr *.SGR);;");
+	formats += tr("Gimp Gradient Files (*.ggr *.SGR);;");
 	formats += tr("All Files (*)");
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -212,7 +216,116 @@ void gradientManagerDialog::loadGradients()
 		QString ext = fi.suffix().toLower();
 		if (ext == "sgr")
 			loadScribusFormat(fileName);
+		else if (ext == "ggr")
+			loadGimpFormat(fileName);
 		updateGradientList();
+	}
+}
+
+void gradientManagerDialog::loadGimpFormat(QString fileName)
+{
+	QFile f(fileName);
+	if (f.open(QIODevice::ReadOnly))
+	{
+		ScTextStream ts(&f);
+		QString tmp, dummy;
+		QString gradientName = "";
+		int numEntrys = 0;
+		int entryCount = 0;
+		int stopCount = 0;
+		double left, middle, right, r0, g0, b0, a0, r1, g1, b1, a1, oldr1, oldg1, oldb1, olda1;
+		tmp = ts.readLine();
+		if (tmp.startsWith("GIMP Gradient"))
+		{
+			tmp = ts.readLine();
+			ScTextStream CoE(&tmp, QIODevice::ReadOnly);
+			CoE >> dummy;
+			gradientName = CoE.readAll().trimmed();
+		}
+		if (!gradientName.isEmpty())
+		{
+			QString stopName = gradientName+QString("_Stop%1");
+			QString stopNameInUse;
+			VGradient gra = VGradient(VGradient::linear);
+			gra.clearStops();
+			QColor color;
+			tmp = ts.readLine();
+			ScTextStream CoE(&tmp, QIODevice::ReadOnly);
+			CoE >> numEntrys;
+			while (!ts.atEnd())
+			{
+				entryCount++;
+				tmp = ts.readLine();
+				ScTextStream Cval(&tmp, QIODevice::ReadOnly);
+				Cval >> left >> middle >> right >> r0 >> g0 >> b0 >> a0 >> r1 >> g1 >> b1 >> a1;
+				if ((entryCount == 1) && (entryCount < numEntrys))
+				{
+					stopNameInUse = stopName.arg(stopCount);
+					addGimpColor(stopNameInUse, r0, g0, b0);
+					color = QColor(qRound(r0 * 255), qRound(g0 * 255), qRound(b0 * 255));
+					gra.addStop(color, left, 0.5, a0, stopNameInUse, 100);
+					stopCount++;
+				}
+				else if (entryCount == numEntrys)
+				{
+					if ((entryCount != 1) && ((r0 != oldr1) || (g0 != oldg1) || (b0 != oldb1) || (a0 != olda1)))
+					{
+						stopNameInUse = stopName.arg(stopCount);
+						addGimpColor(stopNameInUse, oldr1, oldg1, oldb1);
+						color = QColor(qRound(oldr1 * 255), qRound(oldg1 * 255), qRound(oldb1 * 255));
+						gra.addStop(color, left, 0.5, olda1, stopNameInUse, 100);
+						stopCount++;
+					}
+					stopNameInUse = stopName.arg(stopCount);
+					addGimpColor(stopNameInUse, r0, g0, b0);
+					color = QColor(qRound(r0 * 255), qRound(g0 * 255), qRound(b0 * 255));
+					gra.addStop(color, left, 0.5, a0, stopNameInUse, 100);
+					stopCount++;
+					stopNameInUse = stopName.arg(stopCount);
+					addGimpColor(stopNameInUse, r1, g1, b1);
+					color = QColor(qRound(r1 * 255), qRound(g1 * 255), qRound(b1 * 255));
+					gra.addStop(color, right, 0.5, a1, stopNameInUse, 100);
+					stopCount++;
+				}
+				else
+				{
+					if ((r0 == oldr1) && (g0 == oldg1) && (b0 == oldb1) && (a0 == olda1))
+					{
+						stopNameInUse = stopName.arg(stopCount);
+						addGimpColor(stopNameInUse, r0, g0, b0);
+						color = QColor(qRound(r0 * 255), qRound(g0 * 255), qRound(b0 * 255));
+						gra.addStop(color, left, 0.5, a0, stopNameInUse, 100);
+						stopCount++;
+					}
+					else
+					{
+						stopNameInUse = stopName.arg(stopCount);
+						addGimpColor(stopNameInUse, oldr1, oldg1, oldb1);
+						color = QColor(qRound(oldr1 * 255), qRound(oldg1 * 255), qRound(oldb1 * 255));
+						gra.addStop(color, left, 0.5, olda1, stopNameInUse, 100);
+						stopCount++;
+						stopNameInUse = stopName.arg(stopCount);
+						addGimpColor(stopNameInUse, r0, g0, b0);
+						color = QColor(qRound(r0 * 255), qRound(g0 * 255), qRound(b0 * 255));
+						gra.addStop(color, left, 0.5, a0, stopNameInUse, 100);
+						stopCount++;
+					}
+				}
+				oldr1 = r1;
+				oldg1 = g1;
+				oldb1 = b1;
+				olda1 = a1;
+			}
+			if (!dialogGradients.contains(gradientName))
+				dialogGradients.insert(gradientName, gra);
+			else
+			{
+				QString tmp;
+				gradientName += "("+tmp.setNum(dialogGradients.count())+")";
+				dialogGradients.insert(gradientName, gra);
+			}
+		}
+		f.close();
 	}
 	/* File format is:
    *
@@ -223,7 +336,35 @@ void gradientManagerDialog::loadGradients()
    *   left middle right r0 g0 b0 a0 r1 g1 b1 a1 type coloring right_color_type
    *   ...
    */
+}
 
+void gradientManagerDialog::addGimpColor(QString &colorName, double r, double g, double b)
+{
+	ScColor lf = ScColor();
+	bool found = false;
+	int Rc, Gc, Bc, hR, hG, hB;
+	Rc = qRound(r * 255);
+	Gc = qRound(g * 255);
+	Bc = qRound(b * 255);
+	lf.setColorRGB(Rc, Gc, Bc);
+	for (ColorList::Iterator it = m_colorList.begin(); it != m_colorList.end(); ++it)
+	{
+		if (it.value().getColorModel() == colorModelRGB)
+		{
+			it.value().getRGB(&hR, &hG, &hB);
+			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
+			{
+				colorName = it.key();
+				found = true;
+				return;
+			}
+		}
+	}
+	if (!found)
+	{
+		m_colorList.insert(colorName, lf);
+		hasImportedColors = true;
+	}
 }
 
 void gradientManagerDialog::loadScribusFormat(QString fileName)
@@ -313,7 +454,7 @@ void gradientManagerDialog::saveGradients()
 	QString allFormats = tr("All Supported Formats")+" (";
 	allFormats += "*.sgr *.SGR";
 	allFormats += ");;";
-	QString formats = tr("Scribus Gradient Files (*.sgr *SGR);;");
+	QString formats = tr("Scribus Gradient Files (*.sgr *.SGR);;");
 	formats += tr("All Files (*)");
 	allFormats += formats;
 	QString wdir = PrefsManager::instance()->prefsFile->getContext("dirs")->get("gradients", ".");
@@ -388,347 +529,3 @@ void gradientManagerDialog::saveGradients()
 		}
 	}
 }
-/*
-void PatternDialog::loadPatternDir()
-{
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString wdir = dirs->get("patterndir", ".");
-	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), wdir);
-	if (!fileName.isEmpty())
-	{
-		QStringList formats;
-		formats += "eps";
-		formats += "epsi";
-		formats += "pdf";
-		QString form1 = "";
-		for ( int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
-		{
-			form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
-			if (form1 == "jpeg")
-				form1 = "jpg";
-			if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
-			formats += form1;
-			else if (form1 == "jpg")
-			{
-				formats += "jpg";
-				formats += "jpeg";
-			}
-		}
-		formats += "tif";
-	 	formats += "tiff";
-		formats += "psd";
-		formats += "pat";
-		QDir d(fileName, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		if ((d.exists()) && (d.count() != 0))
-		{
-			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
-			mainWin->mainWindowProgressBar->reset();
-			mainWin->mainWindowProgressBar->setMaximum(d.count() * 2);
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-			for (uint dc = 0; dc < d.count(); ++dc)
-			{
-				mainWin->mainWindowProgressBar->setValue(dc);
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.suffix().toLower();
-				if ((ext == "sml") || (ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
-					loadVectors(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-			}
-			for (uint dc = 0; dc < d.count(); ++dc)
-			{
-				mainWin->mainWindowProgressBar->setValue(d.count() + dc);
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.suffix().toLower();
-				if ((ext == "sml") || (ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
-					continue;
-				else if (formats.contains(ext))
-				{
-					QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-					if (!dialogPatterns.contains(patNam))
-					{
-						ScPattern pat = ScPattern();
-						pat.setDoc(m_doc);
-						pat.setPattern(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-						dialogPatterns.insert(patNam, pat);
-						origNames.insert(patNam, patNam);
-					}
-				}
-				else
-					continue;
-			}
-			d.cdUp();
-			dirs->set("patterndir", d.absolutePath());
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			mainWin->setStatusBarInfoText("");
-			mainWin->mainWindowProgressBar->reset();
-		}
-		updatePatternList();
-	}
-}
-
-void PatternDialog::loadPattern()
-{
-	QString fileName;
-	QString formats = "";
-	QString allFormats = tr("All Supported Formats")+" (";
-	int fmtCode = FORMATID_ODGIMPORT;
-	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
-	while (fmt != 0)
-	{
-		if (fmt->load)
-		{
-			formats += fmt->filter + ";;";
-			int an = fmt->filter.indexOf("(");
-			int en = fmt->filter.indexOf(")");
-			while (an != -1)
-			{
-				allFormats += fmt->filter.mid(an+1, en-an-1)+" ";
-				an = fmt->filter.indexOf("(", en);
-				en = fmt->filter.indexOf(")", an);
-			}
-		}
-		fmtCode++;
-		fmt = LoadSavePlugin::getFormatById(fmtCode);
-	}
-	allFormats += "*.sce *.SCE ";
-	allFormats += "*.shape *.SHAPE ";
-	allFormats += "*.sml *.SML ";
-	formats += "Scribus Objects (*.sce *.SCE);;";
-	formats += "Dia Shapes (*.shape *.SHAPE);;";
-	formats += "Kivio Stencils (*.sml *.SML);;";
-	QString form1 = "";
-	QString form2 = "";
-	QStringList imgFormats;
-	bool jpgFound = false;
-	bool tiffFound = false;
-	for (int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
-	{
-		form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
-		form2 = QString(QImageReader::supportedImageFormats().at(i)).toUpper();
-		if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
-		{
-			formats += form2 + " (*."+form1+" *."+form2+");;";
-			allFormats += "*."+form1+" *."+form2+" ";
-			imgFormats.append(form1);
-		}
-		else if ((form1 == "jpg") || (form1 == "jpeg"))
-		{
-			// JPEG is a special case because both .jpg and .jpeg
-			// are acceptable extensions.
-			if (!jpgFound)
-			{
-				formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
-				allFormats += "*.jpg *.jpeg *.JPG *.JPEG ";
-				imgFormats.append("jpeg");
-				imgFormats.append("jpg");
-				jpgFound = true;
-			}
-		}
-		else if ((form1 == "tif") || (form1 == "tiff"))
-		{
-			if (!tiffFound)
-			{
-				formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
-				allFormats += "*.tif *.tiff *.TIF *.TIFF ";
-				imgFormats.append("tif");
-				imgFormats.append("tiff");
-				tiffFound = true;
-			}
-		}
-		else if (form1 != "svg")
-		{
-			imgFormats.append(form1);
-			allFormats += "*."+form1+" *."+form2+" ";
-		}
-	}
-	if (!tiffFound)
-	{
-		formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
-		allFormats += "*.tif *.tiff *.TIF *.TIFF ";
-	}
-	if (!jpgFound)
-	{
-		formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
-		allFormats += "*.jpg *.jpeg *.JPG *.JPEG ";
-	}
-	formats += "PSD (*.psd *.PSD);;";
-	formats += "Gimp Patterns (*.pat *.PAT);;";
-	formats += tr("All Files (*)");
-	allFormats += "*.psd *.PSD ";
-	allFormats += "*.pat *.PAT);;";
-	imgFormats.append("tif");
-	imgFormats.append("tiff");
-	imgFormats.append("pat");
-	imgFormats.append("psd");
-	imgFormats.append("pdf");
-	imgFormats.append("eps");
-	imgFormats.append("epsi");
-	imgFormats.append("ps");
-	allFormats += formats;
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString wdir = dirs->get("patterns", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
-	if (dia.exec() == QDialog::Accepted)
-		fileName = dia.selectedFile();
-	else
-		return;
-	if (!fileName.isEmpty())
-	{
-		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
-		QFileInfo fi(fileName);
-		if ((fi.suffix().toLower() == "sml") || (fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
-		{
-			loadVectors(fileName);
-			updatePatternList();
-		}
-		else
-		{
-			QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-			ScPattern pat = ScPattern();
-			pat.setDoc(m_doc);
-			pat.setPattern(fileName);
-			if (!dialogPatterns.contains(patNam))
-			{
-				dialogPatterns.insert(patNam, pat);
-				origNames.insert(patNam, patNam);
-				updatePatternList();
-			}
-		}
-	}
-}
-
-void PatternDialog::loadVectors(QString data)
-{
-	bool wasUndo = UndoManager::undoEnabled();
-	UndoManager::instance()->setUndoEnabled(false);
-	m_doc->setLoading(true);
-	QFileInfo fi(data);
-	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-	if (fi.suffix().toLower() == "sml")
-	{
-		QString f = "";
-		loadText(data, &f);
-		StencilReader *pre = new StencilReader();
-		data = pre->createObjects(f);
-		delete pre;
-	}
-	else if (fi.suffix().toLower() == "shape")
-	{
-		QString f = "";
-		loadText(data, &f);
-		StencilReader *pre = new StencilReader();
-		data = pre->createShape(f);
-		delete pre;
-	}
-	uint ac = m_doc->Items->count();
-	bool savedAlignGrid = m_doc->useRaster;
-	bool savedAlignGuides = m_doc->SnapGuides;
-	m_doc->useRaster = false;
-	m_doc->SnapGuides = false;
-	if (fi.suffix().toLower() == "sce")
-		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, m_doc, m_doc->view());
-	else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
-		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), false, true, m_doc, m_doc->view());
-	else
-	{
-		FileLoader *fileLoader = new FileLoader(data);
-		int testResult = fileLoader->TestFile();
-		delete fileLoader;
-		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
-		{
-			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-			if( fmt )
-				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		}
-	}
-	m_doc->useRaster = savedAlignGrid;
-	m_doc->SnapGuides = savedAlignGuides;
-	uint ae = m_doc->Items->count();
-	if (ac != ae)
-	{
-		for (uint as = ac; as < ae; ++as)
-		{
-			PageItem* ite = m_doc->Items->at(ac);
-			if (ite->itemType() == PageItem::PathText)
-			{
-				ite->Frame = true;
-				ite->updatePolyClip();
-			}
-			else
-			{
-				ite->layout();
-			}
-		}
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_doc);
-		PageItem* currItem = m_doc->Items->at(ac);
-		pat.pattern = currItem->DrawObj_toImage();
-		pat.width = currItem->gWidth;
-		pat.height = currItem->gHeight;
-		for (uint as = ac; as < ae; ++as)
-		{
-			pat.items.append(m_doc->Items->takeAt(ac));
-		}
-		if (!dialogPatterns.contains(patNam))
-		{
-			dialogPatterns.insert(patNam, pat);
-			origNames.insert(patNam, patNam);
-		}
-		for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
-		{
-			if (!origPatterns.contains(it.key()))
-			{
-				dialogPatterns.insert(it.key(), it.value());
-				origNames.insert(it.key(), it.key());
-			}
-		}
-	}
-	m_doc->setLoading(false);
-	m_doc->view()->Deselect(false);
-	UndoManager::instance()->setUndoEnabled(wasUndo);
-	m_doc->view()->DrawNew();
-}
-
-void PatternDialog::patternSelected(QListWidgetItem* it)
-{
-	if (it)
-	{
-		buttonRemove->setEnabled(true);
-		buttonRename->setEnabled(true);
-	}
-	else
-	{
-		buttonRemove->setEnabled(false);
-		buttonRename->setEnabled(false);
-		patternView->clearSelection();
-	}
-}
-
-void PatternDialog::removeAllPatterns()
-{
-	dialogPatterns.clear();
-	updatePatternList();
-}
-
-QStringList PatternDialog::getUsedPatternsHelper(QString pattern, QStringList &results)
-{
-	ScPattern *pat = &dialogPatterns[pattern];
-	QStringList pats;
-	pats.clear();
-	for (int c = 0; c < pat->items.count(); ++c)
-	{
-		if ((!results.contains(pat->items.at(c)->pattern())) && (pat->items.at(c)->GrType == 8))
-			pats.append(pat->items.at(c)->pattern());
-	}
-	if (!pats.isEmpty())
-	{
-		for (int c = 0; c < pats.count(); ++c)
-		{
-			getUsedPatternsHelper(pats[c], results);
-		}
-	}
-	return pats;
-}
-*/

@@ -5446,8 +5446,8 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
 		{
 			actualStop = cstops.at(cst)->rampPoint;
-			if ((actualStop != lastStop) || (isFirst))
-			{
+//			if ((actualStop != lastStop) || (isFirst))
+//			{
 				isFirst = false;
 				lastStop = actualStop;
 				TransVec.prepend(cstops.at(cst)->opacity);
@@ -5455,7 +5455,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				Gcolors.prepend(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 				colorNames.prepend(cstops.at(cst)->name);
 				colorShades.prepend(cstops.at(cst)->shade);
-			}
+//			}
 		}
 	}
 	else
@@ -5463,8 +5463,8 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
 		{
 			actualStop = cstops.at(cst)->rampPoint;
-			if ((actualStop != lastStop) || (isFirst))
-			{
+//			if ((actualStop != lastStop) || (isFirst))
+//			{
 				isFirst = false;
 				lastStop = actualStop;
 				double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
@@ -5475,7 +5475,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 				colorNames.append(cstops.at(cst)->name);
 				colorShades.append(cstops.at(cst)->shade);
-			}
+//			}
 		}
 	}
 	output = PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors, colorNames, colorShades);
@@ -5501,6 +5501,7 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 	int colorsCountm1=Colors.count()-1;
 	for (int c = 0; c < colorsCountm1; ++c)
 	{
+		bool sameCoord = false;
 		oneSameSpot = false;
 		oneSpot1 = false;
 		oneSpot2 = false;
@@ -5629,6 +5630,8 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 		PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
 		if ((currItem->GrType == 5) || (currItem->GrType == 7))
 		{
+			if (Stops.at(c) == Stops.at(c+1))
+				sameCoord = true;
 			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(Stops.at(c+1))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(Stops.at(c))+"]\n");
 			if (Colors.count() == 2)
 				PutDoc("/Extend [true true]\n");
@@ -5682,6 +5685,8 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 		}
 		else
 		{
+			if ((Stops.at(c*2) == Stops.at(c*2+2)) && (Stops.at(c*2+1) == Stops.at(c*2+3)))
+				sameCoord = true;
 			PutDoc("/Coords ["+FToStr(Stops.at(c*2))+"  "+FToStr(Stops.at(c*2+1))+" "+FToStr(Stops.at(c*2+2))+" "+FToStr(Stops.at(c*2+3))+"]\n");
 			if (Colors.count() == 2)
 				PutDoc("/Extend [true true]\n");
@@ -5839,12 +5844,15 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 			PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
 			PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
 		}
+		if (!sameCoord)
+		{
 		tmp += "q\n";
-				if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
+		if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
 			tmp += "/"+TRes+" gs\n";
 		tmp += SetClipPath(currItem);
 		tmp += "h\nW* n\n";
 		tmp += "/"+ShName+" sh\nQ\n";
+		}
 	}
 	return tmp;
 }

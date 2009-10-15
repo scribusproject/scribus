@@ -45,6 +45,8 @@ class SCRIBUS_API gradientManagerDialog : public QDialog, Ui::gradientManager
 		gradientManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, ScribusDoc *doc, ScribusMainWindow* scMW);
 		~gradientManagerDialog() {};
 		void updateGradientList();
+		void loadGimpFormat(QString fileName);
+		void addGimpColor(QString &colorName, double r, double g, double b);
 		void loadScribusFormat(QString fileName);
 		ScribusDoc *m_doc;
 		ScribusMainWindow *mainWin;
