@@ -1190,6 +1190,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 
 	bool inItem = false;
 	bool isGroupControl = false;
+	bool doOverprint = false;
 	int  groupsLastItem = 0;
 	int  itemOwnLink    = 0;
 	QString itemClip;
@@ -1227,6 +1228,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			OB.NamedLStyle     = attrAsString(attrs, "NAMEDLST", "");
 			gradName           = attrAsString(attrs, "GRNAME", "");
 			isGroupControl     = attrAsBool(attrs, "isGroupControl", false);
+			doOverprint        = attrAsBool(attrs, "doOverprint", false);
 			groupsLastItem     = attrAsInt (attrs, "groupsLastItem", 0);
 			itemOwnLink        = attrAsInt (attrs, "OwnLINK", 0);
 			itemClip           = attrAsString(attrs, "ImageClip", "");
@@ -1432,6 +1434,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			Neu->setGradient(gradName);
+			Neu->doOverprint = doOverprint;
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			if (Neu->asLatexFrame())
 			{
@@ -1573,6 +1576,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	bool savedAlignGrid   = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
 	bool isGroupControl   = false;
+	bool doOverprint      = false;
 	bool isFile = !fileName.isEmpty();
 	doc->useRaster  = false;
 	doc->SnapGuides = false;
@@ -1598,6 +1602,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	bool inlineF = false;
 	QByteArray inlineImageData;
 	QString inlineImageExt;
+	QString gradName;
 	int lowResType = 1;
 	int actualPageNumber = 0;
 	while(!reader.atEnd() && !reader.hasError())
@@ -1616,15 +1621,17 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			lastStyles = LastStyles();
 			GetItemProps(attrs1, &OB, fileDir, newVersion);
 			patClipPath    = attrs1.value("ImageClip").toString();
-			lowResType         = attrAsInt (attrs, "ImageRes", 1);
-			actualPageNumber   = attrAsInt (attrs, "Pagenumber", 0);
-			inlineF = attrAsBool(attrs, "isInlineImage", false);
+			lowResType         = attrAsInt (attrs1, "ImageRes", 1);
+			actualPageNumber   = attrAsInt (attrs1, "Pagenumber", 0);
+			gradName           = attrAsString(attrs1, "GRNAME", "");
+			inlineF = attrAsBool(attrs1, "isInlineImage", false);
 			inlineImageData.resize(0);
-			QString dat = attrAsString(attrs, "ImageData", "");
+			QString dat = attrAsString(attrs1, "ImageData", "");
 			inlineImageData.append(dat);
-			inlineImageExt = attrAsString(attrs, "inlineImageExt", "");
+			inlineImageExt = attrAsString(attrs1, "inlineImageExt", "");
 			patOwnLink     = attrAsInt(attrs1, "OwnLINK", 0);
 			isGroupControl = attrAsBool(attrs1, "isGroupControl", false);
+			doOverprint    = attrAsBool(attrs, "doOverprint", false);
 			groupsLastItem = attrAsInt(attrs1, "groupsLastItem", 0);
 			OB.Xpos = attrAsDbl(attrs1, "XPOS") + doc->currentPage()->xOffset();
 			OB.Ypos = attrAsDbl(attrs1, "YPOS") + doc->currentPage()->yOffset();
@@ -1746,6 +1753,8 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			Neu->doOverprint = doOverprint;
+			Neu->setGradient(gradName);
 			Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			Neu->itemText = storyText;
