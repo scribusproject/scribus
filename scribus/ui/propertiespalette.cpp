@@ -1810,13 +1810,8 @@ void PropertiesPalette::SelTab(int t)
 		}
 		else if (t == idColorsItem)
 		{
-			Cpal->setActGradient(CurItem->GrType);
-			updateColorSpecialGradient();
-			Cpal->gradEdit->setGradient(CurItem->fill_gradient);
-			if (CurItem->doOverprint)
-				Cpal->setActOverprint(1);
-			else
-				Cpal->setActOverprint(0);
+			Cpal->setCurrentItem(CurItem);
+			Cpal->updateFromItem();
 		}
 		else if (t == idGroupItem)
 		{
@@ -2065,8 +2060,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	updateColorSpecialGradient();
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 	Cpal->gradEdit->Preview->updateDisplay(); */
-	updateColorSpecialGradient();
-	Cpal->gradEdit->setGradient(CurItem->fill_gradient);
+//	updateColorSpecialGradient();
+//	Cpal->gradEdit->setGradient(CurItem->fill_gradient);
 	if (CurItem->FrameType == 0)
 		SCustom->setIcon(SCustom->getIconPixmap(0));
 	if (CurItem->FrameType == 1)

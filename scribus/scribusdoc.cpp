@@ -5739,6 +5739,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 							}
 						}
 					}
+					break;
 				case 1:
 					currItem->GrStartX = 0;
 					currItem->GrStartY = currItem->height() / 2.0;
@@ -5780,7 +5781,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 				default:
 					break;
 			}
-			if (typ != 8)
+			if ((typ > 0) && (typ < 8))
 				currItem->updateGradientVectors();
 			currItem->update();
 		}

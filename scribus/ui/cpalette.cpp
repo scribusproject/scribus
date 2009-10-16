@@ -675,11 +675,24 @@ void Cpalette::slotGrad(int number)
 {
 	if (number == 1)
 	{
-		gradEdit->setGradient(currentItem->fill_gradient);
+		disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		if (!currentItem->gradient().isEmpty())
+		{
+			setCurrentComboItem(namedGradient, currentItem->gradient());
+			gradEdit->setGradient(gradientList->value(currentItem->gradient()));
+			gradEdit->setGradientEditable(false);
+		}
+		else
+		{
+			namedGradient->setCurrentIndex(0);
+			gradEdit->setGradient(currentItem->fill_gradient);
+			gradEdit->setGradientEditable(true);
+		}
 		if (gradientType->currentIndex() == 0)
 			emit NewGradient(6);
 		else
-			emit NewGradient(7);
+			currentItem->GrType = 7;
+		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	}
 	else if (number == 2)
 		emit NewGradient(8);
