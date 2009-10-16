@@ -318,6 +318,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
 }
@@ -353,6 +354,10 @@ void Cpalette::updateFromItem()
 	updateCList();
 	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
 	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
+	if (currentItem->doOverprint)
+		setActOverprint(1);
+	else
+		setActOverprint(0);
 	setActFarben(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
 	ChooseGrad(currentItem->GrType);
 	gradEdit->setGradient(currentItem->fill_gradient);
@@ -424,9 +429,16 @@ void Cpalette::setActBlend(int val, int val2)
 	disconnect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
 	disconnect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
 	blendModeFill->setCurrentIndex(val);
-	blendModeStroke->setCurrentIndex(val);
+	blendModeStroke->setCurrentIndex(val2);
 	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
 	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
+}
+
+void Cpalette::setActOverprint(int val)
+{
+	disconnect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
+	overPrintCombo->setCurrentIndex(val);
+	connect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)

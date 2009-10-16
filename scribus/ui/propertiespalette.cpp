@@ -1478,7 +1478,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	Cpal = new Cpalette(page_6);
 	pageLayout_6->addWidget( Cpal );
 
-	OverP = new QGroupBox( "Overprinting", page_6 );
+/*	OverP = new QGroupBox( "Overprinting", page_6 );
 	OverPLayout = new QVBoxLayout( OverP );
 	OverPLayout->setSpacing( 2 );
 	OverPLayout->setMargin( 5 );
@@ -1489,7 +1489,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	OverPLayout->addWidget( Overprint );
 	KnockOut->setChecked( true );
 	pageLayout_6->addWidget(OverP);
-
+*/
 	idColorsItem = TabStack->addItem(page_6, "&Colors" );
 	MpalLayout->addWidget( TabStack );
 
@@ -1594,8 +1594,6 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setLineSpacingMode(int)));
 	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
-	connect( KnockOut, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
-	connect( Overprint, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
@@ -1815,8 +1813,10 @@ void PropertiesPalette::SelTab(int t)
 			Cpal->setActGradient(CurItem->GrType);
 			updateColorSpecialGradient();
 			Cpal->gradEdit->setGradient(CurItem->fill_gradient);
-			KnockOut->setChecked(!CurItem->doOverprint);
-			Overprint->setChecked(CurItem->doOverprint);
+			if (CurItem->doOverprint)
+				Cpal->setActOverprint(1);
+			else
+				Cpal->setActOverprint(0);
 		}
 		else if (t == idGroupItem)
 		{
@@ -1866,6 +1866,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewBlendS(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPattern(QString)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewOverprint(int)), 0, 0);
 
 	doc = d;
 	CurItem = NULL;
@@ -1940,6 +1941,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	connect(this->Cpal, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradFill(int)));
 	connect(this->Cpal, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternFill(QString)));
 	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double)));
+	connect(this->Cpal, SIGNAL(NewOverprint(int)), this, SLOT(handleOverprint(int)));
 }
 
 void PropertiesPalette::unsetDoc()
@@ -2331,8 +2333,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	{
 		RoundRect->setEnabled ((CurItem->asPolygon()) &&  (!CurItem->ClipEdited)  && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)));
 	}
-	KnockOut->setChecked(!CurItem->doOverprint);
-	Overprint->setChecked(CurItem->doOverprint);
+	if (CurItem->doOverprint)
+		Cpal->setActOverprint(1);
+	else
+		Cpal->setActOverprint(0);
 	if ((CurItem->itemType() == PageItem::Line) && LMode)
 	{
 		xposLabel->setText( tr( "&X1:" ) );
@@ -4954,11 +4958,14 @@ void PropertiesPalette::handleFillRule()
 	emit DocChanged();
 }
 
-void PropertiesPalette::handleOverprint()
+void PropertiesPalette::handleOverprint(int val)
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	doc->itemSelection_SetOverprint(Overprint->isChecked());
+	bool setter = true;
+	if (val == 0)
+		setter = false;
+	doc->itemSelection_SetOverprint(setter);
 }
 
 void PropertiesPalette::NewName()
@@ -5303,9 +5310,9 @@ void PropertiesPalette::languageChange()
 	RightLine->setText( tr("Line at the Right "));
 	BottomLine->setText( tr("Line at Bottom"));
 	
-	OverP->setTitle( tr("Overprinting"));
-	KnockOut->setText( tr("Knockout"));
-	Overprint->setText( tr("Overprint"));
+//	OverP->setTitle( tr("Overprinting"));
+//	KnockOut->setText( tr("Knockout"));
+//	Overprint->setText( tr("Overprint"));
 
 	QString pctSuffix=tr(" %");
 	ChBase->setSuffix(pctSuffix);

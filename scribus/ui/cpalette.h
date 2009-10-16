@@ -139,6 +139,7 @@ public slots:
 	void SetColors(ColorList newColorList);
 	void setActTrans(double, double);
 	void setActBlend(int, int);
+	void setActOverprint(int);
 	void slotTransS(int val);
 	void slotTransF(int val);
 	void updateCList();
@@ -175,6 +176,7 @@ signals:
 	void NewTransS(double);
 	void NewBlend(int);
 	void NewBlendS(int);
+	void NewOverprint(int);
 	void gradientChanged();
 	void editGradient();
 
