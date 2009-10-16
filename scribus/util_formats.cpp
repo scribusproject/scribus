@@ -38,19 +38,19 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "cgm" << "aff" << "sk" << "sk1");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
 	
-	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript (eps)");
+	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript \"*.eps\"");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
 	m_fmtNames[FormatsManager::PAT]  = QObject::tr("Pattern Files");
 	m_fmtNames[FormatsManager::PDF]  = QObject::tr("PDF Document");
 	m_fmtNames[FormatsManager::PNG]  = QObject::tr("PNG");
-	m_fmtNames[FormatsManager::PS]   = QObject::tr("PostScript (ps)");
-	m_fmtNames[FormatsManager::PSD]  = QObject::tr("Adobe Photoshop (psd)");
+	m_fmtNames[FormatsManager::PS]   = QObject::tr("PostScript \"*.ps\"");
+	m_fmtNames[FormatsManager::PSD]  = QObject::tr("Adobe Photoshop \"*.psd\"");
 	m_fmtNames[FormatsManager::TIFF] = QObject::tr("TIFF");
 	m_fmtNames[FormatsManager::XPM]  = QObject::tr("XPM");
-	m_fmtNames[FormatsManager::WMF]  = QObject::tr("Windows Meta File (wmf)");
-	m_fmtNames[FormatsManager::SVG]  = QObject::tr("Scalable Vector Graphics (svg)");
-	m_fmtNames[FormatsManager::AI]   = QObject::tr("Adobe Illustrator (ai)");
+	m_fmtNames[FormatsManager::WMF]  = QObject::tr("Windows Meta File \"*.wmf\"");
+	m_fmtNames[FormatsManager::SVG]  = QObject::tr("Scalable Vector Graphics \"*.svg\"");
+	m_fmtNames[FormatsManager::AI]   = QObject::tr("Adobe Illustrator \"*.ai\"");
 	m_fmtNames[FormatsManager::XFIG] = QObject::tr("Xfig File");
 	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus Cvg File");
 	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect Wpg File");
