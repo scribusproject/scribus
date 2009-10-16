@@ -633,37 +633,15 @@ void PagePalette::deleteMasterPage(QString tmp)
 	                              QMessageBox::Yes | QMessageBox::No);
 	if (exit == QMessageBox::Yes)
 	{
-		int Nr = currView->Doc->MasterNames[tmp];
-		Page* Seite = currView->Doc->MasterPages.takeAt(Nr);
-		delete Seite;
-		currView->Doc->MasterNames.clear();
-	
-		for (int aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
-		{
-			Seite = currView->Doc->MasterPages.at(aa);
-			Seite->setPageNr(aa);
-			if (currView->Doc->currentPageLayout == doublePage)
-			{
-				Seite->Margins.Left = Seite->LeftPg ? currView->Doc->pageMargins.Right : currView->Doc->pageMargins.Left;
-				Seite->Margins.Right= Seite->LeftPg? currView->Doc->pageMargins.Left : currView->Doc->pageMargins.Right;
-			}
-			else
-			{
-				Seite->Margins.Right = currView->Doc->pageMargins.Right;
-				Seite->Margins.Left = currView->Doc->pageMargins.Left;
-			}
-			Seite->Margins.Top = currView->Doc->pageMargins.Top;
-			Seite->Margins.Bottom = currView->Doc->pageMargins.Bottom;
-			currView->Doc->MasterNames[Seite->pageName()] = aa;
-		}
-		for (int b=0; b<currView->Doc->DocPages.count(); ++b)
-		{
-			if (currView->Doc->DocPages.at(b)->MPageNam == tmp)
-				currView->Doc->DocPages.at(b)->MPageNam = CommonStrings::masterPageNormal;
-		}
-		currView->DrawNew();
-		rebuildMasters();
-		rebuildPages();
+		bool oldMPMode = currView->Doc->masterPageMode();
+		currView->Doc->setMasterPageMode(true);
+		currView->Doc->scMW()->DeletePage2(currView->Doc->MasterNames[tmp]);
+		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
+		//This must happen after the pages have been reformed (view/doc)
+		currView->Doc->rebuildMasterNames();
+		// Fix up any pages that refer to the deleted master page
+		currView->Doc->replaceMasterPage(tmp);
+		currView->Doc->setMasterPageMode(oldMPMode);
 		currView->Doc->setModified(true);
 	}
 }
