@@ -1132,6 +1132,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 
 	bool inItem = false;
 	bool isGroupControl = false;
+	bool doOverprint = false;
 	int  groupsLastItem = 0;
 	int  itemOwnLink    = 0;
 	QString itemClip;
@@ -1165,6 +1166,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			OB.isBookmark      = attrAsInt(attrs, "BOOKMARK");
 			OB.NamedLStyle     = attrAsString(attrs, "NAMEDLST", "");
 			isGroupControl     = attrAsBool(attrs, "isGroupControl", false);
+			doOverprint        = attrAsBool(attrs, "doOverprint", false);
 			groupsLastItem     = attrAsInt (attrs, "groupsLastItem", 0);
 			itemOwnLink        = attrAsInt (attrs, "OwnLINK", 0);
 			itemClip           = attrAsString(attrs, "ImageClip", "");
@@ -1317,6 +1319,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			Neu->doOverprint = doOverprint;
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			if (Neu->asLatexFrame())
 			{
