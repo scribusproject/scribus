@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_cms.h"
 #include "util_ghostscript.h"
-#include "sccolormngtenginefactory.h"
+#include "colormngt/sccolormngtenginefactory.h"
 
 
 extern ScribusQApp* ScQApp;

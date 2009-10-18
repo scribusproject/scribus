@@ -64,7 +64,7 @@ for which a new license (GPL+exception) is in place.
 #include "resourcecollection.h"
 #include "sccolorengine.h"
 #include "ui/scmessagebox.h"
-#include "sccolormngtenginefactory.h"
+#include "colormngt/sccolormngtenginefactory.h"
 #include "scpainter.h"
 #include "scraction.h"
 #include "scribus.h"
