@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "sccolormngtengine.h"
 #include "scpaths.h"
 #include "scribusview.h"
 #include "ui/customfdialog.h"
