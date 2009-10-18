@@ -20,6 +20,7 @@
 #include "pageitemrotationsetter.h"
 #include "pageitemsettersmanager.h"
 
+#include <cmath>
 #include "pageitem.h"
 #include "scribusdoc.h"
 #include "units.h"
