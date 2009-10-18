@@ -150,8 +150,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							int currPrintProfCS = -1;
 							if (currDoc->HasCMS)
 							{
-								cmsHPROFILE printerProf = currDoc->DocPrinterProf;
-								currPrintProfCS = static_cast<int>(cmsGetColorSpace(printerProf));
+								ScColorProfile printerProf = currDoc->DocPrinterProf;
+								currPrintProfCS = static_cast<int>(printerProf.colorSpace());
 							}
 							if (checkerSettings.checkNotCMYKOrSpot)
 							{
@@ -363,8 +363,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							int currPrintProfCS = -1;
 							if (currDoc->HasCMS)
 							{
-								cmsHPROFILE printerProf = currDoc->DocPrinterProf;
-								currPrintProfCS = static_cast<int>(cmsGetColorSpace(printerProf));
+								ScColorProfile printerProf = currDoc->DocPrinterProf;
+								currPrintProfCS = static_cast<int>(printerProf.colorSpace());
 							}
 							if (checkerSettings.checkNotCMYKOrSpot)
 							{

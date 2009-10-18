@@ -40,6 +40,9 @@ public:
 	
 	// Setter, only for  color management strategy, and purely virtual ;)
 	virtual void setStrategy(const ScColorMngtStrategy& strategy) = 0;
+
+	// function for getting available profile in a directory
+	virtual QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive) = 0;
 	
 	// functions for opening icc profiles
 	virtual ScColorProfile openProfileFromFile(ScColorMngtEngine& engine, const QString& filePath) = 0;
@@ -58,7 +61,7 @@ public:
 		                                     const ScColorProfile& inputProfile , eColorFormat inputFormat,
 	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
 											 const ScColorProfile& proofing, eRenderIntent renderIntent, 
-	                                         eRenderIntent proofingIntent, long transformFlags) = 0;                                     
+	                                         eRenderIntent proofingIntent, long transformFlags) = 0;
 };
 
 #endif

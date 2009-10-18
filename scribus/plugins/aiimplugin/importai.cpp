@@ -16,22 +16,18 @@ for which a new license (GPL+exception) is in place.
 #include <QTemporaryFile>
 #include <QDebug>
 
-#include <cmath>
 #include <cstdlib>
 #include <tiffio.h>
 #include <zlib.h>
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+
 #include "importai.h"
 #include "loadsaveplugin.h"
-#include "ui/missing.h"
-#include "ui/multiprogressdialog.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
@@ -46,6 +42,10 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstream.h"
 #include "selection.h"
 #include "text/specialchars.h"
+#include "ui/customfdialog.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_color.h"

@@ -12,13 +12,15 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include "scconfig.h"
 #include "pdfopts.h"
-#include "commonstrings.h"
 
+#include "colormngt/sccolormngtengine.h"
+#include "commonstrings.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "scconfig.h"
+#include "sccolormngtengine.h"
 #include "scpaths.h"
 #include "scribusview.h"
 #include "ui/customfdialog.h"
@@ -349,18 +351,14 @@ void PDFExportDialog::updateDocOptions()
 				Opts.PrintProf = Options->PrintProfC->currentText();
 				if ((Opts.Version == PDFOptions::PDFVersion_X3) || (Opts.Version == PDFOptions::PDFVersion_X1a) || (Opts.Version == PDFOptions::PDFVersion_X4))
 				{
-					cmsHPROFILE hIn;
-					QByteArray profilePath( appPrinterProfiles[Opts.PrintProf].toLocal8Bit() );
-					hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
-					const char *Descriptor = cmsTakeProductDesc(hIn);
-					cmsDescriptorName = QString(Descriptor);
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+					ScColorProfile hIn = doc->colorEngine.openProfileFromFile(  appPrinterProfiles[Opts.PrintProf] );
+					cmsDescriptorName = hIn.productDescription();
+					if (static_cast<int>(hIn.colorSpace()) == icSigRgbData)
 						components = 3;
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+					if (static_cast<int>(hIn.colorSpace()) == icSigCmykData)
 						components = 4;
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
+					if (static_cast<int>(hIn.colorSpace()) == icSigCmyData)
 						components = 3;
-					cmsCloseProfile(hIn);
 					Opts.Info = Options->InfoString->text();
 					Opts.Encrypt = false;
 					Opts.MirrorH = false;

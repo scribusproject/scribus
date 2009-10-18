@@ -8,10 +8,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLORMNGTENGINE_H
 #define SCCOLORMNGTENGINE_H
 
+#include <QList>
 #include <QSharedPointer>
+#include "scribusapi.h"
 #include "sccolormngtenginedata.h"
 
-class ScColorMngtEngine
+class SCRIBUS_API ScColorMngtEngine
 {
 public:
 	ScColorMngtEngine(ScColorMngtEngineData*);
@@ -23,6 +25,9 @@ public:
 	
 	// Setters, only for  color management strategy, and purely virtual ;)
 	void setStrategy(const ScColorMngtStrategy& strategy);
+
+	// function for getting available profile in a directory
+	QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive);
 	
 	// functions for opening icc profiles
 	ScColorProfile openProfileFromFile(const QString& filePath);

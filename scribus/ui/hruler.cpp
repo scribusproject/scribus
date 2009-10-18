@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <cmath>
+
 #include <QCursor>
 #include <QMouseEvent>
 // #include <QDebug>

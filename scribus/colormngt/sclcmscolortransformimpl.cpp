@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "sclcmscolortransformimpl.h"
+#include "sclcmscolormngtengineimpl.h"
 
 ScLcmsColorTransformImpl::ScLcmsColorTransformImpl(ScColorMngtEngine& engine, cmsHTRANSFORM lcmsTransform)
                         : ScColorTransformImplBase(engine), m_transformHandle(lcmsTransform)
@@ -41,6 +42,16 @@ bool ScLcmsColorTransformImpl::apply(QByteArray& input, QByteArray& output, uint
 		return true;
 	}
 	return false;
+}
+
+void ScLcmsColorTransformImpl::changeBufferFormat(eColorFormat input, eColorFormat output)
+{
+	if (m_transformHandle)
+	{
+		DWORD lcmsInput  = ScLcmsColorMngtEngineImpl::translateFormatToLcmsFormat(input);
+		DWORD lcmsOutput = ScLcmsColorMngtEngineImpl::translateFormatToLcmsFormat(output);
+		cmsChangeBuffersFormat(m_transformHandle, lcmsInput, lcmsOutput);
+	}
 }
 
 void ScLcmsColorTransformImpl::deleteTransform(void)

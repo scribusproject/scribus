@@ -5,15 +5,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scconfig.h"
+#include "colormngt/sccolormngtengine.h"
 #include "scimgdataloader_psd.h"
 #include "util_color.h"
 #include "sccolorengine.h"
+#include "scribuscore.h"
 
 #include <QFile>
 #include <QFileInfo>
 #include <QList>
-
-#include CMS_INC
 
 static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 {
@@ -46,7 +46,8 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
-	cmsHPROFILE prof = 0;
+	ScColorProfile prof;
+	ScColorMngtEngine engine(ScCore->defaultEngine);
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
@@ -72,17 +73,16 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 				return;
 			if (m_embeddedProfile.size() > 0)
 			{
-				prof = cmsOpenProfileFromMem(m_embeddedProfile.data(), m_embeddedProfile.size());
+				prof = engine.openProfileFromMem(m_embeddedProfile.data());
 				if (prof)
 				{
-					if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+					if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
 						m_profileComponents = 3;
-					if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+					if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
 						m_profileComponents = 4;
-					if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+					if (static_cast<int>(prof.colorSpace()) == icSigGrayData)
 						m_profileComponents = 1;
 				}
-				cmsCloseProfile(prof);
 			}
 			f.close();
 		}
@@ -133,6 +133,7 @@ bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int /*page*/, i
 
 bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, bool thumbnail)
 {
+	ScColorMngtEngine engine(ScCore->defaultEngine);
 	bool isCMYK = false;
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
@@ -167,10 +168,8 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 			return false;
 		if (m_embeddedProfile.size() > 0)
 		{
-			cmsHPROFILE prof = cmsOpenProfileFromMem(m_embeddedProfile.data(), m_embeddedProfile.size());
-			const char *Descriptor;
-			Descriptor = cmsTakeProductDesc(prof);
-			m_imageInfoRecord.profileName = QString(Descriptor);
+			ScColorProfile prof = engine.openProfileFromMem(m_embeddedProfile);
+			m_imageInfoRecord.profileName = prof.productDescription();
 			m_imageInfoRecord.isEmbedded = true;
 		}
 		if (header.color_mode == CM_CMYK)
@@ -840,6 +839,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	RawImage r2_image;
 	RawImage mask;
 	bool createOk = false;
+	ScColorMngtEngine engine(ScCore->defaultEngine);
 	if (header.color_mode == CM_CMYK)
 	{
 		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, (uint)5));
@@ -926,18 +926,14 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	}
 	if (header.color_mode == CM_LABCOLOR)
 	{
-		cmsHPROFILE hsRGB = cmsCreate_sRGBProfile();
-		cmsHPROFILE hLab  = cmsCreateLabProfile(NULL);
-		DWORD inputProfFormat = (COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1));
-		cmsHTRANSFORM xform = cmsCreateTransform(hLab, inputProfFormat, hsRGB, TYPE_RGBA_8, INTENT_PERCEPTUAL, 0);
+		ScColorProfile hsRGB = engine.createProfile_sRGB();
+		ScColorProfile hLab  = engine.createProfile_Lab();
+		ScColorTransform xform = engine.createTransform(hLab, Format_LabA_8, hsRGB, Format_RGBA_8, Intent_Perceptual, 0);
 		for (int i = 0; i < r2_image.height(); i++)
 		{
-			LPBYTE ptr = r2_image.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, r2_image.width());
+			uchar* ptr = r2_image.scanLine(i);
+			xform.apply(ptr, ptr, r2_image.width());
 		}
-		cmsDeleteTransform (xform);
-		cmsCloseProfile(hsRGB);
-		cmsCloseProfile(hLab);
 	}
 	s.device()->seek( base2 );
 	QImage tmpImg2;
@@ -1337,6 +1333,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 
 bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 {
+	ScColorMngtEngine engine(ScCore->defaultEngine);
 	// Find out if the data is compressed.
 	// Known values:
 	//   0: no compression
@@ -1517,18 +1514,14 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 	}
 	if (header.color_mode == CM_LABCOLOR)
 	{
-		cmsHPROFILE hsRGB = cmsCreate_sRGBProfile();
-		cmsHPROFILE hLab  = cmsCreateLabProfile(NULL);
-		DWORD inputProfFormat = (COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1));
-		cmsHTRANSFORM xform = cmsCreateTransform(hLab, inputProfFormat, hsRGB, TYPE_RGBA_8, INTENT_PERCEPTUAL, 0);
+		ScColorProfile hsRGB = engine.createProfile_sRGB();
+		ScColorProfile hLab  = engine.createProfile_Lab();
+		ScColorTransform xform = engine.createTransform(hLab, Format_LabA_8, hsRGB, Format_RGBA_8, Intent_Perceptual, 0);
 		for (int i = 0; i < r_image.height(); i++)
 		{
-			LPBYTE ptr = r_image.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, r_image.width());
+			uchar* ptr = r_image.scanLine(i);
+			xform.apply(ptr, ptr, r_image.width());
 		}
-		cmsDeleteTransform (xform);
-		cmsCloseProfile(hsRGB);
-		cmsCloseProfile(hLab);
 	}
 	return true;
 }

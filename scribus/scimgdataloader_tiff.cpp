@@ -7,12 +7,13 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QFileInfo>
 #include <QObject>
-//Added by qt3to4:
 #include <QList>
+
 #include "scconfig.h"
+#include "colormngt/sccolormngtengine.h"
 #include "scimgdataloader_tiff.h"
+#include "scribuscore.h"
 #include "util_color.h"
-#include CMS_INC
 
 static void TagExtender(TIFF *tiff)
 {
@@ -37,6 +38,7 @@ void ScImgDataLoader_TIFF::initSupportedFormatList(void)
 
 void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
+	ScColorMngtEngine engine(ScCore->defaultEngine);
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 	if ( !QFile::exists(fn) )
@@ -45,22 +47,22 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
 	if(tif)
 	{
-		DWORD EmbedLen = 0;
-		LPBYTE EmbedBuffer;
+		uint32 EmbedLen = 0;
+		void*  EmbedBuffer;
 		if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 		{
-			cmsHPROFILE tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+			QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+			ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
 			if (tiffProf)
 			{
-				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+				if (static_cast<int>(tiffProf.colorSpace()) == icSigRgbData)
 					m_profileComponents = 3;
-				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+				if (static_cast<int>(tiffProf.colorSpace()) == icSigCmykData)
 					m_profileComponents = 4;
-				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigGrayData)
+				if (static_cast<int>(tiffProf.colorSpace()) == icSigGrayData)
 					m_profileComponents = 1;
-				m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
+				m_embeddedProfile = profArray;
 			}
-			cmsCloseProfile(tiffProf);
 		}
 		TIFFClose(tif);
 	}
@@ -590,6 +592,7 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 
 bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, bool thumbnail)
 {
+	ScColorMngtEngine engine(ScCore->defaultEngine);
 	bool bilevel = false;
 	bool failedPS = false;
 	bool foundPS = false;
@@ -661,17 +664,15 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		m_imageInfoRecord.exifInfo.artist = QString(artist);
 		m_imageInfoRecord.exifInfo.thumbnail = QImage();
 		m_imageInfoRecord.exifDataValid = true;
-		DWORD EmbedLen = 0;
-		LPBYTE EmbedBuffer;
+		uint32 EmbedLen = 0;
+		void*  EmbedBuffer;
 		if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 		{
-			const char *Descriptor;
-			cmsHPROFILE tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-			Descriptor = cmsTakeProductDesc(tiffProf);
-			m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
-			m_imageInfoRecord.profileName = QString(Descriptor);
+			QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+			ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
+			m_embeddedProfile = profArray;
+			m_imageInfoRecord.profileName = tiffProf.productDescription();
 			m_imageInfoRecord.isEmbedded = true;
-			cmsCloseProfile(tiffProf);
 		}
 		else
 		{

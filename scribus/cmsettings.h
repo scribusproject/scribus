@@ -32,18 +32,18 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 class ScribusDoc;
 
-#include CMS_INC
+#include "colormngt/sccolormngtengine.h"
 
 class SCRIBUS_API CMSettings
 {
 public:
-	CMSettings(ScribusDoc* doc, const QString& profileName, int intent);
+	CMSettings(ScribusDoc* doc, const QString& profileName, eRenderIntent intent);
 	~CMSettings();
 	
 	ScribusDoc* doc() const {return m_Doc;}
 	QString profileName() const {return m_ProfileName;}
 	QString outputProfile() const { return m_outputProfile; }
-	int intent() const {return m_Intent;}
+	eRenderIntent intent() const { return m_Intent; }
 
 	bool useOutputProfile() const { return !m_outputProfile.isEmpty(); }
 	void setOutputProfile(const QString& prof) { m_outputProfile = prof; }
@@ -57,34 +57,34 @@ public:
 	QString defaultSolidColorRGBProfile() const;
 	QString defaultSolidColorCMYKProfile() const;
 
-	int colorRenderingIntent() const;
-	int imageRenderingIntent() const;
+	eRenderIntent colorRenderingIntent() const;
+	eRenderIntent imageRenderingIntent() const;
 
 	bool useBlackPoint() const;
 	bool doSoftProofing() const;
 	bool doGamutCheck() const;
 
-	cmsHPROFILE monitorProfile() const;
-	cmsHPROFILE printerProfile() const;
+	ScColorProfile monitorProfile() const;
+	ScColorProfile printerProfile() const;
 
-	cmsHTRANSFORM rgbColorDisplayTransform() const;   // stdTransRGBMonG
-	cmsHTRANSFORM rgbColorProofingTransform() const;  // stdProofG
-	cmsHTRANSFORM rgbImageDisplayTransform() const;   // stdTransImgG
-	cmsHTRANSFORM rgbImageProofingTransform() const;  // stdProofImgG
-	cmsHTRANSFORM rgbToCymkColorTransform() const;    // stdTransCMYKG
-	cmsHTRANSFORM rgbGamutCheckTransform() const;     // stdProofGCG
+	ScColorTransform rgbColorDisplayTransform() const;   // stdTransRGBMonG
+	ScColorTransform rgbColorProofingTransform() const;  // stdProofG
+	ScColorTransform rgbImageDisplayTransform() const;   // stdTransImgG
+	ScColorTransform rgbImageProofingTransform() const;  // stdProofImgG
+	ScColorTransform rgbToCymkColorTransform() const;    // stdTransCMYKG
+	ScColorTransform rgbGamutCheckTransform() const;     // stdProofGCG
 
-	cmsHTRANSFORM cmykColorDisplayTransform() const;  // stdTransCMYKMonG
-	cmsHTRANSFORM cmykColorProofingTransform() const; // stdProofCMYKG
-	cmsHTRANSFORM cmykImageProofingTransform() const; // stdProofImgCMYK
-	cmsHTRANSFORM cmykToRgbColorTransform() const;    // stdTransRGBG
-	cmsHTRANSFORM cmykGamutCheckTransform() const;    //stdProofCMYKGCG
+	ScColorTransform cmykColorDisplayTransform() const;  // stdTransCMYKMonG
+	ScColorTransform cmykColorProofingTransform() const; // stdProofCMYKG
+	ScColorTransform cmykImageProofingTransform() const; // stdProofImgCMYK
+	ScColorTransform cmykToRgbColorTransform() const;    // stdTransRGBG
+	ScColorTransform cmykGamutCheckTransform() const;    //stdProofCMYKGCG
 
 protected:
 	ScribusDoc* m_Doc;
 	QString m_ProfileName;
 	QString m_outputProfile;
-	int m_Intent;
+	eRenderIntent m_Intent;
 
 };
 

@@ -31,6 +31,8 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 #include <QRubberBand>
 
+#include <cmath>
+
 #include "canvasgesture_rulermove.h"
 #include "page.h"
 #include "prefsmanager.h"

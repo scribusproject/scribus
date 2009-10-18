@@ -800,8 +800,8 @@ void Scribus134Format::readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& a
 		doc->CMSSettings.DefaultSolidColorCMYKProfile = attrs.valueAsString("DPIn3","");
 	else
 		doc->CMSSettings.DefaultSolidColorCMYKProfile = attrs.valueAsString("DPPr","");
-	doc->CMSSettings.DefaultIntentColors = attrs.valueAsInt("DISc", 1);
-	doc->CMSSettings.DefaultIntentImages = attrs.valueAsInt("DIIm", 0);
+	doc->CMSSettings.DefaultIntentColors = (eRenderIntent) attrs.valueAsInt("DISc", 1);
+	doc->CMSSettings.DefaultIntentImages = (eRenderIntent) attrs.valueAsInt("DIIm", 0);
 }
 
 void Scribus134Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
@@ -2328,13 +2328,13 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 		currItem->IProfile    = attrs.valueAsString("PRFILE", "");
 		currItem->EmProfile   = attrs.valueAsString("EPROF" , "");
-		currItem->IRender     = attrs.valueAsInt("IRENDER", 1);
+		currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER", 1);
 		currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 		currItem->pixm.imgInfo.lowResType = attrs.valueAsInt("ImageRes", 1);
 		currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("Pagenumber", 0);
 		currItem->IProfile    = attrs.valueAsString("PRFILE","");
 		currItem->EmProfile   = attrs.valueAsString("EPROF","");
-		currItem->IRender     = attrs.valueAsInt("IRENDER", 1);
+		currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER", 1);
 		currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 		if (currItem->asLatexFrame())
 		{
@@ -2384,7 +2384,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
 			currItem->IProfile  = attrs.valueAsString("PRFILE", "");
 			currItem->EmProfile = attrs.valueAsString("EPROF", "");
-			currItem->IRender   = attrs.valueAsInt("IRENDER", 1);
+			currItem->IRender   = (eRenderIntent) attrs.valueAsInt("IRENDER", 1);
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);
@@ -2412,7 +2412,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
 			currItem->IProfile    = attrs.valueAsString("PRFILE", "");
 			currItem->EmProfile   = attrs.valueAsString("EPROF", "");
-			currItem->IRender     = attrs.valueAsInt("IRENDER" , 1);
+			currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);

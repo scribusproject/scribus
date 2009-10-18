@@ -9,9 +9,10 @@ for which a new license (GPL+exception) is in place.
 #define SCCOLORPROFILE_H
 
 #include <QSharedPointer>
+#include "scribusapi.h"
 #include "sccolorprofiledata.h"
 
-class ScColorProfile
+class SCRIBUS_API ScColorProfile
 {
 public:
 	ScColorProfile();
@@ -30,6 +31,8 @@ public:
 	icProfileClassSignature deviceClass() const;
 	
 	const ScColorProfileData* data() const { return m_data.data(); }
+
+	bool operator==(const ScColorProfile& prof) const;
 	
 protected:
 	QSharedPointer<ScColorProfileData> m_data;

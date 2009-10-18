@@ -8,17 +8,24 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCLCMSCOLORMNGTENGINEIMPL_H
 #define SCLCMSCOLORMNGTENGINEIMPL_H
 
+#include <setjmp.h>
+
 #include "lcms.h"
 #include "sccolormngtenginedata.h"
 #include "sccolorprofilecache.h"
 
 class ScLcmsColorMngtEngineImpl : public ScColorMngtEngineData
 {
+	friend class ScLcmsColorTransformImpl;
+
 public:
 	ScLcmsColorMngtEngineImpl();
 
 	// Setter, only for  color management strategy
 	virtual void setStrategy(const ScColorMngtStrategy& strategy);
+
+	// function for getting available profile in a directory
+	virtual QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive);
 	
 	// functions for opening icc profiles
 	virtual ScColorProfile openProfileFromFile(ScColorMngtEngine& engine, const QString& filePath);
@@ -43,9 +50,23 @@ protected:
 
 	static QSharedPointer<ScColorProfileCache> m_profileCache;
 
-	DWORD translateFlagsToLcmsFlags(long flags);
-	DWORD translateFormatToLcmsFormat(eColorFormat format);
-	int   translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defaut = Intent_Relative_Colorimetric);
+	static DWORD translateFlagsToLcmsFlags(long flags);
+	static DWORD translateFormatToLcmsFormat(eColorFormat format);
+	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defaut = Intent_Relative_Colorimetric);
+
+	// (Nasty) error handling : get rid of that in lcms2
+	/*!
+	\brief Jump buffer used by cmsErrorHandler, must be set with the setjmp() function
+	*      before cmsErrorHandler may be called
+	*/
+	static jmp_buf cmsJumpBuffer;
+
+	/*!
+	\brief Simple error handler for use in conjunction with littlecms
+	\param ErrorCode error code issued by little cms
+	\param ErrorText error message corresponding to the error code
+	*/
+	static int cmsErrorHandler(int ErrorCode, const char *ErrorText);
 };
 
 #endif

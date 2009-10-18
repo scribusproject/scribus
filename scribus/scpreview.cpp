@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <QPixmap>
 #include <QTemporaryFile>
-#include <cmath>
 #include <cstdlib>
 
 #include "cmsettings.h"
@@ -298,7 +297,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.Pfile3 = pg.attribute("PFILE3","");
 			OB.IProfile = pg.attribute("PRFILE","");
 			OB.EmProfile = pg.attribute("EPROF","");
-			OB.IRender = pg.attribute("IRENDER", "1").toInt();
+			OB.IRender = (eRenderIntent) pg.attribute("IRENDER", "1").toInt();
 			OB.UseEmbedded = pg.attribute("EMBEDDED", "1").toInt();
 			OB.Locked = static_cast<bool>(pg.attribute("LOCK", "0").toInt());
 			OB.Reverse = static_cast<bool>(pg.attribute("REVERS", "0").toInt());
@@ -608,7 +607,7 @@ QPixmap ScPreview::createPreview(QString data)
 							pS->scale(1, -1);
 						}
 						ScImage pixm;
-						CMSettings cms(0, "", 0);
+						CMSettings cms(0, "", Intent_Perceptual);
 						pixm.LoadPicture(OB.Pfile, 1, cms, false, false, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
 						pS->scale(OB.LocalScX, OB.LocalScY);
 						pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
@@ -651,7 +650,7 @@ QPixmap ScPreview::createPreview(QString data)
 									pS->scale(1, -1);
 								}
 								ScImage pixm;
-								CMSettings cms(0, "", 0);
+								CMSettings cms(0, "", Intent_Perceptual);
 								pixm.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
 								pS->scale(OB.LocalScX, OB.LocalScY);
 								pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));

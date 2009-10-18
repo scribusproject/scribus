@@ -313,8 +313,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->CMSSettings.DefaultSolidColorCMYKProfile = dc.attribute("DPPr","");
 		//m_Doc->CMSSettings.DefaultIntentPrinter = dc.attribute("DIPr", "0").toInt();
 		//m_Doc->CMSSettings.DefaultIntentMonitor = dc.attribute("DIMo", "1").toInt();
-		m_Doc->CMSSettings.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
-		m_Doc->CMSSettings.DefaultIntentImages = dc.attribute("DIIm", "0").toInt();
+		m_Doc->CMSSettings.DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
+		m_Doc->CMSSettings.DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
 		layerToSetActive=dc.attribute("ALAYER", "0").toInt();
 		m_Doc->Language = dc.attribute("LANGUAGE", "");
 		m_Doc->MinWordLen = dc.attribute("MINWORDLEN", "3").toInt();
@@ -2050,7 +2050,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
 		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
-		currItem->IRender = obj->attribute("IRENDER", "1").toInt();
+		currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 		currItem->pixm.imgInfo.lowResType = obj->attribute("ImageRes", "1").toInt();
 		IT = obj->firstChild();
@@ -2068,9 +2068,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		}
 		if (!currItem->Pfile.isEmpty())
 			doc->loadPict(currItem->Pfile, currItem, false);
-		currItem->IProfile = obj->attribute("PRFILE","");
+		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
-		currItem->IRender = obj->attribute("IRENDER", "1").toInt();
+		currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 		currItem->setImageXYScale(scx, scy);
 		clPath = obj->attribute("ImageClip", "");
@@ -2136,9 +2136,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
 			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
 			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
-			currItem->IProfile = obj->attribute("PRFILE","");
+			currItem->IProfile  = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
-			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
+			currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);
@@ -2164,9 +2164,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
 			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
 			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
-			currItem->IProfile = obj->attribute("PRFILE","");
+			currItem->IProfile  = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
-			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
+			currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);

@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <iostream>
+#include <QDir>
 #include <QFile>
 
 #include "sclcmscolormngtengineimpl.h"
@@ -15,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 #define cmsFLAGS_PRESERVEBLACK 0x8000
 #endif
 
+jmp_buf ScLcmsColorMngtEngineImpl::cmsJumpBuffer;
+
 QSharedPointer<ScColorProfileCache> ScLcmsColorMngtEngineImpl::m_profileCache;
 
 ScLcmsColorMngtEngineImpl::ScLcmsColorMngtEngineImpl()
@@ -22,6 +26,7 @@ ScLcmsColorMngtEngineImpl::ScLcmsColorMngtEngineImpl()
 {
 	if (!m_profileCache)
 		m_profileCache = QSharedPointer<ScColorProfileCache>(new ScColorProfileCache());
+	cmsSetAlarmCodes(0, 255, 0);
 }
 
 void ScLcmsColorMngtEngineImpl::setStrategy(const ScColorMngtStrategy& strategy)
@@ -30,25 +35,111 @@ void ScLcmsColorMngtEngineImpl::setStrategy(const ScColorMngtStrategy& strategy)
 	m_transformPool.clear();
 }
 
+QList<ScColorProfileInfo> ScLcmsColorMngtEngineImpl::getAvailableProfileInfo(const QString& directory, bool recursive)
+{
+	QList<ScColorProfileInfo> profileInfos;
+
+	QDir d(directory, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
+	if ((!d.exists()) || (d.count() == 0))
+		return profileInfos;
+
+	QString nam = "";
+	cmsHPROFILE hIn = NULL;
+
+	for (uint dc = 0; dc < d.count(); ++dc)
+	{
+		QString file = d[dc];
+		if (file == "." ||  file == "..")
+			continue;
+		QFileInfo fi(directory + "/" + file);
+		if (fi.isDir() && !recursive)
+			continue;
+		else if (fi.isDir() && !file.startsWith('.'))
+		{
+			QList<ScColorProfileInfo> profileInfos2 = getAvailableProfileInfo(fi.filePath()+"/", true);
+			profileInfos.append(profileInfos2);
+			continue;
+		}
+
+		ScColorProfileInfo profileInfo;
+		profileInfo.file = fi.filePath();
+
+		QFile f(fi.filePath());
+		QByteArray bb(40, ' ');
+		if (!f.open(QIODevice::ReadOnly)) {
+			profileInfo.debug = QString("couldn't open %1 as color profile").arg(fi.filePath());
+			profileInfos.append(profileInfo);
+			continue;
+		}
+		int len = f.read(bb.data(), 40);
+		f.close();
+		if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
+		{
+			const QByteArray profilePath( QString(directory + "/" + file).toLocal8Bit() );
+			if (setjmp(cmsJumpBuffer))
+			{
+				// Profile is broken
+				profileInfo.debug = QString("Color profile %1 is broken").arg(fi.filePath());
+				profileInfos.append(profileInfo);
+				// Reset to the default handler otherwise may enter a loop
+				// if an error occur in cmsCloseProfile()
+				cmsSetErrorHandler(NULL);
+				if (hIn)
+				{
+					cmsCloseProfile(hIn);
+					hIn = NULL;
+				}
+				continue;
+			}
+			cmsSetErrorHandler(&cmsErrorHandler);
+			hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
+			if (hIn == NULL)
+				continue;
+			const char* profileDescriptor = cmsTakeProductDesc(hIn);
+			profileInfo.description = QString(profileDescriptor);
+			if (profileInfo.description.isEmpty())
+			{
+				cmsCloseProfile(hIn);
+				profileInfo.debug = QString("Color profile %1 is broken : no valid description").arg(fi.filePath());
+				profileInfos.append(profileInfo);
+				continue;
+			}
+			profileInfo.colorSpace  = cmsGetColorSpace(hIn);
+			profileInfo.deviceClass = cmsGetDeviceClass(hIn);
+			profileInfos.append(profileInfo);
+			cmsCloseProfile(hIn);
+			hIn = NULL;
+		}
+	}
+	cmsSetErrorHandler(NULL);
+
+	return profileInfos;
+}
+
 ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromFile(ScColorMngtEngine& engine, const QString& filePath)
 {
 	// Search profile in profile cache first
 	ScColorProfile profile;
 	// We do not use lcms cmsOpenProfileFromFile() to avoid limitations
 	// of I/O on 8bit filenames on Windows
-	QByteArray data = QFile(filePath).readAll();
-	if (!data.isEmpty())
+	QFile file(filePath);
+	if (file.open(QFile::ReadOnly))
 	{
-		cmsHPROFILE lcmsProf = cmsOpenProfileFromMem(data.data(), data.size());
-		if (lcmsProf)
+		QByteArray data = file.readAll();
+		if (!data.isEmpty())
 		{
-			ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
-			profData->m_profileData = data;
-			profData->m_profilePath = filePath;
-			profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+			cmsHPROFILE lcmsProf = cmsOpenProfileFromMem(data.data(), data.size());
+			if (lcmsProf)
+			{
+				ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
+				profData->m_profileData = data;
+				profData->m_profilePath = filePath;
+				profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+			}
+			if (profile.isNull() && lcmsProf)
+				cmsCloseProfile(lcmsProf);
 		}
-		if (profile.isNull() && lcmsProf)
-			cmsCloseProfile(lcmsProf);
+		file.close();
 	}
 	return profile;
 }
@@ -158,7 +249,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createTransform(ScColorMngtEngine& e
 			lcmsFlags |= cmsFLAGS_NULLTRANSFORM;
 		cmsHTRANSFORM hTransform = cmsCreateTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
 			                                          lcmsOutputProf->m_profileHandle, lcmsOutputFmt, 
-													  lcmsIntent, lcmsFlags);
+													  lcmsIntent, lcmsFlags | cmsFLAGS_LOWRESPRECALC);
 		if (hTransform)
 		{
 			ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
@@ -254,7 +345,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 		{
 			cmsHTRANSFORM hTransform = cmsCreateTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
 														  lcmsOutputProf->m_profileHandle, lcmsOutputFmt, 
-														  lcmsPrfIntent, lcmsFlags);
+														  lcmsPrfIntent, lcmsFlags | cmsFLAGS_LOWRESPRECALC);
 			if (hTransform)
 			{
 				ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
@@ -315,7 +406,9 @@ DWORD ScLcmsColorMngtEngineImpl::translateFormatToLcmsFormat(eColorFormat format
 		lFormat = TYPE_GRAY_8;
 	if (format == Format_GRAY_16)
 		lFormat = TYPE_GRAY_16;
-	return format;
+	if (format == Format_LabA_8)
+		lFormat = COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1);
+	return lFormat;
 }
 
 int ScLcmsColorMngtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defIntent)
@@ -330,4 +423,11 @@ int ScLcmsColorMngtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent,
 	if (intent == Intent_Absolute_Colorimetric)
 		lIntent = INTENT_ABSOLUTE_COLORIMETRIC;
 	return lIntent;
+}
+
+int ScLcmsColorMngtEngineImpl::cmsErrorHandler(int /*ErrorCode*/, const char *ErrorText)
+{
+	std::cerr << "Littlecms : " << ErrorText << std::endl;
+	longjmp(cmsJumpBuffer, 1);
+	return 1;
 }

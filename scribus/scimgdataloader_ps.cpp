@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QRegExp>
 
+#include "cmsettings.h"
+#include "colormngt/sccolormngtengine.h"
 #include "scclocale.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -21,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_ghostscript.h"
 #include "util_math.h"
-#include "cmsettings.h"
 #include "scimage.h"
 
 extern "C"
@@ -81,20 +82,18 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 					}
 					if (tmp.startsWith("%%EndICCProfile"))
 					{
-						cmsHPROFILE prof = cmsOpenProfileFromMem(psdata.data(), psdata.size());
+						ScColorMngtEngine engine(ScCore->defaultEngine);
+						ScColorProfile prof = engine.openProfileFromMem(psdata);
 						if (prof)
 						{
-							if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+							if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
 								m_profileComponents = 3;
-							if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+							if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
 								m_profileComponents = 4;
-							const char *Descriptor;
-							Descriptor = cmsTakeProductDesc(prof);
-							m_imageInfoRecord.profileName = QString(Descriptor);
+							m_imageInfoRecord.profileName = prof.productDescription();
 							m_imageInfoRecord.isEmbedded = true;
-							m_embeddedProfile = QByteArray((const char*)psdata.data(), psdata.size());
+							m_embeddedProfile = psdata;
 						}
-						cmsCloseProfile(prof);
 						break;
 					}
 				}
@@ -179,7 +178,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					f2.close();
 					imgc.resize(0);
 					ScImage thum;
-					CMSettings cms(0, "", 0);
+					CMSettings cms(0, "", Intent_Perceptual);
 					bool mode = true;
 					if (thum.LoadPicture(tmpFile, 1, cms, false, false, ScImage::RGBData, 72, &mode))
 					{
@@ -421,20 +420,18 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 							}
 							if (tmp.startsWith("%%EndICCProfile"))
 							{
-								cmsHPROFILE prof = cmsOpenProfileFromMem(psdata.data(), psdata.size());
+								ScColorMngtEngine engine(ScCore->defaultEngine);
+								ScColorProfile prof = engine.openProfileFromMem(psdata);
 								if (prof)
 								{
-									if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+									if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
 										m_profileComponents = 3;
-									if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+									if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
 										m_profileComponents = 4;
-									const char *Descriptor;
-									Descriptor = cmsTakeProductDesc(prof);
-									m_imageInfoRecord.profileName = QString(Descriptor);
+									m_imageInfoRecord.profileName = prof.productDescription();
 									m_imageInfoRecord.isEmbedded = true;
-									m_embeddedProfile = QByteArray((const char*)psdata.data(), psdata.size());
+									m_embeddedProfile = psdata;
 								}
-								cmsCloseProfile(prof);
 								break;
 							}
 						}

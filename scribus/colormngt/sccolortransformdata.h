@@ -28,6 +28,8 @@ public:
 
 	virtual bool apply(void* input, void* output, uint numElem) = 0;
 	virtual bool apply(QByteArray& input, QByteArray& output, uint numElem) = 0;
+
+	virtual void changeBufferFormat(eColorFormat input, eColorFormat output) = 0;
 };
 
 #endif

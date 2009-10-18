@@ -49,10 +49,8 @@ for which a new license (GPL+exception) is in place.
 #include <QTranslator>
 #include <QWheelEvent>
 
-
 #include <cstdio>
 #include <cstdlib>
-#include <cmath>
 #include <cassert>
 
 #include "scconfig.h"
@@ -69,9 +67,6 @@ for which a new license (GPL+exception) is in place.
 #include <sstream>
 #include <signal.h>
 #include <string>
-
-
-
 
 #include "ui/about.h"
 #include "ui/aboutplugins.h"
@@ -222,6 +217,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
+#include "util_math.h"
 #include "ui/vruler.h"
 #include "loadsaveplugin.h"
 #include "plugins/formatidlist.h"

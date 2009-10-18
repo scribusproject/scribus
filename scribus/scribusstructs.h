@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 #include "scribusapi.h"
+#include "colormngt/sccolormngtstructs.h"
 #include "scimagestructs.h"
 #include "sctextstruct.h"
 #include "scfonts.h"
@@ -128,7 +129,7 @@ struct CopyPasteBuffer
 	QString Pfile3;
 	QString IProfile;
 	QString EmProfile;
-	int IRender;
+	eRenderIntent IRender;
 	bool UseEmbedded;
 	QString itemText;
 	QPolygon Clip;
@@ -188,7 +189,7 @@ struct CopyContentsBuffer
 	ScImageEffectList effects;
 	QString inputProfile;
 	bool   useEmbedded;
-	int    renderingIntent;
+	eRenderIntent renderingIntent;
 };
 
 /** \brief Pagemargins and bleeds*/
@@ -247,8 +248,8 @@ struct CMSData
 	int ComponentsInput2;
 	int ComponentsInput3;
 	int ComponentsPrinter;
-	int DefaultIntentImages;
-	int DefaultIntentColors;
+	eRenderIntent DefaultIntentImages;
+	eRenderIntent DefaultIntentColors;
 	bool CMSinUse;
 	bool SoftProofOn;
 	bool SoftProofFullOn;

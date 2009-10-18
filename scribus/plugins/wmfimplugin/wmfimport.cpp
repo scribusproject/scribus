@@ -19,29 +19,28 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 
-#include "ui/customfdialog.h"
+#include "commonstrings.h"
 #include "scribus.h"
 #include "scribusXml.h"
-#include "ui/propertiespalette.h"
-#include "prefsfile.h"
-
-#include <cmath>
-#include "commonstrings.h"
+#include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
 #include "menumanager.h"
 #include "prefsmanager.h"
 #include "pageitem.h"
+#include "prefsfile.h"
 #include "scmimedata.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "ui/customfdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "loadsaveplugin.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include "fonts/scfontmetrics.h"
+
 
 using namespace std;
 

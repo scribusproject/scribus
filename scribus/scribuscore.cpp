@@ -39,13 +39,14 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_cms.h"
 #include "util_ghostscript.h"
+#include "sccolormngtenginefactory.h"
 
 
 extern ScribusQApp* ScQApp;
 
 #include "cmserrorhandling.h"
 
-ScribusCore::ScribusCore() : QObject()
+ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMngtEngineFactory.createDefaultEngine())
 {
 	m_ScribusInitialized=false;
 	m_SplashScreen=0;
@@ -54,20 +55,16 @@ ScribusCore::ScribusCore() : QObject()
 // 	m_PaletteParent=0;
 	m_currScMW=0;
 
-	defaultRGBProfile  = NULL;
-	defaultCMYKProfile = NULL;
-	defaultRGBToScreenSolidTrans  = NULL;
-	defaultRGBToScreenImageTrans  = NULL;
-	defaultCMYKToScreenImageTrans = NULL;
-	defaultRGBToCMYKTrans = NULL;
-	defaultCMYKToRGBTrans = NULL;
+	ScColorMngtStrategy strategy;
+	strategy.useBlackPointCompensation = true;
+	strategy.useBlackPreservation      = false;
+	defaultEngine.setStrategy(strategy);
 }
 
 
 
 ScribusCore::~ScribusCore()
 {
-	TermDefaultColorTransforms();
 // 	delete m_PaletteParent;
 }
 
@@ -378,128 +375,80 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 
 void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 {
-	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
-	if ((d.exists()) && (d.count() != 0))
+	QString profileName;
+	QList<ScColorProfileInfo> profileInfos = defaultEngine.getAvailableProfileInfo(pfad, recursive);
+	for (int i = 0; i < profileInfos.count(); ++i)
 	{
-		QString nam = "";
-		const char *Descriptor;
-		cmsHPROFILE hIn = NULL;
-
-		for (uint dc = 0; dc < d.count(); ++dc)
+		const ScColorProfileInfo& profInfo = profileInfos.at(i);
+		profileName = profInfo.description;
+		if (profileName.isEmpty())
 		{
-			if (d[dc] == "." ||  d[dc] == "..")
-				continue;
-			QFileInfo fi(pfad + "/" + d[dc]);
-			if (fi.isDir() && !recursive)
-				continue;
-			else if (fi.isDir() && d[dc][0] != '.')
-			{
-				getCMSProfilesDir(fi.filePath()+"/", showInfo, true);
-				continue;
-			}
-
-			QFile f(fi.filePath());
-			QByteArray bb(40, ' ');
-			if (!f.open(QIODevice::ReadOnly)) {
-				sDebug(QString("couldn't open %1 as color profile").arg(fi.filePath()));
-				continue;
-			}
-			int len = f.read(bb.data(), 40);
-			f.close();
-			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
-			{
-				const QByteArray profilePath( QString(pfad + d[dc]).toLocal8Bit() );
-				if (setjmp(cmsJumpBuffer))
-				{
-					// Profile is broken, show info if necessary
-					if (showInfo)
-						sDebug(QString("Color profile %s is broken").arg(fi.filePath()));
-					// Reset to the default handler otherwise may enter a loop
-					// if an error occur in cmsCloseProfile()
-					cmsSetErrorHandler(NULL);
-					if (hIn)
-					{
-						cmsCloseProfile(hIn);
-						hIn = NULL;
-					}
-					continue;
-				}
-				cmsSetErrorHandler(&cmsErrorHandler);
-				hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
-				if (hIn == NULL)
-					continue;
-				Descriptor = cmsTakeProductDesc(hIn);
-				nam = QString(Descriptor);
-				if (nam.isEmpty())
-				{
-					cmsCloseProfile(hIn);
-					if (showInfo)
-						sDebug(QString("Color profile %s is broken : no valid description").arg(fi.filePath()));
-					continue;
-				}
-				switch (static_cast<int>(cmsGetDeviceClass(hIn)))
-				{
-				case icSigInputClass:
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-					{
-						if (!InputProfiles.contains(nam))
-							InputProfiles.insert(nam, pfad + d[dc]);
-					}
-					break;
-				case icSigColorSpaceClass:
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-					{
-						if (!InputProfiles.contains(nam))
-							InputProfiles.insert(nam, pfad + d[dc]);
-					}
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-					{
-						if (!InputProfilesCMYK.contains(nam))
-							InputProfilesCMYK.insert(nam, pfad + d[dc]);
-					}
-					break;
-				case icSigDisplayClass:
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-					{
-						if (!MonitorProfiles.contains(nam))
-							MonitorProfiles.insert(nam, pfad + d[dc]);
-						if (!InputProfiles.contains(nam))
-							InputProfiles.insert(nam, pfad + d[dc]);
-					}
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-					{
-						if (!InputProfilesCMYK.contains(nam))
-							InputProfilesCMYK.insert(nam, pfad + d[dc]);
-					}
-					break;
-				case icSigOutputClass:
-					// Disable rgb printer profile detection until effective support
-					// PrinterProfiles.insert(nam, pfad + d[dc], false);
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-					{
-						if (!PDFXProfiles.contains(nam))
-							PDFXProfiles.insert(nam, pfad + d[dc]);
-						if (!InputProfilesCMYK.contains(nam))
-							InputProfilesCMYK.insert(nam, pfad + d[dc]);
-						if (!PrinterProfiles.contains(nam))
-							PrinterProfiles.insert(nam, pfad + d[dc]);
-					}
-					break;
-				}
-				cmsCloseProfile(hIn);
-				hIn = NULL;
-				if (showInfo)
-					sDebug( QString("Color profile %1 loaded from %2").arg(nam).arg(pfad + d[dc]) );
-			}
+			if (showInfo)
+				sDebug(QString("Color profile %s is broken : no valid description").arg(profInfo.file));
+			continue;
 		}
-		cmsSetErrorHandler(NULL);
+		if (!profInfo.debug.isEmpty())
+		{
+			if (showInfo)
+				sDebug(profInfo.debug);
+			continue;
+		}
+		switch (static_cast<int>(profInfo.deviceClass))
+		{
+		case icSigInputClass:
+			if (static_cast<int>(profInfo.colorSpace) == icSigRgbData)
+			{
+				if (!InputProfiles.contains(profileName))
+					InputProfiles.insert(profileName, profInfo.file);
+			}
+			break;
+		case icSigColorSpaceClass:
+			if (static_cast<int>(profInfo.colorSpace) == icSigRgbData)
+			{
+				if (!InputProfiles.contains(profileName))
+					InputProfiles.insert(profileName, profInfo.file);
+			}
+			if (static_cast<int>(profInfo.colorSpace) == icSigCmykData)
+			{
+				if (!InputProfilesCMYK.contains(profileName))
+					InputProfilesCMYK.insert(profileName, profInfo.file);
+			}
+			break;
+		case icSigDisplayClass:
+			if (static_cast<int>(profInfo.colorSpace) == icSigRgbData)
+			{
+				if (!MonitorProfiles.contains(profileName))
+					MonitorProfiles.insert(profileName, profInfo.file);
+				if (!InputProfiles.contains(profileName))
+					InputProfiles.insert(profileName, profInfo.file);
+			}
+			if (static_cast<int>(profInfo.colorSpace) == icSigCmykData)
+			{
+				if (!InputProfilesCMYK.contains(profileName))
+					InputProfilesCMYK.insert(profileName, profInfo.file);
+			}
+			break;
+		case icSigOutputClass:
+			// Disable rgb printer profile detection until effective support
+			// PrinterProfiles.insert(nam, pfad + d[dc], false);
+			if (static_cast<int>(profInfo.colorSpace) == icSigCmykData)
+			{
+				if (!PDFXProfiles.contains(profileName))
+					PDFXProfiles.insert(profileName, profInfo.file);
+				if (!InputProfilesCMYK.contains(profileName))
+					InputProfilesCMYK.insert(profileName, profInfo.file);
+				if (!PrinterProfiles.contains(profileName))
+					PrinterProfiles.insert(profileName, profInfo.file);
+			}
+			break;
+		}
+		if (showInfo)
+			sDebug( QString("Color profile %1 loaded from %2").arg(profileName).arg(profInfo.file) );
 	}
 }
 
 void ScribusCore::InitDefaultColorTransforms(void)
 {
-	TermDefaultColorTransforms();
-
 	cmsErrorAction(LCMS_ERROR_ABORT);
 	if (setjmp(cmsJumpBuffer))
 	{
@@ -507,7 +456,7 @@ void ScribusCore::InitDefaultColorTransforms(void)
 		// if an error occur afterwards
 		cmsSetErrorHandler(NULL);
 		cmsErrorAction(LCMS_ERROR_IGNORE);
-		TermDefaultColorTransforms();
+		ResetDefaultColorTransforms();
 		cmsErrorAction(LCMS_ERROR_ABORT);
 		return;
 	}
@@ -515,90 +464,54 @@ void ScribusCore::InitDefaultColorTransforms(void)
 
 	// Ouvre le profile RGB par d�fault
 	if (InputProfiles.contains("sRGB IEC61966-2.1"))
-	{
-		const QByteArray rgbProfPath(InputProfiles["sRGB IEC61966-2.1"].toLocal8Bit());
-		defaultRGBProfile = cmsOpenProfileFromFile(rgbProfPath.data(), "r");
-	}
+		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles["sRGB IEC61966-2.1"]);
 	else
-		defaultRGBProfile = cmsCreate_sRGBProfile();
+		defaultRGBProfile = defaultEngine.createProfile_sRGB();
 
 	// Ouvre le profile CMYK par d�faut
 	if (InputProfilesCMYK.contains("Fogra27L CMYK Coated Press"))
 	{
-		const QByteArray cmykProfPath(InputProfilesCMYK["Fogra27L CMYK Coated Press"].toLocal8Bit());
-		defaultCMYKProfile = cmsOpenProfileFromFile(cmykProfPath.data(), "r");
+		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK["Fogra27L CMYK Coated Press"]);
 	}
 
 	if (!defaultRGBProfile || !defaultCMYKProfile)
 	{
-		TermDefaultColorTransforms();
+		ResetDefaultColorTransforms();
 		cmsSetErrorHandler(NULL);
 		return;
 	}
 
-	int dcmsFlags = cmsFLAGS_LOWRESPRECALC | cmsFLAGS_BLACKPOINTCOMPENSATION;
-	int intent    = INTENT_RELATIVE_COLORIMETRIC;
+	int dcmsFlags        = Ctf_BlackPointCompensation;
+	eRenderIntent intent = Intent_Relative_Colorimetric;
 
-	defaultRGBToScreenSolidTrans  = scCmsCreateTransform(defaultRGBProfile, TYPE_RGB_16,
-				defaultRGBProfile, TYPE_RGB_16, intent, cmsFLAGS_NULLTRANSFORM);
-	defaultRGBToScreenImageTrans  = scCmsCreateTransform(defaultRGBProfile, TYPE_RGBA_8,
-				defaultRGBProfile, TYPE_RGBA_8, intent, cmsFLAGS_NULLTRANSFORM);
-	defaultCMYKToScreenImageTrans = scCmsCreateTransform(defaultRGBProfile, TYPE_CMYK_8,
-				defaultCMYKProfile, TYPE_RGBA_8, intent, cmsFLAGS_NULLTRANSFORM);
-	defaultRGBToCMYKTrans = scCmsCreateTransform(defaultRGBProfile, TYPE_RGB_16,
-				defaultCMYKProfile, TYPE_CMYK_16, intent, dcmsFlags);
-	defaultCMYKToRGBTrans = scCmsCreateTransform(defaultCMYKProfile, TYPE_CMYK_16,
-				defaultRGBProfile, TYPE_RGB_16, intent, dcmsFlags);
+	defaultRGBToScreenSolidTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16, 
+	            defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
+	defaultRGBToScreenImageTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGBA_8, 
+	            defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
+	defaultCMYKToScreenImageTrans = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_8,
+	            defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
+	defaultRGBToCMYKTrans = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16,
+				defaultCMYKProfile, Format_CMYK_16, intent, dcmsFlags);
+	defaultCMYKToRGBTrans = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_16,
+				defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
 	if (!defaultRGBToScreenSolidTrans  || !defaultRGBToScreenImageTrans || 
 		!defaultCMYKToScreenImageTrans || !defaultRGBToCMYKTrans || 
 		!defaultCMYKToRGBTrans )
 	{
-		TermDefaultColorTransforms();
+		ResetDefaultColorTransforms();
 	}
 	cmsSetErrorHandler(NULL);
 }
 
-void ScribusCore::TermDefaultColorTransforms(void)
+void ScribusCore::ResetDefaultColorTransforms(void)
 {
-	if (defaultRGBProfile)
-		cmsCloseProfile(defaultRGBProfile); 
-	if (defaultCMYKProfile)
-		cmsCloseProfile(defaultCMYKProfile);
-	if (defaultRGBToScreenSolidTrans)
-		cmsDeleteTransform(defaultRGBToScreenSolidTrans);
-	if (defaultRGBToScreenImageTrans)
-		cmsDeleteTransform(defaultRGBToScreenImageTrans);
-	if (defaultCMYKToScreenImageTrans)
-		cmsDeleteTransform(defaultCMYKToScreenImageTrans);
-	if (defaultRGBToCMYKTrans)
-		cmsDeleteTransform(defaultRGBToCMYKTrans);
-	if (defaultCMYKToRGBTrans)
-		cmsDeleteTransform(defaultCMYKToRGBTrans);
-	defaultRGBProfile  = NULL;
-	defaultCMYKProfile = NULL;
-	defaultRGBToScreenSolidTrans  = NULL;
-	defaultRGBToScreenImageTrans  = NULL;
-	defaultCMYKToScreenImageTrans = NULL;
-	defaultRGBToCMYKTrans = NULL;
-	defaultCMYKToRGBTrans = NULL;
-}
-
-bool ScribusCore::IsDefaultProfile(cmsHPROFILE prof)
-{
-	if (prof == defaultRGBProfile || prof == defaultCMYKProfile)
-		return true;
-	return false;
-}
-
-bool ScribusCore::IsDefaultTransform(cmsHTRANSFORM trans)
-{
-	if (trans == defaultRGBToScreenSolidTrans || trans == defaultRGBToScreenImageTrans)
-		return true;
-	if (trans == defaultCMYKToScreenImageTrans)
-		return true;
-	if (trans == defaultRGBToCMYKTrans || trans == defaultCMYKToRGBTrans)
-		return true;
-	return false;
+	defaultRGBProfile  = ScColorProfile();
+	defaultCMYKProfile = ScColorProfile();
+	defaultRGBToScreenSolidTrans = ScColorTransform();
+	defaultRGBToScreenImageTrans = ScColorTransform();
+	defaultCMYKToScreenImageTrans = ScColorTransform();
+	defaultRGBToCMYKTrans = ScColorTransform();
+	defaultCMYKToRGBTrans = ScColorTransform();
 }
 
 void ScribusCore::initCMS()

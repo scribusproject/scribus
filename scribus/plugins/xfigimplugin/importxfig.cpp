@@ -15,22 +15,17 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QDebug>
 
-#include <cmath>
 #include <cstdlib>
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
 #include "importxfig.h"
 #include "loadsaveplugin.h"
-#include "ui/missing.h"
-#include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "pageitem.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -43,6 +38,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "sctextstream.h"
 #include "selection.h"
+#include "ui/customfdialog.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"

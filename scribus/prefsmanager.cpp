@@ -378,8 +378,8 @@ void PrefsManager::initDefaults()
 	appPrefs.colorPrefs.DCMSset.SoftProofFullOn = false;
 	appPrefs.colorPrefs.DCMSset.GamutCheck = false;
 	appPrefs.colorPrefs.DCMSset.BlackPoint = true;
-	appPrefs.colorPrefs.DCMSset.DefaultIntentColors = 1;
-	appPrefs.colorPrefs.DCMSset.DefaultIntentImages = 0;
+	appPrefs.colorPrefs.DCMSset.DefaultIntentColors = Intent_Relative_Colorimetric;
+	appPrefs.colorPrefs.DCMSset.DefaultIntentImages = Intent_Perceptual;
 	appPrefs.fontPrefs.GFontSub.clear();
 	appPrefs.displayPrefs.scratch.Left = 100;
 	appPrefs.displayPrefs.scratch.Right = 100;
@@ -2099,8 +2099,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
 			appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
 			appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = dc.attribute("DPIn3","");
-			appPrefs.colorPrefs.DCMSset.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
-			appPrefs.colorPrefs.DCMSset.DefaultIntentImages = dc.attribute("DIIm", "0").toInt();
+			appPrefs.colorPrefs.DCMSset.DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
+			appPrefs.colorPrefs.DCMSset.DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
 		}
 		if (!importingFrom12 && dc.tagName()=="SHORTCUT")
 		{

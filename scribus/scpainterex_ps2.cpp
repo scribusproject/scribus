@@ -38,8 +38,9 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
  
 #include <cmath>
-#include "util.h"
+#include "colormngt/sccolormngtengine.h"
 #include "sccolorengine.h"
+#include "util.h"
 
 ScPs2OutputParams::ScPs2OutputParams(ScribusDoc* doc)
 {
@@ -459,9 +460,9 @@ void ScPainterEx_Ps2::putColor( ScColorShade& colorShade, bool doFill )
 	}
 	else if ( m_options.hProfile && m_options.rgbToOutputColorTransform && m_options.cmykToOutputColorTransform)
 	{
-		DWORD colorIn[4];
-		DWORD colorOut[4];
-		cmsHTRANSFORM cmsTranform = NULL;
+		unsigned long colorIn[4];
+		unsigned long colorOut[4];
+		ScColorTransform cmsTranform = NULL;
 		if( colorShade.color.getColorModel() == colorModelRGB )
 		{
 			RGBColor rgb;
@@ -483,15 +484,15 @@ void ScPainterEx_Ps2::putColor( ScColorShade& colorShade, bool doFill )
 			colorMode = cmykMode;
 			cmsTranform = m_options.cmykToOutputColorTransform;
 		}
-		cmsDoTransform( cmsTranform, colorIn, colorOut, 1 );
-		if (static_cast<int>(cmsGetColorSpace(m_options.hProfile)) == icSigRgbData)
+		cmsTranform.apply(colorIn, colorOut, 1 );
+		if (static_cast<int>(m_options.hProfile.colorSpace()) == icSigRgbData)
 		{
 			r = colorOut[0] / 257;
 			g = colorOut[1] / 257;
 			b = colorOut[2] / 257;
 			colorMode = rgbMode;
 		}
-		else if (static_cast<int>(cmsGetColorSpace(m_options.hProfile)) == icSigCmykData)
+		else if (static_cast<int>(m_options.hProfile.colorSpace()) == icSigCmykData)
 		{
 			c = colorOut[0] / 257;
 			m = colorOut[1] / 257;

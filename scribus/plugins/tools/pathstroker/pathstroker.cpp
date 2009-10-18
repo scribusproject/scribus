@@ -24,6 +24,10 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
 ****************************************************************************/
 
+#if defined(_MSC_VER)
+#define _USE_MATH_DEFINES
+#endif
+#include <cmath>
 #include "pathstroker.h"
 #include "pageitem_polygon.h"
 #include "commonstrings.h"

@@ -34,3 +34,8 @@ QString ScColorProfile::productDescription() const
 {
 	return m_data->productDescription();
 }
+
+bool ScColorProfile::operator==(const ScColorProfile& other) const
+{
+	return m_data == other.m_data;
+}

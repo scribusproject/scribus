@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include CMS_INC
+#include "colormngt/sccolormngtengine.h"
 
 #ifdef NLS_PROTO
 class ScText;
@@ -191,7 +191,7 @@ class SCRIBUS_API PSLib : public QObject
 		bool useSpotColors;
 		bool fillRule;
 		bool applyICC;
-		cmsHTRANSFORM solidTransform;
+		ScColorTransform solidTransform;
 		QString currentSpot;
 		ColorList colorsToUse;
 		QString colorDesc;

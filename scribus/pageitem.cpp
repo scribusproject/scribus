@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QMessageBox>
 #include <QPolygon>
-#include <cmath>
 #include <cassert>
 #include <QDebug>
 
@@ -454,7 +453,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Sizing = false;
 	toPixmap = false;
 	UseEmbedded = true;
-	IRender = 1;
+	IRender = Intent_Relative_Colorimetric;
 	EmProfile = "";
 	Groups.clear();
 	LayerID = m_Doc->activeLayer();

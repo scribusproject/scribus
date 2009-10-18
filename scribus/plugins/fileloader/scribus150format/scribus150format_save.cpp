@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus150format.h"
 #include "scribus150formatimpl.h"
 
+#include <ctime>
 #include <memory>
 
 #include "../../formatidlist.h"

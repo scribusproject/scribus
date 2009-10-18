@@ -38,15 +38,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "annotation.h"
+#include "colormngt/sccolormngtstructs.h"
+#include "desaxe/saxio.h"
 #include "observable.h"
 #include "pagestructs.h"
 #include "scimage.h"
 #include "sctextstruct.h"
-#include "undoobject.h"
-#include "vgradient.h"
 #include "text/nlsconfig.h"
 #include "text/storytext.h"
-#include "desaxe/saxio.h"
+#include "undoobject.h"
+#include "vgradient.h"
 #ifdef HAVE_CONFIG_H
 #include "scconfig.h"
 #endif
@@ -429,10 +430,10 @@ public:
 	QString IProfile;
 	bool UseEmbedded;
 	QString EmProfile;
-	int IRender;
+	eRenderIntent IRender;
 	// some accessor methods:
-	int cmsRenderingIntent() const { return IRender; }
-	void setCmsRenderingIntent(int val) { IRender = val; }
+	int  cmsRenderingIntent() const { return IRender; }
+	void setCmsRenderingIntent(eRenderIntent val) { IRender = val; }
 	QString cmsProfile() const { return IProfile; }
 	void setCmsProfile(QString val) { IProfile = val; }
 	

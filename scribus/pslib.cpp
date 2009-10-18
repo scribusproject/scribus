@@ -1799,7 +1799,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		PS_setGray();
 	applyICC = Ic;
 	if ((Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
-		solidTransform = scCmsCreateTransform(Doc->DocInputCMYKProf, TYPE_CMYK_16, Doc->DocPrinterProf, TYPE_CMYK_16, Doc->IntentColors, 0);
+		solidTransform = Doc->colorEngine.createTransform(Doc->DocInputCMYKProf, Format_CMYK_16, Doc->DocPrinterProf, Format_CMYK_16, Doc->IntentColors, 0);
 	else
 		applyICC = false;
 	if (usingGUI)
@@ -2031,8 +2031,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	}
 	PS_close();
 	if (usingGUI) progressDialog->close();
-	if ((Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
-		cmsDeleteTransform(solidTransform);
 	if (errorOccured)
 		return 1;
 	else if (abortExport)
@@ -3653,7 +3651,7 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 		inC[1] = s1 * 257;
 		inC[2] = v1 * 257;
 		inC[3] = k1 * 257;
-		cmsDoTransform(solidTransform, inC, outC, 1);
+		solidTransform.apply(inC, outC, 1);
 		*h= outC[0] / 257;
 		*s = outC[1] / 257;
 		*v = outC[2] / 257;

@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "lensdialog.h"
+#include <cmath>
 #include <QRadialGradient>
 #include "util_icon.h"
 #include "selection.h"

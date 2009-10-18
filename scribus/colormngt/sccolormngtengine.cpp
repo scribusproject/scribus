@@ -33,6 +33,11 @@ void ScColorMngtEngine::setStrategy(const ScColorMngtStrategy& strategy)
 	m_data->setStrategy(strategy);
 }
 
+QList<ScColorProfileInfo> ScColorMngtEngine::getAvailableProfileInfo(const QString& directory, bool recursive)
+{
+	return m_data->getAvailableProfileInfo(directory, recursive);
+}
+
 ScColorProfile ScColorMngtEngine::openProfileFromFile(const QString& filePath)
 {
 	return m_data->openProfileFromFile(*this, filePath);

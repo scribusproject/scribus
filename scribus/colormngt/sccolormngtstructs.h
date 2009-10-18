@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLORMNGTSTRUCTS_H
 #define SCCOLORMNGTSTRUCTS_H
 
+#include "icc34.h" //part of lcms1
 #include <QString>
 
 typedef enum
@@ -28,7 +29,8 @@ typedef enum
 	Format_YMCK_8,
 	Format_YMCK_16,
 	Format_GRAY_8,
-	Format_GRAY_16
+	Format_GRAY_16,
+	Format_LabA_8
 } eColorFormat;
 
 typedef enum
@@ -41,10 +43,11 @@ typedef enum
 
 typedef enum
 {
-	Intent_Perceptual,
-	Intent_Relative_Colorimetric,
-	Intent_Saturation,
-	Intent_Absolute_Colorimetric
+	Intent_Perceptual = 0,
+	Intent_Relative_Colorimetric = 1,
+	Intent_Saturation = 2,
+	Intent_Absolute_Colorimetric = 3,
+	Intent_Max = 4
 } eRenderIntent;
 
 class ScColorMngtStrategy
@@ -59,6 +62,15 @@ public:
 		useBlackPreservation      = false;
 	}
 };
+
+typedef struct
+{
+	QString file;
+	QString description;
+	icColorSpaceSignature   colorSpace;
+	icProfileClassSignature deviceClass;
+	QString debug;
+} ScColorProfileInfo;
 
 typedef struct
 {

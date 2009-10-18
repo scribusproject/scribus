@@ -14,10 +14,8 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 #include <QTemporaryFile>
-#include <cmath>
 #include "color.h"
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
 #include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
 #include "loadsaveplugin.h"
@@ -25,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
 #include "sccolorengine.h"
 #include "scclocale.h"
 #include "scconfig.h"
@@ -40,6 +37,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "svgplugin.h"
+#include "ui/customfdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"

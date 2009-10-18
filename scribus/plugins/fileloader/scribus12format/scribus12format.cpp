@@ -340,8 +340,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->CMSSettings.DefaultSolidColorCMYKProfile = dc.attribute("DPPr",""); // Use DPPr to match 1.2.x behavior
 		//m_Doc->CMSSettings.DefaultIntentPrinter = dc.attribute("DIPr", "0").toInt();
 		//m_Doc->CMSSettings.DefaultIntentMonitor = dc.attribute("DIMo", "1").toInt();
-		m_Doc->CMSSettings.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
-		m_Doc->CMSSettings.DefaultIntentImages = dc.attribute("DIIm", "0").toInt();
+		m_Doc->CMSSettings.DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
+		m_Doc->CMSSettings.DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
 		activeLayer = dc.attribute("ALAYER", "0").toInt();
 		m_Doc->Language = dc.attribute("LANGUAGE", "");
 		m_Doc->MinWordLen = dc.attribute("MINWORDLEN", "3").toInt();
@@ -956,9 +956,9 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
 	OB->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
 	OB->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
-	OB->IProfile=obj->attribute("PRFILE","");
-	OB->EmProfile=obj->attribute("EPROF","");
-	OB->IRender = obj->attribute("IRENDER", "1").toInt();
+	OB->IProfile = obj->attribute("PRFILE","");
+	OB->EmProfile= obj->attribute("EPROF","");
+	OB->IRender  = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 	OB->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 	OB->Locked = static_cast<bool>(obj->attribute("LOCK", "0").toInt());
 	OB->LockRes = static_cast<bool>(obj->attribute("LOCKR", "0").toInt());

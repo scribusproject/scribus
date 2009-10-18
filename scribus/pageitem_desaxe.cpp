@@ -29,7 +29,10 @@ for which a new license (GPL+exception) is in place.
 
 using namespace desaxe;
 
-
+eRenderIntent parseIntent(const Xml_string& str)
+{
+	return (eRenderIntent) str.toInt();
+}
 
 FPointArray parseSVG(const Xml_string& str)
 {
@@ -810,7 +813,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setImageFlippedH, "image-flipped-hor", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setImageFlippedV, "image-flipped-vert", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setCmsProfile, "cms-profile" ));
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setCmsRenderingIntent, "cms-intent", &parseInt ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem, eRenderIntent>( & PageItem::setCmsRenderingIntent, "cms-intent", &parseIntent ));
 
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setControlsGroup, "isGroupControl", &parseBool ));
 	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setGroupsLastItem, "groupsLastItem" ));

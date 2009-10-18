@@ -933,7 +933,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					q++;
 				}
 			}
-			CMSettings cms(doc, "", 0);
+			CMSettings cms(doc, "", Intent_Perceptual);
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				if (GsMinor < 54)
@@ -1008,7 +1008,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			if (flagsVisible["Black"]->isChecked())
 			{
-				CMSettings cms(doc, "", 0);
+				CMSettings cms(doc, "", Intent_Perceptual);
 				if (GsMinor < 54)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
@@ -1064,11 +1064,12 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
-					cmsHTRANSFORM transCMYK = cmsCreateTransform(doc->DocPrinterProf, (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1)), doc->DocOutputProf, TYPE_BGRA_8, INTENT_RELATIVE_COLORIMETRIC, cmsFLAGS_LOWRESPRECALC);
+					ScColorMngtEngine engine = doc->colorEngine;
+					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocOutputProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for( int yi=0; yi < h2; ++yi )
 					{
 						LPBYTE ptr = image.scanLine( yi );
-						cmsDoTransform(transCMYK, ptr, ptr, image.width());
+						transCMYK.apply(ptr, ptr, image.width());
 						QRgb *q = (QRgb *) ptr;
 						for (int xi = 0; xi < image.width(); xi++, q++)
 						{
@@ -1086,7 +1087,6 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 								*q |= alphaFF;
 						}
 					}
-					cmsDeleteTransform (transCMYK);
 				}
 				else
 				{
@@ -1126,7 +1126,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
-					cmsHTRANSFORM transCMYK = cmsCreateTransform(doc->DocPrinterProf, (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1)), doc->DocOutputProf, TYPE_BGRA_8, INTENT_RELATIVE_COLORIMETRIC, cmsFLAGS_LOWRESPRECALC);
+					ScColorMngtEngine engine = doc->colorEngine;
+					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocOutputProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for (int y=0; y < h2; ++y )
 					{
 						LPBYTE ptr = image.scanLine( y );
@@ -1149,7 +1150,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 							*p = qRgba(cyan, magenta, yellow, black);
 							p++;
 						}
-						cmsDoTransform(transCMYK, ptr, ptr, image.width());
+						transCMYK.apply(ptr, ptr, image.width());
 						QRgb *q = (QRgb *) ptr;
 						for (int xi = 0; xi < image.width(); xi++, q++)
 						{
@@ -1167,7 +1168,6 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 								*q |= alphaFF;
 						}
 					}
-					cmsDeleteTransform (transCMYK);
 				}
 				else
 				{

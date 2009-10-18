@@ -111,8 +111,8 @@ void CMSPrefs::setValues()
 	prefs->DefaultSolidColorCMYKProfile = inputPCMYK->currentText();
 	prefs->DefaultMonitorProfile = monitorP->currentText();
 	prefs->DefaultPrinterProfile = printerP->currentText();
-	prefs->DefaultIntentColors = colorsI->currentIndex();
-	prefs->DefaultIntentImages = imagesI->currentIndex();
+	prefs->DefaultIntentColors = (eRenderIntent) colorsI->currentIndex();
+	prefs->DefaultIntentImages = (eRenderIntent) imagesI->currentIndex();
 	prefs->SoftProofOn = simulate->isChecked();
 	prefs->SoftProofFullOn = convertAll->isChecked();
 	prefs->GamutCheck = gamutC->isChecked();
@@ -142,8 +142,8 @@ void CMSPrefs::updateDocSettings(ScribusDoc* doc)
 	doc->CMSSettings.DefaultSolidColorCMYKProfile = inputPCMYK->currentText();
 	doc->CMSSettings.DefaultMonitorProfile = monitorP->currentText();
 	doc->CMSSettings.DefaultPrinterProfile = printerP->currentText();
-	doc->CMSSettings.DefaultIntentColors = colorsI->currentIndex();
-	doc->CMSSettings.DefaultIntentImages = imagesI->currentIndex();
+	doc->CMSSettings.DefaultIntentColors = (eRenderIntent) colorsI->currentIndex();
+	doc->CMSSettings.DefaultIntentImages = (eRenderIntent) imagesI->currentIndex();
 	doc->CMSSettings.SoftProofOn = simulate->isChecked();
 	doc->CMSSettings.SoftProofFullOn = convertAll->isChecked();
 	doc->CMSSettings.GamutCheck = gamutC->isChecked();

@@ -20,7 +20,7 @@ Imagedialog::Imagedialog ( const QString imageFile, ScribusDoc* doc , QWidget *p
 //no realCMYK
 	bool mode=false;
 //no document needs to be assigned to this
-	CMSettings cms ( doc, "", 0 );
+	CMSettings cms ( doc, "", Intent_Perceptual );
 
 	//load image
 	if ( image.LoadPicture ( imageFile, 1, cms, true, true, ScImage::RGBProof, 72 , &mode ) )

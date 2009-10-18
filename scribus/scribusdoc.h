@@ -36,23 +36,21 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QTimer>
 
-
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
-#include "observable.h"
-#include "prefsstructs.h"
+#include "colormngt/sccolormngtengine.h"
 #include "documentinformation.h"
-#include "undoobject.h"
+#include "observable.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pagestructs.h"
-#include "usertaskstructs.h"
-#include "styles/styleset.h"
+#include "prefsstructs.h"
 #include "scguardedptr.h"
-#include "updatemanager.h"
 #include "sclayer.h"
-
-#include CMS_INC
+#include "styles/styleset.h"
+#include "undoobject.h"
+#include "updatemanager.h"
+#include "usertaskstructs.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -1029,28 +1027,30 @@ public:
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
-	cmsHPROFILE DocInputImageRGBProf;
-	cmsHPROFILE DocInputImageCMYKProf;
-	cmsHPROFILE DocInputRGBProf;
-	cmsHPROFILE DocInputCMYKProf;
-	cmsHPROFILE DocOutputProf;
-	cmsHPROFILE DocPrinterProf;
-	cmsHTRANSFORM stdTransRGBMon;
-	cmsHTRANSFORM stdTransCMYKMon;
-	cmsHTRANSFORM stdProof;
-	cmsHTRANSFORM stdTransImg;
-	cmsHTRANSFORM stdProofImg;
-	cmsHTRANSFORM stdProofImgCMYK;
-	cmsHTRANSFORM stdTransCMYK;
-	cmsHTRANSFORM stdProofCMYK;
-	cmsHTRANSFORM stdTransRGB;
-	cmsHTRANSFORM stdProofGC;
-	cmsHTRANSFORM stdProofCMYKGC;
+
+	ScColorMngtEngine colorEngine;
+	ScColorProfile DocInputImageRGBProf;
+	ScColorProfile DocInputImageCMYKProf;
+	ScColorProfile DocInputRGBProf;
+	ScColorProfile DocInputCMYKProf;
+	ScColorProfile DocOutputProf;
+	ScColorProfile DocPrinterProf;
+	ScColorTransform stdTransRGBMon;
+	ScColorTransform stdTransCMYKMon;
+	ScColorTransform stdProof;
+	ScColorTransform stdTransImg;
+	ScColorTransform stdProofImg;
+	ScColorTransform stdProofImgCMYK;
+	ScColorTransform stdTransCMYK;
+	ScColorTransform stdProofCMYK;
+	ScColorTransform stdTransRGB;
+	ScColorTransform stdProofGC;
+	ScColorTransform stdProofCMYKGC;
 	bool BlackPoint;
 	bool SoftProofing;
 	bool Gamut;
-	int  IntentColors;
-	int  IntentImages;
+	eRenderIntent IntentColors;
+	eRenderIntent IntentImages;
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;

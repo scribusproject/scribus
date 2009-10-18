@@ -9,11 +9,13 @@ for which a new license (GPL+exception) is in place.
 #define SCCOLORTRANSFORM_H
 
 #include <QSharedPointer>
+#include "scribusapi.h"
 #include "sccolortransformdata.h"
 
-class ScColorTransform
+class SCRIBUS_API ScColorTransform
 {
 public:
+	ScColorTransform();
 	ScColorTransform(ScColorTransformData* data);
 	
 	ScColorMngtEngine& engine() { return m_data->engine(); }
@@ -27,7 +29,10 @@ public:
 	bool apply(void* input, void* output, uint numElem);
 	bool apply(QByteArray& input, QByteArray& output, uint numElem);
 
-	bool operator==(const ScColorTransform& other);
+	// FIXME get rif of this API as soon as possible (cf scimage)
+	void changeBufferFormat(eColorFormat input, eColorFormat output);
+
+	bool operator==(const ScColorTransform& other) const;
 
 protected:
 	QSharedPointer<ScColorTransformData> m_data;

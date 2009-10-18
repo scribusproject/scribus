@@ -72,7 +72,7 @@ void loadImagesThreadInstance::processLoadImageJob ( int row, QString path, int 
 //no realCMYK
 	bool mode=false;
 //no document needs to be assigned to this
-	CMSettings cms ( 0, "", 0 );
+	CMSettings cms ( 0, "", Intent_Perceptual);
 
 	ImageInformation *imgInfo = new ImageInformation;
 

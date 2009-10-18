@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPainterPath>
 
-#include <cmath>
 #include <cassert>
 
 #include "page.h"

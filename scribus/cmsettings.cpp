@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "scribusdoc.h"
 
-CMSettings::CMSettings(ScribusDoc* doc, const QString& profileName, int intent) :
+CMSettings::CMSettings(ScribusDoc* doc, const QString& profileName, eRenderIntent intent) :
 m_Doc(doc),
 m_ProfileName(profileName), 
 m_Intent(intent)
@@ -87,18 +87,18 @@ QString CMSettings::defaultSolidColorCMYKProfile() const
 	return QString();
 }
 
-int CMSettings::colorRenderingIntent() const
+eRenderIntent CMSettings::colorRenderingIntent() const
 {
 	if (m_Doc)
 		return m_Doc->IntentColors;
-	return 1; // Use relative colorimetric by default
+	return Intent_Relative_Colorimetric; // Use relative colorimetric by default
 }
 
-int CMSettings::imageRenderingIntent() const
+eRenderIntent CMSettings::imageRenderingIntent() const
 {
 	if (m_Doc)
 		return m_Doc->IntentImages;
-	return 0; // Use perceptual by default
+	return Intent_Perceptual; // Use perceptual by default
 }
 
 bool CMSettings::useBlackPoint() const
@@ -122,93 +122,93 @@ bool CMSettings::doGamutCheck() const
 	return false;
 }
 
-cmsHPROFILE CMSettings::monitorProfile() const
+ScColorProfile CMSettings::monitorProfile() const
 {
 	if (m_Doc)
 		return m_Doc->DocOutputProf;
-	return NULL;
+	return ScColorProfile();
 }
 
-cmsHPROFILE CMSettings::printerProfile() const
+ScColorProfile CMSettings::printerProfile() const
 {
 	if (m_Doc)
 		return m_Doc->DocPrinterProf;
-	return NULL;
+	return ScColorProfile();
 }
 
-cmsHTRANSFORM CMSettings::rgbColorDisplayTransform() const  // stdTransRGBMonG
+ScColorTransform CMSettings::rgbColorDisplayTransform() const  // stdTransRGBMonG
 {
 	if (m_Doc)
 		return m_Doc->stdTransRGBMon;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::rgbColorProofingTransform() const  // stdProofG
+ScColorTransform CMSettings::rgbColorProofingTransform() const  // stdProofG
 {
 	if (m_Doc)
 		return m_Doc->stdProof;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::rgbImageDisplayTransform() const   // stdTransImgG
+ScColorTransform CMSettings::rgbImageDisplayTransform() const   // stdTransImgG
 {
 	if (m_Doc)
 		return m_Doc->stdTransImg;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::rgbImageProofingTransform() const  // stdProofImgG
+ScColorTransform CMSettings::rgbImageProofingTransform() const  // stdProofImgG
 {
 	if (m_Doc)
 		return m_Doc->stdProofImg;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::rgbToCymkColorTransform() const // stdTransCMYKG
+ScColorTransform CMSettings::rgbToCymkColorTransform() const // stdTransCMYKG
 {
 	if (m_Doc)
 		return m_Doc->stdTransCMYK;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::rgbGamutCheckTransform() const // stdProofGCG
+ScColorTransform CMSettings::rgbGamutCheckTransform() const // stdProofGCG
 {
 	if (m_Doc)
 		return m_Doc->stdProofGC;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::cmykColorDisplayTransform() const // stdTransCMYKMonG
+ScColorTransform CMSettings::cmykColorDisplayTransform() const // stdTransCMYKMonG
 {
 	if (m_Doc)
 		return m_Doc->stdTransCMYKMon;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::cmykColorProofingTransform() const // stdProofCMYKG
+ScColorTransform CMSettings::cmykColorProofingTransform() const // stdProofCMYKG
 {
 	if (m_Doc)
 		return m_Doc->stdProofCMYK;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::cmykImageProofingTransform() const // stdProofImgCMYK
+ScColorTransform CMSettings::cmykImageProofingTransform() const // stdProofImgCMYK
 {
 	if (m_Doc)
 		return m_Doc->stdProofImgCMYK;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::cmykToRgbColorTransform() const  // stdTransRGBG
+ScColorTransform CMSettings::cmykToRgbColorTransform() const  // stdTransRGBG
 {
 	if (m_Doc)
 		return m_Doc->stdTransRGB;
-	return NULL;
+	return ScColorTransform();
 }
 
-cmsHTRANSFORM CMSettings::cmykGamutCheckTransform() const //stdProofCMYKGCG
+ScColorTransform CMSettings::cmykGamutCheckTransform() const //stdProofCMYKGCG
 {
 	if (m_Doc)
 		return m_Doc->stdProofCMYKGC;
-	return NULL;
+	return ScColorTransform();
 }
