@@ -17,22 +17,30 @@ ScColorProfile::ScColorProfile(ScColorProfileData* data) : m_data(data)
 
 icColorSpaceSignature ScColorProfile::colorSpace() const
 {
-	return m_data->colorSpace();
+	if (m_data)
+		return m_data->colorSpace();
+	return ((icColorSpaceSignature) 0);
 }
 
 icProfileClassSignature ScColorProfile::deviceClass() const
 {
-	return m_data->deviceClass();
+	if (m_data)
+		return m_data->deviceClass();
+	return ((icProfileClassSignature) 0);
 }
 
 QString ScColorProfile::profilePath() const
 {
-	return m_data->path();
+	if (m_data)
+		return m_data->path();
+	return QString();
 }
 
 QString ScColorProfile::productDescription() const
 {
-	return m_data->productDescription();
+	if (m_data)
+		return m_data->productDescription();
+	return QString();
 }
 
 bool ScColorProfile::operator==(const ScColorProfile& other) const

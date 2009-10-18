@@ -8,14 +8,11 @@ for which a new license (GPL+exception) is in place.
 #include "scdocoutput_ps2.h"
 #include "scpageoutput_ps2.h"
 #include "scribuscore.h"
-#include "cmserrorhandling.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "page.h"
 
 using namespace std;
-
-#include CMS_INC
 
 ScDocOutput_Ps2::ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options)
 {
@@ -77,17 +74,6 @@ bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 	bool success = false;
 	if (!m_options.outputProfile.isEmpty() && QFile::exists(m_options.outputProfile))
 	{
-		cmsErrorAction(LCMS_ERROR_ABORT);
-		if (setjmp(cmsJumpBuffer))
-		{
-			cmsSetErrorHandler(NULL);
-			cmsErrorAction(LCMS_ERROR_ABORT);
-			m_lastError = QObject::tr("An error occurred while initializing icc transforms");
-			qWarning( "%s", m_lastError.toLocal8Bit().data() );
-			return false;
-		}
-		cmsSetErrorHandler(&cmsErrorHandler);
-
 		int dcmsflags = 0;
 		if (m_doc->BlackPoint)
 			dcmsflags |= Ctf_BlackPointCompensation;
@@ -119,8 +105,15 @@ bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 													outputDataTypeColors, m_doc->IntentColors, dcmsflags);
 		m_options.cmykToOutputImageTransform = engine.createTransform(m_doc->DocInputRGBProf, Format_CMYK_8 , m_options.hProfile, 
 													outputDataTypeImages, m_doc->IntentImages, dcmsflags);
-		cmsSetErrorHandler(NULL);
-		success = true;
+
+		success = (m_options.rgbToOutputColorTransform  && m_options.rgbToOutputImageTransform &&
+			       m_options.cmykToOutputColorTransform && m_options.cmykToOutputImageTransform );
+		if (!success)
+		{
+			m_lastError = QObject::tr("An error occurred while initializing icc transforms");
+			qWarning( "%s", m_lastError.toLocal8Bit().data() );
+			return false;
+		}
 	}
 	return success;
 }

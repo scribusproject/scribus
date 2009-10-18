@@ -33,17 +33,16 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <memory>
 #include <setjmp.h>
-//#include CMS_INC
-#include "util_cms.h"
+
 #include "commonstrings.h"
 #include "exif.h"
-#include "util_ghostscript.h"
-#include "rawimage.h"
 #include "sccolorengine.h"
+#include "scstreamfilter.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "scstreamfilter.h"
+#include "util_ghostscript.h"
+#include "rawimage.h"
 
 extern "C"
 {
@@ -1927,8 +1926,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 {
 	Q_ASSERT(profile);
 	Q_ASSERT(components);
+	ScColorProfile prof;
 	ScImgDataLoader* pDataLoader = NULL;
-	cmsHPROFILE prof = 0;
 
 	profile->resize(0);
 	*components = 0;
@@ -1956,18 +1955,17 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 		QByteArray embeddedProfile = pDataLoader->embeddedProfile();
 		if	(embeddedProfile.size())
 		{
-			prof = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
+			prof = ScCore->defaultEngine.openProfileFromMem(embeddedProfile);
 			if (prof)
 			{
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+				if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
 					*components = 3;
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+				if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
 					*components = 4;
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+				if (static_cast<int>(prof.colorSpace()) == icSigGrayData)
 					*components = 1;
 				*profile = embeddedProfile;
 			}
-			cmsCloseProfile(prof);
 		}
 		delete pDataLoader;
 	}
@@ -2263,10 +2261,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
-			LPBYTE ptr2 = NULL;
+			uchar* ptr2 = NULL;
 			for (int i = 0; i < height(); i++)
 			{
-				LPBYTE ptr = scanLine(i);
+				uchar* ptr = scanLine(i);
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 					ptr2 = pDataLoader->r_image.scanLine(i);
 				if ( inputProfFormat == Format_GRAY_8 && (reqType != CMYKData) )

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCLCMSCOLORMNGTENGINEIMPL_H
 #define SCLCMSCOLORMNGTENGINEIMPL_H
 
-#include <setjmp.h>
+#include <stdexcept>
 
 #include "lcms.h"
 #include "sccolormngtenginedata.h"
@@ -54,12 +54,12 @@ protected:
 	static DWORD translateFormatToLcmsFormat(eColorFormat format);
 	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defaut = Intent_Relative_Colorimetric);
 
-	// (Nasty) error handling : get rid of that in lcms2
-	/*!
-	\brief Jump buffer used by cmsErrorHandler, must be set with the setjmp() function
-	*      before cmsErrorHandler may be called
-	*/
-	static jmp_buf cmsJumpBuffer;
+	// Exception class thrown by cmsErrorHandler
+	class lcmsException : public std::runtime_error 
+	{
+	public :
+		lcmsException(const char* msg) : std::runtime_error(msg) {}
+	};
 
 	/*!
 	\brief Simple error handler for use in conjunction with littlecms

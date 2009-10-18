@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <iostream>
+#include <string>
 #include <QDir>
 #include <QFile>
 
@@ -16,8 +17,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef cmsFLAGS_PRESERVEBLACK
 #define cmsFLAGS_PRESERVEBLACK 0x8000
 #endif
-
-jmp_buf ScLcmsColorMngtEngineImpl::cmsJumpBuffer;
 
 QSharedPointer<ScColorProfileCache> ScLcmsColorMngtEngineImpl::m_profileCache;
 
@@ -76,39 +75,39 @@ QList<ScColorProfileInfo> ScLcmsColorMngtEngineImpl::getAvailableProfileInfo(con
 		if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
 		{
 			const QByteArray profilePath( QString(directory + "/" + file).toLocal8Bit() );
-			if (setjmp(cmsJumpBuffer))
+			cmsSetErrorHandler(&cmsErrorHandler);
+			try
+			{
+				hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
+				if (hIn == NULL)
+					continue;
+				const char* profileDescriptor = cmsTakeProductDesc(hIn);
+				profileInfo.description = QString(profileDescriptor);
+				if (profileInfo.description.isEmpty())
+				{
+					cmsCloseProfile(hIn);
+					profileInfo.debug = QString("Color profile %1 is broken : no valid description").arg(fi.filePath());
+					profileInfos.append(profileInfo);
+					continue;
+				}
+				profileInfo.colorSpace  = cmsGetColorSpace(hIn);
+				profileInfo.deviceClass = cmsGetDeviceClass(hIn);
+				profileInfos.append(profileInfo);
+				cmsCloseProfile(hIn);
+				hIn = NULL;
+			}
+			catch (lcmsException&)
 			{
 				// Profile is broken
-				profileInfo.debug = QString("Color profile %1 is broken").arg(fi.filePath());
-				profileInfos.append(profileInfo);
-				// Reset to the default handler otherwise may enter a loop
-				// if an error occur in cmsCloseProfile()
-				cmsSetErrorHandler(NULL);
 				if (hIn)
 				{
 					cmsCloseProfile(hIn);
 					hIn = NULL;
 				}
-				continue;
-			}
-			cmsSetErrorHandler(&cmsErrorHandler);
-			hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
-			if (hIn == NULL)
-				continue;
-			const char* profileDescriptor = cmsTakeProductDesc(hIn);
-			profileInfo.description = QString(profileDescriptor);
-			if (profileInfo.description.isEmpty())
-			{
-				cmsCloseProfile(hIn);
-				profileInfo.debug = QString("Color profile %1 is broken : no valid description").arg(fi.filePath());
+				profileInfo.debug = QString("Color profile %1 is broken").arg(fi.filePath());
 				profileInfos.append(profileInfo);
-				continue;
 			}
-			profileInfo.colorSpace  = cmsGetColorSpace(hIn);
-			profileInfo.deviceClass = cmsGetDeviceClass(hIn);
-			profileInfos.append(profileInfo);
-			cmsCloseProfile(hIn);
-			hIn = NULL;
+			cmsSetErrorHandler(NULL);
 		}
 	}
 	cmsSetErrorHandler(NULL);
@@ -120,75 +119,139 @@ ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromFile(ScColorMngtEngine&
 {
 	// Search profile in profile cache first
 	ScColorProfile profile;
-	// We do not use lcms cmsOpenProfileFromFile() to avoid limitations
-	// of I/O on 8bit filenames on Windows
-	QFile file(filePath);
-	if (file.open(QFile::ReadOnly))
+	cmsHPROFILE lcmsProf = NULL;
+	cmsSetErrorHandler(&cmsErrorHandler);
+	try
 	{
-		QByteArray data = file.readAll();
-		if (!data.isEmpty())
+		QFile file(filePath);
+		if (file.open(QFile::ReadOnly))
 		{
-			cmsHPROFILE lcmsProf = cmsOpenProfileFromMem(data.data(), data.size());
-			if (lcmsProf)
+			// We do not use lcms cmsOpenProfileFromFile() to avoid limitations
+			// of I/O on 8bit filenames on Windows
+			QByteArray data = file.readAll();
+			if (!data.isEmpty())
 			{
-				ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
-				profData->m_profileData = data;
-				profData->m_profilePath = filePath;
-				profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+				lcmsProf = cmsOpenProfileFromMem(data.data(), data.size());
+				if (lcmsProf)
+				{
+					ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
+					profData->m_profileData = data;
+					profData->m_profilePath = filePath;
+					profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+				}
+				if (profile.isNull() && lcmsProf)
+				{
+					cmsCloseProfile(lcmsProf);
+					lcmsProf = NULL;
+				}
 			}
-			if (profile.isNull() && lcmsProf)
-				cmsCloseProfile(lcmsProf);
+			file.close();
 		}
-		file.close();
 	}
+	catch (lcmsException& e)
+	{
+		std::cerr << e.what() << std::endl;
+		if (profile.isNull() && lcmsProf)
+			cmsCloseProfile(lcmsProf);
+		profile = ScColorProfile();
+	}
+	cmsSetErrorHandler(NULL);
 	return profile;
 }
 
 ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromMem(ScColorMngtEngine& engine, const QByteArray& data)
 {
 	ScColorProfile profile;
-	cmsHPROFILE lcmsProf = cmsOpenProfileFromMem((LPVOID) data.data(), data.size());
-	if (lcmsProf)
+	cmsHPROFILE lcmsProf = NULL;
+	cmsSetErrorHandler(&cmsErrorHandler);
+	try
 	{
-		ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
-		QString desc = profData->productDescription();
-		if (!desc.isEmpty())
-			profData->m_profilePath = QString("memprofile://%1").arg(desc);
-		profData->m_profileData = data;
-		profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+		lcmsProf = cmsOpenProfileFromMem((LPVOID) data.data(), data.size());
+		if (lcmsProf)
+		{
+			ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
+			QString desc = profData->productDescription();
+			if (!desc.isEmpty())
+				profData->m_profilePath = QString("memprofile://%1").arg(desc);
+			profData->m_profileData = data;
+			profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+		}
+		if (profile.isNull() && lcmsProf)
+		{
+			cmsCloseProfile(lcmsProf);
+			lcmsProf = NULL;
+		}
 	}
-	if (profile.isNull() && lcmsProf)
-		cmsCloseProfile(lcmsProf);
+	catch (lcmsException& e)
+	{
+		std::cerr << e.what() << std::endl;
+		if (profile.isNull() && lcmsProf)
+			cmsCloseProfile(lcmsProf);
+		profile = ScColorProfile();
+	}
+	cmsSetErrorHandler(NULL);
 	return profile;
 }
 
 ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_sRGB(ScColorMngtEngine& engine)
 {
 	ScColorProfile profile;
-	cmsHPROFILE lcmsProf = cmsCreate_sRGBProfile();
-	if (lcmsProf)
+	cmsHPROFILE lcmsProf = NULL;
+	cmsSetErrorHandler(&cmsErrorHandler);
+	try
 	{
-		ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
-		profData->m_profilePath = QString("memprofile://Internal sRGB profile");
-		profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+		lcmsProf = cmsCreate_sRGBProfile();
+		if (lcmsProf)
+		{
+			ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
+			profData->m_profilePath = QString("memprofile://Internal sRGB profile");
+			profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+		}
+		if (profile.isNull() && lcmsProf)
+		{
+			cmsCloseProfile(lcmsProf);
+			lcmsProf = NULL;
+		}
 	}
-	if (profile.isNull() && lcmsProf)
-		cmsCloseProfile(lcmsProf);
+	catch (lcmsException& e)
+	{
+		std::cerr << e.what() << std::endl;
+		if (profile.isNull() && lcmsProf)
+			cmsCloseProfile(lcmsProf);
+		profile = ScColorProfile();
+	}
+	cmsSetErrorHandler(NULL);
 	return profile;
 }
 
 ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_Lab(ScColorMngtEngine& engine)
 {
 	ScColorProfile profile;
-	cmsHPROFILE lcmsProf = cmsCreateLabProfile(NULL);
-	if (lcmsProf)
+	cmsHPROFILE lcmsProf = NULL;
+	cmsSetErrorHandler(&cmsErrorHandler);
+	try
 	{
-		ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
-		profData->m_profilePath = QString("memprofile://Internal Lab profile");
-		profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+		lcmsProf = cmsCreateLabProfile(NULL);
+		if (lcmsProf)
+		{
+			ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
+			profData->m_profilePath = QString("memprofile://Internal Lab profile");
+			profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+		}
+		if (profile.isNull() && lcmsProf)
+		{
+			cmsCloseProfile(lcmsProf);
+			lcmsProf = NULL;
+		}
 	}
-	if (profile.isNull() && lcmsProf)
-		cmsCloseProfile(lcmsProf);
+	catch (lcmsException& e)
+	{
+		std::cerr << e.what() << std::endl;
+		if (profile.isNull() && lcmsProf)
+			cmsCloseProfile(lcmsProf);
+		profile = ScColorProfile();
+	}
+	cmsSetErrorHandler(NULL);
 	return profile;
 }
 
@@ -247,15 +310,28 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createTransform(ScColorMngtEngine& e
 		int   lcmsIntent    = translateIntentToLcmsIntent(renderIntent);
 		if (nullTransform)
 			lcmsFlags |= cmsFLAGS_NULLTRANSFORM;
-		cmsHTRANSFORM hTransform = cmsCreateTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
-			                                          lcmsOutputProf->m_profileHandle, lcmsOutputFmt, 
-													  lcmsIntent, lcmsFlags | cmsFLAGS_LOWRESPRECALC);
-		if (hTransform)
+		cmsHTRANSFORM hTransform = NULL;
+		cmsSetErrorHandler(&cmsErrorHandler);
+		try
 		{
-			ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
-			newTrans->setTransformInfo(transInfo);
-			transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+			hTransform = cmsCreateTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
+											lcmsOutputProf->m_profileHandle, lcmsOutputFmt, 
+											lcmsIntent, lcmsFlags | cmsFLAGS_LOWRESPRECALC);
+			if (hTransform)
+			{
+				ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
+				newTrans->setTransformInfo(transInfo);
+				transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+			}
 		}
+		catch (lcmsException& e)
+		{
+			std::cerr << e.what() << std::endl;
+			if (transform.isNull() && hTransform)
+				cmsDeleteTransform(hTransform);
+			transform = ScColorTransform();
+		}
+		cmsSetErrorHandler(NULL);
 	}
 	return transform;
 }
@@ -310,16 +386,29 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 		transform = m_transformPool.findTransform(transInfo);
 		if (transform.isNull())
 		{
-			cmsHTRANSFORM hTransform = cmsCreateProofingTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
-			                                          lcmsOutputProf->m_profileHandle, lcmsOutputFmt,
-		                                              lcmsProofingProf->m_profileHandle, lcmsIntent, 
-													  lcmsPrfIntent, lcmsFlags | cmsFLAGS_SOFTPROOFING);
-			if (hTransform)
+			cmsSetErrorHandler(&cmsErrorHandler);
+			cmsHTRANSFORM hTransform = NULL;
+			try
 			{
-				ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
-				newTrans->setTransformInfo(transInfo);
-				transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+				hTransform = cmsCreateProofingTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
+														lcmsOutputProf->m_profileHandle, lcmsOutputFmt,
+														lcmsProofingProf->m_profileHandle, lcmsIntent, 
+														lcmsPrfIntent, lcmsFlags | cmsFLAGS_SOFTPROOFING);
+				if (hTransform)
+				{
+					ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
+					newTrans->setTransformInfo(transInfo);
+					transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+				}
 			}
+			catch (lcmsException& e)
+			{
+				std::cerr << e.what() << std::endl;
+				if (transform.isNull() && hTransform)
+					cmsDeleteTransform(hTransform);
+				transform = ScColorTransform();
+			}
+			cmsSetErrorHandler(NULL);
 		}
 	}
 	else
@@ -343,15 +432,28 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 		transform = m_transformPool.findTransform(transInfo);
 		if (transform.isNull())
 		{
-			cmsHTRANSFORM hTransform = cmsCreateTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
-														  lcmsOutputProf->m_profileHandle, lcmsOutputFmt, 
-														  lcmsPrfIntent, lcmsFlags | cmsFLAGS_LOWRESPRECALC);
-			if (hTransform)
+			cmsSetErrorHandler(&cmsErrorHandler);
+			cmsHTRANSFORM hTransform = NULL;
+			try
 			{
-				ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
-				newTrans->setTransformInfo(transInfo);
-				transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+				hTransform  = cmsCreateTransform(lcmsInputProf->m_profileHandle , lcmsInputFmt, 
+											     lcmsOutputProf->m_profileHandle, lcmsOutputFmt, 
+												 lcmsPrfIntent, lcmsFlags | cmsFLAGS_LOWRESPRECALC);
+				if (hTransform)
+				{
+					ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
+					newTrans->setTransformInfo(transInfo);
+					transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+				}
 			}
+			catch (lcmsException& e)
+			{
+				std::cerr << e.what() << std::endl;
+				if (transform.isNull() && hTransform)
+					cmsDeleteTransform(hTransform);
+				transform = ScColorTransform();
+			}
+			cmsSetErrorHandler(NULL);
 		}
 	}
 	return transform;
@@ -427,7 +529,7 @@ int ScLcmsColorMngtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent,
 
 int ScLcmsColorMngtEngineImpl::cmsErrorHandler(int /*ErrorCode*/, const char *ErrorText)
 {
-	std::cerr << "Littlecms : " << ErrorText << std::endl;
-	longjmp(cmsJumpBuffer, 1);
+	std::string msg = std::string("Littlecms : ") + ErrorText;
+	throw lcmsException(msg.c_str());
 	return 1;
 }

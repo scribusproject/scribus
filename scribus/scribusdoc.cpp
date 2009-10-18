@@ -35,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 
 #include "canvas.h"
-#include "cmserrorhandling.h"
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "fileloader.h"
@@ -81,7 +80,6 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "units.h"
 #include "util.h"
-#include "util_cms.h"
 #include "util_icon.h"
 #include "util_math.h"
 
@@ -652,24 +650,6 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 {
 	HasCMS = false;
 	ScColorProfile inputProf;
-	cmsErrorAction(LCMS_ERROR_ABORT);
-	if (setjmp(cmsJumpBuffer))
-	{
-		// Reset to the default handler otherwise may enter a loop
-		// if an error occur afterwards
-		cmsSetErrorHandler(NULL);
-		cmsErrorAction(LCMS_ERROR_IGNORE);
-		CloseCMSProfiles();
-		cmsErrorAction(LCMS_ERROR_ABORT);
-		CMSSettings.CMSinUse = false;
-		QString message = tr("An error occurred while opening ICC profiles, color management is not enabled." );
-		if (ScCore->usingGUI())
-			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
-		else
-			qWarning( "%s", message.toLocal8Bit().data() );
-		return false;
-	}
-	cmsSetErrorHandler(&cmsErrorHandler);
 
 	colorEngine = colorMngtEngineFactory.createDefaultEngine();
 	ScColorMngtStrategy colorStrategy;
@@ -686,7 +666,6 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	if ((!DocInputRGBProf) || (!DocInputCMYKProf) || (!DocOutputProf) || (!DocPrinterProf) || (!DocInputImageCMYKProf) || (!DocInputImageRGBProf))
 	{
 		CMSSettings.CMSinUse = false;
-		cmsSetErrorHandler(NULL);
 		return false;
 	}
 
@@ -744,7 +723,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	stdProofGC = colorEngine.createProofingTransform(inputProfRGB, Format_RGB_16,
 	                    DocOutputProf, Format_RGB_16,
 	                    DocPrinterProf, IntentColors,
-	                    Intent_Relative_Colorimetric, dcmsFlags| cmsFLAGS_GAMUTCHECK);
+	                    Intent_Relative_Colorimetric, dcmsFlags| Ctf_GamutCheck);
 	stdProofCMYK = colorEngine.createProofingTransform(inputProfCMYK, Format_CMYK_16,
 						DocOutputProf, Format_RGB_16,
 						DocPrinterProf, IntentColors,
@@ -753,7 +732,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 						DocOutputProf, Format_RGB_16,
 						DocPrinterProf,
 						IntentColors,
-						Intent_Relative_Colorimetric, dcmsFlags | cmsFLAGS_GAMUTCHECK);
+						Intent_Relative_Colorimetric, dcmsFlags | Ctf_GamutCheck);
 
 	if (static_cast<int>(DocInputRGBProf.colorSpace()) == icSigRgbData)
 			CMSSettings.ComponentsInput2 = 3;
@@ -774,7 +753,19 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	if (static_cast<int>(DocPrinterProf.colorSpace()) == icSigCmyData)
 			CMSSettings.ComponentsPrinter = 3;
 
-	cmsSetErrorHandler(NULL);
+	bool success  = (stdTransRGBMon && stdTransCMYKMon && stdProofImg  && stdProofImgCMYK &&
+		             stdTransImg    && stdTransRGB     && stdTransCMYK && stdProof       &&
+	                 stdProofGC     && stdProofCMYK    && stdProofCMYKGC);
+	if (!success)
+	{
+		CloseCMSProfiles();
+		CMSSettings.CMSinUse = false;
+		QString message = tr("An error occurred while opening ICC profiles, color management is not enabled." );
+		if (ScCore->usingGUI())
+			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
+		else
+			qWarning( "%s", message.toLocal8Bit().data() );
+	}
 	return true;
 }
 

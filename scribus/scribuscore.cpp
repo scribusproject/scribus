@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QGlobalStatic>
 
-#include "cmserrorhandling.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "pluginmanager.h"
@@ -37,14 +36,10 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
-#include "util_cms.h"
 #include "util_ghostscript.h"
 #include "colormngt/sccolormngtenginefactory.h"
 
-
 extern ScribusQApp* ScQApp;
-
-#include "cmserrorhandling.h"
 
 ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMngtEngineFactory.createDefaultEngine())
 {
@@ -449,19 +444,6 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 
 void ScribusCore::InitDefaultColorTransforms(void)
 {
-	cmsErrorAction(LCMS_ERROR_ABORT);
-	if (setjmp(cmsJumpBuffer))
-	{
-		// Reset to the default handler otherwise may enter a loop
-		// if an error occur afterwards
-		cmsSetErrorHandler(NULL);
-		cmsErrorAction(LCMS_ERROR_IGNORE);
-		ResetDefaultColorTransforms();
-		cmsErrorAction(LCMS_ERROR_ABORT);
-		return;
-	}
-	cmsSetErrorHandler(&cmsErrorHandler);
-
 	// Ouvre le profile RGB par d�fault
 	if (InputProfiles.contains("sRGB IEC61966-2.1"))
 		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles["sRGB IEC61966-2.1"]);
@@ -477,7 +459,6 @@ void ScribusCore::InitDefaultColorTransforms(void)
 	if (!defaultRGBProfile || !defaultCMYKProfile)
 	{
 		ResetDefaultColorTransforms();
-		cmsSetErrorHandler(NULL);
 		return;
 	}
 
@@ -500,7 +481,6 @@ void ScribusCore::InitDefaultColorTransforms(void)
 	{
 		ResetDefaultColorTransforms();
 	}
-	cmsSetErrorHandler(NULL);
 }
 
 void ScribusCore::ResetDefaultColorTransforms(void)

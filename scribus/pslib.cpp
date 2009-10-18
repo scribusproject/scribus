@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pslib.h"
-#include <cmath>
 
 #include <QFileInfo>
 #include <QImage>
@@ -56,7 +55,6 @@ for which a new license (GPL+exception) is in place.
 #include "scstreamfilter_flate.h"
 #include "ui/multiprogressdialog.h"
 #include "util.h"
-#include "util_cms.h"
 #include "util_formats.h"
 #include "util_math.h"
 
@@ -3645,8 +3643,8 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 		s1 = qRound(s1 * shade / 100.0);
 		v1 = qRound(v1 * shade / 100.0);
 		k1 = qRound(k1 * shade / 100.0);
-		WORD inC[4];
-		WORD outC[4];
+		unsigned short inC[4];
+		unsigned short outC[4];
 		inC[0] = h1 * 257;
 		inC[1] = s1 * 257;
 		inC[2] = v1 * 257;
