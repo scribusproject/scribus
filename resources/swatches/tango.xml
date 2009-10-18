@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SCRIBUSCOLORS Name="CC-Tango" >
+<SCRIBUSCOLORS Name="tango" >
  <COLOR Spot="0" RGB="#eeeeec" Register="0" NAME=" Aluminum 1" />
  <COLOR Spot="0" RGB="#d3d7cf" Register="0" NAME=" Aluminum 2" />
  <COLOR Spot="0" RGB="#babdb6" Register="0" NAME=" Aluminum 3" />
