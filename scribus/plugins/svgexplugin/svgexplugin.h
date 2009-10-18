@@ -90,6 +90,7 @@ private:
 	QDomElement processArrows(PageItem *Item, QDomElement line, QString trans);
 	QString getFillStyle(PageItem *Item);
 	QString getStrokeStyle(PageItem *Item);
+	void writeBasePatterns();
 	/*!
 	\author Franz Schmid
 	\param ite PageItem *
