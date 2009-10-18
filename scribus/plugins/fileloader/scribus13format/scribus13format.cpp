@@ -2553,6 +2553,20 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		}
 //		currItem->updateGradientVectors();
 	}
+	switch (currItem->GrType)
+	{
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			currItem->GrType = 6;
+			break;
+		case 5:
+			currItem->GrType = 7;
+			break;
+		default:
+			break;
+	}
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
 	UndoManager::instance()->setUndoEnabled(true);

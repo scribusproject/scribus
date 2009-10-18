@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QVBoxLayout>
 #include <QCheckBox>
+#include <QDebug>
 
 #include "colorlistbox.h"
 #include "sccombobox.h"
@@ -319,8 +320,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
+	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
+	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
+	connect(editPatternPropsStroke, SIGNAL(clicked()), this, SLOT(changePatternPropsStroke()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
+	tabWidgetStroke->setTabEnabled(1, false);
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -373,9 +378,19 @@ void Cpalette::updateFromItem()
 		gradEdit->setGradientEditable(true);
 	}
 	if (patternList->count() == 0)
+	{
+		tabWidgetStroke->setTabEnabled(2, false);
 		tabWidget->setTabEnabled(2, false);
+	}
 	else
+	{
+		tabWidgetStroke->setTabEnabled(2, true);
 		tabWidget->setTabEnabled(2, true);
+	}
+	if (currentItem->strokePattern().isEmpty())
+		tabWidgetStroke->setCurrentIndex(0);
+	else
+		tabWidgetStroke->setCurrentIndex(2);
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 }
 
@@ -392,6 +407,7 @@ void Cpalette::updateCList()
 		if (currentDoc != NULL)
 			currentDoc->getUsedColors(colorList);
 	}
+	gradEditStroke->setColors(colorList);
 	gradEdit->setColors(colorList);
 	colorListFill->insertItems(colorList, ColorListBox::fancyPixmap);
 	colorListStroke->insertItems(colorList, ColorListBox::fancyPixmap);
@@ -464,7 +480,7 @@ void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
 			colorListFill->setCurrentItem(cCol[0]);
 	}
 	else
-		colorListStroke->setCurrentRow(0);
+		colorListFill->setCurrentRow(0);
 	connect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
 	connect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
 	connect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
@@ -538,6 +554,9 @@ void Cpalette::updateGradientList()
 	namedGradient->clear();
 	namedGradient->setIconSize(QSize(48, 12));
 	namedGradient->addItem( tr("Custom"));
+	namedGradientStroke->clear();
+	namedGradientStroke->setIconSize(QSize(48, 12));
+	namedGradientStroke->addItem( tr("Custom"));
 	for (QMap<QString, VGradient>::Iterator it = gradientList->begin(); it != gradientList->end(); ++it)
 	{
 		QImage pixm(48, 12, QImage::Format_ARGB32);
@@ -558,6 +577,7 @@ void Cpalette::updateGradientList()
 		QPixmap pm;
 		pm = QPixmap::fromImage(pixm);
 		namedGradient->addItem(pm, it.key());
+		namedGradientStroke->addItem(pm, it.key());
 	}
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 }
@@ -589,6 +609,8 @@ void Cpalette::updatePatternList()
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	patternBox->clear();
 	patternBox->setIconSize(QSize(48, 48));
+	patternBoxStroke->clear();
+	patternBoxStroke->setIconSize(QSize(48, 48));
 	for (QMap<QString, ScPattern>::Iterator it = patternList->begin(); it != patternList->end(); ++it)
 	{
 		QPixmap pm;
@@ -604,8 +626,11 @@ void Cpalette::updatePatternList()
 		p.end();
 		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), patternBox);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		QListWidgetItem *itemS = new QListWidgetItem(pm2, it.key(), patternBoxStroke);
+		itemS->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}
 	patternBox->clearSelection();
+	patternBoxStroke->clearSelection();
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
@@ -620,6 +645,32 @@ void Cpalette::selectPattern(QListWidgetItem *c)
 	if (c == NULL)
 		return;
 	emit NewPattern(c->text());
+}
+
+void Cpalette::selectPatternS(QListWidgetItem *c)
+{
+	if (c == NULL)
+		return;
+	emit NewPatternS(c->text());
+}
+
+void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
+{
+	disconnect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
+	QList<QListWidgetItem*> itl = patternBoxStroke->findItems(pattern, Qt::MatchExactly);
+	if (itl.count() != 0)
+	{
+		QListWidgetItem *it = itl[0];
+		patternBoxStroke->setCurrentItem(it);
+	}
+	else
+		patternBoxStroke->clearSelection();
+	m_Pattern_scaleXS = scaleX;
+	m_Pattern_scaleYS = scaleX;
+	m_Pattern_offsetXS = offsetX;
+	m_Pattern_offsetYS = offsetY;
+	m_Pattern_rotationS = rotation;
+	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 }
 
 void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
@@ -639,6 +690,35 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 	m_Pattern_offsetY = offsetY;
 	m_Pattern_rotation = rotation;
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
+}
+
+void Cpalette::slotGradStroke(int number)
+{
+	if (number == 1)
+	{
+//		disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		if (!currentItem->strokeGradient().isEmpty())
+		{
+			setCurrentComboItem(namedGradientStroke, currentItem->strokeGradient());
+			gradEditStroke->setGradient(gradientList->value(currentItem->strokeGradient()));
+			gradEditStroke->setGradientEditable(false);
+		}
+		else
+		{
+			namedGradientStroke->setCurrentIndex(0);
+			gradEditStroke->setGradient(currentItem->stroke_gradient);
+			gradEditStroke->setGradientEditable(true);
+		}
+//		if (gradientType->currentIndex() == 0)
+//			emit NewGradient(6);
+//		else
+//			currentItem->GrType = 7;
+//		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	}
+//	else if (number == 2)
+//		emit NewGradient(8);
+	else
+		emit NewPatternS("");
 }
 
 void Cpalette::ChooseGrad(int number)
@@ -691,7 +771,7 @@ void Cpalette::slotGrad(int number)
 		if (gradientType->currentIndex() == 0)
 			emit NewGradient(6);
 		else
-			currentItem->GrType = 7;
+			emit NewGradient(7);
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	}
 	else if (number == 2)
@@ -761,6 +841,24 @@ void Cpalette::changePatternProps()
 	delete dia;
 	tabWidget->setCurrentIndex(2);
 	emit NewGradient(8);
+}
+
+void Cpalette::changePatternPropsStroke()
+{
+	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit);
+	dia->spinXscaling->setValue(m_Pattern_scaleXS);
+	dia->spinYscaling->setValue(m_Pattern_scaleYS);
+	dia->spinXoffset->setValue(m_Pattern_offsetXS);
+	dia->spinYoffset->setValue(m_Pattern_offsetYS);
+	dia->spinAngle->setValue(m_Pattern_rotationS);
+	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double)));
+	dia->exec();
+	m_Pattern_scaleXS = dia->spinXscaling->value();
+	m_Pattern_scaleYS = dia->spinYscaling->value();
+	m_Pattern_offsetXS = dia->spinXoffset->value();
+	m_Pattern_offsetYS = dia->spinYoffset->value();
+	m_Pattern_rotationS = dia->spinAngle->value();
+	delete dia;
 }
 
 void Cpalette::unitChange(double, double, int unitIndex)

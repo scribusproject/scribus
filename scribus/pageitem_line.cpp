@@ -58,11 +58,21 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 		{
 			if (NamedLStyle.isEmpty())
 			{
-				if (lineColor() != CommonStrings::None)
+				if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+				{
+					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
+					p->setStrokeMode(ScPainter::Pattern);
 					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				}
+				else if (lineColor() != CommonStrings::None)
+				{
+					p->setStrokeMode(ScPainter::Solid);
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				}
 			}
 			else
 			{
+				p->setStrokeMode(ScPainter::Solid);
 				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)

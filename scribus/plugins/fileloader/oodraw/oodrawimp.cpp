@@ -1164,7 +1164,7 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 				{
 					if ((gradientAngle == 0) || (gradientAngle == 180))
 					{
-						item->GrType = 2;
+						item->GrType = 6;
 						item->GrStartX = item->width() / 2.0;
 						item->GrStartY = 0;
 						item->GrEndX = item->width() / 2.0;
@@ -1172,7 +1172,7 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 					}
 					else if ((gradientAngle == 90) || (gradientAngle == 270))
 					{
-						item->GrType = 1;
+						item->GrType = 6;
 						item->GrStartX = 0;
 						item->GrStartY = item->height() / 2.0;
 						item->GrEndX = item->width();

@@ -1207,6 +1207,12 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	QString modelFile;
 	QString currentView;
 	QString gradName;
+	QString StrokePattern;
+	double patternScaleXS;
+	double patternScaleYS;
+	double patternOffsetXS;
+	double patternOffsetYS;
+	double patternRotationS;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1284,6 +1290,12 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			LatexConfig = attrAsString(attrs, "LatexConfig", "");
 			modelFile = attrAsString(attrs, "modelFile", "");
 			currentView = attrAsString(attrs, "currentViewName", "");
+			StrokePattern = attrAsString(attrs, "patternS", "");
+			patternScaleXS   = attrAsDbl(attrs, "pScaleXS", 100.0);
+			patternScaleYS   = attrAsDbl(attrs, "pScaleYS", 100.0);
+			patternOffsetXS  = attrAsDbl(attrs, "pOffsetXS", 0.0);
+			patternOffsetYS  = attrAsDbl(attrs, "pOffsetYS", 0.0);
+			patternRotationS = attrAsDbl(attrs, "pRotationS", 0.0);
 		}
 		if (inItem && sReader.isStartElement() && tagName == "ITEXT")
 		{
@@ -1435,6 +1447,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			Neu->setGradient(gradName);
 			Neu->doOverprint = doOverprint;
+			Neu->setStrokePattern(StrokePattern);
+			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			if (Neu->asLatexFrame())
 			{
@@ -2275,7 +2289,6 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRSTARTY", item->GrStartY);
 		writer.writeAttribute("GRENDX"  , item->GrEndX);
 		writer.writeAttribute("GRENDY"  , item->GrEndY);
-		writer.writeAttribute("GRNAME"  , item->gradient());
 	}
 
 	if (item->effectsInUse.count() != 0)
@@ -2331,22 +2344,33 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		}
 		else
 		{
-			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
-			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+			if (item->gradient().isEmpty())
 			{
-				writer.writeStartElement("CSTOP");
-				writer.writeAttribute("RAMP" , cstops.at(cst)->rampPoint);
-				writer.writeAttribute("NAME" , cstops.at(cst)->name);
-				writer.writeAttribute("SHADE", cstops.at(cst)->shade);
-				writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
-				writer.writeEndElement();
+				QList<VColorStop*> cstops = item->fill_gradient.colorStops();
+				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+				{
+					writer.writeStartElement("CSTOP");
+					writer.writeAttribute("RAMP" , cstops.at(cst)->rampPoint);
+					writer.writeAttribute("NAME" , cstops.at(cst)->name);
+					writer.writeAttribute("SHADE", cstops.at(cst)->shade);
+					writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
+					writer.writeEndElement();
+				}
 			}
-			// must be writen before
-			// writer.writeAttribute("GRSTARTX", item->GrStartX);
-			// writer.writeAttribute("GRSTARTY", item->GrStartY);
-			// writer.writeAttribute("GRENDX"  , item->GrEndX);
-			// writer.writeAttribute("GRENDY"  , item->GrEndY);
+			else
+				writer.writeAttribute("GRNAME"  , item->gradient());
 		}
+	}
+	if (!item->strokePattern().isEmpty())
+	{
+		writer.writeAttribute("patternS", item->strokePattern());
+		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+		item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		writer.writeAttribute("pScaleXS", patternScaleX);
+		writer.writeAttribute("pScaleYS", patternScaleY);
+		writer.writeAttribute("pOffsetXS", patternOffsetX);
+		writer.writeAttribute("pOffsetYS", patternOffsetY);
+		writer.writeAttribute("pRotationS", patternRotation);
 	}
 	if (item->asLatexFrame())
 	{

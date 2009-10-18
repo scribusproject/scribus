@@ -94,11 +94,21 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 			p->setupPolygon(&PoLine, false);
 			if (NamedLStyle.isEmpty())
 			{
-				if (lineColor() != CommonStrings::None)
+				if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+				{
+					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
+					p->setStrokeMode(ScPainter::Pattern);
 					p->strokePath();
+				}
+				else if (lineColor() != CommonStrings::None)
+				{
+					p->setStrokeMode(ScPainter::Solid);
+					p->strokePath();
+				}
 			}
 			else
 			{
+				p->setStrokeMode(ScPainter::Solid);
 				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)

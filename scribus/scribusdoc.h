@@ -1222,6 +1222,8 @@ public slots:
 	void itemSelection_SetItemGradFill(int typ);
 	void itemSelection_SetItemPatternFill(QString pattern);
 	void itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+	void itemSelection_SetItemStrokePattern(QString pattern);
+	void itemSelection_SetItemStrokePatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 
 	void undoRedoBegin();
 	void undoRedoDone();

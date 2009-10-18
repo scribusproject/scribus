@@ -2766,7 +2766,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				currItem->setGradient(GrName);
 		}
 	}
-	if ((currItem->GrType != 0) && (currItem->GrType != 8))
+	if (((currItem->GrType != 0) && (currItem->GrType != 8)) && (currItem->gradient().isEmpty()))
 	{
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
@@ -2792,6 +2792,13 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 //		currItem->updateGradientVectors();
 	}
+	currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
+	double patternScaleX   = attrs.valueAsDouble("pScaleXS", 100.0);
+	double patternScaleY   = attrs.valueAsDouble("pScaleYS", 100.0);
+	double patternOffsetX  = attrs.valueAsDouble("pOffsetXS", 0.0);
+	double patternOffsetY  = attrs.valueAsDouble("pOffsetYS", 0.0);
+	double patternRotation = attrs.valueAsDouble("pRotationS", 0.0);
+	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
 	UndoManager::instance()->setUndoEnabled(true);

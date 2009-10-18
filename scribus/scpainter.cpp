@@ -30,6 +30,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	m_width = w;
 	m_height= h;
 	m_stroke = QColor(0,0,0);
+	strokeMode = 0;
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
 	stroke_trans = 1.0;
@@ -68,6 +69,7 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double tra
 	m_width = w;
 	m_height= h;
 	m_stroke = QColor(0,0,0);
+	strokeMode = 0;
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
 	stroke_trans = 1.0;
@@ -107,6 +109,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	m_width = w;
 	m_height= h;
 	m_stroke = QColor(0,0,0);
+	strokeMode = 0;
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
 	stroke_trans = 1.0;
@@ -790,12 +793,21 @@ void ScPainter::setFillMode( int fill )
 	fillMode = fill;
 }
 
+void ScPainter::setStrokeMode( int stroke )
+{
+	strokeMode = stroke;
+}
+
 void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc)
 {
 	fill_gradient.setType(mode);
 	fill_gradient.setOrigin(orig);
 	fill_gradient.setVector(vec);
 	fill_gradient.setFocalPoint(foc);
+	stroke_gradient.setType(mode);
+	stroke_gradient.setOrigin(orig);
+	stroke_gradient.setVector(vec);
+	stroke_gradient.setFocalPoint(foc);
 }
 
 void ScPainter::fillTextPath()
@@ -990,7 +1002,6 @@ void ScPainter::drawVPath( int mode )
 			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_BEST);
 			cairo_matrix_t matrix;
 			QTransform qmatrix;
-//			qmatrix.scale(m_zoomFactor, m_zoomFactor);
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
 			qmatrix.scale(patternScaleX, patternScaleY);
@@ -1016,13 +1027,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
-		double r, g, b;
-		m_stroke.getRgbF(&r, &g, &b);
-		cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
-//		if (stroke_trans != 1.0)
-			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-//		else
-//			cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 		if( PLineEnd == Qt::RoundCap )
 			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
 		else if( PLineEnd == Qt::SquareCap )
@@ -1035,9 +1040,74 @@ void ScPainter::drawVPath( int mode )
 			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
 		else if( PLineJoin == Qt::MiterJoin )
 			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
-		cairo_stroke_preserve( m_cr );
+		if (strokeMode == 3)
+		{
+			cairo_push_group(m_cr);
+			cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
+			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
+			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
+			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
+			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_BEST);
+			cairo_matrix_t matrix;
+			QTransform qmatrix;
+			qmatrix.translate(-LineWidth / 2.0, -LineWidth / 2.0);
+			qmatrix.translate(patternOffsetX, patternOffsetY);
+			qmatrix.rotate(patternRotation);
+			qmatrix.scale(patternScaleX, patternScaleY);
+			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
+			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+			cairo_matrix_invert(&matrix);
+			cairo_pattern_set_matrix (m_pat, &matrix);
+			cairo_set_source (m_cr, m_pat);
+			cairo_stroke_preserve( m_cr );
+			cairo_pattern_destroy (m_pat);
+			cairo_surface_destroy (image2);
+			cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
+			cairo_pop_group_to_source (m_cr);
+			cairo_paint_with_alpha (m_cr, stroke_trans);
+		}
+		else if (strokeMode == 2)
+		{
+			cairo_push_group(m_cr);
+			cairo_pattern_t *pat;
+			double x1 = stroke_gradient.origin().x();
+			double y1 = stroke_gradient.origin().y();
+			double x2 = stroke_gradient.vector().x();
+			double y2 = stroke_gradient.vector().y();
+			if (stroke_gradient.type() == VGradient::linear)
+				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+			else
+				pat = cairo_pattern_create_radial (x1, y1, 0.1, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+			QList<VColorStop*> colorStops = stroke_gradient.colorStops();
+			QColor qStopColor;
+			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				qStopColor = colorStops[ offset ]->color;
+				int h, s, v, sneu, vneu;
+				int shad = colorStops[offset]->shade;
+				qStopColor.getHsv(&h, &s, &v);
+				sneu = s * shad / 100;
+				vneu = 255 - ((255 - v) * shad / 100);
+				qStopColor.setHsv(h, sneu, vneu);
+				double a = colorStops[offset]->opacity;
+				double r, g, b;
+				qStopColor.getRgbF(&r, &g, &b);
+				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+			}
+			cairo_set_source (m_cr, pat);
+			cairo_stroke_preserve( m_cr );
+			cairo_pattern_destroy (pat);
+			cairo_pop_group_to_source (m_cr);
+			cairo_paint_with_alpha (m_cr, stroke_trans);
+		}
+		else
+		{
+			double r, g, b;
+			m_stroke.getRgbF(&r, &g, &b);
+			cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
+			cairo_stroke_preserve( m_cr );
+		}
 	}
-//	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );
 }
 #else
@@ -1096,7 +1166,7 @@ void ScPainter::drawVPath(int mode)
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 			QBrush brush = QBrush(*m_pattern->getPattern());
 			brush.setTransform(qmatrix);
-			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
+//			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
 			painter.setOpacity(fill_trans);
 			painter.fillPath(m_path, brush);
 			painter.setRenderHint(QPainter::Antialiasing, true);
@@ -1138,6 +1208,48 @@ void ScPainter::drawVPath(int mode)
 			pen.setWidthF(LineWidth);
 			pen.setCapStyle(PLineEnd);
 			pen.setJoinStyle(PLineJoin);
+		}
+		if (strokeMode == 3)
+		{
+			QTransform qmatrix;
+			qmatrix.translate(-LineWidth / 2.0, -LineWidth / 2.0);
+			qmatrix.translate(patternOffsetX, patternOffsetY);
+			qmatrix.rotate(patternRotation);
+			qmatrix.scale(patternScaleX, patternScaleY);
+			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
+			QBrush brush = QBrush(*m_pattern->getPattern());
+			brush.setTransform(qmatrix);
+//			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
+			painter.setOpacity(stroke_trans);
+			pen.setBrush(brush);
+		}
+		else if (strokeMode == 2)
+		{
+			QGradient pat;
+			double x1 = stroke_gradient.origin().x();
+			double y1 = stroke_gradient.origin().y();
+			double x2 = stroke_gradient.vector().x();
+			double y2 = stroke_gradient.vector().y();
+			if (stroke_gradient.type() == VGradient::linear)
+				pat = QLinearGradient(x1, y1,  x2, y2);
+			else
+				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+			QList<VColorStop*> colorStops = stroke_gradient.colorStops();
+			QColor qStopColor;
+			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				qStopColor = colorStops[ offset ]->color;
+				int h, s, v, sneu, vneu;
+				int shad = colorStops[offset]->shade;
+				qStopColor.getHsv(&h, &s, &v);
+				sneu = s * shad / 100;
+				vneu = 255 - ((255 - v) * shad / 100);
+				qStopColor.setHsv(h, sneu, vneu);
+				qStopColor.setAlphaF(colorStops[offset]->opacity);
+				pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+			}
+			painter.setOpacity(stroke_trans);
+			pen.setBrush(pat);
 		}
 		painter.strokePath(m_path, pen);
 	}

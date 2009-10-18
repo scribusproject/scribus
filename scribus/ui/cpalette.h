@@ -148,12 +148,15 @@ public slots:
 	void SetGradients(QMap<QString, VGradient> *docGradients);
 	void setNamedGradient(const QString &name);
 	void selectPattern(QListWidgetItem *c);
+	void selectPatternS(QListWidgetItem *c);
 	void updatePatternList();
 	void updateGradientList();
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void selectColorS(QListWidgetItem *c);
 	void selectColorF(QListWidgetItem *c);
+	void slotGradStroke(int number);
 	void ChooseGrad(int nr);
 	void slotGrad(int nr);
 	void slotGradType(int type);
@@ -162,6 +165,7 @@ public slots:
 	void setActiveGradDia(bool active);
 	void setSpecialGradient(double x1, double y1, double x2, double y2);
 	void changePatternProps();
+	void changePatternPropsStroke();
 	void unitChange(double, double, int unitIndex);
 signals:
 	void NewPen(QString);
@@ -171,6 +175,8 @@ signals:
 	void NewGradient(int);
 	void NewPattern(QString);
 	void NewPatternProps(double, double, double, double, double);
+	void NewPatternS(QString);
+	void NewPatternPropsS(double, double, double, double, double);
 	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
@@ -193,6 +199,11 @@ protected:
 	double m_Pattern_offsetX;
 	double m_Pattern_offsetY;
 	double m_Pattern_rotation;
+	double m_Pattern_scaleXS;
+	double m_Pattern_scaleYS;
+	double m_Pattern_offsetXS;
+	double m_Pattern_offsetYS;
+	double m_Pattern_rotationS;
 	int currentUnit;
 };
 

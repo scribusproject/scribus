@@ -2124,18 +2124,23 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if (!imageOk) return false;
 			}
 			PS_restore();
-			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))
+			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty())) && (!c->isTableItem))
 			{
 				if (c->NamedLStyle.isEmpty()) // && (c->lineWidth() != 0.0))
 				{
-					SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
-					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					PS_setlinewidth(c->lineWidth());
 					PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 					PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 					SetClipPath(&c->PoLine);
 					PS_closepath();
-					putColor(c->lineColor(), c->lineShade(), false);
+					if (!c->strokePattern().isEmpty())
+						HandleStrokePattern(c);
+					else
+					{
+						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						putColor(c->lineColor(), c->lineShade(), false);
+					}
 				}
 				else
 				{
@@ -2208,10 +2213,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_scale(1, -1);
 			}
 			setTextSt(Doc, c, gcr, PNr-1, a, sep, farb, ic, master);
-			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))
+			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty())) && (!c->isTableItem))
 			{
-				SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				PS_setlinewidth(c->lineWidth());
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
@@ -2219,7 +2222,14 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					SetClipPath(&c->PoLine);
 					PS_closepath();
-					putColor(c->lineColor(), c->lineShade(), false);
+					if (!c->strokePattern().isEmpty())
+						HandleStrokePattern(c);
+					else
+					{
+						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						putColor(c->lineColor(), c->lineShade(), false);
+					}
 				}
 				else
 				{
@@ -2244,7 +2254,13 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		case PageItem::Line:
 			if (c->NamedLStyle.isEmpty()) // && (c->lineWidth() != 0.0))
 			{
-				if (c->lineColor() != CommonStrings::None)
+				if (!c->strokePattern().isEmpty())
+				{
+					PS_moveto(0, 0);
+					PS_lineto(c->width(), 0);
+					HandleStrokePattern(c);
+				}
+				else if (c->lineColor() != CommonStrings::None)
 				{
 					PS_moveto(0, 0);
 					PS_lineto(c->width(), 0);
@@ -2299,16 +2315,16 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 			}
-			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()))
+			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty()))
 			{
 				if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 				{
-					if (c->lineColor() != CommonStrings::None)
-					{
-						SetClipPath(&c->PoLine);
-						PS_closepath();
+					SetClipPath(&c->PoLine);
+					PS_closepath();
+					if (!c->strokePattern().isEmpty())
+						HandleStrokePattern(c);
+					else if (c->lineColor() != CommonStrings::None)
 						putColor(c->lineColor(), c->lineShade(), false);
-					}
 				}
 				else
 				{
@@ -2341,15 +2357,15 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					putColor(c->fillColor(), c->fillShade(), true);
 				PS_newpath();
 			}
-			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()))
+			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty()))
 			{
 				if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 				{
-					if (c->lineColor() != CommonStrings::None)
-					{
-						SetClipPath(&c->PoLine, false);
+					SetClipPath(&c->PoLine, false);
+					if (!c->strokePattern().isEmpty())
+						HandleStrokePattern(c);
+					else if (c->lineColor() != CommonStrings::None)
 						putColor(c->lineColor(), c->lineShade(), false);
-					}
 				}
 				else
 				{
@@ -2412,11 +2428,11 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_save();
 					if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 					{
-						if (c->lineColor() != CommonStrings::None)
-						{
-							SetClipPath(&c->PoLine, false);
+						SetClipPath(&c->PoLine, false);
+						if (!c->strokePattern().isEmpty())
+							HandleStrokePattern(c);
+						else if (c->lineColor() != CommonStrings::None)
 							putColor(c->lineColor(), c->lineShade(), false);
-						}
 					}
 					else
 					{
@@ -3146,18 +3162,25 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 					PS_scale(1, -1);
 				}
 				setTextSt(Doc, ite, gcr, PNr, mPage, sep, farb, ic, true);
-				if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
+				if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty())) && (!ite->isTableItem))
 				{
 					if (ite->NamedLStyle.isEmpty()) // && (ite->lineWidth() != 0.0))
 					{
-						SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 						PS_setlinewidth(ite->lineWidth());
 						PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
 						PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
 						SetClipPath(&ite->PoLine);
 						PS_closepath();
-						putColor(ite->lineColor(), ite->lineShade(), false);
+						if (!ite->strokePattern().isEmpty())
+						{
+							HandleStrokePattern(ite);
+						}
+						else
+						{
+							SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							putColor(ite->lineColor(), ite->lineShade(), false);
+						}
 					}
 					else
 					{
@@ -3397,6 +3420,23 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint P
 	return success;
 }
 
+void PSLib::HandleStrokePattern(PageItem *c)
+{
+	ScPattern *pat;
+	QTransform patternMatrix;
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+	pat = &m_Doc->docPatterns[c->strokePattern()];
+	uint patHash = qHash(c->strokePattern());
+	c->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	patternMatrix.translate(-c->lineWidth() / 2.0, c->lineWidth() / 2.0);
+	patternMatrix.translate(patternOffsetX, -patternOffsetY);
+	patternMatrix.rotate(-patternRotation);
+	patternMatrix.scale(pat->scaleX, pat->scaleY);
+	patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+	PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
+	PutStream("stroke\n");
+}
+
 void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 {
 	int ch,cs,cv,ck;
@@ -3410,44 +3450,6 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	QList<VColorStop*> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
-/*		case 1:
-			StartX = 0;
-			StartY = h / 2.0;
-			EndX = w;
-			EndY = h / 2.0;
-			break;
-		case 2:
-			StartX = w / 2.0;
-			StartY = 0;
-			EndX = w / 2.0;
-			EndY = h;
-			break;
-		case 3:
-			StartX = 0;
-			StartY = 0;
-			EndX = w;
-			EndY = h;
-			break;
-		case 4:
-			StartX = 0;
-			StartY = h;
-			EndX = w;
-			EndY = 0;
-			break;
-		case 5:
-			StartX = w / 2.0;
-			StartY = h / 2.0;
-			if (w >= h)
-			{
-				EndX = w;
-				EndY = h / 2.0;
-			}
-			else
-			{
-				EndX = w / 2.0;
-				EndY = h;
-			}
-			break; */
 		case 1:
 		case 2:
 		case 3:
@@ -3556,7 +3558,24 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, boo
 	arrow.map(arrowTrans);
 	if (ite->NamedLStyle.isEmpty())
 	{
-		if (ite->lineColor() != CommonStrings::None)
+		if (!ite->strokePattern().isEmpty())
+		{
+			PS_newpath();
+			SetClipPath(&arrow);
+			PS_closepath();
+			QTransform patternMatrix;
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+			ScPattern *pat = &m_Doc->docPatterns[ite->strokePattern()];
+			uint patHash = qHash(ite->strokePattern());
+			ite->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			patternMatrix.translate(patternOffsetX, -patternOffsetY);
+			patternMatrix.rotate(-patternRotation);
+			patternMatrix.scale(pat->scaleX, pat->scaleY);
+			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
+			PutStream("fill\n");
+		}
+		else if (ite->lineColor() != CommonStrings::None)
 		{
 			SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);

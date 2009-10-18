@@ -2775,16 +2775,22 @@ QStringList ScribusDoc::getUsedPatterns()
 	{
 		if ((!results.contains(MasterItems.at(c)->pattern())) && (MasterItems.at(c)->GrType == 8))
 			results.append(MasterItems.at(c)->pattern());
+		if (!results.contains(MasterItems.at(c)->strokePattern()))
+			results.append(MasterItems.at(c)->strokePattern());
 	}
 	for (int c = 0; c < DocItems.count(); ++c)
 	{
 		if ((!results.contains(DocItems.at(c)->pattern())) && (DocItems.at(c)->GrType == 8))
 			results.append(DocItems.at(c)->pattern());
+		if (!results.contains(DocItems.at(c)->strokePattern()))
+			results.append(DocItems.at(c)->strokePattern());
 	}
 	for (int c = 0; c < FrameItems.count(); ++c)
 	{
 		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->GrType == 8))
 			results.append(FrameItems.at(c)->pattern());
+		if (!results.contains(FrameItems.at(c)->strokePattern()))
+			results.append(FrameItems.at(c)->strokePattern());
 	}
 	for (int c = 0; c < results.count(); ++c)
 	{
@@ -2811,6 +2817,9 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 				if (!pat.isEmpty() && !results.contains(pat))
 					results.append(currItem->pattern());
 			}
+			const QString& pat2 = currItem->strokePattern();
+			if (!pat2.isEmpty() && !results.contains(pat2))
+				results.append(currItem->strokePattern());
 		}
 		for (int c = 0; c < results.count(); ++c)
 		{
@@ -2838,6 +2847,9 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 			if (!patName.isEmpty() && !results.contains(patName))
 				pats.append(patName);
 		}
+		const QString& pat2 = pat->items.at(c)->strokePattern();
+		if (!pat2.isEmpty() && !results.contains(pat2))
+			results.append(pat->items.at(c)->strokePattern());
 	}
 	if (!pats.isEmpty())
 	{
@@ -5826,6 +5838,42 @@ void ScribusDoc::itemSelection_SetItemPatternProps(double imageScaleX, double im
 	}
 }
 
+void ScribusDoc::itemSelection_SetItemStrokePattern(QString pattern)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		m_updateManager.setUpdatesDisabled();
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->setStrokePattern(pattern);
+			currItem->update();
+		}
+		m_updateManager.setUpdatesEnabled();
+		changed();
+	}
+}
+
+void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		m_updateManager.setUpdatesDisabled();
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->setStrokePatternTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation);
+			currItem->update();
+		}
+		m_updateManager.setUpdatesEnabled();
+		changed();
+	}
+}
+
 void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 {
 	CharStyle newStyle;
@@ -7585,6 +7633,18 @@ void ScribusDoc::itemSelection_SetLineGradient(VGradient& newGradient, Selection
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+	m_updateManager.setUpdatesDisabled();
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem;
+		currItem = itemSelection->itemAt(i);
+		currItem->stroke_gradient = newGradient;
+		currItem->update();
+	}
+	/*if (selectedItemCount>1)
+		regionsChanged()->update(QRectF());*/
+	m_updateManager.setUpdatesEnabled();
+	changed();
 //Teaser for jghali
 }
 

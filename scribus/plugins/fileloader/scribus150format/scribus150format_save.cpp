@@ -1182,8 +1182,20 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("GRSTARTY", item->GrStartY);
 				docu.writeAttribute("GRENDX", item->GrEndX);
 				docu.writeAttribute("GRENDY", item->GrEndY);
-				docu.writeAttribute("GRNAME", item->gradient());
 			}
+		}
+		if (!item->gradient().isEmpty())
+			docu.writeAttribute("GRNAME", item->gradient());
+		if (!item->strokePattern().isEmpty())
+		{
+			docu.writeAttribute("patternS", item->strokePattern());
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+			item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			docu.writeAttribute("pScaleXS", patternScaleX);
+			docu.writeAttribute("pScaleYS", patternScaleY);
+			docu.writeAttribute("pOffsetXS", patternOffsetX);
+			docu.writeAttribute("pOffsetYS", patternOffsetY);
+			docu.writeAttribute("pRotationS", patternRotation);
 		}
 		if (item->itemText.defaultStyle().hasParent())
 			docu.writeAttribute("PSTYLE", item->itemText.defaultStyle().parent());
@@ -1241,7 +1253,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("Fill", tabCh);
 			}
 		}
-		if ((item->GrType > 0) && (item->GrType != 8))
+		if (((item->GrType > 0) && (item->GrType != 8)) && (item->gradient().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)

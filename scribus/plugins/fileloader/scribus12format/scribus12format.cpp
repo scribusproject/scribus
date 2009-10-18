@@ -852,6 +852,20 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 			OB->GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
 		}
 	}
+	switch (OB->GrType)
+	{
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			OB->GrType = 6;
+			break;
+		case 5:
+			OB->GrType = 7;
+			break;
+		default:
+			break;
+	}
 	OB->Rot=ScCLocale::toDoubleC(obj->attribute("ROT"));
 	OB->PLineArt=Qt::PenStyle(obj->attribute("PLINEART").toInt());
 	OB->PLineEnd=Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());

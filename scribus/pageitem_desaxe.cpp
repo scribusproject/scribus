@@ -254,6 +254,20 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			handler.end("PSDLayer");
 		}
 	}
+	if (!strokePattern().isEmpty())
+	{
+		Xml_attr patt;
+		patt.insert("patternS", strokePattern());
+		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+		strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		patt.insert("pScaleXS", toXMLString(patternScaleX));
+		patt.insert("pScaleYS", toXMLString(patternScaleY));
+		patt.insert("pOffsetXS", toXMLString(patternOffsetX));
+		patt.insert("pOffsetYS", toXMLString(patternOffsetY));
+		patt.insert("pRotationS", toXMLString(patternRotation));
+		handler.begin("PatternStroke", patt);
+		handler.end("PatternStroke");
+	}
 	if (gradientType() != 0)
 	{
 		if (gradientType() == 8)
@@ -530,14 +544,31 @@ class Pattern_body : public Action_body
 		double patternOffsetX = parseDouble(attr["pOffsetX"]);
 		double patternOffsetY = parseDouble(attr["pOffsetY"]);
 		double patternRotation = parseDouble(attr["pRotation"]);
-//		qDebug() << QString("pageitem_desaxe: pattern %6: *(%1,%2) +(%3,%4) °%5").arg(patternScaleX).arg(patternScaleY).arg(patternOffsetX).arg(patternOffsetY).arg(patternRotation).arg(attr["pattern"]);
-
 		item->setPattern(attr["pattern"]);
 		item->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	}
 };
 
 class Pattern : public MakeAction<Pattern_body>
+{};
+
+class PatternStroke_body : public Action_body
+{
+	void begin (const Xml_string& tagName, Xml_attr attr)
+	{
+		PageItem* item = this->dig->top<PageItem>();
+		
+		double patternScaleX = parseDouble(attr["pScaleXS"]);
+		double patternScaleY = parseDouble(attr["pScaleYS"]);
+		double patternOffsetX = parseDouble(attr["pOffsetXS"]);
+		double patternOffsetY = parseDouble(attr["pOffsetYS"]);
+		double patternRotation = parseDouble(attr["pRotationS"]);
+		item->setStrokePattern(attr["patternS"]);
+		item->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	}
+};
+
+class PatternStroke : public MakeAction<PatternStroke_body>
 {};
 
 
@@ -796,6 +827,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasBottomLine, "BottomLine", &parseBool ));
 	
 	ruleset.addRule(Digester::concat(itemPrefix, "Pattern"), Pattern()); 
+	ruleset.addRule(Digester::concat(itemPrefix, "PatternStroke"), PatternStroke()); 
 	
 	Gradient gradient;
 	Xml_string gradientPrefix(Digester::concat(itemPrefix, "Gradient"));

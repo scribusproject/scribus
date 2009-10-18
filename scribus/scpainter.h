@@ -68,6 +68,7 @@ public:
 	virtual void setFillRule( bool fillRule );
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
+	virtual void setStrokeMode( int stroke );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 	virtual void setClipPath();
@@ -157,6 +158,7 @@ private:
 	QColor m_stroke;
 	double stroke_trans;
 	double LineWidth;
+	int strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 
 	/*! \brief Line End Style */
 	Qt::PenCapStyle PLineEnd;

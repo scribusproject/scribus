@@ -595,6 +595,11 @@ public:
 	void setGradientType(int val) { GrType = val; }
 	void gradientVector(double& startX, double& startY, double& endX, double& endY) const;
 	void setGradientVector(double startX, double startY, double endX, double endY);
+
+	int strokeGradientType() const { return GrTypeStroke; }
+	void setStrokeGradientType(int val) { GrTypeStroke = val; }
+	void strokeGradientVector(double& startX, double& startY, double& endX, double& endY) const;
+	void setStrokeGradientVector(double startX, double startY, double endX, double endY);
 	// 
 	bool fillEvenOdd() const { return fillRule; }
 	void setFillEvenOdd(bool val) { fillRule = val; }
@@ -676,6 +681,15 @@ public:
 	 */
 	void setGradient(const QString &newGradient);
 
+	/** @brief Get the name of the stroke gradient of the object */
+	QString strokeGradient() const { return gradientStrokeVal; }
+
+	/**
+	 * @brief Set the stroke gradient of the object.
+	 * @param newGradient stroke gradient for the object
+	 */
+	void setStrokeGradient(const QString &newGradient);
+
 	/** @brief Get the name of the pattern of the object */
 	QString pattern() const { return patternVal; }
 
@@ -756,6 +770,23 @@ public:
 	 * @param newTransparency transparency of the line color
 	 */
 	void setLineTransparency(double newTransparency);
+
+	/** @brief Get the name of the stroke pattern of the object */
+	QString strokePattern() const { return patternStrokeVal; }
+
+	/** @brief Get the stroke pattern transformation matrix of the object */
+	void strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation) const;
+
+	/**
+	 * @brief Set the stroke pattern of the object.
+	 * @param newPattern stroke pattern for the object
+	 */
+	void setStrokePattern(const QString &newPattern);
+	
+	/**
+	 * @brief Set the stroke pattern transformation of the object.
+	 */
+	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 
 	/** @brief Set the QColor for the line */
 	void setLineQColor();
@@ -1302,6 +1333,37 @@ public:
 	 /** Line width */
 	double m_lineWidth;
 	double Oldm_lineWidth;
+
+	/**
+	 * @brief Stroke pattern name
+	 * @sa PageItem::strokePattern(), PageItem::setStrokePattern()
+	 */
+	QString patternStrokeVal;
+	/**
+	 * @brief Stroke pattern transformation matrix
+	 */
+	double patternStrokeScaleX;
+	double patternStrokeScaleY;
+	double patternStrokeOffsetX;
+	double patternStrokeOffsetY;
+	double patternStrokeRotation;
+	
+
+	/**
+	 * @brief Stroke gradient name
+	 * @sa PageItem::strokeGradient(), PageItem::setStrokeGradient()
+	 */
+	QString gradientStrokeVal;
+	VGradient stroke_gradient;
+
+	/** 
+	* @brief Stroke gradient variables
+	*/
+	int GrTypeStroke;
+	double GrStrokeStartX;
+	double GrStrokeStartY;
+	double GrStrokeEndX;
+	double GrStrokeEndY;
 
 	/** Inline Image */
 	bool isInlineImage;
