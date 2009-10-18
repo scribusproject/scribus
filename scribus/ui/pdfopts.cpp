@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "pdfopts.h"
 
-#include "colormngt/sccolormngtengine.h"
 #include "commonstrings.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"

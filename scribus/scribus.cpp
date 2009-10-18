@@ -3077,7 +3077,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			if (currItem->asTextFrame())
 				enableTextActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
 			view->horizRuler->setItem(currItem);
-			if (currItem->lineColor() != CommonStrings::None)
+			if ((currItem->lineColor() != CommonStrings::None) || (!currItem->strokePattern().isEmpty()))
 				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
 			else
 				view->horizRuler->lineCorr = 0;

@@ -3868,7 +3868,7 @@ void PropertiesPalette::NewGap()
 	else
 	{
 		double lineCorr;
-		if (CurItem->lineColor() != CommonStrings::None)
+		if ((CurItem->lineColor() != CommonStrings::None) || (!CurItem->strokePattern().isEmpty()))
 			lineCorr = CurItem->lineWidth();
 		else
 			lineCorr = 0;

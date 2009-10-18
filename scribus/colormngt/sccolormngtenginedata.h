@@ -28,8 +28,8 @@ protected:
 	
 public:
 
-	ScColorMngtEngineData(const QString& desc, int uniqueID) : m_description(desc), 
-	                                                           m_engineID(uniqueID),
+	ScColorMngtEngineData(const QString& desc, int uniqueID) : m_engineID(uniqueID), 
+	                                                           m_description(desc),
 	                                                           m_transformPool(uniqueID)
 	{}
 	

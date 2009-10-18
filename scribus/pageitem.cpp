@@ -4591,7 +4591,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if (lineColor() != CommonStrings::None)
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
 			extraSpace = m_lineWidth / 2.0;
 	}
 	else
@@ -4742,7 +4742,7 @@ double PageItem::visualXPos() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if (lineColor() != CommonStrings::None)
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
 			extraSpace = m_lineWidth / 2.0;
 	}
 	else
@@ -4760,7 +4760,7 @@ double PageItem::visualYPos() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if (lineColor() != CommonStrings::None)
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
 			extraSpace = m_lineWidth / 2.0;
 	}
 	else
@@ -4778,7 +4778,7 @@ double PageItem::visualWidth() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if (lineColor() != CommonStrings::None)
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
 			extraSpace = m_lineWidth;
 	}
 	else
@@ -4796,7 +4796,7 @@ double PageItem::visualHeight() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if (lineColor() != CommonStrings::None)
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
 			extraSpace = m_lineWidth;
 	}
 	else

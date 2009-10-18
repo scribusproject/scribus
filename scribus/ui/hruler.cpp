@@ -825,7 +825,7 @@ void Hruler::setItem(PageItem * item)
 		ItemEndPos -= currDoc->currentPage()->xOffset();
 	}
 	
-	if (item->lineColor() != CommonStrings::None)
+	if ((item->lineColor() != CommonStrings::None) || (!item->strokePattern().isEmpty()))
 		lineCorr = item->lineWidth() / 2.0;
 	else
 		lineCorr = 0;
