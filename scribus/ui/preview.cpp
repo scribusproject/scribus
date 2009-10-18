@@ -1068,7 +1068,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocOutputProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for( int yi=0; yi < h2; ++yi )
 					{
-						LPBYTE ptr = image.scanLine( yi );
+						uchar* ptr = image.scanLine( yi );
 						transCMYK.apply(ptr, ptr, image.width());
 						QRgb *q = (QRgb *) ptr;
 						for (int xi = 0; xi < image.width(); xi++, q++)
@@ -1130,7 +1130,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocOutputProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for (int y=0; y < h2; ++y )
 					{
-						LPBYTE ptr = image.scanLine( y );
+						uchar* ptr = image.scanLine( y );
 						f.read(imgc.data(), w2);
 						p = (uint *)image.scanLine( y );
 						for (int x=0; x < w2; x += 4 )
