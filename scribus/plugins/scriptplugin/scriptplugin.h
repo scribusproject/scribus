@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "pluginapi.h"
 //Added by qt3to4:
+#include <QByteArray>
 #include <QPixmap>
 
 class QString;
@@ -37,6 +38,7 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 		virtual void addToMainWindowMenu(ScribusMainWindow *);
 
 		// Special features (none)
+		QByteArray pythonHome;
 };
 
 extern "C" PLUGIN_API int scriptplugin_getPluginAPIVersion();
