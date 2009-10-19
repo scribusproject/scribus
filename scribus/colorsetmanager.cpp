@@ -129,7 +129,7 @@ void ColorSetManager::findPalettes()
 	for ( QStringList::Iterator it = paletteLocations.begin(); it != paletteLocations.end(); ++it )
 	{
 		path=(*it);
-		QDir dir(path , "*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+		QDir dir(path , "*.xml *.gpl", QDir::Name, QDir::Files | QDir::NoSymLinks);
 		if (dir.exists() && (dir.count() != 0))
 			for (uint i = 0; i < dir.count(); ++i) 
 			{
