@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="BS 4800" >
+ <COLOR Spot="1" RGB="#d3d3cd" Register="0" NAME="00A01 Ash Grey" />
+ <COLOR Spot="1" RGB="#aeadac" Register="0" NAME="00A05 Goose Grey" />
+ <COLOR Spot="1" RGB="#7b7d7e" Register="0" NAME="00A09 Flint Grey" />
+ <COLOR Spot="1" RGB="#4b4c4c" Register="0" NAME="00A13 Storm Grey" />
+ <COLOR Spot="1" RGB="#e5bfc2" Register="0" NAME="02C30 Lupin Pink" />
+ <COLOR Spot="1" RGB="#a86a79" Register="0" NAME="02C37 Clover Pink" />
+ <COLOR Spot="1" RGB="#733a4b" Register="0" NAME="02C39 Victoria Plum" />
+ <COLOR Spot="1" RGB="#4d303e" Register="0" NAME="02C40 Deep Plum" />
+ <COLOR Spot="1" RGB="#ecded6" Register="0" NAME="04B15 Pastel Pink" />
+ <COLOR Spot="1" RGB="#d9c4bb" Register="0" NAME="04B17 Dusky Pink" />
+ <COLOR Spot="1" RGB="#a78f86" Register="0" NAME="04B21 Sable" />
+ <COLOR Spot="1" RGB="#e9bcb1" Register="0" NAME="04C33 Orchid Pink" />
+ <COLOR Spot="1" RGB="#a8685f" Register="0" NAME="04C37 Autumn Brown" />
+ <COLOR Spot="1" RGB="#7a4340" Register="0" NAME="04C39 Brick Red" />
+ <COLOR Spot="1" RGB="#a5443f" Register="0" NAME="04D44 Misty Red" />
+ <COLOR Spot="1" RGB="#842320" Register="0" NAME="04D45 Dark Cherry" />
+ <COLOR Spot="1" RGB="#f8dcd3" Register="0" NAME="04E49 Rose Pink" />
+ <COLOR Spot="1" RGB="#e86b58" Register="0" NAME="04E51 Salmon Red" />
+ <COLOR Spot="1" RGB="#c42d23" Register="0" NAME="04E53 Poppy" />
+ <COLOR Spot="1" RGB="#e5c19c" Register="0" NAME="06C33 Peach" />
+ <COLOR Spot="1" RGB="#a76d49" Register="0" NAME="06C37 Leather Brown" />
+ <COLOR Spot="1" RGB="#6d4423" Register="0" NAME="06C39 Saddle Brown" />
+ <COLOR Spot="1" RGB="#cc8337" Register="0" NAME="06D43 Mid Tan" />
+ <COLOR Spot="1" RGB="#925836" Register="0" NAME="06D45 Teak" />
+ <COLOR Spot="1" RGB="#feb970" Register="0" NAME="06E50 Mellow Apricot" />
+ <COLOR Spot="1" RGB="#f79052" Register="0" NAME="06E51 Mandarin Orange" />
+ <COLOR Spot="1" RGB="#b86422" Register="0" NAME="06E56 Maori Brown" />
+ <COLOR Spot="1" RGB="#f5ead8" Register="0" NAME="08B15 Magnolia" />
+ <COLOR Spot="1" RGB="#d9c9b4" Register="0" NAME="08B17 Honey Beige" />
+ <COLOR Spot="1" RGB="#a19182" Register="0" NAME="08B21 Antelope" />
+ <COLOR Spot="1" RGB="#726052" Register="0" NAME="08B25 Beaver Brown" />
+ <COLOR Spot="1" RGB="#463930" Register="0" NAME="08B29 Bitter Chocolate" />
+ <COLOR Spot="1" RGB="#f1e0c4" Register="0" NAME="08C31 Honey Suckle Cream" />
+ <COLOR Spot="1" RGB="#d3a66a" Register="0" NAME="08C35 Fudge" />
+ <COLOR Spot="1" RGB="#9f7333" Register="0" NAME="08C37 Caramel" />
+ <COLOR Spot="1" RGB="#6a5036" Register="0" NAME="08C39 Coffee" />
+ <COLOR Spot="1" RGB="#f0a700" Register="0" NAME="08E51 Golden Yellow" />
+ <COLOR Spot="1" RGB="#c7c6bd" Register="0" NAME="10A03 Dawn Grey" />
+ <COLOR Spot="1" RGB="#97958d" Register="0" NAME="10A07 Nimbus Grey" />
+ <COLOR Spot="1" RGB="#615f5b" Register="0" NAME="10A11 Charcoal Grey" />
+ <COLOR Spot="1" RGB="#f2e9d6" Register="0" NAME="10B15 Creamy White" />
+ <COLOR Spot="1" RGB="#d3c9a9" Register="0" NAME="10B17 Oatmeal" />
+ <COLOR Spot="1" RGB="#a0977f" Register="0" NAME="10B21 Lizard Grey" />
+ <COLOR Spot="1" RGB="#6c634c" Register="0" NAME="10B25 Turtle Green" />
+ <COLOR Spot="1" RGB="#373529" Register="0" NAME="10B29 Vandyke Brown" />
+ <COLOR Spot="1" RGB="#f0e3c1" Register="0" NAME="10C31 Ivory" />
+ <COLOR Spot="1" RGB="#e7d59b" Register="0" NAME="10C33 Vanilla" />
+ <COLOR Spot="1" RGB="#c3ab60" Register="0" NAME="10C35 Wheat" />
+ <COLOR Spot="1" RGB="#594b27" Register="0" NAME="10C39 Dark Olive" />
+ <COLOR Spot="1" RGB="#c7a72b" Register="0" NAME="10D43 Golden Maize" />
+ <COLOR Spot="1" RGB="#977e23" Register="0" NAME="10D45 French Mustard" />
+ <COLOR Spot="1" RGB="#e9e2a3" Register="0" NAME="10E49 Pale Primrose" />
+ <COLOR Spot="1" RGB="#f2d561" Register="0" NAME="10E50 Grapefruit" />
+ <COLOR Spot="1" RGB="#edc800" Register="0" NAME="10E53 Sunflower Yellow" />
+ <COLOR Spot="1" RGB="#e3e4ce" Register="0" NAME="12B15 Seafoam" />
+ <COLOR Spot="1" RGB="#c9caa9" Register="0" NAME="12B17 Green Mist" />
+ <COLOR Spot="1" RGB="#95977a" Register="0" NAME="12B21 Mineral Green" />
+ <COLOR Spot="1" RGB="#60624c" Register="0" NAME="12B25 Spruce Green" />
+ <COLOR Spot="1" RGB="#36392b" Register="0" NAME="12B29 Midnight Green" />
+ <COLOR Spot="1" RGB="#cbcd92" Register="0" NAME="12C33 Green Haze" />
+ <COLOR Spot="1" RGB="#474e28" Register="0" NAME="12C39 Ivy Green" />
+ <COLOR Spot="1" RGB="#8f9732" Register="0" NAME="12D43 Greengage" />
+ <COLOR Spot="1" RGB="#636928" Register="0" NAME="12D45 Dark Laurel" />
+ <COLOR Spot="1" RGB="#cbd02e" Register="0" NAME="12E51 Pale Lime" />
+ <COLOR Spot="1" RGB="#99b532" Register="0" NAME="12E53 Linden Green" />
+ <COLOR Spot="1" RGB="#d7e6d6" Register="0" NAME="14C31 Glacial Green" />
+ <COLOR Spot="1" RGB="#9ab4a2" Register="0" NAME="14C35 Iceplant Green" />
+ <COLOR Spot="1" RGB="#315645" Register="0" NAME="14C39 Holly Green" />
+ <COLOR Spot="1" RGB="#2e3c33" Register="0" NAME="14C40 Moss Green" />
+ <COLOR Spot="1" RGB="#4aac6e" Register="0" NAME="14E51 Bright Green" />
+ <COLOR Spot="1" RGB="#008f61" Register="0" NAME="14E53 Irish Green" />
+ <COLOR Spot="1" RGB="#b2cdc8" Register="0" NAME="16C33 Duck Egg Blue" />
+ <COLOR Spot="1" RGB="#48817f" Register="0" NAME="16C37 Reef Green" />
+ <COLOR Spot="1" RGB="#005352" Register="0" NAME="16D45 Dark Jade" />
+ <COLOR Spot="1" RGB="#008d8d" Register="0" NAME="16E53 Aquamarine" />
+ <COLOR Spot="1" RGB="#c4cdcb" Register="0" NAME="18B17 Blue Mink" />
+ <COLOR Spot="1" RGB="#8e9898" Register="0" NAME="18B21 Squirrel Grey" />
+ <COLOR Spot="1" RGB="#5d676b" Register="0" NAME="18B25 Dark Admiralty Grey" />
+ <COLOR Spot="1" RGB="#283036" Register="0" NAME="18B29 Raven" />
+ <COLOR Spot="1" RGB="#e4e9e4" Register="0" NAME="18C31 Ice Blue" />
+ <COLOR Spot="1" RGB="#97afb8" Register="0" NAME="18C35 Corvette Blue" />
+ <COLOR Spot="1" RGB="#1c4d5e" Register="0" NAME="18C39 Fathom Blue" />
+ <COLOR Spot="1" RGB="#398198" Register="0" NAME="18D43 Dresden Blue" />
+ <COLOR Spot="1" RGB="#d2e7e4" Register="0" NAME="18E49 Crystal Blue" />
+ <COLOR Spot="1" RGB="#a6d2dc" Register="0" NAME="18E50 Ribbon Blue" />
+ <COLOR Spot="1" RGB="#2a9dbd" Register="0" NAME="18E51 Delphinium Blue" />
+ <COLOR Spot="1" RGB="#006c9d" Register="0" NAME="18E53 Tartan Blue" />
+ <COLOR Spot="1" RGB="#b7cbdc" Register="0" NAME="20C33 Porcelain Blue" />
+ <COLOR Spot="1" RGB="#637f9d" Register="0" NAME="20C37 Larkspur Blue" />
+ <COLOR Spot="1" RGB="#2a364d" Register="0" NAME="20C40 Duchess Blue" />
+ <COLOR Spot="1" RGB="#1d4e7c" Register="0" NAME="20D45 Sapphire Blue" />
+ <COLOR Spot="1" RGB="#5b9cd2" Register="0" NAME="20E51 Cornflower Blue" />
+ <COLOR Spot="1" RGB="#e4e4e1" Register="0" NAME="22B15 Pearl Grey" />
+ <COLOR Spot="1" RGB="#c6c5cb" Register="0" NAME="22B17 Pale Lavender" /
+ <COLOR Spot="1" RGB="#787198" Register="0" NAME="22C37 Purple Heather" />
+ <COLOR Spot="1" RGB="#51457e" Register="0" NAME="22D45 Deep Purple" />
+ <COLOR Spot="1" RGB="#d2bfcb" Register="0" NAME="24C33 Pale Lilac" />
+ <COLOR Spot="1" RGB="#5f3c64" Register="0" NAME="24C39 Regal Violet" />
+ <COLOR Spot="1" RGB="#000000" Register="0" NAME="00E53 Black" />
+ <COLOR Spot="1" RGB="#FFFFFF" Register="0" NAME="00E55 White" />
+</SCRIBUSCOLORS>
+<!--Please note that the colours in this palette are no accurate representations of a British Standards Institution Standard. If you need an accurate reference, please refer to a printed colour chart or colour chips. These pallettes are understood to be in the Public Domain. -->

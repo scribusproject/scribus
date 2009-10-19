@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="BS 381C" >
+ <COLOR Spot="1" RGB="#90B8A0" Register="0" NAME="101 Sky Blue" />
+ <COLOR Spot="1" RGB="#508888" Register="0" NAME="102 Turquoise Blue" />
+ <COLOR Spot="1" RGB="#306070" Register="0" NAME="103 Peacock Blue" />
+ <COLOR Spot="1" RGB="#204878" Register="0" NAME="104 Azure Blue" />
+ <COLOR Spot="1" RGB="#082050" Register="0" NAME="105 Oxford Blue" />
+ <COLOR Spot="1" RGB="#181830" Register="0" NAME="106 Royal Blue" />
+ <COLOR Spot="1" RGB="#2868A0" Register="0" NAME="107 Strong Blue" />
+ <COLOR Spot="1" RGB="#082870" Register="0" NAME="108 Aircraft Blue" />
+ <COLOR Spot="1" RGB="#085078" Register="0" NAME="109 Middle Blue" />
+ <COLOR Spot="1" RGB="#183070" Register="0" NAME="110 Roundel Blue" />
+ <COLOR Spot="1" RGB="#80C0B8" Register="0" NAME="111 Pale Blue" />
+ <COLOR Spot="1" RGB="#70A8B8" Register="0" NAME="112 Arctic Blue" />
+ <COLOR Spot="1" RGB="#306070" Register="0" NAME="113 Deep Saxe Blue" />
+ <COLOR Spot="1" RGB="#084058" Register="0" NAME="114 Rail Blue" />
+ <COLOR Spot="1" RGB="#5880B8" Register="0" NAME="115 Cobalt Blue" />
+ <COLOR Spot="1" RGB="#1050A8" Register="0" NAME="166 French Blue" />
+ <COLOR Spot="1" RGB="#A0B8E0" Register="0" NAME="172 Pale Roundel Blue" />
+ <COLOR Spot="1" RGB="#5898A0" Register="0" NAME="174 Oriental Blue" />
+ <COLOR Spot="1" RGB="#4078C0" Register="0" NAME="175 Light French Blue" />
+ <COLOR Spot="1" RGB="#B0C098" Register="0" NAME="210 Sky" />
+ <COLOR Spot="1" RGB="#B0D088" Register="0" NAME="216 Eau-De-Nil" />
+ <COLOR Spot="1" RGB="#90B860" Register="0" NAME="217 Sea Green" />
+ <COLOR Spot="1" RGB="#608038" Register="0" NAME="218 Grass Green" />
+ <COLOR Spot="1" RGB="#405018" Register="0" NAME="220 Olive Green" />
+ <COLOR Spot="1" RGB="#487830" Register="0" NAME="221 Brilliant Green" />
+ <COLOR Spot="1" RGB="#606818" Register="0" NAME="222 Light Bronze Green" />
+ <COLOR Spot="1" RGB="#404828" Register="0" NAME="223 Middle Bronze Green" />
+ <COLOR Spot="1" RGB="#304020" Register="0" NAME="224 Deep Bronze Green" />
+ <COLOR Spot="1" RGB="#386818" Register="0" NAME="225 Light Brunswick Green" />
+ <COLOR Spot="1" RGB="#205030" Register="0" NAME="226 Middle Brunswick Green" />
+ <COLOR Spot="1" RGB="#183828" Register="0" NAME="227 Deep Brunswick Green" />
+ <COLOR Spot="1" RGB="#388860" Register="0" NAME="228 Emerald Green" />
+ <COLOR Spot="1" RGB="#484838" Register="0" NAME="241 Dark Green" />
+ <COLOR Spot="1" RGB="#388850" Register="0" NAME="262 Bold Green" />
+ <COLOR Spot="1" RGB="#386040" Register="0" NAME="267 Deep Chrome Green" />
+ <COLOR Spot="1" RGB="#88C090" Register="0" NAME="275 Opaline Green" />
+ <COLOR Spot="1" RGB="#809050" Register="0" NAME="278 Light Olive Green" />
+ <COLOR Spot="1" RGB="#60A070" Register="0" NAME="280 Verdigris Green" />
+ <COLOR Spot="1" RGB="#486048" Register="0" NAME="283 Forest Green" />
+ <COLOR Spot="1" RGB="#788868" Register="0" NAME="283 Aircraft Grey Green" />
+ <COLOR Spot="1" RGB="#606850" Register="0" NAME="284 Spruce Green" />
+ <COLOR Spot="1" RGB="#585040" Register="0" NAME="285 NATO Green" />
+ <COLOR Spot="1" RGB="#404820" Register="0" NAME="298 Olive Drab" />
+ <COLOR Spot="1" RGB="#F8E000" Register="0" NAME="309 Canary Yellow" />
+ <COLOR Spot="1" RGB="#F8F058" Register="0" NAME="310 Primrose" />
+ <COLOR Spot="1" RGB="#F8F060" Register="0" NAME="315 Grapefruit" />
+ <COLOR Spot="1" RGB="#986828" Register="0" NAME="320 Light Brown" />
+ <COLOR Spot="1" RGB="#404030" Register="0" NAME="337 Very Dark Drab" />
+ <COLOR Spot="1" RGB="#706048" Register="0" NAME="350 Dark Earth" />
+ <COLOR Spot="1" RGB="#F0E088" Register="0" NAME="352 Pale Cream" />
+ <COLOR Spot="1" RGB="#F8E870" Register="0" NAME="353 Deep Cream" />
+ <COLOR Spot="1" RGB="#F8D000" Register="0" NAME="355 Lemon" />
+ <COLOR Spot="1" RGB="#F8C000" Register="0" NAME="356 Golden Yellow" />
+ <COLOR Spot="1" RGB="#E8C068" Register="0" NAME="358 Light Buff" />
+ <COLOR Spot="1" RGB="#D0A040" Register="0" NAME="359 Middle Buff" />
+ <COLOR Spot="1" RGB="#C8B078" Register="0" NAME="361 Light Stone" />
+ <COLOR Spot="1" RGB="#F8E000" Register="0" NAME="363 Bold Yellow" />
+ <COLOR Spot="1" RGB="#E8E0B0" Register="0" NAME="365 Vellum" />
+ <COLOR Spot="1" RGB="#E8D898" Register="0" NAME="366 Light Beige" />
+ <COLOR Spot="1" RGB="#F8F0B0" Register="0" NAME="367 Manilla" />
+ <COLOR Spot="1" RGB="#F8E8A0" Register="0" NAME="369 Biscuit" />
+ <COLOR Spot="1" RGB="#A04830" Register="0" NAME="380 Camouflage Desert Sand" />
+ <COLOR Spot="1" RGB="#B09880" Register="0" NAME="384 Light Straw" />
+ <COLOR Spot="1" RGB="#E8D898" Register="0" NAME="388 Beige" />
+ <COLOR Spot="1" RGB="#E0C890" Register="0" NAME="389 Camouflage Beige" />
+ <COLOR Spot="1" RGB="#A8A080" Register="0" NAME="411 Middle Brown" />
+ <COLOR Spot="1" RGB="#684818" Register="0" NAME="412 Dark Brown" />
+ <COLOR Spot="1" RGB="#503018" Register="0" NAME="414 Golden Brown" />
+ <COLOR Spot="1" RGB="#A06010" Register="0" NAME="420 Dark Camouflage Desert Sand" />
+ <COLOR Spot="1" RGB="#A08870" Register="0" NAME="435 Camouflage Red />
+ <COLOR Spot="1" RGB="#785850" Register="0" NAME="436 Dark Camouflage Brown" />
+ <COLOR Spot="1" RGB="#484038" Register="0" NAME="444 Terracotta" />
+ <COLOR Spot="1" RGB="#783818" Register="0" NAME="445 Venetian Red" />
+ <COLOR Spot="1" RGB="#703818" Register="0" NAME="446 Red Oxide" />
+ <COLOR Spot="1" RGB="#E8A880" Register="0" NAME="447 Salmon Pink" />
+ <COLOR Spot="1" RGB="#582820" Register="0" NAME="448 Deep Indian Red" />
+ <COLOR Spot="1" RGB="#602828" Register="0" NAME="449 Light Purple Brown" />
+ <COLOR Spot="1" RGB="#502028" Register="0" NAME="452 Dark Crimson" />
+ <COLOR Spot="1" RGB="#F0D0C8" Register="0" NAME="453 Shell Pink" />
+ <COLOR Spot="1" RGB="#E09898" Register="0" NAME="454 Pale Roundel Red" />
+ <COLOR Spot="1" RGB="#B88850" Register="0" NAME="460 Deep Buff" />
+ <COLOR Spot="1" RGB="#702018" Register="0" NAME="473 Gulf Red" />
+ <COLOR Spot="1" RGB="#805030" Register="0" NAME="489 Leaf Brown" />
+ <COLOR Spot="1" RGB="#504030" Register="0" NAME="499 Service Brown" />
+ <COLOR Spot="1" RGB="#D83010" Register="0" NAME="537 Signal Red" />
+ <COLOR Spot="1" RGB="#B81010" Register="0" NAME="538 Post Office Red Cherry" />
+ <COLOR Spot="1" RGB="#C81010" Register="0" NAME="539 Currant Red" />
+ <COLOR Spot="1" RGB="#801020" Register="0" NAME="540 Crimson" />
+ <COLOR Spot="1" RGB="#401010" Register="0" NAME="541 Maroon" />
+ <COLOR Spot="1" RGB="#902050" Register="0" NAME="542 Ruby" />
+ <COLOR Spot="1" RGB="#E87800" Register="0" NAME="557 Light Orange" />
+ <COLOR Spot="1" RGB="#D82010" Register="0" NAME="564 Bold Red" />
+ <COLOR Spot="1" RGB="#F09800" Register="0" NAME="568 Apricot" />
+ <COLOR Spot="1" RGB="#D84808" Register="0" NAME="592 International Orange" />
+ <COLOR Spot="1" RGB="#E84008" Register="0" NAME="593 Rail Red" />
+ <COLOR Spot="1" RGB="#98A8A8" Register="0" NAME="626 Camouflage Grey" />
+ <COLOR Spot="1" RGB="#B8B8B0" Register="0" NAME="627 Light Aircraft Grey" />
+ <COLOR Spot="1" RGB="#707880" Register="0" NAME="629 Dark Camouflage Grey" />
+ <COLOR Spot="1" RGB="#98A090" Register="0" NAME="630 French Grey" />
+ <COLOR Spot="1" RGB="#98A898" Register="0" NAME="631 Light Grey" />
+ <COLOR Spot="1" RGB="#607070" Register="0" NAME="632 Dark Admiralty Grey" />
+ <COLOR Spot="1" RGB="#304048" Register="0" NAME="633 RAF Blue/Grey" />
+ <COLOR Spot="1" RGB="#606858" Register="0" NAME="634 Slate" />
+ <COLOR Spot="1" RGB="#485048" Register="0" NAME="635 Lead" />
+ <COLOR Spot="1" RGB="#587078" Register="0" NAME="636 PRU Blue" />
+ <COLOR Spot="1" RGB="#809090" Register="0" NAME="637 Medium Sea Grey" />
+ <COLOR Spot="1" RGB="#606868" Register="0" NAME="638 Dark Sea Grey" />
+ <COLOR Spot="1" RGB="#587058" Register="0" NAME="639 Light Slate Grey" />
+ <COLOR Spot="1" RGB="#485858" Register="0" NAME="640 Extra Dark Sea Grey" />
+ <COLOR Spot="1" RGB="#101818" Register="0" NAME="642 Night" />
+ <COLOR Spot="1" RGB="#485050" Register="0" NAME="671 Middle Graphite" />
+ <COLOR Spot="1" RGB="#A0B0B0" Register="0" NAME="676 Light Weatherwork Grey" />
+ <COLOR Spot="1" RGB="#606870" Register="0" NAME="677 Dark Weatherwork Grey" />
+ <COLOR Spot="1" RGB="#788898" Register="0" NAME="692 Smoke Grey" />
+ <COLOR Spot="1" RGB="#808888" Register="0" NAME="693 Aircraft Grey" />
+ <COLOR Spot="1" RGB="#889088" Register="0" NAME="694 Dove Grey" />
+ <COLOR Spot="1" RGB="#B0C8C0" Register="0" NAME="697 Light Admiralty Grey" />
+ <COLOR Spot="1" RGB="#603868" Register="0" NAME="796 Dark Violet" />
+ <COLOR Spot="1" RGB="#C0A0C8" Register="0" NAME="797 Light Violet" />
+</SCRIBUSCOLORS>
+<!--Please note that the colours in this palette are no accurate representations of a British Standards Institution Standard. If you need an accurate reference, please refer to a printed colour chart or colour chips. These pallettes are understood to be in the Public Domain.-->
