@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<swatch>
+<SCRIBUSCOLORS>
 	<COLOR RGB="#ff0000"    NAME="Red" />
 	<COLOR RGB="#00ff00"    NAME="Green" />
 	<COLOR RGB="#0000ff"    NAME="Blue" />
@@ -12,4 +12,4 @@
 	<COLOR CMYK="#00994cff" NAME="Warm Black" />
 	<COLOR CMYK="#990000ff" NAME="Cool Black" />
 	<COLOR CMYK="#ffffffff" NAME="Registration" Register="1" />
-</swatch>
+</SCRIBUSCOLORS>
