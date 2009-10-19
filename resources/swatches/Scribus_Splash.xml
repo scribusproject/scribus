@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<swatch>
+<SCRIBUSCOLORS>
 	<COLOR CMYK="#e3bc285a" NAME="Scribus 01" />
         <COLOR CMYK="#deb01427" NAME="Scribus 02" />
         <COLOR CMYK="#000000cd" NAME="Scribus 03" />
@@ -21,4 +21,4 @@
 	<COLOR CMYK="#00000000" NAME="White" />
 	<COLOR CMYK="#996666ff" NAME="Rich Black" />
 	<COLOR CMYK="#ffffffff" NAME="Registration" Register="1" />
-</swatch>
+</SCRIBUSCOLORS>
