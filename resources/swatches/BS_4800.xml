@@ -93,7 +93,7 @@
  <COLOR Spot="1" RGB="#1d4e7c" Register="0" NAME="20D45 Sapphire Blue" />
  <COLOR Spot="1" RGB="#5b9cd2" Register="0" NAME="20E51 Cornflower Blue" />
  <COLOR Spot="1" RGB="#e4e4e1" Register="0" NAME="22B15 Pearl Grey" />
- <COLOR Spot="1" RGB="#c6c5cb" Register="0" NAME="22B17 Pale Lavender" /
+ <COLOR Spot="1" RGB="#c6c5cb" Register="0" NAME="22B17 Pale Lavender" />
  <COLOR Spot="1" RGB="#787198" Register="0" NAME="22C37 Purple Heather" />
  <COLOR Spot="1" RGB="#51457e" Register="0" NAME="22D45 Deep Purple" />
  <COLOR Spot="1" RGB="#d2bfcb" Register="0" NAME="24C33 Pale Lilac" />
