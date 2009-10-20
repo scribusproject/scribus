@@ -53,7 +53,7 @@
        <item>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="QLabel" name="textLabel7">
+          <widget class="QLabel" name="docDirLabel">
            <property name="text">
             <string>Documents:</string>
            </property>
@@ -61,12 +61,12 @@
             <bool>false</bool>
            </property>
            <property name="buddy">
-            <cstring>Docs</cstring>
+            <cstring>docDirLineEdit</cstring>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="Docs">
+          <widget class="QLineEdit" name="docDirLineEdit">
            <property name="minimumSize">
             <size>
              <width>268</width>
@@ -76,7 +76,7 @@
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QPushButton" name="FileC">
+          <widget class="QPushButton" name="docDirChangeButton">
            <property name="minimumSize">
             <size>
              <width>88</width>
@@ -92,7 +92,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="textLabel8">
+          <widget class="QLabel" name="profileDirLabel">
            <property name="text">
             <string>Color Profiles:</string>
            </property>
@@ -100,12 +100,12 @@
             <bool>false</bool>
            </property>
            <property name="buddy">
-            <cstring>profileLineEdit</cstring>
+            <cstring>profileDirLineEdit</cstring>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="profileLineEdit">
+          <widget class="QLineEdit" name="profileDirLineEdit">
            <property name="minimumSize">
             <size>
              <width>268</width>
@@ -115,7 +115,7 @@
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QPushButton" name="FileC2">
+          <widget class="QPushButton" name="profileDirChangeButton">
            <property name="text">
             <string>C&amp;hange...</string>
            </property>
@@ -125,7 +125,7 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="textLabel9">
+          <widget class="QLabel" name="scriptDirLabel">
            <property name="text">
             <string>Scripts:</string>
            </property>
@@ -133,12 +133,12 @@
             <bool>false</bool>
            </property>
            <property name="buddy">
-            <cstring>scriptLineEdit</cstring>
+            <cstring>scriptDirLineEdit</cstring>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="scriptLineEdit">
+          <widget class="QLineEdit" name="scriptDirLineEdit">
            <property name="minimumSize">
             <size>
              <width>268</width>
@@ -148,7 +148,7 @@
           </widget>
          </item>
          <item row="2" column="2">
-          <widget class="QPushButton" name="FileC3">
+          <widget class="QPushButton" name="scriptDirChangeButton">
            <property name="text">
             <string>Ch&amp;ange...</string>
            </property>
@@ -158,7 +158,7 @@
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="textLabel10">
+          <widget class="QLabel" name="templateDirLabel">
            <property name="text">
             <string>Document Templates:</string>
            </property>
@@ -166,12 +166,12 @@
             <bool>false</bool>
            </property>
            <property name="buddy">
-            <cstring>docTemplateDirLineEdit</cstring>
+            <cstring>templateDirLineEdit</cstring>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLineEdit" name="docTemplateDirLineEdit">
+          <widget class="QLineEdit" name="templateDirLineEdit">
            <property name="minimumSize">
             <size>
              <width>268</width>
@@ -181,7 +181,7 @@
           </widget>
          </item>
          <item row="3" column="2">
-          <widget class="QPushButton" name="FileC4">
+          <widget class="QPushButton" name="templateDirChangeButton">
            <property name="text">
             <string>Cha&amp;nge...</string>
            </property>

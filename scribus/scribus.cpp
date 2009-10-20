@@ -7634,7 +7634,34 @@ void ScribusMainWindow::slotPrefs150Org()
 		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
 		prefsManager->setNewPrefs(newPrefs);
 		prefsManager->SavePrefs();
+
+		// TODO:
+		// CB: Hoping to clean this into a nicer function
+		//
+
+		//TODO: and the other dirs?
+		DocDir = prefsManager->documentDir();
 		ScQApp->neverSplash(!prefsManager->appPrefs.uiPrefs.showSplashOnStartup);
+
+		QString newUILanguage = prefsManager->uiLanguage();
+		if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
+			ScQApp->changeGUILanguage(newUILanguage);
+		QString newUIStyle = prefsManager->guiStyle();
+		if (oldPrefs.uiPrefs.style != newUIStyle)
+		{
+			if (newUIStyle.isEmpty())
+				qApp->setStyle(prefsManager->guiSystemStyle());
+			else
+				qApp->setStyle(QStyleFactory::create(newUIStyle));
+		}
+		int newUIFontSize = prefsManager->guiFontSize();
+		if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
+		{
+			QFont apf = qApp->font();
+			apf.setPointSize(newUIFontSize);
+			qApp->setFont(apf);
+		}
+		propertiesPalette->Fonts->RebuildList(0);
 	}
 }
 
