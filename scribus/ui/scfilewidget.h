@@ -30,6 +30,8 @@ class SCRIBUS_API ScFileWidget : public QFileDialog
 		ScFileWidget(QWidget * parent);
 
 		QString selectedFile();
+	public slots:
+		void accept();
 
 };
 
