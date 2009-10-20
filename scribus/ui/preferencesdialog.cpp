@@ -106,6 +106,7 @@ void PreferencesDialog::setupGui()
 {
 	prefs_UserInterface->restoreDefaults(&localPrefs);
 	prefs_Paths->restoreDefaults(&localPrefs);
+	prefs_DocumentSetup->restoreDefaults(&localPrefs);
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
 	prefs_Display->restoreDefaults(&localPrefs);
 }
@@ -238,6 +239,7 @@ void PreferencesDialog::saveGuiToPrefs()
 {
 	prefs_UserInterface->saveGuiToPrefs(&localPrefs);
 	prefs_Paths->saveGuiToPrefs(&localPrefs);
+	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
 }
