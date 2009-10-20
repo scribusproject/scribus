@@ -39,7 +39,7 @@ void Prefs_DocumentSetup::languageChange()
 {
 	int i=0;
 
-	pageOrientationComboBox->currentIndex();
+	i=pageOrientationComboBox->currentIndex();
 	pageOrientationComboBox->clear();
 	pageOrientationComboBox->addItem( tr( "Portrait" ) );
 	pageOrientationComboBox->addItem( tr( "Landscape" ) );
