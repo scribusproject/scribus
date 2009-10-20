@@ -108,13 +108,42 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 				{
 					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
 					p->setStrokeMode(ScPainter::Pattern);
-					p->strokePath();
+				}
+				else if (GrTypeStroke > 0)
+				{
+					if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+						gradientStrokeVal = "";
+					if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+						stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+					if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+					{
+						if (lineColor() != CommonStrings::None)
+						{
+							p->setBrush(strokeQColor);
+							p->setStrokeMode(ScPainter::Solid);
+						}
+						else
+							p->setStrokeMode(ScPainter::None);
+					}
+					else
+					{
+						p->setStrokeMode(ScPainter::Gradient);
+						p->stroke_gradient = stroke_gradient;
+						QTransform grm;
+						grm.rotate(Rot);
+						FPointArray gra;
+						if (GrTypeStroke == 6)
+							p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY));
+						else
+						{
+							gra.setPoints(2, GrStrokeStartX, GrStrokeStartY, GrStrokeEndX, GrStrokeEndY);
+							p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+						}
+					}
 				}
 				else if (lineColor() != CommonStrings::None)
-				{
 					p->setStrokeMode(ScPainter::Solid);
-					p->strokePath();
-				}
+				p->strokePath();
 			}
 			else
 			{

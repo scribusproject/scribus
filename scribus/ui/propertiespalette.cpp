@@ -1589,7 +1589,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 //	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	connect(colgapLabel, SIGNAL(activated(int)), this, SLOT(HandleGapSwitch()));
 	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double )), this, SLOT(NewSpGradient(double, double, double, double )));
-	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
+	connect( Cpal, SIGNAL(editGradient(bool)), this, SLOT(toggleGradientEdit(bool)));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 // 	connect(lineSpacingPop, SIGNAL(triggered(QAction *)), this, SLOT(setLspMode(QAction *)));
@@ -1809,6 +1809,12 @@ void PropertiesPalette::SelTab(int t)
 			LSize->setEnabled(setter);
 			LJoinStyle->setEnabled(setter);
 			LEndStyle->setEnabled(setter);
+			disconnect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLineMode()));
+			if (LMode)
+				LineMode->setCurrentIndex(1);
+			else
+				LineMode->setCurrentIndex(0);
+			connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLineMode()));
 		}
 		else if (t == idColorsItem)
 		{
@@ -1859,6 +1865,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewPenShade(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBrushShade(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewGradient(int)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewGradientS(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBlend(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBlendS(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPattern(QString)), 0, 0);
@@ -1938,6 +1945,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	connect(this->Cpal, SIGNAL(NewPenShade(int)), doc, SLOT(itemSelection_SetItemPenShade(int)));
 	connect(this->Cpal, SIGNAL(NewBrushShade(int)), doc, SLOT(itemSelection_SetItemBrushShade(int)));
 	connect(this->Cpal, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradFill(int)));
+	connect(this->Cpal, SIGNAL(NewGradientS(int)), doc, SLOT(itemSelection_SetItemGradStroke(int)));
 	connect(this->Cpal, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternFill(QString)));
 	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double)));
 	connect(this->Cpal, SIGNAL(NewOverprint(int)), this, SLOT(handleOverprint(int)));
@@ -2053,6 +2061,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
+	disconnect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLineMode()));
 
 
 	HaveItem = false;
@@ -2172,10 +2181,15 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		dashEditor->setDashValues(CurItem->dashes(), qMax(CurItem->lineWidth(), 0.001), CurItem->dashOffset());
 		dashEditor->show();
 	}
+	if (LMode)
+		LineMode->setCurrentIndex(1);
+	else
+		LineMode->setCurrentIndex(0);
 	connect(StyledLine, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLineMode()));
 
 //CB replaces old emits from PageItem::emitAllToGUI()
 	disconnect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
@@ -4575,28 +4589,52 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->GrStartX = x1 / m_unitRatio;
-		CurItem->GrStartY = y1 / m_unitRatio;
-		CurItem->GrEndX = x2 / m_unitRatio;
-		CurItem->GrEndY = y2 / m_unitRatio;
-		CurItem->update();
-		QRectF upRect(QPointF(CurItem->GrStartX, CurItem->GrStartY), QPointF(CurItem->GrEndX, CurItem->GrEndY));
+		QRectF upRect;
+		if (m_ScMW->view->editStrokeGradient)
+		{
+			CurItem->GrStrokeStartX = x1 / m_unitRatio;
+			CurItem->GrStrokeStartY = y1 / m_unitRatio;
+			CurItem->GrStrokeEndX = x2 / m_unitRatio;
+			CurItem->GrStrokeEndY = y2 / m_unitRatio;
+			CurItem->update();
+			upRect = QRectF(QPointF(CurItem->GrStrokeStartX, CurItem->GrStrokeStartY), QPointF(CurItem->GrStrokeEndX, CurItem->GrStrokeEndY));
+		}
+		else
+		{
+			CurItem->GrStartX = x1 / m_unitRatio;
+			CurItem->GrStartY = y1 / m_unitRatio;
+			CurItem->GrEndX = x2 / m_unitRatio;
+			CurItem->GrEndY = y2 / m_unitRatio;
+			CurItem->update();
+			upRect = QRectF(QPointF(CurItem->GrStartX, CurItem->GrStartY), QPointF(CurItem->GrEndX, CurItem->GrEndY));
+		}
 		upRect.translate(CurItem->xPos(), CurItem->yPos());
 		doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 		emit DocChanged();
 	}
 }
 
-void PropertiesPalette::toggleGradientEdit()
+void PropertiesPalette::toggleGradientEdit(bool stroke)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (Cpal->gradEditButton->isChecked())
-			m_ScMW->view->requestMode(modeEditGradientVectors);
+		m_ScMW->view->editStrokeGradient = stroke;
+		if (stroke)
+		{
+			if (Cpal->gradEditButtonStroke->isChecked())
+				m_ScMW->view->requestMode(modeEditGradientVectors);
+			else
+				m_ScMW->view->requestMode(modeNormal);
+		}
 		else
-			m_ScMW->view->requestMode(modeNormal);
+		{
+			if (Cpal->gradEditButton->isChecked())
+				m_ScMW->view->requestMode(modeEditGradientVectors);
+			else
+				m_ScMW->view->requestMode(modeNormal);
+		}
 		m_ScMW->view->RefreshGradient(CurItem);
 	}
 }

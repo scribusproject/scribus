@@ -179,15 +179,31 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
 		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
 		FPoint np(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
-		if (m_gradientPoint == useGradientStart)
+		if (m_view->editStrokeGradient)
 		{
-			currItem->GrStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-			currItem->GrStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			if (m_gradientPoint == useGradientStart)
+			{
+				currItem->GrStrokeStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
+				currItem->GrStrokeStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			}
+			if (m_gradientPoint == useGradientEnd)
+			{
+				currItem->GrStrokeEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
+				currItem->GrStrokeEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			}
 		}
-		if (m_gradientPoint == useGradientEnd)
+		else
 		{
-			currItem->GrEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-			currItem->GrEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			if (m_gradientPoint == useGradientStart)
+			{
+				currItem->GrStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
+				currItem->GrStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			}
+			if (m_gradientPoint == useGradientEnd)
+			{
+				currItem->GrEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
+				currItem->GrEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			}
 		}
 		Mxp = newX;
 		Myp = newY;
@@ -223,9 +239,18 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	itemMatrix.translate(currItem->xPos(), currItem->yPos());
 	itemMatrix.rotate(currItem->rotation());
-	QPointF gradientStart(currItem->GrStartX, currItem->GrStartY);
+	QPointF gradientStart, gradientEnd;
+	if (m_view->editStrokeGradient)
+	{
+		gradientStart = QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
+		gradientEnd = QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY);
+	}
+	else
+	{
+		gradientStart = QPointF(currItem->GrStartX, currItem->GrStartY);
+		gradientEnd = QPointF(currItem->GrEndX, currItem->GrEndY);
+	}
 	gradientStart = itemMatrix.map(gradientStart);
-	QPointF gradientEnd(currItem->GrEndX, currItem->GrEndY);
 	gradientEnd = itemMatrix.map(gradientEnd);
 	if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
 		m_gradientPoint = useGradientStart;

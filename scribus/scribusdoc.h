@@ -1217,6 +1217,7 @@ public slots:
 
 	void itemSelection_SetItemPen(QString farbe);
 	void itemSelection_SetItemPenShade(int sha);
+	void itemSelection_SetItemGradStroke(int typ);
 	void itemSelection_SetItemBrush(QString farbe);
 	void itemSelection_SetItemBrushShade(int sha);
 	void itemSelection_SetItemGradFill(int typ);

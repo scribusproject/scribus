@@ -323,9 +323,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
 	connect(editPatternPropsStroke, SIGNAL(clicked()), this, SLOT(changePatternPropsStroke()));
+	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
+	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
+	connect(gradEditButtonStroke, SIGNAL(clicked()), this, SLOT(editGradientVectorStroke()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
-	tabWidgetStroke->setTabEnabled(1, false);
+//	tabWidgetStroke->setTabEnabled(1, false);
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -366,7 +369,10 @@ void Cpalette::updateFromItem()
 	setActFarben(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
 	ChooseGrad(currentItem->GrType);
 	gradEdit->setGradient(currentItem->fill_gradient);
+	gradEditStroke->setGradient(currentItem->stroke_gradient);
 	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
+	disconnect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
 	if (!currentItem->gradient().isEmpty())
 	{
 		setCurrentComboItem(namedGradient, currentItem->gradient());
@@ -376,6 +382,16 @@ void Cpalette::updateFromItem()
 	{
 		namedGradient->setCurrentIndex(0);
 		gradEdit->setGradientEditable(true);
+	}
+	if (!currentItem->strokeGradient().isEmpty())
+	{
+		setCurrentComboItem(namedGradientStroke, currentItem->strokeGradient());
+		gradEditStroke->setGradientEditable(false);
+	}
+	else
+	{
+		namedGradientStroke->setCurrentIndex(0);
+		gradEditStroke->setGradientEditable(true);
 	}
 	if (patternList->count() == 0)
 	{
@@ -387,11 +403,15 @@ void Cpalette::updateFromItem()
 		tabWidgetStroke->setTabEnabled(2, true);
 		tabWidget->setTabEnabled(2, true);
 	}
-	if (currentItem->strokePattern().isEmpty())
-		tabWidgetStroke->setCurrentIndex(0);
-	else
+	if (!currentItem->strokePattern().isEmpty())
 		tabWidgetStroke->setCurrentIndex(2);
+	else if (currentItem->GrTypeStroke > 0)
+		tabWidgetStroke->setCurrentIndex(1);
+	else
+		tabWidgetStroke->setCurrentIndex(0);
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
+	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
 }
 
 void Cpalette::updateCList()
@@ -551,6 +571,7 @@ void Cpalette::editFillColorSelectorButton()
 void Cpalette::updateGradientList()
 {
 	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	namedGradient->clear();
 	namedGradient->setIconSize(QSize(48, 12));
 	namedGradient->addItem( tr("Custom"));
@@ -580,6 +601,7 @@ void Cpalette::updateGradientList()
 		namedGradientStroke->addItem(pm, it.key());
 	}
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 }
 
 void Cpalette::SetGradients(QMap<QString, VGradient> *docGradients)
@@ -602,6 +624,30 @@ void Cpalette::setNamedGradient(const QString &name)
 		gradEdit->setGradientEditable(false);
 		currentItem->setGradient(name);
 	}
+	if (gradientType->currentIndex() == 0)
+		emit NewGradient(6);
+	else
+		emit NewGradient(7);
+}
+
+void Cpalette::setNamedGradientStroke(const QString &name)
+{
+	if (namedGradientStroke->currentIndex() == 0)
+	{
+		gradEditStroke->setGradient(currentItem->stroke_gradient);
+		currentItem->setStrokeGradient("");
+		gradEditStroke->setGradientEditable(true);
+	}
+	else
+	{
+		gradEditStroke->setGradient(gradientList->value(name));
+		gradEditStroke->setGradientEditable(false);
+		currentItem->setStrokeGradient(name);
+	}
+	if (gradientTypeStroke->currentIndex() == 0)
+		emit NewGradientS(6);
+	else
+		emit NewGradientS(7);
 }
 
 void Cpalette::updatePatternList()
@@ -696,7 +742,7 @@ void Cpalette::slotGradStroke(int number)
 {
 	if (number == 1)
 	{
-//		disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 		if (!currentItem->strokeGradient().isEmpty())
 		{
 			setCurrentComboItem(namedGradientStroke, currentItem->strokeGradient());
@@ -709,16 +755,24 @@ void Cpalette::slotGradStroke(int number)
 			gradEditStroke->setGradient(currentItem->stroke_gradient);
 			gradEditStroke->setGradientEditable(true);
 		}
-//		if (gradientType->currentIndex() == 0)
-//			emit NewGradient(6);
-//		else
-//			currentItem->GrType = 7;
-//		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
-	}
-//	else if (number == 2)
-//		emit NewGradient(8);
-	else
 		emit NewPatternS("");
+		if (gradientTypeStroke->currentIndex() == 0)
+			emit NewGradientS(6);
+		else
+			emit NewGradientS(7);
+		connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
+	}
+	else if (number == 2)
+	{
+		emit NewGradient(0);
+		if (patternBoxStroke->currentItem())
+			emit NewPatternS(patternBoxStroke->currentItem()->text());
+	}
+	else
+	{
+		emit NewGradient(0);
+		emit NewPatternS("");
+	}
 }
 
 void Cpalette::ChooseGrad(int number)
@@ -788,6 +842,14 @@ void Cpalette::slotGradType(int type)
 		emit NewGradient(7);
 }
 
+void Cpalette::slotGradTypeStroke(int type)
+{
+	if (type == 0)
+		emit NewGradientS(6);
+	else
+		emit NewGradientS(7);
+}
+
 void Cpalette::setActGradient(int typ)
 {
 	ChooseGrad(typ);
@@ -805,15 +867,35 @@ void Cpalette::editGradientVector()
 	{
 		CGradDia->hide();
 	}
-	emit editGradient();
+	editStrokeGradient = false;
+	emit editGradient(editStrokeGradient);
+}
+
+void Cpalette::editGradientVectorStroke()
+{
+	if (gradEditButtonStroke->isChecked())
+	{
+		CGradDia->unitChange(currentDoc->unitIndex());
+		CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY);
+		CGradDia->show();
+	}
+	else
+	{
+		CGradDia->hide();
+	}
+	editStrokeGradient = true;
+	emit editGradient(editStrokeGradient);
 }
 
 void Cpalette::setActiveGradDia(bool active)
 {
 	if (!active)
 	{
-		gradEditButton->setChecked(false);
-		emit editGradient();
+		if (editStrokeGradient)
+			gradEditButtonStroke->setChecked(false);
+		else
+			gradEditButton->setChecked(false);
+		emit editGradient(editStrokeGradient);
 	}
 }
 

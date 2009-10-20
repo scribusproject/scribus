@@ -1356,7 +1356,10 @@ void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 	QRect rect = currItem->getRedrawBounding(m_canvas->scale());
 	m_canvas->Transform(currItem, matrix);
 	FPointArray fpNew;
-	fpNew.setPoints(2, currItem->GrStartX, currItem->GrStartY, currItem->GrEndX, currItem->GrEndY);
+	if (editStrokeGradient)
+		fpNew.setPoints(2, currItem->GrStrokeStartX, currItem->GrStrokeStartY, currItem->GrStrokeEndX, currItem->GrStrokeEndY);
+	else
+		fpNew.setPoints(2, currItem->GrStartX, currItem->GrStartY, currItem->GrEndX, currItem->GrEndY);
 	fpNew.map(matrix);
 	if (dx < 8.0) dx = 8.0;
 	if (dy < 8.0) dy = 8.0;

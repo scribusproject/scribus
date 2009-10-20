@@ -147,6 +147,7 @@ public slots:
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
 	void SetGradients(QMap<QString, VGradient> *docGradients);
 	void setNamedGradient(const QString &name);
+	void setNamedGradientStroke(const QString &name);
 	void selectPattern(QListWidgetItem *c);
 	void selectPatternS(QListWidgetItem *c);
 	void updatePatternList();
@@ -160,8 +161,10 @@ public slots:
 	void ChooseGrad(int nr);
 	void slotGrad(int nr);
 	void slotGradType(int type);
+	void slotGradTypeStroke(int type);
 	void setActGradient(int typ);
 	void editGradientVector();
+	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);
 	void setSpecialGradient(double x1, double y1, double x2, double y2);
 	void changePatternProps();
@@ -173,6 +176,7 @@ signals:
 	void NewPenShade(int);
 	void NewBrushShade(int);
 	void NewGradient(int);
+	void NewGradientS(int);
 	void NewPattern(QString);
 	void NewPatternProps(double, double, double, double, double);
 	void NewPatternS(QString);
@@ -184,7 +188,7 @@ signals:
 	void NewBlendS(int);
 	void NewOverprint(int);
 	void gradientChanged();
-	void editGradient();
+	void editGradient(bool);
 
 protected:
 	GradientVectorDialog* CGradDia;
@@ -205,6 +209,7 @@ protected:
 	double m_Pattern_offsetYS;
 	double m_Pattern_rotationS;
 	int currentUnit;
+	bool editStrokeGradient;
 };
 
 #endif

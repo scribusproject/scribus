@@ -110,7 +110,7 @@ public:
 	void changed(PageItem* it)
 	{
 		it->invalidateLayout();
-		doc->regionsChanged()->update(it->getBoundingRect());
+		doc->regionsChanged()->update(it->getVisualBoundingRect());
 		doc->changed();
 	}
 };
@@ -5623,6 +5623,51 @@ void ScribusDoc::itemSelection_SetItemPenShade(int sha)
 			activeTransaction->commit();
 			delete activeTransaction;
 			activeTransaction = NULL;
+		}
+		m_updateManager.setUpdatesEnabled();
+		changed();
+	}
+}
+
+void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		m_updateManager.setUpdatesDisabled();
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->GrTypeStroke = typ;
+			if (currItem->GrTypeStroke == 0)
+			{
+				if (currItem->lineColor() != CommonStrings::None)
+				{
+					if (!PageColors.contains(currItem->lineColor()))
+					{
+						switch(currItem->itemType())
+						{
+							case PageItem::TextFrame:
+							case PageItem::PathText:
+								currItem->setLineColor(itemToolPrefs.textLineColor);
+								break;
+							case PageItem::Line:
+							case PageItem::PolyLine:
+							case PageItem::Polygon:
+							case PageItem::ImageFrame:
+							case PageItem::LatexFrame:
+								currItem->setLineColor(itemToolPrefs.shapeLineColor);
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			}
+			if ((typ > 0) && (typ < 8))
+				currItem->updateGradientVectors();
+			currItem->update();
 		}
 		m_updateManager.setUpdatesEnabled();
 		changed();

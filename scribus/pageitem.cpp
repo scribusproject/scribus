@@ -1163,7 +1163,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 			else
 				p->setFillMode(ScPainter::None);
 		}
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 		{
 			p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
@@ -1227,7 +1227,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			{
 				if (lineBlendmode() != 0)
 					p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
+				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 				{
 					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 					if (DashValues.count() != 0)
@@ -1246,6 +1246,38 @@ void PageItem::DrawObj_Post(ScPainter *p)
 							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
 							p->setStrokeMode(ScPainter::Pattern);
 						}
+						else if (GrTypeStroke > 0)
+						{
+							if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+								gradientStrokeVal = "";
+							if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+								stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+							if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+							{
+								if (lineColor() != CommonStrings::None)
+								{
+									p->setBrush(strokeQColor);
+									p->setStrokeMode(ScPainter::Solid);
+								}
+								else
+									p->setStrokeMode(ScPainter::None);
+							}
+							else
+							{
+								p->setStrokeMode(ScPainter::Gradient);
+								p->stroke_gradient = stroke_gradient;
+								QTransform grm;
+								grm.rotate(Rot);
+								FPointArray gra;
+								if (GrTypeStroke == 6)
+									p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY));
+								else
+								{
+									gra.setPoints(2, GrStrokeStartX, GrStrokeStartY, GrStrokeEndX, GrStrokeEndY);
+									p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+								}
+							}
+						}
 						else if (lineColor() != CommonStrings::None)
 						{
 							p->setStrokeMode(ScPainter::Solid);
@@ -1254,49 +1286,6 @@ void PageItem::DrawObj_Post(ScPainter *p)
 								p->setDash(DashValues, DashOffset);
 						}
 						p->strokePath();
-/*
-			else if ((GrType > 0) && (GrType < 8))
-			{
-				if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
-					gradientVal = "";
-				if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
-					fill_gradient = m_Doc->docGradients[gradientVal];
-				if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
-				{
-					if (fillColor() != CommonStrings::None)
-					{
-						p->setBrush(fillQColor);
-						p->setFillMode(ScPainter::Solid);
-					}
-					else
-						p->setFillMode(ScPainter::None);
-				}
-				else
-				{
-					p->setStrokeMode(ScPainter::Gradient);
-					p->stroke_gradient = fill_gradient;
-					QTransform grm;
-					grm.rotate(Rot);
-					FPointArray gra;
-					switch (GrType)
-					{
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 6:
-							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
-							break;
-						case 5:
-						case 7:
-							gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-							p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-							break;
-					}
-				}
-				p->strokePath();
-			}
-*/
 					}
 					else
 					{
@@ -3967,6 +3956,17 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 				cstops.at(cst)->name = *it;
 		}
 	}
+
+	cstops = stroke_gradient.colorStops();
+	for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
+	{
+		it = newNames.colors().find(cstops.at(cst)->name);
+		if (it != newNames.colors().end())
+		{
+			if (*it != CommonStrings::None)
+				cstops.at(cst)->name = *it;
+		}
+	}
 	if (effectsInUse.count() != 0)
 	{
 		QString col1 = CommonStrings::None;
@@ -4143,6 +4143,14 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	{
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+		{
+			lists.collectColor(cstops.at(cst)->name);
+		}
+	}
+	else if (GrTypeStroke > 0)
+	{
+		QList<VColorStop*> cstops = stroke_gradient.colorStops();
+		for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -4591,7 +4599,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth / 2.0;
 	}
 	else
@@ -4742,7 +4750,7 @@ double PageItem::visualXPos() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth / 2.0;
 	}
 	else
@@ -4760,7 +4768,7 @@ double PageItem::visualYPos() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth / 2.0;
 	}
 	else
@@ -4778,7 +4786,7 @@ double PageItem::visualWidth() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth;
 	}
 	else
@@ -4796,7 +4804,7 @@ double PageItem::visualHeight() const
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()))
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth;
 	}
 	else
@@ -5143,6 +5151,40 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 			{
 				p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
 				p->setFillMode(ScPainter::Pattern);
+			}
+			else if (GrTypeStroke > 0)
+			{
+				if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+					gradientStrokeVal = "";
+				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+				if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+				{
+					if (lineColor() != CommonStrings::None)
+					{
+						p->setBrush(strokeQColor);
+						p->setBrushOpacity(1.0 - lineTransparency());
+						p->setLineWidth(0);
+						p->setFillMode(ScPainter::Solid);
+					}
+					else
+						p->setFillMode(ScPainter::None);
+				}
+				else
+				{
+					p->setFillMode(ScPainter::Gradient);
+					p->fill_gradient = stroke_gradient;
+					QTransform grm;
+					grm.rotate(Rot);
+					FPointArray gra;
+					if (GrTypeStroke == 6)
+						p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY));
+					else
+					{
+						gra.setPoints(2, GrStrokeStartX, GrStrokeStartY, GrStrokeEndX, GrStrokeEndY);
+						p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+					}
+				}
 			}
 			else if (lineColor() != CommonStrings::None)
 			{
