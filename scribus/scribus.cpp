@@ -7634,6 +7634,7 @@ void ScribusMainWindow::slotPrefs150Org()
 		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
 		prefsManager->setNewPrefs(newPrefs);
 		prefsManager->SavePrefs();
+		ScQApp->neverSplash(!prefsManager->appPrefs.uiPrefs.showSplashOnStartup);
 	}
 }
 

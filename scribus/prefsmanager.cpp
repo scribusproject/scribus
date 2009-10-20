@@ -425,6 +425,7 @@ void PrefsManager::initDefaults()
 	appPrefs.miscPrefs.useStandardLI = false;
 	appPrefs.miscPrefs.paragraphsLI = 10;
 	appPrefs.uiPrefs.showStartupDialog = true;
+	appPrefs.uiPrefs.showSplashOnStartup = true;
 	appPrefs.uiPrefs.useSmallWidgets = false;
 	initDefaultCheckerPrefs(&appPrefs.checkerPrefsList);
 	appPrefs.curCheckProfile = CommonStrings::PostScript;
@@ -1269,6 +1270,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("STEFONT", appPrefs.storyEditorPrefs.guiFont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.miscPrefs.haveStylePreview));
 	dc.setAttribute("UI_SHOWSTARTUPDIALOG", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
+	dc.setAttribute("UI_SHOWSPLASHSCREEN", static_cast<int>(appPrefs.uiPrefs.showSplashOnStartup));
 	dc.setAttribute("UI_USESMALLWIDGETS", static_cast<int>(appPrefs.uiPrefs.useSmallWidgets));
 	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.displayPrefs.showToolTips));
 	dc.setAttribute("showMouseCoordinates", static_cast<int>(appPrefs.displayPrefs.showMouseCoordinates));
@@ -1816,6 +1818,7 @@ bool PrefsManager::ReadPref(QString ho)
 				appPrefs.uiPrefs.showStartupDialog = dc.attribute("StartUp").toInt();
 			else
 				appPrefs.uiPrefs.showStartupDialog = static_cast<bool>(dc.attribute("UI_SHOWSTARTUPDIALOG", "1").toInt());
+			appPrefs.uiPrefs.showSplashOnStartup = static_cast<bool>(dc.attribute("UI_SHOWSPLASHSCREEN", "1").toInt());
 			if (dc.hasAttribute("UseSmallWidgets"))
 				appPrefs.uiPrefs.useSmallWidgets = dc.attribute("UseSmallWidgets").toInt();
 			else

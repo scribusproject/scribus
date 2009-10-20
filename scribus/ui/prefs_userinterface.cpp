@@ -10,10 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "prefs_userinterface.h"
 #include "prefsstructs.h"
-#include "scribusapp.h"
 #include "util.h"
 
-extern ScribusQApp* ScQApp;
 
 Prefs_UserInterface::Prefs_UserInterface(QWidget* parent)
 	: Prefs_Pane(parent)
@@ -78,15 +76,22 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	resizeMoveDelaySpinBox->setValue(prefsData->uiPrefs.mouseMoveTimeout);
 	recentDocumentsSpinBox->setValue( prefsData->uiPrefs.recentDocCount );
 	showStartupDialogCheckBox->setChecked(prefsData->uiPrefs.showStartupDialog);
-	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
+	showSplashCheckBox->setChecked(prefsData->uiPrefs.showSplashOnStartup);
 	useSmallWidgetsCheckBox->setChecked(prefsData->uiPrefs.useSmallWidgets);
 }
 
 void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-//	prefsData->scrapbookPrefs.doCopyToScrapbook=languageComboBox->isChecked();
-//	prefsData->scrapbookPrefs.persistentScrapbook=keepCopiedAcrossSessionsCheckBox->isChecked();
-//	prefsData->scrapbookPrefs.numScrapbookCopies=itemCountKeptInScrapbookSpinBox->value();
+	prefsData->uiPrefs.language=selectedGUILang;
+	prefsData->uiPrefs.style=themeComboBox->currentText();
+	prefsData->uiPrefs.applicationFontSize=fontSizeMenuSpinBox->value();
+	prefsData->uiPrefs.paletteFontSize=fontSizePaletteSpinBox->value();
+	prefsData->uiPrefs.wheelJump=wheelJumpSpinBox->value();
+	prefsData->uiPrefs.mouseMoveTimeout=resizeMoveDelaySpinBox->value();
+	prefsData->uiPrefs.recentDocCount=recentDocumentsSpinBox->value();
+	prefsData->uiPrefs.showStartupDialog=showStartupDialogCheckBox->isChecked();
+	prefsData->uiPrefs.showSplashOnStartup=showSplashCheckBox->isChecked();
+	prefsData->uiPrefs.useSmallWidgets=useSmallWidgetsCheckBox->isChecked();
 }
 
 

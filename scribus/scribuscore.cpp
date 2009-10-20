@@ -182,6 +182,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		prefsManager->ReadPrefs();
 	else
 		prefsManager->ReadPrefs(prefsUserFile);
+	prefsManager->appPrefs.uiPrefs.showSplashOnStartup=showSplash;
 //	setSplashStatus( tr("Applying User Shortcuts") );
 //	prefsManager->applyLoadedShortCuts();
 		
