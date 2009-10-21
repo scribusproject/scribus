@@ -1310,6 +1310,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			}
 		}
 	}
+	p->setFillMode(ScPainter::Solid);
+	p->setStrokeMode(ScPainter::Solid);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double aestheticFactor(5.0);
