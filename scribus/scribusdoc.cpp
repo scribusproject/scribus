@@ -2690,22 +2690,31 @@ QStringList ScribusDoc::getUsedPatterns()
 	{
 		if ((!results.contains(MasterItems.at(c)->pattern())) && (MasterItems.at(c)->GrType == 8))
 			results.append(MasterItems.at(c)->pattern());
-		if (!results.contains(MasterItems.at(c)->strokePattern()))
-			results.append(MasterItems.at(c)->strokePattern());
+		if (!MasterItems.at(c)->strokePattern().isEmpty())
+		{
+			if (!results.contains(MasterItems.at(c)->strokePattern()))
+				results.append(MasterItems.at(c)->strokePattern());
+		}
 	}
 	for (int c = 0; c < DocItems.count(); ++c)
 	{
 		if ((!results.contains(DocItems.at(c)->pattern())) && (DocItems.at(c)->GrType == 8))
 			results.append(DocItems.at(c)->pattern());
-		if (!results.contains(DocItems.at(c)->strokePattern()))
-			results.append(DocItems.at(c)->strokePattern());
+		if (!MasterItems.at(c)->strokePattern().isEmpty())
+		{
+			if (!results.contains(DocItems.at(c)->strokePattern()))
+				results.append(DocItems.at(c)->strokePattern());
+		}
 	}
 	for (int c = 0; c < FrameItems.count(); ++c)
 	{
 		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->GrType == 8))
 			results.append(FrameItems.at(c)->pattern());
-		if (!results.contains(FrameItems.at(c)->strokePattern()))
-			results.append(FrameItems.at(c)->strokePattern());
+		if (!MasterItems.at(c)->strokePattern().isEmpty())
+		{
+			if (!results.contains(FrameItems.at(c)->strokePattern()))
+				results.append(FrameItems.at(c)->strokePattern());
+		}
 	}
 	for (int c = 0; c < results.count(); ++c)
 	{
