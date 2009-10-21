@@ -2700,7 +2700,7 @@ QStringList ScribusDoc::getUsedPatterns()
 	{
 		if ((!results.contains(DocItems.at(c)->pattern())) && (DocItems.at(c)->GrType == 8))
 			results.append(DocItems.at(c)->pattern());
-		if (!MasterItems.at(c)->strokePattern().isEmpty())
+		if (!DocItems.at(c)->strokePattern().isEmpty())
 		{
 			if (!results.contains(DocItems.at(c)->strokePattern()))
 				results.append(DocItems.at(c)->strokePattern());
@@ -2710,7 +2710,7 @@ QStringList ScribusDoc::getUsedPatterns()
 	{
 		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->GrType == 8))
 			results.append(FrameItems.at(c)->pattern());
-		if (!MasterItems.at(c)->strokePattern().isEmpty())
+		if (!FrameItems.at(c)->strokePattern().isEmpty())
 		{
 			if (!results.contains(FrameItems.at(c)->strokePattern()))
 				results.append(FrameItems.at(c)->strokePattern());
