@@ -188,6 +188,7 @@ signals:
 	void NewBlendS(int);
 	void NewOverprint(int);
 	void gradientChanged();
+	void strokeGradientChanged();
 	void editGradient(bool);
 
 protected:

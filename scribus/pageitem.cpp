@@ -1245,6 +1245,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						{
 							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
 							p->setStrokeMode(ScPainter::Pattern);
+							p->strokePath();
 						}
 						else if (GrTypeStroke > 0)
 						{
@@ -1277,6 +1278,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 									p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
 								}
 							}
+							p->strokePath();
 						}
 						else if (lineColor() != CommonStrings::None)
 						{
@@ -1284,8 +1286,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 							p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 							if (DashValues.count() != 0)
 								p->setDash(DashValues, DashOffset);
+							p->strokePath();
 						}
-						p->strokePath();
 					}
 					else
 					{
@@ -5153,6 +5155,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 			{
 				p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
 				p->setFillMode(ScPainter::Pattern);
+				p->fillPath();
 			}
 			else if (GrTypeStroke > 0)
 			{
@@ -5187,6 +5190,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 						p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
 					}
 				}
+				p->fillPath();
 			}
 			else if (lineColor() != CommonStrings::None)
 			{
@@ -5194,8 +5198,8 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 				p->setBrushOpacity(1.0 - lineTransparency());
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);
+				p->fillPath();
 			}
-			p->fillPath();
 		}
 		else
 		{

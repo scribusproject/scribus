@@ -1668,6 +1668,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 //CB unused in 135 	connect(this->Cpal, SIGNAL(modeChanged()), m_ScMW, SLOT(setCSMenu()));
 //	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
+	connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
 	connect(DoUnGroup, SIGNAL(clicked()), m_ScMW, SLOT(UnGroupObj()) );
 	
 }
@@ -5597,6 +5598,11 @@ void PropertiesPalette::languageChange()
 const VGradient PropertiesPalette::getFillGradient()
 {
 	return Cpal->gradEdit->gradient();
+}
+
+const VGradient PropertiesPalette::getStrokeGradient()
+{
+	return Cpal->gradEditStroke->gradient();
 }
 
 void PropertiesPalette::setGradientEditMode(bool on)

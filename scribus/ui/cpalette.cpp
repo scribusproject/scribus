@@ -325,6 +325,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(editPatternPropsStroke, SIGNAL(clicked()), this, SLOT(changePatternPropsStroke()));
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
+	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
 	connect(gradEditButtonStroke, SIGNAL(clicked()), this, SLOT(editGradientVectorStroke()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
@@ -764,13 +765,13 @@ void Cpalette::slotGradStroke(int number)
 	}
 	else if (number == 2)
 	{
-		emit NewGradient(0);
+		emit NewGradientS(0);
 		if (patternBoxStroke->currentItem())
 			emit NewPatternS(patternBoxStroke->currentItem()->text());
 	}
 	else
 	{
-		emit NewGradient(0);
+		emit NewGradientS(0);
 		emit NewPatternS("");
 	}
 }

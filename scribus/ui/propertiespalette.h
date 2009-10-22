@@ -139,6 +139,7 @@ public:
 	
 	void updateColorSpecialGradient();
 	const VGradient getFillGradient();
+	const VGradient getStrokeGradient();
 	void updateColorList();
 	void setGradientEditMode(bool);
 	void updateCmsList();

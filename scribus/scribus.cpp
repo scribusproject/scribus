@@ -7404,6 +7404,14 @@ void ScribusMainWindow::updtGradFill()
 	VGradient vg(propertiesPalette->getFillGradient());
 	doc->itemSelection_SetFillGradient(vg);
 }
+
+void ScribusMainWindow::updtGradStroke()
+{
+	if (!HaveDoc)
+		return;
+	VGradient vg(propertiesPalette->getStrokeGradient());
+	doc->itemSelection_SetLineGradient(vg);
+}
 /*
 //CB-->Doc
 void ScribusMainWindow::GetBrushPen()
