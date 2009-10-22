@@ -9,14 +9,18 @@ for which a new license (GPL+exception) is in place.
 #define SCCOLORPROFILE_H
 
 #include <QSharedPointer>
+#include <QWeakPointer>
 #include "scribusapi.h"
 #include "sccolorprofiledata.h"
 
 class SCRIBUS_API ScColorProfile
 {
+	friend class ScColorProfileCache;
+
 public:
 	ScColorProfile();
 	ScColorProfile(ScColorProfileData*);
+	ScColorProfile(const QSharedPointer<ScColorProfileData>&);
 	
 	ScColorMngtEngine& engine() { return m_data->engine(); }
 	const ScColorMngtEngine& engine() const { return m_data->engine(); }
@@ -36,6 +40,9 @@ public:
 	
 protected:
 	QSharedPointer<ScColorProfileData> m_data;
+
+	QWeakPointer<ScColorProfileData>   weakRef()   const { return m_data.toWeakRef(); }
+	QSharedPointer<ScColorProfileData> strongRef() const { return m_data; }
 };
 
 #endif

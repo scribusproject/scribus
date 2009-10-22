@@ -18,20 +18,22 @@ for which a new license (GPL+exception) is in place.
 #define cmsFLAGS_PRESERVEBLACK 0x8000
 #endif
 
-QSharedPointer<ScColorProfileCache> ScLcmsColorMngtEngineImpl::m_profileCache;
+QSharedPointer<ScColorProfileCache>  ScLcmsColorMngtEngineImpl::m_profileCache;
+QSharedPointer<ScColorTransformPool> ScLcmsColorMngtEngineImpl::m_transformPool;
 
 ScLcmsColorMngtEngineImpl::ScLcmsColorMngtEngineImpl()
                          : ScColorMngtEngineData("Littlecms v1", 0)
 {
 	if (!m_profileCache)
 		m_profileCache = QSharedPointer<ScColorProfileCache>(new ScColorProfileCache());
+	if (!m_transformPool)
+		m_transformPool = QSharedPointer<ScColorTransformPool>(new ScColorTransformPool(0));
 	cmsSetAlarmCodes(0, 255, 0);
 }
 
 void ScLcmsColorMngtEngineImpl::setStrategy(const ScColorMngtStrategy& strategy)
 {
 	m_strategy = strategy;
-	m_transformPool.clear();
 }
 
 QList<ScColorProfileInfo> ScLcmsColorMngtEngineImpl::getAvailableProfileInfo(const QString& directory, bool recursive)
@@ -118,7 +120,9 @@ QList<ScColorProfileInfo> ScLcmsColorMngtEngineImpl::getAvailableProfileInfo(con
 ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromFile(ScColorMngtEngine& engine, const QString& filePath)
 {
 	// Search profile in profile cache first
-	ScColorProfile profile;
+	ScColorProfile profile = m_profileCache->profile(filePath);
+	if (!profile.isNull())
+		return profile;
 	cmsHPROFILE lcmsProf = NULL;
 	cmsSetErrorHandler(&cmsErrorHandler);
 	try
@@ -138,6 +142,7 @@ ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromFile(ScColorMngtEngine&
 					profData->m_profileData = data;
 					profData->m_profilePath = filePath;
 					profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+					m_profileCache->addProfile(profile);
 				}
 				if (profile.isNull() && lcmsProf)
 				{
@@ -263,7 +268,9 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createTransform(ScColorMngtEngine& e
 	ScColorTransform transform(NULL);
 	if (inputProfile.isNull() || outputProfile.isNull())
 		return transform;
-	if ((engine.engineID() != m_engineID) || (inputProfile.engine() != engine) || (outputProfile.engine() != engine))
+	int inputProfEngineID  = inputProfile.engine().engineID();
+	int outputProfEngineID = outputProfile.engine().engineID();
+	if ((engine.engineID() != m_engineID) || (inputProfEngineID != m_engineID) || (outputProfEngineID != m_engineID))
 		return transform;
 	const ScLcmsColorProfileImpl* lcmsInputProf  = dynamic_cast<const ScLcmsColorProfileImpl*>(inputProfile.data());
 	const ScLcmsColorProfileImpl* lcmsOutputProf = dynamic_cast<const ScLcmsColorProfileImpl*>(outputProfile.data());
@@ -301,7 +308,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createTransform(ScColorMngtEngine& e
 		nullTransform = true;
 	}
 
-	transform = m_transformPool.findTransform(transInfo);
+	transform = m_transformPool->findTransform(transInfo);
 	if (transform.isNull())
 	{
 		DWORD lcmsFlags     = translateFlagsToLcmsFlags(transformFlags | strategyFlags);
@@ -322,6 +329,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createTransform(ScColorMngtEngine& e
 				ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
 				newTrans->setTransformInfo(transInfo);
 				transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+				m_transformPool->addTransform(transform, true);
 			}
 		}
 		catch (lcmsException& e)
@@ -345,12 +353,15 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 	ScColorTransform transform(NULL);
 	if (inputProfile.isNull() || outputProfile.isNull())
 		return transform;
-	if ((engine.engineID() != m_engineID) || (inputProfile.engine() != engine) || 
-		(outputProfile.engine() != engine)|| (proofProfile.engine() != engine) )
+	int inputProfEngineID  = inputProfile.engine().engineID();
+	int outputProfEngineID = outputProfile.engine().engineID();
+	int proofProfEngineID  = proofProfile.engine().engineID();
+	if ((engine.engineID()  != m_engineID) || (inputProfEngineID != m_engineID) || 
+		(outputProfEngineID != m_engineID) || (proofProfEngineID != m_engineID))
 		return transform;
 	const ScLcmsColorProfileImpl* lcmsInputProf    = dynamic_cast<const ScLcmsColorProfileImpl*>(inputProfile.data());
 	const ScLcmsColorProfileImpl* lcmsOutputProf   = dynamic_cast<const ScLcmsColorProfileImpl*>(outputProfile.data());
-	const ScLcmsColorProfileImpl* lcmsProofingProf = dynamic_cast<const ScLcmsColorProfileImpl*>(outputProfile.data());
+	const ScLcmsColorProfileImpl* lcmsProofingProf = dynamic_cast<const ScLcmsColorProfileImpl*>(proofProfile.data());
 	if (!lcmsInputProf || !lcmsOutputProf || !lcmsProofingProf)
 		return transform;
 
@@ -383,7 +394,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 			transInfo.proofingIntent = Intent_Relative_Colorimetric;
 			lcmsPrfIntent = translateIntentToLcmsIntent(Intent_Relative_Colorimetric);
 		}
-		transform = m_transformPool.findTransform(transInfo);
+		transform = m_transformPool->findTransform(transInfo);
 		if (transform.isNull())
 		{
 			cmsSetErrorHandler(&cmsErrorHandler);
@@ -399,6 +410,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 					ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
 					newTrans->setTransformInfo(transInfo);
 					transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+					m_transformPool->addTransform(transform, true);
 				}
 			}
 			catch (lcmsException& e)
@@ -429,7 +441,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 			transInfo.proofingIntent  = (eRenderIntent) 0;
 			transInfo.flags = 0;
 		}
-		transform = m_transformPool.findTransform(transInfo);
+		transform = m_transformPool->findTransform(transInfo);
 		if (transform.isNull())
 		{
 			cmsSetErrorHandler(&cmsErrorHandler);
@@ -444,6 +456,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 					ScLcmsColorTransformImpl* newTrans = new ScLcmsColorTransformImpl(engine, hTransform);
 					newTrans->setTransformInfo(transInfo);
 					transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
+					m_transformPool->addTransform(transform, true);
 				}
 			}
 			catch (lcmsException& e)

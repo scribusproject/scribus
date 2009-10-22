@@ -12,7 +12,7 @@ void ScColorProfileCache::addProfile(const ScColorProfile& profile)
 	if (!path.isEmpty())
 	{
 		if (!m_profileMap.contains(path))
-			m_profileMap.insert(path, profile);
+			m_profileMap.insert(path, profile.weakRef());
 	}
 }
 
@@ -33,9 +33,9 @@ bool ScColorProfileCache::contains(const QString& profilePath)
 
 ScColorProfile ScColorProfileCache::profile(const QString& profilePath)
 {
-	ScColorProfile profile(NULL);
-	QMap<QString, ScColorProfile>::iterator iter = m_profileMap.find(profilePath);
+	ScColorProfile profile;
+	QMap<QString, QWeakPointer<ScColorProfileData> >::iterator iter = m_profileMap.find(profilePath);
 	if (iter != m_profileMap.end())
-		profile = iter.value();
+		profile = ScColorProfile(iter.value());
 	return profile;
 }

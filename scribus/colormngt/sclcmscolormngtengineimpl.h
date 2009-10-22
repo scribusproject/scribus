@@ -48,7 +48,11 @@ public:
 
 protected:
 
+	// Color profile cache
 	static QSharedPointer<ScColorProfileCache> m_profileCache;
+
+	// Color transform cache
+	static QSharedPointer<ScColorTransformPool> m_transformPool;
 
 	static DWORD translateFlagsToLcmsFlags(long flags);
 	static DWORD translateFormatToLcmsFormat(eColorFormat format);

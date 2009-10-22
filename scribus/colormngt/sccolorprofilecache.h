@@ -10,13 +10,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMap>
 #include <QString>
-
+#include <QWeakPointer>
 #include "sccolorprofile.h"
 
 class ScColorProfileCache 
 {
 public:
-
 	void addProfile(const ScColorProfile& profile);
 	void removeProfile(const QString& profilePath);
 	void removeProfile(const ScColorProfile& profile);
@@ -25,7 +24,7 @@ public:
 	ScColorProfile profile(const QString& profilePath);
 
 protected:
-	QMap<QString, ScColorProfile> m_profileMap;
+	QMap<QString, QWeakPointer<ScColorProfileData> > m_profileMap;
 };
 
 #endif

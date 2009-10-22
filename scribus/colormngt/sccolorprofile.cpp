@@ -15,6 +15,10 @@ ScColorProfile::ScColorProfile(ScColorProfileData* data) : m_data(data)
 {
 }
 
+ScColorProfile::ScColorProfile(const QSharedPointer<ScColorProfileData>& data) : m_data(data)
+{
+}
+
 icColorSpaceSignature ScColorProfile::colorSpace() const
 {
 	if (m_data)

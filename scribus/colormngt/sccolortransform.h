@@ -9,14 +9,17 @@ for which a new license (GPL+exception) is in place.
 #define SCCOLORTRANSFORM_H
 
 #include <QSharedPointer>
+#include <QWeakPointer>
 #include "scribusapi.h"
 #include "sccolortransformdata.h"
 
 class SCRIBUS_API ScColorTransform
 {
+	friend class ScColorTransformPool;
 public:
 	ScColorTransform();
 	ScColorTransform(ScColorTransformData* data);
+	ScColorTransform(const QSharedPointer<ScColorTransformData>& data);
 	
 	ScColorMngtEngine& engine() { return m_data->engine(); }
 	const ScColorMngtEngine& engine() const { return m_data->engine(); }
@@ -36,6 +39,9 @@ public:
 
 protected:
 	QSharedPointer<ScColorTransformData> m_data;
+
+	QWeakPointer<ScColorTransformData>   weakRef()   const { return m_data.toWeakRef(); }
+	QSharedPointer<ScColorTransformData> strongRef() const { return m_data; }
 };
 
 #endif

@@ -24,13 +24,11 @@ protected:
 	int     m_engineID;
 	QString m_description;
 	ScColorMngtStrategy  m_strategy;
-	ScColorTransformPool m_transformPool;
 	
 public:
 
 	ScColorMngtEngineData(const QString& desc, int uniqueID) : m_engineID(uniqueID), 
-	                                                           m_description(desc),
-	                                                           m_transformPool(uniqueID)
+	                                                           m_description(desc)
 	{}
 	
 	// Getters

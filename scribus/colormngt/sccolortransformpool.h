@@ -8,17 +8,20 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLORTRANSFORMPOOL_H
 #define SCCOLORTRANSFORMPOOL_H
 
-#include <QSet>
+#include <QList>
+#include <QWeakPointer>
 #include "sccolormngtstructs.h"
 #include "sccolortransform.h"
 
 class ScColorTransformPool
 {
+	friend class ScColorMngtEngineData;
+
 public:
 	ScColorTransformPool (int engineID);
 
 	void clear(void);
-	void addTransform(const ScColorTransform& transform);
+	void addTransform(const ScColorTransform& transform, bool force = false);
 	void removeTransform(const ScColorTransform& transform);
 	void removeTransform(const ScColorTransformInfo& info);
 
@@ -26,7 +29,7 @@ public:
 
 protected:
 	int m_engineID;
-	QSet<ScColorTransform> m_pool;
+	QList< QWeakPointer<ScColorTransformData> > m_pool;
 };
 
 #endif

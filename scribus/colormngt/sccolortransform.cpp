@@ -9,12 +9,14 @@ for which a new license (GPL+exception) is in place.
 
 ScColorTransform::ScColorTransform() : m_data(NULL)
 {
-
 }
 
 ScColorTransform::ScColorTransform(ScColorTransformData* data) : m_data(data)
 {
+}
 
+ScColorTransform::ScColorTransform(const QSharedPointer<ScColorTransformData>& data) : m_data(data)
+{
 }
 
 bool ScColorTransform::apply(void* input, void* output, uint numElem)
