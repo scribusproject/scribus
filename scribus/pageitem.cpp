@@ -248,6 +248,7 @@ PageItem::PageItem(const PageItem & other)
 	patternStrokeOffsetY(other.patternStrokeOffsetY),
 	patternStrokeRotation(other.patternStrokeRotation),
 	gradientStrokeVal(other.gradientStrokeVal),
+	stroke_gradient(other.stroke_gradient),
 	GrTypeStroke(other.GrTypeStroke),
 	GrStrokeStartX(other.GrStrokeStartX),
 	GrStrokeStartY(other.GrStrokeStartY),
