@@ -27,9 +27,33 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		void languageChange();
 		void pageLayoutChanged(int);
 
-	private:
+	private slots:
+		void setPageWidth(double);
+		/*!
+		\author Franz Schmid
+		\brief Preferences (Document / Page Size), sets Page height values
+		\param v Height value
+		 */
+		void setPageHeight(double);
+		/*!
+		\author Franz Schmid
+		\brief Preferences (Document / Page Size), sets Page orientation value and page dimensions
+		\param ori Orientation value
+		 */
+		void setPageOrientation(int);
+		/*!
+		\author Franz Schmid
+		\brief Preferences (Document / Page Size), sets Page size values. Connects signals for setting page dimensions.
+		\param gr Standard page size value (eg A4)
+		 */
+		void setSize(const QString & gr);
+		void setPageSize();
 		void unitChange();
+
+	private:
 		void setupPageSets();
+
+
 		double unitRatio;
 		int choosenLayout;
 		double pageW;

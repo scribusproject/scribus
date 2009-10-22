@@ -18,3 +18,22 @@ NewMarginWidget::~NewMarginWidget()
 {
 }
 
+void NewMarginWidget::setPageWidth(double)
+{
+
+}
+
+void NewMarginWidget::setPageHeight(double)
+{
+
+}
+
+void NewMarginWidget::setPageSize(const QString &newSize)
+{
+
+}
+
+void NewMarginWidget::setNewUnitIndex(int newIndex)
+{
+
+}

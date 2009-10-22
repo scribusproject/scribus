@@ -6,8 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QButtonGroup>
 
-#include "prefs_documentsetup.h"
+#include "ui/prefs_documentsetup.h"
 #include "commonstrings.h"
+#include "ui/newmarginwidget.h"
 #include "pagesize.h"
 #include "prefsstructs.h"
 #include "units.h"
@@ -26,7 +27,12 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent)
 	pageLayoutButtonGroup->setId(threeFoldRadioButton,2);
 	pageLayoutButtonGroup->setId(fourFoldRadioButton,3);
 
+	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setPageOrientation(int)));
+	connect(pageWidthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
+	connect(pageHeightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	connect(pageLayoutButtonGroup, SIGNAL(buttonReleased(int)), this, SLOT(pageLayoutChanged(int)));
+	connect(pageUnitsComboBox, SIGNAL(activated(int)), this, SLOT(unitChange()));
 }
 
 Prefs_DocumentSetup::~Prefs_DocumentSetup()
@@ -35,12 +41,21 @@ Prefs_DocumentSetup::~Prefs_DocumentSetup()
 
 void Prefs_DocumentSetup::unitChange()
 {
+	pageWidthSpinBox->blockSignals(true);
+	pageHeightSpinBox->blockSignals(true);
+
 	int docUnitIndex = pageUnitsComboBox->currentIndex();
 	pageWidthSpinBox->setNewUnit(docUnitIndex);
 	pageHeightSpinBox->setNewUnit(docUnitIndex);
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	pageWidthSpinBox->setValue(pageW * unitRatio);
 	pageHeightSpinBox->setValue(pageH * unitRatio);
+	marginsWidget->setNewUnitIndex(docUnitIndex);
+	marginsWidget->setPageHeight(pageH);
+	marginsWidget->setPageWidth(pageW);
+
+	pageWidthSpinBox->blockSignals(false);
+	pageHeightSpinBox->blockSignals(false);
 }
 
 void Prefs_DocumentSetup::languageChange()
@@ -64,6 +79,11 @@ void Prefs_DocumentSetup::languageChange()
 
 void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
+	pageWidthSpinBox->blockSignals(true);
+	pageHeightSpinBox->blockSignals(true);
+	pageOrientationComboBox->blockSignals(true);
+	pageSizeComboBox->blockSignals(true);
+
 	unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
 	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
 	PageSize *ps=new PageSize(prefsPageSizeName);
@@ -100,6 +120,11 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	setupPageSets();
 
 	layoutFirstPageIsComboBox->setCurrentIndex(prefsData->pageSets[prefsData->docSetupPrefs.pagePositioning].FirstPage);
+
+	pageWidthSpinBox->blockSignals(false);
+	pageHeightSpinBox->blockSignals(false);
+	pageOrientationComboBox->blockSignals(false);
+	pageSizeComboBox->blockSignals(false);
 
 /*
 	marginGroup->setNewMargins(prefsData->docSetupPrefs.margins);
@@ -144,3 +169,91 @@ void Prefs_DocumentSetup::pageLayoutChanged(int /*i*/)
 	layoutFirstPageIsComboBox->setCurrentIndex(pageSets[pageLayoutButtonGroup->checkedId()].FirstPage);
 }
 
+void Prefs_DocumentSetup::setPageWidth(double w)
+{
+	pageW = pageWidthSpinBox->value() / unitRatio;
+	marginsWidget->setPageWidth(pageW);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	int newOrientation = (pageWidthSpinBox->value() > pageHeightSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentIndex())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentIndex(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
+}
+
+void Prefs_DocumentSetup::setPageHeight(double h)
+{
+	pageH = pageHeightSpinBox->value() / unitRatio;
+	marginsWidget->setPageHeight(pageH);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	int newOrientation = (pageWidthSpinBox->value() > pageHeightSpinBox->value()) ? landscapePage : portraitPage;
+	if (newOrientation != pageOrientationComboBox->currentIndex())
+	{
+		pageOrientationComboBox->blockSignals(true);
+		pageOrientationComboBox->setCurrentIndex(newOrientation);
+		pageOrientationComboBox->blockSignals(false);
+	}
+}
+
+void Prefs_DocumentSetup::setPageOrientation(int orientation)
+{
+	setSize(pageSizeComboBox->currentText());
+	pageWidthSpinBox->blockSignals(true);
+	pageHeightSpinBox->blockSignals(true);
+	if (orientation == 0)
+	{
+		if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
+		{
+			double w = pageWidthSpinBox->value(), h = pageHeightSpinBox->value();
+			pageWidthSpinBox->setValue((orientation == portraitPage) ? qMin(w, h) : qMax(w, h));
+			pageHeightSpinBox->setValue((orientation == portraitPage) ? qMax(w, h) : qMin(w, h));
+		}
+	}
+	else
+	{
+		double w = pageWidthSpinBox->value(), h = pageHeightSpinBox->value();
+		pageWidthSpinBox->setValue((orientation == portraitPage) ? qMin(w, h) : qMax(w, h));
+		pageHeightSpinBox->setValue((orientation == portraitPage) ? qMax(w, h) : qMin(w, h));
+	}
+	pageW = pageWidthSpinBox->value() / unitRatio;
+	pageH = pageHeightSpinBox->value() / unitRatio;
+	pageWidthSpinBox->blockSignals(false);
+	pageHeightSpinBox->blockSignals(false);
+}
+
+void Prefs_DocumentSetup::setPageSize()
+{
+	setPageOrientation(pageOrientationComboBox->currentIndex());
+}
+
+void Prefs_DocumentSetup::setSize(const QString &newSize)
+{
+	pageW = pageWidthSpinBox->value() / unitRatio;
+	pageH = pageHeightSpinBox->value() / unitRatio;
+	PageSize *ps2=new PageSize(newSize);
+
+	prefsPageSizeName=ps2->name();
+	if (newSize != CommonStrings::trCustomPageSize)
+	{
+		pageW = ps2->width();
+		pageH = ps2->height();
+	}
+	else
+		prefsPageSizeName = CommonStrings::customPageSize;
+	pageWidthSpinBox->blockSignals(true);
+	pageHeightSpinBox->blockSignals(true);
+	pageWidthSpinBox->setValue(pageW * unitRatio);
+	pageHeightSpinBox->setValue(pageH * unitRatio);
+	marginsWidget->setPageHeight(pageH);
+	marginsWidget->setPageWidth(pageW);
+	marginsWidget->setPageSize(newSize);
+	pageWidthSpinBox->blockSignals(false);
+	pageHeightSpinBox->blockSignals(false);
+	delete ps2;
+}

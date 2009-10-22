@@ -18,6 +18,11 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 	public:
 		NewMarginWidget(QWidget* parent=0);
 		~NewMarginWidget();
+
+		void setPageWidth(double);
+		void setPageHeight(double);
+		void setPageSize(const QString&);
+		void setNewUnitIndex(int);
 };
 
 #endif // NEWMARGINWIDGET_H
