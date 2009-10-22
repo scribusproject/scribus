@@ -201,6 +201,12 @@
            <property name="text">
             <string>Single Page</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string>pageLayoutButtonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item row="1" column="0" colspan="2">
@@ -208,6 +214,9 @@
            <property name="text">
             <string>Double Page</string>
            </property>
+           <attribute name="buttonGroup">
+            <string>pageLayoutButtonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item row="2" column="0" colspan="2">
@@ -215,6 +224,9 @@
            <property name="text">
             <string>3-Fold</string>
            </property>
+           <attribute name="buttonGroup">
+            <string>pageLayoutButtonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item row="3" column="0" colspan="2">
@@ -222,6 +234,9 @@
            <property name="text">
             <string>4-Fold</string>
            </property>
+           <attribute name="buttonGroup">
+            <string>pageLayoutButtonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item row="4" column="0">
@@ -404,4 +419,7 @@
  </customwidgets>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="pageLayoutButtonGroup"/>
+ </buttongroups>
 </ui>

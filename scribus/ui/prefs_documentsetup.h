@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_prefs_documentsetupbase.h"
 #include "prefs_pane.h"
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
 class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSetup
 {
@@ -24,14 +25,17 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 
 	public slots:
 		void languageChange();
+		void pageLayoutChanged(int);
 
 	private:
 		void unitChange();
+		void setupPageSets();
 		double unitRatio;
 		int choosenLayout;
 		double pageW;
 		double pageH;
 		QString prefsPageSizeName;
+		QList<PageSet> pageSets;
 };
 
 #endif // PREFS_DOCUMENTSETUP_H
