@@ -2365,7 +2365,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 			p->fillPath();
 		}
 	}
-	if (lineColor() != CommonStrings::None)
+	if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 		lineCorr = m_lineWidth / 2.0;
 	else
 		lineCorr = 0;
@@ -2627,8 +2627,54 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				p->setupPolygon(&PoLine);
 				if (NamedLStyle.isEmpty())
 				{
-					if (lineColor() != CommonStrings::None)
+					if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 					{
+						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+						if (DashValues.count() != 0)
+							p->setDash(DashValues, DashOffset);
+					}
+					if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+					{
+						p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation);
+						p->setStrokeMode(ScPainter::Pattern);
+						p->strokePath();
+					}
+					else if (GrTypeStroke > 0)
+					{
+						if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+							gradientStrokeVal = "";
+						if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+							stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+						if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+						{
+							if (lineColor() != CommonStrings::None)
+							{
+								p->setBrush(strokeQColor);
+								p->setStrokeMode(ScPainter::Solid);
+							}
+							else
+								p->setStrokeMode(ScPainter::None);
+						}
+						else
+						{
+							p->setStrokeMode(ScPainter::Gradient);
+							p->stroke_gradient = stroke_gradient;
+							QTransform grm;
+							grm.rotate(Rot);
+							FPointArray gra;
+							if (GrTypeStroke == 6)
+								p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY));
+							else
+							{
+								gra.setPoints(2, GrStrokeStartX, GrStrokeStartY, GrStrokeEndX, GrStrokeEndY);
+								p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+							}
+						}
+						p->strokePath();
+					}
+					else if (lineColor() != CommonStrings::None)
+					{
+						p->setStrokeMode(ScPainter::Solid);
 						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 						if (DashValues.count() != 0)
 							p->setDash(DashValues, DashOffset);
@@ -2637,6 +2683,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				}
 				else
 				{
+					p->setStrokeMode(ScPainter::Solid);
 					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
@@ -2654,6 +2701,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				p->endLayer();
 		}
 	}
+	p->setFillMode(ScPainter::Solid);
+	p->setStrokeMode(ScPainter::Solid);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
