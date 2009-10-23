@@ -132,6 +132,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void GetBleeds(Page* page, double& left, double& right, double& bottom, double& top);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
 		virtual void HandleStrokePattern(PageItem *c);
+		virtual void HandleStrokeGradient(PageItem *c, bool gcr, bool stroke = true);
 		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
 		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
 		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k, bool gcr);

@@ -326,8 +326,8 @@ void GradientPreview::removeStop()
 
 void GradientPreview::updateDisplay()
 {
-	repaint();
 	ActStop = 0;
+	repaint();
 	if (!fill_gradient.colorStops().isEmpty())
 	{
 		QList<VColorStop*> cstops = fill_gradient.colorStops();

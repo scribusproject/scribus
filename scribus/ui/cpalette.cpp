@@ -374,6 +374,7 @@ void Cpalette::updateFromItem()
 	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	disconnect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
+	disconnect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
 	if (!currentItem->gradient().isEmpty())
 	{
 		setCurrentComboItem(namedGradient, currentItem->gradient());
@@ -394,6 +395,10 @@ void Cpalette::updateFromItem()
 		namedGradientStroke->setCurrentIndex(0);
 		gradEditStroke->setGradientEditable(true);
 	}
+	if (currentItem->GrTypeStroke == 6)
+		gradientTypeStroke->setCurrentIndex(0);
+	else
+		gradientTypeStroke->setCurrentIndex(1);
 	if (patternList->count() == 0)
 	{
 		tabWidgetStroke->setTabEnabled(2, false);
@@ -413,6 +418,7 @@ void Cpalette::updateFromItem()
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
+	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
 }
 
 void Cpalette::updateCList()
