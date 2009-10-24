@@ -297,6 +297,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	CGradDia = new GradientVectorDialog(this->parentWidget());
 	CGradDia->hide();
 	setupUi(this);
+	gradientTypeStroke->setCurrentIndex(0);
 	editLineColorSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
 	editFillColorSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
 	connect(editLineColorSelector, SIGNAL(clicked()), this, SLOT(editLineColorSelectorButton()));
@@ -329,7 +330,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradEditButtonStroke, SIGNAL(clicked()), this, SLOT(editGradientVectorStroke()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
-//	tabWidgetStroke->setTabEnabled(1, false);
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -395,10 +395,13 @@ void Cpalette::updateFromItem()
 		namedGradientStroke->setCurrentIndex(0);
 		gradEditStroke->setGradientEditable(true);
 	}
-	if (currentItem->GrTypeStroke == 6)
-		gradientTypeStroke->setCurrentIndex(0);
-	else
-		gradientTypeStroke->setCurrentIndex(1);
+	if (currentItem->GrTypeStroke > 0)
+	{
+		if (currentItem->GrTypeStroke == 6)
+			gradientTypeStroke->setCurrentIndex(0);
+		else
+			gradientTypeStroke->setCurrentIndex(1);
+	}
 	if (patternList->count() == 0)
 	{
 		tabWidgetStroke->setTabEnabled(2, false);

@@ -152,6 +152,7 @@ private:
 	QString drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
 	bool    PDF_StrokePattern(QString& output, PageItem *currItem, bool forArrow = false);
+	bool    PDF_GradientStroke(QString& output, PageItem *currItem, bool forArrow = false);
 	bool    PDF_Gradient(QString& output, PageItem *currItem);
 	QString PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, QList<double> Trans, const QStringList& Colors, QStringList colorNames, QList<int> colorShades);
 	QString PDF_TransparenzFill(PageItem *currItem);
