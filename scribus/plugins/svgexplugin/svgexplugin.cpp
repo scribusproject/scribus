@@ -1304,6 +1304,42 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				globalDefs.appendChild(patt);
 				aFill += "fill:url(#"+pattID+");";
 			}
+			else if (Item->GrTypeStroke > 0)
+			{
+				QDomElement grad;
+				if (Item->GrTypeStroke == 7)
+				{
+					grad = docu.createElement("radialGradient");
+					grad.setAttribute("r", FToStr(sqrt(pow(Item->GrStrokeEndX - Item->GrStrokeStartX, 2) + pow(Item->GrStrokeEndY - Item->GrStrokeStartY,2))));
+					grad.setAttribute("cx", FToStr(Item->GrStrokeStartX));
+					grad.setAttribute("cy", FToStr(Item->GrStrokeStartY));
+				}
+				else
+				{
+					grad = docu.createElement("linearGradient");
+					grad.setAttribute("x1", FToStr(Item->GrStrokeStartX));
+					grad.setAttribute("y1", FToStr(Item->GrStrokeStartY));
+					grad.setAttribute("x2", FToStr(Item->GrStrokeEndX));
+					grad.setAttribute("y2", FToStr(Item->GrStrokeEndY));
+				}
+				QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
+				for (uint cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
+				{
+					QDomElement itcl = docu.createElement("stop");
+					itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+					if (cstops.at(cst)->name == CommonStrings::None)
+						itcl.setAttribute("stop-opacity", FToStr(0));
+					else
+						itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+					itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+					grad.appendChild(itcl);
+				}
+				grad.setAttribute("id", "Grad"+IToStr(GradCount));
+				grad.setAttribute("gradientUnits", "userSpaceOnUse");
+				globalDefs.appendChild(grad);
+				aFill = " fill:url(#Grad"+IToStr(GradCount)+");";
+				GradCount++;
+			}
 			else
 				aFill = "fill:"+SetColor(Item->lineColor(), Item->lineShade())+";";
 			if (Item->lineTransparency() != 0)
@@ -1415,6 +1451,42 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				patt.setAttribute("xlink:href", "#"+Item->strokePattern());
 				globalDefs.appendChild(patt);
 				aFill += "fill:url(#"+pattID+");";
+			}
+			else if (Item->GrTypeStroke > 0)
+			{
+				QDomElement grad;
+				if (Item->GrTypeStroke == 7)
+				{
+					grad = docu.createElement("radialGradient");
+					grad.setAttribute("r", FToStr(sqrt(pow(Item->GrStrokeEndX - Item->GrStrokeStartX, 2) + pow(Item->GrStrokeEndY - Item->GrStrokeStartY,2))));
+					grad.setAttribute("cx", FToStr(Item->GrStrokeStartX));
+					grad.setAttribute("cy", FToStr(Item->GrStrokeStartY));
+				}
+				else
+				{
+					grad = docu.createElement("linearGradient");
+					grad.setAttribute("x1", FToStr(Item->GrStrokeStartX));
+					grad.setAttribute("y1", FToStr(Item->GrStrokeStartY));
+					grad.setAttribute("x2", FToStr(Item->GrStrokeEndX));
+					grad.setAttribute("y2", FToStr(Item->GrStrokeEndY));
+				}
+				QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
+				for (uint cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
+				{
+					QDomElement itcl = docu.createElement("stop");
+					itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+					if (cstops.at(cst)->name == CommonStrings::None)
+						itcl.setAttribute("stop-opacity", FToStr(0));
+					else
+						itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+					itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+					grad.appendChild(itcl);
+				}
+				grad.setAttribute("id", "Grad"+IToStr(GradCount));
+				grad.setAttribute("gradientUnits", "userSpaceOnUse");
+				globalDefs.appendChild(grad);
+				aFill = " fill:url(#Grad"+IToStr(GradCount)+");";
+				GradCount++;
 			}
 			else
 				aFill = "fill:"+SetColor(Item->lineColor(), Item->lineShade())+";";
@@ -1535,6 +1607,7 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 						grad.setAttribute("y2", FToStr(Item->GrEndY));
 						break;
 					case 7:
+						grad.setAttribute("r", FToStr(sqrt(pow(Item->GrEndX - Item->GrStartX, 2) + pow(Item->GrEndY - Item->GrStartY,2))));
 						grad.setAttribute("r", FToStr(qMax(Item->width() / 2.0, Item->height() / 2.0)));
 						grad.setAttribute("cx", FToStr(Item->GrStartX));
 						grad.setAttribute("cy", FToStr(Item->GrStartY));
@@ -1655,11 +1728,11 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 {
 	QString stroke = "";
 	if (Item->lineTransparency() != 0)
-		stroke += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
+		stroke = "stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
 	if (Item->lineWidth() != 0.0)
-		stroke += " stroke-width:"+FToStr(Item->lineWidth())+";";
+		stroke = "stroke-width:"+FToStr(Item->lineWidth())+";";
 	else
-		stroke += " stroke-width:1px;";
+		stroke = "stroke-width:1px;";
 	stroke += " stroke-linecap:";
 	switch (Item->PLineEnd)
 	{
@@ -1736,11 +1809,47 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 		patt.setAttribute("patternTransform", MatrixToStr(mpa));
 		patt.setAttribute("xlink:href", "#"+Item->strokePattern());
 		globalDefs.appendChild(patt);
-		stroke += "stroke:url(#"+pattID+");";
+		stroke += " stroke:url(#"+pattID+");";
+	}
+	else if (Item->GrTypeStroke > 0)
+	{
+		QDomElement grad;
+		if (Item->GrTypeStroke == 7)
+		{
+			grad = docu.createElement("radialGradient");
+			grad.setAttribute("r", FToStr(sqrt(pow(Item->GrStrokeEndX - Item->GrStrokeStartX, 2) + pow(Item->GrStrokeEndY - Item->GrStrokeStartY,2))));
+			grad.setAttribute("cx", FToStr(Item->GrStrokeStartX));
+			grad.setAttribute("cy", FToStr(Item->GrStrokeStartY));
+		}
+		else
+		{
+			grad = docu.createElement("linearGradient");
+			grad.setAttribute("x1", FToStr(Item->GrStrokeStartX));
+			grad.setAttribute("y1", FToStr(Item->GrStrokeStartY));
+			grad.setAttribute("x2", FToStr(Item->GrStrokeEndX));
+			grad.setAttribute("y2", FToStr(Item->GrStrokeEndY));
+		}
+		QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
+		for (uint cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
+		{
+			QDomElement itcl = docu.createElement("stop");
+			itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+			if (cstops.at(cst)->name == CommonStrings::None)
+				itcl.setAttribute("stop-opacity", FToStr(0));
+			else
+				itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+			itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+			grad.appendChild(itcl);
+		}
+		grad.setAttribute("id", "Grad"+IToStr(GradCount));
+		grad.setAttribute("gradientUnits", "userSpaceOnUse");
+		globalDefs.appendChild(grad);
+		stroke += " stroke:url(#Grad"+IToStr(GradCount)+");";
+		GradCount++;
 	}
 	else if (Item->lineColor() != CommonStrings::None)
 	{
-		stroke = "stroke:"+SetColor(Item->lineColor(), Item->lineShade())+";";
+		stroke += " stroke:"+SetColor(Item->lineColor(), Item->lineShade())+";";
 	}
 	else
 		stroke = "stroke:none;";
