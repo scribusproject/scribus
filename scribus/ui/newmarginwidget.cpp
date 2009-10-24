@@ -6,6 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "newmarginwidget.h"
+#include "scrspinbox.h"
+#include "units.h"
+#include "ui/marginpresetlayout.h"
+#include "ui/useprintermarginsdialog.h"
 
 NewMarginWidget::NewMarginWidget(QWidget* parent)
 	: QWidget(parent)
@@ -16,6 +20,13 @@ NewMarginWidget::NewMarginWidget(QWidget* parent)
 
 NewMarginWidget::~NewMarginWidget()
 {
+}
+
+void NewMarginWidget::setup(const MarginStruct& margs, int unitIndex, bool showPreset)
+{
+	marginData=margs;
+	savedMarginData=margs;
+	savedPresetItem=PresetLayout::none;//we dont recheck if we are using a layout but always start at none
 }
 
 void NewMarginWidget::setPageWidth(double)

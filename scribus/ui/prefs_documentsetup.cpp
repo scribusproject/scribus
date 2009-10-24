@@ -134,10 +134,6 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	marginGroup->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
 	GroupAS->setChecked( prefsData->docSetupPrefs.AutoSave );
 	ASTime->setValue(prefsData->docSetupPrefs.AutoSaveTime / 1000 / 60);
-	connect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
-	connect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
-	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	*/
 	unitChange();
 }
@@ -206,16 +202,7 @@ void Prefs_DocumentSetup::setPageOrientation(int orientation)
 	setSize(pageSizeComboBox->currentText());
 	pageWidthSpinBox->blockSignals(true);
 	pageHeightSpinBox->blockSignals(true);
-	if (orientation == 0)
-	{
-		if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
-		{
-			double w = pageWidthSpinBox->value(), h = pageHeightSpinBox->value();
-			pageWidthSpinBox->setValue((orientation == portraitPage) ? qMin(w, h) : qMax(w, h));
-			pageHeightSpinBox->setValue((orientation == portraitPage) ? qMax(w, h) : qMin(w, h));
-		}
-	}
-	else
+	if ((orientation==0 && pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize) || orientation!=0)
 	{
 		double w = pageWidthSpinBox->value(), h = pageHeightSpinBox->value();
 		pageWidthSpinBox->setValue((orientation == portraitPage) ? qMin(w, h) : qMax(w, h));
