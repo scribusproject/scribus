@@ -239,13 +239,66 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 				pItem->setBrush(paint);
 			}
 		}
-		if ((currItem->lineColor() == CommonStrings::None) || (currItem->controlsGroup()))
+		if (currItem->controlsGroup())
 			pItem->setPen(Qt::NoPen);
+		else if (currItem->NamedLStyle.isEmpty())
+		{
+			if ((!currItem->strokePattern().isEmpty()) && (doc->docPatterns.contains(currItem->strokePattern())))
+			{
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+				currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+				QTransform qmatrix;
+				qmatrix.translate(-currItem->lineWidth() / 2.0, -currItem->lineWidth() / 2.0);
+				qmatrix.translate(patternOffsetX, patternOffsetY);
+				qmatrix.rotate(patternRotation);
+				qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
+				QBrush brush = QBrush(pat);
+				brush.setTransform(qmatrix);
+				pItem->setPen(QPen(brush, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+			else if (currItem->GrTypeStroke > 0)
+			{
+				QGradient pat;
+				double x1 = currItem->GrStrokeStartX;
+				double y1 = currItem->GrStrokeStartY;
+				double x2 = currItem->GrStrokeEndX;
+				double y2 = currItem->GrStrokeEndY;
+				if (currItem->GrTypeStroke == 6)
+					pat = QLinearGradient(x1, y1,  x2, y2);
+				else
+					pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
+				QColor qStopColor;
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					qStopColor.setAlphaF(colorStops[offset]->opacity);
+					pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				}
+				pItem->setPen(QPen(pat, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+			else if (currItem->lineColor() != CommonStrings::None)
+			{
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
+				paint.setAlphaF(1.0 - currItem->lineTransparency());
+				pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+		}
 		else
 		{
-			QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
-			paint.setAlphaF(1.0 - currItem->lineTransparency());
-			pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			if (currItem->lineColor() != CommonStrings::None)
+			{
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
+				paint.setAlphaF(1.0 - currItem->lineTransparency());
+				pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
 		}
 		if (currItem->controlsGroup())
 		{
