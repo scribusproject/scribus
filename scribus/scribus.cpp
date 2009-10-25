@@ -7677,6 +7677,10 @@ void ScribusMainWindow::slotPrefs150Org()
 			qApp->setFont(apf);
 		}
 		propertiesPalette->Fonts->RebuildList(0);
+		if (prefsManager->appPrefs.uiPrefs.useTabs)
+			mdiArea->setViewMode(QMdiArea::TabbedView);
+		else
+			mdiArea->setViewMode(QMdiArea::SubWindowView);
 	}
 }
 

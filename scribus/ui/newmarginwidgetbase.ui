@@ -23,7 +23,7 @@
    <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="presetLayoutLabel">
        <property name="text">
         <string>Preset Layouts:</string>
        </property>
@@ -40,9 +40,12 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="leftMarginLabel">
        <property name="text">
         <string>Left:</string>
+       </property>
+       <property name="buddy">
+        <cstring>leftMarginSpinBox</cstring>
        </property>
       </widget>
      </item>
@@ -57,9 +60,12 @@
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="rightMarginLabel">
        <property name="text">
         <string>Right:</string>
+       </property>
+       <property name="buddy">
+        <cstring>rightMarginSpinBox</cstring>
        </property>
       </widget>
      </item>
@@ -74,9 +80,12 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="topMarginLabel">
        <property name="text">
         <string>Top:</string>
+       </property>
+       <property name="buddy">
+        <cstring>topMarginSpinBox</cstring>
        </property>
       </widget>
      </item>
@@ -91,9 +100,12 @@
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="bottomMarginLabel">
        <property name="text">
         <string>Bottom:</string>
+       </property>
+       <property name="buddy">
+        <cstring>bottomMarginSpinBox</cstring>
        </property>
       </widget>
      </item>

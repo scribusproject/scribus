@@ -18,9 +18,16 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
+
+	applySizesToAllPagesCheckBox->hide();
+	applySizesToAllMasterPagesCheckBox->hide();
+	applyMarginsToAllPagesCheckBox->hide();
+	applyMarginsToAllMasterPagesCheckBox->hide();
+
 	pageWidthSpinBox->setMaximum(16777215);
 	pageHeightSpinBox->setMaximum(16777215);
 	languageChange();
+
 
 	pageLayoutButtonGroup->setId(singlePageRadioButton,0);
 	pageLayoutButtonGroup->setId(doublePageRadioButton,1);
@@ -53,6 +60,9 @@ void Prefs_DocumentSetup::unitChange()
 	marginsWidget->setNewUnitIndex(docUnitIndex);
 	marginsWidget->setPageHeight(pageH);
 	marginsWidget->setPageWidth(pageW);
+	bleedsWidget->setNewUnitIndex(docUnitIndex);
+	bleedsWidget->setPageHeight(pageH);
+	bleedsWidget->setPageWidth(pageW);
 
 	pageWidthSpinBox->blockSignals(false);
 	pageHeightSpinBox->blockSignals(false);
@@ -126,12 +136,17 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageOrientationComboBox->blockSignals(false);
 	pageSizeComboBox->blockSignals(false);
 
+	marginsWidget->setup(prefsData->docSetupPrefs.margins, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, true, true);
+	marginsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
+	marginsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
+	marginsWidget->setPageSize(prefsPageSizeName);
+	marginsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
+	bleedsWidget->setup(prefsData->docSetupPrefs.bleeds, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, false, false);
+	bleedsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
+	bleedsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
+	bleedsWidget->setPageSize(prefsPageSizeName);
+	bleedsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
 /*
-	marginGroup->setNewMargins(prefsData->docSetupPrefs.margins);
-	marginGroup->setPageWidthHeight(prefsData->docSetupPrefs.pageWidth, prefsData->docSetupPrefs.pageHeight);
-	marginGroup->setPageSize(prefsPageSizeName);
-	marginGroup->setNewBleeds(prefsData->docSetupPrefs.bleeds);
-	marginGroup->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
 	GroupAS->setChecked( prefsData->docSetupPrefs.AutoSave );
 	ASTime->setValue(prefsData->docSetupPrefs.AutoSaveTime / 1000 / 60);
 	*/
@@ -146,6 +161,8 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->docSetupPrefs.pageHeight=pageH;
 	prefsData->docSetupPrefs.pagePositioning=pageLayoutButtonGroup->checkedId();
 	prefsData->pageSets[prefsData->docSetupPrefs.pagePositioning].FirstPage=layoutFirstPageIsComboBox->currentIndex();
+	prefsData->docSetupPrefs.margins=marginsWidget->margins();
+	prefsData->docSetupPrefs.bleeds=bleedsWidget->margins();
 }
 
 void Prefs_DocumentSetup::setupPageSets()
@@ -159,9 +176,10 @@ void Prefs_DocumentSetup::setupPageSets()
 	layoutFirstPageIsComboBox->setCurrentIndex(i<0?0:i);
 }
 
-void Prefs_DocumentSetup::pageLayoutChanged(int /*i*/)
+void Prefs_DocumentSetup::pageLayoutChanged(int i)
 {
 	setupPageSets();
+	marginsWidget->setFacingPages(!(i == singlePage));
 	layoutFirstPageIsComboBox->setCurrentIndex(pageSets[pageLayoutButtonGroup->checkedId()].FirstPage);
 }
 

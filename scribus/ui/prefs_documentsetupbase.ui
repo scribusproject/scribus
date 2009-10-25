@@ -46,7 +46,7 @@
         <x>0</x>
         <y>0</y>
         <width>686</width>
-        <height>713</height>
+        <height>776</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -158,6 +158,20 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="applySizesToAllPagesCheckBox">
+         <property name="text">
+          <string>Apply changes to all pages</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="applySizesToAllMasterPagesCheckBox">
+         <property name="text">
+          <string>Apply changes to all master pages</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -195,62 +209,82 @@
         </widget>
        </item>
        <item>
-        <layout class="QFormLayout" name="formLayout_2">
-         <item row="0" column="0" colspan="2">
-          <widget class="QRadioButton" name="singlePageRadioButton">
-           <property name="text">
-            <string>Single Page</string>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <layout class="QFormLayout" name="formLayout_2">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
            </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
-           </attribute>
-          </widget>
+           <item row="0" column="1">
+            <widget class="QRadioButton" name="singlePageRadioButton">
+             <property name="text">
+              <string>Single Page</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string>pageLayoutButtonGroup</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QRadioButton" name="doublePageRadioButton">
+             <property name="text">
+              <string>Double Page</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string>pageLayoutButtonGroup</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QRadioButton" name="threeFoldRadioButton">
+             <property name="text">
+              <string>3-Fold</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string>pageLayoutButtonGroup</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QRadioButton" name="fourFoldRadioButton">
+             <property name="text">
+              <string>4-Fold</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string>pageLayoutButtonGroup</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="layoutFirstPageIsLabel">
+             <property name="text">
+              <string>First Page is:</string>
+             </property>
+             <property name="buddy">
+              <cstring>layoutFirstPageIsComboBox</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QComboBox" name="layoutFirstPageIsComboBox"/>
+           </item>
+          </layout>
          </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QRadioButton" name="doublePageRadioButton">
-           <property name="text">
-            <string>Double Page</string>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
-           <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="0" colspan="2">
-          <widget class="QRadioButton" name="threeFoldRadioButton">
-           <property name="text">
-            <string>3-Fold</string>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
            </property>
-           <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QRadioButton" name="fourFoldRadioButton">
-           <property name="text">
-            <string>4-Fold</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="layoutFirstPageIsLabel">
-           <property name="text">
-            <string>First Page is:</string>
-           </property>
-           <property name="buddy">
-            <cstring>layoutFirstPageIsComboBox</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QComboBox" name="layoutFirstPageIsComboBox"/>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -319,7 +353,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="appleMarginsToAllMasterPagesCheckBox">
+        <widget class="QCheckBox" name="applyMarginsToAllMasterPagesCheckBox">
          <property name="text">
           <string>Apply changes to all master pages</string>
          </property>

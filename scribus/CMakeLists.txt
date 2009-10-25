@@ -236,10 +236,10 @@ SET(SCRIBUS_MOC_CLASSES
   ui/layers.h
   loadsaveplugin.h
   ui/loremipsum.h
+  ui/margindialog.h
   ui/marginpresetlayout.h
   ui/marginwidget.h
   ui/newmarginwidget.h
-  ui/margindialog.h
   ui/masterpagepalette.h
   ui/measurements.h
   menumanager.h
@@ -537,10 +537,10 @@ SET(SCRIBUS_SOURCES
   ui/linkbutton.cpp
   loadsaveplugin.cpp
   ui/loremipsum.cpp
+  ui/margindialog.cpp
   ui/marginpresetlayout.cpp
   ui/marginwidget.cpp
   ui/newmarginwidget.cpp
-  ui/margindialog.cpp
   ui/masterpagepalette.cpp
   ui/measurements.cpp
   menumanager.cpp
