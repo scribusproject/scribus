@@ -25,11 +25,33 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 		void setPageHeight(double);
 		void setPageSize(const QString&);
 		void setNewUnitIndex(int);
+		void setTop();
+		void setBottom();
+		void setLeft();
+		void setRight();
+		void setPreset();
+		const MarginStruct & margins() const;
+		void slotLinkMargins();
+
+	public slots:
+		void languageChange();
 
 	protected:
+		void updateMarginSpinValues();
+
 		MarginStruct marginData;
 		MarginStruct savedMarginData;
 		int savedPresetItem;
+		bool facingPages;
+		int m_unitIndex;
+		double m_unitRatio;
+		QString m_pageSize;
+		double pageWidth;
+		double pageHeight;
+		int pageType;
 };
 
 #endif // NEWMARGINWIDGET_H
+
+
+

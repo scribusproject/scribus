@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>266</width>
+    <width>270</width>
     <height>258</height>
    </rect>
   </property>
@@ -30,7 +30,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QComboBox" name="comboBox">
+      <widget class="PresetLayout" name="presetLayoutComboBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -47,7 +47,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="ScrSpinBox" name="spinBox">
+      <widget class="ScrSpinBox" name="leftMarginSpinBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -64,7 +64,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="ScrSpinBox" name="spinBox_2">
+      <widget class="ScrSpinBox" name="rightMarginSpinBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -81,7 +81,7 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="ScrSpinBox" name="spinBox_3">
+      <widget class="ScrSpinBox" name="topMarginSpinBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -98,7 +98,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="ScrSpinBox" name="spinBox_4">
+      <widget class="ScrSpinBox" name="bottomMarginSpinBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -130,6 +130,11 @@
    <class>ScrSpinBox</class>
    <extends>QSpinBox</extends>
    <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PresetLayout</class>
+   <extends>QComboBox</extends>
+   <header location="global">ui/marginpresetlayout.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
