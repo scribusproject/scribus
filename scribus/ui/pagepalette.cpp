@@ -110,6 +110,7 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 
 void SeList::keyPressEvent(QKeyEvent * e)
 {
+	bool accepted = false;
 	int k = e->key();
 	if (k == Qt::Key_Delete)
 	{
@@ -122,8 +123,11 @@ void SeList::keyPressEvent(QKeyEvent * e)
 			{
 				emit DelMaster(currentItem()->text());
 			}
+			accepted = true;
 		}
 	}
+	if (!accepted)
+		QListWidget::keyPressEvent(e);
 }
 
 
@@ -381,6 +385,7 @@ void SeView::dragMoveEvent(QDragMoveEvent *e)
 
 void SeView::keyPressEvent(QKeyEvent * e)
 {
+	bool accepted = false;
 	int k = e->key();
 	if (k == Qt::Key_Delete)
 	{
@@ -393,7 +398,10 @@ void SeView::keyPressEvent(QKeyEvent * e)
 			int pageToDelete=GetPage(currentRow(), currentColumn(), &dummy);
 			emit DelPage(pageToDelete);
 		}
+		accepted = true;
 	}
+	if (!accepted)
+		QTableWidget::keyPressEvent(e);
 }
 
 void SeView::ClearPix()
