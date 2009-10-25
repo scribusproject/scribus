@@ -332,7 +332,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	mdiArea = new QMdiArea(this);
 	mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-//	mdiArea->setViewMode(QMdiArea::TabbedView);
+	if (prefsManager->appPrefs.uiPrefs.useTabs)
+		mdiArea->setViewMode(QMdiArea::TabbedView);
+	else
+		mdiArea->setViewMode(QMdiArea::SubWindowView);
 	setCentralWidget( mdiArea );
 	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on mdiArea created.
@@ -7599,6 +7602,10 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	if (oldImageQuality != newImageQuality)
 		view->previewQualitySwitcher->setCurrentIndex(newImageQuality);
 
+	if (prefsManager->appPrefs.uiPrefs.useTabs)
+		mdiArea->setViewMode(QMdiArea::TabbedView);
+	else
+		mdiArea->setViewMode(QMdiArea::SubWindowView);
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 	bool shadowChanged = oldShowPageShadow != prefsManager->showPageShadow();
 	if (!windows.isEmpty())

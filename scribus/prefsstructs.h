@@ -81,6 +81,7 @@ struct UIPrefs
 	QStringList RecentDocs; //! List of recent documents
 	QString language; //! Language of the user interface
 	bool useSmallWidgets; //! Use small widgets in the palettes
+	bool useTabs;         //! Use a tabbed MainWidget a la FireFox 
 	bool showStartupDialog; //! Whether to show the startup dialog or not
 	bool showSplashOnStartup; //! Whether to show the splashscreen or not
 	bool stickyTools; //! Whether a user's tool section remains after use or the normal tool is reselected

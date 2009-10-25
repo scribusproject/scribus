@@ -427,6 +427,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.showStartupDialog = true;
 	appPrefs.uiPrefs.showSplashOnStartup = true;
 	appPrefs.uiPrefs.useSmallWidgets = false;
+	appPrefs.uiPrefs.useTabs = false;
 	initDefaultCheckerPrefs(&appPrefs.checkerPrefsList);
 	appPrefs.curCheckProfile = CommonStrings::PostScript;
 	appPrefs.pdfPrefs.Thumbnails = false;
@@ -1272,6 +1273,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("UI_SHOWSTARTUPDIALOG", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
 	dc.setAttribute("UI_SHOWSPLASHSCREEN", static_cast<int>(appPrefs.uiPrefs.showSplashOnStartup));
 	dc.setAttribute("UI_USESMALLWIDGETS", static_cast<int>(appPrefs.uiPrefs.useSmallWidgets));
+	dc.setAttribute("UI_USESTABS", static_cast<int>(appPrefs.uiPrefs.useTabs));
 	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.displayPrefs.showToolTips));
 	dc.setAttribute("showMouseCoordinates", static_cast<int>(appPrefs.displayPrefs.showMouseCoordinates));
 	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.uiPrefs.stickyTools));
@@ -1823,6 +1825,7 @@ bool PrefsManager::ReadPref(QString ho)
 				appPrefs.uiPrefs.useSmallWidgets = dc.attribute("UseSmallWidgets").toInt();
 			else
 				appPrefs.uiPrefs.useSmallWidgets = static_cast<bool>(dc.attribute("UI_USESMALLWIDGETS", "0").toInt());
+			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UI_USETABS", "0").toInt());
 			appPrefs.pathPrefs.documents = dc.attribute("DOC","");
 			appPrefs.pathPrefs.colorProfiles = dc.attribute("PROFILES","");
 			appPrefs.pathPrefs.scripts = dc.attribute("SCRIPTS","");

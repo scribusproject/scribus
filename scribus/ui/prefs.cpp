@@ -357,6 +357,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.uiPrefs.language=tabGeneral->selectedGUILang;
 	prefsManager->appPrefs.uiPrefs.style = tabGeneral->GUICombo->currentText();
 	prefsManager->appPrefs.uiPrefs.useSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
+	prefsManager->appPrefs.uiPrefs.useTabs = tabGeneral->useTabsForDocs->isChecked();
 
 	prefsManager->appPrefs.displayPrefs.pageGapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
 	prefsManager->appPrefs.displayPrefs.pageGapVertical = tabView->gapVertical->value() / prefsUnitRatio;

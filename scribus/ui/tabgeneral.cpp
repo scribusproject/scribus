@@ -86,6 +86,7 @@ void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 	startUpDialog->setChecked(prefsData->uiPrefs.showStartupDialog);
 	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
 	useSmallWidgetsCheck->setChecked(prefsData->uiPrefs.useSmallWidgets);
+	useTabsForDocs->setChecked(prefsData->uiPrefs.useTabs);
 }
 
 void TabGeneral::setSelectedGUILang( const QString &newLang )
