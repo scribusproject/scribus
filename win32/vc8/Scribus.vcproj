@@ -1044,6 +1044,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\marginpresetlayout.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\marginwidget.cpp"
 				>
 			</File>
@@ -6747,6 +6751,54 @@
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
 						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\marginpresetlayout.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -15812,6 +15864,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_margindialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_marginpresetlayout.cpp"
 				>
 			</File>
 			<File
