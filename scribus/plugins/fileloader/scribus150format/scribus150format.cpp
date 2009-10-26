@@ -1938,6 +1938,14 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
 	}
 
+	if (newItem->stroke_gradient.Stops() == 0)
+	{
+		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.shapeFillColor];
+		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.shapeLineColor];
+		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.shapeFillColor, 100);
+		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
+	}
+
 	if (newItem->asPathText())
 	{
 		newItem->updatePolyClip();
@@ -2807,6 +2815,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double patternOffsetY  = attrs.valueAsDouble("pOffsetYS", 0.0);
 	double patternRotation = attrs.valueAsDouble("pRotationS", 0.0);
 	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	currItem->stroke_gradient.clearStops();
 	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
 	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
