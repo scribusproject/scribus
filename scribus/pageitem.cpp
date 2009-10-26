@@ -4141,7 +4141,6 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 
 void PageItem::getNamedResources(ResourceCollection& lists) const
 {
-	lists.collectColor(lineColor());
 	if (GrType == 0)
 		lists.collectColor(fillColor());
 	else if (GrType < 8)
@@ -4152,7 +4151,9 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
-	else if (GrTypeStroke > 0)
+	if (GrTypeStroke == 0)
+		lists.collectColor(lineColor());
+	else if (GrTypeStroke < 8)
 	{
 		QList<VColorStop*> cstops = stroke_gradient.colorStops();
 		for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
@@ -4183,6 +4184,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		}
 	}
 	lists.collectPattern(pattern());
+	lists.collectPattern(strokePattern());
 	lists.collectLineStyle(customLineStyle());
 	if (prevInChain() == NULL)
 		itemText.getNamedResources(lists);
