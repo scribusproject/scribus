@@ -111,7 +111,8 @@ class SvgStyle
 public:
 	SvgStyle() :
 		Display(true),
-		CSpace(false),
+		FillCSpace(false),
+		StrokeCSpace(false),
 		CurCol("None"),
 		dashOffset(0),
 		FontFamily(""),
@@ -121,18 +122,25 @@ public:
 		FontSize(12),
 		FillCol("Black"),
 		fillRule("nonzero"),
-		GCol1("Black"),
-		GCol2("Black"),
-		GradCo(VGradient::linear),
-		Gradient(0),
-		GX1(0),
-		GX2(0),
-		GY1(0),
-		GY2(0),
+		GFillCol1("Black"),
+		GStrokeCol1("Black"),
+		FillGradient(VGradient::linear),
+		StrokeGradient(VGradient::linear),
+		FillGradientType(0),
+		StrokeGradientType(0),
+		GradFillX1(0),
+		GradFillX2(0),
+		GradFillY1(0),
+		GradFillY2(0),
+		GradStrokeX1(0),
+		GradStrokeX2(0),
+		GradStrokeY1(0),
+		GradStrokeY2(0),
 		InherCol(false),
 		LWidth(1.0),
 		matrix(),
-		matrixg(),
+		matrixgf(),
+		matrixgs(),
 		PLineArt(Qt::SolidLine),
 		PLineEnd(Qt::FlatCap),
 		PLineJoin(Qt::MiterJoin),
@@ -145,7 +153,8 @@ public:
 		{
 		}
 	bool Display;
-	bool CSpace;
+	bool FillCSpace;
+	bool StrokeCSpace;
 	QString CurCol;
 	QVector<double> dashArray;
 	double dashOffset;
@@ -156,18 +165,25 @@ public:
 	int FontSize;
 	QString FillCol;
 	QString fillRule;
-	QString GCol1;
-	QString GCol2;
-	VGradient GradCo;
-	int Gradient;
-	double GX1;
-	double GX2;
-	double GY1;
-	double GY2;
+	QString GFillCol1;
+	QString GStrokeCol1;
+	VGradient FillGradient;
+	VGradient StrokeGradient;
+	int    FillGradientType;
+	int    StrokeGradientType;
+	double GradFillX1;
+	double GradFillX2;
+	double GradFillY1;
+	double GradFillY2;
+	double GradStrokeX1;
+	double GradStrokeX2;
+	double GradStrokeY1;
+	double GradStrokeY2;
 	bool InherCol;
 	double LWidth;
 	QTransform matrix;
-	QTransform matrixg;
+	QTransform matrixgf;
+	QTransform matrixgs;
 	Qt::PenStyle PLineArt;
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
