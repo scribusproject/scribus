@@ -310,6 +310,29 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			}
 			handler.end("Gradient");
 		}
+		if (GrTypeStroke > 0)
+		{
+			Xml_attr gradientV;
+			gradientV.insert("GRTYPES", toXMLString(GrTypeStroke));
+			gradientV.insert("GRSTARTXS", toXMLString(GrStrokeStartX));
+			gradientV.insert("GRSTARTYS", toXMLString(GrStrokeStartY));
+			gradientV.insert("GRENDXS", toXMLString(GrStrokeEndX));
+			gradientV.insert("GRENDYS", toXMLString(GrStrokeEndY));
+			gradientV.insert("GRNAMES", toXMLString(strokeGradient()));
+			handler.begin("GradientS", gradientV);
+			QList<VColorStop*> cstops = fill_gradient.colorStops();
+			for (uint cst = 0; cst < const_cast<VGradient&>(fill_gradient).Stops(); ++cst) //FIXME make const
+			{
+				Xml_attr itcl;
+				itcl.insert("RAMP", toXMLString(cstops.at(cst)->rampPoint));
+				itcl.insert("NAME", cstops.at(cst)->name);
+				itcl.insert("SHADE", toXMLString(cstops.at(cst)->shade));
+				itcl.insert("TRANS", toXMLString(cstops.at(cst)->opacity));
+				handler.begin("S_CStop",itcl);
+				handler.end("S_CStop");
+			}
+			handler.end("GradientS");
+		}
 	}
 	
 	// TODO: PI attributes...
@@ -517,16 +540,29 @@ class Gradient_body : public Action_body
 			// item->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 			item->fill_gradient.addStop( QColor(150, 100, 50) , ramp, 0.5, opa, name, shade);
 		}
-		if (tagName=="Gradient")
+		if (tagName=="S_CStop")
+		{
+//			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
+			PageItem* item = this->dig->top<PageItem>();
+			QString name = attr["NAME"];
+			double ramp = parseDouble(attr["RAMP"]);
+			int shade = parseInt(attr["SHADE"]);
+			double opa = parseDouble(attr["TRANS"]);
+			// Hack : at this stage, colors may still not exists in document and SetColor would create it, 
+			// so use the dummy brown and update manually gradient colors in Serializer
+			// item->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+			item->stroke_gradient.addStop( QColor(150, 100, 50) , ramp, 0.5, opa, name, shade);
+		}
+		if (tagName=="GradientS")
 		{
 			PageItem* item = this->dig->top<PageItem>();
-			item->GrType = parseInt(attr["GRTYPE"]);
-			item->GrStartX = parseDouble(attr["GRSTARTX"]);
-			item->GrStartY = parseDouble(attr["GRSTARTY"]);
-			item->GrEndX = parseDouble(attr["GRENDX"]);
-			item->GrEndY = parseDouble(attr["GRENDY"]);
-			item->setGradient(attr["GRNAME"]);
-			item->fill_gradient.clearStops();
+			item->GrTypeStroke = parseInt(attr["GRTYPES"]);
+			item->GrStrokeStartX = parseDouble(attr["GRSTARTXS"]);
+			item->GrStrokeStartY = parseDouble(attr["GRSTARTYS"]);
+			item->GrStrokeEndX = parseDouble(attr["GRENDXS"]);
+			item->GrStrokeEndY = parseDouble(attr["GRENDYS"]);
+			item->setStrokeGradient(attr["GRNAMES"]);
+			item->stroke_gradient.clearStops();
 		}
 	}
 };
@@ -836,6 +872,10 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	Xml_string gradientPrefix(Digester::concat(itemPrefix, "Gradient"));
 	ruleset.addRule(gradientPrefix, gradient);
 	ruleset.addRule(Digester::concat(gradientPrefix, "CStop"), gradient);
+	Gradient gradientS;
+	Xml_string gradientPrefixS(Digester::concat(itemPrefix, "GradientS"));
+	ruleset.addRule(gradientPrefixS, gradientS);
+	ruleset.addRule(Digester::concat(gradientPrefixS, "S_CStop"), gradientS);
 		
 	ImageEffectsAndLayers effectsAndLayers;
 	ruleset.addRule(Digester::concat(itemPrefix, "ImageEffect"), effectsAndLayers);

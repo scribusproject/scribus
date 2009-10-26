@@ -194,6 +194,15 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 			OB->GrShade2 = attrAsInt(attrs, "GRSHADE2", 100);
 		}
 	}
+	OB->GrTypeStroke = attrAsInt(attrs, "GRTYPS"  , 0);
+	OB->stroke_gradient.clearStops();
+	if (OB->GrTypeStroke > 0)
+	{
+		OB->GrStrokeStartX = attrAsDbl(attrs, "GRSTARTXS", 0.0);
+		OB->GrStrokeStartY = attrAsDbl(attrs, "GRSTARTYS", 0.0);
+		OB->GrStrokeEndX   = attrAsDbl(attrs, "GRENDXS", 0.0);
+		OB->GrStrokeEndY   = attrAsDbl(attrs, "GRENDYS", 0.0);
+	}
 	OB->Rot        = attrAsDbl(attrs, "ROT", 0.0);
 	OB->PLineArt   = Qt::PenStyle    ( attrAsInt(attrs, "PLINEART", 0) );
 	OB->PLineEnd   = Qt::PenCapStyle ( attrAsInt(attrs, "PLINEEND", 0) );
@@ -550,6 +559,7 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("SHADE"    ,item->fillShade());
 	writer.writeAttribute("SHADE2"   ,item->lineShade());
 	writer.writeAttribute("GRTYP"    ,item->GrType);
+	writer.writeAttribute("GRTYPS"   ,item->GrTypeStroke);
 	writer.writeAttribute("ROT"      ,item->rotation());
 	writer.writeAttribute("PLINEART" ,item->PLineArt);
 	writer.writeAttribute("PLINEEND" ,item->PLineEnd);
@@ -1213,6 +1223,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	double patternOffsetXS;
 	double patternOffsetYS;
 	double patternRotationS;
+	QString gradNameS;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1233,6 +1244,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			OB.isBookmark      = attrAsInt(attrs, "BOOKMARK");
 			OB.NamedLStyle     = attrAsString(attrs, "NAMEDLST", "");
 			gradName           = attrAsString(attrs, "GRNAME", "");
+			gradNameS          = attrAsString(attrs, "GRNAMES", "");
 			isGroupControl     = attrAsBool(attrs, "isGroupControl", false);
 			doOverprint        = attrAsBool(attrs, "doOverprint", false);
 			groupsLastItem     = attrAsInt (attrs, "groupsLastItem", 0);
@@ -1397,6 +1409,16 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			OB.GrColor   = "";
 			OB.GrColor2  = "";
 		}
+		if (inItem && sReader.isStartElement() && tagName == "S_CSTOP")
+		{
+			QString name = attrAsString(attrs, "NAME", "");
+			double ramp  = attrAsDbl(attrs, "RAMP", 0.0);
+			int shade    = attrAsInt(attrs, "SHADE", 100);
+			double opa   = attrAsDbl(attrs, "TRANS", 1.0);
+			OB.stroke_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+			OB.GrColor   = "";
+			OB.GrColor2  = "";
+		}
 		if (inItem && sReader.isStartElement() && tagName == "Tabs")
 		{
 			ParagraphStyle::TabRecord tb;
@@ -1446,6 +1468,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			Neu->setGradient(gradName);
+			Neu->setStrokeGradient(gradNameS);
 			Neu->doOverprint = doOverprint;
 			Neu->setStrokePattern(StrokePattern);
 			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS);
@@ -1617,6 +1640,13 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	QByteArray inlineImageData;
 	QString inlineImageExt;
 	QString gradName;
+	QString StrokePattern;
+	double patternScaleXS;
+	double patternScaleYS;
+	double patternOffsetXS;
+	double patternOffsetYS;
+	double patternRotationS;
+	QString gradNameS;
 	int lowResType = 1;
 	int actualPageNumber = 0;
 	while(!reader.atEnd() && !reader.hasError())
@@ -1638,6 +1668,13 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			lowResType         = attrAsInt (attrs1, "ImageRes", 1);
 			actualPageNumber   = attrAsInt (attrs1, "Pagenumber", 0);
 			gradName           = attrAsString(attrs1, "GRNAME", "");
+			gradNameS          = attrAsString(attrs1, "GRNAMES", "");
+			StrokePattern = attrAsString(attrs, "patternS", "");
+			patternScaleXS   = attrAsDbl(attrs, "pScaleXS", 100.0);
+			patternScaleYS   = attrAsDbl(attrs, "pScaleYS", 100.0);
+			patternOffsetXS  = attrAsDbl(attrs, "pOffsetXS", 0.0);
+			patternOffsetYS  = attrAsDbl(attrs, "pOffsetYS", 0.0);
+			patternRotationS = attrAsDbl(attrs, "pRotationS", 0.0);
 			inlineF = attrAsBool(attrs1, "isInlineImage", false);
 			inlineImageData.resize(0);
 			QString dat = attrAsString(attrs1, "ImageData", "");
@@ -1726,6 +1763,16 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			OB.GrColor   = "";
 			OB.GrColor2  = "";
 		}
+		if (tagName1 == "S_CSTOP" && reader.isStartElement())
+		{
+			QString name = attrs1.value("NAME").toString();
+			double ramp  = attrAsDbl(attrs1, "RAMP", 0.0);
+			int shade    = attrAsInt(attrs1, "SHADE", 100);
+			double opa   = attrAsDbl(attrs1, "TRANS", 1.0);
+			OB.stroke_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+			OB.GrColor   = "";
+			OB.GrColor2  = "";
+		}
 		if (tagName1=="Tabs" && reader.isStartElement())
 		{
 			ParagraphStyle::TabRecord tb;
@@ -1769,6 +1816,9 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			Neu->doOverprint = doOverprint;
 			Neu->setGradient(gradName);
+			Neu->setStrokeGradient(gradNameS);
+			Neu->setStrokePattern(StrokePattern);
+			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS);
 			Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			Neu->itemText = storyText;
@@ -2290,6 +2340,13 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRENDX"  , item->GrEndX);
 		writer.writeAttribute("GRENDY"  , item->GrEndY);
 	}
+	if (item->GrTypeStroke > 0)
+	{
+		writer.writeAttribute("GRSTARTXS", item->GrStrokeStartX);
+		writer.writeAttribute("GRSTARTYS", item->GrStrokeStartY);
+		writer.writeAttribute("GRENDXS"  , item->GrStrokeEndX);
+		writer.writeAttribute("GRENDYS"  , item->GrStrokeEndY);
+	}
 
 	if (item->effectsInUse.count() != 0)
 	{
@@ -2360,6 +2417,24 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 			else
 				writer.writeAttribute("GRNAME"  , item->gradient());
 		}
+	}
+	if (item->GrTypeStroke > 0)
+	{
+		if (item->strokeGradient().isEmpty())
+		{
+			QList<VColorStop*> cstops = item->stroke_gradient.colorStops();
+			for (uint cst = 0; cst < item->stroke_gradient.Stops(); ++cst)
+			{
+				writer.writeStartElement("S_CSTOP");
+				writer.writeAttribute("RAMP" , cstops.at(cst)->rampPoint);
+				writer.writeAttribute("NAME" , cstops.at(cst)->name);
+				writer.writeAttribute("SHADE", cstops.at(cst)->shade);
+				writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
+				writer.writeEndElement();
+			}
+		}
+		else
+			writer.writeAttribute("GRNAMES"  , item->strokeGradient());
 	}
 	if (!item->strokePattern().isEmpty())
 	{

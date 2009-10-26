@@ -229,6 +229,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 0));
 	nameFilters = formatD.split(" ", QString::SkipEmptyParts);
+	nameFilters.append("*.svg");
 
 //filter/search setup
 	connect ( filterTargetCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( filterTargetComboboxChanged ( int ) ) );

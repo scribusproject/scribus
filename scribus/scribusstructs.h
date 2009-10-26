@@ -85,6 +85,12 @@ struct CopyPasteBuffer
 	double GrStartY;
 	double GrEndX;
 	double GrEndY;
+	VGradient stroke_gradient;
+	int GrTypeStroke;
+	double GrStrokeStartX;
+	double GrStrokeStartY;
+	double GrStrokeEndX;
+	double GrStrokeEndY;
 	QString TxtStroke;
 	QString TxtFill;
 	int ShTxtStroke;

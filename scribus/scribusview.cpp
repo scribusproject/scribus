@@ -3866,6 +3866,16 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			currItem->updateGradientVectors();
 		}
 	}
+	if (Buffer->GrTypeStroke >0)
+	{
+		currItem->stroke_gradient = Buffer->stroke_gradient;
+		currItem->GrTypeStroke = Buffer->GrTypeStroke;
+		currItem->GrStrokeStartX = Buffer->GrStrokeStartX;
+		currItem->GrStrokeStartY = Buffer->GrStrokeStartY;
+		currItem->GrStrokeEndX = Buffer->GrStrokeEndX;
+		currItem->GrStrokeEndY = Buffer->GrStrokeEndY;
+		currItem->updateGradientVectors();
+	}
 	currItem->setObjectAttributes(&(Buffer->pageItemAttributes));
 	if (resize)
 		Doc->setRedrawBounding(currItem);

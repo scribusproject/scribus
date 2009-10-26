@@ -1770,6 +1770,14 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			double opa   = tAtt.valueAsDouble("TRANS", 1.0);
 			newItem->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 		}
+		if (tName == "S_CSTOP")
+		{
+			QString name = tAtt.valueAsString("NAME");
+			double ramp  = tAtt.valueAsDouble("RAMP", 0.0);
+			int shade    = tAtt.valueAsInt("SHADE", 100);
+			double opa   = tAtt.valueAsDouble("TRANS", 1.0);
+			newItem->stroke_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
 
 		if (tName == "ITEXT")
 			readItemText(newItem, tAtt, lastStyle);
@@ -2799,6 +2807,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double patternOffsetY  = attrs.valueAsDouble("pOffsetYS", 0.0);
 	double patternRotation = attrs.valueAsDouble("pRotationS", 0.0);
 	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
+	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
+	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
+	currItem->GrStrokeEndX   = attrs.valueAsDouble("GRENDXS", 0.0);
+	currItem->GrStrokeEndY   = attrs.valueAsDouble("GRENDYS", 0.0);
+	QString GrNameS = "";
+	GrNameS = attrs.valueAsString("GRNAMES","");
+	if (!GrNameS.isEmpty())
+		currItem->setStrokeGradient(GrNameS);
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
 	UndoManager::instance()->setUndoEnabled(true);

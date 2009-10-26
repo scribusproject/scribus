@@ -1187,6 +1187,15 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		}
 		if (!item->gradient().isEmpty())
 			docu.writeAttribute("GRNAME", item->gradient());
+		if (!item->strokeGradient().isEmpty())
+			docu.writeAttribute("GRNAMES", item->strokeGradient());
+		if (item->GrTypeStroke > 0)
+		{
+			docu.writeAttribute("GRSTARTXS", item->GrStrokeStartX);
+			docu.writeAttribute("GRSTARTYS", item->GrStrokeStartY);
+			docu.writeAttribute("GRENDXS", item->GrStrokeEndX);
+			docu.writeAttribute("GRENDYS", item->GrStrokeEndY);
+		}
 		if (!item->strokePattern().isEmpty())
 		{
 			docu.writeAttribute("patternS", item->strokePattern());
@@ -1260,6 +1269,18 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				docu.writeEmptyElement("CSTOP");
+				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
+				docu.writeAttribute("NAME", cstops.at(cst)->name);
+				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
+				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+			}
+		}
+		if ((item->GrTypeStroke > 0) && (item->strokeGradient().isEmpty()))
+		{
+			QList<VColorStop*> cstops = item->stroke_gradient.colorStops();
+			for (uint cst = 0; cst < item->stroke_gradient.Stops(); ++cst)
+			{
+				docu.writeEmptyElement("S_CSTOP");
 				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
 				docu.writeAttribute("NAME", cstops.at(cst)->name);
 				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
@@ -1431,6 +1452,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("SHADE",item->fillShade());
 	docu.writeAttribute("SHADE2",item->lineShade());
 	docu.writeAttribute("GRTYP",item->GrType);
+	docu.writeAttribute("GRTYPS",item->GrTypeStroke);
 	docu.writeAttribute("ROT",item->rotation());
 	docu.writeAttribute("PLINEART",item->PLineArt);
 	docu.writeAttribute("PLINEEND", item->PLineEnd);
