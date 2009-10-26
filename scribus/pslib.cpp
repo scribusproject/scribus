@@ -2084,7 +2084,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				if ((c->GrType != 0) && (master == false))
-					HandleGradient(c, c->width(), c->height(), gcr);
+					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 				PS_newpath();
@@ -2132,7 +2132,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (!c->strokePattern().isEmpty())
 						HandleStrokePattern(c);
 					else if (c->GrTypeStroke > 0)
-						HandleStrokeGradient(c, gcr);
+						HandleGradientFillStroke(c, gcr);
 					else
 					{
 						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
@@ -2196,7 +2196,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				if ((c->GrType != 0) && (master == false))
-					HandleGradient(c, c->width(), c->height(), gcr);
+					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 			}
@@ -2223,7 +2223,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (!c->strokePattern().isEmpty())
 						HandleStrokePattern(c);
 					else if (c->GrTypeStroke > 0)
-						HandleStrokeGradient(c, gcr);
+						HandleGradientFillStroke(c, gcr);
 					else
 					{
 						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
@@ -2264,7 +2264,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					PS_moveto(0, 0);
 					PS_lineto(c->width(), 0);
-					HandleStrokeGradient(c, gcr);
+					HandleGradientFillStroke(c, gcr);
 				}
 				else if (c->lineColor() != CommonStrings::None)
 				{
@@ -2317,7 +2317,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_closepath();
 				fillRule = c->fillRule;
 				if (c->GrType != 0)
-					HandleGradient(c, c->width(), c->height(), gcr);
+					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 			}
@@ -2330,7 +2330,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (!c->strokePattern().isEmpty())
 						HandleStrokePattern(c);
 					else if (c->GrTypeStroke > 0)
-						HandleStrokeGradient(c, gcr);
+						HandleGradientFillStroke(c, gcr);
 					else if (c->lineColor() != CommonStrings::None)
 						putColor(c->lineColor(), c->lineShade(), false);
 				}
@@ -2360,7 +2360,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				if (c->GrType != 0)
-					HandleGradient(c, c->width(), c->height(), gcr);
+					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 				PS_newpath();
@@ -2373,7 +2373,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (!c->strokePattern().isEmpty())
 						HandleStrokePattern(c);
 					else if (c->GrTypeStroke > 0)
-						HandleStrokeGradient(c, gcr);
+						HandleGradientFillStroke(c, gcr);
 					else if (c->lineColor() != CommonStrings::None)
 						putColor(c->lineColor(), c->lineShade(), false);
 				}
@@ -2442,7 +2442,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						if (!c->strokePattern().isEmpty())
 							HandleStrokePattern(c);
 						else if (c->GrTypeStroke > 0)
-							HandleStrokeGradient(c, gcr);
+							HandleGradientFillStroke(c, gcr);
 						else if (c->lineColor() != CommonStrings::None)
 							putColor(c->lineColor(), c->lineShade(), false);
 					}
@@ -3159,7 +3159,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 					SetClipPath(&ite->PoLine);
 					PS_closepath();
 					if (ite->GrType != 0)
-						HandleGradient(ite, ite->width(), ite->height(), gcr);
+						HandleGradientFillStroke(ite, gcr, false);
 					else
 						putColor(ite->fillColor(), ite->fillShade(), true);
 				}
@@ -3186,7 +3186,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 						if (!ite->strokePattern().isEmpty())
 							HandleStrokePattern(ite);
 						else if (ite->GrTypeStroke > 0)
-							HandleStrokeGradient(ite, gcr);
+							HandleGradientFillStroke(ite, gcr);
 						else
 						{
 							SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
@@ -3449,7 +3449,8 @@ void PSLib::HandleStrokePattern(PageItem *c)
 	PutStream("stroke\n");
 }
 
-void PSLib::HandleStrokeGradient(PageItem *c, bool gcr, bool stroke)
+
+void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool forArrow)
 {
 	// TODO: Handle Spot Colors correctly
 	double StartX, StartY, EndX, EndY;
@@ -3459,12 +3460,43 @@ void PSLib::HandleStrokeGradient(PageItem *c, bool gcr, bool stroke)
 	QStringList Gcolors;
 	QStringList colorNames;
 	QList<int> colorShades;
-	GType = c->GrTypeStroke;
-	StartX = c->GrStrokeStartX;
-	StartY = c->GrStrokeStartY;
-	EndX = c->GrStrokeEndX;
-	EndY = c->GrStrokeEndY;
-	gradient = c->stroke_gradient;
+	QList<QString> spotColorSet;
+	if (stroke)
+	{
+		GType = c->GrTypeStroke;
+		StartX = c->GrStrokeStartX;
+		StartY = c->GrStrokeStartY;
+		EndX = c->GrStrokeEndX;
+		EndY = c->GrStrokeEndY;
+		gradient = c->stroke_gradient;
+	}
+	else
+	{
+		GType = c->GrType;
+		StartX = c->GrStartX;
+		StartY = c->GrStartY;
+		EndX = c->GrEndX;
+		EndY = c->GrEndY;
+		gradient = c->fill_gradient;
+		if (GType == 8)
+		{
+			QTransform patternMatrix;
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+			ScPattern *pat = &m_Doc->docPatterns[c->pattern()];
+			uint patHash = qHash(c->pattern());
+			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			patternMatrix.translate(patternOffsetX, -patternOffsetY);
+			patternMatrix.rotate(-patternRotation);
+			patternMatrix.scale(pat->scaleX, pat->scaleY);
+			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
+			if (fillRule)
+				PutStream("eofill\n");
+			else
+				PutStream("fill\n");
+			return;
+		}
+	}
 	QList<VColorStop*> cstops = gradient.colorStops();
 	PutStream("<<\n");
 	PutStream("/PatternType 2\n");
@@ -3482,7 +3514,12 @@ void PSLib::HandleStrokeGradient(PageItem *c, bool gcr, bool stroke)
 		StopVec.append(actualStop);
 		colorNames.append(cstops.at(cst)->name);
 		colorShades.append(cstops.at(cst)->shade);
-		if ((cst == c->stroke_gradient.Stops()-1) && (actualStop < 1.0))
+		if (spotMap.contains(cstops.at(cst)->name))
+		{
+			if (!spotColorSet.contains(cstops.at(cst)->name))
+				spotColorSet.append(cstops.at(cst)->name);
+		}
+		if ((cst == gradient.Stops()-1) && (actualStop < 1.0))
 		{
 			StopVec.append(1.0);
 			colorNames.append(cstops.at(cst)->name);
@@ -3495,6 +3532,39 @@ void PSLib::HandleStrokeGradient(PageItem *c, bool gcr, bool stroke)
 		PutStream("/ShadingType 3\n");
 	if ((DoSep) || (GraySc))
 		PutStream("/ColorSpace /DeviceGray\n");
+	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+	{
+		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutStream(" ("+spotColorSet.at(sc)+")");
+		}
+		PutStream("]\n");
+		PutStream("/DeviceCMYK\n");
+		PutStream("{\n");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			int cc = 0;
+			int mc = 0;
+			int yc = 0;
+			int kc = 0;
+			CMYKColor cmykValues;
+			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(sc)], m_Doc, cmykValues);
+			cmykValues.getValues(cc, mc, yc, kc);
+			if (sc == 0)
+				PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+			else
+				PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+			PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
+			PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
+			PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+		}
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutStream("8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n");
+		}
+		PutStream("} ]\n");
+	}
 	else
 		PutStream("/ColorSpace /DeviceCMYK\n");
 	PutStream("/Extend [true true]\n");
@@ -3521,35 +3591,85 @@ void PSLib::HandleStrokeGradient(PageItem *c, bool gcr, bool stroke)
 	PutStream("[\n");
 	for (int cc = 0; cc < colorNames.count() - 1; cc++)
 	{
+		QString GCol, GCol2;
+		QString hs,ss,vs,ks;
+		int ch,cs,cv,ck;
 		entx += "0 1 ";
 		PutStream("<<\n");
 		PutStream("/FunctionType 2\n");
 		PutStream("/Domain [0 1]\n");
-		QString GCol, GCol2;
-		QString hs,ss,vs,ks;
-		int ch,cs,cv,ck;
-		SetColor(colorNames.at(cc), colorShades.at(cc), &ch, &cs, &cv, &ck, gcr);
-		if (GraySc)
-			GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
-		else
-			GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-		SetColor(colorNames.at(cc+1), colorShades.at(cc+1), &ch, &cs, &cv, &ck, gcr);
-		if (GraySc)
-			GCol2 = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
-		else
-			GCol2 = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-		if (DoSep)
+		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
 		{
-			int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-			QStringList cols1 = GCol.split(" ", QString::SkipEmptyParts);
-			QStringList cols2 = GCol2.split(" ", QString::SkipEmptyParts);
-			PutStream("/C1 ["+ToStr(1 - ScCLocale::toDoubleC(cols1[pla]))+"]\n");
-			PutStream("/C0 ["+ToStr(1 - ScCLocale::toDoubleC(cols2[pla]))+"]\n");
+			if (spotColorSet.contains(colorNames.at(cc)))
+			{
+				PutStream("/C0 [0 0 0 0");
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					if (spotColorSet.at(sc) == colorNames.at(cc))
+						PutStream(" "+ToStr(colorShades[cc] / 100.0));
+					else
+						PutStream(" 0");
+				}
+			}
+			else
+			{
+				SetColor(colorNames.at(cc), colorShades.at(cc), &ch, &cs, &cv, &ck, gcr);
+				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				PutStream("/C0 ["+GCol);
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					PutStream(" 0");
+				}
+			}
+			PutStream("]\n");
+			if (spotColorSet.contains(colorNames.at(cc+1)))
+			{
+				PutStream("/C1 [0 0 0 0");
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					if (spotColorSet.at(sc) == colorNames.at(cc+1))
+						PutStream(" "+ToStr(colorShades[cc+1] / 100.0));
+					else
+						PutStream(" 0");
+				}
+			}
+			else
+			{
+				SetColor(colorNames.at(cc+1), colorShades.at(cc+1), &ch, &cs, &cv, &ck, gcr);
+				GCol2 = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				PutStream("/C1 ["+GCol2);
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					PutStream(" 0");
+				}
+			}
+			PutStream("]\n");
 		}
 		else
 		{
-			PutStream("/C0 ["+GCol+"]\n");
-			PutStream("/C1 ["+GCol2+"]\n");
+			SetColor(colorNames.at(cc), colorShades.at(cc), &ch, &cs, &cv, &ck, gcr);
+			if (GraySc)
+				GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+			else
+				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			SetColor(colorNames.at(cc+1), colorShades.at(cc+1), &ch, &cs, &cv, &ck, gcr);
+			if (GraySc)
+				GCol2 = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+			else
+				GCol2 = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			if (DoSep)
+			{
+				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				QStringList cols1 = GCol.split(" ", QString::SkipEmptyParts);
+				QStringList cols2 = GCol2.split(" ", QString::SkipEmptyParts);
+				PutStream("/C1 ["+ToStr(1 - ScCLocale::toDoubleC(cols1[pla]))+"]\n");
+				PutStream("/C0 ["+ToStr(1 - ScCLocale::toDoubleC(cols2[pla]))+"]\n");
+			}
+			else
+			{
+				PutStream("/C0 ["+GCol+"]\n");
+				PutStream("/C1 ["+GCol2+"]\n");
+			}
 		}
 		PutStream("/N 1\n");
 		PutStream(">>\n");
@@ -3560,17 +3680,28 @@ void PSLib::HandleStrokeGradient(PageItem *c, bool gcr, bool stroke)
 	PutStream(">>\n");
 	PutStream(">>\n");
 	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
-	if (stroke)
-		PutStream("stroke\n");
-	else
+	if (forArrow)
 	{
 		if (fillRule)
 			PutStream("eofill\n");
 		else
 			PutStream("fill\n");
 	}
+	else
+	{
+		if (stroke)
+			PutStream("stroke\n");
+		else
+		{
+			if (fillRule)
+				PutStream("eofill\n");
+			else
+				PutStream("fill\n");
+		}
+	}
 }
 
+/* deprecated use HandleGradientFillStroke instead */
 void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 {
 	int ch,cs,cv,ck;
@@ -3717,7 +3848,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, boo
 			PS_newpath();
 			SetClipPath(&arrow);
 			PS_closepath();
-			HandleStrokeGradient(ite, gcr, false);
+			HandleGradientFillStroke(ite, gcr, true, true);
 		}
 		else if (ite->lineColor() != CommonStrings::None)
 		{

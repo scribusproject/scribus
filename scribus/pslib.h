@@ -106,8 +106,12 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_strokespot(QString color, double shade);
 		virtual void PS_fill_stroke();
 		virtual void PS_newpath();
+
+		/* deprecated */
 		virtual void PS_MultiRadGradient(double w, double h, double x, double y, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades);
+		/* deprecated */
 		virtual void PS_MultiLinGradient(double w, double h, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades);
+
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 		virtual void PS_show_xyG(QString font, uint gl, double x, double y, bool stop);
@@ -132,8 +136,11 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void GetBleeds(Page* page, double& left, double& right, double& bottom, double& top);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
 		virtual void HandleStrokePattern(PageItem *c);
-		virtual void HandleStrokeGradient(PageItem *c, bool gcr, bool stroke = true);
+		virtual void HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke = true, bool forArrow = false);
+
+		/* deprecated */
 		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
+
 		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
 		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
