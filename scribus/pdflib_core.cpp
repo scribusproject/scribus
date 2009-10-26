@@ -5665,27 +5665,31 @@ bool PDFLibCore::PDF_StrokePattern(QString& output, PageItem *currItem, bool for
 
 bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool forArrow)
 {
-	double StartX = currItem->GrStrokeStartX;
-	double StartY = currItem->GrStrokeStartY;
-	double EndX = currItem->GrStrokeEndX;
-	double EndY = currItem->GrStrokeEndY;
-	int GType = currItem->GrTypeStroke;
 	QList<double> StopVec;
 	QList<double> TransVec;
 	QStringList Gcolors;
 	QStringList colorNames;
 	QList<int> colorShades;
-	QList<VColorStop*> cstops = currItem->stroke_gradient.colorStops();
+	QStringList spotColorSet;
+	VGradient gradient;
+	double StartX = currItem->GrStrokeStartX;
+	double StartY = currItem->GrStrokeStartY;
+	double EndX = currItem->GrStrokeEndX;
+	double EndY = currItem->GrStrokeEndY;
+	int GType = currItem->GrTypeStroke;
+	gradient = currItem->stroke_gradient;
+	QList<VColorStop*> cstops = gradient.colorStops();
 	StopVec.clear();
 	TransVec.clear();
 	Gcolors.clear();
 	colorNames.clear();
 	colorShades.clear();
 	QTransform mpa;
+	bool spotMode = false;
 	mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 	mpa.rotate(-currItem->rotation());
 	bool transparencyFound = false;
-	for (uint cst = 0; cst < currItem->stroke_gradient.Stops(); ++cst)
+	for (uint cst = 0; cst < gradient.Stops(); ++cst)
 	{
 		double actualStop = cstops.at(cst)->rampPoint;
 		if ((cst == 0) && (actualStop != 0.0))
@@ -5702,8 +5706,13 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 		TransVec.append(cstops.at(cst)->opacity);
 		if (cstops.at(cst)->opacity != 1.0)
 			transparencyFound = true;
+		if (spotMap.contains(cstops.at(cst)->name))
+		{
+			if (!spotColorSet.contains(cstops.at(cst)->name))
+				spotColorSet.append(cstops.at(cst)->name);
+		}
 		Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
-		if ((cst == currItem->stroke_gradient.Stops()-1) && (actualStop < 1.0))
+		if ((cst == gradient.Stops()-1) && (actualStop < 1.0))
 		{
 			StopVec.append(1.0);
 			colorNames.append(cstops.at(cst)->name);
@@ -5809,6 +5818,7 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 		TRes = GXName;
 	}
 	uint patObject = newObject();
+	uint spotObject = 0;
 	StartObj(patObject);
 	PutDoc("<<\n/Type /Pattern\n");
 	PutDoc("/PatternType 2\n");
@@ -5826,7 +5836,24 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 	else if ((doc.HasCMS) && (Options.UseProfiles))
 		PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
 	else
-		PutDoc("/ColorSpace /DeviceCMYK\n");
+	{
+		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+		{
+			spotObject = newObject();
+			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
+			for (int sc = 0; sc < spotColorSet.count(); sc++)
+			{
+				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+			}
+			PutDoc(" ]\n");
+			PutDoc("/DeviceCMYK\n");
+			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc("]\n");
+			spotMode = true;
+		}
+		else
+			PutDoc("/ColorSpace /DeviceCMYK\n");
+	}
 	PutDoc("/Extend [true true]\n");
 	if (GType == 6)
 		PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
@@ -5855,8 +5882,54 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 		PutDoc("<<\n");
 		PutDoc("/FunctionType 2\n");
 		PutDoc("/Domain [0 1]\n");
-		PutDoc("/C0 ["+Gcolors[cc]+"]\n");
-		PutDoc("/C1 ["+Gcolors[cc+1]+"]\n");
+		if (spotMode)
+		{
+			if (spotColorSet.contains(colorNames.at(cc)))
+			{
+				PutDoc("/C0 [0 0 0 0");
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					if (spotColorSet.at(sc) == colorNames.at(cc))
+						PutDoc(" "+FToStr(colorShades[cc] / 100.0));
+					else
+						PutDoc(" 0");
+				}
+			}
+			else
+			{
+				PutDoc("/C0 ["+Gcolors[cc]);
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					PutDoc(" 0");
+				}
+			}
+			PutDoc("]\n");
+			if (spotColorSet.contains(colorNames.at(cc+1)))
+			{
+				PutDoc("/C1 [0 0 0 0");
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					if (spotColorSet.at(sc) == colorNames.at(cc+1))
+						PutDoc(" "+FToStr(colorShades[cc+1] / 100.0));
+					else
+						PutDoc(" 0");
+				}
+			}
+			else
+			{
+				PutDoc("/C1 ["+Gcolors[cc+1]);
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					PutDoc(" 0");
+				}
+			}
+			PutDoc("]\n");
+		}
+		else
+		{
+			PutDoc("/C0 ["+Gcolors[cc]+"]\n");
+			PutDoc("/C1 ["+Gcolors[cc+1]+"]\n");
+		}
 		PutDoc("/N 1\n");
 		PutDoc(">>\n");
 	}
@@ -5865,7 +5938,46 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 	PutDoc(">>\n");
 	PutDoc(">>\n");
 	PutDoc(">>\n");
+	PutDoc("endobj\n");
 	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	if (spotMode)
+	{
+		QString colorDesc;
+		StartObj(spotObject);
+		PutDoc("<<\n/FunctionType 4\n");
+		PutDoc("/Domain [0 1 0 1 0 1 0 1");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutDoc(" 0 1");
+		}
+		PutDoc("]\n");
+		colorDesc = "{\n";
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			int cc = 0;
+			int mc = 0;
+			int yc = 0;
+			int kc = 0;
+			CMYKColor cmykValues;
+			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(sc)], &doc, cmykValues);
+			cmykValues.getValues(cc, mc, yc, kc);
+			if (sc == 0)
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			else
+				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
+			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+		}
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			colorDesc += "8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n";
+		}
+		colorDesc += "}\n";
+		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
+		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+	}
 	QString tmp;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 		tmp += "/"+TRes+" gs\n";
@@ -5879,7 +5991,6 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 		tmp += "/Pattern CS\n";
 		tmp += "/Pattern"+QString::number(patObject)+" SCN\n";
 	}
-	ResCount++;
 	output = tmp;
 	return true;
 }
@@ -8767,6 +8878,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	PutDoc(QString::number(StX)+"\n%%EOF\n");
 	return closeAndCleanup();
 }
+
 void PDFLibCore::generateXMP(const QString& timeStamp)
 {
 	/*
@@ -8872,6 +8984,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	}
 	xmpPacket.append("<?xpacket end='w'?>");
 }
+
 void PDFLibCore::PDF_Error(const QString& errorMsg)
 {
 	ErrorMessage = errorMsg;

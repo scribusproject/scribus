@@ -3452,15 +3452,13 @@ void PSLib::HandleStrokePattern(PageItem *c)
 
 void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool forArrow)
 {
-	// TODO: Handle Spot Colors correctly
 	double StartX, StartY, EndX, EndY;
 	int GType;
 	VGradient gradient;
 	QList<double> StopVec;
-	QStringList Gcolors;
 	QStringList colorNames;
 	QList<int> colorShades;
-	QList<QString> spotColorSet;
+	QStringList spotColorSet;
 	if (stroke)
 	{
 		GType = c->GrTypeStroke;
