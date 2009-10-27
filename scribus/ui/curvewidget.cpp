@@ -450,7 +450,7 @@ void CurveWidget::doSave()
 {
 	QString fileName;
 	QString wdir = PrefsManager::instance()->prefsFile->getContext("dirs")->get("curves", ".");
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("Curve Files \"*.scu\" (*.scu *.SCU);;All Files (*)"), fdNone);
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("Curve Files \"*.scu\" (*.scu *.SCU);;All Files (*)"), fdHidePreviewCheckBox | fdNone);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
