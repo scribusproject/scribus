@@ -2008,15 +2008,23 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						{
 							if (ite->GrType != 0)
 							{
-								if (!PDF_Gradient(tmpOut, ite))
-									return false;
+								if (ite->GrType == 8)
+								{
+									if (!PDF_PatternFillStroke(tmpOut, ite))
+										return false;
+								}
+								else
+								{
+									if (!PDF_GradientFillStroke(tmpOut, ite))
+										return false;
+								}
 								PutPage(tmpOut);
 							}
-							else
-							{
-								PutPage(SetClipPath(ite));
+							PutPage(SetClipPath(ite));
+							if (ite->fillRule)
 								PutPage("h\nf*\n");
-							}
+							else
+								PutPage("h\nf\n");
 						}
 						PutPage("q\n");
 						if (ite->imageClip.size() != 0)
@@ -2046,7 +2054,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								PutPage(SetClipPath(ite));
 								if (!ite->strokePattern().isEmpty())
 								{
-									if (!PDF_StrokePattern(tmpOut, ite))
+									if (!PDF_PatternFillStroke(tmpOut, ite, true))
 										return false;
 									PutPage(SetClipPath(ite));
 									PutPage(tmpOut);
@@ -2054,7 +2062,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								}
 								else if (ite->GrTypeStroke > 0)
 								{
-									if (!PDF_GradientStroke(tmpOut, ite))
+									if (!PDF_GradientFillStroke(tmpOut, ite, true))
 										return false;
 									PutPage("q\n");
 									PutPage(tmpOut);
@@ -2092,7 +2100,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						{
 							if (!ite->strokePattern().isEmpty())
 							{
-								if (!PDF_StrokePattern(tmpOut, ite))
+								if (!PDF_PatternFillStroke(tmpOut, ite, true))
 									return false;
 								PutPage(tmpOut);
 								PutPage("0 0 m\n");
@@ -2101,7 +2109,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							}
 							else if (ite->GrTypeStroke > 0)
 							{
-								if (!PDF_GradientStroke(tmpOut, ite))
+								if (!PDF_GradientFillStroke(tmpOut, ite, true))
 									return false;
 								PutPage("q\n");
 								PutPage(tmpOut);
@@ -2149,16 +2157,32 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							PutPage(PDF_TransparenzFill(ite));
 						if (ite->GrType != 0)
 						{
-							if (!PDF_Gradient(tmpOut, ite))
-								return false;
+							if (ite->GrType == 8)
+							{
+								if (!PDF_PatternFillStroke(tmpOut, ite))
+									return false;
+							}
+							else
+							{
+								if (!PDF_GradientFillStroke(tmpOut, ite))
+									return false;
+							}
 							PutPage(tmpOut);
+							PutPage(SetClipPath(ite));
+							if (ite->fillRule)
+								PutPage("h\nf*\n");
+							else
+								PutPage("h\nf\n");
 						}
 						else
 						{
 							if (ite->fillColor() != CommonStrings::None)
 							{
 								PutPage(SetClipPath(ite));
-								PutPage("h\nf*\n");
+								if (ite->fillRule)
+									PutPage("h\nf*\n");
+								else
+									PutPage("h\nf\n");
 							}
 						}
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
@@ -2169,14 +2193,14 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							{
 								if (!ite->strokePattern().isEmpty())
 								{
-									if (!PDF_StrokePattern(tmpOut, ite))
+									if (!PDF_PatternFillStroke(tmpOut, ite, true))
 										return false;
 									PutPage(tmpOut);
 									PutPage("h\nS\n");
 								}
 								else if (ite->GrTypeStroke > 0)
 								{
-									if (!PDF_GradientStroke(tmpOut, ite))
+									if (!PDF_GradientFillStroke(tmpOut, ite, true))
 										return false;
 									PutPage("q\n");
 									PutPage(tmpOut);
@@ -2212,16 +2236,32 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								PutPage(PDF_TransparenzFill(ite));
 							if (ite->GrType != 0)
 							{
-								if (!PDF_Gradient(tmpOut, ite))
-									return false;
+								if (ite->GrType == 8)
+								{
+									if (!PDF_PatternFillStroke(tmpOut, ite))
+										return false;
+								}
+								else
+								{
+									if (!PDF_GradientFillStroke(tmpOut, ite))
+										return false;
+								}
 								PutPage(tmpOut);
+								PutPage(SetClipPath(ite));
+								if (ite->fillRule)
+									PutPage("h\nf*\n");
+								else
+									PutPage("h\nf\n");
 							}
 							else
 							{
 								if (ite->fillColor() != CommonStrings::None)
 								{
 									PutPage(SetClipPath(ite));
-									PutPage("h\nf*\n");
+									if (ite->fillRule)
+										PutPage("h\nf*\n");
+									else
+										PutPage("h\nf\n");
 								}
 							}
 						}
@@ -2233,7 +2273,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							{
 								if (!ite->strokePattern().isEmpty())
 								{
-									if (!PDF_StrokePattern(tmpOut, ite))
+									if (!PDF_PatternFillStroke(tmpOut, ite, true))
 										return false;
 									PutPage(tmpOut);
 									PutPage(SetClipPath(ite, false));
@@ -2241,7 +2281,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								}
 								else if (ite->GrTypeStroke > 0)
 								{
-									if (!PDF_GradientStroke(tmpOut, ite))
+									if (!PDF_GradientFillStroke(tmpOut, ite, true))
 										return false;
 									PutPage("q\n");
 									PutPage(tmpOut);
@@ -2318,7 +2358,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									{
 										if (!ite->strokePattern().isEmpty())
 										{
-											if (!PDF_StrokePattern(tmpOut, ite))
+											if (!PDF_PatternFillStroke(tmpOut, ite, true))
 												return false;
 											PutPage(tmpOut);
 											PutPage(SetClipPath(ite, false));
@@ -2326,7 +2366,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 										}
 										else if (ite->GrTypeStroke > 0)
 										{
-											if (!PDF_GradientStroke(tmpOut, ite))
+											if (!PDF_GradientFillStroke(tmpOut, ite, true))
 												return false;
 											PutPage("q\n");
 											PutPage(tmpOut);
@@ -3515,14 +3555,30 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (ite->GrType != 0)
 				{
-					if (!PDF_Gradient(tmpOut, ite))
-						return false;
+					if (ite->GrType == 8)
+					{
+						if (!PDF_PatternFillStroke(tmpOut, ite))
+							return false;
+					}
+					else
+					{
+						if (!PDF_GradientFillStroke(tmpOut, ite))
+							return false;
+					}
 					tmp += tmpOut;
+					tmp += SetClipPath(ite);
+					if (ite->fillRule)
+						tmp += "h\nf*\n";
+					else
+						tmp += "h\nf\n";
 				}
 				else
 				{
 					tmp += SetClipPath(ite);
-					tmp += "h\nf*\n";
+					if (ite->fillRule)
+						tmp += "h\nf*\n";
+					else
+						tmp += "h\nf\n";
 				}
 			}
 			tmp += "q\n";
@@ -3553,14 +3609,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if (!ite->strokePattern().isEmpty())
 					{
 						tmp += SetClipPath(ite);
-						if (!PDF_StrokePattern(tmpOut, ite))
+						if (!PDF_PatternFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += tmpOut;
 						tmp += "h\nS\n";
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
-						if (!PDF_GradientStroke(tmpOut, ite))
+						if (!PDF_GradientFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += "q\n";
 						tmp += tmpOut;
@@ -3604,14 +3660,30 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (ite->GrType != 0)
 				{
-					if (!PDF_Gradient(tmpOut, ite))
-						return false;
+					if (ite->GrType == 8)
+					{
+						if (!PDF_PatternFillStroke(tmpOut, ite))
+							return false;
+					}
+					else
+					{
+						if (!PDF_GradientFillStroke(tmpOut, ite))
+							return false;
+					}
 					tmp += tmpOut;
+					tmp += SetClipPath(ite);
+					if (ite->fillRule)
+						tmp += "h\nf*\n";
+					else
+						tmp += "h\nf\n";
 				}
 				else
 				{
 					tmp += SetClipPath(ite);
-					tmp += "h\nf*\n";
+					if (ite->fillRule)
+						tmp += "h\nf*\n";
+					else
+						tmp += "h\nf\n";
 				}
 			}
 			tmp += "q\n";
@@ -3630,14 +3702,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if (!ite->strokePattern().isEmpty())
 					{
 						tmp += SetClipPath(ite);
-						if (!PDF_StrokePattern(tmpOut, ite))
+						if (!PDF_PatternFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += tmpOut;
 						tmp += "h\nS\n";
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
-						if (!PDF_GradientStroke(tmpOut, ite))
+						if (!PDF_GradientFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += "q\n";
 						tmp += tmpOut;
@@ -3673,7 +3745,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (!ite->strokePattern().isEmpty())
 				{
-					if (!PDF_StrokePattern(tmpOut, ite))
+					if (!PDF_PatternFillStroke(tmpOut, ite, true))
 						return false;
 					tmp += tmpOut;
 					tmp += "0 0 m\n";
@@ -3682,7 +3754,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				}
 				else if (ite->GrTypeStroke > 0)
 				{
-					if (!PDF_GradientStroke(tmpOut, ite))
+					if (!PDF_GradientFillStroke(tmpOut, ite, true))
 						return false;
 					tmp += "q\n";
 					tmp += tmpOut;
@@ -3732,9 +3804,22 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				tmp += PDF_TransparenzFill(ite);
 			if (ite->GrType != 0)
 			{
-				if (!PDF_Gradient(tmpOut, ite))
-					return false;
+				if (ite->GrType == 8)
+				{
+					if (!PDF_PatternFillStroke(tmpOut, ite))
+						return false;
+				}
+				else
+				{
+					if (!PDF_GradientFillStroke(tmpOut, ite))
+						return false;
+				}
 				tmp += tmpOut;
+				tmp += SetClipPath(ite);
+				if (ite->fillRule)
+					tmp += "h\nf*\n";
+				else
+					tmp += "h\nf\n";
 			}
 			else
 			{
@@ -3756,14 +3841,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if (!ite->strokePattern().isEmpty())
 					{
 						tmp += SetClipPath(ite);
-						if (!PDF_StrokePattern(tmpOut, ite))
+						if (!PDF_PatternFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += tmpOut;
 						tmp += "h\nS\n";
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
-						if (!PDF_GradientStroke(tmpOut, ite))
+						if (!PDF_GradientFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += "q\n";
 						tmp += tmpOut;
@@ -3799,16 +3884,32 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					tmp += PDF_TransparenzFill(ite);
 				if (ite->GrType != 0)
 				{
-					if (!PDF_Gradient(tmpOut, ite))
-						return false;
+					if (ite->GrType == 8)
+					{
+						if (!PDF_PatternFillStroke(tmpOut, ite))
+							return false;
+					}
+					else
+					{
+						if (!PDF_GradientFillStroke(tmpOut, ite))
+							return false;
+					}
 					tmp += tmpOut;
+					tmp += SetClipPath(ite);
+					if (ite->fillRule)
+						tmp += "h\nf*\n";
+					else
+						tmp += "h\nf\n";
 				}
 				else
 				{
 					if (ite->fillColor() != CommonStrings::None)
 					{
 						tmp += SetClipPath(ite);
-						tmp += "h\nf*\n";
+						if (ite->fillRule)
+							tmp += "h\nf*\n";
+						else
+							tmp += "h\nf\n";
 					}
 				}
 			}
@@ -3821,14 +3922,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if (!ite->strokePattern().isEmpty())
 					{
 						tmp += SetClipPath(ite, false);
-						if (!PDF_StrokePattern(tmpOut, ite))
+						if (!PDF_PatternFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += tmpOut;
 						tmp += "S\n";
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
-						if (!PDF_GradientStroke(tmpOut, ite))
+						if (!PDF_GradientFillStroke(tmpOut, ite, true))
 							return false;
 						tmp += "q\n";
 						tmp += tmpOut;
@@ -3906,14 +4007,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 							if (!ite->strokePattern().isEmpty())
 							{
 								tmp += SetClipPath(ite, false);
-								if (!PDF_StrokePattern(tmpOut, ite))
+								if (!PDF_PatternFillStroke(tmpOut, ite, true))
 									return false;
 								tmp += tmpOut;
 								tmp += "S\n";
 							}
 							else if (ite->GrTypeStroke > 0)
 							{
-								if (!PDF_GradientStroke(tmpOut, ite))
+								if (!PDF_GradientFillStroke(tmpOut, ite, true))
 									return false;
 								tmp += "q\n";
 								tmp += tmpOut;
@@ -3989,7 +4090,7 @@ QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIn
 		{
 			tmp += SetClipPathArray(&arrow);
 			QString tmpOut;
-			PDF_StrokePattern(tmpOut, ite, true);
+			PDF_PatternFillStroke(tmpOut, ite, true, true);
 			tmp += tmpOut;
 			tmp += "h\nf*\n";
 		}
@@ -3997,7 +4098,7 @@ QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIn
 		{
 			tmp += SetClipPathArray(&arrow);
 			QString tmpOut;
-			PDF_GradientStroke(tmpOut, ite, true);
+			PDF_GradientFillStroke(tmpOut, ite, true, true);
 			tmp += "q\n";
 			tmp += tmpOut;
 			tmp += "h\nf*\nQ\n";
@@ -5424,11 +5525,15 @@ QString PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
 	return tmp;
 }
 
-bool PDFLibCore::PDF_StrokePattern(QString& output, PageItem *currItem, bool forArrow)
+bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, bool stroke, bool forArrow)
 {
 	QStack<PageItem*> groupStack;
 	QString tmp2 = "", tmpOut;
-	ScPattern *pat = &doc.docPatterns[currItem->strokePattern()];
+	ScPattern *pat;
+	if (stroke)
+		pat = &doc.docPatterns[currItem->strokePattern()];
+	else
+		pat = &doc.docPatterns[currItem->pattern()];
 	for (int em = 0; em < pat->items.count(); ++em)
 	{
 		PageItem* item = pat->items.at(em);
@@ -5574,7 +5679,10 @@ bool PDFLibCore::PDF_StrokePattern(QString& output, PageItem *currItem, bool for
 		mpa.rotate(-currItem->rotation());
 	}
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-	currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	if (stroke)
+		currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	else
+		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	mpa.translate(-currItem->lineWidth() / 2.0, currItem->lineWidth() / 2.0);
 	mpa.translate(patternOffsetX, -patternOffsetY);
 	mpa.rotate(-patternRotation);
@@ -5648,7 +5756,7 @@ bool PDFLibCore::PDF_StrokePattern(QString& output, PageItem *currItem, bool for
 	PutDoc(" >>\nstream\n"+EncStream(tmp2, patObject)+"\nendstream\nendobj\n");
 	Patterns.insert("Pattern"+QString::number(patObject), patObject);
 	QString tmp;
-	if (forArrow)
+	if ((forArrow) || (!stroke))
 	{
 		tmp = "/Pattern cs\n";
 		tmp += "/Pattern"+QString::number(patObject)+" scn\n";
@@ -5663,7 +5771,7 @@ bool PDFLibCore::PDF_StrokePattern(QString& output, PageItem *currItem, bool for
 	return true;
 }
 
-bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool forArrow)
+bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, bool stroke, bool forArrow)
 {
 	QList<double> StopVec;
 	QList<double> TransVec;
@@ -5672,12 +5780,29 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 	QList<int> colorShades;
 	QStringList spotColorSet;
 	VGradient gradient;
-	double StartX = currItem->GrStrokeStartX;
-	double StartY = currItem->GrStrokeStartY;
-	double EndX = currItem->GrStrokeEndX;
-	double EndY = currItem->GrStrokeEndY;
-	int GType = currItem->GrTypeStroke;
-	gradient = currItem->stroke_gradient;
+	double StartX;
+	double StartY;
+	double EndX;
+	double EndY;
+	int GType;
+	if (stroke)
+	{
+		GType = currItem->GrTypeStroke;
+		StartX = currItem->GrStrokeStartX;
+		StartY = currItem->GrStrokeStartY;
+		EndX = currItem->GrStrokeEndX;
+		EndY = currItem->GrStrokeEndY;
+		gradient = currItem->stroke_gradient;
+	}
+	else
+	{
+		GType = currItem->GrType;
+		StartX = currItem->GrStartX;
+		StartY = currItem->GrStartY;
+		EndX = currItem->GrEndX;
+		EndY = currItem->GrEndY;
+		gradient = currItem->fill_gradient;
+	}
 	QList<VColorStop*> cstops = gradient.colorStops();
 	StopVec.clear();
 	TransVec.clear();
@@ -5793,7 +5918,7 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 		PutDoc(">>\n");
 		QString stre = "q\n"+SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
-		if (forArrow)
+		if ((forArrow) || (!stroke))
 		{
 			stre += "/Pattern cs\n";
 			stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
@@ -5960,7 +6085,7 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 			int yc = 0;
 			int kc = 0;
 			CMYKColor cmykValues;
-			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp + sc)], &doc, cmykValues);
+			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
@@ -5982,7 +6107,7 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 	QString tmp;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 		tmp += "/"+TRes+" gs\n";
-	if (forArrow)
+	if ((forArrow) || (!stroke))
 	{
 		tmp += "/Pattern cs\n";
 		tmp += "/Pattern"+QString::number(patObject)+" scn\n";
