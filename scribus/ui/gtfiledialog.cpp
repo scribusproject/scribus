@@ -27,27 +27,17 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 
 	textOnlyCheckBox->setToolTip( tr("Import text without any formatting"));
 
-	QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
-					   "ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
-					   "ISO 8859-15", "UTF-8", "UTF-16", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
-					   "CP1254", "CP1255", "CP1256", "CP1257", "Apple Roman"};
-	size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
-	for (uint a = 0; a < array; ++a)
-		encodingCombo->addItem(tmp_txc[a]);
+	QList<QByteArray> codecNames = QTextCodec::availableCodecs();
+	QStringList codecList;
+	for (int a = 0; a < codecNames.count(); ++a)
+		codecList.append(codecNames[a]);
+	codecList.sort();
+	encodingCombo->addItems(codecList);
 	QString localEn = QTextCodec::codecForLocale()->name();
-	if (localEn == "ISO-10646-UCS-2")
-		localEn = "UTF-16";
-	bool hasIt = false;
-	for (int cc = 0; cc < encodingCombo->count(); ++cc)
-	{
-		if (encodingCombo->itemText(cc) == localEn)
-		{
-			encodingCombo->setCurrentIndex(cc);
-			hasIt = true;
-			break;
-		}
-	}
-	if (!hasIt)
+	int localIndex = encodingCombo->findText(localEn);
+	if (localIndex >= 0)
+		encodingCombo->setCurrentIndex(localIndex);
+	else
 	{
 		encodingCombo->addItem(localEn);
 		encodingCombo->setCurrentIndex(encodingCombo->count()-1);
