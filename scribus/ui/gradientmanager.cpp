@@ -198,8 +198,8 @@ void gradientManagerDialog::loadGradients()
 	allFormats += "*.sgr *.SGR";
 	allFormats += " *.ggr *.GGR";
 	allFormats += ");;";
-	QString formats = tr("Scribus Gradient Files (*.sgr *.SGR);;");
-	formats += tr("Gimp Gradient Files (*.ggr *.SGR);;");
+	QString formats = tr("Scribus Gradient Files \"*.sgr\" (*.sgr *.SGR);;");
+	formats += tr("Gimp Gradient Files \"*.ggr\" (*.ggr *.GGR);;");
 	formats += tr("All Files (*)");
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
