@@ -5952,6 +5952,7 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 		}
 		PutDoc("]\n");
 		colorDesc = "{\n";
+		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
 			int cc = 0;
@@ -5959,7 +5960,7 @@ bool PDFLibCore::PDF_GradientStroke(QString& output, PageItem *currItem, bool fo
 			int yc = 0;
 			int kc = 0;
 			CMYKColor cmykValues;
-			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(sc)], &doc, cmykValues);
+			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp + sc)], &doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";

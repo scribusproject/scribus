@@ -3540,6 +3540,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		PutStream("]\n");
 		PutStream("/DeviceCMYK\n");
 		PutStream("{\n");
+		int maxSp = spotColorSet.count() - 1;
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
 			int cc = 0;
@@ -3547,7 +3548,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			int yc = 0;
 			int kc = 0;
 			CMYKColor cmykValues;
-			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(sc)], m_Doc, cmykValues);
+			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
 			cmykValues.getValues(cc, mc, yc, kc);
 			if (sc == 0)
 				PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
