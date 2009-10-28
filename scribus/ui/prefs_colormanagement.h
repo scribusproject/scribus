@@ -9,15 +9,25 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_COLORMANAGEMENT_H
 
 #include "ui_prefs_colormanagementbase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_ColorManagement : public QWidget, Ui::Prefs_ColorManagement
+typedef QMap<QString,QString> ProfilesL;
+
+class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorManagement
 {
 	Q_OBJECT
 
 	public:
 		Prefs_ColorManagement(QWidget* parent=0);
 		~Prefs_ColorManagement();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		void setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
+
 };
 
 #endif // PREFS_COLORMANAGEMENT_H

@@ -53,35 +53,35 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="activateCMCheckBox">
          <property name="text">
           <string>Activate Color Management</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QCheckBox" name="simulatePrinterOnScreenCheckBox">
          <property name="text">
           <string>Simulate Printer on the Screen</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_3">
+        <widget class="QCheckBox" name="convertAllColorsToPrinterSpaceCheckBox">
          <property name="text">
           <string>Convert all colors to printer space</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_4">
+        <widget class="QCheckBox" name="markColorsOutOfGamutCheckBox">
          <property name="text">
           <string>Mark Colors out of Gamut</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_5">
+        <widget class="QCheckBox" name="useBlackpointCompensationCheckBox">
          <property name="text">
           <string>Use Blackpoint Compensation</string>
          </property>
@@ -125,6 +125,9 @@
        </item>
        <item>
         <layout class="QFormLayout" name="formLayout">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+         </property>
          <property name="formAlignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
@@ -139,7 +142,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="rgbImageProfileComboBox"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="textLabel8">
@@ -152,7 +155,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox_2"/>
+          <widget class="QComboBox" name="cmykImageProfileComboBox"/>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="textLabel9">
@@ -165,7 +168,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QComboBox" name="comboBox_3"/>
+          <widget class="QComboBox" name="rgbSolidProfileComboBox"/>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="textLabel10">
@@ -178,17 +181,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QComboBox" name="comboBox_4"/>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Monitor:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QComboBox" name="comboBox_5"/>
+          <widget class="QComboBox" name="cmykSolidProfileComboBox"/>
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="label_3">
@@ -198,7 +191,17 @@
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QComboBox" name="comboBox_6"/>
+          <widget class="QComboBox" name="printerProfileComboBox"/>
+         </item>
+         <item row="4" column="1">
+          <widget class="QComboBox" name="monitorProfileComboBox"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Monitor:</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -251,7 +254,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox_7"/>
+          <widget class="QComboBox" name="imageRenderingIntentComboBox"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_6">
@@ -261,7 +264,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox_8"/>
+          <widget class="QComboBox" name="solidColorsRenderingIntentComboBox"/>
          </item>
         </layout>
        </item>

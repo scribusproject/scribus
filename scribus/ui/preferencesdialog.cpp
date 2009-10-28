@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "prefsmanager.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "units.h"
 #include "util_icon.h"
 
@@ -107,6 +108,8 @@ void PreferencesDialog::setupGui()
 	prefs_UserInterface->restoreDefaults(&localPrefs);
 	prefs_Paths->restoreDefaults(&localPrefs);
 	prefs_DocumentSetup->restoreDefaults(&localPrefs);
+	prefs_ColorManagement->restoreDefaults(&localPrefs);
+	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
 	prefs_Display->restoreDefaults(&localPrefs);
 }
@@ -240,6 +243,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_UserInterface->saveGuiToPrefs(&localPrefs);
 	prefs_Paths->saveGuiToPrefs(&localPrefs);
 	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
+	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
 }
