@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFrame>
 #include <QPaintEvent>
 #include <QMouseEvent>
+#include <QKeyEvent>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
@@ -44,6 +45,7 @@ public:
 	GradientPreview(QWidget *pa);
 	~GradientPreview() {};
 	void paintEvent(QPaintEvent *e);
+	void keyPressEvent(QKeyEvent *);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);

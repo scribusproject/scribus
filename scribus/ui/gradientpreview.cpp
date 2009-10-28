@@ -48,6 +48,7 @@ GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
 	setMinimumSize(QSize(200, 70));
 	setMaximumSize(QSize(3000, 70));
 	setMouseTracking(true);
+	setFocusPolicy(Qt::ClickFocus);
 	Mpressed = false;
 	outside = true;
 	onlyselect = true;
@@ -116,6 +117,27 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	}
 	pw.end();
 	QFrame::paintEvent(e);
+}
+
+void GradientPreview::keyPressEvent(QKeyEvent *e)
+{
+	if (isEditable)
+	{
+		if(e->key() == Qt::Key_Delete || e->key() == Qt::Key_Backspace)
+		{
+			if ((ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
+			{
+				onlyselect = false;
+				fill_gradient.removeStop(ActStop);
+				ActStop = 0;
+				repaint();
+				QList<VColorStop*> cstops = fill_gradient.colorStops();
+				emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
+				emit currTrans(cstops.at(ActStop)->opacity);
+				emit currStep(cstops.at(ActStop)->rampPoint);
+			}
+		}
+	}
 }
 
 void GradientPreview::mousePressEvent(QMouseEvent *m)
