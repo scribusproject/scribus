@@ -45,14 +45,7 @@ ImportPctPlugin::ImportPctPlugin() : LoadSavePlugin(),
 	// place. This includes registering file format support.
 	languageChange();
 }
-/*
-void ImportXfigPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 void ImportPctPlugin::languageChange()
 {
 	importAction->setText( tr("Import Pict..."));
@@ -76,7 +69,7 @@ const ScActionPlugin::AboutData* ImportPctPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports Cvg Files");
+	about->shortDescription = tr("Imports Pict Files");
 	about->description = tr("Imports most Mac Pict files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
