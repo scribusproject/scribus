@@ -1175,6 +1175,12 @@ void AIPlug::processData(QString data)
 						ite->GrType = 8;
 						currentPatternName = "";
 					}
+					if (!currentStrokePatternName.isEmpty())
+					{
+						ite->setStrokePattern(currentStrokePatternName);
+						ite->setStrokePatternTransform(currentStrokePatternXScale * 100, currentStrokePatternYScale * 100, currentStrokePatternX, currentStrokePatternY, currentStrokePatternRotation);
+						currentStrokePatternName = "";
+					}
 					ite->setLineEnd(CapStyle);
 					ite->setLineJoin(JoinStyle);
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -1387,7 +1393,6 @@ void AIPlug::processData(QString data)
 					ite->GrStartX = newS.x();
 					ite->GrStartY = newS.y();
 					QTransform m2;
-//					m2.translate(ite->GrStartX, ite->GrStartY);
 					m2.rotate(-currentGradientAngle);
 					m2 *= endMatrix;
 					QPointF target = m2.map(QPointF(currentGradientLenght, 0.0));
@@ -1463,6 +1468,17 @@ void AIPlug::processData(QString data)
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			gVals >> currentPatternX >> currentPatternY >> currentPatternXScale >> currentPatternYScale >> currentPatternRotation;
+		}
+		else if (command == "P")
+		{
+			int an = Cdata.indexOf("(");
+			int en = Cdata.lastIndexOf(")");
+			currentStrokePatternName = Cdata.mid(an+1, en-an-1);
+			currentStrokePatternName.remove("\\");
+			currentStrokePatternName = currentPatternName.trimmed().simplified().replace(" ", "_");
+			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
+			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
+			gVals >> currentStrokePatternX >> currentStrokePatternY >> currentStrokePatternXScale >> currentStrokePatternYScale >> currentStrokePatternRotation;
 		}
 		else if (command == "X!")
 		{
@@ -2048,6 +2064,12 @@ void AIPlug::processGradientData(QString data)
 				const ScColor& gradC = m_Doc->PageColors[stopName];
 				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, qRound(colorShade));
 			}
+			else if (colortype == 6)
+			{
+				stopName = parseColor(Cdata);
+				const ScColor& gradC = m_Doc->PageColors[stopName];
+				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
+			}
 		}
 		else if (command == "BD")
 		{
@@ -2502,6 +2524,12 @@ bool AIPlug::convert(QString fn)
 	currentPatternXScale = 1.0;
 	currentPatternYScale = 1.0;
 	currentPatternRotation = 0.0;
+	currentStrokePatternName = "";
+	currentStrokePatternX = 0.0;
+	currentStrokePatternY = 0.0;
+	currentStrokePatternXScale = 1.0;
+	currentStrokePatternYScale = 1.0;
+	currentStrokePatternRotation = 0.0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
 	commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";		// Path construction
@@ -2509,7 +2537,7 @@ bool AIPlug::convert(QString fn)
 	commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation
 	commandList << "A" << "w" << "j" << "J" << "Xy" << "XR";						// Graphic state
 	commandList << "k" << "K" << "Xa" << "XA" << "x" << "X" << "XX" << "Xx";		// Color commands
-	commandList << "Xk" << "g" << "G" << "p";										// Color commands
+	commandList << "Xk" << "g" << "G" << "p" << "P";								// Color commands
 	commandList << "Ln" << "Lb" << "LB";											// Layer commands
 	commandList << "Bd" << "BD" << "%_Bs" << "Bg" << "Bb" << "BB" << "Bm" << "Xm";	// Gradient commands
 	commandList << "To" << "TO" << "Tf" << "Tp" << "Tx" << "TX" << "T*" << "Tk";	// Text commands

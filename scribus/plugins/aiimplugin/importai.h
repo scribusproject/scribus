@@ -147,6 +147,12 @@ private:
 	double currentPatternXScale;
 	double currentPatternYScale;
 	double currentPatternRotation;
+	QString currentStrokePatternName;
+	double currentStrokePatternX;
+	double currentStrokePatternY;
+	double currentStrokePatternXScale;
+	double currentStrokePatternYScale;
+	double currentStrokePatternRotation;
 	bool meshMode;
 	int meshXSize, meshYSize;
 	int currentMeshXPos, currentMeshYPos;
