@@ -28,6 +28,10 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 	public slots:
 		void languageChange();
 
+	protected slots:
+		void cmActivated(bool);
+		void simulatePrinter(bool);
+
 };
 
 #endif // PREFS_COLORMANAGEMENT_H

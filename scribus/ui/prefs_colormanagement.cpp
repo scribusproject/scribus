@@ -14,6 +14,8 @@ Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent)
 {
 	setupUi(this);
 	languageChange();
+	connect(activateCMCheckBox, SIGNAL(clicked(bool)), this, SLOT(cmActivated(bool)));
+	connect(simulatePrinterOnScreenCheckBox, SIGNAL(clicked(bool)), this, SLOT(simulatePrinter(bool)));
 }
 
 Prefs_ColorManagement::~Prefs_ColorManagement()
@@ -45,9 +47,8 @@ void Prefs_ColorManagement::restoreDefaults(struct ApplicationPrefs *prefsData)
 	markColorsOutOfGamutCheckBox->setChecked(prefsData->colorPrefs.DCMSset.GamutCheck);
 	useBlackpointCompensationCheckBox->setChecked(prefsData->colorPrefs.DCMSset.BlackPoint);
 
-	simulatePrinterOnScreenCheckBox->setEnabled( activateCMCheckBox->isChecked() );
-	useBlackpointCompensationCheckBox->setEnabled( activateCMCheckBox->isChecked() );
-
+	cmActivated(prefsData->colorPrefs.DCMSset.CMSinUse);
+	simulatePrinter(prefsData->colorPrefs.DCMSset.SoftProofOn);
 }
 
 void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles)
@@ -99,5 +100,41 @@ void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, Prof
 
 void Prefs_ColorManagement::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
+	prefsData->colorPrefs.DCMSset.CMSinUse=activateCMCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.DefaultIntentImages=(eRenderIntent) imageRenderingIntentComboBox->currentIndex();
+	prefsData->colorPrefs.DCMSset.DefaultIntentColors=(eRenderIntent) solidColorsRenderingIntentComboBox->currentIndex();
+	prefsData->colorPrefs.DCMSset.SoftProofOn=simulatePrinterOnScreenCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.SoftProofFullOn=convertAllColorsToPrinterSpaceCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.GamutCheck=markColorsOutOfGamutCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.BlackPoint=useBlackpointCompensationCheckBox->isChecked();
+
+	prefsData->colorPrefs.DCMSset.DefaultImageRGBProfile = rgbImageProfileComboBox->currentText();
+	prefsData->colorPrefs.DCMSset.DefaultImageCMYKProfile = cmykImageProfileComboBox->currentText();
+	prefsData->colorPrefs.DCMSset.DefaultSolidColorRGBProfile = rgbSolidProfileComboBox->currentText();
+	prefsData->colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = cmykSolidProfileComboBox->currentText();
+	prefsData->colorPrefs.DCMSset.DefaultMonitorProfile = monitorProfileComboBox->currentText();
+	prefsData->colorPrefs.DCMSset.DefaultPrinterProfile = printerProfileComboBox->currentText();
+}
+
+void Prefs_ColorManagement::cmActivated(bool active)
+{
+	imageRenderingIntentComboBox->setEnabled( active );
+	solidColorsRenderingIntentComboBox->setEnabled( active );
+	simulatePrinterOnScreenCheckBox->setEnabled( active );
+	convertAllColorsToPrinterSpaceCheckBox->setEnabled( active );
+	markColorsOutOfGamutCheckBox->setEnabled( active );
+	useBlackpointCompensationCheckBox->setEnabled( active );
+	rgbImageProfileComboBox->setEnabled( active );
+	cmykImageProfileComboBox->setEnabled( active );
+	rgbSolidProfileComboBox->setEnabled( active );
+	cmykSolidProfileComboBox->setEnabled( active );
+	monitorProfileComboBox->setEnabled( active );
+	printerProfileComboBox->setEnabled( active );
+}
+
+void Prefs_ColorManagement::simulatePrinter(bool active)
+{
+	convertAllColorsToPrinterSpaceCheckBox->setEnabled( active );
+	markColorsOutOfGamutCheckBox->setEnabled( active );
 }
 
