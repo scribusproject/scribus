@@ -967,25 +967,30 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 			else if (resizeGesture->frameHandle() < 0)
 			{
 				m_view->Deselect(true);
+				bool wantNormal = true;
 				if (SeleItem(m))
 				{
 					currItem = m_doc->m_Selection->itemAt(0);
 					if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
 					{
 						m_view->requestMode(modeEdit);
+						wantNormal = false;
 					}
 					else
 					{
 						m_view->requestMode(submodePaintingDone);
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					}
+					if (currItem->asTextFrame())
+						m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 				}
 				else
 				{
 					m_view->requestMode(submodePaintingDone);
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				}
-				m_view->requestMode(modeNormal);
+				if (wantNormal)
+					m_view->requestMode(modeNormal);
 				return;
 			}
 		}
