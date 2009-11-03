@@ -971,7 +971,7 @@ void ScPainter::drawVPath( int mode )
 			if (fill_gradient.type() == VGradient::linear)
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
-				pat = cairo_pattern_create_radial (x1, y1, 0.1, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+				pat = cairo_pattern_create_radial (x1, y1, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
@@ -1077,7 +1077,7 @@ void ScPainter::drawVPath( int mode )
 			if (stroke_gradient.type() == VGradient::linear)
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
-				pat = cairo_pattern_create_radial (x1, y1, 0.1, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+				pat = cairo_pattern_create_radial (x1, y1, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 			QList<VColorStop*> colorStops = stroke_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
