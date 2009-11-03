@@ -227,6 +227,11 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					BBox = tmp.remove("%%BoundingBox");
 				}
 			}
+			if (tmp.startsWith("%%Orientation:"))
+			{
+				if (tmp.contains("Landscape"))
+					isRotated = true;
+			}
 			if (tmp.startsWith("%%CyanPlate:"))
 			{
 				colorPlates.insert("Cyan", tmp.remove("%%CyanPlate: "));
@@ -572,7 +577,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			if (retg == 0)
 			{
 				m_image.load(tmpFile);
-				if (extensionIndicatesEPS(ext) && BBoxInTrailer)
+				if ((extensionIndicatesEPS(ext) && BBoxInTrailer) || (isRotated))
 				{
 					int ex = qRound(x * gsRes / 72.0);
 					int ey = qRound(m_image.height() - h);
@@ -1651,7 +1656,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 		if (retg == 0)
 		{
 			m_image.load(tmpFile);
-			if (extensionIndicatesEPS(ext) && BBoxInTrailer)
+			if ((extensionIndicatesEPS(ext) && BBoxInTrailer) || (isRotated))
 			{
 				int ex = qRound(x * gsRes / 72.0);
 				int ey = qRound(m_image.height() - h);
@@ -1659,7 +1664,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 				int eh = qRound(h - y * gsRes / 72.0);
 				m_image = m_image.copy(ex, ey, ew, eh);
 			}
-			if (!ScCore->havePNGAlpha())
+			if ((!ScCore->havePNGAlpha()) || (isRotated))
 			{
 				int wi = m_image.width();
 				int hi = m_image.height();

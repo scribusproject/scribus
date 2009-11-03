@@ -44,6 +44,7 @@ protected:
 	bool hasThumbnail;
 	bool inTrailer;
 	bool BBoxInTrailer;
+	bool isRotated;
 	int psXSize;
 	int psYSize;
 	int psDepth;
