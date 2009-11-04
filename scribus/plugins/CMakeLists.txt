@@ -20,6 +20,7 @@ ADD_SUBDIRECTORY(xfigimplugin)
 ADD_SUBDIRECTORY(cvgimplugin)
 ADD_SUBDIRECTORY(wpgimplugin)
 ADD_SUBDIRECTORY(pctimplugin)
+ADD_SUBDIRECTORY(xarimplugin)
 ADD_SUBDIRECTORY(tools)
 ADD_SUBDIRECTORY(picbrowser)
 

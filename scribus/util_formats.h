@@ -65,7 +65,9 @@ class SCRIBUS_API FormatsManager
 			GMAGICK			= 65536,  // GraphicsMagick
 #endif
 			UNICONV			= 131072, // UniConvertor
-			PCT				= 262144  // Mac Pict
+			PCT				= 262144,  // Mac Pict
+			XAR				= 524288,  // Xara
+			CGM				= 1048576 // CGM
 		};
 	
 /*
