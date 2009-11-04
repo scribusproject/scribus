@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scpattern.h"
 #include "util.h"
+#include "util_math.h"
 
 GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
 {
@@ -176,6 +177,7 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	textLabel6 = new QLabel( groupScale );
 	groupScaleLayout->addWidget( textLabel6, 1, 0 );
 	spinYscaling = new ScrSpinBox( 1, 500, groupScale, 0 );
+	spinYscaling->setValue( 100 );
 	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
 	keepScaleRatio = new LinkButton( groupScale );
 	keepScaleRatio->setCheckable( true );
@@ -193,6 +195,24 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	spinAngle = new ScrSpinBox( -180, 180, groupRotation, 6 );
 	groupRotationLayout->addWidget( spinAngle );
 	frame3Layout->addWidget( groupRotation );
+
+	groupSkew = new QGroupBox( this );
+	groupSkewLayout = new QGridLayout( groupSkew );
+	groupSkewLayout->setSpacing( 2 );
+	groupSkewLayout->setMargin( 3 );
+	groupSkewLayout->setAlignment( Qt::AlignTop );
+	textLabel8 = new QLabel( groupSkew );
+	groupSkewLayout->addWidget( textLabel8, 0, 0 );
+	spinXSkew = new ScrSpinBox( -89, 89, groupSkew, 6);
+	spinXSkew->setValue( 0 );
+	groupSkewLayout->addWidget( spinXSkew, 0, 1 );
+	textLabel9 = new QLabel( groupSkew );
+	groupSkewLayout->addWidget( textLabel9, 1, 0 );
+	spinYSkew = new ScrSpinBox( -89, 89, groupSkew, 6 );
+	spinYSkew->setValue( 0 );
+	groupSkewLayout->addWidget( spinYSkew, 1, 1 );
+	frame3Layout->addWidget( groupSkew );
+
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setMargin(0);
 	buttonLayout->setSpacing(5);
@@ -208,6 +228,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	languageChange();
 	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(spinXSkew, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(spinYSkew, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
@@ -241,6 +263,9 @@ void PatternPropsDialog::languageChange()
 	textLabel6->setText( tr( "Y-Scale:" ) );
 	spinYscaling->setSuffix( pctSuffix );
 	groupRotation->setTitle( tr( "Rotation" ) );
+	groupSkew->setTitle( tr( "Skewing" ) );
+	textLabel8->setText( tr( "X-Skew:" ) );
+	textLabel9->setText( tr( "Y-Skew:" ) );
 	textLabel7->setText( tr( "Angle" ) );
 	buttonOk->setText( tr("Close"));
 	resize(minimumSizeHint());
@@ -248,7 +273,11 @@ void PatternPropsDialog::languageChange()
 
 void PatternPropsDialog::changePatternProps()
 {
-	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value());
+	double a    = M_PI / 180.0 * spinXSkew->value();
+	double b    = M_PI / 180.0 * spinYSkew->value();
+	double sina = tan(a);
+	double sinb = tan(b);
+	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb);
 }
 
 void PatternPropsDialog::ToggleKette()
@@ -710,7 +739,7 @@ void Cpalette::selectPatternS(QListWidgetItem *c)
 	emit NewPatternS(c->text());
 }
 
-void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
+void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
 	disconnect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBoxStroke->findItems(pattern, Qt::MatchExactly);
@@ -726,10 +755,12 @@ void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY
 	m_Pattern_offsetXS = offsetX;
 	m_Pattern_offsetYS = offsetY;
 	m_Pattern_rotationS = rotation;
+	m_Pattern_skewXS = skewX;
+	m_Pattern_skewYS = skewY;
 	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 }
 
-void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
+void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
@@ -745,6 +776,8 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 	m_Pattern_offsetX = offsetX;
 	m_Pattern_offsetY = offsetY;
 	m_Pattern_rotation = rotation;
+	m_Pattern_skewX = skewX;
+	m_Pattern_skewY = skewY;
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
@@ -923,13 +956,23 @@ void Cpalette::changePatternProps()
 	dia->spinXoffset->setValue(m_Pattern_offsetX);
 	dia->spinYoffset->setValue(m_Pattern_offsetY);
 	dia->spinAngle->setValue(m_Pattern_rotation);
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double)), this, SIGNAL(NewPatternProps(double, double, double, double, double)));
+	double asina = atan(m_Pattern_skewX);
+	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
+	double asinb = atan(m_Pattern_skewY);
+	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
+	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double)), this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double)));
 	dia->exec();
 	m_Pattern_scaleX = dia->spinXscaling->value();
 	m_Pattern_scaleY = dia->spinYscaling->value();
 	m_Pattern_offsetX = dia->spinXoffset->value();
 	m_Pattern_offsetY = dia->spinYoffset->value();
 	m_Pattern_rotation = dia->spinAngle->value();
+	double a    = M_PI / 180.0 * dia->spinXSkew->value();
+	double b    = M_PI / 180.0 * dia->spinYSkew->value();
+	double sina = tan(a);
+	double sinb = tan(b);
+	m_Pattern_skewX = sina;
+	m_Pattern_skewY = sinb;
 	delete dia;
 	tabWidget->setCurrentIndex(2);
 	emit NewGradient(8);
@@ -943,13 +986,23 @@ void Cpalette::changePatternPropsStroke()
 	dia->spinXoffset->setValue(m_Pattern_offsetXS);
 	dia->spinYoffset->setValue(m_Pattern_offsetYS);
 	dia->spinAngle->setValue(m_Pattern_rotationS);
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double)));
+	double asina = atan(m_Pattern_skewXS);
+	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
+	double asinb = atan(m_Pattern_skewYS);
+	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
+	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double double, double)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double double, double)));
 	dia->exec();
 	m_Pattern_scaleXS = dia->spinXscaling->value();
 	m_Pattern_scaleYS = dia->spinYscaling->value();
 	m_Pattern_offsetXS = dia->spinXoffset->value();
 	m_Pattern_offsetYS = dia->spinYoffset->value();
 	m_Pattern_rotationS = dia->spinAngle->value();
+	double a    = M_PI / 180.0 * dia->spinXSkew->value();
+	double b    = M_PI / 180.0 * dia->spinYSkew->value();
+	double sina = tan(a);
+	double sinb = tan(b);
+	m_Pattern_skewXS = sina;
+	m_Pattern_skewYS = sinb;
 	delete dia;
 }
 
@@ -969,70 +1022,3 @@ void Cpalette::changeEvent(QEvent *e)
 	else
 		QWidget::changeEvent(e);
 }
-
-/*
-void Cpalette::languageChange()
-{
-	QString ptSuffix=tr(" pt");
-	QString pctSuffix=tr(" %");
-	PM1->setSuffix(pctSuffix);
-	TransSpin->setSuffix(pctSuffix);
-	groupOffset->setTitle( tr( "Offsets" ) );
-	textLabel1->setText( tr( "X:" ) );
-	spinXoffset->setSuffix( ptSuffix );
-	textLabel2->setText( tr( "Y:" ) );
-	spinYoffset->setSuffix( ptSuffix );
-	groupScale->setTitle( tr( "Scaling" ) );
-	textLabel5->setText( tr( "X-Scale:" ) );
-	spinXscaling->setSuffix( pctSuffix );
-	textLabel6->setText( tr( "Y-Scale:" ) );
-	spinYscaling->setSuffix( pctSuffix );
-	groupRotation->setTitle( tr( "Rotation" ) );
-	textLabel7->setText( tr( "Angle" ) );
-
-	ShadeTxt->setText( tr( "Shade:" ) );
-	TransTxt->setText( tr( "Opacity:" ) );
-	gradEditButton->setText( tr("Move Vector"));
-
-	int oldGradient=gradientQCombo->currentIndex();
-	gradientQCombo->clear();
-	gradientQCombo->addItem( tr("Normal"));
-	gradientQCombo->addItem( tr("Horizontal Gradient"));
-	gradientQCombo->addItem( tr("Vertical Gradient"));
-	gradientQCombo->addItem( tr("Diagonal Gradient"));
-	gradientQCombo->addItem( tr("Cross Diagonal Gradient"));
-	gradientQCombo->addItem( tr("Radial Gradient"));
-	gradientQCombo->addItem( tr("Free linear Gradient"));
-	gradientQCombo->addItem( tr("Free radial Gradient"));
-	gradientQCombo->addItem( tr("Pattern"));
-	gradientQCombo->setCurrentIndex(oldGradient);
-	TransGroup->setTitle( tr( "Transparency Settings" ));
-	TransTxt2->setText( tr( "Blend Mode:" ) );
-	blendMode->clear();
-	blendMode->addItem( tr("Normal"));
-	blendMode->addItem( tr("Darken"));
-	blendMode->addItem( tr("Lighten"));
-	blendMode->addItem( tr("Multiply"));
-	blendMode->addItem( tr("Screen"));
-	blendMode->addItem( tr("Overlay"));
-	blendMode->addItem( tr("Hard Light"));
-	blendMode->addItem( tr("Soft Light"));
-	blendMode->addItem( tr("Difference"));
-	blendMode->addItem( tr("Exclusion"));
-	blendMode->addItem( tr("Color Dodge"));
-	blendMode->addItem( tr("Color Burn"));
-	blendMode->addItem( tr("Hue"));
-	blendMode->addItem( tr("Saturation"));
-	blendMode->addItem( tr("Color"));
-	blendMode->addItem( tr("Luminosity"));
-	displayAllColors->setText( tr( "Display only used Colors" ));
-
-	editLineColorSelector->setToolTip( tr( "Edit Line Color Properties" ) );
-	editFillColorSelector->setToolTip( tr( "Edit Fill Color Properties" ) );
-	PM1->setToolTip( tr( "Saturation of color" ) );
-	gradientQCombo->setToolTip( tr( "Normal or gradient fill method" ) );
-	TransSpin->setToolTip( tr( "Set the transparency for the color selected" ) );
-	gradEditButton->setToolTip( "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
-	displayAllColors->setToolTip( "<qt>" + tr( "Display all colors from the document color list, or only the already used colors" ) + "</qt>");
-}
-*/

@@ -1144,8 +1144,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			if (item->GrType == 8)
 			{
 				docu.writeAttribute("pattern", item->pattern());
-				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-				item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+				item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 				docu.writeAttribute("pScaleX", patternScaleX);
 				docu.writeAttribute("pScaleY", patternScaleY);
 				docu.writeAttribute("pOffsetX", patternOffsetX);

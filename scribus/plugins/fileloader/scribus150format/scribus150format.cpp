@@ -2761,7 +2761,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			double patternOffsetX  = attrs.valueAsDouble("pOffsetX", 0.0);
 			double patternOffsetY  = attrs.valueAsDouble("pOffsetY", 0.0);
 			double patternRotation = attrs.valueAsDouble("pRotation", 0.0);
-			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			double patternSkewX    = attrs.valueAsDouble("pSkewX", 0.0);
+			double patternSkewY    = attrs.valueAsDouble("pSkewY", 0.0);
+			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 		}
 		else
 		{
@@ -2814,7 +2816,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double patternOffsetX  = attrs.valueAsDouble("pOffsetXS", 0.0);
 	double patternOffsetY  = attrs.valueAsDouble("pOffsetYS", 0.0);
 	double patternRotation = attrs.valueAsDouble("pRotationS", 0.0);
-	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	double patternSkewX    = attrs.valueAsDouble("pSkewXS", 0.0);
+	double patternSkewY    = attrs.valueAsDouble("pSkewYS", 0.0);
+	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 	currItem->stroke_gradient.clearStops();
 	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);

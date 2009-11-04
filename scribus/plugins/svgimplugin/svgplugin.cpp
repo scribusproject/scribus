@@ -640,7 +640,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			mm.rotate(rot);
 			double patDx = (item->xPos() - BaseX) - mm.dx();
 			double patDy = (item->yPos() - BaseY) - mm.dy();
-			item->setPatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, patDx, patDy, -rot);
+			item->setPatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, patDx, patDy, -rot, 0, 0);
 		}
 		else
 		{
@@ -711,7 +711,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			mm.rotate(rot);
 			double patDx = (item->xPos() - BaseX) - mm.dx();
 			double patDy = (item->yPos() - BaseY) - mm.dy();
-			item->setStrokePatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, patDx, patDy, -rot);
+			item->setStrokePatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, patDx, patDy, -rot, 0, 0);
 		}
 		else
 		{

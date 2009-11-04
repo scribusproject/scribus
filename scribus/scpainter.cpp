@@ -930,7 +930,7 @@ void ScPainter::setRasterOp( int   )
 {
 }
 
-void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
+void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
 	m_pattern = pattern;
 	patternScaleX = scaleX / 100.0;
@@ -938,6 +938,8 @@ void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, dou
 	patternOffsetX = offsetX;
 	patternOffsetY = offsetY;
 	patternRotation = rotation;
+	patternSkewX = skewX;
+	patternSkewY = skewY;
 }
 
 #ifdef HAVE_CAIRO
@@ -1004,6 +1006,7 @@ void ScPainter::drawVPath( int mode )
 			QTransform qmatrix;
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
+			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
@@ -1053,6 +1056,7 @@ void ScPainter::drawVPath( int mode )
 			qmatrix.translate(-LineWidth / 2.0, -LineWidth / 2.0);
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
+			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
@@ -1162,6 +1166,7 @@ void ScPainter::drawVPath(int mode)
 			QTransform qmatrix;
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
+			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 			QBrush brush = QBrush(*m_pattern->getPattern());
@@ -1215,6 +1220,7 @@ void ScPainter::drawVPath(int mode)
 			qmatrix.translate(-LineWidth / 2.0, -LineWidth / 2.0);
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
+			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 			QBrush brush = QBrush(*m_pattern->getPattern());

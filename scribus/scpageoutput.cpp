@@ -379,10 +379,11 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 		{
 			QTransform patternTransform;
 			ScPattern& pattern = m_doc->docPatterns[item->pattern()];
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			patternTransform.translate(patternOffsetX, patternOffsetY);
 			patternTransform.rotate(patternRotation);
+			patternTransform.shear(patternSkewX, patternSkewY);
 			patternTransform.scale(pattern.scaleX, pattern.scaleY);
 			patternTransform.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 			painter->setPattern(&pattern, patternTransform);
@@ -775,14 +776,15 @@ void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, const 
 {
 	double x1, x2, y1, y2;
 	ScPattern& pattern = m_doc->docPatterns[item->pattern()];
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-	item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+	item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 
 	// Compute pattern tansformation matrix and its inverse for converting pattern coordinates
 	// to pageitem coordinates 
 	QTransform matrix, invMat;
 	matrix.translate(patternOffsetX, patternOffsetY);
 	matrix.rotate(patternRotation);
+	matrix.shear(patternSkewX, patternSkewY);
 	matrix.scale(pattern.scaleX, pattern.scaleY);
 	matrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 	invMat.scale((patternScaleX != 0) ? (100 /patternScaleX) : 1.0, (patternScaleY != 0) ? (100 /patternScaleY) : 1.0);

@@ -3436,13 +3436,14 @@ void PSLib::HandleStrokePattern(PageItem *c)
 {
 	ScPattern *pat;
 	QTransform patternMatrix;
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 	pat = &m_Doc->docPatterns[c->strokePattern()];
 	uint patHash = qHash(c->strokePattern());
-	c->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	c->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 	patternMatrix.translate(-c->lineWidth() / 2.0, c->lineWidth() / 2.0);
 	patternMatrix.translate(patternOffsetX, -patternOffsetY);
 	patternMatrix.rotate(-patternRotation);
+	patternMatrix.shear(patternSkewX, -patternSkewY);
 	patternMatrix.scale(pat->scaleX, pat->scaleY);
 	patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 	PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
@@ -3479,12 +3480,13 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		if (GType == 8)
 		{
 			QTransform patternMatrix;
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 			ScPattern *pat = &m_Doc->docPatterns[c->pattern()];
 			uint patHash = qHash(c->pattern());
-			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
+			patternMatrix.shear(patternSkewX, -patternSkewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
@@ -3710,7 +3712,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	double EndY =0;
 	ScPattern *pat;
 	QTransform patternMatrix;
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 	QList<VColorStop*> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
@@ -3729,9 +3731,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		case 8:
 			pat = &m_Doc->docPatterns[c->pattern()];
 			uint patHash = qHash(c->pattern());
-			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
+			patternMatrix.shear(patternSkewX, -patternSkewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
@@ -3828,12 +3831,13 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, boo
 			SetClipPath(&arrow);
 			PS_closepath();
 			QTransform patternMatrix;
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 			ScPattern *pat = &m_Doc->docPatterns[ite->strokePattern()];
 			uint patHash = qHash(ite->strokePattern());
-			ite->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			ite->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
+			patternMatrix.shear(patternSkewX, -patternSkewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");

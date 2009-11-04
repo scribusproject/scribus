@@ -930,7 +930,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, dataLenLong);
 					break;
 				default:
-					qDebug() << QString("Not implemented OpCode: 0x%1 at %3").arg(opCode, 4, 16, QLatin1Char('0')).arg(ts.device()->pos()-2);
+					qDebug() << QString("Not implemented OpCode: 0x%1 at %2").arg(opCode, 4, 16, QLatin1Char('0')).arg(ts.device()->pos()-2);
 					return;
 					break;
 			}

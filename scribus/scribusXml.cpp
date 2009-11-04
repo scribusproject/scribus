@@ -177,6 +177,8 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 			OB->patternOffsetX  = attrAsDbl(attrs, "pOffsetX", 0.0);
 			OB->patternOffsetY  = attrAsDbl(attrs, "pOffsetY", 0.0);
 			OB->patternRotation = attrAsDbl(attrs, "pRotation", 0.0);
+			OB->patternSkewX    = attrAsDbl(attrs, "pSkewX", 0.0);
+			OB->patternSkewY    = attrAsDbl(attrs, "pSkewY", 0.0);
 		}
 		else
 		{
@@ -1223,6 +1225,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	double patternOffsetXS;
 	double patternOffsetYS;
 	double patternRotationS;
+	double patternSkewXS;
+	double patternSkewYS;
 	QString gradNameS;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
@@ -1308,6 +1312,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			patternOffsetXS  = attrAsDbl(attrs, "pOffsetXS", 0.0);
 			patternOffsetYS  = attrAsDbl(attrs, "pOffsetYS", 0.0);
 			patternRotationS = attrAsDbl(attrs, "pRotationS", 0.0);
+			patternSkewXS    = attrAsDbl(attrs, "pSkewXS", 0.0);
+			patternSkewYS    = attrAsDbl(attrs, "pSkewYS", 0.0);
 		}
 		if (inItem && sReader.isStartElement() && tagName == "ITEXT")
 		{
@@ -1471,7 +1477,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			Neu->setStrokeGradient(gradNameS);
 			Neu->doOverprint = doOverprint;
 			Neu->setStrokePattern(StrokePattern);
-			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS);
+			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS, patternSkewXS, patternSkewYS);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			if (Neu->asLatexFrame())
 			{
@@ -1646,6 +1652,8 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	double patternOffsetXS;
 	double patternOffsetYS;
 	double patternRotationS;
+	double patternSkewXS;
+	double patternSkewYS;
 	QString gradNameS;
 	int lowResType = 1;
 	int actualPageNumber = 0;
@@ -1675,6 +1683,8 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			patternOffsetXS  = attrAsDbl(attrs, "pOffsetXS", 0.0);
 			patternOffsetYS  = attrAsDbl(attrs, "pOffsetYS", 0.0);
 			patternRotationS = attrAsDbl(attrs, "pRotationS", 0.0);
+			patternSkewXS    = attrAsDbl(attrs, "pSkewXS", 0.0);
+			patternSkewYS    = attrAsDbl(attrs, "pSkewYS", 0.0);
 			inlineF = attrAsBool(attrs1, "isInlineImage", false);
 			inlineImageData.resize(0);
 			QString dat = attrAsString(attrs1, "ImageData", "");
@@ -1818,7 +1828,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			Neu->setGradient(gradName);
 			Neu->setStrokeGradient(gradNameS);
 			Neu->setStrokePattern(StrokePattern);
-			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS);
+			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS, patternSkewXS, patternSkewYS);
 			Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			Neu->itemText = storyText;
@@ -2391,13 +2401,15 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		if (item->GrType == 8)
 		{
 			writer.writeAttribute("pattern", item->pattern());
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			writer.writeAttribute("pScaleX"  , patternScaleX);
 			writer.writeAttribute("pScaleY"  , patternScaleY);
 			writer.writeAttribute("pOffsetX" , patternOffsetX);
 			writer.writeAttribute("pOffsetY" , patternOffsetY);
 			writer.writeAttribute("pRotation", patternRotation);
+			writer.writeAttribute("pSkewX"   , patternSkewX);
+			writer.writeAttribute("pSkewY"   , patternSkewY);
 		}
 		else
 		{
@@ -2439,13 +2451,15 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 	if (!item->strokePattern().isEmpty())
 	{
 		writer.writeAttribute("patternS", item->strokePattern());
-		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-		item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+		item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 		writer.writeAttribute("pScaleXS", patternScaleX);
 		writer.writeAttribute("pScaleYS", patternScaleY);
 		writer.writeAttribute("pOffsetXS", patternOffsetX);
 		writer.writeAttribute("pOffsetYS", patternOffsetY);
 		writer.writeAttribute("pRotationS", patternRotation);
+		writer.writeAttribute("pSkewXS"   , patternSkewX);
+		writer.writeAttribute("pSkewYS"   , patternSkewY);
 	}
 	if (item->asLatexFrame())
 	{

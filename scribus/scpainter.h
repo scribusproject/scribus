@@ -70,7 +70,7 @@ public:
 	virtual void setFillMode( int fill );
 	virtual void setStrokeMode( int stroke );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	virtual void setClipPath();
 
 	virtual void drawImage( QImage *image );
@@ -154,6 +154,8 @@ private:
 	double patternOffsetX;
 	double patternOffsetY;
 	double patternRotation;
+	double patternSkewX;
+	double patternSkewY;
 	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;

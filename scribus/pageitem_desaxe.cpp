@@ -261,13 +261,15 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	{
 		Xml_attr patt;
 		patt.insert("patternS", strokePattern());
-		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-		strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+		strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 		patt.insert("pScaleXS", toXMLString(patternScaleX));
 		patt.insert("pScaleYS", toXMLString(patternScaleY));
 		patt.insert("pOffsetXS", toXMLString(patternOffsetX));
 		patt.insert("pOffsetYS", toXMLString(patternOffsetY));
 		patt.insert("pRotationS", toXMLString(patternRotation));
+		patt.insert("pSkewXS", toXMLString(patternSkewX));
+		patt.insert("pSkewYS", toXMLString(patternSkewY));
 		handler.begin("PatternStroke", patt);
 		handler.end("PatternStroke");
 	}
@@ -277,13 +279,15 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		{
 			Xml_attr patt;
 			patt.insert("pattern", pattern());
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-			patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			patt.insert("pScaleX", toXMLString(patternScaleX));
 			patt.insert("pScaleY", toXMLString(patternScaleY));
 			patt.insert("pOffsetX", toXMLString(patternOffsetX));
 			patt.insert("pOffsetY", toXMLString(patternOffsetY));
 			patt.insert("pRotation", toXMLString(patternRotation));
+			patt.insert("pSkewX", toXMLString(patternSkewX));
+			patt.insert("pSkewY", toXMLString(patternSkewY));
 			handler.begin("Pattern", patt);
 			handler.end("Pattern");
 		}
@@ -583,8 +587,10 @@ class Pattern_body : public Action_body
 		double patternOffsetX = parseDouble(attr["pOffsetX"]);
 		double patternOffsetY = parseDouble(attr["pOffsetY"]);
 		double patternRotation = parseDouble(attr["pRotation"]);
+		double patternSkewX = parseDouble(attr["pSkewX"]);
+		double patternSkewY = parseDouble(attr["pSkewY"]);
 		item->setPattern(attr["pattern"]);
-		item->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		item->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 	}
 };
 
@@ -602,8 +608,10 @@ class PatternStroke_body : public Action_body
 		double patternOffsetX = parseDouble(attr["pOffsetXS"]);
 		double patternOffsetY = parseDouble(attr["pOffsetYS"]);
 		double patternRotation = parseDouble(attr["pRotationS"]);
+		double patternSkewX = parseDouble(attr["pSkewXS"]);
+		double patternSkewY = parseDouble(attr["pSkewYS"]);
 		item->setStrokePattern(attr["patternS"]);
-		item->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		item->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 	}
 };
 

@@ -333,11 +333,12 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 				}
 				else if ((currItem->GrType == 8) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
 				{
-					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 					QTransform qmatrix;
 					qmatrix.translate(patternOffsetX, patternOffsetY);
 					qmatrix.rotate(patternRotation);
+					qmatrix.shear(patternSkewX, patternSkewY);
 					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
 					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
 					QBrush brush = QBrush(pat);
@@ -358,12 +359,13 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		{
 			if ((!currItem->strokePattern().isEmpty()) && (doc->docPatterns.contains(currItem->strokePattern())))
 			{
-				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-				currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+				currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 				QTransform qmatrix;
 				qmatrix.translate(-currItem->lineWidth() / 2.0, -currItem->lineWidth() / 2.0);
 				qmatrix.translate(patternOffsetX, patternOffsetY);
 				qmatrix.rotate(patternRotation);
+				qmatrix.shear(patternSkewX, patternSkewY);
 				qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
 				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
 				QBrush brush = QBrush(pat);

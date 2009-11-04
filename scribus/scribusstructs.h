@@ -81,6 +81,8 @@ struct CopyPasteBuffer
 	double patternOffsetX;
 	double patternOffsetY;
 	double patternRotation;
+	double patternSkewX;
+	double patternSkewY;
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;

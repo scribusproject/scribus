@@ -2791,7 +2791,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			double patternOffsetX  = attrs.valueAsDouble("pOffsetX", 0.0);
 			double patternOffsetY  = attrs.valueAsDouble("pOffsetY", 0.0);
 			double patternRotation = attrs.valueAsDouble("pRotation", 0.0);
-			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, 0, 0);
 		}
 		else
 		{

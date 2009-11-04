@@ -1169,13 +1169,15 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			if (item->GrType == 8)
 			{
 				docu.writeAttribute("pattern", item->pattern());
-				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-				item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+				item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 				docu.writeAttribute("pScaleX", patternScaleX);
 				docu.writeAttribute("pScaleY", patternScaleY);
 				docu.writeAttribute("pOffsetX", patternOffsetX);
 				docu.writeAttribute("pOffsetY", patternOffsetY);
 				docu.writeAttribute("pRotation", patternRotation);
+				docu.writeAttribute("pSkewX", patternSkewX);
+				docu.writeAttribute("pSkewY", patternSkewY);
 			}
 			else
 			{
@@ -1199,13 +1201,15 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (!item->strokePattern().isEmpty())
 		{
 			docu.writeAttribute("patternS", item->strokePattern());
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-			item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			docu.writeAttribute("pScaleXS", patternScaleX);
 			docu.writeAttribute("pScaleYS", patternScaleY);
 			docu.writeAttribute("pOffsetXS", patternOffsetX);
 			docu.writeAttribute("pOffsetYS", patternOffsetY);
 			docu.writeAttribute("pRotationS", patternRotation);
+			docu.writeAttribute("pSkewXS", patternSkewX);
+			docu.writeAttribute("pSkewYS", patternSkewY);
 		}
 		if (item->itemText.defaultStyle().hasParent())
 			docu.writeAttribute("PSTYLE", item->itemText.defaultStyle().parent());

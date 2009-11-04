@@ -1870,10 +1870,10 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewBlend(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBlendS(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPattern(QString)), 0, 0);
-	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double, double, double)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewOverprint(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPatternS(QString)), 0, 0);
-	disconnect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double)), 0, 0);
 
 	doc = d;
 	CurItem = NULL;
@@ -1948,10 +1948,10 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	connect(this->Cpal, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradFill(int)));
 	connect(this->Cpal, SIGNAL(NewGradientS(int)), doc, SLOT(itemSelection_SetItemGradStroke(int)));
 	connect(this->Cpal, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternFill(QString)));
-	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double)));
+	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double, double, double)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double, double, double)));
 	connect(this->Cpal, SIGNAL(NewOverprint(int)), this, SLOT(handleOverprint(int)));
 	connect(this->Cpal, SIGNAL(NewPatternS(QString)), doc, SLOT(itemSelection_SetItemStrokePattern(QString)));
-	connect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double)), doc, SLOT(itemSelection_SetItemStrokePatternProps(double, double, double, double, double)));
+	connect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double)), doc, SLOT(itemSelection_SetItemStrokePatternProps(double, double, double, double, double, double, double)));
 }
 
 void PropertiesPalette::unsetDoc()
@@ -2231,11 +2231,11 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	Rotation->setValue(fabs(rr));
 //	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setTextToFrameDistances(i->textToFrameDistLeft(),i->textToFrameDistTop(),i->textToFrameDistBottom(),i->textToFrameDistRight());
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-	i->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-	Cpal->setActPattern(i->pattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-	i->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-	Cpal->setActPatternStroke(i->strokePattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+	i->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	Cpal->setActPattern(i->pattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	i->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	Cpal->setActPatternStroke(i->strokePattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 
 //CB TODO reconnect PP signals from here
 	connect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));

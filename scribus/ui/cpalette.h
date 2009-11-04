@@ -88,6 +88,8 @@ public:
 	ScrSpinBox* spinXscaling;
 	ScrSpinBox* spinYscaling;
 	ScrSpinBox* spinAngle;
+	ScrSpinBox* spinXSkew;
+	ScrSpinBox* spinYSkew;
 
 public slots:
 	void languageChange();
@@ -97,7 +99,7 @@ public slots:
 	void VChange();
 
 signals:
-	void NewPatternProps(double, double, double, double, double);
+	void NewPatternProps(double, double, double, double, double, double, double);
 
 protected:
 	QGroupBox* groupOffset;
@@ -109,9 +111,13 @@ protected:
 	LinkButton* keepScaleRatio;
 	QGroupBox* groupRotation;
 	QLabel* textLabel7;
+	QGroupBox* groupSkew;
+	QLabel* textLabel8;
+	QLabel* textLabel9;
 	QVBoxLayout* frame3Layout;
 	QHBoxLayout* groupOffsetLayout;
 	QGridLayout* groupScaleLayout;
+	QGridLayout* groupSkewLayout;
 	QHBoxLayout* groupRotationLayout;
 	QPushButton* buttonOk;
 	QHBoxLayout* buttonLayout;
@@ -152,8 +158,8 @@ public slots:
 	void selectPatternS(QListWidgetItem *c);
 	void updatePatternList();
 	void updateGradientList();
-	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
-	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
+	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void selectColorS(QListWidgetItem *c);
 	void selectColorF(QListWidgetItem *c);
@@ -178,9 +184,9 @@ signals:
 	void NewGradient(int);
 	void NewGradientS(int);
 	void NewPattern(QString);
-	void NewPatternProps(double, double, double, double, double);
+	void NewPatternProps(double, double, double, double, double, double, double);
 	void NewPatternS(QString);
-	void NewPatternPropsS(double, double, double, double, double);
+	void NewPatternPropsS(double, double, double, double, double, double, double);
 	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
@@ -204,11 +210,15 @@ protected:
 	double m_Pattern_offsetX;
 	double m_Pattern_offsetY;
 	double m_Pattern_rotation;
+	double m_Pattern_skewX;
+	double m_Pattern_skewY;
 	double m_Pattern_scaleXS;
 	double m_Pattern_scaleYS;
 	double m_Pattern_offsetXS;
 	double m_Pattern_offsetYS;
 	double m_Pattern_rotationS;
+	double m_Pattern_skewXS;
+	double m_Pattern_skewYS;
 	int currentUnit;
 	bool editStrokeGradient;
 };

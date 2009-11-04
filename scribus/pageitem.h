@@ -695,7 +695,7 @@ public:
 	QString pattern() const { return patternVal; }
 
 	/** @brief Get the pattern transformation matrix of the object */
-	void patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation) const;
+	void patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
 
 	/**
 	 * @brief Set the fill pattern of the object.
@@ -706,7 +706,7 @@ public:
 	/**
 	 * @brief Set the fill pattern transformation of the object.
 	 */
-	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 
 	/** @brief Get the (name of the) fill color of the object */
 	QString fillColor() const { return fillColorVal; }
@@ -776,7 +776,7 @@ public:
 	QString strokePattern() const { return patternStrokeVal; }
 
 	/** @brief Get the stroke pattern transformation matrix of the object */
-	void strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation) const;
+	void strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
 
 	/**
 	 * @brief Set the stroke pattern of the object.
@@ -787,7 +787,7 @@ public:
 	/**
 	 * @brief Set the stroke pattern transformation of the object.
 	 */
-	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 
 	/** @brief Set the QColor for the line */
 	void setLineQColor();
@@ -1160,6 +1160,8 @@ protected:
 	double patternOffsetX;
 	double patternOffsetY;
 	double patternRotation;
+	double patternSkewX;
+	double patternSkewY;
 
 	/**
 	 * @brief Fill color name
@@ -1348,6 +1350,8 @@ public:
 	double patternStrokeOffsetX;
 	double patternStrokeOffsetY;
 	double patternStrokeRotation;
+	double patternStrokeSkewX;
+	double patternStrokeSkewY;
 	
 
 	/**
@@ -1379,7 +1383,7 @@ signals:
 	void rotation(double); //Degrees rotation	
 	void colors(QString, QString, double, double); //lineColor, fillColor, lineShade, fillShade
 	void gradientType(int); //Normal, horizontal, vertical, etc.
-	void patternFill(QString, double, double, double, double, double);
+	void patternFill(QString, double, double, double, double, double, double, double);
 	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
 	void transparency(double, double); //fillTransparency, lineTransparency
 	void blendmode(int, int); //fillBlendmode, lineBlendmode
