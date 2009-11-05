@@ -9,17 +9,14 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QDrag>
 #include <QFile>
-#include <QList>
 #include <QMimeData>
 #include <QRegExp>
 #include <QTextCodec>
-#include <QStack>
 #include <QDebug>
 #include "qtiocompressor.h"
 
 #include <cstdlib>
 
-#include "commonstrings.h"
 #include "ui/customfdialog.h"
 #include "importxar.h"
 #include "loadsaveplugin.h"
@@ -274,6 +271,8 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->changed();
 			m_Doc->reformPages();
 			m_Doc->view()->updatesOn(true);
+			if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (!activeLayer.isEmpty()))
+				m_Doc->setActiveLayer(activeLayer);
 		}
 		success = true;
 	}
@@ -332,7 +331,6 @@ bool XarPlug::convert(QString fn)
 	Coords.resize(0);
 	Coords.svgInit();
 	LineW = 1.0;
-	currentPoint = QPoint(0, 0);
 	currentPointT = QPoint(0, 0);
 	ovalSize = QPoint(0, 0);
 	fontMap.clear();
@@ -345,6 +343,9 @@ bool XarPlug::convert(QString fn)
 	postscriptMode = false;
 	textIsPostScript = false;
 	importedColors.clear();
+	firstLayer = true;
+	activeLayer = "";
+	currentLayer = 0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
 	if(progressDialog)
@@ -437,18 +438,29 @@ void XarPlug::parseXar(QDataStream &ts)
 
 void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 {
-	qDebug() << QString("OpCode: %1 at %2 Data Len %3").arg(tag).arg(ts.device()->pos()-8, 8, 16, QLatin1Char('0')).arg(dataLen, 8, 16, QLatin1Char('0'));
+	bool closed = false;
+//	qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 	if (tag == 0)
+	{
 		delete( m_gc.pop() );
+		qDebug() << "Stack dropped to" << m_gc.count();
+	}
 	else if (tag == 1)
+	{
 		addGraphicContext();
+		qDebug() << "Stack pushed to" << m_gc.count();
+	}
 	else if (tag == 10)
 		addToAtomic(dataLen, ts);
+	else if (tag == 45)
+		handleSpreadInfo(ts);
+	else if (tag == 48)
+		handleLayerInfo(ts);
 	else if (tag == 50)
 		handleColorRGB(ts);
 	else if (tag == 51)
 		handleComplexColor(ts);
-	else if ((tag == 61) || (tag == 62) || (tag == 63))
+/*	else if ((tag == 61) || (tag == 62) || (tag == 63))
 	{
 		QImage image;
 		QByteArray data;
@@ -478,9 +490,275 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		ite->OldH2 = ite->height();
 		ite->updateClip();
 		Elements.append(ite);
+	} */
+	else if (tag == 114)
+	{
+		closed = handlePathRel(ts, dataLen);
+		if (closed)
+			createPolygonItem(1);
+		else
+			createPolylineItem(1);
 	}
+	else if (tag == 115)
+	{
+		closed = handlePathRel(ts, dataLen);
+		if (closed)
+			createPolygonItem(0);
+		else
+			createPolylineItem(0);
+	}
+	else if (tag == 116)
+	{
+		closed = handlePathRel(ts, dataLen);
+		if (closed)
+			createPolygonItem(2);
+		else
+			createPolylineItem(2);
+	}
+	else if (tag == 150)
+		handleFlatFill(ts);
+	else if (tag == 151)
+		handleLineColor(ts);
+	else if (tag == 152)
+		handleLineWidth(ts);
 	else
+	{
+//		qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		ts.skipRawData(dataLen);
+	}
+}
+
+void XarPlug::handleLineColor(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	qint32 val;
+	ts >> val;
+	if (val > 0)
+	{
+		if (XarColorMap.contains(val))
+		{
+			gc->StrokeCol = XarColorMap[val].name;
+			if (gc->Elements.count() > 0)
+			{
+				for (int a = 0; a < gc->Elements.count(); a++)
+				{
+					gc->Elements.at(a)->setLineColor(gc->StrokeCol);
+				}
+			}
+		}
+	}
+}
+
+void XarPlug::handleFlatFill(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	qint32 val;
+	ts >> val;
+	if (val > 0)
+	{
+		if (XarColorMap.contains(val))
+		{
+			gc->FillCol = XarColorMap[val].name;
+			if (gc->Elements.count() > 0)
+			{
+				for (int a = 0; a < gc->Elements.count(); a++)
+				{
+					gc->Elements.at(a)->setFillColor(gc->FillCol);
+				}
+			}
+		}
+	}
+}
+
+void XarPlug::handleLineWidth(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	quint32 val;
+	ts >> val;
+	gc->LWidth = val / 1000.0;
+	if (gc->Elements.count() > 0)
+	{
+		for (int a = 0; a < gc->Elements.count(); a++)
+		{
+			gc->Elements.at(a)->setLineWidth(gc->LWidth);
+		}
+	}
+}
+
+void XarPlug::createPolygonItem(int type)
+{
+	int z;
+	XarStyle *gc = m_gc.top();
+	if (type == 0)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol, true);
+	else if (type == 1)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None, true);
+	else if (type == 2)
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	finishItem(z);
+}
+
+void XarPlug::createPolylineItem(int type)
+{
+	int z;
+	XarStyle *gc = m_gc.top();
+	if (type == 0)
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol, true);
+	else if (type == 1)
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None, true);
+	else if (type == 2)
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	finishItem(z);
+}
+
+void XarPlug::finishItem(int z)
+{
+	PageItem *ite = m_Doc->Items->at(z);
+	ite->PoLine = Coords.copy();
+	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(),wh.y());
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	m_Doc->AdjustItemSize(ite);
+	Elements.append(ite);
+	XarStyle *gc = m_gc.top();
+	gc->Elements.append(ite);
+}
+
+bool XarPlug::handlePathRel(QDataStream &ts, quint32 len)
+{
+	quint32 count = len / 9;
+	qint32 x, y;
+	quint8  verb, val;
+	double co1, co2, cx1, cy1, cx2, cy2, cx3, cy3;
+	FPoint currentPoint;
+	int bezCount = 0;
+	bool closed = false;
+	Coords.resize(0);
+	Coords.svgInit();
+	for (uint a = 0; a < count; a++)
+	{
+		ts >> verb;
+		ts >> val;
+		x = val;
+		ts >> val;
+		y = val;
+		ts >> val;
+		x = (x << 8) | val;
+		ts >> val;
+		y = (y << 8) | val;
+		ts >> val;
+		x = (x << 8) | val;
+		ts >> val;
+		y = (y << 8) | val;
+		ts >> val;
+		x = (x << 8) | val;
+		ts >> val;
+		y = (y << 8) | val;
+		co1 = x / 1000.0;
+		co2 = y / 1000.0;
+		switch (verb)
+		{
+			case 6:
+				Coords.svgMoveTo(co1, docHeight - co2);
+				currentPoint = FPoint(co1, co2);
+				break;
+			case 2:
+			case 3:
+				currentPoint = FPoint(currentPoint.x() - co1, currentPoint.y() - co2);
+				Coords.svgLineTo(currentPoint.x(), docHeight - currentPoint.y());
+				if (verb == 3)
+				{
+					closed = true;
+					Coords.svgClosePath();
+				}
+				break;
+			case 4:
+			case 5:
+				if (bezCount == 0)
+				{
+					cx1 = currentPoint.x() - co1;
+					cy1 = currentPoint.y() - co2;
+					currentPoint = FPoint(cx1, cy1);
+					bezCount++;
+				}
+				else if (bezCount == 1)
+				{
+					cx2 = currentPoint.x() - co1;
+					cy2 = currentPoint.y() - co2;
+					currentPoint = FPoint(cx2, cy2);
+					bezCount++;
+				}
+				else if (bezCount == 2)
+				{
+					cx3 = currentPoint.x() - co1;
+					cy3 = currentPoint.y() - co2;
+					currentPoint = FPoint(cx3, cy3);
+					Coords.svgCurveToCubic(cx1, docHeight - cy1, cx2, docHeight - cy2, cx3, docHeight - cy3);
+					if (verb == 5)
+					{
+						closed = true;
+						Coords.svgClosePath();
+					}
+					bezCount = 0;
+				}
+				break;
+		}
+	}
+	return closed;
+}
+
+void XarPlug::handleLayerInfo(QDataStream &ts)
+{
+	quint16 charC = 0;
+	quint8 layerFlags;
+	ts >> layerFlags;
+	ts >> charC;
+	QString XarName = "";
+	while (charC != 0)
+	{
+		XarName += QChar(charC);
+		ts >> charC;
+	}
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	{
+		if (!firstLayer)
+			currentLayer = m_Doc->addLayer(XarName, true);
+		else
+			m_Doc->changeLayerName(currentLayer, XarName);
+		m_Doc->setLayerVisible(currentLayer, layerFlags & 1);
+		m_Doc->setLayerLocked(currentLayer, layerFlags & 2);
+		m_Doc->setLayerPrintable(currentLayer, layerFlags & 4);
+		firstLayer = false;
+		if (layerFlags & 8)
+			activeLayer = XarName;
+	}
+}
+
+void XarPlug::handleSpreadInfo(QDataStream &ts)
+{
+	quint32 pgWidth, pgHeight, margin, bleed;
+	quint8 spreadFlags;
+	ts >> pgWidth >> pgHeight >> margin >> bleed;
+	ts >> spreadFlags;
+	double w = pgWidth / 1000.0;
+	double h = pgHeight / 1000.0;
+//	double m = margin / 1000.0;
+//	double b = bleed / 1000.0;
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	{
+		m_Doc->setPage(w, h, 0, 0, 0, 0, 0, 0, false, false);
+		if (w > h)
+			m_Doc->PageOri = 1;
+		else
+			m_Doc->PageOri = 0;
+		m_Doc->m_pageSize = "Custom";
+		m_Doc->changePageMargins(0, 0, 0, 0, h, w, h, w, m_Doc->PageOri, m_Doc->m_pageSize, m_Doc->currentPage()->pageNr(), 0);
+	}
+	docHeight = h;
+	docWidth = w;
 }
 
 void XarPlug::handleComplexColor(QDataStream &ts)
@@ -545,15 +823,6 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 	double c4 = decodeColorComponent(component4);
 //	qDebug() << "Record" << recordCounter << "Complex Color" << XarName << colM << colT << colorRef;
 //	qDebug() << "\t\tComponents" << c1 << c2 << c3 << c4;
-	XarColor color;
-	color.colorType = colorType;
-	color.colorModel = colorModel;
-	color.colorRef = colorRef;
-	color.component1 = c1;
-	color.component2 = c2;
-	color.component3 = c3;
-	color.component1 = c4;
-	XarColorMap.insert(recordCounter, color);
 	bool found = false;
 	QColor c = QColor(Rc, Gc, Bc);
 	if ((colorType == 0) || (colorType == 1))
@@ -651,6 +920,16 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 			importedColors.append(tmpName);
 		}
 	}
+	XarColor color;
+	color.colorType = colorType;
+	color.colorModel = colorModel;
+	color.colorRef = colorRef;
+	color.component1 = c1;
+	color.component2 = c2;
+	color.component3 = c3;
+	color.component1 = c4;
+	color.name = tmpName;
+	XarColorMap.insert(recordCounter, color);
 }
 
 void XarPlug::handleColorRGB(QDataStream &ts)
@@ -720,5 +999,6 @@ void XarPlug::addGraphicContext()
 	XarStyle *gc = new XarStyle;
 	if ( m_gc.top() )
 		*gc = *( m_gc.top() );
+	gc->Elements.clear();
 	m_gc.push( gc );
 }

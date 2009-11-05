@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "pluginapi.h"
+#include "commonstrings.h"
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
@@ -36,7 +37,7 @@ public:
 		FontWeight("normal"),
 		FontStretch("normal"),
 		FontSize(12),
-		FillCol("Black"),
+		FillCol(CommonStrings::None),
 		fillRule("nonzero"),
 		FillGradient(VGradient::linear),
 		StrokeGradient(VGradient::linear),
@@ -50,14 +51,15 @@ public:
 		GradStrokeX2(0),
 		GradStrokeY1(0),
 		GradStrokeY2(0),
-		LWidth(1.0),
+		LWidth(0.5),
 		PLineArt(Qt::SolidLine),
 		PLineEnd(Qt::FlatCap),
 		PLineJoin(Qt::MiterJoin),
-		StrokeCol("None"),
+		StrokeCol("Black"),
 		FillOpacity(1.0),
 		StrokeOpacity(1.0),
-		clipPath()
+		clipPath(),
+		Elements()
 		{
 		}
 	QVector<double> dashArray;
@@ -89,6 +91,7 @@ public:
 	double FillOpacity;
 	double StrokeOpacity;
 	FPointArray clipPath;
+	QList<PageItem*> Elements;
 };
 
 //! \brief Xar (Xara) importer plugin
@@ -126,6 +129,15 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void handleLineColor(QDataStream &ts);
+	void handleFlatFill(QDataStream &ts);
+	void handleLineWidth(QDataStream &ts);
+	void createPolylineItem(int type);
+	void createPolygonItem(int type);
+	void finishItem(int z);
+	bool handlePathRel(QDataStream &ts, quint32 len);
+	void handleLayerInfo(QDataStream &ts);
+	void handleSpreadInfo(QDataStream &ts);
 	void handleComplexColor(QDataStream &ts);
 	void handleColorRGB(QDataStream &ts);
 	double decodeColorComponent(quint32 data);
@@ -141,6 +153,7 @@ private:
 		double component2;
 		double component3;
 		double component4;
+		QString name;
 	};
 	QMap<quint32, XarColor> XarColorMap;
 	QList<PageItem*> Elements;
@@ -151,6 +164,9 @@ private:
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
+	bool firstLayer;
+	QString activeLayer;
+	int currentLayer;
 
 	double LineW;
 	QString CurrColorFill;
@@ -176,7 +192,6 @@ private:
 	QByteArray imageData;
 
 	FPointArray Coords;
-	QPoint currentPoint;
 	QPoint currentPointT;
 	bool lineMode;
 	bool postscriptMode;
