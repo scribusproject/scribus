@@ -443,12 +443,12 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 	if (tag == 0)
 	{
 		delete( m_gc.pop() );
-		qDebug() << "Stack dropped to" << m_gc.count();
+//		qDebug() << "Stack dropped to" << m_gc.count();
 	}
 	else if (tag == 1)
 	{
 		addGraphicContext();
-		qDebug() << "Stack pushed to" << m_gc.count();
+//		qDebug() << "Stack pushed to" << m_gc.count();
 	}
 	else if (tag == 10)
 		addToAtomic(dataLen, ts);
@@ -633,9 +633,10 @@ bool XarPlug::handlePathRel(QDataStream &ts, quint32 len)
 	qint32 x, y;
 	quint8  verb, val;
 	double co1, co2, cx1, cy1, cx2, cy2, cx3, cy3;
-	FPoint currentPoint;
+	FPoint currentPoint, startPoint;
 	int bezCount = 0;
 	bool closed = false;
+	bool wasFirst = true;
 	Coords.resize(0);
 	Coords.svgInit();
 	for (uint a = 0; a < count; a++)
@@ -662,8 +663,18 @@ bool XarPlug::handlePathRel(QDataStream &ts, quint32 len)
 		switch (verb)
 		{
 			case 6:
-				Coords.svgMoveTo(co1, docHeight - co2);
-				currentPoint = FPoint(co1, co2);
+				if (wasFirst)
+				{
+					Coords.svgMoveTo(co1, docHeight - co2);
+					currentPoint = FPoint(co1, co2);
+					wasFirst = false;
+				}
+				else
+				{
+					currentPoint = FPoint(currentPoint.x() - co1, currentPoint.y() - co2);
+					Coords.svgMoveTo(currentPoint.x(), docHeight - currentPoint.y());
+				}
+				startPoint = currentPoint;
 				break;
 			case 2:
 			case 3:
@@ -673,6 +684,7 @@ bool XarPlug::handlePathRel(QDataStream &ts, quint32 len)
 				{
 					closed = true;
 					Coords.svgClosePath();
+					currentPoint = startPoint;
 				}
 				break;
 			case 4:
@@ -701,6 +713,7 @@ bool XarPlug::handlePathRel(QDataStream &ts, quint32 len)
 					{
 						closed = true;
 						Coords.svgClosePath();
+						currentPoint = startPoint;
 					}
 					bezCount = 0;
 				}
