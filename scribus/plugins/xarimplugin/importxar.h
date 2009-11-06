@@ -59,6 +59,14 @@ public:
 		FillOpacity(1.0),
 		StrokeOpacity(1.0),
 		clipPath(),
+		fillPattern(""),
+		patternScaleX(0),
+		patternScaleY(0),
+		patternOffsetX(0),
+		patternOffsetY(0),
+		patternRotation(0),
+		patternSkewX(0),
+		patternSkewY(0),
 		Elements()
 		{
 		}
@@ -91,6 +99,14 @@ public:
 	double FillOpacity;
 	double StrokeOpacity;
 	FPointArray clipPath;
+	QString fillPattern;
+	double patternScaleX;
+	double patternScaleY;
+	double patternOffsetX;
+	double patternOffsetY;
+	double patternRotation;
+	double patternSkewX;
+	double patternSkewY;
 	QList<PageItem*> Elements;
 };
 
@@ -129,6 +145,8 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
+	void defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag);
 	void handleLineColor(QDataStream &ts);
 	void handleFlatFill(QDataStream &ts);
 	void handleLineWidth(QDataStream &ts);
@@ -143,6 +161,7 @@ private:
 	double decodeColorComponent(quint32 data);
 	void addToAtomic(quint32 dataLen, QDataStream &ts);
 	void addGraphicContext();
+	void popGraphicContext();
 	
 	struct XarColor
 	{
@@ -159,8 +178,12 @@ private:
 	QList<PageItem*> Elements;
 	int recordCounter;
 	QList<quint32> atomicTags;
+	QList<quint32> ignoreableTags;
 	QStack<QList<PageItem*> > groupStack;
 	QStack<XarStyle*>	m_gc;
+	QMap<QString, QString> patternMap;
+	QMap<quint32, QString> patternRef;
+	QByteArray imageData;
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
@@ -177,7 +200,6 @@ private:
 	double CurrFillShade;
 	bool patternMode;
 	QByteArray patternData;
-	QMap<QString, QString> patternMap;
 	QRect currRect;
 	int currRectItemNr;
 	int currRectType;
@@ -189,7 +211,6 @@ private:
 	int currentFontID;
 	int currentFontStyle;
 	FPointArray lastCoords;
-	QByteArray imageData;
 
 	FPointArray Coords;
 	QPoint currentPointT;

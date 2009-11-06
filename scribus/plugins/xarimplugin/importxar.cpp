@@ -348,6 +348,8 @@ bool XarPlug::convert(QString fn)
 	currentLayer = 0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
+	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111 << 4031;
+	ignoreableTags << 4114 << 4116 << 4124;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -438,11 +440,18 @@ void XarPlug::parseXar(QDataStream &ts)
 
 void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 {
+	XarStyle *gc = m_gc.top();
 	bool closed = false;
+	if (ignoreableTags.contains(tag))
+	{
+		ts.skipRawData(dataLen);
+		return;
+	}
 //	qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 	if (tag == 0)
 	{
-		delete( m_gc.pop() );
+		popGraphicContext();
+//		delete( m_gc.pop() );
 //		qDebug() << "Stack dropped to" << m_gc.count();
 	}
 	else if (tag == 1)
@@ -491,6 +500,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		ite->updateClip();
 		Elements.append(ite);
 	} */
+	else if ((tag == 67) || (tag == 68) || (tag == 71))
+		defineBitmap(ts, dataLen, tag);
 	else if (tag == 114)
 	{
 		closed = handlePathRel(ts, dataLen);
@@ -521,10 +532,120 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleLineColor(ts);
 	else if (tag == 152)
 		handleLineWidth(ts);
+	else if (tag == 157)
+		handleBitmapFill(ts, dataLen);
+	else if (tag == 190)
+		gc->FillCol = CommonStrings::None;
+	else if (tag == 191)
+		gc->FillCol = "Black";
+	else if (tag == 192)
+		gc->FillCol = "White";
+	else if (tag == 193)
+		gc->StrokeCol = CommonStrings::None;
+	else if (tag == 194)
+		gc->StrokeCol = "Black";
+	else if (tag == 195)
+		gc->StrokeCol = "White";
 	else
 	{
 //		qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		ts.skipRawData(dataLen);
+	}
+}
+
+void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	quint32 blx, bly, brx, bry, tlx, tly;
+	qint32 bref;
+	ts >> blx >> bly >> brx >> bry >> tlx >> tly;
+	ts >> bref;
+	if (dataLen == 44)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	QPointF bl(blx / 1000.0, bly / 1000.0);
+	QPointF br(brx / 1000.0, bry / 1000.0);
+	QPointF tl(tlx / 1000.0, tly / 1000.0);
+	double distX = sqrt(pow(br.x() - bl.x(), 2) + pow(br.y() - bl.y(), 2));
+	double distY = sqrt(pow(tl.x() - bl.x(), 2) + pow(tl.y() - bl.y(), 2));
+	if (patternRef.contains(bref))
+	{
+		ScPattern pat = m_Doc->docPatterns[patternRef[bref]];
+		gc->fillPattern = patternRef[bref];
+		gc->patternScaleX = distX / pat.width * 100;
+		gc->patternScaleY = distY / pat.height * 100;
+		gc->patternOffsetX = 0.0;
+		gc->patternOffsetY = 0.0;
+		gc->patternRotation = 0.0;
+		gc->patternSkewX = 0.0;
+		gc->patternSkewY = 0.0;
+	}
+}
+
+void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
+{
+	quint32 bytesRead = 0;
+	quint16 charC = 0;
+	ts >> charC;
+	bytesRead += 2;
+	QString XarName = "";
+	while (charC != 0)
+	{
+		XarName += QChar(charC);
+		ts >> charC;
+		bytesRead += 2;
+	}
+	if (tag == 71)
+	{
+		quint8 palcount, r, g, b;
+		ts >> palcount;
+		bytesRead++;
+		for (int a = 0; a < palcount + 1; a++)
+		{
+			ts >> r;
+			ts >> g;
+			ts >> b;
+			bytesRead += 3;
+		}
+	}
+	imageData.resize(dataLen - bytesRead);
+	ts.readRawData(imageData.data(), dataLen - bytesRead);
+	QImage image;
+	if (image.loadFromData(imageData))
+	{
+		image = image.convertToFormat(QImage::Format_ARGB32);
+		ScPattern pat = ScPattern();
+		pat.setDoc(m_Doc);
+		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+		newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		newItem->tempImageFile->open();
+		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
+		newItem->tempImageFile->close();
+		newItem->isInlineImage = true;
+		image.save(fileName, "PNG");
+		if (newItem->loadImage(fileName, false, 72, false))
+		{
+			pat.width = image.width();
+			pat.height = image.height();
+			pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.pattern = newItem->pixm.qImage().copy();
+			newItem->setWidth(pat.pattern.width());
+			newItem->setHeight(pat.pattern.height());
+			newItem->SetRectFrame();
+			newItem->gXpos = 0.0;
+			newItem->gYpos = 0.0;
+			newItem->gWidth = pat.pattern.width();
+			newItem->gHeight = pat.pattern.height();
+			pat.items.append(newItem);
+			newItem->ItemNr = pat.items.count();
+		}
+		QString patternName = "Pattern_"+newItem->itemName();
+		patternName = patternName.trimmed().simplified().replace(" ", "_");
+		m_Doc->addPattern(patternName, pat);
+		patternRef.insert(recordCounter, patternName);
 	}
 }
 
@@ -538,13 +659,6 @@ void XarPlug::handleLineColor(QDataStream &ts)
 		if (XarColorMap.contains(val))
 		{
 			gc->StrokeCol = XarColorMap[val].name;
-			if (gc->Elements.count() > 0)
-			{
-				for (int a = 0; a < gc->Elements.count(); a++)
-				{
-					gc->Elements.at(a)->setLineColor(gc->StrokeCol);
-				}
-			}
 		}
 	}
 }
@@ -559,13 +673,6 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 		if (XarColorMap.contains(val))
 		{
 			gc->FillCol = XarColorMap[val].name;
-			if (gc->Elements.count() > 0)
-			{
-				for (int a = 0; a < gc->Elements.count(); a++)
-				{
-					gc->Elements.at(a)->setFillColor(gc->FillCol);
-				}
-			}
 		}
 	}
 }
@@ -576,13 +683,6 @@ void XarPlug::handleLineWidth(QDataStream &ts)
 	quint32 val;
 	ts >> val;
 	gc->LWidth = val / 1000.0;
-	if (gc->Elements.count() > 0)
-	{
-		for (int a = 0; a < gc->Elements.count(); a++)
-		{
-			gc->Elements.at(a)->setLineWidth(gc->LWidth);
-		}
-	}
 }
 
 void XarPlug::createPolygonItem(int type)
@@ -1012,6 +1112,45 @@ void XarPlug::addGraphicContext()
 	XarStyle *gc = new XarStyle;
 	if ( m_gc.top() )
 		*gc = *( m_gc.top() );
-	gc->Elements.clear();
+//	gc->Elements.clear();
 	m_gc.push( gc );
+}
+
+void XarPlug::popGraphicContext()
+{
+	XarStyle *gc = m_gc.pop();
+	if (gc->Elements.count() > 0)
+	{
+		for (int a = 0; a < gc->Elements.count(); a++)
+		{
+			gc->Elements.at(a)->setFillColor(gc->FillCol);
+			gc->Elements.at(a)->setLineWidth(gc->LWidth);
+			gc->Elements.at(a)->setLineColor(gc->StrokeCol);
+			if (!gc->fillPattern.isEmpty())
+			{
+				gc->Elements.at(a)->setPattern(gc->fillPattern);
+				gc->Elements.at(a)->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY,
+														gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
+				gc->Elements.at(a)->GrType = 8;
+			}
+		}
+	}
+	delete gc;
+/*	gc = m_gc.top();
+	if (gc->Elements.count() > 0)
+	{
+		for (int a = 0; a < gc->Elements.count(); a++)
+		{
+			gc->Elements.at(a)->setFillColor(gc->FillCol);
+			gc->Elements.at(a)->setLineWidth(gc->LWidth);
+			gc->Elements.at(a)->setLineColor(gc->StrokeCol);
+			if (!gc->fillPattern.isEmpty())
+			{
+				gc->Elements.at(a)->setPattern(gc->fillPattern);
+				gc->Elements.at(a)->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY,
+														gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
+				gc->Elements.at(a)->GrType = 8;
+			}
+		}
+	} */
 }
