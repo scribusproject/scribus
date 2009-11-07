@@ -171,12 +171,12 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	groupScaleLayout->setAlignment( Qt::AlignTop );
 	textLabel5 = new QLabel( groupScale );
 	groupScaleLayout->addWidget( textLabel5, 0, 0 );
-	spinXscaling = new ScrSpinBox( 1, 500, groupScale, 0);
+	spinXscaling = new ScrSpinBox( 0.01, 500, groupScale, 0);
 	spinXscaling->setValue( 100 );
 	groupScaleLayout->addWidget( spinXscaling, 0, 1 );
 	textLabel6 = new QLabel( groupScale );
 	groupScaleLayout->addWidget( textLabel6, 1, 0 );
-	spinYscaling = new ScrSpinBox( 1, 500, groupScale, 0 );
+	spinYscaling = new ScrSpinBox( 0.01, 500, groupScale, 0 );
 	spinYscaling->setValue( 100 );
 	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
 	keepScaleRatio = new LinkButton( groupScale );
@@ -389,6 +389,12 @@ void Cpalette::updateFromItem()
 		return;
 	if (!currentDoc)
 		return;
+	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
+	disconnect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
+	disconnect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
+	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	disconnect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
 	updateCList();
 	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
 	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
@@ -400,10 +406,6 @@ void Cpalette::updateFromItem()
 	ChooseGrad(currentItem->GrType);
 	gradEdit->setGradient(currentItem->fill_gradient);
 	gradEditStroke->setGradient(currentItem->stroke_gradient);
-	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
-	disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
-	disconnect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
-	disconnect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
 	if (!currentItem->gradient().isEmpty())
 	{
 		setCurrentComboItem(namedGradient, currentItem->gradient());
@@ -451,6 +453,8 @@ void Cpalette::updateFromItem()
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
 	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
+	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
 }
 
 void Cpalette::updateCList()

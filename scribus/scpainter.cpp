@@ -956,12 +956,53 @@ void ScPainter::drawVPath( int mode )
 		{
 			double r, g, b;
 			m_fill.getRgbF(&r, &g, &b);
-			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
-//			if (fill_trans != 1.0)
+/*
+	Experimental Code for testing gradient masks, sadly this feature
+	is only possible with cairo.
+			if (fill_trans != 1.0)
+			{
+				cairo_set_source_rgb( m_cr, r, g, b );
 				cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+				cairo_pattern_t *pat;
+				double x1 = fill_gradient.origin().x();
+				double y1 = fill_gradient.origin().y();
+				double x2 = fill_gradient.vector().x();
+				double y2 = fill_gradient.vector().y();
+				if (fill_gradient.type() == VGradient::linear)
+					pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+				else
+					pat = cairo_pattern_create_radial (x1, y1, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+				QList<VColorStop*> colorStops = fill_gradient.colorStops();
+				QColor qStopColor;
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					double a = colorStops[offset]->opacity;
+					double r, g, b;
+					qStopColor.getRgbF(&r, &g, &b);
+					cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+				}
+				cairo_clip_preserve (m_cr);
+				cairo_mask(m_cr, pat);
+				cairo_pattern_destroy (pat);
+			}
+			else
+			{
+*/
+			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+			cairo_fill_preserve(m_cr);
+//			}
+//				cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 //			else
 //				cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
-			cairo_fill_preserve( m_cr );
+//			cairo_fill_preserve( m_cr );
 		}
 		else if (fillMode == 2)
 		{
@@ -1294,6 +1335,41 @@ void ScPainter::drawImage( QImage *image )
 	cairo_surface_destroy (image2);
 	cairo_surface_destroy (image3);
 	cairo_pop_group_to_source (m_cr);
+/*
+	Experimental Code for testing gradient masks, sadly this feature
+	is only possible with cairo.
+	if (fill_trans != 1.0)
+	{
+		cairo_pattern_t *pat;
+		double x1 = fill_gradient.origin().x();
+		double y1 = fill_gradient.origin().y();
+		double x2 = fill_gradient.vector().x();
+		double y2 = fill_gradient.vector().y();
+		if (fill_gradient.type() == VGradient::linear)
+			pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+		else
+			pat = cairo_pattern_create_radial (x1, y1, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+		QList<VColorStop*> colorStops = fill_gradient.colorStops();
+		QColor qStopColor;
+		for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+		{
+			qStopColor = colorStops[ offset ]->color;
+			int h, s, v, sneu, vneu;
+			int shad = colorStops[offset]->shade;
+			qStopColor.getHsv(&h, &s, &v);
+			sneu = s * shad / 100;
+			vneu = 255 - ((255 - v) * shad / 100);
+			qStopColor.setHsv(h, sneu, vneu);
+			double a = colorStops[offset]->opacity;
+			double r, g, b;
+			qStopColor.getRgbF(&r, &g, &b);
+			cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+		}
+		cairo_mask(m_cr, pat);
+		cairo_pattern_destroy (pat);
+	}
+	else
+*/
 	cairo_paint_with_alpha (m_cr, fill_trans);
 #else
 /* Working code, sadly we need to create an additional mask image with the same size as the image to be painted */

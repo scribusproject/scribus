@@ -145,6 +145,7 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear);
 	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
 	void defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag);
 	void handleLineColor(QDataStream &ts);

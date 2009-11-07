@@ -532,6 +532,10 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleLineColor(ts);
 	else if (tag == 152)
 		handleLineWidth(ts);
+	else if (tag == 153)
+		handleSimpleGradient(ts, dataLen, true);
+	else if (tag == 154)
+		handleSimpleGradient(ts, dataLen, false);
 	else if (tag == 157)
 		handleBitmapFill(ts, dataLen);
 	else if (tag == 190)
@@ -551,6 +555,36 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 //		qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		ts.skipRawData(dataLen);
 	}
+}
+
+void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear)
+{
+	XarStyle *gc = m_gc.top();
+	quint32 blx, bly, brx, bry, colRef1, colRef2;
+	ts >> blx >> bly >> brx >> bry >> colRef1 >> colRef2;
+	if (dataLen == 40)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	QString gCol1 = XarColorMap[colRef1].name;
+	QString gCol2 = XarColorMap[colRef2].name;
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+	QColor c1 = ScColorEngine::getRGBColor(gradC1, m_Doc);
+	QColor c2 = ScColorEngine::getRGBColor(gradC2, m_Doc);
+	gc->FillGradient.addStop( c1, 0.0, 0.5, 1.0, gCol1, 100 );
+	gc->FillGradient.addStop( c2, 1.0, 0.5, 1.0, gCol2, 100 );
+	if (linear)
+		gc->FillGradientType = 6;
+	else
+		gc->FillGradientType = 7;
+	gc->GradFillX1 = (blx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - (bly / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = (brx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - (bry / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
 }
 
 void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
@@ -1123,16 +1157,23 @@ void XarPlug::popGraphicContext()
 	{
 		for (int a = 0; a < gc->Elements.count(); a++)
 		{
-			gc->Elements.at(a)->setFillColor(gc->FillCol);
-			gc->Elements.at(a)->setLineWidth(gc->LWidth);
-			gc->Elements.at(a)->setLineColor(gc->StrokeCol);
+			PageItem *item = gc->Elements.at(a);
 			if (!gc->fillPattern.isEmpty())
 			{
-				gc->Elements.at(a)->setPattern(gc->fillPattern);
-				gc->Elements.at(a)->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY,
+				item->setPattern(gc->fillPattern);
+				item->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY,
 														gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
-				gc->Elements.at(a)->GrType = 8;
+				item->GrType = 8;
 			}
+			if ((gc->FillGradientType == 6) || (gc->FillGradientType == 7))
+			{
+				item->GrType = gc->FillGradientType;
+				item->fill_gradient = gc->FillGradient;
+				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos());
+			}
+			item->setFillColor(gc->FillCol);
+			item->setLineWidth(gc->LWidth);
+			item->setLineColor(gc->StrokeCol);
 		}
 	}
 	delete gc;
