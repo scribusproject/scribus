@@ -57,9 +57,7 @@ const char* getpropertytype(QObject* obj, const char* propname, bool includesupe
 	QMetaProperty propmeta = objmeta->property(i);
 	if (!propmeta.isValid())
 		return NULL;
-	const char* type = "";
-//type=propmeta->type();
-	assert(type);
+	const char* type = propmeta.typeName();
 	return type;
 }
 
@@ -224,12 +222,18 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 	objArg = NULL; // no need to decref, it's borrowed
 
 	// Retrive the object's meta object so we can query it
-//qt4 FIXME	const QMetaObject* objmeta = obj->metaObject();
-//qt4 FIXME	assert(objmeta);
+	const QMetaObject* objmeta = obj->metaObject();
+	if (!objmeta)
+		return NULL;
 
 	// Return the list of properties
 	QStringList propertyNames;
-//qt4 FIXME	propertNames = objmeta->propertyNames(includesuper);
+	int propertyOffset = includesuper ? 0 : objmeta->propertyOffset();
+	for(int i = propertyOffset; i < objmeta->propertyCount(); ++i)
+	{
+		QString propName = objmeta->property(i).name();
+		propertyNames << QString::fromLatin1(objmeta->property(i).name());
+	}
 	return convert_QStringList_to_PyListObject(propertyNames);
 }
 
@@ -253,18 +257,23 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	// Get the QMetaProperty for the property, so we can check
 	// if it's a set/enum and do name/value translation.
-/*qt4 FIXME	const QMetaObject* objmeta = obj->metaObject();
-	int i = objmeta->findProperty(propertyName, true);
+	const QMetaObject* objmeta = obj->metaObject();
+	int i = objmeta->indexOfProperty(propertyName);
 	if (i == -1)
 	{
 		PyErr_SetString(PyExc_ValueError,
-				QObject::tr("Property not found"));
+				QObject::tr("Property not found").toLocal8Bit().data());
 		return NULL;
 	}
 
-	const QMetaProperty* propmeta = objmeta->property(i, true);
-	assert(propmeta);
-*/
+	QMetaProperty propmeta = objmeta->property(i);
+	if (!propmeta.isValid())
+	{
+		PyErr_SetString(PyExc_ValueError,
+				QObject::tr("Invalid property").toLocal8Bit().data());
+		return NULL;
+	}
+
 	// Get the property value as a variant type
 	QVariant prop = obj->property(propertyName);
 
@@ -308,7 +317,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	else
 	{
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Couldn't convert result type '%1'.").arg(prop.typeName()).toLocal8Bit().constData() );
-		return NULL;
+		return resultobj;
 	}
 
 	// Return the resulting Python object
@@ -347,7 +356,10 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		return NULL;
 	objArg = NULL; // no need to decref, it's borrowed
 
-	const QString propertyType = getpropertytype(obj, propertyName, true);
+	const char* propertyTypeName = getpropertytype(obj, propertyName, true);
+	if (propertyTypeName == NULL)
+		return NULL;
+	QString propertyType = QString::fromLatin1(propertyTypeName);
 
 	// Did we know how to convert the value argument to the right type?
 	bool matched = false;
