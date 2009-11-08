@@ -538,6 +538,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleSimpleGradient(ts, dataLen, false);
 	else if (tag == 157)
 		handleBitmapFill(ts, dataLen);
+	else if (tag == 166)
+		handleFlatFillTransparency(ts);
 	else if (tag == 190)
 		gc->FillCol = CommonStrings::None;
 	else if (tag == 191)
@@ -550,11 +552,59 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		gc->StrokeCol = "Black";
 	else if (tag == 195)
 		gc->StrokeCol = "White";
+	else if (tag == 4075)
+		handleMultiGradient(ts, true);
+	else if (tag == 4076)
+		handleMultiGradient(ts, false);
 	else
 	{
 //		qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		ts.skipRawData(dataLen);
 	}
+}
+
+void XarPlug::handleFlatFillTransparency(QDataStream &ts)
+{
+	quint8 transVal, transType;
+	ts >> transVal >> transType;
+	XarStyle *gc = m_gc.top();
+	if (transType > 0)
+		gc->FillOpacity = transVal / 255.0;
+}
+
+void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
+{
+	XarStyle *gc = m_gc.top();
+	quint32 blx, bly, brx, bry, colRef1, colRef2;
+	ts >> blx >> bly >> brx >> bry >> colRef1 >> colRef2;
+	QString gCol1 = XarColorMap[colRef1].name;
+	QString gCol2 = XarColorMap[colRef2].name;
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	quint32 numCols;
+	ts >> numCols;
+	for (uint a = 0; a < numCols; a++)
+	{
+		double cpos;
+		quint32 colRef;
+		ts >> cpos;
+		ts >> colRef;
+		QString gCol = XarColorMap[colRef].name;
+		const ScColor& gradC = m_Doc->PageColors[gCol];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+	}
+	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	if (linear)
+		gc->FillGradientType = 6;
+	else
+		gc->FillGradientType = 7;
+	gc->GradFillX1 = (blx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - (bly / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = (brx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - (bry / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
 }
 
 void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear)
@@ -572,11 +622,9 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 	gc->FillGradient = VGradient(VGradient::linear);
 	gc->FillGradient.clearStops();
 	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
 	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
-	QColor c1 = ScColorEngine::getRGBColor(gradC1, m_Doc);
-	QColor c2 = ScColorEngine::getRGBColor(gradC2, m_Doc);
-	gc->FillGradient.addStop( c1, 0.0, 0.5, 1.0, gCol1, 100 );
-	gc->FillGradient.addStop( c2, 1.0, 0.5, 1.0, gCol2, 100 );
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
 	if (linear)
 		gc->FillGradientType = 6;
 	else
@@ -971,43 +1019,76 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 //	qDebug() << "Record" << recordCounter << "Complex Color" << XarName << colM << colT << colorRef;
 //	qDebug() << "\t\tComponents" << c1 << c2 << c3 << c4;
 	bool found = false;
-	QColor c = QColor(Rc, Gc, Bc);
-	if ((colorType == 0) || (colorType == 1))
+	if ((!XarName.isEmpty()) && ((XarName == "White") || (XarName == "Black") || (m_Doc->PageColors.contains(XarName))))
+		tmpName = XarName;
+	else
 	{
-		if (colorModel == 3)
+		QColor c = QColor(Rc, Gc, Bc);
+		if ((colorType == 0) || (colorType == 1))
 		{
-			int Cc = qRound(c1 * 255);
-			int Mc = qRound(c2 * 255);
-			int Yc = qRound(c3 * 255);
-			int Kc = qRound(c4 * 255);
-			int hC, hM, hY, hK;
-			tmp.setColor(Cc, Mc, Yc, Kc);
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+			if (colorModel == 3)
 			{
-				if (it.value().getColorModel() == colorModelCMYK)
+				int Cc = qRound(c1 * 255);
+				int Mc = qRound(c2 * 255);
+				int Yc = qRound(c3 * 255);
+				int Kc = qRound(c4 * 255);
+				int hC, hM, hY, hK;
+				tmp.setColor(Cc, Mc, Yc, Kc);
+				for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 				{
-					it.value().getCMYK(&hC, &hM, &hY, &hK);
-					if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+					if (it.value().getColorModel() == colorModelCMYK)
 					{
-						tmpName = it.key();
-						found = true;
-						break;
+						it.value().getCMYK(&hC, &hM, &hY, &hK);
+						if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+						{
+							tmpName = it.key();
+							found = true;
+							break;
+						}
 					}
 				}
+				if (!found)
+				{
+					if (colorType == 1)
+						tmp.setSpotColor(true);
+					else
+						tmp.setSpotColor(false);
+					tmp.setRegistrationColor(false);
+					if (XarName.isEmpty())
+						tmpName = "FromXara"+c.name();
+					else
+						tmpName = XarName;
+					m_Doc->PageColors.insert(tmpName, tmp);
+					importedColors.append(tmpName);
+				}
 			}
-			if (!found)
+			else
 			{
-				if (colorType == 1)
-					tmp.setSpotColor(true);
-				else
+				for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+				{
+					if (it.value().getColorModel() == colorModelRGB)
+					{
+						it.value().getRGB(&hR, &hG, &hB);
+						if ((Rc == hR) && (Gc == hG) && (Bc == hB))
+						{
+							tmpName = it.key();
+							found = true;
+							break;
+						}
+					}
+				}
+				if (!found)
+				{
+					tmp.setColorRGB(Rc, Gc, Bc);
 					tmp.setSpotColor(false);
-				tmp.setRegistrationColor(false);
-				if (XarName.isEmpty())
-					tmpName = "FromXara"+c.name();
-				else
-					tmpName = XarName;
-				m_Doc->PageColors.insert(tmpName, tmp);
-				importedColors.append(tmpName);
+					tmp.setRegistrationColor(false);
+					if (XarName.isEmpty())
+						tmpName = "FromXara"+c.name();
+					else
+						tmpName = XarName;
+					m_Doc->PageColors.insert(tmpName, tmp);
+					importedColors.append(tmpName);
+				}
 			}
 		}
 		else
@@ -1037,34 +1118,6 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 				m_Doc->PageColors.insert(tmpName, tmp);
 				importedColors.append(tmpName);
 			}
-		}
-	}
-	else
-	{
-		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-		{
-			if (it.value().getColorModel() == colorModelRGB)
-			{
-				it.value().getRGB(&hR, &hG, &hB);
-				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-				{
-					tmpName = it.key();
-					found = true;
-					break;
-				}
-			}
-		}
-		if (!found)
-		{
-			tmp.setColorRGB(Rc, Gc, Bc);
-			tmp.setSpotColor(false);
-			tmp.setRegistrationColor(false);
-			if (XarName.isEmpty())
-				tmpName = "FromXara"+c.name();
-			else
-				tmpName = XarName;
-			m_Doc->PageColors.insert(tmpName, tmp);
-			importedColors.append(tmpName);
 		}
 	}
 	XarColor color;
@@ -1172,6 +1225,7 @@ void XarPlug::popGraphicContext()
 				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos());
 			}
 			item->setFillColor(gc->FillCol);
+			item->setFillTransparency(gc->FillOpacity);
 			item->setLineWidth(gc->LWidth);
 			item->setLineColor(gc->StrokeCol);
 		}

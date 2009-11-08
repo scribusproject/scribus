@@ -56,8 +56,8 @@ public:
 		PLineEnd(Qt::FlatCap),
 		PLineJoin(Qt::MiterJoin),
 		StrokeCol("Black"),
-		FillOpacity(1.0),
-		StrokeOpacity(1.0),
+		FillOpacity(0.0),
+		StrokeOpacity(0.0),
 		clipPath(),
 		fillPattern(""),
 		patternScaleX(0),
@@ -145,6 +145,8 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void handleFlatFillTransparency(QDataStream &ts);
+	void handleMultiGradient(QDataStream &ts, bool linear);
 	void handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear);
 	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
 	void defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag);
