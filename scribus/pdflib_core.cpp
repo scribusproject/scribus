@@ -5880,6 +5880,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			}
 			PutDoc(bctx.trimmed()+"]\n");
 		}
+		else
+			PutDoc("/Bounds []\n");
 		QString entx = "";
 		PutDoc("/Functions\n");
 		PutDoc("[\n");
@@ -5999,6 +6001,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		}
 		PutDoc(bctx.trimmed()+"]\n");
 	}
+	else
+		PutDoc("/Bounds []\n");
 	QString entx = "";
 	PutDoc("/Functions\n");
 	PutDoc("[\n");
