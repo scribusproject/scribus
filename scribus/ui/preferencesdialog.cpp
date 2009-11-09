@@ -88,6 +88,11 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 
 }
 
+
+PreferencesDialog::~PreferencesDialog()
+{
+}
+
 void PreferencesDialog::restoreDefaults()
 {
 	prefsManager->initDefaults();
@@ -108,14 +113,30 @@ void PreferencesDialog::setupGui()
 	prefs_UserInterface->restoreDefaults(&localPrefs);
 	prefs_Paths->restoreDefaults(&localPrefs);
 	prefs_DocumentSetup->restoreDefaults(&localPrefs);
+	prefs_Typography->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
 	prefs_Display->restoreDefaults(&localPrefs);
 }
 
-PreferencesDialog::~PreferencesDialog()
+
+void PreferencesDialog::saveGuiToPrefs()
 {
+	prefs_UserInterface->saveGuiToPrefs(&localPrefs);
+	prefs_Paths->saveGuiToPrefs(&localPrefs);
+	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
+	prefs_Typography->saveGuiToPrefs(&localPrefs);
+	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
+	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
+	prefs_Display->saveGuiToPrefs(&localPrefs);
+}
+
+void PreferencesDialog::applyButtonClicked()
+{
+	Prefs_Pane* pp=qobject_cast<Prefs_Pane *>(prefsStackWidget->currentWidget());
+	if (pp)
+		pp->saveGuiToPrefs(&localPrefs);
 }
 
 void PreferencesDialog::accept()
@@ -231,20 +252,4 @@ void PreferencesDialog::arrangeIcons()
 	}*/
 }
 
-void PreferencesDialog::applyButtonClicked()
-{
-	Prefs_Pane* pp=qobject_cast<Prefs_Pane *>(prefsStackWidget->currentWidget());
-	if (pp)
-		pp->saveGuiToPrefs(&localPrefs);
-}
-
-void PreferencesDialog::saveGuiToPrefs()
-{
-	prefs_UserInterface->saveGuiToPrefs(&localPrefs);
-	prefs_Paths->saveGuiToPrefs(&localPrefs);
-	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
-	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
-	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
-	prefs_Display->saveGuiToPrefs(&localPrefs);
-}
 

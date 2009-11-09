@@ -44,9 +44,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-61</y>
         <width>452</width>
-        <height>803</height>
+        <height>788</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -86,14 +86,27 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox">
+          <widget class="QSpinBox" name="subscriptDisplacementSpinBox">
            <property name="suffix">
-            <string/>
+            <string> %</string>
+           </property>
+           <property name="maximum">
+            <number>100</number>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox_2"/>
+          <widget class="QSpinBox" name="subscriptScalingSpinBox">
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_6">
@@ -156,7 +169,14 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_3"/>
+          <widget class="QSpinBox" name="superscriptDisplacementSpinBox">
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_8">
@@ -166,7 +186,17 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox_4"/>
+          <widget class="QSpinBox" name="superscriptScalingSpinBox">
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -221,9 +251,6 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_5"/>
-         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_10">
            <property name="text">
@@ -232,7 +259,42 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox_6"/>
+          <widget class="QDoubleSpinBox" name="underlineLineWidthSpinBox">
+           <property name="wrapping">
+            <bool>true</bool>
+           </property>
+           <property name="specialValueText">
+            <string>Auto</string>
+           </property>
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="minimum">
+            <double>-0.100000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QDoubleSpinBox" name="underlineDisplacementSpinBox">
+           <property name="wrapping">
+            <bool>true</bool>
+           </property>
+           <property name="specialValueText">
+            <string>Auto</string>
+           </property>
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="minimum">
+            <double>-0.100000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -288,7 +350,23 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_7"/>
+          <widget class="QDoubleSpinBox" name="strikeoutDisplacementSpinBox">
+           <property name="wrapping">
+            <bool>true</bool>
+           </property>
+           <property name="specialValueText">
+            <string>Auto</string>
+           </property>
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="minimum">
+            <double>-0.100000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_13">
@@ -298,7 +376,23 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox_8"/>
+          <widget class="QDoubleSpinBox" name="strikeoutLineWidthSpinBox">
+           <property name="wrapping">
+            <bool>true</bool>
+           </property>
+           <property name="specialValueText">
+            <string>Auto</string>
+           </property>
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="minimum">
+            <double>-0.100000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -354,7 +448,14 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_9"/>
+          <widget class="QSpinBox" name="smallcapsScalingSpinBox">
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -410,7 +511,14 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_12"/>
+          <widget class="QSpinBox" name="automaticLineSpacingSpinBox">
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
