@@ -145,6 +145,7 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void handleQuickShapeSimple(QDataStream &ts, quint32 dataLen);
 	void handleFlatFillTransparency(QDataStream &ts);
 	void handleMultiGradient(QDataStream &ts, bool linear);
 	void handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear);
@@ -162,6 +163,8 @@ private:
 	void handleComplexColor(QDataStream &ts);
 	void handleColorRGB(QDataStream &ts);
 	double decodeColorComponent(quint32 data);
+	double decodeFixed16(quint32 data);
+	void readCoords(QDataStream &ts, double &x, double &y);
 	void addToAtomic(quint32 dataLen, QDataStream &ts);
 	void addGraphicContext();
 	void popGraphicContext();

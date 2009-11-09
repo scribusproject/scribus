@@ -552,6 +552,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		gc->StrokeCol = "Black";
 	else if (tag == 195)
 		gc->StrokeCol = "White";
+	else if (tag == 1901)
+		handleQuickShapeSimple(ts, dataLen);
 	else if (tag == 4075)
 		handleMultiGradient(ts, true);
 	else if (tag == 4076)
@@ -561,6 +563,56 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 //		qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		ts.skipRawData(dataLen);
 	}
+}
+
+void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	quint32 bytesRead = 0;
+	double minorAxisX, minorAxisY, majorAxisX, majorAxisY;
+	quint16 numSides = 0;
+	quint8 flags;
+	ts >> flags;
+	bytesRead++;
+	ts >> numSides;
+	bytesRead += 2;
+	readCoords(ts, majorAxisX, majorAxisY);
+	bytesRead += 8;
+	readCoords(ts, minorAxisX, minorAxisY);
+	bytesRead += 8;
+	quint32 scX, skX, skY, scY;
+	double transX, transY;
+	ts >> scX >> skX >> skY >> scY;
+	readCoords(ts, transX, transY);
+	bytesRead += 24;
+	double scaleX = decodeFixed16(scX);
+	double scaleY = decodeFixed16(scY);
+	double skewX = decodeFixed16(skX);
+	double skewY = decodeFixed16(skY);
+	double r1, r2, r3, r4;
+	ts >> r1 >> r2 >> r3 >> r4;
+	bytesRead += 32;
+//	qDebug() << "Regular Polygon";
+//	qDebug() << "Sides" << numSides;
+//	qDebug() << "MajorAxis" << majorAxisX << majorAxisY;
+//	qDebug() << "MinorAxis" << minorAxisX << minorAxisY;
+//	qDebug() << "Matrix" << scaleX << skewX << skewY << scaleY << transX << transY;
+//	qDebug() << "Radii" << r1 << r2 << r3 << r4;
+//	qDebug() << "Bytes read" << bytesRead << "of" << dataLen;
+	ts.skipRawData(dataLen - bytesRead);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	double w = distance(minorAxisX, minorAxisY) * 2;
+	double h = distance(majorAxisX, majorAxisY) * 2;
+	bool star = flags & 2;
+	QPainterPath path = RegularPolygon(w, h, numSides, star, r1, 45, 0);
+	Coords.resize(0);
+	Coords.svgInit();
+	Coords.fromQPainterPath(path);
+	Coords.translate(-w / 2.0, -h / 2.0 + docHeight);
+	QTransform matrix(scaleX, skewX, skewY, scaleY, 0, 0);
+	Coords.translate(transX, -transY);
+	Coords.map(matrix);
+	finishItem(z);
 }
 
 void XarPlug::handleFlatFillTransparency(QDataStream &ts)
@@ -575,8 +627,11 @@ void XarPlug::handleFlatFillTransparency(QDataStream &ts)
 void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 {
 	XarStyle *gc = m_gc.top();
-	quint32 blx, bly, brx, bry, colRef1, colRef2;
-	ts >> blx >> bly >> brx >> bry >> colRef1 >> colRef2;
+	double blx, bly, brx, bry;
+	quint32 colRef1, colRef2;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	ts >> colRef1 >> colRef2;
 	QString gCol1 = XarColorMap[colRef1].name;
 	QString gCol2 = XarColorMap[colRef2].name;
 	gc->FillGradient = VGradient(VGradient::linear);
@@ -601,17 +656,20 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 		gc->FillGradientType = 6;
 	else
 		gc->FillGradientType = 7;
-	gc->GradFillX1 = (blx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
-	gc->GradFillY1 = (docHeight - (bly / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
-	gc->GradFillX2 = (brx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
-	gc->GradFillY2 = (docHeight - (bry / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 }
 
 void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear)
 {
 	XarStyle *gc = m_gc.top();
-	quint32 blx, bly, brx, bry, colRef1, colRef2;
-	ts >> blx >> bly >> brx >> bry >> colRef1 >> colRef2;
+	double blx, bly, brx, bry;
+	quint32 colRef1, colRef2;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	ts >> colRef1 >> colRef2;
 	if (dataLen == 40)
 	{
 		double p, p1;
@@ -629,27 +687,29 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 		gc->FillGradientType = 6;
 	else
 		gc->FillGradientType = 7;
-	gc->GradFillX1 = (blx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
-	gc->GradFillY1 = (docHeight - (bly / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
-	gc->GradFillX2 = (brx / 1000.0) + baseX + m_Doc->currentPage()->xOffset();
-	gc->GradFillY2 = (docHeight - (bry / 1000.0)) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 }
 
 void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 {
 	XarStyle *gc = m_gc.top();
-	quint32 blx, bly, brx, bry, tlx, tly;
 	qint32 bref;
-	ts >> blx >> bly >> brx >> bry >> tlx >> tly;
+	double blx, bly, brx, bry, tlx, tly;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	readCoords(ts, tlx, tly);
 	ts >> bref;
 	if (dataLen == 44)
 	{
 		double p, p1;
 		ts >> p >> p1;
 	}
-	QPointF bl(blx / 1000.0, bly / 1000.0);
-	QPointF br(brx / 1000.0, bry / 1000.0);
-	QPointF tl(tlx / 1000.0, tly / 1000.0);
+	QPointF bl(blx, bly);
+	QPointF br(brx, bry);
+	QPointF tl(tlx, tly);
 	double distX = sqrt(pow(br.x() - bl.x(), 2) + pow(br.y() - bl.y(), 2));
 	double distY = sqrt(pow(tl.x() - bl.x(), 2) + pow(tl.y() - bl.y(), 2));
 	if (patternRef.contains(bref))
@@ -736,7 +796,7 @@ void XarPlug::handleLineColor(QDataStream &ts)
 	XarStyle *gc = m_gc.top();
 	qint32 val;
 	ts >> val;
-	if (val > 0)
+	if (val >= 0)
 	{
 		if (XarColorMap.contains(val))
 		{
@@ -750,7 +810,7 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 	XarStyle *gc = m_gc.top();
 	qint32 val;
 	ts >> val;
-	if (val > 0)
+	if (val >= 0)
 	{
 		if (XarColorMap.contains(val))
 		{
@@ -1183,6 +1243,31 @@ double XarPlug::decodeColorComponent(quint32 data)
 	return ret;
 }
 
+double XarPlug::decodeFixed16(quint32 data)
+{
+	double ret = 0.0;
+	char man = (data & 0xFFFF0000) >> 16;
+	if (man >= 0)
+	{
+		ret = (data & 0x0000FFFF) / 65536.0;
+		ret = (ret + man);
+	}
+	else
+	{
+		ret = (~data & 0x0000FFFF) / 65536.0;
+		ret = (ret + ~man) * -1;
+	}
+	return ret;
+}
+
+void XarPlug::readCoords(QDataStream &ts, double &x, double &y)
+{
+	qint32 xc, yc;
+	ts >> xc >> yc;
+	x = xc / 1000.0;
+	y = yc / 1000.0;
+}
+
 void XarPlug::addToAtomic(quint32 dataLen, QDataStream &ts)
 {
 	quint32 l = dataLen / 4;
@@ -1196,11 +1281,13 @@ void XarPlug::addToAtomic(quint32 dataLen, QDataStream &ts)
 
 void XarPlug::addGraphicContext()
 {
+	XarStyle *gc2 = m_gc.top();
 	XarStyle *gc = new XarStyle;
 	if ( m_gc.top() )
 		*gc = *( m_gc.top() );
-//	gc->Elements.clear();
 	m_gc.push( gc );
+	if (gc2->Elements.count() > 0)
+		gc2->Elements.removeLast();
 }
 
 void XarPlug::popGraphicContext()
@@ -1211,6 +1298,10 @@ void XarPlug::popGraphicContext()
 		for (int a = 0; a < gc->Elements.count(); a++)
 		{
 			PageItem *item = gc->Elements.at(a);
+			item->setFillColor(gc->FillCol);
+			item->setFillTransparency(gc->FillOpacity);
+			item->setLineWidth(gc->LWidth);
+			item->setLineColor(gc->StrokeCol);
 			if (!gc->fillPattern.isEmpty())
 			{
 				item->setPattern(gc->fillPattern);
@@ -1224,28 +1315,7 @@ void XarPlug::popGraphicContext()
 				item->fill_gradient = gc->FillGradient;
 				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos());
 			}
-			item->setFillColor(gc->FillCol);
-			item->setFillTransparency(gc->FillOpacity);
-			item->setLineWidth(gc->LWidth);
-			item->setLineColor(gc->StrokeCol);
 		}
 	}
 	delete gc;
-/*	gc = m_gc.top();
-	if (gc->Elements.count() > 0)
-	{
-		for (int a = 0; a < gc->Elements.count(); a++)
-		{
-			gc->Elements.at(a)->setFillColor(gc->FillCol);
-			gc->Elements.at(a)->setLineWidth(gc->LWidth);
-			gc->Elements.at(a)->setLineColor(gc->StrokeCol);
-			if (!gc->fillPattern.isEmpty())
-			{
-				gc->Elements.at(a)->setPattern(gc->fillPattern);
-				gc->Elements.at(a)->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY,
-														gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
-				gc->Elements.at(a)->GrType = 8;
-			}
-		}
-	} */
 }
