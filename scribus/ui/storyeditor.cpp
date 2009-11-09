@@ -5,20 +5,20 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          story.cpp  -  description
-                             -------------------
-    begin                : Tue Nov 11 2003
-    copyright            : (C) 2003 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+						  story.cpp  -  description
+							 -------------------
+	begin			   : Tue Nov 11 2003
+	copyright		   : (C) 2003 by Franz Schmid
+	email			   : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
+ *																	   *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
+ *   the Free Software Foundation; either version 2 of the License, or   *
+ *   (at your option) any later version.								   *
+ *																	   *
  ***************************************************************************/
 
 #include <QApplication>
@@ -406,12 +406,13 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_Return:
 			case Qt::Key_Enter:
-				{
+				if (k->modifiers() == Qt::ShiftModifier)
+					insertChars(SpecialChars::LINEBREAK, k->text());
+				else
 					insertChars(SpecialChars::PARSEP, k->text());
-					emit SideBarUp(true);
-					emit SideBarUpdate();
-					return;
-				}
+				emit SideBarUp(true);
+				emit SideBarUpdate();
+				return;
 				break;
 			case Qt::Key_Delete:
 			case Qt::Key_Backspace:
@@ -497,23 +498,35 @@ void SEditor::insertChars(const QString& text)
 	if (textCursor().hasSelection())
 		textCursor().removeSelectedText();
 	++blockContentsChangeHook;
-	int pos = qMin(textCursor().position(), StyledText.length());
+	QTextCursor c(textCursor());
+	int pos = qMin(c.position(), StyledText.length());
 	StyledText.insertChars(pos, text, true);
-	insertPlainText(text);
+// 	insertPlainText(text);
+	insertUpdate(pos, text.length());
+	c.setPosition(pos + text.length());
+	setTextCursor(c);
+	setColor(false); // HACK to force normal edit color
 	--blockContentsChangeHook;
 }
 
 void SEditor::insertChars(const QString& styledText, const QString& editText)
 {
-	if (textCursor().hasSelection())
-		textCursor().removeSelectedText();
 	if ((styledText.length() == editText.length()) && !styledText.isEmpty())
 	{
+		if (textCursor().hasSelection())
+			textCursor().removeSelectedText();
+		insertChars(styledText);
+#if 0
 		++blockContentsChangeHook;
-		int pos = qMin(textCursor().position(), StyledText.length());
+		QTextCursor c(textCursor());
+		int pos = qMin(c.position(), StyledText.length());
 		StyledText.insertChars(pos, styledText, true);
-		insertPlainText(editText);
+// 		insertPlainText(editText);
+		insertUpdate(pos, editText.length());
+		c.setPosition(pos + editText.length());
+		setTextCursor(c);
 		--blockContentsChangeHook;
+#endif
 	}
 }
 
@@ -1516,11 +1529,11 @@ void StoryEditor::showEvent(QShowEvent *)
 {
 	charSelect = new CharSelect(this);
 	charSelect->userTableModel()->setCharacters(
-            ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
+			ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
 	connect(charSelect, SIGNAL(insertSpecialChar()),
-             this, SLOT(slot_insertSpecialChar()));
+			 this, SLOT(slot_insertSpecialChar()));
 	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
-             this, SLOT(slot_insertUserSpecialChar(QChar)));
+			 this, SLOT(slot_insertUserSpecialChar(QChar)));
 }
 
 void StoryEditor::hideEvent(QHideEvent *)
@@ -1562,9 +1575,9 @@ void StoryEditor::loadPrefs()
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("StoryEditor");
 	int vleft   = qMax(-80, prefs->getInt("left", 10));
 #if defined(Q_OS_MAC) || defined(_WIN32)
-	int vtop    = qMax(64, prefs->getInt("top", 10));
+	int vtop	= qMax(64, prefs->getInt("top", 10));
 #else
-	int vtop    = qMax(-80, prefs->getInt("top", 10));
+	int vtop	= qMax(-80, prefs->getInt("top", 10));
 #endif
 	int vwidth  = qMax(600, prefs->getInt("width", 600));
 	int vheight = qMax(400, prefs->getInt("height", 400));
@@ -2679,8 +2692,8 @@ void StoryEditor::Do_leave()
 	{
 		blockUpdate = true;
 		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-		                             tr("Do you really want to lose all your changes?"),
-		                             QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+									 tr("Do you really want to lose all your changes?"),
+									 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{
@@ -2708,8 +2721,8 @@ bool StoryEditor::Do_new()
 	{
 		blockUpdate = true;
 		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-	                             tr("Do you really want to clear all your text?"),
-	                             QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+								 tr("Do you really want to clear all your text?"),
+								 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{
