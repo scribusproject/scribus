@@ -22,7 +22,7 @@ class  ColorList;
 class  multiLine;
 class  ScLayer;
 class  ScribusDoc;
-struct ScribusDoc::BookMa;
+//struct ScribusDoc::BookMa;
 class  ScXmlStreamAttributes;
 class  ScXmlStreamReader;
 class  ScXmlStreamWriter;
