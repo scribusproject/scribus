@@ -601,17 +601,22 @@ void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
 //	qDebug() << "Bytes read" << bytesRead << "of" << dataLen;
 	ts.skipRawData(dataLen - bytesRead);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-	double w = distance(minorAxisX, minorAxisY) * 2;
-	double h = distance(majorAxisX, majorAxisY) * 2;
-	bool star = flags & 2;
-	QPainterPath path = RegularPolygon(w, h, numSides, star, r1, 45, 0);
+	double w = distance(minorAxisX, minorAxisY);
+	double h = distance(majorAxisX, majorAxisY);
 	Coords.resize(0);
 	Coords.svgInit();
+	QPainterPath path;
+	if (flags & 1)
+		path.addEllipse(QPointF(0,0), w, h);
+	else
+		path = RegularPolygon(w * 2, h * 2, numSides, flags & 2, r1, 45, 0);
 	Coords.fromQPainterPath(path);
-	Coords.translate(-w / 2.0, -h / 2.0 + docHeight);
+	if (!(flags & 1))
+		Coords.translate(-w, -h);
 	QTransform matrix(scaleX, skewX, skewY, scaleY, 0, 0);
-	Coords.translate(transX, -transY);
 	Coords.map(matrix);
+	Coords.translate(transX, -transY);
+	Coords.translate(0, docHeight);
 	finishItem(z);
 }
 
@@ -1281,13 +1286,25 @@ void XarPlug::addToAtomic(quint32 dataLen, QDataStream &ts)
 
 void XarPlug::addGraphicContext()
 {
+/*	XarStyle *gc2 = m_gc.top();
+	XarStyle *gc = new XarStyle;
+	if ( m_gc.top() )
+		*gc = *( m_gc.top() );
+	m_gc.push( gc );
+	if (gc2->Elements.count() > 0)
+		gc2->Elements.removeLast(); */
 	XarStyle *gc2 = m_gc.top();
 	XarStyle *gc = new XarStyle;
 	if ( m_gc.top() )
 		*gc = *( m_gc.top() );
 	m_gc.push( gc );
 	if (gc2->Elements.count() > 0)
+	{
+		PageItem* ite = gc2->Elements.last();
+		gc->Elements.clear();
+		gc->Elements.append(ite);
 		gc2->Elements.removeLast();
+	}
 }
 
 void XarPlug::popGraphicContext()
