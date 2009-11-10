@@ -38,7 +38,7 @@ public:
 		FontStretch("normal"),
 		FontSize(12),
 		FillCol(CommonStrings::None),
-		fillRule("nonzero"),
+		fillRule(true),
 		FillGradient(VGradient::linear),
 		StrokeGradient(VGradient::linear),
 		FillGradientType(0),
@@ -54,7 +54,7 @@ public:
 		LWidth(0.5),
 		PLineArt(Qt::SolidLine),
 		PLineEnd(Qt::FlatCap),
-		PLineJoin(Qt::MiterJoin),
+		PLineJoin(Qt::BevelJoin),
 		StrokeCol("Black"),
 		FillOpacity(0.0),
 		StrokeOpacity(0.0),
@@ -78,7 +78,7 @@ public:
 	QString FontStretch;
 	int FontSize;
 	QString FillCol;
-	QString fillRule;
+	bool fillRule;
 	VGradient FillGradient;
 	VGradient StrokeGradient;
 	int    FillGradientType;
@@ -145,6 +145,9 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void handleFillRule(QDataStream &ts);
+	void handleLineEnd(QDataStream &ts);
+	void handleLineJoin(QDataStream &ts);
 	void handleQuickShapeSimple(QDataStream &ts, quint32 dataLen);
 	void handleFlatFillTransparency(QDataStream &ts);
 	void handleMultiGradient(QDataStream &ts, bool linear);

@@ -348,7 +348,7 @@ bool XarPlug::convert(QString fn)
 	currentLayer = 0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
-	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111 << 4031;
+	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 104 << 111 << 4031;
 	ignoreableTags << 4114 << 4116 << 4124;
 	if(progressDialog)
 	{
@@ -540,6 +540,12 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleBitmapFill(ts, dataLen);
 	else if (tag == 166)
 		handleFlatFillTransparency(ts);
+	else if ((tag == 174) || (tag == 175))
+		handleLineEnd(ts);
+	else if (tag == 176)
+		handleLineJoin(ts);
+	else if (tag == 178)
+		handleFillRule(ts);
 	else if (tag == 190)
 		gc->FillCol = CommonStrings::None;
 	else if (tag == 191)
@@ -560,9 +566,47 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleMultiGradient(ts, false);
 	else
 	{
-//		qDebug() << QString("OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
+//		if (m_gc.count() > 3)
+//			qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		ts.skipRawData(dataLen);
 	}
+}
+
+void XarPlug::handleFillRule(QDataStream &ts)
+{
+	quint8 val;
+	ts >> val;
+	XarStyle *gc = m_gc.top();
+	if (val == 0)
+		gc->fillRule = false;
+	else
+		gc->fillRule = true;
+}
+
+void XarPlug::handleLineEnd(QDataStream &ts)
+{
+	quint8 val;
+	ts >> val;
+	XarStyle *gc = m_gc.top();
+	if (val == 0)
+		gc->PLineEnd = Qt::FlatCap;
+	else if (val == 1)
+		gc->PLineEnd = Qt::RoundCap;
+	else if (val == 2)
+		gc->PLineEnd = Qt::SquareCap;
+}
+
+void XarPlug::handleLineJoin(QDataStream &ts)
+{
+	quint8 val;
+	ts >> val;
+	XarStyle *gc = m_gc.top();
+	if (val == 0)
+		gc->PLineJoin = Qt::MiterJoin;
+	else if (val == 1)
+		gc->PLineJoin = Qt::RoundJoin;
+	else if (val == 2)
+		gc->PLineJoin = Qt::BevelJoin;
 }
 
 void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
@@ -598,6 +642,7 @@ void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
 //	qDebug() << "MinorAxis" << minorAxisX << minorAxisY;
 //	qDebug() << "Matrix" << scaleX << skewX << skewY << scaleY << transX << transY;
 //	qDebug() << "Radii" << r1 << r2 << r3 << r4;
+//	qDebug() << "Flags" << flags;
 //	qDebug() << "Bytes read" << bytesRead << "of" << dataLen;
 	ts.skipRawData(dataLen - bytesRead);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
@@ -717,6 +762,7 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 	QPointF tl(tlx, tly);
 	double distX = sqrt(pow(br.x() - bl.x(), 2) + pow(br.y() - bl.y(), 2));
 	double distY = sqrt(pow(tl.x() - bl.x(), 2) + pow(tl.y() - bl.y(), 2));
+	double rot = xy2Deg(brx - blx, bry - bly);
 	if (patternRef.contains(bref))
 	{
 		ScPattern pat = m_Doc->docPatterns[patternRef[bref]];
@@ -725,7 +771,7 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 		gc->patternScaleY = distY / pat.height * 100;
 		gc->patternOffsetX = 0.0;
 		gc->patternOffsetY = 0.0;
-		gc->patternRotation = 0.0;
+		gc->patternRotation = -rot;
 		gc->patternSkewX = 0.0;
 		gc->patternSkewY = 0.0;
 	}
@@ -1319,6 +1365,9 @@ void XarPlug::popGraphicContext()
 			item->setFillTransparency(gc->FillOpacity);
 			item->setLineWidth(gc->LWidth);
 			item->setLineColor(gc->StrokeCol);
+			item->setLineJoin(gc->PLineJoin);
+			item->setLineEnd(gc->PLineEnd);
+			item->setFillEvenOdd(gc->fillRule);
 			if (!gc->fillPattern.isEmpty())
 			{
 				item->setPattern(gc->fillPattern);
