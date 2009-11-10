@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPointer>
 #include <QGroupBox>
 #include <QPushButton>
+#include <QToolButton>
 #include "scribusapi.h"
 #include "gradienteditor.h"
 #include "scribusdoc.h"
@@ -90,6 +91,8 @@ public:
 	ScrSpinBox* spinAngle;
 	ScrSpinBox* spinXSkew;
 	ScrSpinBox* spinYSkew;
+	QToolButton* FlipH;
+	QToolButton* FlipV;
 
 public slots:
 	void languageChange();
@@ -99,7 +102,7 @@ public slots:
 	void VChange();
 
 signals:
-	void NewPatternProps(double, double, double, double, double, double, double);
+	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
 
 protected:
 	QGroupBox* groupOffset;
@@ -114,6 +117,7 @@ protected:
 	QGroupBox* groupSkew;
 	QLabel* textLabel8;
 	QLabel* textLabel9;
+	QLabel* textLabel15;
 	QVBoxLayout* frame3Layout;
 	QHBoxLayout* groupOffsetLayout;
 	QGridLayout* groupScaleLayout;
@@ -121,6 +125,7 @@ protected:
 	QHBoxLayout* groupRotationLayout;
 	QPushButton* buttonOk;
 	QHBoxLayout* buttonLayout;
+	QHBoxLayout* groupFlipLayout;
 };
 
 class SCRIBUS_API Cpalette : public QWidget, Ui::colorPalette
@@ -158,8 +163,8 @@ public slots:
 	void selectPatternS(QListWidgetItem *c);
 	void updatePatternList();
 	void updateGradientList();
-	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
-	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
+	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void selectColorS(QListWidgetItem *c);
 	void selectColorF(QListWidgetItem *c);
@@ -184,9 +189,9 @@ signals:
 	void NewGradient(int);
 	void NewGradientS(int);
 	void NewPattern(QString);
-	void NewPatternProps(double, double, double, double, double, double, double);
+	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
 	void NewPatternS(QString);
-	void NewPatternPropsS(double, double, double, double, double, double, double);
+	void NewPatternPropsS(double, double, double, double, double, double, double, bool, bool);
 	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
@@ -212,6 +217,8 @@ protected:
 	double m_Pattern_rotation;
 	double m_Pattern_skewX;
 	double m_Pattern_skewY;
+	bool m_Pattern_mirrorX;
+	bool m_Pattern_mirrorY;
 	double m_Pattern_scaleXS;
 	double m_Pattern_scaleYS;
 	double m_Pattern_offsetXS;
@@ -219,6 +226,8 @@ protected:
 	double m_Pattern_rotationS;
 	double m_Pattern_skewXS;
 	double m_Pattern_skewYS;
+	bool m_Pattern_mirrorXS;
+	bool m_Pattern_mirrorYS;
 	int currentUnit;
 	bool editStrokeGradient;
 };

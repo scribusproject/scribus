@@ -340,6 +340,12 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 					qmatrix.rotate(patternRotation);
 					qmatrix.shear(patternSkewX, patternSkewY);
 					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+					bool mirrorX, mirrorY;
+					currItem->patternFlip(mirrorX, mirrorY);
+					if (mirrorX)
+						qmatrix.scale(-1, 1);
+					if (mirrorY)
+						qmatrix.scale(1, -1);
 					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
 					QBrush brush = QBrush(pat);
 					brush.setTransform(qmatrix);
@@ -367,6 +373,12 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 				qmatrix.rotate(patternRotation);
 				qmatrix.shear(patternSkewX, patternSkewY);
 				qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+				bool mirrorX, mirrorY;
+				currItem->strokePatternFlip(mirrorX, mirrorY);
+				if (mirrorX)
+					qmatrix.scale(-1, 1);
+				if (mirrorY)
+					qmatrix.scale(1, -1);
 				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
 				QBrush brush = QBrush(pat);
 				brush.setTransform(qmatrix);

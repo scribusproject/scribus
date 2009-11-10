@@ -213,6 +213,23 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	groupSkewLayout->addWidget( spinYSkew, 1, 1 );
 	frame3Layout->addWidget( groupSkew );
 
+	groupFlipLayout = new QHBoxLayout();
+	groupFlipLayout->setSpacing( 2 );
+	groupFlipLayout->setMargin( 3 );
+	textLabel15 = new QLabel( this );
+	groupFlipLayout->addWidget( textLabel15 );
+	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	groupFlipLayout->addItem( spacer );
+	FlipH = new QToolButton( this );
+	FlipH->setIcon(QIcon(loadIcon("16/flip-object-horizontal.png")));
+	FlipH->setCheckable( true );
+	groupFlipLayout->addWidget( FlipH );
+	FlipV = new QToolButton( this );
+	FlipV->setIcon(QIcon(loadIcon("16/flip-object-vertical.png")));
+	FlipV->setCheckable( true );
+	groupFlipLayout->addWidget( FlipV );
+	frame3Layout->addLayout( groupFlipLayout );
+
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setMargin(0);
 	buttonLayout->setSpacing(5);
@@ -234,6 +251,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 	connect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(changePatternProps()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
@@ -266,7 +285,8 @@ void PatternPropsDialog::languageChange()
 	groupSkew->setTitle( tr( "Skewing" ) );
 	textLabel8->setText( tr( "X-Skew:" ) );
 	textLabel9->setText( tr( "Y-Skew:" ) );
-	textLabel7->setText( tr( "Angle" ) );
+	textLabel7->setText( tr( "Angle:" ) );
+	textLabel15->setText( tr( "Flip:" ) );
 	buttonOk->setText( tr("Close"));
 	resize(minimumSizeHint());
 }
@@ -277,7 +297,9 @@ void PatternPropsDialog::changePatternProps()
 	double b    = M_PI / 180.0 * spinYSkew->value();
 	double sina = tan(a);
 	double sinb = tan(b);
-	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb);
+	bool fH = FlipH->isChecked();
+	bool fV = FlipV->isChecked();
+	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, fH, fV);
 }
 
 void PatternPropsDialog::ToggleKette()
@@ -743,7 +765,7 @@ void Cpalette::selectPatternS(QListWidgetItem *c)
 	emit NewPatternS(c->text());
 }
 
-void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
+void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	disconnect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBoxStroke->findItems(pattern, Qt::MatchExactly);
@@ -761,10 +783,12 @@ void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY
 	m_Pattern_rotationS = rotation;
 	m_Pattern_skewXS = skewX;
 	m_Pattern_skewYS = skewY;
+	m_Pattern_mirrorXS = mirrorX;
+	m_Pattern_mirrorYS = mirrorY;
 	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 }
 
-void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
+void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
@@ -782,6 +806,8 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 	m_Pattern_rotation = rotation;
 	m_Pattern_skewX = skewX;
 	m_Pattern_skewY = skewY;
+	m_Pattern_mirrorX = mirrorX;
+	m_Pattern_mirrorY = mirrorY;
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
@@ -964,7 +990,9 @@ void Cpalette::changePatternProps()
 	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
 	double asinb = atan(m_Pattern_skewY);
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double)), this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double)));
+	dia->FlipH->setChecked(m_Pattern_mirrorX);
+	dia->FlipV->setChecked(m_Pattern_mirrorY);
+	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
 	dia->exec();
 	m_Pattern_scaleX = dia->spinXscaling->value();
 	m_Pattern_scaleY = dia->spinYscaling->value();
@@ -977,6 +1005,8 @@ void Cpalette::changePatternProps()
 	double sinb = tan(b);
 	m_Pattern_skewX = sina;
 	m_Pattern_skewY = sinb;
+	m_Pattern_mirrorX = dia->FlipH->isChecked();
+	m_Pattern_mirrorY = dia->FlipV->isChecked();
 	delete dia;
 	tabWidget->setCurrentIndex(2);
 	emit NewGradient(8);
@@ -994,7 +1024,9 @@ void Cpalette::changePatternPropsStroke()
 	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
 	double asinb = atan(m_Pattern_skewYS);
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double double, double)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double double, double)));
+	dia->FlipH->setChecked(m_Pattern_mirrorXS);
+	dia->FlipV->setChecked(m_Pattern_mirrorYS);
+	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double double, double, bool, bool)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double double, double, bool, bool)));
 	dia->exec();
 	m_Pattern_scaleXS = dia->spinXscaling->value();
 	m_Pattern_scaleYS = dia->spinYscaling->value();
@@ -1007,6 +1039,8 @@ void Cpalette::changePatternPropsStroke()
 	double sinb = tan(b);
 	m_Pattern_skewXS = sina;
 	m_Pattern_skewYS = sinb;
+	m_Pattern_mirrorXS = dia->FlipH->isChecked();
+	m_Pattern_mirrorYS = dia->FlipV->isChecked();
 	delete dia;
 }
 

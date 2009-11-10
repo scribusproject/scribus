@@ -2764,6 +2764,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			double patternSkewX    = attrs.valueAsDouble("pSkewX", 0.0);
 			double patternSkewY    = attrs.valueAsDouble("pSkewY", 0.0);
 			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+			bool mirrorX = attrs.valueAsBool("pMirrorX", false);
+			bool mirrorY = attrs.valueAsBool("pMirrorY", false);
+			currItem->setPatternFlip(mirrorX, mirrorY);
 		}
 		else
 		{
@@ -2819,6 +2822,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double patternSkewX    = attrs.valueAsDouble("pSkewXS", 0.0);
 	double patternSkewY    = attrs.valueAsDouble("pSkewYS", 0.0);
 	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	bool mirrorX = attrs.valueAsBool("pMirrorXS", false);
+	bool mirrorY = attrs.valueAsBool("pMirrorYS", false);
+	currItem->setPatternFlip(mirrorX, mirrorY);
 	currItem->stroke_gradient.clearStops();
 	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);

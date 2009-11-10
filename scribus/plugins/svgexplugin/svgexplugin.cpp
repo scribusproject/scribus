@@ -1293,6 +1293,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				patt.setAttribute("patternUnits", "userSpaceOnUse");
 				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 				Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+				bool mirrorX, mirrorY;
+				Item->strokePatternFlip(mirrorX, mirrorY);
 				QTransform mpa;
 				mpa.translate(-Item->lineWidth() / 2.0, -Item->lineWidth() / 2.0);
 				mpa.translate(patternOffsetX, patternOffsetY);
@@ -1300,6 +1302,10 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				mpa.shear(-patternSkewX, patternSkewY);
 				mpa.scale(pa.scaleX, pa.scaleY);
 				mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+				if (mirrorX)
+					mpa.scale(-1, 1);
+				if (mirrorY)
+					mpa.scale(1, -1);
 				patt.setAttribute("patternTransform", MatrixToStr(mpa));
 				patt.setAttribute("xlink:href", "#"+Item->strokePattern());
 				globalDefs.appendChild(patt);
@@ -1442,6 +1448,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				patt.setAttribute("patternUnits", "userSpaceOnUse");
 				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 				Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+				bool mirrorX, mirrorY;
+				Item->strokePatternFlip(mirrorX, mirrorY);
 				QTransform mpa;
 				mpa.translate(-Item->lineWidth() / 2.0, -Item->lineWidth() / 2.0);
 				mpa.translate(patternOffsetX, patternOffsetY);
@@ -1449,6 +1457,10 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				mpa.shear(-patternSkewX, patternSkewY);
 				mpa.scale(pa.scaleX, pa.scaleY);
 				mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+				if (mirrorX)
+					mpa.scale(-1, 1);
+				if (mirrorY)
+					mpa.scale(1, -1);
 				patt.setAttribute("patternTransform", MatrixToStr(mpa));
 				patt.setAttribute("xlink:href", "#"+Item->strokePattern());
 				globalDefs.appendChild(patt);
@@ -1553,12 +1565,18 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 				patt.setAttribute("patternUnits", "userSpaceOnUse");
 				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 				Item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+				bool mirrorX, mirrorY;
+				Item->patternFlip(mirrorX, mirrorY);
 				QTransform mpa;
 				mpa.translate(patternOffsetX, patternOffsetY);
 				mpa.rotate(patternRotation);
 				mpa.shear(-patternSkewX, patternSkewY);
 				mpa.scale(pa.scaleX, pa.scaleY);
 				mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+				if (mirrorX)
+					mpa.scale(-1, 1);
+				if (mirrorY)
+					mpa.scale(1, -1);
 				patt.setAttribute("patternTransform", MatrixToStr(mpa));
 				patt.setAttribute("xlink:href", "#"+Item->pattern());
 				globalDefs.appendChild(patt);
@@ -1803,6 +1821,8 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 		patt.setAttribute("patternUnits", "userSpaceOnUse");
 		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 		Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		bool mirrorX, mirrorY;
+		Item->strokePatternFlip(mirrorX, mirrorY);
 		QTransform mpa;
 		mpa.translate(-Item->lineWidth() / 2.0, -Item->lineWidth() / 2.0);
 		mpa.translate(patternOffsetX, patternOffsetY);
@@ -1810,6 +1830,10 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 		mpa.shear(-patternSkewX, patternSkewY);
 		mpa.scale(pa.scaleX, pa.scaleY);
 		mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+		if (mirrorX)
+			mpa.scale(-1, 1);
+		if (mirrorY)
+			mpa.scale(1, -1);
 		patt.setAttribute("patternTransform", MatrixToStr(mpa));
 		patt.setAttribute("xlink:href", "#"+Item->strokePattern());
 		globalDefs.appendChild(patt);

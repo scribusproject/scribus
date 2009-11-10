@@ -5679,16 +5679,27 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, bool
 		mpa.rotate(-currItem->rotation());
 	}
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+	bool mirrorX, mirrorY;
 	if (stroke)
+	{
 		currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		currItem->strokePatternFlip(mirrorX, mirrorY);
+	}
 	else
+	{
 		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		currItem->patternFlip(mirrorX, mirrorY);
+	}
 	mpa.translate(-currItem->lineWidth() / 2.0, currItem->lineWidth() / 2.0);
 	mpa.translate(patternOffsetX, -patternOffsetY);
 	mpa.rotate(-patternRotation);
 	mpa.shear(patternSkewX, -patternSkewY);
 	mpa.scale(pat->scaleX, pat->scaleY);
 	mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+	if (mirrorX)
+		mpa.scale(-1, 1);
+	if (mirrorY)
+		mpa.scale(1, -1);
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/XStep "+FToStr(pat->width)+"\n");
 	PutDoc("/YStep "+FToStr(pat->height)+"\n");
@@ -6279,11 +6290,17 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 		}
 		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		bool mirrorX, mirrorY;
+		currItem->patternFlip(mirrorX, mirrorY);
 		mpa.translate(patternOffsetX, -patternOffsetY);
 		mpa.rotate(-patternRotation);
 		mpa.shear(patternSkewX, -patternSkewY);
 		mpa.scale(pat->scaleX, pat->scaleY);
 		mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+		if (mirrorX)
+			mpa.scale(-1, 1);
+		if (mirrorY)
+			mpa.scale(1, -1);
 		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 		PutDoc("/XStep "+FToStr(pat->width)+"\n");
 		PutDoc("/YStep "+FToStr(pat->height)+"\n");

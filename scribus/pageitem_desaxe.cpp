@@ -261,8 +261,10 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	{
 		Xml_attr patt;
 		patt.insert("patternS", strokePattern());
-		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-		strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+//		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+//		strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+//		bool mirrorX, mirrorY;
+//		strokePatternFlip(mirrorX, mirrorY);
 		patt.insert("pScaleXS", toXMLString(patternScaleX));
 		patt.insert("pScaleYS", toXMLString(patternScaleY));
 		patt.insert("pOffsetXS", toXMLString(patternOffsetX));
@@ -270,6 +272,8 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		patt.insert("pRotationS", toXMLString(patternRotation));
 		patt.insert("pSkewXS", toXMLString(patternSkewX));
 		patt.insert("pSkewYS", toXMLString(patternSkewY));
+		patt.insert("pMirrorXS", toXMLString(patternStrokeMirrorX));
+		patt.insert("pMirrorYS", toXMLString(patternStrokeMirrorY));
 		handler.begin("PatternStroke", patt);
 		handler.end("PatternStroke");
 	}
@@ -279,8 +283,10 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		{
 			Xml_attr patt;
 			patt.insert("pattern", pattern());
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-			patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+//			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+//			patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+//			bool mirrorX, mirrorY;
+//			patternFlip(mirrorX, mirrorY);
 			patt.insert("pScaleX", toXMLString(patternScaleX));
 			patt.insert("pScaleY", toXMLString(patternScaleY));
 			patt.insert("pOffsetX", toXMLString(patternOffsetX));
@@ -288,6 +294,8 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			patt.insert("pRotation", toXMLString(patternRotation));
 			patt.insert("pSkewX", toXMLString(patternSkewX));
 			patt.insert("pSkewY", toXMLString(patternSkewY));
+			patt.insert("pMirrorX", toXMLString(patternMirrorX));
+			patt.insert("pMirrorY", toXMLString(patternMirrorY));
 			handler.begin("Pattern", patt);
 			handler.end("Pattern");
 		}
@@ -589,8 +597,11 @@ class Pattern_body : public Action_body
 		double patternRotation = parseDouble(attr["pRotation"]);
 		double patternSkewX = parseDouble(attr["pSkewX"]);
 		double patternSkewY = parseDouble(attr["pSkewY"]);
+		bool mirrorX = parseBool(attr["pMirrorX"]);
+		bool mirrorY = parseBool(attr["pMirrorY"]);
 		item->setPattern(attr["pattern"]);
 		item->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		item->setPatternFlip(mirrorX, mirrorY);
 	}
 };
 
@@ -610,8 +621,11 @@ class PatternStroke_body : public Action_body
 		double patternRotation = parseDouble(attr["pRotationS"]);
 		double patternSkewX = parseDouble(attr["pSkewXS"]);
 		double patternSkewY = parseDouble(attr["pSkewYS"]);
+		bool mirrorX = parseBool(attr["pMirrorXS"]);
+		bool mirrorY = parseBool(attr["pMirrorYS"]);
 		item->setStrokePattern(attr["patternS"]);
 		item->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		item->setStrokePatternFlip(mirrorX, mirrorY);
 	}
 };
 

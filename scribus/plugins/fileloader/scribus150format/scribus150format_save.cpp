@@ -1171,6 +1171,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("pattern", item->pattern());
 				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 				item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+				bool mirrorX, mirrorY;
+				item->patternFlip(mirrorX, mirrorY);
 				docu.writeAttribute("pScaleX", patternScaleX);
 				docu.writeAttribute("pScaleY", patternScaleY);
 				docu.writeAttribute("pOffsetX", patternOffsetX);
@@ -1178,6 +1180,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("pRotation", patternRotation);
 				docu.writeAttribute("pSkewX", patternSkewX);
 				docu.writeAttribute("pSkewY", patternSkewY);
+				docu.writeAttribute("pMirrorX" , mirrorX);
+				docu.writeAttribute("pMirrorY" , mirrorY);
 			}
 			else
 			{
@@ -1203,6 +1207,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("patternS", item->strokePattern());
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 			item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+			bool mirrorX, mirrorY;
+			item->strokePatternFlip(mirrorX, mirrorY);
 			docu.writeAttribute("pScaleXS", patternScaleX);
 			docu.writeAttribute("pScaleYS", patternScaleY);
 			docu.writeAttribute("pOffsetXS", patternOffsetX);
@@ -1210,6 +1216,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pRotationS", patternRotation);
 			docu.writeAttribute("pSkewXS", patternSkewX);
 			docu.writeAttribute("pSkewYS", patternSkewY);
+			docu.writeAttribute("pMirrorXS" , mirrorX);
+			docu.writeAttribute("pMirrorYS" , mirrorY);
 		}
 		if (item->itemText.defaultStyle().hasParent())
 			docu.writeAttribute("PSTYLE", item->itemText.defaultStyle().parent());

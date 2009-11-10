@@ -930,7 +930,7 @@ void ScPainter::setRasterOp( int   )
 {
 }
 
-void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
+void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	m_pattern = pattern;
 	patternScaleX = scaleX / 100.0;
@@ -940,6 +940,8 @@ void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, dou
 	patternRotation = rotation;
 	patternSkewX = skewX;
 	patternSkewY = skewY;
+	patternMirrorX = mirrorX;
+	patternMirrorY = mirrorY;
 }
 
 #ifdef HAVE_CAIRO
@@ -1050,6 +1052,10 @@ void ScPainter::drawVPath( int mode )
 			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
+			if (patternMirrorX)
+				qmatrix.scale(-1, 1);
+			if (patternMirrorY)
+				qmatrix.scale(1, -1);
 			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
 			cairo_matrix_invert(&matrix);
 			cairo_pattern_set_matrix (m_pat, &matrix);
@@ -1100,6 +1106,10 @@ void ScPainter::drawVPath( int mode )
 			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
+			if (patternMirrorX)
+				qmatrix.scale(-1, 1);
+			if (patternMirrorY)
+				qmatrix.scale(1, -1);
 			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
 			cairo_matrix_invert(&matrix);
 			cairo_pattern_set_matrix (m_pat, &matrix);
@@ -1210,6 +1220,10 @@ void ScPainter::drawVPath(int mode)
 			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
+			if (patternMirrorX)
+				qmatrix.scale(-1, 1);
+			if (patternMirrorY)
+				qmatrix.scale(1, -1);
 			QBrush brush = QBrush(*m_pattern->getPattern());
 			brush.setTransform(qmatrix);
 //			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
@@ -1264,6 +1278,10 @@ void ScPainter::drawVPath(int mode)
 			qmatrix.shear(-patternSkewX, patternSkewY);
 			qmatrix.scale(patternScaleX, patternScaleY);
 			qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
+			if (patternMirrorX)
+				qmatrix.scale(-1, 1);
+			if (patternMirrorY)
+				qmatrix.scale(1, -1);
 			QBrush brush = QBrush(*m_pattern->getPattern());
 			brush.setTransform(qmatrix);
 //			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working

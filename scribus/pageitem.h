@@ -707,6 +707,8 @@ public:
 	 * @brief Set the fill pattern transformation of the object.
 	 */
 	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
+	void setPatternFlip(bool flipX, bool flipY);
+	void patternFlip(bool &flipX, bool &flipY);
 
 	/** @brief Get the (name of the) fill color of the object */
 	QString fillColor() const { return fillColorVal; }
@@ -788,6 +790,8 @@ public:
 	 * @brief Set the stroke pattern transformation of the object.
 	 */
 	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
+	void setStrokePatternFlip(bool flipX, bool flipY);
+	void strokePatternFlip(bool &flipX, bool &flipY);
 
 	/** @brief Set the QColor for the line */
 	void setLineQColor();
@@ -1162,6 +1166,8 @@ protected:
 	double patternRotation;
 	double patternSkewX;
 	double patternSkewY;
+	bool patternMirrorX;
+	bool patternMirrorY;
 
 	/**
 	 * @brief Fill color name
@@ -1352,6 +1358,8 @@ public:
 	double patternStrokeRotation;
 	double patternStrokeSkewX;
 	double patternStrokeSkewY;
+	bool patternStrokeMirrorX;
+	bool patternStrokeMirrorY;
 	
 
 	/**
@@ -1383,7 +1391,7 @@ signals:
 	void rotation(double); //Degrees rotation	
 	void colors(QString, QString, double, double); //lineColor, fillColor, lineShade, fillShade
 	void gradientType(int); //Normal, horizontal, vertical, etc.
-	void patternFill(QString, double, double, double, double, double, double, double);
+	void patternFill(QString, double, double, double, double, double, double, double, bool, bool);
 	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
 	void transparency(double, double); //fillTransparency, lineTransparency
 	void blendmode(int, int); //fillBlendmode, lineBlendmode

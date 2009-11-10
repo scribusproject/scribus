@@ -83,6 +83,8 @@ struct CopyPasteBuffer
 	double patternRotation;
 	double patternSkewX;
 	double patternSkewY;
+	bool patternMirrorX;
+	bool patternMirrorY;
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;

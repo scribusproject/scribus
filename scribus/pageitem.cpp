@@ -191,6 +191,8 @@ PageItem::PageItem(const PageItem & other)
 	patternRotation(other.patternRotation),
 	patternSkewX(other.patternSkewX),
 	patternSkewY(other.patternSkewY),
+	patternMirrorX(other.patternMirrorX),
+	patternMirrorY(other.patternMirrorY),
 	fillColorVal(other.fillColorVal),
 	lineColorVal(other.lineColorVal),
 	lineShadeVal(other.lineShadeVal),
@@ -251,6 +253,8 @@ PageItem::PageItem(const PageItem & other)
 	patternStrokeRotation(other.patternStrokeRotation),
 	patternStrokeSkewX(other.patternStrokeSkewX),
 	patternStrokeSkewY(other.patternStrokeSkewY),
+	patternStrokeMirrorX(other.patternStrokeMirrorX),
+	patternStrokeMirrorY(other.patternStrokeMirrorY),
 	gradientStrokeVal(other.gradientStrokeVal),
 	stroke_gradient(other.stroke_gradient),
 	GrTypeStroke(other.GrTypeStroke),
@@ -341,6 +345,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternRotation = 0;
 	patternSkewX = 0;
 	patternSkewY = 0;
+	patternMirrorX = false;
+	patternMirrorY = false;
 	patternStrokeVal = "";
 	patternStrokeScaleX = 100;
 	patternStrokeScaleY = 100;
@@ -349,6 +355,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternStrokeRotation = 0;
 	patternStrokeSkewX = 0;
 	patternStrokeSkewY = 0;
+	patternStrokeMirrorX = false;
+	patternStrokeMirrorY = false;
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
 	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs.shapeLineStyle);
@@ -1116,7 +1124,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				}
 				else
 				{
-					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
 					p->setFillMode(ScPainter::Pattern);
 				}
 			}
@@ -1252,7 +1260,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					{
 						if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
 						{
-							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY);
+							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
 							p->setStrokeMode(ScPainter::Pattern);
 							p->strokePath();
 						}
@@ -2409,7 +2417,7 @@ void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX,
 	patternSkewY = skewY;
 }
 
-void  PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
+void PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
 {
 	 scaleX = patternScaleX;
 	 scaleY = patternScaleY;
@@ -2418,6 +2426,18 @@ void  PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX
 	 rotation = patternRotation;
 	 skewX = patternSkewX;
 	 skewY = patternSkewY;
+}
+
+void PageItem::setPatternFlip(bool flipX, bool flipY)
+{
+	patternMirrorX = flipX;
+	patternMirrorY = flipY;
+}
+
+void PageItem::patternFlip(bool &flipX, bool &flipY)
+{
+	flipX = patternMirrorX;
+	flipY = patternMirrorY;
 }
 
 void PageItem::setFillColor(const QString &newColor)
@@ -2611,7 +2631,19 @@ void PageItem::setStrokePatternTransform(double scaleX, double scaleY, double of
 	patternStrokeSkewY = skewY;
 }
 
-void  PageItem::strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
+void PageItem::setStrokePatternFlip(bool flipX, bool flipY)
+{
+	patternStrokeMirrorX = flipX;
+	patternStrokeMirrorY = flipY;
+}
+
+void PageItem::strokePatternFlip(bool &flipX, bool &flipY)
+{
+	flipX = patternStrokeMirrorX;
+	flipY = patternStrokeMirrorY;
+}
+
+void PageItem::strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
 {
 	 scaleX = patternStrokeScaleX;
 	 scaleY = patternStrokeScaleY;
@@ -5172,7 +5204,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 		{
 			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
 			{
-				p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY);
+				p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
 				p->setFillMode(ScPainter::Pattern);
 				p->fillPath();
 			}
@@ -5501,7 +5533,7 @@ bool PageItem::connectToGUI()
 //CB unused in 135 connect(this, SIGNAL(colors(QString, QString, double, double)), m_Doc->scMW(), SLOT(setCSMenu()));
 //	connect(this, SIGNAL(colors(QString, QString, double, double)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 //	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
-	connect(this, SIGNAL(patternFill(QString, double, double, double, double, double, double, double)), pp->Cpal, SLOT(setActPattern(QString, double, double, double, double, double, double, double)));
+	connect(this, SIGNAL(patternFill(QString, double, double, double, double, double, double, double, bool, bool)), pp->Cpal, SLOT(setActPattern(QString, double, double, double, double, double, double, double, bool, bool)));
 //	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
 	connect(this, SIGNAL(rotation(double)), pp, SLOT(setR(double)));
 //	connect(this, SIGNAL(transparency(double, double)), pp->Cpal, SLOT(setActTrans(double, double)));

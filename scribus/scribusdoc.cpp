@@ -5789,7 +5789,7 @@ void ScribusDoc::itemSelection_SetItemPatternFill(QString pattern)
 	}
 }
 
-void ScribusDoc::itemSelection_SetItemPatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
+void ScribusDoc::itemSelection_SetItemPatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5800,6 +5800,7 @@ void ScribusDoc::itemSelection_SetItemPatternProps(double imageScaleX, double im
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setPatternTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY);
+			currItem->setPatternFlip(mirrorX, mirrorY);
 			currItem->update();
 		}
 		m_updateManager.setUpdatesEnabled();
@@ -5825,7 +5826,7 @@ void ScribusDoc::itemSelection_SetItemStrokePattern(QString pattern)
 	}
 }
 
-void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
+void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5836,6 +5837,7 @@ void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, dou
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setStrokePatternTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY);
+			currItem->setStrokePatternFlip(mirrorX, mirrorY);
 			currItem->update();
 		}
 		m_updateManager.setUpdatesEnabled();

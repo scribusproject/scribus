@@ -3446,6 +3446,12 @@ void PSLib::HandleStrokePattern(PageItem *c)
 	patternMatrix.shear(patternSkewX, -patternSkewY);
 	patternMatrix.scale(pat->scaleX, pat->scaleY);
 	patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+	bool mirrorX, mirrorY;
+	c->strokePatternFlip(mirrorX, mirrorY);
+	if (mirrorX)
+		patternMatrix.scale(-1, 1);
+	if (mirrorY)
+		patternMatrix.scale(1, -1);
 	PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
 	PutStream("stroke\n");
 }
@@ -3489,6 +3495,12 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			patternMatrix.shear(patternSkewX, -patternSkewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+			bool mirrorX, mirrorY;
+			c->patternFlip(mirrorX, mirrorY);
+			if (mirrorX)
+				patternMatrix.scale(-1, 1);
+			if (mirrorY)
+				patternMatrix.scale(1, -1);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
 			if (fillRule)
 				PutStream("eofill\n");
@@ -3737,6 +3749,12 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			patternMatrix.shear(patternSkewX, -patternSkewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+			bool mirrorX, mirrorY;
+			c->patternFlip(mirrorX, mirrorY);
+			if (mirrorX)
+				patternMatrix.scale(-1, 1);
+			if (mirrorY)
+				patternMatrix.scale(1, -1);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
 			if (fillRule)
 				PutStream("eofill\n");
@@ -3840,6 +3858,12 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, boo
 			patternMatrix.shear(patternSkewX, -patternSkewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+			bool mirrorX, mirrorY;
+			ite->strokePatternFlip(mirrorX, mirrorY);
+			if (mirrorX)
+				patternMatrix.scale(-1, 1);
+			if (mirrorY)
+				patternMatrix.scale(1, -1);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
 			if (fillRule)
 				PutStream("eofill\n");
