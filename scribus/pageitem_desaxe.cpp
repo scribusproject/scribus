@@ -576,6 +576,17 @@ class Gradient_body : public Action_body
 			item->setStrokeGradient(attr["GRNAMES"]);
 			item->stroke_gradient.clearStops();
 		}
+		if (tagName=="Gradient")
+		{
+			PageItem* item = this->dig->top<PageItem>();
+			item->GrType = parseInt(attr["GRTYPE"]);
+			item->GrStartX = parseDouble(attr["GRSTARTX"]);
+			item->GrStartY = parseDouble(attr["GRSTARTY"]);
+			item->GrEndX = parseDouble(attr["GRENDX"]);
+			item->GrEndY = parseDouble(attr["GRENDY"]);
+			item->setGradient(attr["GRNAME"]);
+			item->fill_gradient.clearStops();
+		}
 	}
 };
 
