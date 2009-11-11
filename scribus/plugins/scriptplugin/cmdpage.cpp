@@ -241,7 +241,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 		if (pageNr == ScCore->primaryMainWindow()->doc->Items->at(i)->OwnPage)
 		{
 			row = Py_BuildValue((char*)"(sii)",
-			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toAscii().constData(),
+			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8().constData(),
 			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemType(),
 			                    ScCore->primaryMainWindow()->doc->Items->at(i)->ItemNr
 			                   );
