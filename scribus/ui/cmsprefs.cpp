@@ -5,17 +5,26 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "cmsprefs.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent )
 {
+	m_canChangeMonitorProfile = !ScCore->primaryMainWindow()->HaveDoc;
 	prefs = Vor;
 	changed = false;
 	setupUi(this);
 	restoreDefaults(prefs, InputProfiles, InputProfilesCMYK, PrinterProfiles, MonitorProfiles);
-	connect( checkBox1, SIGNAL( clicked() ), this, SLOT( slotCMSon() ) );
+	connect( checkBox1, SIGNAL( clicked(bool) ), this, SLOT( slotCMSon(bool) ) );
+
+	monProfile->setEnabled(m_canChangeMonitorProfile);
+	if (!m_canChangeMonitorProfile)
+	{
+		monitorP->setVisible(false);
+		monitorProfileLabel->setText( tr("Monitor profile can only be changed when no document are currently opened.") );
+	}
 }
 
 void CMSPrefs::restoreDefaults(CMSData *prefs, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
@@ -78,15 +87,15 @@ void CMSPrefs::restoreDefaults(CMSData *prefs, ProfilesL *InputProfiles, Profile
 		colorsI->addItem(tmp_mp[prop]);
 	colorsI->setCurrentIndex(prefs->DefaultIntentColors);
 
-	simulate->setChecked(prefs->SoftProofOn);
+	simulatePrinter->setChecked(prefs->SoftProofOn);
 	convertAll->setChecked(prefs->SoftProofFullOn);
-	gamutC->setChecked(prefs->GamutCheck);
-	blackP->setChecked(prefs->BlackPoint);
+	gamutCheck->setChecked(prefs->GamutCheck);
+	blackPoint->setChecked(prefs->BlackPoint);
 
-	simulate->setEnabled( checkBox1->isChecked() );
-	blackP->setEnabled( checkBox1->isChecked() );
-	sysProfiles->setEnabled( checkBox1->isChecked() );
+	docOptions->setEnabled( checkBox1->isChecked() );
+	docProfiles->setEnabled( checkBox1->isChecked() );
 	renderInt->setEnabled( checkBox1->isChecked() );
+	monProfile->setEnabled( m_canChangeMonitorProfile );
 }
 
 void CMSPrefs::setValues()
@@ -99,25 +108,28 @@ void CMSPrefs::setValues()
 		(prefs->DefaultPrinterProfile != printerP->currentText()) ||
 		(prefs->DefaultIntentColors != colorsI->currentIndex()) ||
 		(prefs->DefaultIntentImages != imagesI->currentIndex()) ||
-		(prefs->SoftProofOn != simulate->isChecked()) ||
+		(prefs->SoftProofOn != simulatePrinter->isChecked()) ||
 		(prefs->SoftProofFullOn != convertAll->isChecked()) ||
-		(prefs->GamutCheck != gamutC->isChecked()) ||
-		(prefs->BlackPoint != blackP->isChecked()) ||
+		(prefs->GamutCheck != gamutCheck->isChecked()) ||
+		(prefs->BlackPoint != blackPoint->isChecked()) ||
 		(prefs->CMSinUse != checkBox1->isChecked()))
 			changed = true;
 	prefs->DefaultImageRGBProfile = inputPRGBIm->currentText();
 	prefs->DefaultImageCMYKProfile = inputPCMYKIm->currentText();
 	prefs->DefaultSolidColorRGBProfile = inputPRGB->currentText();
 	prefs->DefaultSolidColorCMYKProfile = inputPCMYK->currentText();
-	prefs->DefaultMonitorProfile = monitorP->currentText();
 	prefs->DefaultPrinterProfile = printerP->currentText();
 	prefs->DefaultIntentColors = (eRenderIntent) colorsI->currentIndex();
 	prefs->DefaultIntentImages = (eRenderIntent) imagesI->currentIndex();
-	prefs->SoftProofOn = simulate->isChecked();
+	prefs->SoftProofOn = simulatePrinter->isChecked();
 	prefs->SoftProofFullOn = convertAll->isChecked();
-	prefs->GamutCheck = gamutC->isChecked();
+	prefs->GamutCheck = gamutCheck->isChecked();
 	prefs->CMSinUse = checkBox1->isChecked();
-	prefs->BlackPoint = blackP->isChecked();
+	prefs->BlackPoint = blackPoint->isChecked();
+	if (m_canChangeMonitorProfile)
+	{
+		prefs->DefaultMonitorProfile = monitorP->currentText();
+	}
 }
 
 void CMSPrefs::updateDocSettings(ScribusDoc* doc)
@@ -126,33 +138,35 @@ void CMSPrefs::updateDocSettings(ScribusDoc* doc)
 		(doc->CMSSettings.DefaultImageCMYKProfile != inputPCMYKIm->currentText()) ||
 		(doc->CMSSettings.DefaultSolidColorRGBProfile != inputPRGB->currentText()) ||
 		(doc->CMSSettings.DefaultSolidColorCMYKProfile != inputPCMYK->currentText()) ||
-		(doc->CMSSettings.DefaultMonitorProfile != monitorP->currentText()) ||
 		(doc->CMSSettings.DefaultPrinterProfile != printerP->currentText()) ||
 		(doc->CMSSettings.DefaultIntentColors != colorsI->currentIndex()) ||
 		(doc->CMSSettings.DefaultIntentImages != imagesI->currentIndex()) ||
-		(doc->CMSSettings.SoftProofOn != simulate->isChecked()) ||
+		(doc->CMSSettings.SoftProofOn != simulatePrinter->isChecked()) ||
 		(doc->CMSSettings.SoftProofFullOn != convertAll->isChecked()) ||
-		(doc->CMSSettings.GamutCheck != gamutC->isChecked()) ||
-		(doc->CMSSettings.BlackPoint != blackP->isChecked()) ||
+		(doc->CMSSettings.GamutCheck != gamutCheck->isChecked()) ||
+		(doc->CMSSettings.BlackPoint != blackPoint->isChecked()) ||
 		(doc->CMSSettings.CMSinUse != checkBox1->isChecked()))
 			changed = true;
 	doc->CMSSettings.DefaultImageRGBProfile = inputPRGBIm->currentText();
 	doc->CMSSettings.DefaultImageCMYKProfile = inputPCMYKIm->currentText();
 	doc->CMSSettings.DefaultSolidColorRGBProfile = inputPRGB->currentText();
 	doc->CMSSettings.DefaultSolidColorCMYKProfile = inputPCMYK->currentText();
-	doc->CMSSettings.DefaultMonitorProfile = monitorP->currentText();
 	doc->CMSSettings.DefaultPrinterProfile = printerP->currentText();
 	doc->CMSSettings.DefaultIntentColors = (eRenderIntent) colorsI->currentIndex();
 	doc->CMSSettings.DefaultIntentImages = (eRenderIntent) imagesI->currentIndex();
-	doc->CMSSettings.SoftProofOn = simulate->isChecked();
+	doc->CMSSettings.SoftProofOn = simulatePrinter->isChecked();
 	doc->CMSSettings.SoftProofFullOn = convertAll->isChecked();
-	doc->CMSSettings.GamutCheck = gamutC->isChecked();
+	doc->CMSSettings.GamutCheck = gamutCheck->isChecked();
 	doc->CMSSettings.CMSinUse = checkBox1->isChecked();
-	doc->CMSSettings.BlackPoint = blackP->isChecked();
+	doc->CMSSettings.BlackPoint = blackPoint->isChecked();
 }
 
-void CMSPrefs::slotCMSon()
+void CMSPrefs::slotCMSon(bool active)
 {
+	docProfiles->setEnabled(active);
+	monProfile->setEnabled(m_canChangeMonitorProfile);
+	renderInt->setEnabled(active);
+	docOptions->setEnabled(active);
 	emit cmsOn(checkBox1->isChecked());
 }
 

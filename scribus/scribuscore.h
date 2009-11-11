@@ -114,6 +114,7 @@ public:
 	ProfilesL PDFXProfiles;
 
 	ScColorMngtEngine defaultEngine;
+	ScColorProfile   monitorProfile;
 	ScColorProfile   defaultRGBProfile;
 	ScColorProfile   defaultCMYKProfile;
 	ScColorTransform defaultRGBToScreenSolidTrans;

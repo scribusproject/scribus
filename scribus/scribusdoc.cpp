@@ -631,7 +631,7 @@ void ScribusDoc::SetDefaultCMSParams()
 	DocInputCMYKProf      = ScCore->defaultCMYKProfile;
 	DocInputImageRGBProf  = ScCore->defaultRGBProfile;
 	DocInputImageCMYKProf = ScCore->defaultCMYKProfile;
-	DocOutputProf         = ScCore->defaultRGBProfile;
+	DocDisplayProf        = ScCore->defaultRGBProfile;
 	DocPrinterProf        = ScCore->defaultCMYKProfile;
 	stdTransRGBMon        = ScCore->defaultRGBToScreenSolidTrans;
 	stdTransCMYKMon       = ScCore->defaultCMYKToRGBTrans;
@@ -657,13 +657,13 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	colorStrategy.useBlackPreservation      = false;
 	colorEngine.setStrategy(colorStrategy);
 
+	DocDisplayProf   = ScCore->monitorProfile;
 	DocInputRGBProf  = colorEngine.openProfileFromFile( InPo[CMSSettings.DefaultSolidColorRGBProfile] );
 	DocInputCMYKProf = colorEngine.openProfileFromFile( InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile] );
-	DocOutputProf    = colorEngine.openProfileFromFile( MoPo[CMSSettings.DefaultMonitorProfile] );
 	DocPrinterProf   = colorEngine.openProfileFromFile( PrPo[CMSSettings.DefaultPrinterProfile] );
 	DocInputImageRGBProf  = colorEngine.openProfileFromFile( InPo[CMSSettings.DefaultImageRGBProfile] );
 	DocInputImageCMYKProf = colorEngine.openProfileFromFile( InPoCMYK[CMSSettings.DefaultImageCMYKProfile] );
-	if ((!DocInputRGBProf) || (!DocInputCMYKProf) || (!DocOutputProf) || (!DocPrinterProf) || (!DocInputImageCMYKProf) || (!DocInputImageRGBProf))
+	if ((!DocDisplayProf) || (!DocInputRGBProf) || (!DocInputCMYKProf) || (!DocPrinterProf) || (!DocInputImageCMYKProf) || (!DocInputImageRGBProf))
 	{
 		CMSSettings.CMSinUse = false;
 		return false;
@@ -679,20 +679,20 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		dcmsFlagsGC |= Ctf_BlackPointCompensation;
 	}
 	stdTransRGBMon  = colorEngine.createTransform(DocInputRGBProf, Format_RGB_16,
-										DocOutputProf, Format_RGB_16,
+										DocDisplayProf, Format_RGB_16,
 										IntentColors, dcmsFlags);
 	stdTransCMYKMon = colorEngine.createTransform(DocInputCMYKProf, Format_CMYK_16,
-										DocOutputProf, Format_RGB_16,
+										DocDisplayProf, Format_RGB_16,
 										IntentColors, dcmsFlags);
 	// TODO : check input profiles used for images
 	stdProofImg = colorEngine.createProofingTransform(DocInputImageRGBProf, Format_RGBA_8,
-	                  DocOutputProf, Format_RGBA_8, DocPrinterProf,
+	                  DocDisplayProf, Format_RGBA_8, DocPrinterProf,
 	                  IntentImages, Intent_Relative_Colorimetric, dcmsFlagsGC);
 	stdProofImgCMYK = colorEngine.createProofingTransform(DocInputImageCMYKProf, Format_CMYK_8,
-	                  DocOutputProf, Format_RGBA_8, DocPrinterProf,
+	                  DocDisplayProf, Format_RGBA_8, DocPrinterProf,
 	                  IntentImages, Intent_Relative_Colorimetric, dcmsFlagsGC);
 	stdTransImg = colorEngine.createTransform(DocInputRGBProf, Format_RGBA_8,
-	                  DocOutputProf, Format_RGBA_8, 
+	                  DocDisplayProf, Format_RGBA_8, 
 					  IntentImages, dcmsFlags);
 	stdTransRGB = colorEngine.createTransform(DocInputCMYKProf, Format_CMYK_16,
 					  DocInputRGBProf, Format_RGB_16,
@@ -716,20 +716,20 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		inputProfCMYK = DocInputCMYKProf;
 	}
 	stdProof = colorEngine.createProofingTransform(inputProfRGB, Format_RGB_16,
-	                    DocOutputProf, Format_RGB_16,
+	                    DocDisplayProf, Format_RGB_16,
 	                    DocPrinterProf,
 	                    IntentColors,
 	                    Intent_Relative_Colorimetric, dcmsFlags);
 	stdProofGC = colorEngine.createProofingTransform(inputProfRGB, Format_RGB_16,
-	                    DocOutputProf, Format_RGB_16,
+	                    DocDisplayProf, Format_RGB_16,
 	                    DocPrinterProf, IntentColors,
 	                    Intent_Relative_Colorimetric, dcmsFlags| Ctf_GamutCheck);
 	stdProofCMYK = colorEngine.createProofingTransform(inputProfCMYK, Format_CMYK_16,
-						DocOutputProf, Format_RGB_16,
+						DocDisplayProf, Format_RGB_16,
 						DocPrinterProf, IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags);
 	stdProofCMYKGC = colorEngine.createProofingTransform(inputProfCMYK, Format_CMYK_16,
-						DocOutputProf, Format_RGB_16,
+						DocDisplayProf, Format_RGB_16,
 						DocPrinterProf,
 						IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags | Ctf_GamutCheck);

@@ -7562,13 +7562,13 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	//reset the appMode so we restore our tools shortcuts
 	QString oldUILanguage = prefsManager->uiLanguage();
 	QString oldUIStyle    = prefsManager->guiStyle();
-	bool oldShowPageShadow = prefsManager->showPageShadow();
-	int oldUIFontSize     = prefsManager->guiFontSize();
-	double oldDisplayScale = prefsManager->displayScale();
-	int oldImageQuality = prefsManager->applicationPrefs()->itemToolPrefs.imageLowResType;
+	QString oldMonitorProfile = ScCore->monitorProfile.productDescription();
+	bool    oldShowPageShadow = prefsManager->showPageShadow();
+	int     oldUIFontSize     = prefsManager->guiFontSize();
+	double  oldDisplayScale   = prefsManager->displayScale();
+	int     oldImageQuality   = prefsManager->applicationPrefs()->itemToolPrefs.imageLowResType;
 
 	dia->updatePreferences();
-	prefsManager->SavePrefs();
 	DocDir = prefsManager->documentDir();
 //		scrapbookPalette->rebuildView();
 //		scrapbookPalette->AdjustMenu();
@@ -7597,6 +7597,31 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	ScCore->getCMSProfiles(false);
 	ScCore->recheckGS();
 	prefsManager->applyLoadedShortCuts();
+
+	QString newMonitorProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+	if (oldMonitorProfile != newMonitorProfile)
+	{
+		bool success = false;
+		if (ScCore->MonitorProfiles.contains(newMonitorProfile))
+		{
+			QString profilePath = ScCore->MonitorProfiles[newMonitorProfile];
+			ScColorProfile newProfile = ScCore->defaultEngine.openProfileFromFile(profilePath);
+			if (!newProfile.isNull())
+			{
+				ScCore->monitorProfile = newProfile;
+				success = true;
+			}
+		}
+		if (!success)
+		{
+			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = oldMonitorProfile;
+			QString message = tr("An error occurred while opening monitor profile.\nFormer monitor profile will be used." );
+			if (ScCore->usingGUI())
+				QMessageBox::warning(this, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
+			else
+				qWarning( "%s", message.toLocal8Bit().data() );
+		}
+	}
 
 	int newImageQuality = prefsManager->appPrefs.itemToolPrefs.imageLowResType;
 	if (oldImageQuality != newImageQuality)
@@ -7628,6 +7653,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 				scw->view()->DrawNew();
 		}
 	}
+
+	prefsManager->SavePrefs();
 }
 
 void ScribusMainWindow::slotPrefsOrg()
@@ -7641,6 +7668,7 @@ void ScribusMainWindow::slotPrefsOrg()
 
 void ScribusMainWindow::slotPrefs150Org()
 {
+	QString oldMonitorProfile = ScCore->monitorProfile.productDescription();
 	slotSelect();
 	struct ApplicationPrefs oldPrefs(prefsManager->appPrefs);
 	PreferencesDialog prefsDialog(this);
@@ -7648,7 +7676,6 @@ void ScribusMainWindow::slotPrefs150Org()
 	{
 		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
 		prefsManager->setNewPrefs(newPrefs);
-		prefsManager->SavePrefs();
 
 		// TODO:
 		// CB: Hoping to clean this into a nicer function
@@ -7681,7 +7708,35 @@ void ScribusMainWindow::slotPrefs150Org()
 			mdiArea->setViewMode(QMdiArea::TabbedView);
 		else
 			mdiArea->setViewMode(QMdiArea::SubWindowView);
+
+		QString newMonitorProfile = newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+		if (oldMonitorProfile != newMonitorProfile)
+		{
+			bool success = false;
+			if (ScCore->MonitorProfiles.contains(newMonitorProfile))
+			{
+				QString profilePath = ScCore->MonitorProfiles[newMonitorProfile];
+				ScColorProfile newProfile = ScCore->defaultEngine.openProfileFromFile(profilePath);
+				if (!newProfile.isNull())
+				{
+					ScCore->monitorProfile = newProfile;
+					success = true;
+				}
+			}
+			if (!success)
+			{
+				newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = oldMonitorProfile;
+				prefsManager->setNewPrefs(newPrefs);
+				QString message = tr("An error occurred while opening monitor profile.\nFormer monitor profile will be used." );
+				if (ScCore->usingGUI())
+					QMessageBox::warning(this, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
+				else
+					qWarning( "%s", message.toLocal8Bit().data() );
+			}
+		}
 	}
+
+	prefsManager->SavePrefs();
 }
 
 void ScribusMainWindow::ShowSubs()

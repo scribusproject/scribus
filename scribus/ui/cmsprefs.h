@@ -27,8 +27,11 @@ public:
 	CMSData *prefs;
 	bool changed;
 
+protected:
+	bool m_canChangeMonitorProfile;
+
 public slots:
-	virtual void slotCMSon();
+	virtual void slotCMSon(bool active = false);
 	virtual void setValues();
 
 signals:

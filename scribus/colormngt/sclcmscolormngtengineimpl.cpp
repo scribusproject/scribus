@@ -200,7 +200,11 @@ ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromMem(ScColorMngtEngine& 
 
 ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_sRGB(ScColorMngtEngine& engine)
 {
-	ScColorProfile profile;
+	QString internalProfilePath("memprofile://Internal sRGB profile");
+	ScColorProfile profile = m_profileCache->profile(internalProfilePath);
+	if (!profile.isNull())
+		return profile;
+
 	cmsHPROFILE lcmsProf = NULL;
 	cmsSetErrorHandler(&cmsErrorHandler);
 	try
@@ -209,8 +213,9 @@ ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_sRGB(ScColorMngtEngine& 
 		if (lcmsProf)
 		{
 			ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
-			profData->m_profilePath = QString("memprofile://Internal sRGB profile");
+			profData->m_profilePath = internalProfilePath;
 			profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+			m_profileCache->addProfile(profile);
 		}
 		if (profile.isNull() && lcmsProf)
 		{
@@ -231,7 +236,11 @@ ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_sRGB(ScColorMngtEngine& 
 
 ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_Lab(ScColorMngtEngine& engine)
 {
-	ScColorProfile profile;
+	QString internalProfilePath("memprofile://Internal Lab profile");
+	ScColorProfile profile = m_profileCache->profile(internalProfilePath);
+	if (!profile.isNull())
+		return profile;
+
 	cmsHPROFILE lcmsProf = NULL;
 	cmsSetErrorHandler(&cmsErrorHandler);
 	try
@@ -240,8 +249,9 @@ ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_Lab(ScColorMngtEngine& e
 		if (lcmsProf)
 		{
 			ScLcmsColorProfileImpl* profData = new ScLcmsColorProfileImpl(engine, lcmsProf);
-			profData->m_profilePath = QString("memprofile://Internal Lab profile");
+			profData->m_profilePath = internalProfilePath;
 			profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
+			m_profileCache->addProfile(profile);
 		}
 		if (profile.isNull() && lcmsProf)
 		{

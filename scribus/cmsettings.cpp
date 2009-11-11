@@ -125,7 +125,7 @@ bool CMSettings::doGamutCheck() const
 ScColorProfile CMSettings::monitorProfile() const
 {
 	if (m_Doc)
-		return m_Doc->DocOutputProf;
+		return m_Doc->DocDisplayProf;
 	return ScColorProfile();
 }
 

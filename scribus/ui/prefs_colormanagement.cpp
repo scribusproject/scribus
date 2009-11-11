@@ -6,16 +6,23 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "prefs_colormanagement.h"
-#include "scribusstructs.h"
 #include "prefsstructs.h"
+#include "scribusstructs.h"
+#include "scribuscore.h"
 
 Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent)
 	: Prefs_Pane(parent)
 {
+	m_canChangeMonitorProfile = !ScCore->primaryMainWindow()->HaveDoc; 
 	setupUi(this);
 	languageChange();
 	connect(activateCMCheckBox, SIGNAL(clicked(bool)), this, SLOT(cmActivated(bool)));
 	connect(simulatePrinterOnScreenCheckBox, SIGNAL(clicked(bool)), this, SLOT(simulatePrinter(bool)));
+	if (!m_canChangeMonitorProfile)
+	{
+		monitorProfileComboBox->setVisible(false);
+		monitorLabel->setText( tr("Monitor profile can only be changed when no document are currently opened.") );
+	}
 }
 
 Prefs_ColorManagement::~Prefs_ColorManagement()
@@ -112,8 +119,12 @@ void Prefs_ColorManagement::saveGuiToPrefs(struct ApplicationPrefs *prefsData) c
 	prefsData->colorPrefs.DCMSset.DefaultImageCMYKProfile = cmykImageProfileComboBox->currentText();
 	prefsData->colorPrefs.DCMSset.DefaultSolidColorRGBProfile = rgbSolidProfileComboBox->currentText();
 	prefsData->colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = cmykSolidProfileComboBox->currentText();
-	prefsData->colorPrefs.DCMSset.DefaultMonitorProfile = monitorProfileComboBox->currentText();
 	prefsData->colorPrefs.DCMSset.DefaultPrinterProfile = printerProfileComboBox->currentText();
+
+	if (m_canChangeMonitorProfile)
+	{
+		prefsData->colorPrefs.DCMSset.DefaultMonitorProfile = monitorProfileComboBox->currentText();
+	}
 }
 
 void Prefs_ColorManagement::cmActivated(bool active)
@@ -128,7 +139,7 @@ void Prefs_ColorManagement::cmActivated(bool active)
 	cmykImageProfileComboBox->setEnabled( active );
 	rgbSolidProfileComboBox->setEnabled( active );
 	cmykSolidProfileComboBox->setEnabled( active );
-	monitorProfileComboBox->setEnabled( active );
+	monitorProfileComboBox->setEnabled( m_canChangeMonitorProfile );
 	printerProfileComboBox->setEnabled( active );
 }
 

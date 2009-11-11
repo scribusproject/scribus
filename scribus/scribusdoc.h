@@ -1033,7 +1033,7 @@ public:
 	ScColorProfile DocInputImageCMYKProf;
 	ScColorProfile DocInputRGBProf;
 	ScColorProfile DocInputCMYKProf;
-	ScColorProfile DocOutputProf;
+	ScColorProfile DocDisplayProf;
 	ScColorProfile DocPrinterProf;
 	ScColorTransform stdTransRGBMon;
 	ScColorTransform stdTransCMYKMon;
