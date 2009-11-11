@@ -96,22 +96,54 @@ for which a new license (GPL+exception) is in place.
 class DocUpdater : public Observer<Page*>, public Observer<PageItem*> 
 {
 	ScribusDoc* doc;
+	int  m_updateEnabled;
+	bool m_docChangeNeeded;
 public:
-	DocUpdater(ScribusDoc* d) : doc(d) {}
+	DocUpdater(ScribusDoc* d) : doc(d), m_updateEnabled(0), m_docChangeNeeded(false) {}
+
+	void beginUpdate(void)
+	{ 
+		if (m_updateEnabled == 0)
+			m_docChangeNeeded = false;
+		++m_updateEnabled;
+	}
+
+	void endUpdate(void)
+	{
+		--m_updateEnabled;
+		if (m_updateEnabled <= 0)
+		{
+			if (m_docChangeNeeded)
+			{
+				doc->changed();
+				m_docChangeNeeded = false;
+			}
+		}
+	}
 	
 	void changed(Page* pg)
 	{
 		QRectF pagebox(pg->xOffset(), pg->yOffset(), pg->width(), pg->height());
 		doc->invalidateRegion(pagebox);
 		doc->regionsChanged()->update(pagebox);
-		doc->changed();
+		if (m_updateEnabled <= 0)
+		{
+			doc->changed();
+			return;
+		}
+		m_docChangeNeeded = true;
 	}
 	
 	void changed(PageItem* it)
 	{
 		it->invalidateLayout();
 		doc->regionsChanged()->update(it->getVisualBoundingRect());
-		doc->changed();
+		if (m_updateEnabled <= 0)
+		{
+			doc->changed();
+			return;
+		}
+		m_docChangeNeeded = true;
 	}
 };
 
@@ -3895,12 +3927,16 @@ void ScribusDoc::updateFrameItems()
 
 void ScribusDoc::renumberItemsInListOrder( )
 {
+	m_docUpdater->beginUpdate();
+	m_updateManager.setUpdatesEnabled(false);
 	int itemsCount=Items->count();
 	for (int i = 0; i < itemsCount; ++i)
 	{
 		Items->at(i)->ItemNr = i;
 		Items->at(i)->checkTextFlowInteractions(true);
 	}
+	m_updateManager.setUpdatesEnabled(true);
+	m_docUpdater->endUpdate();
 }
 
 
