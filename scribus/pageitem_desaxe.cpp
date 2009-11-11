@@ -307,6 +307,9 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			gradientV.insert("GRSTARTY", toXMLString(GrStartY));
 			gradientV.insert("GRENDX", toXMLString(GrEndX));
 			gradientV.insert("GRENDY", toXMLString(GrEndY));
+			gradientV.insert("GRFOCALX", toXMLString(GrFocalX));
+			gradientV.insert("GRFOCALY", toXMLString(GrFocalY));
+			gradientV.insert("GRSCALE", toXMLString(GrScale));
 			gradientV.insert("GRNAME", toXMLString(gradient()));
 			handler.begin("Gradient", gradientV);
 			QList<VColorStop*> cstops = fill_gradient.colorStops();
@@ -330,6 +333,9 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			gradientV.insert("GRSTARTYS", toXMLString(GrStrokeStartY));
 			gradientV.insert("GRENDXS", toXMLString(GrStrokeEndX));
 			gradientV.insert("GRENDYS", toXMLString(GrStrokeEndY));
+			gradientV.insert("GRFOCALXS", toXMLString(GrStrokeFocalX));
+			gradientV.insert("GRFOCALYS", toXMLString(GrStrokeFocalY));
+			gradientV.insert("GRSCALES", toXMLString(GrStrokeScale));
 			gradientV.insert("GRNAMES", toXMLString(strokeGradient()));
 			handler.begin("GradientS", gradientV);
 			QList<VColorStop*> cstops = fill_gradient.colorStops();
@@ -573,6 +579,9 @@ class Gradient_body : public Action_body
 			item->GrStrokeStartY = parseDouble(attr["GRSTARTYS"]);
 			item->GrStrokeEndX = parseDouble(attr["GRENDXS"]);
 			item->GrStrokeEndY = parseDouble(attr["GRENDYS"]);
+			item->GrStrokeFocalX = parseDouble(attr["GRFOCALXS"]);
+			item->GrStrokeFocalY = parseDouble(attr["GRFOCALYS"]);
+			item->GrStrokeScale = parseDouble(attr["GRSCALES"]);
 			item->setStrokeGradient(attr["GRNAMES"]);
 			item->stroke_gradient.clearStops();
 		}
@@ -584,6 +593,9 @@ class Gradient_body : public Action_body
 			item->GrStartY = parseDouble(attr["GRSTARTY"]);
 			item->GrEndX = parseDouble(attr["GRENDX"]);
 			item->GrEndY = parseDouble(attr["GRENDY"]);
+			item->GrFocalX = parseDouble(attr["GRFOCALX"]);
+			item->GrFocalY = parseDouble(attr["GRFOCALY"]);
+			item->GrScale = parseDouble(attr["GRSCALE"]);
 			item->setGradient(attr["GRNAME"]);
 			item->fill_gradient.clearStops();
 		}

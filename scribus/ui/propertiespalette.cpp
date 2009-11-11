@@ -1588,7 +1588,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 //	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	connect(colgapLabel, SIGNAL(activated(int)), this, SLOT(HandleGapSwitch()));
-	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double )), this, SLOT(NewSpGradient(double, double, double, double )));
+	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double )));
 	connect( Cpal, SIGNAL(editGradient(bool)), this, SLOT(toggleGradientEdit(bool)));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -4587,7 +4587,7 @@ void PropertiesPalette::NewTDist()
 	}
 }
 
-void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2)
+void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4600,6 +4600,14 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			CurItem->GrStrokeStartY = y1 / m_unitRatio;
 			CurItem->GrStrokeEndX = x2 / m_unitRatio;
 			CurItem->GrStrokeEndY = y2 / m_unitRatio;
+			CurItem->GrStrokeFocalX = fx / m_unitRatio;
+			CurItem->GrStrokeFocalY = fy / m_unitRatio;
+			CurItem->GrStrokeScale = sg / m_unitRatio;
+			if (CurItem->GrTypeStroke == 6)
+			{
+				CurItem->GrStrokeFocalX = CurItem->GrStrokeStartX;
+				CurItem->GrStrokeFocalY = CurItem->GrStrokeStartY;
+			}
 			CurItem->update();
 			upRect = QRectF(QPointF(CurItem->GrStrokeStartX, CurItem->GrStrokeStartY), QPointF(CurItem->GrStrokeEndX, CurItem->GrStrokeEndY));
 		}
@@ -4609,6 +4617,14 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			CurItem->GrStartY = y1 / m_unitRatio;
 			CurItem->GrEndX = x2 / m_unitRatio;
 			CurItem->GrEndY = y2 / m_unitRatio;
+			CurItem->GrFocalX = fx / m_unitRatio;
+			CurItem->GrFocalY = fy / m_unitRatio;
+			CurItem->GrScale = sg / m_unitRatio;
+			if (CurItem->GrTypeStroke == 6)
+			{
+				CurItem->GrFocalX = CurItem->GrStartX;
+				CurItem->GrFocalY = CurItem->GrStartY;
+			}
 			CurItem->update();
 			upRect = QRectF(QPointF(CurItem->GrStartX, CurItem->GrStartY), QPointF(CurItem->GrEndX, CurItem->GrEndY));
 		}
@@ -5622,7 +5638,7 @@ void PropertiesPalette::updateColorSpecialGradient()
 	double dur=doc->unitRatio();
 	PageItem *currItem=doc->m_Selection->itemAt(0);
 	if (currItem)
-		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur);
+		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur, currItem->GrFocalX * dur, currItem->GrFocalY * dur, currItem->GrScale);
 }
 
 void PropertiesPalette::updateSpinBoxConstants()

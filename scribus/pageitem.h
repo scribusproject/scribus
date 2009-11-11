@@ -354,6 +354,9 @@ public:
 	double GrStartY;
 	double GrEndX;
 	double GrEndY;
+	double GrFocalX;
+	double GrFocalY;
+	double GrScale;
 	int Cols;
 	double ColGap;
 	double gridOffset_;
@@ -594,13 +597,13 @@ public:
 	// 0=none, 1,2,3,4=linear, 5=radial, 6=free linear, 7=free radial, 8=pattern 
 	int gradientType() const { return GrType; }
 	void setGradientType(int val) { GrType = val; }
-	void gradientVector(double& startX, double& startY, double& endX, double& endY) const;
-	void setGradientVector(double startX, double startY, double endX, double endY);
+	void gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale) const;
+	void setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale);
 
 	int strokeGradientType() const { return GrTypeStroke; }
 	void setStrokeGradientType(int val) { GrTypeStroke = val; }
-	void strokeGradientVector(double& startX, double& startY, double& endX, double& endY) const;
-	void setStrokeGradientVector(double startX, double startY, double endX, double endY);
+	void strokeGradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale) const;
+	void setStrokeGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale);
 	// 
 	bool fillEvenOdd() const { return fillRule; }
 	void setFillEvenOdd(bool val) { fillRule = val; }
@@ -1377,6 +1380,9 @@ public:
 	double GrStrokeStartY;
 	double GrStrokeEndX;
 	double GrStrokeEndY;
+	double GrStrokeFocalX;
+	double GrStrokeFocalY;
+	double GrStrokeScale;
 
 	/** Inline Image */
 	bool isInlineImage;

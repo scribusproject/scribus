@@ -1013,10 +1013,12 @@ void ScPainter::drawVPath( int mode )
 			double y1 = fill_gradient.origin().y();
 			double x2 = fill_gradient.vector().x();
 			double y2 = fill_gradient.vector().y();
+			double fx = fill_gradient.focalPoint().x();
+			double fy = fill_gradient.focalPoint().y();
 			if (fill_gradient.type() == VGradient::linear)
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
-				pat = cairo_pattern_create_radial (x1, y1, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+				pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
@@ -1129,10 +1131,12 @@ void ScPainter::drawVPath( int mode )
 			double y1 = stroke_gradient.origin().y();
 			double x2 = stroke_gradient.vector().x();
 			double y2 = stroke_gradient.vector().y();
+			double fx = stroke_gradient.focalPoint().x();
+			double fy = stroke_gradient.focalPoint().y();
 			if (stroke_gradient.type() == VGradient::linear)
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
-				pat = cairo_pattern_create_radial (x1, y1, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+				pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 			QList<VColorStop*> colorStops = stroke_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
@@ -1189,10 +1193,12 @@ void ScPainter::drawVPath(int mode)
 			double y1 = fill_gradient.origin().y();
 			double x2 = fill_gradient.vector().x();
 			double y2 = fill_gradient.vector().y();
+			double fx = fill_gradient.focalPoint().x();
+			double fy = fill_gradient.focalPoint().y();
 			if (fill_gradient.type() == VGradient::linear)
 				pat = QLinearGradient(x1, y1,  x2, y2);
 			else
-				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), fx, fy);
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
@@ -1295,10 +1301,12 @@ void ScPainter::drawVPath(int mode)
 			double y1 = stroke_gradient.origin().y();
 			double x2 = stroke_gradient.vector().x();
 			double y2 = stroke_gradient.vector().y();
+			double fx = stroke_gradient.focalPoint().x();
+			double fy = stroke_gradient.focalPoint().y();
 			if (stroke_gradient.type() == VGradient::linear)
 				pat = QLinearGradient(x1, y1,  x2, y2);
 			else
-				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), fx, fy);
 			QList<VColorStop*> colorStops = stroke_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )

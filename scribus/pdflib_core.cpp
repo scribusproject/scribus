@@ -5796,6 +5796,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	double StartY;
 	double EndX;
 	double EndY;
+	double FocalX;
+	double FocalY;
 	int GType;
 	if (stroke)
 	{
@@ -5804,6 +5806,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		StartY = currItem->GrStrokeStartY;
 		EndX = currItem->GrStrokeEndX;
 		EndY = currItem->GrStrokeEndY;
+		FocalX = currItem->GrStrokeFocalX;
+		FocalY = currItem->GrStrokeFocalY;
 		gradient = currItem->stroke_gradient;
 	}
 	else
@@ -5813,6 +5817,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		StartY = currItem->GrStartY;
 		EndX = currItem->GrEndX;
 		EndY = currItem->GrEndY;
+		FocalX = currItem->GrFocalX;
+		FocalY = currItem->GrFocalY;
 		gradient = currItem->fill_gradient;
 	}
 	QList<VColorStop*> cstops = gradient.colorStops();
@@ -5876,7 +5882,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		if (GType == 6)
 			PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
 		else
-			PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" 0.0 "+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
+			PutDoc("/Coords ["+FToStr(FocalX)+" "+FToStr(-FocalY)+" 0.0 "+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
 		PutDoc("/Function\n");
 		PutDoc("<<\n");
 		PutDoc("/FunctionType 3\n");
@@ -5997,7 +6003,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	if (GType == 6)
 		PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
 	else
-		PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" 0.0 "+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
+		PutDoc("/Coords ["+FToStr(FocalX)+" "+FToStr(-FocalY)+" 0.0 "+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
 	PutDoc("/Function\n");
 	PutDoc("<<\n");
 	PutDoc("/FunctionType 3\n");

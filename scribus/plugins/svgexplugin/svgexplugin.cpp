@@ -1584,56 +1584,25 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 			}
 			else
 			{
-				if ((Item->GrType == 5) || (Item->GrType == 7))
-					grad = docu.createElement("radialGradient");
-				else
+				if (Item->GrType == 6)
+				{
 					grad = docu.createElement("linearGradient");
+					grad.setAttribute("x1", FToStr(Item->GrStartX));
+					grad.setAttribute("y1", FToStr(Item->GrStartY));
+					grad.setAttribute("x2", FToStr(Item->GrEndX));
+					grad.setAttribute("y2", FToStr(Item->GrEndY));
+				}
+				else
+				{
+					grad = docu.createElement("radialGradient");
+					grad.setAttribute("r", FToStr(sqrt(pow(Item->GrEndX - Item->GrStartX, 2) + pow(Item->GrEndY - Item->GrStartY,2))));
+					grad.setAttribute("cx", FToStr(Item->GrStartX));
+					grad.setAttribute("cy", FToStr(Item->GrStartY));
+					grad.setAttribute("fx", FToStr(Item->GrFocalX));
+					grad.setAttribute("fy", FToStr(Item->GrFocalY));
+				}
 				grad.setAttribute("id", "Grad"+IToStr(GradCount));
 				grad.setAttribute("gradientUnits", "userSpaceOnUse");
-				switch (Item->GrType)
-				{
-					case 1:
-						grad.setAttribute("x1", "0");
-						grad.setAttribute("y1", FToStr(Item->height() / 2.0));
-						grad.setAttribute("x2", FToStr(Item->width()));
-						grad.setAttribute("y2", FToStr(Item->height() / 2.0));
-						break;
-					case 2:
-						grad.setAttribute("x1", FToStr(Item->width()/ 2.0));
-						grad.setAttribute("y1", "0");
-						grad.setAttribute("x2", FToStr(Item->width()/ 2.0));
-						grad.setAttribute("y2", FToStr(Item->height()));
-						break;
-					case 3:
-						grad.setAttribute("x1", "0");
-						grad.setAttribute("y1", "0");
-						grad.setAttribute("x2", FToStr(Item->width()));
-						grad.setAttribute("y2", FToStr(Item->height()));
-						break;
-					case 4:
-						grad.setAttribute("x1", "0");
-						grad.setAttribute("y1", FToStr(Item->height()));
-						grad.setAttribute("x2", FToStr(Item->width()));
-						grad.setAttribute("y2", "0");
-						break;
-					case 5:
-						grad.setAttribute("r", FToStr(qMax(Item->width() / 2.0, Item->height() / 2.0)));
-						grad.setAttribute("cx", FToStr(Item->width() / 2.0));
-						grad.setAttribute("cy", FToStr(Item->height() / 2.0));
-						break;
-					case 6:
-						grad.setAttribute("x1", FToStr(Item->GrStartX));
-						grad.setAttribute("y1", FToStr(Item->GrStartY));
-						grad.setAttribute("x2", FToStr(Item->GrEndX));
-						grad.setAttribute("y2", FToStr(Item->GrEndY));
-						break;
-					case 7:
-						grad.setAttribute("r", FToStr(sqrt(pow(Item->GrEndX - Item->GrStartX, 2) + pow(Item->GrEndY - Item->GrStartY,2))));
-						grad.setAttribute("r", FToStr(qMax(Item->width() / 2.0, Item->height() / 2.0)));
-						grad.setAttribute("cx", FToStr(Item->GrStartX));
-						grad.setAttribute("cy", FToStr(Item->GrStartY));
-						break;
-				}
 				QList<VColorStop*> cstops = Item->fill_gradient.colorStops();
 				for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
 				{
@@ -1848,6 +1817,8 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 			grad.setAttribute("r", FToStr(sqrt(pow(Item->GrStrokeEndX - Item->GrStrokeStartX, 2) + pow(Item->GrStrokeEndY - Item->GrStrokeStartY,2))));
 			grad.setAttribute("cx", FToStr(Item->GrStrokeStartX));
 			grad.setAttribute("cy", FToStr(Item->GrStrokeStartY));
+			grad.setAttribute("fx", FToStr(Item->GrStrokeFocalX));
+			grad.setAttribute("fy", FToStr(Item->GrStrokeFocalY));
 		}
 		else
 		{

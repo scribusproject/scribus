@@ -1167,6 +1167,8 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		psx->drawPoint(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY));
 		psx->drawPoint(QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
+		if (currItem->GrTypeStroke == 7)
+			psx->drawPoint(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY));
 	}
 	else
 	{
@@ -1174,6 +1176,8 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		psx->drawPoint(QPointF(currItem->GrStartX, currItem->GrStartY));
 		psx->drawPoint(QPointF(currItem->GrEndX, currItem->GrEndY));
+		if (currItem->GrType == 7)
+			psx->drawPoint(QPointF(currItem->GrFocalX, currItem->GrFocalY));
 	}
 }
 

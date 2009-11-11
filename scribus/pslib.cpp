@@ -3459,7 +3459,7 @@ void PSLib::HandleStrokePattern(PageItem *c)
 
 void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool forArrow)
 {
-	double StartX, StartY, EndX, EndY;
+	double StartX, StartY, EndX, EndY, FocalX, FocalY;
 	int GType;
 	VGradient gradient;
 	QList<double> StopVec;
@@ -3473,6 +3473,8 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		StartY = c->GrStrokeStartY;
 		EndX = c->GrStrokeEndX;
 		EndY = c->GrStrokeEndY;
+		FocalX = c->GrStrokeFocalX;
+		FocalY = c->GrStrokeFocalY;
 		gradient = c->stroke_gradient;
 	}
 	else
@@ -3482,6 +3484,8 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		StartY = c->GrStartY;
 		EndX = c->GrEndX;
 		EndY = c->GrEndY;
+		FocalX = c->GrFocalX;
+		FocalY = c->GrFocalY;
 		gradient = c->fill_gradient;
 		if (GType == 8)
 		{
@@ -3584,7 +3588,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 	if (GType == 6)
 		PutStream("/Coords ["+ToStr(StartX)+" "+ToStr(-StartY)+" "+ToStr(EndX)+" "+ToStr(-EndY)+"]\n");
 	else
-		PutStream("/Coords ["+ToStr(StartX)+" "+ToStr(-StartY)+" 0.0 "+ToStr(StartX)+" "+ToStr(-StartY)+" "+ToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
+		PutStream("/Coords ["+ToStr(FocalX)+" "+ToStr(-FocalY)+" 0.0 "+ToStr(StartX)+" "+ToStr(-StartY)+" "+ToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
 	PutStream("/Function\n");
 	PutStream("<<\n");
 	PutStream("/FunctionType 3\n");

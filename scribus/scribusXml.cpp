@@ -189,6 +189,9 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 			OB->GrEndX   = attrAsDbl(attrs, "GRENDX", 0.0);
 			OB->GrEndY   = attrAsDbl(attrs, "GRENDY", 0.0);
 			OB->GrColor  = attrAsString(attrs, "GRCOLOR", "Black");
+			OB->GrFocalX = attrAsDbl(attrs, "GRFOCALX", 0.0);
+			OB->GrFocalY = attrAsDbl(attrs, "GRFOCALY", 0.0);
+			OB->GrScale  = attrAsDbl(attrs, "GRSCALE", 1.0);
 			if (OB->GrColor.isEmpty())
 				OB->GrColor = "Black";
 			OB->GrColor2 = attrAsString(attrs, "GRCOLOR2","Black");
@@ -206,6 +209,9 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->GrStrokeStartY = attrAsDbl(attrs, "GRSTARTYS", 0.0);
 		OB->GrStrokeEndX   = attrAsDbl(attrs, "GRENDXS", 0.0);
 		OB->GrStrokeEndY   = attrAsDbl(attrs, "GRENDYS", 0.0);
+		OB->GrStrokeFocalX = attrAsDbl(attrs, "GRFOCALXS", 0.0);
+		OB->GrStrokeFocalY = attrAsDbl(attrs, "GRFOCALYS", 0.0);
+		OB->GrStrokeScale  = attrAsDbl(attrs, "GRSCALES", 1.0);
 	}
 	OB->Rot        = attrAsDbl(attrs, "ROT", 0.0);
 	OB->PLineArt   = Qt::PenStyle    ( attrAsInt(attrs, "PLINEART", 0) );
@@ -2361,6 +2367,9 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRSTARTY", item->GrStartY);
 		writer.writeAttribute("GRENDX"  , item->GrEndX);
 		writer.writeAttribute("GRENDY"  , item->GrEndY);
+		writer.writeAttribute("GRFOCALX", item->GrFocalX);
+		writer.writeAttribute("GRFOCALY", item->GrFocalY);
+		writer.writeAttribute("GRSCALE" , item->GrScale);
 	}
 	if (item->GrTypeStroke > 0)
 	{
@@ -2368,6 +2377,9 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRSTARTYS", item->GrStrokeStartY);
 		writer.writeAttribute("GRENDXS"  , item->GrStrokeEndX);
 		writer.writeAttribute("GRENDYS"  , item->GrStrokeEndY);
+		writer.writeAttribute("GRFOCALXS", item->GrStrokeFocalX);
+		writer.writeAttribute("GRFOCALYS", item->GrStrokeFocalY);
+		writer.writeAttribute("GRSCALES" , item->GrStrokeScale);
 	}
 
 	if (item->effectsInUse.count() != 0)

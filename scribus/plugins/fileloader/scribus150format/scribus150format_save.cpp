@@ -1189,6 +1189,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("GRSTARTY", item->GrStartY);
 				docu.writeAttribute("GRENDX", item->GrEndX);
 				docu.writeAttribute("GRENDY", item->GrEndY);
+				docu.writeAttribute("GRFOCALX", item->GrFocalX);
+				docu.writeAttribute("GRFOCALY", item->GrFocalY);
+				docu.writeAttribute("GRSCALE" , item->GrScale);
 			}
 		}
 		if (!item->gradient().isEmpty())
@@ -1201,6 +1204,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("GRSTARTYS", item->GrStrokeStartY);
 			docu.writeAttribute("GRENDXS", item->GrStrokeEndX);
 			docu.writeAttribute("GRENDYS", item->GrStrokeEndY);
+			docu.writeAttribute("GRFOCALXS", item->GrStrokeFocalX);
+			docu.writeAttribute("GRFOCALYS", item->GrStrokeFocalY);
+			docu.writeAttribute("GRSCALES" , item->GrStrokeScale);
 		}
 		if (!item->strokePattern().isEmpty())
 		{

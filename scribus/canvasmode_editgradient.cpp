@@ -185,24 +185,102 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrStrokeStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
 				currItem->GrStrokeStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+				currItem->GrStrokeFocalX -= np.x();
+				currItem->GrStrokeFocalY -= np.y();
+				if (currItem->GrTypeStroke == 7)
+				{
+					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
+					if (radFoc >= radEnd)
+					{
+						currItem->GrStrokeStartX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrStrokeStartY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrStrokeFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrStrokeFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+					}
+				}
+			}
+			if (m_gradientPoint == useGradientFocal)
+			{
+				currItem->GrStrokeFocalX -= np.x();
+				currItem->GrStrokeFocalY -= np.y();
+				if (currItem->GrTypeStroke == 7)
+				{
+					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
+					if (radFoc >= radEnd)
+					{
+						currItem->GrStrokeFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrStrokeFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+					}
+				}
 			}
 			if (m_gradientPoint == useGradientEnd)
 			{
 				currItem->GrStrokeEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
 				currItem->GrStrokeEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+				if (currItem->GrTypeStroke == 7)
+				{
+					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
+					if (radFoc >= radEnd)
+					{
+						currItem->GrStrokeEndX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrStrokeEndY += np.y(); // (Myp - newY); // / m_canvas->scale();
+					}
+				}
 			}
 		}
 		else
 		{
 			if (m_gradientPoint == useGradientStart)
 			{
-				currItem->GrStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-				currItem->GrStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+				currItem->GrStartX -= np.x();
+				currItem->GrStartY -= np.y();
+				currItem->GrFocalX -= np.x();
+				currItem->GrFocalY -= np.y();
+				if (currItem->GrType == 7)
+				{
+					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
+					if (radFoc >= radEnd)
+					{
+						currItem->GrStartX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrStartY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+					}
+				}
+			}
+			if (m_gradientPoint == useGradientFocal)
+			{
+				currItem->GrFocalX -= np.x();
+				currItem->GrFocalY -= np.y();
+				if (currItem->GrType == 7)
+				{
+					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
+					if (radFoc >= radEnd)
+					{
+						currItem->GrFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+					}
+				}
 			}
 			if (m_gradientPoint == useGradientEnd)
 			{
-				currItem->GrEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-				currItem->GrEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+				currItem->GrEndX -= np.x();
+				currItem->GrEndY -= np.y();
+				if (currItem->GrType == 7)
+				{
+					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
+					if (radFoc >= radEnd)
+					{
+						currItem->GrEndX += np.x(); // (Mxp - newX); // / m_canvas->scale();
+						currItem->GrEndY += np.y(); // (Myp - newY); // / m_canvas->scale();
+					}
+				}
 			}
 		}
 		Mxp = newX;
@@ -239,23 +317,28 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	itemMatrix.translate(currItem->xPos(), currItem->yPos());
 	itemMatrix.rotate(currItem->rotation());
-	QPointF gradientStart, gradientEnd;
+	QPointF gradientStart, gradientEnd, gradientFocal;
 	if (m_view->editStrokeGradient)
 	{
 		gradientStart = QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
 		gradientEnd = QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY);
+		gradientFocal = QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY);
 	}
 	else
 	{
 		gradientStart = QPointF(currItem->GrStartX, currItem->GrStartY);
 		gradientEnd = QPointF(currItem->GrEndX, currItem->GrEndY);
+		gradientFocal = QPointF(currItem->GrFocalX, currItem->GrFocalY);
 	}
 	gradientStart = itemMatrix.map(gradientStart);
 	gradientEnd = itemMatrix.map(gradientEnd);
+	gradientFocal = itemMatrix.map(gradientFocal);
 	if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
 		m_gradientPoint = useGradientStart;
 	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
 		m_gradientPoint = useGradientEnd;
+	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
+		m_gradientPoint = useGradientFocal;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 }

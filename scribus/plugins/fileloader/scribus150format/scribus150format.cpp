@@ -2774,6 +2774,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->GrStartY = attrs.valueAsDouble("GRSTARTY", 0.0);
 			currItem->GrEndX   = attrs.valueAsDouble("GRENDX", 0.0);
 			currItem->GrEndY   = attrs.valueAsDouble("GRENDY", 0.0);
+			currItem->GrFocalX = attrs.valueAsDouble("GRFOCALX", 0.0);
+			currItem->GrFocalY = attrs.valueAsDouble("GRFOCALY", 0.0);
+			currItem->GrScale  = attrs.valueAsDouble("GRSCALE", 1.0);
 			GrColor = attrs.valueAsString("GRCOLOR","");
 			if (!GrColor.isEmpty())
 			{
@@ -2831,6 +2834,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
 	currItem->GrStrokeEndX   = attrs.valueAsDouble("GRENDXS", 0.0);
 	currItem->GrStrokeEndY   = attrs.valueAsDouble("GRENDYS", 0.0);
+	currItem->GrStrokeFocalX = attrs.valueAsDouble("GRFOCALXS", 0.0);
+	currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
+	currItem->GrStrokeScale  = attrs.valueAsDouble("GRSCALES", 1.0);
 	QString GrNameS = "";
 	GrNameS = attrs.valueAsString("GRNAMES","");
 	if (!GrNameS.isEmpty())
