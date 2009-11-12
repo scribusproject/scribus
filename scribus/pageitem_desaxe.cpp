@@ -310,6 +310,7 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			gradientV.insert("GRFOCALX", toXMLString(GrFocalX));
 			gradientV.insert("GRFOCALY", toXMLString(GrFocalY));
 			gradientV.insert("GRSCALE", toXMLString(GrScale));
+			gradientV.insert("GRSKEW", toXMLString(GrSkew));
 			gradientV.insert("GRNAME", toXMLString(gradient()));
 			handler.begin("Gradient", gradientV);
 			QList<VColorStop*> cstops = fill_gradient.colorStops();
@@ -336,6 +337,7 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			gradientV.insert("GRFOCALXS", toXMLString(GrStrokeFocalX));
 			gradientV.insert("GRFOCALYS", toXMLString(GrStrokeFocalY));
 			gradientV.insert("GRSCALES", toXMLString(GrStrokeScale));
+			gradientV.insert("GRSKEWS", toXMLString(GrStrokeSkew));
 			gradientV.insert("GRNAMES", toXMLString(strokeGradient()));
 			handler.begin("GradientS", gradientV);
 			QList<VColorStop*> cstops = fill_gradient.colorStops();
@@ -582,6 +584,7 @@ class Gradient_body : public Action_body
 			item->GrStrokeFocalX = parseDouble(attr["GRFOCALXS"]);
 			item->GrStrokeFocalY = parseDouble(attr["GRFOCALYS"]);
 			item->GrStrokeScale = parseDouble(attr["GRSCALES"]);
+			item->GrStrokeSkew = parseDouble(attr["GRSKEwS"]);
 			item->setStrokeGradient(attr["GRNAMES"]);
 			item->stroke_gradient.clearStops();
 		}
@@ -596,6 +599,7 @@ class Gradient_body : public Action_body
 			item->GrFocalX = parseDouble(attr["GRFOCALX"]);
 			item->GrFocalY = parseDouble(attr["GRFOCALY"]);
 			item->GrScale = parseDouble(attr["GRSCALE"]);
+			item->GrSkew = parseDouble(attr["GRSKEW"]);
 			item->setGradient(attr["GRNAME"]);
 			item->fill_gradient.clearStops();
 		}

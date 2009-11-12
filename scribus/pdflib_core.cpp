@@ -5792,12 +5792,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	QList<int> colorShades;
 	QStringList spotColorSet;
 	VGradient gradient;
-	double StartX;
-	double StartY;
-	double EndX;
-	double EndY;
-	double FocalX;
-	double FocalY;
+	double StartX, StartY, EndX, EndY, FocalX, FocalY, Gscale, Gskew;
 	int GType;
 	if (stroke)
 	{
@@ -5808,6 +5803,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		EndY = currItem->GrStrokeEndY;
 		FocalX = currItem->GrStrokeFocalX;
 		FocalY = currItem->GrStrokeFocalY;
+		Gscale = currItem->GrStrokeScale;
+		Gskew = currItem->GrStrokeSkew;
 		gradient = currItem->stroke_gradient;
 	}
 	else
@@ -5819,6 +5816,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		EndY = currItem->GrEndY;
 		FocalX = currItem->GrFocalX;
 		FocalY = currItem->GrFocalY;
+		Gscale = currItem->GrScale;
+		Gskew = currItem->GrSkew;
 		gradient = currItem->fill_gradient;
 	}
 	QList<VColorStop*> cstops = gradient.colorStops();
@@ -5831,6 +5830,33 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	bool spotMode = false;
 	mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 	mpa.rotate(-currItem->rotation());
+	QTransform qmatrix;
+	if (Gskew == 90)
+		Gskew = 1;
+	else if (Gskew == 180)
+		Gskew = 0;
+	else if (Gskew == 270)
+		Gskew = -1;
+	else if (Gskew == 390)
+		Gskew = 0;
+	else
+		Gskew = tan(M_PI / 180.0 * Gskew);
+	if (GType == 6)
+	{
+		mpa.translate(StartX, -StartY);
+		mpa.shear(Gskew, 0);
+		mpa.translate(-StartX, StartY);
+	}
+	else
+	{
+		double rotEnd = xy2Deg(EndX - StartX, EndY - StartY);
+		mpa.translate(StartX, -StartY);
+		mpa.rotate(-rotEnd);
+		mpa.shear(-Gskew, 0);
+		mpa.translate(0, -StartY * (1.0 - Gscale));
+		mpa.translate(-StartX, StartY);
+		mpa.scale(1, Gscale);
+	}
 	bool transparencyFound = false;
 	for (uint cst = 0; cst < gradient.Stops(); ++cst)
 	{
@@ -5871,6 +5897,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		StartObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
+		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" 0 0]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
 		if (GType == 6)

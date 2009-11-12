@@ -67,10 +67,11 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
+#include "util_math.h"
 #include "text/nlsconfig.h"
 #include "dasheditor.h"
 
-using namespace std;
+//using namespace std;
 
 
 LineFormatValue::LineFormatValue() : m_Line(), m_doc(NULL), m_name() {};
@@ -1588,7 +1589,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 //	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	connect(colgapLabel, SIGNAL(activated(int)), this, SLOT(HandleGapSwitch()));
-	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double )));
+	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double, double )));
 	connect( Cpal, SIGNAL(editGradient(bool)), this, SLOT(toggleGradientEdit(bool)));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -4587,7 +4588,7 @@ void PropertiesPalette::NewTDist()
 	}
 }
 
-void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg)
+void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4602,7 +4603,8 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			CurItem->GrStrokeEndY = y2 / m_unitRatio;
 			CurItem->GrStrokeFocalX = fx / m_unitRatio;
 			CurItem->GrStrokeFocalY = fy / m_unitRatio;
-			CurItem->GrStrokeScale = sg / m_unitRatio;
+			CurItem->GrStrokeScale = sg;
+			CurItem->GrStrokeSkew = sk;
 			if (CurItem->GrTypeStroke == 6)
 			{
 				CurItem->GrStrokeFocalX = CurItem->GrStrokeStartX;
@@ -4610,6 +4612,19 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			}
 			CurItem->update();
 			upRect = QRectF(QPointF(CurItem->GrStrokeStartX, CurItem->GrStrokeStartY), QPointF(CurItem->GrStrokeEndX, CurItem->GrStrokeEndY));
+			double radEnd = distance(CurItem->GrStrokeEndX - CurItem->GrStrokeStartX, CurItem->GrStrokeEndY - CurItem->GrStrokeStartY);
+			double rotEnd = xy2Deg(CurItem->GrStrokeEndX - CurItem->GrStrokeStartX, CurItem->GrStrokeEndY - CurItem->GrStrokeStartY);
+			QTransform m;
+			m.translate(CurItem->GrStrokeStartX, CurItem->GrStrokeStartY);
+			m.rotate(rotEnd);
+			m.rotate(-90);
+			m.rotate(CurItem->GrStrokeSkew);
+			m.translate(radEnd * CurItem->GrStrokeScale, 0);
+			QPointF shP = m.map(QPointF(0,0));
+			upRect = upRect.united(QRectF(shP, QPointF(CurItem->GrStrokeEndX, CurItem->GrStrokeEndY)).normalized());
+			upRect = upRect.united(QRectF(shP, QPointF(CurItem->GrStrokeStartX, CurItem->GrStrokeStartY)).normalized());
+			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
+			upRect |= QRectF(shP, QPointF(CurItem->width(), CurItem->height())).normalized();
 		}
 		else
 		{
@@ -4619,7 +4634,8 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			CurItem->GrEndY = y2 / m_unitRatio;
 			CurItem->GrFocalX = fx / m_unitRatio;
 			CurItem->GrFocalY = fy / m_unitRatio;
-			CurItem->GrScale = sg / m_unitRatio;
+			CurItem->GrScale = sg;
+			CurItem->GrSkew = sk;
 			if (CurItem->GrTypeStroke == 6)
 			{
 				CurItem->GrFocalX = CurItem->GrStartX;
@@ -4627,6 +4643,19 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			}
 			CurItem->update();
 			upRect = QRectF(QPointF(CurItem->GrStartX, CurItem->GrStartY), QPointF(CurItem->GrEndX, CurItem->GrEndY));
+			double radEnd = distance(CurItem->GrEndX - CurItem->GrStartX, CurItem->GrEndY - CurItem->GrStartY);
+			double rotEnd = xy2Deg(CurItem->GrEndX - CurItem->GrStartX, CurItem->GrEndY - CurItem->GrStartY);
+			QTransform m;
+			m.translate(CurItem->GrStartX, CurItem->GrStartY);
+			m.rotate(rotEnd);
+			m.rotate(-90);
+			m.rotate(CurItem->GrSkew);
+			m.translate(radEnd * CurItem->GrScale, 0);
+			QPointF shP = m.map(QPointF(0,0));
+			upRect |= QRectF(shP, QPointF(CurItem->GrEndX, CurItem->GrEndY)).normalized();
+			upRect |= QRectF(shP, QPointF(CurItem->GrStartX, CurItem->GrStartY)).normalized();
+			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
+			upRect |= QRectF(shP, QPointF(CurItem->width(), CurItem->height())).normalized();
 		}
 		upRect.translate(CurItem->xPos(), CurItem->yPos());
 		doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
@@ -5638,7 +5667,7 @@ void PropertiesPalette::updateColorSpecialGradient()
 	double dur=doc->unitRatio();
 	PageItem *currItem=doc->m_Selection->itemAt(0);
 	if (currItem)
-		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur, currItem->GrFocalX * dur, currItem->GrFocalY * dur, currItem->GrScale);
+		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur, currItem->GrFocalX * dur, currItem->GrFocalY * dur, currItem->GrScale, currItem->GrSkew);
 }
 
 void PropertiesPalette::updateSpinBoxConstants()

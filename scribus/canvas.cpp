@@ -32,6 +32,7 @@
 #include "scribusview.h"
 #include "selection.h"
 #include "util.h"
+#include "util_math.h"
 #include "units.h"
 
 #define DRAW_DEBUG_LINES 0
@@ -1169,6 +1170,19 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 		psx->drawPoint(QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
 		if (currItem->GrTypeStroke == 7)
 			psx->drawPoint(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY));
+		double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+		double rotEnd = xy2Deg(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+		QTransform m;
+		m.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
+		m.rotate(rotEnd);
+		m.rotate(-90);
+		m.rotate(currItem->GrStrokeSkew);
+		m.translate(radEnd * currItem->GrStrokeScale, 0);
+		QPointF shP = m.map(QPointF(0,0));
+		psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->drawLine(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), shP);
+		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		psx->drawPoint(shP);
 	}
 	else
 	{
@@ -1178,6 +1192,21 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 		psx->drawPoint(QPointF(currItem->GrEndX, currItem->GrEndY));
 		if (currItem->GrType == 7)
 			psx->drawPoint(QPointF(currItem->GrFocalX, currItem->GrFocalY));
+		double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+		double rotEnd = xy2Deg(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+		QTransform m;
+		m.translate(currItem->GrStartX, currItem->GrStartY);
+		m.rotate(rotEnd);
+		m.rotate(-90);
+		m.rotate(currItem->GrSkew);
+		m.translate(radEnd * currItem->GrScale, 0);
+		QPointF shP = m.map(QPointF(0,0));
+		psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), shP);
+		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		psx->drawPoint(shP);
+		
+		
 	}
 }
 

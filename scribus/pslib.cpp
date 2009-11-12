@@ -3459,7 +3459,7 @@ void PSLib::HandleStrokePattern(PageItem *c)
 
 void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool forArrow)
 {
-	double StartX, StartY, EndX, EndY, FocalX, FocalY;
+	double StartX, StartY, EndX, EndY, FocalX, FocalY, Gscale, Gskew;
 	int GType;
 	VGradient gradient;
 	QList<double> StopVec;
@@ -3475,6 +3475,8 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		EndY = c->GrStrokeEndY;
 		FocalX = c->GrStrokeFocalX;
 		FocalY = c->GrStrokeFocalY;
+		Gscale = c->GrStrokeScale;
+		Gskew = c->GrStrokeSkew;
 		gradient = c->stroke_gradient;
 	}
 	else
@@ -3486,6 +3488,8 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		EndY = c->GrEndY;
 		FocalX = c->GrFocalX;
 		FocalY = c->GrFocalY;
+		Gscale = c->GrScale;
+		Gskew = c->GrSkew;
 		gradient = c->fill_gradient;
 		if (GType == 8)
 		{
@@ -3696,7 +3700,35 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 	PutStream(">>\n");
 	PutStream(">>\n");
 	PutStream(">>\n");
-	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
+	QTransform qmatrix;
+	if (Gskew == 90)
+		Gskew = 1;
+	else if (Gskew == 180)
+		Gskew = 0;
+	else if (Gskew == 270)
+		Gskew = -1;
+	else if (Gskew == 390)
+		Gskew = 0;
+	else
+		Gskew = tan(M_PI / 180.0 * Gskew);
+	if (GType == 6)
+	{
+		qmatrix.translate(StartX, -StartY);
+		qmatrix.shear(Gskew, 0);
+		qmatrix.translate(-StartX, StartY);
+	}
+	else
+	{
+		double rotEnd = xy2Deg(EndX - StartX, EndY - StartY);
+		qmatrix.translate(StartX, -StartY);
+		qmatrix.rotate(-rotEnd);
+		qmatrix.shear(-Gskew, 0);
+		qmatrix.translate(0, -StartY * (1.0 - Gscale));
+		qmatrix.translate(-StartX, StartY);
+		qmatrix.scale(1, Gscale);
+	}
+	PutStream("["+ToStr(qmatrix.m11())+" "+ToStr(qmatrix.m12())+" "+ToStr(qmatrix.m21())+" "+ToStr(qmatrix.m22())+" "+ToStr(qmatrix.dx())+" "+ToStr(qmatrix.dy())+"] makepattern setpattern\n");
+//	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
 	if (forArrow)
 	{
 		if (fillRule)

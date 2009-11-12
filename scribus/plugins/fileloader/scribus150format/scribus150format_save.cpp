@@ -1192,6 +1192,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("GRFOCALX", item->GrFocalX);
 				docu.writeAttribute("GRFOCALY", item->GrFocalY);
 				docu.writeAttribute("GRSCALE" , item->GrScale);
+				docu.writeAttribute("GRSKEW" , item->GrSkew);
 			}
 		}
 		if (!item->gradient().isEmpty())
@@ -1207,6 +1208,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("GRFOCALXS", item->GrStrokeFocalX);
 			docu.writeAttribute("GRFOCALYS", item->GrStrokeFocalY);
 			docu.writeAttribute("GRSCALES" , item->GrStrokeScale);
+			docu.writeAttribute("GRSKEWS" , item->GrStrokeSkew);
 		}
 		if (!item->strokePattern().isEmpty())
 		{

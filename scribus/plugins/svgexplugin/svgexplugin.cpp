@@ -1601,6 +1601,35 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 					grad.setAttribute("fx", FToStr(Item->GrFocalX));
 					grad.setAttribute("fy", FToStr(Item->GrFocalY));
 				}
+				double gradientSkew;
+				if (Item->GrSkew == 90)
+					gradientSkew = 1;
+				else if (Item->GrSkew == 180)
+					gradientSkew = 0;
+				else if (Item->GrSkew == 270)
+					gradientSkew = -1;
+				else if (Item->GrSkew == 390)
+					gradientSkew = 0;
+				else
+					gradientSkew = tan(M_PI / 180.0 * Item->GrSkew);
+				QTransform qmatrix;
+				if (Item->GrType == 6)
+				{
+					qmatrix.translate(Item->GrStartX, Item->GrStartY);
+					qmatrix.shear(-gradientSkew, 0);
+					qmatrix.translate(-Item->GrStartX, -Item->GrStartY);
+				}
+				else
+				{
+					double rotEnd = xy2Deg(Item->GrEndX - Item->GrStartX, Item->GrEndY - Item->GrStartY);
+					qmatrix.translate(Item->GrStartX, Item->GrStartY);
+					qmatrix.rotate(rotEnd);
+					qmatrix.shear(gradientSkew, 0);
+					qmatrix.translate(0, Item->GrStartY * (1.0 - Item->GrScale));
+					qmatrix.translate(-Item->GrStartX, -Item->GrStartY);
+					qmatrix.scale(1, Item->GrScale);
+				}
+				grad.setAttribute("gradientTransform", MatrixToStr(qmatrix));
 				grad.setAttribute("id", "Grad"+IToStr(GradCount));
 				grad.setAttribute("gradientUnits", "userSpaceOnUse");
 				QList<VColorStop*> cstops = Item->fill_gradient.colorStops();
@@ -1840,6 +1869,35 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 			itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 			grad.appendChild(itcl);
 		}
+		double gradientSkew;
+		if (Item->GrStrokeSkew == 90)
+			gradientSkew = 1;
+		else if (Item->GrStrokeSkew == 180)
+			gradientSkew = 0;
+		else if (Item->GrStrokeSkew == 270)
+			gradientSkew = -1;
+		else if (Item->GrStrokeSkew == 390)
+			gradientSkew = 0;
+		else
+			gradientSkew = tan(M_PI / 180.0 * Item->GrStrokeSkew);
+		QTransform qmatrix;
+		if (Item->GrType == 6)
+		{
+			qmatrix.translate(Item->GrStrokeStartX, Item->GrStrokeStartY);
+			qmatrix.shear(-gradientSkew, 0);
+			qmatrix.translate(-Item->GrStrokeStartX, -Item->GrStrokeStartY);
+		}
+		else
+		{
+			double rotEnd = xy2Deg(Item->GrStrokeEndX - Item->GrStrokeStartX, Item->GrStrokeEndY - Item->GrStrokeStartY);
+			qmatrix.translate(Item->GrStrokeStartX, Item->GrStrokeStartY);
+			qmatrix.rotate(rotEnd);
+			qmatrix.shear(gradientSkew, 0);
+			qmatrix.translate(0, Item->GrStrokeStartY * (1.0 - Item->GrStrokeScale));
+			qmatrix.translate(-Item->GrStrokeStartX, -Item->GrStrokeStartY);
+			qmatrix.scale(1, Item->GrStrokeScale);
+		}
+		grad.setAttribute("gradientTransform", MatrixToStr(qmatrix));
 		grad.setAttribute("id", "Grad"+IToStr(GradCount));
 		grad.setAttribute("gradientUnits", "userSpaceOnUse");
 		globalDefs.appendChild(grad);

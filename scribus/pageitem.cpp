@@ -92,6 +92,7 @@ PageItem::PageItem(const PageItem & other)
 	GrFocalX(other.GrFocalX),
 	GrFocalY(other.GrFocalY),
 	GrScale(other.GrScale),
+	GrSkew(other.GrSkew),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
 	PLineArt(other.PLineArt),
@@ -267,7 +268,8 @@ PageItem::PageItem(const PageItem & other)
 	GrStrokeEndY(other.GrStrokeEndY),
 	GrStrokeFocalX(other.GrStrokeFocalX),
 	GrStrokeFocalY(other.GrStrokeFocalY),
-	GrStrokeScale(other.GrStrokeScale)
+	GrStrokeScale(other.GrStrokeScale),
+	GrStrokeSkew(other.GrStrokeSkew)
 {
 	QString tmp;
 	m_Doc->TotalItems++;
@@ -339,6 +341,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrFocalX = 0;
 	GrFocalY = 0;
 	GrScale = 1;
+	GrSkew = 0;
 	gradientVal = "";
 	GrTypeStroke = 0;
 	GrStrokeStartX = 0;
@@ -348,6 +351,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrStrokeFocalX = 0;
 	GrStrokeFocalY = 0;
 	GrStrokeScale = 1;
+	GrStrokeSkew = 0;
 	gradientStrokeVal = "";
 	patternVal = "";
 	patternScaleX = 100;
@@ -1167,11 +1171,11 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 						case 3:
 						case 4:
 						case 6:
-							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
+							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
 							break;
 						case 5:
 						case 7:
-							p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY));
+							p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
 							break;
 					}
 				}
@@ -1293,9 +1297,9 @@ void PageItem::DrawObj_Post(ScPainter *p)
 								p->setStrokeMode(ScPainter::Gradient);
 								p->stroke_gradient = stroke_gradient;
 								if (GrTypeStroke == 6)
-									p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY));
+									p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
 								else
-									p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY));
+									p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
 							}
 							p->strokePath();
 						}
@@ -2370,7 +2374,7 @@ void PageItem::setPattern(const QString &newPattern)
 		patternVal = newPattern;
 }
 
-void PageItem::gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale) const
+void PageItem::gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
 {
 	startX = GrStartX;
 	startY = GrStartY;
@@ -2379,9 +2383,10 @@ void PageItem::gradientVector(double& startX, double& startY, double& endX, doub
 	focalX = GrFocalX;
 	focalY = GrFocalY;
 	scale  = GrScale;
+	skew   = GrSkew;
 }
 
-void PageItem::setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale)
+void PageItem::setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew)
 {
 	GrStartX = startX;
 	GrStartY = startY;
@@ -2390,6 +2395,7 @@ void PageItem::setGradientVector(double startX, double startY, double endX, doub
 	GrFocalX = focalX;
 	GrFocalY = focalY;
 	GrScale  = scale;
+	GrSkew   = skew;
 }
 
 void PageItem::setStrokeGradient(const QString &newGradient)
@@ -2398,7 +2404,7 @@ void PageItem::setStrokeGradient(const QString &newGradient)
 		gradientStrokeVal = newGradient;
 }
 
-void PageItem::strokeGradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale) const
+void PageItem::strokeGradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
 {
 	startX = GrStrokeStartX;
 	startY = GrStrokeStartY;
@@ -2407,9 +2413,10 @@ void PageItem::strokeGradientVector(double& startX, double& startY, double& endX
 	focalX = GrStrokeFocalX;
 	focalY = GrStrokeFocalY;
 	scale  = GrStrokeScale;
+	skew   = GrStrokeSkew;
 }
 
-void PageItem::setStrokeGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale)
+void PageItem::setStrokeGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew)
 {
 	GrStrokeStartX = startX;
 	GrStrokeStartY = startY;
@@ -2418,6 +2425,7 @@ void PageItem::setStrokeGradientVector(double startX, double startY, double endX
 	GrStrokeFocalX = focalX;
 	GrStrokeFocalY = focalY;
 	GrStrokeScale  = scale;
+	GrStrokeSkew   = skew;
 }
 
 void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
@@ -4281,6 +4289,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->GrFocalX = GrFocalX;
 	Buffer->GrFocalY = GrFocalY;
 	Buffer->GrScale = GrScale;
+	Buffer->GrSkew = GrSkew;
 	Buffer->Rot = Rot;
 	Buffer->PLineArt = PLineArt;
 	Buffer->PLineEnd = PLineEnd;
@@ -5248,9 +5257,9 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 					p->setFillMode(ScPainter::Gradient);
 					p->fill_gradient = stroke_gradient;
 					if (GrTypeStroke == 6)
-						p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY));
+						p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
 					else
-						p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY));
+						p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
 				}
 				p->fillPath();
 			}

@@ -122,16 +122,10 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 					{
 						p->setStrokeMode(ScPainter::Gradient);
 						p->stroke_gradient = stroke_gradient;
-						QTransform grm;
-						grm.rotate(Rot);
-						FPointArray gra;
 						if (GrTypeStroke == 6)
-							p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY));
+							p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
 						else
-						{
-							gra.setPoints(2, GrStrokeStartX, GrStrokeStartY, GrStrokeEndX, GrStrokeEndY);
-							p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-						}
+							p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
 					}
 				}
 				else if (lineColor() != CommonStrings::None)

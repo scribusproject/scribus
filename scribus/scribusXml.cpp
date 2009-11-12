@@ -192,6 +192,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 			OB->GrFocalX = attrAsDbl(attrs, "GRFOCALX", 0.0);
 			OB->GrFocalY = attrAsDbl(attrs, "GRFOCALY", 0.0);
 			OB->GrScale  = attrAsDbl(attrs, "GRSCALE", 1.0);
+			OB->GrSkew   = attrAsDbl(attrs, "GRSKEW", 0.0);
 			if (OB->GrColor.isEmpty())
 				OB->GrColor = "Black";
 			OB->GrColor2 = attrAsString(attrs, "GRCOLOR2","Black");
@@ -212,6 +213,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->GrStrokeFocalX = attrAsDbl(attrs, "GRFOCALXS", 0.0);
 		OB->GrStrokeFocalY = attrAsDbl(attrs, "GRFOCALYS", 0.0);
 		OB->GrStrokeScale  = attrAsDbl(attrs, "GRSCALES", 1.0);
+		OB->GrStrokeSkew   = attrAsDbl(attrs, "GRSKEWS", 1.0);
 	}
 	OB->Rot        = attrAsDbl(attrs, "ROT", 0.0);
 	OB->PLineArt   = Qt::PenStyle    ( attrAsInt(attrs, "PLINEART", 0) );
@@ -2370,6 +2372,7 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRFOCALX", item->GrFocalX);
 		writer.writeAttribute("GRFOCALY", item->GrFocalY);
 		writer.writeAttribute("GRSCALE" , item->GrScale);
+		writer.writeAttribute("GRSKEW"  , item->GrSkew);
 	}
 	if (item->GrTypeStroke > 0)
 	{
@@ -2380,6 +2383,7 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRFOCALXS", item->GrStrokeFocalX);
 		writer.writeAttribute("GRFOCALYS", item->GrStrokeFocalY);
 		writer.writeAttribute("GRSCALES" , item->GrStrokeScale);
+		writer.writeAttribute("GRSKEWS"  , item->GrStrokeSkew);
 	}
 
 	if (item->effectsInUse.count() != 0)

@@ -1379,7 +1379,7 @@ void XarPlug::popGraphicContext()
 			{
 				item->GrType = gc->FillGradientType;
 				item->fill_gradient = gc->FillGradient;
-				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), 1.0);
+				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), 1.0, 0.0);
 			}
 		}
 	}

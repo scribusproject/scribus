@@ -92,6 +92,7 @@ struct CopyPasteBuffer
 	double GrFocalX;
 	double GrFocalY;
 	double GrScale;
+	double GrSkew;
 	VGradient stroke_gradient;
 	int GrTypeStroke;
 	double GrStrokeStartX;
@@ -101,6 +102,7 @@ struct CopyPasteBuffer
 	double GrStrokeFocalX;
 	double GrStrokeFocalY;
 	double GrStrokeScale;
+	double GrStrokeSkew;
 	QString TxtStroke;
 	QString TxtFill;
 	int ShTxtStroke;

@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "util_color.h"
 #include "util.h"
+#include "util_math.h"
 
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
@@ -798,7 +799,7 @@ void ScPainter::setStrokeMode( int stroke )
 	strokeMode = stroke;
 }
 
-void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc)
+void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
 {
 	fill_gradient.setType(mode);
 	fill_gradient.setOrigin(orig);
@@ -808,6 +809,17 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 	stroke_gradient.setOrigin(orig);
 	stroke_gradient.setVector(vec);
 	stroke_gradient.setFocalPoint(foc);
+	gradientScale = scale;
+	if (skew == 90)
+		gradientSkew = 1;
+	else if (skew == 180)
+		gradientSkew = 0;
+	else if (skew == 270)
+		gradientSkew = -1;
+	else if (skew == 390)
+		gradientSkew = 0;
+	else
+		gradientSkew = tan(M_PI / 180.0 * skew);
 }
 
 void ScPainter::fillTextPath()
@@ -1035,6 +1047,27 @@ void ScPainter::drawVPath( int mode )
 				qStopColor.getRgbF(&r, &g, &b);
 				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 			}
+			cairo_matrix_t matrix;
+			QTransform qmatrix;
+			if (fill_gradient.type() == VGradient::radial)
+			{
+				double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+				qmatrix.translate(x1, y1);
+				qmatrix.rotate(rotEnd);
+				qmatrix.shear(gradientSkew, 0);
+				qmatrix.translate(0, y1 * (1.0 - gradientScale));
+				qmatrix.translate(-x1, -y1);
+				qmatrix.scale(1, gradientScale);
+			}
+			else
+			{
+				qmatrix.translate(x1, y1);
+				qmatrix.shear(-gradientSkew, 0);
+				qmatrix.translate(-x1, -y1);
+			}
+			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+			cairo_matrix_invert(&matrix);
+			cairo_pattern_set_matrix (pat, &matrix);
 			cairo_set_source (m_cr, pat);
 			cairo_clip_preserve (m_cr);
 			cairo_paint_with_alpha (m_cr, fill_trans);
@@ -1153,6 +1186,27 @@ void ScPainter::drawVPath( int mode )
 				qStopColor.getRgbF(&r, &g, &b);
 				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 			}
+			cairo_matrix_t matrix;
+			QTransform qmatrix;
+			if (stroke_gradient.type() == VGradient::radial)
+			{
+				double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+				qmatrix.translate(x1, y1);
+				qmatrix.rotate(rotEnd);
+				qmatrix.shear(gradientSkew, 0);
+				qmatrix.translate(0, y1 * (1.0 - gradientScale));
+				qmatrix.translate(-x1, -y1);
+				qmatrix.scale(1, gradientScale);
+			}
+			else
+			{
+				qmatrix.translate(x1, y1);
+				qmatrix.shear(-gradientSkew, 0);
+				qmatrix.translate(-x1, -y1);
+			}
+			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+			cairo_matrix_invert(&matrix);
+			cairo_pattern_set_matrix (pat, &matrix);
 			cairo_set_source (m_cr, pat);
 			cairo_stroke_preserve( m_cr );
 			cairo_pattern_destroy (pat);

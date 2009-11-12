@@ -93,7 +93,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	p->setLineWidth(1);
 	p->setFillMode(2);
 	p->fill_gradient = fill_gradient;
-	p->setGradient(VGradient::linear, FPoint(0,20), FPoint(width()-20,20));
+	p->setGradient(VGradient::linear, FPoint(0,20), FPoint(width()-20,20), FPoint(0, 0), 1.0, 0.0);
 	p->drawRect(0, 0, width()-20, 37);
 	p->end();
 	delete p;

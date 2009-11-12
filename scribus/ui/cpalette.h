@@ -59,12 +59,12 @@ public:
 
 public slots:
 	void languageChange();
-	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg);
+	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void changeSpecial();
 	void unitChange(int unitIndex);
 
 signals:
-	void NewSpecial(double, double, double, double, double, double, double);
+	void NewSpecial(double, double, double, double, double, double, double, double);
 
 protected:
 	QGridLayout* freeGradientLayout;
@@ -74,12 +74,16 @@ protected:
 	QLabel* GTextY2;
 	QLabel* GTextFX;
 	QLabel* GTextFY;
+	QLabel* GTextSK;
+	QLabel* GTextSC;
 	ScrSpinBox* gY1;
 	ScrSpinBox* gX2;
 	ScrSpinBox* gX1;
 	ScrSpinBox* gY2;
 	ScrSpinBox* gFX;
 	ScrSpinBox* gFY;
+	ScrSpinBox* gSk;
+	ScrSpinBox* gSc;
 };
 
 class SCRIBUS_API PatternPropsDialog : public QDialog
@@ -183,7 +187,7 @@ public slots:
 	void editGradientVector();
 	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);
-	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg);
+	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void changePatternProps();
 	void changePatternPropsStroke();
 	void unitChange(double, double, int unitIndex);
@@ -198,7 +202,7 @@ signals:
 	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
 	void NewPatternS(QString);
 	void NewPatternPropsS(double, double, double, double, double, double, double, bool, bool);
-	void NewSpecial(double, double, double, double, double, double, double);
+	void NewSpecial(double, double, double, double, double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
 	void NewBlend(int);

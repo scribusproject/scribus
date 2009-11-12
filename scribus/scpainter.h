@@ -69,7 +69,7 @@ public:
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual void setStrokeMode( int stroke );
-	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
+	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	virtual void setClipPath();
 
@@ -158,6 +158,8 @@ private:
 	double patternSkewY;
 	bool patternMirrorX;
 	bool patternMirrorY;
+	double gradientScale;
+	double gradientSkew;
 	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;

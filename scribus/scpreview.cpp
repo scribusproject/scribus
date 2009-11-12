@@ -235,6 +235,10 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.GrStartY = ScCLocale::toDoubleC(pg.attribute("GRSTARTY"), 0.0);
 				OB.GrEndX = ScCLocale::toDoubleC(pg.attribute("GRENDX"), 0.0);
 				OB.GrEndY = ScCLocale::toDoubleC(pg.attribute("GRENDY"), 0.0);
+				OB.GrFocalX = ScCLocale::toDoubleC(pg.attribute("GRFOCALX"), 0.0);
+				OB.GrFocalY = ScCLocale::toDoubleC(pg.attribute("GRFOCALY"), 0.0);
+				OB.GrScale  = ScCLocale::toDoubleC(pg.attribute("GRSCALE"), 1.0);
+				OB.GrSkew   = ScCLocale::toDoubleC(pg.attribute("GRSKEW"), 0.0);
 				OB.GrColor = pg.attribute("GRCOLOR","");
 				if (!OB.GrColor.isEmpty())
 				{
@@ -533,35 +537,35 @@ QPixmap ScPreview::createPreview(QString data)
 				case 1:
 					gra.setPoints(2, 0, 0, OB.Width, 0);
 					gra.map(grm);
-					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1), FPoint(0,0), 1, 0);
 					break;
 				case 2:
 					gra.setPoints(2, 0, 0, OB.Height, 0);
 					grm.rotate(90);
 					gra.map(grm);
-					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1), FPoint(0,0), 1, 0);
 					break;
 				case 3:
 					gra.setPoints(2, 0, 0, OB.Width, OB.Height);
 					gra.map(grm);
-					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1), FPoint(0,0), 1, 0);
 					break;
 				case 4:
 					gra.setPoints(2, 0, OB.Height, OB.Width, 0);
 					gra.map(grm);
-					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1), FPoint(0,0), 1, 0);
 					break;
 				case 5:
 					if (OB.Width > OB.Height)
 						gv = FPoint(OB.Width, OB.Height / 2.0);
 					else
 						gv = FPoint(OB.Width / 2.0, OB.Height);
-					pS->setGradient(VGradient::radial, FPoint(OB.Width / 2.0,OB.Height / 2.0), gv, FPoint(OB.Width / 2.0,OB.Height / 2.0));
+					pS->setGradient(VGradient::radial, FPoint(OB.Width / 2.0,OB.Height / 2.0), gv, FPoint(OB.Width / 2.0,OB.Height / 2.0), 1, 0);
 					break;
 				case 6:
 					gra.setPoints(2, OB.GrStartX, OB.GrStartY, OB.GrEndX, OB.GrEndY);
 					gra.map(grm);
-					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1), FPoint(0,0), 1, 0);
 					break;
 				}
 			}

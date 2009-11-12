@@ -91,7 +91,7 @@ void gradientManagerDialog::updateGradientList()
 		p->setLineWidth(1);
 		p->setFillMode(2);
 		p->fill_gradient = it.value();
-		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6));
+		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6), FPoint(0, 0), 1.0, 0.0);
 		p->drawRect(0, 0, 48, 12);
 		p->end();
 		delete p;

@@ -90,12 +90,25 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	freeGradientLayout->addWidget( gFX, 2, 1 );
 	gFY = new ScrSpinBox( -3000, 3000, this, 0);
 	freeGradientLayout->addWidget( gFY, 2, 3 );
+	GTextSK = new QLabel("Skew:", this );
+	freeGradientLayout->addWidget( GTextSK, 3, 0, 1, 2 );
+	gSk = new ScrSpinBox( -89, 89, this, 6);
+	gSk->setValue( 0 );
+	freeGradientLayout->addWidget( gSk, 3, 2, 1, 2 );
+	GTextSC = new QLabel("Factor:", this );
+	freeGradientLayout->addWidget( GTextSC, 4, 0, 1, 2 );
+	gSc = new ScrSpinBox( 0.01, 100, this, 0);
+	gSc->setSuffix(" %");
+	gSc->setValue( 100 );
+	freeGradientLayout->addWidget( gSc, 4, 2, 1, 2 );
 	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gSk, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gSc, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	languageChange();
 }
 
@@ -113,8 +126,10 @@ void GradientVectorDialog::hideExtraWidgets()
 {
 	GTextFX->hide();
 	GTextFY->hide();
+	GTextSC->hide();
 	gFX->hide();
 	gFY->hide();
+	gSc->hide();
 	resize(minimumSizeHint());
 }
 
@@ -122,8 +137,10 @@ void GradientVectorDialog::showExtraWidgets()
 {
 	GTextFX->show();
 	GTextFY->show();
+	GTextSC->show();
 	gFX->show();
 	gFY->show();
+	gSc->show();
 	resize(minimumSizeHint());
 }
 
@@ -133,7 +150,7 @@ void GradientVectorDialog::languageChange()
 	resize(minimumSizeHint());
 }
 
-void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg)
+void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
 {
 	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
@@ -141,23 +158,29 @@ void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2,
 	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	disconnect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	disconnect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gSk, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gSc, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	gX1->setValue(x1);
 	gX2->setValue(x2);
 	gY1->setValue(y1);
 	gY2->setValue(y2);
 	gFX->setValue(fx);
 	gFY->setValue(fy);
+	gSk->setValue(sk);
+	gSc->setValue(sg * 100.0);
 	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gSk, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gSc, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 }
 
 void GradientVectorDialog::changeSpecial()
 {
-	emit NewSpecial(gX1->value(), gY1->value(), gX2->value(), gY2->value(), gFX->value(), gFY->value(), 1.0);
+	emit NewSpecial(gX1->value(), gY1->value(), gX2->value(), gY2->value(), gFX->value(), gFY->value(), gSc->value() / 100.0, gSk->value());
 }
 
 void GradientVectorDialog::unitChange(int unitIndex)
@@ -405,7 +428,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
 	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(ToggleColorDisplay()));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
-	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double)));
+	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)));
 	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
@@ -696,7 +719,7 @@ void Cpalette::updateGradientList()
 		p->setLineWidth(1);
 		p->setFillMode(2);
 		p->fill_gradient = it.value();
-		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6));
+		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6), FPoint(0,0), 1, 0);
 		p->drawRect(0, 0, 48, 12);
 		p->end();
 		delete p;
@@ -973,7 +996,7 @@ void Cpalette::editGradientVector()
 	if (gradEditButton->isChecked())
 	{
 		CGradDia->unitChange(currentDoc->unitIndex());
-		CGradDia->setValues(currentItem->GrStartX, currentItem->GrStartY, currentItem->GrEndX, currentItem->GrEndY, currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale);
+		CGradDia->setValues(currentItem->GrStartX, currentItem->GrStartY, currentItem->GrEndX, currentItem->GrEndY, currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew);
 		if (currentItem->GrType == 6)
 			CGradDia->hideExtraWidgets();
 		else
@@ -993,7 +1016,7 @@ void Cpalette::editGradientVectorStroke()
 	if (gradEditButtonStroke->isChecked())
 	{
 		CGradDia->unitChange(currentDoc->unitIndex());
-		CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale);
+		CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale, currentItem->GrStrokeSkew);
 		if (currentItem->GrTypeStroke == 6)
 			CGradDia->hideExtraWidgets();
 		else
@@ -1020,10 +1043,10 @@ void Cpalette::setActiveGradDia(bool active)
 	}
 }
 
-void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg)
+void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
 {
 	if (CGradDia)
-		CGradDia->setValues(x1, y1, x2, y2, fx, fy, sg);
+		CGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk);
 }
 
 void Cpalette::changePatternProps()

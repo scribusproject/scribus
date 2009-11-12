@@ -55,7 +55,8 @@ private:
 		noPointDefined,
 		useGradientStart,
 		useGradientEnd,
-		useGradientFocal
+		useGradientFocal,
+		useGradientSkew
 	} eGradientPoint;
 
 	inline bool GetItem(PageItem** pi);

@@ -176,8 +176,8 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		double newX = mousePointDoc.x(); //m->x();
 		double newY = mousePointDoc.y(); //m->y();
-		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
-		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
+//		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
+//		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
 		FPoint np(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
 		if (m_view->editStrokeGradient)
 		{
@@ -214,6 +214,25 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 						currItem->GrStrokeFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
 					}
 				}
+			}
+			if (m_gradientPoint == useGradientSkew)
+			{
+				double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+				double rotEnd = xy2Deg(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+				QTransform m;
+				m.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
+				m.rotate(rotEnd);
+				m.rotate(-90);
+				m.rotate(currItem->GrStrokeSkew);
+				m.translate(radEnd * currItem->GrStrokeScale, 0);
+				QPointF shP = m.map(QPointF(0,0));
+				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				double radNew = distance(shR.x() - currItem->GrStrokeStartX, shR.y() - currItem->GrStrokeStartY);
+				double rotNew = xy2Deg(shR.x() - currItem->GrStrokeStartX, shR.y() - currItem->GrStrokeStartY) + 90;
+				currItem->GrStrokeSkew = rotNew - rotEnd;
+				double newScale = radNew / radEnd;
+				if ((newScale > 0) && (newScale <= 1))
+					currItem->GrStrokeScale = newScale;
 			}
 			if (m_gradientPoint == useGradientEnd)
 			{
@@ -267,6 +286,25 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					}
 				}
 			}
+			if (m_gradientPoint == useGradientSkew)
+			{
+				double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+				double rotEnd = xy2Deg(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+				QTransform m;
+				m.translate(currItem->GrStartX, currItem->GrStartY);
+				m.rotate(rotEnd);
+				m.rotate(-90);
+				m.rotate(currItem->GrSkew);
+				m.translate(radEnd * currItem->GrScale, 0);
+				QPointF shP = m.map(QPointF(0,0));
+				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				double radNew = distance(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY);
+				double rotNew = xy2Deg(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY) + 90;
+				currItem->GrSkew = rotNew - rotEnd;
+				double newScale = radNew / radEnd;
+				if ((newScale > 0) && (newScale <= 1))
+					currItem->GrScale = newScale;
+			}
 			if (m_gradientPoint == useGradientEnd)
 			{
 				currItem->GrEndX -= np.x();
@@ -285,9 +323,46 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		}
 		Mxp = newX;
 		Myp = newY;
-		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
+//		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		currItem->update();
+		QRectF upRect;
+		if (m_view->editStrokeGradient)
+		{
+			upRect = QRectF(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
+			double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+			double rotEnd = xy2Deg(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+			QTransform m;
+			m.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
+			m.rotate(rotEnd);
+			m.rotate(-90);
+			m.rotate(currItem->GrStrokeSkew);
+			m.translate(radEnd * currItem->GrStrokeScale, 0);
+			QPointF shP = m.map(QPointF(0,0));
+			upRect |= upRect.united(QRectF(shP, QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY)).normalized());
+			upRect |= upRect.united(QRectF(shP, QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY)).normalized());
+			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
+			upRect |= QRectF(shP, QPointF(currItem->width(), currItem->height())).normalized();
+		}
+		else
+		{
+			upRect = QRectF(QPointF(currItem->GrStartX, currItem->GrStartY), QPointF(currItem->GrEndX, currItem->GrEndY));
+			double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+			double rotEnd = xy2Deg(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+			QTransform m;
+			m.translate(currItem->GrStartX, currItem->GrStartY);
+			m.rotate(rotEnd);
+			m.rotate(-90);
+			m.rotate(currItem->GrSkew);
+			m.translate(radEnd * currItem->GrScale, 0);
+			QPointF shP = m.map(QPointF(0,0));
+			upRect |= QRectF(shP, QPointF(currItem->GrEndX, currItem->GrEndY)).normalized();
+			upRect |= QRectF(shP, QPointF(currItem->GrStartX, currItem->GrStartY)).normalized();
+			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
+			upRect |= QRectF(shP, QPointF(currItem->width(), currItem->height())).normalized();
+		}
+		upRect.translate(currItem->xPos(), currItem->yPos());
+		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 	}
 }
 
@@ -317,28 +392,49 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	itemMatrix.translate(currItem->xPos(), currItem->yPos());
 	itemMatrix.rotate(currItem->rotation());
-	QPointF gradientStart, gradientEnd, gradientFocal;
+	QPointF gradientStart, gradientEnd, gradientFocal, gradientScale;
 	if (m_view->editStrokeGradient)
 	{
 		gradientStart = QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
 		gradientEnd = QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY);
 		gradientFocal = QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY);
+		double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+		double rotEnd = xy2Deg(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+		QTransform m;
+		m.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
+		m.rotate(rotEnd);
+		m.rotate(-90);
+		m.rotate(currItem->GrStrokeSkew);
+		m.translate(radEnd * currItem->GrStrokeScale, 0);
+		gradientScale = m.map(QPointF(0,0));
 	}
 	else
 	{
 		gradientStart = QPointF(currItem->GrStartX, currItem->GrStartY);
 		gradientEnd = QPointF(currItem->GrEndX, currItem->GrEndY);
 		gradientFocal = QPointF(currItem->GrFocalX, currItem->GrFocalY);
+		double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+		double rotEnd = xy2Deg(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+		QTransform m;
+		m.translate(currItem->GrStartX, currItem->GrStartY);
+		m.rotate(rotEnd);
+		m.rotate(-90);
+		m.rotate(currItem->GrSkew);
+		m.translate(radEnd * currItem->GrScale, 0);
+		gradientScale = m.map(QPointF(0,0));
 	}
 	gradientStart = itemMatrix.map(gradientStart);
 	gradientEnd = itemMatrix.map(gradientEnd);
 	gradientFocal = itemMatrix.map(gradientFocal);
+	gradientScale = itemMatrix.map(gradientScale);
 	if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
 		m_gradientPoint = useGradientStart;
 	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
 		m_gradientPoint = useGradientEnd;
 	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
 		m_gradientPoint = useGradientFocal;
+	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientScale))
+		m_gradientPoint = useGradientSkew;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 }
