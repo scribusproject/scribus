@@ -47,6 +47,8 @@ public:
 		GradFillX2(0),
 		GradFillY1(0),
 		GradFillY2(0),
+		GrScale(1),
+		GrSkew(0),
 		GradStrokeX1(0),
 		GradStrokeX2(0),
 		GradStrokeY1(0),
@@ -87,6 +89,8 @@ public:
 	double GradFillX2;
 	double GradFillY1;
 	double GradFillY2;
+	double GrScale;
+	double GrSkew;
 	double GradStrokeX1;
 	double GradStrokeX2;
 	double GradStrokeY1;
@@ -150,7 +154,11 @@ private:
 	void handleLineJoin(QDataStream &ts);
 	void handleQuickShapeSimple(QDataStream &ts, quint32 dataLen);
 	void handleFlatFillTransparency(QDataStream &ts);
+	void handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen);
+	void handleMultiGradientElliptical(QDataStream &ts);
+	void handleMultiGradientSkewed(QDataStream &ts);
 	void handleMultiGradient(QDataStream &ts, bool linear);
+	void handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen);
 	void handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear);
 	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
 	void defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag);

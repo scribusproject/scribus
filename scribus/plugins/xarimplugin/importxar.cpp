@@ -536,6 +536,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleSimpleGradient(ts, dataLen, true);
 	else if (tag == 154)
 		handleSimpleGradient(ts, dataLen, false);
+	else if (tag == 155)
+		handleSimpleGradientElliptical(ts, dataLen);
 	else if (tag == 157)
 		handleBitmapFill(ts, dataLen);
 	else if (tag == 166)
@@ -564,6 +566,12 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleMultiGradient(ts, true);
 	else if (tag == 4076)
 		handleMultiGradient(ts, false);
+	else if (tag == 4077)
+		handleMultiGradientElliptical(ts);
+	else if (tag == 4121)
+		handleSimpleGradientSkewed(ts, dataLen);
+	else if (tag == 4122)
+		handleMultiGradientSkewed(ts);
 	else
 	{
 //		if (m_gc.count() > 3)
@@ -674,6 +682,125 @@ void XarPlug::handleFlatFillTransparency(QDataStream &ts)
 		gc->FillOpacity = transVal / 255.0;
 }
 
+void XarPlug::handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	double blx, bly, brx, bry, tlx, tly;
+	quint32 colRef1, colRef2;
+	readCoords(ts, blx, bly);
+	readCoords(ts, tlx, tly);
+	readCoords(ts, brx, bry);
+	ts >> colRef1 >> colRef2;
+	if (dataLen == 48)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	QString gCol1 = XarColorMap[colRef1].name;
+	QString gCol2 = XarColorMap[colRef2].name;
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	gc->FillGradientType = 7;
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	gc->GrScale = distY / distX;
+	gc->GrSkew = rotS - 90 - rotB;
+	gc->GradFillX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+}
+
+void XarPlug::handleMultiGradientElliptical(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	double blx, bly, brx, bry, tlx, tly;
+	quint32 colRef1, colRef2;
+	readCoords(ts, blx, bly);
+	readCoords(ts, tlx, tly);
+	readCoords(ts, brx, bry);
+	ts >> colRef1 >> colRef2;
+	QString gCol1 = XarColorMap[colRef1].name;
+	QString gCol2 = XarColorMap[colRef2].name;
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	quint32 numCols;
+	ts >> numCols;
+	for (uint a = 0; a < numCols; a++)
+	{
+		double cpos;
+		quint32 colRef;
+		ts >> cpos;
+		ts >> colRef;
+		QString gCol = XarColorMap[colRef].name;
+		const ScColor& gradC = m_Doc->PageColors[gCol];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+	}
+	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	gc->FillGradientType = 7;
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	gc->GrScale = distY / distX;
+	gc->GrSkew = rotS - 90 - rotB;
+	gc->GradFillX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+}
+
+void XarPlug::handleMultiGradientSkewed(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	double blx, bly, brx, bry, tlx, tly;
+	quint32 colRef1, colRef2;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	readCoords(ts, tlx, tly);
+	ts >> colRef1 >> colRef2;
+	QString gCol1 = XarColorMap[colRef1].name;
+	QString gCol2 = XarColorMap[colRef2].name;
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	quint32 numCols;
+	ts >> numCols;
+	for (uint a = 0; a < numCols; a++)
+	{
+		double cpos;
+		quint32 colRef;
+		ts >> cpos;
+		ts >> colRef;
+		QString gCol = XarColorMap[colRef].name;
+		const ScColor& gradC = m_Doc->PageColors[gCol];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+	}
+	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	gc->FillGradientType = 6;
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	gc->GrScale = distY / distX;
+	gc->GrSkew = rotS - 90 - rotB;
+	gc->GradFillX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+}
+
 void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 {
 	XarStyle *gc = m_gc.top();
@@ -706,6 +833,41 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 		gc->FillGradientType = 6;
 	else
 		gc->FillGradientType = 7;
+	gc->GradFillX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+}
+
+void XarPlug::handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	double blx, bly, brx, bry, tlx, tly;
+	quint32 colRef1, colRef2;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	readCoords(ts, tlx, tly);
+	ts >> colRef1 >> colRef2;
+	if (dataLen == 48)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	QString gCol1 = XarColorMap[colRef1].name;
+	QString gCol2 = XarColorMap[colRef2].name;
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	gc->FillGradientType = 6;
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	gc->GrScale = distY / distX;
+	gc->GrSkew = rotS - 90 - rotB;
 	gc->GradFillX1 = blx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
@@ -757,12 +919,10 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 		double p, p1;
 		ts >> p >> p1;
 	}
-	QPointF bl(blx, bly);
-	QPointF br(brx, bry);
-	QPointF tl(tlx, tly);
-	double distX = sqrt(pow(br.x() - bl.x(), 2) + pow(br.y() - bl.y(), 2));
-	double distY = sqrt(pow(tl.x() - bl.x(), 2) + pow(tl.y() - bl.y(), 2));
-	double rot = xy2Deg(brx - blx, bry - bly);
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
 	if (patternRef.contains(bref))
 	{
 		ScPattern pat = m_Doc->docPatterns[patternRef[bref]];
@@ -771,8 +931,8 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 		gc->patternScaleY = distY / pat.height * 100;
 		gc->patternOffsetX = 0.0;
 		gc->patternOffsetY = 0.0;
-		gc->patternRotation = -rot;
-		gc->patternSkewX = 0.0;
+		gc->patternRotation = -rotB;
+		gc->patternSkewX = rotS - 90 - rotB;
 		gc->patternSkewY = 0.0;
 	}
 }
@@ -1379,7 +1539,7 @@ void XarPlug::popGraphicContext()
 			{
 				item->GrType = gc->FillGradientType;
 				item->fill_gradient = gc->FillGradient;
-				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), 1.0, 0.0);
+				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GrScale, gc->GrSkew);
 			}
 		}
 	}
