@@ -1267,6 +1267,24 @@ void ScPainter::drawVPath(int mode)
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
 				pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
 			}
+			QTransform qmatrix;
+			if (fill_gradient.type() == VGradient::radial)
+			{
+				double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+				qmatrix.translate(x1, y1);
+				qmatrix.rotate(rotEnd);
+				qmatrix.shear(gradientSkew, 0);
+				qmatrix.translate(0, y1 * (1.0 - gradientScale));
+				qmatrix.translate(-x1, -y1);
+				qmatrix.scale(1, gradientScale);
+			}
+			else
+			{
+				qmatrix.translate(x1, y1);
+				qmatrix.shear(-gradientSkew, 0);
+				qmatrix.translate(-x1, -y1);
+			}
+			pat.setTransform(qmatrix);
 			painter.setOpacity(fill_trans);
 			painter.fillPath(m_path, pat);
 		}
@@ -1375,6 +1393,24 @@ void ScPainter::drawVPath(int mode)
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
 				pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
 			}
+			QTransform qmatrix;
+			if (stroke_gradient.type() == VGradient::radial)
+			{
+				double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+				qmatrix.translate(x1, y1);
+				qmatrix.rotate(rotEnd);
+				qmatrix.shear(gradientSkew, 0);
+				qmatrix.translate(0, y1 * (1.0 - gradientScale));
+				qmatrix.translate(-x1, -y1);
+				qmatrix.scale(1, gradientScale);
+			}
+			else
+			{
+				qmatrix.translate(x1, y1);
+				qmatrix.shear(-gradientSkew, 0);
+				qmatrix.translate(-x1, -y1);
+			}
+			pat.setTransform(qmatrix);
 			painter.setOpacity(stroke_trans);
 			pen.setBrush(pat);
 		}
