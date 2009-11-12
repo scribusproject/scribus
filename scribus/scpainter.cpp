@@ -1284,9 +1284,10 @@ void ScPainter::drawVPath(int mode)
 				qmatrix.shear(-gradientSkew, 0);
 				qmatrix.translate(-x1, -y1);
 			}
-			pat.setTransform(qmatrix);
+			QBrush brush = QBrush(pat);
+			brush.setTransform(qmatrix);
 			painter.setOpacity(fill_trans);
-			painter.fillPath(m_path, pat);
+			painter.fillPath(m_path, brush);
 		}
 		else if (fillMode == 3)
 		{
@@ -1410,9 +1411,10 @@ void ScPainter::drawVPath(int mode)
 				qmatrix.shear(-gradientSkew, 0);
 				qmatrix.translate(-x1, -y1);
 			}
-			pat.setTransform(qmatrix);
+			QBrush brush = QBrush(pat);
+			brush.setTransform(qmatrix);
 			painter.setOpacity(stroke_trans);
-			pen.setBrush(pat);
+			pen.setBrush(brush);
 		}
 		painter.strokePath(m_path, pen);
 	}
