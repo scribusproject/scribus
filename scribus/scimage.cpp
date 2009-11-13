@@ -1779,7 +1779,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	bool gotAlpha = false;
-	ScImgDataLoader* pDataLoader = NULL;
+	auto_ptr<ScImgDataLoader> pDataLoader;
 	imgInfo.valid = false;
 	imgInfo.clipPath = "";
 	imgInfo.PDSpathData.clear();
@@ -1800,54 +1800,47 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		return true;
 	if (extensionIndicatesPDF(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PDF();
+		pDataLoader.reset( new ScImgDataLoader_PDF() );
 	}
 	else if (extensionIndicatesEPSorPS(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PS();
+		pDataLoader.reset( new ScImgDataLoader_PS() );
 	}
 	else if (extensionIndicatesTIFF(ext))
 	{
-		pDataLoader = new ScImgDataLoader_TIFF();
-		if	(pDataLoader)
+		pDataLoader.reset( new ScImgDataLoader_TIFF() );
+		if	(pDataLoader.get())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (extensionIndicatesPSD(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PSD();
-		if	(pDataLoader)
+		pDataLoader.reset( new ScImgDataLoader_PSD() );
+		if	(pDataLoader.get())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (ext == "pat")
-		pDataLoader = new ScImgDataLoader_GIMP();
+		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
-		pDataLoader = new ScImgDataLoader_PICT();
+		pDataLoader.reset( new ScImgDataLoader_PICT() );
 	else if (ext == "wpg")
-		pDataLoader = new ScImgDataLoader_WPG();
+		pDataLoader.reset( new ScImgDataLoader_WPG() );
+#ifdef GMAGICK_FOUND
+#warning "Compiling with GraphicsMagick support!"
 	else if (fmtImg.contains(ext))
-		pDataLoader = new ScImgDataLoader_QT();
-	#ifdef GMAGICK_FOUND
-		#warning "Compiling with GraphicsMagick support!"
+		pDataLoader.reset( new ScImgDataLoader_QT() );
 	else
-		pDataLoader = new ScImgDataLoader_GMagick();
-	#endif
-/*	else
-	#ifdef GMAGICK_FOUND
-		#warning "Compiling with GraphicsMagick support!"
-		pDataLoader = new ScImgDataLoader_GMagick();
-	#else
-		pDataLoader = new ScImgDataLoader_QT();
-	#endif
-*/
-	if (pDataLoader)
+		pDataLoader .reset( new ScImgDataLoader_GMagick();
+#else
+	else
+		pDataLoader.reset( new ScImgDataLoader_QT() );
+#endif
+
+	if (pDataLoader.get())
 	{
 		bool hasAlpha    = false;
 		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, page, gsRes, hasAlpha);
 		if (!alphaLoaded || !hasAlpha)
-		{
-			delete pDataLoader;
 			return alphaLoaded;
-		}
 		QImage rImage;
 		if (pDataLoader->useRawImage() || extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 		{
@@ -1862,10 +1855,7 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		else
 			rImage = pDataLoader->image();
 		if (rImage.isNull())
-		{
-			delete pDataLoader;
 			return false;
-		}
 		if ((scaleXSize != 0) && (scaleYSize != 0) && (scaleXSize != rImage.width() || scaleYSize != rImage.height()))
 			rImage = rImage.scaled(scaleXSize, scaleYSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		int i = 0, w2;
@@ -1917,7 +1907,6 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 				gotAlpha = true;
 			}
 		}
-		delete pDataLoader;
 	}
 	return gotAlpha;
 }
@@ -2035,18 +2024,16 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_PICT() );
 	else if (ext == "wpg")
 		pDataLoader.reset( new ScImgDataLoader_WPG() );
+#ifdef GMAGICK_FOUND
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
-	#ifdef GMAGICK_FOUND
 	else
 		pDataLoader.reset( new ScImgDataLoader_GMagick() );
-	#endif
-/*	#ifdef GMAGICK_FOUND
-		pDataLoader.reset( new ScImgDataLoader_GMagick() );
-	#else
+#else
+	else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
-	#endif
-*/
+#endif
+
 	if (pDataLoader->loadPicture(fn, page, gsRes, (requestType == Thumbnail)))
 	{
 		QImage::operator=(pDataLoader->image());
