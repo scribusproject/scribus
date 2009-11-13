@@ -1774,7 +1774,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	bool gotAlpha = false;
-	ScImgDataLoader* pDataLoader = NULL;
+	auto_ptr<ScImgDataLoader> pDataLoader;
 	imgInfo.valid = false;
 	imgInfo.clipPath = "";
 	imgInfo.PDSpathData.clear();
@@ -1789,38 +1789,35 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		return true;
 	if (extensionIndicatesPDF(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PDF();
+		pDataLoader.reset( new ScImgDataLoader_PDF() );
 	}
 	else if (extensionIndicatesEPSorPS(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PS();
+		pDataLoader.reset( new ScImgDataLoader_PS() );
 	}
 	else if (extensionIndicatesTIFF(ext))
 	{
-		pDataLoader = new ScImgDataLoader_TIFF();
-		if	(pDataLoader)
+		pDataLoader.reset( new ScImgDataLoader_TIFF() );
+		if	(pDataLoader.get())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (extensionIndicatesPSD(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PSD();
-		if	(pDataLoader)
+		pDataLoader.reset( new ScImgDataLoader_PSD() );
+		if	(pDataLoader.get())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (ext == "pat")
-		pDataLoader = new ScImgDataLoader_GIMP();
+		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else
-		pDataLoader = new ScImgDataLoader_QT();
+		pDataLoader.reset( new ScImgDataLoader_QT() );
 
-	if	(pDataLoader)
+	if	(pDataLoader.get())
 	{
 		bool hasAlpha    = false;
 		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, page, gsRes, hasAlpha);
 		if (!alphaLoaded || !hasAlpha)
-		{
-			delete pDataLoader;
 			return alphaLoaded;
-		}
 		QImage rImage;
 		if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 		{
@@ -1835,10 +1832,7 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		else
 			rImage = pDataLoader->image();
 		if (rImage.isNull())
-		{
-			delete pDataLoader;
 			return false;
-		}
 		if ((scaleXSize != 0) && (scaleYSize != 0) && (scaleXSize != rImage.width() || scaleYSize != rImage.height()))
 			rImage = rImage.scaled(scaleXSize, scaleYSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		int i = 0, w2;
@@ -1890,7 +1884,6 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 				gotAlpha = true;
 			}
 		}
-		delete pDataLoader;
 	}
 	return gotAlpha;
 }
