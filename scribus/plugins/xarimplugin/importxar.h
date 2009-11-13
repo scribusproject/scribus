@@ -59,7 +59,9 @@ public:
 		PLineJoin(Qt::BevelJoin),
 		StrokeCol("Black"),
 		FillOpacity(0.0),
+		FillBlend(0),
 		StrokeOpacity(0.0),
+		StrokeBlend(0),
 		clipPath(),
 		fillPattern(""),
 		patternScaleX(0),
@@ -101,7 +103,9 @@ public:
 	Qt::PenJoinStyle PLineJoin;
 	QString StrokeCol;
 	double FillOpacity;
+	int    FillBlend;
 	double StrokeOpacity;
+	int    StrokeBlend;
 	FPointArray clipPath;
 	QString fillPattern;
 	double patternScaleX;
@@ -154,6 +158,9 @@ private:
 	void handleLineJoin(QDataStream &ts);
 	void handleQuickShapeSimple(QDataStream &ts, quint32 dataLen);
 	void handleFlatFillTransparency(QDataStream &ts);
+	void handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen, bool linear);
+	void handleEllipticalGradientTransparency(QDataStream &ts, quint32 dataLen);
+	int  convertBlendMode(int val);
 	void handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen);
 	void handleMultiGradientElliptical(QDataStream &ts);
 	void handleMultiGradientSkewed(QDataStream &ts);
@@ -163,8 +170,9 @@ private:
 	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
 	void defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag);
 	void handleLineColor(QDataStream &ts);
-	void handleFlatFill(QDataStream &ts);
 	void handleLineWidth(QDataStream &ts);
+	void handleFlatLineTransparency(QDataStream &ts);
+	void handleFlatFill(QDataStream &ts);
 	void createPolylineItem(int type);
 	void createPolygonItem(int type);
 	void finishItem(int z);

@@ -542,6 +542,14 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleBitmapFill(ts, dataLen);
 	else if (tag == 166)
 		handleFlatFillTransparency(ts);
+	else if (tag == 167)
+		handleSimpleGradientTransparency(ts, dataLen, true);
+	else if (tag == 168)
+		handleSimpleGradientTransparency(ts, dataLen, true);
+	else if (tag == 169)
+		handleEllipticalGradientTransparency(ts, dataLen);
+	else if (tag == 173)
+		handleFlatLineTransparency(ts);
 	else if ((tag == 174) || (tag == 175))
 		handleLineEnd(ts);
 	else if (tag == 176)
@@ -679,7 +687,75 @@ void XarPlug::handleFlatFillTransparency(QDataStream &ts)
 	ts >> transVal >> transType;
 	XarStyle *gc = m_gc.top();
 	if (transType > 0)
+	{
 		gc->FillOpacity = transVal / 255.0;
+		gc->FillBlend = convertBlendMode(transType);
+	}
+}
+
+void XarPlug::handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen, bool linear)
+{
+	XarStyle *gc = m_gc.top();
+	double blx, bly, brx, bry;
+	quint8 transStart, transEnd, transType;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	ts >> transStart >> transEnd >> transType;
+	if (dataLen == 35)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	if (transType > 0)
+	{
+		double s = transStart / 255.0;
+		double e = transEnd / 255.0;
+		gc->FillOpacity = (s + e) / 2.0;
+		gc->FillBlend = convertBlendMode(transType);
+	}
+}
+
+void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	double blx, bly, brx, bry, tlx, tly;
+	quint8 transStart, transEnd, transType;
+	readCoords(ts, blx, bly);
+	readCoords(ts, tlx, tly);
+	readCoords(ts, brx, bry);
+	ts >> transStart >> transEnd >> transType;
+	if (dataLen == 43)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	if (transType > 0)
+	{
+		double s = transStart / 255.0;
+		double e = transEnd / 255.0;
+		gc->FillOpacity = (s + e) / 2.0;
+		gc->FillBlend = convertBlendMode(transType);
+	}
+}
+
+int XarPlug::convertBlendMode(int val)
+{
+	int ret = 0;
+	if (val == 2)
+		ret = 6;
+	else if (val == 3)
+		ret = 10;
+	else if (val == 5)
+		ret = 13;
+	else if (val == 7)
+		ret = 7;
+	else if (val == 9)
+		ret = 15;
+	else if (val == 10)
+		ret = 12;
+	else
+		ret = 0;
+	return ret;
 }
 
 void XarPlug::handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen)
@@ -1016,6 +1092,23 @@ void XarPlug::handleLineColor(QDataStream &ts)
 	}
 }
 
+void XarPlug::handleLineWidth(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	quint32 val;
+	ts >> val;
+	gc->LWidth = val / 1000.0;
+}
+
+void XarPlug::handleFlatLineTransparency(QDataStream &ts)
+{
+	quint8 transVal, transType;
+	ts >> transVal >> transType;
+	XarStyle *gc = m_gc.top();
+	if (transType > 0)
+		gc->StrokeOpacity = transVal / 255.0;
+}
+
 void XarPlug::handleFlatFill(QDataStream &ts)
 {
 	XarStyle *gc = m_gc.top();
@@ -1028,14 +1121,6 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 			gc->FillCol = XarColorMap[val].name;
 		}
 	}
-}
-
-void XarPlug::handleLineWidth(QDataStream &ts)
-{
-	XarStyle *gc = m_gc.top();
-	quint32 val;
-	ts >> val;
-	gc->LWidth = val / 1000.0;
 }
 
 void XarPlug::createPolygonItem(int type)
@@ -1523,6 +1608,8 @@ void XarPlug::popGraphicContext()
 			PageItem *item = gc->Elements.at(a);
 			item->setFillColor(gc->FillCol);
 			item->setFillTransparency(gc->FillOpacity);
+			item->setFillBlendmode(gc->FillBlend);
+			item->setLineTransparency(gc->StrokeOpacity);
 			item->setLineWidth(gc->LWidth);
 			item->setLineColor(gc->StrokeCol);
 			item->setLineJoin(gc->PLineJoin);
