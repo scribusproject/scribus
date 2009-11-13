@@ -68,42 +68,50 @@ class GradientHelper
 {
 public:
 	GradientHelper() :
-		CSpace(false),
+		cspace(false),
 		cspaceValid(true),
 		gradient(VGradient::linear),
 		gradientValid(false),
 		matrix(),
 		matrixValid(false),
 		reference(""),
-		Type(1),
+		type(1),
 		typeValid(false),
-		X1(0),
+		x1(0),
 		x1Valid(true),
-		X2(1),
+		x2(1),
 		x2Valid(true),
-		Y1(0),
+		y1(0),
 		y1Valid(true),
-		Y2(0),
-		y2Valid(true)
+		y2(0),
+		y2Valid(true),
+		fx(0),
+		fxValid(true),
+		fy(0),
+		fyValid(true)
 		{
 		}
-	bool CSpace;
+	bool cspace;
 	bool cspaceValid;
 	VGradient gradient;
 	bool gradientValid;
 	QTransform matrix;
 	bool matrixValid;
 	QString reference;
-	int Type;
+	int type;
 	bool typeValid;
-	double X1;
+	double x1;
 	bool x1Valid;
-	double X2;
+	double x2;
 	bool x2Valid;
-	double Y1;
+	double y1;
 	bool y1Valid;
-	double Y2;
+	double y2;
 	bool y2Valid;
+	double fx;
+	bool fxValid;
+	double fy;
+	bool fyValid;
 	};
 
 class SvgStyle
@@ -132,10 +140,14 @@ public:
 		GradFillX2(0),
 		GradFillY1(0),
 		GradFillY2(0),
+		GradFillFX(0),
+		GradFillFY(0),
 		GradStrokeX1(0),
 		GradStrokeX2(0),
 		GradStrokeY1(0),
 		GradStrokeY2(0),
+		GradStrokeFX(0),
+		GradStrokeFY(0),
 		InherCol(false),
 		LWidth(1.0),
 		matrix(),
@@ -175,10 +187,14 @@ public:
 	double GradFillX2;
 	double GradFillY1;
 	double GradFillY2;
+	double GradFillFX;
+	double GradFillFY;
 	double GradStrokeX1;
 	double GradStrokeX2;
 	double GradStrokeY1;
 	double GradStrokeY2;
+	double GradStrokeFX;
+	double GradStrokeFY;
 	bool InherCol;
 	double LWidth;
 	QTransform matrix;

@@ -3862,8 +3862,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			currItem->GrType = Buffer->GrType;
 			currItem->GrStartX = Buffer->GrStartX;
 			currItem->GrStartY = Buffer->GrStartY;
-			currItem->GrEndX = Buffer->GrEndX;
-			currItem->GrEndY = Buffer->GrEndY;
+			currItem->GrEndX   = Buffer->GrEndX;
+			currItem->GrEndY   = Buffer->GrEndY;
+			currItem->GrFocalX = Buffer->GrFocalX;
+			currItem->GrFocalY = Buffer->GrFocalY;
+			currItem->GrScale  = Buffer->GrScale;
+			currItem->GrSkew   = Buffer->GrSkew;
 			currItem->updateGradientVectors();
 		}
 	}
@@ -3875,6 +3879,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->GrStrokeStartY = Buffer->GrStrokeStartY;
 		currItem->GrStrokeEndX = Buffer->GrStrokeEndX;
 		currItem->GrStrokeEndY = Buffer->GrStrokeEndY;
+		currItem->GrStrokeFocalX = Buffer->GrStrokeFocalX;
+		currItem->GrStrokeFocalY = Buffer->GrStrokeFocalY;
+		currItem->GrStrokeScale  = Buffer->GrStrokeScale;
+		currItem->GrStrokeSkew   = Buffer->GrStrokeSkew;
 		currItem->updateGradientVectors();
 	}
 	currItem->setObjectAttributes(&(Buffer->pageItemAttributes));
