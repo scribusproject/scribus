@@ -3257,7 +3257,11 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			else
 				isGroup = false;
 		}
-		scrActions["itemGroup"]->setEnabled(!isGroup);
+		// It is possible to select objects on different layer using
+		// document outline palette. We need to check selected objects
+		// are on a common layer before allowing user to group them
+		bool objectsOnSameLayer = (doc->m_Selection->objectsLayer() != -1);
+		scrActions["itemGroup"]->setEnabled(!isGroup && objectsOnSameLayer);
 		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
 		if (docSelectionCount == 2)
 		{

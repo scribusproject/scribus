@@ -510,6 +510,22 @@ bool Selection::itemsAreSameType() const
 	return true;
 }
 
+int Selection::objectsLayer(void) const
+{
+	if (m_SelList.isEmpty())
+		return -1;
+	int layerID = m_SelList.at(0)->LayerID;
+	for (int i = 1; i < m_SelList.count(); ++i)
+	{
+		if (m_SelList.at(i)->LayerID != layerID)
+		{
+			layerID = -1;
+			break;
+		}
+	}
+	return layerID;
+}
+
 bool Selection::signalsDelayed(void)
 {
 	return (m_isGUISelection && (m_delaySignals > 0));

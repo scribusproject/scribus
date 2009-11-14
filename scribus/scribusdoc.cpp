@@ -10317,6 +10317,9 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 		if (itemSelection->count() < 1)
 			return;
+		int objectsLayer = itemSelection->objectsLayer();
+		if (objectsLayer == -1)
+			return;
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
@@ -10414,12 +10417,13 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		PageItem *high = Items->at(highestItem);
 		undoManager->setUndoEnabled(false);
 		int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, itemToolPrefs.shapeFillColor, itemToolPrefs.shapeLineColor, true);
-		PageItem *neu = Items->takeAt(z);
-		Items->insert(lowestItem, neu);
-		neu->setItemName( tr("Group%1").arg(GroupCounter));
-		neu->AutoName = false;
-		neu->isGroupControl = true;
-		neu->groupsLastItem = high;
+		PageItem *groupItem = Items->takeAt(z);
+		Items->insert(lowestItem, groupItem);
+		groupItem->setItemName( tr("Group%1").arg(GroupCounter));
+		groupItem->AutoName = false;
+		groupItem->isGroupControl = true;
+		groupItem->groupsLastItem = high;
+		groupItem->LayerID = objectsLayer;
 		undoManager->setUndoEnabled(true);
 
 		QMap<int, uint> ObjOrder;
@@ -10437,7 +10441,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		}
 
 		renumberItemsInListOrder();
-		itemSelection->prependItem(neu);
+		itemSelection->prependItem(groupItem);
 		selectedItemCount=itemSelection->count();
 		SimpleState *ss = new SimpleState(Um::Group, tooltip);
 		ss->set("GROUP", "group");
