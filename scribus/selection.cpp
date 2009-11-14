@@ -481,8 +481,8 @@ bool Selection::itemsAreSameType() const
 		return true;
 	if (m_SelList.isEmpty())
 		return false;
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
+	SelectionList::ConstIterator it = m_SelList.begin();
+	SelectionList::ConstIterator itend = m_SelList.end();
 	PageItem::ItemType itemType = (*it)->itemType();
 	for ( ; it!=itend ; ++it)
 	{
@@ -492,6 +492,22 @@ bool Selection::itemsAreSameType() const
 			return false;
 	}
 	return true;
+}
+
+int Selection::objectsLayer(void) const
+{
+	if (m_SelList.isEmpty())
+		return -1;
+	int layerID = m_SelList.at(0)->LayerNr;
+	for (int i = 1; i < m_SelList.count(); ++i)
+	{
+		if (m_SelList.at(i)->LayerNr != layerID)
+		{
+			layerID = -1;
+			break;
+		}
+	}
+	return layerID;
 }
 
 bool Selection::signalsDelayed(void)
