@@ -1829,7 +1829,7 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 	else
-		pDataLoader .reset( new ScImgDataLoader_GMagick();
+		pDataLoader .reset( new ScImgDataLoader_GMagick() );
 #else
 	else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
