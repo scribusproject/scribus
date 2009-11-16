@@ -1307,6 +1307,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		{
 			if (fillBlendmode() != 0)
 				p->endLayer();
+			p->setMaskMode(0);
 			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))

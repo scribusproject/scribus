@@ -218,6 +218,11 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->GrMask = attrAsInt(attrs, "GRTYPM"  , 0);
 	if (OB->GrMask == 1)
 	{
+		int grM = attrAsInt(attrs, "GRMK", 0);
+		if (grM == 0)
+			OB->mask_gradient = VGradient(VGradient::linear);
+		else
+			OB->mask_gradient = VGradient(VGradient::radial);
 		OB->mask_gradient.clearStops();
 		OB->GrMaskStartX = attrAsDbl(attrs, "GRSTARTXM", 0.0);
 		OB->GrMaskStartY = attrAsDbl(attrs, "GRSTARTYM", 0.0);
@@ -1200,7 +1205,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 		if (tagName == "Gradient")
 		{
 			VGradient gra;
-			QString grName = attrs.value("Name").toString();gra = VGradient(VGradient::linear);
+			QString grName = attrs.value("Name").toString();
+			gra = VGradient(VGradient::linear);
 			gra.clearStops();
 			while(!(sReader.isEndElement() && sReader.name() == tagName))
 			{
@@ -2564,6 +2570,10 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		}
 		else
 			writer.writeAttribute("GRNAMEM"  , item->gradientMask());
+		if (item->mask_gradient.type() == VGradient::radial)
+			writer.writeAttribute("GRMK", 1);
+		else
+			writer.writeAttribute("GRMK", 0);
 		writer.writeAttribute("GRSTARTXM", item->GrMaskStartX);
 		writer.writeAttribute("GRSTARTYM", item->GrMaskStartY);
 		writer.writeAttribute("GRENDXM", item->GrMaskEndX);

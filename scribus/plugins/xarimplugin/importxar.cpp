@@ -1655,7 +1655,7 @@ void XarPlug::popGraphicContext()
 			PageItem *item = gc->Elements.at(a);
 			item->setFillColor(gc->FillCol);
 			item->setFillTransparency(gc->FillOpacity);
-//			item->setFillBlendmode(gc->FillBlend);
+			item->setFillBlendmode(gc->FillBlend);
 			item->setLineTransparency(gc->StrokeOpacity);
 			item->setLineWidth(gc->LWidth);
 			item->setLineColor(gc->StrokeCol);

@@ -366,6 +366,10 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	{
 		Xml_attr gradientV;
 		gradientV.insert("GRTYPEM", toXMLString(GrMask));
+		if (mask_gradient.type() == VGradient::radial)
+			gradientV.insert("GRMK", "1");
+		else
+			gradientV.insert("GRMK", "0");
 		gradientV.insert("GRSTARTXM", toXMLString(GrMaskStartX));
 		gradientV.insert("GRSTARTYM", toXMLString(GrMaskStartY));
 		gradientV.insert("GRENDXM", toXMLString(GrMaskEndX));
@@ -641,6 +645,11 @@ class Gradient_body : public Action_body
 			item->GrMaskScale = parseDouble(attr["GRSCALEM"]);
 			item->GrMaskSkew = parseDouble(attr["GRSKEWM"]);
 			item->setGradientMask(attr["GRNAMEM"]);
+			int grM = parseInt(attr["GRMK"]);
+			if (grM == 0)
+				item->mask_gradient = VGradient(VGradient::linear);
+			else
+				item->mask_gradient = VGradient(VGradient::radial);
 			item->mask_gradient.clearStops();
 		}
 		if (tagName=="Gradient")

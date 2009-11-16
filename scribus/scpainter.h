@@ -125,6 +125,7 @@ private:
 		FPointArray groupClip;
 		bool pushed;
 	};
+	cairo_pattern_t *getMaskPattern();
 #else
 	QPainter painter;
 	QPainterPath m_path;

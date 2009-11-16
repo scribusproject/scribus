@@ -2618,6 +2618,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	{
 		if (fillBlendmode() != 0)
 			p->endLayer();
+		p->setMaskMode(0);
 		if (!m_Doc->RePos)
 		{
 			if (lineBlendmode() != 0)
