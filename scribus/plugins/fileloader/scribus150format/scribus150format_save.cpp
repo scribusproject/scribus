@@ -1199,6 +1199,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("GRNAME", item->gradient());
 		if (!item->strokeGradient().isEmpty())
 			docu.writeAttribute("GRNAMES", item->strokeGradient());
+		if (!item->gradientMask().isEmpty())
+			docu.writeAttribute("GRNAMEM", item->gradientMask());
 		if (item->GrTypeStroke > 0)
 		{
 			docu.writeAttribute("GRSTARTXS", item->GrStrokeStartX);
@@ -1226,6 +1228,35 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pSkewYS", patternSkewY);
 			docu.writeAttribute("pMirrorXS" , mirrorX);
 			docu.writeAttribute("pMirrorYS" , mirrorY);
+		}
+		if (item->GrMask > 0)
+		{
+			docu.writeAttribute("GRTYPM", item->GrMask);
+			docu.writeAttribute("GRSTARTXM", item->GrMaskStartX);
+			docu.writeAttribute("GRSTARTYM", item->GrMaskStartY);
+			docu.writeAttribute("GRENDXM", item->GrMaskEndX);
+			docu.writeAttribute("GRENDYM", item->GrMaskEndY);
+			docu.writeAttribute("GRFOCALXM", item->GrMaskFocalX);
+			docu.writeAttribute("GRFOCALYM", item->GrMaskFocalY);
+			docu.writeAttribute("GRSCALEM" , item->GrMaskScale);
+			docu.writeAttribute("GRSKEWM" , item->GrMaskSkew);
+		}
+		if (!item->patternMask().isEmpty())
+		{
+			docu.writeAttribute("patternM", item->patternMask());
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			item->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+			bool mirrorX, mirrorY;
+			item->maskFlip(mirrorX, mirrorY);
+			docu.writeAttribute("pScaleXM", patternScaleX);
+			docu.writeAttribute("pScaleYM", patternScaleY);
+			docu.writeAttribute("pOffsetXM", patternOffsetX);
+			docu.writeAttribute("pOffsetYM", patternOffsetY);
+			docu.writeAttribute("pRotationM", patternRotation);
+			docu.writeAttribute("pSkewXM", patternSkewX);
+			docu.writeAttribute("pSkewYM", patternSkewY);
+			docu.writeAttribute("pMirrorXM" , mirrorX);
+			docu.writeAttribute("pMirrorYM" , mirrorY);
 		}
 		if (item->itemText.defaultStyle().hasParent())
 			docu.writeAttribute("PSTYLE", item->itemText.defaultStyle().parent());
@@ -1301,6 +1332,18 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			for (uint cst = 0; cst < item->stroke_gradient.Stops(); ++cst)
 			{
 				docu.writeEmptyElement("S_CSTOP");
+				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
+				docu.writeAttribute("NAME", cstops.at(cst)->name);
+				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
+				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+			}
+		}
+		if ((item->GrMask > 0) && (item->gradientMask().isEmpty()))
+		{
+			QList<VColorStop*> cstops = item->mask_gradient.colorStops();
+			for (uint cst = 0; cst < item->mask_gradient.Stops(); ++cst)
+			{
+				docu.writeEmptyElement("M_CSTOP");
 				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
 				docu.writeAttribute("NAME", cstops.at(cst)->name);
 				docu.writeAttribute("SHADE", cstops.at(cst)->shade);

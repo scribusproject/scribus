@@ -215,6 +215,32 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->GrStrokeScale  = attrAsDbl(attrs, "GRSCALES", 1.0);
 		OB->GrStrokeSkew   = attrAsDbl(attrs, "GRSKEWS", 1.0);
 	}
+	OB->GrMask = attrAsInt(attrs, "GRTYPM"  , 0);
+	if (OB->GrMask == 1)
+	{
+		OB->mask_gradient.clearStops();
+		OB->GrMaskStartX = attrAsDbl(attrs, "GRSTARTXM", 0.0);
+		OB->GrMaskStartY = attrAsDbl(attrs, "GRSTARTYM", 0.0);
+		OB->GrMaskEndX   = attrAsDbl(attrs, "GRENDXM", 0.0);
+		OB->GrMaskEndY   = attrAsDbl(attrs, "GRENDYM", 0.0);
+		OB->GrMaskFocalX = attrAsDbl(attrs, "GRFOCALXM", 0.0);
+		OB->GrMaskFocalY = attrAsDbl(attrs, "GRFOCALYM", 0.0);
+		OB->GrMaskScale  = attrAsDbl(attrs, "GRSCALEM", 1.0);
+		OB->GrMaskSkew   = attrAsDbl(attrs, "GRSKEWM", 1.0);
+	}
+	if (OB->GrMask == 2)
+	{
+		OB->patternMaskVal = attrAsString(attrs, "patternM", "");
+		OB->patternMaskScaleX   = attrAsDbl(attrs, "pScaleXM", 100.0);
+		OB->patternMaskScaleY   = attrAsDbl(attrs, "pScaleYM", 100.0);
+		OB->patternMaskOffsetX  = attrAsDbl(attrs, "pOffsetXM", 0.0);
+		OB->patternMaskOffsetY  = attrAsDbl(attrs, "pOffsetYM", 0.0);
+		OB->patternMaskRotation = attrAsDbl(attrs, "pRotationM", 0.0);
+		OB->patternMaskSkewX    = attrAsDbl(attrs, "pSkewXM", 0.0);
+		OB->patternMaskSkewY    = attrAsDbl(attrs, "pSkewYM", 0.0);
+		OB->patternMaskMirrorX  = attrAsBool(attrs, "pMirrorXM", false);
+		OB->patternMaskMirrorY  = attrAsBool(attrs, "pMirrorYM", false);
+	}
 	OB->Rot        = attrAsDbl(attrs, "ROT", 0.0);
 	OB->PLineArt   = Qt::PenStyle    ( attrAsInt(attrs, "PLINEART", 0) );
 	OB->PLineEnd   = Qt::PenCapStyle ( attrAsInt(attrs, "PLINEEND", 0) );
@@ -1242,6 +1268,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	bool patternMirrorX;
 	bool patternMirrorY;
 	QString gradNameS;
+	QString gradNameM;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1263,6 +1290,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			OB.NamedLStyle     = attrAsString(attrs, "NAMEDLST", "");
 			gradName           = attrAsString(attrs, "GRNAME", "");
 			gradNameS          = attrAsString(attrs, "GRNAMES", "");
+			gradNameM          = attrAsString(attrs, "GRNAMEM", "");
 			isGroupControl     = attrAsBool(attrs, "isGroupControl", false);
 			doOverprint        = attrAsBool(attrs, "doOverprint", false);
 			groupsLastItem     = attrAsInt (attrs, "groupsLastItem", 0);
@@ -1441,6 +1469,14 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			OB.GrColor   = "";
 			OB.GrColor2  = "";
 		}
+		if (inItem && sReader.isStartElement() && tagName == "M_CSTOP")
+		{
+			QString name = attrAsString(attrs, "NAME", "");
+			double ramp  = attrAsDbl(attrs, "RAMP", 0.0);
+			int shade    = attrAsInt(attrs, "SHADE", 100);
+			double opa   = attrAsDbl(attrs, "TRANS", 1.0);
+			OB.mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
 		if (inItem && sReader.isStartElement() && tagName == "Tabs")
 		{
 			ParagraphStyle::TabRecord tb;
@@ -1491,6 +1527,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			Neu->setGradient(gradName);
 			Neu->setStrokeGradient(gradNameS);
+			Neu->setGradientMask(gradNameM);
 			Neu->doOverprint = doOverprint;
 			Neu->setStrokePattern(StrokePattern);
 			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS, patternSkewXS, patternSkewYS);
@@ -1674,6 +1711,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	bool patternMirrorXS;
 	bool patternMirrorYS;
 	QString gradNameS;
+	QString gradNameM;
 	int lowResType = 1;
 	int actualPageNumber = 0;
 	while(!reader.atEnd() && !reader.hasError())
@@ -1696,6 +1734,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			actualPageNumber   = attrAsInt (attrs1, "Pagenumber", 0);
 			gradName           = attrAsString(attrs1, "GRNAME", "");
 			gradNameS          = attrAsString(attrs1, "GRNAMES", "");
+			gradNameM          = attrAsString(attrs1, "GRNAMEM", "");
 			StrokePattern = attrAsString(attrs, "patternS", "");
 			patternScaleXS   = attrAsDbl(attrs, "pScaleXS", 100.0);
 			patternScaleYS   = attrAsDbl(attrs, "pScaleYS", 100.0);
@@ -1804,6 +1843,14 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			OB.GrColor   = "";
 			OB.GrColor2  = "";
 		}
+		if (tagName1 == "M_CSTOP" && reader.isStartElement())
+		{
+			QString name = attrs1.value("NAME").toString();
+			double ramp  = attrAsDbl(attrs1, "RAMP", 0.0);
+			int shade    = attrAsInt(attrs1, "SHADE", 100);
+			double opa   = attrAsDbl(attrs1, "TRANS", 1.0);
+			OB.mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
 		if (tagName1=="Tabs" && reader.isStartElement())
 		{
 			ParagraphStyle::TabRecord tb;
@@ -1848,6 +1895,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			Neu->doOverprint = doOverprint;
 			Neu->setGradient(gradName);
 			Neu->setStrokeGradient(gradNameS);
+			Neu->setGradientMask(gradNameM);
 			Neu->setStrokePattern(StrokePattern);
 			Neu->setStrokePatternTransform(patternScaleXS, patternScaleYS, patternOffsetXS, patternOffsetYS, patternRotationS, patternSkewXS, patternSkewYS);
 			Neu->setStrokePatternFlip(patternMirrorXS, patternMirrorYS);
@@ -2498,6 +2546,49 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("pSkewYS"   , patternSkewY);
 		writer.writeAttribute("pMirrorXS" , mirrorX);
 		writer.writeAttribute("pMirrorYS" , mirrorY);
+	}
+	if (item->GrMask > 0)
+	{
+		if (item->gradientMask().isEmpty())
+		{
+			QList<VColorStop*> cstops = item->mask_gradient.colorStops();
+			for (uint cst = 0; cst < item->mask_gradient.Stops(); ++cst)
+			{
+				writer.writeStartElement("M_CSTOP");
+				writer.writeAttribute("RAMP" , cstops.at(cst)->rampPoint);
+				writer.writeAttribute("NAME" , cstops.at(cst)->name);
+				writer.writeAttribute("SHADE", cstops.at(cst)->shade);
+				writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
+				writer.writeEndElement();
+			}
+		}
+		else
+			writer.writeAttribute("GRNAMEM"  , item->gradientMask());
+		writer.writeAttribute("GRSTARTXM", item->GrMaskStartX);
+		writer.writeAttribute("GRSTARTYM", item->GrMaskStartY);
+		writer.writeAttribute("GRENDXM", item->GrMaskEndX);
+		writer.writeAttribute("GRENDYM", item->GrMaskEndY);
+		writer.writeAttribute("GRFOCALXM", item->GrMaskFocalX);
+		writer.writeAttribute("GRFOCALYM", item->GrMaskFocalY);
+		writer.writeAttribute("GRSCALEM" , item->GrMaskScale);
+		writer.writeAttribute("GRSKEWM" , item->GrMaskSkew);
+	}
+	if (!item->patternMask().isEmpty())
+	{
+		writer.writeAttribute("patternM", item->patternMask());
+		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+		item->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		bool mirrorX, mirrorY;
+		item->maskFlip(mirrorX, mirrorY);
+		writer.writeAttribute("pScaleXM", patternScaleX);
+		writer.writeAttribute("pScaleYM", patternScaleY);
+		writer.writeAttribute("pOffsetXM", patternOffsetX);
+		writer.writeAttribute("pOffsetYM", patternOffsetY);
+		writer.writeAttribute("pRotationM", patternRotation);
+		writer.writeAttribute("pSkewXM"   , patternSkewX);
+		writer.writeAttribute("pSkewYM"   , patternSkewY);
+		writer.writeAttribute("pMirrorXM" , mirrorX);
+		writer.writeAttribute("pMirrorYM" , mirrorY);
 	}
 	if (item->asLatexFrame())
 	{

@@ -41,6 +41,7 @@ public:
 		fillRule(true),
 		FillGradient(VGradient::linear),
 		StrokeGradient(VGradient::linear),
+		MaskGradient(VGradient::linear),
 		FillGradientType(0),
 		StrokeGradientType(0),
 		GradFillX1(0),
@@ -53,6 +54,13 @@ public:
 		GradStrokeX2(0),
 		GradStrokeY1(0),
 		GradStrokeY2(0),
+		GradMask(0),
+		GradMaskX1(0),
+		GradMaskX2(0),
+		GradMaskY1(0),
+		GradMaskY2(0),
+		GradMaskScale(1),
+		GradMaskSkew(0),
 		LWidth(0.5),
 		PLineArt(Qt::SolidLine),
 		PLineEnd(Qt::FlatCap),
@@ -85,6 +93,7 @@ public:
 	bool fillRule;
 	VGradient FillGradient;
 	VGradient StrokeGradient;
+	VGradient MaskGradient;
 	int    FillGradientType;
 	int    StrokeGradientType;
 	double GradFillX1;
@@ -97,6 +106,13 @@ public:
 	double GradStrokeX2;
 	double GradStrokeY1;
 	double GradStrokeY2;
+	int    GradMask;
+	double GradMaskX1;
+	double GradMaskX2;
+	double GradMaskY1;
+	double GradMaskY2;
+	double GradMaskScale;
+	double GradMaskSkew;
 	double LWidth;
 	Qt::PenStyle PLineArt;
 	Qt::PenCapStyle PLineEnd;
@@ -159,6 +175,7 @@ private:
 	void handleQuickShapeSimple(QDataStream &ts, quint32 dataLen);
 	void handleFlatFillTransparency(QDataStream &ts);
 	void handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen, bool linear);
+	void handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 dataLen);
 	void handleEllipticalGradientTransparency(QDataStream &ts, quint32 dataLen);
 	int  convertBlendMode(int val);
 	void handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen);

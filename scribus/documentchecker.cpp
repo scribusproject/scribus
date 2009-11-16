@@ -109,6 +109,20 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 			}
 		}
+		if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
+		{
+			QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
+			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				if (colorStops[offset]->opacity != 1.0)
+				{
+					itemError.insert(Transparency, 0);
+					break;
+				}
+			}
+		}
+		if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
+			itemError.insert(Transparency, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(ObjectNotOnPage, 0);
 #ifdef HAVE_OSG
@@ -321,6 +335,20 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 			}
 		}
+		if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
+		{
+			QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
+			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				if (colorStops[offset]->opacity != 1.0)
+				{
+					itemError.insert(Transparency, 0);
+					break;
+				}
+			}
+		}
+		if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
+			itemError.insert(Transparency, 0);
 		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
 			itemError.insert(PDFAnnotField, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))

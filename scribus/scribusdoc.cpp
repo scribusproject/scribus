@@ -2727,6 +2727,11 @@ QStringList ScribusDoc::getUsedPatterns()
 			if (!results.contains(MasterItems.at(c)->strokePattern()))
 				results.append(MasterItems.at(c)->strokePattern());
 		}
+		if (!MasterItems.at(c)->patternMask().isEmpty())
+		{
+			if (!results.contains(MasterItems.at(c)->patternMask()))
+				results.append(MasterItems.at(c)->patternMask());
+		}
 	}
 	for (int c = 0; c < DocItems.count(); ++c)
 	{
@@ -2737,6 +2742,11 @@ QStringList ScribusDoc::getUsedPatterns()
 			if (!results.contains(DocItems.at(c)->strokePattern()))
 				results.append(DocItems.at(c)->strokePattern());
 		}
+		if (!DocItems.at(c)->patternMask().isEmpty())
+		{
+			if (!results.contains(DocItems.at(c)->patternMask()))
+				results.append(DocItems.at(c)->patternMask());
+		}
 	}
 	for (int c = 0; c < FrameItems.count(); ++c)
 	{
@@ -2746,6 +2756,11 @@ QStringList ScribusDoc::getUsedPatterns()
 		{
 			if (!results.contains(FrameItems.at(c)->strokePattern()))
 				results.append(FrameItems.at(c)->strokePattern());
+		}
+		if (!FrameItems.at(c)->patternMask().isEmpty())
+		{
+			if (!results.contains(FrameItems.at(c)->patternMask()))
+				results.append(FrameItems.at(c)->patternMask());
 		}
 	}
 	for (int c = 0; c < results.count(); ++c)
@@ -2776,6 +2791,9 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 			const QString& pat2 = currItem->strokePattern();
 			if (!pat2.isEmpty() && !results.contains(pat2))
 				results.append(currItem->strokePattern());
+			const QString& pat3 = currItem->patternMask();
+			if (!pat3.isEmpty() && !results.contains(pat3))
+				results.append(currItem->patternMask());
 		}
 		for (int c = 0; c < results.count(); ++c)
 		{
@@ -2806,6 +2824,9 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 		const QString& pat2 = pat->items.at(c)->strokePattern();
 		if (!pat2.isEmpty() && !results.contains(pat2))
 			results.append(pat->items.at(c)->strokePattern());
+		const QString& pat3 = pat->items.at(c)->patternMask();
+		if (!pat3.isEmpty() && !results.contains(pat3))
+			results.append(pat->items.at(c)->patternMask());
 	}
 	if (!pats.isEmpty())
 	{
@@ -3400,6 +3421,12 @@ void ScribusDoc::recalculateColors()
 		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->stroke_gradient.colorStops();
+		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->mask_gradient.colorStops();
+		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
 	uint masterItemsCount=MasterItems.count();
 	for (uint c=0; c<masterItemsCount; ++c)
@@ -3408,6 +3435,12 @@ void ScribusDoc::recalculateColors()
 		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->stroke_gradient.colorStops();
+		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->mask_gradient.colorStops();
+		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
 	uint frameItemsCount=FrameItems.count();
 	for (uint c=0; c<frameItemsCount; ++c)
@@ -3415,6 +3448,12 @@ void ScribusDoc::recalculateColors()
 		PageItem *ite = FrameItems.at(c);
 		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->stroke_gradient.colorStops();
+		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->mask_gradient.colorStops();
+		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
 	QStringList patterns = docPatterns.keys();
@@ -3426,6 +3465,12 @@ void ScribusDoc::recalculateColors()
 			PageItem *ite = pa.items.at(o);
 			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops = ite->stroke_gradient.colorStops();
+			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops = ite->mask_gradient.colorStops();
+			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->asImageFrame())
 				loadPict(ite->Pfile, ite, true, false);
@@ -7655,7 +7700,6 @@ void ScribusDoc::itemSelection_SetLineGradient(VGradient& newGradient, Selection
 //Teaser for jghali
 }
 
-
 void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
@@ -7671,8 +7715,25 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 		currItem->fill_gradient = newGradient;
 		currItem->update();
 	}
-	/*if (selectedItemCount>1)
-		regionsChanged()->update(QRectF());*/
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
+void ScribusDoc::itemSelection_SetMaskGradient(VGradient& newGradient, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	m_updateManager.setUpdatesDisabled();
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem;
+		currItem = itemSelection->itemAt(i);
+		currItem->mask_gradient = newGradient;
+		currItem->update();
+	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }

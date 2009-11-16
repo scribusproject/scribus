@@ -269,7 +269,27 @@ PageItem::PageItem(const PageItem & other)
 	GrStrokeFocalX(other.GrStrokeFocalX),
 	GrStrokeFocalY(other.GrStrokeFocalY),
 	GrStrokeScale(other.GrStrokeScale),
-	GrStrokeSkew(other.GrStrokeSkew)
+	GrStrokeSkew(other.GrStrokeSkew),
+	GrMask(other.GrMask),
+	GrMaskStartX(other.GrMaskStartX),
+	GrMaskStartY(other.GrMaskStartY),
+	GrMaskEndX(other.GrMaskEndX),
+	GrMaskEndY(other.GrMaskEndY),
+	GrMaskFocalX(other.GrMaskFocalX),
+	GrMaskFocalY(other.GrMaskFocalY),
+	GrMaskScale(other.GrMaskScale),
+	GrMaskSkew(other.GrMaskSkew),
+	patternMaskScaleX(other.patternMaskScaleX),
+	patternMaskScaleY(other.patternMaskScaleY),
+	patternMaskOffsetX(other.patternMaskOffsetX),
+	patternMaskOffsetY(other.patternMaskOffsetY),
+	patternMaskRotation(other.patternMaskRotation),
+	patternMaskSkewX(other.patternMaskSkewX),
+	patternMaskSkewY(other.patternMaskSkewY),
+	patternMaskMirrorX(other.patternMaskMirrorX),
+	patternMaskMirrorY(other.patternMaskMirrorY),
+	patternMaskVal(other.patternMaskVal),
+	mask_gradient(other.mask_gradient)
 {
 	QString tmp;
 	m_Doc->TotalItems++;
@@ -590,6 +610,32 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 		}
 	}
+	GrMask = 0;
+	GrMaskStartX = 0;
+	GrMaskStartY = 0;
+	GrMaskEndX = w;
+	GrMaskEndY = 0;
+	GrMaskFocalX = 0;
+	GrMaskFocalY = 0;
+	GrMaskScale = 1;
+	GrMaskSkew = 0;
+	patternMaskScaleX = 100;
+	patternMaskScaleY = 100;
+	patternMaskOffsetX = 0;
+	patternMaskOffsetY = 0;
+	patternMaskRotation = 0;
+	patternMaskSkewX = 0;
+	patternMaskSkewY = 0;
+	patternMaskMirrorX = false;
+	patternMaskMirrorY = false;
+	patternMaskVal = "";
+	gradientMaskVal = "";
+	mask_gradient = VGradient(VGradient::linear);
+	mask_gradient.clearStops();
+	const ScColor& col = m_Doc->PageColors["Black"];
+	QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
+	mask_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
+	mask_gradient.addStop(qcol, 1.0, 0.5, 1.0, "Black", 100);
 	firstLineOffsetP = FLOPRealGlyphHeight;
 	Cols = m_Doc->itemToolPrefs.textColumns;
 	ColGap = m_Doc->itemToolPrefs.textColumnGap;
@@ -1112,99 +1158,110 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	else
 	{
-	if (!isGroupControl)
-	{
-		if (fillBlendmode() != 0)
-			p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
-
-		p->setLineWidth(m_lineWidth);
-		if (GrType != 0)
+		if (!isGroupControl)
 		{
-			if (GrType == 8)
+			if (fillBlendmode() != 0)
+				p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
+	
+			p->setLineWidth(m_lineWidth);
+			if (GrType != 0)
 			{
-				if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
+				if (GrType == 8)
 				{
-					p->fill_gradient = VGradient(VGradient::linear);
-					if (fillColor() != CommonStrings::None)
+					if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
 					{
-						p->setBrush(fillQColor);
-						p->setFillMode(ScPainter::Solid);
+						p->fill_gradient = VGradient(VGradient::linear);
+						if (fillColor() != CommonStrings::None)
+						{
+							p->setBrush(fillQColor);
+							p->setFillMode(ScPainter::Solid);
+						}
+						else
+							p->setFillMode(ScPainter::None);
+						if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
+						{
+							GrType = 0;
+							patternVal = "";
+						}
 					}
 					else
-						p->setFillMode(ScPainter::None);
-					if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
 					{
-						GrType = 0;
-						patternVal = "";
+						p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
+						p->setFillMode(ScPainter::Pattern);
 					}
 				}
 				else
 				{
-					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
-					p->setFillMode(ScPainter::Pattern);
-				}
-			}
-			else
-			{
-				if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
-					gradientVal = "";
-				if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
-					fill_gradient = m_Doc->docGradients[gradientVal];
-				if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
-				{
-					if (fillColor() != CommonStrings::None)
+					if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
+						gradientVal = "";
+					if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
+						fill_gradient = m_Doc->docGradients[gradientVal];
+					if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
 					{
-						p->setBrush(fillQColor);
-						p->setFillMode(ScPainter::Solid);
+						if (fillColor() != CommonStrings::None)
+						{
+							p->setBrush(fillQColor);
+							p->setFillMode(ScPainter::Solid);
+						}
+						else
+							p->setFillMode(ScPainter::None);
 					}
 					else
-						p->setFillMode(ScPainter::None);
-				}
-				else
-				{
-					p->setFillMode(ScPainter::Gradient);
-					p->fill_gradient = fill_gradient;
-					switch (GrType)
 					{
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 6:
-							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
-							break;
-						case 5:
-						case 7:
-							p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
-							break;
+						p->setFillMode(ScPainter::Gradient);
+						p->fill_gradient = fill_gradient;
+						switch (GrType)
+						{
+							case 1:
+							case 2:
+							case 3:
+							case 4:
+							case 6:
+								p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
+								break;
+							case 5:
+							case 7:
+								p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
+								break;
+						}
 					}
 				}
 			}
-		}
-		else
-		{
-			p->fill_gradient = VGradient(VGradient::linear);
-			if (fillColor() != CommonStrings::None)
+			else
 			{
-				p->setBrush(fillQColor);
-				p->setFillMode(ScPainter::Solid);
+				p->fill_gradient = VGradient(VGradient::linear);
+				if (fillColor() != CommonStrings::None)
+				{
+					p->setBrush(fillQColor);
+					p->setFillMode(ScPainter::Solid);
+				}
+				else
+					p->setFillMode(ScPainter::None);
+			}
+			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+			{
+				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+				if (DashValues.count() != 0)
+					p->setDash(DashValues, DashOffset);
 			}
 			else
-				p->setFillMode(ScPainter::None);
-		}
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-		{
-			p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (fillBlendmode() == 0)
-			p->setBrushOpacity(1.0 - fillTransparency());
-		if (lineBlendmode() == 0)
-			p->setPenOpacity(1.0 - lineTransparency());
-		p->setFillRule(fillRule);
+				p->setLineWidth(0);
+			if (fillBlendmode() == 0)
+				p->setBrushOpacity(1.0 - fillTransparency());
+			if (lineBlendmode() == 0)
+				p->setPenOpacity(1.0 - lineTransparency());
+			p->setFillRule(fillRule);
+			if (GrMask == 1)
+			{
+				p->setMaskMode(1);
+				p->mask_gradient = mask_gradient;
+				if (mask_gradient.type() == VGradient::linear)
+					p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
+				else
+					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
+			}
+			else
+				p->setMaskMode(0);
 		}
 	}
 }
@@ -2462,6 +2519,76 @@ void PageItem::patternFlip(bool &flipX, bool &flipY)
 	flipY = patternMirrorY;
 }
 
+void PageItem::setGradientMask(const QString &newMask)
+{
+	if (gradientMaskVal != newMask)
+		gradientMaskVal = newMask;
+}
+
+void PageItem::setPatternMask(const QString &newMask)
+{
+	if (patternMaskVal != newMask)
+		patternMaskVal = newMask;
+}
+
+void PageItem::maskVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
+{
+	startX = GrMaskStartX;
+	startY = GrMaskStartY;
+	endX   = GrMaskEndX;
+	endY   = GrMaskEndY;
+	focalX = GrMaskFocalX;
+	focalY = GrMaskFocalY;
+	scale  = GrMaskScale;
+	skew   = GrMaskSkew;
+}
+
+void PageItem::setMaskVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew)
+{
+	GrMaskStartX = startX;
+	GrMaskStartY = startY;
+	GrMaskEndX   = endX;
+	GrMaskEndY   = endY;
+	GrMaskFocalX = focalX;
+	GrMaskFocalY = focalY;
+	GrMaskScale  = scale;
+	GrMaskSkew   = skew;
+}
+
+void PageItem::maskTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
+{
+	 scaleX = patternMaskScaleX;
+	 scaleY = patternMaskScaleY;
+	 offsetX = patternMaskOffsetX;
+	 offsetY = patternMaskOffsetY;
+	 rotation = patternMaskRotation;
+	 skewX = patternMaskSkewX;
+	 skewY = patternMaskSkewY;
+}
+
+void PageItem::setMaskTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
+{
+	patternMaskScaleX = scaleX;
+	patternMaskScaleY = scaleY;
+	patternMaskOffsetX = offsetX;
+	patternMaskOffsetY = offsetY;
+	patternMaskRotation = rotation;
+	patternMaskSkewX = skewX;
+	patternMaskSkewY = skewY;
+}
+
+void PageItem::setMaskFlip(bool flipX, bool flipY)
+{
+	patternMaskMirrorX = flipX;
+	patternMaskMirrorY = flipY;
+}
+
+void PageItem::maskFlip(bool &flipX, bool &flipY)
+{
+	flipX = patternMaskMirrorX;
+	flipY = patternMaskMirrorY;
+}
+
 void PageItem::setFillColor(const QString &newColor)
 {
 	QString tmp = newColor;
@@ -2505,7 +2632,7 @@ void PageItem::setFillColor(const QString &newColor)
 		undoManager->action(this, ss);
 	}
 	fillColorVal = tmp;
-	if (GrType == 0)
+/*	if (GrType == 0)
 	{
 		fill_gradient = VGradient(VGradient::linear);
 		fill_gradient.clearStops();
@@ -2515,7 +2642,7 @@ void PageItem::setFillColor(const QString &newColor)
 			fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, fillColorVal, 100);
 			fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, fillColorVal, 100);
 		}
-	}
+	} */
 	setFillQColor();
 //CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
@@ -4191,6 +4318,9 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	it = newNames.patterns().find(strokePattern());
 	if (it != newNames.patterns().end())
 		setStrokePattern(*it);
+	it = newNames.patterns().find(patternMask());
+	if (it != newNames.patterns().end())
+		setPatternMask(*it);
 	
 	it = newNames.gradients().find(strokeGradient());
 	if (it != newNames.gradients().end())
@@ -4199,6 +4329,9 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	it = newNames.gradients().find(gradient());
 	if (it != newNames.gradients().end())
 		setGradient(*it);
+	it = newNames.gradients().find(gradientMask());
+	if (it != newNames.gradients().end())
+		setGradientMask(*it);
 
 	it = newNames.lineStyles().find(customLineStyle());
 	if (it != newNames.lineStyles().end())
@@ -4227,6 +4360,14 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	{
 		QList<VColorStop*> cstops = stroke_gradient.colorStops();
 		for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
+		{
+			lists.collectColor(cstops.at(cst)->name);
+		}
+	}
+	if (GrMask == 1)
+	{
+		QList<VColorStop*> cstops = mask_gradient.colorStops();
+		for (uint cst = 0; cst < mask_gradient.Stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
 		}
@@ -5798,6 +5939,17 @@ void PageItem::updateClip()
 				GrStrokeEndY = gr2.point(1).y();
 				GrStrokeFocalX = gr2.point(2).x();
 				GrStrokeFocalY = gr2.point(2).y();
+				FPointArray gr3;
+				gr3.addPoint(GrMaskStartX, GrMaskStartY);
+				gr3.addPoint(GrMaskEndX, GrMaskEndY);
+				gr3.addPoint(GrMaskFocalX, GrMaskFocalY);
+				gr3.map(ma);
+				GrMaskStartX = gr3.point(0).x();
+				GrMaskStartY = gr3.point(0).y();
+				GrMaskEndX = gr3.point(1).x();
+				GrMaskEndY = gr3.point(1).y();
+				GrMaskFocalX = gr3.point(2).x();
+				GrMaskFocalY = gr3.point(2).y();
 				ContourLine.map(ma);
 				if (FrameType > 2)
 				{
@@ -5864,6 +6016,17 @@ void PageItem::updateClip()
 			GrStrokeEndY = gr2.point(1).y();
 			GrStrokeFocalX = gr2.point(2).x();
 			GrStrokeFocalY = gr2.point(2).y();
+			FPointArray gr3;
+			gr3.addPoint(GrMaskStartX, GrMaskStartY);
+			gr3.addPoint(GrMaskEndX, GrMaskEndY);
+			gr3.addPoint(GrMaskFocalX, GrMaskFocalY);
+			gr3.map(ma);
+			GrMaskStartX = gr3.point(0).x();
+			GrMaskStartY = gr3.point(0).y();
+			GrMaskEndX = gr3.point(1).x();
+			GrMaskEndY = gr3.point(1).y();
+			GrMaskFocalX = gr3.point(2).x();
+			GrMaskFocalY = gr3.point(2).y();
 			PoLine.map(ma);
 			ContourLine.map(ma);
 			if (asPathText())

@@ -475,6 +475,13 @@ void Serializer::updateGradientColors(const ColorList& colors)
 			if (colors.contains(grStop->name))
 				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
 		}
+		cstops = ite->mask_gradient.colorStops();
+		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+		{
+			grStop = cstops.at(cst);
+			if (colors.contains(grStop->name))
+				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+		}
 	}
 	uint masterItemsCount =  m_Doc.MasterItems.count();
 	for (uint c=0; c < masterItemsCount; ++c)
@@ -489,6 +496,13 @@ void Serializer::updateGradientColors(const ColorList& colors)
 		}
 		cstops = ite->stroke_gradient.colorStops();
 		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+		{
+			grStop = cstops.at(cst);
+			if (colors.contains(grStop->name))
+				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+		}
+		cstops = ite->mask_gradient.colorStops();
+		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 		{
 			grStop = cstops.at(cst);
 			if (colors.contains(grStop->name))
@@ -513,6 +527,13 @@ void Serializer::updateGradientColors(const ColorList& colors)
 			if (colors.contains(grStop->name))
 				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
 		}
+		cstops = ite->mask_gradient.colorStops();
+		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+		{
+			grStop = cstops.at(cst);
+			if (colors.contains(grStop->name))
+				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+		}
 	}
 	QStringList patterns =m_Doc.docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -530,6 +551,13 @@ void Serializer::updateGradientColors(const ColorList& colors)
 			}
 			cstops = ite->stroke_gradient.colorStops();
 			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			{
+				grStop = cstops.at(cst);
+				if (colors.contains(grStop->name))
+					grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+			}
+			cstops = ite->mask_gradient.colorStops();
+			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			{
 				grStop = cstops.at(cst);
 				if (colors.contains(grStop->name))

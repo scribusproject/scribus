@@ -71,6 +71,11 @@ public:
 	virtual void setStrokeMode( int stroke );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+
+	virtual void setMaskMode( int mask );
+	virtual void setGradientMask( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
+	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	
 	virtual void setClipPath();
 
 	virtual void drawImage( QImage *image );
@@ -104,6 +109,8 @@ public:
 
 	VGradient fill_gradient;
 	VGradient stroke_gradient;
+	VGradient mask_gradient;
+	ScPattern *m_maskPattern;
 	ScPattern *m_pattern;
 
 private:
@@ -165,6 +172,18 @@ private:
 	double stroke_trans;
 	double LineWidth;
 	int strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
+	int maskMode;				// 0 = none, 1 = gradient 2 = pattern
+	double mask_patternScaleX;
+	double mask_patternScaleY;
+	double mask_patternOffsetX;
+	double mask_patternOffsetY;
+	double mask_patternRotation;
+	double mask_patternSkewX;
+	double mask_patternSkewY;
+	bool mask_patternMirrorX;
+	bool mask_patternMirrorY;
+	double mask_gradientScale;
+	double mask_gradientSkew;
 
 	/*! \brief Line End Style */
 	Qt::PenCapStyle PLineEnd;

@@ -760,7 +760,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		}
 #else
 		// draw slim marker
-		p.resetMatrix();
+		p.resetTransform();
 		p.translate(-currView->contentsX(), 0);
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);

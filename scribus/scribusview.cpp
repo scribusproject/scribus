@@ -3868,7 +3868,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			currItem->GrFocalY = Buffer->GrFocalY;
 			currItem->GrScale  = Buffer->GrScale;
 			currItem->GrSkew   = Buffer->GrSkew;
-			currItem->updateGradientVectors();
 		}
 	}
 	if (Buffer->GrTypeStroke >0)
@@ -3883,8 +3882,27 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->GrStrokeFocalY = Buffer->GrStrokeFocalY;
 		currItem->GrStrokeScale  = Buffer->GrStrokeScale;
 		currItem->GrStrokeSkew   = Buffer->GrStrokeSkew;
-		currItem->updateGradientVectors();
 	}
+	currItem->GrMask = Buffer->GrMask;
+	if (currItem->GrMask == 1)
+	{
+		currItem->mask_gradient = Buffer->mask_gradient;
+		currItem->GrMaskStartX = Buffer->GrMaskStartX;
+		currItem->GrMaskStartY = Buffer->GrMaskStartY;
+		currItem->GrMaskEndX = Buffer->GrMaskEndX;
+		currItem->GrMaskEndY = Buffer->GrMaskEndY;
+		currItem->GrMaskFocalX = Buffer->GrMaskFocalX;
+		currItem->GrMaskFocalY = Buffer->GrMaskFocalY;
+		currItem->GrMaskScale  = Buffer->GrMaskScale;
+		currItem->GrMaskSkew   = Buffer->GrMaskSkew;
+	}
+	else if (currItem->GrMask == 2)
+	{
+		currItem->setPatternMask(Buffer->patternMaskVal);
+		currItem->setMaskTransform(Buffer->patternMaskScaleX, Buffer->patternMaskScaleY, Buffer->patternMaskOffsetX, Buffer->patternMaskOffsetY, Buffer->patternMaskRotation, Buffer->patternMaskSkewX, Buffer->patternMaskSkewY);
+		currItem->setMaskFlip(Buffer->patternMaskMirrorX, Buffer->patternMaskMirrorY);
+	}
+	currItem->updateGradientVectors();
 	currItem->setObjectAttributes(&(Buffer->pageItemAttributes));
 	if (resize)
 		Doc->setRedrawBounding(currItem);

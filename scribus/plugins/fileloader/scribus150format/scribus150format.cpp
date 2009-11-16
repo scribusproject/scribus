@@ -1778,6 +1778,14 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			double opa   = tAtt.valueAsDouble("TRANS", 1.0);
 			newItem->stroke_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 		}
+		if (tName == "M_CSTOP")
+		{
+			QString name = tAtt.valueAsString("NAME");
+			double ramp  = tAtt.valueAsDouble("RAMP", 0.0);
+			int shade    = tAtt.valueAsInt("SHADE", 100);
+			double opa   = tAtt.valueAsDouble("TRANS", 1.0);
+			newItem->mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
 
 		if (tName == "ITEXT")
 			readItemText(newItem, tAtt, lastStyle);
@@ -2838,11 +2846,40 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->GrStrokeFocalX = attrs.valueAsDouble("GRFOCALXS", 0.0);
 	currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
 	currItem->GrStrokeScale  = attrs.valueAsDouble("GRSCALES", 1.0);
-	currItem->GrStrokeScale  = attrs.valueAsDouble("GRSKEWS", 0.0);
+	currItem->GrStrokeSkew  = attrs.valueAsDouble("GRSKEWS", 0.0);
 	QString GrNameS = "";
 	GrNameS = attrs.valueAsString("GRNAMES","");
 	if (!GrNameS.isEmpty())
 		currItem->setStrokeGradient(GrNameS);
+
+
+	currItem->setPatternMask( attrs.valueAsString("patternM", "") );
+	double patternScaleXm   = attrs.valueAsDouble("pScaleXM", 100.0);
+	double patternScaleYm   = attrs.valueAsDouble("pScaleYM", 100.0);
+	double patternOffsetXm  = attrs.valueAsDouble("pOffsetXM", 0.0);
+	double patternOffsetYm  = attrs.valueAsDouble("pOffsetYM", 0.0);
+	double patternRotationm = attrs.valueAsDouble("pRotationM", 0.0);
+	double patternSkewXm    = attrs.valueAsDouble("pSkewXM", 0.0);
+	double patternSkewYm    = attrs.valueAsDouble("pSkewYM", 0.0);
+	currItem->maskTransform(patternScaleXm, patternScaleYm, patternOffsetXm, patternOffsetYm, patternRotationm, patternSkewXm, patternSkewYm);
+	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
+	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
+	currItem->setMaskFlip(mirrorXm, mirrorYm);
+	currItem->mask_gradient.clearStops();
+	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
+	currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);
+	currItem->GrMaskStartY = attrs.valueAsDouble("GRSTARTYM", 0.0);
+	currItem->GrMaskEndX   = attrs.valueAsDouble("GRENDXM", 0.0);
+	currItem->GrMaskEndY   = attrs.valueAsDouble("GRENDYM", 0.0);
+	currItem->GrMaskFocalX = attrs.valueAsDouble("GRFOCALXM", 0.0);
+	currItem->GrMaskFocalY = attrs.valueAsDouble("GRFOCALYM", 0.0);
+	currItem->GrMaskScale  = attrs.valueAsDouble("GRSCALEM", 1.0);
+	currItem->GrMaskSkew  = attrs.valueAsDouble("GRSKEWM", 0.0);
+	QString GrNameM = "";
+	GrNameM = attrs.valueAsString("GRNAMEM","");
+	if (!GrNameM.isEmpty())
+		currItem->setGradientMask(GrNameM);
+
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
 	UndoManager::instance()->setUndoEnabled(true);

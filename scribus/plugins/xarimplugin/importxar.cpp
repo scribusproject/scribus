@@ -580,6 +580,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleSimpleGradientSkewed(ts, dataLen);
 	else if (tag == 4122)
 		handleMultiGradientSkewed(ts);
+	else if (tag == 4123)
+		handleSimpleGradientTransparencySkewed(ts, dataLen);
 	else
 	{
 //		if (m_gc.count() > 3)
@@ -690,6 +692,7 @@ void XarPlug::handleFlatFillTransparency(QDataStream &ts)
 	{
 		gc->FillOpacity = transVal / 255.0;
 		gc->FillBlend = convertBlendMode(transType);
+		gc->GradMask = 0;
 	}
 }
 
@@ -706,13 +709,49 @@ void XarPlug::handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen,
 		double p, p1;
 		ts >> p >> p1;
 	}
-	if (transType > 0)
+	if (linear)
+		gc->MaskGradient = VGradient(VGradient::linear);
+	else
+		gc->MaskGradient = VGradient(VGradient::radial);
+	gc->MaskGradient.clearStops();
+	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 0.0, 0.5, 1.0 - transStart / 255.0, "Black", 100 );
+	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 1.0, 0.5, 1.0 - transEnd / 255.0, "Black", 100 );
+	gc->GradMaskX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradMaskY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradMask = 1;
+}
+
+void XarPlug::handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	double blx, bly, brx, bry, tlx, tly;
+	quint8 transStart, transEnd, transType;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	readCoords(ts, tlx, tly);
+	ts >> transStart >> transEnd >> transType;
+	if (dataLen == 43)
 	{
-		double s = transStart / 255.0;
-		double e = transEnd / 255.0;
-		gc->FillOpacity = (s + e) / 2.0;
-		gc->FillBlend = convertBlendMode(transType);
+		double p, p1;
+		ts >> p >> p1;
 	}
+	gc->MaskGradient = VGradient(VGradient::linear);
+	gc->MaskGradient.clearStops();
+	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 0.0, 0.5, 1.0 - transStart / 255.0, "Black", 100 );
+	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 1.0, 0.5, 1.0 - transEnd / 255.0, "Black", 100 );
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	gc->GradMaskScale = distY / distX;
+	gc->GradMaskSkew = rotS - 90 - rotB;
+	gc->GradMaskX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradMaskY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradMask = 1;
 }
 
 void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 dataLen)
@@ -729,13 +768,21 @@ void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 data
 		double p, p1;
 		ts >> p >> p1;
 	}
-	if (transType > 0)
-	{
-		double s = transStart / 255.0;
-		double e = transEnd / 255.0;
-		gc->FillOpacity = (s + e) / 2.0;
-		gc->FillBlend = convertBlendMode(transType);
-	}
+	gc->MaskGradient = VGradient(VGradient::radial);
+	gc->MaskGradient.clearStops();
+	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 0.0, 0.5, 1.0 - transStart / 255.0, "Black", 100 );
+	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 1.0, 0.5, 1.0 - transEnd / 255.0, "Black", 100 );
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	gc->GradMaskScale = distY / distX;
+	gc->GradMaskSkew = rotS - 90 - rotB;
+	gc->GradMaskX1 = blx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradMaskY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
+	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GradMask = 1;
 }
 
 int XarPlug::convertBlendMode(int val)
@@ -1608,7 +1655,7 @@ void XarPlug::popGraphicContext()
 			PageItem *item = gc->Elements.at(a);
 			item->setFillColor(gc->FillCol);
 			item->setFillTransparency(gc->FillOpacity);
-			item->setFillBlendmode(gc->FillBlend);
+//			item->setFillBlendmode(gc->FillBlend);
 			item->setLineTransparency(gc->StrokeOpacity);
 			item->setLineWidth(gc->LWidth);
 			item->setLineColor(gc->StrokeCol);
@@ -1627,6 +1674,12 @@ void XarPlug::popGraphicContext()
 				item->GrType = gc->FillGradientType;
 				item->fill_gradient = gc->FillGradient;
 				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GrScale, gc->GrSkew);
+			}
+			if (gc->GradMask == 1)
+			{
+				item->GrMask = 1;
+				item->mask_gradient = gc->MaskGradient;
+				item->setMaskVector(gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskX2 - item->xPos(), gc->GradMaskY2 - item->yPos(), gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskScale, gc->GradMaskSkew);
 			}
 		}
 	}

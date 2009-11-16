@@ -261,21 +261,33 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	{
 		Xml_attr patt;
 		patt.insert("patternS", strokePattern());
-//		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-//		strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-//		bool mirrorX, mirrorY;
-//		strokePatternFlip(mirrorX, mirrorY);
-		patt.insert("pScaleXS", toXMLString(patternScaleX));
-		patt.insert("pScaleYS", toXMLString(patternScaleY));
-		patt.insert("pOffsetXS", toXMLString(patternOffsetX));
-		patt.insert("pOffsetYS", toXMLString(patternOffsetY));
-		patt.insert("pRotationS", toXMLString(patternRotation));
-		patt.insert("pSkewXS", toXMLString(patternSkewX));
-		patt.insert("pSkewYS", toXMLString(patternSkewY));
+		patt.insert("pScaleXS", toXMLString(patternStrokeScaleX));
+		patt.insert("pScaleYS", toXMLString(patternStrokeScaleY));
+		patt.insert("pOffsetXS", toXMLString(patternStrokeOffsetX));
+		patt.insert("pOffsetYS", toXMLString(patternStrokeOffsetY));
+		patt.insert("pRotationS", toXMLString(patternStrokeRotation));
+		patt.insert("pSkewXS", toXMLString(patternStrokeSkewX));
+		patt.insert("pSkewYS", toXMLString(patternStrokeSkewY));
 		patt.insert("pMirrorXS", toXMLString(patternStrokeMirrorX));
 		patt.insert("pMirrorYS", toXMLString(patternStrokeMirrorY));
 		handler.begin("PatternStroke", patt);
 		handler.end("PatternStroke");
+	}
+	if (!patternMask().isEmpty())
+	{
+		Xml_attr patt;
+		patt.insert("patternM", patternMask());
+		patt.insert("pScaleXM", toXMLString(patternMaskScaleX));
+		patt.insert("pScaleYM", toXMLString(patternMaskScaleY));
+		patt.insert("pOffsetXM", toXMLString(patternMaskOffsetX));
+		patt.insert("pOffsetYM", toXMLString(patternMaskOffsetY));
+		patt.insert("pRotationM", toXMLString(patternMaskRotation));
+		patt.insert("pSkewXM", toXMLString(patternMaskSkewX));
+		patt.insert("pSkewYM", toXMLString(patternMaskSkewY));
+		patt.insert("pMirrorXM", toXMLString(patternMaskMirrorX));
+		patt.insert("pMirrorYM", toXMLString(patternMaskMirrorY));
+		handler.begin("PatternMask", patt);
+		handler.end("PatternMask");
 	}
 	if (gradientType() != 0)
 	{
@@ -283,10 +295,6 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		{
 			Xml_attr patt;
 			patt.insert("pattern", pattern());
-//			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-//			patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-//			bool mirrorX, mirrorY;
-//			patternFlip(mirrorX, mirrorY);
 			patt.insert("pScaleX", toXMLString(patternScaleX));
 			patt.insert("pScaleY", toXMLString(patternScaleY));
 			patt.insert("pOffsetX", toXMLString(patternOffsetX));
@@ -326,33 +334,60 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			}
 			handler.end("Gradient");
 		}
-		if (GrTypeStroke > 0)
+	}
+	if (GrTypeStroke > 0)
+	{
+		Xml_attr gradientV;
+		gradientV.insert("GRTYPES", toXMLString(GrTypeStroke));
+		gradientV.insert("GRSTARTXS", toXMLString(GrStrokeStartX));
+		gradientV.insert("GRSTARTYS", toXMLString(GrStrokeStartY));
+		gradientV.insert("GRENDXS", toXMLString(GrStrokeEndX));
+		gradientV.insert("GRENDYS", toXMLString(GrStrokeEndY));
+		gradientV.insert("GRFOCALXS", toXMLString(GrStrokeFocalX));
+		gradientV.insert("GRFOCALYS", toXMLString(GrStrokeFocalY));
+		gradientV.insert("GRSCALES", toXMLString(GrStrokeScale));
+		gradientV.insert("GRSKEWS", toXMLString(GrStrokeSkew));
+		gradientV.insert("GRNAMES", toXMLString(strokeGradient()));
+		handler.begin("GradientS", gradientV);
+		QList<VColorStop*> cstops = fill_gradient.colorStops();
+		for (uint cst = 0; cst < const_cast<VGradient&>(fill_gradient).Stops(); ++cst) //FIXME make const
 		{
-			Xml_attr gradientV;
-			gradientV.insert("GRTYPES", toXMLString(GrTypeStroke));
-			gradientV.insert("GRSTARTXS", toXMLString(GrStrokeStartX));
-			gradientV.insert("GRSTARTYS", toXMLString(GrStrokeStartY));
-			gradientV.insert("GRENDXS", toXMLString(GrStrokeEndX));
-			gradientV.insert("GRENDYS", toXMLString(GrStrokeEndY));
-			gradientV.insert("GRFOCALXS", toXMLString(GrStrokeFocalX));
-			gradientV.insert("GRFOCALYS", toXMLString(GrStrokeFocalY));
-			gradientV.insert("GRSCALES", toXMLString(GrStrokeScale));
-			gradientV.insert("GRSKEWS", toXMLString(GrStrokeSkew));
-			gradientV.insert("GRNAMES", toXMLString(strokeGradient()));
-			handler.begin("GradientS", gradientV);
-			QList<VColorStop*> cstops = fill_gradient.colorStops();
-			for (uint cst = 0; cst < const_cast<VGradient&>(fill_gradient).Stops(); ++cst) //FIXME make const
-			{
-				Xml_attr itcl;
-				itcl.insert("RAMP", toXMLString(cstops.at(cst)->rampPoint));
-				itcl.insert("NAME", cstops.at(cst)->name);
-				itcl.insert("SHADE", toXMLString(cstops.at(cst)->shade));
-				itcl.insert("TRANS", toXMLString(cstops.at(cst)->opacity));
-				handler.begin("S_CStop",itcl);
-				handler.end("S_CStop");
-			}
-			handler.end("GradientS");
+			Xml_attr itcl;
+			itcl.insert("RAMP", toXMLString(cstops.at(cst)->rampPoint));
+			itcl.insert("NAME", cstops.at(cst)->name);
+			itcl.insert("SHADE", toXMLString(cstops.at(cst)->shade));
+			itcl.insert("TRANS", toXMLString(cstops.at(cst)->opacity));
+			handler.begin("S_CStop",itcl);
+			handler.end("S_CStop");
 		}
+		handler.end("GradientS");
+	}
+	if (GrMask > 0)
+	{
+		Xml_attr gradientV;
+		gradientV.insert("GRTYPEM", toXMLString(GrMask));
+		gradientV.insert("GRSTARTXM", toXMLString(GrMaskStartX));
+		gradientV.insert("GRSTARTYM", toXMLString(GrMaskStartY));
+		gradientV.insert("GRENDXM", toXMLString(GrMaskEndX));
+		gradientV.insert("GRENDYM", toXMLString(GrMaskEndY));
+		gradientV.insert("GRFOCALXM", toXMLString(GrMaskFocalX));
+		gradientV.insert("GRFOCALYM", toXMLString(GrMaskFocalY));
+		gradientV.insert("GRSCALEM", toXMLString(GrMaskScale));
+		gradientV.insert("GRSKEWM", toXMLString(GrMaskSkew));
+		gradientV.insert("GRNAMEM", toXMLString(gradientMask()));
+		handler.begin("GradientM", gradientV);
+		QList<VColorStop*> cstops = mask_gradient.colorStops();
+		for (uint cst = 0; cst < const_cast<VGradient&>(mask_gradient).Stops(); ++cst) //FIXME make const
+		{
+			Xml_attr itcl;
+			itcl.insert("RAMP", toXMLString(cstops.at(cst)->rampPoint));
+			itcl.insert("NAME", cstops.at(cst)->name);
+			itcl.insert("SHADE", toXMLString(cstops.at(cst)->shade));
+			itcl.insert("TRANS", toXMLString(cstops.at(cst)->opacity));
+			handler.begin("M_CStop",itcl);
+			handler.end("M_CStop");
+		}
+		handler.end("GradientM");
 	}
 	
 	// TODO: PI attributes...
@@ -562,16 +597,21 @@ class Gradient_body : public Action_body
 		}
 		if (tagName=="S_CStop")
 		{
-//			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
 			PageItem* item = this->dig->top<PageItem>();
 			QString name = attr["NAME"];
 			double ramp = parseDouble(attr["RAMP"]);
 			int shade = parseInt(attr["SHADE"]);
 			double opa = parseDouble(attr["TRANS"]);
-			// Hack : at this stage, colors may still not exists in document and SetColor would create it, 
-			// so use the dummy brown and update manually gradient colors in Serializer
-			// item->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 			item->stroke_gradient.addStop( QColor(150, 100, 50) , ramp, 0.5, opa, name, shade);
+		}
+		if (tagName=="M_CStop")
+		{
+			PageItem* item = this->dig->top<PageItem>();
+			QString name = attr["NAME"];
+			double ramp = parseDouble(attr["RAMP"]);
+			int shade = parseInt(attr["SHADE"]);
+			double opa = parseDouble(attr["TRANS"]);
+			item->mask_gradient.addStop( QColor(150, 100, 50) , ramp, 0.5, opa, name, shade);
 		}
 		if (tagName=="GradientS")
 		{
@@ -584,9 +624,24 @@ class Gradient_body : public Action_body
 			item->GrStrokeFocalX = parseDouble(attr["GRFOCALXS"]);
 			item->GrStrokeFocalY = parseDouble(attr["GRFOCALYS"]);
 			item->GrStrokeScale = parseDouble(attr["GRSCALES"]);
-			item->GrStrokeSkew = parseDouble(attr["GRSKEwS"]);
+			item->GrStrokeSkew = parseDouble(attr["GRSKEWS"]);
 			item->setStrokeGradient(attr["GRNAMES"]);
 			item->stroke_gradient.clearStops();
+		}
+		if (tagName=="GradientM")
+		{
+			PageItem* item = this->dig->top<PageItem>();
+			item->GrMask = parseInt(attr["GRTYPEM"]);
+			item->GrMaskStartX = parseDouble(attr["GRSTARTXM"]);
+			item->GrMaskStartY = parseDouble(attr["GRSTARTYM"]);
+			item->GrMaskEndX = parseDouble(attr["GRENDXM"]);
+			item->GrMaskEndY = parseDouble(attr["GRENDYM"]);
+			item->GrMaskFocalX = parseDouble(attr["GRFOCALXM"]);
+			item->GrMaskFocalY = parseDouble(attr["GRFOCALYM"]);
+			item->GrMaskScale = parseDouble(attr["GRSCALEM"]);
+			item->GrMaskSkew = parseDouble(attr["GRSKEWM"]);
+			item->setGradientMask(attr["GRNAMEM"]);
+			item->mask_gradient.clearStops();
 		}
 		if (tagName=="Gradient")
 		{
@@ -657,6 +712,30 @@ class PatternStroke_body : public Action_body
 };
 
 class PatternStroke : public MakeAction<PatternStroke_body>
+{};
+
+class PatternMask_body : public Action_body
+{
+	void begin (const Xml_string& tagName, Xml_attr attr)
+	{
+		PageItem* item = this->dig->top<PageItem>();
+		
+		double patternScaleX = parseDouble(attr["pScaleXM"]);
+		double patternScaleY = parseDouble(attr["pScaleYM"]);
+		double patternOffsetX = parseDouble(attr["pOffsetXM"]);
+		double patternOffsetY = parseDouble(attr["pOffsetYM"]);
+		double patternRotation = parseDouble(attr["pRotationM"]);
+		double patternSkewX = parseDouble(attr["pSkewXM"]);
+		double patternSkewY = parseDouble(attr["pSkewYM"]);
+		bool mirrorX = parseBool(attr["pMirrorXM"]);
+		bool mirrorY = parseBool(attr["pMirrorYM"]);
+		item->setPatternMask(attr["patternM"]);
+		item->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		item->setMaskFlip(mirrorX, mirrorY);
+	}
+};
+
+class PatternMask : public MakeAction<PatternMask_body>
 {};
 
 
@@ -915,7 +994,8 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasBottomLine, "BottomLine", &parseBool ));
 	
 	ruleset.addRule(Digester::concat(itemPrefix, "Pattern"), Pattern()); 
-	ruleset.addRule(Digester::concat(itemPrefix, "PatternStroke"), PatternStroke()); 
+	ruleset.addRule(Digester::concat(itemPrefix, "PatternStroke"), PatternStroke());
+	ruleset.addRule(Digester::concat(itemPrefix, "PatternMask"), PatternMask());
 	
 	Gradient gradient;
 	Xml_string gradientPrefix(Digester::concat(itemPrefix, "Gradient"));
@@ -925,6 +1005,10 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	Xml_string gradientPrefixS(Digester::concat(itemPrefix, "GradientS"));
 	ruleset.addRule(gradientPrefixS, gradientS);
 	ruleset.addRule(Digester::concat(gradientPrefixS, "S_CStop"), gradientS);
+	Gradient gradientM;
+	Xml_string gradientPrefixM(Digester::concat(itemPrefix, "GradientM"));
+	ruleset.addRule(gradientPrefixM, gradientM);
+	ruleset.addRule(Digester::concat(gradientPrefixM, "M_CStop"), gradientM);
 		
 	ImageEffectsAndLayers effectsAndLayers;
 	ruleset.addRule(Digester::concat(itemPrefix, "ImageEffect"), effectsAndLayers);

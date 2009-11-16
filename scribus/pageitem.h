@@ -605,6 +605,19 @@ public:
 	void setStrokeGradientType(int val) { GrTypeStroke = val; }
 	void strokeGradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setStrokeGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
+
+	int maskType() const { return GrMask; }
+	void setMaskType(int val) { GrMask = val; }
+	void setGradientMask(const QString &newMask);
+	void setPatternMask(const QString &newMask);
+	QString gradientMask() const { return gradientMaskVal; }
+	QString patternMask() const { return patternMaskVal; }
+	void maskVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
+	void setMaskVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
+	void maskTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
+	void setMaskTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
+	void setMaskFlip(bool flipX, bool flipY);
+	void maskFlip(bool &flipX, bool &flipY);
 	// 
 	bool fillEvenOdd() const { return fillRule; }
 	void setFillEvenOdd(bool val) { fillRule = val; }
@@ -1386,6 +1399,31 @@ public:
 	double GrStrokeScale;
 	double GrStrokeSkew;
 
+	/** 
+	* @brief Mask gradient variables
+	*/
+	int GrMask;
+	double GrMaskStartX;
+	double GrMaskStartY;
+	double GrMaskEndX;
+	double GrMaskEndY;
+	double GrMaskFocalX;
+	double GrMaskFocalY;
+	double GrMaskScale;
+	double GrMaskSkew;
+	double patternMaskScaleX;
+	double patternMaskScaleY;
+	double patternMaskOffsetX;
+	double patternMaskOffsetY;
+	double patternMaskRotation;
+	double patternMaskSkewX;
+	double patternMaskSkewY;
+	bool patternMaskMirrorX;
+	bool patternMaskMirrorY;
+	QString patternMaskVal;
+	QString gradientMaskVal;
+	VGradient mask_gradient;
+	
 	/** Inline Image */
 	bool isInlineImage;
 	QTemporaryFile *tempImageFile;
