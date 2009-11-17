@@ -1665,8 +1665,7 @@ void XarPlug::popGraphicContext()
 			if (!gc->fillPattern.isEmpty())
 			{
 				item->setPattern(gc->fillPattern);
-				item->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY,
-														gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
+				item->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY, gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
 				item->GrType = 8;
 			}
 			if ((gc->FillGradientType == 6) || (gc->FillGradientType == 7))

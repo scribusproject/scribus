@@ -375,7 +375,7 @@ void ScPainter::endLayer()
 			}
 		}
 #else
-		if ((m_blendMode > 0) && (m_blendMode < 12) && (Layers.count() != 0))
+		if ((m_blendMode > 11) && (Layers.count() != 0))
 		{
 			int h = m_image->height();
 			int w = m_image->width();
@@ -635,8 +635,92 @@ void ScPainter::endLayer()
 			else if (m_blendMode == 11)
 				painter.setCompositionMode(QPainter::CompositionMode_ColorBurn);
 		}
-		painter.setOpacity(m_layerTransparency);
-		painter.drawImage(0, 0, *la.data);
+		if (maskMode == 1)
+		{
+			QGradient patm;
+			double x1 = mask_gradient.origin().x();
+			double y1 = mask_gradient.origin().y();
+			double x2 = mask_gradient.vector().x();
+			double y2 = mask_gradient.vector().y();
+			double fx = mask_gradient.focalPoint().x();
+			double fy = mask_gradient.focalPoint().y();
+			if (mask_gradient.type() == VGradient::linear)
+				patm = QLinearGradient(x1, y1,  x2, y2);
+			else
+				patm = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), fx, fy);
+			QList<VColorStop*> colorStops = mask_gradient.colorStops();
+			QColor qStopColor;
+			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				qStopColor = colorStops[ offset ]->color;
+				int h, s, v, sneu, vneu;
+				int shad = colorStops[offset]->shade;
+				qStopColor.getHsv(&h, &s, &v);
+				sneu = s * shad / 100;
+				vneu = 255 - ((255 - v) * shad / 100);
+				qStopColor.setHsv(h, sneu, vneu);
+				qStopColor.setAlphaF(colorStops[offset]->opacity);
+				patm.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+			}
+			QTransform qmatrix;
+			if (mask_gradient.type() == VGradient::radial)
+			{
+				double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+				qmatrix.translate(x1, y1);
+				qmatrix.rotate(rotEnd);
+				qmatrix.shear(mask_gradientSkew, 0);
+				qmatrix.translate(0, y1 * (1.0 - mask_gradientScale));
+				qmatrix.translate(-x1, -y1);
+				qmatrix.scale(1, mask_gradientScale);
+			}
+			else
+			{
+				qmatrix.translate(x1, y1);
+				qmatrix.shear(-mask_gradientSkew, 0);
+				qmatrix.translate(-x1, -y1);
+			}
+			QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+			QPainter painterM;
+			painterM.begin(&tmpImgM);
+			painterM.setWorldTransform(painter.worldTransform());
+			painterM.setRenderHint(QPainter::Antialiasing, true);
+			painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
+			QBrush brushm = QBrush(patm);
+			brushm.setTransform(qmatrix);
+			painterM.fillPath(painter.clipPath(), brushm);
+			painterM.end();
+			QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+			QPainter painterO;
+			painterO.begin(&tmpImgO);
+			painterO.setWorldTransform(painter.worldTransform());
+			painterO.setRenderHint(QPainter::Antialiasing, true);
+			painterO.setRenderHint(QPainter::SmoothPixmapTransform, true);
+			painterO.drawImage(0, 0, *la.data);
+			painterO.end();
+			int h = tmpImgO.height();
+			int w = tmpImgO.width();
+			QRgb *s, *t;
+			for( int yi=0; yi < h; ++yi )
+			{
+				s = (QRgb*)(tmpImgM.scanLine( yi ));
+				t = (QRgb*)(tmpImgO.scanLine( yi ));
+				for( int xi=0; xi < w; ++xi )
+				{
+					*t = qRgba(qRed(*t), qGreen(*t), qBlue(*t), qAlpha(*s));
+					s++;
+					t++;
+				}
+			}
+			painter.save();
+			painter.resetTransform();
+			painter.drawImage(0, 0, tmpImgO);
+			painter.restore();
+		}
+		else
+		{
+			painter.setOpacity(m_layerTransparency);
+			painter.drawImage(0, 0, *la.data);
+		}
 		painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		painter.restore();
 		delete la.data;
@@ -1327,21 +1411,20 @@ void ScPainter::drawVPath(int mode)
 			m_path.setFillRule(Qt::WindingFill);
 		if (fillMode == 1)
 		{
-/*		Experimental code for gradient masks */
-/*			if (fill_trans != 1.0)
+			if (maskMode == 1)
 			{
 				QGradient pat;
-				double x1 = fill_gradient.origin().x();
-				double y1 = fill_gradient.origin().y();
-				double x2 = fill_gradient.vector().x();
-				double y2 = fill_gradient.vector().y();
-				double fx = fill_gradient.focalPoint().x();
-				double fy = fill_gradient.focalPoint().y();
-				if (fill_gradient.type() == VGradient::linear)
+				double x1 = mask_gradient.origin().x();
+				double y1 = mask_gradient.origin().y();
+				double x2 = mask_gradient.vector().x();
+				double y2 = mask_gradient.vector().y();
+				double fx = mask_gradient.focalPoint().x();
+				double fy = mask_gradient.focalPoint().y();
+				if (mask_gradient.type() == VGradient::linear)
 					pat = QLinearGradient(x1, y1,  x2, y2);
 				else
 					pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), fx, fy);
-				QList<VColorStop*> colorStops = fill_gradient.colorStops();
+				QList<VColorStop*> colorStops = mask_gradient.colorStops();
 				QColor qStopColor;
 				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 				{
@@ -1356,20 +1439,20 @@ void ScPainter::drawVPath(int mode)
 					pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
 				}
 				QTransform qmatrix;
-				if (fill_gradient.type() == VGradient::radial)
+				if (mask_gradient.type() == VGradient::radial)
 				{
 					double rotEnd = xy2Deg(x2 - x1, y2 - y1);
 					qmatrix.translate(x1, y1);
 					qmatrix.rotate(rotEnd);
-					qmatrix.shear(gradientSkew, 0);
-					qmatrix.translate(0, y1 * (1.0 - gradientScale));
+					qmatrix.shear(mask_gradientSkew, 0);
+					qmatrix.translate(0, y1 * (1.0 - mask_gradientScale));
 					qmatrix.translate(-x1, -y1);
-					qmatrix.scale(1, gradientScale);
+					qmatrix.scale(1, mask_gradientScale);
 				}
 				else
 				{
 					qmatrix.translate(x1, y1);
-					qmatrix.shear(-gradientSkew, 0);
+					qmatrix.shear(-mask_gradientSkew, 0);
 					qmatrix.translate(-x1, -y1);
 				}
 				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
@@ -1411,11 +1494,11 @@ void ScPainter::drawVPath(int mode)
 				painter.restore();
 			}
 			else
-			{ */
+			{
 				QColor paint = m_fill;
 				paint.setAlphaF(fill_trans);
 				painter.fillPath(m_path, paint);
-//			}
+			}
 		}
 		else if (fillMode == 2)
 		{
@@ -1463,8 +1546,92 @@ void ScPainter::drawVPath(int mode)
 			}
 			QBrush brush = QBrush(pat);
 			brush.setTransform(qmatrix);
-			painter.setOpacity(fill_trans);
-			painter.fillPath(m_path, brush);
+			if (maskMode == 1)
+			{
+				QGradient patm;
+				double x1 = mask_gradient.origin().x();
+				double y1 = mask_gradient.origin().y();
+				double x2 = mask_gradient.vector().x();
+				double y2 = mask_gradient.vector().y();
+				double fx = mask_gradient.focalPoint().x();
+				double fy = mask_gradient.focalPoint().y();
+				if (mask_gradient.type() == VGradient::linear)
+					patm = QLinearGradient(x1, y1,  x2, y2);
+				else
+					patm = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), fx, fy);
+				QList<VColorStop*> colorStops = mask_gradient.colorStops();
+				QColor qStopColor;
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					qStopColor.setAlphaF(colorStops[offset]->opacity);
+					patm.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				}
+				QTransform qmatrix;
+				if (mask_gradient.type() == VGradient::radial)
+				{
+					double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+					qmatrix.translate(x1, y1);
+					qmatrix.rotate(rotEnd);
+					qmatrix.shear(mask_gradientSkew, 0);
+					qmatrix.translate(0, y1 * (1.0 - mask_gradientScale));
+					qmatrix.translate(-x1, -y1);
+					qmatrix.scale(1, mask_gradientScale);
+				}
+				else
+				{
+					qmatrix.translate(x1, y1);
+					qmatrix.shear(-mask_gradientSkew, 0);
+					qmatrix.translate(-x1, -y1);
+				}
+				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QPainter painterM;
+				painterM.begin(&tmpImgM);
+				painterM.setWorldTransform(painter.worldTransform());
+				painterM.setRenderHint(QPainter::Antialiasing, true);
+				painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
+				QBrush brushm = QBrush(patm);
+				brushm.setTransform(qmatrix);
+				painterM.fillPath(m_path, brushm);
+				painterM.end();
+				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QPainter painterO;
+				painterO.begin(&tmpImgO);
+				painterO.setWorldTransform(painter.worldTransform());
+				painterO.setRenderHint(QPainter::Antialiasing, true);
+				painterO.setRenderHint(QPainter::SmoothPixmapTransform, true);
+				painterO.fillPath(m_path, brush);
+				painterO.end();
+				int h = tmpImgO.height();
+				int w = tmpImgO.width();
+				QRgb *s, *t;
+				for( int yi=0; yi < h; ++yi )
+				{
+					s = (QRgb*)(tmpImgM.scanLine( yi ));
+					t = (QRgb*)(tmpImgO.scanLine( yi ));
+					for( int xi=0; xi < w; ++xi )
+					{
+						*t = qRgba(qRed(*t), qGreen(*t), qBlue(*t), qAlpha(*s));
+						s++;
+						t++;
+					}
+				}
+				painter.save();
+				painter.resetTransform();
+				painter.drawImage(0, 0, tmpImgO);
+				painter.restore();
+			}
+			else
+			{
+				painter.setOpacity(fill_trans);
+				painter.fillPath(m_path, brush);
+			}
 		}
 		else if (fillMode == 3)
 		{
@@ -1482,9 +1649,92 @@ void ScPainter::drawVPath(int mode)
 				qmatrix.scale(1, -1);
 			QBrush brush = QBrush(*m_pattern->getPattern());
 			brush.setTransform(qmatrix);
-//			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
-			painter.setOpacity(fill_trans);
-			painter.fillPath(m_path, brush);
+			if (maskMode == 1)
+			{
+				QGradient patm;
+				double x1 = mask_gradient.origin().x();
+				double y1 = mask_gradient.origin().y();
+				double x2 = mask_gradient.vector().x();
+				double y2 = mask_gradient.vector().y();
+				double fx = mask_gradient.focalPoint().x();
+				double fy = mask_gradient.focalPoint().y();
+				if (mask_gradient.type() == VGradient::linear)
+					patm = QLinearGradient(x1, y1,  x2, y2);
+				else
+					patm = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), fx, fy);
+				QList<VColorStop*> colorStops = mask_gradient.colorStops();
+				QColor qStopColor;
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					qStopColor.setAlphaF(colorStops[offset]->opacity);
+					patm.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				}
+				QTransform qmatrix;
+				if (mask_gradient.type() == VGradient::radial)
+				{
+					double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+					qmatrix.translate(x1, y1);
+					qmatrix.rotate(rotEnd);
+					qmatrix.shear(mask_gradientSkew, 0);
+					qmatrix.translate(0, y1 * (1.0 - mask_gradientScale));
+					qmatrix.translate(-x1, -y1);
+					qmatrix.scale(1, mask_gradientScale);
+				}
+				else
+				{
+					qmatrix.translate(x1, y1);
+					qmatrix.shear(-mask_gradientSkew, 0);
+					qmatrix.translate(-x1, -y1);
+				}
+				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QPainter painterM;
+				painterM.begin(&tmpImgM);
+				painterM.setWorldTransform(painter.worldTransform());
+				painterM.setRenderHint(QPainter::Antialiasing, true);
+				painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
+				QBrush brushm = QBrush(patm);
+				brushm.setTransform(qmatrix);
+				painterM.fillPath(m_path, brushm);
+				painterM.end();
+				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QPainter painterO;
+				painterO.begin(&tmpImgO);
+				painterO.setWorldTransform(painter.worldTransform());
+				painterO.setRenderHint(QPainter::Antialiasing, true);
+				painterO.setRenderHint(QPainter::SmoothPixmapTransform, true);
+				painterO.fillPath(m_path, brush);
+				painterO.end();
+				int h = tmpImgO.height();
+				int w = tmpImgO.width();
+				QRgb *s, *t;
+				for( int yi=0; yi < h; ++yi )
+				{
+					s = (QRgb*)(tmpImgM.scanLine( yi ));
+					t = (QRgb*)(tmpImgO.scanLine( yi ));
+					for( int xi=0; xi < w; ++xi )
+					{
+						*t = qRgba(qRed(*t), qGreen(*t), qBlue(*t), qAlpha(*s));
+						s++;
+						t++;
+					}
+				}
+				painter.save();
+				painter.resetTransform();
+				painter.drawImage(0, 0, tmpImgO);
+				painter.restore();
+			}
+			else
+			{
+				painter.setOpacity(fill_trans);
+				painter.fillPath(m_path, brush);
+			}
 			painter.setRenderHint(QPainter::Antialiasing, true);
 			painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 		}
@@ -1671,8 +1921,92 @@ void ScPainter::drawImage( QImage *image )
 	cairo_surface_destroy (image3);
 #endif
 #else
-	painter.setOpacity(fill_trans);
-	painter.drawImage(0, 0, *image);
+	if (maskMode == 1)
+	{
+		QGradient patm;
+		double x1 = mask_gradient.origin().x();
+		double y1 = mask_gradient.origin().y();
+		double x2 = mask_gradient.vector().x();
+		double y2 = mask_gradient.vector().y();
+		double fx = mask_gradient.focalPoint().x();
+		double fy = mask_gradient.focalPoint().y();
+		if (mask_gradient.type() == VGradient::linear)
+			patm = QLinearGradient(x1, y1,  x2, y2);
+		else
+			patm = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), fx, fy);
+		QList<VColorStop*> colorStops = mask_gradient.colorStops();
+		QColor qStopColor;
+		for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+		{
+			qStopColor = colorStops[ offset ]->color;
+			int h, s, v, sneu, vneu;
+			int shad = colorStops[offset]->shade;
+			qStopColor.getHsv(&h, &s, &v);
+			sneu = s * shad / 100;
+			vneu = 255 - ((255 - v) * shad / 100);
+			qStopColor.setHsv(h, sneu, vneu);
+			qStopColor.setAlphaF(colorStops[offset]->opacity);
+			patm.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+		}
+		QTransform qmatrix;
+		if (mask_gradient.type() == VGradient::radial)
+		{
+			double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+			qmatrix.translate(x1, y1);
+			qmatrix.rotate(rotEnd);
+			qmatrix.shear(mask_gradientSkew, 0);
+			qmatrix.translate(0, y1 * (1.0 - mask_gradientScale));
+			qmatrix.translate(-x1, -y1);
+			qmatrix.scale(1, mask_gradientScale);
+		}
+		else
+		{
+			qmatrix.translate(x1, y1);
+			qmatrix.shear(-mask_gradientSkew, 0);
+			qmatrix.translate(-x1, -y1);
+		}
+		QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+		QPainter painterM;
+		painterM.begin(&tmpImgM);
+		painterM.setWorldTransform(painter.worldTransform());
+		painterM.setRenderHint(QPainter::Antialiasing, true);
+		painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
+		QBrush brushm = QBrush(patm);
+		brushm.setTransform(qmatrix);
+		painterM.fillPath(painter.clipPath(), brushm);
+		painterM.end();
+		QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+		QPainter painterO;
+		painterO.begin(&tmpImgO);
+		painterO.setWorldTransform(painter.worldTransform());
+		painterO.setRenderHint(QPainter::Antialiasing, true);
+		painterO.setRenderHint(QPainter::SmoothPixmapTransform, true);
+		painterO.drawImage(0, 0, *image);
+		painterO.end();
+		int h = tmpImgO.height();
+		int w = tmpImgO.width();
+		QRgb *s, *t;
+		for( int yi=0; yi < h; ++yi )
+		{
+			s = (QRgb*)(tmpImgM.scanLine( yi ));
+			t = (QRgb*)(tmpImgO.scanLine( yi ));
+			for( int xi=0; xi < w; ++xi )
+			{
+				*t = qRgba(qRed(*t), qGreen(*t), qBlue(*t), qAlpha(*s));
+				s++;
+				t++;
+			}
+		}
+		painter.save();
+		painter.resetTransform();
+		painter.drawImage(0, 0, tmpImgO);
+		painter.restore();
+	}
+	else
+	{
+		painter.setOpacity(fill_trans);
+		painter.drawImage(0, 0, *image);
+	}
 #endif
 }
 
