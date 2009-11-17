@@ -2358,7 +2358,13 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		DOC=DOC.nextSibling();
 	}
+	// Some sanity checks
 	appPrefs.DColors.ensureBlackAndWhite();
+	if ((appPrefs.FacingPages  < 0) || (appPrefs.FacingPages >= appPrefs.pageSets.count()))
+		appPrefs.FacingPages = 0;
+	if ((appPrefs.docUnitIndex < UNITMIN) || (appPrefs.docUnitIndex > UNITMAX))
+		appPrefs.docUnitIndex = int(SC_POINTS);
+	// Configure GUI
 	appPrefs.GUIsystem = qApp->style()->objectName();
 	if (appPrefs.GUI.length() > 0)
 	{
