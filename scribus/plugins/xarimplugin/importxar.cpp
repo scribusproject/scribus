@@ -704,6 +704,7 @@ void XarPlug::handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen,
 	readCoords(ts, blx, bly);
 	readCoords(ts, brx, bry);
 	ts >> transStart >> transEnd >> transType;
+	gc->FillBlend = convertBlendMode(transType);
 	if (dataLen == 35)
 	{
 		double p, p1;
@@ -737,6 +738,7 @@ void XarPlug::handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 da
 	readCoords(ts, brx, bry);
 	readCoords(ts, tlx, tly);
 	ts >> transStart >> transEnd >> transType;
+	gc->FillBlend = convertBlendMode(transType);
 	if (dataLen == 43)
 	{
 		double p, p1;
@@ -768,6 +770,7 @@ void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 data
 	readCoords(ts, tlx, tly);
 	readCoords(ts, brx, bry);
 	ts >> transStart >> transEnd >> transType;
+	gc->FillBlend = convertBlendMode(transType);
 	if (dataLen == 43)
 	{
 		double p, p1;
