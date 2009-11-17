@@ -139,6 +139,7 @@ SET(SCRIBUS_UI_SRC
   ui/tabprinter.ui
   ui/tabscrapbook.ui
   ui/tocindexprefs.ui
+  ui/transparencypalette.ui
   ui/copypagetomasterpage.ui
   ui/createrange.ui
   ui/helpbrowser.ui
@@ -214,6 +215,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/gradientaddedit.h
   ui/gradienteditor.h
   ui/gradientmanager.h
+  ui/gradientvectordialog.h
   ui/gradientpreview.h
   ui/gtdialogs.h
   ui/gtfiledialog.h
@@ -388,6 +390,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/tabtypography.h
   tocgenerator.h
   ui/tocindexprefs.h
+  ui/transparencypalette.h
   tt/simpletreemodel/treemodel.h
   ui/copypagetomasterpagedialog.h
   ui/createrange.h
@@ -499,6 +502,7 @@ SET(SCRIBUS_SOURCES
   ui/gradientaddedit.cpp
   ui/gradienteditor.cpp
   ui/gradientmanager.cpp
+  ui/gradientvectordialog.cpp
   ui/gradientpreview.cpp
   gtaction.cpp
   ui/gtdialogs.cpp
@@ -748,6 +752,7 @@ SET(SCRIBUS_SOURCES
   tocgenerator.cpp
   ui/tocindexprefs.cpp
   transaction.cpp
+  ui/transparencypalette.cpp
   tt/simpletreemodel/treeitem.cpp
   tt/simpletreemodel/treemodel.cpp
   ui/copypagetomasterpagedialog.cpp

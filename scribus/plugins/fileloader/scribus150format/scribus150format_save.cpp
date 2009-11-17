@@ -1229,13 +1229,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pMirrorXS" , mirrorX);
 			docu.writeAttribute("pMirrorYS" , mirrorY);
 		}
+		docu.writeAttribute("GRTYPM", item->GrMask);
 		if (item->GrMask > 0)
 		{
-			docu.writeAttribute("GRTYPM", item->GrMask);
-			if (item->mask_gradient.type() == VGradient::radial)
-				docu.writeAttribute("GRMK", 1);
-			else
-				docu.writeAttribute("GRMK", 0);
 			docu.writeAttribute("GRSTARTXM", item->GrMaskStartX);
 			docu.writeAttribute("GRSTARTYM", item->GrMaskStartY);
 			docu.writeAttribute("GRENDXM", item->GrMaskEndX);

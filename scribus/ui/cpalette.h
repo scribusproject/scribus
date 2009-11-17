@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "ui/scrpalettebase.h"
 #include "ui_colorpalette.h"
+#include "ui/gradientvectordialog.h"
 
 class PageItem;
 class ColorListBox;
@@ -45,46 +46,6 @@ class LinkButton;
 /**
   *@author Franz Schmid
   */
-
-class SCRIBUS_API GradientVectorDialog : public ScrPaletteBase
-{
-	Q_OBJECT
-
-public:
-	GradientVectorDialog( QWidget* parent);
-	~GradientVectorDialog() {};
-	virtual void changeEvent(QEvent *e);
-	void hideExtraWidgets();
-	void showExtraWidgets();
-
-public slots:
-	void languageChange();
-	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
-	void changeSpecial();
-	void unitChange(int unitIndex);
-
-signals:
-	void NewSpecial(double, double, double, double, double, double, double, double);
-
-protected:
-	QGridLayout* freeGradientLayout;
-	QLabel* GTextX1;
-	QLabel* GTextY1;
-	QLabel* GTextX2;
-	QLabel* GTextY2;
-	QLabel* GTextFX;
-	QLabel* GTextFY;
-	QLabel* GTextSK;
-	QLabel* GTextSC;
-	ScrSpinBox* gY1;
-	ScrSpinBox* gX2;
-	ScrSpinBox* gX1;
-	ScrSpinBox* gY2;
-	ScrSpinBox* gFX;
-	ScrSpinBox* gFY;
-	ScrSpinBox* gSk;
-	ScrSpinBox* gSc;
-};
 
 class SCRIBUS_API PatternPropsDialog : public QDialog
 {
@@ -158,11 +119,11 @@ public slots:
 	void editLineColorSelectorButton();
 	void editFillColorSelectorButton();
 	void SetColors(ColorList newColorList);
-	void setActTrans(double, double);
-	void setActBlend(int, int);
+//	void setActTrans(double, double);
+//	void setActBlend(int, int);
 	void setActOverprint(int);
-	void slotTransS(int val);
-	void slotTransF(int val);
+//	void slotTransS(int val);
+//	void slotTransF(int val);
 	void updateCList();
 	void ToggleColorDisplay();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
@@ -203,14 +164,14 @@ signals:
 	void NewPatternS(QString);
 	void NewPatternPropsS(double, double, double, double, double, double, double, bool, bool);
 	void NewSpecial(double, double, double, double, double, double, double, double);
-	void NewTrans(double);
-	void NewTransS(double);
-	void NewBlend(int);
-	void NewBlendS(int);
+//	void NewTrans(double);
+//	void NewTransS(double);
+//	void NewBlend(int);
+//	void NewBlendS(int);
 	void NewOverprint(int);
 	void gradientChanged();
 	void strokeGradientChanged();
-	void editGradient(bool);
+	void editGradient(int);
 
 protected:
 	GradientVectorDialog* CGradDia;
@@ -239,7 +200,7 @@ protected:
 	bool m_Pattern_mirrorXS;
 	bool m_Pattern_mirrorYS;
 	int currentUnit;
-	bool editStrokeGradient;
+	int editStrokeGradient;
 };
 
 #endif

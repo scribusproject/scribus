@@ -1162,7 +1162,7 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 	psx->rotate(currItem->rotation());
 	psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	psx->setBrush(Qt::NoBrush);
-	if (m_view->editStrokeGradient)
+	if (m_view->editStrokeGradient == 1)
 	{
 		psx->drawLine(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
 		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
@@ -1181,6 +1181,28 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 		QPointF shP = m.map(QPointF(0,0));
 		psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		psx->drawLine(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), shP);
+		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		psx->drawPoint(shP);
+	}
+	else if (m_view->editStrokeGradient == 2)
+	{
+		psx->drawLine(QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY), QPointF(currItem->GrMaskEndX, currItem->GrMaskEndY));
+		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		psx->drawPoint(QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY));
+		psx->drawPoint(QPointF(currItem->GrMaskEndX, currItem->GrMaskEndY));
+		if (currItem->GrMask == 2)
+			psx->drawPoint(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY));
+		double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
+		double rotEnd = xy2Deg(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
+		QTransform m;
+		m.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);
+		m.rotate(rotEnd);
+		m.rotate(-90);
+		m.rotate(currItem->GrMaskSkew);
+		m.translate(radEnd * currItem->GrMaskScale, 0);
+		QPointF shP = m.map(QPointF(0,0));
+		psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->drawLine(QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY), shP);
 		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		psx->drawPoint(shP);
 	}
@@ -1205,8 +1227,6 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 		psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), shP);
 		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		psx->drawPoint(shP);
-		
-		
 	}
 }
 

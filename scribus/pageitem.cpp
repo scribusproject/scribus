@@ -1251,11 +1251,15 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 			if (lineBlendmode() == 0)
 				p->setPenOpacity(1.0 - lineTransparency());
 			p->setFillRule(fillRule);
-			if (GrMask == 1)
+			if ((GrMask == 1) || (GrMask == 2))
 			{
 				p->setMaskMode(1);
+				if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
+					gradientMaskVal = "";
+				if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
+					mask_gradient = m_Doc->docGradients[gradientMaskVal];
 				p->mask_gradient = mask_gradient;
-				if (mask_gradient.type() == VGradient::linear)
+				if (GrMask == 1)
 					p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
 				else
 					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
@@ -4365,7 +4369,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
-	if (GrMask == 1)
+	if ((GrMask == 1) || (GrMask == 2))
 	{
 		QList<VColorStop*> cstops = mask_gradient.colorStops();
 		for (uint cst = 0; cst < mask_gradient.Stops(); ++cst)

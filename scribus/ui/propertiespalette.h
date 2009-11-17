@@ -52,6 +52,7 @@ class QWidget;
 class StyleSelect;
 class ScribusDoc;
 class Cpalette;
+class Tpalette;
 class Autoforms;
 class ArrowChooser;
 class ScComboBox;
@@ -140,6 +141,7 @@ public:
 	void updateColorSpecialGradient();
 	const VGradient getFillGradient();
 	const VGradient getStrokeGradient();
+	const VGradient getMaskGradient();
 	void updateColorList();
 	void setGradientEditMode(bool);
 	void updateCmsList();
@@ -157,6 +159,7 @@ public:
                          // commmited
 
 	Cpalette *Cpal;
+	Tpalette *Tpal;
 	Autoforms* SCustom;
 	Autoforms* SCustom2;
 	ParaStyleComboBox *paraStyleCombo;
@@ -290,7 +293,9 @@ private slots:
 	void MakeIrre(int f, int c, qreal *vals);
 	void NewTDist();
 	void NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
-	void toggleGradientEdit(bool);
+	void toggleGradientEdit(int);
+	void NewSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
+	void toggleGradientEditM();
 	void DoRevert();
 	void doClearCStyle();
 	void doClearPStyle();
@@ -351,6 +356,7 @@ protected:
 	QVBoxLayout* pageLayout_5a;
 	QVBoxLayout* pageLayout_5b;
 	QVBoxLayout* pageLayout_6;
+	QVBoxLayout* pageLayout_7;
 //	QVBoxLayout* OverPLayout;
 	QVBoxLayout* TLineLayout;
 	QHBoxLayout* layout60;
@@ -403,6 +409,7 @@ protected:
 	QWidget* page_5a;
 	QWidget* page_5b;
 	QWidget* page_6;
+	QWidget* page_7;
 	QWidget* page_group;
 	
 	QLabel* xposLabel;
@@ -642,6 +649,7 @@ protected:
 	int idImageItem;
 	int idLineItem;
 	int idColorsItem;
+	int idTransparencyItem;
 	int idGroupItem;
 	Selection* tmpSelection;
 };

@@ -1,0 +1,306 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+/***************************************************************************
+                          transparencypalette.cpp  -  description
+                             -------------------
+    begin                : Tue Nov 17 2009
+    copyright            : (C) 2009 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#include "transparencypalette.h"
+#include "sccolorengine.h"
+#include "scpainter.h"
+#include "scpattern.h"
+#include "util_icon.h"
+#include "util.h"
+
+Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
+{
+	currentItem = NULL;
+	patternList = NULL;
+	TGradDia = NULL;
+	TGradDia = new GradientVectorDialog(this->parentWidget());
+	TGradDia->hide();
+	setupUi(this);
+	editLineSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
+	editFillSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
+	editFillSelector->setChecked(true);
+	editFillSelectorButton();
+	connect(editLineSelector, SIGNAL(clicked()), this, SLOT(editLineSelectorButton()));
+	connect(editFillSelector, SIGNAL(clicked()), this, SLOT(editFillSelectorButton()));
+	connect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
+	connect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
+	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
+	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
+	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
+	connect(TGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)));
+	connect(TGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
+	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	tabWidget->setTabEnabled(2, false);
+}
+
+void Tpalette::setCurrentItem(PageItem* item)
+{
+	currentItem = item;
+}
+
+void Tpalette::setDocument(ScribusDoc* doc)
+{
+	currentDoc = doc;
+	if (doc != NULL)
+	{
+		gradEdit->setColors(doc->PageColors);
+		currentUnit = doc->unitIndex();
+	}
+}
+
+void Tpalette::updateFromItem()
+{
+	if (currentItem == NULL)
+		return;
+	if (!currentDoc)
+		return;
+	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
+	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
+	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+	gradEdit->setGradient(currentItem->mask_gradient);
+	if (!currentItem->gradientMask().isEmpty())
+	{
+		setCurrentComboItem(namedGradient, currentItem->gradientMask());
+		gradEdit->setGradientEditable(false);
+	}
+	else
+	{
+		namedGradient->setCurrentIndex(0);
+		gradEdit->setGradientEditable(true);
+	}
+	if (currentItem->GrMask == 0)
+		tabWidget->setCurrentIndex(0);
+	else if ((currentItem->GrMask == 1) || (currentItem->GrMask == 2))
+		tabWidget->setCurrentIndex(1);
+	else
+		tabWidget->setCurrentIndex(2);
+	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+}
+
+void Tpalette::updateCList()
+{
+	gradEdit->setColors(colorList);
+}
+
+void Tpalette::updateGradientList()
+{
+	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	namedGradient->clear();
+	namedGradient->setIconSize(QSize(48, 12));
+	namedGradient->addItem( tr("Custom"));
+	for (QMap<QString, VGradient>::Iterator it = gradientList->begin(); it != gradientList->end(); ++it)
+	{
+		QImage pixm(48, 12, QImage::Format_ARGB32);
+		QPainter pb;
+		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		pb.begin(&pixm);
+		pb.fillRect(0, 0, 48, 12, b);
+		pb.end();
+		ScPainter *p = new ScPainter(&pixm, 48, 12);
+		p->setPen(Qt::black);
+		p->setLineWidth(1);
+		p->setFillMode(2);
+		p->fill_gradient = it.value();
+		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6), FPoint(0,0), 1, 0);
+		p->drawRect(0, 0, 48, 12);
+		p->end();
+		delete p;
+		QPixmap pm;
+		pm = QPixmap::fromImage(pixm);
+		namedGradient->addItem(pm, it.key());
+	}
+	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+}
+
+void Tpalette::SetGradients(QMap<QString, VGradient> *docGradients)
+{
+	gradientList = docGradients;
+	updateGradientList();
+}
+
+void Tpalette::SetColors(ColorList newColorList)
+{
+	colorList.clear();
+	colorList = newColorList;
+	updateCList();
+}
+
+void Tpalette::slotGrad(int number)
+{
+	if (number == 1)
+	{
+		disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		if (!currentItem->gradientMask().isEmpty())
+		{
+			setCurrentComboItem(namedGradient, currentItem->gradientMask());
+			gradEdit->setGradient(gradientList->value(currentItem->gradientMask()));
+			gradEdit->setGradientEditable(false);
+		}
+		else
+		{
+			namedGradient->setCurrentIndex(0);
+			gradEdit->setGradient(currentItem->mask_gradient);
+			gradEdit->setGradientEditable(true);
+		}
+		if (gradientType->currentIndex() == 0)
+			emit NewGradient(1);
+		else
+			emit NewGradient(2);
+		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	}
+	else if (number == 2)
+		emit NewGradient(3);
+	else
+		emit NewGradient(0);
+}
+
+void Tpalette::slotGradType(int type)
+{
+	if (type == 0)
+		emit NewGradient(1);
+	else
+		emit NewGradient(2);
+}
+
+void Tpalette::setNamedGradient(const QString &name)
+{
+	if (namedGradient->currentIndex() == 0)
+	{
+		gradEdit->setGradient(currentItem->mask_gradient);
+		currentItem->setGradient("");
+		gradEdit->setGradientEditable(true);
+	}
+	else
+	{
+		gradEdit->setGradient(gradientList->value(name));
+		gradEdit->setGradientEditable(false);
+		currentItem->setGradient(name);
+	}
+	if (gradientType->currentIndex() == 0)
+		emit NewGradient(1);
+	else
+		emit NewGradient(2);
+}
+
+void Tpalette::editGradientVector()
+{
+	if (gradEditButton->isChecked())
+	{
+		TGradDia->unitChange(currentDoc->unitIndex());
+		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew);
+		if (currentItem->GrMask == 1)
+			TGradDia->hideExtraWidgets();
+		else
+			TGradDia->showExtraWidgets();
+		TGradDia->show();
+	}
+	else
+	{
+		TGradDia->hide();
+	}
+	emit editGradient();
+}
+
+void Tpalette::setActiveGradDia(bool active)
+{
+	if (!active)
+	{
+		gradEditButton->setChecked(false);
+		emit editGradient();
+	}
+}
+
+void Tpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
+{
+	if (TGradDia)
+		TGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk);
+}
+
+void Tpalette::setActTrans(double val, double val2)
+{
+	disconnect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
+	disconnect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
+	strokeOpacity->setValue(qRound(100 - (val2 * 100)));
+	fillOpacity->setValue(qRound(100 - (val * 100)));
+	connect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
+	connect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
+}
+
+void Tpalette::setActBlend(int val, int val2)
+{
+	disconnect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
+	disconnect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
+	blendModeFill->setCurrentIndex(val);
+	blendModeStroke->setCurrentIndex(val2);
+	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
+	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
+}
+
+void Tpalette::slotTransS(int val)
+{
+	emit NewTransS(static_cast<double>(100 - val) / 100.0);
+}
+
+void Tpalette::slotTransF(int val)
+{
+	emit NewTrans(static_cast<double>(100 - val) / 100.0);
+}
+
+void Tpalette::editLineSelectorButton()
+{
+	if (editLineSelector->isChecked())
+	{
+		stackedWidget->setCurrentIndex(0);
+		editFillSelector->setChecked(false);
+	}
+	updateFromItem();
+}
+
+void Tpalette::editFillSelectorButton()
+{
+	if (editFillSelector->isChecked())
+	{
+		stackedWidget->setCurrentIndex(1);
+		editLineSelector->setChecked(false);
+	}
+	updateFromItem();
+}
+
+void Tpalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+	else
+		QWidget::changeEvent(e);
+}

@@ -1106,10 +1106,12 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 	double y1 = mask_gradient.origin().y();
 	double x2 = mask_gradient.vector().x();
 	double y2 = mask_gradient.vector().y();
+	double fx = mask_gradient.focalPoint().x();
+	double fy = mask_gradient.focalPoint().y();
 	if (mask_gradient.type() == VGradient::linear)
 		pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 	else
-		pat = cairo_pattern_create_radial (x1, y1, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+		pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 	QList<VColorStop*> colorStops = mask_gradient.colorStops();
 	QColor qStopColor;
 	for( int offset = 0 ; offset < colorStops.count() ; offset++ )

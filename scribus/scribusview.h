@@ -159,7 +159,7 @@ public:
 	bool Magnify;
 	bool storedFramesShown;
 	bool storedShowControls;
-	bool editStrokeGradient;
+	int editStrokeGradient;
 	int redrawMode;
 	int redrawCount;
 	PageItem *redrawItem;

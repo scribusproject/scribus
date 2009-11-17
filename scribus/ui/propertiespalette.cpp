@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "sccolorengine.h"
 #include "cpalette.h"
+#include "transparencypalette.h"
 #include "pageitem_textframe.h"
 #include "sccombobox.h"
 #include "scfonts.h"
@@ -1477,23 +1478,18 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	pageLayout_6 = new QVBoxLayout( page_6 );
 	pageLayout_6->setSpacing( 5 );
 	pageLayout_6->setMargin( 0 );
-
 	Cpal = new Cpalette(page_6);
 	pageLayout_6->addWidget( Cpal );
-
-/*	OverP = new QGroupBox( "Overprinting", page_6 );
-	OverPLayout = new QVBoxLayout( OverP );
-	OverPLayout->setSpacing( 2 );
-	OverPLayout->setMargin( 5 );
-	OverPLayout->setAlignment( Qt::AlignTop );
-	KnockOut = new QRadioButton( "Knockout", OverP );
-	OverPLayout->addWidget( KnockOut );
-	Overprint = new QRadioButton( "Overprint", OverP );
-	OverPLayout->addWidget( Overprint );
-	KnockOut->setChecked( true );
-	pageLayout_6->addWidget(OverP);
-*/
 	idColorsItem = TabStack->addItem(page_6, "&Colors" );
+	
+	page_7 = new QWidget( TabStack );
+	pageLayout_7 = new QVBoxLayout( page_7 );
+	pageLayout_7->setSpacing( 5 );
+	pageLayout_7->setMargin( 0 );
+	Tpal = new Tpalette(page_7);
+	pageLayout_7->addWidget( Tpal );
+	idTransparencyItem = TabStack->addItem(page_7, "&Transparency" );
+
 	MpalLayout->addWidget( TabStack );
 
 	languageChange();
@@ -1590,7 +1586,9 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 //	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	connect(colgapLabel, SIGNAL(activated(int)), this, SLOT(HandleGapSwitch()));
 	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double, double )));
-	connect( Cpal, SIGNAL(editGradient(bool)), this, SLOT(toggleGradientEdit(bool)));
+	connect( Cpal, SIGNAL(editGradient(int)), this, SLOT(toggleGradientEdit(int)));
+	connect( Tpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradientM(double, double, double, double, double, double, double, double )));
+	connect( Tpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEditM()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 // 	connect(lineSpacingPop, SIGNAL(triggered(QAction *)), this, SLOT(setLspMode(QAction *)));
@@ -1623,7 +1621,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	RoundRect->setValue(0);
 	TabStack3->setCurrentIndex(0);
 	TabStack2->setCurrentIndex(0);
-	for (int ws = 1; ws < 7; ++ws)
+	for (int ws = 1; ws < 8; ++ws)
 		TabStack->setItemEnabled(ws, false);
 	TabStack->setCurrentIndex(0);
 	TabStack->widget(0)->setEnabled(false);
@@ -1670,6 +1668,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 //	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
+	connect(this->Tpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradMask()));
 	connect(DoUnGroup, SIGNAL(clicked()), m_ScMW, SLOT(UnGroupObj()) );
 	
 }
@@ -1836,6 +1835,11 @@ void PropertiesPalette::SelTab(int t)
 			textFlowUsesContourLine2->setEnabled(true);
 			textFlowUsesImageClipping2->setEnabled(false);
 		}
+		else if (t == idTransparencyItem)
+		{
+			Tpal->setCurrentItem(CurItem);
+			Tpal->updateFromItem();
+		}
 #ifdef HAVE_OSG
 		if (CurItem->asOSGFrame())
 		{
@@ -1844,6 +1848,7 @@ void PropertiesPalette::SelTab(int t)
 			TabStack->setItemEnabled(idGroupItem, false);
 			TabStack->setItemEnabled(idLineItem, false);
 			TabStack->setItemEnabled(idColorsItem, true);
+			TabStack->setItemEnabled(idTransparencyItem, false);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
 			Rotation->setEnabled(false);
@@ -1860,16 +1865,18 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	if(doc == d || (m_ScMW && m_ScMW->ScriptRunning))
 		return;
 
-	disconnect(this->Cpal, SIGNAL(NewTrans(double)), 0, 0);
-	disconnect(this->Cpal, SIGNAL(NewTransS(double)), 0, 0);
+	disconnect(this->Tpal, SIGNAL(NewTrans(double)), 0, 0);
+	disconnect(this->Tpal, SIGNAL(NewTransS(double)), 0, 0);
+	disconnect(this->Tpal, SIGNAL(NewGradient(int)), 0, 0);
+	disconnect(this->Tpal, SIGNAL(NewBlend(int)), 0, 0);
+	disconnect(this->Tpal, SIGNAL(NewBlendS(int)), 0, 0);
+
 	disconnect(this->Cpal, SIGNAL(NewPen(QString)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBrush(QString)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPenShade(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBrushShade(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewGradient(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewGradientS(int)), 0, 0);
-	disconnect(this->Cpal, SIGNAL(NewBlend(int)), 0, 0);
-	disconnect(this->Cpal, SIGNAL(NewBlendS(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPattern(QString)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewOverprint(int)), 0, 0);
@@ -1880,6 +1887,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	CurItem = NULL;
 	Cpal->setDocument(doc);
 	Cpal->setCurrentItem(NULL);
+	Tpal->setDocument(doc);
+	Tpal->setCurrentItem(NULL);
 	m_unitRatio=doc->unitRatio();
 	m_unitIndex=doc->unitIndex();
 	int precision = unitGetPrecisionFromIndex(m_unitIndex);
@@ -1938,10 +1947,12 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	startArrow->rebuildList(&doc->arrowStyles);
 	endArrow->rebuildList(&doc->arrowStyles);
 
-	connect(this->Cpal, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
-	connect(this->Cpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
-	connect(this->Cpal, SIGNAL(NewBlend(int)), doc, SLOT(itemSelection_SetItemFillBlend(int)));
-	connect(this->Cpal, SIGNAL(NewBlendS(int)), doc, SLOT(itemSelection_SetItemLineBlend(int)));
+	connect(this->Tpal, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
+	connect(this->Tpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
+	connect(this->Tpal, SIGNAL(NewBlend(int)), doc, SLOT(itemSelection_SetItemFillBlend(int)));
+	connect(this->Tpal, SIGNAL(NewBlendS(int)), doc, SLOT(itemSelection_SetItemLineBlend(int)));
+	connect(this->Tpal, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradMask(int)));
+
 	connect(this->Cpal, SIGNAL(NewPen(QString)), doc, SLOT(itemSelection_SetItemPen(QString)));
 	connect(this->Cpal, SIGNAL(NewBrush(QString)), doc, SLOT(itemSelection_SetItemBrush(QString)));
 	connect(this->Cpal, SIGNAL(NewPenShade(int)), doc, SLOT(itemSelection_SetItemPenShade(int)));
@@ -1963,6 +1974,8 @@ void PropertiesPalette::unsetDoc()
 	CurItem = NULL;
 	Cpal->setCurrentItem(NULL);
 	Cpal->setDocument(NULL);
+	Tpal->setCurrentItem(NULL);
+	Tpal->setDocument(NULL);
 	Xpos->setConstants(NULL);
 	Ypos->setConstants(NULL);
 	Width->setConstants(NULL);
@@ -1988,7 +2001,7 @@ void PropertiesPalette::unsetDoc()
 	Height->setValue(0);
 	Rotation->setValue(0);
 	RoundRect->setValue(0);
-	for (int ws = 1; ws < 7; ++ws)
+	for (int ws = 1; ws < 8; ++ws)
 		TabStack->setItemEnabled(ws, false);
 	TabStack->widget(0)->setEnabled(false);
 	TabStack->setItemEnabled(idXYZItem, false);
@@ -2000,6 +2013,7 @@ void PropertiesPalette::unsetItem()
 	HaveItem=false;
 	CurItem = NULL;
 	Cpal->setCurrentItem(NULL);
+	Tpal->setCurrentItem(NULL);
 	dashEditor->hide();
 	NewSel(-1);
 }
@@ -2072,6 +2086,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 
 	Cpal->setCurrentItem(CurItem);
 	Cpal->updateFromItem();
+	Tpal->setCurrentItem(CurItem);
+	Tpal->updateFromItem();
 /*	if (TabStack->currentIndex() == idColorsItem)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
@@ -2472,6 +2488,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		TabStack->setItemEnabled(idGroupItem, false);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, true);
+		TabStack->setItemEnabled(idTransparencyItem, false);
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
 		Rotation->setEnabled(false);
@@ -2529,13 +2546,14 @@ void PropertiesPalette::NewSel(int nr)
 		Height->setEnabled(true);
 		Rotation->setEnabled(true);
 // 		TabStack->setCurrentIndex(0);
-		for (int ws = 1; ws < 7; ++ws)
+		for (int ws = 1; ws < 8; ++ws)
 			TabStack->setItemEnabled(ws, false);
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		NameEdit->setEnabled(false);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, true);
+		TabStack->setItemEnabled(idTransparencyItem, true);
 		if (HaveItem && CurItem)
 		{
 			if ((CurItem->isGroupControl) || ((CurItem->Groups.count() != 0) && (!CurItem->isSingleSel)))
@@ -2578,6 +2596,7 @@ void PropertiesPalette::NewSel(int nr)
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
+		TabStack->setItemEnabled(idTransparencyItem, true);
 		/*
 		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -2620,7 +2639,7 @@ void PropertiesPalette::NewSel(int nr)
 			Height->setValue(0);
 			Rotation->setValue(0);
 			RoundRect->setValue(0);
-			for (int ws = 1; ws < 7; ++ws)
+			for (int ws = 1; ws < 8; ++ws)
 				TabStack->setItemEnabled(ws, false);
 // 			TabStack->setCurrentIndex(0);
 			TabStack->widget(0)->setEnabled(false);
@@ -2638,6 +2657,7 @@ void PropertiesPalette::NewSel(int nr)
 				TabStack->setItemEnabled(idGroupItem, false);
 				TabStack->setItemEnabled(idLineItem, false);
 				TabStack->setItemEnabled(idColorsItem, true);
+				TabStack->setItemEnabled(idTransparencyItem, false);
 				TabStack->setItemEnabled(idTextItem, false);
 				TabStack->setItemEnabled(idImageItem, false);
 				Rotation->setEnabled(false);
@@ -4595,7 +4615,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 	if ((HaveDoc) && (HaveItem))
 	{
 		QRectF upRect;
-		if (m_ScMW->view->editStrokeGradient)
+		if (m_ScMW->view->editStrokeGradient == 1)
 		{
 			CurItem->GrStrokeStartX = x1 / m_unitRatio;
 			CurItem->GrStrokeStartY = y1 / m_unitRatio;
@@ -4663,14 +4683,14 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 	}
 }
 
-void PropertiesPalette::toggleGradientEdit(bool stroke)
+void PropertiesPalette::toggleGradientEdit(int stroke)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		m_ScMW->view->editStrokeGradient = stroke;
-		if (stroke)
+		if (stroke == 1)
 		{
 			if (Cpal->gradEditButtonStroke->isChecked())
 				m_ScMW->view->requestMode(modeEditGradientVectors);
@@ -4685,6 +4705,61 @@ void PropertiesPalette::toggleGradientEdit(bool stroke)
 				m_ScMW->view->requestMode(modeNormal);
 		}
 		m_ScMW->view->RefreshGradient(CurItem);
+	}
+}
+
+void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		QRectF upRect;
+		CurItem->GrMaskStartX = x1 / m_unitRatio;
+		CurItem->GrMaskStartY = y1 / m_unitRatio;
+		CurItem->GrMaskEndX = x2 / m_unitRatio;
+		CurItem->GrMaskEndY = y2 / m_unitRatio;
+		CurItem->GrMaskFocalX = fx / m_unitRatio;
+		CurItem->GrMaskFocalY = fy / m_unitRatio;
+		CurItem->GrMaskScale = sg;
+		CurItem->GrMaskSkew = sk;
+		if (CurItem->GrMask == 1)
+		{
+			CurItem->GrMaskFocalX = CurItem->GrMaskStartX;
+			CurItem->GrMaskFocalY = CurItem->GrMaskStartY;
+		}
+		CurItem->update();
+		upRect = QRectF(QPointF(CurItem->GrMaskStartX, CurItem->GrMaskStartY), QPointF(CurItem->GrMaskEndX, CurItem->GrMaskEndY));
+		double radEnd = distance(CurItem->GrMaskEndX - CurItem->GrMaskStartX, CurItem->GrMaskEndY - CurItem->GrMaskStartY);
+		double rotEnd = xy2Deg(CurItem->GrMaskEndX - CurItem->GrMaskStartX, CurItem->GrMaskEndY - CurItem->GrMaskStartY);
+		QTransform m;
+		m.translate(CurItem->GrMaskStartX, CurItem->GrMaskStartY);
+		m.rotate(rotEnd);
+		m.rotate(-90);
+		m.rotate(CurItem->GrMaskSkew);
+		m.translate(radEnd * CurItem->GrMaskScale, 0);
+		QPointF shP = m.map(QPointF(0,0));
+		upRect |= QRectF(shP, QPointF(CurItem->GrMaskEndX, CurItem->GrMaskEndY)).normalized();
+		upRect |= QRectF(shP, QPointF(CurItem->GrMaskStartX, CurItem->GrMaskStartY)).normalized();
+		upRect |= QRectF(shP, QPointF(0, 0)).normalized();
+		upRect |= QRectF(shP, QPointF(CurItem->width(), CurItem->height())).normalized();
+		upRect.translate(CurItem->xPos(), CurItem->yPos());
+		doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
+		emit DocChanged();
+	}
+}
+
+void PropertiesPalette::toggleGradientEditM()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		m_ScMW->view->editStrokeGradient = 2;
+		if (Tpal->gradEditButton->isChecked())
+			m_ScMW->view->requestMode(modeEditGradientVectors);
+		else
+			m_ScMW->view->requestMode(modeNormal);
 	}
 }
 
@@ -4771,6 +4846,8 @@ void PropertiesPalette::updateColorList()
 	Cpal->SetColors(doc->PageColors);
 	Cpal->SetPatterns(&doc->docPatterns);
 	Cpal->SetGradients(&doc->docGradients);
+	Tpal->SetColors(doc->PageColors);
+	Tpal->SetGradients(&doc->docGradients);
 	assert (doc->PageColors.document());
 	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, false);
@@ -5653,6 +5730,11 @@ const VGradient PropertiesPalette::getStrokeGradient()
 	return Cpal->gradEditStroke->gradient();
 }
 
+const VGradient PropertiesPalette::getMaskGradient()
+{
+	return Tpal->gradEdit->gradient();
+}
+
 void PropertiesPalette::setGradientEditMode(bool on)
 {
 	Cpal->gradEditButton->setChecked(on);
@@ -5667,7 +5749,14 @@ void PropertiesPalette::updateColorSpecialGradient()
 	double dur=doc->unitRatio();
 	PageItem *currItem=doc->m_Selection->itemAt(0);
 	if (currItem)
-		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur, currItem->GrFocalX * dur, currItem->GrFocalY * dur, currItem->GrScale, currItem->GrSkew);
+	{
+		if (m_ScMW->view->editStrokeGradient == 0)
+			Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur, currItem->GrFocalX * dur, currItem->GrFocalY * dur, currItem->GrScale, currItem->GrSkew);
+		else if (m_ScMW->view->editStrokeGradient == 1)
+			Cpal->setSpecialGradient(currItem->GrStrokeStartX * dur, currItem->GrStrokeStartY * dur, currItem->GrStrokeEndX * dur, currItem->GrStrokeEndY * dur, currItem->GrStrokeFocalX * dur, currItem->GrStrokeFocalY * dur, currItem->GrStrokeScale, currItem->GrStrokeSkew);
+		else
+			Tpal->setSpecialGradient(currItem->GrMaskStartX * dur, currItem->GrMaskStartY * dur, currItem->GrMaskEndX * dur, currItem->GrMaskEndY * dur, currItem->GrMaskFocalX * dur, currItem->GrMaskFocalY * dur, currItem->GrMaskScale, currItem->GrMaskSkew);
+	}
 }
 
 void PropertiesPalette::updateSpinBoxConstants()

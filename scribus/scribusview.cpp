@@ -3896,7 +3896,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->GrMaskScale  = Buffer->GrMaskScale;
 		currItem->GrMaskSkew   = Buffer->GrMaskSkew;
 	}
-	else if (currItem->GrMask == 2)
+	else if (currItem->GrMask == 3)
 	{
 		currItem->setPatternMask(Buffer->patternMaskVal);
 		currItem->setMaskTransform(Buffer->patternMaskScaleX, Buffer->patternMaskScaleY, Buffer->patternMaskOffsetX, Buffer->patternMaskOffsetY, Buffer->patternMaskRotation, Buffer->patternMaskSkewX, Buffer->patternMaskSkewY);

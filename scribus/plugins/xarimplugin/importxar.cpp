@@ -710,9 +710,15 @@ void XarPlug::handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen,
 		ts >> p >> p1;
 	}
 	if (linear)
+	{
+		gc->GradMask = 1;
 		gc->MaskGradient = VGradient(VGradient::linear);
+	}
 	else
+	{
+		gc->GradMask = 2;
 		gc->MaskGradient = VGradient(VGradient::radial);
+	}
 	gc->MaskGradient.clearStops();
 	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 0.0, 0.5, 1.0 - transStart / 255.0, "Black", 100 );
 	gc->MaskGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors["Black"], m_Doc), 1.0, 0.5, 1.0 - transEnd / 255.0, "Black", 100 );
@@ -720,7 +726,6 @@ void XarPlug::handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen,
 	gc->GradMaskY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
-	gc->GradMask = 1;
 }
 
 void XarPlug::handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 dataLen)
@@ -782,7 +787,7 @@ void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 data
 	gc->GradMaskY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
-	gc->GradMask = 1;
+	gc->GradMask = 2;
 }
 
 int XarPlug::convertBlendMode(int val)
@@ -1674,9 +1679,9 @@ void XarPlug::popGraphicContext()
 				item->fill_gradient = gc->FillGradient;
 				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GrScale, gc->GrSkew);
 			}
-			if (gc->GradMask == 1)
+			if (gc->GradMask > 0)
 			{
-				item->GrMask = 1;
+				item->GrMask = gc->GradMask;
 				item->mask_gradient = gc->MaskGradient;
 				item->setMaskVector(gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskX2 - item->xPos(), gc->GradMaskY2 - item->yPos(), gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskScale, gc->GradMaskSkew);
 			}

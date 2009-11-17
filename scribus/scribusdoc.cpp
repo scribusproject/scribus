@@ -5719,6 +5719,26 @@ void ScribusDoc::itemSelection_SetItemPenShade(int sha)
 	}
 }
 
+void ScribusDoc::itemSelection_SetItemGradMask(int typ)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		m_updateManager.setUpdatesDisabled();
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->GrMask = typ;
+			if ((typ > 0) && (typ < 4))
+				currItem->updateGradientVectors();
+			currItem->update();
+		}
+		m_updateManager.setUpdatesEnabled();
+		changed();
+	}
+}
+
 void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
 {
 	uint selectedItemCount=m_Selection->count();

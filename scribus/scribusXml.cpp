@@ -216,10 +216,9 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->GrStrokeSkew   = attrAsDbl(attrs, "GRSKEWS", 1.0);
 	}
 	OB->GrMask = attrAsInt(attrs, "GRTYPM"  , 0);
-	if (OB->GrMask == 1)
+	if ((OB->GrMask == 1) || (OB->GrMask == 2))
 	{
-		int grM = attrAsInt(attrs, "GRMK", 0);
-		if (grM == 0)
+		if (OB->GrMask == 1)
 			OB->mask_gradient = VGradient(VGradient::linear);
 		else
 			OB->mask_gradient = VGradient(VGradient::radial);
@@ -233,7 +232,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->GrMaskScale  = attrAsDbl(attrs, "GRSCALEM", 1.0);
 		OB->GrMaskSkew   = attrAsDbl(attrs, "GRSKEWM", 1.0);
 	}
-	if (OB->GrMask == 2)
+	if (OB->GrMask == 3)
 	{
 		OB->patternMaskVal = attrAsString(attrs, "patternM", "");
 		OB->patternMaskScaleX   = attrAsDbl(attrs, "pScaleXM", 100.0);
@@ -603,6 +602,7 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("SHADE2"   ,item->lineShade());
 	writer.writeAttribute("GRTYP"    ,item->GrType);
 	writer.writeAttribute("GRTYPS"   ,item->GrTypeStroke);
+	writer.writeAttribute("GRTYPM"   ,item->GrMask);
 	writer.writeAttribute("ROT"      ,item->rotation());
 	writer.writeAttribute("PLINEART" ,item->PLineArt);
 	writer.writeAttribute("PLINEEND" ,item->PLineEnd);
@@ -2570,10 +2570,6 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		}
 		else
 			writer.writeAttribute("GRNAMEM"  , item->gradientMask());
-		if (item->mask_gradient.type() == VGradient::radial)
-			writer.writeAttribute("GRMK", 1);
-		else
-			writer.writeAttribute("GRMK", 0);
 		writer.writeAttribute("GRSTARTXM", item->GrMaskStartX);
 		writer.writeAttribute("GRSTARTYM", item->GrMaskStartY);
 		writer.writeAttribute("GRENDXM", item->GrMaskEndX);

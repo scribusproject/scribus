@@ -1,0 +1,103 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+/***************************************************************************
+                          transparencypalette.h  -  description
+                             -------------------
+    begin                : Tue Nov 17 2009
+    copyright            : (C) 2009 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef TPALETTE_H
+#define TPALETTE_H
+
+#include <QWidget>
+#include <QPointer>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QToolButton>
+#include "scribusapi.h"
+#include "gradienteditor.h"
+#include "scribusdoc.h"
+#include "ui/scrpalettebase.h"
+#include "ui_transparencypalette.h"
+#include "ui/gradientvectordialog.h"
+
+class PageItem;
+class ColorListBox;
+class ScrSpinBox;
+class ScComboBox;
+class ScPattern;
+class LinkButton;
+
+/**
+  *@author Franz Schmid
+  */
+
+class SCRIBUS_API Tpalette : public QWidget, Ui::transparencyPalette
+{
+	Q_OBJECT
+
+	friend class PropertiesPalette;
+
+public:
+	Tpalette(QWidget* parent);
+	~Tpalette() {};
+	
+	virtual void changeEvent(QEvent *e);
+
+	void setDocument(ScribusDoc* doc);
+	void setCurrentItem(PageItem* item);
+	void updateFromItem();
+
+public slots:
+	void editLineSelectorButton();
+	void editFillSelectorButton();
+	void updateCList();
+	void updateGradientList();
+	void SetGradients(QMap<QString, VGradient> *docGradients);
+	void SetColors(ColorList newColorList);
+	void slotGrad(int nr);
+	void slotGradType(int type);
+	void setNamedGradient(const QString &name);
+	void editGradientVector();
+	void setActiveGradDia(bool active);
+	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
+	void setActTrans(double, double);
+	void setActBlend(int, int);
+	void slotTransS(int val);
+	void slotTransF(int val);
+
+signals:
+	void NewTrans(double);
+	void NewTransS(double);
+	void NewBlend(int);
+	void NewBlendS(int);
+	void gradientChanged();
+	void editGradient();
+	void NewGradient(int);
+	void NewSpecial(double, double, double, double, double, double, double, double);
+
+protected:
+	GradientVectorDialog* TGradDia;
+	QPointer<ScribusDoc> currentDoc;
+	PageItem* currentItem;
+	ColorList colorList;
+	int currentUnit;
+	QMap<QString, ScPattern> *patternList;
+	QMap<QString, VGradient> *gradientList;
+};
+#endif

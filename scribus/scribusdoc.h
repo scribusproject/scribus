@@ -1221,6 +1221,7 @@ public slots:
 	void itemSelection_SetItemGradStroke(int typ);
 	void itemSelection_SetItemBrush(QString farbe);
 	void itemSelection_SetItemBrushShade(int sha);
+	void itemSelection_SetItemGradMask(int typ);
 	void itemSelection_SetItemGradFill(int typ);
 	void itemSelection_SetItemPatternFill(QString pattern);
 	void itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
