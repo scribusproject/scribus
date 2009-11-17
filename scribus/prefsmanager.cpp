@@ -2447,7 +2447,13 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		DOC=DOC.nextSibling();
 	}
+	// Some sanity checks
 	appPrefs.colorPrefs.DColors.ensureBlackAndWhite();
+	if ((appPrefs.docSetupPrefs.pagePositioning  < 0) || (appPrefs.docSetupPrefs.pagePositioning >= appPrefs.pageSets.count()))
+		appPrefs.docSetupPrefs.pagePositioning = 0;
+	if ((appPrefs.docSetupPrefs.docUnitIndex < UNITMIN) || (appPrefs.docSetupPrefs.docUnitIndex > UNITMAX))
+		appPrefs.docSetupPrefs.docUnitIndex = int(SC_POINTS);
+	// Configure GUI
 	appPrefs.ui_SystemTheme = qApp->style()->objectName();
 	if (appPrefs.uiPrefs.style.length() > 0)
 	{
