@@ -182,6 +182,37 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	Layers.push(la);
 }
 
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+void ScPainter::endLayer()
+{
+	layerProp la;
+	if (Layers.count() == 0)
+		return;
+	la = Layers.pop();
+	if (la.pushed)
+	{
+		cairo_pop_group_to_source (m_cr);
+		if (la.groupClip.size() != 0)
+		{
+			setupPolygon(&la.groupClip);
+			setClipPath();
+		}
+		setRasterOp(m_blendMode);
+		if (maskMode == 1)
+		{
+			cairo_pattern_t *patM = getMaskPattern();
+			cairo_mask(m_cr, patM);
+			cairo_pattern_destroy(patM);
+		}
+		else
+			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	}
+	m_layerTransparency = la.tranparency;
+	m_blendMode = la.blendmode;
+}
+#else
 void ScPainter::endLayer()
 {
 	layerProp la;
@@ -190,7 +221,6 @@ void ScPainter::endLayer()
 	la = Layers.top();
 	if (la.pushed)
 	{
-#ifdef HAVE_CAIRO
 		if ((m_blendMode != 0) && (Layers.count() != 0))
 		{
 			cairo_surface_t *tmp = cairo_get_group_target(m_cr);
@@ -374,7 +404,59 @@ void ScPainter::endLayer()
 				}
 			}
 		}
+	}
+	la = Layers.pop();
+	if (la.pushed)
+	{
+		cairo_pop_group_to_source (m_cr);
+		if (la.groupClip.size() != 0)
+		{
+			setupPolygon(&la.groupClip);
+			setClipPath();
+		}
+		if (m_blendMode == 0)
+		{
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+			if (maskMode == 1)
+			{
+				cairo_pattern_t *patM = getMaskPattern();
+				cairo_mask(m_cr, patM);
+				cairo_pattern_destroy(patM);
+			}
+			else
+				cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		}
+		else
+		{
+			if (maskMode == 1)
+			{
+				cairo_pattern_t *patM = getMaskPattern();
+				cairo_mask(m_cr, patM);
+				cairo_pattern_destroy(patM);
+			}
+			else
+			{
+				cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
+				cairo_paint_with_alpha (m_cr, m_layerTransparency);
+				cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
+				cairo_paint_with_alpha (m_cr, m_layerTransparency);
+			}
+		}
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	}
+	m_layerTransparency = la.tranparency;
+	m_blendMode = la.blendmode;
+}
+#endif
 #else
+void ScPainter::endLayer()
+{
+	layerProp la;
+	if (Layers.count() == 0)
+		return;
+	la = Layers.top();
+	if (la.pushed)
+	{
 		if ((m_blendMode > 11) && (Layers.count() != 0))
 		{
 			int h = m_image->height();
@@ -404,87 +486,6 @@ void ScPainter::endLayer()
 					{
 						if (((*dst) != oldDst) || ((*src) != oldSrc) || (first))
 						{
-						/*	if (m_blendMode == 1)
-							{
-								src_r = dst_r  < src_r ? dst_r  : src_r;
-								src_g = dst_g < src_g ? dst_g : src_g;
-								src_b = dst_b < src_b ? dst_b : src_b;
-							}
-							else if (m_blendMode == 2)
-							{
-								src_r = dst_r  < src_r ? src_r : dst_r;
-								src_g = dst_g < src_g ? src_g : dst_g;
-								src_b = dst_b < src_b ? src_b : dst_b;
-							}
-							else if (m_blendMode == 3)
-							{
-								src_r = INT_MULT(src_r, dst_r);
-								src_g = INT_MULT(src_g, dst_g);
-								src_b = INT_MULT(src_b, dst_b);
-							}
-							else if (m_blendMode == 4)
-							{
-								src_r = 255 - ((255-src_r) * (255-dst_r) / 255);
-								src_g = 255 - ((255-src_g) * (255-dst_g) / 255);
-								src_b = 255 - ((255-src_b) * (255-dst_b) / 255);
-							}
-							else if (m_blendMode == 5)
-							{
-								src_r = dst_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
-								src_g = dst_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
-								src_b = dst_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
-							}
-							else if (m_blendMode == 6)
-							{
-								src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
-								src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
-								src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
-							}
-							else if (m_blendMode == 7)
-							{
-								float s_r = (255 - src_r) / 255.0;
-								float s_g = (255 - src_g) / 255.0;
-								float s_b = (255 - src_b) / 255.0;
-								float d_r = (255 - dst_r) / 255.0;
-								float d_g = (255 - dst_g) / 255.0;
-								float d_b = (255 - dst_b) / 255.0;
-								float dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
-								float dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
-								float dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
-								s_r = s_r <= 0.5 ? d_r - (1 - 2 * s_r) * d_r * (1 - d_r) : d_r + (2 * s_r - 1) * (dzr  - d_r);
-								s_g = s_g <= 0.5 ? d_g - (1 - 2 * s_g) * d_g * (1 - d_g) : d_g + (2 * s_g - 1) * (dzg  - d_g);
-								s_b = s_b <= 0.5 ? d_b - (1 - 2 * s_b) * d_b * (1 - d_b) : d_b + (2 * s_b - 1) * (dzb  - d_b);
-								src_r = 255 - qRound(s_r * 255);
-								src_g = 255 - qRound(s_g * 255);
-								src_b = 255 - qRound(s_b * 255);
-							}
-							else if (m_blendMode == 8)
-							{
-								src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
-								src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
-								src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
-							}
-							else if (m_blendMode == 9)
-							{
-								src_r = dst_r + src_r - src_r * dst_r / 128;
-								src_g = dst_g + src_g - src_g * dst_g / 128;
-								src_b = dst_b + src_b - src_b * dst_b / 128;
-							}
-							else if (m_blendMode == 10)
-							{
-								src_r = src_r == 255 ? qMin(255, dst_r * 256) : qMin(255, ((dst_r * 256) / (255-src_r)));
-								src_g = src_g == 255 ? qMin(255, dst_g * 256) : qMin(255, ((dst_g * 256) / (255-src_g)));
-								src_b = src_b == 255 ? qMin(255, dst_b * 256) : qMin(255, ((dst_b * 256) / (255-src_b)));
-							}
-							else if (m_blendMode == 11)
-							{
-								src_r = qMax<uchar>(1, src_r);
-								src_g = qMax<uchar>(1, src_g);
-								src_b = qMax<uchar>(1, src_b);
-								src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
-								src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
-								src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
-							} */
 							if (m_blendMode == 12)
 							{
 								new_r = dst_r;
@@ -543,48 +544,10 @@ void ScPainter::endLayer()
 				}
 			}
 		}
-#endif
 	}
 	la = Layers.pop();
 	if (la.pushed)
 	{
-#ifdef HAVE_CAIRO
-		cairo_pop_group_to_source (m_cr);
-		if (la.groupClip.size() != 0)
-		{
-			setupPolygon(&la.groupClip);
-			setClipPath();
-		}
-		if (m_blendMode == 0)
-		{
-			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-			if (maskMode == 1)
-			{
-				cairo_pattern_t *patM = getMaskPattern();
-				cairo_mask(m_cr, patM);
-				cairo_pattern_destroy(patM);
-			}
-			else
-				cairo_paint_with_alpha (m_cr, m_layerTransparency);
-		}
-		else
-		{
-			if (maskMode == 1)
-			{
-				cairo_pattern_t *patM = getMaskPattern();
-				cairo_mask(m_cr, patM);
-				cairo_pattern_destroy(patM);
-			}
-			else
-			{
-				cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
-				cairo_paint_with_alpha (m_cr, m_layerTransparency);
-				cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
-				cairo_paint_with_alpha (m_cr, m_layerTransparency);
-			}
-		}
-		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-#else
 		QRgb *src;
 		QRgb *dst;
 		QRgb tmp;
@@ -724,11 +687,11 @@ void ScPainter::endLayer()
 		painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		painter.restore();
 		delete la.data;
-#endif
 	}
 	m_layerTransparency = la.tranparency;
 	m_blendMode = la.blendmode;
 }
+#endif
 
 void ScPainter::begin()
 {
@@ -1079,8 +1042,54 @@ void ScPainter::restore()
 #endif
 }
 
-void ScPainter::setRasterOp( int   )
+void ScPainter::setRasterOp(int blendMode)
 {
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+	if (blendMode == 0)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	else if (blendMode == 1)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_DARKEN);
+	else if (blendMode == 2)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_LIGHTEN);
+	else if (blendMode == 3)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_MULTIPLY);
+	else if (blendMode == 4)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_SCREEN);
+	else if (blendMode == 5)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVERLAY);
+	else if (blendMode == 6)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_HARD_LIGHT);
+	else if (blendMode == 7)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_SOFT_LIGHT);
+	else if (blendMode == 8)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_DIFFERENCE);
+	else if (blendMode == 9)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_EXCLUSION);
+	else if (blendMode == 10)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_COLOR_DODGE);
+	else if (blendMode == 11)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_COLOR_BURN);
+	else if (blendMode == 12)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_HUE);
+	else if (blendMode == 13)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_SATURATION);
+	else if (blendMode == 14)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_COLOR);
+	else if (blendMode == 15)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_LUMINOSITY);
+#endif
+#endif
+}
+
+void ScPainter::setBlendModeFill( int blendMode )
+{
+	m_blendModeFill = blendMode;
+}
+
+void ScPainter::setBlendModeStroke( int blendMode )
+{
+	m_blendModeStroke = blendMode;
 }
 
 void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
@@ -1155,6 +1164,7 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 void ScPainter::drawVPath( int mode )
 {
 	cairo_save( m_cr );
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	if (mode == 0)
 	{
 		if( m_fillRule )
@@ -1168,8 +1178,10 @@ void ScPainter::drawVPath( int mode )
 			if (maskMode == 1)
 			{
 				cairo_set_source_rgb( m_cr, r, g, b );
-				cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 				cairo_pattern_t *pat = getMaskPattern();
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+				setRasterOp(m_blendModeFill);
+#endif
 				cairo_clip_preserve (m_cr);
 				cairo_mask(m_cr, pat);
 				cairo_pattern_destroy (pat);
@@ -1177,7 +1189,9 @@ void ScPainter::drawVPath( int mode )
 			else
 			{
 				cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
-				cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+				setRasterOp(m_blendModeFill);
+#endif
 				cairo_fill_preserve(m_cr);
 			}
 		}
@@ -1236,11 +1250,19 @@ void ScPainter::drawVPath( int mode )
 			if (maskMode == 1)
 			{
 				cairo_pattern_t *patM = getMaskPattern();
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+				setRasterOp(m_blendModeFill);
+#endif
 				cairo_mask(m_cr, patM);
 				cairo_pattern_destroy (patM);
 			}
 			else
+			{
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+				setRasterOp(m_blendModeFill);
+#endif
 				cairo_paint_with_alpha (m_cr, fill_trans);
+			}
 			cairo_pattern_destroy (pat);
 		}
 		else if (fillMode == 3)
@@ -1269,11 +1291,19 @@ void ScPainter::drawVPath( int mode )
 			if (maskMode == 1)
 			{
 				cairo_pattern_t *patM = getMaskPattern();
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+				setRasterOp(m_blendModeFill);
+#endif
 				cairo_mask(m_cr, patM);
 				cairo_pattern_destroy (patM);
 			}
 			else
+			{
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+				setRasterOp(m_blendModeFill);
+#endif
 				cairo_paint_with_alpha (m_cr, fill_trans);
+			}
 			cairo_pattern_destroy (m_pat);
 			cairo_surface_destroy (image2);
 			cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
@@ -1331,6 +1361,9 @@ void ScPainter::drawVPath( int mode )
 			cairo_surface_destroy (image2);
 			cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
 			cairo_pop_group_to_source (m_cr);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+			setRasterOp(m_blendModeStroke);
+#endif
 			cairo_paint_with_alpha (m_cr, stroke_trans);
 		}
 		else if (strokeMode == 2)
@@ -1388,6 +1421,9 @@ void ScPainter::drawVPath( int mode )
 			cairo_stroke_preserve( m_cr );
 			cairo_pattern_destroy (pat);
 			cairo_pop_group_to_source (m_cr);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+			setRasterOp(m_blendModeStroke);
+#endif
 			cairo_paint_with_alpha (m_cr, stroke_trans);
 		}
 		else
@@ -1395,9 +1431,13 @@ void ScPainter::drawVPath( int mode )
 			double r, g, b;
 			m_stroke.getRgbF(&r, &g, &b);
 			cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
+			setRasterOp(m_blendModeStroke);
+#endif
 			cairo_stroke_preserve( m_cr );
 		}
 	}
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );
 }
 #else

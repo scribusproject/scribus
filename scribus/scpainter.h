@@ -105,7 +105,9 @@ public:
 	virtual void restore();
 
 
-	virtual void setRasterOp( int op );
+	virtual void setRasterOp( int blendMode );
+	virtual void setBlendModeFill( int blendMode );
+	virtual void setBlendModeStroke( int blendMode );
 
 	VGradient fill_gradient;
 	VGradient stroke_gradient;
@@ -143,6 +145,8 @@ private:
 	QImage *m_image;
 	double  m_layerTransparency;
 	int  m_blendMode;
+	int  m_blendModeFill;
+	int  m_blendModeStroke;
 	unsigned int m_width;
 	unsigned int m_height;
 	QTransform m_matrix;

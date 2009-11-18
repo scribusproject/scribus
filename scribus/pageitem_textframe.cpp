@@ -2616,13 +2616,33 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	else
 	{
+#ifdef HAVE_CAIRO
+	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 		if (fillBlendmode() != 0)
 			p->endLayer();
+	#else
+		if (fillBlendmode() != 0)
+			p->setBlendModeFill(0);
+	#endif
+#else
+		if (fillBlendmode() != 0)
+			p->endLayer();
+#endif
 		p->setMaskMode(0);
 		if (!m_Doc->RePos)
 		{
+#ifdef HAVE_CAIRO
+	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
+			p->setBlendModeStroke(lineBlendmode());
+			p->setPenOpacity(1.0 - lineTransparency());
+	#else
 			if (lineBlendmode() != 0)
 				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
+	#endif
+#else
+			if (lineBlendmode() != 0)
+				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
+#endif
 			if (!isTableItem)
 			{
 				p->setupPolygon(&PoLine);
@@ -2692,8 +2712,18 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					}
 				}
 			}
+#ifdef HAVE_CAIRO
+	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 			if (lineBlendmode() != 0)
 				p->endLayer();
+	#else
+			if (lineBlendmode() != 0)
+				p->setBlendModeStroke(0);
+	#endif
+#else
+			if (lineBlendmode() != 0)
+				p->endLayer();
+#endif
 		}
 	}
 	p->setFillMode(ScPainter::Solid);
