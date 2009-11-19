@@ -1295,6 +1295,29 @@ bool PrefsManager::WritePref(QString ho)
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.marginColored));
 	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.DisScale));
 	elem.appendChild(dc1a);
+	// Font information must be written before FONTS element so that face "usable"
+	// member is set properly before one try to set default font. Allows to check
+	// that default font is indeed usable, problems expected otherwise
+	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
+	{
+		if (!itf.currentKey().isEmpty())
+		{
+			QDomElement fn=docu.createElement("FONT");
+			fn.setAttribute("NAME",itf.currentKey());
+			fn.setAttribute("EMBED",static_cast<int>(itf.current().embedPs()));
+			fn.setAttribute("USE", static_cast<int>(itf.current().usable()));
+			fn.setAttribute("SUBSET", static_cast<int>(itf.current().subset()));
+			elem.appendChild(fn);
+		}
+	}
+	QMap<QString,QString>::Iterator itfsu;
+	for (itfsu = appPrefs.GFontSub.begin(); itfsu != appPrefs.GFontSub.end(); ++itfsu)
+	{
+		QDomElement fosu = docu.createElement("Substitute");
+		fosu.setAttribute("Name",itfsu.key());
+		fosu.setAttribute("Replace",itfsu.value());
+		elem.appendChild(fosu);
+	}
 	QDomElement dc2=docu.createElement("FONTS");
 	dc2.setAttribute("FACE",appPrefs.toolSettings.defFont);
 	dc2.setAttribute("SIZE",appPrefs.toolSettings.defSize / 10.0);
@@ -1548,18 +1571,6 @@ bool PrefsManager::WritePref(QString ho)
 		co.setAttribute("Register", static_cast<int>(itc.value().isRegistrationColor()));
 		elem.appendChild(co);
 	}
-	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
-	{
-		if (!itf.currentKey().isEmpty())
-		{
-			QDomElement fn=docu.createElement("FONT");
-			fn.setAttribute("NAME",itf.currentKey());
-			fn.setAttribute("EMBED",static_cast<int>(itf.current().embedPs()));
-			fn.setAttribute("USE", static_cast<int>(itf.current().usable()));
-			fn.setAttribute("SUBSET", static_cast<int>(itf.current().subset()));
-			elem.appendChild(fn);
-		}
-	}
 	for (int rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
@@ -1574,14 +1585,6 @@ bool PrefsManager::WritePref(QString ho)
 		kscc.setAttribute("ACTION",ksc.value().actionName);
 		kscc.setAttribute("SEQUENCE",TabKeyboardShortcutsWidget::getKeyText(ksc.value().keySequence));
 		elem.appendChild(kscc);
-	}
-	QMap<QString,QString>::Iterator itfsu;
-	for (itfsu = appPrefs.GFontSub.begin(); itfsu != appPrefs.GFontSub.end(); ++itfsu)
-	{
-		QDomElement fosu = docu.createElement("Substitute");
-		fosu.setAttribute("Name",itfsu.key());
-		fosu.setAttribute("Replace",itfsu.value());
-		elem.appendChild(fosu);
 	}
 	for (int ccs=0; ccs<appPrefs.CustomColorSets.count(); ++ccs)
 	{
@@ -2181,7 +2184,7 @@ bool PrefsManager::ReadPref(QString ho)
 			if (!tmpf.isEmpty())
 			{
 				QString newFont = "";
-				if (!appPrefs.AvailFonts.contains(tmpf))
+				if (!appPrefs.AvailFonts.contains(tmpf) || !appPrefs.AvailFonts[tmpf].usable())
 				{
 					ScCore->showSplash(false);
 					MissingFont *dia = new MissingFont(0, tmpf, 0);
@@ -2202,9 +2205,10 @@ bool PrefsManager::ReadPref(QString ho)
 			QString tmpf(dc.attribute("NAME"));
 			if (!tmpf.isEmpty() && appPrefs.AvailFonts.contains(tmpf))
 			{
-				appPrefs.AvailFonts[tmpf].embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
-				appPrefs.AvailFonts[tmpf].usable(appPrefs.AvailFonts[tmpf].usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
-				appPrefs.AvailFonts[tmpf].subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
+				ScFace& face(appPrefs.AvailFonts[tmpf]);
+				face.embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
+				face.usable(face.usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
+				face.subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
 			}
 		}
 		if (dc.tagName()=="COLOR")

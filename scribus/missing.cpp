@@ -323,15 +323,10 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc ) : QDia
 	missingFontGridLayout->addWidget( useLabel, 1, 1 );
 	replaceFontCombo = new FontCombo(this);
 	if (doc != 0)
-	{
 		setCurrentComboItem(replaceFontCombo, doc->toolSettings.defFont);
-		replacementFont = doc->toolSettings.defFont;
-	}
 	else
-	{
 		setCurrentComboItem(replaceFontCombo, PrefsManager::instance()->appPrefs.toolSettings.defFont);
-		replacementFont = PrefsManager::instance()->appPrefs.toolSettings.defFont;
-	}
+	replacementFont = replaceFontCombo->currentText();
 	missingFontGridLayout->addWidget( replaceFontCombo, 1, 2 );
 	insteadLabel = new QLabel( tr( "instead" ), this );
 	missingFontGridLayout->addWidget( insteadLabel, 1, 3 );
