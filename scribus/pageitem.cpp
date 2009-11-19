@@ -1284,6 +1284,16 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				else
 					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
 			}
+			else if (GrMask == 3)
+			{
+				if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
+					p->setMaskMode(0);
+				else
+				{
+					p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+					p->setMaskMode(2);
+				}
+			}
 			else
 				p->setMaskMode(0);
 		}
@@ -1334,8 +1344,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			if (fillBlendmode() != 0)
 				p->endLayer();
 	#else
-			if (fillBlendmode() != 0)
-				p->setBlendModeFill(0);
+			p->setBlendModeFill(0);
 	#endif
 #else
 			if (fillBlendmode() != 0)
@@ -1437,8 +1446,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				if (lineBlendmode() != 0)
 					p->endLayer();
 	#else
-				if (lineBlendmode() != 0)
-					p->setBlendModeStroke(0);
+				p->setBlendModeStroke(0);
 	#endif
 #else
 				if (lineBlendmode() != 0)

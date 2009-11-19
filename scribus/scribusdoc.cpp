@@ -5946,6 +5946,43 @@ void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, dou
 	}
 }
 
+void ScribusDoc::itemSelection_SetItemPatternMask(QString pattern)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		m_updateManager.setUpdatesDisabled();
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->setPatternMask(pattern);
+			currItem->update();
+		}
+		m_updateManager.setUpdatesEnabled();
+		changed();
+	}
+}
+
+void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		m_updateManager.setUpdatesDisabled();
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->setMaskTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY);
+			currItem->setMaskFlip(mirrorX, mirrorY);
+			currItem->update();
+		}
+		m_updateManager.setUpdatesEnabled();
+		changed();
+	}
+}
+
 void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 {
 	CharStyle newStyle;

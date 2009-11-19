@@ -42,6 +42,8 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	m_offset = 0;
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
+	m_blendModeFill = 0;
+	m_blendModeStroke = 0;
 	m_array.clear();
 	mf_underline = false;
 	mf_strikeout = false;
@@ -82,6 +84,8 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double tra
 	m_offset = 0;
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
+	m_blendModeFill = 0;
+	m_blendModeStroke = 0;
 	m_array.clear();
 	mf_underline = false;
 	mf_strikeout = false;
@@ -123,6 +127,8 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	m_offset = 0;
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
+	m_blendModeFill = 0;
+	m_blendModeStroke = 0;
 	m_array.clear();
 	mf_underline = false;
 	mf_strikeout = false;
@@ -198,15 +204,19 @@ void ScPainter::endLayer()
 			setupPolygon(&la.groupClip);
 			setClipPath();
 		}
-		setRasterOp(m_blendMode);
-		if (maskMode == 1)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+		if (maskMode > 0)
 		{
 			cairo_pattern_t *patM = getMaskPattern();
+			setRasterOp(m_blendMode);
 			cairo_mask(m_cr, patM);
 			cairo_pattern_destroy(patM);
 		}
 		else
+		{
+			setRasterOp(m_blendMode);
 			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		}
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	}
 	m_layerTransparency = la.tranparency;
@@ -1078,6 +1088,8 @@ void ScPainter::setRasterOp(int blendMode)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_COLOR);
 	else if (blendMode == 15)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_LUMINOSITY);
+	else
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 #endif
 #endif
 }
@@ -1110,54 +1122,80 @@ void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, dou
 
 cairo_pattern_t * ScPainter::getMaskPattern()
 {
+	cairo_save( m_cr );
 	cairo_pattern_t *pat;
-	double x1 = mask_gradient.origin().x();
-	double y1 = mask_gradient.origin().y();
-	double x2 = mask_gradient.vector().x();
-	double y2 = mask_gradient.vector().y();
-	double fx = mask_gradient.focalPoint().x();
-	double fy = mask_gradient.focalPoint().y();
-	if (mask_gradient.type() == VGradient::linear)
-		pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+	if (maskMode == 1)
+	{
+		double x1 = mask_gradient.origin().x();
+		double y1 = mask_gradient.origin().y();
+		double x2 = mask_gradient.vector().x();
+		double y2 = mask_gradient.vector().y();
+		double fx = mask_gradient.focalPoint().x();
+		double fy = mask_gradient.focalPoint().y();
+		if (mask_gradient.type() == VGradient::linear)
+			pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+		else
+			pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+		QList<VColorStop*> colorStops = mask_gradient.colorStops();
+		QColor qStopColor;
+		for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+		{
+			qStopColor = colorStops[ offset ]->color;
+			int h, s, v, sneu, vneu;
+			int shad = colorStops[offset]->shade;
+			qStopColor.getHsv(&h, &s, &v);
+			sneu = s * shad / 100;
+			vneu = 255 - ((255 - v) * shad / 100);
+			qStopColor.setHsv(h, sneu, vneu);
+			double a = colorStops[offset]->opacity;
+			double r, g, b;
+			qStopColor.getRgbF(&r, &g, &b);
+			cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+		}
+		cairo_matrix_t matrix;
+		QTransform qmatrix;
+		if (mask_gradient.type() == VGradient::radial)
+		{
+			double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+			qmatrix.translate(x1, y1);
+			qmatrix.rotate(rotEnd);
+			qmatrix.shear(mask_gradientSkew, 0);
+			qmatrix.translate(0, y1 * (1.0 - mask_gradientScale));
+			qmatrix.translate(-x1, -y1);
+			qmatrix.scale(1, mask_gradientScale);
+		}
+		else
+		{
+			qmatrix.translate(x1, y1);
+			qmatrix.shear(-mask_gradientSkew, 0);
+			qmatrix.translate(-x1, -y1);
+		}
+		cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+		cairo_matrix_invert(&matrix);
+		cairo_pattern_set_matrix (pat, &matrix);
+	}
 	else
-		pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
-	QList<VColorStop*> colorStops = mask_gradient.colorStops();
-	QColor qStopColor;
-	for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 	{
-		qStopColor = colorStops[ offset ]->color;
-		int h, s, v, sneu, vneu;
-		int shad = colorStops[offset]->shade;
-		qStopColor.getHsv(&h, &s, &v);
-		sneu = s * shad / 100;
-		vneu = 255 - ((255 - v) * shad / 100);
-		qStopColor.setHsv(h, sneu, vneu);
-		double a = colorStops[offset]->opacity;
-		double r, g, b;
-		qStopColor.getRgbF(&r, &g, &b);
-		cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+		cairo_surface_t *image = cairo_image_surface_create_for_data ((uchar*)m_maskPattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width()*4);
+		pat = cairo_pattern_create_for_surface(image);
+		cairo_pattern_set_extend(pat, CAIRO_EXTEND_REPEAT);
+		cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
+		cairo_matrix_t matrix;
+		QTransform qmatrix;
+		qmatrix.translate(mask_patternOffsetX, mask_patternOffsetY);
+		qmatrix.rotate(mask_patternRotation);
+		qmatrix.shear(-mask_patternSkewX, mask_patternSkewY);
+		qmatrix.scale(mask_patternScaleX, mask_patternScaleY);
+		qmatrix.scale(m_maskPattern->width / static_cast<double>(m_maskPattern->getPattern()->width()), m_maskPattern->height / static_cast<double>(m_maskPattern->getPattern()->height()));
+		if (mask_patternMirrorX)
+			qmatrix.scale(-1, 1);
+		if (mask_patternMirrorY)
+			qmatrix.scale(1, -1);
+		cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+		cairo_matrix_invert(&matrix);
+		cairo_pattern_set_matrix (pat, &matrix);
 	}
-	cairo_matrix_t matrix;
-	QTransform qmatrix;
-	if (mask_gradient.type() == VGradient::radial)
-	{
-		double rotEnd = xy2Deg(x2 - x1, y2 - y1);
-		qmatrix.translate(x1, y1);
-		qmatrix.rotate(rotEnd);
-		qmatrix.shear(mask_gradientSkew, 0);
-		qmatrix.translate(0, y1 * (1.0 - mask_gradientScale));
-		qmatrix.translate(-x1, -y1);
-		qmatrix.scale(1, mask_gradientScale);
-	}
-	else
-	{
-		qmatrix.translate(x1, y1);
-		qmatrix.shear(-mask_gradientSkew, 0);
-		qmatrix.translate(-x1, -y1);
-	}
-	cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
-	cairo_matrix_invert(&matrix);
-	cairo_pattern_set_matrix (pat, &matrix);
+	cairo_restore( m_cr );
 	return pat;
 }
 
@@ -1175,16 +1213,16 @@ void ScPainter::drawVPath( int mode )
 		{
 			double r, g, b;
 			m_fill.getRgbF(&r, &g, &b);
-			if (maskMode == 1)
+			if (maskMode > 0)
 			{
-				cairo_set_source_rgb( m_cr, r, g, b );
 				cairo_pattern_t *pat = getMaskPattern();
+				cairo_set_source_rgb( m_cr, r, g, b );
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
 				setRasterOp(m_blendModeFill);
 #endif
-				cairo_clip_preserve (m_cr);
+				cairo_clip_preserve(m_cr);
 				cairo_mask(m_cr, pat);
-				cairo_pattern_destroy (pat);
+				cairo_pattern_destroy(pat);
 			}
 			else
 			{
@@ -1247,7 +1285,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_pattern_set_matrix (pat, &matrix);
 			cairo_set_source (m_cr, pat);
 			cairo_clip_preserve (m_cr);
-			if (maskMode == 1)
+			if (maskMode > 0)
 			{
 				cairo_pattern_t *patM = getMaskPattern();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
@@ -1288,7 +1326,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_pattern_set_matrix (m_pat, &matrix);
 			cairo_set_source (m_cr, m_pat);
 			cairo_clip_preserve (m_cr);
-			if (maskMode == 1)
+			if (maskMode > 0)
 			{
 				cairo_pattern_t *patM = getMaskPattern();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
@@ -1437,8 +1475,8 @@ void ScPainter::drawVPath( int mode )
 			cairo_stroke_preserve( m_cr );
 		}
 	}
-	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 #else
 	// not HAVE_CAIRO
@@ -1926,7 +1964,7 @@ void ScPainter::drawImage( QImage *image )
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4)
 	setRasterOp(m_blendModeFill);
 #endif
-	if (maskMode == 1)
+	if (maskMode > 0)
 	{
 		cairo_pattern_t *patM = getMaskPattern();
 		cairo_mask(m_cr, patM);

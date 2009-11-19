@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scrpalettebase.h"
 #include "ui_transparencypalette.h"
 #include "ui/gradientvectordialog.h"
+#include "ui/patternpropsdialog.h"
 
 class PageItem;
 class ColorListBox;
@@ -75,11 +76,17 @@ public slots:
 	void setNamedGradient(const QString &name);
 	void editGradientVector();
 	void setActiveGradDia(bool active);
+	void updatePatternList();
+	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
+	void selectPattern(QListWidgetItem *c);
+	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void changePatternProps();
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void setActTrans(double, double);
 	void setActBlend(int, int);
 	void slotTransS(int val);
 	void slotTransF(int val);
+	void unitChange(double, double, int unitIndex);
 
 signals:
 	void NewTrans(double);
@@ -90,6 +97,8 @@ signals:
 	void editGradient();
 	void NewGradient(int);
 	void NewSpecial(double, double, double, double, double, double, double, double);
+	void NewPattern(QString);
+	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
 
 protected:
 	GradientVectorDialog* TGradDia;
@@ -99,5 +108,14 @@ protected:
 	int currentUnit;
 	QMap<QString, ScPattern> *patternList;
 	QMap<QString, VGradient> *gradientList;
+	double m_Pattern_scaleX;
+	double m_Pattern_scaleY;
+	double m_Pattern_offsetX;
+	double m_Pattern_offsetY;
+	double m_Pattern_rotation;
+	double m_Pattern_skewX;
+	double m_Pattern_skewY;
+	bool m_Pattern_mirrorX;
+	bool m_Pattern_mirrorY;
 };
 #endif

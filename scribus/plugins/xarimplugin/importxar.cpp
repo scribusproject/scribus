@@ -153,6 +153,8 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
+	if (!m_Doc->PageColors.contains("Black"))
+		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	if (convert(fName))
 	{
 		tmpSel->clear();

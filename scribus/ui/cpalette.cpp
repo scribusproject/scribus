@@ -54,210 +54,11 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "util_icon.h"
 #include "commonstrings.h"
-#include "linkbutton.h"
 #include "sccolorengine.h"
 #include "scpainter.h"
 #include "scpattern.h"
 #include "util.h"
 #include "util_math.h"
-
-PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog( parent )
-{
-	setModal(true);
-	frame3Layout = new QVBoxLayout( this );
-	frame3Layout->setMargin(0);
-	frame3Layout->setSpacing(2);
-
-	groupOffset = new QGroupBox( this );
-	groupOffsetLayout = new QHBoxLayout( groupOffset );
-	groupOffsetLayout->setSpacing( 2 );
-	groupOffsetLayout->setMargin( 3 );
-	groupOffsetLayout->setAlignment( Qt::AlignTop );
-	textLabel1 = new QLabel( groupOffset );
-	groupOffsetLayout->addWidget( textLabel1 );
-	spinXoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
-	groupOffsetLayout->addWidget( spinXoffset );
-	textLabel2 = new QLabel( groupOffset );
-	groupOffsetLayout->addWidget( textLabel2 );
-	spinYoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
-	groupOffsetLayout->addWidget( spinYoffset );
-	frame3Layout->addWidget( groupOffset );
-
-	groupScale = new QGroupBox( this );
-	groupScaleLayout = new QGridLayout( groupScale );
-	groupScaleLayout->setSpacing( 2 );
-	groupScaleLayout->setMargin( 3 );
-	groupScaleLayout->setAlignment( Qt::AlignTop );
-	textLabel5 = new QLabel( groupScale );
-	groupScaleLayout->addWidget( textLabel5, 0, 0 );
-	spinXscaling = new ScrSpinBox( 0.01, 500, groupScale, 0);
-	spinXscaling->setValue( 100 );
-	groupScaleLayout->addWidget( spinXscaling, 0, 1 );
-	textLabel6 = new QLabel( groupScale );
-	groupScaleLayout->addWidget( textLabel6, 1, 0 );
-	spinYscaling = new ScrSpinBox( 0.01, 500, groupScale, 0 );
-	spinYscaling->setValue( 100 );
-	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
-	keepScaleRatio = new LinkButton( groupScale );
-	keepScaleRatio->setCheckable( true );
-	keepScaleRatio->setAutoRaise( true );
-	keepScaleRatio->setMaximumSize( QSize( 15, 32767 ) );
-	groupScaleLayout->addWidget( keepScaleRatio, 0, 2, 2, 1 );
-	frame3Layout->addWidget( groupScale );
-	groupRotation = new QGroupBox( this );
-	groupRotationLayout = new QHBoxLayout( groupRotation );
-	groupRotationLayout->setSpacing( 2 );
-	groupRotationLayout->setMargin( 3 );
-	groupRotationLayout->setAlignment( Qt::AlignTop );
-	textLabel7 = new QLabel( groupRotation );
-	groupRotationLayout->addWidget( textLabel7 );
-	spinAngle = new ScrSpinBox( -180, 180, groupRotation, 6 );
-	groupRotationLayout->addWidget( spinAngle );
-	frame3Layout->addWidget( groupRotation );
-
-	groupSkew = new QGroupBox( this );
-	groupSkewLayout = new QGridLayout( groupSkew );
-	groupSkewLayout->setSpacing( 2 );
-	groupSkewLayout->setMargin( 3 );
-	groupSkewLayout->setAlignment( Qt::AlignTop );
-	textLabel8 = new QLabel( groupSkew );
-	groupSkewLayout->addWidget( textLabel8, 0, 0 );
-	spinXSkew = new ScrSpinBox( -89, 89, groupSkew, 6);
-	spinXSkew->setValue( 0 );
-	groupSkewLayout->addWidget( spinXSkew, 0, 1 );
-	textLabel9 = new QLabel( groupSkew );
-	groupSkewLayout->addWidget( textLabel9, 1, 0 );
-	spinYSkew = new ScrSpinBox( -89, 89, groupSkew, 6 );
-	spinYSkew->setValue( 0 );
-	groupSkewLayout->addWidget( spinYSkew, 1, 1 );
-	frame3Layout->addWidget( groupSkew );
-
-	groupFlipLayout = new QHBoxLayout();
-	groupFlipLayout->setSpacing( 2 );
-	groupFlipLayout->setMargin( 3 );
-	textLabel15 = new QLabel( this );
-	groupFlipLayout->addWidget( textLabel15 );
-	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	groupFlipLayout->addItem( spacer );
-	FlipH = new QToolButton( this );
-	FlipH->setIcon(QIcon(loadIcon("16/flip-object-horizontal.png")));
-	FlipH->setCheckable( true );
-	groupFlipLayout->addWidget( FlipH );
-	FlipV = new QToolButton( this );
-	FlipV->setIcon(QIcon(loadIcon("16/flip-object-vertical.png")));
-	FlipV->setCheckable( true );
-	groupFlipLayout->addWidget( FlipV );
-	frame3Layout->addLayout( groupFlipLayout );
-
-	buttonLayout = new QHBoxLayout;
-	buttonLayout->setMargin(0);
-	buttonLayout->setSpacing(5);
-	QSpacerItem* hspacing = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	buttonLayout->addItem(hspacing);
-	buttonOk = new QPushButton( this );
-	buttonOk->setAutoDefault( TRUE );
-	buttonOk->setDefault( TRUE );
-	buttonLayout->addWidget( buttonOk );
-	frame3Layout->addLayout( buttonLayout );
-	spinXoffset->setNewUnit(unitIndex);
-	spinYoffset->setNewUnit(unitIndex);
-	languageChange();
-	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(spinXSkew, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(spinYSkew, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
-	connect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	connect(FlipH, SIGNAL(clicked()), this, SLOT(changePatternProps()));
-	connect(FlipV, SIGNAL(clicked()), this, SLOT(changePatternProps()));
-	connect(buttonOk, SIGNAL(clicked()), this, SLOT(accept()));
-}
-
-void PatternPropsDialog::changeEvent(QEvent *e)
-{
-	if (e->type() == QEvent::LanguageChange)
-	{
-		languageChange();
-	}
-	else
-		QWidget::changeEvent(e);
-}
-
-void PatternPropsDialog::languageChange()
-{
-	setWindowTitle( tr( "Pattern Properties" ));
-	QString ptSuffix=tr(" pt");
-	QString pctSuffix=tr(" %");
-	groupOffset->setTitle( tr( "Offsets" ) );
-	textLabel1->setText( tr( "X:" ) );
-	spinXoffset->setSuffix( ptSuffix );
-	textLabel2->setText( tr( "Y:" ) );
-	spinYoffset->setSuffix( ptSuffix );
-	groupScale->setTitle( tr( "Scaling" ) );
-	textLabel5->setText( tr( "X-Scale:" ) );
-	spinXscaling->setSuffix( pctSuffix );
-	textLabel6->setText( tr( "Y-Scale:" ) );
-	spinYscaling->setSuffix( pctSuffix );
-	groupRotation->setTitle( tr( "Rotation" ) );
-	groupSkew->setTitle( tr( "Skewing" ) );
-	textLabel8->setText( tr( "X-Skew:" ) );
-	textLabel9->setText( tr( "Y-Skew:" ) );
-	textLabel7->setText( tr( "Angle:" ) );
-	textLabel15->setText( tr( "Flip:" ) );
-	buttonOk->setText( tr("Close"));
-	resize(minimumSizeHint());
-}
-
-void PatternPropsDialog::changePatternProps()
-{
-	double a    = M_PI / 180.0 * spinXSkew->value();
-	double b    = M_PI / 180.0 * spinYSkew->value();
-	double sina = tan(a);
-	double sinb = tan(b);
-	bool fH = FlipH->isChecked();
-	bool fV = FlipV->isChecked();
-	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, fH, fV);
-}
-
-void PatternPropsDialog::ToggleKette()
-{
-	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepScaleRatio->isChecked())
-	{
-		spinYscaling->setValue(spinXscaling->value());
-		changePatternProps();
-		keepScaleRatio->setChecked(true);
-	}
-	else
-		keepScaleRatio->setChecked(false);
-	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-}
-
-void PatternPropsDialog::HChange()
-{
-	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepScaleRatio->isChecked())
-		spinYscaling->setValue(spinXscaling->value());
-	changePatternProps();
-	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-}
-
-void PatternPropsDialog::VChange()
-{
-	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepScaleRatio->isChecked())
-		spinXscaling->setValue(spinYscaling->value());
-	changePatternProps();
-	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-}
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 {
@@ -332,9 +133,8 @@ void Cpalette::updateFromItem()
 	disconnect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
 	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	disconnect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
+	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	updateCList();
-//	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
-//	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
 	if (currentItem->doOverprint)
 		setActOverprint(1);
 	else
@@ -392,6 +192,7 @@ void Cpalette::updateFromItem()
 	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
+	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 }
 
 void Cpalette::updateCList()
@@ -429,27 +230,7 @@ void Cpalette::ToggleColorDisplay()
 		updateFromItem();
 	}
 }
-/*
-void Cpalette::setActTrans(double val, double val2)
-{
-	disconnect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
-	disconnect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
-	strokeOpacity->setValue(qRound(100 - (val2 * 100)));
-	fillOpacity->setValue(qRound(100 - (val * 100)));
-	connect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
-	connect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
-}
 
-void Cpalette::setActBlend(int val, int val2)
-{
-	disconnect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
-	disconnect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
-	blendModeFill->setCurrentIndex(val);
-	blendModeStroke->setCurrentIndex(val2);
-	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
-	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
-}
-*/
 void Cpalette::setActOverprint(int val)
 {
 	disconnect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
@@ -510,17 +291,7 @@ void Cpalette::selectColorF(QListWidgetItem *item)
 		return;
 	emit NewBrush(sFarbe);
 }
-/*
-void Cpalette::slotTransS(int val)
-{
-	emit NewTransS(static_cast<double>(100 - val) / 100.0);
-}
 
-void Cpalette::slotTransF(int val)
-{
-	emit NewTrans(static_cast<double>(100 - val) / 100.0);
-}
-*/
 void Cpalette::SetColors(ColorList newColorList)
 {
 	colorList.clear();
@@ -752,7 +523,7 @@ void Cpalette::slotGradStroke(int number)
 	}
 	else if (number == 2)
 	{
-		emit NewGradientS(0);
+		emit NewGradientS(8);
 		if (patternBoxStroke->currentItem())
 			emit NewPatternS(patternBoxStroke->currentItem()->text());
 	}
@@ -798,6 +569,8 @@ void Cpalette::slotGrad(int number)
 	if (number == 1)
 	{
 		disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+		disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 		if (!currentItem->gradient().isEmpty())
 		{
 			setCurrentComboItem(namedGradient, currentItem->gradient());
@@ -815,6 +588,8 @@ void Cpalette::slotGrad(int number)
 		else
 			emit NewGradient(7);
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+		connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	}
 	else if (number == 2)
 		emit NewGradient(8);

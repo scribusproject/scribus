@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "util_icon.h"
 #include "util.h"
+#include "util_math.h"
 
 Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 {
@@ -53,7 +54,8 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	connect(TGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
-	tabWidget->setTabEnabled(2, false);
+	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
+	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 }
 
 void Tpalette::setCurrentItem(PageItem* item)
@@ -100,6 +102,10 @@ void Tpalette::updateFromItem()
 		tabWidget->setCurrentIndex(1);
 	else
 		tabWidget->setCurrentIndex(2);
+	if (patternList->count() == 0)
+		tabWidget->setTabEnabled(2, false);
+	else
+		tabWidget->setTabEnabled(2, true);
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
@@ -245,6 +251,99 @@ void Tpalette::setSpecialGradient(double x1, double y1, double x2, double y2, do
 		TGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk);
 }
 
+void Tpalette::updatePatternList()
+{
+	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
+	patternBox->clear();
+	patternBox->setIconSize(QSize(48, 48));
+	for (QMap<QString, ScPattern>::Iterator it = patternList->begin(); it != patternList->end(); ++it)
+	{
+		QPixmap pm;
+		if (it.value().getPattern()->width() >= it.value().getPattern()->height())
+			pm=QPixmap::fromImage(it.value().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		else
+			pm=QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+		QPixmap pm2(48, 48);
+		pm2.fill(palette().color(QPalette::Base));
+		QPainter p;
+		p.begin(&pm2);
+		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
+		p.end();
+		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), patternBox);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	}
+	patternBox->clearSelection();
+	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
+}
+
+void Tpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
+{
+	patternList = docPatterns;
+	updatePatternList();
+}
+
+void Tpalette::selectPattern(QListWidgetItem *c)
+{
+	if (c == NULL)
+		return;
+	emit NewPattern(c->text());
+}
+
+void Tpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+{
+	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
+	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
+	if (itl.count() != 0)
+	{
+		QListWidgetItem *it = itl[0];
+		patternBox->setCurrentItem(it);
+	}
+	else
+		patternBox->clearSelection();
+	m_Pattern_scaleX = scaleX;
+	m_Pattern_scaleY = scaleX;
+	m_Pattern_offsetX = offsetX;
+	m_Pattern_offsetY = offsetY;
+	m_Pattern_rotation = rotation;
+	m_Pattern_skewX = skewX;
+	m_Pattern_skewY = skewY;
+	m_Pattern_mirrorX = mirrorX;
+	m_Pattern_mirrorY = mirrorY;
+	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
+}
+
+void Tpalette::changePatternProps()
+{
+	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit);
+	dia->spinXscaling->setValue(m_Pattern_scaleX);
+	dia->spinYscaling->setValue(m_Pattern_scaleY);
+	dia->spinXoffset->setValue(m_Pattern_offsetX);
+	dia->spinYoffset->setValue(m_Pattern_offsetY);
+	dia->spinAngle->setValue(m_Pattern_rotation);
+	double asina = atan(m_Pattern_skewX);
+	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
+	double asinb = atan(m_Pattern_skewY);
+	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
+	dia->FlipH->setChecked(m_Pattern_mirrorX);
+	dia->FlipV->setChecked(m_Pattern_mirrorY);
+	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)));
+	dia->exec();
+	m_Pattern_scaleX = dia->spinXscaling->value();
+	m_Pattern_scaleY = dia->spinYscaling->value();
+	m_Pattern_offsetX = dia->spinXoffset->value();
+	m_Pattern_offsetY = dia->spinYoffset->value();
+	m_Pattern_rotation = dia->spinAngle->value();
+	double a    = M_PI / 180.0 * dia->spinXSkew->value();
+	double b    = M_PI / 180.0 * dia->spinYSkew->value();
+	double sina = tan(a);
+	double sinb = tan(b);
+	m_Pattern_skewX = sina;
+	m_Pattern_skewY = sinb;
+	m_Pattern_mirrorX = dia->FlipH->isChecked();
+	m_Pattern_mirrorY = dia->FlipV->isChecked();
+	delete dia;
+}
+
 void Tpalette::setActTrans(double val, double val2)
 {
 	disconnect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
@@ -293,6 +392,13 @@ void Tpalette::editFillSelectorButton()
 		editLineSelector->setChecked(false);
 	}
 	updateFromItem();
+}
+
+void Tpalette::unitChange(double, double, int unitIndex)
+{
+	if (TGradDia)
+		TGradDia->unitChange(unitIndex);
+	currentUnit = unitIndex;
 }
 
 void Tpalette::changeEvent(QEvent *e)

@@ -35,69 +35,17 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scrpalettebase.h"
 #include "ui_colorpalette.h"
 #include "ui/gradientvectordialog.h"
+#include "ui/patternpropsdialog.h"
 
 class PageItem;
 class ColorListBox;
 class ScrSpinBox;
 class ScComboBox;
 class ScPattern;
-class LinkButton;
 
 /**
   *@author Franz Schmid
   */
-
-class SCRIBUS_API PatternPropsDialog : public QDialog
-{
-	Q_OBJECT
-
-public:
-	PatternPropsDialog(QWidget* parent, int unitIndex);
-	~PatternPropsDialog() {};
-	virtual void changeEvent(QEvent *e);
-	ScrSpinBox* spinXoffset;
-	ScrSpinBox* spinYoffset;
-	ScrSpinBox* spinXscaling;
-	ScrSpinBox* spinYscaling;
-	ScrSpinBox* spinAngle;
-	ScrSpinBox* spinXSkew;
-	ScrSpinBox* spinYSkew;
-	QToolButton* FlipH;
-	QToolButton* FlipV;
-
-public slots:
-	void languageChange();
-	void changePatternProps();
-	void ToggleKette();
-	void HChange();
-	void VChange();
-
-signals:
-	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
-
-protected:
-	QGroupBox* groupOffset;
-	QLabel* textLabel1;
-	QLabel* textLabel2;
-	QGroupBox* groupScale;
-	QLabel* textLabel5;
-	QLabel* textLabel6;
-	LinkButton* keepScaleRatio;
-	QGroupBox* groupRotation;
-	QLabel* textLabel7;
-	QGroupBox* groupSkew;
-	QLabel* textLabel8;
-	QLabel* textLabel9;
-	QLabel* textLabel15;
-	QVBoxLayout* frame3Layout;
-	QHBoxLayout* groupOffsetLayout;
-	QGridLayout* groupScaleLayout;
-	QGridLayout* groupSkewLayout;
-	QHBoxLayout* groupRotationLayout;
-	QPushButton* buttonOk;
-	QHBoxLayout* buttonLayout;
-	QHBoxLayout* groupFlipLayout;
-};
 
 class SCRIBUS_API Cpalette : public QWidget, Ui::colorPalette
 {
@@ -119,11 +67,7 @@ public slots:
 	void editLineColorSelectorButton();
 	void editFillColorSelectorButton();
 	void SetColors(ColorList newColorList);
-//	void setActTrans(double, double);
-//	void setActBlend(int, int);
 	void setActOverprint(int);
-//	void slotTransS(int val);
-//	void slotTransF(int val);
 	void updateCList();
 	void ToggleColorDisplay();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
@@ -164,10 +108,6 @@ signals:
 	void NewPatternS(QString);
 	void NewPatternPropsS(double, double, double, double, double, double, double, bool, bool);
 	void NewSpecial(double, double, double, double, double, double, double, double);
-//	void NewTrans(double);
-//	void NewTransS(double);
-//	void NewBlend(int);
-//	void NewBlendS(int);
 	void NewOverprint(int);
 	void gradientChanged();
 	void strokeGradientChanged();

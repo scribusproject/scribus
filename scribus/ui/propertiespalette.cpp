@@ -1870,6 +1870,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	disconnect(this->Tpal, SIGNAL(NewGradient(int)), 0, 0);
 	disconnect(this->Tpal, SIGNAL(NewBlend(int)), 0, 0);
 	disconnect(this->Tpal, SIGNAL(NewBlendS(int)), 0, 0);
+	disconnect(this->Tpal, SIGNAL(NewPattern(QString)), 0, 0);
+	disconnect(this->Tpal, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
 
 	disconnect(this->Cpal, SIGNAL(NewPen(QString)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBrush(QString)), 0, 0);
@@ -1952,6 +1954,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	connect(this->Tpal, SIGNAL(NewBlend(int)), doc, SLOT(itemSelection_SetItemFillBlend(int)));
 	connect(this->Tpal, SIGNAL(NewBlendS(int)), doc, SLOT(itemSelection_SetItemLineBlend(int)));
 	connect(this->Tpal, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradMask(int)));
+	connect(this->Tpal, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternMask(QString)));
+	connect(this->Tpal, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemPatternMaskProps(double, double, double, double, double, double, double, bool, bool)));
 
 	connect(this->Cpal, SIGNAL(NewPen(QString)), doc, SLOT(itemSelection_SetItemPen(QString)));
 	connect(this->Cpal, SIGNAL(NewBrush(QString)), doc, SLOT(itemSelection_SetItemBrush(QString)));
@@ -2256,6 +2260,11 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	i->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 	i->strokePatternFlip(mirrorX, mirrorY);
 	Cpal->setActPatternStroke(i->strokePattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
+
+	i->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	i->maskFlip(mirrorX, mirrorY);
+	Tpal->setActPattern(i->patternMask(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
+
 
 //CB TODO reconnect PP signals from here
 	connect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
@@ -2801,6 +2810,7 @@ void PropertiesPalette::unitChange()
 	RoundRect->setNewUnit( m_unitIndex );
 	LSize->setNewUnit( m_unitIndex );
 	Cpal->unitChange(oldRatio, m_unitRatio, doc->unitIndex());
+	Tpal->unitChange(oldRatio, m_unitRatio, doc->unitIndex());
 	HaveItem = tmp;
 }
 
@@ -4847,6 +4857,7 @@ void PropertiesPalette::updateColorList()
 	Cpal->SetPatterns(&doc->docPatterns);
 	Cpal->SetGradients(&doc->docGradients);
 	Tpal->SetColors(doc->PageColors);
+	Tpal->SetPatterns(&doc->docPatterns);
 	Tpal->SetGradients(&doc->docGradients);
 	assert (doc->PageColors.document());
 	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
