@@ -157,7 +157,18 @@ void FontComboH::familySelected(int id)
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	QString curr = fontStyle->currentText();
 	fontStyle->clear();
-	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[fontFamily->itemText(id)];
+	QString fntFamily = fontFamily->itemText(id);
+	QStringList slist, styleList = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[fntFamily];
+	for (QStringList::ConstIterator it = styleList.begin(); it != styleList.end(); ++it)
+	{
+		SCFonts::ConstIterator fIt = prefsManager->appPrefs.fontPrefs.AvailFonts.find(fntFamily + " " + *it);
+		if (fIt != prefsManager->appPrefs.fontPrefs.AvailFonts.end())
+		{
+			if (!fIt->usable() || fIt->isReplacement())
+				continue;
+			slist.append(*it);
+		}
+	}
 	slist.sort();
 	fontStyle->addItems(slist);
 	if (slist.contains(curr))
@@ -191,13 +202,18 @@ void FontComboH::setCurrentFont(QString f)
 	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
-	ilist.clear();
 	if (currDoc != NULL)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
-			if ((currDoc->DocName == prefsManager->appPrefs.fontPrefs.AvailFonts[family + " " + *it3].localForDocument()) || (prefsManager->appPrefs.fontPrefs.AvailFonts[family + " " + *it3].localForDocument().isEmpty()))
-				ilist.append(*it3);
+			SCFonts::ConstIterator fIt = prefsManager->appPrefs.fontPrefs.AvailFonts.find(family + " " + *it3);
+			if (fIt != prefsManager->appPrefs.fontPrefs.AvailFonts.end())
+			{
+				if (!fIt->usable() || fIt->isReplacement())
+					continue;
+				if ((currDoc->DocName == fIt->localForDocument()) || (fIt->localForDocument().isEmpty()))
+					ilist.append(*it3);
+			}
 		}
 		fontStyle->addItems(ilist);
 	}
@@ -216,7 +232,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	fontFamily->clear();
 	fontStyle->clear();
 	QStringList rlist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap.keys();
-	QMap<QString, QString> flist;
+	QMap<QString, ScFace::FontType> flist;
 	flist.clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
@@ -224,53 +240,70 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		{
 			QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[*it2];
 			slist.sort();
-			QStringList ilist;
-			ilist.clear();
 			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 			{
 				if ( prefsManager->appPrefs.fontPrefs.AvailFonts.contains(*it2 + " " + *it3))
 				{
 					const ScFace& fon(prefsManager->appPrefs.fontPrefs.AvailFonts[*it2 + " " + *it3]);
-					if (fon.usable() && !fon.isReplacement() && (currentDoc->DocName == fon.localForDocument() || fon.localForDocument().isEmpty()))
-						ilist.append(*it3);
+					ScFace::FontType type = fon.type();
+					if (!fon.usable() || fon.isReplacement() || !(currentDoc->DocName == fon.localForDocument() || fon.localForDocument().isEmpty()))
+						continue;
+					if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
+						continue;
+					if ((forSubstitute) && fon.isReplacement())
+						continue;
+					flist.insert(*it2, fon.type());
+					break;
 				}
 			}
-			if (!ilist.isEmpty())
-				flist.insert((*it2).toLower(), *it2);
 		}
 		else
-			flist.insert((*it2).toLower(), *it2);
+		{
+			QMap<QString, QStringList>::ConstIterator fmIt = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap.find(*it2);
+			if (fmIt == prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap.end())
+				continue;
+			if (fmIt->count() <= 0)
+				continue;
+			QString fullFontName = (*it2) + " " + fmIt->at(0);
+			ScFace fon = prefsManager->appPrefs.fontPrefs.AvailFonts[fullFontName];
+			if ( !fon.usable() || fon.isReplacement() )
+				continue;
+			ScFace::FontType type = fon.type();
+			if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
+				continue;
+			if ((forSubstitute) && fon.isReplacement())
+				continue;
+			flist.insert(*it2, fon.type());
+		}
 	}
-	for (QMap<QString,QString>::Iterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
+	for (QMap<QString, ScFace::FontType>::Iterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
 	{
-		ScFace fon = prefsManager->appPrefs.fontPrefs.AvailFonts[it2a.value()+" "+prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[it2a.value()][0]];
-		if ( !fon.usable() || fon.isReplacement() )
-			continue;
-		ScFace::FontType type = fon.type();
-		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
-			continue;
-		if ((forSubstitute) && fon.isReplacement())
-			continue;
-		if (fon.isReplacement())
+		ScFace::FontType type = it2a.value();
+		// Replacement fonts were systematically discarded in previous code
+		/*if (fon.isReplacement())
 			fontFamily->addItem(substFont, it2a.value());
-		else if (type == ScFace::OTF)
-			fontFamily->addItem(otfFont, it2a.value());
+		else */if (type == ScFace::OTF)
+			fontFamily->addItem(otfFont, it2a.key());
 		else if (type == ScFace::TYPE1)
-			fontFamily->addItem(psFont, it2a.value());
+			fontFamily->addItem(psFont, it2a.key());
 		else if (type == ScFace::TTF)
-			fontFamily->addItem(ttfFont, it2a.value());
+			fontFamily->addItem(ttfFont, it2a.key());
 	}
 	QString family = fontFamily->currentText();
 	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
-	ilist.clear();
 	if (currentDoc != NULL)
 	{
-		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
+		for (QStringList::ConstIterator it = slist.begin(); it != slist.end(); ++it)
 		{
-			if (prefsManager->appPrefs.fontPrefs.AvailFonts.contains(family + " " + *it3) && (currentDoc->DocName == prefsManager->appPrefs.fontPrefs.AvailFonts[family + " " + *it3].localForDocument() || prefsManager->appPrefs.fontPrefs.AvailFonts[family + " " + *it3].localForDocument().isEmpty()))
-				ilist.append(*it3);
+			SCFonts::ConstIterator fIt = prefsManager->appPrefs.fontPrefs.AvailFonts.find(family + " " + *it);
+			if (fIt != prefsManager->appPrefs.fontPrefs.AvailFonts.end())
+			{
+				if (!fIt->usable() || fIt->isReplacement())
+					continue;
+				ilist.append(*it);
+			}
 		}
 		fontStyle->addItems(ilist);
 	}
