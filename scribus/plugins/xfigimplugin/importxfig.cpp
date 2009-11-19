@@ -99,7 +99,7 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	importedColors.insert(29, "Pink2");
 	importedColors.insert(30, "Pink");
 	importedColors.insert(31, "Gold");
-	CustColors.insert("Blue", ScColor(255, 0, 0, 0));
+	CustColors.insert("Blue", ScColor(0, 0, 255));
 	CustColors.insert("Blue4", ScColor(0, 0, 144));
 	CustColors.insert("Blue3", ScColor(0, 0, 176));
 	CustColors.insert("Blue2", ScColor(0, 0, 208));
