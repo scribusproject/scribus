@@ -72,13 +72,21 @@ public:
 		StrokeBlend(0),
 		clipPath(),
 		fillPattern(""),
-		patternScaleX(0),
-		patternScaleY(0),
+		patternScaleX(1),
+		patternScaleY(1),
 		patternOffsetX(0),
 		patternOffsetY(0),
 		patternRotation(0),
 		patternSkewX(0),
 		patternSkewY(0),
+		maskPattern(""),
+		patternMaskScaleX(1),
+		patternMaskScaleY(1),
+		patternMaskOffsetX(0),
+		patternMaskOffsetY(0),
+		patternMaskRotation(0),
+		patternMaskSkewX(0),
+		patternMaskSkewY(0),
 		Elements()
 		{
 		}
@@ -131,6 +139,14 @@ public:
 	double patternRotation;
 	double patternSkewX;
 	double patternSkewY;
+	QString maskPattern;
+	double patternMaskScaleX;
+	double patternMaskScaleY;
+	double patternMaskOffsetX;
+	double patternMaskOffsetY;
+	double patternMaskRotation;
+	double patternMaskSkewX;
+	double patternMaskSkewY;
 	QList<PageItem*> Elements;
 };
 
@@ -177,6 +193,7 @@ private:
 	void handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen, bool linear);
 	void handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 dataLen);
 	void handleEllipticalGradientTransparency(QDataStream &ts, quint32 dataLen);
+	void handleBitmapTransparency(QDataStream &ts, quint32 dataLen);
 	int  convertBlendMode(int val);
 	void handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen);
 	void handleMultiGradientElliptical(QDataStream &ts);
@@ -216,7 +233,7 @@ private:
 		double component4;
 		QString name;
 	};
-	QMap<quint32, XarColor> XarColorMap;
+	QMap<qint32, XarColor> XarColorMap;
 	QList<PageItem*> Elements;
 	int recordCounter;
 	QList<quint32> atomicTags;
@@ -233,32 +250,14 @@ private:
 	QString activeLayer;
 	int currentLayer;
 
-	double LineW;
-	QString CurrColorFill;
-	QColor backColor;
-	QString CurrColorStroke;
-	QColor foreColor;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	bool patternMode;
-	QByteArray patternData;
 	QRect currRect;
 	int currRectItemNr;
 	int currRectType;
 	QRect lastImageRect;
 	QStringList importedColors;
-	QPoint ovalSize;
-	QMap<int, QString> fontMap;
-	int currentTextSize;
-	int currentFontID;
-	int currentFontStyle;
 	FPointArray lastCoords;
 
 	FPointArray Coords;
-	QPoint currentPointT;
-	bool lineMode;
-	bool postscriptMode;
-	bool textIsPostScript;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;
@@ -268,7 +267,6 @@ private:
 	int oldDocItemCount;
 	QString baseFile;
 	int pctVersion;
-	bool skipOpcode;
 
 public slots:
 	void cancelRequested() { cancel = true; }

@@ -153,8 +153,6 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (!m_Doc->PageColors.contains("Black"))
-		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	if (convert(fName))
 	{
 		tmpSel->clear();
@@ -322,32 +320,79 @@ void XarPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 bool XarPlug::convert(QString fn)
 {
 	QString tmp;
-	CurrColorFill = "White";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	patternMode = false;
-	patternData.resize(0);
-	backColor = Qt::white;
-	foreColor = Qt::black;
 	Coords.resize(0);
 	Coords.svgInit();
-	LineW = 1.0;
-	currentPointT = QPoint(0, 0);
-	ovalSize = QPoint(0, 0);
-	fontMap.clear();
-	currentTextSize = 12;
-	currentFontID = 0;
-	currentFontStyle = 0;
 	imageData.resize(0);
-	lineMode = false;
-	skipOpcode = false;
-	postscriptMode = false;
-	textIsPostScript = false;
 	importedColors.clear();
 	firstLayer = true;
 	activeLayer = "";
 	currentLayer = 0;
+	XarColor color;
+	color.colorType = 0;
+	color.colorModel = 2;
+	color.colorRef = 0;
+	color.component1 = 0;
+	color.component2 = 0;
+	color.component3 = 0;
+	color.component1 = 0;
+	color.name = CommonStrings::None;
+	XarColorMap.insert(-1, color);
+	if (!m_Doc->PageColors.contains("Black"))
+	{
+		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+		importedColors.append("Black");
+	}
+	color.name = "Black";
+	XarColorMap.insert(-2, color);
+	if (!m_Doc->PageColors.contains("White"))
+	{
+		m_Doc->PageColors.insert("White", ScColor(0, 0, 0, 0));
+		importedColors.append("White");
+	}
+	color.name = "White";
+	XarColorMap.insert(-3, color);
+	if (!m_Doc->PageColors.contains("Red"))
+	{
+		m_Doc->PageColors.insert("Red", ScColor(0, 255, 255, 0));
+		importedColors.append("Red");
+	}
+	color.name = "Red";
+	XarColorMap.insert(-4, color);
+	if (!m_Doc->PageColors.contains("Green"))
+	{
+		m_Doc->PageColors.insert("Green", ScColor(255, 0, 255, 0));
+		importedColors.append("Green");
+	}
+	color.name = "Green";
+	XarColorMap.insert(-5, color);
+	if (!m_Doc->PageColors.contains("Blue"))
+	{
+		m_Doc->PageColors.insert("Blue", ScColor(255, 0, 0));
+		importedColors.append("Blue");
+	}
+	color.name = "Blue";
+	XarColorMap.insert(-6, color);
+	if (!m_Doc->PageColors.contains("Cyan"))
+	{
+		m_Doc->PageColors.insert("Cyan", ScColor(255, 0, 0, 0));
+		importedColors.append("Cyan");
+	}
+	color.name = "Cyan";
+	XarColorMap.insert(-7, color);
+	if (!m_Doc->PageColors.contains("Magenta"))
+	{
+		m_Doc->PageColors.insert("Magenta", ScColor(0, 255, 0, 0));
+		importedColors.append("Magenta");
+	}
+	color.name = "Magenta";
+	XarColorMap.insert(-8, color);
+	if (!m_Doc->PageColors.contains("Yellow"))
+	{
+		m_Doc->PageColors.insert("Yellow", ScColor(0, 0, 255, 0));
+		importedColors.append("Yellow");
+	}
+	color.name = "Yellow";
+	XarColorMap.insert(-9, color);
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
 	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 104 << 111 << 4031;
@@ -550,6 +595,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleSimpleGradientTransparency(ts, dataLen, true);
 	else if (tag == 169)
 		handleEllipticalGradientTransparency(ts, dataLen);
+	else if (tag == 171)
+		handleBitmapTransparency(ts, dataLen);
 	else if (tag == 173)
 		handleFlatLineTransparency(ts);
 	else if ((tag == 174) || (tag == 175))
@@ -795,6 +842,89 @@ void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 data
 	gc->GradMask = 2;
 }
 
+void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	qint32 bref;
+	double blx, bly, brx, bry, tlx, tly;
+	quint8 transStart, transEnd, transType;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	readCoords(ts, tlx, tly);
+	ts >> transStart >> transEnd >> transType;
+	ts >> bref;
+	gc->FillBlend = convertBlendMode(transType);
+	if (dataLen == 47)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	if (patternRef.contains(bref))
+	{
+		QImage image = m_Doc->docPatterns[patternRef[bref]].pattern.copy();
+		int h = image.height();
+		int w = image.width();
+		int k;
+		int ts = transStart;
+		QRgb *s;
+		QRgb r;
+		for( int yi=0; yi < h; ++yi )
+		{
+			s = (QRgb*)(image.scanLine( yi ));
+			for( int xi=0; xi < w; ++xi )
+			{
+				r = *s;
+				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+				k = qMax(qRound(k / 255.0 * transEnd), ts);
+				*s = qRgba(qRed(r), qGreen(r), qBlue(r), 255 - k);
+				s++;
+			}
+		}
+		ScPattern pat = ScPattern();
+		pat.setDoc(m_Doc);
+		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+		newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		newItem->tempImageFile->open();
+		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
+		newItem->tempImageFile->close();
+		newItem->isInlineImage = true;
+		image.save(fileName, "PNG");
+		if (newItem->loadImage(fileName, false, 72, false))
+		{
+			pat.width = image.width();
+			pat.height = image.height();
+			pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.pattern = newItem->pixm.qImage().copy();
+			newItem->setWidth(pat.pattern.width());
+			newItem->setHeight(pat.pattern.height());
+			newItem->SetRectFrame();
+			newItem->gXpos = 0.0;
+			newItem->gYpos = 0.0;
+			newItem->gWidth = pat.pattern.width();
+			newItem->gHeight = pat.pattern.height();
+			pat.items.append(newItem);
+			newItem->ItemNr = pat.items.count();
+		}
+		QString patternName = patternRef[bref]+"_"+newItem->itemName();
+		patternName = patternName.trimmed().simplified().replace(" ", "_");
+		m_Doc->addPattern(patternName, pat);
+		gc->maskPattern = patternName;
+		gc->patternMaskScaleX = distX / pat.width * 100;
+		gc->patternMaskScaleY = distY / pat.height * 100;
+		gc->patternMaskOffsetX = 0.0;
+		gc->patternMaskOffsetY = 0.0;
+		gc->patternMaskRotation = -rotB;
+		gc->patternMaskSkewX = rotS - 90 - rotB;
+		gc->patternMaskSkewY = 0.0;
+		gc->GradMask = 3;
+	}
+}
+
 int XarPlug::convertBlendMode(int val)
 {
 	int ret = 0;
@@ -819,7 +949,7 @@ void XarPlug::handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen)
 {
 	XarStyle *gc = m_gc.top();
 	double blx, bly, brx, bry, tlx, tly;
-	quint32 colRef1, colRef2;
+	qint32 colRef1, colRef2;
 	readCoords(ts, blx, bly);
 	readCoords(ts, tlx, tly);
 	readCoords(ts, brx, bry);
@@ -829,14 +959,28 @@ void XarPlug::handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen)
 		double p, p1;
 		ts >> p >> p1;
 	}
-	QString gCol1 = XarColorMap[colRef1].name;
-	QString gCol2 = XarColorMap[colRef2].name;
 	gc->FillGradient = VGradient(VGradient::linear);
 	gc->FillGradient.clearStops();
-	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
-	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	gc->FillGradientType = 7;
 	double distX = distance(brx - blx, bry - bly);
 	double distY = distance(tlx - blx, tly - bly);
@@ -854,31 +998,52 @@ void XarPlug::handleMultiGradientElliptical(QDataStream &ts)
 {
 	XarStyle *gc = m_gc.top();
 	double blx, bly, brx, bry, tlx, tly;
-	quint32 colRef1, colRef2;
+	qint32 colRef1, colRef2;
 	readCoords(ts, blx, bly);
 	readCoords(ts, tlx, tly);
 	readCoords(ts, brx, bry);
 	ts >> colRef1 >> colRef2;
-	QString gCol1 = XarColorMap[colRef1].name;
-	QString gCol2 = XarColorMap[colRef2].name;
 	gc->FillGradient = VGradient(VGradient::linear);
 	gc->FillGradient.clearStops();
-	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
 	quint32 numCols;
 	ts >> numCols;
 	for (uint a = 0; a < numCols; a++)
 	{
 		double cpos;
-		quint32 colRef;
+		qint32 colRef;
 		ts >> cpos;
 		ts >> colRef;
-		QString gCol = XarColorMap[colRef].name;
-		const ScColor& gradC = m_Doc->PageColors[gCol];
-		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+		QString gCol = "Black";
+		if (XarColorMap.contains(colRef1))
+			gCol = XarColorMap[colRef1].name;
+		if (gCol != CommonStrings::None)
+		{
+			const ScColor& gradC = m_Doc->PageColors[gCol];
+			gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+		}
+		else
+			gc->FillGradient.addStop( QColor(255, 255, 255, 0), cpos, 0.5, 0.0, gCol, 100 );
 	}
-	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	gc->FillGradientType = 7;
 	double distX = distance(brx - blx, bry - bly);
 	double distY = distance(tlx - blx, tly - bly);
@@ -896,31 +1061,52 @@ void XarPlug::handleMultiGradientSkewed(QDataStream &ts)
 {
 	XarStyle *gc = m_gc.top();
 	double blx, bly, brx, bry, tlx, tly;
-	quint32 colRef1, colRef2;
+	qint32 colRef1, colRef2;
 	readCoords(ts, blx, bly);
 	readCoords(ts, brx, bry);
 	readCoords(ts, tlx, tly);
 	ts >> colRef1 >> colRef2;
-	QString gCol1 = XarColorMap[colRef1].name;
-	QString gCol2 = XarColorMap[colRef2].name;
 	gc->FillGradient = VGradient(VGradient::linear);
 	gc->FillGradient.clearStops();
-	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
 	quint32 numCols;
 	ts >> numCols;
 	for (uint a = 0; a < numCols; a++)
 	{
 		double cpos;
-		quint32 colRef;
+		qint32 colRef;
 		ts >> cpos;
 		ts >> colRef;
-		QString gCol = XarColorMap[colRef].name;
-		const ScColor& gradC = m_Doc->PageColors[gCol];
-		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+		QString gCol = "Black";
+		if (XarColorMap.contains(colRef1))
+			gCol = XarColorMap[colRef1].name;
+		if (gCol != CommonStrings::None)
+		{
+			const ScColor& gradC = m_Doc->PageColors[gCol];
+			gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+		}
+		else
+			gc->FillGradient.addStop( QColor(255, 255, 255, 0), cpos, 0.5, 0.0, gCol, 100 );
 	}
-	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	gc->FillGradientType = 6;
 	double distX = distance(brx - blx, bry - bly);
 	double distY = distance(tlx - blx, tly - bly);
@@ -938,30 +1124,53 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 {
 	XarStyle *gc = m_gc.top();
 	double blx, bly, brx, bry;
-	quint32 colRef1, colRef2;
+	qint32 colRef1, colRef2;
 	readCoords(ts, blx, bly);
 	readCoords(ts, brx, bry);
 	ts >> colRef1 >> colRef2;
-	QString gCol1 = XarColorMap[colRef1].name;
-	QString gCol2 = XarColorMap[colRef2].name;
 	gc->FillGradient = VGradient(VGradient::linear);
 	gc->FillGradient.clearStops();
-	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	else if (colRef2 == -1)
+		gCol2 = CommonStrings::None;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
 	quint32 numCols;
 	ts >> numCols;
 	for (uint a = 0; a < numCols; a++)
 	{
 		double cpos;
-		quint32 colRef;
+		qint32 colRef;
 		ts >> cpos;
 		ts >> colRef;
-		QString gCol = XarColorMap[colRef].name;
-		const ScColor& gradC = m_Doc->PageColors[gCol];
-		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+		QString gCol = "Black";
+		if (XarColorMap.contains(colRef1))
+			gCol = XarColorMap[colRef1].name;
+		if (gCol != CommonStrings::None)
+		{
+			const ScColor& gradC = m_Doc->PageColors[gCol];
+			gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+		}
+		else
+			gc->FillGradient.addStop( QColor(255, 255, 255, 0), cpos, 0.5, 0.0, gCol, 100 );
 	}
-	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	if (linear)
 		gc->FillGradientType = 6;
 	else
@@ -976,7 +1185,7 @@ void XarPlug::handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen)
 {
 	XarStyle *gc = m_gc.top();
 	double blx, bly, brx, bry, tlx, tly;
-	quint32 colRef1, colRef2;
+	qint32 colRef1, colRef2;
 	readCoords(ts, blx, bly);
 	readCoords(ts, brx, bry);
 	readCoords(ts, tlx, tly);
@@ -986,14 +1195,28 @@ void XarPlug::handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen)
 		double p, p1;
 		ts >> p >> p1;
 	}
-	QString gCol1 = XarColorMap[colRef1].name;
-	QString gCol2 = XarColorMap[colRef2].name;
 	gc->FillGradient = VGradient(VGradient::linear);
 	gc->FillGradient.clearStops();
-	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
-	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	gc->FillGradientType = 6;
 	double distX = distance(brx - blx, bry - bly);
 	double distY = distance(tlx - blx, tly - bly);
@@ -1011,7 +1234,7 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 {
 	XarStyle *gc = m_gc.top();
 	double blx, bly, brx, bry;
-	quint32 colRef1, colRef2;
+	qint32 colRef1, colRef2;
 	readCoords(ts, blx, bly);
 	readCoords(ts, brx, bry);
 	ts >> colRef1 >> colRef2;
@@ -1020,14 +1243,28 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 		double p, p1;
 		ts >> p >> p1;
 	}
-	QString gCol1 = XarColorMap[colRef1].name;
-	QString gCol2 = XarColorMap[colRef2].name;
 	gc->FillGradient = VGradient(VGradient::linear);
 	gc->FillGradient.clearStops();
-	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
-	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
-	gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	if (linear)
 		gc->FillGradientType = 6;
 	else
@@ -1577,6 +1814,16 @@ void XarPlug::handleColorRGB(QDataStream &ts)
 		m_Doc->PageColors.insert(tmpName, tmp);
 		importedColors.append(tmpName);
 	}
+	XarColor color;
+	color.colorType = 0;
+	color.colorModel = 2;
+	color.colorRef = 0;
+	color.component1 = 0;
+	color.component2 = 0;
+	color.component3 = 0;
+	color.component1 = 0;
+	color.name = tmpName;
+	XarColorMap.insert(recordCounter, color);
 }
 
 double XarPlug::decodeColorComponent(quint32 data)
@@ -1687,8 +1934,16 @@ void XarPlug::popGraphicContext()
 			if (gc->GradMask > 0)
 			{
 				item->GrMask = gc->GradMask;
-				item->mask_gradient = gc->MaskGradient;
-				item->setMaskVector(gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskX2 - item->xPos(), gc->GradMaskY2 - item->yPos(), gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskScale, gc->GradMaskSkew);
+				if ((item->GrMask == 1) || (item->GrMask == 2))
+				{
+					item->mask_gradient = gc->MaskGradient;
+					item->setMaskVector(gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskX2 - item->xPos(), gc->GradMaskY2 - item->yPos(), gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskScale, gc->GradMaskSkew);
+				}
+				else
+				{
+					item->setMaskTransform(gc->patternMaskScaleX, gc->patternMaskScaleY, gc->patternMaskOffsetX, gc->patternMaskOffsetY, gc->patternMaskRotation, gc->patternMaskSkewX, gc->patternMaskSkewY);
+					item->setPatternMask(gc->maskPattern);
+				}
 			}
 		}
 	}
