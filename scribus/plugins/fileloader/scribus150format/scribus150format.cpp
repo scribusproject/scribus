@@ -1954,6 +1954,14 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
 	}
 
+	if (newItem->mask_gradient.Stops() == 0)
+	{
+		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.shapeFillColor];
+		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.shapeLineColor];
+		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.shapeFillColor, 100);
+		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
+	}
+
 	if (newItem->asPathText())
 	{
 		newItem->updatePolyClip();
@@ -2837,8 +2845,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	bool mirrorX = attrs.valueAsBool("pMirrorXS", false);
 	bool mirrorY = attrs.valueAsBool("pMirrorYS", false);
 	currItem->setPatternFlip(mirrorX, mirrorY);
-	currItem->stroke_gradient.clearStops();
 	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
+	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != 8)) && (currItem->strokeGradient().isEmpty()))
+		currItem->stroke_gradient.clearStops();
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
 	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
 	currItem->GrStrokeEndX   = attrs.valueAsDouble("GRENDXS", 0.0);
@@ -2865,12 +2874,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
 	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
 	currItem->setMaskFlip(mirrorXm, mirrorYm);
+	QString GrNameM = "";
+	GrNameM = attrs.valueAsString("GRNAMEM","");
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
 	if ((currItem->GrMask == 1) || (currItem->GrMask == 4))
 		currItem->mask_gradient = VGradient(VGradient::linear);
 	else if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
 		currItem->mask_gradient = VGradient(VGradient::radial);
-	currItem->mask_gradient.clearStops();
+	if (((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5)) && (GrNameM.isEmpty()))
+		currItem->mask_gradient.clearStops();
 	currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);
 	currItem->GrMaskStartY = attrs.valueAsDouble("GRSTARTYM", 0.0);
 	currItem->GrMaskEndX   = attrs.valueAsDouble("GRENDXM", 0.0);
@@ -2879,8 +2891,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->GrMaskFocalY = attrs.valueAsDouble("GRFOCALYM", 0.0);
 	currItem->GrMaskScale  = attrs.valueAsDouble("GRSCALEM", 1.0);
 	currItem->GrMaskSkew  = attrs.valueAsDouble("GRSKEWM", 0.0);
-	QString GrNameM = "";
-	GrNameM = attrs.valueAsString("GRNAMEM","");
 	if (!GrNameM.isEmpty())
 		currItem->setGradientMask(GrNameM);
 

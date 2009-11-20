@@ -5585,7 +5585,6 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		TransVec.clear();
 		QTransform mpa;
 		mpa.rotate(-currItem->rotation());
-		QTransform qmatrix;
 		if (Gskew == 90)
 			Gskew = 1;
 		else if (Gskew == 180)
@@ -6117,7 +6116,6 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	bool spotMode = false;
 	mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 	mpa.rotate(-currItem->rotation());
-	QTransform qmatrix;
 	if (Gskew == 90)
 		Gskew = 1;
 	else if (Gskew == 180)
@@ -6180,11 +6178,29 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	QString TRes("");
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 	{
+		QTransform mpM;
+		mpM.rotate(-currItem->rotation());
+		if (GType == 6)
+		{
+			mpM.translate(StartX, -StartY);
+			mpM.shear(Gskew, 0);
+			mpM.translate(-StartX, StartY);
+		}
+		else
+		{
+			double rotEnd = xy2Deg(EndX - StartX, EndY - StartY);
+			mpM.translate(StartX, -StartY);
+			mpM.rotate(-rotEnd);
+			mpM.shear(-Gskew, 0);
+			mpM.translate(0, -StartY * (1.0 - Gscale));
+			mpM.translate(-StartX, StartY);
+			mpM.scale(1, Gscale);
+		}
 		uint patObject = newObject();
 		StartObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" 0 0]\n");
+		PutDoc("/Matrix ["+FToStr(mpM.m11())+" "+FToStr(mpM.m12())+" "+FToStr(mpM.m21())+" "+FToStr(mpM.m22())+" "+FToStr(mpM.dx())+" "+FToStr(mpM.dy())+"]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
 		if (GType == 6)
