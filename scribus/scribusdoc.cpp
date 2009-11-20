@@ -5730,7 +5730,7 @@ void ScribusDoc::itemSelection_SetItemGradMask(int typ)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->GrMask = typ;
-			if ((typ > 0) && (typ < 4))
+			if ((typ > 0) && (typ < 7))
 				currItem->updateGradientVectors();
 			currItem->update();
 		}

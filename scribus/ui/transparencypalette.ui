@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>236</width>
-    <height>335</height>
+    <height>357</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -348,6 +348,13 @@
            <item>
             <widget class="ScComboBox" name="namedGradient"/>
            </item>
+           <item>
+            <widget class="QCheckBox" name="transpCalcGradient">
+             <property name="text">
+              <string>Use Luminosity as Alpha</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tabPattern">
@@ -409,6 +416,13 @@
               </spacer>
              </item>
             </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="transpCalcPattern">
+             <property name="text">
+              <string>Use Luminosity as Alpha</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

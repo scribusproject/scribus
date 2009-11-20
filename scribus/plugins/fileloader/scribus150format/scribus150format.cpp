@@ -2866,9 +2866,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
 	currItem->setMaskFlip(mirrorXm, mirrorYm);
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
-	if (currItem->GrMask == 1)
+	if ((currItem->GrMask == 1) || (currItem->GrMask == 4))
 		currItem->mask_gradient = VGradient(VGradient::linear);
-	else
+	else if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
 		currItem->mask_gradient = VGradient(VGradient::radial);
 	currItem->mask_gradient.clearStops();
 	currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);

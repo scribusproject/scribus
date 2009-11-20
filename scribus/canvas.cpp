@@ -1228,7 +1228,7 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 		qmatrix.translate(0, currItem->GrMaskStartY * (1.0 - currItem->GrMaskScale));
 		qmatrix.translate(-currItem->GrMaskStartX, -currItem->GrMaskStartY);
 		qmatrix.scale(1, currItem->GrMaskScale);
-		if (currItem->GrMask == 2)
+		if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
 			psx->drawPoint(qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY)));
 		QTransform m;
 		m.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);

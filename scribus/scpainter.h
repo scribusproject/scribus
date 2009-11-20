@@ -128,6 +128,8 @@ private:
 		bool pushed;
 	};
 	cairo_pattern_t *getMaskPattern();
+	cairo_surface_t *imageMask;
+	QImage imageQ;
 #else
 	QPainter painter;
 	QPainterPath m_path;

@@ -216,11 +216,11 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->GrStrokeSkew   = attrAsDbl(attrs, "GRSKEWS", 1.0);
 	}
 	OB->GrMask = attrAsInt(attrs, "GRTYPM"  , 0);
-	if ((OB->GrMask == 1) || (OB->GrMask == 2))
+	if ((OB->GrMask == 1) || (OB->GrMask == 2) || (OB->GrMask == 4) || (OB->GrMask == 5))
 	{
-		if (OB->GrMask == 1)
+		if ((OB->GrMask == 1) || (OB->GrMask == 4))
 			OB->mask_gradient = VGradient(VGradient::linear);
-		else
+		else if ((OB->GrMask == 2) || (OB->GrMask == 5))
 			OB->mask_gradient = VGradient(VGradient::radial);
 		OB->mask_gradient.clearStops();
 		OB->GrMaskStartX = attrAsDbl(attrs, "GRSTARTXM", 0.0);
@@ -232,7 +232,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->GrMaskScale  = attrAsDbl(attrs, "GRSCALEM", 1.0);
 		OB->GrMaskSkew   = attrAsDbl(attrs, "GRSKEWM", 1.0);
 	}
-	if (OB->GrMask == 3)
+	if ((OB->GrMask == 3) || (OB->GrMask == 6))
 	{
 		OB->patternMaskVal = attrAsString(attrs, "patternM", "");
 		OB->patternMaskScaleX   = attrAsDbl(attrs, "pScaleXM", 100.0);

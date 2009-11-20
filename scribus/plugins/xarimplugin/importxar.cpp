@@ -353,7 +353,7 @@ bool XarPlug::convert(QString fn)
 	XarColorMap.insert(-3, color);
 	if (!m_Doc->PageColors.contains("Red"))
 	{
-		m_Doc->PageColors.insert("Red", ScColor(0, 255, 255, 0));
+		m_Doc->PageColors.insert("Red", ScColor(255, 0, 0));
 		importedColors.append("Red");
 	}
 	color.name = "Red";
@@ -872,6 +872,7 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		int w = image.width();
 		int k;
 		int ts = transStart;
+		int te = transEnd;
 		QRgb *s;
 		QRgb r;
 		for( int yi=0; yi < h; ++yi )
@@ -881,7 +882,9 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 			{
 				r = *s;
 				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-				k = qMax(qRound(k / 255.0 * transEnd), ts);
+				if (qAlpha(r) == 0)
+					k = 255;
+				k = qBound(ts, k, te);
 				*s = qRgba(qRed(r), qGreen(r), qBlue(r), 255 - k);
 				s++;
 			}

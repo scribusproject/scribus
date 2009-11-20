@@ -74,6 +74,8 @@ public slots:
 	void slotGrad(int nr);
 	void slotGradType(int type);
 	void setNamedGradient(const QString &name);
+	void switchGradientMode();
+	void switchPatternMode();
 	void editGradientVector();
 	void setActiveGradDia(bool active);
 	void updatePatternList();

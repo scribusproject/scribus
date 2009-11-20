@@ -258,7 +258,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrMaskStartY -= np.y();
 				currItem->GrMaskFocalX -= np.x();
 				currItem->GrMaskFocalY -= np.y();
-				if (currItem->GrMask == 2)
+				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
@@ -275,7 +275,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrMaskFocalX -= np.x();
 				currItem->GrMaskFocalY -= np.y();
-				if (currItem->GrMask == 2)
+				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
@@ -309,7 +309,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrMaskEndX -= np.x();
 				currItem->GrMaskEndY -= np.y();
-				if (currItem->GrMask == 2)
+				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);

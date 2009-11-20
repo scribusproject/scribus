@@ -1271,27 +1271,33 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				p->setPenOpacity(1.0 - lineTransparency());
 #endif
 			p->setFillRule(fillRule);
-			if ((GrMask == 1) || (GrMask == 2))
+			if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
 			{
-				p->setMaskMode(1);
+				if ((GrMask == 1) || (GrMask == 2))
+					p->setMaskMode(1);
+				else
+					p->setMaskMode(3);
 				if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
 					gradientMaskVal = "";
 				if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
 					mask_gradient = m_Doc->docGradients[gradientMaskVal];
 				p->mask_gradient = mask_gradient;
-				if (GrMask == 1)
+				if ((GrMask == 1) || (GrMask == 4))
 					p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
 				else
 					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
 			}
-			else if (GrMask == 3)
+			else if ((GrMask == 3) || (GrMask == 6))
 			{
 				if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
 					p->setMaskMode(0);
 				else
 				{
 					p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-					p->setMaskMode(2);
+					if (GrMask == 3)
+						p->setMaskMode(2);
+					else
+						p->setMaskMode(4);
 				}
 			}
 			else
@@ -4427,7 +4433,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
-	if ((GrMask == 1) || (GrMask == 2))
+	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
 	{
 		QList<VColorStop*> cstops = mask_gradient.colorStops();
 		for (uint cst = 0; cst < mask_gradient.Stops(); ++cst)

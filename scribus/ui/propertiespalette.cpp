@@ -4733,7 +4733,7 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 		CurItem->GrMaskFocalY = fy / m_unitRatio;
 		CurItem->GrMaskScale = sg;
 		CurItem->GrMaskSkew = sk;
-		if (CurItem->GrMask == 1)
+		if ((CurItem->GrMask == 1) || (CurItem->GrMask == 4))
 		{
 			CurItem->GrMaskFocalX = CurItem->GrMaskStartX;
 			CurItem->GrMaskFocalY = CurItem->GrMaskStartY;

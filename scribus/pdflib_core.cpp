@@ -5563,7 +5563,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 	ResCount++;
 	QString tmp;
 	QString GXName;
-	if ((currItem->GrMask == 1) || (currItem->GrMask == 2))
+	if ((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5))
 	{
 		QList<double> StopVec;
 		QList<double> TransVec;
@@ -5584,7 +5584,6 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		StopVec.clear();
 		TransVec.clear();
 		QTransform mpa;
-		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 		mpa.rotate(-currItem->rotation());
 		QTransform qmatrix;
 		if (Gskew == 90)
@@ -5597,7 +5596,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			Gskew = 0;
 		else
 			Gskew = tan(M_PI / 180.0 * Gskew);
-		if (GType == 1)
+		if ((GType == 1) || (GType == 4))
 		{
 			mpa.translate(StartX, -StartY);
 			mpa.shear(Gskew, 0);
@@ -5613,20 +5612,33 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			mpa.translate(-StartX, StartY);
 			mpa.scale(1, Gscale);
 		}
+		QColor qStopColor;
 		for (uint cst = 0; cst < gradient.Stops(); ++cst)
 		{
 			double actualStop = cstops.at(cst)->rampPoint;
+			qStopColor = cstops.at(cst)->color;
+			int h, s, v, sneu, vneu;
+			int shad = cstops.at(cst)->shade;
+			qStopColor.getHsv(&h, &s, &v);
+			sneu = s * shad / 100;
+			vneu = 255 - ((255 - v) * shad / 100);
+			qStopColor.setHsv(h, sneu, vneu);
+			double a = cstops.at(cst)->opacity;
+			double r, g, b;
+			qStopColor.getRgbF(&r, &g, &b);
+			if ((GType == 4) || (GType == 5))
+				a = 1.0 - (0.3 * r + 0.59 * g + 0.11 * b);
 			if ((cst == 0) && (actualStop != 0.0))
 			{
 				StopVec.append(0.0);
-				TransVec.append(cstops.at(cst)->opacity);
+				TransVec.append(a);
 			}
 			StopVec.append(actualStop);
-			TransVec.append(cstops.at(cst)->opacity);
+			TransVec.append(a);
 			if ((cst == gradient.Stops()-1) && (actualStop < 1.0))
 			{
 				StopVec.append(1.0);
-				TransVec.append(cstops.at(cst)->opacity);
+				TransVec.append(a);
 			}
 		}
 		QString TRes("");
@@ -5634,10 +5646,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		StartObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" 0 0]\n");
+		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
-		if (GType == 1)
+		if ((GType == 1) || (GType == 4))
 			PutDoc("/ShadingType 2\n");
 		else
 			PutDoc("/ShadingType 3\n");
@@ -5718,7 +5730,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = "/"+GXName+" gs\n";
 	}
-	else if (currItem->GrMask == 3)
+	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6))
 	{
 		QString tmpOut = "";
 		PDF_PatternFillStroke(tmpOut, currItem, 2);
@@ -5767,7 +5779,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		ResCount++;
 		GXName = ResNam+QString::number(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Alpha      /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		if (currItem->GrMask == 6)
+			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		else
+			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = "/"+GXName+" gs\n";
 	}
 	else
