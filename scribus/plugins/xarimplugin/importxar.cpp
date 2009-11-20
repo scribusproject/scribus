@@ -617,6 +617,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		gc->StrokeCol = "Black";
 	else if (tag == 195)
 		gc->StrokeCol = "White";
+	else if (tag == 198)
+		handleBitmap(ts);
 	else if (tag == 1901)
 		handleQuickShapeSimple(ts, dataLen);
 	else if (tag == 4075)
@@ -1307,6 +1309,40 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 	}
 }
 
+void XarPlug::handleBitmap(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	qint32 bref;
+	double blx, bly, brx, bry, tlx, tly, trix, triy;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	readCoords(ts, tlx, tly);
+	readCoords(ts, trix, triy);
+	ts >> bref;
+	Coords.resize(0);
+	Coords.svgInit();
+	Coords.svgMoveTo(blx, docHeight - bly);
+	Coords.svgLineTo(brx, docHeight - bry);
+	Coords.svgLineTo(tlx, docHeight - tly);
+	Coords.svgLineTo(trix, docHeight - triy);
+	Coords.svgClosePath();
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	finishItem(z);
+	PageItem *ite = m_Doc->Items->at(z);
+	if (patternRef.contains(bref))
+	{
+		QImage image = m_Doc->docPatterns[patternRef[bref]].pattern.copy();
+		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		ite->tempImageFile->open();
+		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		ite->tempImageFile->close();
+		ite->isInlineImage = true;
+		image.save(fileName, "PNG");
+		m_Doc->LoadPict(fileName, z);
+		ite->setImageScalingMode(false, false);
+	}
+}
+
 void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 {
 	quint32 bytesRead = 0;
@@ -1338,7 +1374,25 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 	QImage image;
 	if (image.loadFromData(imageData))
 	{
+		bool rawAlpha = image.hasAlphaChannel();
 		image = image.convertToFormat(QImage::Format_ARGB32);
+		if ((tag == 68) && (rawAlpha))
+		{
+			int h = image.height();
+			int w = image.width();
+			QRgb *s;
+			QRgb r;
+			for( int yi=0; yi < h; ++yi )
+			{
+				s = (QRgb*)(image.scanLine( yi ));
+				for( int xi=0; xi < w; ++xi )
+				{
+					r = *s;
+					*s = qRgba(qRed(r), qGreen(r), qBlue(r), 255 - qAlpha(r));
+					s++;
+				}
+			}
+		}
 		ScPattern pat = ScPattern();
 		pat.setDoc(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
@@ -1377,13 +1431,8 @@ void XarPlug::handleLineColor(QDataStream &ts)
 	XarStyle *gc = m_gc.top();
 	qint32 val;
 	ts >> val;
-	if (val >= 0)
-	{
-		if (XarColorMap.contains(val))
-		{
-			gc->StrokeCol = XarColorMap[val].name;
-		}
-	}
+	if (XarColorMap.contains(val))
+		gc->StrokeCol = XarColorMap[val].name;
 }
 
 void XarPlug::handleLineWidth(QDataStream &ts)
@@ -1408,13 +1457,8 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 	XarStyle *gc = m_gc.top();
 	qint32 val;
 	ts >> val;
-	if (val >= 0)
-	{
-		if (XarColorMap.contains(val))
-		{
-			gc->FillCol = XarColorMap[val].name;
-		}
-	}
+	if (XarColorMap.contains(val))
+		gc->FillCol = XarColorMap[val].name;
 }
 
 void XarPlug::createPolygonItem(int type)
@@ -1441,6 +1485,8 @@ void XarPlug::createPolylineItem(int type)
 	else if (type == 2)
 		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	finishItem(z);
+//	PageItem *ite = m_Doc->Items->at(z);
+//	qDebug() << "Item" << ite->itemName() << type;
 }
 
 void XarPlug::finishItem(int z)
@@ -1910,9 +1956,12 @@ void XarPlug::popGraphicContext()
 		for (int a = 0; a < gc->Elements.count(); a++)
 		{
 			PageItem *item = gc->Elements.at(a);
-			item->setFillColor(gc->FillCol);
-			item->setFillTransparency(gc->FillOpacity);
-			item->setFillBlendmode(gc->FillBlend);
+			if (!item->asPolyLine())
+			{
+				item->setFillColor(gc->FillCol);
+				item->setFillTransparency(gc->FillOpacity);
+				item->setFillBlendmode(gc->FillBlend);
+			}
 			item->setLineTransparency(gc->StrokeOpacity);
 			item->setLineWidth(gc->LWidth);
 			item->setLineColor(gc->StrokeCol);
