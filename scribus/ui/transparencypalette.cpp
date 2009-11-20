@@ -239,14 +239,14 @@ void Tpalette::setNamedGradient(const QString &name)
 	if (namedGradient->currentIndex() == 0)
 	{
 		gradEdit->setGradient(currentItem->mask_gradient);
-		currentItem->setGradient("");
+		currentItem->setGradientMask("");
 		gradEdit->setGradientEditable(true);
 	}
 	else
 	{
 		gradEdit->setGradient(gradientList->value(name));
 		gradEdit->setGradientEditable(false);
-		currentItem->setGradient(name);
+		currentItem->setGradientMask(name);
 	}
 	if (gradientType->currentIndex() == 0)
 	{

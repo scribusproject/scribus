@@ -367,7 +367,7 @@ bool XarPlug::convert(QString fn)
 	XarColorMap.insert(-5, color);
 	if (!m_Doc->PageColors.contains("Blue"))
 	{
-		m_Doc->PageColors.insert("Blue", ScColor(255, 0, 0));
+		m_Doc->PageColors.insert("Blue", ScColor(0, 0, 255));
 		importedColors.append("Blue");
 	}
 	color.name = "Blue";
