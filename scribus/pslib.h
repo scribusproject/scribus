@@ -114,7 +114,7 @@ class SCRIBUS_API PSLib : public QObject
 
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
-		virtual void PS_show_xyG(QString font, uint gl, double x, double y, bool stop);
+		virtual void PS_show_xyG(QString font, uint gl, double x, double y, QString colorName, double shade);
 		virtual bool PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 		virtual bool PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
 		virtual void PS_plate(int nr, QString name = "");
@@ -132,6 +132,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual bool ProcessPageLayer(ScribusDoc* Doc, Page* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual void drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, bool gcr);
 		virtual void putColor(const QString& color, double shade, bool fill);
+		virtual void putColorNoDraw(const QString& color, double shade, bool gcr);
 		virtual void GetBleeds(Page* page, double& left, double& right);
 		virtual void GetBleeds(Page* page, double& left, double& right, double& bottom, double& top);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);

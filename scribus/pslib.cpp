@@ -1358,14 +1358,42 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 	PutStream("cliprestore\n");
 }
 
-void PSLib::PS_show_xyG(QString font, uint glyph, double x, double y, bool spot)
+void PSLib::PS_show_xyG(QString font, uint glyph, double x, double y, QString colorName, double shade)
 {
-	QString Name;
-	Name = GlyphsOfFont[font].contains(glyph) ? GlyphsOfFont[font][glyph].second : QString(".notdef");
-	if (spot)
-		PutStream("/"+Name+" "+ToStr(x)+" "+ToStr(y)+" shgsp\n");
+	QString glyphName;
+	glyphName = GlyphsOfFont[font].contains(glyph) ? GlyphsOfFont[font][glyph].second : QString(".notdef");
+
+	QString colorString;
+	ScColor& color(colorsToUse[colorName]);
+	bool spot = false;
+	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
+	{
+		if (!DoSep)
+		{
+			colorString = ToStr(shade / 100.0)+" "+spotMap[colorName];
+			spot = true;
+		}
+		else if ((colorName == currentSpot) || (color.isRegistrationColor()))
+			colorString = "0 0 0 "+ToStr(shade / 100.0);
+		else
+			colorString = "0 0 0 0";
+	}
 	else
-		PutStream("/"+Name+" "+ToStr(x)+" "+ToStr(y)+" "+StrokeColor+" shg\n");
+	{
+		int c, m, y, k;
+		SetColor(color, shade, &c, &m, &y, &k, Options.doGCR);
+		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
+			colorString = ToStr(c / 255.0) + " " + ToStr(m / 255.0) + " " + ToStr(y / 255.0) + " " + ToStr(k / 255.0);
+		else
+			colorString = "0 0 0 0";
+	}
+	if (spot)
+	{
+		PutStream(colorString + "\n");
+		PutStream("/"+glyphName+" "+ToStr(x)+" "+ToStr(y)+" shgsp\n");
+	}
+	else
+		PutStream("/"+glyphName+" "+ToStr(x)+" "+ToStr(y)+" "+colorString+" shg\n");
 }
 
 void PSLib::PS_show(double x, double y)
@@ -2680,21 +2708,11 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								{
 									PS_save();
 									PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-									SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
-										PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
-									else
-										PutStream(FillColor + " cmyk");
+									putColorNoDraw(style.strokeColor(), style.strokeShade(), gcr);
 									PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 									PS_restore();
 								}
-								SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
-									PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
-								else
-									PutStream(FillColor + " cmyk");
+								putColorNoDraw(style.fillColor(), style.fillShade(), gcr);
 								PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 								if ((style.effects() & ScStyle_Outline))
 								{
@@ -2702,12 +2720,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									{
 										PS_save();
 										PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
-										SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
-										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
-											PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
-										else
-											PutStream(StrokeColor + " cmyk");
+										putColorNoDraw(style.strokeColor(), style.strokeShade(), gcr);
 										PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, true);
 										PS_restore();
 									}
@@ -2843,26 +2856,10 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						{
 							PS_save();
 							PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-							SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
-							{
-								PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
-								PS_show_xyG(style.font().replacementName(), glyph, 0, 0, true);
-							}
-							else
-								PS_show_xyG(style.font().replacementName(), glyph, 0, 0, false);
+							PS_show_xyG(style.font().replacementName(), glyph, 0, 0, style.strokeColor(), style.strokeShade());
 							PS_restore();
 						}
-						SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
-						{
-							PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
-							PS_show_xyG(style.font().replacementName(), glyph, 0, 0, true);
-						}
-						else
-							PS_show_xyG(style.font().replacementName(), glyph, 0, 0, false);
+						PS_show_xyG(style.font().replacementName(), glyph, 0, 0, style.fillColor(), style.fillShade());
 						if ((style.effects() & ScStyle_Outline))
 						{
 							if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
@@ -4350,12 +4347,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				}
 				if (cstyle.fillColor() != CommonStrings::None)
 				{
-					SetColor(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
-					PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
-						PutStream(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
-					else
-						PutStream(FillColor + " cmyk");
+					putColorNoDraw(cstyle.fillColor(), cstyle.fillShade(), gcr);
 					PS_showSub(glyph, FontSubsetMap[cstyle.font().scName()], tsz / 10.0, false);
 				}
 				PS_restore();
@@ -4377,15 +4369,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				PS_scale(glyphs.scaleH, glyphs.scaleV);
 			if (cstyle.fillColor() != CommonStrings::None)
 			{
-				SetColor(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
-				{
-					PutStream(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
-					PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, true);
-				}
-				else
-					PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, false);
+				PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, cstyle.fillColor(), cstyle.fillShade());
 			}
 			PS_restore();
 		}
@@ -4502,58 +4486,85 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}*/
 }
 
-void PSLib::putColor(const QString& color, double shade, bool fill)
+void PSLib::putColor(const QString& colorName, double shade, bool fill)
 {
+	ScColor& color(colorsToUse[colorName]);
 	if (fill)
 	{
-		if (((colorsToUse[color].isSpotColor()) || (colorsToUse[color].isRegistrationColor())) && (useSpotColors))
+		if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
 		{
 			if (!DoSep)
-				PS_fillspot(color, shade);
+				PS_fillspot(colorName, shade);
 			else
 			{
-				if ((color == currentSpot) || (colorsToUse[color].isRegistrationColor()))
+				if ((colorName == currentSpot) || (color.isRegistrationColor()))
 				{
 					if (fillRule)
 						PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk eofill\n");
 					else
 						PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk fill\n");
 				}
+				else
+				{
+					if (fillRule)
+						PutStream("0 0 0 0 cmyk eofill\n");
+					else
+						PutStream("0 0 0 0 cmyk fill\n");
+				}
 			}
 		}
 		else
 		{
-			if (DoSep)
-			{
-				if ((Plate == 0) || (Plate == 1) || (Plate == 2) || (Plate == 3))
-					PS_fill();
-			}
-			else
+			if (!DoSep || (Plate == 0) || (Plate == 1) || (Plate == 2) || (Plate == 3))
 				PS_fill();
+			else if (fillRule)
+				PutStream("0 0 0 0 cmyk eofill\n");
+			else
+				PutStream("0 0 0 0 cmyk fill\n");
 		}
 	}
 	else
 	{
-		if (((colorsToUse[color].isSpotColor()) || (colorsToUse[color].isRegistrationColor())) && (useSpotColors))
+		if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
 		{
 			if (!DoSep)
-				PS_strokespot(color, shade);
+				PS_strokespot(colorName, shade);
 			else
 			{
-				if ((color == currentSpot) || (colorsToUse[color].isRegistrationColor()))
+				if ((colorName == currentSpot) || (color.isRegistrationColor()))
 					PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk st\n");
 			}
 		}
 		else
 		{
-			if (DoSep)
-			{
-				if ((Plate == 0) || (Plate == 1) || (Plate == 2) || (Plate == 3))
-					PS_stroke();
-			}
-			else
+			if (!DoSep || (Plate == 0) || (Plate == 1) || (Plate == 2) || (Plate == 3))
 				PS_stroke();
+			else
+				PutStream("0 0 0 0 cmyk st\n");
 		}
+	}
+}
+
+void PSLib::putColorNoDraw(const QString& colorName, double shade, bool gcr)
+{
+	ScColor& color(colorsToUse[colorName]);
+	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
+	{
+		if (!DoSep)
+			PutStream(ToStr(shade / 100.0)+" "+spotMap[colorName] + "\n");
+		else if ((colorName == currentSpot) || (color.isRegistrationColor()))
+			PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk\n");
+		else
+			PutStream("0 0 0 0 cmyk\n");
+	}
+	else
+	{
+		int c, m, y, k;
+		SetColor(color, shade, &c, &m, &y, &k, gcr);
+		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
+			PutStream(ToStr(c / 255.0) + " " + ToStr(m / 255.0) + " " + ToStr(y / 255.0) + " " + ToStr(k / 255.0) + " cmyk\n");
+		else
+			PutStream("0 0 0 0 cmyk\n");
 	}
 }
 
