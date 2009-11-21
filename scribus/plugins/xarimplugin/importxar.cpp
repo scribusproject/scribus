@@ -587,12 +587,14 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleSimpleGradientElliptical(ts, dataLen);
 	else if (tag == 157)
 		handleBitmapFill(ts, dataLen);
+	else if (tag == 158)
+		handleContoneBitmapFill(ts, dataLen);
 	else if (tag == 166)
 		handleFlatFillTransparency(ts);
 	else if (tag == 167)
 		handleSimpleGradientTransparency(ts, dataLen, true);
 	else if (tag == 168)
-		handleSimpleGradientTransparency(ts, dataLen, true);
+		handleSimpleGradientTransparency(ts, dataLen, false);
 	else if (tag == 169)
 		handleEllipticalGradientTransparency(ts, dataLen);
 	else if (tag == 171)
@@ -867,7 +869,9 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 	double rotS = xy2Deg(tlx - blx, tly - bly);
 	if (patternRef.contains(bref))
 	{
-		QImage image = m_Doc->docPatterns[patternRef[bref]].pattern.copy();
+		QString imgNam = m_Doc->docPatterns[patternRef[bref]].items.at(0)->externalFile();
+		QImage image;
+		image.load(imgNam);
 		int h = image.height();
 		int w = image.width();
 		int k;
@@ -1032,8 +1036,8 @@ void XarPlug::handleMultiGradientElliptical(QDataStream &ts)
 		ts >> cpos;
 		ts >> colRef;
 		QString gCol = "Black";
-		if (XarColorMap.contains(colRef1))
-			gCol = XarColorMap[colRef1].name;
+		if (XarColorMap.contains(colRef))
+			gCol = XarColorMap[colRef].name;
 		if (gCol != CommonStrings::None)
 		{
 			const ScColor& gradC = m_Doc->PageColors[gCol];
@@ -1096,7 +1100,7 @@ void XarPlug::handleMultiGradientSkewed(QDataStream &ts)
 		ts >> colRef;
 		QString gCol = "Black";
 		if (XarColorMap.contains(colRef1))
-			gCol = XarColorMap[colRef1].name;
+			gCol = XarColorMap[colRef].name;
 		if (gCol != CommonStrings::None)
 		{
 			const ScColor& gradC = m_Doc->PageColors[gCol];
@@ -1141,8 +1145,6 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 		gCol1 = XarColorMap[colRef1].name;
 	if (XarColorMap.contains(colRef2))
 		gCol2 = XarColorMap[colRef2].name;
-	else if (colRef2 == -1)
-		gCol2 = CommonStrings::None;
 	if (gCol1 != CommonStrings::None)
 	{
 		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
@@ -1159,8 +1161,8 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 		ts >> cpos;
 		ts >> colRef;
 		QString gCol = "Black";
-		if (XarColorMap.contains(colRef1))
-			gCol = XarColorMap[colRef1].name;
+		if (XarColorMap.contains(colRef))
+			gCol = XarColorMap[colRef].name;
 		if (gCol != CommonStrings::None)
 		{
 			const ScColor& gradC = m_Doc->PageColors[gCol];
@@ -1312,6 +1314,109 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 	}
 }
 
+void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	qint32 bref, colRef1, colRef2;
+	double blx, bly, brx, bry, tlx, tly;
+	readCoords(ts, blx, bly);
+	readCoords(ts, brx, bry);
+	readCoords(ts, tlx, tly);
+	ts >> colRef1 >> colRef2;
+	ts >> bref;
+	if (dataLen == 52)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 == CommonStrings::None)
+		gCol1 = "White";
+	if (gCol2 == CommonStrings::None)
+		gCol2 = "White";
+	const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+	QColor startC = ScColorEngine::getRGBColor(gradC1, m_Doc);
+	const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+	QColor endC = ScColorEngine::getRGBColor(gradC2, m_Doc);
+	double distX = distance(brx - blx, bry - bly);
+	double distY = distance(tlx - blx, tly - bly);
+	double rotB = xy2Deg(brx - blx, bry - bly);
+	double rotS = xy2Deg(tlx - blx, tly - bly);
+	if (patternRef.contains(bref))
+	{
+		QString imgNam = m_Doc->docPatterns[patternRef[bref]].items.at(0)->externalFile();
+		QImage image;
+		image.load(imgNam);
+		int h = image.height();
+		int w = image.width();
+		int k;
+		int rS, gS, bS, rE, gE, bE, rR1, gR1, bR1, rR2, gR2, bR2;
+		startC.getRgb(&rS, &gS, &bS);
+		endC.getRgb(&rE, &gE, &bE);
+		QRgb *s;
+		QRgb r;
+		for( int yi=0; yi < h; ++yi )
+		{
+			s = (QRgb*)(image.scanLine( yi ));
+			for( int xi=0; xi < w; ++xi )
+			{
+				r = *s;
+				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+				rR1 = qMin((rS * k) >> 8, 255);
+				gR1 = qMin((gS * k) >> 8, 255);
+				gR1 = qMin((bS * k) >> 8, 255);
+				rR2 = qMin((rE * k) >> 8, 255);
+				gR2 = qMin((gE * k) >> 8, 255);
+				bR2 = qMin((bE * k) >> 8, 255);
+				*s = qRgba(qMin(rR1+rR2, 255), qMin(gR1+gR2, 255), qMin(bR1+bR2, 255), qAlpha(r));
+				s++;
+			}
+		}
+		ScPattern pat = ScPattern();
+		pat.setDoc(m_Doc);
+		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+		newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		newItem->tempImageFile->open();
+		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
+		newItem->tempImageFile->close();
+		newItem->isInlineImage = true;
+		image.save(fileName, "PNG");
+		if (newItem->loadImage(fileName, false, 72, false))
+		{
+			pat.width = image.width();
+			pat.height = image.height();
+			pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.pattern = newItem->pixm.qImage().copy();
+			newItem->setWidth(pat.pattern.width());
+			newItem->setHeight(pat.pattern.height());
+			newItem->SetRectFrame();
+			newItem->gXpos = 0.0;
+			newItem->gYpos = 0.0;
+			newItem->gWidth = pat.pattern.width();
+			newItem->gHeight = pat.pattern.height();
+			pat.items.append(newItem);
+			newItem->ItemNr = pat.items.count();
+		}
+		QString patternName = patternRef[bref]+"_"+newItem->itemName();
+		patternName = patternName.trimmed().simplified().replace(" ", "_");
+		m_Doc->addPattern(patternName, pat);
+		gc->fillPattern = patternName;
+		gc->patternScaleX = distX / pat.width * 100;
+		gc->patternScaleY = distY / pat.height * 100;
+		gc->patternOffsetX = 0.0;
+		gc->patternOffsetY = 0.0;
+		gc->patternRotation = -rotB;
+		gc->patternSkewX = rotS - 90 - rotB;
+		gc->patternSkewY = 0.0;
+	}
+}
+
 void XarPlug::handleBitmap(QDataStream &ts)
 {
 	XarStyle *gc = m_gc.top();
@@ -1334,7 +1439,9 @@ void XarPlug::handleBitmap(QDataStream &ts)
 	PageItem *ite = m_Doc->Items->at(z);
 	if (patternRef.contains(bref))
 	{
-		QImage image = m_Doc->docPatterns[patternRef[bref]].pattern.copy();
+		QString imgNam = m_Doc->docPatterns[patternRef[bref]].items.at(0)->externalFile();
+		QImage image;
+		image.load(imgNam);
 		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
 		ite->tempImageFile->open();
 		QString fileName = getLongPathName(ite->tempImageFile->fileName());
@@ -1506,6 +1613,7 @@ void XarPlug::finishItem(int z)
 	Elements.append(ite);
 	XarStyle *gc = m_gc.top();
 	gc->Elements.append(ite);
+//	qDebug() << "Item" << ite->itemName();
 }
 
 bool XarPlug::handlePathRel(QDataStream &ts, quint32 len)

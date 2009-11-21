@@ -202,6 +202,7 @@ private:
 	void handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen);
 	void handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear);
 	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
+	void handleContoneBitmapFill(QDataStream &ts, quint32 dataLen);
 	void handleBitmap(QDataStream &ts);
 	void defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag);
 	void handleLineColor(QDataStream &ts);
