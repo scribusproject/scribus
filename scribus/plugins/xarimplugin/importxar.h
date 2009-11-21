@@ -209,6 +209,8 @@ private:
 	void handleLineWidth(QDataStream &ts);
 	void handleFlatLineTransparency(QDataStream &ts);
 	void handleFlatFill(QDataStream &ts);
+	void createRectangleItem(QDataStream &ts);
+	void createSimilarItem(QDataStream &ts);
 	void createPolylineItem(int type);
 	void createPolygonItem(int type);
 	void finishItem(int z);
@@ -236,6 +238,7 @@ private:
 		QString name;
 	};
 	QMap<qint32, XarColor> XarColorMap;
+	QMap<qint32, PageItem*> pathMap;
 	QList<PageItem*> Elements;
 	int recordCounter;
 	QList<quint32> atomicTags;

@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
 #include "pageitem_imageframe.h"
+#include "pageitem_polygon.h"
+#include "pageitem_polyline.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -573,6 +575,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		else
 			createPolylineItem(2);
 	}
+//	else if (tag == 118)
+//		createSimilarItem(ts);
 	else if (tag == 150)
 		handleFlatFill(ts);
 	else if (tag == 151)
@@ -621,6 +625,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		gc->StrokeCol = "White";
 	else if (tag == 198)
 		handleBitmap(ts);
+	else if (tag == 1100)
+		createRectangleItem(ts);
 	else if (tag == 1901)
 		handleQuickShapeSimple(ts, dataLen);
 	else if (tag == 4075)
@@ -1571,6 +1577,64 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 		gc->FillCol = XarColorMap[val].name;
 }
 
+void XarPlug::createRectangleItem(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	double centerX, centerY, majorAxis, minorAxis;
+	readCoords(ts, centerX, centerY);
+	readCoords(ts, majorAxis, minorAxis);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	Coords.resize(0);
+	Coords.svgInit();
+	QPainterPath path = RegularPolygon(majorAxis, minorAxis, 4, false, 0, 45, 0);
+	Coords.fromQPainterPath(path);
+	Coords.translate(-majorAxis / 2.0, -minorAxis / 2.0);
+	Coords.translate(centerX, -centerY);
+	Coords.translate(0, docHeight);
+	finishItem(z);
+}
+
+void XarPlug::createSimilarItem(QDataStream &ts)
+{
+	qint32 val;
+	ts >> val;
+	quint32 scX, skX, skY, scY;
+	double transX, transY;
+	ts >> scX >> skX >> skY >> scY;
+	readCoords(ts, transX, transY);
+	double scaleX = decodeFixed16(scX);
+	double scaleY = decodeFixed16(scY);
+	double skewX = decodeFixed16(skX);
+	double skewY = decodeFixed16(skY);
+	if (pathMap.contains(val))
+	{
+		PageItem* newItem;
+		PageItem* ite = pathMap[val];
+		if (ite->realItemType() == PageItem::ImageFrame)
+			newItem = new PageItem_ImageFrame(*ite);
+		else if (ite->realItemType() == PageItem::Polygon)
+			newItem = new PageItem_Polygon(*ite);
+		else
+			newItem = new PageItem_PolyLine(*ite);
+		m_Doc->Items->append(newItem);
+		newItem->ItemNr = m_Doc->Items->count()-1;
+		Coords = ite->PoLine.copy();
+		QTransform matrix(scaleX, skewX, skewY, scaleY, 0, 0);
+		Coords.map(matrix);
+		Coords.translate(transX, transY);
+		newItem->PoLine = Coords.copy();
+		newItem->ClipEdited = true;
+		newItem->FrameType = 3;
+		FPoint wh = getMaxClipF(&newItem->PoLine);
+		newItem->setWidthHeight(wh.x(),wh.y());
+		newItem->setTextFlowMode(PageItem::TextFlowDisabled);
+		m_Doc->AdjustItemSize(newItem);
+		Elements.append(newItem);
+		XarStyle *gc = m_gc.top();
+		gc->Elements.append(newItem);
+	}
+}
+
 void XarPlug::createPolygonItem(int type)
 {
 	int z;
@@ -1613,6 +1677,7 @@ void XarPlug::finishItem(int z)
 	Elements.append(ite);
 	XarStyle *gc = m_gc.top();
 	gc->Elements.append(ite);
+	pathMap.insert(recordCounter, ite);
 //	qDebug() << "Item" << ite->itemName();
 }
 
