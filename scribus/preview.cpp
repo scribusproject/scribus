@@ -987,7 +987,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				QMap<QString, int>::Iterator sepit;
 				for (sepit = sepsToFileNum.begin(); sepit != sepsToFileNum.end(); ++sepit)
 				{
-					if (flagsVisible[sepit.key()]->isChecked())
+					const QCheckBox* checkBox = flagsVisible.value(sepit.key(), NULL);
+					if (checkBox && checkBox->isChecked())
 					{
 						QString fnam;
 						if (GsMinor < 54)
