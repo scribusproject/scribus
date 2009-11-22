@@ -4838,7 +4838,7 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, doc->Print_Options.devMode, prefsManager->appPrefs.printerPrefs.GCRMode, spots);
+	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options, prefsManager->appPrefs.printerPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
