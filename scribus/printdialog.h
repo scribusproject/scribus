@@ -24,7 +24,7 @@ class SCRIBUS_API PrintDialog : public QDialog, Ui::PrintDialogBase
 	Q_OBJECT
 
 public:
-	PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
+	PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, QStringList spots);
 	~PrintDialog();
 	QString printerName();
 	QString outputFileName();
@@ -71,7 +71,7 @@ protected:
 	ScribusDoc*  m_doc;
 	PrintEngineMap printEngineMap;
 	PrefsContext* prefs;
-	void setStoredValues(bool gcr);
+	void setStoredValues(const QString& fileName, bool gcr);
 	CupsOptions *cdia;
 	int    unit;
 	double unitRatio;

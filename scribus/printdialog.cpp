@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 
 extern bool previewDinUse;
 
-PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
+PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, QStringList spots)
 		: QDialog( parent )
 {
 	setupUi(this);
@@ -46,7 +46,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 	unit = doc->unitIndex();
 	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
-	DevMode = PSettings;
+	DevMode = printOptions.devMode;
 	PrinterOpts = "";
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
  	pageNrButton->setIcon(QIcon(loadIcon("ellipsis.png")));
@@ -78,7 +78,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 	{
 		printerName = printerNames[i];
 		PrintDest->addItem(printerName);
-		if( printerName == PDev )
+		if( printerName == printOptions.printer )
 		{
 			PrintDest->setCurrentIndex(PrintDest->count()-1);
 			prefs->set("CurrentPrn", PrintDest->currentText());
@@ -104,14 +104,17 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 		BleedTxt4->setText( tr( "Outside:" ) );
 	}
 
-	if ((PDev== tr("File")) || (PrintDest->count() == 1))
+	QString prnDevice = printOptions.printer;
+	if (prnDevice.isEmpty())
+		prnDevice = PrintDest->currentText();
+	if ((prnDevice == tr("File")) || (PrintDest->count() == 1))
 	{
 		PrintDest->setCurrentIndex(PrintDest->count()-1);
 		prefs->set("CurrentPrn", PrintDest->currentText());
 		DateiT->setEnabled(true);
 		LineEdit1->setEnabled(true);
-		if (!PDatei.isEmpty())
-			LineEdit1->setText(QDir::toNativeSeparators(PDatei));
+		if (!printOptions.filename.isEmpty())
+			LineEdit1->setText(QDir::toNativeSeparators(printOptions.filename));
 		ToolButton1->setEnabled(true);
 	}
 
@@ -132,7 +135,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 	connect( docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 
-	setStoredValues(gcr);
+	setStoredValues(printOptions.filename, gcr);
 #if defined(_WIN32)
 	if (!outputToFile())
 		PrinterUtil::initDeviceSettings( PrintDest->currentText(), DevMode );
@@ -311,6 +314,14 @@ void PrintDialog::SelPrinter(const QString& prn)
 			qWarning( tr("Failed to retrieve printer settings").toAscii().data() );
 	}
 #endif
+	if (toFile && LineEdit1->text().isEmpty())
+	{
+		QFileInfo fi(m_doc->DocName);
+		if (fi.isRelative()) // if (m_doc->DocName.startsWith( tr("Document")))
+			LineEdit1->setText( QDir::toNativeSeparators(QDir::currentPath() + "/" + m_doc->DocName + ".ps") );
+		else
+			LineEdit1->setText( QDir::toNativeSeparators(fi.path() + "/" + fi.baseName() + ".ps") );
+	}
 
 	// Get page description language supported by the selected printer
 	printEngineMap = PrinterUtil::getPrintEngineSupport(prn, toFile);
@@ -472,7 +483,7 @@ void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
 	options.includePDFMarks = prefs->getBool("includePDFMarks", true);
 }
 
-void PrintDialog::setStoredValues(bool gcr)
+void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 {
 	if (m_doc->Print_Options.firstUse)
 		getDefaultPrintOptions(m_doc->Print_Options, gcr);
@@ -482,6 +493,8 @@ void PrintDialog::setStoredValues(bool gcr)
 	{
 		PrintDest->setCurrentIndex(selectedDest);
 		prefs->set("CurrentPrn", PrintDest->currentText());
+		if (PrintDest->currentText() == tr("File"))
+			LineEdit1->setText(fileName);
 		SelPrinter(PrintDest->currentText());
 	}
 	OtherCom->setChecked(m_doc->Print_Options.useAltPrintCommand);
