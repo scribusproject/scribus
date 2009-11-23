@@ -209,10 +209,11 @@ private:
 	void handleLineWidth(QDataStream &ts);
 	void handleFlatLineTransparency(QDataStream &ts);
 	void handleFlatFill(QDataStream &ts);
-	void createRectangleItem(QDataStream &ts);
+	void createRectangleItem(QDataStream &ts, bool ellipse = false);
 	void createSimilarItem(QDataStream &ts);
 	void createPolylineItem(int type);
 	void createPolygonItem(int type);
+	void createGroupItem();
 	void finishItem(int z);
 	bool handlePathRel(QDataStream &ts, quint32 len);
 	void handleLayerInfo(QDataStream &ts);
@@ -243,7 +244,13 @@ private:
 	int recordCounter;
 	QList<quint32> atomicTags;
 	QList<quint32> ignoreableTags;
-	QStack<QList<PageItem*> > groupStack;
+	struct XarGroup
+	{
+		int index;
+		int gcStackDepth;
+		PageItem* groupItem;
+	};
+	QStack<XarGroup> groupStack;
 	QStack<XarStyle*>	m_gc;
 	QMap<QString, QString> patternMap;
 	QMap<quint32, QString> patternRef;

@@ -114,7 +114,7 @@ bool ImportXarPlugin::import(QString fileName, int flags)
 	if( fileName.isEmpty() )
 	{
 		flags |= lfInteractive;
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importpct");
+		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importxar");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.xar *.XAR);;All Files (*)");
 		if (diaf.exec())

@@ -395,10 +395,8 @@ bool XarPlug::convert(QString fn)
 	}
 	color.name = "Yellow";
 	XarColorMap.insert(-9, color);
-	QList<PageItem*> gElements;
-	groupStack.push(gElements);
-	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 104 << 111 << 4031;
-	ignoreableTags << 4114 << 4116 << 4124;
+	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111 << 4031;
+	ignoreableTags << 4087 << 4114 << 4115 << 4116 << 4124;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -551,6 +549,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 	} */
 	else if ((tag == 67) || (tag == 68) || (tag == 71))
 		defineBitmap(ts, dataLen, tag);
+	else if (tag == 104)
+		createGroupItem();
 	else if (tag == 114)
 	{
 		closed = handlePathRel(ts, dataLen);
@@ -625,6 +625,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		gc->StrokeCol = "White";
 	else if (tag == 198)
 		handleBitmap(ts);
+	else if (tag == 1000)
+		createRectangleItem(ts, true);
 	else if (tag == 1100)
 		createRectangleItem(ts);
 	else if (tag == 1901)
@@ -644,7 +646,10 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 	else
 	{
 //		if (m_gc.count() > 3)
-//			qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
+//		{
+//			if ((tag > 1000) && (tag < 2000))
+//				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
+//		}
 		ts.skipRawData(dataLen);
 	}
 }
@@ -1577,7 +1582,7 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 		gc->FillCol = XarColorMap[val].name;
 }
 
-void XarPlug::createRectangleItem(QDataStream &ts)
+void XarPlug::createRectangleItem(QDataStream &ts, bool ellipse)
 {
 	XarStyle *gc = m_gc.top();
 	double centerX, centerY, majorAxis, minorAxis;
@@ -1586,7 +1591,11 @@ void XarPlug::createRectangleItem(QDataStream &ts)
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	Coords.resize(0);
 	Coords.svgInit();
-	QPainterPath path = RegularPolygon(majorAxis, minorAxis, 4, false, 0, 45, 0);
+	QPainterPath path;
+	if (ellipse)
+		path.addEllipse(QPointF(majorAxis, minorAxis), majorAxis, minorAxis);
+	else
+		path = RegularPolygon(majorAxis, minorAxis, 4, false, 0, 45, 0);
 	Coords.fromQPainterPath(path);
 	Coords.translate(-majorAxis / 2.0, -minorAxis / 2.0);
 	Coords.translate(centerX, -centerY);
@@ -1618,11 +1627,9 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 			newItem = new PageItem_PolyLine(*ite);
 		m_Doc->Items->append(newItem);
 		newItem->ItemNr = m_Doc->Items->count()-1;
-		Coords = ite->PoLine.copy();
 		QTransform matrix(scaleX, skewX, skewY, scaleY, 0, 0);
-		Coords.map(matrix);
-		Coords.translate(transX, transY);
-		newItem->PoLine = Coords.copy();
+		ite->PoLine.map(matrix);
+		ite->PoLine.translate(transX * scaleX, -transY * scaleY);
 		newItem->ClipEdited = true;
 		newItem->FrameType = 3;
 		FPoint wh = getMaxClipF(&newItem->PoLine);
@@ -1632,6 +1639,7 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 		Elements.append(newItem);
 		XarStyle *gc = m_gc.top();
 		gc->Elements.append(newItem);
+//		qDebug() << "Similar Item" << ite->itemName() << " -> " << newItem->itemName() << scX << skewX << skewY << scaleY << transX << transY;
 	}
 }
 
@@ -1661,6 +1669,20 @@ void XarPlug::createPolylineItem(int type)
 	finishItem(z);
 //	PageItem *ite = m_Doc->Items->at(z);
 //	qDebug() << "Item" << ite->itemName() << type;
+}
+
+void XarPlug::createGroupItem()
+{
+	XarGroup gg;
+	gg.index = Elements.count();
+	gg.gcStackDepth = m_gc.count();
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem *neu = m_Doc->Items->at(z);
+	gg.groupItem = neu;
+	Elements.append(neu);
+	XarStyle *gc = m_gc.top();
+	gc->Elements.append(neu);
+	groupStack.push(gg);
 }
 
 void XarPlug::finishItem(int z)
@@ -2132,6 +2154,8 @@ void XarPlug::popGraphicContext()
 		for (int a = 0; a < gc->Elements.count(); a++)
 		{
 			PageItem *item = gc->Elements.at(a);
+			if (item->isGroupControl)
+				continue;
 			if (!item->asPolyLine())
 			{
 				item->setFillColor(gc->FillCol);
@@ -2169,6 +2193,51 @@ void XarPlug::popGraphicContext()
 					item->setMaskTransform(gc->patternMaskScaleX, gc->patternMaskScaleY, gc->patternMaskOffsetX, gc->patternMaskOffsetY, gc->patternMaskRotation, gc->patternMaskSkewX, gc->patternMaskSkewY);
 					item->setPatternMask(gc->maskPattern);
 				}
+			}
+		}
+	}
+	if (groupStack.count() > 0)
+	{
+		XarGroup gg = groupStack.top();
+		if (gg.gcStackDepth == m_gc.count())
+		{
+			groupStack.pop();
+			if (gg.index + 1 == Elements.count())
+			{
+				Elements.removeLast();
+				m_Doc->Items->removeLast();
+				gc->Elements.removeAll(gg.groupItem);
+				delete gg.groupItem;
+			}
+			else
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				for (int a = gg.index+1; a < Elements.count(); ++a)
+				{
+					PageItem* currItem = Elements.at(a);
+					currItem->Groups.push(m_Doc->GroupCounter);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				gg.groupItem->setXYPos(minx, miny, true);
+				gg.groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
+				gg.groupItem->SetRectFrame();
+				gg.groupItem->ClipEdited = true;
+				gg.groupItem->FrameType = 3;
+				gg.groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+				gg.groupItem->AutoName = false;
+				gg.groupItem->isGroupControl = true;
+				gg.groupItem->groupsLastItem = Elements.last();
+				gg.groupItem->Groups.push(m_Doc->GroupCounter);
+				gg.groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+				m_Doc->GroupCounter++;
 			}
 		}
 	}
