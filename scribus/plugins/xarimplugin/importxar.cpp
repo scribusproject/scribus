@@ -740,11 +740,13 @@ void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
 	Coords.fromQPainterPath(path);
 	if (!(flags & 1))
 		Coords.translate(-w, -h);
-	QTransform matrix(scaleX, skewX, skewY, scaleY, 0, 0);
+	QTransform matrix(-scaleX, skewX, -skewY, scaleY, 0, 0);
 	Coords.map(matrix);
 	Coords.translate(transX, -transY);
 	Coords.translate(0, docHeight);
 	finishItem(z);
+//	PageItem *ite = m_Doc->Items->at(z);
+//	qDebug() << "Item" << ite->itemName();
 }
 
 void XarPlug::handleFlatFillTransparency(QDataStream &ts)
@@ -2149,6 +2151,54 @@ void XarPlug::addGraphicContext()
 void XarPlug::popGraphicContext()
 {
 	XarStyle *gc = m_gc.pop();
+	if (groupStack.count() > 0)
+	{
+		XarGroup gg = groupStack.top();
+		if (gg.gcStackDepth == m_gc.count())
+		{
+			groupStack.pop();
+			if (gg.index + 1 == Elements.count())
+			{
+				Elements.removeLast();
+				m_Doc->Items->removeLast();
+				gc->Elements.removeAll(gg.groupItem);
+				delete gg.groupItem;
+			}
+			else
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				PageItem* groupItem = Elements.at(gg.index);
+				for (int a = gg.index+1; a < Elements.count(); ++a)
+				{
+					PageItem* currItem = Elements.at(a);
+					currItem->Groups.push(m_Doc->GroupCounter);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				groupItem->setXYPos(minx, miny, true);
+				groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
+				groupItem->SetRectFrame();
+				groupItem->ClipEdited = true;
+				groupItem->FrameType = 3;
+				groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+				groupItem->AutoName = false;
+				groupItem->isGroupControl = true;
+				groupItem->setFillTransparency(0);
+				groupItem->setLineTransparency(0);
+				groupItem->groupsLastItem = Elements.last();
+				groupItem->Groups.push(m_Doc->GroupCounter);
+				groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+				m_Doc->GroupCounter++;
+			}
+		}
+	}
 	if (gc->Elements.count() > 0)
 	{
 		for (int a = 0; a < gc->Elements.count(); a++)
@@ -2193,51 +2243,6 @@ void XarPlug::popGraphicContext()
 					item->setMaskTransform(gc->patternMaskScaleX, gc->patternMaskScaleY, gc->patternMaskOffsetX, gc->patternMaskOffsetY, gc->patternMaskRotation, gc->patternMaskSkewX, gc->patternMaskSkewY);
 					item->setPatternMask(gc->maskPattern);
 				}
-			}
-		}
-	}
-	if (groupStack.count() > 0)
-	{
-		XarGroup gg = groupStack.top();
-		if (gg.gcStackDepth == m_gc.count())
-		{
-			groupStack.pop();
-			if (gg.index + 1 == Elements.count())
-			{
-				Elements.removeLast();
-				m_Doc->Items->removeLast();
-				gc->Elements.removeAll(gg.groupItem);
-				delete gg.groupItem;
-			}
-			else
-			{
-				double minx = 99999.9;
-				double miny = 99999.9;
-				double maxx = -99999.9;
-				double maxy = -99999.9;
-				for (int a = gg.index+1; a < Elements.count(); ++a)
-				{
-					PageItem* currItem = Elements.at(a);
-					currItem->Groups.push(m_Doc->GroupCounter);
-					double x1, x2, y1, y2;
-					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-					minx = qMin(minx, x1);
-					miny = qMin(miny, y1);
-					maxx = qMax(maxx, x2);
-					maxy = qMax(maxy, y2);
-				}
-				gg.groupItem->setXYPos(minx, miny, true);
-				gg.groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
-				gg.groupItem->SetRectFrame();
-				gg.groupItem->ClipEdited = true;
-				gg.groupItem->FrameType = 3;
-				gg.groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
-				gg.groupItem->AutoName = false;
-				gg.groupItem->isGroupControl = true;
-				gg.groupItem->groupsLastItem = Elements.last();
-				gg.groupItem->Groups.push(m_Doc->GroupCounter);
-				gg.groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-				m_Doc->GroupCounter++;
 			}
 		}
 	}
