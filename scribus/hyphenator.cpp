@@ -80,7 +80,8 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 
 Hyphenator::~Hyphenator()
 {
-	hnj_hyphen_free(hdict);
+	if (hdict)
+		hnj_hyphen_free(hdict);
 }
 
 void Hyphenator::slotNewDict(QString name)
