@@ -44,7 +44,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideRight</enum>
@@ -99,13 +99,43 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="ScrSpinBox" name="spinBox"/>
+              <widget class="ScrSpinBox" name="zoomMinimumSpinBox">
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>3200</number>
+               </property>
+              </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QSpinBox" name="spinBox_2"/>
+              <widget class="QSpinBox" name="zoomMaximumSpinBox">
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>3200</number>
+               </property>
+              </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QSpinBox" name="spinBox_3"/>
+              <widget class="QSpinBox" name="zoomSteppingSpinBox">
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="minimum">
+                <number>100</number>
+               </property>
+               <property name="maximum">
+                <number>500</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -188,10 +218,10 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="ScrSpinBox" name="spinBox_4"/>
+              <widget class="ScrSpinBox" name="itemDuplicateXDispSpinBox"/>
              </item>
              <item row="1" column="1">
-              <widget class="ScrSpinBox" name="spinBox_5"/>
+              <widget class="ScrSpinBox" name="itemDuplicateYDispSpinBox"/>
              </item>
             </layout>
            </item>
@@ -244,7 +274,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="ScrSpinBox" name="spinBox_6"/>
+              <widget class="ScrSpinBox" name="rotationConstraintSpinBox"/>
              </item>
             </layout>
            </item>

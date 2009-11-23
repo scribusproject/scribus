@@ -546,8 +546,8 @@ void Preferences::updatePreferences()
 	if (tabTools->checkHalfRes->isChecked())
 		haRes = 2;
 	prefsManager->appPrefs.itemToolPrefs.imageLowResType = haRes;
-	prefsManager->appPrefs.opToolPrefs.dispX = tabTools->genDispX->value();
-	prefsManager->appPrefs.opToolPrefs.dispY = tabTools->genDispY->value();
+	prefsManager->appPrefs.opToolPrefs.dispX = tabTools->genDispX->value() / unitRatio;
+	prefsManager->appPrefs.opToolPrefs.dispY = tabTools->genDispY->value() / unitRatio;
 	prefsManager->appPrefs.opToolPrefs.constrain = tabTools->genRot->value();
 	prefsManager->appPrefs.docSetupPrefs.AutoSave = tabDocument->GroupAS->isChecked();
 	prefsManager->appPrefs.docSetupPrefs.AutoSaveTime = tabDocument->ASTime->value() * 60 * 1000;

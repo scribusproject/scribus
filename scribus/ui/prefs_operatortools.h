@@ -9,15 +9,21 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_OPERATORTOOLS_H
 
 #include "ui_prefs_operatortoolsbase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_OperatorTools : public QWidget, Ui::Prefs_OperatorTools
+class SCRIBUS_API Prefs_OperatorTools : public Prefs_Pane, Ui::Prefs_OperatorTools
 {
 	Q_OBJECT
 
 	public:
 		Prefs_OperatorTools(QWidget* parent=0);
 		~Prefs_OperatorTools();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
 };
 
 #endif // PREFS_OPERATORTOOLS_H

@@ -65,7 +65,6 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-//	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
 
 	showImagesCheckBox->setChecked(prefsData->guidesPrefs.showPic);

@@ -28,11 +28,9 @@ void Prefs_Scrapbook::languageChange()
 
 void Prefs_Scrapbook::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-
 	autoSendCopiedToScrapCheckBox->setChecked(prefsData->scrapbookPrefs.doCopyToScrapbook);
 	keepCopiedAcrossSessionsCheckBox->setChecked(prefsData->scrapbookPrefs.persistentScrapbook);
 	itemCountKeptInScrapbookSpinBox->setValue(prefsData->scrapbookPrefs.numScrapbookCopies);
-
 }
 
 void Prefs_Scrapbook::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
