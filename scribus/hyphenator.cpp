@@ -90,7 +90,8 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 
 Hyphenator::~Hyphenator()
 {
-	hnj_hyphen_free(hdict);
+	if (hdict)
+		hnj_hyphen_free(hdict);
 }
 
 void Hyphenator::NewDict(const QString& name)
