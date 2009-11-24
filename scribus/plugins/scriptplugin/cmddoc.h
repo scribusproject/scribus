@@ -142,6 +142,16 @@ If the save fails, there is currently no way to tell.\n\
 PyObject *scribus_savedoc(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getdocname__doc__,
+QT_TR_NOOP("getDocName() -> string\n\
+\n\
+Returns the name the document was saved under.\n\
+If the document was not saved before the name is empty.\n\
+"));
+/** Saves active document with given name */
+PyObject *scribus_getdocname(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_savedocas__doc__,
 QT_TR_NOOP("saveDocAs(\"name\")\n\
 \n\
