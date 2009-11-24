@@ -44,7 +44,7 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "ui/checkdocument.h"
+#include "ui/checkDocument.h"
 #include "ui/contextmenu.h"
 #include "ui/outlinepalette.h"
 #include "ui/pageselector.h"
