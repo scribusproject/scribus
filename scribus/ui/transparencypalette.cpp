@@ -116,6 +116,10 @@ void Tpalette::updateFromItem()
 		transpCalcGradient->setChecked(true);
 	if (currentItem->GrMask == 6)
 		transpCalcPattern->setChecked(true);
+	if ((currentItem->GrMask == 1) || (currentItem->GrMask == 4))
+		gradientType->setCurrentIndex(0);
+	else if ((currentItem->GrMask == 2) || (currentItem->GrMask == 5))
+		gradientType->setCurrentIndex(1);
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
