@@ -100,6 +100,8 @@ public:
 	virtual void keyReleaseEvent(QKeyEvent *e) {}
 	virtual void inputMethodEvent(QInputMethodEvent *e) {}
 
+	virtual bool handleKeyEvents() { return false; }
+
 	/**
 		Sets appropiate values for this canvas mode
 	 */
@@ -141,11 +143,16 @@ protected:
 	void setResizeCursor(int how, double rot = 0.0);
 	bool commonMouseMove(QMouseEvent *m);
 	void commonDrawControls(QPainter* p);
+
+	void commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e);
+	void commonkeyReleaseEvent(QKeyEvent *e);
 	
-	private:
-		QMap<QString,QPen> m_pen;
-		QMap<QString,QBrush> m_brush;
-		
+private:
+	QMap<QString,QPen> m_pen;
+	QMap<QString,QBrush> m_brush;
+
+	bool m_keyRepeat;
+	bool m_arrowKeyDown;	
 };
 
 

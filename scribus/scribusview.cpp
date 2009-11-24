@@ -3876,8 +3876,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->GrTypeStroke = Buffer->GrTypeStroke;
 		currItem->GrStrokeStartX = Buffer->GrStrokeStartX;
 		currItem->GrStrokeStartY = Buffer->GrStrokeStartY;
-		currItem->GrStrokeEndX = Buffer->GrStrokeEndX;
-		currItem->GrStrokeEndY = Buffer->GrStrokeEndY;
+		currItem->GrStrokeEndX   = Buffer->GrStrokeEndX;
+		currItem->GrStrokeEndY   = Buffer->GrStrokeEndY;
 		currItem->GrStrokeFocalX = Buffer->GrStrokeFocalX;
 		currItem->GrStrokeFocalY = Buffer->GrStrokeFocalY;
 		currItem->GrStrokeScale  = Buffer->GrStrokeScale;
@@ -4876,13 +4876,19 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	else if (/* obj == widget() && */ event->type() == QEvent::KeyPress)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
-		m_ScMW->keyPressEvent(m);
+		if (m_canvasMode->handleKeyEvents())
+			m_canvasMode->keyPressEvent(m);
+		else
+			m_ScMW->keyPressEvent(m);
 		return true;
 	}
 	else if (/* obj == widget() && */ event->type() == QEvent::KeyRelease)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
-		m_ScMW->keyReleaseEvent(m);
+		if (m_canvasMode->handleKeyEvents())
+			m_canvasMode->keyReleaseEvent(m);
+		else
+			m_ScMW->keyReleaseEvent(m);
 		return true;
 	}
 	else if (obj == widget() && event->type() == QEvent::DragEnter)

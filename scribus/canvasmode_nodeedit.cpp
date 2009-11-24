@@ -22,10 +22,6 @@
 #include "canvasgesture_rectselect.h"
 #include "fpoint.h"
 #include "pageitem.h"
-#include "ui/pageselector.h"
-#include "ui/scrspinbox.h"
-#include "scraction.h"
-#include "ui/scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -34,6 +30,8 @@
 #include "undomanager.h"
 #include "util_icon.h"
 #include "util_math.h"
+#include "ui/pageselector.h"
+#include "ui/scrspinbox.h"
 
 
 CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(NULL)
@@ -49,8 +47,6 @@ CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), 
 	MoveGX = MoveGY = false;
 	m_ScMW = m_view->m_ScMW;
 }
-
-
 
 void CanvasMode_NodeEdit::drawControls(QPainter* p) 
 {
@@ -651,7 +647,15 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	}
 }
 
+void CanvasMode_NodeEdit::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_NormalNodeEdit(e);
+}
 
+void CanvasMode_NodeEdit::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
 
 void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 {

@@ -52,6 +52,11 @@ public:
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void drawControls(QPainter* p);
 
+	virtual void keyPressEvent(QKeyEvent *e);
+	virtual void keyReleaseEvent(QKeyEvent *e);
+
+	virtual bool handleKeyEvents() { return true; }
+
 private:
 	inline bool GetItem(PageItem** pi);
 	bool SeleItem(QMouseEvent *m);
@@ -63,10 +68,8 @@ private:
 	FPoint m_objectDeltaPos;
 
 	bool shiftSelItems;
-	bool MoveGX, MoveGY;
 	int  frameResizeHandle;
 	int  dragConstrainInitPtX, dragConstrainInitPtY;
-	int  GxM, GyM;
 	ScribusMainWindow* m_ScMW;
 	ResizeGesture* resizeGesture;
 	LineMove* lineMoveGesture;

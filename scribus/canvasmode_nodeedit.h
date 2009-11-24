@@ -43,6 +43,11 @@ public:
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
 
+	virtual void keyPressEvent(QKeyEvent *e);
+	virtual void keyReleaseEvent(QKeyEvent *e);
+
+	virtual bool handleKeyEvents() { return true; }
+
 	
 	/**
 		Draws the controls for this mode
