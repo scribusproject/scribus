@@ -4166,7 +4166,8 @@ bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileNa
 bool ScribusMainWindow::slotFileClose()
 {
 	ScribusWin* tw = ActWin;
-	ActWin->close();
+//	ActWin->close();
+	mdiArea->closeActiveSubWindow();
 	if (tw == ActWin)
 		return false;
 	else
