@@ -214,6 +214,8 @@ private:
 	void createPolylineItem(int type);
 	void createPolygonItem(int type);
 	void createGroupItem();
+	void createClipItem();
+	void finishClip();
 	void finishItem(int z);
 	bool handlePathRel(QDataStream &ts, quint32 len);
 	void handleLayerInfo(QDataStream &ts);
@@ -248,6 +250,7 @@ private:
 	{
 		int index;
 		int gcStackDepth;
+		bool clipping;
 		PageItem* groupItem;
 	};
 	QStack<XarGroup> groupStack;
@@ -267,7 +270,7 @@ private:
 	int currRectType;
 	QRect lastImageRect;
 	QStringList importedColors;
-	FPointArray lastCoords;
+	FPointArray clipCoords;
 
 	FPointArray Coords;
 	bool interactive;

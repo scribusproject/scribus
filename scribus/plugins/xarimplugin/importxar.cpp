@@ -643,6 +643,10 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleMultiGradientSkewed(ts);
 	else if (tag == 4123)
 		handleSimpleGradientTransparencySkewed(ts, dataLen);
+	else if (tag == 4084)
+		createClipItem();
+	else if (tag == 4085)
+		finishClip();
 	else
 	{
 //		if (m_gc.count() > 3)
@@ -1607,6 +1611,7 @@ void XarPlug::createRectangleItem(QDataStream &ts, bool ellipse)
 
 void XarPlug::createSimilarItem(QDataStream &ts)
 {
+	XarStyle *gc = m_gc.top();
 	qint32 val;
 	ts >> val;
 	quint32 scX, skX, skY, scY;
@@ -1617,30 +1622,40 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 	double scaleY = decodeFixed16(scY);
 	double skewX = decodeFixed16(skX);
 	double skewY = decodeFixed16(skY);
-	if (pathMap.contains(val))
+	if ((pathMap.contains(val)) && (scX != 0) && (scY != 0))
 	{
 		PageItem* newItem;
+		int z = -1;
 		PageItem* ite = pathMap[val];
 		if (ite->realItemType() == PageItem::ImageFrame)
-			newItem = new PageItem_ImageFrame(*ite);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 		else if (ite->realItemType() == PageItem::Polygon)
-			newItem = new PageItem_Polygon(*ite);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 		else
-			newItem = new PageItem_PolyLine(*ite);
-		m_Doc->Items->append(newItem);
-		newItem->ItemNr = m_Doc->Items->count()-1;
-		QTransform matrix(scaleX, skewX, skewY, scaleY, 0, 0);
-		ite->PoLine.map(matrix);
-		ite->PoLine.translate(transX * scaleX, -transY * scaleY);
-		newItem->ClipEdited = true;
-		newItem->FrameType = 3;
-		FPoint wh = getMaxClipF(&newItem->PoLine);
-		newItem->setWidthHeight(wh.x(),wh.y());
-		newItem->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(newItem);
-		Elements.append(newItem);
-		XarStyle *gc = m_gc.top();
-		gc->Elements.append(newItem);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+		if (z > -1)
+		{
+			newItem = m_Doc->Items->at(z);
+			Coords = ite->PoLine.copy();
+			QTransform matrix(-scaleX, skewX, -skewY, scaleY, 0, 0);
+			Coords.map(matrix);
+			Coords.translate(transX, transY);
+			Coords.translate(ite->xPos(), ite->yPos());
+//			Coords.translate(0, docHeight);
+			newItem->PoLine = Coords.copy();
+//		QTransform matrix(scaleX, skewX, skewY, scaleY, 0, 0);
+//		ite->PoLine.map(matrix);
+//		ite->PoLine.translate(transX * scaleX, -transY * scaleY);
+			newItem->ClipEdited = true;
+			newItem->FrameType = 3;
+			FPoint wh = getMaxClipF(&newItem->PoLine);
+			newItem->setWidthHeight(wh.x(),wh.y());
+			newItem->setTextFlowMode(PageItem::TextFlowDisabled);
+			m_Doc->AdjustItemSize(newItem);
+			Elements.append(newItem);
+			XarStyle *gc = m_gc.top();
+			gc->Elements.append(newItem);
+		}
 //		qDebug() << "Similar Item" << ite->itemName() << " -> " << newItem->itemName() << scX << skewX << skewY << scaleY << transX << transY;
 	}
 }
@@ -1678,6 +1693,7 @@ void XarPlug::createGroupItem()
 	XarGroup gg;
 	gg.index = Elements.count();
 	gg.gcStackDepth = m_gc.count();
+	gg.clipping = false;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
 	gg.groupItem = neu;
@@ -1687,8 +1703,30 @@ void XarPlug::createGroupItem()
 	groupStack.push(gg);
 }
 
+void XarPlug::createClipItem()
+{
+	XarGroup gg;
+	gg.index = Elements.count();
+	gg.gcStackDepth = m_gc.count();
+	gg.clipping = true;
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem *neu = m_Doc->Items->at(z);
+	gg.groupItem = neu;
+	Elements.append(neu);
+	XarStyle *gc = m_gc.top();
+	gc->Elements.append(neu);
+	groupStack.push(gg);
+}
+
+void XarPlug::finishClip()
+{
+	if (groupStack.count() > 0)
+		groupStack.top().clipping = false;
+}
+
 void XarPlug::finishItem(int z)
 {
+	XarStyle *gc = m_gc.top();
 	PageItem *ite = m_Doc->Items->at(z);
 	ite->PoLine = Coords.copy();
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -1698,8 +1736,27 @@ void XarPlug::finishItem(int z)
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_Doc->AdjustItemSize(ite);
+	if (groupStack.count() > 0)
+	{
+		XarGroup gg = groupStack.top();
+		if (gg.clipping)
+		{
+			if (clipCoords.size() == 0)
+			{
+				gc->clipPath = ite->PoLine.copy();
+				gc->clipPath.translate(ite->xPos(), ite->yPos());
+			}
+			else
+			{
+				gc->clipPath.setMarker();
+				gc->clipPath.putPoints(gc->clipPath.size(), ite->PoLine.size(), ite->PoLine);
+				m_Doc->Items->removeLast();
+				delete ite;
+				return;
+			}
+		}
+	}
 	Elements.append(ite);
-	XarStyle *gc = m_gc.top();
 	gc->Elements.append(ite);
 	pathMap.insert(recordCounter, ite);
 //	qDebug() << "Item" << ite->itemName();
@@ -2188,13 +2245,21 @@ void XarPlug::popGraphicContext()
 				groupItem->ClipEdited = true;
 				groupItem->FrameType = 3;
 				groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+				groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+				if (gc->clipPath.size() > 0)
+				{
+					groupItem->PoLine = gc->clipPath.copy();
+					groupItem->PoLine.translate(-minx + baseX, -miny + baseY);
+					FPoint wh = getMaxClipF(&groupItem->PoLine);
+					groupItem->setWidthHeight(wh.x(),wh.y());
+					m_Doc->AdjustItemSize(groupItem);
+				}
 				groupItem->AutoName = false;
 				groupItem->isGroupControl = true;
 				groupItem->setFillTransparency(0);
 				groupItem->setLineTransparency(0);
 				groupItem->groupsLastItem = Elements.last();
 				groupItem->Groups.push(m_Doc->GroupCounter);
-				groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 				m_Doc->GroupCounter++;
 			}
 		}
