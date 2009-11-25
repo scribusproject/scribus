@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>736</width>
-    <height>790</height>
+    <width>759</width>
+    <height>693</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,9 +46,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-435</y>
-        <width>693</width>
-        <height>1154</height>
+        <y>-413</y>
+        <width>716</width>
+        <height>1035</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -73,10 +73,10 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox"/>
+        <widget class="QComboBox" name="destinationComboBox"/>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_6">
+        <widget class="QCheckBox" name="useAltPrinterCmdCheckBox">
          <property name="text">
           <string>Alternative Printer Command</string>
          </property>
@@ -92,7 +92,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="altPrinterCmdLineEdit"/>
          </item>
         </layout>
        </item>
@@ -142,7 +142,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_2">
+          <widget class="QComboBox" name="outputComboBox">
            <item>
             <property name="text">
              <string>Normal</string>
@@ -171,7 +171,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="includePDFAnnotationsCheckBox">
          <property name="text">
           <string>Include PDF Annotations and Links</string>
          </property>
@@ -214,28 +214,28 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QCheckBox" name="pageMirrorHorizontallyCheckBox">
          <property name="text">
           <string>Mirror Page(s) Horizontally</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_3">
+        <widget class="QCheckBox" name="pageMirrorVerticallyCheckBox">
          <property name="text">
           <string>Mirror Page(s) Vertically</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_4">
+        <widget class="QCheckBox" name="setMediaSizeCheckBox">
          <property name="text">
           <string>Set Media Size</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_5">
+        <widget class="QCheckBox" name="clipToPrinterMarginsCheckBox">
          <property name="text">
           <string>Clip to Printer Margins</string>
          </property>
@@ -278,21 +278,21 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_7">
+        <widget class="QCheckBox" name="applyUnderColorRemovalCheckBox">
          <property name="text">
           <string>Apply Under Color Removal</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_8">
+        <widget class="QCheckBox" name="convertSpotsToProcessCheckBox">
          <property name="text">
           <string>Convert Spot Colors to Process Colors</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_9">
+        <widget class="QCheckBox" name="applyICCProfilesCheckBox">
          <property name="text">
           <string>Apply ICC Profiles</string>
          </property>
@@ -337,7 +337,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QComboBox" name="comboBox_3">
+          <widget class="QComboBox" name="postscriptLevelComboBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -371,7 +371,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_4">
+          <widget class="QComboBox" name="postscriptPrintToColorComboBox">
            <item>
             <property name="text">
              <string>Color (If Available)</string>
@@ -436,28 +436,28 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_10">
+        <widget class="QCheckBox" name="cropMarksCheckBox">
          <property name="text">
           <string>Crop Marks</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_11">
+        <widget class="QCheckBox" name="bleedMarksCheckBox">
          <property name="text">
           <string>Bleed Marks</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_12">
+        <widget class="QCheckBox" name="registrationMarksCheckBox">
          <property name="text">
           <string>Registration Marks</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_13">
+        <widget class="QCheckBox" name="colorBarsCheckBox">
          <property name="text">
           <string>Color Bars</string>
          </property>
@@ -473,7 +473,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScrSpinBox" name="spinBox"/>
+          <widget class="ScrSpinBox" name="markOffsetSpinBox"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_3">
@@ -527,49 +527,22 @@
         </widget>
        </item>
        <item>
-        <layout class="QFormLayout" name="formLayout">
-         <property name="formAlignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-         <item row="0" column="0">
-          <widget class="QLabel" name="topLabel">
-           <property name="text">
-            <string>Top:</string>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="NewMarginWidget" name="bleedsWidget" native="true"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="ScrSpinBox" name="topSpinBox"/>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="bottomLabel">
-           <property name="text">
-            <string>Bottom:</string>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
            </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="ScrSpinBox" name="bottomSpinBox"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="leftLabel">
-           <property name="text">
-            <string>Left:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="ScrSpinBox" name="leftSpinBox"/>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="rightLabel">
-           <property name="text">
-            <string>Right:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="ScrSpinBox" name="rightSpinBox"/>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -597,6 +570,12 @@
    <class>ScrSpinBox</class>
    <extends>QSpinBox</extends>
    <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>NewMarginWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">ui/newmarginwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
