@@ -9,15 +9,35 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_GUIDES_H
 
 #include "ui_prefs_guidesbase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_Guides : public QWidget, Ui::Prefs_Guides
+class SCRIBUS_API Prefs_Guides : public Prefs_Pane, Ui::Prefs_Guides
 {
 	Q_OBJECT
 
 	public:
 		Prefs_Guides(QWidget* parent=0);
 		~Prefs_Guides();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
+
+	protected slots:
+		virtual void changeMajorColor();
+		virtual void changeMinorColor();
+		virtual void changeBaselineColor();
+		virtual void changeGuideColor();
+		virtual void changeMarginColor();
+
+	protected:
+		QColor colorGuides;
+		QColor colorMargin;
+		QColor colorMajorGrid;
+		QColor colorMinorGrid;
+		QColor colorBaselineGrid;
 };
 
 #endif // PREFS_GUIDES_H

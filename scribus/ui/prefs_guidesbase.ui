@@ -62,7 +62,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QComboBox" name="comboBox"/>
+            <widget class="QComboBox" name="guidePlacementComboBox"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_4">
@@ -72,7 +72,17 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="ScrSpinBox" name="spinBox"/>
+            <widget class="ScrSpinBox" name="guideSnapDistanceSpinBox">
+             <property name="suffix">
+              <string> px</string>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_3">
@@ -82,7 +92,17 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="ScrSpinBox" name="spinBox_2"/>
+            <widget class="ScrSpinBox" name="guideGrabRadiusSpinBox">
+             <property name="suffix">
+              <string> px</string>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -142,28 +162,28 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QCheckBox" name="checkBox_6">
+            <widget class="QCheckBox" name="visibilityGuidesCheckBox">
              <property name="text">
               <string>Guides</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="visibilityMarginsCheckBox">
              <property name="text">
               <string>Margins</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_3">
+            <widget class="QCheckBox" name="visibilityGridCheckBox">
              <property name="text">
               <string>Page Grid</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_4">
+            <widget class="QCheckBox" name="visibilityBaselineGridCheckBox">
              <property name="text">
               <string>Baseline Grid</string>
              </property>
@@ -337,9 +357,9 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_8">
+            <widget class="QPushButton" name="guideColorPushButton">
              <property name="text">
-              <string>PushButton</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -351,9 +371,9 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="marginColorPushButton">
              <property name="text">
-              <string>PushButton</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -365,9 +385,9 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton_10">
+            <widget class="QPushButton" name="majorGridColorPushButton">
              <property name="text">
-              <string>PushButton</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -379,9 +399,9 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QPushButton" name="pushButton_9">
+            <widget class="QPushButton" name="minorGridColorPushButton">
              <property name="text">
-              <string>PushButton</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -393,9 +413,9 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QPushButton" name="pushButton_6">
+            <widget class="QPushButton" name="baselineGridColorPushButton">
              <property name="text">
-              <string>PushButton</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -438,7 +458,6 @@
       <zorder>verticalSpacer_3</zorder>
       <zorder>verticalSpacer_4</zorder>
       <zorder>line_4</zorder>
-      <zorder></zorder>
       <zorder></zorder>
       <zorder></zorder>
       <zorder>label_7</zorder>
