@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\uniconvertorplugin\uniconvplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\uniconvertor\uniconvplugin.cpp"
 				>
 			</File>
 		</Filter>
@@ -380,7 +380,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\uniconvertorplugin\uniconvplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\uniconvertor\uniconvplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\uniconvertorplugin\moc_uniconvplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\uniconvertor\moc_uniconvplugin.cpp"
 				>
 			</File>
 		</Filter>

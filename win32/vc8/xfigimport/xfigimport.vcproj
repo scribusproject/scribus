@@ -367,11 +367,11 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\xfigimplugin\importxfig.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\xfig\importxfig.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\xfigimplugin\importxfigplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\xfig\importxfigplugin.cpp"
 				>
 			</File>
 			<File
@@ -384,7 +384,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\xfigimplugin\importxfig.h"
+				RelativePath="..\..\..\scribus\plugins\import\xfig\importxfig.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\xfigimplugin\importxfigplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\xfig\importxfigplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -484,11 +484,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\xfigimplugin\moc_importxfig.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\xfig\moc_importxfig.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\xfigimplugin\moc_importxfigplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\xfig\moc_importxfigplugin.cpp"
 				>
 			</File>
 		</Filter>

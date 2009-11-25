@@ -367,11 +367,11 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\pctimplugin\importpct.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\pct\importpct.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\pctimplugin\importpctplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\pct\importpctplugin.cpp"
 				>
 			</File>
 			<File
@@ -384,7 +384,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\pctimplugin\importpct.h"
+				RelativePath="..\..\..\scribus\plugins\import\pct\importpct.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\pctimplugin\importpctplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\pct\importpctplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -484,11 +484,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\pctimplugin\moc_importpct.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\pct\moc_importpct.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\pctimplugin\moc_importpctplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\pct\moc_importpctplugin.cpp"
 				>
 			</File>
 		</Filter>

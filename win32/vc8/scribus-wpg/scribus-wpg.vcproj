@@ -289,75 +289,75 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG1Parser.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPG1Parser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG2Parser.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPG2Parser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBinaryData.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGBinaryData.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBitmap.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGBitmap.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBrush.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGBrush.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGColor.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGColor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGGradient.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGGradient.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGHeader.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGHeader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGInternalStream.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGInternalStream.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGOLEStream.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGOLEStream.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPath.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGPath.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPen.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGPen.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPoint.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGPoint.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGraphics.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGraphics.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGRect.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGRect.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGStreamImplementation.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGStreamImplementation.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGString.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGString.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGXParser.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGXParser.cpp"
 				>
 			</File>
 		</Filter>
@@ -367,95 +367,95 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\libwpd_types.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\libwpd_types.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\libwpg.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\libwpg.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\libwpg_utils.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\libwpg_utils.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG1Parser.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPG1Parser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPG2Parser.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPG2Parser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBinaryData.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGBinaryData.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBitmap.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGBitmap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGBrush.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGBrush.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGColor.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGColor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGGradient.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGGradient.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGHeader.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGHeader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGInternalStream.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGInternalStream.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGOLEStream.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGOLEStream.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPaintInterface.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGPaintInterface.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPath.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGPath.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPen.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGPen.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGPoint.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGPoint.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGraphics.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGraphics.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGRect.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGRect.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGStreamImplementation.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGStreamImplementation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGString.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGString.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPGXParser.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPGXParser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wpgimplugin\wpg\WPXStream.h"
+				RelativePath="..\..\..\scribus\plugins\import\wpg\wpg\WPXStream.h"
 				>
 			</File>
 		</Filter>

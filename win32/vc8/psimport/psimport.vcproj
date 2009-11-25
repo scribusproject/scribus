@@ -367,11 +367,11 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\psimport\importps.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ps\importps.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\psimport\importpsplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ps\importpsplugin.cpp"
 				>
 			</File>
 			<File
@@ -384,7 +384,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\psimport\importps.h"
+				RelativePath="..\..\..\scribus\plugins\import\ps\importps.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\psimport\importpsplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\ps\importpsplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -484,11 +484,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\psimport\moc_importps.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ps\moc_importps.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\psimport\moc_importpsplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ps\moc_importpsplugin.cpp"
 				>
 			</File>
 		</Filter>

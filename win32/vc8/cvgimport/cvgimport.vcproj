@@ -367,11 +367,11 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\cvgimplugin\importcvg.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\cvg\importcvg.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\cvgimplugin\importcvgplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\cvg\importcvgplugin.cpp"
 				>
 			</File>
 			<File
@@ -384,7 +384,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\cvgimplugin\importcvg.h"
+				RelativePath="..\..\..\scribus\plugins\import\cvg\importcvg.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\cvgimplugin\importcvgplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\cvg\importcvgplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -484,11 +484,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\cvgimplugin\moc_importcvg.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\cvg\moc_importcvg.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\cvgimplugin\moc_importcvgplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\cvg\moc_importcvgplugin.cpp"
 				>
 			</File>
 		</Filter>

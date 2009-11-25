@@ -367,11 +367,11 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfcontext.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfcontext.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfimport.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfimport.cpp"
 				>
 			</File>
 			<File
@@ -379,7 +379,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfimportplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfimportplugin.cpp"
 				>
 			</File>
 		</Filter>
@@ -388,71 +388,23 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\metafuncs.h"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\metafuncs.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfcmd.h"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfcmd.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfcontext.h"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfcontext.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfhandle.h"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfhandle.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfimport.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfimportplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfimport.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -500,7 +452,55 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\wmfstruct.h"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfimportplugin.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\import\wmf\wmfstruct.h"
 				>
 			</File>
 		</Filter>
@@ -508,11 +508,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\moc_wmfimport.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\moc_wmfimport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\wmfimplugin\moc_wmfimportplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\wmf\moc_wmfimportplugin.cpp"
 				>
 			</File>
 		</Filter>
