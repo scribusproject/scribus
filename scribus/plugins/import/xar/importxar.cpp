@@ -631,6 +631,24 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		createRectangleItem(ts);
 	else if (tag == 1901)
 		handleQuickShapeSimple(ts, dataLen);
+	else if ((tag == 2000) || (tag == 2001))
+		defineTextFontFace(ts, dataLen);
+	else if (tag == 2100)
+		startSimpleText(ts, dataLen);
+	else if (tag == 2101)
+		startComplexText(ts, dataLen);
+	else if (tag == 2201)
+		handleTextString(ts, dataLen);
+	else if (tag == 2202)
+		handleTextChar(ts);
+	else if (tag == 2203)
+		endTextLine();
+	else if (tag == 2206)
+		handleLineInfo(ts);
+	else if (tag == 2906)
+		handleTextFontSize(ts);
+	else if (tag == 2907)
+		handleTextFont(ts);
 	else if (tag == 4075)
 		handleMultiGradient(ts, true);
 	else if (tag == 4076)
@@ -649,13 +667,147 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		finishClip();
 	else
 	{
-//		if (m_gc.count() > 3)
-//		{
-//			if ((tag > 1000) && (tag < 2000))
-//				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
-//		}
+/*		if (m_gc.count() > 3)
+		{
+			if ((tag > 1999) && (tag < 3000))
+				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
+		} */
 		ts.skipRawData(dataLen);
 	}
+}
+
+void XarPlug::handleTextFontSize(QDataStream &ts)
+{
+	quint32 size;
+	ts >> size;
+	XarStyle *gc = m_gc.top();
+	gc->FontSize = size / 1000.0;
+//	qDebug() << "Font Size" << gc->FontSize;
+}
+
+void XarPlug::defineTextFontFace(QDataStream &ts, quint32 dataLen)
+{
+	quint32 bytesRead = 0;
+	quint16 charC = 0;
+	ts >> charC;
+	bytesRead += 2;
+	QString FullFontName = "";
+	while (charC != 0)
+	{
+		FullFontName += QChar(charC);
+		ts >> charC;
+		bytesRead += 2;
+	}
+	charC = 0;
+	ts >> charC;
+	bytesRead += 2;
+	QString TypeFaceName = "";
+	while (charC != 0)
+	{
+		TypeFaceName += QChar(charC);
+		ts >> charC;
+		bytesRead += 2;
+	}
+	ts.skipRawData(dataLen - bytesRead);
+	fontRef.insert(recordCounter, TypeFaceName);
+//	qDebug() << "Define Font" << FullFontName << TypeFaceName;
+}
+
+void XarPlug::handleTextFont(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	qint32 val;
+	ts >> val;
+	if (val > -1)
+	{
+		if (fontRef.contains(val))
+			gc->FontFamily = fontRef[val];
+	}
+//	qDebug() << "Using Font" << gc->FontFamily;
+}
+
+void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
+{
+	quint32 l = dataLen / 2;
+	quint16 val;
+	XarStyle *gc = m_gc.top();
+	for (quint32 a = 0; a < l; a++)
+	{
+		ts >> val;
+		gc->itemText += QChar(val);
+	}
+//	qDebug() << "String" << gc->itemText;
+}
+
+void XarPlug::handleTextChar(QDataStream &ts)
+{
+	quint16 val;
+	ts >> val;
+	XarStyle *gc = m_gc.top();
+	gc->itemText += QChar(val);
+//	qDebug() << "Char" << QChar(val);
+}
+
+void XarPlug::handleLineInfo(QDataStream &ts)
+{
+	qint32 width, height, spacing;
+	ts >> width >> height >> spacing;
+	XarStyle *gc = m_gc.top();
+	gc->LineHeight = -spacing / 1000.0;
+//	qDebug() << "Linespacing" << gc->LineHeight;
+}
+
+void XarPlug::endTextLine()
+{
+//	qDebug() << "End of Line";
+	XarStyle *gc = m_gc.top();
+	gc->TextY += gc->LineHeight;
+	QPainterPath painterPath;
+	painterPath.addText( gc->TextX, gc->TextY, QFont(gc->FontFamily, gc->FontSize), gc->itemText);
+	Coords.resize(0);
+	Coords.fromQPainterPath(painterPath);
+	if (Coords.size() > 0)
+	{
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None, true);
+		finishItem(z);
+	}
+	gc->itemText = "";
+}
+
+void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)
+{
+	quint32 flag;
+	double textX, textY;
+	readCoords(ts, textX, textY);
+	if (dataLen > 8)
+		ts >> flag;
+	XarStyle *gc = m_gc.top();
+	gc->itemText = "";
+	gc->TextX = textX;
+	gc->TextY = docHeight - textY;
+//	qDebug() << "Simple Text at" << textX << docHeight - textY;
+	
+}
+
+void XarPlug::startComplexText(QDataStream &ts, quint32 dataLen)
+{
+	quint32 flag;
+	quint32 scX, skX, skY, scY;
+	double transX, transY;
+	ts >> scX >> skX >> skY >> scY;
+	readCoords(ts, transX, transY);
+/*	double scaleX = decodeFixed16(scX);
+	double scaleY = decodeFixed16(scY);
+	double skewX = decodeFixed16(skX);
+	double skewY = decodeFixed16(skY); */
+	if (dataLen > 24)
+		ts >> flag;
+	XarStyle *gc = m_gc.top();
+	gc->itemText = "";
+	gc->TextX = transX;
+	gc->TextY = docHeight - transY;
+//	qDebug() << "Complex Text at" << transX << docHeight - transY;
+	
 }
 
 void XarPlug::handleFillRule(QDataStream &ts)

@@ -36,7 +36,11 @@ public:
 		FontStyle("normal"),
 		FontWeight("normal"),
 		FontStretch("normal"),
-		FontSize(12),
+		itemText(""),
+		FontSize(12.0),
+		LineHeight(15.0),
+		TextX(0.0),
+		TextY(0.0),
 		FillCol(CommonStrings::None),
 		fillRule(true),
 		FillGradient(VGradient::linear),
@@ -96,7 +100,11 @@ public:
 	QString FontStyle;
 	QString FontWeight;
 	QString FontStretch;
-	int FontSize;
+	QString itemText;
+	double FontSize;
+	double LineHeight;
+	double TextX;
+	double TextY;
 	QString FillCol;
 	bool fillRule;
 	VGradient FillGradient;
@@ -185,6 +193,15 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void handleTextFontSize(QDataStream &ts);
+	void defineTextFontFace(QDataStream &ts, quint32 dataLen);
+	void handleTextFont(QDataStream &ts);
+	void handleTextString(QDataStream &ts, quint32 dataLen);
+	void handleTextChar(QDataStream &ts);
+	void handleLineInfo(QDataStream &ts);
+	void endTextLine();
+	void startSimpleText(QDataStream &ts, quint32 dataLen);
+	void startComplexText(QDataStream &ts, quint32 dataLen);
 	void handleFillRule(QDataStream &ts);
 	void handleLineEnd(QDataStream &ts);
 	void handleLineJoin(QDataStream &ts);
@@ -257,6 +274,7 @@ private:
 	QStack<XarStyle*>	m_gc;
 	QMap<QString, QString> patternMap;
 	QMap<quint32, QString> patternRef;
+	QMap<quint32, QString> fontRef;
 	QByteArray imageData;
 	double baseX, baseY;
 	double docWidth;
