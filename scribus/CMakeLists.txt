@@ -16,7 +16,7 @@ ENDIF (WANT_DESIGNER)
 IF(HAVE_OSG)
   ADD_SUBDIRECTORY(prc)
 ENDIF (HAVE_OSG)
-ADD_SUBDIRECTORY (plugins/wpgimplugin/wpg)
+ADD_SUBDIRECTORY (plugins/import/wpg/wpg)
 
 
 IF(HAVE_OSG)
