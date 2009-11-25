@@ -39,8 +39,8 @@ public:
 		itemText(""),
 		FontSize(12.0),
 		LineHeight(15.0),
-		TextX(0.0),
-		TextY(0.0),
+		LineWidth(0.0),
+		TextAlignment(0),
 		FillCol(CommonStrings::None),
 		fillRule(true),
 		FillGradient(VGradient::linear),
@@ -103,8 +103,8 @@ public:
 	QString itemText;
 	double FontSize;
 	double LineHeight;
-	double TextX;
-	double TextY;
+	double LineWidth;
+	int TextAlignment;
 	QString FillCol;
 	bool fillRule;
 	VGradient FillGradient;
@@ -199,6 +199,7 @@ private:
 	void handleTextString(QDataStream &ts, quint32 dataLen);
 	void handleTextChar(QDataStream &ts);
 	void handleLineInfo(QDataStream &ts);
+	void handleTextAlignment(quint32 tag);
 	void endTextLine();
 	void startSimpleText(QDataStream &ts, quint32 dataLen);
 	void startComplexText(QDataStream &ts, quint32 dataLen);
@@ -246,6 +247,17 @@ private:
 	void addGraphicContext();
 	void popGraphicContext();
 	
+	int importerFlags;
+	int recordCounter;
+	int currentLayer;
+	double baseX, baseY;
+	double docWidth;
+	double docHeight;
+	bool firstLayer;
+	double TextX;
+	double TextY;
+	bool interactive;
+	bool cancel;
 	struct XarColor
 	{
 		quint32 colorType;
@@ -257,12 +269,6 @@ private:
 		double component4;
 		QString name;
 	};
-	QMap<qint32, XarColor> XarColorMap;
-	QMap<qint32, PageItem*> pathMap;
-	QList<PageItem*> Elements;
-	int recordCounter;
-	QList<quint32> atomicTags;
-	QList<quint32> ignoreableTags;
 	struct XarGroup
 	{
 		int index;
@@ -270,36 +276,24 @@ private:
 		bool clipping;
 		PageItem* groupItem;
 	};
-	QStack<XarGroup> groupStack;
-	QStack<XarStyle*>	m_gc;
+	QByteArray imageData;
+	QList<PageItem*> Elements;
+	QList<quint32> atomicTags;
+	QList<quint32> ignoreableTags;
+	QMap<qint32, XarColor> XarColorMap;
+	QMap<qint32, PageItem*> pathMap;
 	QMap<QString, QString> patternMap;
 	QMap<quint32, QString> patternRef;
 	QMap<quint32, QString> fontRef;
-	QByteArray imageData;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	bool firstLayer;
+	QStack<XarGroup> groupStack;
+	QStack<XarStyle*>	m_gc;
 	QString activeLayer;
-	int currentLayer;
-
-	QRect currRect;
-	int currRectItemNr;
-	int currRectType;
-	QRect lastImageRect;
 	QStringList importedColors;
 	FPointArray clipCoords;
-
 	FPointArray Coords;
-	bool interactive;
 	MultiProgressDialog * progressDialog;
-	bool cancel;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
-	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
-	int pctVersion;
 
 public slots:
 	void cancelRequested() { cancel = true; }

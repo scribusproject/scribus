@@ -73,7 +73,6 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
@@ -395,7 +394,7 @@ bool XarPlug::convert(QString fn)
 	}
 	color.name = "Yellow";
 	XarColorMap.insert(-9, color);
-	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111 << 4031;
+	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111 << 2200 << 2205 << 4031;
 	ignoreableTags << 4087 << 4114 << 4115 << 4116 << 4124;
 	if(progressDialog)
 	{
@@ -406,7 +405,6 @@ bool XarPlug::convert(QString fn)
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		oldDocItemCount = m_Doc->Items->count();
 		int fSize = (int) f.size();
 		if (progressDialog)
 		{
@@ -645,6 +643,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		endTextLine();
 	else if (tag == 2206)
 		handleLineInfo(ts);
+	else if ((tag == 2902) || (tag == 2903) || (tag == 2904))
+		handleTextAlignment(tag);
 	else if (tag == 2906)
 		handleTextFontSize(ts);
 	else if (tag == 2907)
@@ -754,24 +754,43 @@ void XarPlug::handleLineInfo(QDataStream &ts)
 	ts >> width >> height >> spacing;
 	XarStyle *gc = m_gc.top();
 	gc->LineHeight = -spacing / 1000.0;
+	gc->LineWidth = width / 1000.0;
 //	qDebug() << "Linespacing" << gc->LineHeight;
+}
+
+void XarPlug::handleTextAlignment(quint32 tag)
+{
+	XarStyle *gc = m_gc.top();
+	if (tag == 2902)
+		gc->TextAlignment = 0;
+	else if (tag == 2903)
+		gc->TextAlignment = 1;
+	else if (tag == 2904)
+		gc->TextAlignment = 2;
 }
 
 void XarPlug::endTextLine()
 {
-//	qDebug() << "End of Line";
 	XarStyle *gc = m_gc.top();
-	gc->TextY += gc->LineHeight;
+	TextY += gc->LineHeight;
 	QPainterPath painterPath;
-	painterPath.addText( gc->TextX, gc->TextY, QFont(gc->FontFamily, gc->FontSize), gc->itemText);
+	QFont textFont = QFont(gc->FontFamily, gc->FontSize);
+	textFont.setPixelSize(gc->FontSize);
+	painterPath.addText( TextX, TextY, textFont, gc->itemText);
+	QRectF bound = painterPath.boundingRect();
 	Coords.resize(0);
 	Coords.fromQPainterPath(painterPath);
+	if (gc->TextAlignment == 1)
+		Coords.translate(-bound.width() / 2.0, 0);
+	else if (gc->TextAlignment == 2)
+		Coords.translate(-bound.width(), 0);
 	if (Coords.size() > 0)
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None, true);
 		finishItem(z);
 	}
 	gc->itemText = "";
+//	qDebug() << "End of Line, new Y-Pos" << TextY << "Align" << gc->TextAlignment << "Moved by" << gc->LineWidth - txtW;
 }
 
 void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)
@@ -783,10 +802,9 @@ void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)
 		ts >> flag;
 	XarStyle *gc = m_gc.top();
 	gc->itemText = "";
-	gc->TextX = textX;
-	gc->TextY = docHeight - textY;
+	TextX = textX;
+	TextY = docHeight - textY;
 //	qDebug() << "Simple Text at" << textX << docHeight - textY;
-	
 }
 
 void XarPlug::startComplexText(QDataStream &ts, quint32 dataLen)
@@ -804,10 +822,9 @@ void XarPlug::startComplexText(QDataStream &ts, quint32 dataLen)
 		ts >> flag;
 	XarStyle *gc = m_gc.top();
 	gc->itemText = "";
-	gc->TextX = transX;
-	gc->TextY = docHeight - transY;
+	TextX = transX;
+	TextY = docHeight - transY;
 //	qDebug() << "Complex Text at" << transX << docHeight - transY;
-	
 }
 
 void XarPlug::handleFillRule(QDataStream &ts)
