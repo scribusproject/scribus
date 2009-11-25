@@ -4,23 +4,23 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef IMPORTPCTPLUGIN_H
-#define IMPORTPCTPLUGIN_H
+#ifndef IMPORTXARLUGIN_H
+#define IMPORTXARPLUGIN_H
 
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
-#include "../formatidlist.h"
+#include "../../formatidlist.h"
 
 class ScrAction;
 
-class PLUGIN_API ImportPctPlugin : public LoadSavePlugin
+class PLUGIN_API ImportXarPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
 	public:
 		// Standard plugin implementation
-		ImportPctPlugin();
-		virtual ~ImportPctPlugin();
+		ImportXarPlugin();
+		virtual ~ImportXarPlugin();
 		/*!
 		\author Franz Schmid
 		\date
@@ -50,8 +50,8 @@ class PLUGIN_API ImportPctPlugin : public LoadSavePlugin
 		ScrAction* importAction;
 };
 
-extern "C" PLUGIN_API int importpct_getPluginAPIVersion();
-extern "C" PLUGIN_API ScPlugin* importpct_getPlugin();
-extern "C" PLUGIN_API void importpct_freePlugin(ScPlugin* plugin);
+extern "C" PLUGIN_API int importxar_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* importxar_getPlugin();
+extern "C" PLUGIN_API void importxar_freePlugin(ScPlugin* plugin);
 
 #endif

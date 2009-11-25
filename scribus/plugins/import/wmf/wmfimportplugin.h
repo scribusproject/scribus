@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
-#include "../formatidlist.h"
+#include "../../formatidlist.h"
 
 class ScrAction;
 class ScribusMainWindow;

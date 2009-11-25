@@ -4,28 +4,29 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef UNICONVPLUGIN_H
-#define UNICONVPLUGIN_H
+#ifndef IMPORTXFIGPLUGIN_H
+#define IMPORTXFIGPLUGIN_H
 
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
-#include "../formatidlist.h"
-#include <QObject>
+#include "../../formatidlist.h"
 
 class ScrAction;
-class ScribusMainWindow;
 
-/**
-* \brief A class providing the plugin interface implementation for the uniconvertor plugin
-*/
-class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
+class PLUGIN_API ImportXfigPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
 	public:
 		// Standard plugin implementation
-		UniconvImportPlugin();
-		virtual ~UniconvImportPlugin();
+		ImportXfigPlugin();
+		virtual ~ImportXfigPlugin();
+		/*!
+		\author Franz Schmid
+		\date
+		\brief Returns name of plugin
+		\retval QString containing name of plugin: Import EPS/PDF/PS...
+		*/
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -36,19 +37,21 @@ class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
 
 	public slots:
 		/*!
-		\brief Run UniConvertor and import results
-		\param filename a file name to import
-		\retval true for success
-		*/
+		\author Franz Schmid
+		\date
+		\brief Run the EPS import
+		\param fileName input filename, or QString::null to prompt.
+		\retval bool always true
+		 */
 		virtual bool import(QString fileName = QString::null, int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-
+		ScrAction* importAction;
 };
 
-extern "C" PLUGIN_API int uniconvertorplugin_getPluginAPIVersion();
-extern "C" PLUGIN_API ScPlugin* uniconvertorplugin_getPlugin();
-extern "C" PLUGIN_API void uniconvertorplugin_freePlugin(ScPlugin* plugin);
+extern "C" PLUGIN_API int importxfig_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* importxfig_getPlugin();
+extern "C" PLUGIN_API void importxfig_freePlugin(ScPlugin* plugin);
 
 #endif

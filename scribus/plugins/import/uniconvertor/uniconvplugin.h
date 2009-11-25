@@ -4,29 +4,28 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef IMPORTXARLUGIN_H
-#define IMPORTXARPLUGIN_H
+#ifndef UNICONVPLUGIN_H
+#define UNICONVPLUGIN_H
 
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
-#include "../formatidlist.h"
+#include "../../formatidlist.h"
+#include <QObject>
 
 class ScrAction;
+class ScribusMainWindow;
 
-class PLUGIN_API ImportXarPlugin : public LoadSavePlugin
+/**
+* \brief A class providing the plugin interface implementation for the uniconvertor plugin
+*/
+class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
 	public:
 		// Standard plugin implementation
-		ImportXarPlugin();
-		virtual ~ImportXarPlugin();
-		/*!
-		\author Franz Schmid
-		\date
-		\brief Returns name of plugin
-		\retval QString containing name of plugin: Import EPS/PDF/PS...
-		*/
+		UniconvImportPlugin();
+		virtual ~UniconvImportPlugin();
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -37,21 +36,19 @@ class PLUGIN_API ImportXarPlugin : public LoadSavePlugin
 
 	public slots:
 		/*!
-		\author Franz Schmid
-		\date
-		\brief Run the EPS import
-		\param fileName input filename, or QString::null to prompt.
-		\retval bool always true
-		 */
+		\brief Run UniConvertor and import results
+		\param filename a file name to import
+		\retval true for success
+		*/
 		virtual bool import(QString fileName = QString::null, int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+
 };
 
-extern "C" PLUGIN_API int importxar_getPluginAPIVersion();
-extern "C" PLUGIN_API ScPlugin* importxar_getPlugin();
-extern "C" PLUGIN_API void importxar_freePlugin(ScPlugin* plugin);
+extern "C" PLUGIN_API int uniconvertorplugin_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* uniconvertorplugin_getPlugin();
+extern "C" PLUGIN_API void uniconvertorplugin_freePlugin(ScPlugin* plugin);
 
 #endif
