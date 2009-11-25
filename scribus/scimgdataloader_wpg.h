@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMultiMap>
 #include <QPainter>
 #include <QPainterPath>
-#include "plugins/wpgimplugin/wpg/libwpg.h"
+#include "plugins/import/wpg/wpg/libwpg.h"
 
 
 class ScrPainterIm : public libwpg::WPGPaintInterface

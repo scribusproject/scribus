@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <stdio.h>
 #include "scimgdataloader_wpg.h"
-#include "plugins/wpgimplugin/wpg/WPGStreamImplementation.h"
+#include "plugins/import/wpg/wpg/WPGStreamImplementation.h"
 
 ScrPainterIm::ScrPainterIm(): libwpg::WPGPaintInterface()
 {
