@@ -1,4 +1,4 @@
-ADD_SUBDIRECTORY(aiimplugin)
+ADD_SUBDIRECTORY(import)
 ADD_SUBDIRECTORY(barcodegenerator)
 ADD_SUBDIRECTORY(colorwheel)
 ADD_SUBDIRECTORY(fileloader)
