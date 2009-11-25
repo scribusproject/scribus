@@ -253,11 +253,12 @@ private:
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
-	bool firstLayer;
 	double TextX;
 	double TextY;
+	bool firstLayer;
 	bool interactive;
 	bool cancel;
+	QTransform textMatrix;
 	struct XarColor
 	{
 		quint32 colorType;

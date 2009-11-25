@@ -775,11 +775,16 @@ void XarPlug::endTextLine()
 	TextY += gc->LineHeight;
 	QPainterPath painterPath;
 	QFont textFont = QFont(gc->FontFamily, gc->FontSize);
-	textFont.setPixelSize(gc->FontSize);
-	painterPath.addText( TextX, TextY, textFont, gc->itemText);
+	if (gc->FontSize >= 1)
+		textFont.setPixelSize(gc->FontSize);
+	else
+		textFont.setPointSizeF(gc->FontSize * 72.0 / 96.0);
+	painterPath.addText( 0, 0, textFont, gc->itemText);
 	QRectF bound = painterPath.boundingRect();
 	Coords.resize(0);
 	Coords.fromQPainterPath(painterPath);
+	Coords.map(textMatrix);
+	Coords.translate(TextX, TextY);
 	if (gc->TextAlignment == 1)
 		Coords.translate(-bound.width() / 2.0, 0);
 	else if (gc->TextAlignment == 2)
@@ -804,6 +809,7 @@ void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)
 	gc->itemText = "";
 	TextX = textX;
 	TextY = docHeight - textY;
+	textMatrix = QTransform();
 //	qDebug() << "Simple Text at" << textX << docHeight - textY;
 }
 
@@ -814,17 +820,18 @@ void XarPlug::startComplexText(QDataStream &ts, quint32 dataLen)
 	double transX, transY;
 	ts >> scX >> skX >> skY >> scY;
 	readCoords(ts, transX, transY);
-/*	double scaleX = decodeFixed16(scX);
+	double scaleX = decodeFixed16(scX);
 	double scaleY = decodeFixed16(scY);
 	double skewX = decodeFixed16(skX);
-	double skewY = decodeFixed16(skY); */
+	double skewY = decodeFixed16(skY);
 	if (dataLen > 24)
 		ts >> flag;
 	XarStyle *gc = m_gc.top();
 	gc->itemText = "";
 	TextX = transX;
 	TextY = docHeight - transY;
-//	qDebug() << "Complex Text at" << transX << docHeight - transY;
+	textMatrix = QTransform(scaleX, -skewX, -skewY, scaleY, 0, 0);
+//	qDebug() << "Complex Text at" << transX << docHeight - transY << "Matrix" << scaleX << skewX << skewY << scaleY;
 }
 
 void XarPlug::handleFillRule(QDataStream &ts)
