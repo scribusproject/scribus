@@ -394,8 +394,9 @@ bool XarPlug::convert(QString fn)
 	}
 	color.name = "Yellow";
 	XarColorMap.insert(-9, color);
-	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111 << 2200 << 2205 << 4031;
-	ignoreableTags << 4087 << 4114 << 4115 << 4116 << 4124;
+	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111;
+	ignoreableTags << 2150 << 2151 << 2205 << 2900 << 2901;
+	ignoreableTags << 4031 << 4087 << 4114 << 4115 << 4116 << 4124;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -649,6 +650,24 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleTextFontSize(ts);
 	else if (tag == 2907)
 		handleTextFont(ts);
+	else if (tag == 2908)
+		gc->FontBold = true;
+	else if (tag == 2909)
+		gc->FontBold = false;
+	else if (tag == 2910)
+		gc->FontItalic = true;
+	else if (tag == 2911)
+		gc->FontItalic = false;
+	else if (tag == 2912)
+		gc->FontUnderline = true;
+	else if (tag == 2913)
+		gc->FontUnderline = false;
+	else if (tag == 2918)
+		handleTextTracking(ts);
+	else if (tag == 2919)
+		handleTextAspectRatio(ts);
+	else if (tag == 2920)
+		handleTextBaseline(ts);
 	else if (tag == 4075)
 		handleMultiGradient(ts, true);
 	else if (tag == 4076)
@@ -667,11 +686,11 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		finishClip();
 	else
 	{
-/*		if (m_gc.count() > 3)
-		{
-			if ((tag > 1999) && (tag < 3000))
-				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
-		} */
+//		if (m_gc.count() > 3)
+//		{
+//			if ((tag > 1999) && (tag < 3000))
+//				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
+//		}
 		ts.skipRawData(dataLen);
 	}
 }
@@ -769,6 +788,30 @@ void XarPlug::handleTextAlignment(quint32 tag)
 		gc->TextAlignment = 2;
 }
 
+void XarPlug::handleTextTracking(QDataStream &ts)
+{
+	qint32 val;
+	ts >> val;
+//	qDebug() << "Tracking" << val;
+}
+
+void XarPlug::handleTextAspectRatio(QDataStream &ts)
+{
+	quint32 val;
+	ts >> val;
+	double scaleX = decodeFixed16(val);
+	XarStyle *gc = m_gc.top();
+	gc->FontStretch = scaleX;
+//	qDebug() << "Aspect Ratio" << scaleX;
+}
+
+void XarPlug::handleTextBaseline(QDataStream &ts)
+{
+	qint32 val;
+	ts >> val;
+	TextY += val / 1000.0;
+}
+
 void XarPlug::endTextLine()
 {
 	XarStyle *gc = m_gc.top();
@@ -779,11 +822,15 @@ void XarPlug::endTextLine()
 		textFont.setPixelSize(gc->FontSize);
 	else
 		textFont.setPointSizeF(gc->FontSize * 72.0 / 96.0);
+	textFont.setBold(gc->FontBold);
+	textFont.setItalic(gc->FontItalic);
+	textFont.setUnderline(gc->FontUnderline);
 	painterPath.addText( 0, 0, textFont, gc->itemText);
 	QRectF bound = painterPath.boundingRect();
 	Coords.resize(0);
 	Coords.fromQPainterPath(painterPath);
 	Coords.map(textMatrix);
+	Coords.scale(gc->FontStretch, 1.0);
 	Coords.translate(TextX, TextY);
 	if (gc->TextAlignment == 1)
 		Coords.translate(-bound.width() / 2.0, 0);
@@ -795,7 +842,7 @@ void XarPlug::endTextLine()
 		finishItem(z);
 	}
 	gc->itemText = "";
-//	qDebug() << "End of Line, new Y-Pos" << TextY << "Align" << gc->TextAlignment << "Moved by" << gc->LineWidth - txtW;
+//	qDebug() << "End of Line, new Y-Pos" << TextY;
 }
 
 void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)

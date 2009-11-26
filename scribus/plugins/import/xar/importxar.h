@@ -33,13 +33,14 @@ public:
 	XarStyle() :
 		dashOffset(0),
 		FontFamily(""),
-		FontStyle("normal"),
-		FontWeight("normal"),
-		FontStretch("normal"),
 		itemText(""),
 		FontSize(12.0),
 		LineHeight(15.0),
 		LineWidth(0.0),
+		FontStretch(1.0),
+		FontBold(false),
+		FontUnderline(false),
+		FontItalic(false),
 		TextAlignment(0),
 		FillCol(CommonStrings::None),
 		fillRule(true),
@@ -97,13 +98,14 @@ public:
 	QVector<double> dashArray;
 	double dashOffset;
 	QString FontFamily;
-	QString FontStyle;
-	QString FontWeight;
-	QString FontStretch;
 	QString itemText;
 	double FontSize;
 	double LineHeight;
 	double LineWidth;
+	double FontStretch;
+	bool FontBold;
+	bool FontUnderline;
+	bool FontItalic;
 	int TextAlignment;
 	QString FillCol;
 	bool fillRule;
@@ -200,6 +202,9 @@ private:
 	void handleTextChar(QDataStream &ts);
 	void handleLineInfo(QDataStream &ts);
 	void handleTextAlignment(quint32 tag);
+	void handleTextTracking(QDataStream &ts);
+	void handleTextAspectRatio(QDataStream &ts);
+	void handleTextBaseline(QDataStream &ts);
 	void endTextLine();
 	void startSimpleText(QDataStream &ts, quint32 dataLen);
 	void startComplexText(QDataStream &ts, quint32 dataLen);
