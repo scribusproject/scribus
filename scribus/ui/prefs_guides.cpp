@@ -37,12 +37,23 @@ void Prefs_Guides::languageChange()
 	guidePlacementComboBox->setCurrentIndex(i<0?0:i);
 }
 
+void Prefs_Guides::unitChange(int unitIndex)
+{
+	double unitRatio = unitGetRatioFromIndex(unitIndex);
+	majorGridSpacingSpinBox->setNewUnit(unitIndex);
+	minorGridSpacingSpinBox->setNewUnit(unitIndex);
+
+	majorGridSpacingSpinBox->setMinimum(10 * unitRatio);
+	minorGridSpacingSpinBox->setMinimum(10 * unitRatio);
+	majorGridSpacingSpinBox->setMaximum(1000 * unitRatio);
+	minorGridSpacingSpinBox->setMaximum(1000 * unitRatio);
+}
+
 void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	int docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
-	QString unitSuffix(unitGetSuffixFromIndex(docUnitIndex));
+	unitChange(docUnitIndex);
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	guidePlacementComboBox->setCurrentIndex(prefsData->guidesPrefs.guidePlacement ?0:1);
 	guideSnapDistanceSpinBox->setValue(prefsData->guidesPrefs.guideRad);
 	guideGrabRadiusSpinBox->setValue(prefsData->guidesPrefs.grabRadius);
@@ -50,16 +61,9 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 	visibilityMarginsCheckBox->setChecked(prefsData->guidesPrefs.marginsShown);
 	visibilityGridCheckBox->setChecked(prefsData->guidesPrefs.gridShown);
 	visibilityBaselineGridCheckBox->setChecked(prefsData->guidesPrefs.baselineGridShown);
-	majorGridSpacingSpinBox->setMinimum(10 * unitRatio);
-	minorGridSpacingSpinBox->setMinimum(10 * unitRatio);
-	majorGridSpacingSpinBox->setMaximum(1000 * unitRatio);
-	minorGridSpacingSpinBox->setMaximum(1000 * unitRatio);
-	majorGridSpacingSpinBox->setDecimals( decimals );
-	minorGridSpacingSpinBox->setDecimals( decimals );
-	majorGridSpacingSpinBox->setSuffix( unitSuffix );
-	minorGridSpacingSpinBox->setSuffix( unitSuffix );
-	majorGridSpacingSpinBox->setValue(prefsData->guidesPrefs.majorGridSpacing  * unitRatio);
-	minorGridSpacingSpinBox->setValue(prefsData->guidesPrefs.minorGridSpacing  * unitRatio);
+
+	majorGridSpacingSpinBox->setValue(prefsData->guidesPrefs.majorGridSpacing * unitRatio);
+	minorGridSpacingSpinBox->setValue(prefsData->guidesPrefs.minorGridSpacing * unitRatio);
 	baselineGridSpacingSpinBox->setValue(prefsData->guidesPrefs.valueBaselineGrid);
 	baselineGridOffsetSpinBox->setValue(prefsData->guidesPrefs.offsetBaselineGrid);
 

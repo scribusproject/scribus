@@ -24,6 +24,7 @@ class SCRIBUS_API Prefs_Guides : public Prefs_Pane, Ui::Prefs_Guides
 
 	public slots:
 		void languageChange();
+		void unitChange(int);
 
 	protected slots:
 		virtual void changeMajorColor();
