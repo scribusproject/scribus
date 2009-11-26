@@ -326,6 +326,7 @@ bool XarPlug::convert(QString fn)
 	imageData.resize(0);
 	importedColors.clear();
 	firstLayer = true;
+	inTextLine = false;
 	activeLayer = "";
 	currentLayer = 0;
 	XarColor color;
@@ -636,6 +637,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		startSimpleText(ts, dataLen);
 	else if (tag == 2101)
 		startComplexText(ts, dataLen);
+	else if (tag == 2200)
+		startTextLine();
 	else if (tag == 2201)
 		handleTextString(ts, dataLen);
 	else if (tag == 2202)
@@ -651,17 +654,41 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 	else if (tag == 2907)
 		handleTextFont(ts);
 	else if (tag == 2908)
+	{
 		gc->FontBold = true;
+		if (textData.count() > 0)
+			textData.last().FontBold = gc->FontBold;
+	}
 	else if (tag == 2909)
+	{
 		gc->FontBold = false;
+		if (textData.count() > 0)
+			textData.last().FontBold = gc->FontBold;
+	}
 	else if (tag == 2910)
+	{
 		gc->FontItalic = true;
+		if (textData.count() > 0)
+			textData.last().FontItalic = gc->FontItalic;
+	}
 	else if (tag == 2911)
+	{
 		gc->FontItalic = false;
+		if (textData.count() > 0)
+			textData.last().FontItalic = gc->FontItalic;
+	}
 	else if (tag == 2912)
+	{
 		gc->FontUnderline = true;
+		if (textData.count() > 0)
+			textData.last().FontUnderline = gc->FontUnderline;
+	}
 	else if (tag == 2913)
+	{
 		gc->FontUnderline = false;
+		if (textData.count() > 0)
+			textData.last().FontUnderline = gc->FontUnderline;
+	}
 	else if (tag == 2918)
 		handleTextTracking(ts);
 	else if (tag == 2919)
@@ -686,11 +713,11 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		finishClip();
 	else
 	{
-//		if (m_gc.count() > 3)
-//		{
-//			if ((tag > 1999) && (tag < 3000))
-//				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
-//		}
+/*		if (m_gc.count() > 3)
+		{
+			if ((tag > 1999) && (tag < 3000))
+				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
+		} */
 		ts.skipRawData(dataLen);
 	}
 }
@@ -701,6 +728,8 @@ void XarPlug::handleTextFontSize(QDataStream &ts)
 	ts >> size;
 	XarStyle *gc = m_gc.top();
 	gc->FontSize = size / 1000.0;
+	if (textData.count() > 0)
+		textData.last().FontSize = gc->FontSize;
 //	qDebug() << "Font Size" << gc->FontSize;
 }
 
@@ -741,6 +770,8 @@ void XarPlug::handleTextFont(QDataStream &ts)
 	{
 		if (fontRef.contains(val))
 			gc->FontFamily = fontRef[val];
+		if (textData.count() > 0)
+			textData.last().FontFamily = gc->FontFamily;
 	}
 //	qDebug() << "Using Font" << gc->FontFamily;
 }
@@ -750,12 +781,21 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	quint32 l = dataLen / 2;
 	quint16 val;
 	XarStyle *gc = m_gc.top();
+	XarText text;
+	text.itemText = "";
 	for (quint32 a = 0; a < l; a++)
 	{
 		ts >> val;
-		gc->itemText += QChar(val);
+		text.itemText += QChar(val);
 	}
-//	qDebug() << "String" << gc->itemText;
+	text.FontFamily = gc->FontFamily;
+	text.FontSize = gc->FontSize;
+	text.FontStretch = gc->FontStretch;
+	text.FontBold = gc->FontBold;
+	text.FontUnderline = gc->FontUnderline;
+	text.FontItalic = gc->FontItalic;
+	textData.append(text);
+//	qDebug() << "String" << text.itemText;
 }
 
 void XarPlug::handleTextChar(QDataStream &ts)
@@ -763,7 +803,15 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	quint16 val;
 	ts >> val;
 	XarStyle *gc = m_gc.top();
-	gc->itemText += QChar(val);
+	XarText text;
+	text.itemText = QChar(val);
+	text.FontFamily = gc->FontFamily;
+	text.FontSize = gc->FontSize;
+	text.FontStretch = gc->FontStretch;
+	text.FontBold = gc->FontBold;
+	text.FontUnderline = gc->FontUnderline;
+	text.FontItalic = gc->FontItalic;
+	textData.append(text);
 //	qDebug() << "Char" << QChar(val);
 }
 
@@ -802,6 +850,8 @@ void XarPlug::handleTextAspectRatio(QDataStream &ts)
 	double scaleX = decodeFixed16(val);
 	XarStyle *gc = m_gc.top();
 	gc->FontStretch = scaleX;
+	if (textData.count() > 0)
+		textData.last().FontStretch = gc->FontStretch;
 //	qDebug() << "Aspect Ratio" << scaleX;
 }
 
@@ -812,25 +862,42 @@ void XarPlug::handleTextBaseline(QDataStream &ts)
 	TextY += val / 1000.0;
 }
 
+void XarPlug::startTextLine()
+{
+	inTextLine = true;
+//	qDebug() << "Start Line";
+}
+
 void XarPlug::endTextLine()
 {
 	XarStyle *gc = m_gc.top();
 	TextY += gc->LineHeight;
 	QPainterPath painterPath;
-	QFont textFont = QFont(gc->FontFamily, gc->FontSize);
-	if (gc->FontSize >= 1)
-		textFont.setPixelSize(gc->FontSize);
-	else
-		textFont.setPointSizeF(gc->FontSize * 72.0 / 96.0);
-	textFont.setBold(gc->FontBold);
-	textFont.setItalic(gc->FontItalic);
-	textFont.setUnderline(gc->FontUnderline);
-	painterPath.addText( 0, 0, textFont, gc->itemText);
+	double xpos = 0;
+	for (int a = 0; a < textData.count(); a++)
+	{
+		XarText txDat;
+		txDat = textData.at(a);
+		txDat.FontSize *= 10;
+		QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
+		if (txDat.FontSize >= 1)
+			textFont.setPixelSize(txDat.FontSize);
+		else
+			textFont.setPointSizeF(txDat.FontSize * 72.0 / 96.0);
+		textFont.setBold(txDat.FontBold);
+		textFont.setItalic(txDat.FontItalic);
+		textFont.setUnderline(txDat.FontUnderline);
+		textFont.setStretch(txDat.FontStretch * 100);
+		painterPath.addText( xpos, 0, textFont, txDat.itemText);
+		xpos += QFontMetricsF(textFont).width(txDat.itemText);
+	}
+	QMatrix txS;
+	txS.scale(0.1, 0.1);
+	painterPath = txS.map(painterPath);
 	QRectF bound = painterPath.boundingRect();
 	Coords.resize(0);
 	Coords.fromQPainterPath(painterPath);
 	Coords.map(textMatrix);
-	Coords.scale(gc->FontStretch, 1.0);
 	Coords.translate(TextX, TextY);
 	if (gc->TextAlignment == 1)
 		Coords.translate(-bound.width() / 2.0, 0);
@@ -841,7 +908,8 @@ void XarPlug::endTextLine()
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None, true);
 		finishItem(z);
 	}
-	gc->itemText = "";
+	textData.clear();
+	inTextLine = false;
 //	qDebug() << "End of Line, new Y-Pos" << TextY;
 }
 
@@ -852,11 +920,10 @@ void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)
 	readCoords(ts, textX, textY);
 	if (dataLen > 8)
 		ts >> flag;
-	XarStyle *gc = m_gc.top();
-	gc->itemText = "";
 	TextX = textX;
 	TextY = docHeight - textY;
 	textMatrix = QTransform();
+	textData.clear();
 //	qDebug() << "Simple Text at" << textX << docHeight - textY;
 }
 
@@ -873,11 +940,10 @@ void XarPlug::startComplexText(QDataStream &ts, quint32 dataLen)
 	double skewY = decodeFixed16(skY);
 	if (dataLen > 24)
 		ts >> flag;
-	XarStyle *gc = m_gc.top();
-	gc->itemText = "";
 	TextX = transX;
 	TextY = docHeight - transY;
 	textMatrix = QTransform(scaleX, -skewX, -skewY, scaleY, 0, 0);
+	textData.clear();
 //	qDebug() << "Complex Text at" << transX << docHeight - transY << "Matrix" << scaleX << skewX << skewY << scaleY;
 }
 

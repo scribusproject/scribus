@@ -33,7 +33,6 @@ public:
 	XarStyle() :
 		dashOffset(0),
 		FontFamily(""),
-		itemText(""),
 		FontSize(12.0),
 		LineHeight(15.0),
 		LineWidth(0.0),
@@ -98,7 +97,6 @@ public:
 	QVector<double> dashArray;
 	double dashOffset;
 	QString FontFamily;
-	QString itemText;
 	double FontSize;
 	double LineHeight;
 	double LineWidth;
@@ -205,6 +203,7 @@ private:
 	void handleTextTracking(QDataStream &ts);
 	void handleTextAspectRatio(QDataStream &ts);
 	void handleTextBaseline(QDataStream &ts);
+	void startTextLine();
 	void endTextLine();
 	void startSimpleText(QDataStream &ts, quint32 dataLen);
 	void startComplexText(QDataStream &ts, quint32 dataLen);
@@ -263,6 +262,7 @@ private:
 	bool firstLayer;
 	bool interactive;
 	bool cancel;
+	bool inTextLine;
 	QTransform textMatrix;
 	struct XarColor
 	{
@@ -282,10 +282,21 @@ private:
 		bool clipping;
 		PageItem* groupItem;
 	};
+	struct XarText
+	{
+		QString FontFamily;
+		QString itemText;
+		double FontSize;
+		double FontStretch;
+		bool FontBold;
+		bool FontUnderline;
+		bool FontItalic;
+	};
 	QByteArray imageData;
 	QList<PageItem*> Elements;
 	QList<quint32> atomicTags;
 	QList<quint32> ignoreableTags;
+	QList<XarText> textData;
 	QMap<qint32, XarColor> XarColorMap;
 	QMap<qint32, PageItem*> pathMap;
 	QMap<QString, QString> patternMap;
