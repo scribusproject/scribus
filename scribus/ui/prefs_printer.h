@@ -21,9 +21,11 @@ class SCRIBUS_API Prefs_Printer : public Prefs_Pane, Ui::Prefs_Printer
 		~Prefs_Printer();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
-
 	public slots:
 		void languageChange();
+		void unitChange(int newIndex);
+	private slots:
+		void selOtherComm();
 };
 
 #endif // PREFS_PRINTER_H
