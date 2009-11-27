@@ -1080,19 +1080,19 @@ void XarPlug::endTextLine()
 			textFont.setItalic(txDat.FontItalic);
 			textFont.setUnderline(txDat.FontUnderline);
 			textFont.setStretch(txDat.FontStretch * 100);
-			painterPath.addText( xpos, 0, textFont, txDat.itemText);
+			painterPath.addText( 0, 0, textFont, txDat.itemText);
 			QMatrix txS;
 			txS.scale(0.1, 0.1);
 			painterPath = txS.map(painterPath);
-			QRectF bound = painterPath.boundingRect();
 			Coords.resize(0);
 			Coords.fromQPainterPath(painterPath);
+			Coords.translate(xpos, 0);
 			Coords.map(textMatrix);
 			Coords.translate(TextX, TextY);
 			if (gc->TextAlignment == 1)
-				Coords.translate(-bound.width() / 2.0, 0);
+				Coords.translate(-gc->LineWidth / 2.0, 0);
 			else if (gc->TextAlignment == 2)
-				Coords.translate(-bound.width(), 0);
+				Coords.translate(-gc->LineWidth, 0);
 			if (Coords.size() > 0)
 			{
 				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None, true);
@@ -1141,7 +1141,7 @@ void XarPlug::endTextLine()
 					}
 				}
 			}
-			xpos += QFontMetricsF(textFont).width(txDat.itemText);
+			xpos += QFontMetricsF(textFont).width(txDat.itemText) / 10.0;
 		}
 	}
 	textData.clear();
