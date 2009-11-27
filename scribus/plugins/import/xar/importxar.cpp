@@ -327,6 +327,7 @@ bool XarPlug::convert(QString fn)
 	importedColors.clear();
 	firstLayer = true;
 	inTextLine = false;
+	inTextBlock = false;
 	activeLayer = "";
 	currentLayer = 0;
 	XarColor color;
@@ -637,6 +638,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		startSimpleText(ts, dataLen);
 	else if (tag == 2101)
 		startComplexText(ts, dataLen);
+	else if (tag == 2110)
+		startSimplePathText(ts, dataLen, 0);
 	else if (tag == 2200)
 		startTextLine();
 	else if (tag == 2201)
@@ -713,13 +716,15 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		finishClip();
 	else
 	{
-/*		if (m_gc.count() > 3)
+	/*	if (m_gc.count() > 3)
 		{
 			if ((tag > 1999) && (tag < 3000))
 				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		} */
 		ts.skipRawData(dataLen);
 	}
+//	if (isPathText)
+//		qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 }
 
 void XarPlug::handleTextFontSize(QDataStream &ts)
@@ -795,6 +800,49 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	text.FontUnderline = gc->FontUnderline;
 	text.FontItalic = gc->FontItalic;
 	textData.append(text);
+	if (textData.count() > 0)
+	{
+		textData.last().FillCol = gc->FillCol;
+		textData.last().FillOpacity = gc->FillOpacity;
+		textData.last().FillBlend = gc->FillBlend;
+		textData.last().StrokeOpacity = gc->StrokeOpacity;
+		textData.last().LWidth = gc->LWidth;
+		textData.last().StrokeCol = gc->StrokeCol;
+		textData.last().PLineJoin = gc->PLineJoin;
+		textData.last().PLineEnd = gc->PLineEnd;
+		textData.last().fillPattern = gc->fillPattern;
+		textData.last().patternScaleX = gc->patternScaleX;
+		textData.last().patternScaleY = gc->patternScaleY;
+		textData.last().patternOffsetX = gc->patternOffsetX;
+		textData.last().patternOffsetY = gc->patternOffsetY;
+		textData.last().patternRotation = gc->patternRotation;
+		textData.last().patternSkewX = gc->patternSkewX;
+		textData.last().patternSkewY = gc->patternSkewY;
+		textData.last().FillGradientType = gc->FillGradientType;
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
+		textData.last().GradMask = gc->GradMask;
+		textData.last().MaskGradient = gc->MaskGradient;
+		textData.last().GradMaskX1 = gc->GradMaskX1;
+		textData.last().GradMaskY1 = gc->GradMaskY1;
+		textData.last().GradMaskX2 = gc->GradMaskX2;
+		textData.last().GradMaskY2 = gc->GradMaskY2;
+		textData.last().GradMaskScale = gc->GradMaskScale;
+		textData.last().GradMaskSkew = gc->GradMaskSkew;
+		textData.last().patternMaskScaleX = gc->patternMaskScaleX;
+		textData.last().patternMaskScaleY = gc->patternMaskScaleY;
+		textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
+		textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
+		textData.last().patternMaskRotation = gc->patternMaskRotation;
+		textData.last().patternMaskSkewX = gc->patternMaskSkewX;
+		textData.last().patternMaskSkewY = gc->patternMaskSkewY;
+		textData.last().maskPattern = gc->maskPattern;
+	}
 //	qDebug() << "String" << text.itemText;
 }
 
@@ -812,6 +860,49 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	text.FontUnderline = gc->FontUnderline;
 	text.FontItalic = gc->FontItalic;
 	textData.append(text);
+	if (textData.count() > 0)
+	{
+		textData.last().FillCol = gc->FillCol;
+		textData.last().FillOpacity = gc->FillOpacity;
+		textData.last().FillBlend = gc->FillBlend;
+		textData.last().StrokeOpacity = gc->StrokeOpacity;
+		textData.last().LWidth = gc->LWidth;
+		textData.last().StrokeCol = gc->StrokeCol;
+		textData.last().PLineJoin = gc->PLineJoin;
+		textData.last().PLineEnd = gc->PLineEnd;
+		textData.last().fillPattern = gc->fillPattern;
+		textData.last().patternScaleX = gc->patternScaleX;
+		textData.last().patternScaleY = gc->patternScaleY;
+		textData.last().patternOffsetX = gc->patternOffsetX;
+		textData.last().patternOffsetY = gc->patternOffsetY;
+		textData.last().patternRotation = gc->patternRotation;
+		textData.last().patternSkewX = gc->patternSkewX;
+		textData.last().patternSkewY = gc->patternSkewY;
+		textData.last().FillGradientType = gc->FillGradientType;
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
+		textData.last().GradMask = gc->GradMask;
+		textData.last().MaskGradient = gc->MaskGradient;
+		textData.last().GradMaskX1 = gc->GradMaskX1;
+		textData.last().GradMaskY1 = gc->GradMaskY1;
+		textData.last().GradMaskX2 = gc->GradMaskX2;
+		textData.last().GradMaskY2 = gc->GradMaskY2;
+		textData.last().GradMaskScale = gc->GradMaskScale;
+		textData.last().GradMaskSkew = gc->GradMaskSkew;
+		textData.last().patternMaskScaleX = gc->patternMaskScaleX;
+		textData.last().patternMaskScaleY = gc->patternMaskScaleY;
+		textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
+		textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
+		textData.last().patternMaskRotation = gc->patternMaskRotation;
+		textData.last().patternMaskSkewX = gc->patternMaskSkewX;
+		textData.last().patternMaskSkewY = gc->patternMaskSkewY;
+		textData.last().maskPattern = gc->maskPattern;
+	}
 //	qDebug() << "Char" << QChar(val);
 }
 
@@ -874,39 +965,184 @@ void XarPlug::endTextLine()
 	TextY += gc->LineHeight;
 	QPainterPath painterPath;
 	double xpos = 0;
-	for (int a = 0; a < textData.count(); a++)
+	if (isPathText)
 	{
-		XarText txDat;
-		txDat = textData.at(a);
-		txDat.FontSize *= 10;
-		QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
-		if (txDat.FontSize >= 1)
-			textFont.setPixelSize(txDat.FontSize);
-		else
-			textFont.setPointSizeF(txDat.FontSize * 72.0 / 96.0);
-		textFont.setBold(txDat.FontBold);
-		textFont.setItalic(txDat.FontItalic);
-		textFont.setUnderline(txDat.FontUnderline);
-		textFont.setStretch(txDat.FontStretch * 100);
-		painterPath.addText( xpos, 0, textFont, txDat.itemText);
-		xpos += QFontMetricsF(textFont).width(txDat.itemText);
+		if (textPath.size() > 0)
+		{
+			QPainterPath guidePath = textPath.toQPainterPath(false);
+			for (int a = 0; a < textData.count(); a++)
+			{
+				XarText txDat;
+				txDat = textData.at(a);
+				txDat.FontSize *= 10;
+				QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
+				if (txDat.FontSize >= 1)
+					textFont.setPixelSize(txDat.FontSize);
+				else
+					textFont.setPointSizeF(txDat.FontSize * 72.0 / 96.0);
+				textFont.setBold(txDat.FontBold);
+				textFont.setItalic(txDat.FontItalic);
+				textFont.setUnderline(txDat.FontUnderline);
+				textFont.setStretch(txDat.FontStretch * 100);
+				for (int b = 0; b < txDat.itemText.count(); b++)
+				{
+					painterPath = QPainterPath();
+					QString ch = txDat.itemText.at(b);
+					painterPath.addText( 0, 0, textFont, ch);
+					QMatrix txS;
+					txS.scale(0.1, 0.1);
+					painterPath = txS.map(painterPath);
+					double currPerc = guidePath.percentAtLength(xpos);
+					if (currPerc >= 0.9999999)
+						break;
+					double currAngle = guidePath.angleAtPercent(currPerc);
+#if QT_VERSION  >= 0x040400
+					if (currAngle <= 180.0)
+						currAngle *= -1.0;
+					else
+						currAngle = 360.0 - currAngle;
+#endif
+					QPointF currPoint = guidePath.pointAtPercent(currPerc);
+					QTransform mat;
+					mat.translate(currPoint.x(), currPoint.y());
+					mat.rotate(currAngle);
+					painterPath = mat.map(painterPath);
+					xpos += QFontMetricsF(textFont).width(ch) / 10.0;
+					Coords.resize(0);
+					Coords.fromQPainterPath(painterPath);
+					Coords.translate(TextX, TextY);
+					if (Coords.size() > 0)
+					{
+						int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, txDat.FillCol, CommonStrings::None, true);
+						PageItem *item = m_Doc->Items->at(z);
+						item->PoLine = Coords.copy();
+						item->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+						item->ClipEdited = true;
+						item->FrameType = 3;
+						FPoint wh = getMaxClipF(&item->PoLine);
+						item->setWidthHeight(wh.x(),wh.y());
+						item->setTextFlowMode(PageItem::TextFlowDisabled);
+						m_Doc->AdjustItemSize(item);
+						Elements.append(item);
+						item->setFillColor(txDat.FillCol);
+						item->setFillTransparency(txDat.FillOpacity);
+						item->setFillBlendmode(txDat.FillBlend);
+						item->setLineTransparency(txDat.StrokeOpacity);
+						item->setLineWidth(txDat.LWidth);
+						item->setLineColor(txDat.StrokeCol);
+						item->setLineJoin(txDat.PLineJoin);
+						item->setLineEnd(txDat.PLineEnd);
+						if (!txDat.fillPattern.isEmpty())
+						{
+							item->setPattern(txDat.fillPattern);
+							item->setPatternTransform(txDat.patternScaleX, txDat.patternScaleY, txDat.patternOffsetX, txDat.patternOffsetY, txDat.patternRotation, txDat.patternSkewX, txDat.patternSkewY);
+							item->GrType = 8;
+						}
+						if ((txDat.FillGradientType == 6) || (txDat.FillGradientType == 7))
+						{
+							item->GrType = txDat.FillGradientType;
+							item->fill_gradient = txDat.FillGradient;
+							item->setGradientVector(txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GradFillX2 - item->xPos(), txDat.GradFillY2 - item->yPos(), txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GrScale, txDat.GrSkew);
+						}
+						if (txDat.GradMask > 0)
+						{
+							item->GrMask = txDat.GradMask;
+							if ((item->GrMask == 1) || (item->GrMask == 2))
+							{
+								item->mask_gradient = txDat.MaskGradient;
+								item->setMaskVector(txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskX2 - item->xPos(), txDat.GradMaskY2 - item->yPos(), txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskScale, txDat.GradMaskSkew);
+							}
+							else
+							{
+								item->setMaskTransform(txDat.patternMaskScaleX, txDat.patternMaskScaleY, txDat.patternMaskOffsetX, txDat.patternMaskOffsetY, txDat.patternMaskRotation, txDat.patternMaskSkewX, txDat.patternMaskSkewY);
+								item->setPatternMask(txDat.maskPattern);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
-	QMatrix txS;
-	txS.scale(0.1, 0.1);
-	painterPath = txS.map(painterPath);
-	QRectF bound = painterPath.boundingRect();
-	Coords.resize(0);
-	Coords.fromQPainterPath(painterPath);
-	Coords.map(textMatrix);
-	Coords.translate(TextX, TextY);
-	if (gc->TextAlignment == 1)
-		Coords.translate(-bound.width() / 2.0, 0);
-	else if (gc->TextAlignment == 2)
-		Coords.translate(-bound.width(), 0);
-	if (Coords.size() > 0)
+	else
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None, true);
-		finishItem(z);
+		for (int a = 0; a < textData.count(); a++)
+		{
+			XarText txDat;
+			painterPath = QPainterPath();
+			txDat = textData.at(a);
+			txDat.FontSize *= 10;
+			QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
+			if (txDat.FontSize >= 1)
+				textFont.setPixelSize(txDat.FontSize);
+			else
+				textFont.setPointSizeF(txDat.FontSize * 72.0 / 96.0);
+			textFont.setBold(txDat.FontBold);
+			textFont.setItalic(txDat.FontItalic);
+			textFont.setUnderline(txDat.FontUnderline);
+			textFont.setStretch(txDat.FontStretch * 100);
+			painterPath.addText( xpos, 0, textFont, txDat.itemText);
+			QMatrix txS;
+			txS.scale(0.1, 0.1);
+			painterPath = txS.map(painterPath);
+			QRectF bound = painterPath.boundingRect();
+			Coords.resize(0);
+			Coords.fromQPainterPath(painterPath);
+			Coords.map(textMatrix);
+			Coords.translate(TextX, TextY);
+			if (gc->TextAlignment == 1)
+				Coords.translate(-bound.width() / 2.0, 0);
+			else if (gc->TextAlignment == 2)
+				Coords.translate(-bound.width(), 0);
+			if (Coords.size() > 0)
+			{
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None, true);
+				PageItem *item = m_Doc->Items->at(z);
+				item->PoLine = Coords.copy();
+				item->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+				item->ClipEdited = true;
+				item->FrameType = 3;
+				FPoint wh = getMaxClipF(&item->PoLine);
+				item->setWidthHeight(wh.x(),wh.y());
+				item->setTextFlowMode(PageItem::TextFlowDisabled);
+				m_Doc->AdjustItemSize(item);
+				Elements.append(item);
+				item->setFillColor(txDat.FillCol);
+				item->setFillTransparency(txDat.FillOpacity);
+				item->setFillBlendmode(txDat.FillBlend);
+				item->setLineTransparency(txDat.StrokeOpacity);
+				item->setLineWidth(txDat.LWidth);
+				item->setLineColor(txDat.StrokeCol);
+				item->setLineJoin(txDat.PLineJoin);
+				item->setLineEnd(txDat.PLineEnd);
+				if (!txDat.fillPattern.isEmpty())
+				{
+					item->setPattern(txDat.fillPattern);
+					item->setPatternTransform(txDat.patternScaleX, txDat.patternScaleY, txDat.patternOffsetX, txDat.patternOffsetY, txDat.patternRotation, txDat.patternSkewX, txDat.patternSkewY);
+					item->GrType = 8;
+				}
+				if ((txDat.FillGradientType == 6) || (txDat.FillGradientType == 7))
+				{
+					item->GrType = txDat.FillGradientType;
+					item->fill_gradient = txDat.FillGradient;
+					item->setGradientVector(txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GradFillX2 - item->xPos(), txDat.GradFillY2 - item->yPos(), txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GrScale, txDat.GrSkew);
+				}
+				if (txDat.GradMask > 0)
+				{
+					item->GrMask = txDat.GradMask;
+					if ((item->GrMask == 1) || (item->GrMask == 2))
+					{
+						item->mask_gradient = txDat.MaskGradient;
+						item->setMaskVector(txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskX2 - item->xPos(), txDat.GradMaskY2 - item->yPos(), txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskScale, txDat.GradMaskSkew);
+					}
+					else
+					{
+						item->setMaskTransform(txDat.patternMaskScaleX, txDat.patternMaskScaleY, txDat.patternMaskOffsetX, txDat.patternMaskOffsetY, txDat.patternMaskRotation, txDat.patternMaskSkewX, txDat.patternMaskSkewY);
+						item->setPatternMask(txDat.maskPattern);
+					}
+				}
+			}
+			xpos += QFontMetricsF(textFont).width(txDat.itemText);
+		}
 	}
 	textData.clear();
 	inTextLine = false;
@@ -924,6 +1160,10 @@ void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)
 	TextY = docHeight - textY;
 	textMatrix = QTransform();
 	textData.clear();
+	textPath.resize(0);
+	isPathText = false;
+	inTextBlock = true;
+	pathGcStackIndex = m_gc.count();
 //	qDebug() << "Simple Text at" << textX << docHeight - textY;
 }
 
@@ -944,7 +1184,32 @@ void XarPlug::startComplexText(QDataStream &ts, quint32 dataLen)
 	TextY = docHeight - transY;
 	textMatrix = QTransform(scaleX, -skewX, -skewY, scaleY, 0, 0);
 	textData.clear();
+	textPath.resize(0);
+	isPathText = false;
+	inTextBlock = true;
+	pathGcStackIndex = m_gc.count();
 //	qDebug() << "Complex Text at" << transX << docHeight - transY << "Matrix" << scaleX << skewX << skewY << scaleY;
+}
+
+void XarPlug::startSimplePathText(QDataStream &ts, quint32 dataLen, int type)
+{
+	quint32 flag;
+	double textX, textY;
+	readCoords(ts, textX, textY);
+	if (dataLen > 8)
+		ts >> flag;
+	TextX = textX;
+	TextY = docHeight - textY;
+	TextX = 0;
+	TextY = 0;
+	textMatrix = QTransform();
+	textData.clear();
+	textPath.resize(0);
+	isPathText = true;
+	inTextBlock = true;
+	pathTextType = type;
+	pathGcStackIndex = m_gc.count();
+//	qDebug() << "Path Text at" << textX << textY << "Type" << type;
 }
 
 void XarPlug::handleFillRule(QDataStream &ts)
@@ -969,6 +1234,8 @@ void XarPlug::handleLineEnd(QDataStream &ts)
 		gc->PLineEnd = Qt::RoundCap;
 	else if (val == 2)
 		gc->PLineEnd = Qt::SquareCap;
+	if (textData.count() > 0)
+		textData.last().PLineEnd = gc->PLineEnd;
 }
 
 void XarPlug::handleLineJoin(QDataStream &ts)
@@ -982,6 +1249,8 @@ void XarPlug::handleLineJoin(QDataStream &ts)
 		gc->PLineJoin = Qt::RoundJoin;
 	else if (val == 2)
 		gc->PLineJoin = Qt::BevelJoin;
+	if (textData.count() > 0)
+		textData.last().PLineJoin = gc->PLineJoin;
 }
 
 void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
@@ -1052,6 +1321,12 @@ void XarPlug::handleFlatFillTransparency(QDataStream &ts)
 		gc->FillOpacity = transVal / 255.0;
 		gc->FillBlend = convertBlendMode(transType);
 		gc->GradMask = 0;
+		if (textData.count() > 0)
+		{
+			textData.last().FillOpacity = gc->FillOpacity;
+			textData.last().FillBlend = gc->FillBlend;
+			textData.last().GradMask = gc->GradMask;
+		}
 	}
 }
 
@@ -1086,6 +1361,17 @@ void XarPlug::handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen,
 	gc->GradMaskY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	if (textData.count() > 0)
+	{
+		textData.last().GradMask = gc->GradMask;
+		textData.last().MaskGradient = gc->MaskGradient;
+		textData.last().GradMaskX1 = gc->GradMaskX1;
+		textData.last().GradMaskY1 = gc->GradMaskY1;
+		textData.last().GradMaskX2 = gc->GradMaskX2;
+		textData.last().GradMaskY2 = gc->GradMaskY2;
+		textData.last().GradMaskScale = gc->GradMaskScale;
+		textData.last().GradMaskSkew = gc->GradMaskSkew;
+	}
 }
 
 void XarPlug::handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 dataLen)
@@ -1118,6 +1404,17 @@ void XarPlug::handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 da
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMask = 1;
+	if (textData.count() > 0)
+	{
+		textData.last().GradMask = gc->GradMask;
+		textData.last().MaskGradient = gc->MaskGradient;
+		textData.last().GradMaskX1 = gc->GradMaskX1;
+		textData.last().GradMaskY1 = gc->GradMaskY1;
+		textData.last().GradMaskX2 = gc->GradMaskX2;
+		textData.last().GradMaskY2 = gc->GradMaskY2;
+		textData.last().GradMaskScale = gc->GradMaskScale;
+		textData.last().GradMaskSkew = gc->GradMaskSkew;
+	}
 }
 
 void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 dataLen)
@@ -1150,6 +1447,17 @@ void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 data
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMask = 2;
+	if (textData.count() > 0)
+	{
+		textData.last().GradMask = gc->GradMask;
+		textData.last().MaskGradient = gc->MaskGradient;
+		textData.last().GradMaskX1 = gc->GradMaskX1;
+		textData.last().GradMaskY1 = gc->GradMaskY1;
+		textData.last().GradMaskX2 = gc->GradMaskX2;
+		textData.last().GradMaskY2 = gc->GradMaskY2;
+		textData.last().GradMaskScale = gc->GradMaskScale;
+		textData.last().GradMaskSkew = gc->GradMaskSkew;
+	}
 }
 
 void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
@@ -1237,6 +1545,18 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		gc->patternMaskSkewX = rotS - 90 - rotB;
 		gc->patternMaskSkewY = 0.0;
 		gc->GradMask = 3;
+		if (textData.count() > 0)
+		{
+			textData.last().GradMask = gc->GradMask;
+			textData.last().maskPattern = gc->maskPattern;
+			textData.last().patternMaskScaleX = gc->patternMaskScaleX;
+			textData.last().patternMaskScaleY = gc->patternMaskScaleY;
+			textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
+			textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
+			textData.last().patternMaskRotation = gc->patternMaskRotation;
+			textData.last().patternMaskSkewX = gc->patternMaskSkewX;
+			textData.last().patternMaskSkewY = gc->patternMaskSkewY;
+		}
 	}
 }
 
@@ -1307,6 +1627,16 @@ void XarPlug::handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
+	}
 }
 
 void XarPlug::handleMultiGradientElliptical(QDataStream &ts)
@@ -1370,6 +1700,16 @@ void XarPlug::handleMultiGradientElliptical(QDataStream &ts)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
+	}
 }
 
 void XarPlug::handleMultiGradientSkewed(QDataStream &ts)
@@ -1433,6 +1773,16 @@ void XarPlug::handleMultiGradientSkewed(QDataStream &ts)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
+	}
 }
 
 void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
@@ -1492,6 +1842,14 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+	}
 }
 
 void XarPlug::handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen)
@@ -1541,6 +1899,16 @@ void XarPlug::handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
+	}
 }
 
 void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear)
@@ -1586,6 +1954,14 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GradFillX1 = gc->GradFillX1;
+		textData.last().GradFillY1 = gc->GradFillY1;
+		textData.last().GradFillX2 = gc->GradFillX2;
+		textData.last().GradFillY2 = gc->GradFillY2;
+	}
 }
 
 void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
@@ -1617,6 +1993,17 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 		gc->patternRotation = -rotB;
 		gc->patternSkewX = rotS - 90 - rotB;
 		gc->patternSkewY = 0.0;
+		if (textData.count() > 0)
+		{
+			textData.last().fillPattern = gc->fillPattern;
+			textData.last().patternScaleX = gc->patternScaleX;
+			textData.last().patternScaleY = gc->patternScaleY;
+			textData.last().patternOffsetX = gc->patternOffsetX;
+			textData.last().patternOffsetY = gc->patternOffsetY;
+			textData.last().patternRotation = gc->patternRotation;
+			textData.last().patternSkewX = gc->patternSkewX;
+			textData.last().patternSkewY = gc->patternSkewY;
+		}
 	}
 }
 
@@ -1720,6 +2107,17 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 		gc->patternRotation = -rotB;
 		gc->patternSkewX = rotS - 90 - rotB;
 		gc->patternSkewY = 0.0;
+		if (textData.count() > 0)
+		{
+			textData.last().fillPattern = gc->fillPattern;
+			textData.last().patternScaleX = gc->patternScaleX;
+			textData.last().patternScaleY = gc->patternScaleY;
+			textData.last().patternOffsetX = gc->patternOffsetX;
+			textData.last().patternOffsetY = gc->patternOffsetY;
+			textData.last().patternRotation = gc->patternRotation;
+			textData.last().patternSkewX = gc->patternSkewX;
+			textData.last().patternSkewY = gc->patternSkewY;
+		}
 	}
 }
 
@@ -1848,7 +2246,11 @@ void XarPlug::handleLineColor(QDataStream &ts)
 	qint32 val;
 	ts >> val;
 	if (XarColorMap.contains(val))
+	{
 		gc->StrokeCol = XarColorMap[val].name;
+		if (textData.count() > 0)
+			textData.last().StrokeCol = gc->StrokeCol;
+	}
 }
 
 void XarPlug::handleLineWidth(QDataStream &ts)
@@ -1857,6 +2259,8 @@ void XarPlug::handleLineWidth(QDataStream &ts)
 	quint32 val;
 	ts >> val;
 	gc->LWidth = val / 1000.0;
+	if (textData.count() > 0)
+		textData.last().LWidth = gc->LWidth;
 }
 
 void XarPlug::handleFlatLineTransparency(QDataStream &ts)
@@ -1865,7 +2269,11 @@ void XarPlug::handleFlatLineTransparency(QDataStream &ts)
 	ts >> transVal >> transType;
 	XarStyle *gc = m_gc.top();
 	if (transType > 0)
+	{
 		gc->StrokeOpacity = transVal / 255.0;
+		if (textData.count() > 0)
+			textData.last().StrokeOpacity = gc->StrokeOpacity;
+	}
 }
 
 void XarPlug::handleFlatFill(QDataStream &ts)
@@ -1874,7 +2282,11 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 	qint32 val;
 	ts >> val;
 	if (XarColorMap.contains(val))
+	{
 		gc->FillCol = XarColorMap[val].name;
+		if (textData.count() > 0)
+			textData.last().FillCol = gc->FillCol;
+	}
 }
 
 void XarPlug::createRectangleItem(QDataStream &ts, bool ellipse)
@@ -2018,6 +2430,8 @@ void XarPlug::finishItem(int z)
 	XarStyle *gc = m_gc.top();
 	PageItem *ite = m_Doc->Items->at(z);
 	ite->PoLine = Coords.copy();
+	if (isPathText)
+		textPath = ite->PoLine.copy();
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -2497,6 +2911,57 @@ void XarPlug::addGraphicContext()
 void XarPlug::popGraphicContext()
 {
 	XarStyle *gc = m_gc.pop();
+	if (pathGcStackIndex == m_gc.count())
+	{
+		inTextBlock = false;
+		pathGcStackIndex = 0;
+	}
+	if (inTextBlock)
+	{
+		if (textData.count() > 0)
+		{
+			textData.last().FillCol = gc->FillCol;
+			textData.last().FillOpacity = gc->FillOpacity;
+			textData.last().FillBlend = gc->FillBlend;
+			textData.last().StrokeOpacity = gc->StrokeOpacity;
+			textData.last().LWidth = gc->LWidth;
+			textData.last().StrokeCol = gc->StrokeCol;
+			textData.last().PLineJoin = gc->PLineJoin;
+			textData.last().PLineEnd = gc->PLineEnd;
+			textData.last().fillPattern = gc->fillPattern;
+			textData.last().patternScaleX = gc->patternScaleX;
+			textData.last().patternScaleY = gc->patternScaleY;
+			textData.last().patternOffsetX = gc->patternOffsetX;
+			textData.last().patternOffsetY = gc->patternOffsetY;
+			textData.last().patternRotation = gc->patternRotation;
+			textData.last().patternSkewX = gc->patternSkewX;
+			textData.last().patternSkewY = gc->patternSkewY;
+			textData.last().FillGradientType = gc->FillGradientType;
+			textData.last().FillGradient = gc->FillGradient;
+			textData.last().GradFillX1 = gc->GradFillX1;
+			textData.last().GradFillY1 = gc->GradFillY1;
+			textData.last().GradFillX2 = gc->GradFillX2;
+			textData.last().GradFillY2 = gc->GradFillY2;
+			textData.last().GrScale = gc->GrScale;
+			textData.last().GrSkew = gc->GrSkew;
+			textData.last().GradMask = gc->GradMask;
+			textData.last().MaskGradient = gc->MaskGradient;
+			textData.last().GradMaskX1 = gc->GradMaskX1;
+			textData.last().GradMaskY1 = gc->GradMaskY1;
+			textData.last().GradMaskX2 = gc->GradMaskX2;
+			textData.last().GradMaskY2 = gc->GradMaskY2;
+			textData.last().GradMaskScale = gc->GradMaskScale;
+			textData.last().GradMaskSkew = gc->GradMaskSkew;
+			textData.last().patternMaskScaleX = gc->patternMaskScaleX;
+			textData.last().patternMaskScaleY = gc->patternMaskScaleY;
+			textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
+			textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
+			textData.last().patternMaskRotation = gc->patternMaskRotation;
+			textData.last().patternMaskSkewX = gc->patternMaskSkewX;
+			textData.last().patternMaskSkewY = gc->patternMaskSkewY;
+			textData.last().maskPattern = gc->maskPattern;
+		}
+	}
 	if (groupStack.count() > 0)
 	{
 		XarGroup gg = groupStack.top();
