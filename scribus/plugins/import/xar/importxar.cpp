@@ -328,6 +328,7 @@ bool XarPlug::convert(QString fn)
 	firstLayer = true;
 	inTextLine = false;
 	inTextBlock = false;
+	recordPath = false;
 	activeLayer = "";
 	currentLayer = 0;
 	XarColor color;
@@ -640,6 +641,12 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		startComplexText(ts, dataLen);
 	else if (tag == 2110)
 		startSimplePathText(ts, dataLen, 0);
+	else if (tag == 2111)
+		startSimplePathText(ts, dataLen, 1);
+	else if (tag == 2112)
+		startSimplePathText(ts, dataLen, 2);
+	else if (tag == 2113)
+		startSimplePathText(ts, dataLen, 3);
 	else if (tag == 2200)
 		startTextLine();
 	else if (tag == 2201)
@@ -716,15 +723,13 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		finishClip();
 	else
 	{
-	/*	if (m_gc.count() > 3)
+/*		if (m_gc.count() > 3)
 		{
 			if ((tag > 1999) && (tag < 3000))
 				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		} */
 		ts.skipRawData(dataLen);
 	}
-//	if (isPathText)
-//		qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 }
 
 void XarPlug::handleTextFontSize(QDataStream &ts)
@@ -989,12 +994,15 @@ void XarPlug::endTextLine()
 					painterPath = QPainterPath();
 					QString ch = txDat.itemText.at(b);
 					painterPath.addText( 0, 0, textFont, ch);
-					QMatrix txS;
+					QTransform txS;
 					txS.scale(0.1, 0.1);
 					painterPath = txS.map(painterPath);
-					double currPerc = guidePath.percentAtLength(xpos);
-					if (currPerc >= 0.9999999)
-						break;
+					double currPerc;
+					currPerc = guidePath.percentAtLength(xpos);
+					if ((pathTextType == 2) || (pathTextType == 3))
+						currPerc = guidePath.percentAtLength(guidePath.length() - xpos);
+		//			if (currPerc >= 0.9999999)
+		//				break;
 					double currAngle = guidePath.angleAtPercent(currPerc);
 #if QT_VERSION  >= 0x040400
 					if (currAngle <= 180.0)
@@ -1003,6 +1011,17 @@ void XarPlug::endTextLine()
 						currAngle = 360.0 - currAngle;
 #endif
 					QPointF currPoint = guidePath.pointAtPercent(currPerc);
+					QTransform pre;
+					if (pathTextType > 0)
+					{
+						if (pathTextType == 1)
+							pre.scale(-1.0, 1.0);
+						else if (pathTextType == 2)
+							pre.scale(1.0, -1.0);
+						else if (pathTextType == 3)
+							pre.scale(-1.0, -1.0);
+						painterPath = pre.map(painterPath);
+					}
 					QTransform mat;
 					mat.translate(currPoint.x(), currPoint.y());
 					mat.rotate(currAngle);
@@ -1081,7 +1100,7 @@ void XarPlug::endTextLine()
 			textFont.setUnderline(txDat.FontUnderline);
 			textFont.setStretch(txDat.FontStretch * 100);
 			painterPath.addText( 0, 0, textFont, txDat.itemText);
-			QMatrix txS;
+			QTransform txS;
 			txS.scale(0.1, 0.1);
 			painterPath = txS.map(painterPath);
 			Coords.resize(0);
@@ -1207,6 +1226,7 @@ void XarPlug::startSimplePathText(QDataStream &ts, quint32 dataLen, int type)
 	textPath.resize(0);
 	isPathText = true;
 	inTextBlock = true;
+	recordPath = true;
 	pathTextType = type;
 	pathGcStackIndex = m_gc.count();
 //	qDebug() << "Path Text at" << textX << textY << "Type" << type;
@@ -2430,7 +2450,7 @@ void XarPlug::finishItem(int z)
 	XarStyle *gc = m_gc.top();
 	PageItem *ite = m_Doc->Items->at(z);
 	ite->PoLine = Coords.copy();
-	if (isPathText)
+	if (recordPath)
 		textPath = ite->PoLine.copy();
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	ite->ClipEdited = true;
@@ -2914,6 +2934,7 @@ void XarPlug::popGraphicContext()
 	if (pathGcStackIndex == m_gc.count())
 	{
 		inTextBlock = false;
+		recordPath = false;
 		pathGcStackIndex = 0;
 	}
 	if (inTextBlock)

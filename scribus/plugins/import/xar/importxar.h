@@ -268,6 +268,7 @@ private:
 	bool inTextLine;
 	bool inTextBlock;
 	bool isPathText;
+	bool recordPath;
 	QTransform textMatrix;
 	struct XarColor
 	{
