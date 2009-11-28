@@ -74,6 +74,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 		QComboBox* pageData = new QComboBox(masterPageGroup);
 		for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 			pageData->addItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
+		if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
+			setCurrentComboItem(pageData, CommonStrings::trMasterPageNormal);
 		masterPageLabel = new QLabel(tr("&Master Page:"), masterPageGroup);
 		masterPageLabel->setBuddy(pageData);
 		masterPageLayout->addWidget( masterPageLabel, 0, 0 );
