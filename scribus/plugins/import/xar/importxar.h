@@ -37,6 +37,7 @@ public:
 		LineHeight(15.0),
 		LineWidth(0.0),
 		FontStretch(1.0),
+		FontKerning(0.0),
 		FontBold(false),
 		FontUnderline(false),
 		FontItalic(false),
@@ -101,6 +102,7 @@ public:
 	double LineHeight;
 	double LineWidth;
 	double FontStretch;
+	double FontKerning;
 	bool FontBold;
 	bool FontUnderline;
 	bool FontItalic;
@@ -201,6 +203,7 @@ private:
 	void handleLineInfo(QDataStream &ts);
 	void handleTextAlignment(quint32 tag);
 	void handleTextTracking(QDataStream &ts);
+	void handleTextKerning(QDataStream &ts);
 	void handleTextAspectRatio(QDataStream &ts);
 	void handleTextBaseline(QDataStream &ts);
 	void startTextLine();
@@ -294,6 +297,7 @@ private:
 		QString itemText;
 		double FontSize;
 		double FontStretch;
+		double FontKerning;
 		bool FontBold;
 		bool FontUnderline;
 		bool FontItalic;

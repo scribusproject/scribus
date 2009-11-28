@@ -655,6 +655,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleTextChar(ts);
 	else if (tag == 2203)
 		endTextLine();
+	else if (tag == 2204)
+		handleTextKerning(ts);
 	else if (tag == 2206)
 		handleLineInfo(ts);
 	else if ((tag == 2902) || (tag == 2903) || (tag == 2904))
@@ -801,53 +803,51 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	text.FontFamily = gc->FontFamily;
 	text.FontSize = gc->FontSize;
 	text.FontStretch = gc->FontStretch;
+	text.FontKerning = gc->FontKerning;
 	text.FontBold = gc->FontBold;
 	text.FontUnderline = gc->FontUnderline;
 	text.FontItalic = gc->FontItalic;
+	text.FillCol = gc->FillCol;
+	text.FillOpacity = gc->FillOpacity;
+	text.FillBlend = gc->FillBlend;
+	text.StrokeOpacity = gc->StrokeOpacity;
+	text.LWidth = gc->LWidth;
+	text.StrokeCol = gc->StrokeCol;
+	text.PLineJoin = gc->PLineJoin;
+	text.PLineEnd = gc->PLineEnd;
+	text.fillPattern = gc->fillPattern;
+	text.patternScaleX = gc->patternScaleX;
+	text.patternScaleY = gc->patternScaleY;
+	text.patternOffsetX = gc->patternOffsetX;
+	text.patternOffsetY = gc->patternOffsetY;
+	text.patternRotation = gc->patternRotation;
+	text.patternSkewX = gc->patternSkewX;
+	text.patternSkewY = gc->patternSkewY;
+	text.FillGradientType = gc->FillGradientType;
+	text.FillGradient = gc->FillGradient;
+	text.GradFillX1 = gc->GradFillX1;
+	text.GradFillY1 = gc->GradFillY1;
+	text.GradFillX2 = gc->GradFillX2;
+	text.GradFillY2 = gc->GradFillY2;
+	text.GrScale = gc->GrScale;
+	text.GrSkew = gc->GrSkew;
+	text.GradMask = gc->GradMask;
+	text.MaskGradient = gc->MaskGradient;
+	text.GradMaskX1 = gc->GradMaskX1;
+	text.GradMaskY1 = gc->GradMaskY1;
+	text.GradMaskX2 = gc->GradMaskX2;
+	text.GradMaskY2 = gc->GradMaskY2;
+	text.GradMaskScale = gc->GradMaskScale;
+	text.GradMaskSkew = gc->GradMaskSkew;
+	text.patternMaskScaleX = gc->patternMaskScaleX;
+	text.patternMaskScaleY = gc->patternMaskScaleY;
+	text.patternMaskOffsetX = gc->patternMaskOffsetX;
+	text.patternMaskOffsetY = gc->patternMaskOffsetY;
+	text.patternMaskRotation = gc->patternMaskRotation;
+	text.patternMaskSkewX = gc->patternMaskSkewX;
+	text.patternMaskSkewY = gc->patternMaskSkewY;
+	text.maskPattern = gc->maskPattern;
 	textData.append(text);
-	if (textData.count() > 0)
-	{
-		textData.last().FillCol = gc->FillCol;
-		textData.last().FillOpacity = gc->FillOpacity;
-		textData.last().FillBlend = gc->FillBlend;
-		textData.last().StrokeOpacity = gc->StrokeOpacity;
-		textData.last().LWidth = gc->LWidth;
-		textData.last().StrokeCol = gc->StrokeCol;
-		textData.last().PLineJoin = gc->PLineJoin;
-		textData.last().PLineEnd = gc->PLineEnd;
-		textData.last().fillPattern = gc->fillPattern;
-		textData.last().patternScaleX = gc->patternScaleX;
-		textData.last().patternScaleY = gc->patternScaleY;
-		textData.last().patternOffsetX = gc->patternOffsetX;
-		textData.last().patternOffsetY = gc->patternOffsetY;
-		textData.last().patternRotation = gc->patternRotation;
-		textData.last().patternSkewX = gc->patternSkewX;
-		textData.last().patternSkewY = gc->patternSkewY;
-		textData.last().FillGradientType = gc->FillGradientType;
-		textData.last().FillGradient = gc->FillGradient;
-		textData.last().GradFillX1 = gc->GradFillX1;
-		textData.last().GradFillY1 = gc->GradFillY1;
-		textData.last().GradFillX2 = gc->GradFillX2;
-		textData.last().GradFillY2 = gc->GradFillY2;
-		textData.last().GrScale = gc->GrScale;
-		textData.last().GrSkew = gc->GrSkew;
-		textData.last().GradMask = gc->GradMask;
-		textData.last().MaskGradient = gc->MaskGradient;
-		textData.last().GradMaskX1 = gc->GradMaskX1;
-		textData.last().GradMaskY1 = gc->GradMaskY1;
-		textData.last().GradMaskX2 = gc->GradMaskX2;
-		textData.last().GradMaskY2 = gc->GradMaskY2;
-		textData.last().GradMaskScale = gc->GradMaskScale;
-		textData.last().GradMaskSkew = gc->GradMaskSkew;
-		textData.last().patternMaskScaleX = gc->patternMaskScaleX;
-		textData.last().patternMaskScaleY = gc->patternMaskScaleY;
-		textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
-		textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
-		textData.last().patternMaskRotation = gc->patternMaskRotation;
-		textData.last().patternMaskSkewX = gc->patternMaskSkewX;
-		textData.last().patternMaskSkewY = gc->patternMaskSkewY;
-		textData.last().maskPattern = gc->maskPattern;
-	}
 //	qDebug() << "String" << text.itemText;
 }
 
@@ -861,53 +861,51 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	text.FontFamily = gc->FontFamily;
 	text.FontSize = gc->FontSize;
 	text.FontStretch = gc->FontStretch;
+	text.FontKerning = gc->FontKerning;
 	text.FontBold = gc->FontBold;
 	text.FontUnderline = gc->FontUnderline;
 	text.FontItalic = gc->FontItalic;
+	text.FillCol = gc->FillCol;
+	text.FillOpacity = gc->FillOpacity;
+	text.FillBlend = gc->FillBlend;
+	text.StrokeOpacity = gc->StrokeOpacity;
+	text.LWidth = gc->LWidth;
+	text.StrokeCol = gc->StrokeCol;
+	text.PLineJoin = gc->PLineJoin;
+	text.PLineEnd = gc->PLineEnd;
+	text.fillPattern = gc->fillPattern;
+	text.patternScaleX = gc->patternScaleX;
+	text.patternScaleY = gc->patternScaleY;
+	text.patternOffsetX = gc->patternOffsetX;
+	text.patternOffsetY = gc->patternOffsetY;
+	text.patternRotation = gc->patternRotation;
+	text.patternSkewX = gc->patternSkewX;
+	text.patternSkewY = gc->patternSkewY;
+	text.FillGradientType = gc->FillGradientType;
+	text.FillGradient = gc->FillGradient;
+	text.GradFillX1 = gc->GradFillX1;
+	text.GradFillY1 = gc->GradFillY1;
+	text.GradFillX2 = gc->GradFillX2;
+	text.GradFillY2 = gc->GradFillY2;
+	text.GrScale = gc->GrScale;
+	text.GrSkew = gc->GrSkew;
+	text.GradMask = gc->GradMask;
+	text.MaskGradient = gc->MaskGradient;
+	text.GradMaskX1 = gc->GradMaskX1;
+	text.GradMaskY1 = gc->GradMaskY1;
+	text.GradMaskX2 = gc->GradMaskX2;
+	text.GradMaskY2 = gc->GradMaskY2;
+	text.GradMaskScale = gc->GradMaskScale;
+	text.GradMaskSkew = gc->GradMaskSkew;
+	text.patternMaskScaleX = gc->patternMaskScaleX;
+	text.patternMaskScaleY = gc->patternMaskScaleY;
+	text.patternMaskOffsetX = gc->patternMaskOffsetX;
+	text.patternMaskOffsetY = gc->patternMaskOffsetY;
+	text.patternMaskRotation = gc->patternMaskRotation;
+	text.patternMaskSkewX = gc->patternMaskSkewX;
+	text.patternMaskSkewY = gc->patternMaskSkewY;
+	text.maskPattern = gc->maskPattern;
 	textData.append(text);
-	if (textData.count() > 0)
-	{
-		textData.last().FillCol = gc->FillCol;
-		textData.last().FillOpacity = gc->FillOpacity;
-		textData.last().FillBlend = gc->FillBlend;
-		textData.last().StrokeOpacity = gc->StrokeOpacity;
-		textData.last().LWidth = gc->LWidth;
-		textData.last().StrokeCol = gc->StrokeCol;
-		textData.last().PLineJoin = gc->PLineJoin;
-		textData.last().PLineEnd = gc->PLineEnd;
-		textData.last().fillPattern = gc->fillPattern;
-		textData.last().patternScaleX = gc->patternScaleX;
-		textData.last().patternScaleY = gc->patternScaleY;
-		textData.last().patternOffsetX = gc->patternOffsetX;
-		textData.last().patternOffsetY = gc->patternOffsetY;
-		textData.last().patternRotation = gc->patternRotation;
-		textData.last().patternSkewX = gc->patternSkewX;
-		textData.last().patternSkewY = gc->patternSkewY;
-		textData.last().FillGradientType = gc->FillGradientType;
-		textData.last().FillGradient = gc->FillGradient;
-		textData.last().GradFillX1 = gc->GradFillX1;
-		textData.last().GradFillY1 = gc->GradFillY1;
-		textData.last().GradFillX2 = gc->GradFillX2;
-		textData.last().GradFillY2 = gc->GradFillY2;
-		textData.last().GrScale = gc->GrScale;
-		textData.last().GrSkew = gc->GrSkew;
-		textData.last().GradMask = gc->GradMask;
-		textData.last().MaskGradient = gc->MaskGradient;
-		textData.last().GradMaskX1 = gc->GradMaskX1;
-		textData.last().GradMaskY1 = gc->GradMaskY1;
-		textData.last().GradMaskX2 = gc->GradMaskX2;
-		textData.last().GradMaskY2 = gc->GradMaskY2;
-		textData.last().GradMaskScale = gc->GradMaskScale;
-		textData.last().GradMaskSkew = gc->GradMaskSkew;
-		textData.last().patternMaskScaleX = gc->patternMaskScaleX;
-		textData.last().patternMaskScaleY = gc->patternMaskScaleY;
-		textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
-		textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
-		textData.last().patternMaskRotation = gc->patternMaskRotation;
-		textData.last().patternMaskSkewX = gc->patternMaskSkewX;
-		textData.last().patternMaskSkewY = gc->patternMaskSkewY;
-		textData.last().maskPattern = gc->maskPattern;
-	}
 //	qDebug() << "Char" << QChar(val);
 }
 
@@ -937,6 +935,17 @@ void XarPlug::handleTextTracking(QDataStream &ts)
 	qint32 val;
 	ts >> val;
 //	qDebug() << "Tracking" << val;
+}
+
+void XarPlug::handleTextKerning(QDataStream &ts)
+{
+	qint32 valX, valY;
+	ts >> valX >> valY;
+	XarStyle *gc = m_gc.top();
+	gc->FontKerning = valX / 1000.0;
+	if (textData.count() > 0)
+		textData.last().FontKerning = gc->FontKerning;
+//	qDebug() << "Kerning" << valX / 1000.0 << valY / 1000.0;
 }
 
 void XarPlug::handleTextAspectRatio(QDataStream &ts)
@@ -979,6 +988,7 @@ void XarPlug::endTextLine()
 			{
 				XarText txDat;
 				txDat = textData.at(a);
+				xpos += txDat.FontKerning * (txDat.FontSize  * 72.0 / 96.0);
 				txDat.FontSize *= 10;
 				QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
 				if (txDat.FontSize >= 1)
@@ -1089,6 +1099,7 @@ void XarPlug::endTextLine()
 			XarText txDat;
 			painterPath = QPainterPath();
 			txDat = textData.at(a);
+			xpos += txDat.FontKerning * txDat.FontSize;
 			txDat.FontSize *= 10;
 			QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
 			if (txDat.FontSize >= 1)
