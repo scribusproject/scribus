@@ -101,6 +101,11 @@ class DocUpdater : public Observer<Page*>, public Observer<PageItem*>
 public:
 	DocUpdater(ScribusDoc* d) : doc(d), m_updateEnabled(0), m_docChangeNeeded(false) {}
 
+	bool inUpdateSession() const
+	{ 
+		return m_updateEnabled > 0;
+	}
+
 	void beginUpdate(void)
 	{ 
 		if (m_updateEnabled == 0)
@@ -1233,12 +1238,14 @@ void ScribusDoc::lockGuides(bool isLocked)
 
 void ScribusDoc::undoRedoBegin()
 {
+	m_docUpdater->beginUpdate();
 	m_Selection->delaySignalsOn();
 }
 
 void ScribusDoc::undoRedoDone()
 {
 	m_Selection->delaySignalsOff();
+	m_docUpdater->endUpdate();
 }
 
 void ScribusDoc::restore(UndoState* state, bool isUndo)
@@ -9317,7 +9324,13 @@ void ScribusDoc::itemSelection_SwapRight()
 void ScribusDoc::changed()
 {
 	setModified(true);
-	emit docChanged();
+	// Do not emit docChanged signal() unnecessarily
+	// Processing of that signal is slowwwwwww and
+	// DocUpdater will trigger it when necessary
+	if (!m_docUpdater->inUpdateSession())
+	{
+		emit docChanged();
+	}
 }
 
 void ScribusDoc::invalidateRegion(QRectF region)
