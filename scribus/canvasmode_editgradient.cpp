@@ -74,7 +74,7 @@ void CanvasMode_EditGradient::drawControls(QPainter* p)
 	}
 	else
 	{
-		drawSelection(p);
+		drawSelection(p, false);
 	}
 }
 
@@ -107,7 +107,6 @@ void CanvasMode_EditGradient::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

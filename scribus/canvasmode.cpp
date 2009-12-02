@@ -175,7 +175,7 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 }
 
 
-void CanvasMode::drawSelection(QPainter* psx)
+void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 {
 	QTime t;
 	t.start();
@@ -190,7 +190,6 @@ void CanvasMode::drawSelection(QPainter* psx)
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		bool drawHandles(true);
 		PageItem *curItem(0);
 		for(int a=0; a<m_doc->m_Selection->count(); ++a)
 		{
@@ -235,12 +234,12 @@ void CanvasMode::drawSelection(QPainter* psx)
 		// items inside a a multi
 		if (m_doc->m_Selection->count() > 1)
 		{
-		    uint docSelectionCount = m_doc->m_Selection->count();
-		    PageItem *currItem;
-		    for (uint a=0; a<docSelectionCount; ++a)
-		    {
-			currItem = m_doc->m_Selection->itemAt(a);
-			if( currItem->Groups.count() > 0)
+			uint docSelectionCount = m_doc->m_Selection->count();
+			PageItem *currItem;
+			for (uint a=0; a<docSelectionCount; ++a)
+			{
+				currItem = m_doc->m_Selection->itemAt(a);
+				if( currItem->Groups.count() > 0)
 				{
 					if(! currItem->controlsGroup() )
 						continue;
@@ -250,32 +249,32 @@ void CanvasMode::drawSelection(QPainter* psx)
 							continue;
 					}
 				}
-			psx->save();
-			psx->setPen(m_pen["selection-group-inside"]);
-			psx->setBrush(m_brush["selection-group-inside"]);
-			double lineAdjust(psx->pen().width()/m_canvas->scale());
-			double x, y, w, h;
-			if (currItem->rotation() != 0)
-			{
-				psx->setRenderHint(QPainter::Antialiasing);
-				psx->translate(currItem->xPos(), currItem->yPos());
-				psx->rotate(currItem->rotation());
-				x = currItem->lineWidth()/-2.0;
-				y = currItem->lineWidth()/-2.0;
-			}
-			else
-			{
-				psx->translate(currItem->visualXPos(), currItem->visualYPos());
-				x = -lineAdjust;
-				y = -lineAdjust;
-			}
-			w = currItem->visualWidth() ;
-			h = (currItem->asLine()) ? currItem->visualHeight() - 1.0 : currItem->visualHeight() ;
+				psx->save();
+				psx->setPen(m_pen["selection-group-inside"]);
+				psx->setBrush(m_brush["selection-group-inside"]);
+				double lineAdjust(psx->pen().width()/m_canvas->scale());
+				double x, y, w, h;
+				if (currItem->rotation() != 0)
+				{
+					psx->setRenderHint(QPainter::Antialiasing);
+					psx->translate(currItem->xPos(), currItem->yPos());
+					psx->rotate(currItem->rotation());
+					x = currItem->lineWidth()/-2.0;
+					y = currItem->lineWidth()/-2.0;
+				}
+				else
+				{
+					psx->translate(currItem->visualXPos(), currItem->visualYPos());
+					x = -lineAdjust;
+					y = -lineAdjust;
+				}
+				w = currItem->visualWidth() ;
+				h = (currItem->asLine()) ? currItem->visualHeight() - 1.0 : currItem->visualHeight() ;
 
-			psx->drawRect(QRectF(x, y, w, h));
+				psx->drawRect(QRectF(x, y, w, h));
 
-			psx->restore();
-		    }
+				psx->restore();
+			}
 		}
 	}
 	else if (m_doc->m_Selection->count() != 0)
@@ -319,7 +318,7 @@ void CanvasMode::drawSelection(QPainter* psx)
 			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
 			tu << QString::number(tt.elapsed());
-			if(!currItem->locked())
+			if(drawHandles && !currItem->locked())
 			{
 				psx->setBrush(m_brush["handle"]);
 				psx->setPen(m_pen["handle"]);
@@ -666,12 +665,12 @@ bool CanvasMode::commonMouseMove(QMouseEvent *m)
 	return false;
 }
 
-void CanvasMode::commonDrawControls(QPainter* p)
+void CanvasMode::commonDrawControls(QPainter* p, bool drawHandles)
 {
 	if (m_canvas->m_viewMode.operItemMoving)
 		drawOutline(p);
 	else
-		drawSelection(p);
+		drawSelection(p, drawHandles);
 }
 
 void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)

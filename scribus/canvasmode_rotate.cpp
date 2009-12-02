@@ -54,7 +54,7 @@ inline bool CanvasMode_Rotate::GetItem(PageItem** pi)
 
 void CanvasMode_Rotate::drawControls(QPainter* p)
 {
-	drawSelection(p);
+	drawSelection(p, true);
 	if (m_inItemRotation)
 	{
 		drawItemOutlines(p);
@@ -167,7 +167,6 @@ void CanvasMode_Rotate::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

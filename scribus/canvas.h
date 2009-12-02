@@ -58,7 +58,6 @@ struct CanvasViewMode
 	bool m_MouseButtonPressed;
 	bool operItemMoving;
 	bool operItemResizing;
-	bool operItemResizeInEditMode;
 	bool operItemSelecting;
 	bool operTextSelecting;
 	QPolygon redrawPolygon;

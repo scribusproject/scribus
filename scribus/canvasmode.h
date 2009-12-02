@@ -115,7 +115,7 @@ public:
 	
 
 	/** Draws the regular selection marker */
-	void drawSelection(QPainter* psx);
+	void drawSelection(QPainter* psx, bool drawHandles);
 	/** Draws an outline of selected items */
 	void drawOutline(QPainter* p, double scalex=1.0, double scaley=1.0, double deltax=0.0, double deltay=0.0);
 #ifdef GESTURE_FRAME_PREVIEW
@@ -142,7 +142,7 @@ protected:
 	
 	void setResizeCursor(int how, double rot = 0.0);
 	bool commonMouseMove(QMouseEvent *m);
-	void commonDrawControls(QPainter* p);
+	void commonDrawControls(QPainter* p, bool drawHandles);
 
 	void commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e);
 	void commonkeyReleaseEvent(QKeyEvent *e);

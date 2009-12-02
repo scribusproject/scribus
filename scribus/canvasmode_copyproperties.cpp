@@ -51,7 +51,7 @@ inline bool CanvasMode_CopyProperties::GetItem(PageItem** pi)
 
 void CanvasMode_CopyProperties::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
 void CanvasMode_CopyProperties::enterEvent(QEvent *)
@@ -85,7 +85,6 @@ void CanvasMode_CopyProperties::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

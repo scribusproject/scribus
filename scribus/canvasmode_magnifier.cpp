@@ -58,7 +58,7 @@ CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view)
 
 void CanvasMode_Magnifier::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
 void CanvasMode_Magnifier::enterEvent(QEvent *)
@@ -92,7 +92,6 @@ void CanvasMode_Magnifier::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

@@ -73,7 +73,7 @@ void CanvasMode_ObjImport:: setTransactionSettings(TransactionSettings* settings
 void CanvasMode_ObjImport::drawControls(QPainter* p)
 {
 //	qDebug() << "CanvasMode_ObjImport::drawControls";
-	drawSelection(p);
+	drawSelection(p, false);
 }
 
 void CanvasMode_ObjImport::enterEvent(QEvent *)
@@ -106,7 +106,6 @@ void CanvasMode_ObjImport::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

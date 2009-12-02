@@ -54,7 +54,6 @@ void CanvasViewMode::init()
 	m_MouseButtonPressed = false;
 	operItemMoving = false;
 	operItemResizing = false;
-	operItemResizeInEditMode = false;
 	operItemSelecting = false;
 	redrawPolygon.resize(0);
 	linkedFramesToShow.clear();
@@ -74,7 +73,6 @@ QDataStream &operator<< ( QDataStream & ds, const CanvasViewMode & vm )
 	<< vm.m_MouseButtonPressed
 	<< vm.operItemMoving
 	<< vm.operItemResizing
-	<< vm.operItemResizeInEditMode
 	<< vm.operItemSelecting
 	<< vm.redrawPolygon
 	<< vm.linkedFramesToShow
@@ -93,7 +91,6 @@ QDataStream &operator>> ( QDataStream & ds, CanvasViewMode & vm )
 	>> vm.m_MouseButtonPressed
 	>> vm.operItemMoving
 	>> vm.operItemResizing
-	>> vm.operItemResizeInEditMode
 	>> vm.operItemSelecting
 	>> vm.redrawPolygon
 	>> vm.linkedFramesToShow
@@ -1462,14 +1459,14 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 //					currItem->invalid = true;
 		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 		{
-			if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
+			if (!((m_viewMode.operItemMoving) && (currItem->isSelected())))
 			{
 				if (m_viewMode.forceRedraw)
 					currItem->invalidateLayout();
 				currItem->DrawObj(painter, cullingArea);
 			}
 //							else 
-//								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
+//								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
 		}
 		currItem->OwnPage = currItem->savedOwnPage;
 		if (!currItem->ChangedMasterItem)
@@ -1636,9 +1633,9 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 //FIXME						if (!evSpon || forceRedraw) 
 //					currItem->invalid = true;
 //						if ((!m_MouseButtonPressed) || (m_doc->appMode == modeEditClip))
-			if (((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
+			if (((m_viewMode.operItemMoving || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
 			{
-//							qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
+//					qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
 			}
 			else if(m_viewMode.operItemSelecting)
 			{

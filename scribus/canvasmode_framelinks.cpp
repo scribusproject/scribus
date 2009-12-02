@@ -65,7 +65,7 @@ inline bool CanvasMode_FrameLinks::GetItem(PageItem** pi)
 
 void CanvasMode_FrameLinks::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
 void CanvasMode_FrameLinks::enterEvent(QEvent *)
@@ -99,7 +99,6 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

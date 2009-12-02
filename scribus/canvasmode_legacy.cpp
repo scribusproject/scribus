@@ -106,7 +106,7 @@ void LegacyMode::blinkTextCursor()
 
 void LegacyMode::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, true);
 	PageItem* currItem;
 	if (m_doc->appMode == modeEdit && GetItem(&currItem))
 	{
@@ -229,7 +229,6 @@ void LegacyMode::activate(bool fromGesture)
 	}
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }
@@ -691,7 +690,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			Mxp = newX;
 			Myp = newY;
 		}
-		if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeEdit) && (!m_canvas->m_viewMode.operItemResizeInEditMode))
+		if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeEdit))
 		{
 			if (currItem->asImageFrame())
 			{
@@ -734,7 +733,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		//Operations run here:
 		//Item resize, esp after creating a new one
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
-			((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
+			(m_doc->appMode == modeNormal) && (!currItem->locked()))
 		{
 //			m_view->stopDragTimer();
 			if (m_canvas->m_viewMode.operItemResizing)
@@ -1704,7 +1703,6 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeEdit:
 			{
 				frameResizeHandle = 0;
-				m_canvas->m_viewMode.operItemResizeInEditMode = false;
 				int oldP=0;
 				if (GetItem(&currItem))
 				{
@@ -1715,13 +1713,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							resizeGesture = new ResizeGesture(this);
 						
 						resizeGesture->mousePressEvent(m);
-						if (resizeGesture->frameHandle() > 0)
-						{
-							m_canvas->m_viewMode.operItemResizeInEditMode = true;
-							m_view->startGesture(resizeGesture);
-							return;
-						}
-						else if (resizeGesture->frameHandle() < 0)
+						if (resizeGesture->frameHandle() < 0)
 						{
 							m_view->Deselect(true);
 							if (SeleItem(m))
@@ -4019,7 +4011,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	
-	if ((m_doc->appMode == modeEdit) && !m_canvas->m_viewMode.operItemResizeInEditMode)
+	if (m_doc->appMode == modeEdit)
 	{
 		currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem->asTextFrame())
