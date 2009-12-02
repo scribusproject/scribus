@@ -95,7 +95,7 @@ void CanvasMode_Normal::drawControls(QPainter* p)
 	}
 	else
 	{
-		drawSelection(p);
+		drawSelection(p, true);
 	}
 }
 
@@ -137,7 +137,6 @@ void CanvasMode_Normal::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

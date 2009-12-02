@@ -64,7 +64,7 @@ void CanvasMode_EyeDropper::releaseMouse(void)
 
 void CanvasMode_EyeDropper::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
 void CanvasMode_EyeDropper::enterEvent(QEvent *)
@@ -92,7 +92,6 @@ void CanvasMode_EyeDropper::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 	grabMouse();

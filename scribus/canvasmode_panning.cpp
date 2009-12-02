@@ -38,7 +38,7 @@ CanvasMode_Panning::CanvasMode_Panning(ScribusView* view) : CanvasMode(view)
 
 void CanvasMode_Panning::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
 void CanvasMode_Panning::enterEvent(QEvent *)
@@ -69,7 +69,6 @@ void CanvasMode_Panning::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }

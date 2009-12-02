@@ -27,7 +27,6 @@
 class PageItem;
 class PageItem_TextFrame;
 class QTimer;
-class ResizeGesture;
 class ScribusMainWindow;
 class ScribusView;
 
@@ -66,7 +65,6 @@ private:
 	double Mxp, Myp, Dxp, Dyp;
 	double SeRx, SeRy;
 	ScribusMainWindow* m_ScMW;
-	ResizeGesture* resizeGesture;
 	bool m_cursorVisible;
 	QTime m_blinkTime;
 	QTimer* m_blinker;
