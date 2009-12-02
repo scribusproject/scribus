@@ -25,6 +25,9 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 
+#include <QDialog>
+
+
 class PageItem;
 class ScribusDoc;
 struct InsertAFrameData;

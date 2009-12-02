@@ -5,16 +5,38 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "prefs_itemtools.h"
+#include "ui/prefs_itemtools.h"
+#include "prefsstructs.h"
+#include "scrspinbox.h"
+#include "units.h"
 
 Prefs_ItemTools::Prefs_ItemTools(QWidget* parent)
-	: QWidget(parent)
+	: Prefs_Pane(parent)
 {
 	setupUi(this);
-
+	languageChange();
 }
 
 Prefs_ItemTools::~Prefs_ItemTools()
 {
 }
 
+
+void Prefs_ItemTools::languageChange()
+{
+}
+
+void Prefs_ItemTools::unitChange(int newIndex)
+{
+
+}
+
+void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
+{
+	int docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
+	unitChange(docUnitIndex);
+}
+
+void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
+{
+}

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>645</width>
-    <height>854</height>
+    <width>571</width>
+    <height>756</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,8 +67,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>724</height>
+            <width>497</width>
+            <height>626</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -90,7 +90,7 @@
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QSpinBox" name="spinBox_2"/>
+                <widget class="QSpinBox" name="textColumnsSpinBox"/>
                </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_17">
@@ -100,7 +100,7 @@
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QSpinBox" name="spinBox_8"/>
+                <widget class="QSpinBox" name="textColumnGapSpinBox"/>
                </item>
                <item row="4" column="0">
                 <widget class="QLabel" name="label_9">
@@ -110,7 +110,7 @@
                 </widget>
                </item>
                <item row="4" column="1">
-                <widget class="QComboBox" name="comboBox_6"/>
+                <widget class="QComboBox" name="textTabFillCharComboBox"/>
                </item>
                <item row="5" column="0">
                 <widget class="QLabel" name="label_14">
@@ -120,10 +120,10 @@
                 </widget>
                </item>
                <item row="5" column="1">
-                <widget class="QSpinBox" name="spinBox_7"/>
+                <widget class="QSpinBox" name="textTabWidthSpinBox"/>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="comboBox_12"/>
+                <widget class="QComboBox" name="textFrameFillColorComboBox"/>
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="label_30">
@@ -140,7 +140,7 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QComboBox" name="comboBox_13"/>
+                <widget class="QComboBox" name="textFrameLineColorComboBox"/>
                </item>
               </layout>
              </item>
@@ -177,10 +177,10 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QSpinBox" name="spinBox_15"/>
+                <widget class="QSpinBox" name="textFrameLineShadingSpinBox"/>
                </item>
                <item row="0" column="1">
-                <widget class="QSpinBox" name="spinBox_16"/>
+                <widget class="QSpinBox" name="textFrameFillShadingSpinBox"/>
                </item>
               </layout>
              </item>
@@ -253,7 +253,7 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="comboBox"/>
+                <widget class="QComboBox" name="textFontComboBox"/>
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_4">
@@ -263,7 +263,7 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QSpinBox" name="spinBox"/>
+                <widget class="QSpinBox" name="textSizeSpinBox"/>
                </item>
                <item row="2" column="0">
                 <widget class="QLabel" name="label_5">
@@ -273,7 +273,7 @@
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QComboBox" name="comboBox_2"/>
+                <widget class="QComboBox" name="textColorComboBox"/>
                </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_6">
@@ -283,7 +283,7 @@
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QComboBox" name="comboBox_3"/>
+                <widget class="QComboBox" name="textStrokeColorComboBox"/>
                </item>
               </layout>
              </item>
@@ -339,7 +339,7 @@
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QSpinBox" name="spinBox_5"/>
+                <widget class="QSpinBox" name="textColorShadingSpinBox"/>
                </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_15">
@@ -349,7 +349,7 @@
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QSpinBox" name="spinBox_6"/>
+                <widget class="QSpinBox" name="textStrokeShadingSpinBox"/>
                </item>
               </layout>
              </item>
@@ -405,7 +405,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget" native="true">
+            <widget class="QWidget" name="textPreviewWidget" native="true">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -456,7 +456,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QComboBox" name="comboBox_8"/>
+            <widget class="QComboBox" name="imageFrameFillColorComboBox"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_26">
@@ -466,7 +466,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QComboBox" name="comboBox_9"/>
+            <widget class="QComboBox" name="imageFrameLineColorComboBox"/>
            </item>
           </layout>
          </item>
@@ -475,9 +475,12 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -500,10 +503,10 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_12"/>
+            <widget class="QSpinBox" name="imageFrameLineShadingSpinBox"/>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBox_11"/>
+            <widget class="QSpinBox" name="imageFrameFillShadingSpinBox"/>
            </item>
           </layout>
          </item>
@@ -523,7 +526,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QCheckBox" name="imageUseEmbeddedClippingPathCheckBox">
          <property name="text">
           <string>Use Embedded Clipping Path</string>
          </property>
@@ -566,7 +569,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="imageFreeScalingRadioButton">
          <property name="text">
           <string>Free Scaling</string>
          </property>
@@ -584,22 +587,22 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBox_9"/>
+            <widget class="QSpinBox" name="imageHorizontalScalingSpinBox"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_20">
              <property name="text">
-              <string>Vertical Scaling</string>
+              <string>Vertical Scaling:</string>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_10"/>
+            <widget class="QSpinBox" name="imageVerticalScalingSpinBox"/>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton">
+          <widget class="QToolButton" name="scalingLockToolButton">
            <property name="text">
             <string>...</string>
            </property>
@@ -621,7 +624,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QRadioButton" name="imageFrameScalingRadioButton">
          <property name="text">
           <string>Scale Image to Frame Size</string>
          </property>
@@ -644,7 +647,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="imageKeepAspectRatioCheckBox">
          <property name="text">
           <string>Keep Aspect Ratio</string>
          </property>
@@ -687,21 +690,21 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_3">
+        <widget class="QRadioButton" name="onscreenResolutionFullRadioButton">
          <property name="text">
           <string>Full Resolution</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_4">
+        <widget class="QRadioButton" name="onscreenResolutionNormalRadioButton">
          <property name="text">
           <string>Normal Resolution</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_5">
+        <widget class="QRadioButton" name="onscreenResolutionLowRadioButton">
          <property name="text">
           <string>Low Resolution</string>
          </property>
@@ -745,7 +748,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QComboBox" name="comboBox_10"/>
+            <widget class="QComboBox" name="shapeFrameFillColorComboBox"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_28">
@@ -755,7 +758,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QComboBox" name="comboBox_11"/>
+            <widget class="QComboBox" name="shapeFrameLineColorComboBox"/>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_7">
@@ -772,10 +775,10 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QComboBox" name="comboBox_4"/>
+            <widget class="QComboBox" name="shapeFrameLineStyleComboBox"/>
            </item>
            <item row="3" column="1">
-            <widget class="QSpinBox" name="spinBox_17"/>
+            <widget class="QSpinBox" name="shapeLineWidthSpinBox"/>
            </item>
           </layout>
          </item>
@@ -784,9 +787,12 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -809,10 +815,10 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_13"/>
+            <widget class="QSpinBox" name="shapeFrameLineShadingSpinBox"/>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBox_14"/>
+            <widget class="QSpinBox" name="shapeFrameFillShadingSpinBox"/>
            </item>
           </layout>
          </item>
@@ -868,10 +874,10 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBox_21"/>
+              <widget class="QSpinBox" name="polygonCornerCountSpinBox"/>
              </item>
              <item row="1" column="1">
-              <widget class="QSpinBox" name="spinBox_22"/>
+              <widget class="QSpinBox" name="polygonRotationSpinBox"/>
              </item>
              <item row="1" column="0">
               <widget class="QLabel" name="label_42">
@@ -883,7 +889,7 @@
             </layout>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_3">
+            <widget class="QCheckBox" name="applyFactorCheckBox">
              <property name="text">
               <string>Apply Factor</string>
              </property>
@@ -902,7 +908,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBox_23"/>
+              <widget class="QSpinBox" name="polygonFactorSpinBox"/>
              </item>
              <item row="2" column="0">
               <widget class="QLabel" name="label_44">
@@ -912,17 +918,17 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QSpinBox" name="spinBox_24"/>
+              <widget class="QSpinBox" name="polygonCurvatureSpinBox"/>
              </item>
              <item row="3" column="0" colspan="2">
-              <widget class="QSlider" name="horizontalSlider_2">
+              <widget class="QSlider" name="polygonCurvatureSlider">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
              <item row="1" column="0" colspan="2">
-              <widget class="QSlider" name="horizontalSlider">
+              <widget class="QSlider" name="polygonFactorSlider">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -949,7 +955,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QWidget" name="widget_2" native="true">
+          <widget class="QWidget" name="polygonPreviewWidet" native="true">
            <property name="minimumSize">
             <size>
              <width>100</width>
@@ -1018,7 +1024,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox_15"/>
+           <widget class="QComboBox" name="lineFillColorComboBox"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_36">
@@ -1028,7 +1034,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QComboBox" name="comboBox_5"/>
+           <widget class="QComboBox" name="lineStyleComboBox"/>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_37">
@@ -1038,7 +1044,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="spinBox_18"/>
+           <widget class="QSpinBox" name="lineWidthSpinBox"/>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_34">
@@ -1055,10 +1061,10 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QComboBox" name="comboBox_7"/>
+           <widget class="QComboBox" name="lineStartArrowComboBox"/>
           </item>
           <item row="4" column="1">
-           <widget class="QComboBox" name="comboBox_14"/>
+           <widget class="QComboBox" name="lineEndArrowComboBox"/>
           </item>
          </layout>
         </item>
@@ -1095,7 +1101,7 @@
            <widget class="QSpinBox" name="spinBox_19"/>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox_20"/>
+           <widget class="QSpinBox" name="lineFillColorShadingSpinBox"/>
           </item>
          </layout>
         </item>
