@@ -35,6 +35,65 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	int docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitChange(docUnitIndex);
+	/*
+	textFrameFillColorComboBox
+			textFrameLineColorComboBox
+			textFrameFillShadingSpinBox
+			textFrameLineShadingSpinBox
+			textColumnsSpinBox
+			textColumnGapSpinBox
+			textTabFillCharComboBox
+			textTabWidthSpinBox
+			textFontComboBox
+			textSizeSpinBox
+			textColorComboBox
+			textStrokeColorComboBox
+			textColorShadingSpinBox
+			textStrokeShadingSpinBox
+			textPreviewWidget
+
+			imageFrameFillColorComboBox
+			imageFrameLineColorComboBox
+			imageFrameFillShadingSpinBox
+			imageFrameLineShadingSpinBox
+			imageUseEmbeddedClippingPathCheckBox
+			imageFreeScalingRadioButton
+			imageFrameScalingRadioButton
+			imageHorizontalScalingSpinBox
+			imageVerticalScalingSpinBox
+			scalingLockToolButton
+			imageKeepAspectRatioCheckBox
+			onscreenResolutionFullRadioButton
+			onscreenResolutionNormalRadioButton
+			onscreenResolutionLowRadioButton
+
+			shapeFrameFillColorComboBox
+			shapeFrameLineColorComboBox
+			shapeFrameLineStyleComboBox
+			shapeLineWidthSpinBox
+			shapeFrameFillShadingSpinBox
+			shapeFrameLineShadingSpinBox
+
+			polygonCornerCountSpinBox
+			polygonRotationSpinBox
+			applyFactorCheckBox
+			polygonFactorSpinBox
+			polygonFactorSlider
+			polygonCurvatureSpinBox
+			polygonCurvatureSlider
+			polygonPreviewWidet
+
+			lineFillColorComboBox
+			lineStyleComboBox
+			lineWidthSpinBox
+			lineStartArrowComboBox
+			lineEndArrowComboBox
+			lineFillColorShadingSpinBox
+
+
+
+
+			*/
 }
 
 void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const

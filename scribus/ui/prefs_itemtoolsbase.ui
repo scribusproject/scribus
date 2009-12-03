@@ -71,7 +71,7 @@
             <height>626</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+          <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
@@ -238,52 +238,54 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <layout class="QFormLayout" name="formLayout">
-               <property name="fieldGrowthPolicy">
-                <enum>QFormLayout::FieldsStayAtSizeHint</enum>
-               </property>
-               <property name="formAlignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-               </property>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_3">
-                 <property name="text">
-                  <string>Font:</string>
-                 </property>
-                </widget>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <layout class="QFormLayout" name="formLayout">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>Font:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QComboBox" name="textFontComboBox"/>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Size:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QSpinBox" name="textSizeSpinBox"/>
+                 </item>
+                </layout>
                </item>
-               <item row="0" column="1">
-                <widget class="QComboBox" name="textFontComboBox"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_4">
-                 <property name="text">
-                  <string>Size:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="textSizeSpinBox"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_5">
-                 <property name="text">
-                  <string>Color:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="textColorComboBox"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_6">
-                 <property name="text">
-                  <string>Stroke:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QComboBox" name="textStrokeColorComboBox"/>
+               <item>
+                <layout class="QFormLayout" name="formLayout_14">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>Color:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QComboBox" name="textColorComboBox"/>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>Stroke:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QComboBox" name="textStrokeColorComboBox"/>
+                 </item>
+                </layout>
                </item>
               </layout>
              </item>
@@ -304,52 +306,52 @@
               </spacer>
              </item>
              <item>
-              <layout class="QFormLayout" name="formLayout_2">
-               <property name="fieldGrowthPolicy">
-                <enum>QFormLayout::FieldsStayAtSizeHint</enum>
-               </property>
-               <property name="formAlignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-               </property>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_12">
-                 <property name="text">
-                  <string>Shading:</string>
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <spacer name="verticalSpacer_10">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
                  </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QSpinBox" name="spinBox_3"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_13">
-                 <property name="text">
-                  <string>Shading:</string>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
                  </property>
-                </widget>
+                </spacer>
                </item>
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="spinBox_4"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_16">
-                 <property name="text">
-                  <string>Shading:</string>
+               <item>
+                <layout class="QFormLayout" name="formLayout_2">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetDefaultConstraint</enum>
                  </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QSpinBox" name="textColorShadingSpinBox"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_15">
-                 <property name="text">
-                  <string>Shading:</string>
+                 <property name="fieldGrowthPolicy">
+                  <enum>QFormLayout::FieldsStayAtSizeHint</enum>
                  </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="textStrokeShadingSpinBox"/>
+                 <property name="verticalSpacing">
+                  <number>2</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_16">
+                   <property name="text">
+                    <string>Shading:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QSpinBox" name="textColorShadingSpinBox"/>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_15">
+                   <property name="text">
+                    <string>Shading:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QSpinBox" name="textStrokeShadingSpinBox"/>
+                 </item>
+                </layout>
                </item>
               </layout>
              </item>
@@ -1083,22 +1085,15 @@
         </item>
         <item>
          <layout class="QFormLayout" name="formLayout_11">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_38">
             <property name="text">
              <string>Shading:</string>
             </property>
            </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_39">
-            <property name="text">
-             <string>Shading:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="spinBox_19"/>
           </item>
           <item row="0" column="1">
            <widget class="QSpinBox" name="lineFillColorShadingSpinBox"/>

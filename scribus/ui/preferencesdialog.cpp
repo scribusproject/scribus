@@ -115,6 +115,7 @@ void PreferencesDialog::setupGui()
 	prefs_DocumentSetup->restoreDefaults(&localPrefs);
 	prefs_Guides->restoreDefaults(&localPrefs);
 	prefs_Typography->restoreDefaults(&localPrefs);
+	prefs_ItemTools->restoreDefaults(&localPrefs);
 	prefs_OperatorTools->restoreDefaults(&localPrefs);
 	prefs_Printer->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
@@ -131,6 +132,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
 	prefs_Guides->saveGuiToPrefs(&localPrefs);
 	prefs_Typography->saveGuiToPrefs(&localPrefs);
+	prefs_ItemTools->saveGuiToPrefs(&localPrefs);
 	prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
 	prefs_Printer->saveGuiToPrefs(&localPrefs);
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
