@@ -99,6 +99,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 	switch (appMode)
 	{
 		case modeNormal:
+		case modeStoryEditor:
 			result = new CanvasMode_Normal(view);
 			break;
 		case modeCopyProperties:
