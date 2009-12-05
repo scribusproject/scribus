@@ -136,6 +136,12 @@ localization = {
       'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
       'Outubro', 'Novembro', 'Dezembro'],
      ['Segunda-feira', u'Ter\xe7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', u'S\xe1bado', 'Domingo']],
+# Romanian by Costin Stroie <costinstroie@eridu.eu.org>
+'Romanian' :
+    [['Ianuarie', 'Februarie', 'Martie', 'Aprilie',
+      'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie',
+      'Octombrie', 'Noiembrie', 'Decembrie'],
+     ['Luni','Mar\xc8\x9bi','Miercuri','Joi','Vineri','S\xc3\xa2mb\xc4\x83t\xc4\x83', 'Duminic\xc4\x83']],
 'Russian' :
     [['Январь', 'Февраль', 'Март', 'Апрель',
       'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
