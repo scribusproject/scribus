@@ -647,6 +647,14 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		startSimplePathText(ts, dataLen, 2);
 	else if (tag == 2113)
 		startSimplePathText(ts, dataLen, 3);
+	else if (tag == 2114)
+		startComplexPathText(ts, dataLen, 0);
+	else if (tag == 2115)
+		startComplexPathText(ts, dataLen, 1);
+	else if (tag == 2116)
+		startComplexPathText(ts, dataLen, 2);
+	else if (tag == 2117)
+		startComplexPathText(ts, dataLen, 3);
 	else if (tag == 2200)
 		startTextLine();
 	else if (tag == 2201)
@@ -725,7 +733,7 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		finishClip();
 	else
 	{
-/*		if (m_gc.count() > 3)
+	/*	if (m_gc.count() > 3)
 		{
 			if ((tag > 1999) && (tag < 3000))
 				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
@@ -795,10 +803,11 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	XarStyle *gc = m_gc.top();
 	XarText text;
 	text.itemText = "";
+	QString iText = "";
 	for (quint32 a = 0; a < l; a++)
 	{
 		ts >> val;
-		text.itemText += QChar(val);
+		iText += QChar(val);
 	}
 	text.FontFamily = gc->FontFamily;
 	text.FontSize = gc->FontSize;
@@ -847,8 +856,16 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	text.patternMaskSkewX = gc->patternMaskSkewX;
 	text.patternMaskSkewY = gc->patternMaskSkewY;
 	text.maskPattern = gc->maskPattern;
-	textData.append(text);
-//	qDebug() << "String" << text.itemText;
+	QStringList txtList = iText.split(QChar(0x0D));
+	for (int b = 0; b < txtList.count(); b++)
+	{
+		text.newLine = false;
+		text.itemText = txtList[b];
+		if (b >= 1)
+			text.newLine = true;
+		textData.append(text);
+	}
+//	qDebug() << "String" << iText;
 }
 
 void XarPlug::handleTextChar(QDataStream &ts)
@@ -905,6 +922,7 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	text.patternMaskSkewX = gc->patternMaskSkewX;
 	text.patternMaskSkewY = gc->patternMaskSkewY;
 	text.maskPattern = gc->maskPattern;
+	text.newLine = false;
 	textData.append(text);
 //	qDebug() << "Char" << QChar(val);
 }
@@ -988,6 +1006,11 @@ void XarPlug::endTextLine()
 			{
 				XarText txDat;
 				txDat = textData.at(a);
+				if (txDat.newLine)
+				{
+					TextY += gc->LineHeight;
+					xpos = 0;
+				}
 				xpos += txDat.FontKerning * (txDat.FontSize  * 72.0 / 96.0);
 				txDat.FontSize *= 10;
 				QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
@@ -1035,11 +1058,27 @@ void XarPlug::endTextLine()
 					QTransform mat;
 					mat.translate(currPoint.x(), currPoint.y());
 					mat.rotate(currAngle);
+					mat.rotate(textRotation);
+					double tSkew = 0;
+					if (textSkew == M_PI / 2.0)
+						tSkew = 1;
+					else if (textSkew == M_PI)
+						tSkew = 0;
+					else if (textSkew == M_PI + M_PI / 2.0)
+						tSkew = -1;
+					else if (textSkew == 2.0 * M_PI)
+						tSkew = 0;
+					else
+						tSkew = tan(textSkew);
+					mat.shear(-tSkew, 0);
 					painterPath = mat.map(painterPath);
+					painterPath = textMatrix.map(painterPath);
 					xpos += QFontMetricsF(textFont).width(ch) / 10.0;
 					Coords.resize(0);
 					Coords.fromQPainterPath(painterPath);
-					Coords.translate(TextX, TextY);
+					QPointF np = textMatrix.map(QPointF(TextX, TextY));
+					Coords.translate(np.x(), np.y());
+//					Coords.translate(TextX, TextY);
 					if (Coords.size() > 0)
 					{
 						int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, txDat.FillCol, CommonStrings::None, true);
@@ -1099,6 +1138,11 @@ void XarPlug::endTextLine()
 			XarText txDat;
 			painterPath = QPainterPath();
 			txDat = textData.at(a);
+			if ((txDat.newLine) || (xpos > gc->LineWidth))
+			{
+				TextY += gc->LineHeight;
+				xpos = 0;
+			}
 			xpos += txDat.FontKerning * txDat.FontSize;
 			txDat.FontSize *= 10;
 			QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
@@ -1188,6 +1232,8 @@ void XarPlug::startSimpleText(QDataStream &ts, quint32 dataLen)
 		ts >> flag;
 	TextX = textX;
 	TextY = docHeight - textY;
+	textRotation = 0;
+	textSkew = 0;
 	textMatrix = QTransform();
 	textData.clear();
 	textPath.resize(0);
@@ -1212,6 +1258,8 @@ void XarPlug::startComplexText(QDataStream &ts, quint32 dataLen)
 		ts >> flag;
 	TextX = transX;
 	TextY = docHeight - transY;
+	textRotation = 0;
+	textSkew = 0;
 	textMatrix = QTransform(scaleX, -skewX, -skewY, scaleY, 0, 0);
 	textData.clear();
 	textPath.resize(0);
@@ -1228,10 +1276,10 @@ void XarPlug::startSimplePathText(QDataStream &ts, quint32 dataLen, int type)
 	readCoords(ts, textX, textY);
 	if (dataLen > 8)
 		ts >> flag;
-	TextX = textX;
-	TextY = docHeight - textY;
 	TextX = 0;
 	TextY = 0;
+	textRotation = 0;
+	textSkew = 0;
 	textMatrix = QTransform();
 	textData.clear();
 	textPath.resize(0);
@@ -1241,6 +1289,37 @@ void XarPlug::startSimplePathText(QDataStream &ts, quint32 dataLen, int type)
 	pathTextType = type;
 	pathGcStackIndex = m_gc.count();
 //	qDebug() << "Path Text at" << textX << textY << "Type" << type;
+}
+
+void XarPlug::startComplexPathText(QDataStream &ts, quint32 dataLen, int type)
+{
+	quint32 flag;
+	quint32 scX, skX, skY, scY;
+	double transX, transY;
+	ts >> scX >> skX >> skY >> scY;
+	readCoords(ts, transX, transY);
+	double scaleX = decodeFixed16(scX);
+	double scaleY = decodeFixed16(scY);
+	double skewX = decodeFixed16(skX);
+	double skewY = decodeFixed16(skY);
+	quint32 tRot, tSk;
+	ts >> tRot >> tSk;
+	textRotation = decodeFixed16(tRot);
+	textSkew = decodeFixed16(tSk);
+//	textSkew = (qint32)tSk;
+	if (dataLen > 32)
+		ts >> flag;
+	TextX = 0;
+	TextY = 0;
+	textMatrix = QTransform(scaleX, -skewX, -skewY, scaleY, 0, 0);
+	textData.clear();
+	textPath.resize(0);
+	isPathText = true;
+	inTextBlock = true;
+	recordPath = true;
+	pathTextType = type;
+	pathGcStackIndex = m_gc.count();
+//	qDebug() << "Path Text Matrix" << scaleX << -skewX << -skewY << scaleY << transX << -transY << "Skew" << (qint32)tSk << "Skew" << textSkew << "Type" << type;
 }
 
 void XarPlug::handleFillRule(QDataStream &ts)
@@ -2883,7 +2962,7 @@ double XarPlug::decodeColorComponent(quint32 data)
 double XarPlug::decodeFixed16(quint32 data)
 {
 	double ret = 0.0;
-	char man = (data & 0xFFFF0000) >> 16;
+	qint16 man = (data & 0xFFFF0000) >> 16;
 	if (man >= 0)
 	{
 		ret = (data & 0x0000FFFF) / 65536.0;
@@ -2948,7 +3027,7 @@ void XarPlug::popGraphicContext()
 		recordPath = false;
 		pathGcStackIndex = 0;
 	}
-	if (inTextBlock)
+/*	if (inTextBlock)
 	{
 		if (textData.count() > 0)
 		{
@@ -2993,7 +3072,7 @@ void XarPlug::popGraphicContext()
 			textData.last().patternMaskSkewY = gc->patternMaskSkewY;
 			textData.last().maskPattern = gc->maskPattern;
 		}
-	}
+	} */
 	if (groupStack.count() > 0)
 	{
 		XarGroup gg = groupStack.top();

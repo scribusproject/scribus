@@ -33,7 +33,7 @@ public:
 	XarStyle() :
 		dashOffset(0),
 		FontFamily(""),
-		FontSize(12.0),
+		FontSize(16.0),
 		LineHeight(15.0),
 		LineWidth(0.0),
 		FontStretch(1.0),
@@ -211,6 +211,7 @@ private:
 	void startSimpleText(QDataStream &ts, quint32 dataLen);
 	void startComplexText(QDataStream &ts, quint32 dataLen);
 	void startSimplePathText(QDataStream &ts, quint32 dataLen, int type);
+	void startComplexPathText(QDataStream &ts, quint32 dataLen, int type);
 	void handleFillRule(QDataStream &ts);
 	void handleLineEnd(QDataStream &ts);
 	void handleLineJoin(QDataStream &ts);
@@ -265,6 +266,8 @@ private:
 	double docHeight;
 	double TextX;
 	double TextY;
+	double textRotation;
+	double textSkew;
 	bool firstLayer;
 	bool interactive;
 	bool cancel;
@@ -301,6 +304,7 @@ private:
 		bool FontBold;
 		bool FontUnderline;
 		bool FontItalic;
+		bool newLine;
 		QString FillCol;
 		VGradient FillGradient;
 		VGradient StrokeGradient;
