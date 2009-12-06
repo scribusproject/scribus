@@ -916,7 +916,7 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 		gradientSkew = 0;
 	else if (skew == 270)
 		gradientSkew = -1;
-	else if (skew == 390)
+	else if (skew == 360)
 		gradientSkew = 0;
 	else
 		gradientSkew = tan(M_PI / 180.0 * skew);
@@ -940,7 +940,7 @@ void ScPainter::setGradientMask(VGradient::VGradientType mode, FPoint orig, FPoi
 		mask_gradientSkew = 0;
 	else if (skew == 270)
 		mask_gradientSkew = -1;
-	else if (skew == 390)
+	else if (skew == 360)
 		mask_gradientSkew = 0;
 	else
 		mask_gradientSkew = tan(M_PI / 180.0 * skew);
