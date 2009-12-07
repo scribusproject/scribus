@@ -900,6 +900,11 @@ void PageItem_TextFrame::layout()
 	{
 		// determine layout area
 		QRegion cl = availableRegion(QRegion(pf2.map(Clip)));
+		if (cl.isEmpty())
+		{
+			MaxChars = firstInFrame();
+			goto NoRoom;
+		}
 		
 		if (imageFlippedH())
 		{
