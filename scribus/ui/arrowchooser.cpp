@@ -13,12 +13,17 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribusstructs.h"
 
-ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(pa)
+ArrowChooser::ArrowChooser(QWidget* pa, bool direction) : QComboBox(pa)
 {
 	setEditable(false);
 	clear();
 	setIconSize(QSize(22, 22));
 	addItem(CommonStrings::tr_None);
+	setStartDirection(direction);
+}
+
+void ArrowChooser::setStartDirection(bool direction)
+{
 	arrowDirection = direction;
 }
 

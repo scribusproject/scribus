@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API Prefs_ItemTools : public Prefs_Pane, Ui::Prefs_ItemTools
 {
 	Q_OBJECT
@@ -21,9 +23,16 @@ class SCRIBUS_API Prefs_ItemTools : public Prefs_Pane, Ui::Prefs_ItemTools
 		~Prefs_ItemTools();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
 	public slots:
 		void languageChange();
 		void unitChange(int newIndex);
+
+	protected slots:
+		void enableSignals(bool on);
+
+	protected:
+		ScribusDoc* m_doc;
 };
 
 #endif // PREFS_ITEMTOOLS_H

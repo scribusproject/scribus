@@ -18,9 +18,10 @@ class SCRIBUS_API ArrowChooser : public QComboBox
     Q_OBJECT
 
 public:
-	ArrowChooser(QWidget* pa, bool direction);
+	ArrowChooser(QWidget* pa, bool direction=true);
 	~ArrowChooser() {};
 	void rebuildList(QList<ArrowDesc> *arrowStyles);
+	void setStartDirection(bool);
 
 private:
 	bool arrowDirection;

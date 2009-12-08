@@ -123,7 +123,7 @@
                 <widget class="QSpinBox" name="textTabWidthSpinBox"/>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="textFrameFillColorComboBox"/>
+                <widget class="ColorCombo" name="textFrameFillColorComboBox"/>
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="label_30">
@@ -140,7 +140,7 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QComboBox" name="textFrameLineColorComboBox"/>
+                <widget class="ColorCombo" name="textFrameLineColorComboBox"/>
                </item>
               </layout>
              </item>
@@ -249,7 +249,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QComboBox" name="textFontComboBox"/>
+                  <widget class="FontCombo" name="textFontComboBox"/>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_4">
@@ -273,7 +273,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QComboBox" name="textColorComboBox"/>
+                  <widget class="ColorCombo" name="textColorComboBox"/>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_6">
@@ -283,7 +283,7 @@
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QComboBox" name="textStrokeColorComboBox"/>
+                  <widget class="ColorCombo" name="textStrokeColorComboBox"/>
                  </item>
                 </layout>
                </item>
@@ -458,7 +458,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QComboBox" name="imageFrameFillColorComboBox"/>
+            <widget class="ColorCombo" name="imageFrameFillColorComboBox"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_26">
@@ -468,7 +468,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QComboBox" name="imageFrameLineColorComboBox"/>
+            <widget class="ColorCombo" name="imageFrameLineColorComboBox"/>
            </item>
           </layout>
          </item>
@@ -750,7 +750,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QComboBox" name="shapeFrameFillColorComboBox"/>
+            <widget class="ColorCombo" name="shapeFrameFillColorComboBox"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_28">
@@ -760,7 +760,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QComboBox" name="shapeFrameLineColorComboBox"/>
+            <widget class="ColorCombo" name="shapeFrameLineColorComboBox"/>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_7">
@@ -777,10 +777,10 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QComboBox" name="shapeFrameLineStyleComboBox"/>
+            <widget class="LineCombo" name="shapeFrameLineStyleComboBox"/>
            </item>
            <item row="3" column="1">
-            <widget class="QSpinBox" name="shapeLineWidthSpinBox"/>
+            <widget class="ScrSpinBox" name="shapeLineWidthSpinBox"/>
            </item>
           </layout>
          </item>
@@ -817,10 +817,24 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="shapeFrameLineShadingSpinBox"/>
+            <widget class="QSpinBox" name="shapeFrameLineShadingSpinBox">
+             <property name="suffix">
+              <string> %</string>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+            </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="shapeFrameFillShadingSpinBox"/>
+            <widget class="QSpinBox" name="shapeFrameFillShadingSpinBox">
+             <property name="suffix">
+              <string> %</string>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -1026,7 +1040,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="lineFillColorComboBox"/>
+           <widget class="ColorCombo" name="lineFillColorComboBox"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_36">
@@ -1036,7 +1050,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QComboBox" name="lineStyleComboBox"/>
+           <widget class="LineCombo" name="lineStyleComboBox"/>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_37">
@@ -1046,7 +1060,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="lineWidthSpinBox"/>
+           <widget class="ScrSpinBox" name="lineWidthSpinBox"/>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_34">
@@ -1063,10 +1077,10 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QComboBox" name="lineStartArrowComboBox"/>
+           <widget class="ArrowChooser" name="lineStartArrowComboBox"/>
           </item>
           <item row="4" column="1">
-           <widget class="QComboBox" name="lineEndArrowComboBox"/>
+           <widget class="ArrowChooser" name="lineEndArrowComboBox"/>
           </item>
          </layout>
         </item>
@@ -1075,9 +1089,12 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>20</width>
             <height>20</height>
            </size>
           </property>
@@ -1096,7 +1113,14 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="lineFillColorShadingSpinBox"/>
+           <widget class="QSpinBox" name="lineFillColorShadingSpinBox">
+            <property name="suffix">
+             <string> %</string>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -1120,6 +1144,33 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FontCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/fontcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ColorCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/colorcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ArrowChooser</class>
+   <extends>QComboBox</extends>
+   <header>ui/arrowchooser.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LineCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/linecombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
