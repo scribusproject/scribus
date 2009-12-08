@@ -58,6 +58,18 @@ bool CollectForOutput::newDirDialog()
 		return false;
 	if (!outputDirectory.endsWith("/"))
 		outputDirectory += "/";
+	QDir dir(outputDirectory);
+	if (!dir.exists())
+	{
+		bool created = dir.mkpath(outputDirectory);
+		if (!created)
+		{
+			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
+							 "<qt>" + tr("Cannot create directory:\n%1").arg(outputDirectory) + "</qt>",
+							 CommonStrings::tr_OK);
+			return false;
+		}
+	}
 	return true;
 }
 
