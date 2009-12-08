@@ -11,8 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "scribusdoc.h"
 #include "units.h"
-//#include "colorcombo.h"
-//#include "colorlistbox.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
 
@@ -30,8 +28,9 @@ Prefs_ItemTools::Prefs_ItemTools(QWidget* parent)
 	lineWidthSpinBox->setDecimals(1);
 	shapeLineWidthSpinBox->setSpecialValueText( tr("Hairline"));
 	lineWidthSpinBox->setSpecialValueText( tr("Hairline"));
-
-
+	textSizeSpinBox->setNewUnit(0);
+	textSizeSpinBox->setMinimum(0.5);
+	textSizeSpinBox->setMaximum(2048);
 	languageChange();
 }
 
@@ -46,54 +45,125 @@ void Prefs_ItemTools::languageChange()
 
 void Prefs_ItemTools::unitChange(int newIndex)
 {
-
+	textColumnGapSpinBox->setNewUnit(newIndex);
+	textTabWidthSpinBox->setNewUnit(newIndex);
 }
 
 void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	enableSignals(false);
 	int docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
+	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	unitChange(docUnitIndex);
 
 	PrefsManager* prefsManager=PrefsManager::instance();
 	ColorList::Iterator itc, endOfColorList;
-	//ColorList* colorList = (docu != 0) ? (&docu->PageColors) : prefsManager->colorSetPtr();
+	//TODO ColorList* colorList = (docu != 0) ? (&docu->PageColors) : prefsManager->colorSetPtr();
 	ColorList* colorList = prefsManager->colorSetPtr();
 
 
-	/*
-	textFrameFillColorComboBox
-			textFrameLineColorComboBox
-			textFrameFillShadingSpinBox
-			textFrameLineShadingSpinBox
-			textColumnsSpinBox
-			textColumnGapSpinBox
-			textTabFillCharComboBox
-			textTabWidthSpinBox
-			textFontComboBox
-			textSizeSpinBox
-			textColorComboBox
-			textStrokeColorComboBox
-			textColorShadingSpinBox
-			textStrokeShadingSpinBox
-			textPreviewWidget
+	//Text Tool
 
-			imageFrameFillColorComboBox
-			imageFrameLineColorComboBox
-			imageFrameFillShadingSpinBox
-			imageFrameLineShadingSpinBox
-			imageUseEmbeddedClippingPathCheckBox
-			imageFreeScalingRadioButton
-			imageFrameScalingRadioButton
-			imageHorizontalScalingSpinBox
-			imageVerticalScalingSpinBox
-			scalingLockToolButton
-			imageKeepAspectRatioCheckBox
-			onscreenResolutionFullRadioButton
-			onscreenResolutionNormalRadioButton
-			onscreenResolutionLowRadioButton
+//TODO	textPreviewWidget
 
-*/
+	for (int fc=0; fc<textFontComboBox->count(); ++fc)
+	{
+		if (textFontComboBox->itemText(fc) == prefsData->itemToolPrefs.textFont)
+		{
+			textFontComboBox->setCurrentIndex(fc);
+			break;
+		}
+	}
+
+	textSizeSpinBox->setValue(prefsData->itemToolPrefs.textSize / 10);
+
+	textColorComboBox->clear();
+	textColorComboBox->addItem(CommonStrings::tr_NoneColor);
+	if (prefsData->itemToolPrefs.textColor == CommonStrings::None)
+		textColorComboBox->setCurrentIndex(textColorComboBox->count()-1);
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
+	{
+		textColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
+		if (itc.key() == prefsData->itemToolPrefs.textColor)
+			textColorComboBox->setCurrentIndex(textColorComboBox->count()-1);
+	}
+
+	textColorShadingSpinBox->setValue(prefsData->itemToolPrefs.textShade);
+
+	textStrokeColorComboBox->clear();
+	textStrokeColorComboBox->addItem(CommonStrings::tr_NoneColor);
+	if (prefsData->itemToolPrefs.textStrokeColor == CommonStrings::None)
+		textStrokeColorComboBox->setCurrentIndex(textStrokeColorComboBox->count()-1);
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
+	{
+		textStrokeColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
+		if (itc.key() == prefsData->itemToolPrefs.textStrokeColor)
+			textStrokeColorComboBox->setCurrentIndex(textStrokeColorComboBox->count()-1);
+	}
+	textStrokeShadingSpinBox->setValue(prefsData->itemToolPrefs.textStrokeShade);
+
+	textFrameFillColorComboBox->clear();
+	textFrameFillColorComboBox->addItem(CommonStrings::tr_NoneColor);
+	if (prefsData->itemToolPrefs.textFillColor == CommonStrings::None)
+		textFrameFillColorComboBox->setCurrentIndex(textFrameFillColorComboBox->count()-1);
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
+	{
+		textFrameFillColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
+		if (itc.key() == prefsData->itemToolPrefs.textFillColor)
+			textFrameFillColorComboBox->setCurrentIndex(textFrameFillColorComboBox->count()-1);
+	}
+	textFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.textFillColorShade);
+
+	textFrameLineColorComboBox->clear();
+	textFrameLineColorComboBox->addItem(CommonStrings::tr_NoneColor);
+	if (prefsData->itemToolPrefs.textLineColor == CommonStrings::None)
+		textFrameLineColorComboBox->setCurrentIndex(textFrameLineColorComboBox->count()-1);
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
+	{
+		textFrameLineColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
+		if (itc.key() == prefsData->itemToolPrefs.textLineColor)
+			textFrameLineColorComboBox->setCurrentIndex(textFrameLineColorComboBox->count()-1);
+	}
+	textFrameLineShadingSpinBox->setValue(prefsData->itemToolPrefs.textLineColorShade);
+
+	textTabFillCharComboBox->clear();
+	textTabFillCharComboBox->addItem( tr("None", "tab fill" ));
+	textTabFillCharComboBox->addItem( tr("Dot"));
+	textTabFillCharComboBox->addItem( tr("Hyphen"));
+	textTabFillCharComboBox->addItem( tr("Underscore"));
+	textTabFillCharComboBox->addItem( tr("Custom"));
+	if (prefsData->itemToolPrefs.textTabFillChar.isEmpty())
+	{
+		textTabFillCharComboBox->setCurrentIndex(0);
+	}
+	else if (prefsData->itemToolPrefs.textTabFillChar == ".")
+	{
+		textTabFillCharComboBox->setCurrentIndex(1);
+	}
+	else if (prefsData->itemToolPrefs.textTabFillChar == "-")
+	{
+		textTabFillCharComboBox->setCurrentIndex(2);
+	}
+	else if (prefsData->itemToolPrefs.textTabFillChar == "_")
+	{
+		textTabFillCharComboBox->setCurrentIndex(3);
+	}
+	else
+	{
+		textTabFillCharComboBox->setCurrentIndex(4);
+		textTabFillCharComboBox->setEditable(true);
+		textTabFillCharComboBox->setItemText(textTabFillCharComboBox->currentIndex(), CommonStrings::trCustomTabFill + prefsData->itemToolPrefs.textTabFillChar);
+	}
+
+	textTabWidthSpinBox->setValue(prefsData->itemToolPrefs.textTabWidth * unitRatio);
+	textColumnsSpinBox->setValue(prefsData->itemToolPrefs.textColumns);
+	textColumnGapSpinBox->setValue(prefsData->itemToolPrefs.textColumnGap * unitRatio);
+
+
 /*
 			polygonCornerCountSpinBox
 			polygonRotationSpinBox
@@ -106,19 +176,46 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 			*/
 
+	//Image Tool
+
+//TODO	imageFrameLineColorComboBox
+//TODO	imageFrameLineShadingSpinBox
+
+	imageFreeScalingRadioButton->setChecked( prefsData->itemToolPrefs.imageScaleType );
+	imageFrameScalingRadioButton->setChecked( !prefsData->itemToolPrefs.imageScaleType );
+	imageHorizontalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleX * 100));
+	imageVerticalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleY * 100));
+
+	imageKeepAspectRatioCheckBox->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
+
+	imageFrameFillColorComboBox->clear();
+	imageFrameFillColorComboBox->addItem(CommonStrings::tr_NoneColor);
+	if (prefsData->itemToolPrefs.imageFillColor == CommonStrings::None)
+		imageFrameFillColorComboBox->setCurrentIndex(imageFrameFillColorComboBox->count()-1);
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
+	{
+		imageFrameFillColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
+		if (itc.key() == prefsData->itemToolPrefs.imageFillColor)
+			imageFrameFillColorComboBox->setCurrentIndex(imageFrameFillColorComboBox->count()-1);
+	}
+
+	imageFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.imageFillColorShade );
+	imageUseEmbeddedClippingPathCheckBox->setChecked(prefsData->itemToolPrefs.imageUseEmbeddedPath);
+	switch (prefsData->itemToolPrefs.imageLowResType)
+	{
+		case 0:
+			onscreenResolutionFullRadioButton->setChecked(true);
+			break;
+		case 1:
+			onscreenResolutionNormalRadioButton->setChecked(true);
+			break;
+		case 2:
+			onscreenResolutionLowRadioButton->setChecked(true);
+			break;
+	}
 
 	//Shape Tool
-
-//			shapeFrameFillColorComboBox
-//			shapeFrameLineColorComboBox
-//			shapeFrameLineStyleComboBox
-//			shapeLineWidthSpinBox
-//			shapeFrameFillShadingSpinBox
-//			shapeFrameLineShadingSpinBox
-
-
-
-
 	shapeFrameLineColorComboBox->clear();
 	shapeFrameLineColorComboBox->addItem(CommonStrings::tr_NoneColor);
 	if (prefsData->itemToolPrefs.shapeLineColor == CommonStrings::None)
@@ -149,7 +246,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	shapeLineWidthSpinBox->setValue(prefsData->itemToolPrefs.shapeLineWidth);
 
 	//Polygon Tool
-//	polygonCornerCountSpinBox
+//TODO	polygonCornerCountSpinBox
 //	polygonRotationSpinBox
 //	applyFactorCheckBox
 //	polygonFactorSpinBox
@@ -201,6 +298,78 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
+
+	//Text Tool
+	prefsData->itemToolPrefs.textFont = textFontComboBox->currentText();
+	prefsData->itemToolPrefs.textSize = textSizeSpinBox->value() * 10;
+	prefsData->itemToolPrefs.textFillColor = textFrameFillColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.textFillColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.textFillColor = CommonStrings::None;
+	prefsData->itemToolPrefs.textLineColor = textFrameLineColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.textLineColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.textLineColor = CommonStrings::None;
+	prefsData->itemToolPrefs.textFillColorShade = textFrameFillShadingSpinBox->value();
+	prefsData->itemToolPrefs.textLineColorShade = textFrameLineShadingSpinBox->value();
+	prefsData->itemToolPrefs.textShade = textColorShadingSpinBox->value();
+	prefsData->itemToolPrefs.textStrokeShade = textStrokeShadingSpinBox->value();
+	prefsData->itemToolPrefs.textColor = textColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.textColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.textColor = CommonStrings::None;
+	prefsData->itemToolPrefs.textStrokeColor = textStrokeColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.textStrokeColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.textStrokeColor = CommonStrings::None;
+	prefsData->itemToolPrefs.textColumns = textColumnsSpinBox->value();
+	int docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
+	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
+	prefsData->itemToolPrefs.textColumnGap = textColumnGapSpinBox->value() / unitRatio;
+	prefsData->itemToolPrefs.textTabWidth = textTabWidthSpinBox->value() / unitRatio;
+
+	switch (textTabFillCharComboBox->currentIndex())
+	{
+		case 0:
+			prefsData->itemToolPrefs.textTabFillChar = "";
+			break;
+		case 1:
+			prefsData->itemToolPrefs.textTabFillChar = ".";
+			break;
+		case 2:
+			prefsData->itemToolPrefs.textTabFillChar = "-";
+			break;
+		case 3:
+			prefsData->itemToolPrefs.textTabFillChar = "_";
+			break;
+		case 4:
+			prefsData->itemToolPrefs.textTabFillChar = textTabFillCharComboBox->currentText().right(1);
+			break;
+	}
+
+
+
+
+	//Image Tool
+//
+//	TODO imageFrameLineColorComboBox
+//	TODO imageFrameLineShadingSpinBox
+//	TODO scalingLockToolButton
+
+	prefsData->itemToolPrefs.imageFillColor = imageFrameFillColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.imageFillColor = CommonStrings::None;
+	prefsData->itemToolPrefs.imageFillColorShade = imageFrameFillShadingSpinBox->value();
+	prefsData->itemToolPrefs.imageScaleX = static_cast<double>(imageHorizontalScalingSpinBox->value()) / 100.0;
+	prefsData->itemToolPrefs.imageScaleY = static_cast<double>(imageVerticalScalingSpinBox->value()) / 100.0;
+	prefsData->itemToolPrefs.imageScaleType = imageFreeScalingRadioButton->isChecked();
+	prefsData->itemToolPrefs.imageAspectRatio = imageKeepAspectRatioCheckBox->isChecked();
+	prefsData->itemToolPrefs.imageUseEmbeddedPath = imageUseEmbeddedClippingPathCheckBox->isChecked();
+	int haRes = 0;
+	if (onscreenResolutionFullRadioButton->isChecked())
+		haRes = 0;
+	if (onscreenResolutionNormalRadioButton->isChecked())
+		haRes = 1;
+	if (onscreenResolutionLowRadioButton->isChecked())
+		haRes = 2;
+	prefsData->itemToolPrefs.imageLowResType = haRes;
+
 
 	//Shape tool
 	prefsData->itemToolPrefs.shapeLineColor = shapeFrameLineColorComboBox->currentText();

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>571</width>
-    <height>756</height>
+    <width>563</width>
+    <height>747</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,11 +67,11 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>497</width>
-            <height>626</height>
+            <width>489</width>
+            <height>617</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_9">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
@@ -90,7 +90,11 @@
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QSpinBox" name="textColumnsSpinBox"/>
+                <widget class="QSpinBox" name="textColumnsSpinBox">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                </widget>
                </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_17">
@@ -100,7 +104,7 @@
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QSpinBox" name="textColumnGapSpinBox"/>
+                <widget class="ScrSpinBox" name="textColumnGapSpinBox"/>
                </item>
                <item row="4" column="0">
                 <widget class="QLabel" name="label_9">
@@ -120,7 +124,7 @@
                 </widget>
                </item>
                <item row="5" column="1">
-                <widget class="QSpinBox" name="textTabWidthSpinBox"/>
+                <widget class="ScrSpinBox" name="textTabWidthSpinBox"/>
                </item>
                <item row="0" column="1">
                 <widget class="ColorCombo" name="textFrameFillColorComboBox"/>
@@ -177,10 +181,24 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QSpinBox" name="textFrameLineShadingSpinBox"/>
+                <widget class="QSpinBox" name="textFrameLineShadingSpinBox">
+                 <property name="suffix">
+                  <string> %</string>
+                 </property>
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QSpinBox" name="textFrameFillShadingSpinBox"/>
+                <widget class="QSpinBox" name="textFrameFillShadingSpinBox">
+                 <property name="suffix">
+                  <string> %</string>
+                 </property>
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -236,56 +254,72 @@
             </widget>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <layout class="QFormLayout" name="formLayout">
+               <property name="fieldGrowthPolicy">
+                <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Font:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="FontCombo" name="textFontComboBox"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>Size:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="ScrSpinBox" name="textSizeSpinBox"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_14">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <item>
-                <layout class="QFormLayout" name="formLayout">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_3">
-                   <property name="text">
-                    <string>Font:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="FontCombo" name="textFontComboBox"/>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_4">
-                   <property name="text">
-                    <string>Size:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QSpinBox" name="textSizeSpinBox"/>
-                 </item>
-                </layout>
+              <layout class="QFormLayout" name="formLayout_14">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>Color:</string>
+                 </property>
+                </widget>
                </item>
-               <item>
-                <layout class="QFormLayout" name="formLayout_14">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_5">
-                   <property name="text">
-                    <string>Color:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="ColorCombo" name="textColorComboBox"/>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_6">
-                   <property name="text">
-                    <string>Stroke:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="ColorCombo" name="textStrokeColorComboBox"/>
-                 </item>
-                </layout>
+               <item row="0" column="1">
+                <widget class="ColorCombo" name="textColorComboBox"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Stroke:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="ColorCombo" name="textStrokeColorComboBox"/>
                </item>
               </layout>
              </item>
@@ -306,52 +340,49 @@
               </spacer>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_8">
-               <item>
-                <spacer name="verticalSpacer_10">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+              <layout class="QFormLayout" name="formLayout_2">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetDefaultConstraint</enum>
+               </property>
+               <property name="fieldGrowthPolicy">
+                <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+               </property>
+               <property name="verticalSpacing">
+                <number>2</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_16">
+                 <property name="text">
+                  <string>Shading:</string>
                  </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
+                </widget>
                </item>
-               <item>
-                <layout class="QFormLayout" name="formLayout_2">
-                 <property name="sizeConstraint">
-                  <enum>QLayout::SetDefaultConstraint</enum>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="textColorShadingSpinBox">
+                 <property name="suffix">
+                  <string> %</string>
                  </property>
-                 <property name="fieldGrowthPolicy">
-                  <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+                 <property name="maximum">
+                  <number>100</number>
                  </property>
-                 <property name="verticalSpacing">
-                  <number>2</number>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>Shading:</string>
                  </property>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_16">
-                   <property name="text">
-                    <string>Shading:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QSpinBox" name="textColorShadingSpinBox"/>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_15">
-                   <property name="text">
-                    <string>Shading:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QSpinBox" name="textStrokeShadingSpinBox"/>
-                 </item>
-                </layout>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QSpinBox" name="textStrokeShadingSpinBox">
+                 <property name="suffix">
+                  <string> %</string>
+                 </property>
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -362,7 +393,7 @@
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>28</width>
+                 <width>40</width>
                  <height>20</height>
                 </size>
                </property>
@@ -505,10 +536,24 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="imageFrameLineShadingSpinBox"/>
+            <widget class="QSpinBox" name="imageFrameLineShadingSpinBox">
+             <property name="suffix">
+              <string> %</string>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+            </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="imageFrameFillShadingSpinBox"/>
+            <widget class="QSpinBox" name="imageFrameFillShadingSpinBox">
+             <property name="suffix">
+              <string> %</string>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -575,6 +620,9 @@
          <property name="text">
           <string>Free Scaling</string>
          </property>
+         <attribute name="buttonGroup">
+          <string>scalingButtonGroup</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -589,7 +637,14 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="imageHorizontalScalingSpinBox"/>
+            <widget class="QSpinBox" name="imageHorizontalScalingSpinBox">
+             <property name="suffix">
+              <string> %</string>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+            </widget>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_20">
@@ -599,7 +654,14 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="imageVerticalScalingSpinBox"/>
+            <widget class="QSpinBox" name="imageVerticalScalingSpinBox">
+             <property name="suffix">
+              <string> %</string>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -630,6 +692,9 @@
          <property name="text">
           <string>Scale Image to Frame Size</string>
          </property>
+         <attribute name="buttonGroup">
+          <string>scalingButtonGroup</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -696,6 +761,9 @@
          <property name="text">
           <string>Full Resolution</string>
          </property>
+         <attribute name="buttonGroup">
+          <string>previewButtonGroup</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -703,6 +771,9 @@
          <property name="text">
           <string>Normal Resolution</string>
          </property>
+         <attribute name="buttonGroup">
+          <string>previewButtonGroup</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -710,6 +781,9 @@
          <property name="text">
           <string>Low Resolution</string>
          </property>
+         <attribute name="buttonGroup">
+          <string>previewButtonGroup</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -1173,4 +1247,8 @@
  </customwidgets>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="previewButtonGroup"/>
+  <buttongroup name="scalingButtonGroup"/>
+ </buttongroups>
 </ui>
