@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
+#include "colorcombo.h"
 #include "smlinestyle.h"
 #include "smlinestylewidget.h"
 #include "scribus.h"

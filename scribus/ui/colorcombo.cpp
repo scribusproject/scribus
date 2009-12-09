@@ -99,3 +99,17 @@ void ColorCombo::insertFancyItem( const ScColor& col, ScribusDoc* doc, const QSt
 		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::fancyPixmap );
 }
 
+void ColorCombo::initColorList(ColorList *colorList, ScribusDoc *doc, QString colorValue)
+{
+	clear();
+	addItem(CommonStrings::tr_NoneColor);
+	if (colorValue == CommonStrings::None)
+		setCurrentIndex(count()-1);
+	ColorList::Iterator endOfColorList(colorList->end());
+	for (ColorList::Iterator itc = colorList->begin(); itc != endOfColorList; ++itc)
+	{
+		insertFancyItem( itc.value(), doc, itc.key() );
+		if (itc.key() == colorValue)
+			setCurrentIndex(count()-1);
+	}
+}

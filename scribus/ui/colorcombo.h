@@ -69,6 +69,7 @@ public:
 	void insertSmallItem( const ScColor& col, ScribusDoc* doc, const QString& colName );
 	void insertWideItem ( const ScColor& col, ScribusDoc* doc, const QString& colName );
 	void insertFancyItem( const ScColor& col, ScribusDoc* doc, const QString& colName );
+	void initColorList(ColorList* colorList, ScribusDoc* doc, QString colorValue);
 };
 
 #endif

@@ -76,58 +76,13 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	}
 
 	textSizeSpinBox->setValue(prefsData->itemToolPrefs.textSize / 10);
-
-	textColorComboBox->clear();
-	textColorComboBox->addItem(CommonStrings::tr_NoneColor);
-	if (prefsData->itemToolPrefs.textColor == CommonStrings::None)
-		textColorComboBox->setCurrentIndex(textColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		textColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.textColor)
-			textColorComboBox->setCurrentIndex(textColorComboBox->count()-1);
-	}
-
+	textColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.textColor);
 	textColorShadingSpinBox->setValue(prefsData->itemToolPrefs.textShade);
-
-	textStrokeColorComboBox->clear();
-	textStrokeColorComboBox->addItem(CommonStrings::tr_NoneColor);
-	if (prefsData->itemToolPrefs.textStrokeColor == CommonStrings::None)
-		textStrokeColorComboBox->setCurrentIndex(textStrokeColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		textStrokeColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.textStrokeColor)
-			textStrokeColorComboBox->setCurrentIndex(textStrokeColorComboBox->count()-1);
-	}
+	textStrokeColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.textStrokeColor);
 	textStrokeShadingSpinBox->setValue(prefsData->itemToolPrefs.textStrokeShade);
-
-	textFrameFillColorComboBox->clear();
-	textFrameFillColorComboBox->addItem(CommonStrings::tr_NoneColor);
-	if (prefsData->itemToolPrefs.textFillColor == CommonStrings::None)
-		textFrameFillColorComboBox->setCurrentIndex(textFrameFillColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		textFrameFillColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.textFillColor)
-			textFrameFillColorComboBox->setCurrentIndex(textFrameFillColorComboBox->count()-1);
-	}
+	textFrameFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.textFillColor);
 	textFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.textFillColorShade);
-
-	textFrameLineColorComboBox->clear();
-	textFrameLineColorComboBox->addItem(CommonStrings::tr_NoneColor);
-	if (prefsData->itemToolPrefs.textLineColor == CommonStrings::None)
-		textFrameLineColorComboBox->setCurrentIndex(textFrameLineColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		textFrameLineColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.textLineColor)
-			textFrameLineColorComboBox->setCurrentIndex(textFrameLineColorComboBox->count()-1);
-	}
+	textFrameLineColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.textLineColor);
 	textFrameLineShadingSpinBox->setValue(prefsData->itemToolPrefs.textLineColorShade);
 
 	textTabFillCharComboBox->clear();
@@ -187,18 +142,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	imageVerticalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleY * 100));
 
 	imageKeepAspectRatioCheckBox->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
-
-	imageFrameFillColorComboBox->clear();
-	imageFrameFillColorComboBox->addItem(CommonStrings::tr_NoneColor);
-	if (prefsData->itemToolPrefs.imageFillColor == CommonStrings::None)
-		imageFrameFillColorComboBox->setCurrentIndex(imageFrameFillColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		imageFrameFillColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.imageFillColor)
-			imageFrameFillColorComboBox->setCurrentIndex(imageFrameFillColorComboBox->count()-1);
-	}
+	imageFrameFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.imageFillColor);
 
 	imageFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.imageFillColorShade );
 	imageUseEmbeddedClippingPathCheckBox->setChecked(prefsData->itemToolPrefs.imageUseEmbeddedPath);
@@ -216,31 +160,9 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	}
 
 	//Shape Tool
-	shapeFrameLineColorComboBox->clear();
-	shapeFrameLineColorComboBox->addItem(CommonStrings::tr_NoneColor);
-	if (prefsData->itemToolPrefs.shapeLineColor == CommonStrings::None)
-		shapeFrameLineColorComboBox->setCurrentIndex(shapeFrameLineColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		shapeFrameLineColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.shapeLineColor)
-			shapeFrameLineColorComboBox->setCurrentIndex(shapeFrameLineColorComboBox->count()-1);
-	}
+	shapeFrameLineColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.shapeLineColor);
 	shapeFrameLineShadingSpinBox->setValue(prefsData->itemToolPrefs.shapeLineColorShade);
-
-	shapeFrameFillColorComboBox->clear();
-	shapeFrameFillColorComboBox->addItem( tr("None"));
-	if (prefsData->itemToolPrefs.shapeFillColor == CommonStrings::None)
-		shapeFrameFillColorComboBox->setCurrentIndex(shapeFrameFillColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		shapeFrameFillColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.shapeFillColor)
-			shapeFrameFillColorComboBox->setCurrentIndex(shapeFrameFillColorComboBox->count()-1);
-	}
-
+	shapeFrameFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.shapeFillColor);
 	shapeFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.shapeFillColorShade);
 	shapeFrameLineStyleComboBox->setCurrentIndex(static_cast<int>(prefsData->itemToolPrefs.shapeLineStyle) - 1);
 	shapeLineWidthSpinBox->setValue(prefsData->itemToolPrefs.shapeLineWidth);
@@ -264,17 +186,8 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 
 	//Line Tool
-	lineFillColorComboBox->clear();
-	lineFillColorComboBox->addItem(CommonStrings::tr_NoneColor);
-	if (prefsData->itemToolPrefs.lineColor == CommonStrings::None)
-		lineFillColorComboBox->setCurrentIndex(lineFillColorComboBox->count()-1);
-	endOfColorList=colorList->end();
-	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-	{
-		lineFillColorComboBox->insertFancyItem( itc.value(), m_doc, itc.key() );
-		if (itc.key() == prefsData->itemToolPrefs.lineColor)
-			lineFillColorComboBox->setCurrentIndex(lineFillColorComboBox->count()-1);
-	}
+	lineFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.lineColor);
+
 	lineFillColorShadingSpinBox->setValue(prefsData->itemToolPrefs.lineColorShade);
 	lineStyleComboBox->setCurrentIndex(static_cast<int>(prefsData->itemToolPrefs.lineStyle) - 1);
 	if (m_doc != 0)

@@ -41,8 +41,6 @@ class QWidget;
 #include "linkbutton.h"
 #include "linecombo.h"
 #include "spalette.h"
-#include "fontcombo.h"
-#include "colorcombo.h"
 #include "alignselect.h"
 #include "shadebutton.h"
 #include "sclistboxpixmap.h"
@@ -61,6 +59,8 @@ class UserActionSniffer;
 class DashEditor;
 class Selection;
 class BasePointWidget;
+class ColorCombo;
+class FontComboH;
 
 
 struct SCRIBUS_API LineFormatValue
