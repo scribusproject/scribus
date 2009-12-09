@@ -175,8 +175,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	int counter;//, Pgc;
 	//bool AtFl;
 	bool newVersion = false;
-	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
-	QFont fo;
+	QString tmp, tmpf, PgNam, Defont;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	QMap<int,int> TableIDM;
@@ -206,8 +205,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
-	if (!docu.setContent(f))
+	QString errorMsg;
+	int errorLine, errorColumn;
+	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	{
+		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
+	}
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
 	int layerToSetActive=0;
@@ -1744,7 +1748,7 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
-	QString tmp2, tmpf;
+	QString tmp2;
 	CharStyle newStyle;
 	
 	GetCStyle(it, doc, newStyle);
@@ -2722,8 +2726,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	itemRemapF.clear();
 	itemNextF.clear();
 	itemCountF = 0;
-	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
-	QFont fo;
+	QString tmp, tmpf, PgNam, Defont;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	QMap<PageItem*, int> groupID;
@@ -2752,8 +2755,13 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	if(!docu.setContent(f))
+	QString errorMsg;
+	int errorLine, errorColumn;
+	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	{
+		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
+	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
@@ -3392,7 +3400,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> * tempStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou(false);
-	QString tmpf, tmf, tmV;
+	QString tmV;
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
 	PrefsManager* prefsManager=PrefsManager::instance();
 	readParagraphStyle(*vg, *pg, prefsManager->appPrefs.AvailFonts, doc);
@@ -3456,7 +3464,6 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 {
 	ParagraphStyle vg;
 	QDomDocument docu("scridoc");
-	QString tmpf, tmf;
 	QString f (readSLA(fileName));
 	if (f.isEmpty())
 		return false;
@@ -3486,7 +3493,6 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 {
 	CharStyle cstyle;
 	QDomDocument docu("scridoc");
-	QString tmpf, tmf;
 	QString f (readSLA(fileName));
 	if (f.isEmpty())
 		return false;

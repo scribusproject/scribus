@@ -229,8 +229,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	if (f.isEmpty())
 		return false;
 	// Build the DOM from it
-	if (!docu.setContent(f))
+	QString errorMsg;
+	int errorLine, errorColumn;
+	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	{
+		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
+	}
 	// Get file directory
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	// and begin loading the doc
@@ -1176,8 +1181,13 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	if(!docu.setContent(f))
+	QString errorMsg;
+	int errorLine, errorColumn;
+	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	{
+		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
+	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();

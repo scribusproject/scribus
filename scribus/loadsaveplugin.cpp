@@ -5,8 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "loadsaveplugin.h"
-//#include "loadsaveplugin.moc"
-//Added by qt3to4:
+#include "commonstrings.h"
+#include "scribuscore.h"
 #include <QList>
 
 QList<FileFormat> LoadSavePlugin::formats;
@@ -86,6 +86,11 @@ bool LoadSavePlugin::saveFile(const QString & /* fileName */,
 							  const FileFormat & /* fmt */)
 {
 	return false;
+}
+
+void LoadSavePlugin::setDomParsingError(const QString& msg, int line, int column)
+{
+	m_lastError = tr("An error occured while parsing file at line %1, column %2 :\n%3").arg(line).arg(column).arg(msg);
 }
 
 const QString& LoadSavePlugin::lastSavedFile(void)
@@ -253,7 +258,25 @@ bool LoadSavePlugin::readPageCount(const QString& /*fileName*/, int* /*num1*/, i
 
 bool FileFormat::loadFile(const QString & fileName, int flags, int index) const
 {
-	return (plug && load) ? plug->loadFile(fileName, *this, flags, index) : false;
+	if (plug && load)
+	{
+		plug->clearLastError();
+		bool success = plug->loadFile(fileName, *this, flags, index);
+		if (!success && plug->hasLastError())
+		{
+			if (ScCore->usingGUI())
+			{
+				QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
+				                     plug->lastError(), CommonStrings::tr_OK);
+			}
+			else
+			{
+				qDebug() << plug->lastError();
+			}
+		}
+		return success;
+	}
+	return false;
 }
 
 bool FileFormat::saveFile(const QString & fileName) const
@@ -282,7 +305,25 @@ void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QStr
 
 bool FileFormat::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName) const
 {
-	return (plug && load) ? plug->loadPage(fileName, pageNumber, Mpage, renamedPageName) : false;
+	if (plug && load)
+	{
+		plug->clearLastError();
+		bool success = plug->loadPage(fileName, pageNumber, Mpage, renamedPageName);
+		if (!success && plug->hasLastError())
+		{
+			if (ScCore->usingGUI())
+			{
+				QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
+				                     plug->lastError(), CommonStrings::tr_OK);
+			}
+			else
+			{
+				qDebug() << plug->lastError();
+			}
+		}
+		return success;
+	}
+	return false;
 }
 
 bool FileFormat::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const

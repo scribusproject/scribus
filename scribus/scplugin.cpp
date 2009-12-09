@@ -38,6 +38,16 @@ const QString & ScPlugin::lastError() const
 	return m_lastError;
 }
 
+bool ScPlugin::hasLastError() const
+{
+	return (!m_lastError.isEmpty());
+}
+
+void ScPlugin::clearLastError()
+{
+	m_lastError.clear();
+}
+
 const QString ScPlugin::pluginTypeName() const
 {
 	// These tests must be in reverse order of inheritance,
