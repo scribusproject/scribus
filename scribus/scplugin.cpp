@@ -9,8 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include "deferredtask.h"
 #include "scribus.h"
 #include "scribusapp.h"
-#include "ui/prefspanel.h"
 #include "selection.h"
+#include "ui/prefspanel.h"
 
 //=====================================================//
 //                        ScPlugin                     //
@@ -36,6 +36,16 @@ bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,
 const QString & ScPlugin::lastError() const
 {
 	return m_lastError;
+}
+
+bool ScPlugin::hasLastError() const
+{
+	return (!m_lastError.isEmpty());
+}
+
+void ScPlugin::clearLastError()
+{
+	m_lastError.clear();
 }
 
 const QString ScPlugin::pluginTypeName() const

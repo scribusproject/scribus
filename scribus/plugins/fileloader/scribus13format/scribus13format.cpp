@@ -199,8 +199,13 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
-	if (!docu.setContent(f))
+	QString errorMsg;
+	int errorLine, errorColumn;
+	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	{
+		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
+	}
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
 	int layerToSetActive=0;
@@ -2620,8 +2625,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	if(!docu.setContent(f))
+	QString errorMsg;
+	int errorLine, errorColumn;
+	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	{
+		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
+	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();

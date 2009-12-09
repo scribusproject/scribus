@@ -196,6 +196,12 @@ class SCRIBUS_API ScPlugin : public QObject
 		 */
 		const QString & lastError() const;
 
+		//! \brief Returns if lastError message is not empty
+		bool hasLastError() const;
+
+		//! \brief Clear last error message
+		void clearLastError();
+
 		/*! @brief Update all user-visible text to reflect current UI language
 		 *
 		 * Updates the text on all widgets on the plug-in to reflect the new

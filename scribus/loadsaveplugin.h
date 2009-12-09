@@ -114,6 +114,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		/// Unregister all formats owned by the calling plugin
 		void unregisterAll();
+
+		// Set standard message for dom style errors with line and column
+		virtual void setDomParsingError(const QString& msg, int line, int column);
 		
 		ScribusDoc*        m_Doc;
 		ScribusView*       m_View; //For 1.2.x loader at the moment

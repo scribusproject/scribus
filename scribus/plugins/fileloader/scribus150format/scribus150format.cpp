@@ -451,7 +451,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 
 	if (reader.hasError())
+	{
+		setDomParsingError(reader.errorString(), reader.lineNumber(), reader.columnNumber());
 		return false;
+	}
 
 	QMap<int, ScribusDoc::BookMa>::Iterator it;
 	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
@@ -3186,7 +3189,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 
 	if (reader.hasError())
+	{
+		setDomParsingError(reader.errorString(), reader.lineNumber(), reader.columnNumber());
 		return false;
+	}
 
 	QMap<int, ScribusDoc::BookMa>::Iterator it;
 	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
