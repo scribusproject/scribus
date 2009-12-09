@@ -27,12 +27,16 @@ class SCRIBUS_API Prefs_ItemTools : public Prefs_Pane, Ui::Prefs_ItemTools
 	public slots:
 		void languageChange();
 		void unitChange(int newIndex);
+		void enableFontPreview(bool);
 
 	protected slots:
 		void enableSignals(bool on);
+		void updateFontPreview();
 
 	protected:
 		ScribusDoc* m_doc;
+		bool showFontPreview;
+
 };
 
 #endif // PREFS_ITEMTOOLS_H

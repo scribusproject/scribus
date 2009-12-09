@@ -903,18 +903,12 @@ void TabTools::vChange()
 
 void TabTools::changeImageScalingFree(bool)
 {
-	if (buttonGroup3->isChecked())
-		buttonGroup5->setChecked(false);
-	else
-		buttonGroup5->setChecked(true);
+	buttonGroup5->setChecked(!buttonGroup3->isChecked());
 }
 
 void TabTools::changeImageScalingRatio(bool)
 {
-	if (buttonGroup5->isChecked())
-		buttonGroup3->setChecked(false);
-	else
-		buttonGroup3->setChecked(true);
+	buttonGroup3->setChecked(!buttonGroup5->isChecked());
 }
 
 void TabTools::setSample()

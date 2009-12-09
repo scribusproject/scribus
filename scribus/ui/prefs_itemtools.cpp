@@ -13,10 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
+#include "sampleitem.h"
 
 Prefs_ItemTools::Prefs_ItemTools(QWidget* parent)
 	: Prefs_Pane(parent),
-	m_doc(NULL)
+	m_doc(NULL),
+	showFontPreview(false)
 {
 	setupUi(this);
 	lineEndArrowComboBox->setStartDirection(false);
@@ -41,6 +43,7 @@ Prefs_ItemTools::~Prefs_ItemTools()
 
 void Prefs_ItemTools::languageChange()
 {
+	textPreviewWidget->setText( tr( "Woven silk pyjamas exchanged for blue quartz" ));
 }
 
 void Prefs_ItemTools::unitChange(int newIndex)
@@ -57,24 +60,17 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitChange(docUnitIndex);
 
 	PrefsManager* prefsManager=PrefsManager::instance();
-	ColorList::Iterator itc, endOfColorList;
-	//TODO ColorList* colorList = (docu != 0) ? (&docu->PageColors) : prefsManager->colorSetPtr();
-	ColorList* colorList = prefsManager->colorSetPtr();
-
+	ColorList* colorList = (m_doc != NULL) ? (&m_doc->PageColors) : prefsManager->colorSetPtr();
 
 	//Text Tool
-
-//TODO	textPreviewWidget
-
-	for (int fc=0; fc<textFontComboBox->count(); ++fc)
+	for (int i=0; i<textFontComboBox->count(); ++i)
 	{
-		if (textFontComboBox->itemText(fc) == prefsData->itemToolPrefs.textFont)
+		if (textFontComboBox->itemText(i) == prefsData->itemToolPrefs.textFont)
 		{
-			textFontComboBox->setCurrentIndex(fc);
+			textFontComboBox->setCurrentIndex(i);
 			break;
 		}
 	}
-
 	textSizeSpinBox->setValue(prefsData->itemToolPrefs.textSize / 10);
 	textColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.textColor);
 	textColorShadingSpinBox->setValue(prefsData->itemToolPrefs.textShade);
@@ -84,7 +80,6 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	textFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.textFillColorShade);
 	textFrameLineColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.textLineColor);
 	textFrameLineShadingSpinBox->setValue(prefsData->itemToolPrefs.textLineColorShade);
-
 	textTabFillCharComboBox->clear();
 	textTabFillCharComboBox->addItem( tr("None", "tab fill" ));
 	textTabFillCharComboBox->addItem( tr("Dot"));
@@ -113,7 +108,6 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 		textTabFillCharComboBox->setEditable(true);
 		textTabFillCharComboBox->setItemText(textTabFillCharComboBox->currentIndex(), CommonStrings::trCustomTabFill + prefsData->itemToolPrefs.textTabFillChar);
 	}
-
 	textTabWidthSpinBox->setValue(prefsData->itemToolPrefs.textTabWidth * unitRatio);
 	textColumnsSpinBox->setValue(prefsData->itemToolPrefs.textColumns);
 	textColumnGapSpinBox->setValue(prefsData->itemToolPrefs.textColumnGap * unitRatio);
@@ -132,18 +126,14 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 			*/
 
 	//Image Tool
-
 //TODO	imageFrameLineColorComboBox
 //TODO	imageFrameLineShadingSpinBox
-
 	imageFreeScalingRadioButton->setChecked( prefsData->itemToolPrefs.imageScaleType );
 	imageFrameScalingRadioButton->setChecked( !prefsData->itemToolPrefs.imageScaleType );
 	imageHorizontalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleX * 100));
 	imageVerticalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleY * 100));
-
 	imageKeepAspectRatioCheckBox->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
 	imageFrameFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.imageFillColor);
-
 	imageFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.imageFillColorShade );
 	imageUseEmbeddedClippingPathCheckBox->setChecked(prefsData->itemToolPrefs.imageUseEmbeddedPath);
 	switch (prefsData->itemToolPrefs.imageLowResType)
@@ -204,7 +194,6 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	lineEndArrowComboBox->setCurrentIndex(prefsData->itemToolPrefs.lineEndArrow);
 	lineWidthSpinBox->setValue(prefsData->itemToolPrefs.lineWidth);
 	//
-
 
 	enableSignals(true);
 }
@@ -323,12 +312,12 @@ void Prefs_ItemTools::enableSignals(bool on)
 {
 	if (on)
 	{
-//		connect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		connect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		connect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		connect(colorComboTextBackground, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		connect(shadingTextBack, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
-//		connect(shadingText, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
+		connect(textFontComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
+		connect(textSizeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updateFontPreview()));
+		connect(textColorComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
+		connect(textFrameFillColorComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
+		connect(textFrameFillShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
+		connect(textColorShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
 //		connect(buttonGroup3, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingFree(bool)));
 //		connect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
 //		connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
@@ -338,12 +327,12 @@ void Prefs_ItemTools::enableSignals(bool on)
 	}
 	else
 	{
-//		disconnect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		disconnect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		disconnect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		disconnect(colorComboTextBackground, SIGNAL(activated(int)), this, SLOT(setSample()));
-//		disconnect(shadingTextBack, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
-//		disconnect(shadingText, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
+		disconnect(textFontComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
+		disconnect(textSizeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updateFontPreview()));
+		disconnect(textColorComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
+		disconnect(textFrameFillColorComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
+		disconnect(textFrameFillShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
+		disconnect(textColorShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
 //		disconnect(buttonGroup3, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingFree(bool)));
 //		disconnect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
 //		disconnect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
@@ -352,3 +341,55 @@ void Prefs_ItemTools::enableSignals(bool on)
 //		disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 	}
 }
+
+void Prefs_ItemTools::enableFontPreview(bool showPreview)
+{
+	showFontPreview = showPreview;
+	updateFontPreview();
+}
+
+void Prefs_ItemTools::updateFontPreview()
+{
+	if (!showFontPreview)
+		return;
+
+	SampleItem si(m_doc);
+	si.setText( tr("Woven silk pyjamas exchanged for blue quartz"));
+	if (textFrameFillColorComboBox->currentText() != CommonStrings::tr_NoneColor)
+	{
+		if (m_doc != 0)
+		{
+			si.setBgColor(m_doc->PageColors[textFrameFillColorComboBox->currentText()].getRawRGBColor());
+		}
+		else
+		{
+			PrefsManager* prefsManager=PrefsManager::instance();
+			ColorList* colorList=prefsManager->colorSetPtr();
+			si.setBgColor((*colorList)[textFrameFillColorComboBox->currentText()].getRawRGBColor());
+		}
+		si.setBgShade(textFrameFillShadingSpinBox->value());
+	}
+	else
+		si.setBgColor(palette().color(QPalette::Window));
+
+	if (textColorComboBox->currentText() != CommonStrings::tr_NoneColor)
+	{
+		if (m_doc != 0)
+		{
+			si.setTxColor(m_doc->PageColors[textColorComboBox->currentText()].getRawRGBColor());
+		}
+		else
+		{
+			PrefsManager* prefsManager=PrefsManager::instance();
+			ColorList* colorList=prefsManager->colorSetPtr();
+			si.setTxColor((*colorList)[textColorComboBox->currentText()].getRawRGBColor());
+		}
+		si.setTxShade(textColorShadingSpinBox->value());
+	}
+	else
+		si.setTxColor(palette().color(QPalette::Window));
+	si.setFont(textFontComboBox->currentText());
+	si.setFontSize(textSizeSpinBox->value() * 10, true);
+	textPreviewWidget->setPixmap(si.getSample(textPreviewWidget->width(), textPreviewWidget->height()));
+}
+

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>563</width>
-    <height>747</height>
+    <width>656</width>
+    <height>823</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,8 +67,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>489</width>
-            <height>617</height>
+            <width>582</width>
+            <height>693</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -438,14 +438,56 @@
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="textPreviewWidget" native="true">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>100</height>
-              </size>
-             </property>
-            </widget>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <spacer name="horizontalSpacer_15">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="textPreviewWidget">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>170</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>170</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_16">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
            <item>
             <spacer name="verticalSpacer_2">
@@ -1248,7 +1290,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="previewButtonGroup"/>
   <buttongroup name="scalingButtonGroup"/>
+  <buttongroup name="previewButtonGroup"/>
  </buttongroups>
 </ui>

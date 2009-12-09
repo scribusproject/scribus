@@ -198,6 +198,8 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 	{
 		//emit aboutToShow(prefsWidgets->widget(itemMap[ic]));
 		prefsStackWidget->setCurrentIndex(stackWidgetMap[ic]);
+		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_ItemTools))
+			prefs_ItemTools->enableFontPreview(true);
 	}
 }
 
