@@ -227,7 +227,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	// Load the document text
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
+	{
+		setFileReadError();
 		return false;
+	}
 	// Build the DOM from it
 	QString errorMsg;
 	int errorLine, errorColumn;
@@ -1180,7 +1183,10 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
+	{
+		setFileReadError();
 		return false;
+	}
 	QString errorMsg;
 	int errorLine, errorColumn;
 	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
