@@ -115,6 +115,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		/// Unregister all formats owned by the calling plugin
 		void unregisterAll();
 
+		// Set standard message for file read errors
+		virtual void setFileReadError();
+
 		// Set standard message for dom style errors with line and column
 		virtual void setDomParsingError(const QString& msg, int line, int column);
 		

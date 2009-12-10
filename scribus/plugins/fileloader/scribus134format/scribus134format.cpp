@@ -188,7 +188,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
+	{
+		setFileReadError();
 		return false;
+	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	int firstPage = 0;
 	int layerToSetActive = 0;
@@ -2941,7 +2944,10 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
+	{
+		setFileReadError();
 		return false;
+	}
 
 	QString fileDir = QFileInfo(fileName).absolutePath();
 

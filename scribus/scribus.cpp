@@ -3500,7 +3500,11 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	undoManager->setUndoEnabled(false);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
+	{
+		QMessageBox::warning(this, CommonStrings::trWarning, tr("File does not exist on the specified path :\n%1").arg(QDir::toNativeSeparators(fileName)), 
+		                           CommonStrings::tr_OK);
 		return false;
+	}
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	if (HaveDoc)
 		outlinePalette->buildReopenVals();
