@@ -22,113 +22,113 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR, double polyCurvature) : QWidget( parent )
+PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature) : QWidget( parent )
 {
 	setupUi(this);
 	PFactor = polyF;
-	Ecken->setValue(polyC);
-	Faktor2->setValue(static_cast<int>(polyR));
-	Slider2->setValue(static_cast<int>(polyR));
-	Konvex->setChecked(polyS);
-	Faktor->setValue(polyFd);
-	Slider1->setValue(polyFd);
-	Konvex->setChecked(polyS);
-	CurvatureSpin->setValue(qRound(polyCurvature * 100));
-	CurvatureSlider->setValue(qRound(polyCurvature * 100));
+	cornersSpinBox->setValue(polyCorners);
+	rotationSpinBox->setValue(static_cast<int>(polyRotation));
+	rotationSlider->setValue(static_cast<int>(polyRotation));
+	applyConvexGroupBox->setChecked(polyUseConvexFactor);
+	factorSpinBox->setValue(polyFd);
+	factorSlider->setValue(polyFd);
+	applyConvexGroupBox->setChecked(polyUseConvexFactor);
+	curvatureSpinBox->setValue(qRound(polyCurvature * 100));
+	curvatureSlider->setValue(qRound(polyCurvature * 100));
 
-	UpdatePreView();
+	UpdatePreview();
 	// signals and slots connections
-	connect(Faktor, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin(int)));
-	connect(Faktor2, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin2(int)));
-	connect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
-	connect(Slider1, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
-	connect(Slider2, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(Ecken, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
-	connect(CurvatureSpin, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin3(int)));
-	connect(CurvatureSlider, SIGNAL(valueChanged(int)), CurvatureSpin, SLOT(setValue(int)));
-	connect(CurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
+	connect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
+	connect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
+	connect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
+	connect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
+	connect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(UpdatePreview()));
+	connect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
+	connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
+	connect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
 }
 
 void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 {
-	disconnect(Faktor, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin(int)));
-	disconnect(Faktor2, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin2(int)));
-	disconnect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
-	disconnect(Slider1, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	disconnect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
-	disconnect(Slider2, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	disconnect(Ecken, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	disconnect(Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
-	disconnect(CurvatureSpin, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin3(int)));
-	disconnect(CurvatureSlider, SIGNAL(valueChanged(int)), CurvatureSpin, SLOT(setValue(int)));
-	disconnect(CurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
+	disconnect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
+	disconnect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
+	disconnect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
+	disconnect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	disconnect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
+	disconnect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	disconnect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	disconnect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(UpdatePreview()));
+	disconnect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
+	disconnect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
+	disconnect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
 	PFactor = prefsData->polyFactor;
-	Ecken->setValue(prefsData->polyCorners);
-	Faktor2->setValue(static_cast<int>(prefsData->polyRotation));
-	Slider2->setValue(static_cast<int>(prefsData->polyRotation));
-	Konvex->setChecked(prefsData->polyUseFactor);
-	Faktor->setValue(prefsData->polyFactorGuiVal);
-	Slider1->setValue(prefsData->polyFactorGuiVal);
-	Konvex->setChecked(prefsData->polyUseFactor);
-	CurvatureSpin->setValue(qRound(prefsData->polyCurvature * 100));
-	CurvatureSlider->setValue(qRound(prefsData->polyCurvature * 100));
-	UpdatePreView();
-	connect(Faktor, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin(int)));
-	connect(Faktor2, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin2(int)));
-	connect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
-	connect(Slider1, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
-	connect(Slider2, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(Ecken, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
-	connect(CurvatureSpin, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin3(int)));
-	connect(CurvatureSlider, SIGNAL(valueChanged(int)), CurvatureSpin, SLOT(setValue(int)));
-	connect(CurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
+	cornersSpinBox->setValue(prefsData->polyCorners);
+	rotationSpinBox->setValue(static_cast<int>(prefsData->polyRotation));
+	rotationSlider->setValue(static_cast<int>(prefsData->polyRotation));
+	applyConvexGroupBox->setChecked(prefsData->polyUseFactor);
+	factorSpinBox->setValue(prefsData->polyFactorGuiVal);
+	factorSlider->setValue(prefsData->polyFactorGuiVal);
+	applyConvexGroupBox->setChecked(prefsData->polyUseFactor);
+	curvatureSpinBox->setValue(qRound(prefsData->polyCurvature * 100));
+	curvatureSlider->setValue(qRound(prefsData->polyCurvature * 100));
+	UpdatePreview();
+	connect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
+	connect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
+	connect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
+	connect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
+	connect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(UpdatePreview()));
+	connect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
+	connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
+	connect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
 }
 
-void PolygonWidget::getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature)
+void PolygonWidget::getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature)
 {
-	*polyC = Ecken->value();
+	*polyCorners = cornersSpinBox->value();
 	*polyF = PFactor;
-	*polyS = Konvex->isChecked();
-	*polyFd = Slider1->value();
-	*polyR = Faktor2->value();
-	*polyCurvature = CurvatureSpin->value() / 100.0;
+	*polyUseConvexFactor = applyConvexGroupBox->isChecked();
+	*polyFd = factorSlider->value();
+	*polyRotation = rotationSpinBox->value();
+	*polyCurvature = curvatureSpinBox->value() / 100.0;
 }
 
-void PolygonWidget::ValFromSpin(int a)
+void PolygonWidget::setFactorSlider(int a)
 {
-	disconnect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
-	Slider1->setValue(a);
-	connect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
+	disconnect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
+	factorSlider->setValue(a);
+	connect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
 }
 
-void PolygonWidget::ValFromSpin2(int a)
+void PolygonWidget::setRotationSlider(int a)
 {
-	disconnect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
-	Slider2->setValue(a);
-	connect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
+	disconnect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
+	rotationSlider->setValue(a);
+	connect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
 }
 
-void PolygonWidget::ValFromSpin3(int a)
+void PolygonWidget::setCurvatureSlider(int a)
 {
-	disconnect(CurvatureSlider, SIGNAL(valueChanged(int)), CurvatureSpin, SLOT(setValue(int)));
-	CurvatureSlider->setValue(a);
-	connect(CurvatureSlider, SIGNAL(valueChanged(int)), CurvatureSpin, SLOT(setValue(int)));
+	disconnect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
+	curvatureSlider->setValue(a);
+	connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
 }
 
-void PolygonWidget::UpdatePreView()
+void PolygonWidget::UpdatePreview()
 {
-	double roundness = CurvatureSpin->value() / 100.0;
+	double roundness = curvatureSpinBox->value() / 100.0;
 	QPixmap pm = QPixmap(Preview->width() - 5, Preview->height() - 5);
 	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
-	QPainterPath pp = RegularPolygon(Preview->width() - 6, Preview->height() - 6, Ecken->value(), Konvex->isChecked(), GetFaktor(), Slider2->value(), roundness);
+	QPainterPath pp = RegularPolygon(Preview->width() - 6, Preview->height() - 6, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness);
 	QRectF br = pp.boundingRect();
 	if (br.x() < 0)
 	{
@@ -155,31 +155,31 @@ void PolygonWidget::UpdatePreView()
 	Preview->setPixmap(pm);
 }
 
-double PolygonWidget::GetZeroFaktor()
+double PolygonWidget::GetZeroFactor()
 {
-	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(Ecken->value()*2))/180* M_PI)* 2.0)/2.0),2.0));
+	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(cornersSpinBox->value()*2))/180* M_PI)* 2.0)/2.0),2.0));
 }
 
-double PolygonWidget::GetMaxFaktor()
+double PolygonWidget::GetMaxFactor()
 {
-	double win = (360.0/(Ecken->value()*2)) / 180.0 * M_PI;
+	double win = (360.0/(cornersSpinBox->value()*2)) / 180.0 * M_PI;
 	double ret;
-	if ((360.0/(Ecken->value()*2)) > 45)
+	if ((360.0/(cornersSpinBox->value()*2)) > 45)
 		ret = 1/sin(win);
 	else
 		ret = 1/cos(win);
 	return ret;
 }
 
-double PolygonWidget::GetFaktor()
+double PolygonWidget::GetFactor()
 {
-	int val = Slider1->value();
+	int val = factorSlider->value();
 	if (val < 0)
-		PFactor = GetZeroFaktor() * (100.0 + val) / 100.0;
+		PFactor = GetZeroFactor() * (100.0 + val) / 100.0;
 	else
 	{
-		double ma = GetMaxFaktor();
-		double mi = GetZeroFaktor();
+		double ma = GetMaxFactor();
+		double mi = GetZeroFactor();
 		PFactor = ((ma - mi) * val / 100.0) + mi;
 	}
 	return PFactor;

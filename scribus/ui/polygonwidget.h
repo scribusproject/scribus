@@ -15,21 +15,24 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 {
 	Q_OBJECT
 
-public:
-	PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR, double polyCurvature);
-	~PolygonWidget() {};
-	double GetZeroFaktor();
-	double GetMaxFaktor();
-	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature);
-	void restoreDefaults(struct ItemToolPrefs *prefsData);
-	double PFactor;
+	public:
+		PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature);
+		~PolygonWidget() {};
 
-public slots:
-	void UpdatePreView();
-	double GetFaktor();
-	void ValFromSpin(int a);
-	void ValFromSpin2(int a);
-	void ValFromSpin3(int a);
+		void getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature);
+		void restoreDefaults(struct ItemToolPrefs *prefsData);
+
+	protected slots:
+		void setFactorSlider(int a);
+		void setRotationSlider(int a);
+		void setCurvatureSlider(int a);
+		void UpdatePreview();
+		double GetZeroFactor();
+		double GetMaxFactor();
+		double GetFactor();
+
+	protected:
+		double PFactor;
 };
 
 #endif
