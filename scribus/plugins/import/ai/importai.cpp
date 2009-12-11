@@ -1185,7 +1185,7 @@ void AIPlug::processData(QString data)
 					if (!currentStrokePatternName.isEmpty())
 					{
 						ite->setStrokePattern(currentStrokePatternName);
-						ite->setStrokePatternTransform(currentStrokePatternXScale * 100, currentStrokePatternYScale * 100, currentStrokePatternX, currentStrokePatternY, currentStrokePatternRotation, 0.0, 0.0);
+						ite->setStrokePatternTransform(currentStrokePatternXScale * 100, currentStrokePatternYScale * 100, currentStrokePatternX, currentStrokePatternY, currentStrokePatternRotation, 0.0, 0.0, 1.0);
 						currentStrokePatternName = "";
 					}
 					ite->setLineEnd(CapStyle);

@@ -451,7 +451,7 @@ void Cpalette::selectPatternS(QListWidgetItem *c)
 	emit NewPatternS(c->text());
 }
 
-void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF)
 {
 	disconnect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBoxStroke->findItems(pattern, Qt::MatchExactly);
@@ -471,6 +471,8 @@ void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY
 	m_Pattern_skewYS = skewY;
 	m_Pattern_mirrorXS = mirrorX;
 	m_Pattern_mirrorYS = mirrorY;
+	m_Pattern_spaceS = space;
+	m_Pattern_pathF = pathF;
 	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 }
 
@@ -724,7 +726,7 @@ void Cpalette::changePatternPropsStroke()
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorXS);
 	dia->FlipV->setChecked(m_Pattern_mirrorYS);
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double double, double, bool, bool)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double double, double, bool, bool)));
+	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, bool, bool)));
 	dia->exec();
 	m_Pattern_scaleXS = dia->spinXscaling->value();
 	m_Pattern_scaleYS = dia->spinYscaling->value();

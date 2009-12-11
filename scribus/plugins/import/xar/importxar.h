@@ -92,6 +92,16 @@ public:
 		patternMaskRotation(0),
 		patternMaskSkewX(0),
 		patternMaskSkewY(0),
+		strokePattern(""),
+		patternScaleXS(1),
+		patternScaleYS(1),
+		patternOffsetXS(0),
+		patternOffsetYS(0),
+		patternRotationS(0),
+		patternSkewXS(0),
+		patternSkewYS(0),
+		patternSpace(0),
+		patternStrokePath(false),
 		Elements()
 		{
 		}
@@ -157,6 +167,16 @@ public:
 	double patternMaskRotation;
 	double patternMaskSkewX;
 	double patternMaskSkewY;
+	QString strokePattern;
+	double patternScaleXS;
+	double patternScaleYS;
+	double patternOffsetXS;
+	double patternOffsetYS;
+	double patternRotationS;
+	double patternSkewXS;
+	double patternSkewYS;
+	double patternSpace;
+	bool   patternStrokePath;
 	QList<PageItem*> Elements;
 };
 
@@ -240,6 +260,8 @@ private:
 	void createSimilarItem(QDataStream &ts);
 	void createPolylineItem(int type);
 	void createPolygonItem(int type);
+	void handleBrushItem(QDataStream &ts);
+	void createBrushItem(QDataStream &ts);
 	void createGroupItem();
 	void createClipItem();
 	void finishClip();
@@ -292,6 +314,8 @@ private:
 		int index;
 		int gcStackDepth;
 		bool clipping;
+		bool isBrush;
+		quint32 idNr;
 		PageItem* groupItem;
 	};
 	struct XarText
@@ -361,6 +385,7 @@ private:
 	QList<XarText> textData;
 	QMap<qint32, XarColor> XarColorMap;
 	QMap<qint32, PageItem*> pathMap;
+	QMap<quint32, QString> brushRef;
 	QMap<QString, QString> patternMap;
 	QMap<quint32, QString> patternRef;
 	QMap<quint32, QString> fontRef;

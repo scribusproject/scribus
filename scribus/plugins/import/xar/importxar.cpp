@@ -399,7 +399,8 @@ bool XarPlug::convert(QString fn)
 	XarColorMap.insert(-9, color);
 	ignoreableTags << 2 << 40 << 41 << 43 << 46 << 47 << 53 << 61 << 62 << 63 << 80 << 90 << 91 << 92 << 93 << 111;
 	ignoreableTags << 2150 << 2151 << 2205 << 2900 << 2901;
-	ignoreableTags << 4031 << 4087 << 4114 << 4115 << 4116 << 4124;
+	ignoreableTags << 4031 << 4081 << 4082 << 4083 << 4087 << 4102 << 4103 << 4104 << 4105 << 4106 << 4107 << 4108 << 4109;
+	ignoreableTags << 4110 << 4111 << 4112 << 4113 << 4114 << 4115 << 4116 << 4124;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -721,19 +722,23 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		handleMultiGradient(ts, false);
 	else if (tag == 4077)
 		handleMultiGradientElliptical(ts);
+	else if (tag == 4079)
+		handleBrushItem(ts);
+	else if (tag == 4080)
+		createBrushItem(ts);
+	else if (tag == 4084)
+		createClipItem();
+	else if (tag == 4085)
+		finishClip();
 	else if (tag == 4121)
 		handleSimpleGradientSkewed(ts, dataLen);
 	else if (tag == 4122)
 		handleMultiGradientSkewed(ts);
 	else if (tag == 4123)
 		handleSimpleGradientTransparencySkewed(ts, dataLen);
-	else if (tag == 4084)
-		createClipItem();
-	else if (tag == 4085)
-		finishClip();
 	else
 	{
-	/*	if (m_gc.count() > 3)
+/*		if (m_gc.count() > 3)
 		{
 			if ((tag > 1999) && (tag < 3000))
 				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
@@ -1408,11 +1413,11 @@ void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
 	if (flags & 1)
 		path.addEllipse(QPointF(0,0), w, h);
 	else
-		path = RegularPolygon(w * 2, h * 2, numSides, flags & 2, r1, 225, 0);
+		path = RegularPolygon(w * 2, h * 2, numSides, flags & 2, r1, 45, 0);
 	Coords.fromQPainterPath(path);
 	if (!(flags & 1))
 		Coords.translate(-w, -h);
-	QTransform matrix(-scaleX, skewX, -skewY, scaleY, 0, 0);
+	QTransform matrix(scaleX, -skewX, -skewY, scaleY, 0, 0);
 	Coords.map(matrix);
 	Coords.translate(transX, -transY);
 	Coords.translate(0, docHeight);
@@ -2499,12 +2504,60 @@ void XarPlug::createPolylineItem(int type)
 //	qDebug() << "Item" << ite->itemName() << type;
 }
 
+void XarPlug::handleBrushItem(QDataStream &ts)
+{
+	quint32 handle;
+	qint32 spacing, offsetX, offsetY;
+	quint8 flags;
+	double rotate, scale;
+	ts >> handle;
+	ts >> spacing;
+	ts >> flags;
+	ts >> rotate;
+	ts >> offsetX >> offsetY;
+	ts >> scale;
+	qDebug() << "Using Brush" << brushRef[handle]  << "Rot" << rotate << "Offsets X" << offsetX << "Y" << offsetY << "Sc" << scale;
+	ScPattern pat = m_Doc->docPatterns[brushRef[handle]];
+	XarStyle *gc = m_gc.top();
+	gc->strokePattern = brushRef[handle];
+	gc->patternScaleXS = scale * 100;
+	gc->patternScaleYS = scale * 100;
+	gc->patternOffsetXS = offsetX / 1000.0;
+	gc->patternOffsetYS = offsetY / 1000.0;
+	gc->patternRotationS = 0.0;
+	gc->patternSkewX = 0.0;
+	gc->patternSkewY = 0.0;
+	gc->patternSpace = (spacing / 1000.0) / static_cast<double>(m_Doc->docPatterns[brushRef[handle]].width);
+	gc->patternStrokePath = true;
+}
+
+void XarPlug::createBrushItem(QDataStream &ts)
+{
+	quint32 idNr;
+	ts >> idNr;
+	XarGroup gg;
+	gg.index = Elements.count();
+	gg.gcStackDepth = m_gc.count();
+	gg.clipping = false;
+	gg.idNr = idNr;
+	gg.isBrush = true;
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem *neu = m_Doc->Items->at(z);
+	gg.groupItem = neu;
+	Elements.append(neu);
+	XarStyle *gc = m_gc.top();
+	gc->Elements.append(neu);
+	groupStack.push(gg);
+}
+
 void XarPlug::createGroupItem()
 {
 	XarGroup gg;
 	gg.index = Elements.count();
 	gg.gcStackDepth = m_gc.count();
 	gg.clipping = false;
+	gg.idNr = 0;
+	gg.isBrush = false;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
 	gg.groupItem = neu;
@@ -2520,6 +2573,8 @@ void XarPlug::createClipItem()
 	gg.index = Elements.count();
 	gg.gcStackDepth = m_gc.count();
 	gg.clipping = true;
+	gg.idNr = 0;
+	gg.isBrush = false;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
 	gg.groupItem = neu;
@@ -3027,52 +3082,6 @@ void XarPlug::popGraphicContext()
 		recordPath = false;
 		pathGcStackIndex = 0;
 	}
-/*	if (inTextBlock)
-	{
-		if (textData.count() > 0)
-		{
-			textData.last().FillCol = gc->FillCol;
-			textData.last().FillOpacity = gc->FillOpacity;
-			textData.last().FillBlend = gc->FillBlend;
-			textData.last().StrokeOpacity = gc->StrokeOpacity;
-			textData.last().LWidth = gc->LWidth;
-			textData.last().StrokeCol = gc->StrokeCol;
-			textData.last().PLineJoin = gc->PLineJoin;
-			textData.last().PLineEnd = gc->PLineEnd;
-			textData.last().fillPattern = gc->fillPattern;
-			textData.last().patternScaleX = gc->patternScaleX;
-			textData.last().patternScaleY = gc->patternScaleY;
-			textData.last().patternOffsetX = gc->patternOffsetX;
-			textData.last().patternOffsetY = gc->patternOffsetY;
-			textData.last().patternRotation = gc->patternRotation;
-			textData.last().patternSkewX = gc->patternSkewX;
-			textData.last().patternSkewY = gc->patternSkewY;
-			textData.last().FillGradientType = gc->FillGradientType;
-			textData.last().FillGradient = gc->FillGradient;
-			textData.last().GradFillX1 = gc->GradFillX1;
-			textData.last().GradFillY1 = gc->GradFillY1;
-			textData.last().GradFillX2 = gc->GradFillX2;
-			textData.last().GradFillY2 = gc->GradFillY2;
-			textData.last().GrScale = gc->GrScale;
-			textData.last().GrSkew = gc->GrSkew;
-			textData.last().GradMask = gc->GradMask;
-			textData.last().MaskGradient = gc->MaskGradient;
-			textData.last().GradMaskX1 = gc->GradMaskX1;
-			textData.last().GradMaskY1 = gc->GradMaskY1;
-			textData.last().GradMaskX2 = gc->GradMaskX2;
-			textData.last().GradMaskY2 = gc->GradMaskY2;
-			textData.last().GradMaskScale = gc->GradMaskScale;
-			textData.last().GradMaskSkew = gc->GradMaskSkew;
-			textData.last().patternMaskScaleX = gc->patternMaskScaleX;
-			textData.last().patternMaskScaleY = gc->patternMaskScaleY;
-			textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
-			textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
-			textData.last().patternMaskRotation = gc->patternMaskRotation;
-			textData.last().patternMaskSkewX = gc->patternMaskSkewX;
-			textData.last().patternMaskSkewY = gc->patternMaskSkewY;
-			textData.last().maskPattern = gc->maskPattern;
-		}
-	} */
 	if (groupStack.count() > 0)
 	{
 		XarGroup gg = groupStack.top();
@@ -3126,6 +3135,28 @@ void XarPlug::popGraphicContext()
 				groupItem->groupsLastItem = Elements.last();
 				groupItem->Groups.push(m_Doc->GroupCounter);
 				m_Doc->GroupCounter++;
+				if (gg.isBrush)
+				{
+					m_Doc->DoDrawing = true;
+					QImage tmpImg = groupItem->DrawObj_toImage();
+					ScPattern pat = ScPattern();
+					pat.setDoc(m_Doc);
+					pat.width = tmpImg.width();
+					pat.height = tmpImg.height();
+					pat.pattern = tmpImg;
+					for (int a = gg.index; a < Elements.count(); ++a)
+					{
+						PageItem* paItem = Elements.at(a);
+						paItem->setItemName(groupItem->itemName()+QString("_%1").arg(a));
+						pat.items.append(paItem);
+						m_Doc->Items->removeAll(paItem);
+					}
+					QString patternName = "Pattern_"+groupItem->itemName();
+					patternName = patternName.trimmed().simplified().replace(" ", "_");
+					m_Doc->addPattern(patternName, pat);
+					m_Doc->DoDrawing = false;
+					brushRef.insert(gg.idNr, patternName);
+				}
 			}
 		}
 	}
@@ -3173,6 +3204,12 @@ void XarPlug::popGraphicContext()
 					item->setMaskTransform(gc->patternMaskScaleX, gc->patternMaskScaleY, gc->patternMaskOffsetX, gc->patternMaskOffsetY, gc->patternMaskRotation, gc->patternMaskSkewX, gc->patternMaskSkewY);
 					item->setPatternMask(gc->maskPattern);
 				}
+			}
+			if (!gc->strokePattern.isEmpty())
+			{
+				item->setStrokePatternToPath(gc->patternStrokePath);
+				item->setStrokePattern(gc->strokePattern);
+				item->setStrokePatternTransform(gc->patternScaleXS, gc->patternScaleYS, gc->patternOffsetXS, gc->patternOffsetYS, gc->patternRotationS, gc->patternSkewXS, gc->patternSkewYS, gc->patternSpace);
 			}
 		}
 	}

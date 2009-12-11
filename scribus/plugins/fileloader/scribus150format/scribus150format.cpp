@@ -2847,10 +2847,13 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double patternRotation = attrs.valueAsDouble("pRotationS", 0.0);
 	double patternSkewX    = attrs.valueAsDouble("pSkewXS", 0.0);
 	double patternSkewY    = attrs.valueAsDouble("pSkewYS", 0.0);
-	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	double patternSpace    = attrs.valueAsDouble("pSpaceS", 0.0);
+	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 	bool mirrorX = attrs.valueAsBool("pMirrorXS", false);
 	bool mirrorY = attrs.valueAsBool("pMirrorYS", false);
+	bool atPath = attrs.valueAsBool("pAtPathS", false);
 	currItem->setPatternFlip(mirrorX, mirrorY);
+	currItem->setStrokePatternToPath(atPath);
 	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
 	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != 8)) && (currItem->strokeGradient().isEmpty()))
 		currItem->stroke_gradient.clearStops();

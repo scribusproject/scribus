@@ -259,6 +259,7 @@ PageItem::PageItem(const PageItem & other)
 	patternStrokeSkewY(other.patternStrokeSkewY),
 	patternStrokeMirrorX(other.patternStrokeMirrorX),
 	patternStrokeMirrorY(other.patternStrokeMirrorY),
+	patternStrokePath(other.patternStrokePath),
 	gradientStrokeVal(other.gradientStrokeVal),
 	stroke_gradient(other.stroke_gradient),
 	GrTypeStroke(other.GrTypeStroke),
@@ -393,6 +394,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternStrokeSkewY = 0;
 	patternStrokeMirrorX = false;
 	patternStrokeMirrorY = false;
+	patternStrokePath = false;
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
 	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs.shapeLineStyle);
@@ -1389,9 +1391,42 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					{
 						if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
 						{
-							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
-							p->setStrokeMode(ScPainter::Pattern);
-							p->strokePath();
+							if (patternStrokePath)
+							{
+								QPainterPath guidePath = PoLine.toQPainterPath(false);
+								ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
+								double pLen = guidePath.length() - ((pat.width / 2.0) * (patternStrokeScaleX / 100.0));
+								double adv = pat.width * patternStrokeScaleX / 100.0 * patternStrokeSpace;
+								double xpos = patternStrokeOffsetX * patternStrokeScaleX / 100.0;
+								while (xpos < pLen)
+								{
+									double currPerc = guidePath.percentAtLength(xpos);
+									double currAngle = guidePath.angleAtPercent(currPerc);
+#if QT_VERSION  >= 0x040400
+									if (currAngle <= 180.0)
+										currAngle *= -1.0;
+									else
+										currAngle = 360.0 - currAngle;
+#endif
+									QPointF currPoint = guidePath.pointAtPercent(currPerc);
+									p->save();
+									p->translate(currPoint.x(), currPoint.y());
+									p->rotate(currAngle);
+									p->scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+									p->translate(-pat.width / 2.0, -pat.height / 2.0);
+									p->translate(0.0, patternStrokeOffsetY);
+									p->drawImage(pat.getPattern());
+									xpos += adv;
+									p->restore();
+								}
+								p->newPath();
+							}
+							else
+							{
+								p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+								p->setStrokeMode(ScPainter::Pattern);
+								p->strokePath();
+							}
 						}
 						else if (GrTypeStroke > 0)
 						{
@@ -2838,7 +2873,17 @@ void PageItem::setStrokePattern(const QString &newPattern)
 		patternStrokeVal = newPattern;
 }
 
-void PageItem::setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
+void PageItem::setStrokePatternToPath(bool enable)
+{
+	patternStrokePath = enable;
+}
+
+bool PageItem::isStrokePatternToPath()
+{
+	return patternStrokePath;
+}
+
+void PageItem::setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space)
 {
 	patternStrokeScaleX = scaleX;
 	patternStrokeScaleY = scaleY;
@@ -2847,6 +2892,7 @@ void PageItem::setStrokePatternTransform(double scaleX, double scaleY, double of
 	patternStrokeRotation = rotation;
 	patternStrokeSkewX = skewX;
 	patternStrokeSkewY = skewY;
+	patternStrokeSpace = space;
 }
 
 void PageItem::setStrokePatternFlip(bool flipX, bool flipY)
@@ -2861,15 +2907,16 @@ void PageItem::strokePatternFlip(bool &flipX, bool &flipY)
 	flipY = patternStrokeMirrorY;
 }
 
-void PageItem::strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
+void PageItem::strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY, double &space) const
 {
-	 scaleX = patternStrokeScaleX;
-	 scaleY = patternStrokeScaleY;
-	 offsetX = patternStrokeOffsetX;
-	 offsetY = patternStrokeOffsetY;
-	 rotation = patternStrokeRotation;
-	 skewX = patternStrokeSkewX;
-	 skewY = patternStrokeSkewY;
+	scaleX = patternStrokeScaleX;
+	scaleY = patternStrokeScaleY;
+	offsetX = patternStrokeOffsetX;
+	offsetY = patternStrokeOffsetY;
+	rotation = patternStrokeRotation;
+	skewX = patternStrokeSkewX;
+	skewY = patternStrokeSkewY;
+	space = patternStrokeSpace;
 }
 
 void PageItem::setLineQColor()

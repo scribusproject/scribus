@@ -2661,9 +2661,42 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					}
 					if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
 					{
-						p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
-						p->setStrokeMode(ScPainter::Pattern);
-						p->strokePath();
+						if (patternStrokePath)
+						{
+							QPainterPath guidePath = PoLine.toQPainterPath(false);
+							ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
+							double pLen = guidePath.length() - ((pat.width / 2.0) * (patternStrokeScaleX / 100.0));
+							double adv = pat.width * patternStrokeScaleX / 100.0 * patternStrokeSpace;
+							double xpos = patternStrokeOffsetX * patternStrokeScaleX / 100.0;
+							while (xpos < pLen)
+							{
+								double currPerc = guidePath.percentAtLength(xpos);
+								double currAngle = guidePath.angleAtPercent(currPerc);
+#if QT_VERSION  >= 0x040400
+								if (currAngle <= 180.0)
+									currAngle *= -1.0;
+								else
+									currAngle = 360.0 - currAngle;
+#endif
+								QPointF currPoint = guidePath.pointAtPercent(currPerc);
+								p->save();
+								p->translate(currPoint.x(), currPoint.y());
+								p->rotate(currAngle);
+								p->scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+								p->translate(-pat.width / 2.0, -pat.height / 2.0);
+								p->translate(0.0, patternStrokeOffsetY);
+								p->drawImage(pat.getPattern());
+								xpos += adv;
+								p->restore();
+							}
+							p->newPath();
+						}
+						else
+						{
+							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+							p->setStrokeMode(ScPainter::Pattern);
+							p->strokePath();
+						}
 					}
 					else if (GrTypeStroke > 0)
 					{

@@ -79,7 +79,7 @@ public slots:
 	void updatePatternList();
 	void updateGradientList();
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
-	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void selectColorS(QListWidgetItem *c);
 	void selectColorF(QListWidgetItem *c);
@@ -137,8 +137,10 @@ protected:
 	double m_Pattern_rotationS;
 	double m_Pattern_skewXS;
 	double m_Pattern_skewYS;
+	double m_Pattern_spaceS;
 	bool m_Pattern_mirrorXS;
 	bool m_Pattern_mirrorYS;
+	bool m_Pattern_pathF;
 	int currentUnit;
 	int editStrokeGradient;
 };

@@ -3433,10 +3433,10 @@ void PSLib::HandleStrokePattern(PageItem *c)
 {
 	ScPattern *pat;
 	QTransform patternMatrix;
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 	pat = &m_Doc->docPatterns[c->strokePattern()];
 	uint patHash = qHash(c->strokePattern());
-	c->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	c->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 	patternMatrix.translate(-c->lineWidth() / 2.0, c->lineWidth() / 2.0);
 	patternMatrix.translate(patternOffsetX, -patternOffsetY);
 	patternMatrix.rotate(-patternRotation);
@@ -3882,10 +3882,10 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, boo
 			SetClipPath(&arrow);
 			PS_closepath();
 			QTransform patternMatrix;
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 			ScPattern *pat = &m_Doc->docPatterns[ite->strokePattern()];
 			uint patHash = qHash(ite->strokePattern());
-			ite->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+			ite->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
 			patternMatrix.shear(patternSkewX, -patternSkewY);

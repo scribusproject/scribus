@@ -1215,10 +1215,11 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (!item->strokePattern().isEmpty())
 		{
 			docu.writeAttribute("patternS", item->strokePattern());
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-			item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-			bool mirrorX, mirrorY;
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
+			item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+			bool mirrorX, mirrorY, atPath;
 			item->strokePatternFlip(mirrorX, mirrorY);
+			atPath = item->isStrokePatternToPath();
 			docu.writeAttribute("pScaleXS", patternScaleX);
 			docu.writeAttribute("pScaleYS", patternScaleY);
 			docu.writeAttribute("pOffsetXS", patternOffsetX);
@@ -1226,8 +1227,10 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pRotationS", patternRotation);
 			docu.writeAttribute("pSkewXS", patternSkewX);
 			docu.writeAttribute("pSkewYS", patternSkewY);
+			docu.writeAttribute("pSpaceS", patternSpace);
 			docu.writeAttribute("pMirrorXS" , mirrorX);
 			docu.writeAttribute("pMirrorYS" , mirrorY);
+			docu.writeAttribute("pAtPathS" , atPath);
 		}
 		docu.writeAttribute("GRTYPM", item->GrMask);
 		if (item->GrMask > 0)

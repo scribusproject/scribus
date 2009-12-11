@@ -795,7 +795,7 @@ public:
 	QString strokePattern() const { return patternStrokeVal; }
 
 	/** @brief Get the stroke pattern transformation matrix of the object */
-	void strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
+	void strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY, double &space) const;
 
 	/**
 	 * @brief Set the stroke pattern of the object.
@@ -806,9 +806,11 @@ public:
 	/**
 	 * @brief Set the stroke pattern transformation of the object.
 	 */
-	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
+	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space);
 	void setStrokePatternFlip(bool flipX, bool flipY);
 	void strokePatternFlip(bool &flipX, bool &flipY);
+	void setStrokePatternToPath(bool enable);
+	bool isStrokePatternToPath();
 
 	/** @brief Set the QColor for the line */
 	void setLineQColor();
@@ -1375,8 +1377,10 @@ public:
 	double patternStrokeRotation;
 	double patternStrokeSkewX;
 	double patternStrokeSkewY;
+	double patternStrokeSpace;
 	bool patternStrokeMirrorX;
 	bool patternStrokeMirrorY;
+	bool patternStrokePath;
 	
 
 	/**

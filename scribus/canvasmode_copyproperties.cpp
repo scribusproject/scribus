@@ -154,7 +154,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	SeleItem(m);
 	if (GetItem(&currItem))
 	{
-		double sx, sy, ex, ey, r, skx, sky, fx, fy, ss, sk;
+		double sx, sy, ex, ey, r, skx, sky, fx, fy, ss, sk, sp;
 		currItem->ColGap = m_doc->ElemToLink->ColGap;
 		currItem->Cols = m_doc->ElemToLink->Cols;
 		currItem->BottomLine = m_doc->ElemToLink->BottomLine;
@@ -187,8 +187,9 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 		m_doc->ElemToLink->patternTransform(sx, sy, ex, ey, r, skx, sky);
 		currItem->setPatternTransform(sx, sy, ex, ey, r, skx, sky);
 		currItem->setStrokePattern(m_doc->ElemToLink->strokePattern());
-		m_doc->ElemToLink->strokePatternTransform(sx, sy, ex, ey, r, skx, sky);
-		currItem->setStrokePatternTransform(sx, sy, ex, ey, r, skx, sky);
+		m_doc->ElemToLink->strokePatternTransform(sx, sy, ex, ey, r, skx, sky, sp);
+		currItem->setStrokePatternTransform(sx, sy, ex, ey, r, skx, sky, sp);
+		currItem->setStrokePatternToPath(m_doc->ElemToLink->isStrokePatternToPath());
 		// Set Gradient type after all properties
 		currItem->setGradientType(m_doc->ElemToLink->gradientType());
 

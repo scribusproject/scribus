@@ -266,10 +266,11 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		patt.insert("pOffsetXS", toXMLString(patternStrokeOffsetX));
 		patt.insert("pOffsetYS", toXMLString(patternStrokeOffsetY));
 		patt.insert("pRotationS", toXMLString(patternStrokeRotation));
-		patt.insert("pSkewXS", toXMLString(patternStrokeSkewX));
-		patt.insert("pSkewYS", toXMLString(patternStrokeSkewY));
+		patt.insert("pSkewXS",   toXMLString(patternStrokeSkewX));
+		patt.insert("pSkewYS",   toXMLString(patternStrokeSkewY));
 		patt.insert("pMirrorXS", toXMLString(patternStrokeMirrorX));
 		patt.insert("pMirrorYS", toXMLString(patternStrokeMirrorY));
+		patt.insert("pAtPathS",  toXMLString(patternStrokePath));
 		handler.begin("PatternStroke", patt);
 		handler.end("PatternStroke");
 	}
@@ -712,11 +713,14 @@ class PatternStroke_body : public Action_body
 		double patternRotation = parseDouble(attr["pRotationS"]);
 		double patternSkewX = parseDouble(attr["pSkewXS"]);
 		double patternSkewY = parseDouble(attr["pSkewYS"]);
+		double patternSpace = parseDouble(attr["pSpaceS"]);
 		bool mirrorX = parseBool(attr["pMirrorXS"]);
 		bool mirrorY = parseBool(attr["pMirrorYS"]);
+		bool atPath = parseBool(attr["pAtPathS"]);
 		item->setStrokePattern(attr["patternS"]);
-		item->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		item->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 		item->setStrokePatternFlip(mirrorX, mirrorY);
+		item->setStrokePatternToPath(atPath);
 	}
 };
 

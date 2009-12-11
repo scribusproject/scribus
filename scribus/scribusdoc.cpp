@@ -5944,7 +5944,7 @@ void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, dou
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = m_Selection->itemAt(a);
-			currItem->setStrokePatternTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY);
+			currItem->setStrokePatternTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY, 1);
 			currItem->setStrokePatternFlip(mirrorX, mirrorY);
 			currItem->update();
 		}

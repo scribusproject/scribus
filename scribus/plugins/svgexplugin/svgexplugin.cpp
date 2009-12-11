@@ -1291,8 +1291,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				patt.setAttribute("height", pa.height);
 				patt.setAttribute("width", pa.width);
 				patt.setAttribute("patternUnits", "userSpaceOnUse");
-				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-				Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
+				Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 				bool mirrorX, mirrorY;
 				Item->strokePatternFlip(mirrorX, mirrorY);
 				QTransform mpa;
@@ -1446,8 +1446,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 				patt.setAttribute("height", pa.height);
 				patt.setAttribute("width", pa.width);
 				patt.setAttribute("patternUnits", "userSpaceOnUse");
-				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-				Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
+				Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 				bool mirrorX, mirrorY;
 				Item->strokePatternFlip(mirrorX, mirrorY);
 				QTransform mpa;
@@ -1817,8 +1817,8 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 		patt.setAttribute("height", FToStr(pa.height));
 		patt.setAttribute("width", FToStr(pa.width));
 		patt.setAttribute("patternUnits", "userSpaceOnUse");
-		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-		Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
+		Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 		bool mirrorX, mirrorY;
 		Item->strokePatternFlip(mirrorX, mirrorY);
 		QTransform mpa;
