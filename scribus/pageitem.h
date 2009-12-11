@@ -518,7 +518,7 @@ public:
 	bool isSingleSel;
 	bool isGroupControl;
 	PageItem *groupsLastItem;
-	void setGroupsLastItem(PageItem* lnk) { groupsLastItem = lnk; }
+	void setGroupsLastItem(PageItem* item);
 	double BoundingX;
 	double BoundingY;
 	double BoundingW;
@@ -1046,6 +1046,7 @@ protected:
 	void restoreShapeType(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
 	void restoreGetImage(SimpleState *state, bool isUndo);
+	void restoreGroupsLastItem(SimpleState *state, bool isUndo);
 
 	void restoreShapeContour(UndoState *state, bool isUndo);
 	void restoreImageEffects(UndoState *state, bool isUndo);
