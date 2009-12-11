@@ -3210,6 +3210,18 @@ void PageItem::setLocked(bool isLocked)
 		toggleLock();
 }
 
+void PageItem::setGroupsLastItem(PageItem* item)
+{
+	if (UndoManager::undoEnabled())
+	{
+		ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >("GroupsLastItem");
+		is->set("GROUPS_LASTITEM", "groups_lastitem");
+		is->setItem(std::pair<PageItem*, PageItem*>(this->groupsLastItem, item));
+		undoManager->action(this, is);
+	}
+	groupsLastItem = item;
+}
+
 void PageItem::toggleSizeLock()
 {
 	if (UndoManager::undoEnabled())
@@ -3674,6 +3686,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLayer(ss, isUndo);
 		else if (ss->contains("GET_IMAGE"))
 			restoreGetImage(ss, isUndo);
+		else if (ss->contains("GROUPS_LASTITEM"))
+			restoreGroupsLastItem(ss, isUndo);
 		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
 			restoreShapeContour(ss, isUndo);
 		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
@@ -4107,6 +4121,18 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 	}
 	else
 		loadImage(fn, false);
+}
+
+void PageItem::restoreGroupsLastItem(SimpleState *state, bool isUndo)
+{
+	ItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> > *>(state);
+	if (is)
+	{
+		if (isUndo)
+			this->groupsLastItem = is->getItem().first;
+		else
+			this->groupsLastItem = is->getItem().second;
+	}
 }
 
 void PageItem::restoreShapeContour(UndoState *state, bool isUndo)

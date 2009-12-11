@@ -4683,7 +4683,11 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			if (currItem->isGroupControl)
 			{
 				if (currItem->groupsLastItem == oldItem)
-					currItem->groupsLastItem = newItem;
+				{
+					if (UndoManager::undoEnabled() && !transactionConversion)
+						transactionConversion = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ConvertTo, "", Um::IGroup));
+					currItem->setGroupsLastItem(newItem);
+				}
 			}
 		}
 	}
