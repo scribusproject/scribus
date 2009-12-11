@@ -2105,21 +2105,21 @@ QString SVGPlug::parseIccColor( const QString &s )
 		QStringList colors = iccColor.split(',', QString::SkipEmptyParts);
 		if (colors.count() == 5) // then we assume this is a cmyk color
 		{
-			QString cs = colors[1], ys = colors[2], ms = colors[3], ks = colors[4];
+			QString cs = colors[1], ms = colors[2], ys = colors[3], ks = colors[4];
 			if (cs.contains( "%" ))
 			{
 				cs = cs.left( cs.length() - 1 );
 				cs = QString::number(ScCLocale::toDoubleC(cs) / 100);
 			}
-			if (ys.contains( "%" ))
-			{
-				ys = ys.left( ys.length() - 1 );
-				ys = QString::number(ScCLocale::toDoubleC(ys) / 100);
-			}
 			if (ms.contains( "%" ))
 			{
 				ms = ms.left( ms.length() - 1 );
 				ms = QString::number(ScCLocale::toDoubleC(ms) / 100);
+			}
+			if (ys.contains( "%" ))
+			{
+				ys = ys.left( ys.length() - 1 );
+				ys = QString::number(ScCLocale::toDoubleC(ys) / 100);
 			}
 			if (ks.contains( "%" ))
 			{
