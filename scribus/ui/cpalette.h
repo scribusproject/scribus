@@ -95,6 +95,7 @@ public slots:
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void changePatternProps();
 	void changePatternPropsStroke();
+	void toggleStrokePattern();
 	void unitChange(double, double, int unitIndex);
 signals:
 	void NewPen(QString);
@@ -106,7 +107,8 @@ signals:
 	void NewPattern(QString);
 	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
 	void NewPatternS(QString);
-	void NewPatternPropsS(double, double, double, double, double, double, double, bool, bool);
+	void NewPatternTypeS(bool);
+	void NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool);
 	void NewSpecial(double, double, double, double, double, double, double, double);
 	void NewOverprint(int);
 	void gradientChanged();
@@ -140,7 +142,6 @@ protected:
 	double m_Pattern_spaceS;
 	bool m_Pattern_mirrorXS;
 	bool m_Pattern_mirrorYS;
-	bool m_Pattern_pathF;
 	int currentUnit;
 	int editStrokeGradient;
 };

@@ -1885,7 +1885,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewOverprint(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPatternS(QString)), 0, 0);
-	disconnect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, bool, bool)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewPatternTypeS(bool)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), 0, 0);
 
 	doc = d;
 	CurItem = NULL;
@@ -1969,7 +1970,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double, double, double, bool, bool)));
 	connect(this->Cpal, SIGNAL(NewOverprint(int)), this, SLOT(handleOverprint(int)));
 	connect(this->Cpal, SIGNAL(NewPatternS(QString)), doc, SLOT(itemSelection_SetItemStrokePattern(QString)));
-	connect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemStrokePatternProps(double, double, double, double, double, double, double, bool, bool)));
+	connect(this->Cpal, SIGNAL(NewPatternTypeS(bool)), doc, SLOT(itemSelection_SetItemStrokePatternType(bool)));
+	connect(this->Cpal, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemStrokePatternProps(double, double, double, double, double, double, double, double, bool, bool)));
 }
 
 void PropertiesPalette::unsetDoc()

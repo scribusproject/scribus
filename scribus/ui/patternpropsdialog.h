@@ -40,7 +40,7 @@ class SCRIBUS_API PatternPropsDialog : public QDialog
 	Q_OBJECT
 
 public:
-	PatternPropsDialog(QWidget* parent, int unitIndex);
+	PatternPropsDialog(QWidget* parent, int unitIndex, bool isStroke);
 	~PatternPropsDialog() {};
 	virtual void changeEvent(QEvent *e);
 	ScrSpinBox* spinXoffset;
@@ -50,8 +50,10 @@ public:
 	ScrSpinBox* spinAngle;
 	ScrSpinBox* spinXSkew;
 	ScrSpinBox* spinYSkew;
+	ScrSpinBox* spinSpacing;
 	QToolButton* FlipH;
 	QToolButton* FlipV;
+	bool forStroke;
 
 public slots:
 	void languageChange();
@@ -62,6 +64,7 @@ public slots:
 
 signals:
 	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
+	void NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool);
 
 protected:
 	QGroupBox* groupOffset;
@@ -77,11 +80,14 @@ protected:
 	QLabel* textLabel8;
 	QLabel* textLabel9;
 	QLabel* textLabel15;
+	QGroupBox* groupSpace;
+	QLabel* textLabel20;
 	QVBoxLayout* frame3Layout;
 	QHBoxLayout* groupOffsetLayout;
 	QGridLayout* groupScaleLayout;
 	QGridLayout* groupSkewLayout;
 	QHBoxLayout* groupRotationLayout;
+	QHBoxLayout* groupSpaceLayout;
 	QPushButton* buttonOk;
 	QHBoxLayout* buttonLayout;
 	QHBoxLayout* groupFlipLayout;

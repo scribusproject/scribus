@@ -65,32 +65,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 						QPainterPath guidePath;
 						guidePath.moveTo(0, 0);
 						guidePath.lineTo(Width, 0);
-						ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
-						double pLen = guidePath.length() - ((pat.width / 2.0) * (patternStrokeScaleX / 100.0));
-						double adv = pat.width * patternStrokeScaleX / 100.0 * patternStrokeSpace;
-						double xpos = patternStrokeOffsetX * patternStrokeScaleX / 100.0;
-						while (xpos < pLen)
-						{
-							double currPerc = guidePath.percentAtLength(xpos);
-							double currAngle = guidePath.angleAtPercent(currPerc);
-#if QT_VERSION  >= 0x040400
-							if (currAngle <= 180.0)
-								currAngle *= -1.0;
-							else
-								currAngle = 360.0 - currAngle;
-#endif
-							QPointF currPoint = guidePath.pointAtPercent(currPerc);
-							p->save();
-							p->translate(currPoint.x(), currPoint.y());
-							p->rotate(currAngle);
-							p->scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
-							p->translate(-pat.width / 2.0, -pat.height / 2.0);
-							p->translate(0.0, patternStrokeOffsetY);
-							p->drawImage(pat.getPattern());
-							xpos += adv;
-							p->restore();
-						}
-						p->newPath();
+						DrawStrokePattern(p, guidePath);
 					}
 					else
 					{
@@ -127,8 +102,10 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 				}
 				else if (lineColor() != CommonStrings::None)
+				{
 					p->setStrokeMode(ScPainter::Solid);
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				}
 			}
 			else
 			{

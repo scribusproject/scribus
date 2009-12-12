@@ -257,6 +257,7 @@ PageItem::PageItem(const PageItem & other)
 	patternStrokeRotation(other.patternStrokeRotation),
 	patternStrokeSkewX(other.patternStrokeSkewX),
 	patternStrokeSkewY(other.patternStrokeSkewY),
+	patternStrokeSpace(other.patternStrokeSpace),
 	patternStrokeMirrorX(other.patternStrokeMirrorX),
 	patternStrokeMirrorY(other.patternStrokeMirrorY),
 	patternStrokePath(other.patternStrokePath),
@@ -392,6 +393,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternStrokeRotation = 0;
 	patternStrokeSkewX = 0;
 	patternStrokeSkewY = 0;
+	patternStrokeSpace = 1.0;
 	patternStrokeMirrorX = false;
 	patternStrokeMirrorY = false;
 	patternStrokePath = false;
@@ -1394,32 +1396,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 							if (patternStrokePath)
 							{
 								QPainterPath guidePath = PoLine.toQPainterPath(false);
-								ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
-								double pLen = guidePath.length() - ((pat.width / 2.0) * (patternStrokeScaleX / 100.0));
-								double adv = pat.width * patternStrokeScaleX / 100.0 * patternStrokeSpace;
-								double xpos = patternStrokeOffsetX * patternStrokeScaleX / 100.0;
-								while (xpos < pLen)
-								{
-									double currPerc = guidePath.percentAtLength(xpos);
-									double currAngle = guidePath.angleAtPercent(currPerc);
-#if QT_VERSION  >= 0x040400
-									if (currAngle <= 180.0)
-										currAngle *= -1.0;
-									else
-										currAngle = 360.0 - currAngle;
-#endif
-									QPointF currPoint = guidePath.pointAtPercent(currPerc);
-									p->save();
-									p->translate(currPoint.x(), currPoint.y());
-									p->rotate(currAngle);
-									p->scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
-									p->translate(-pat.width / 2.0, -pat.height / 2.0);
-									p->translate(0.0, patternStrokeOffsetY);
-									p->drawImage(pat.getPattern());
-									xpos += adv;
-									p->restore();
-								}
-								p->newPath();
+								DrawStrokePattern(p, guidePath);
 							}
 							else
 							{
@@ -1726,6 +1703,46 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	}
 }
 
+void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
+{
+	ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
+	double pLen = path.length() - ((pat.width / 2.0) * (patternStrokeScaleX / 100.0));
+	double adv = pat.width * patternStrokeScaleX / 100.0 * patternStrokeSpace;
+	double xpos = patternStrokeOffsetX * patternStrokeScaleX / 100.0;
+	while (xpos < pLen)
+	{
+		double currPerc = path.percentAtLength(xpos);
+		double currAngle = path.angleAtPercent(currPerc);
+#if QT_VERSION  >= 0x040400
+		if (currAngle <= 180.0)
+			currAngle *= -1.0;
+		else
+			currAngle = 360.0 - currAngle;
+#endif
+		QPointF currPoint = path.pointAtPercent(currPerc);
+		p->save();
+		p->translate(currPoint.x(), currPoint.y());
+		p->rotate(currAngle);
+		QTransform savWM = p->worldMatrix();
+		QTransform trans;
+		trans.translate(0.0, patternStrokeOffsetY);
+		trans.rotate(patternStrokeRotation);
+		trans.shear(-patternStrokeSkewX, patternStrokeSkewY);
+		trans.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
+		if (patternStrokeMirrorX)
+			trans.scale(-1, 1);
+		if (patternStrokeMirrorY)
+			trans.scale(1, -1);
+		trans *= savWM;
+		p->setWorldMatrix(trans);
+		p->drawImage(pat.getPattern());
+		p->setWorldMatrix(savWM);
+		xpos += adv;
+		p->restore();
+	}
+	p->newPath();
+}
 
 void PageItem::paintObj(QPainter *p)
 {

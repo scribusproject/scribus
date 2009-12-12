@@ -282,6 +282,7 @@ protected:
 	void DrawObj_PathText(ScPainter *p, double sc);
 public:
 	void DrawObj_Embedded(ScPainter *p, QRectF e, const CharStyle& style, PageItem* cembedded);
+	void DrawStrokePattern(ScPainter *p, QPainterPath &path);
 	void SetFrameShape(int count, double *vals);
 	void SetRectFrame();
 	void SetOvalFrame();

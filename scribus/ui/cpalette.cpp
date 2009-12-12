@@ -95,6 +95,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
 	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
 	connect(gradEditButtonStroke, SIGNAL(clicked()), this, SLOT(editGradientVectorStroke()));
+	connect(followsPath, SIGNAL(clicked()), this, SLOT(toggleStrokePattern()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
 }
@@ -472,7 +473,7 @@ void Cpalette::setActPatternStroke(QString pattern, double scaleX, double scaleY
 	m_Pattern_mirrorXS = mirrorX;
 	m_Pattern_mirrorYS = mirrorY;
 	m_Pattern_spaceS = space;
-	m_Pattern_pathF = pathF;
+	followsPath->setChecked(pathF);
 	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
 }
 
@@ -680,7 +681,7 @@ void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, do
 
 void Cpalette::changePatternProps()
 {
-	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit);
+	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
 	dia->spinXscaling->setValue(m_Pattern_scaleX);
 	dia->spinYscaling->setValue(m_Pattern_scaleY);
 	dia->spinXoffset->setValue(m_Pattern_offsetX);
@@ -714,19 +715,20 @@ void Cpalette::changePatternProps()
 
 void Cpalette::changePatternPropsStroke()
 {
-	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit);
+	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, true);
 	dia->spinXscaling->setValue(m_Pattern_scaleXS);
 	dia->spinYscaling->setValue(m_Pattern_scaleYS);
 	dia->spinXoffset->setValue(m_Pattern_offsetXS);
 	dia->spinYoffset->setValue(m_Pattern_offsetYS);
 	dia->spinAngle->setValue(m_Pattern_rotationS);
+	dia->spinSpacing->setValue(m_Pattern_spaceS * 100.0);
 	double asina = atan(m_Pattern_skewXS);
 	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
 	double asinb = atan(m_Pattern_skewYS);
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorXS);
 	dia->FlipV->setChecked(m_Pattern_mirrorYS);
-	connect(dia, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, bool, bool)));
+	connect(dia, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)));
 	dia->exec();
 	m_Pattern_scaleXS = dia->spinXscaling->value();
 	m_Pattern_scaleYS = dia->spinYscaling->value();
@@ -739,9 +741,15 @@ void Cpalette::changePatternPropsStroke()
 	double sinb = tan(b);
 	m_Pattern_skewXS = sina;
 	m_Pattern_skewYS = sinb;
+	m_Pattern_spaceS = dia->spinSpacing->value() / 100.0;
 	m_Pattern_mirrorXS = dia->FlipH->isChecked();
 	m_Pattern_mirrorYS = dia->FlipV->isChecked();
 	delete dia;
+}
+
+void Cpalette::toggleStrokePattern()
+{
+	emit NewPatternTypeS(followsPath->isChecked());
 }
 
 void Cpalette::unitChange(double, double, int unitIndex)

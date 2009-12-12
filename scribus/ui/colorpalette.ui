@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>228</width>
-    <height>343</height>
+    <height>344</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -229,6 +229,13 @@
              </property>
              <property name="wordWrap">
               <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="followsPath">
+             <property name="text">
+              <string>Pattern follows Path</string>
              </property>
             </widget>
            </item>

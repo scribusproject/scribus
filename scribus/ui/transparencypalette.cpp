@@ -392,7 +392,7 @@ void Tpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 
 void Tpalette::changePatternProps()
 {
-	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit);
+	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
 	dia->spinXscaling->setValue(m_Pattern_scaleX);
 	dia->spinYscaling->setValue(m_Pattern_scaleY);
 	dia->spinXoffset->setValue(m_Pattern_offsetX);

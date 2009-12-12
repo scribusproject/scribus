@@ -25,9 +25,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 
-PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog( parent )
+PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isStroke) : QDialog( parent )
 {
 	setModal(true);
+	forStroke = isStroke;
 	frame3Layout = new QVBoxLayout( this );
 	frame3Layout->setMargin(0);
 	frame3Layout->setSpacing(2);
@@ -96,6 +97,21 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	groupSkewLayout->addWidget( spinYSkew, 1, 1 );
 	frame3Layout->addWidget( groupSkew );
 
+	if (forStroke)
+	{
+		groupSpace = new QGroupBox( this );
+		groupSpaceLayout = new QHBoxLayout( groupSpace );
+		groupSpaceLayout->setSpacing( 2 );
+		groupSpaceLayout->setMargin( 3 );
+		groupSpaceLayout->setAlignment( Qt::AlignTop );
+		textLabel20 = new QLabel( groupSpace );
+		groupSpaceLayout->addWidget( textLabel20 );
+		spinSpacing = new ScrSpinBox( 1, 500, groupSpace, 0 );
+		spinSpacing->setValue( 100 );
+		groupSpaceLayout->addWidget( spinSpacing );
+		frame3Layout->addWidget( groupSpace );
+	}
+
 	groupFlipLayout = new QHBoxLayout();
 	groupFlipLayout->setSpacing( 2 );
 	groupFlipLayout->setMargin( 3 );
@@ -132,11 +148,14 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex) : QDialog
 	connect(spinYSkew, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(accept()));
+	if (forStroke)
+		connect(spinSpacing, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 }
 
 void PatternPropsDialog::changeEvent(QEvent *e)
@@ -166,6 +185,12 @@ void PatternPropsDialog::languageChange()
 	spinYscaling->setSuffix( pctSuffix );
 	groupRotation->setTitle( tr( "Rotation" ) );
 	groupSkew->setTitle( tr( "Skewing" ) );
+	if (forStroke)
+	{
+		groupSpace->setTitle( tr( "Spacing" ) );
+		spinSpacing->setSuffix( pctSuffix );
+		textLabel20->setText( tr( "Value:" ) );
+	}
 	textLabel8->setText( tr( "X-Skew:" ) );
 	textLabel9->setText( tr( "Y-Skew:" ) );
 	textLabel7->setText( tr( "Angle:" ) );
@@ -182,7 +207,10 @@ void PatternPropsDialog::changePatternProps()
 	double sinb = tan(b);
 	bool fH = FlipH->isChecked();
 	bool fV = FlipV->isChecked();
-	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, fH, fV);
+	if (forStroke)
+		emit NewPatternPropsS(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, spinSpacing->value() / 100.0, fH, fV);
+	else
+		emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, fH, fV);
 }
 
 void PatternPropsDialog::ToggleKette()
