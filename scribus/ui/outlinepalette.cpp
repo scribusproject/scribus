@@ -54,6 +54,20 @@ OutlineWidget::OutlineWidget(QWidget* parent) : QTreeWidget(parent)
 {
 }
 
+void OutlineWidget::selectItems(QList<QTreeWidgetItem*> items)
+{
+	QItemSelection itemSelection;
+	for (int i = 0; i < items.count(); ++i)
+	{
+		QModelIndex index = this->indexFromItem(items.at(i));
+		if (index.isValid())
+		{
+			itemSelection.select(index, index);
+		}
+	}
+	selectionModel()->select(itemSelection, QItemSelectionModel::Select);
+}
+
 bool OutlineWidget::viewportEvent(QEvent *event)
 {
 	if (event->type() == QEvent::ToolTip)
@@ -390,14 +404,16 @@ void OutlinePalette::slotShowSelect(uint SNr, int Nr)
 	reportDisplay->clearSelection();
 	if (currDoc->m_Selection->count() > 0)
 	{
+		QList<QTreeWidgetItem*> itemSelection;
 		uint docSelectionCount = currDoc->m_Selection->count();
 		for (uint a = 0; a < docSelectionCount; a++)
 		{
 			PageItem *item = currDoc->m_Selection->itemAt(a);
 			QTreeWidgetItem *retVal = getListItem(item->OwnPage, item->ItemNr);
 			if (retVal != 0)
-				retVal->setSelected(true);
+				itemSelection.append(retVal);
 		}
+		reportDisplay->selectItems(itemSelection);
 	}
 	else
 	{

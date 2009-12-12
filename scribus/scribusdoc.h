@@ -902,6 +902,11 @@ public:
 	//! \brief Set rotation mode
 	void RotMode(const int& val);
 
+	//! \brief Fonctions which avoid doc updater and update manager to send too much
+	// unncessary signals when doing updates on multiple items
+	void beginUpdate();
+	void endUpdate();
+
 protected:
 	void addSymbols();
 	bool m_hasGUI;

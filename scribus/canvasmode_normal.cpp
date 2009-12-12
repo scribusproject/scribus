@@ -1213,11 +1213,13 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
+			m_doc->beginUpdate();
 			for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
 			{
 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
 				bb->update();
 			}
+			m_doc->endUpdate();
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
