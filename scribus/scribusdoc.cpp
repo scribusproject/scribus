@@ -8855,6 +8855,17 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 	endAlign();
 }
 
+void ScribusDoc::beginUpdate()
+{
+	m_docUpdater->beginUpdate();
+	m_updateManager.setUpdatesEnabled(false);
+}
+
+void ScribusDoc::endUpdate()
+{
+	m_updateManager.setUpdatesEnabled(true);
+	m_docUpdater->endUpdate();
+}
 
 void ScribusDoc::changed()
 {

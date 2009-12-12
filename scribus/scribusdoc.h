@@ -890,6 +890,11 @@ public:
 	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
 	//! \brief Get a list of frames of certain type
 	QMap<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
+
+	//! \brief Fonctions which avoid doc updater and update manager to send too much
+	// unncessary signals when doing updates on multiple items
+	void beginUpdate();
+	void endUpdate();
 	
 protected:
 	void addSymbols();

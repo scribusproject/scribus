@@ -40,6 +40,9 @@ class SCRIBUS_API OutlineWidget : public QTreeWidget
 public:
 	OutlineWidget(QWidget* parent);
 	~OutlineWidget() {};
+
+	void selectItems(QList<QTreeWidgetItem*> items);
+
 protected:
 	bool viewportEvent(QEvent *event);
 };
