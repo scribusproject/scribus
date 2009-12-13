@@ -15,6 +15,9 @@ SET(2GEOM_VERSION 0.1.0)
 #CB SET(CMAKE_CXX_FLAGS "-Wall")
 #CB SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
 # We need to pass -fPIC only to lib2geom on amd64 - avoid it elsewhere see: http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
+IF (ARCH_X86_64 EQUAL 1)
+  SET(CMAKE_CXX_FLAGS "$(CMAKE_CXX_FLAGS) -fPIC")
+ENDIF (ARCH_X86_64 EQUAL 1)
 
 OPTION(2GEOM_BUILD_SHARED
   "Build lib2geom and libtoy as shared libraries."
