@@ -86,8 +86,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
 			QString chx, chx2, chx3;
 			ScText *hl;
-			struct ZZ *Zli;
-			struct ZZ *Zli2;
+			struct ZZ* Zli2;
 
 			bool outs = false;
 			bool fBorder = false;
@@ -121,8 +120,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				m_Doc->docParagraphStyles[xxx].textAlignment = xxx;
 			}
 
-			QPtrList<ZZ> LiList;
-			LiList.setAutoDelete(true);
+			QValueVector<ZZ> LiList;
+			LiList.reserve(8192);
 			QRect e2 = QRect(qRound(e.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + m_Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
 			p->save();
 			pf2.begin(view->viewport());
@@ -1060,40 +1059,40 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						goNoRoom = true;
 					if ((hl->ch == QChar(26)) && (Cols > 1))
 						goNextColumn = true;
-					Zli = new ZZ;
-					Zli->Zeich = chx;
-					Zli->Farb = hl->ccolor;
-					Zli->shade = hl->cshade;
-					Zli->Farb2 = hl->cstroke;
-					Zli->shade2 = hl->cshade2;
-					Zli->xco = hl->xp;
-					Zli->yco = hl->yp;
-					Zli->Sele = hl->cselect;
+					ZZ Zli;
+					Zli.Zeich = chx;
+					Zli.Farb = hl->ccolor;
+					Zli.shade = hl->cshade;
+					Zli.Farb2 = hl->cstroke;
+					Zli.shade2 = hl->cshade2;
+					Zli.xco = hl->xp;
+					Zli.yco = hl->yp;
+					Zli.Sele = hl->cselect;
 					if (DropCmode)
 					{
-						Zli->Siz = chsd;
-						Zli->realSiz = m_Doc->docParagraphStyles[hl->cab].FontSize;
+						Zli.Siz = chsd;
+						Zli.realSiz = m_Doc->docParagraphStyles[hl->cab].FontSize;
 					}
 					else
 					{
-						Zli->Siz = chs;
-						Zli->realSiz = hl->csize;
+						Zli.Siz = chs;
+						Zli.realSiz = hl->csize;
 					}
-					Zli->Style = hl->cstyle;
-					Zli->ZFo = hl->cfont;
-					Zli->wide = wide;
-					Zli->kern = kernVal;
-					Zli->scale = hl->cscale;
-					Zli->scalev = hl->cscalev;
-					Zli->base = hl->cbase;
-					Zli->shadowX = hl->cshadowx;
-					Zli->shadowY = hl->cshadowy;
-					Zli->outline = hl->coutline;
-					Zli->underpos = hl->cunderpos;
-					Zli->underwidth = hl->cunderwidth;
-					Zli->strikepos = hl->cstrikepos;
-					Zli->strikewidth = hl->cstrikewidth;
-					Zli->embedded = hl->cembedded;
+					Zli.Style = hl->cstyle;
+					Zli.ZFo = hl->cfont;
+					Zli.wide = wide;
+					Zli.kern = kernVal;
+					Zli.scale = hl->cscale;
+					Zli.scalev = hl->cscalev;
+					Zli.base = hl->cbase;
+					Zli.shadowX = hl->cshadowx;
+					Zli.shadowY = hl->cshadowy;
+					Zli.outline = hl->coutline;
+					Zli.underpos = hl->cunderpos;
+					Zli.underwidth = hl->cunderwidth;
+					Zli.strikepos = hl->cstrikepos;
+					Zli.strikewidth = hl->cstrikewidth;
+					Zli.embedded = hl->cembedded;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 					{
 						if (a > 0)
@@ -1130,7 +1129,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							cen = 2;
 						for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 						{
-							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
+							LiList.at(rtx).xco = QMAX(LiList.at(rtx).xco-(wide+kernVal) / cen, 0.0);
 							itemText.at(StartRT2+rtx2)->xp = QMAX(itemText.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
 							if (itemText.at(StartRT2+rtx2)->xp < RTabX)
 							{
@@ -1210,7 +1209,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									aSpa = 0;
 									for (uint sof = 0; sof<LiList.count(); ++sof)
 									{
-										if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
+										if ((LiList.at(sof).Zeich == QChar(32)) || (LiList.at(sof).Zeich == QChar(29)))
 											aSpa++;
 									}
 									if (aSpa != 0)
@@ -1220,8 +1219,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									OFs = 0;
 									for (uint yof = 0; yof < LiList.count(); ++yof)
 									{
-										LiList.at(yof)->xco += OFs;
-										if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
+										LiList.at(yof).xco += OFs;
+										if ((LiList.at(yof).Zeich == QChar(32)) || (LiList.at(yof).Zeich == QChar(29)))
 											OFs += OFs2;
 									}
 								}
@@ -1229,7 +1228,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									for (uint xof = 0; xof<LiList.count(); ++xof)
 									{
-										LiList.at(xof)->xco += OFs;
+										LiList.at(xof).xco += OFs;
 									}
 								}
 								CurX = EndX;
@@ -1245,33 +1244,37 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									HyphenCount++;
 									itemText.at(a)->cstyle |= 8192;
-									Zli = new ZZ;
-									Zli->Zeich = "-";
-									Zli->Farb = itemText.at(a)->ccolor;
-									Zli->Farb2 = itemText.at(a)->cstroke;
-									Zli->shade = itemText.at(a)->cshade;
-									Zli->shade2 = itemText.at(a)->cshade2;
-									Zli->xco = LastXp - Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
-									Zli->yco = itemText.at(a)->yp;
-									Zli->Sele = itemText.at(a)->cselect;
-									Zli->Siz = itemText.at(a)->csize;
-									Zli->realSiz = itemText.at(a)->csize;
-									Zli->Style = itemText.at(a)->cstyle;
-									Zli->ZFo = itemText.at(a)->cfont;
-									Zli->wide = Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
-									Zli->kern = itemText.at(a)->csize * itemText.at(a)->cextra / 10000.0;
-									Zli->scale = itemText.at(a)->cscale;
-									Zli->scalev = itemText.at(a)->cscalev;
-									Zli->base = itemText.at(a)->cbase;
-									Zli->shadowX = itemText.at(a)->cshadowx;
-									Zli->shadowY = itemText.at(a)->cshadowy;
-									Zli->outline = itemText.at(a)->coutline;
-									Zli->underpos = itemText.at(a)->cunderpos;
-									Zli->underwidth = itemText.at(a)->cunderwidth;
-									Zli->strikepos = itemText.at(a)->cstrikepos;
-									Zli->strikewidth = itemText.at(a)->cstrikewidth;
-									Zli->embedded = 0;
-									LiList.insert(LastSP+1, Zli);
+									ZZ Zli;
+									Zli.Zeich = "-";
+									Zli.Farb = itemText.at(a)->ccolor;
+									Zli.Farb2 = itemText.at(a)->cstroke;
+									Zli.shade = itemText.at(a)->cshade;
+									Zli.shade2 = itemText.at(a)->cshade2;
+									Zli.xco = LastXp - Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
+									Zli.yco = itemText.at(a)->yp;
+									Zli.Sele = itemText.at(a)->cselect;
+									Zli.Siz = itemText.at(a)->csize;
+									Zli.realSiz = itemText.at(a)->csize;
+									Zli.Style = itemText.at(a)->cstyle;
+									Zli.ZFo = itemText.at(a)->cfont;
+									Zli.wide = Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
+									Zli.kern = itemText.at(a)->csize * itemText.at(a)->cextra / 10000.0;
+									Zli.scale = itemText.at(a)->cscale;
+									Zli.scalev = itemText.at(a)->cscalev;
+									Zli.base = itemText.at(a)->cbase;
+									Zli.shadowX = itemText.at(a)->cshadowx;
+									Zli.shadowY = itemText.at(a)->cshadowy;
+									Zli.outline = itemText.at(a)->coutline;
+									Zli.underpos = itemText.at(a)->cunderpos;
+									Zli.underwidth = itemText.at(a)->cunderwidth;
+									Zli.strikepos = itemText.at(a)->cstrikepos;
+									Zli.strikewidth = itemText.at(a)->cstrikewidth;
+									Zli.embedded = 0;
+									QValueVector<ZZ>::iterator liIter = LiList.begin();
+									for(uint i = 0; i < LastSP+1; ++i)
+										++liIter;
+									LiList.insert(liIter, Zli);
+									//LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 								}
 								else
@@ -1299,7 +1302,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 										aSpa = 0;
 										for (uint sof = 0; sof<BuPos-1; ++sof)
 										{
-											if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
+											if ((LiList.at(sof).Zeich == QChar(32)) || (LiList.at(sof).Zeich == QChar(29)))
 												aSpa++;
 										}
 										if (aSpa > 1)
@@ -1314,8 +1317,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 										OFs = 0;
 										for (uint yof = 0; yof < LiList.count(); ++yof)
 										{
-											LiList.at(yof)->xco += OFs;
-											if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
+											LiList.at(yof).xco += OFs;
+											if ((LiList.at(yof).Zeich == QChar(32)) || (LiList.at(yof).Zeich == QChar(29)))
 												OFs += OFs2;
 										}
 									}
@@ -1323,7 +1326,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									{
 										for (uint xof = 0; xof<LiList.count(); ++xof)
 										{
-											LiList.at(xof)->xco += OFs;
+											LiList.at(xof).xco += OFs;
 										}
 									}
 									CurX = EndX;
@@ -1450,13 +1453,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 						hl->xp = CurX;
 						hl->yp = CurY;
-						LiList.at(LiList.count()-1)->xco = hl->xp;
-						LiList.at(LiList.count()-1)->yco = hl->yp;
+						LiList.at(LiList.count()-1).xco = hl->xp;
+						LiList.at(LiList.count()-1).yco = hl->yp;
 						if (LiList.count() != 0)
 						{
 							if ((!AbsHasDrop) && (StartOfCol) && (!m_Doc->docParagraphStyles[hl->cab].BaseAdj))
 							{
-								Zli2 = LiList.at(0);
+								Zli2 = &LiList.at(0);
 								double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 								double currasce = 0;
 								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
@@ -1467,7 +1470,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									currasce = RealCAscent(m_Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
-									Zli2 = LiList.at(zc);
+									Zli2 = &LiList.at(zc);
 									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
@@ -1481,13 +1484,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								double adj = firstasce - currasce;
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
-									LiList.at(zc)->yco -= adj;
+									LiList.at(zc).yco -= adj;
 								}
 								CurY -= adj;
 							}
 							if ((!StartOfCol) && (!m_Doc->docParagraphStyles[hl->cab].BaseAdj) && (m_Doc->docParagraphStyles[hl->cab].LineSpaMode == 1))
 							{
-								Zli2 = LiList.at(0);
+								Zli2 = &LiList.at(0);
 								double firstasce = m_Doc->docParagraphStyles[hl->cab].LineSpa;
 								double currasce = 0;
 								if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
@@ -1496,7 +1499,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									currasce = RealFHeight(m_Doc, Zli2->ZFo, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
-									Zli2 = LiList.at(zc);
+									Zli2 = &LiList.at(zc);
 									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
@@ -1510,7 +1513,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								double adj = firstasce - currasce;
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
-									LiList.at(zc)->yco -= adj;
+									LiList.at(zc).yco -= adj;
 								}
 								CurY -= adj;
 							}
@@ -1524,7 +1527,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						for (uint zc = 0; zc<loopC; ++zc)
 						{
 							double wide2 = 0;
-							Zli2 = LiList.at(zc);
+							Zli2 = &LiList.at(zc);
 							double xcoZli = Zli2->xco;
 							itemText.at(startLin+zc)->xp = Zli2->xco;
 							itemText.at(startLin+zc)->yp = Zli2->yco;
@@ -1549,8 +1552,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								p->setLineWidth(0);
 								if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 								{
-									wide2 = LiList.at(zc-1)->wide;
-									xcoZli = LiList.at(zc-1)->xco+wide2;
+									wide2 = LiList.at(zc-1).wide;
+									xcoZli = LiList.at(zc-1).xco+wide2;
 									wide = Zli2->xco - xcoZli + Zli2->wide;
 								}
 								if (!m_Doc->RePos)
@@ -1572,38 +1575,37 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									double wt = Cwidth(m_Doc, Zli2->ZFo, tabFillCharQStr, Zli2->Siz);
 									int coun = static_cast<int>((Zli2->xco - tabDist) / wt);
 									double sPos = Zli2->xco - (Zli2->xco - tabDist) + 1;
-									Zli = new ZZ;
-									Zli->Zeich = tabFillCharQStr;
-									Zli->Farb = Zli2->Farb;
-									Zli->Farb2 = Zli2->Farb2;
-									Zli->shade = Zli2->shade;
-									Zli->shade2 = Zli2->shade2;
-									Zli->yco = Zli2->yco;
-									Zli->Sele = Zli2->Sele;
-									Zli->Siz = Zli2->Siz;
-									Zli->realSiz = Zli2->realSiz;
-									Zli->Style = Zli2->Style;
-									Zli->ZFo = Zli2->ZFo;
-									Zli->wide = wt;
-									Zli->kern = 0;
-									Zli->scale = 1000;
-									Zli->scalev = 1000;
-									Zli->base = Zli2->base;
-									Zli->shadowX = Zli2->shadowX;
-									Zli->shadowY = Zli2->shadowY;
-									Zli->outline = Zli2->outline;
-									Zli->underpos = Zli2->underpos;
-									Zli->underwidth = Zli2->underwidth;
-									Zli->strikepos = Zli2->strikepos;
-									Zli->strikewidth = Zli2->strikewidth;
-									Zli->embedded = 0;
+									ZZ Zli;
+									Zli.Zeich = tabFillCharQStr;
+									Zli.Farb = Zli2->Farb;
+									Zli.Farb2 = Zli2->Farb2;
+									Zli.shade = Zli2->shade;
+									Zli.shade2 = Zli2->shade2;
+									Zli.yco = Zli2->yco;
+									Zli.Sele = Zli2->Sele;
+									Zli.Siz = Zli2->Siz;
+									Zli.realSiz = Zli2->realSiz;
+									Zli.Style = Zli2->Style;
+									Zli.ZFo = Zli2->ZFo;
+									Zli.wide = wt;
+									Zli.kern = 0;
+									Zli.scale = 1000;
+									Zli.scalev = 1000;
+									Zli.base = Zli2->base;
+									Zli.shadowX = Zli2->shadowX;
+									Zli.shadowY = Zli2->shadowY;
+									Zli.outline = Zli2->outline;
+									Zli.underpos = Zli2->underpos;
+									Zli.underwidth = Zli2->underwidth;
+									Zli.strikepos = Zli2->strikepos;
+									Zli.strikewidth = Zli2->strikewidth;
+									Zli.embedded = 0;
 									for (int cx = 0; cx < coun; ++cx)
 									{
-										Zli->xco = sPos + wt * cx;
-										if (e2.intersects(pf2.xForm(QRect(qRound(Zli->xco),qRound(Zli->yco-asce), qRound(Zli->wide+1), qRound(asce+desc)))))
-											DrawZeichenS(p, Zli);
+										Zli.xco = sPos + wt * cx;
+										if (e2.intersects(pf2.xForm(QRect(qRound(Zli.xco),qRound(Zli.yco-asce), qRound(Zli.wide+1), qRound(asce+desc)))))
+											DrawZeichenS(p, &Zli);
 									}
-									delete Zli;
 								}
 								if (Zli2->Zeich == QChar(9))
 									tabCc++;
@@ -1618,7 +1620,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 										{
 											points = m_Doc->symReturn.copy();
 											if (zc > 0)
-												ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.8);
+												ytrans = LiList.at(zc-1).yco-((Zli2->Siz / 10.0) * 0.8);
 											else
 												ytrans = Zli2->yco-m_Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.8);
 										}
@@ -1626,12 +1628,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 										{
 											points = m_Doc->symNewLine.copy();
 											if (zc > 0)
-												ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.4);
+												ytrans = LiList.at(zc-1).yco-((Zli2->Siz / 10.0) * 0.4);
 											else
 												ytrans = Zli2->yco-m_Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.4);
 										}
 										if (zc > 0)
-											xtrans =  LiList.at(zc-1)->xco + Cwidth(m_Doc, LiList.at(zc-1)->ZFo, LiList.at(zc-1)->Zeich, LiList.at(zc-1)->Siz);
+											xtrans =  LiList.at(zc-1).xco + Cwidth(m_Doc, LiList.at(zc-1).ZFo, LiList.at(zc-1).Zeich, LiList.at(zc-1).Siz);
 										else
 										{
 											if (startLin > 0)
@@ -1719,7 +1721,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						aSpa = 0;
 						for (uint sof = 0; sof<LiList.count(); ++sof)
 						{
-							if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
+							if ((LiList.at(sof).Zeich == QChar(32)) || (LiList.at(sof).Zeich == QChar(29)))
 								aSpa++;
 						}
 						if (aSpa != 0)
@@ -1729,8 +1731,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						OFs = 0;
 						for (uint yof = 0; yof < LiList.count(); ++yof)
 						{
-							LiList.at(yof)->xco += OFs;
-							if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
+							LiList.at(yof).xco += OFs;
+							if ((LiList.at(yof).Zeich == QChar(32)) || (LiList.at(yof).Zeich == QChar(29)))
 								OFs += OFs2;
 						}
 					}
@@ -1738,7 +1740,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						for (uint xof = 0; xof<LiList.count(); ++xof)
 						{
-							LiList.at(xof)->xco += OFs;
+							LiList.at(xof).xco += OFs;
 						}
 					}
 				}
@@ -1746,7 +1748,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				{
 					if ((!AbsHasDrop) && (StartOfCol) && (!m_Doc->docParagraphStyles[hl->cab].BaseAdj))
 					{
-						Zli2 = LiList.at(0);
+						Zli2 = &LiList.at(0);
 						double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 						double currasce = 0;
 						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
@@ -1757,7 +1759,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							currasce = RealCAscent(m_Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
-							Zli2 = LiList.at(zc);
+							Zli2 = &LiList.at(zc);
 							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
@@ -1771,13 +1773,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						double adj = firstasce - currasce;
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
-							LiList.at(zc)->yco -= adj;
+							LiList.at(zc).yco -= adj;
 						}
 						CurY -= adj;
 					}
 					if ((!StartOfCol) && (!m_Doc->docParagraphStyles[hl->cab].BaseAdj) && (m_Doc->docParagraphStyles[hl->cab].LineSpaMode == 1))
 					{
-						Zli2 = LiList.at(0);
+						Zli2 = &LiList.at(0);
 						double firstasce = m_Doc->docParagraphStyles[hl->cab].LineSpa;
 						double currasce = 0;
 						if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
@@ -1786,7 +1788,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							currasce = RealFHeight(m_Doc, Zli2->ZFo, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
-							Zli2 = LiList.at(zc);
+							Zli2 = &LiList.at(zc);
 							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
@@ -1800,7 +1802,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						double adj = firstasce - currasce;
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
-							LiList.at(zc)->yco -= adj;
+							LiList.at(zc).yco -= adj;
 						}
 						CurY -= adj;
 					}
@@ -1811,7 +1813,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				for (uint zc = 0; zc<LiList.count(); ++zc)
 				{
 					double wide2 = 0;
-					Zli2 = LiList.at(zc);
+					Zli2 = &LiList.at(zc);
 					double xcoZli = Zli2->xco;
 					itemText.at(startLin+zc)->xp = Zli2->xco;
 					itemText.at(startLin+zc)->yp = Zli2->yco;
@@ -1836,8 +1838,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						p->setLineWidth(0);
 						if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 						{
-							wide2 = LiList.at(zc-1)->wide;
-							xcoZli = LiList.at(zc-1)->xco+wide2;
+							wide2 = LiList.at(zc-1).wide;
+							xcoZli = LiList.at(zc-1).xco+wide2;
 							wide = Zli2->xco - xcoZli + Zli2->wide;
 						}
 						if (!m_Doc->RePos)
@@ -1859,38 +1861,37 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							double wt = Cwidth(m_Doc, Zli2->ZFo, tabFillCharQStr, Zli2->Siz);
 							int coun = static_cast<int>((Zli2->xco - tabDist) / wt);
 							double sPos = Zli2->xco - (Zli2->xco - tabDist) + 1;
-							Zli = new ZZ;
-							Zli->Zeich = tabFillCharQStr;
-							Zli->Farb = Zli2->Farb;
-							Zli->Farb2 = Zli2->Farb2;
-							Zli->shade = Zli2->shade;
-							Zli->shade2 = Zli2->shade2;
-							Zli->yco = Zli2->yco;
-							Zli->Sele = Zli2->Sele;
-							Zli->Siz = Zli2->Siz;
-							Zli->realSiz = Zli2->realSiz;
-							Zli->Style = Zli2->Style;
-							Zli->ZFo = Zli2->ZFo;
-							Zli->wide = wt;
-							Zli->kern = 0;
-							Zli->scale = 1000;
-							Zli->scalev = 1000;
-							Zli->base = Zli2->base;
-							Zli->shadowX = Zli2->shadowX;
-							Zli->shadowY = Zli2->shadowY;
-							Zli->outline = Zli2->outline;
-							Zli->underpos = Zli2->underpos;
-							Zli->underwidth = Zli2->underwidth;
-							Zli->strikepos = Zli2->strikepos;
-							Zli->strikewidth = Zli2->strikewidth;
-							Zli->embedded = 0;
+							ZZ Zli;
+							Zli.Zeich = tabFillCharQStr;
+							Zli.Farb = Zli2->Farb;
+							Zli.Farb2 = Zli2->Farb2;
+							Zli.shade = Zli2->shade;
+							Zli.shade2 = Zli2->shade2;
+							Zli.yco = Zli2->yco;
+							Zli.Sele = Zli2->Sele;
+							Zli.Siz = Zli2->Siz;
+							Zli.realSiz = Zli2->realSiz;
+							Zli.Style = Zli2->Style;
+							Zli.ZFo = Zli2->ZFo;
+							Zli.wide = wt;
+							Zli.kern = 0;
+							Zli.scale = 1000;
+							Zli.scalev = 1000;
+							Zli.base = Zli2->base;
+							Zli.shadowX = Zli2->shadowX;
+							Zli.shadowY = Zli2->shadowY;
+							Zli.outline = Zli2->outline;
+							Zli.underpos = Zli2->underpos;
+							Zli.underwidth = Zli2->underwidth;
+							Zli.strikepos = Zli2->strikepos;
+							Zli.strikewidth = Zli2->strikewidth;
+							Zli.embedded = 0;
 							for (int cx = 0; cx < coun; ++cx)
 							{
-								Zli->xco =  sPos + wt * cx;
-								if (e2.intersects(pf2.xForm(QRect(qRound(Zli->xco),qRound(Zli->yco-asce), qRound(Zli->wide+1), qRound(asce+desc)))))
-									DrawZeichenS(p, Zli);
+								Zli.xco =  sPos + wt * cx;
+								if (e2.intersects(pf2.xForm(QRect(qRound(Zli.xco),qRound(Zli.yco-asce), qRound(Zli.wide+1), qRound(asce+desc)))))
+									DrawZeichenS(p, &Zli);
 							}
-							delete Zli;
 						}
 						if (Zli2->Zeich == QChar(9))
 							tabCc++;
@@ -1905,7 +1906,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									points = m_Doc->symReturn.copy();
 									if (zc > 0)
-										ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.8);
+										ytrans = LiList.at(zc-1).yco-((Zli2->Siz / 10.0) * 0.8);
 									else
 										ytrans = Zli2->yco-m_Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.8);
 								}
@@ -1913,12 +1914,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									points = m_Doc->symNewLine.copy();
 									if (zc > 0)
-										ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.4);
+										ytrans = LiList.at(zc-1).yco-((Zli2->Siz / 10.0) * 0.4);
 									else
 										ytrans = Zli2->yco-m_Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.4);
 								}
 								if (zc > 0)
-									xtrans =  LiList.at(zc-1)->xco + Cwidth(m_Doc, LiList.at(zc-1)->ZFo, LiList.at(zc-1)->Zeich, LiList.at(zc-1)->Siz);
+									xtrans =  LiList.at(zc-1).xco + Cwidth(m_Doc, LiList.at(zc-1).ZFo, LiList.at(zc-1).Zeich, LiList.at(zc-1).Siz);
 								else
 								{
 									if (startLin > 0)
