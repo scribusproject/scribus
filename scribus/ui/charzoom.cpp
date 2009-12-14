@@ -21,7 +21,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 	setMaximumSize(sizex, sizey);
 	
 	pixm = QPixmap(size, size);
-	QImage pix(size, size, QImage::Format_ARGB32);
+	QImage pix(size, size, QImage::Format_ARGB32_Premultiplied);
 	ScPainter *p = new ScPainter(&pix, size, size);
 	p->clear();
 	pixm.fill(Qt::white);

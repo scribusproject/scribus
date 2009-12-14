@@ -160,7 +160,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* im
 	// Setup image
 	imagew = clipw * scale;
 	imageh = cliph * scale;
-	*image = QImage( imagew, imageh, QImage::Format_ARGB32 );
+	*image = QImage( imagew, imageh, QImage::Format_ARGB32_Premultiplied );
 	if (image->width() <= 0 || image->height() <= 0)
 		return false;
 

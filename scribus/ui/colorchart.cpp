@@ -59,7 +59,7 @@ void ColorChart::paintEvent(QPaintEvent *e)
 	QPainter p2;
 	p.begin(this);
 	p.setClipRect(e->rect());
-	QImage tmp = QImage(width(), height(), QImage::Format_ARGB32);
+	QImage tmp = QImage(width(), height(), QImage::Format_ARGB32_Premultiplied);
 	p2.begin(&tmp);
 	p2.drawPixmap(0, 0, pmx);
 	if (doDrawMark)
@@ -93,7 +93,7 @@ void ColorChart::drawPalette(int val)
 {
 	int xSize = width();
 	int ySize = height();
-	QImage image(xSize, ySize, QImage::Format_ARGB32);
+	QImage image(xSize, ySize, QImage::Format_ARGB32_Premultiplied);
 	QColor color;
 	int x;
 	int y;

@@ -70,7 +70,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 		int size = baseSize + qRound(-face.descent() * baseSize) + 1;
 		double ww = baseSize - face.glyphWidth(gl, baseSize);
 
-		QImage pix(baseSize, size, QImage::Format_ARGB32);
+		QImage pix(baseSize, size, QImage::Format_ARGB32_Premultiplied);
 		ScPainter *p = new ScPainter(&pix, baseSize, size);
 		p->clear();
 		FPointArray gly = face.glyphOutline(gl, 1);

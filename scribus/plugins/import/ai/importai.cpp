@@ -2118,7 +2118,7 @@ void AIPlug::processPattern(QDataStream &ts)
 					currItem->AutoName = false;
 					m_Doc->DoDrawing = true;
 					QImage tmpImg = currItem->DrawObj_toImage();
-					QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32);
+					QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
 					retImg.fill( qRgba(255, 255, 255, 0) );
 					QPainter p;
 					p.begin(&retImg);

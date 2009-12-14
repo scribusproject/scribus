@@ -451,7 +451,7 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	double savScale = view->scale();
 	view->setScale(1.0);
 	currentDoc->RePos = true;
-	QImage pgPix(10, 10, QImage::Format_ARGB32);
+	QImage pgPix(10, 10, QImage::Format_ARGB32_Premultiplied);
 	QRect rd; // = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	for (int azz=0; azz<currentDoc->MasterItems.count(); ++azz)

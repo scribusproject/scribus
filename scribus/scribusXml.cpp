@@ -2114,7 +2114,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	writer.writeAttribute("Version", QString(VERSION));
 
 	double scaleI = 50.0 / qMax(selectionWidth, selectionHeight);
-	QImage retImg = QImage(50, 50, QImage::Format_ARGB32);
+	QImage retImg = QImage(50, 50, QImage::Format_ARGB32_Premultiplied);
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(scaleI);

@@ -1110,7 +1110,7 @@ QPixmap StencilReader::createPreview(QString data)
 	GrW = ScCLocale::toDoubleC(dims.attribute("w"), 50.0) + 10;
 	GrH = ScCLocale::toDoubleC(dims.attribute("h"), 50.0) + 10;
 	pmmax = 60 / qMax(GrW, GrH);
-	tmp = QImage(static_cast<int>(GrW), static_cast<int>(GrH), QImage::Format_ARGB32);
+	tmp = QImage(static_cast<int>(GrW), static_cast<int>(GrH), QImage::Format_ARGB32_Premultiplied);
 	pS = new ScPainter(&tmp, tmp.width(), tmp.height());
 	pS->clear();
 	pS->translate(5, 5);

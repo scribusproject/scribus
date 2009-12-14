@@ -882,7 +882,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 // 	qDebug() << "Canvas::drawContents" << clipx << clipy << clipw << cliph<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	uint docPagesCount=m_doc->Pages->count();
 	ScPainter *painter=0;
-	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32);
+	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 	painter->clear(palette().color(QPalette::Window));
 	painter->newPath();

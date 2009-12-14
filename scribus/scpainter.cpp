@@ -678,7 +678,7 @@ void ScPainter::endLayer()
 				brushm = QBrush(*m_maskPattern->getPattern());
 				brushm.setTransform(qmatrix);
 			}
-			QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+			QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 			QPainter painterM;
 			painterM.begin(&tmpImgM);
 			painterM.setWorldTransform(painter.worldTransform());
@@ -686,7 +686,7 @@ void ScPainter::endLayer()
 			painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
 			painterM.fillPath(painter.clipPath(), brushm);
 			painterM.end();
-			QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+			QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 			QPainter painterO;
 			painterO.begin(&tmpImgO);
 			painterO.setWorldTransform(painter.worldTransform());
@@ -1614,7 +1614,7 @@ void ScPainter::drawVPath(int mode)
 					brushm = QBrush(*m_maskPattern->getPattern());
 					brushm.setTransform(qmatrix);
 				}
-				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 				QPainter painterM;
 				painterM.begin(&tmpImgM);
 				painterM.setWorldTransform(painter.worldTransform());
@@ -1622,7 +1622,7 @@ void ScPainter::drawVPath(int mode)
 				painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
 				painterM.fillPath(m_path, brushm);
 				painterM.end();
-				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 				QPainter painterO;
 				painterO.begin(&tmpImgO);
 				painterO.setWorldTransform(painter.worldTransform());
@@ -1769,7 +1769,7 @@ void ScPainter::drawVPath(int mode)
 					brushm = QBrush(*m_maskPattern->getPattern());
 					brushm.setTransform(qmatrix);
 				}
-				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 				QPainter painterM;
 				painterM.begin(&tmpImgM);
 				painterM.setWorldTransform(painter.worldTransform());
@@ -1777,7 +1777,7 @@ void ScPainter::drawVPath(int mode)
 				painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
 				painterM.fillPath(m_path, brushm);
 				painterM.end();
-				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 				QPainter painterO;
 				painterO.begin(&tmpImgO);
 				painterO.setWorldTransform(painter.worldTransform());
@@ -1890,7 +1890,7 @@ void ScPainter::drawVPath(int mode)
 					brushm = QBrush(*m_maskPattern->getPattern());
 					brush.setTransform(qmatrix);
 				}
-				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 				QPainter painterM;
 				painterM.begin(&tmpImgM);
 				painterM.setWorldTransform(painter.worldTransform());
@@ -1898,7 +1898,7 @@ void ScPainter::drawVPath(int mode)
 				painterM.setRenderHint(QPainter::SmoothPixmapTransform, true);
 				painterM.fillPath(m_path, brushm);
 				painterM.end();
-				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+				QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 				QPainter painterO;
 				painterO.begin(&tmpImgO);
 				painterO.setWorldTransform(painter.worldTransform());
@@ -2167,7 +2167,7 @@ void ScPainter::drawImage( QImage *image )
 			qmatrix.shear(-mask_gradientSkew, 0);
 			qmatrix.translate(-x1, -y1);
 		}
-		QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+		QImage tmpImgM = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 		QPainter painterM;
 		painterM.begin(&tmpImgM);
 		painterM.setWorldTransform(painter.worldTransform());
@@ -2177,7 +2177,7 @@ void ScPainter::drawImage( QImage *image )
 		brushm.setTransform(qmatrix);
 		painterM.fillPath(painter.clipPath(), brushm);
 		painterM.end();
-		QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32);
+		QImage tmpImgO = QImage(m_image->width(), m_image->height(), QImage::Format_ARGB32_Premultiplied);
 		QPainter painterO;
 		painterO.begin(&tmpImgO);
 		painterO.setWorldTransform(painter.worldTransform());

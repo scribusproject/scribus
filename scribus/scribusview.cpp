@@ -2939,7 +2939,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		setScale(1.0);
 		m_canvas->m_viewMode.previewMode = true;
 		m_canvas->m_viewMode.forceRedraw = true;
-		pm = QImage(clipw, cliph, QImage::Format_ARGB32);
+		pm = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height(), 1.0, 0);
 		painter->clear(Doc->papColor);
 		painter->translate(-clipx, -clipy);
@@ -2991,7 +2991,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 	int cliph = qRound(Doc->DocPages.at(Nr)->height() * sc);
 	if ((clipw > 0) && (cliph > 0))
 	{
-		im = QImage(clipw, cliph, QImage::Format_ARGB32);
+		im = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 		if (!im.isNull())
 		{
 			double oldScale = m_canvas->scale();

@@ -1231,7 +1231,7 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 			}
 		}
 	}
-	QImage Ico(32, 32, QImage::Format_ARGB32);
+	QImage Ico(32, 32, QImage::Format_ARGB32_Premultiplied);
 	Ico.fill(0);
 	int count = 0;
 	qreal* AutoShapes;

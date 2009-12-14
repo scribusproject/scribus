@@ -93,7 +93,7 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrW = ScCLocale::toDoubleC(elem.attribute("W"));
 	double GrH = ScCLocale::toDoubleC(elem.attribute("H"));
 	double pmmax = 60 / qMax(GrW+50, GrH+50);
-	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, QImage::Format_ARGB32);
+	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, QImage::Format_ARGB32_Premultiplied);
 	tmp.fill( qRgba(255, 255, 255, 0) );
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height(), 1.0, 0);
 	pS->beginLayer(1.0, 0);

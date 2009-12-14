@@ -81,7 +81,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
 		StopM.append(center);
 	}
-	QImage pixm(width()-20, 37, QImage::Format_ARGB32);
+	QImage pixm(width()-20, 37, QImage::Format_ARGB32_Premultiplied);
 	QPainter pb;
 	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 	pb.begin(&pixm);

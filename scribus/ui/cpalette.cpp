@@ -332,7 +332,7 @@ void Cpalette::updateGradientList()
 	namedGradientStroke->addItem( tr("Custom"));
 	for (QMap<QString, VGradient>::Iterator it = gradientList->begin(); it != gradientList->end(); ++it)
 	{
-		QImage pixm(48, 12, QImage::Format_ARGB32);
+		QImage pixm(48, 12, QImage::Format_ARGB32_Premultiplied);
 		QPainter pb;
 		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 		pb.begin(&pixm);
