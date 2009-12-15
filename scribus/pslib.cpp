@@ -3604,6 +3604,8 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		}
 		PutStream(bctx.trimmed()+"]\n");
 	}
+	else
+		PutStream("/Bounds []\n");
 	QString entx = "";
 	PutStream("/Functions\n");
 	PutStream("[\n");
