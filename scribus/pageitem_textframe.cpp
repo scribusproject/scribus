@@ -1133,7 +1133,10 @@ void PageItem_TextFrame::layout()
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
 			// find out width of char
 			if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+			{
 				wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
+				hl->glyph.xadvance = wide;
+			}
 			else
 			{
 				wide = hl->glyph.wide();
