@@ -1731,9 +1731,15 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 		trans.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		if (patternStrokeMirrorX)
+		{
+			trans.translate(pat.width, 0);
 			trans.scale(-1, 1);
+		}
 		if (patternStrokeMirrorY)
+		{
+			trans.translate(0, pat.height);
 			trans.scale(1, -1);
+		}
 		trans *= savWM;
 		p->setWorldMatrix(trans);
 		p->drawImage(pat.getPattern());

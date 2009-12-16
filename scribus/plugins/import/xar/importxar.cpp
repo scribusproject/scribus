@@ -3141,8 +3141,8 @@ void XarPlug::popGraphicContext()
 					QImage tmpImg = groupItem->DrawObj_toImage();
 					ScPattern pat = ScPattern();
 					pat.setDoc(m_Doc);
-					pat.width = tmpImg.width();
-					pat.height = tmpImg.height();
+					pat.width = groupItem->width();
+					pat.height = groupItem->height();
 					pat.pattern = tmpImg;
 					for (int a = gg.index; a < Elements.count(); ++a)
 					{
