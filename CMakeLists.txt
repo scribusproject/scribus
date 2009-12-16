@@ -120,6 +120,18 @@ IF (_machine_mips_64)
     SET(ARCH_MIPS_64 1)
 ENDIF (_machine_mips_64)
 
+STRING(REGEX MATCH "(mips-*)|(MIPS-*)" _machine_mips "${MACHINE}")
+IF (_machine_mips)
+    MESSAGE(STATUS "Found target MIPS")
+    SET(ARCH_MIPS 1)
+ENDIF (_machine_mips)
+
+STRING(REGEX MATCH "(hppa-*)" _machine_hppa "${MACHINE}")
+IF (_machine_hppa)
+    MESSAGE(STATUS "Found target HPPA")
+    SET(ARCH_HPPA 1)
+ENDIF (_machine_hppa)
+
 STRING(REGEX MATCH "(ppc-*)|(powerpc-*)" _machine_ppc "${MACHINE}")
 IF (_machine_ppc)
     MESSAGE(STATUS "Found target PPC")

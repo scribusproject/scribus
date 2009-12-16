@@ -14,10 +14,13 @@ SET(2GEOM_VERSION 0.1.0)
 # SET(CMAKE_CXX_FLAGS "${GTK2_CFLAGS} ${cairo_CFLAGS} -Wall")
 #CB SET(CMAKE_CXX_FLAGS "-Wall")
 #CB SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
-# We need to pass -fPIC only to lib2geom on amd64 - avoid it elsewhere see: http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
-IF (ARCH_X86_64 EQUAL 1)
+# We need to pass -fPIC to lib2geom on amd64, mips, mipsel, and hppa. See:
+# http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3 and
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=559133
+
+IF (ARCH_X86_64 EQUAL 1 OR ARCH_HPPA EQUAL 1 OR ARCH_MIPS EQUAL 1 OR ARCH_MIPS_64 EQUAL 1)
   SET(CMAKE_CXX_FLAGS "$(CMAKE_CXX_FLAGS) -fPIC")
-ENDIF (ARCH_X86_64 EQUAL 1)
+ENDIF (ARCH_X86_64 EQUAL 1 OR ARCH_HPPA EQUAL 1 OR ARCH_MIPS EQUAL 1 OR ARCH_MIPS_64 EQUAL 1)
 
 OPTION(2GEOM_BUILD_SHARED
   "Build lib2geom and libtoy as shared libraries."
