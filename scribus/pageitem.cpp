@@ -4988,6 +4988,13 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth / 2.0;
+		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		{
+			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
+			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
+			extraSpace = qMax(ww, hh);
+		}
 	}
 	else
 	{
@@ -5139,6 +5146,13 @@ double PageItem::visualXPos() const
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth / 2.0;
+		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		{
+			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
+			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
+			extraSpace = qMax(ww, hh);
+		}
 	}
 	else
 	{
@@ -5157,6 +5171,13 @@ double PageItem::visualYPos() const
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth / 2.0;
+		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		{
+			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
+			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
+			extraSpace = qMax(ww, hh);
+		}
 	}
 	else
 	{
@@ -5175,6 +5196,13 @@ double PageItem::visualWidth() const
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth;
+		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		{
+			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
+			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
+			extraSpace = qMax(ww, hh);
+		}
 	}
 	else
 	{
@@ -5193,6 +5221,13 @@ double PageItem::visualHeight() const
 	{
 		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			extraSpace = m_lineWidth;
+		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		{
+			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
+			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
+			extraSpace = qMax(ww, hh);
+		}
 	}
 	else
 	{
