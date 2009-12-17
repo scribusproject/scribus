@@ -2057,14 +2057,21 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								PutPage(PDF_TransparenzStroke(ite));
 							if (ite->NamedLStyle.isEmpty())
 							{
-								PutPage(SetClipPath(ite));
 								if (!ite->strokePattern().isEmpty())
 								{
-									if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-										return false;
-									PutPage(SetClipPath(ite));
-									PutPage(tmpOut);
-									PutPage("h\nS\n");
+									if (ite->patternStrokePath)
+									{
+										QPainterPath path = ite->PoLine.toQPainterPath(false);
+										PutPage(HandleBrushPattern(ite, path, pag, pag->pageNr()));
+									}
+									else
+									{
+										if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+											return false;
+										PutPage(SetClipPath(ite));
+										PutPage(tmpOut);
+										PutPage("h\nS\n");
+									}
 								}
 								else if (ite->GrTypeStroke > 0)
 								{
@@ -2106,12 +2113,22 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						{
 							if (!ite->strokePattern().isEmpty())
 							{
-								if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-									return false;
-								PutPage(tmpOut);
-								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->width())+" 0 l\n");
-								PutPage("S\n");
+								if (ite->patternStrokePath)
+								{
+									QPainterPath path;
+									path.moveTo(0, 0);
+									path.lineTo(ite->width(), 0);
+									PutPage(HandleBrushPattern(ite, path, pag, pag->pageNr()));
+								}
+								else
+								{
+									if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+										return false;
+									PutPage(tmpOut);
+									PutPage("0 0 m\n");
+									PutPage(FToStr(ite->width())+" 0 l\n");
+									PutPage("S\n");
+								}
 							}
 							else if (ite->GrTypeStroke > 0)
 							{
@@ -2205,10 +2222,18 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							{
 								if (!ite->strokePattern().isEmpty())
 								{
-									if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-										return false;
-									PutPage(tmpOut);
-									PutPage("h\nS\n");
+									if (ite->patternStrokePath)
+									{
+										QPainterPath path = ite->PoLine.toQPainterPath(false);
+										PutPage(HandleBrushPattern(ite, path, pag, pag->pageNr()));
+									}
+									else
+									{
+										if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+											return false;
+										PutPage(tmpOut);
+										PutPage("h\nS\n");
+									}
 								}
 								else if (ite->GrTypeStroke > 0)
 								{
@@ -2291,11 +2316,19 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							{
 								if (!ite->strokePattern().isEmpty())
 								{
-									if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-										return false;
-									PutPage(tmpOut);
-									PutPage(SetClipPath(ite, false));
-									PutPage("S\n");
+									if (ite->patternStrokePath)
+									{
+										QPainterPath path = ite->PoLine.toQPainterPath(false);
+										PutPage(HandleBrushPattern(ite, path, pag, pag->pageNr()));
+									}
+									else
+									{
+										if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+											return false;
+										PutPage(tmpOut);
+										PutPage(SetClipPath(ite, false));
+										PutPage("S\n");
+									}
 								}
 								else if (ite->GrTypeStroke > 0)
 								{
@@ -2376,11 +2409,19 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									{
 										if (!ite->strokePattern().isEmpty())
 										{
-											if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-												return false;
-											PutPage(tmpOut);
-											PutPage(SetClipPath(ite, false));
-											PutPage("S\n");
+											if (ite->patternStrokePath)
+											{
+												QPainterPath path = ite->PoLine.toQPainterPath(false);
+												PutPage(HandleBrushPattern(ite, path, pag, pag->pageNr()));
+											}
+											else
+											{
+												if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+													return false;
+												PutPage(tmpOut);
+												PutPage(SetClipPath(ite, false));
+												PutPage("S\n");
+											}
 										}
 										else if (ite->GrTypeStroke > 0)
 										{
@@ -3638,11 +3679,19 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				{
 					if (!ite->strokePattern().isEmpty())
 					{
-						tmp += SetClipPath(ite);
-						if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-							return false;
-						tmp += tmpOut;
-						tmp += "h\nS\n";
+						if (ite->patternStrokePath)
+						{
+							QPainterPath path = ite->PoLine.toQPainterPath(false);
+							tmp += HandleBrushPattern(ite, path, pag, PNr);
+						}
+						else
+						{
+							tmp += SetClipPath(ite);
+							if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+								return false;
+							tmp += tmpOut;
+							tmp += "h\nS\n";
+						}
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
@@ -3737,11 +3786,19 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				{
 					if (!ite->strokePattern().isEmpty())
 					{
-						tmp += SetClipPath(ite);
-						if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-							return false;
-						tmp += tmpOut;
-						tmp += "h\nS\n";
+						if (ite->patternStrokePath)
+						{
+							QPainterPath path = ite->PoLine.toQPainterPath(false);
+							tmp += HandleBrushPattern(ite, path, pag, PNr);
+						}
+						else
+						{
+							tmp += SetClipPath(ite);
+							if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+								return false;
+							tmp += tmpOut;
+							tmp += "h\nS\n";
+						}
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
@@ -3781,12 +3838,22 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (!ite->strokePattern().isEmpty())
 				{
-					if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-						return false;
-					tmp += tmpOut;
-					tmp += "0 0 m\n";
-					tmp += FToStr(ite->width())+" 0 l\n";
-					tmp += "S\n";
+					if (ite->patternStrokePath)
+					{
+						QPainterPath path;
+						path.moveTo(0, 0);
+						path.lineTo(ite->width(), 0);
+						tmp += HandleBrushPattern(ite, path, pag, PNr);
+					}
+					else
+					{
+						if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+							return false;
+						tmp += tmpOut;
+						tmp += "0 0 m\n";
+						tmp += FToStr(ite->width())+" 0 l\n";
+						tmp += "S\n";
+					}
 				}
 				else if (ite->GrTypeStroke > 0)
 				{
@@ -3882,11 +3949,19 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				{
 					if (!ite->strokePattern().isEmpty())
 					{
-						tmp += SetClipPath(ite);
-						if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-							return false;
-						tmp += tmpOut;
-						tmp += "h\nS\n";
+						if (ite->patternStrokePath)
+						{
+							QPainterPath path = ite->PoLine.toQPainterPath(false);
+							tmp += HandleBrushPattern(ite, path, pag, PNr);
+						}
+						else
+						{
+							tmp += SetClipPath(ite);
+							if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+								return false;
+							tmp += tmpOut;
+							tmp += "h\nS\n";
+						}
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
@@ -3969,11 +4044,19 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				{
 					if (!ite->strokePattern().isEmpty())
 					{
-						tmp += SetClipPath(ite, false);
-						if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-							return false;
-						tmp += tmpOut;
-						tmp += "S\n";
+						if (ite->patternStrokePath)
+						{
+							QPainterPath path = ite->PoLine.toQPainterPath(false);
+							tmp += HandleBrushPattern(ite, path, pag, PNr);
+						}
+						else
+						{
+							tmp += SetClipPath(ite, false);
+							if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+								return false;
+							tmp += tmpOut;
+							tmp += "S\n";
+						}
 					}
 					else if (ite->GrTypeStroke > 0)
 					{
@@ -4054,11 +4137,19 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						{
 							if (!ite->strokePattern().isEmpty())
 							{
-								tmp += SetClipPath(ite, false);
-								if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-									return false;
-								tmp += tmpOut;
-								tmp += "S\n";
+								if (ite->patternStrokePath)
+								{
+									QPainterPath path = ite->PoLine.toQPainterPath(false);
+									tmp += HandleBrushPattern(ite, path, pag, PNr);
+								}
+								else
+								{
+									tmp += SetClipPath(ite, false);
+									if (!PDF_PatternFillStroke(tmpOut, ite, 1))
+										return false;
+									tmp += tmpOut;
+									tmp += "S\n";
+								}
 							}
 							else if (ite->GrTypeStroke > 0)
 							{
@@ -4110,6 +4201,103 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	tmp += "Q\n";
 	output = tmp;
 	return true;
+}
+
+QString PDFLibCore::HandleBrushPattern(PageItem* ite, QPainterPath &path, const Page* pag, uint PNr)
+{
+	QString tmp;
+	tmp = "";
+	ScPattern pat = doc.docPatterns[ite->strokePattern()];
+	double pLen = path.length() - ((pat.width / 2.0) * (ite->patternStrokeScaleX / 100.0));
+	double adv = pat.width * ite->patternStrokeScaleX / 100.0 * ite->patternStrokeSpace;
+	double xpos = ite->patternStrokeOffsetX * ite->patternStrokeScaleX / 100.0;
+	while (xpos < pLen)
+	{
+		double currPerc = path.percentAtLength(xpos);
+		double currAngle = path.angleAtPercent(currPerc);
+#if QT_VERSION  >= 0x040400
+		if (currAngle <= 180.0)
+			currAngle *= -1.0;
+		else
+			currAngle = 360.0 - currAngle;
+#endif
+		QPointF currPoint = path.pointAtPercent(currPerc);
+		tmp += "q\n";
+		QTransform base;
+		base.translate(currPoint.x(), -currPoint.y());
+		base.rotate(-currAngle);
+		tmp += FToStr(base.m11())+" "+FToStr(base.m12())+" "+FToStr(base.m21())+" "+FToStr(base.m22())+" "+FToStr(base.dx())+" "+FToStr(base.dy())+" cm\n";
+		QTransform trans;
+		trans.translate(0.0, -ite->patternStrokeOffsetY);
+		trans.rotate(-ite->patternStrokeRotation);
+		trans.shear(ite->patternStrokeSkewX, -ite->patternStrokeSkewY);
+		trans.scale(ite->patternStrokeScaleX / 100.0, ite->patternStrokeScaleY / 100.0);
+		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
+		if (ite->patternStrokeMirrorX)
+		{
+			trans.translate(pat.width, 0);
+			trans.scale(-1, 1);
+		}
+		if (ite->patternStrokeMirrorY)
+		{
+			trans.translate(0, pat.height);
+			trans.scale(1, -1);
+		}
+		tmp += FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n";
+		QStack<PageItem*> groupStack;
+		for (int em = 0; em < pat.items.count(); ++em)
+		{
+			PageItem* embedded = pat.items.at(em);
+			if (embedded->isGroupControl)
+			{
+				tmp += "q\n";
+				FPointArray cl = embedded->PoLine.copy();
+				FPointArray clb = embedded->PoLine.copy();
+				QTransform mm;
+				mm.translate(embedded->gXpos, -(embedded->gHeight - embedded->gYpos));
+				mm.rotate(embedded->rotation());
+				cl.map( mm );
+				embedded->PoLine = cl;
+				tmp += SetClipPath(embedded);
+				tmp += "h W* n\n";
+				groupStack.push(embedded->groupsLastItem);
+				embedded->PoLine = clb.copy();
+				continue;
+			}
+			tmp += "q\n";
+			tmp +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+			QString output;
+			if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
+				return "";
+			tmp += output;
+			tmp += "Q\n";
+			if (groupStack.count() != 0)
+			{
+				while (embedded == groupStack.top())
+				{
+					tmp += "Q\n";
+					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
+				}
+			}
+		}
+		for (int em = 0; em < pat.items.count(); ++em)
+		{
+			PageItem* embedded = pat.items.at(em);
+			if (!embedded->isTableItem)
+				continue;
+			if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
+				continue;
+			tmp += "q\n";
+			tmp +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+			tmp += PDF_ProcessTableItem(embedded, pag);
+			tmp += "Q\n";
+		}
+		tmp += "Q\n";
+		xpos += adv;
+	}
+	return tmp;
 }
 
 QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)

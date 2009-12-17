@@ -149,6 +149,7 @@ private:
 
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
+	QString HandleBrushPattern(PageItem* ite, QPainterPath &path, const Page* pag, uint PNr);
 	QString drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
 	bool    PDF_PatternFillStroke(QString& output, PageItem *currItem, int kind = 0, bool forArrow = false);
