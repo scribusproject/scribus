@@ -9265,6 +9265,9 @@ void ScribusMainWindow::slotInsertFrame()
 
 void ScribusMainWindow::PutToPatterns()
 {
+	int z;
+	PageItem* groupItem;
+	uint docSelectionCount = doc->m_Selection->count();
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
@@ -9295,11 +9298,47 @@ void ScribusMainWindow::PutToPatterns()
 	slotEditCopy();
 	doc->m_Selection->delaySignalsOn();
 	view->Deselect(true);
+	if (docSelectionCount > 1)
+	{
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, 0, 0, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+		groupItem = doc->Items->at(z);
+	}
 	slotEditPaste();
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	internalCopy = false;
 	int ae = doc->Items->count();
+	if (docSelectionCount > 1)
+	{
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		for (int as = ac+1; as < ae; ++as)
+		{
+			PageItem* currItem = doc->Items->at(as);
+			currItem->Groups.push(doc->GroupCounter);
+			double x1, x2, y1, y2;
+			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+		}
+		groupItem->setXYPos(minx, miny, true);
+		groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
+		groupItem->SetRectFrame();
+		groupItem->ClipEdited = true;
+		groupItem->FrameType = 3;
+		groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+		groupItem->AutoName = false;
+		groupItem->isGroupControl = true;
+		groupItem->setFillTransparency(0);
+		groupItem->setLineTransparency(0);
+		groupItem->groupsLastItem = doc->Items->at(ae-1);
+		groupItem->Groups.push(doc->GroupCounter);
+		doc->GroupCounter++;
+	}
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
 	PageItem* currItem = doc->Items->at(ac);
