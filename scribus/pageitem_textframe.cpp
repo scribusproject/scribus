@@ -1136,7 +1136,7 @@ void PageItem_TextFrame::layout()
 			if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 			{
 				wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
-				hl->glyph.xadvance = wide;
+				hl->glyph.xadvance = wide * hl->glyph.scaleH;
 			}
 			else
 			{
