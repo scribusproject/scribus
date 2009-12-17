@@ -128,6 +128,25 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
+{
+	double grid, offset;
+	if (!PyArg_ParseTuple(args, "dd", &grid, &offset))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	ScCore->primaryMainWindow()->doc->guidesSettings.valueBaselineGrid = ValueToPoint(grid);
+	ScCore->primaryMainWindow()->doc->guidesSettings.offsetBaselineGrid = ValueToPoint(offset);
+	//ScCore->primaryMainWindow()->view->reformPages();
+	ScCore->primaryMainWindow()->doc->setModified(true);
+	//ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());
+	ScCore->primaryMainWindow()->view->DrawNew();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
+
 PyObject *scribus_closedoc(PyObject* /* self */)
 {
 	if(!checkHaveDocument())

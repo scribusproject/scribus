@@ -188,6 +188,20 @@ May throw ValueError if the line spacing is out of bounds.\n\
 PyObject *scribus_setlinespace(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setlinespacemode__doc__,
+QT_TR_NOOP("setLineSpacingMode(mode, [\"name\"])\n\
+\n\
+Sets the line spacing mode of the text frame \"name\" to \"mode\".\n\
+If \"name\" is not given the currently selected\n\
+item is used.\n\
+Mode values are the same as in createParagraphStyle.\n\
+\n\
+May throw ValueError if the mode is out of bounds.\n\
+"));
+/*! Set line space mode */
+PyObject *scribus_setlinespacemode(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_settextdistances__doc__,
 QT_TR_NOOP("setTextDistances(left, right, top, bottom, [\"name\"])\n\
 \n\

@@ -112,6 +112,11 @@ is not given the currently selected item is used.</p></dd>
 <p>Sets the line spacing ("leading") of the text frame "name" to "size". "size" is a value in points. If "name" is not given the currently selected item is used.</p>
 <p>May throw ValueError if the line spacing is out of bounds.</p></dd>
 
+<dt><a name="-setLineSpacingMode"><strong>setLineSpacingMode</strong></a>(...)</dt>
+<dd><code>setLineSpacingMode(mode, ["name"])</code>
+<p>Sets the line spacing mode of the text frame "name" to "mode". If "name" is not given the currently selected item is used. Mode values are the same as in createParagraphStyle.</p>
+<p>May throw ValueError if the line spacing mode is out of bounds.</p></dd>
+
 <dt><a name="-setPDFBookmark"><strong>setPDFBookmark</strong>(...)</a></dt>
 <dd><code>setPDFBookmark("toggle", ["name"])</code>
 <p>Sets wether (toggle = 1) the text frame "name" is a bookmark nor not. If "name" is not given the currently selected item is used.</p>

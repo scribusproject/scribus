@@ -461,6 +461,40 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setlinespacemode(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int w;
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (w < 0 || w > 3) // Use constants?
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line space mode invalid, must be 0, 1 or 2","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing mode on a non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	if (i->HasSel)
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->doc->itemSelection_SetLineSpacingMode(w);
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
+		
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_settextdistances(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
