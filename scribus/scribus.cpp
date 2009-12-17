@@ -9293,12 +9293,34 @@ void ScribusMainWindow::PutToPatterns()
 	internalCopy = true;
 	doc->useRaster = false;
 	doc->SnapGuides = false;
+	bool isGroup = true;
+	int firstElem = -1;
+	PageItem* currItem = doc->m_Selection->itemAt(0);
+	if (currItem->Groups.count() != 0)
+		firstElem = currItem->Groups.top();
+	for (uint bx = 0; bx < docSelectionCount; ++bx)
+	{
+		PageItem* bxi = doc->m_Selection->itemAt(bx);
+		if (bxi->Groups.count() != 0)
+		{
+			if (bxi->Groups.top() != firstElem)
+			{
+				isGroup = false;
+				break;
+			}
+		}
+		else
+		{
+			isGroup = false;
+			break;
+		}
+	}
 	Selection itemSelection(this, false);
 	itemSelection.copy(*doc->m_Selection, false);
 	slotEditCopy();
 	doc->m_Selection->delaySignalsOn();
 	view->Deselect(true);
-	if (docSelectionCount > 1)
+	if ((docSelectionCount > 1) && (!isGroup))
 	{
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, 0, 0, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 		groupItem = doc->Items->at(z);
@@ -9308,7 +9330,7 @@ void ScribusMainWindow::PutToPatterns()
 	doc->SnapGuides = savedAlignGuides;
 	internalCopy = false;
 	int ae = doc->Items->count();
-	if (docSelectionCount > 1)
+	if ((docSelectionCount > 1) && (!isGroup))
 	{
 		double minx = 99999.9;
 		double miny = 99999.9;
@@ -9341,7 +9363,7 @@ void ScribusMainWindow::PutToPatterns()
 	}
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
-	PageItem* currItem = doc->Items->at(ac);
+	currItem = doc->Items->at(ac);
 	pat.pattern = currItem->DrawObj_toImage();
 	pat.width = currItem->gWidth;
 	pat.height = currItem->gHeight;
