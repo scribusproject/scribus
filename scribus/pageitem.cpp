@@ -4993,7 +4993,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
 			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = qMax(ww, hh);
+			extraSpace = sqrt(ww*ww + hh*hh);
 		}
 	}
 	else
@@ -5151,7 +5151,7 @@ double PageItem::visualXPos() const
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
 			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = qMax(ww, hh);
+			extraSpace = sqrt(ww*ww + hh*hh);
 		}
 	}
 	else
@@ -5176,7 +5176,7 @@ double PageItem::visualYPos() const
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
 			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = qMax(ww, hh);
+			extraSpace = sqrt(ww*ww + hh*hh);
 		}
 	}
 	else
@@ -5201,7 +5201,7 @@ double PageItem::visualWidth() const
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
 			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = qMax(ww, hh);
+			extraSpace = sqrt(ww*ww + hh*hh);
 		}
 	}
 	else
@@ -5226,7 +5226,7 @@ double PageItem::visualHeight() const
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
 			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = qMax(ww, hh);
+			extraSpace = sqrt(ww*ww + hh*hh);
 		}
 	}
 	else
