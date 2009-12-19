@@ -44,7 +44,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideRight</enum>
@@ -88,8 +88,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>432</width>
-            <height>672</height>
+            <width>606</width>
+            <height>717</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
