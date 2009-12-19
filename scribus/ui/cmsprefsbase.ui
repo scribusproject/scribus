@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>308</width>
+    <width>348</width>
     <height>467</height>
    </rect>
   </property>
@@ -173,7 +173,7 @@ This profile should be specific to your printer and not a generic profile (i.e. 
       <bool>false</bool>
      </property>
      <property name="title">
-      <string>Docuemnt Rendering Intents</string>
+      <string>Document Rendering Intents</string>
      </property>
      <layout class="QGridLayout">
       <property name="margin">

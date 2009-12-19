@@ -46,78 +46,71 @@
         <x>0</x>
         <y>0</y>
         <width>724</width>
-        <height>757</height>
+        <height>754</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Placement:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="guidePlacementComboBox"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Snap Distance:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="ScrSpinBox" name="guideSnapDistanceSpinBox">
-             <property name="suffix">
-              <string> px</string>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Grab Radius:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="ScrSpinBox" name="guideGrabRadiusSpinBox">
-             <property name="suffix">
-              <string> px</string>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
+        <layout class="QFormLayout" name="formLayout">
+         <property name="formAlignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Placement:</string>
+           </property>
+          </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="guidePlacementComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>642</width>
-             <height>20</height>
-            </size>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Snap Distance:</string>
            </property>
-          </spacer>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="ScrSpinBox" name="guideSnapDistanceSpinBox">
+           <property name="suffix">
+            <string> px</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Grab Radius:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="ScrSpinBox" name="guideGrabRadiusSpinBox">
+           <property name="suffix">
+            <string> px</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -158,51 +151,40 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <widget class="QCheckBox" name="visibilityGuidesCheckBox">
-             <property name="text">
-              <string>Guides</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="visibilityMarginsCheckBox">
-             <property name="text">
-              <string>Margins</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="visibilityGridCheckBox">
-             <property name="text">
-              <string>Page Grid</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="visibilityBaselineGridCheckBox">
-             <property name="text">
-              <string>Baseline Grid</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+        <layout class="QFormLayout" name="formLayout_4">
+         <property name="labelAlignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+         <property name="formAlignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="visibilityGuidesCheckBox">
+           <property name="text">
+            <string>Guides</string>
+           </property>
+          </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="visibilityMarginsCheckBox">
+           <property name="text">
+            <string>Margins</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>642</width>
-             <height>20</height>
-            </size>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="visibilityGridCheckBox">
+           <property name="text">
+            <string>Page Grid</string>
            </property>
-          </spacer>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="visibilityBaselineGridCheckBox">
+           <property name="text">
+            <string>Baseline Grid</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -458,10 +440,10 @@
       <zorder>verticalSpacer_3</zorder>
       <zorder>verticalSpacer_4</zorder>
       <zorder>line_4</zorder>
-      <zorder></zorder>
-      <zorder></zorder>
       <zorder>label_7</zorder>
       <zorder>label_6</zorder>
+      <zorder></zorder>
+      <zorder></zorder>
      </widget>
     </widget>
    </item>

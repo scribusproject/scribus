@@ -19,51 +19,61 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "prefsstructs.h"
 
-
 using namespace std;
+
+PolygonWidget::PolygonWidget(QWidget* parent)
+		 : QWidget( parent )
+{
+	setupUi(this);
+}
+
 
 PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature) : QWidget( parent )
 {
 	setupUi(this);
-	PFactor = polyF;
-	cornersSpinBox->setValue(polyCorners);
-	rotationSpinBox->setValue(static_cast<int>(polyRotation));
-	rotationSlider->setValue(static_cast<int>(polyRotation));
-	applyConvexGroupBox->setChecked(polyUseConvexFactor);
-	factorSpinBox->setValue(polyFd);
-	factorSlider->setValue(polyFd);
-	applyConvexGroupBox->setChecked(polyUseConvexFactor);
-	curvatureSpinBox->setValue(qRound(polyCurvature * 100));
-	curvatureSlider->setValue(qRound(polyCurvature * 100));
-
-	UpdatePreview();
+	setValues(polyCorners, polyFd, polyF, polyUseConvexFactor, polyRotation, polyCurvature);
+	updatePreview();
 	// signals and slots connections
-	connect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
-	connect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
-	connect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
-	connect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	connect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
-	connect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	connect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	connect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(UpdatePreview()));
-	connect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
-	connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
-	connect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connectSignals(true);
 }
+
+
+void PolygonWidget::connectSignals(bool conn)
+{
+	if (conn)
+	{
+		connect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
+		connect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
+		connect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
+		connect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
+		connect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(updatePreview()));
+		connect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
+		connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
+		connect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	}
+	else
+	{
+		disconnect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
+		disconnect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
+		disconnect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
+		disconnect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		disconnect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
+		disconnect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		disconnect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		disconnect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(updatePreview()));
+		disconnect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
+		disconnect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
+		disconnect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	}
+}
+
 
 void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 {
-	disconnect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
-	disconnect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
-	disconnect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
-	disconnect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	disconnect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
-	disconnect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	disconnect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	disconnect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(UpdatePreview()));
-	disconnect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
-	disconnect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
-	disconnect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	connectSignals(false);
 	PFactor = prefsData->polyFactor;
 	cornersSpinBox->setValue(prefsData->polyCorners);
 	rotationSpinBox->setValue(static_cast<int>(prefsData->polyRotation));
@@ -74,18 +84,32 @@ void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	applyConvexGroupBox->setChecked(prefsData->polyUseFactor);
 	curvatureSpinBox->setValue(qRound(prefsData->polyCurvature * 100));
 	curvatureSlider->setValue(qRound(prefsData->polyCurvature * 100));
-	UpdatePreview();
-	connect(factorSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setFactorSlider(int)));
-	connect(rotationSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setRotationSlider(int)));
-	connect(factorSlider, SIGNAL(valueChanged(int)), factorSpinBox, SLOT(setValue(int)));
-	connect(factorSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	connect(rotationSlider, SIGNAL(valueChanged(int)), rotationSpinBox, SLOT(setValue(int)));
-	connect(rotationSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	connect(cornersSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
-	connect(applyConvexGroupBox, SIGNAL(clicked()), this, SLOT(UpdatePreview()));
-	connect(curvatureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setCurvatureSlider(int)));
-	connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
-	connect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreview()));
+	updatePreview();
+	connectSignals(true);
+}
+
+void PolygonWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
+{
+	prefsData->polyCorners = cornersSpinBox->value();
+	prefsData->polyFactor = PFactor;
+	prefsData->polyUseFactor = applyConvexGroupBox->isChecked();
+	prefsData->polyFactorGuiVal = factorSlider->value();
+	prefsData->polyRotation = rotationSpinBox->value();
+	prefsData->polyCurvature = curvatureSpinBox->value() / 100.0;
+}
+
+void PolygonWidget::setValues(int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature)
+{
+	PFactor = polyF;
+	cornersSpinBox->setValue(polyCorners);
+	rotationSpinBox->setValue(static_cast<int>(polyRotation));
+	rotationSlider->setValue(static_cast<int>(polyRotation));
+	applyConvexGroupBox->setChecked(polyUseConvexFactor);
+	factorSpinBox->setValue(polyFd);
+	factorSlider->setValue(polyFd);
+	applyConvexGroupBox->setChecked(polyUseConvexFactor);
+	curvatureSpinBox->setValue(qRound(polyCurvature * 100));
+	curvatureSlider->setValue(qRound(polyCurvature * 100));
 }
 
 void PolygonWidget::getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature)
@@ -119,7 +143,7 @@ void PolygonWidget::setCurvatureSlider(int a)
 	connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
 }
 
-void PolygonWidget::UpdatePreview()
+void PolygonWidget::updatePreview()
 {
 	double roundness = curvatureSpinBox->value() / 100.0;
 	QPixmap pm = QPixmap(Preview->width() - 5, Preview->height() - 5);

@@ -112,19 +112,6 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	textColumnsSpinBox->setValue(prefsData->itemToolPrefs.textColumns);
 	textColumnGapSpinBox->setValue(prefsData->itemToolPrefs.textColumnGap * unitRatio);
 
-
-/*
-			polygonCornerCountSpinBox
-			polygonRotationSpinBox
-			applyFactorCheckBox
-			polygonFactorSpinBox
-			polygonFactorSlider
-			polygonCurvatureSpinBox
-			polygonCurvatureSlider
-			polygonPreviewWidet
-
-			*/
-
 	//Image Tool
 //TODO	imageFrameLineColorComboBox
 //TODO	imageFrameLineShadingSpinBox
@@ -158,22 +145,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	shapeLineWidthSpinBox->setValue(prefsData->itemToolPrefs.shapeLineWidth);
 
 	//Polygon Tool
-//TODO	polygonCornerCountSpinBox
-//	polygonRotationSpinBox
-//	applyFactorCheckBox
-//	polygonFactorSpinBox
-//	polygonFactorSlider
-//	polygonCurvatureSpinBox
-//	polygonCurvatureSlider
-//
-//
-//	prefsData->polyCorners,
-//									   prefsData->polyFactorGuiVal,
-//									   prefsData->polyFactor,
-//									   prefsData->polyUseFactor,
-//									   prefsData->polyRotation,
-//									   prefsData->polyCurvature
-
+	polygonWidget->restoreDefaults(&prefsData->itemToolPrefs);
 
 	//Line Tool
 	lineFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.lineColor);
@@ -245,9 +217,6 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 			break;
 	}
 
-
-
-
 	//Image Tool
 //
 //	TODO imageFrameLineColorComboBox
@@ -288,14 +257,7 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 
 	//Polygon Tool
-//	polygonCornerCountSpinBox
-//	polygonRotationSpinBox
-//	applyFactorCheckBox
-//	polygonFactorSpinBox
-//	polygonFactorSlider
-//	polygonCurvatureSpinBox
-//	polygonCurvatureSlider
-//	polygonPreviewWidet
+	polygonWidget->saveGuiToPrefs(&prefsData->itemToolPrefs);
 
 	//Line Tool
 	prefsData->itemToolPrefs.lineColor = lineFillColorComboBox->currentText();
