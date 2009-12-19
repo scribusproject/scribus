@@ -84,15 +84,10 @@ void PatternDialog::renamePattern()
 		QString newName = "";
 		Query dia(this, "tt", 1, 0, tr("&Name:"), tr("Rename Entry"));
 		dia.setEditText(it->text(), true);
+		dia.setTestList(dialogPatterns.keys());
 		if (dia.exec())
 		{
 			newName = dia.getEditText();
-			while (dialogPatterns.contains(newName))
-			{
-				if (!dia.exec())
-					return;
-				newName = dia.getEditText();
-			}
 			ScPattern pat = dialogPatterns.take(it->text());
 			dialogPatterns.insert(newName, pat);
 			replaceMap.insert(patternName, newName);

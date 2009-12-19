@@ -913,18 +913,10 @@ bool Biblio::copyObj(int id)
 	{
 		Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 		dia->setEditText(nam, true);
+		dia->setTestList(activeBView->objectMap.keys());
 		if (dia->exec())
 		{
 			nam = dia->getEditText();
-			while (activeBView->objectMap.contains(nam))
-			{
-				if (!dia->exec())
-				{
-					delete dia;
-					return false;
-				}
-				nam = dia->getEditText();
-			}
 		}
 		else
 		{
@@ -1112,19 +1104,10 @@ void Biblio::renameObj()
 	QString OldName = ite->text();
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Name"));
 	dia->setEditText(ite->text(), true);
+	dia->setTestList(activeBView->objectMap.keys());
 	if (dia->exec())
 	{
 		nam = dia->getEditText();
-		while (activeBView->objectMap.contains(nam))
-		{
-			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(nam), CommonStrings::tr_OK);
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			nam = dia->getEditText();
-		}
 	}
 	else
 	{
@@ -1256,18 +1239,10 @@ void Biblio::ObjFromMenu(QString text)
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->setEditText(nam, true);
+	dia->setTestList(activeBView->objectMap.keys());
 	if (dia->exec())
 	{
 		nam = dia->getEditText();
-		while (activeBView->objectMap.contains(nam))
-		{
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			nam = dia->getEditText();
-		}
 	}
 	else
 	{

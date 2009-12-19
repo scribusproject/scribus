@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QMessageBox>
 #include "commonstrings.h"
 #include "util_icon.h"
 
@@ -44,6 +45,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 	queryLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
 	answerEdit->setFocus();
+	checkList = QStringList();
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( Leave() ) );
@@ -58,6 +60,14 @@ void Query::Leave()
 {
 	if (answerEdit->text().isEmpty())
 		return;
+	if (!checkList.isEmpty())
+	{
+		if (checkList.contains(answerEdit->text()))
+		{
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
+			return;
+		}
+	}
 	else
 		accept();
 }
@@ -72,4 +82,9 @@ void Query::setEditText(QString newText, bool setSelected)
 	answerEdit->setText(newText);
 	if (setSelected)
 		answerEdit->selectAll();
+}
+
+void Query::setTestList(QStringList tList)
+{
+	checkList = tList;
 }

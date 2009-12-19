@@ -9272,16 +9272,9 @@ void ScribusMainWindow::PutToPatterns()
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
+	dia.setTestList(doc->docPatterns.keys());
 	if (dia.exec())
-	{
 		patternName = dia.getEditText();
-		while (doc->docPatterns.contains(patternName))
-		{
-			if (!dia.exec())
-				return;
-			patternName = dia.getEditText();
-		}
-	}
 	else
 		return;
 	bool wasUndo = undoManager->undoEnabled();
