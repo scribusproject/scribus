@@ -6726,7 +6726,10 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-			loadPict(currItem->Pfile, currItem, true);
+			if (currItem->asLatexFrame())
+				currItem->asLatexFrame()->rerunApplication(false);
+			else
+				loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -6745,7 +6748,10 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-			loadPict(currItem->Pfile, currItem, true);
+			if (currItem->asLatexFrame())
+				currItem->asLatexFrame()->rerunApplication(false);
+			else
+				loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -6764,7 +6770,10 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-			loadPict(currItem->Pfile, currItem, true);
+			if (currItem->asLatexFrame())
+				currItem->asLatexFrame()->rerunApplication(false);
+			else
+				loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -6786,7 +6795,10 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				bool fvo = currItem->imageFlippedV();
 				if (applyNewRes)
 					currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-				loadPict(currItem->Pfile, currItem, true);
+				if (currItem->asLatexFrame())
+					currItem->asLatexFrame()->rerunApplication(false);
+				else
+					loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
 				currItem->AdjustPictScale();
