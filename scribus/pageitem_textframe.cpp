@@ -2490,10 +2490,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 						}
 					}
 				}
-				if (hls->ch == SpecialChars::OBJECT)
+				// Unneeded now that glyph xadvance is set appropriately for inline objects by layout() - JG
+				/*if (hls->ch == SpecialChars::OBJECT)
 					selX += (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
-				else
-					selX += hls->glyph.wide();
+				else*/
+				selX += hls->glyph.wide();
 			}
 			if(!selectedFrame.isNull())
 				sFList << selectedFrame;
@@ -2594,10 +2595,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 							drawGlyphs(p, charStyle, hl->glyph);
 						p->restore();//RE4
 					}
-					if (hl->ch == SpecialChars::OBJECT)
+					// Unneeded now that glyph xadvance is set appropriately for inline objects by layout() - JG
+					/*if (hl->ch == SpecialChars::OBJECT)
 						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
-					else
-						CurX += hl->glyph.wide();
+					else*/
+					CurX += hl->glyph.wide();
 				}
 				tabDist = CurX;
 			}

@@ -4249,13 +4249,14 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 				setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl2, pstyle, pg, sep, farb, ic, master);
 			}
 			setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, hl, pstyle, pg, sep, farb, ic, master);
-			if (hl->ch == SpecialChars::OBJECT)
+			// Unneeded now that glyph xadvance is set appropriately for inline objects by PageItem_TextFrame::layout() - JG
+			/*if (hl->ch == SpecialChars::OBJECT)
 			{
 				InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
 				CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 			}
-			else
-				CurX += hl->glyph.wide();
+			else*/
+			CurX += hl->glyph.wide();
 			tabDist = CurX;
 		}
 	}
