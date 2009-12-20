@@ -700,12 +700,31 @@ void Cpalette::changePatternProps()
 	m_Pattern_offsetX = dia->spinXoffset->value();
 	m_Pattern_offsetY = dia->spinYoffset->value();
 	m_Pattern_rotation = dia->spinAngle->value();
-	double a    = M_PI / 180.0 * dia->spinXSkew->value();
-	double b    = M_PI / 180.0 * dia->spinYSkew->value();
-	double sina = tan(a);
-	double sinb = tan(b);
-	m_Pattern_skewX = sina;
-	m_Pattern_skewY = sinb;
+	double skewX = dia->spinXSkew->value();
+	double a;
+	if (skewX == 90)
+		a = 1;
+	else if (skewX == 180)
+		a = 0;
+	else if (skewX == 270)
+		a = -1;
+	else if (skewX == 360)
+		a = 0;
+	else
+		a = tan(M_PI / 180.0 * skewX);
+	m_Pattern_skewX = tan(a);
+	skewX = dia->spinYSkew->value();
+	if (skewX == 90)
+		a = 1;
+	else if (skewX == 180)
+		a = 0;
+	else if (skewX == 270)
+		a = -1;
+	else if (skewX == 360)
+		a = 0;
+	else
+		a = tan(M_PI / 180.0 * skewX);
+	m_Pattern_skewY = tan(a);
 	m_Pattern_mirrorX = dia->FlipH->isChecked();
 	m_Pattern_mirrorY = dia->FlipV->isChecked();
 	delete dia;
@@ -735,12 +754,31 @@ void Cpalette::changePatternPropsStroke()
 	m_Pattern_offsetXS = dia->spinXoffset->value();
 	m_Pattern_offsetYS = dia->spinYoffset->value();
 	m_Pattern_rotationS = dia->spinAngle->value();
-	double a    = M_PI / 180.0 * dia->spinXSkew->value();
-	double b    = M_PI / 180.0 * dia->spinYSkew->value();
-	double sina = tan(a);
-	double sinb = tan(b);
-	m_Pattern_skewXS = sina;
-	m_Pattern_skewYS = sinb;
+	double skewX = dia->spinXSkew->value();
+	double a;
+	if (skewX == 90)
+		a = 1;
+	else if (skewX == 180)
+		a = 0;
+	else if (skewX == 270)
+		a = -1;
+	else if (skewX == 360)
+		a = 0;
+	else
+		a = tan(M_PI / 180.0 * skewX);
+	m_Pattern_skewXS = tan(a);
+	skewX = dia->spinYSkew->value();
+	if (skewX == 90)
+		a = 1;
+	else if (skewX == 180)
+		a = 0;
+	else if (skewX == 270)
+		a = -1;
+	else if (skewX == 360)
+		a = 0;
+	else
+		a = tan(M_PI / 180.0 * skewX);
+	m_Pattern_skewYS = tan(a);
 	m_Pattern_spaceS = dia->spinSpacing->value() / 100.0;
 	m_Pattern_mirrorXS = dia->FlipH->isChecked();
 	m_Pattern_mirrorYS = dia->FlipV->isChecked();
