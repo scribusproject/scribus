@@ -2106,7 +2106,7 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 		gc->patternOffsetX = 0.0;
 		gc->patternOffsetY = 0.0;
 		gc->patternRotation = -rotB;
-		gc->patternSkewX = rotS - 90 - rotB;
+		gc->patternSkewX = tan(M_PI / 180.0 * (rotS - 90 - rotB));
 		gc->patternSkewY = 0.0;
 		if (textData.count() > 0)
 		{
@@ -2220,7 +2220,7 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 		gc->patternOffsetX = 0.0;
 		gc->patternOffsetY = 0.0;
 		gc->patternRotation = -rotB;
-		gc->patternSkewX = rotS - 90 - rotB;
+		gc->patternSkewX = tan(M_PI / 180.0 * (rotS - 90 - rotB));
 		gc->patternSkewY = 0.0;
 		if (textData.count() > 0)
 		{
