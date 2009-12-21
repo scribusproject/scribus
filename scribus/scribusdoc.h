@@ -843,6 +843,8 @@ public:
 	void itemSelection_resetOpticalMargins(Selection* customSelection=0);
 	void itemSelection_SetColorProfile(const QString& profileName, Selection* customSelection=0);
 	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection=0);
+	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection=0);
+	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection=0);
 	
 //	void chAbStyle(PageItem *currItem, int s);
 

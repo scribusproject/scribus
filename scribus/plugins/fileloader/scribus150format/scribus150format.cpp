@@ -2348,6 +2348,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 		currItem->pixm.imgInfo.lowResType = attrs.valueAsInt("ImageRes", 1);
 		currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("Pagenumber", 0);
+		currItem->OverrideCompressionMethod = attrs.valueAsBool("COMPRESSIONMETHODOVER", false);
+		currItem->CompressionMethodIndex = attrs.valueAsInt("COMPRESSIONMETHOD", 0);
+		currItem->OverrideCompressionQuality = attrs.valueAsBool("COMPRESSIONQUALITYOVER", false);
+		currItem->CompressionQualityIndex = attrs.valueAsInt("COMPRESSIONQUALITY");
 		if (currItem->asLatexFrame())
 		{
 			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX") * scx, attrs.valueAsDouble("LOCALY") * scy);

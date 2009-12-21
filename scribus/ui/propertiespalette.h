@@ -315,6 +315,8 @@ private slots:
 	void handleOverprint(int);
 	void ChangeProfile(const QString& prn);
 	void ChangeIntent();
+	void ChangeCompressionMethod();
+	void ChangeCompressionQuality();
 	void NewName();
 	void NewLanguage();
 	void HandleTLines();
@@ -384,6 +386,7 @@ protected:
 	QVBoxLayout* DistanceLayout3;
 	QGridLayout* GroupBox3aLayout;
 	QVBoxLayout* GroupBoxCMLayout;
+	QVBoxLayout* GroupBoxCompressionLayout;
 	QVBoxLayout* textFlowOptionsLayout;
 	QVBoxLayout* textFlowOptionsLayout2;
 	QHBoxLayout* layout23;
@@ -450,6 +453,8 @@ protected:
 	QLabel* LineModeT;
 	QLabel* TextCms1;
 	QLabel* TextCms2;
+	QLabel* TextCompressionMethod;
+	QLabel* TextCompressionQuality;
 	QLabel* edgesLabel;
 	QLabel* ChBaseTxt;
 	QLabel* ScaleTxt;
@@ -511,6 +516,7 @@ protected:
 	QGroupBox* GeoGroup;
 	QGroupBox* LayerGroup;
 	QFrame* GroupBoxCM;
+	QFrame* GroupBoxCompression;
 	QGroupBox* TLines;
 	QGroupBox* GroupBox3a;
 	QGroupBox* TransGroup;
@@ -537,6 +543,8 @@ protected:
 	QComboBox* langCombo;
 	QComboBox* InputP;
 	QComboBox* MonitorI;
+	QComboBox* CompressionMethod;
+	QComboBox* CompressionQuality;
 	QComboBox* LineMode;
 	QComboBox* lineSpacingModeCombo;
 	ColorCombo* TxStroke;

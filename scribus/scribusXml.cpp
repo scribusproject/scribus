@@ -343,6 +343,10 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->EmProfile  = attrAsString(attrs, "EPROF","");
 	OB->IRender    = (eRenderIntent) attrAsInt (attrs, "IRENDER", (int) Intent_Relative_Colorimetric);
 	OB->UseEmbedded= attrAsInt (attrs, "EMBEDDED", 1);
+	OB->OverrideCompressionMethod = attrAsBool(attrs, "COMPRESSIONMETHODOVER", false);
+	OB->OverrideCompressionQuality = attrAsBool(attrs, "COMPRESSIONQUALITYOVER", false);
+	OB->CompressionMethodIndex = attrAsInt (attrs, "COMPRESSIONMETHOD", 0);
+	OB->CompressionQualityIndex = attrAsInt (attrs, "COMPRESSIONQUALITY", 0);
 	OB->Locked       = attrAsBool(attrs, "LOCK", false);
 	OB->LockRes      = attrAsBool(attrs, "LOCKR", false);
 	OB->Reverse      = attrAsBool(attrs, "REVERS", false);
@@ -740,6 +744,13 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("EPROF"      , item->EmProfile);
 	writer.writeAttribute("IRENDER"    , item->IRender);
 	writer.writeAttribute("EMBEDDED"   , item->UseEmbedded ? "1" : "0");
+	if (item->asImageFrame())
+	{
+		writer.writeAttribute("COMPRESSIONMETHODOVER", item->OverrideCompressionMethod ? 1 : 0);
+		writer.writeAttribute("COMPRESSIONMETHOD", item->CompressionMethodIndex);
+		writer.writeAttribute("COMPRESSIONQUALITYOVER", item->OverrideCompressionQuality ? 1 : 0);
+		writer.writeAttribute("COMPRESSIONQUALITY", item->CompressionQualityIndex);
+	}
 	writer.writeAttribute("LOCK"       , item->locked() ? "1" : "0");
 	writer.writeAttribute("LOCKR"      , item->sizeLocked() ? "1" : "0");
 	writer.writeAttribute("REVERS"     , item->reversed() ? "1" : "0");
@@ -1535,6 +1546,10 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			Neu->OverrideCompressionMethod = OB.OverrideCompressionMethod;
+			Neu->OverrideCompressionQuality = OB.OverrideCompressionQuality;
+			Neu->CompressionMethodIndex = OB.CompressionMethodIndex;
+			Neu->CompressionQualityIndex = OB.CompressionQualityIndex;
 			Neu->setGradient(gradName);
 			Neu->setStrokeGradient(gradNameS);
 			Neu->setGradientMask(gradNameM);
@@ -1907,6 +1922,10 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			Neu->OverrideCompressionMethod = OB.OverrideCompressionMethod;
+			Neu->OverrideCompressionQuality = OB.OverrideCompressionQuality;
+			Neu->CompressionMethodIndex = OB.CompressionMethodIndex;
+			Neu->CompressionQualityIndex = OB.CompressionQualityIndex;
 			Neu->doOverprint = doOverprint;
 			Neu->setGradient(gradName);
 			Neu->setStrokeGradient(gradNameS);

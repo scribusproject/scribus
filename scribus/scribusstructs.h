@@ -169,6 +169,10 @@ struct CopyPasteBuffer
 	QString EmProfile;
 	eRenderIntent IRender;
 	bool UseEmbedded;
+	bool OverrideCompressionMethod;
+	int CompressionMethodIndex;
+	bool OverrideCompressionQuality;
+	int CompressionQualityIndex;
 	QString itemText;
 	QPolygon Clip;
 	FPointArray PoLine;

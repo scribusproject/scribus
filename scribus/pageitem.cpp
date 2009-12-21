@@ -123,6 +123,10 @@ PageItem::PageItem(const PageItem & other)
 	UseEmbedded(other.UseEmbedded),
 	EmProfile(other.EmProfile),
 	IRender(other.IRender),
+	OverrideCompressionMethod(other.OverrideCompressionMethod),
+	CompressionMethodIndex(other.CompressionMethodIndex),
+	OverrideCompressionQuality(other.OverrideCompressionQuality),
+	CompressionQualityIndex(other.CompressionQualityIndex),
 
 	PictureIsAvailable(other.PictureIsAvailable),
 	OrigW(other.OrigW),
@@ -322,6 +326,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	// Initialize superclass(es)
 	: QObject(pa), SingleObservable<PageItem>(pa->itemsChanged()),
 	// Initialize member variables
+	OverrideCompressionMethod(false),
+	CompressionMethodIndex(0),
+	OverrideCompressionQuality(false),
+	CompressionQualityIndex(0),
 	itemText(pa),
 	undoManager(UndoManager::instance()),
 	lineShadeVal(100),

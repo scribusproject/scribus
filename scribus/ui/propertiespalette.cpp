@@ -1381,6 +1381,23 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	GroupBoxCMLayout->addWidget(MonitorI);
 	pageLayout_4->addWidget(GroupBoxCM);
 
+	GroupBoxCompression = new QFrame( page_4 );
+	GroupBoxCompression->setFrameShape( QFrame::NoFrame );
+	GroupBoxCompression->setFrameShadow( QFrame::Plain );
+	GroupBoxCompressionLayout = new QVBoxLayout( GroupBoxCompression );
+	GroupBoxCompressionLayout->setSpacing( 2 );
+	GroupBoxCompressionLayout->setMargin( 5 );
+	GroupBoxCompressionLayout->setAlignment( Qt::AlignTop );
+	TextCompressionMethod = new QLabel( GroupBoxCompression );
+	GroupBoxCompressionLayout->addWidget( TextCompressionMethod );
+	CompressionMethod = new ScComboBox( GroupBoxCompression );
+	GroupBoxCompressionLayout->addWidget(CompressionMethod);
+	TextCompressionQuality = new QLabel( GroupBoxCompression );
+	GroupBoxCompressionLayout->addWidget( TextCompressionQuality );
+	CompressionQuality = new ScComboBox( GroupBoxCompression );
+	GroupBoxCompressionLayout->addWidget( CompressionQuality );
+	pageLayout_4->addWidget( GroupBoxCompression );
+
 	QSpacerItem* spacer9 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_4->addItem( spacer9 );
 	idImageItem=TabStack->addItem( page_4, "&Image" );
@@ -1578,6 +1595,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(LineW, SIGNAL(valueChanged(double)), this, SLOT(handlePathOffs()));
 	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChangeProfile(const QString&)));
 	connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChangeIntent()));
+	connect(CompressionMethod, SIGNAL(activated(int)), this, SLOT(ChangeCompressionMethod()));
+	connect(CompressionQuality, SIGNAL(activated(int)), this, SLOT(ChangeCompressionQuality()));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 //	connect(langCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
 	connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
@@ -2164,6 +2183,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		disconnect(imagePageNumber, SIGNAL(valueChanged(int)), this, SLOT(NewPage()));
 		imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
 		imagePageNumber->setValue(CurItem->pixm.imgInfo.actualPageNumber);
+		CompressionMethod->setCurrentIndex(CurItem->OverrideCompressionMethod ? CurItem->CompressionMethodIndex + 1 : 0);
+		CompressionQuality->setCurrentIndex(CurItem->OverrideCompressionQuality ? CurItem->CompressionQualityIndex + 1 : 0);
 		connect(imagePageNumber, SIGNAL(valueChanged(int)), this, SLOT(NewPage()));
 	}
 	Revert->setChecked(CurItem->reversed());
@@ -4950,6 +4971,20 @@ void PropertiesPalette::ChangeIntent()
 		return;
 	doc->itemSelection_SetRenderIntent(MonitorI->currentIndex());
 }
+ 
+void PropertiesPalette::ChangeCompressionMethod()
+{
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetCompressionMethod(CompressionMethod->currentIndex() - 1);
+}
+
+void PropertiesPalette::ChangeCompressionQuality()
+{
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetCompressionQuality(CompressionQuality->currentIndex() - 1);
+}
 
 void PropertiesPalette::ShowCMS()
 {
@@ -5429,6 +5464,8 @@ void PropertiesPalette::languageChange()
 	EditPSDProps->setText( tr("Extended Image Properties"));
 	TextCms1->setText( tr("Input Profile:"));
 	TextCms2->setText( tr("Rendering Intent:"));
+	TextCompressionMethod->setText( tr("PDF Compression Method:"));
+	TextCompressionQuality->setText( tr("PDF Compression Quality:"));
 // 	QList<QAction*> actList = lineSpacingPop->actions();
 // 	actList[0]->setText( tr("Fixed Linespacing"));
 // 	actList[1]->setText( tr("Automatic Linespacing"));
@@ -5446,6 +5483,23 @@ void PropertiesPalette::languageChange()
 	MonitorI->addItem( tr("Saturation"));
 	MonitorI->addItem( tr("Absolute Colorimetric"));
 	MonitorI->setCurrentIndex(oldMonitorI);
+	int oldCompressionMethod=CompressionMethod->currentIndex();
+	CompressionMethod->clear();
+	CompressionMethod->addItem( tr( "Global" ) );
+	CompressionMethod->addItem( tr( "Automatic" ) );
+	CompressionMethod->addItem( tr( "Lossy - JPEG" ) );
+	CompressionMethod->addItem( tr( "Lossless - Zip" ) );
+	CompressionMethod->addItem( tr( "None" ) );
+	CompressionMethod->setCurrentIndex(oldCompressionMethod);
+	int oldCompressionQuality=CompressionQuality->currentIndex();
+	CompressionQuality->clear();
+	CompressionQuality->addItem( tr( "Global" ) );
+	CompressionQuality->addItem( tr( "Maximum" ) );
+	CompressionQuality->addItem( tr( "High" ) );
+	CompressionQuality->addItem( tr( "Medium" ) );
+	CompressionQuality->addItem( tr( "Low" ) );
+	CompressionQuality->addItem( tr( "Minimum" ) );
+	CompressionQuality->setCurrentIndex(oldCompressionQuality);
 	int oldLineStyle = LStyle->currentIndex();
 	LStyle->clear();
 	LStyle->updateList();
@@ -5732,6 +5786,8 @@ void PropertiesPalette::languageChange()
 	Aspect->setToolTip( tr("Use image proportions rather than those of the frame"));
 	InputP->setToolTip( tr("Source profile of the image"));
 	MonitorI->setToolTip( tr("Rendering intent for the image"));
+	CompressionMethod->setToolTip( tr("Compression method used in PDF export for the image"));
+	CompressionQuality->setToolTip( tr("Compression quality used in PDF export for the image"));
 }
 
 

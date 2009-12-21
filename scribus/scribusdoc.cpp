@@ -11448,6 +11448,48 @@ void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * cust
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }
+ 
+void ScribusDoc::itemSelection_SetCompressionMethod(int cmIndex, Selection * customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	//TODO Add Undo
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		if (currItem && currItem->itemType() == PageItem::ImageFrame)
+		{
+			if ((currItem->OverrideCompressionMethod = cmIndex >= 0))
+			{
+				currItem->CompressionMethodIndex = cmIndex;
+			}
+		}
+	}
+}
+
+void ScribusDoc::itemSelection_SetCompressionQuality(int cqIndex, Selection * customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	//TODO Add Undo
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		if (currItem && currItem->itemType() == PageItem::ImageFrame)
+		{
+			if ((currItem->OverrideCompressionQuality = cqIndex >= 0))
+			{
+				currItem->CompressionQualityIndex = cqIndex;
+			}
+		}
+	}
+}
 
 QMap<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType)
 {

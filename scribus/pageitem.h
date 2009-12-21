@@ -441,6 +441,14 @@ public:
 	void setCmsRenderingIntent(eRenderIntent val) { IRender = val; }
 	QString cmsProfile() const { return IProfile; }
 	void setCmsProfile(QString val) { IProfile = val; }
+	bool OverrideCompressionMethod;
+	int CompressionMethodIndex;
+	bool OverrideCompressionQuality;
+	int CompressionQualityIndex;
+	void setOverrideCompressionMethod(bool val) { OverrideCompressionMethod = val; }
+	void setCompressionMethodIndex(int val) { CompressionMethodIndex = val; }
+	void setOverrideCompressionQuality(bool val) { OverrideCompressionQuality = val; }
+	void setCompressionQualityIndex(int val) { CompressionQualityIndex = val; }
 	
 	/*! Flag to hiold image file availability */
 	bool PictureIsAvailable;

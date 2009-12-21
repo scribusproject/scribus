@@ -501,7 +501,7 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 	return (succeed ? bytesWritten : 0);
 }
 
-int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, bool cmyk,
+int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, int quality, bool cmyk,
 										bool gray, bool sameFile, bool precal)
 {
 	bool succeed = true;
@@ -516,7 +516,7 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 		tmpFile  = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 		if ((gray) && (!precal))
 			image.convertToGray();
-		if (image.Convert2JPG(tmpFile, Options.Quality, cmyk, gray))
+		if (image.Convert2JPG(tmpFile, quality, cmyk, gray))
 			jpgFileName = tmpFile;
 	}
 	if (jpgFileName.isEmpty())
@@ -8918,7 +8918,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						PutDoc("/ColorSpace /DeviceCMYK\n");
 				}
 			}
-			enum PDFOptions::PDFCompression cm = Options.CompressMethod;
+			enum PDFOptions::PDFCompression compress_method = Options.CompressMethod;
+ 			enum PDFOptions::PDFCompression cm = Options.CompressMethod;
 			bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
 			if (!Options.UseRGB && !(doc.HasCMS && Options.UseProfiles2 && !realCMYK))
 			{
@@ -8928,6 +8929,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				else
 					exportToCMYK      = !Options.UseRGB;
 			}
+			if (c->OverrideCompressionMethod)
+				compress_method = cm = (enum PDFOptions::PDFCompression) c->CompressionMethodIndex;
 			if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 			{
 				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
@@ -8946,7 +8949,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				}*/
 				else
 				{
-					if (Options.CompressMethod == PDFOptions::Compression_JPEG)
+					if (compress_method == PDFOptions::Compression_JPEG)
 					{
 						if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 						{
@@ -8964,7 +8967,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			}
 			else
 			{
-				if ((Options.CompressMethod == PDFOptions::Compression_JPEG) || (Options.CompressMethod == PDFOptions::Compression_Auto))
+				if ((compress_method == PDFOptions::Compression_JPEG) || (compress_method == PDFOptions::Compression_Auto))
 				{
 					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 					{
@@ -8975,7 +8978,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 							exportToCMYK      = !Options.UseRGB;
 					}
 					cm = PDFOptions::Compression_JPEG;
-					/*if (Options.CompressMethod == PDFOptions::Compression_Auto)
+					/*if (compress_method == PDFOptions::Compression_Auto)
 					{
 						QFileInfo fi(tmpFile);
 						if (fi.size() < im.size())
@@ -9011,7 +9014,12 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
 				exportToGrayscale = true;
 			if (cm == PDFOptions::Compression_JPEG)
-				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, exportToCMYK, exportToGrayscale, jpegUseOriginal, (!hasColorEffect && hasGrayProfile));
+			{
+				int quality = c->OverrideCompressionQuality ? c->CompressionQualityIndex : Options.Quality;
+				if (c->OverrideCompressionQuality)
+					jpegUseOriginal = false;
+				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, quality, exportToCMYK, exportToGrayscale, jpegUseOriginal, (!hasColorEffect && hasGrayProfile));
+			}
 			else if (cm == PDFOptions::Compression_ZIP)
 				bytesWritten = WriteFlateImageToStream(img, imageObj, exportToCMYK, exportToGrayscale, (!hasColorEffect && hasGrayProfile));
 			else

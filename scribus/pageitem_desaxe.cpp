@@ -126,6 +126,10 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("image-y-scale", toXMLString(item->imageYScale()));
 	result.insert("image-x-position", toXMLString(item->imageXOffset()));
 	result.insert("image-y-position", toXMLString(item->imageYOffset()));
+	if (item->OverrideCompressionMethod)
+		result.insert("COMPRESSIONMETHOD", toXMLString(item->CompressionMethodIndex));
+	if (item->OverrideCompressionQuality)
+		result.insert("COMPRESSIONQUALITY", toXMLString(item->CompressionQualityIndex));
 	//	result.insert("image-x-dpi", toXMLString(item->imageXDpi()));
 	//	result.insert("image-y-dpi", toXMLString(item->imageYDpi()));
 	result.insert("image-shown", toXMLString(item->imageShown()));
@@ -991,6 +995,12 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setImageFlippedV, "image-flipped-vert", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setCmsProfile, "cms-profile" ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem, eRenderIntent>( & PageItem::setCmsRenderingIntent, "cms-intent", &parseIntent ));
+	
+	
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setOverrideCompressionMethod, "COMPRESSIONMETHODOVER", &parseBool ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setOverrideCompressionQuality, "COMPRESSIONQUALITYOVER", &parseBool ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setCompressionMethodIndex, "COMPRESSIONMETHOD", &parseInt ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setCompressionQualityIndex, "COMPRESSIONQUALITY", &parseInt ));
 
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setControlsGroup, "isGroupControl", &parseBool ));
 	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setGroupsLastItem, "groupsLastItem" ));
