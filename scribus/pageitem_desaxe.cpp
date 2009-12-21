@@ -127,9 +127,15 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("image-x-position", toXMLString(item->imageXOffset()));
 	result.insert("image-y-position", toXMLString(item->imageYOffset()));
 	if (item->OverrideCompressionMethod)
+	{
+		result.insert("COMPRESSIONMETHODOVER", toXMLString(item->OverrideCompressionMethod));
 		result.insert("COMPRESSIONMETHOD", toXMLString(item->CompressionMethodIndex));
+	}
 	if (item->OverrideCompressionQuality)
+	{
+		result.insert("COMPRESSIONQUALITYOVER", toXMLString(item->OverrideCompressionQuality));
 		result.insert("COMPRESSIONQUALITY", toXMLString(item->CompressionQualityIndex));
+	}
 	//	result.insert("image-x-dpi", toXMLString(item->imageXDpi()));
 	//	result.insert("image-y-dpi", toXMLString(item->imageYDpi()));
 	result.insert("image-shown", toXMLString(item->imageShown()));

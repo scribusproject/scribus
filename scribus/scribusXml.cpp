@@ -343,10 +343,10 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->EmProfile  = attrAsString(attrs, "EPROF","");
 	OB->IRender    = (eRenderIntent) attrAsInt (attrs, "IRENDER", (int) Intent_Relative_Colorimetric);
 	OB->UseEmbedded= attrAsInt (attrs, "EMBEDDED", 1);
-	OB->OverrideCompressionMethod = attrAsBool(attrs, "COMPRESSIONMETHODOVER", false);
-	OB->OverrideCompressionQuality = attrAsBool(attrs, "COMPRESSIONQUALITYOVER", false);
-	OB->CompressionMethodIndex = attrAsInt (attrs, "COMPRESSIONMETHOD", 0);
-	OB->CompressionQualityIndex = attrAsInt (attrs, "COMPRESSIONQUALITY", 0);
+	if ((OB->OverrideCompressionMethod = attrHasValue(attrs, "COMPRESSIONMETHOD")))
+		OB->CompressionMethodIndex = attrAsInt(attrs, "COMPRESSIONMETHOD", 0);
+	if ((OB->OverrideCompressionQuality = attrHasValue(attrs, "COMPRESSIONQUALITY")))
+		OB->CompressionQualityIndex = attrAsInt(attrs, "COMPRESSIONQUALITY", 0);
 	OB->Locked       = attrAsBool(attrs, "LOCK", false);
 	OB->LockRes      = attrAsBool(attrs, "LOCKR", false);
 	OB->Reverse      = attrAsBool(attrs, "REVERS", false);
@@ -746,10 +746,10 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("EMBEDDED"   , item->UseEmbedded ? "1" : "0");
 	if (item->asImageFrame())
 	{
-		writer.writeAttribute("COMPRESSIONMETHODOVER", item->OverrideCompressionMethod ? 1 : 0);
-		writer.writeAttribute("COMPRESSIONMETHOD", item->CompressionMethodIndex);
-		writer.writeAttribute("COMPRESSIONQUALITYOVER", item->OverrideCompressionQuality ? 1 : 0);
-		writer.writeAttribute("COMPRESSIONQUALITY", item->CompressionQualityIndex);
+		if (item->OverrideCompressionMethod)
+			writer.writeAttribute("COMPRESSIONMETHOD", item->CompressionMethodIndex);
+		if (item->OverrideCompressionQuality)
+			writer.writeAttribute("COMPRESSIONQUALITY", item->CompressionQualityIndex);
 	}
 	writer.writeAttribute("LOCK"       , item->locked() ? "1" : "0");
 	writer.writeAttribute("LOCKR"      , item->sizeLocked() ? "1" : "0");

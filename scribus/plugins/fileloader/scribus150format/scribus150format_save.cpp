@@ -1664,10 +1664,10 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("EMBEDDED", item->UseEmbedded ? 1 : 0);
 	if (item->asImageFrame())
 	{
-		docu.writeAttribute("COMPRESSIONMETHODOVER", item->OverrideCompressionMethod ? 1 : 0);
-		docu.writeAttribute("COMPRESSIONMETHOD", item->CompressionMethodIndex);
-		docu.writeAttribute("COMPRESSIONQUALITYOVER", item->OverrideCompressionQuality ? 1 : 0);
-		docu.writeAttribute("COMPRESSIONQUALITY", item->CompressionQualityIndex);
+		if (item->OverrideCompressionMethod)
+			docu.writeAttribute("COMPRESSIONMETHOD", item->CompressionMethodIndex);
+		if (item->OverrideCompressionQuality)
+			docu.writeAttribute("COMPRESSIONQUALITY", item->CompressionQualityIndex);
 	}
 	docu.writeAttribute("LOCK", item->locked() ? 1 : 0);
 	docu.writeAttribute("LOCKR", item->sizeLocked() ? 1 : 0);
