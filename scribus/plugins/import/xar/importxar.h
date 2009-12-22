@@ -215,6 +215,7 @@ private:
 	bool convert(QString fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
+	void createGuideLine(QDataStream &ts);
 	void handleTextFontSize(QDataStream &ts);
 	void defineTextFontFace(QDataStream &ts, quint32 dataLen);
 	void handleTextFont(QDataStream &ts);

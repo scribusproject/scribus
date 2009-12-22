@@ -554,6 +554,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		defineBitmap(ts, dataLen, tag);
 	else if (tag == 104)
 		createGroupItem();
+	else if (tag == 112)
+		createGuideLine(ts);
 	else if (tag == 114)
 	{
 		closed = handlePathRel(ts, dataLen);
@@ -740,10 +742,26 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 	{
 /*		if (m_gc.count() > 3)
 		{
-			if ((tag > 1999) && (tag < 3000))
+		//	if ((tag > 1999) && (tag < 3000))
 				qDebug() << QString("Unhandled OpCode: %1 Data Len %2").arg(tag).arg(dataLen, 8, 16, QLatin1Char('0'));
 		} */
 		ts.skipRawData(dataLen);
+	}
+}
+
+void XarPlug::createGuideLine(QDataStream &ts)
+{
+	quint8 flags;
+	qint32 position;
+	ts >> flags;
+	ts >> position;
+	double gpos = position / 1000.0;
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	{
+		if (flags == 1)
+			m_Doc->currentPage()->guides.addHorizontal(docHeight - gpos, GuideManagerCore::Standard);
+		else
+			m_Doc->currentPage()->guides.addVertical(gpos, GuideManagerCore::Standard);
 	}
 }
 
@@ -2540,7 +2558,6 @@ void XarPlug::handleBrushItem(QDataStream &ts)
 	ts >> rotate;
 	ts >> offsetX >> offsetY;
 	ts >> scale;
-	qDebug() << "Using Brush" << brushRef[handle]  << "Rot" << rotate << "Offsets X" << offsetX << "Y" << offsetY << "Sc" << scale;
 	ScPattern pat = m_Doc->docPatterns[brushRef[handle]];
 	XarStyle *gc = m_gc.top();
 	gc->strokePattern = brushRef[handle];
