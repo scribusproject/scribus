@@ -121,7 +121,7 @@ void Prefs_Fonts::languageChange()
 void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	// 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
-		fontListTableView->setFonts(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+		fontListTableView->setFonts(prefsData->fontPrefs.AvailFonts);
 		/*
 		DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
 		It's just a performance vs. functionality test.
@@ -184,7 +184,7 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 	// 	UsedFonts.sort();
 		FlagsRepl.clear();
 		fontSubstitutionsTableWidget->clearContents();
-		fontSubstitutionsTableWidget->setRowCount(PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.count());
+		fontSubstitutionsTableWidget->setRowCount(prefsData->fontPrefs.GFontSub.count());
 		int a = 0;
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
@@ -200,11 +200,15 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 			FlagsRepl.append(item);
 			a++;
 		}
-		UpdateFliste();
+		updateFontList(prefsData);
 }
 
 void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
+	prefsData->fontPrefs.GFontSub.clear();
+	uint a = 0;
+	for (QMap<QString,QString>::ConstIterator itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
+		prefsData->fontPrefs.GFontSub[itfsu.key()] = FlagsRepl.at(a++)->currentText();
 
 }
 
@@ -213,11 +217,11 @@ void Prefs_Fonts::ReplaceSel(int, int)
 	deleteSubstitutionButton->setEnabled(true);
 }
 
-void Prefs_Fonts::UpdateFliste()
+void Prefs_Fonts::updateFontList(struct ApplicationPrefs *prefsData)
 {
 	QString tmp;
 	UsedFonts.clear();
-	SCFonts fonts = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts;
+	SCFonts fonts = prefsData->fontPrefs.AvailFonts;
 	SCFontsIterator it(fonts);
 	for ( ; it.hasNext() ; it.next())
 	{

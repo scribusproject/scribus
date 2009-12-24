@@ -9,15 +9,21 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_PDFEXPORT_H
 
 #include "ui_prefs_pdfexportbase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_PDFExport : public QWidget, Ui::Prefs_PDFExport
+class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 {
 	Q_OBJECT
 
 	public:
 		Prefs_PDFExport(QWidget* parent=0);
 		~Prefs_PDFExport();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
 };
 
 #endif // PREFS_PDFEXPORT_H
