@@ -8,16 +8,47 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_FONTS_H
 #define PREFS_FONTS_H
 
+#include <QListWidgetItem>
+#include <QPushButton>
+
 #include "ui_prefs_fontsbase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_Fonts : public QWidget, Ui::Prefs_Fonts
+class ScribusDoc;
+class ScComboBox;
+
+class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 {
 	Q_OBJECT
 
 	public:
 		Prefs_Fonts(QWidget* parent=0);
 		~Prefs_Fonts();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
+		void ReplaceSel(int r, int c);
+		void UpdateFliste();
+		void DelEntry();
+		void SelectPath(QListWidgetItem *c);
+		void AddPath();
+		void ChangePath();
+		void DelPath();
+
+	protected:
+		void readPaths();
+		void writePaths();
+
+		QMap<QString,QString> RList;
+		QList<ScComboBox*> FlagsRepl;
+		//! List of font names of allowed fonts for substitutions
+		QStringList UsedFonts;
+		QString HomeP;
+		QString CurrentPath;
+		ScribusDoc* m_doc;
 };
 
 #endif // PREFS_FONTS_H
