@@ -1747,7 +1747,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		info.groupLastItem = groupLastItem;
 	}
 
-	bool layerFound = true;
+	bool layerFound = false;
 	struct ImageLoadRequest loadingInfo;
 	QList<ParagraphStyle::TabRecord> tabValues;
 

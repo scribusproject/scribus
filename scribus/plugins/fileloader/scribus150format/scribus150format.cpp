@@ -1751,7 +1751,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		info.groupLastItem = groupLastItem;
 	}
 
-	bool layerFound = true;
+	bool layerFound = false;
 	struct ImageLoadRequest loadingInfo;
 #ifdef HAVE_OSG
 	struct PageItem_OSGFrame::viewDefinition currentView;
