@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 {
 	Q_OBJECT
@@ -24,6 +26,16 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 
 	public slots:
 		void languageChange();
+		void unitChange(int);
+
+	protected slots:
+		void enableRangeControls(bool);
+		void enableSecurityControls(bool);
+		void createPageNumberRange();
+
+	protected:
+		bool cmsEnabled;
+		ScribusDoc* m_doc;
 };
 
 #endif // PREFS_PDFEXPORT_H

@@ -119,6 +119,7 @@ void PreferencesDialog::setupGui()
 	prefs_OperatorTools->restoreDefaults(&localPrefs);
 	prefs_Hyphenator->restoreDefaults(&localPrefs);
 	prefs_Fonts->restoreDefaults(&localPrefs);
+	prefs_PDFExport->restoreDefaults(&localPrefs);
 	prefs_Printer->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
@@ -138,6 +139,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
 	prefs_Hyphenator->saveGuiToPrefs(&localPrefs);
 	prefs_Fonts->saveGuiToPrefs(&localPrefs);
+	prefs_PDFExport->saveGuiToPrefs(&localPrefs);
 	prefs_Printer->saveGuiToPrefs(&localPrefs);
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>270</width>
-    <height>258</height>
+    <width>246</width>
+    <height>230</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,6 +20,9 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">

@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "units.h"
 #include "usertaskstructs.h"
-#include "scrspinbox.h"
+#include "ui/scrspinbox.h"
 #include "util_icon.h"
 #include "scribuscore.h"
 #include "util.h"

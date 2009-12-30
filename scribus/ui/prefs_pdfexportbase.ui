@@ -77,6 +77,9 @@
          <property name="text">
           <string>All Pages</string>
          </property>
+         <attribute name="buttonGroup">
+          <string>rangeButtonGroup</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -84,6 +87,9 @@
          <property name="text">
           <string>Choose Pages</string>
          </property>
+         <attribute name="buttonGroup">
+          <string>rangeButtonGroup</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -190,12 +196,18 @@
            <property name="text">
             <string>...</string>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="pageMirrorVerticalToolButton">
            <property name="text">
             <string>...</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -250,7 +262,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="pdfCompatibilityComboBox"/>
+          <widget class="QComboBox" name="pdfVersionComboBox"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_10">
@@ -277,6 +289,12 @@
           <widget class="QSpinBox" name="epsExportResolutionSpinBox">
            <property name="suffix">
             <string> dpi</string>
+           </property>
+           <property name="minimum">
+            <number>35</number>
+           </property>
+           <property name="maximum">
+            <number>4000</number>
            </property>
           </widget>
          </item>
@@ -425,8 +443,11 @@
            <property name="suffix">
             <string> dpi</string>
            </property>
+           <property name="minimum">
+            <number>35</number>
+           </property>
            <property name="maximum">
-            <number>10000</number>
+            <number>4000</number>
            </property>
           </widget>
          </item>
@@ -533,7 +554,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="passwordOwnerLineEdit"/>
+          <widget class="QLineEdit" name="passwordOwnerLineEdit">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_14">
@@ -543,7 +568,11 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="passwordUserLineEdit"/>
+          <widget class="QLineEdit" name="passwordUserLineEdit">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -825,7 +854,7 @@
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_9">
+        <spacer name="bleedSettingsVerticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -922,6 +951,6 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="exportRangeButtonGroup"/>
+  <buttongroup name="rangeButtonGroup"/>
  </buttongroups>
 </ui>

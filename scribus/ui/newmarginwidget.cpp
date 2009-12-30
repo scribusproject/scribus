@@ -43,16 +43,23 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 	if (!showPreset)
 	{
 		presetLayoutComboBox->blockSignals(true);
+		presetLayoutComboBox->resize(0,0);
+		presetLayoutLabel->resize(0,0);
 		presetLayoutComboBox->hide();
 		presetLayoutLabel->hide();
+		formLayout->removeWidget(presetLayoutComboBox);
+		formLayout->removeWidget(presetLayoutLabel);
 	}
 	if (!showPrinterMargins)
 	{
 		printerMarginsPushButton->blockSignals(true);
+		printerMarginsPushButton->resize(0,0);
 		printerMarginsPushButton->hide();
+		formLayout->removeWidget(printerMarginsPushButton);
 	}
-
 	setFacingPages(!(layoutType == singlePage));
+
+	formLayout->invalidate();
 
 	connect(topMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
