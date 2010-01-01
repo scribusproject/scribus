@@ -150,6 +150,7 @@ public slots:
 	*/
 	void recentDocListBox_doubleClicked();
 	void openFile();
+	void adjustTitles(int tab);
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;

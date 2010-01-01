@@ -167,6 +167,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QS
 	{
 		connect(nftGui, SIGNAL(leaveOK()), this, SLOT(ExitOK()));
 		connect(recentDocListBox, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(recentDocListBox_doubleClicked()));
+		connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(adjustTitles(int)));
 	}
 
 // 	setMinimumSize(minimumSizeHint());
@@ -677,4 +678,18 @@ void NewDoc::recentDocListBox_doubleClicked()
 	/* Yep. There is nothing to solve. ScribusMainWindow handles all
 	openings etc. It's Franz's programming style ;) */
 	ExitOK();
+}
+
+void NewDoc::adjustTitles(int tab)
+{
+	if (tab == 0)
+		setWindowTitle( tr( "New Document" ) );
+	else if (tab == 1)
+		setWindowTitle( tr("New from Template"));
+	else if (tab == 2)
+		setWindowTitle( tr("Open Existing Document"));
+	else if (tab == 3)
+ 		setWindowTitle( tr("Open Recent Document"));
+ 	else
+		setWindowTitle( tr( "New Document" ) );
 }
