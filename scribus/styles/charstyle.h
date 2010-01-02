@@ -150,7 +150,7 @@ public:
 	/** getter: validates and returns the attribute's value */
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	attr_TYPE attr_GETTER() const { validate(); return m_##attr_NAME; }
+	const attr_TYPE &attr_GETTER() const { validate(); return m_##attr_NAME; }
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	

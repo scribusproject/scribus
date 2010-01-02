@@ -59,15 +59,6 @@ void Style::update(const StyleContext* b)
 		m_contextversion = m_context->version(); 
 }
 
-void Style::validate() const
-{ 
-	if (m_context && m_contextversion != m_context->version()) {
-		const_cast<Style*>(this)->update(m_context); 
-		assert( m_context->checkConsistency() );
-	}
-}
-
-
 const Style* Style::parentStyle() const 
 { 
 	//qDebug() << QString("follow %1").arg(reinterpret_cast<uint>(m_context),16);

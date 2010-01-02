@@ -110,7 +110,12 @@ public:
 	/**
 		Checks if this Style needs an update
 	 */
-	void validate() const;
+	inline void validate() const {
+		if (m_context && m_contextversion != m_context->version()) {
+			const_cast<Style*>(this)->update(m_context); 
+			assert( m_context->checkConsistency() );
+		}
+	}
 
 	QString shortcut() const { return m_shortcut; }
 	void setShortcut(const QString &shortcut) { m_shortcut = shortcut; }

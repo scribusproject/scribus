@@ -1104,41 +1104,43 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	int ulw = qRound(ScCLocale::toDoubleC(it->attribute("CULW"), -0.1) * 10);
 	int stp = qRound(ScCLocale::toDoubleC(it->attribute("CSTP"), -0.1) * 10);
 	int stw = qRound(ScCLocale::toDoubleC(it->attribute("CSTW"), -0.1) * 10);
+
+	CharStyle style;
+	style.setFont((*doc->AllFonts)[tmpf]);
+	style.setFontSize(size);
+	style.setFillColor(fcolor);
+	style.setTracking(extra);
+	style.setFillShade(shade);
+	style.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
+	style.setStrokeColor(stroke);
+	style.setStrokeShade(shade2);
+	style.setScaleH(qMin(qMax(scale, 100), 4000));
+	style.setScaleV(qMin(qMax(scalev, 100), 4000));
+	style.setBaselineOffset(base);
+	style.setShadowXOffset(shX);
+	style.setShadowYOffset(shY);
+	style.setOutlineWidth(outL);
+	style.setUnderlineOffset(ulp);
+	style.setUnderlineWidth(ulw);
+	style.setStrikethruOffset(stp);
+	style.setStrikethruWidth(stw);
+
+	int pos = obj->itemText.length();
+	if (style != last->Style) {
+		last->Style = style;
+		last->StyleStart = pos;
+	}
+
+
 	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
-		CharStyle style;
 		QChar ch = tmp2.at(cxx);
 		if (ch == QChar(5))
 			ch = SpecialChars::PARSEP;
 		if (ch == QChar(4))
 			ch = SpecialChars::TAB;
-		style.setFont((*doc->AllFonts)[tmpf]);
-		style.setFontSize(size);
-		style.setFillColor(fcolor);
-		style.setTracking(extra);
-		style.setFillShade(shade);
-		style.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
-		style.setStrokeColor(stroke);
-		style.setStrokeShade(shade2);
-		style.setScaleH(qMin(qMax(scale, 100), 4000));
-		style.setScaleV(qMin(qMax(scalev, 100), 4000));
-		style.setBaselineOffset(base);
-		style.setShadowXOffset(shX);
-		style.setShadowYOffset(shY);
-		style.setOutlineWidth(outL);
-		style.setUnderlineOffset(ulp);
-		style.setUnderlineWidth(ulw);
-		style.setStrikethruOffset(stp);
-		style.setStrikethruWidth(stw);
 		int pos = obj->itemText.length();
 		obj->itemText.insertChars(pos, QString(ch));
-
-		if (style != last->Style) {
-			//	qDebug() << QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString());
-			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
-			last->Style = style;
-			last->StyleStart = pos;
-		}
 
 		if (ch == SpecialChars::PARSEP || cxx+1 == tmp2.length()) {
 //			qDebug() << QString("scribus12 para: %1 %2 %3 %4").arg(ab)
@@ -1155,7 +1157,6 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		}
 	}
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
-	return;
 }
 
 bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString /*renamedPageName*/)
