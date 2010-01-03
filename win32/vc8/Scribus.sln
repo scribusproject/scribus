@@ -214,6 +214,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uniconvimport", "uniconvimp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-wpg", "scribus-wpg\scribus-wpg.vcproj", "{50C264A1-2CE7-46A3-8C79-CBC714C49510}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xarimport", "xarimport\xarimport.vcproj", "{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-arthur|Win32 = Debug-arthur|Win32
@@ -574,6 +576,14 @@ Global
 		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{50C264A1-2CE7-46A3-8C79-CBC714C49510}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
