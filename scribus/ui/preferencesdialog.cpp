@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QVBoxLayout>
 
-#include "preferencesdialog.h"
+#include "ui/preferencesdialog.h"
 
 #include "commonstrings.h"
 #include "prefsmanager.h"
