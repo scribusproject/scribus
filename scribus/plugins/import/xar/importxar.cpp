@@ -2207,7 +2207,7 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 				rR1 = qMin((rS * k) >> 8, 255);
 				gR1 = qMin((gS * k) >> 8, 255);
-				gR1 = qMin((bS * k) >> 8, 255);
+				bR1 = qMin((bS * k) >> 8, 255);
 				rR2 = qMin((rE * k) >> 8, 255);
 				gR2 = qMin((gE * k) >> 8, 255);
 				bR2 = qMin((bE * k) >> 8, 255);
