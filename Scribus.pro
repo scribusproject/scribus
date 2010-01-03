@@ -1374,6 +1374,7 @@ SOURCES += scribus/about.cpp \
 TRANSLATIONS += translations/po/scribus.af.ts \
                 translations/po/scribus.ar.ts \
                 translations/po/scribus.bg.ts \
+				translations/po/scribus.br.ts \
                 translations/po/scribus.ca.ts \
                 translations/po/scribus.cs_CZ.ts \
                 translations/po/scribus.cy.ts \
@@ -1381,6 +1382,7 @@ TRANSLATIONS += translations/po/scribus.af.ts \
                 translations/po/scribus.de.ts \
                 translations/po/scribus.de_CH.ts \
                 translations/po/scribus.de_ol.ts \
+				translations/po/scribus.el.ts \
                 translations/po/scribus.en_AU.ts \
                 translations/po/scribus.en_GB.ts \
                 translations/po/scribus.en_US.ts \
@@ -1400,6 +1402,7 @@ TRANSLATIONS += translations/po/scribus.af.ts \
                 translations/po/scribus.pl_PL.ts \
                 translations/po/scribus.pt.ts \
                 translations/po/scribus.ru.ts \
+				translations/po/scribus.sa.ts \
                 translations/po/scribus.sk_SK.ts \
                 translations/po/scribus.sl.ts \
                 translations/po/scribus.sq.ts \
