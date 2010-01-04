@@ -1299,6 +1299,7 @@ void ScPainter::drawVPath( int mode )
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
 				pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+			cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
