@@ -1,0 +1,1941 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+/***************************************************************************
+                          importcgm.cpp  -  description
+                             -------------------
+    begin                : Wed Dez 23 2009
+    copyright            : (C) 2009 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+ ***************************************************************************/
+
+#include <QByteArray>
+#include <QCursor>
+#include <QDrag>
+#include <QFile>
+#include <QList>
+#include <QMimeData>
+#include <QRegExp>
+#include <QStack>
+#include <QDebug>
+
+#include <cstdlib>
+
+#include "commonstrings.h"
+#include "ui/customfdialog.h"
+#include "importcgm.h"
+#include "loadsaveplugin.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "pagesize.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "prefstable.h"
+#include "ui/propertiespalette.h"
+#include "rawimage.h"
+#include "scclocale.h"
+#include "sccolorengine.h"
+#include "scconfig.h"
+#include "scmimedata.h"
+#include "scpaths.h"
+#include "scribus.h"
+#include "scribusXml.h"
+#include "scribuscore.h"
+#include "sctextstream.h"
+#include "selection.h"
+#include "undomanager.h"
+#include "util.h"
+#include "util_formats.h"
+#include "util_icon.h"
+#include "util_math.h"
+
+extern SCRIBUS_API ScribusQApp * ScQApp;
+
+CgmPlug::CgmPlug(ScribusDoc* doc, int flags)
+{
+	tmpSel=new Selection(this, false);
+	m_Doc=doc;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
+}
+
+bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+{
+	QString fName = fNameIn;
+	bool success = false;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
+	importerFlags = flags;
+	cancel = false;
+	double x, y, b, h;
+	bool ret = false;
+	CustColors.clear();
+	QFileInfo fi = QFileInfo(fName);
+	if ( !ScCore->usingGUI() )
+	{
+		interactive = false;
+		showProgress = false;
+	}
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	if ( showProgress )
+	{
+		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		QStringList barNames, barTexts;
+		barNames << "GI";
+		barTexts << tr("Analyzing File:");
+		QList<bool> barsNumeric;
+		barsNumeric << false;
+		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		progressDialog->setOverallTotalSteps(3);
+		progressDialog->setOverallProgress(0);
+		progressDialog->setProgress("GI", 0);
+		progressDialog->show();
+		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		qApp->processEvents();
+	}
+	else
+		progressDialog = NULL;
+/* Set default Page to size defined in Preferences */
+	x = 0.0;
+	y = 0.0;
+	b = 0.0;
+	h = 0.0;
+	if (progressDialog)
+	{
+		progressDialog->setOverallProgress(1);
+		qApp->processEvents();
+	}
+	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = b;
+	docHeight = h;
+	baseX = 0;
+	baseY = 0;
+	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	{
+		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		m_Doc->view()->addPage(0, true);
+		baseX = 0;
+		baseY = 0;
+	}
+	else
+	{
+		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
+		{
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			ScCore->primaryMainWindow()->HaveNewDoc();
+			ret = true;
+			baseX = 0;
+			baseY = 0;
+			baseX = m_Doc->currentPage()->xOffset();
+			baseY = m_Doc->currentPage()->yOffset();
+		}
+	}
+	if ((!ret) && (interactive))
+	{
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
+	}
+	if ((ret) || (!interactive))
+	{
+		if (docWidth > docHeight)
+			m_Doc->PageOri = 1;
+		else
+			m_Doc->PageOri = 0;
+		m_Doc->m_pageSize = "Custom";
+	}
+	Elements.clear();
+	FPoint minSize = m_Doc->minCanvasCoordinate;
+	FPoint maxSize = m_Doc->maxCanvasCoordinate;
+	FPoint cOrigin = m_Doc->view()->canvasOrigin();
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->updatesOn(false);
+	m_Doc->scMW()->ScriptRunning = true;
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(fi.path());
+	if (convert(fName))
+	{
+		tmpSel->clear();
+		QDir::setCurrent(CurDirP);
+		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
+		{
+			bool isGroup = true;
+			int firstElem = -1;
+			if (Elements.at(0)->Groups.count() != 0)
+				firstElem = Elements.at(0)->Groups.top();
+			for (int bx = 0; bx < Elements.count(); ++bx)
+			{
+				PageItem* bxi = Elements.at(bx);
+				if (bxi->Groups.count() != 0)
+				{
+					if (bxi->Groups.top() != firstElem)
+						isGroup = false;
+				}
+				else
+					isGroup = false;
+			}
+			if (!isGroup)
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				uint lowestItem = 999999;
+				uint highestItem = 0;
+				for (int a = 0; a < Elements.count(); ++a)
+				{
+					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+					PageItem* currItem = Elements.at(a);
+					lowestItem = qMin(lowestItem, currItem->ItemNr);
+					highestItem = qMax(highestItem, currItem->ItemNr);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				double gx = minx;
+				double gy = miny;
+				double gw = maxx - minx;
+				double gh = maxy - miny;
+				PageItem *high = m_Doc->Items->at(highestItem);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				PageItem *neu = m_Doc->Items->takeAt(z);
+				m_Doc->Items->insert(lowestItem, neu);
+				neu->Groups.push(m_Doc->GroupCounter);
+				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->AutoName = false;
+				neu->isGroupControl = true;
+				neu->groupsLastItem = high;
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
+				for (int a = 0; a < m_Doc->Items->count(); ++a)
+				{
+					m_Doc->Items->at(a)->ItemNr = a;
+				}
+				Elements.prepend(neu);
+				m_Doc->GroupCounter++;
+			}
+		}
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->setLoading(false);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if ((Elements.count() > 0) && (!ret) && (interactive))
+		{
+			if (flags & LoadSavePlugin::lfScripted)
+			{
+				bool loadF = m_Doc->isLoading();
+				m_Doc->setLoading(false);
+				m_Doc->changed();
+				m_Doc->setLoading(loadF);
+				m_Doc->m_Selection->delaySignalsOn();
+				for (int dre=0; dre<Elements.count(); ++dre)
+				{
+					m_Doc->m_Selection->addItem(Elements.at(dre), true);
+				}
+				m_Doc->m_Selection->delaySignalsOff();
+				m_Doc->m_Selection->setGroupRect();
+				m_Doc->view()->updatesOn(true);
+			}
+			else
+			{
+				m_Doc->DragP = true;
+				m_Doc->DraggedElem = 0;
+				m_Doc->DragElements.clear();
+				m_Doc->m_Selection->delaySignalsOn();
+				for (int dre=0; dre<Elements.count(); ++dre)
+				{
+					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
+					tmpSel->addItem(Elements.at(dre), true);
+				}
+				tmpSel->setGroupRect();
+				ScriXmlDoc *ss = new ScriXmlDoc();
+				ScElemMimeData* md = new ScElemMimeData();
+				md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+				delete ss;
+				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_Doc->view()->updatesOn(true);
+				m_Doc->m_Selection->delaySignalsOff();
+				// We must copy the TransationSettings object as it is owned
+				// by handleObjectImport method afterwards
+				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				m_Doc->view()->handleObjectImport(md, transacSettings);
+				m_Doc->DragP = false;
+				m_Doc->DraggedElem = 0;
+				m_Doc->DragElements.clear();
+			}
+		}
+		else
+		{
+			m_Doc->changed();
+			m_Doc->reformPages();
+			m_Doc->view()->updatesOn(true);
+		}
+		success = true;
+	}
+	else
+	{
+		QDir::setCurrent(CurDirP);
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->view()->updatesOn(true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	}
+	if (interactive)
+		m_Doc->setLoading(false);
+	//CB If we have a gui we must refresh it if we have used the progressbar
+	if ((showProgress) && (!interactive))
+		m_Doc->view()->DrawNew();
+	return success;
+}
+
+CgmPlug::~CgmPlug()
+{
+	if (progressDialog)
+		delete progressDialog;
+	delete tmpSel;
+}
+
+void CgmPlug::parseHeader(QString fName, double &b, double &h)
+{
+}
+
+bool CgmPlug::convert(QString fn)
+{
+	QString tmp;
+	Coords.resize(0);
+	Coords.svgInit();
+	importedColors.clear();
+	QList<PageItem*> gElements;
+	groupStack.push(gElements);
+	currentItemNr = 0;
+	importRunning = true;
+	firstPage = true;
+	vcdSet = false;
+	metaFileVersion = 1;
+	vdcType = 0;
+	vdcInt = 16;
+	vdcReal = 1;
+	vdcMantissa = 16;
+	vcdFlippedH = false;
+	vcdFlippedV = false;
+	intPrecision = 16;
+	realPrecision = 1;
+	realMantissa = 16;
+	realFraction = 16;
+	realPrecisionSet = false;
+	indexPrecision = 16;
+	colorPrecision = 8;
+	colorIndexPrecision = 8;
+	maxColorIndex = 63;
+	colorModel = 1;
+	colorMode = 0;
+	namePrecision = 16;
+	metaFileScaleMode = 0;
+	metaFileScale = 1.0;
+	metaScale = 1.0;
+	lineWidthMode = 1;
+	edgeWidthMode = 1;
+	markerSizeMode = 1;
+	viewPortScale = 1.0;
+	viewPortScaleMode = 0;
+	edgeWidth = 0.0;
+	lineWidth = 0.0;
+	lineColor = "Black";
+	edgeColor = "Black";
+	fillColor = "White";
+	minColor = 0;
+	maxColor = 255;
+	if(progressDialog)
+	{
+		progressDialog->setOverallProgress(2);
+		progressDialog->setLabel("GI", tr("Generating Items"));
+		qApp->processEvents();
+	}
+	QFile f(fn);
+	if (f.open(QIODevice::ReadOnly))
+	{
+		oldDocItemCount = m_Doc->Items->count();
+		int fSize = (int) f.size();
+		if (progressDialog)
+		{
+			progressDialog->setTotalSteps("GI", fSize);
+			qApp->processEvents();
+		}
+		QDataStream ts(&f);
+		ts.setByteOrder(QDataStream::BigEndian);
+		quint32 magic;
+		ts >> magic;
+		ts.device()->seek(0);
+		if (magic == 0x4265674D)
+			decodeText(f);
+		else
+		{
+			while (!ts.atEnd() && (importRunning))
+			{
+				quint16 data, elemClass, elemID, paramLen;
+				ts >> data;
+				elemClass = (data & 0xF000) >> 12;
+				elemID    = (data & 0x0FE0) >>  5;
+				paramLen  = data & 0x001F;
+				if (paramLen == 31)
+					ts >> paramLen;
+				decodeBinary(ts, elemClass, elemID, paramLen);
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
+		}
+		f.close();
+		if (Elements.count() == 0)
+		{
+			if (importedColors.count() != 0)
+			{
+				for (int cd = 0; cd < importedColors.count(); cd++)
+				{
+					m_Doc->PageColors.remove(importedColors[cd]);
+				}
+			}
+		}
+	}
+	if (progressDialog)
+		progressDialog->close();
+	return true;
+}
+
+void CgmPlug::decodeText(QFile &f)
+{
+	qDebug() << "Parsing Text Data not supported yet";
+}
+
+/* Start binary Decoder */
+void CgmPlug::decodeBinary(QDataStream &ts, quint16 elemClass, quint16 elemID, quint16 paramLen)
+{
+	if (elemClass == 0)
+		decodeClass0(ts, elemID, paramLen);
+	else if (elemClass == 1)
+		decodeClass1(ts, elemID, paramLen);
+	else if (elemClass == 2)
+		decodeClass2(ts, elemID, paramLen);
+	else if (elemClass == 3)
+		decodeClass3(ts, elemID, paramLen);
+	else if (elemClass == 4)
+		decodeClass4(ts, elemID, paramLen);
+	else if (elemClass == 5)
+		decodeClass5(ts, elemID, paramLen);
+	else if (elemClass == 6)
+		decodeClass6(ts, elemID, paramLen);
+	else if (elemClass == 7)
+		decodeClass7(ts, elemID, paramLen);
+	else if (elemClass == 8)
+		decodeClass8(ts, elemID, paramLen);
+	else if (elemClass == 9)
+		decodeClass9(ts, elemID, paramLen);
+	else
+	{
+		qDebug() << "Class" << elemClass << "ID" << elemID << "Len" << paramLen << "at" << ts.device()->pos();
+		alignStreamToWord(ts, paramLen);
+	}
+	alignStreamToWord(ts, 0);
+}
+void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	if (elemID == 0)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "NO OP";
+	}
+	else if (elemID == 1)
+		handleStartMetaFile(getBinaryText(ts));
+	else if (elemID == 2)
+	{
+		alignStreamToWord(ts, paramLen);
+		importRunning = false;
+		qDebug() << "END METAFILE";
+	}
+	else if (elemID == 3)
+		handleStartPicture(getBinaryText(ts));
+	else if (elemID == 4)
+	{
+		alignStreamToWord(ts, paramLen);
+		if (vcdSet)
+		{
+			double w = vdcWidth * metaScale;
+			double h = vdcHeight * metaScale;
+			handleStartPictureBody(w, h);
+		}
+		qDebug() << "BEGIN PICTURE BODY";
+	}
+	else if (elemID == 5)
+	{
+		alignStreamToWord(ts, paramLen);
+		if (vcdSet)
+		{
+			if (firstPage)
+			{
+				double w = vdcWidth * metaScale;
+				double h = vdcHeight * metaScale;
+				handleStartPictureBody(w, h);
+			}
+		}
+		qDebug() << "END PICTURE";
+	}
+	else if (elemID == 6)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN SEGMENT";
+	}
+	else if (elemID == 7)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "END SEGMENT";
+	}
+	else if (elemID == 8)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN FIGURE";
+	}
+	else if (elemID == 9)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "END FIGURE";
+	}
+	else if (elemID == 13)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN PROTECTION REGION";
+	}
+	else if (elemID == 14)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "END PROTECTION REGION";
+	}
+	else if (elemID == 15)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN COMPOUND LINE";
+	}
+	else if (elemID == 16)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "END COMPOUND LINE";
+	}
+	else if (elemID == 17)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN COMPOUND TEXT PATH";
+	}
+	else if (elemID == 18)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "END COMPOUND TEXT PATH";
+	}
+	else if (elemID == 19)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN TILE ARRAY";
+	}
+	else if (elemID == 20)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "END TILE ARRAY";
+	}
+	else if (elemID == 21)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN APPLICATION STRUCTURE";
+	}
+	else if (elemID == 22)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BEGIN APPLICATION STRUCTURE BODY";
+	}
+	else if (elemID == 23)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "END APPLICATION STRUCTURE";
+	}
+	else
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "Class 0 ID" << elemID << "Len" << paramLen;
+	}
+}
+
+void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	quint16 data;
+	if (elemID == 1)
+	{
+		ts >> data;
+		metaFileVersion = data;
+// 		qDebug() << "METAFILE VERSION" << data;
+	}
+	else if (elemID == 2)
+		handleMetaFileDescription(getBinaryText(ts));
+	else if (elemID == 3)
+	{
+		ts >> data;
+		vdcType = data;
+// 		qDebug() << "VDC TYPE" << data;
+	}
+	else if (elemID == 4)
+	{
+		ts >> data;
+		intPrecision = data;
+// 		qDebug() << "INTEGER PRECISION" << data;
+	}
+	else if (elemID == 5)
+	{
+		ts >> data;
+		realPrecision = data;
+		ts >> data;
+		realMantissa = data;
+		ts >> data;
+		realFraction = data;
+		if (realPrecision == 0)
+			realPrecisionSet = true;
+// 		qDebug() << "REAL PRECISION" << realPrecision << realMantissa << realFraction;
+	}
+	else if (elemID == 6)
+	{
+		ts >> data;
+		indexPrecision = data;
+// 		qDebug() << "INDEX PRECISION" << indexPrecision;
+	}
+	else if (elemID == 7)
+	{
+		ts >> data;
+		colorPrecision = data;
+//		qDebug() << "COLOUR PRECISION" << colorPrecision;
+	}
+	else if (elemID == 8)
+	{
+		ts >> data;
+		colorIndexPrecision = data;
+//		qDebug() << "COLOUR INDEX PRECISION" << colorIndexPrecision;
+	}
+	else if (elemID == 9)
+	{
+		ts >> data;
+		maxColorIndex = data;
+ 		qDebug() << "MAXIMUM COLOUR INDEX" << maxColorIndex;
+	}
+	else if (elemID == 10)
+	{
+		if (colorModel == 1)		// RGB
+		{
+			if (colorPrecision == 8)
+			{
+				quint8 r, g, b;
+				ts >> r >> g >> b;
+				minColor = r;
+				ts >> r >> g >> b;
+				maxColor = r;
+			}
+			else if (colorPrecision == 16)
+			{
+				quint16 r, g, b;
+				ts >> r >> g >> b;
+				minColor = r;
+				ts >> r >> g >> b;
+				maxColor = r;
+			}
+		}
+		else if (colorModel == 4)	// CMYK
+		{
+			if (colorPrecision == 8)
+			{
+				quint8 c, m, y, k;
+				ts >> c >> m >> y >> k;
+				minColor = c;
+				ts >> c >> m >> y >> k;
+				maxColor = c;
+			}
+			else if (colorPrecision == 16)
+			{
+				quint16 c, m, y, k;
+				ts >> c >> m >> y >> k;
+				minColor = c;
+				ts >> c >> m >> y >> k;
+				maxColor = c;
+			}
+		}
+		else
+			alignStreamToWord(ts, paramLen);
+//		qDebug() << "COLOUR VALUE EXTENT" << minColor << maxColor;
+	}
+	else if (elemID == 11)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "METAFILE ELEMENT LIST";
+	}
+	else if (elemID == 12)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "METAFILE DEFAULTS REPLACEMENT" << paramLen;
+	}
+	else if (elemID == 13)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "FONT LIST";
+	}
+	else if (elemID == 14)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CHARACTER SET LIST";
+	}
+	else if (elemID == 15)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CHARACTER CODING ANNOUNCER";
+	}
+	else if (elemID == 16)
+	{
+		ts >> data;
+		namePrecision = data;
+// 		qDebug() << "NAME PRECISION" << namePrecision;
+	}
+	else if (elemID == 17)
+	{
+		FPoint max, min;
+		max = getBinaryCoords(ts);
+		min = getBinaryCoords(ts);
+// 		qDebug() << "MAXIMUM VDC EXTENT" << min.x() << min.y() << max.x() << max.y();
+	}
+	else if (elemID == 18)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "SEGMENT PRIORITY EXTENT";
+	}
+	else if (elemID == 19)
+	{
+		ts >> data;
+		colorModel = data;
+//		qDebug() << "COLOUR MODEL" << colorModel;
+	}
+	else if (elemID == 20)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "COLOUR CALIBRATION";
+	}
+	else if (elemID == 21)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "FONT PROPERTIES";
+	}
+	else if (elemID == 22)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "GLYPH MAPPING";
+	}
+	else if (elemID == 23)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "SYMBOL LIBRARY LIST";
+	}
+	else if (elemID == 24)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "PICTURE DIRECTORY";
+	}
+	else
+	{
+		qDebug() << "Class 1 ID" << elemID << "Len" << paramLen;
+		alignStreamToWord(ts, paramLen);
+	}
+}
+
+void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	quint16 data;
+	if (elemID == 1)
+	{
+		ts >> data;
+		metaFileScaleMode = data;
+		double sc = 1.0;
+		if (realPrecisionSet)
+			sc = getBinaryReal(ts, 0, realMantissa);
+		else
+			sc = getBinaryReal(ts, 0, 9);
+		if (metaFileScaleMode != 0)
+			metaFileScale = sc;
+//		qDebug() << "SCALING MODE" << metaFileScaleMode << metaFileScale;
+	}
+	else if (elemID == 2)
+	{
+		ts >> data;
+		colorMode = data;
+//		qDebug() << "COLOUR SELECTION MODE" << colorMode;
+	}
+	else if (elemID == 3)
+	{
+		ts >> data;
+		lineWidthMode = data;
+//		qDebug() << "LINE WIDTH SPECIFICATION MODE" << lineWidthMode;
+	}
+	else if (elemID == 4)
+	{
+		ts >> data;
+		markerSizeMode = data;
+//		qDebug() << "MARKER SIZE SPECIFICATION MODE" << markerSizeMode;
+	}
+	else if (elemID == 5)
+	{
+		ts >> data;
+		edgeWidthMode = data;
+//		qDebug() << "EDGE WIDTH SPECIFICATION MODE" << edgeWidthMode;
+	}
+	else if (elemID == 6)
+	{
+		FPoint max, min;
+		max = getBinaryCoords(ts);
+		min = getBinaryCoords(ts);
+		QRectF vd = QRectF(max.x(), max.y(), min.x(), min.y());
+		if (vd.height() > 0)
+			vcdFlippedV = true;
+		if (vd.width() < 0)
+			vcdFlippedH = true;
+		vd = vd.normalized();
+		vdcWidth = vd.width();
+		vdcHeight = vd.height();
+		metaScale = 400.0 / qMax(vdcWidth, vdcHeight);
+		lineWidth = qMax(vdcWidth, vdcHeight) / 1000;
+		vcdSet = true;
+		qDebug() << "VDC EXTENT" << vdcWidth << vdcHeight << metaScale;
+	}
+	else if (elemID == 7)
+	{
+		ScColor color = getBinaryDirectColor(ts);
+		QString back = handleColor(color, "FromCGM"+color.name());
+		qDebug() << "BACKGROUND COLOUR" << back;
+	}
+	else if (elemID == 8)
+	{
+		FPoint max, min;
+		max = getBinaryCoords(ts);
+		min = getBinaryCoords(ts);
+		qDebug() << "DEVICE VIEWPORT" << min.x() << min.y() << max.x() << max.y();
+	}
+	else if (elemID == 9)
+	{
+		ts >> data;
+		viewPortScaleMode = data;
+		if (realPrecisionSet)
+			viewPortScale = getBinaryReal(ts, 0, realMantissa);
+		else
+			viewPortScale = getBinaryReal(ts, 0, 9);
+		qDebug() << "DEVICE VIEWPORT SPECIFICATION MODE" << viewPortScaleMode << viewPortScale;
+	}
+	else if (elemID == 10)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "DEVICE VIEWPORT MAPPING";
+	}
+	else if (elemID == 11)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "LINE REPRESENTATION";
+	}
+	else if (elemID == 12)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "MARKER REPRESENTATION";
+	}
+	else if (elemID == 13)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TEXT REPRESENTATION";
+	}
+	else if (elemID == 14)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "FILL REPRESENTATION";
+	}
+	else if (elemID == 15)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "EDGE REPRESENTATION";
+	}
+	else if (elemID == 16)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "INTERIOR STYLE SPECIFICATION MODE";
+	}
+	else if (elemID == 17)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "LINE AND EDGE TYPE DEFINITION";
+	}
+	else if (elemID == 18)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "HATCH STYLE DEFINITION";
+	}
+	else if (elemID == 19)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "GEOMETRIC PATTERN DEFINITION";
+	}
+	else if (elemID == 20)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "APPLICATION STRUCTURE DIRECTORY";
+	}
+	else
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "Class 2 ID" << elemID << "Len" << paramLen;
+	}
+}
+
+void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	quint16 data;
+	if (elemID == 1)
+	{
+		ts >> data;
+		vdcInt = data;
+// 		qDebug() << "VDC INTEGER PRECISION" << vdcInt;
+	}
+	else if (elemID == 2)
+	{
+		ts >> data;
+		vdcReal = data;
+		ts >> data;
+		vdcMantissa = data;
+		ts >> data;
+// 		qDebug() << "VDC REAL PRECISION" << vdcReal << vdcMantissa;
+	}
+	else if (elemID == 3)
+		qDebug() << "AUXILIARY COLOUR";
+	else if (elemID == 4)
+		qDebug() << "TRANSPARENCY";
+	else if (elemID == 5)
+		qDebug() << "CLIP RECTANGLE";
+	else if (elemID == 6)
+		qDebug() << "CLIP INDICATOR";
+	else if (elemID == 7)
+		qDebug() << "LINE CLIPPING MODE";
+	else if (elemID == 8)
+		qDebug() << "MARKER CLIPPING MODE";
+	else if (elemID == 9)
+		qDebug() << "EDGE CLIPPING MODE";
+	else if (elemID == 10)
+		qDebug() << "NEW REGION";
+	else if (elemID == 11)
+		qDebug() << "SAVE PRIMITIVE CONTEXT";
+	else if (elemID == 12)
+		qDebug() << "RESTORE PRIMITIVE CONTEXT";
+	else if (elemID == 17)
+		qDebug() << "PROTECTION REGION INDICATOR";
+	else if (elemID == 18)
+		qDebug() << "GENERALIZED TEXT PATH MODE";
+	else if (elemID == 19)
+		qDebug() << "MITRE LIMIT";
+	else if (elemID == 20)
+		qDebug() << "TRANSPARENT CELL COLOUR";
+	else
+		qDebug() << "Class 3 ID" << elemID << "Len" << paramLen;
+	if (elemID > 2)
+		alignStreamToWord(ts, paramLen);
+}
+
+void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	if (elemID == 1)
+	{
+		getBinaryPath(ts, paramLen);
+		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->PoLine = Coords.copy();
+		finishItem(ite);
+//		qDebug() << "POLYLINE";
+	}
+	else if (elemID == 2)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "DISJOINT POLYLINE";
+	}
+	else if (elemID == 3)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "POLYMARKER";
+	}
+	else if (elemID == 4)
+	{
+		qDebug() << "TEXT Len" << paramLen << "at" << ts.device()->pos();
+		alignStreamToWord(ts, paramLen);
+	}
+	else if (elemID == 5)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "RESTRICTED TEXT";
+	}
+	else if (elemID == 6)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "APPEND TEXT";
+	}
+	else if (elemID == 7)
+	{
+		getBinaryPath(ts, paramLen);
+		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->PoLine = Coords.copy();
+		finishItem(ite);
+//		qDebug() << "POLYGON";
+	}
+	else if (elemID == 8)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "POLYGON SET";
+	}
+	else if (elemID == 9)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CELL ARRAY";
+	}
+	else if (elemID == 10)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "GENERALIZED DRAWING PRIMITIVE";
+	}
+	else if (elemID == 11)
+	{
+		FPoint max, min;
+		max = getBinaryCoords(ts);
+		min = getBinaryCoords(ts);
+		QRectF vd = QRectF(max.x(), max.y(), min.x(), min.y());
+		vd = vd.normalized();
+		double w = convertCoords(vd.width());
+		double h = convertCoords(vd.height());
+		double x = convertCoords(vd.left());
+		double y = convertCoords(vd.top());
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, fillColor, edgeColor, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		finishItem(ite);
+// 		qDebug() << "RECTANGLE";
+	}
+	else if (elemID == 12)
+	{
+		FPoint max, min;
+		max = getBinaryCoords(ts);
+		double x = convertCoords(max.x());
+		double y = convertCoords(max.y());
+		double r = convertCoords(getBinaryDistance(ts));
+		x = x - (r / 2.0);
+		y = y - (r / 2.0);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r, r, edgeWidth, fillColor, edgeColor, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		finishItem(ite);
+// 		qDebug() << "CIRCLE";
+	}
+	else if (elemID == 13)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CIRCULAR ARC 3 POINT";
+	}
+	else if (elemID == 14)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CIRCULAR ARC 3 POINT CLOSE";
+	}
+	else if (elemID == 15)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CIRCULAR ARC CENTRE";
+	}
+	else if (elemID == 16)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CIRCULAR ARC CENTRE CLOSE";
+	}
+	else if (elemID == 17)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "ELLIPSE";
+	}
+	else if (elemID == 18)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "ELLIPTICAL ARC";
+	}
+	else if (elemID == 19)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "ELLIPTICAL ARC CLOSE";
+	}
+	else if (elemID == 20)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CIRCULAR ARC CENTRE REVERSED";
+	}
+	else if (elemID == 21)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CONNECTING EDGE";
+	}
+	else if (elemID == 22)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "HYPERBOLIC ARC";
+	}
+	else if (elemID == 23)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "PARABOLIC ARC";
+	}
+	else if (elemID == 24)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "NON-UNIFORM B-SPLINE";
+	}
+	else if (elemID == 25)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "NON-UNIFORM RATIONAL B-SPLINE";
+	}
+	else if (elemID == 26)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "POLYBEZIER";
+	}
+	else if (elemID == 27)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "POLYSYMBOL";
+	}
+	else if (elemID == 28)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "BITONAL TILE";
+	}
+	else if (elemID == 29)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TILE";
+	}
+	else
+	{
+		qDebug() << "Class 4 ID" << elemID << "Len" << paramLen;
+		alignStreamToWord(ts, paramLen);
+	}
+}
+
+void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	if (elemID == 1)
+	{
+		lineBundleIndex = getBinaryUInt(ts, indexPrecision);
+// 		qDebug() << "LINE BUNDLE INDEX" << lineBundleIndex;
+	}
+	else if (elemID == 2)
+	{
+		lineType = getBinaryUInt(ts, indexPrecision);
+// 		qDebug() << "LINE TYPE" << lineType;
+	}
+	else if (elemID == 3)
+	{
+		lineWidth = getBinaryDistance(ts);
+		lineWidth *= metaScale;
+/*		if (lineWidthMode == 0)
+			lineWidth *= metaScale;
+		else
+			lineWidth *= metaFileScale; */
+// 		qDebug() << "LINE WIDTH" << lineWidth;
+	}
+	else if (elemID == 4)
+	{
+		lineColor = getBinaryColor(ts);
+//		qDebug() << "LINE COLOUR" << lineColor;
+	}
+	else if (elemID == 5)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "MARKER BUNDLE INDEX";
+	}
+	else if (elemID == 6)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "MARKER TYPE";
+	}
+	else if (elemID == 7)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "MARKER SIZE";
+	}
+	else if (elemID == 8)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "MARKER COLOUR";
+	}
+	else if (elemID == 9)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TEXT BUNDLE INDEX";
+	}
+	else if (elemID == 10)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TEXT FONT INDEX";
+	}
+	else if (elemID == 11)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TEXT PRECISION";
+	}
+	else if (elemID == 12)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CHARACTER EXPANSION FACTOR";
+	}
+	else if (elemID == 13)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CHARACTER SPACING";
+	}
+	else if (elemID == 14)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TEXT COLOUR";
+	}
+	else if (elemID == 15)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CHARACTER HEIGHT";
+	}
+	else if (elemID == 16)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CHARACTER ORIENTATION";
+	}
+	else if (elemID == 17)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TEXT PATH";
+	}
+	else if (elemID == 18)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TEXT ALIGNMENT";
+	}
+	else if (elemID == 19)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "CHARACTER SET INDEX";
+	}
+	else if (elemID == 20)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "ALTERNATE CHARACTER SET INDEX";
+	}
+	else if (elemID == 21)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "FILL BUNDLE INDEX";
+	}
+	else if (elemID == 22)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "INTERIOR STYLE";
+	}
+	else if (elemID == 23)
+	{
+		fillColor = getBinaryColor(ts);
+//		qDebug() << "Fill COLOUR" << fillColor;
+	}
+	else if (elemID == 24)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "HATCH INDEX";
+	}
+	else if (elemID == 25)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "PATTERN INDEX";
+	}
+	else if (elemID == 26)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "EDGE BUNDLE INDEX";
+	}
+	else if (elemID == 27)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "EDGE TYPE";
+	}
+	else if (elemID == 28)
+	{
+		edgeWidth = getBinaryDistance(ts);
+		edgeWidth *= metaScale;
+/*		if (edgeWidthMode == 0)
+			edgeWidth *= metaScale;
+		else
+			edgeWidth *= metaFileScale; */
+// 		qDebug() << "EDGE WIDTH" << edgeWidth;
+	}
+	else if (elemID == 29)
+	{
+		edgeColor = getBinaryColor(ts);
+//		qDebug() << "EDGE COLOUR" << edgeColor;
+	}
+	else if (elemID == 30)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "EDGE VISIBILITY";
+	}
+	else if (elemID == 31)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "FILL REFERENCE POINT";
+	}
+	else if (elemID == 32)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "PATTERN TABLE";
+	}
+	else if (elemID == 33)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "PATTERN SIZE";
+	}
+	else if (elemID == 34)
+	{
+		getBinaryColorTable(ts, paramLen);
+//		qDebug() << "COLOUR TABLE";
+	}
+	else if (elemID == 35)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "ASPECT SOURCE FLAGS";
+	}
+	else if (elemID == 36)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "PICK IDENTIFIER";
+	}
+	else if (elemID == 37)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "LINE CAP";
+	}
+	else if (elemID == 38)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "LINE JOIN";
+	}
+	else if (elemID == 39)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "LINE TYPE CONTINUATION";
+	}
+	else if (elemID == 40)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "LINE TYPE INITIAL OFFSET";
+	}
+	else if (elemID == 41)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "TEXT SCORE TYPE";
+	}
+	else if (elemID == 42)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "RESTRICTED TEXT TYPE";
+	}
+	else if (elemID == 43)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "INTERPOLATED INTERIOR";
+	}
+	else if (elemID == 44)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "EDGE CAP";
+	}
+	else if (elemID == 45)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "EDGE JOIN";
+	}
+	else if (elemID == 46)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "EDGE TYPE CONTINUATION";
+	}
+	else if (elemID == 47)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "EDGE TYPE INITIAL OFFSET";
+	}
+	else if (elemID == 48)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "SYMBOL LIBRARY INDEX";
+	}
+	else if (elemID == 49)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "SYMBOL COLOUR";
+	}
+	else if (elemID == 50)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "SYMBOL SIZE";
+	}
+	else if (elemID == 51)
+	{
+		alignStreamToWord(ts, paramLen);
+// 		qDebug() << "SYMBOL ORIENTATION";
+	}
+	else
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "Class 5 ID" << elemID << "Len" << paramLen;
+	}
+}
+
+void CgmPlug::decodeClass6(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	if (elemID == 1)
+		qDebug() << "ESCAPE";
+	else
+		qDebug() << "Class 6 ID" << elemID << "Len" << paramLen;
+	alignStreamToWord(ts, paramLen);
+}
+
+void CgmPlug::decodeClass7(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	if (elemID == 1)
+		qDebug() << "MESSAGE";
+	else if (elemID == 2)
+		qDebug() << "APPLICATION DATA" << paramLen;
+	else
+		qDebug() << "Class 7 ID" << elemID << "Len" << paramLen;
+	alignStreamToWord(ts, paramLen);
+}
+
+void CgmPlug::decodeClass8(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	if (elemID == 1)
+		qDebug() << "COPY SEGMENT";
+	else if (elemID == 2)
+		qDebug() << "INHERITANCE FILTER";
+	else if (elemID == 3)
+		qDebug() << "CLIP INHERITANCE";
+	else if (elemID == 4)
+		qDebug() << "SEGMENT TRANSFORMATION";
+	else if (elemID == 5)
+		qDebug() << "SEGMENT HIGHLIGHTING";
+	else if (elemID == 6)
+		qDebug() << "SEGMENT DISPLAY PRIORITY";
+	else if (elemID == 7)
+		qDebug() << "SEGMENT PICK PRIORITY";
+	else
+		qDebug() << "Class 8 ID" << elemID << "Len" << paramLen;
+	alignStreamToWord(ts, paramLen);
+}
+
+void CgmPlug::decodeClass9(QDataStream &ts, quint16 elemID, quint16 paramLen)
+{
+	if (elemID == 1)
+		qDebug() << "APPLICATION STRUCTURE ATTRIBUTE";
+	else
+		qDebug() << "Class 9 ID" << elemID << "Len" << paramLen;
+	alignStreamToWord(ts, paramLen);
+}
+
+void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen)
+{
+	quint16 bytesRead = 0;
+	bool first = true;
+	Coords.resize(0);
+	Coords.svgInit();
+	quint16 flag;
+	flag = paramLen & 0x8000;
+	paramLen = paramLen & 0x7FFF;
+	while (bytesRead < paramLen)
+	{
+		int posA = ts.device()->pos();
+		FPoint p = getBinaryCoords(ts);
+		if (first)
+		{
+			Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
+			first = false;
+		}
+		else
+			Coords.svgLineTo(convertCoords(p.x()), convertCoords(p.y()));
+		int posN = ts.device()->pos();
+		bytesRead += posN - posA;
+	}
+	while (flag)
+	{
+		bytesRead = 0;
+		ts >> paramLen;
+		flag = paramLen & 0x8000;
+		paramLen = paramLen & 0x7FFF;
+		while (bytesRead < paramLen)
+		{
+			int posA = ts.device()->pos();
+			FPoint p = getBinaryCoords(ts);
+			Coords.svgLineTo(convertCoords(p.x()), convertCoords(p.y()));
+			int posN = ts.device()->pos();
+			bytesRead += posN - posA;
+		}
+	}
+}
+
+void CgmPlug::getBinaryColorTable(QDataStream &ts, quint16 paramLen)
+{
+	quint16 flag;
+	flag = paramLen & 0x8000;
+	paramLen = paramLen & 0x7FFF;
+	quint16 bytesRead = 0;
+	int posA = ts.device()->pos();
+	uint c = getBinaryUInt(ts, colorIndexPrecision);
+	int posN = ts.device()->pos();
+	bytesRead += posN - posA;
+	QString tmpName = CommonStrings::None;
+	while (bytesRead < paramLen)
+	{
+		posA = ts.device()->pos();
+		ScColor cc = getBinaryDirectColor(ts);
+		tmpName = handleColor(cc, "FromCGM"+cc.name());
+		ColorTableMap.insert(c, tmpName);
+		c++;
+		posN = ts.device()->pos();
+		bytesRead += posN - posA;
+	}
+	while (flag)
+	{
+		bytesRead = 0;
+		ts >> paramLen;
+		flag = paramLen & 0x8000;
+		paramLen = paramLen & 0x7FFF;
+		while (bytesRead < paramLen)
+		{
+			posA = ts.device()->pos();
+			ScColor cc = getBinaryDirectColor(ts);
+			ColorTableMap.insert(c, tmpName);
+			c++;
+			posN = ts.device()->pos();
+			bytesRead += posN - posA;
+		}
+	}
+}
+
+ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
+{
+	ScColor ret;
+	if (colorModel == 1)		// RGB
+	{
+		if (colorPrecision == 8)
+		{
+			quint8 r, g, b;
+			ts >> r >> g >> b;
+			r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
+			g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
+			b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
+			ret = ScColor(r, g, b);
+		}
+		else if (colorPrecision == 16)
+		{
+			quint16 r, g, b;
+			ts >> r >> g >> b;
+			r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
+			g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
+			b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
+			ret = ScColor(r, g, b);
+		}
+	}
+	else if (colorModel == 4)	// CMYK
+	{
+		if (colorPrecision == 8)
+		{
+			quint8 c, m, y, k;
+			ts >> c >> m >> y >> k;
+			c = qRound(c * (maxColor - minColor) / static_cast<double>(maxColor));
+			m = qRound(m * (maxColor - minColor) / static_cast<double>(maxColor));
+			y = qRound(y * (maxColor - minColor) / static_cast<double>(maxColor));
+			k = qRound(k * (maxColor - minColor) / static_cast<double>(maxColor));
+			ret = ScColor(c, m, y, k);
+		}
+		else if (colorPrecision == 16)
+		{
+			quint8 c, m, y, k;
+			ts >> c >> m >> y >> k;
+			c = qRound(c * (maxColor - minColor) / static_cast<double>(maxColor));
+			m = qRound(m * (maxColor - minColor) / static_cast<double>(maxColor));
+			y = qRound(y * (maxColor - minColor) / static_cast<double>(maxColor));
+			k = qRound(k * (maxColor - minColor) / static_cast<double>(maxColor));
+			ret = ScColor(c, m, y, k);
+		}
+	}
+	return ret;
+}
+
+QString CgmPlug::getBinaryIndexedColor(QDataStream &ts)
+{
+	QString ret = "Black";
+	uint c = getBinaryUInt(ts, colorIndexPrecision);
+	if (ColorTableMap.contains(c) && (c <= maxColorIndex)) 
+		ret = ColorTableMap[c];
+	return ret;
+}
+
+QString CgmPlug::getBinaryColor(QDataStream &ts)
+{
+	QString ret;
+	ScColor color;
+	if (colorMode == 0)
+	{
+		ret = getBinaryIndexedColor(ts);
+	}
+	else
+	{
+		color = getBinaryDirectColor(ts);
+		ret = handleColor(color, "FromCGM"+color.name());
+	}
+	return ret;
+}
+
+double CgmPlug::getBinaryDistance(QDataStream &ts)
+{
+	double ret = 0.0;
+	if (vdcType == 0)				// integer coords
+	{
+		int x = getBinaryInt(ts, vdcInt);
+		ret = x;
+	}
+	else
+		ret = getBinaryReal(ts, vdcReal, vdcMantissa);
+	return ret;
+}
+
+FPoint CgmPlug::getBinaryCoords(QDataStream &ts)
+{
+	FPoint ret = FPoint(0.0, 0.0);
+	if (vdcType == 0)				// integer coords
+	{
+		int x = getBinaryInt(ts, vdcInt);
+		int y = getBinaryInt(ts, vdcInt);
+		if (vcdFlippedV)
+			y = vdcHeight - y;
+		if (vcdFlippedH)
+			x = vdcWidth - x;
+		ret = FPoint(x, y);
+	}
+	else
+	{
+		double x = getBinaryReal(ts, vdcReal, vdcMantissa);
+		double y = getBinaryReal(ts, vdcReal, vdcMantissa);
+		if (vcdFlippedV)
+			y = vdcHeight - y;
+		if (vcdFlippedH)
+			x = vdcWidth - x;
+		ret = FPoint(x, y);
+	}
+	return ret;
+}
+
+uint CgmPlug::getBinaryUInt(QDataStream &ts, int intP)
+{
+	uint val = 0;
+	if (intP == 8)
+	{
+		quint8 data;
+		ts >> data;
+		val = data;
+	}
+	else if (intP == 16)
+	{
+		quint16 data;
+		ts >> data;
+		val = data;
+	}
+	else if (intP == 24)
+	{
+		quint8  p1;
+		quint16 p2;
+		quint32 data = 0;
+		ts >> p2;
+		ts >> p1;
+		data = p2 << 8;
+		data |= p1;
+		val = data;
+	}
+	else if (intP == 32)
+	{
+		quint32 data;
+		ts >> data;
+		val = data;
+	}
+	return val;
+}
+
+int CgmPlug::getBinaryInt(QDataStream &ts, int intP)
+{
+	int val = 0;
+	if (intP == 8)
+	{
+		qint8 data;
+		ts >> data;
+		val = data;
+	}
+	else if (intP == 16)
+	{
+		qint16 data;
+		ts >> data;
+		val = data;
+	}
+	else if (intP == 24)
+	{
+		qint8  p1;
+		qint16 p2;
+		qint32 data = 0;
+		ts >> p2;
+		ts >> p1;
+		data = p2 << 8;
+		data |= p1;
+		val = data;
+	}
+	else if (intP == 32)
+	{
+		qint32 data;
+		ts >> data;
+		val = data;
+	}
+	return val;
+}
+
+double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
+{
+	double val = 0.0;
+	if (realP == 0)			// real Format
+	{
+		if (realM == 9)		// 32bit
+		{
+#if QT_VERSION >= 0x040600
+			ts.setFloatingPointPrecision(QDataStream::SinglePrecision);
+#endif
+			float data;
+			ts >> data;
+			val = data;
+		}
+		else
+		{
+#if QT_VERSION >= 0x040600
+			ts.setFloatingPointPrecision(QDataStream::DoublePrecision);
+#endif
+			double data;
+			ts >> data;
+			val = data;
+		}
+	}
+	else							// fixed Point Format
+	{
+		if (realM == 16)	// 32bit
+		{
+			quint16 fraction;
+			qint16 whole;
+			ts >> whole;
+			ts >> fraction;
+			val = whole + (fraction / 0xFFFF);
+		}
+		else
+		{
+			quint32 fraction;
+			qint32 whole;
+			ts >> whole;
+			ts >> fraction;
+			val = whole + (fraction / 0xFFFFFFFF);
+		}
+	}
+	return val;
+}
+
+QString CgmPlug::getBinaryText(QDataStream &ts)
+{
+	quint8 textLen;
+	QByteArray text;
+	ts >> textLen;
+	if (textLen == 0)
+		ts >> textLen;
+	if (textLen < 255)
+	{
+		text.resize(textLen);
+		ts.readRawData(text.data(), textLen);
+	}
+	else
+	{
+		quint16 extTextLen;
+		quint16 flag;
+		QByteArray textE;
+		ts >> extTextLen;
+		flag = extTextLen & 0x8000;
+		extTextLen = extTextLen & 0x7FFF;
+		textE.resize(extTextLen);
+		ts.readRawData(textE.data(), extTextLen);
+		alignStreamToWord(ts, 0);
+		text += textE;
+		while (flag)
+		{
+			ts >> extTextLen;
+			flag = extTextLen & 0x8000;
+			extTextLen = extTextLen & 0x7FFF;
+			textE.resize(extTextLen);
+			ts.readRawData(textE.data(), extTextLen);
+			text += textE;
+		}
+	}
+	return text;
+}
+
+void CgmPlug::alignStreamToWord(QDataStream &ts, uint len)
+{
+	ts.skipRawData(len);
+	uint adj = ts.device()->pos() % 2;
+	if (adj != 0)
+		ts.skipRawData(1);
+}
+/* End binary Decoder */
+
+/* Start of core Functions common to both Decoders */
+
+void CgmPlug::handleStartMetaFile(QString value)
+{
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		m_Doc->documentInfo.setTitle(value);
+	qDebug() << "Start Metafile" << value;
+}
+
+void CgmPlug::handleStartPicture(QString value)
+{
+	qDebug() << "Start Picture" << value;
+}
+
+void CgmPlug::handleStartPictureBody(double width, double height)
+{
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	{
+		if (firstPage)
+		{
+			m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+			if (width > height)
+				m_Doc->PageOri = 1;
+			else
+				m_Doc->PageOri = 0;
+			m_Doc->m_pageSize = "Custom";
+			m_Doc->changePageMargins(0, 0, 0, 0, height, width, height, width, m_Doc->PageOri, m_Doc->m_pageSize, m_Doc->currentPage()->pageNr(), 0);
+		}
+		else
+		{
+			m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+			m_Doc->addPage(0);
+			m_Doc->view()->addPage(0, true);
+			baseX = m_Doc->currentPage()->xOffset();
+			baseY = m_Doc->currentPage()->yOffset();
+		}
+		firstPage = false;
+	}
+}
+
+void CgmPlug::handleMetaFileDescription(QString value)
+{
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		m_Doc->documentInfo.setComments(value);
+	qDebug() << "Metafile Description" << value;
+}
+
+QString CgmPlug::handleColor(ScColor &color, QString proposedName)
+{
+	QString tmpName = CommonStrings::None;
+	int hR, hG, hB, hK;
+	int pR, pG, pB, pC, pM, pY, pK;
+	bool found = false;
+	ColorList::Iterator it;
+	if (color.getColorModel() == colorModelRGB)
+		color.getRGB(&pR, &pG, &pB);
+	else
+		color.getCMYK(&pC, &pM, &pY, &pK);
+	if ((!proposedName.isEmpty()) && ((proposedName == "White") || (proposedName == "Black") || (m_Doc->PageColors.contains(proposedName))))
+		tmpName = proposedName;
+	else
+	{
+		if (color.getColorModel() == colorModelRGB)
+		{
+			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+			{
+				if (it.value().getColorModel() == colorModelRGB)
+				{
+					it.value().getRGB(&hR, &hG, &hB);
+					if ((pR == hR) && (pG == hG) && (pB == hB))
+					{
+						tmpName = it.key();
+						found = true;
+						break;
+					}
+				}
+			}
+			if (!found)
+			{
+				m_Doc->PageColors.insert(proposedName, color);
+				importedColors.append(proposedName);
+				tmpName = proposedName;
+			}
+		}
+		else
+		{
+			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+			{
+				it.value().getCMYK(&hR, &hG, &hB, &hK);
+				if ((pC == hR) && (pM == hG) && (pY == hB) && (pK == hK))
+				{
+					tmpName = it.key();
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				m_Doc->PageColors.insert(proposedName, color);
+				importedColors.append(proposedName);
+				tmpName = proposedName;
+			}
+		}
+	}
+	return tmpName;
+}
+
+double CgmPlug::convertCoords(double input)
+{
+	return input * metaScale;
+}
+
+void CgmPlug::finishItem(PageItem* ite)
+{
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(),wh.y());
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	m_Doc->AdjustItemSize(ite);
+	ite->OldB2 = ite->width();
+	ite->OldH2 = ite->height();
+	ite->updateClip();
+	Elements.append(ite);
+	Coords.resize(0);
+	Coords.svgInit();
+}

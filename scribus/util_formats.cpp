@@ -35,10 +35,11 @@ FormatsManager::FormatsManager()
 #ifdef GMAGICK_FOUND
 	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
-	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "cgm" << "aff" << "sk" << "sk1");
+	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "aff" << "sk" << "sk1");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
 	m_fmts.insert(FormatsManager::XAR,  QStringList() << "xar");
 	m_fmts.insert(FormatsManager::CGM,  QStringList() << "cgm");
+	m_fmts.insert(FormatsManager::ODT,  QStringList() << "odt");
 	
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript \"*.eps\"");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
@@ -63,6 +64,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macinthosh Pict File");
 	m_fmtNames[FormatsManager::XAR]  = QObject::tr("XARA \"*.xar\" File");
 	m_fmtNames[FormatsManager::CGM]  = QObject::tr("CGM File");
+	m_fmtNames[FormatsManager::ODT]  = QObject::tr("ODT File");
 	
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
@@ -83,6 +85,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::PCT,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::XAR,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::CGM,  QStringList() << "");
+	m_fmtMimeTypes.insert(FormatsManager::ODT,  QStringList() << "");
 			
 	QMapIterator<int, QStringList> i(m_fmts);
 	while (i.hasNext()) 
