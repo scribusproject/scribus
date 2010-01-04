@@ -4,6 +4,13 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+/***************************************************************************
+                          importxar.cpp  -  description
+                             -------------------
+    begin                : Wed Nov 25 2009
+    copyright            : (C) 2009 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+ ***************************************************************************/
 
 #include <QByteArray>
 #include <QCursor>
@@ -1975,6 +1982,8 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GrScale = 1.0;
+	gc->GrSkew = 0;
 	if (textData.count() > 0)
 	{
 		textData.last().FillGradient = gc->FillGradient;
@@ -1982,6 +1991,8 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 		textData.last().GradFillY1 = gc->GradFillY1;
 		textData.last().GradFillX2 = gc->GradFillX2;
 		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
@@ -2087,6 +2098,8 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
+	gc->GrScale = 1.0;
+	gc->GrSkew = 0;
 	if (textData.count() > 0)
 	{
 		textData.last().FillGradient = gc->FillGradient;
@@ -2094,6 +2107,8 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 		textData.last().GradFillY1 = gc->GradFillY1;
 		textData.last().GradFillX2 = gc->GradFillX2;
 		textData.last().GradFillY2 = gc->GradFillY2;
+		textData.last().GrScale = gc->GrScale;
+		textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
