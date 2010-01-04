@@ -180,8 +180,9 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					imgc.resize(0);
 					ScImage thum;
 					CMSettings cms(0, "", Intent_Perceptual);
+					cms.allowColorManagement(false);
 					bool mode = true;
-					if (thum.LoadPicture(tmpFile, 1, cms, false, false, ScImage::RGBData, 72, &mode))
+					if (thum.loadPicture(tmpFile, 1, cms, ScImage::RGBData, 72, &mode))
 					{
 						m_imageInfoRecord.exifDataValid = true;
 						m_imageInfoRecord.exifInfo.thumbnail = thum.qImage().copy();

@@ -1447,7 +1447,9 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 	CMSettings cms(c->doc(), Prof, c->IRender);
-	if (!image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy))
+	cms.allowColorManagement(UseProf);
+	cms.setUseEmbeddedProfile(UseEmbedded);
+	if (!image.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, 300, &dummy))
 	{
 		PS_Error_ImageLoadFailure(fn);
 		return false;
@@ -1537,13 +1539,15 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		CMSettings cms(c->doc(), Prof, c->IRender);
+		cms.allowColorManagement(UseProf);
+		cms.setUseEmbeddedProfile(UseEmbedded);
 		int resolution = 300;
 		if (c->asLatexFrame())
 			resolution = c->asLatexFrame()->realDpi();
 		else if (c->pixm.imgInfo.type == ImageType7)
 			resolution = 72;
 //		int resolution = (c->pixm.imgInfo.type == ImageType7) ? 72 : 300;
-		if ( !image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, UseProf, ScImage::CMYKData, resolution, &dummy) )
+		if ( !image.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, resolution, &dummy) )
 		{
 			PS_Error_ImageLoadFailure(fn);
 			return false;

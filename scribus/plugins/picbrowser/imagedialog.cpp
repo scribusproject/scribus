@@ -21,9 +21,11 @@ Imagedialog::Imagedialog ( const QString imageFile, ScribusDoc* doc , QWidget *p
 	bool mode=false;
 //no document needs to be assigned to this
 	CMSettings cms ( doc, "", Intent_Perceptual );
+	cms.setUseEmbeddedProfile(true);
+	cms.allowSoftProofing(true);
 
 	//load image
-	if ( image.LoadPicture ( imageFile, 1, cms, true, true, ScImage::RGBProof, 72 , &mode ) )
+	if ( image.loadPicture ( imageFile, 1, cms, ScImage::RGBData, 72 , &mode ) )
 	{
 		
 		pView->setImage(QPixmap::fromImage ( image.qImage() ));

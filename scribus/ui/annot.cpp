@@ -386,23 +386,24 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		QPixmap pmI1;
 		ScImage im;
 		CMSettings cms(view->Doc, "", Intent_Perceptual);
+		cms.allowColorManagement(false);
 		if (!item->Pfile.isEmpty())
 		{
-			im.LoadPicture(item->Pfile, 1, cms, false, false, ScImage::RGBData, 72);
+			im.loadPicture(item->Pfile, 1, cms, ScImage::RGBData, 72);
 			pmI1=QPixmap::fromImage(im.qImage());
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (!item->Pfile2.isEmpty())
 		{
-			im.LoadPicture(item->Pfile2, 1, cms, false, false, ScImage::RGBData, 72);
+			im.loadPicture(item->Pfile2, 1, cms, ScImage::RGBData, 72);
 			pmI1=QPixmap::fromImage(im.qImage());
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (!item->Pfile3.isEmpty())
 		{
-			im.LoadPicture(item->Pfile3, 1, cms, false, false, ScImage::RGBData, 72);
+			im.loadPicture(item->Pfile3, 1, cms, ScImage::RGBData, 72);
 			pmI1=QPixmap::fromImage(im.qImage());
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
@@ -1310,7 +1311,8 @@ void Annot::GetNIcon()
 		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		CMSettings cms(view->Doc, "", Intent_Perceptual);
-		item->pixm.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72);
+		cms.allowColorManagement(false);
+		item->pixm.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
@@ -1342,7 +1344,8 @@ void Annot::GetPIcon()
 		QPixmap pmI1;
 		ScImage im;
 		CMSettings cms(view->Doc, "", Intent_Perceptual);
-		im.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72);
+		cms.allowColorManagement(false);
+		im.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(im.qImage());
 		PiconPrev->setPixmap(pmI1);
 		item->Pfile2 = fileName;
@@ -1366,7 +1369,8 @@ void Annot::GetRIcon()
 		QPixmap pmI1;
 		ScImage im;
 		CMSettings cms(view->Doc, "", Intent_Perceptual);
-		im.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72);
+		cms.allowColorManagement(false);
+		im.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(im.qImage());
 		RiconPrev->setPixmap(pmI1);
 		item->Pfile3 = fileName;

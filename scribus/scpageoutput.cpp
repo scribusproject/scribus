@@ -76,8 +76,6 @@ ScImage::RequestType ScPageOutput::translateImageModeToRequest( ScPainterExBase:
 		value = ScImage::CMYKData;
 	else if ( mode == ScPainterExBase::rgbImages )
 		value = ScImage::RGBData;
-	else if ( mode == ScPainterExBase::rgbProofImages )
-		value = ScImage::RGBProof;
 	else if ( mode == ScPainterExBase::rawImages )
 		value = ScImage::RawData;
 	return value;
@@ -903,13 +901,15 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				QFileInfo fInfo(item->Pfile);
 				QString ext = fInfo.suffix();
 				CMSettings cmsSettings(item->doc(), item->IProfile, item->IRender);
+				cmsSettings.allowColorManagement(m_useProfiles);
+				cmsSettings.setUseEmbeddedProfile(item->UseEmbedded);
 				scImg.imgInfo.valid = false;
 				scImg.imgInfo.clipPath = "";
 				scImg.imgInfo.PDSpathData.clear();
 				scImg.imgInfo.layerInfo.clear();
 				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-				scImg.LoadPicture(item->Pfile, item->pixm.imgInfo.actualPageNumber, cmsSettings, item->UseEmbedded, m_useProfiles, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
+				scImg.loadPicture(item->Pfile, item->pixm.imgInfo.actualPageNumber, cmsSettings, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
 				if( extensionIndicatesEPSorPS(ext) || extensionIndicatesPDF(ext)  )
 				{
 					imScaleX *= (72.0 / (double) m_imageRes);

@@ -29,6 +29,9 @@ for which a new license (GPL+exception) is in place.
 
 CMSettings::CMSettings(ScribusDoc* doc, const QString& profileName, eRenderIntent intent) :
 m_Doc(doc),
+m_colorManagementAllowed(true),
+m_softProofingAllowed(false),
+m_useEmbeddedProfile(false),
 m_ProfileName(profileName), 
 m_Intent(intent)
 {
@@ -41,7 +44,7 @@ CMSettings::~CMSettings()
 bool CMSettings::useColorManagement() const
 {
 	if (m_Doc)
-		return m_Doc->HasCMS;
+		return (m_Doc->HasCMS && m_colorManagementAllowed);
 	return false;
 }
 
@@ -111,14 +114,14 @@ bool CMSettings::useBlackPoint() const
 bool CMSettings::doSoftProofing() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.SoftProofOn;
+		return (m_Doc->CMSSettings.SoftProofOn && m_softProofingAllowed);
 	return false;
 }
 
 bool CMSettings::doGamutCheck() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.GamutCheck;
+		return (m_Doc->CMSSettings.GamutCheck && m_softProofingAllowed);
 	return false;
 }
 
@@ -134,6 +137,11 @@ ScColorProfile CMSettings::printerProfile() const
 	if (m_Doc)
 		return m_Doc->DocPrinterProf;
 	return ScColorProfile();
+}
+
+ScColorProfile CMSettings::outputProfile() const
+{
+	return m_outputProfile;
 }
 
 ScColorTransform CMSettings::rgbColorDisplayTransform() const  // stdTransRGBMonG

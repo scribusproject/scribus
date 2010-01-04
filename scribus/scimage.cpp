@@ -1195,7 +1195,7 @@ void ScImage::createLowRes(double scale)
 	QImage::operator=(tmp);
 }
 
-bool ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
+bool ScImage::convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 {
 	struct jpeg_compress_struct cinfo;
 	struct my_error_mgr         jerr;
@@ -1788,7 +1788,6 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	if (!fi.exists())
 		return false;
 	alpha.resize(0);
-	QString tmp, BBox, tmp2;
 	QString ext = fi.suffix().toLower();
 	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
 	QStringList fmtImg;
@@ -1960,16 +1959,14 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	}
 }
 
-bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSettings,
-						  bool useEmbedded, bool useProf, RequestType requestType,
-						  int gsRes, bool *realCMYK, bool showMsg)
+bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSettings,
+						  RequestType requestType, int gsRes, bool *realCMYK, bool showMsg)
 {
-	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
+	// requestType - 0: CMYK, 1: RGB, 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
 	bool isCMYK = false;
 	bool ret = false;
-	bool inputProfisEmbedded = false;
-	bool stdProof = false;
+	bool inputProfIsEmbedded = false;
 	if (realCMYK != 0)
 		*realCMYK = false;
 	bool bilevel = false;
@@ -1982,8 +1979,6 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	if (!fi.exists())
 		return ret;
 	QString ext = fi.suffix().toLower();
-	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
-	QChar tc;
 	QString profileName = "";
 	bool hasEmbeddedProfile = false;
 	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
@@ -1995,6 +1990,19 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		fmtImg.append( QString(fmtList[i].toLower()) );
 	}
 //	bool found = false;
+
+	// Do some basic checks when requestType is OutputProfile
+	if (requestType == OutputProfile)
+	{
+		if (!cmSettings.useColorManagement())
+			return false;
+		ScColorProfile prof = cmSettings.outputProfile();
+		if (prof.isNull())
+			return false;
+		icColorSpaceSignature cspace = prof.colorSpace();
+		if (cspace != icSigRgbData && cspace != icSigCmykData)
+			return false;
+	}
 
 	if (ext.isEmpty())
 		ext = getImageType(fn);
@@ -2076,12 +2084,12 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	}
 
 	QByteArray embeddedProfile = pDataLoader->embeddedProfile();
-	if (cmSettings.useColorManagement() && useProf)
+	if (cmSettings.useColorManagement())
 	{
-		if ((embeddedProfile.size() > 0 ) && (useEmbedded))
+		if ((embeddedProfile.size() > 0 ) && (cmSettings.useEmbeddedProfile()))
 		{
 			inputProf = cmSettings.doc()->colorEngine.openProfileFromMem(embeddedProfile);
-			inputProfisEmbedded = true;
+			inputProfIsEmbedded = true;
 		}
 		else
 		{
@@ -2093,7 +2101,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
 				{
 					imgInfo.profileName = cmSettings.profileName();
-					inputProfisEmbedded = true;
+					inputProfIsEmbedded = true;
 					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName];
 					inputProf =  cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
 				}
@@ -2101,7 +2109,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					inputProf = cmSettings.doc()->DocInputImageCMYKProf;
 					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile;
-					inputProfisEmbedded = false;
+					inputProfIsEmbedded = false;
 				}
 			}
 			else
@@ -2110,32 +2118,32 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					imgInfo.profileName = cmSettings.profileName();
 					profilePath = ScCore->InputProfiles[imgInfo.profileName];
-					inputProfisEmbedded = true;
+					inputProfIsEmbedded = true;
 					inputProf = cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
 				}
 				else
 				{
 					inputProf = cmSettings.doc()->DocInputImageRGBProf;
 					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageRGBProfile;
-					inputProfisEmbedded = false;
+					inputProfIsEmbedded = false;
 				}
 			}
 		}
 	}
-	else if ((useProf && embeddedProfile.size() > 0) && (useEmbedded))
+	else if ((cmSettings.useColorManagement() && embeddedProfile.size() > 0) && (cmSettings.useEmbeddedProfile()))
 	{
 		inputProf = cmSettings.doc()->colorEngine.openProfileFromMem(embeddedProfile);
-		inputProfisEmbedded = true;
+		inputProfIsEmbedded = true;
 	}
-	else if (useProf && isCMYK)
+	else if (cmSettings.useColorManagement() && isCMYK)
 		inputProf = ScCore->defaultCMYKProfile;
-	else if (useProf && bilevel && (reqType == CMYKData))
+	else if (cmSettings.useColorManagement() && bilevel && (reqType == CMYKData))
 		inputProf = NULL; // Workaround to map directly gray to K channel
-	else if (useProf)
+	else if (cmSettings.useColorManagement())
 		inputProf = ScCore->defaultRGBProfile;
 	ScColorProfile screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
 	ScColorProfile printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
-	if (useProf && inputProf && screenProf && printerProf)
+	if (cmSettings.useColorManagement() && inputProf && screenProf && printerProf)
 	{
 		ScColorMngtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
 		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
@@ -2180,7 +2188,22 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			break;
 		case Thumbnail:
 		case RGBData: // RGB
-			if (isCMYK)
+			if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
+			{
+				if ((imgInfo.profileName == cmSettings.defaultImageRGBProfile()) || (imgInfo.profileName == cmSettings.defaultImageCMYKProfile()))
+				{
+					if (isCMYK)
+						xform = cmSettings.cmykImageProofingTransform();
+					else
+						xform = cmSettings.rgbImageProofingTransform();
+					xform.changeBufferFormat(inputProfFormat, Format_BGRA_8);
+				}
+				else
+					xform = engine.createProofingTransform(inputProf, inputProfFormat,
+				                     screenProf, Format_BGRA_8, printerProf,
+				                     cmSettings.intent(), Intent_Relative_Colorimetric, cmsFlags | cmsProofFlags);
+			}
+			else if (cmSettings.softProofingAllowed() || isCMYK)
 				xform = engine.createTransform(inputProf, inputProfFormat, screenProf, Format_BGRA_8, cmSettings.intent(), cmsFlags);
 			else
 			{
@@ -2196,29 +2219,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 			}
-			break;
-		case RGBProof: // RGB Proof
-			{
-				if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
-				{
-					if ((imgInfo.profileName == cmSettings.defaultImageRGBProfile()) || (imgInfo.profileName == cmSettings.defaultImageCMYKProfile()))
-					{
-						if (isCMYK)
-							xform = cmSettings.cmykImageProofingTransform();
-						else
-							xform = cmSettings.rgbImageProofingTransform();
-						xform.changeBufferFormat(inputProfFormat, Format_BGRA_8);
-						stdProof = true;
-					}
-					else
-						xform = engine.createProofingTransform(inputProf, inputProfFormat,
-					                     screenProf, Format_BGRA_8, printerProf,
-					                     cmSettings.intent(), Intent_Relative_Colorimetric, cmsFlags | cmsProofFlags);
-				}
-				else
-					xform = engine.createTransform(inputProf, inputProfFormat, screenProf, 
-										 Format_BGRA_8, cmSettings.intent(), cmsFlags);
-			}
+			outputProfColorSpace = icSigRgbData;
 			break;
 		case RawData: // no Conversion just raw Data
 			xform = 0;
@@ -2233,6 +2234,18 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
+			break;
+		case OutputProfile: // CMYK
+			ScColorProfile outputProfile = cmSettings.outputProfile();
+			outputProfColorSpace = static_cast<int>(outputProfile.colorSpace());
+			if ( outputProfColorSpace == icSigRgbData )
+				outputProfFormat = Format_BGRA_8;
+			else if ( outputProfColorSpace == icSigCmykData )
+				outputProfFormat = Format_YMCK_8;
+			xform = engine.createTransform(inputProf, inputProfFormat, outputProfile, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
+			isCMYK = (outputProfColorSpace == icSigCmykData);
+			if (realCMYK)
+				*realCMYK = isCMYK;
 			break;
 		}
 		if (xform)
@@ -2254,7 +2267,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				uchar* ptr = scanLine(i);
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 					ptr2 = pDataLoader->r_image.scanLine(i);
-				if ( inputProfFormat == Format_GRAY_8 && (reqType != CMYKData) )
+				if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace != icSigCmykData) )
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
 					unsigned char* uc = new unsigned char[width()];
@@ -2266,7 +2279,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 					xform.apply(uc, ptr, width());
 					delete[] uc;
 				}
-				else if ( inputProfFormat == Format_GRAY_8 && (reqType == CMYKData) )
+				else if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace == icSigCmykData) )
 				{
 					unsigned char  value;
 					unsigned char* ucs = ptr2 ? ptr2 : ptr;
@@ -2294,7 +2307,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb *p;
-					if (isCMYK && reqType != CMYKData && !bilevel)
+					if (isCMYK && outputProfColorSpace != icSigCmykData && !bilevel)
 					{
 						p = (QRgb *) ptr;
 						for (int j = 0; j < width(); j++, p++)
@@ -2304,7 +2317,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				else
 				{
 					// This might fix Bug #6328, please test.
-					if (reqType != CMYKData && bilevel)
+					if (outputProfColorSpace != icSigCmykData && bilevel)
 					{
 						QRgb alphaFF;
 						QRgb *p;
@@ -2316,7 +2329,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 							ptr2 += 4;
 						}
 					}
-					if (reqType != CMYKData && !bilevel)
+					if (outputProfColorSpace != icSigCmykData && !bilevel)
 					{
 						if (pDataLoader->r_image.channels() == 5)
 						{
@@ -2397,7 +2410,6 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			break;
 		case RGBData:
-		case RGBProof:
 		case Thumbnail:
 			if (isCMYK)
 			{
@@ -2446,17 +2458,17 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			break;
 		case RawData:
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
-				{
-					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
-					profileName = imgInfo.profileName;
-					hasEmbeddedProfile = imgInfo.isEmbedded;
-					imgInfo = pDataLoader->imageInfoRecord();
-					imgInfo.profileName = profileName;
-					imgInfo.isEmbedded = hasEmbeddedProfile;
-					// JG : this line overwrite image profile info and should not be needed here!!!!
-					// imgInfo = pDataLoader->imageInfoRecord();
-				}
+			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
+			{
+				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
+				profileName = imgInfo.profileName;
+				hasEmbeddedProfile = imgInfo.isEmbedded;
+				imgInfo = pDataLoader->imageInfoRecord();
+				imgInfo.profileName = profileName;
+				imgInfo.isEmbedded = hasEmbeddedProfile;
+				// JG : this line overwrite image profile info and should not be needed here!!!!
+				// imgInfo = pDataLoader->imageInfoRecord();
+			}
 			break;
 		}
 	}
@@ -2464,7 +2476,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 //		setAlphaBuffer(false);
 	setDotsPerMeterX (qMax(2834, (int) (imgInfo.xres / 0.0254)));
 	setDotsPerMeterY (qMax(2834, (int) (imgInfo.yres / 0.0254)));
-	if (imgInfo.isEmbedded && useEmbedded)
+	if (imgInfo.isEmbedded && cmSettings.useEmbeddedProfile())
 		imgInfo.isEmbedded = true;
 	else
 		imgInfo.isEmbedded = false;

@@ -56,7 +56,7 @@ public:
 	virtual ~ScPainterExBase() {};
 	enum FillMode { None, Solid, Gradient, Pattern };
 	enum ColorMode { rgbMode = 1, cmykMode = 2 };
-	enum ImageMode { cmykImages, rgbImages, rgbProofImages, rawImages };
+	enum ImageMode { cmykImages, rgbImages, rawImages };
 	enum Capabilities{ basic = 0, transparencies = 1, patterns = 2 };
 
 	virtual Capabilities capabilities() { return basic; }

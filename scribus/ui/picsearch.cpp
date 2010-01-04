@@ -72,7 +72,8 @@ void PicSearch::createPreview()
 	ScImage im;
 	//No doc to send data anyway, so no doc to get into scimage.
 	CMSettings cms(0, "", Intent_Perceptual);
-	if (im.LoadPicture(currentImage, 1, cms, false, false, ScImage::Thumbnail, 72, &mode))
+	cms.allowColorManagement(false);
+	if (im.loadPicture(currentImage, 1, cms, ScImage::Thumbnail, 72, &mode))
 	{
 		int ix,iy;
 		if ((im.imgInfo.exifDataValid) && (!im.imgInfo.exifInfo.thumbnail.isNull()))

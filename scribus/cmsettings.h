@@ -42,11 +42,19 @@ public:
 	
 	ScribusDoc* doc() const {return m_Doc;}
 	QString profileName() const {return m_ProfileName;}
-	QString outputProfile() const { return m_outputProfile; }
 	eRenderIntent intent() const { return m_Intent; }
 
-	bool useOutputProfile() const { return !m_outputProfile.isEmpty(); }
-	void setOutputProfile(const QString& prof) { m_outputProfile = prof; }
+	bool colorManagementAllowed() const { return m_colorManagementAllowed; }
+	void allowColorManagement(bool allowed) { m_colorManagementAllowed = allowed; }
+
+	bool softProofingAllowed() const { return m_softProofingAllowed; }
+	void allowSoftProofing(bool allowed) { m_softProofingAllowed = allowed; }
+
+	bool useEmbeddedProfile() const { return m_useEmbeddedProfile; }
+	void setUseEmbeddedProfile(bool useEmbedded) { m_useEmbeddedProfile = useEmbedded; }
+
+	bool useOutputProfile() const { return !m_outputProfile.isNull(); }
+	void setOutputProfile(const ScColorProfile& prof) { m_outputProfile = prof; }
 
 	bool useColorManagement() const;
 
@@ -66,6 +74,7 @@ public:
 
 	ScColorProfile monitorProfile() const;
 	ScColorProfile printerProfile() const;
+	ScColorProfile outputProfile() const;
 
 	ScColorTransform rgbColorDisplayTransform() const;   // stdTransRGBMonG
 	ScColorTransform rgbColorProofingTransform() const;  // stdProofG
@@ -81,11 +90,13 @@ public:
 	ScColorTransform cmykGamutCheckTransform() const;    //stdProofCMYKGCG
 
 protected:
-	ScribusDoc* m_Doc;
-	QString m_ProfileName;
-	QString m_outputProfile;
-	eRenderIntent m_Intent;
-
+	ScribusDoc*    m_Doc;
+	bool           m_colorManagementAllowed;
+	bool           m_softProofingAllowed;
+	bool           m_useEmbeddedProfile;
+	QString        m_ProfileName;
+	eRenderIntent  m_Intent;
+	ScColorProfile m_outputProfile;
 };
 
 #endif

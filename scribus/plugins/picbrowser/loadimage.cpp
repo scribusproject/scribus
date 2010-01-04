@@ -73,11 +73,13 @@ void loadImagesThreadInstance::processLoadImageJob ( int row, QString path, int 
 	bool mode=false;
 //no document needs to be assigned to this
 	CMSettings cms ( 0, "", Intent_Perceptual);
+	cms.allowColorManagement(false);
+	cms.setUseEmbeddedProfile(true);
 
 	ImageInformation *imgInfo = new ImageInformation;
 
 	//load previewimage
-	if ( image.LoadPicture ( path, 1, cms, true, false, ScImage::Thumbnail, 72, &mode ) )
+	if ( image.loadPicture ( path, 1, cms, ScImage::Thumbnail, 72, &mode ) )
 	{
 		int ix,iy;
 		if ( ( image.imgInfo.exifDataValid ) && ( !image.imgInfo.exifInfo.thumbnail.isNull() ) )

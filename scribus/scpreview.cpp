@@ -612,7 +612,8 @@ QPixmap ScPreview::createPreview(QString data)
 						}
 						ScImage pixm;
 						CMSettings cms(0, "", Intent_Perceptual);
-						pixm.LoadPicture(OB.Pfile, 1, cms, false, false, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
+						cms.allowColorManagement(false);
+						pixm.loadPicture(OB.Pfile, 1, cms, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
 						pS->scale(OB.LocalScX, OB.LocalScY);
 						pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
 						QImage img(pixm.qImage());
@@ -655,7 +656,8 @@ QPixmap ScPreview::createPreview(QString data)
 								}
 								ScImage pixm;
 								CMSettings cms(0, "", Intent_Perceptual);
-								pixm.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
+								cms.allowColorManagement(false);
+								pixm.loadPicture(fileName, 1, cms, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
 								pS->scale(OB.LocalScX, OB.LocalScY);
 								pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
 								QImage img(pixm.qImage());

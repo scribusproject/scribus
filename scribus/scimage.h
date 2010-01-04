@@ -44,8 +44,8 @@ public:
 	{
 		CMYKData = 0,
 		RGBData = 1,
-		RGBProof = 2,
-		RawData = 3,
+		RawData = 2,
+		OutputProfile = 3,
 		Thumbnail = 4,
 	};
 
@@ -88,7 +88,7 @@ public:
 	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl);
 
 	bool getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
-	bool Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
+	bool convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
 	void applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk);
@@ -105,7 +105,7 @@ public:
 
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
-	bool LoadPicture(const QString & fn, int page, const CMSettings& cmSettings, bool useEmbedded, bool useProf, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
+	bool loadPicture(const QString & fn, int page, const CMSettings& cmSettings, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
 
 	ImageInfoRecord imgInfo;
 

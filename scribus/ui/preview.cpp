@@ -934,12 +934,13 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				}
 			}
 			CMSettings cms(doc, "", Intent_Perceptual);
+			cms.allowColorManagement(false);
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				if (GsMinor < 54)
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -953,9 +954,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Magenta"]->isChecked())
 			{
 				if (GsMinor < 54)
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -969,9 +970,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Yellow"]->isChecked())
 			{
 				if (GsMinor < 54)
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -995,7 +996,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
 						else
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
-						if (!im.LoadPicture(fnam, 1, cms, false, false, ScImage::RGBData, 72, &mode))
+						if (!im.loadPicture(fnam, 1, cms, ScImage::RGBData, 72, &mode))
 						{
 							imageLoadError(Bild, Seite);
 							return Bild;
@@ -1010,10 +1011,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Black"]->isChecked())
 			{
 				CMSettings cms(doc, "", Intent_Perceptual);
+				cms.allowColorManagement(false);
 				if (GsMinor < 54)
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);

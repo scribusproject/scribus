@@ -535,7 +535,9 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 		ob3.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
 		ScImage img;
 		CMSettings cms(m_Doc, Item->IProfile, Item->IRender);
-		img.LoadPicture(Item->Pfile, Item->pixm.imgInfo.actualPageNumber, cms, Item->UseEmbedded, true, ScImage::RGBProof, 72);
+		cms.setUseEmbeddedProfile(Item->UseEmbedded);
+		cms.allowSoftProofing(true);
+		img.loadPicture(Item->Pfile, Item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72);
 		img.applyEffect(Item->effectsInUse, m_Doc->PageColors, true);
 		if (Options.inlineImages)
 		{
