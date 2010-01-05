@@ -78,6 +78,7 @@ private:
 	void    decodeClass7(QDataStream &ts, quint16 elemID, quint16 paramLen);
 	void    decodeClass8(QDataStream &ts, quint16 elemID, quint16 paramLen);
 	void    decodeClass9(QDataStream &ts, quint16 elemID, quint16 paramLen);
+	void    getBinaryBezierPath(QDataStream &ts, quint16 paramLen);
 	void    getBinaryPath(QDataStream &ts, quint16 paramLen);
 	void    getBinaryColorTable(QDataStream &ts, quint16 paramLen);
 	QString getBinaryIndexedColor(QDataStream &ts);
@@ -132,8 +133,9 @@ private:
 	int viewPortScaleMode;
 
 	int lineBundleIndex;
-	int lineType;
+	Qt::PenStyle lineType;
 	double lineWidth;
+	Qt::PenStyle edgeType;
 	double edgeWidth;
 	uint minColor, maxColor;
 	QString lineColor;

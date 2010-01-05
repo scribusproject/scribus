@@ -346,9 +346,11 @@ bool CgmPlug::convert(QString fn)
 	markerSizeMode = 1;
 	viewPortScale = 1.0;
 	viewPortScaleMode = 0;
-	edgeWidth = 0.0;
+	lineType = Qt::SolidLine;
 	lineWidth = 0.0;
 	lineColor = "Black";
+	edgeType = Qt::SolidLine;
+	edgeWidth = 0.0;
 	edgeColor = "Black";
 	fillColor = "White";
 	minColor = 0;
@@ -470,6 +472,8 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			double h = vdcHeight * metaScale;
 			handleStartPictureBody(w, h);
 		}
+		else
+			handleStartPictureBody(docWidth, docHeight);
 		qDebug() << "BEGIN PICTURE BODY";
 	}
 	else if (elemID == 5)
@@ -483,6 +487,11 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				double h = vdcHeight * metaScale;
 				handleStartPictureBody(w, h);
 			}
+		}
+		else
+		{
+			if (firstPage)
+				handleStartPictureBody(docWidth, docHeight);
 		}
 		qDebug() << "END PICTURE";
 	}
@@ -957,6 +966,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
+		ite->setLineStyle(lineType);
 //		qDebug() << "POLYLINE";
 	}
 	else if (elemID == 2)
@@ -992,6 +1002,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
+		ite->setLineStyle(edgeType);
 //		qDebug() << "POLYGON";
 	}
 	else if (elemID == 8)
@@ -1024,6 +1035,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
+		ite->setLineStyle(edgeType);
 // 		qDebug() << "RECTANGLE";
 	}
 	else if (elemID == 12)
@@ -1039,6 +1051,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
+		ite->setLineStyle(edgeType);
 // 		qDebug() << "CIRCLE";
 	}
 	else if (elemID == 13)
@@ -1108,8 +1121,14 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 26)
 	{
-		alignStreamToWord(ts, paramLen);
-		qDebug() << "POLYBEZIER";
+		getBinaryBezierPath(ts, paramLen);
+		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->PoLine = Coords.copy();
+		finishItem(ite);
+		ite->setLineStyle(edgeType);
+//		qDebug() << "POLYBEZIER";
 	}
 	else if (elemID == 27)
 	{
@@ -1142,7 +1161,19 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 2)
 	{
-		lineType = getBinaryUInt(ts, indexPrecision);
+		uint type = getBinaryUInt(ts, indexPrecision);
+		if (type == 1)
+			lineType = Qt::SolidLine;
+		else if (type == 2)
+			lineType = Qt::DashLine;
+		else if (type == 3)
+			lineType = Qt::DotLine;
+		else if (type == 4)
+			lineType = Qt::DashDotLine;
+		else if (type == 5)
+			lineType = Qt::DashDotDotLine;
+		else
+			lineType = Qt::SolidLine;
 // 		qDebug() << "LINE TYPE" << lineType;
 	}
 	else if (elemID == 3)
@@ -1272,7 +1303,19 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 27)
 	{
-		alignStreamToWord(ts, paramLen);
+		uint type = getBinaryUInt(ts, indexPrecision);
+		if (type == 1)
+			edgeType = Qt::SolidLine;
+		else if (type == 2)
+			edgeType = Qt::DashLine;
+		else if (type == 3)
+			edgeType = Qt::DotLine;
+		else if (type == 4)
+			edgeType = Qt::DashDotLine;
+		else if (type == 5)
+			edgeType = Qt::DashDotDotLine;
+		else
+			edgeType = Qt::SolidLine;
 // 		qDebug() << "EDGE TYPE";
 	}
 	else if (elemID == 28)
@@ -1455,6 +1498,56 @@ void CgmPlug::decodeClass9(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else
 		qDebug() << "Class 9 ID" << elemID << "Len" << paramLen;
 	alignStreamToWord(ts, paramLen);
+}
+
+void CgmPlug::getBinaryBezierPath(QDataStream &ts, quint16 paramLen)
+{
+	quint16 bytesRead = 0;
+	bool first = true;
+	Coords.resize(0);
+	Coords.svgInit();
+	quint16 flag;
+	flag = paramLen & 0x8000;
+	paramLen = paramLen & 0x7FFF;
+	uint type = getBinaryUInt(ts, indexPrecision);
+	while (bytesRead < paramLen - 2)
+	{
+		int posA = ts.device()->pos();
+		if ((first) || (type == 1))
+		{
+			FPoint p = getBinaryCoords(ts);
+			Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
+			first = false;
+		}
+		FPoint p1 = getBinaryCoords(ts);
+		FPoint p2 = getBinaryCoords(ts);
+		FPoint p3 = getBinaryCoords(ts);
+		Coords.svgCurveToCubic(convertCoords(p1.x()), convertCoords(p1.y()), convertCoords(p2.x()), convertCoords(p2.y()), convertCoords(p3.x()), convertCoords(p3.y()));
+		int posN = ts.device()->pos();
+		bytesRead += posN - posA;
+	}
+	while (flag)
+	{
+		bytesRead = 0;
+		ts >> paramLen;
+		flag = paramLen & 0x8000;
+		paramLen = paramLen & 0x7FFF;
+		while (bytesRead < paramLen)
+		{
+			int posA = ts.device()->pos();
+			if (type == 1)
+			{
+				FPoint p = getBinaryCoords(ts);
+				Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
+			}
+			FPoint p1 = getBinaryCoords(ts);
+			FPoint p2 = getBinaryCoords(ts);
+			FPoint p3 = getBinaryCoords(ts);
+			Coords.svgCurveToCubic(convertCoords(p1.x()), convertCoords(p1.y()), convertCoords(p2.x()), convertCoords(p2.y()), convertCoords(p3.x()), convertCoords(p3.y()));
+			int posN = ts.device()->pos();
+			bytesRead += posN - posA;
+		}
+	}
 }
 
 void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen)
@@ -1752,7 +1845,7 @@ double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
 			qint16 whole;
 			ts >> whole;
 			ts >> fraction;
-			val = whole + (fraction / 0xFFFF);
+			val = whole + (fraction / static_cast<double>(0xFFFF));
 		}
 		else
 		{
@@ -1760,7 +1853,7 @@ double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
 			qint32 whole;
 			ts >> whole;
 			ts >> fraction;
-			val = whole + (fraction / 0xFFFFFFFF);
+			val = whole + (fraction / static_cast<double>(0xFFFFFFFF));
 		}
 	}
 	return val;
@@ -1843,10 +1936,8 @@ void CgmPlug::handleStartPictureBody(double width, double height)
 		else
 		{
 			m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
-			m_Doc->addPage(0);
-			m_Doc->view()->addPage(0, true);
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
+			m_Doc->addPage(m_Doc->currentPage()->pageNr()+1);
+			m_Doc->view()->addPage(m_Doc->currentPage()->pageNr(), true);
 		}
 		firstPage = false;
 	}
