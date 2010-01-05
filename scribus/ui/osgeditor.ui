@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>658</width>
-    <height>411</height>
+    <height>490</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -179,7 +179,7 @@
                 </sizepolicy>
                </property>
                <property name="text">
-                <string>Renderstyle:</string>
+                <string>Render Style:</string>
                </property>
               </widget>
              </item>
@@ -207,17 +207,17 @@
                </item>
                <item>
                 <property name="text">
-                 <string>BoundingBox</string>
+                 <string>Bounding Box</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>Transparent BoundingBox</string>
+                 <string>Transparent Bounding Box</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>Transparen tBoundingBox Outline</string>
+                 <string>Transparent Bounding Box Outline</string>
                 </property>
                </item>
                <item>
