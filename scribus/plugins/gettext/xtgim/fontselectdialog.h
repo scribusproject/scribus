@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef FONTSELECTDIALOG_H
 #define FONTSELECTDIALOG_H
 
-#include "scribusapi.h"
 #include <QString>
 #include <QStringList>
 #include <QDialog>
@@ -44,8 +43,7 @@ class QComboBox;
 class QLabel;
 class QWidget;
 
-
-class SCRIBUS_API FontSelect:public QDialog
+class FontSelect:public QDialog
 {
 Q_OBJECT
 

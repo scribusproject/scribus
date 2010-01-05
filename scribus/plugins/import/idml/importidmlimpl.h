@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTIDMLIMPL_H
 #define IMPORTIDMLIMPL_H
 
-
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
@@ -145,7 +144,7 @@ class ImportIdmlImpl : public QObject
 		bool processFont();
 		bool processStyles();
 		bool importPStyles(QDomNode&);
-		bool importCStyles(QDomNode&);
+		bool importCStyles(QDomNode&) { return false; };
 		bool processSpreads();
 		bool processStory();
 		bool readStoryObjects(QDomNode);
@@ -165,13 +164,13 @@ class ImportIdmlImpl : public QObject
 		void addTextFrame(ScribusDoc*,QDomNode);
 		void addPage(ScribusDoc*, QDomNode);
 		void addMasterPage(ScribusDoc*,QDomNode);
-		void addRectangle(ScribusDoc*,QDomNode);
+		void addRectangle(ScribusDoc*,QDomNode) {};
 		void addOval(ScribusDoc*,QDomNode);
-		void addPolygon(ScribusDoc*,QDomNode);
-		void addGraphicLine(ScribusDoc*,QDomNode);
+		void addPolygon(ScribusDoc*,QDomNode) {};
+		void addGraphicLine(ScribusDoc*,QDomNode) {};
 		double findWidth(double,double,double,double);
 		double findHeight(double,double,double,double);
-		QTransform applyTransform(QString);
+		QTransform applyTransform(QString) { return QTransform(); }
 		PathPoint readPathPoint(QDomElement);
 		
 		void getMSpreadSrc(QDomElement&);
@@ -181,7 +180,7 @@ class ImportIdmlImpl : public QObject
 		void readParagraphStyle(ScribusDoc *doc, QDomNode node, ParagraphStyle& newStyle, SCFonts &fonts);
 		void readCharacterStyle(ScribusDoc *doc, QDomNode node, CharStyle& newStyle);
 		void fixLegacyParStyle(ParagraphStyle& pstyle);
-		void fixLegacyCStyle(CharStyle& cstyle);
+		void fixLegacyCStyle(CharStyle& cstyle) {};
 		CStyleRange readCStyleRange(QDomNode node);
 	
 		QDomElement loadXmlFile(QString &filename);

@@ -50,7 +50,7 @@ enum scannerMode
 \brief Class for scanning and parsing an XPress Tags Document
 */
 
-class SCRIBUS_API XtgScanner
+class XtgScanner
 {
 private:
 	/**

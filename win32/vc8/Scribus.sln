@@ -215,6 +215,24 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-wpg", "scribus-wpg\scribus-wpg.vcproj", "{50C264A1-2CE7-46A3-8C79-CBC714C49510}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xarimport", "xarimport\xarimport.vcproj", "{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347} = {6F97694C-76D9-4B1E-9C38-22FA260AB347}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgmimport", "cgmimport\cgmimport.vcproj", "{22A3A594-0080-4956-BD16-ED9384335659}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gettext-xtgim", "gettex-xtgim\gettext-xtgim.vcproj", "{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idmlimport", "idmlimport\idmlimport.vcproj", "{6F97694C-76D9-4B1E-9C38-22FA260AB347}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -584,6 +602,30 @@ Global
 		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{6CBF7E6C-1611-41B3-AF93-B4916A7BB6E3}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{22A3A594-0080-4956-BD16-ED9384335659}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{6F97694C-76D9-4B1E-9C38-22FA260AB347}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

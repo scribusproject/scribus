@@ -1944,6 +1944,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\textwriter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\tocgenerator.cpp"
 				>
 			</File>
@@ -14671,6 +14675,10 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\textwriter.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tocgenerator.h"

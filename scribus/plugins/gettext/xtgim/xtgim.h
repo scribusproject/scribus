@@ -29,20 +29,19 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "pageitem.h"
-#include <QString>
-#include <QList>
+
 #include <QByteArray>
-#include <textwriter.h>
-#include "scribus/scribus.h"
+#include <QList>
+#include <QString>
+#include "textwriter.h"
 
-class ScribusMainWindow;
-
+class StyleManager;
 
 extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem);
 extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
-class SCRIBUS_API XtgIm : public ScribusMainWindow
+class XtgIm
 {
 private:
 	QString encoding;

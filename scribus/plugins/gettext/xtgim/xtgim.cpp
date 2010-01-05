@@ -28,17 +28,18 @@ for which a new license (GPL+exception) is in place.
 #include "xtgscanner.h"
 #include "xtgdialog.h"
 
-#include "prefsmanager.h"
-#include "util.h"
-#include <prefsfile.h>
-#include <prefscontext.h>
-#include <prefstable.h>
 #include <QFile>
 #include <QFileInfo>
 #include <QTextCodec>
+
+#include "prefsmanager.h"
+#include "util.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefstable.h"
+#include "ui/stylemanager.h"
 #include "styles/paragraphstyle.h"
 #include "styles/charstyle.h"
-#include "scribus/scribus.h"
 
 
 QString FileFormatName()

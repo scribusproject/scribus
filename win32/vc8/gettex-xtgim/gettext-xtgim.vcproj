@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="gettext-textfilter"
-	ProjectGUID="{3CF57996-98BE-4C6A-85D6-91A85107D52A}"
+	Name="gettext-xtgim"
+	ProjectGUID="{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -64,13 +64,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib lcmsd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-textfilter.dll"
+				OutputFile="$(OutDir)\gettext-xtgim.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-xtgim.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
+				ImportLibrary="$(OutDir)/gettext-xtgim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -150,15 +150,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-textfilter.dll"
+				OutputFile="$(OutDir)\gettext-xtgim.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-xtgim.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
+				ImportLibrary="$(OutDir)/gettext-xtgim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -236,13 +236,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib lcmsd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-textfilter.dll"
+				OutputFile="$(OutDir)\gettext-xtgim.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-xtgim.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
+				ImportLibrary="$(OutDir)/gettext-xtgim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -322,15 +322,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-textfilter.dll"
+				OutputFile="$(OutDir)\gettext-xtgim.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-xtgim.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
+				ImportLibrary="$(OutDir)/gettext-xtgim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -367,19 +367,36 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="gettext-textfilterdll.cpp"
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\fontselectdialog.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\textfilter.cpp"
+				RelativePath="gettext-xtgimdll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tfdia.cpp"
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\xtgdialog.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tffilter.cpp"
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\xtgim.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\xtgscanner.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Generated Moc Files"
+			Filter="moc_*.cpp"
+			>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\moc_fontselectdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\moc_xtgdialog.cpp"
 				>
 			</File>
 		</Filter>
@@ -388,19 +405,15 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\textfilter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tfdia.h"
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\fontselectdialog.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -410,8 +423,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -421,8 +434,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -432,23 +445,23 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tffilter.h"
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\xtgdialog.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -458,8 +471,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -469,8 +482,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
@@ -480,24 +493,19 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Description="Moc&apos;ing $(InputfileName)"
+						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
-		</Filter>
-		<Filter
-			Name="Generated Moc Files"
-			Filter="moc_*.cpp"
-			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\moc_tfdia.cpp"
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\xtgim.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\moc_tffilter.cpp"
+				RelativePath="..\..\..\scribus\plugins\gettext\xtgim\xtgscanner.h"
 				>
 			</File>
 		</Filter>
