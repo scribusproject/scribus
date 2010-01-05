@@ -150,7 +150,7 @@ void PageItem_OSGFrame::applicableActions(QStringList & actionList)
 QString PageItem_OSGFrame::infoDescription()
 {
 	QString htmlText;
-	htmlText.append( tr("3D-Model") + "<br/>");
+	htmlText.append( tr("3D Model") + "<br/>");
 	QFileInfo fi = QFileInfo(modelFile);
 	htmlText.append( tr("File:") + " " + fi.fileName() + "<br/>");
 	htmlText.append(PageItem::infoDescription());
