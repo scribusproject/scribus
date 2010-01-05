@@ -1023,6 +1023,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
+						else if (it.tagName() == "trail")
+						{
+							ParagraphStyle newStyle;
+							PrefsManager* prefsManager = PrefsManager::instance();
+							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
+						}
 						else if (it.tagName()=="tab")
 						{
 							CharStyle newStyle;
@@ -1254,6 +1261,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
+						}
+						else if (it.tagName() == "trail")
+						{
+							ParagraphStyle newStyle;
+							PrefsManager* prefsManager = PrefsManager::instance();
+							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
 						}
 						else if (it.tagName()=="tab")
 						{
@@ -3028,6 +3042,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
+						}
+						else if (it.tagName() == "trail")
+						{
+							ParagraphStyle newStyle;
+							PrefsManager* prefsManager = PrefsManager::instance();
+							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length(), 1, last->Style);
 						}
 						else if (it.tagName()=="tab")
 						{

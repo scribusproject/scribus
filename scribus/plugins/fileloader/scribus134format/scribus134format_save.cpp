@@ -1075,7 +1075,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 	// paragraphstyle for trailing chars
 	if (item->itemText.length() == 0 || item->itemText.text(item->itemText.length()-1) != SpecialChars::PARSEP)
 	{
-		putPStyle(docu, item->itemText.paragraphStyle(item->itemText.length()), "para");
+		putPStyle(docu, item->itemText.paragraphStyle(item->itemText.length()), "trail");
 	}
 }
 
