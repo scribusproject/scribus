@@ -68,7 +68,7 @@ class SCRIBUS_API FormatsManager
 			PCT				= 262144,  // Mac Pict
 			XAR				= 524288,  // Xara
 			CGM				= 1048576, // CGM
-			ODT				= 2097152 // ODT
+			IDML			= 2097152 // IDML
 		};
 	
 /*
