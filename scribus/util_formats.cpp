@@ -61,7 +61,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick File");
 #endif
 	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
-	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macinthosh Pict File");
+	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macintosh Pict File");
 	m_fmtNames[FormatsManager::XAR]  = QObject::tr("XARA \"*.xar\" File");
 	m_fmtNames[FormatsManager::CGM]  = QObject::tr("CGM File");
 	m_fmtNames[FormatsManager::IDML]  = QObject::tr("IDML File");
