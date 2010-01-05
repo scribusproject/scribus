@@ -371,7 +371,7 @@
                 </sizepolicy>
                </property>
                <property name="text">
-                <string>Lightning:</string>
+                <string>Lighting:</string>
                </property>
               </widget>
              </item>
