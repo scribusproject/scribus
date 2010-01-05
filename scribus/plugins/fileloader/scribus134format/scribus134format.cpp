@@ -1781,6 +1781,13 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			newItem->itemText.setStyle(newItem->itemText.length()-1, newStyle);
 			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, lastStyle->Style);
 		}
+		else if (tName == "trail")
+		{
+			ParagraphStyle newStyle;
+			PrefsManager* prefsManager = PrefsManager::instance();
+			readParagraphStyle(doc, reader, newStyle, prefsManager->appPrefs.fontPrefs.AvailFonts);
+			newItem->itemText.setStyle(newItem->itemText.length(), newStyle);
+		}
 		else if (tName == "tab")
 		{
 			CharStyle newStyle;
