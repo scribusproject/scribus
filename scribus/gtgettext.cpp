@@ -215,9 +215,12 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 {
 	// Pointer for the loaded plugin.
 	void* gtplugin;
+        // Type definition for GetText pointer in the function in question.
+        typedef void (*gt2ptr)(QString filename, QString encoding, bool textOnly, PageItem *textframe);
 	// Type definition for GetText pointer in the function in question.
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 	// The point to the above.
+        gt2ptr fp_GetText2;
 	sdem fp_GetText;
 	// Initialize Path to the "DLL"
 	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(idata.soFilePath);
@@ -229,23 +232,36 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 		qWarning("Failed to load plugin %s", pluginFilePath.toAscii().constData());
 		return;
 	} // if (!gtplugin)
-	// Attempt to map the GetText method to to the pointer via the PluginManager. Store the result in fp_GetText.
-	fp_GetText = (sdem) PluginManager::resolveSym(gtplugin, "GetText");
-	// If fp_GetText is NULL, we could not find the symbol, report the error, unload the "DLL" and exit the method.
-	if (!fp_GetText)
-	{
-		qWarning("Failed to get GetText() from %s", pluginFilePath.toAscii().constData());
-		PluginManager::unloadDLL(gtplugin);
-		return;
-	}  // if (!fp_GetText)
-	// Create a new writer object in "append"'s mode ( true or false ) attached to the importItem
-	gtWriter *w = new gtWriter(append, importItem);
-	// Execute the importer's "GetText" method.
-	(*fp_GetText)(filePath, encoding, textOnly, w);
-	// Destroy the writer
-	delete w;
-	// Unload the plugin.
-	PluginManager::unloadDLL(gtplugin);
+        fp_GetText2 = (gt2ptr) PluginManager::resolveSym(gtplugin,"GetText2");
+
+        if (fp_GetText2)
+        {
+                if (!append)
+                        importItem->itemText.clear();
+                // Execute the importer's "GetText2" method.
+                (*fp_GetText2)(filePath, encoding, textOnly, importItem);
+        }  // if (!fp_GetText2)        
+        else
+        {
+           // Attempt to map the old GetText method to to the pointer via the PluginManager. Store the result in fp_GetText.
+                fp_GetText = (sdem) PluginManager::resolveSym(gtplugin,"GetText");
+          // If fp_GetText is NULL, we could not find the symbol,report the error, unload the "DLL" and exit the method.
+                if (fp_GetText)
+                {
+                // Create a new writer object in "append"'s mode (true or false ) attached to the importItem
+                        gtWriter *w = new gtWriter(append, importItem);
+                        // Execute the importer's "GetText" method.
+                        (*fp_GetText)(filePath, encoding, textOnly, w);
+                        // Destroy the writer
+                        delete w;
+                }  // if (!fp_GetText)
+                else
+                {
+                        qWarning("Failed to get GetText() from %s",pluginFilePath.toAscii().constData());
+                }
+        }
+        // Unload the plugin.
+        PluginManager::unloadDLL(gtplugin);
 }  // void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
    //                     const QString& encoding, bool textOnly, bool append, PageItem* importItem)
 

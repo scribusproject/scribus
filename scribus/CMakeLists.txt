@@ -751,6 +751,7 @@ SET(SCRIBUS_SOURCES
   ui/tabscrapbook.cpp
   ui/tabtools.cpp
   ui/tabtypography.cpp
+  textwriter.cpp
   tocgenerator.cpp
   ui/tocindexprefs.cpp
   transaction.cpp
