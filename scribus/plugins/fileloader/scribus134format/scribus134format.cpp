@@ -3049,7 +3049,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							PrefsManager* prefsManager = PrefsManager::instance();
 							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
-							Neu->itemText.setCharStyle(Neu->itemText.length(), 1, last->Style);
 						}
 						else if (it.tagName()=="tab")
 						{
