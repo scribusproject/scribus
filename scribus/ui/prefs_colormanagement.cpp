@@ -21,7 +21,7 @@ Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent)
 	if (!m_canChangeMonitorProfile)
 	{
 		monitorProfileComboBox->setVisible(false);
-		monitorLabel->setText( tr("Monitor profile can only be changed when no document are currently opened.") );
+		monitorLabel->setText( tr("Monitor profiles can only be changed when no documents are currently open.") );
 	}
 }
 
