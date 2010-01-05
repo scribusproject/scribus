@@ -9534,7 +9534,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmsprefs.cpp" line="26"/>
-        <source>Monitor profile can only be changed when no document are currently opened.</source>
+        <source>Monitor profiles can only be changed when no documents are currently opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -17767,11 +17767,6 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished">Asetukset</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/osgeditor.ui" line="182"/>
-        <source>Renderstyle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="190"/>
         <source>Solid</source>
         <translation type="unfinished">Kiinteä</translation>
@@ -17789,21 +17784,6 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="205"/>
         <source>Transparent Wireframe</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../scribus/ui/osgeditor.ui" line="210"/>
-        <source>BoundingBox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../scribus/ui/osgeditor.ui" line="215"/>
-        <source>Transparent BoundingBox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../scribus/ui/osgeditor.ui" line="220"/>
-        <source>Transparen tBoundingBox Outline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -17867,8 +17847,28 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"> %</translation>
     </message>
     <message>
+        <location filename="../../../scribus/ui/osgeditor.ui" line="182"/>
+        <source>Render Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/osgeditor.ui" line="210"/>
+        <source>Bounding Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/osgeditor.ui" line="215"/>
+        <source>Transparent Bounding Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/osgeditor.ui" line="220"/>
+        <source>Transparent Bounding Box Outline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="374"/>
-        <source>Lightning:</source>
+        <source>Lighting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18974,7 +18974,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="153"/>
-        <source>3D-Model</source>
+        <source>3D Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21616,7 +21616,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="24"/>
-        <source>Monitor profile can only be changed when no document are currently opened.</source>
+        <source>Monitor profiles can only be changed when no documents are currently open.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29008,7 +29008,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="64"/>
-        <source>Macinthosh Pict File</source>
+        <source>Macintosh Pict File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

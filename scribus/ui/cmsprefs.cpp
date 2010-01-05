@@ -23,7 +23,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	if (!m_canChangeMonitorProfile)
 	{
 		monitorP->setVisible(false);
-		monitorProfileLabel->setText( tr("Monitor profile can only be changed when no document are currently opened.") );
+		monitorProfileLabel->setText( tr("Monitor profiles can only be changed when no documents are currently opened.") );
 	}
 }
 
