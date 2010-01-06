@@ -32387,7 +32387,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3020"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3027"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2734"/>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3064"/>
         <source>Copy #%1 of </source>
@@ -33523,7 +33523,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="46"/>
+        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="47"/>
         <source>Quark XPress Tags Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35500,7 +35500,7 @@ Wenn Sie diese mit der aktuellen Version speichern, können ältere Versionen si
         <translation type="obsolete">Scribus 1.3.4-Dokument</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3440"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3447"/>
         <source>Copy #%1 of </source>
         <translation>Kopie #%1 von</translation>
     </message>

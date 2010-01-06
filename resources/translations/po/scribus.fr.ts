@@ -27675,7 +27675,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3020"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3027"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2734"/>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3064"/>
         <source>Copy #%1 of </source>
@@ -30332,7 +30332,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="46"/>
+        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="47"/>
         <source>Quark XPress Tags Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32285,7 +32285,7 @@ Si vous sauvez ce document, il ne sera plus lisible par les versions de Scribus 
         <translation type="obsolete">Document Scribus 1.3.4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3440"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3447"/>
         <source>Copy #%1 of </source>
         <translation>Copie #%1 de</translation>
     </message>

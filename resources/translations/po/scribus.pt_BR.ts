@@ -41160,7 +41160,7 @@ fornecidos na documentação da função.
         <translation>Fundo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3020"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3027"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2734"/>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3064"/>
         <source>Copy #%1 of </source>
@@ -41775,7 +41775,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="46"/>
+        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="47"/>
         <source>Quark XPress Tags Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43710,7 +43710,7 @@ Se você salvá-lo com esta versão do Scribus, o arquivo não será lido por ve
         <translation type="obsolete">Documento do Scribus 1.3.4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3440"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3447"/>
         <source>Copy #%1 of </source>
         <translation>Copiar #%1 de </translation>
     </message>

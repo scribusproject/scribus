@@ -31300,7 +31300,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Side </translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3020"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3027"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2734"/>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3064"/>
         <source>Copy #%1 of </source>
@@ -32358,7 +32358,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="46"/>
+        <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="47"/>
         <source>Quark XPress Tags Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34367,7 +34367,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3440"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3447"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopi #%1 av </translation>
     </message>
