@@ -5,8 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
  
-#ifndef SCCOLORMNGTSTRUCTS_H
-#define SCCOLORMNGTSTRUCTS_H
+#ifndef SCCOLORMGMTSTRUCTS_H
+#define SCCOLORMGMTSTRUCTS_H
 
 #include "icc34.h" //part of lcms1
 #include <QString>
@@ -50,13 +50,13 @@ typedef enum
 	Intent_Max = 4
 } eRenderIntent;
 
-class ScColorMngtStrategy
+class ScColorMgmtStrategy
 {
 public:
 	bool useBlackPointCompensation;
 	bool useBlackPreservation;
 	
-	ScColorMngtStrategy ()
+	ScColorMgmtStrategy ()
 	{
 		useBlackPointCompensation = true;
 		useBlackPreservation      = false;

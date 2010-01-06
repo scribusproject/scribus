@@ -2145,7 +2145,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	ScColorProfile printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
 	if (cmSettings.useColorManagement() && inputProf && screenProf && printerProf)
 	{
-		ScColorMngtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
+		ScColorMgmtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
 		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
 		eColorFormat inputProfFormat  = Format_BGRA_8;
 		eColorFormat outputProfFormat = Format_YMCK_8;

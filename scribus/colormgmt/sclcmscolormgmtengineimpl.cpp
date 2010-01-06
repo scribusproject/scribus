@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFile>
 
-#include "sclcmscolormngtengineimpl.h"
+#include "sclcmscolormgmtengineimpl.h"
 #include "sclcmscolorprofileimpl.h"
 #include "sclcmscolortransformimpl.h"
 
@@ -18,11 +18,11 @@ for which a new license (GPL+exception) is in place.
 #define cmsFLAGS_PRESERVEBLACK 0x8000
 #endif
 
-QSharedPointer<ScColorProfileCache>  ScLcmsColorMngtEngineImpl::m_profileCache;
-QSharedPointer<ScColorTransformPool> ScLcmsColorMngtEngineImpl::m_transformPool;
+QSharedPointer<ScColorProfileCache>  ScLcmsColorMgmtEngineImpl::m_profileCache;
+QSharedPointer<ScColorTransformPool> ScLcmsColorMgmtEngineImpl::m_transformPool;
 
-ScLcmsColorMngtEngineImpl::ScLcmsColorMngtEngineImpl()
-                         : ScColorMngtEngineData("Littlecms v1", 0)
+ScLcmsColorMgmtEngineImpl::ScLcmsColorMgmtEngineImpl()
+                         : ScColorMgmtEngineData("Littlecms v1", 0)
 {
 	if (!m_profileCache)
 		m_profileCache = QSharedPointer<ScColorProfileCache>(new ScColorProfileCache());
@@ -31,12 +31,12 @@ ScLcmsColorMngtEngineImpl::ScLcmsColorMngtEngineImpl()
 	cmsSetAlarmCodes(0, 255, 0);
 }
 
-void ScLcmsColorMngtEngineImpl::setStrategy(const ScColorMngtStrategy& strategy)
+void ScLcmsColorMgmtEngineImpl::setStrategy(const ScColorMgmtStrategy& strategy)
 {
 	m_strategy = strategy;
 }
 
-QList<ScColorProfileInfo> ScLcmsColorMngtEngineImpl::getAvailableProfileInfo(const QString& directory, bool recursive)
+QList<ScColorProfileInfo> ScLcmsColorMgmtEngineImpl::getAvailableProfileInfo(const QString& directory, bool recursive)
 {
 	QList<ScColorProfileInfo> profileInfos;
 
@@ -117,7 +117,7 @@ QList<ScColorProfileInfo> ScLcmsColorMngtEngineImpl::getAvailableProfileInfo(con
 	return profileInfos;
 }
 
-ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromFile(ScColorMngtEngine& engine, const QString& filePath)
+ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromFile(ScColorMgmtEngine& engine, const QString& filePath)
 {
 	// Search profile in profile cache first
 	ScColorProfile profile = m_profileCache->profile(filePath);
@@ -164,7 +164,7 @@ ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromFile(ScColorMngtEngine&
 	return profile;
 }
 
-ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromMem(ScColorMngtEngine& engine, const QByteArray& data)
+ScColorProfile ScLcmsColorMgmtEngineImpl::openProfileFromMem(ScColorMgmtEngine& engine, const QByteArray& data)
 {
 	ScColorProfile profile;
 	cmsHPROFILE lcmsProf = NULL;
@@ -198,7 +198,7 @@ ScColorProfile ScLcmsColorMngtEngineImpl::openProfileFromMem(ScColorMngtEngine& 
 	return profile;
 }
 
-ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_sRGB(ScColorMngtEngine& engine)
+ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_sRGB(ScColorMgmtEngine& engine)
 {
 	QString internalProfilePath("memprofile://Internal sRGB profile");
 	ScColorProfile profile = m_profileCache->profile(internalProfilePath);
@@ -234,7 +234,7 @@ ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_sRGB(ScColorMngtEngine& 
 	return profile;
 }
 
-ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_Lab(ScColorMngtEngine& engine)
+ScColorProfile ScLcmsColorMgmtEngineImpl::createProfile_Lab(ScColorMgmtEngine& engine)
 {
 	QString internalProfilePath("memprofile://Internal Lab profile");
 	ScColorProfile profile = m_profileCache->profile(internalProfilePath);
@@ -270,7 +270,7 @@ ScColorProfile ScLcmsColorMngtEngineImpl::createProfile_Lab(ScColorMngtEngine& e
 	return profile;
 }
 
-ScColorTransform ScLcmsColorMngtEngineImpl::createTransform(ScColorMngtEngine& engine,
+ScColorTransform ScLcmsColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& engine,
                                  const ScColorProfile& inputProfile , eColorFormat inputFormat,
 	                             const ScColorProfile& outputProfile, eColorFormat outputFormat,
                                  eRenderIntent renderIntent, long transformFlags)
@@ -354,7 +354,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createTransform(ScColorMngtEngine& e
 	return transform;
 }
 
-ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtEngine& engine,
+ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtEngine& engine,
                                              const ScColorProfile& inputProfile , eColorFormat inputFormat,
 	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
                                              const ScColorProfile& proofProfile , eRenderIntent renderIntent, 
@@ -482,7 +482,7 @@ ScColorTransform ScLcmsColorMngtEngineImpl::createProofingTransform(ScColorMngtE
 	return transform;
 }
 
-DWORD ScLcmsColorMngtEngineImpl::translateFlagsToLcmsFlags(long flags)
+DWORD ScLcmsColorMgmtEngineImpl::translateFlagsToLcmsFlags(long flags)
 {
 	DWORD lFlags = 0;
 	if (flags & Ctf_BlackPointCompensation)
@@ -496,7 +496,7 @@ DWORD ScLcmsColorMngtEngineImpl::translateFlagsToLcmsFlags(long flags)
 	return lFlags;
 }
 
-DWORD ScLcmsColorMngtEngineImpl::translateFormatToLcmsFormat(eColorFormat format)
+DWORD ScLcmsColorMgmtEngineImpl::translateFormatToLcmsFormat(eColorFormat format)
 {
 	DWORD lFormat = 0;
 	if (format == Format_RGB_8)
@@ -536,7 +536,7 @@ DWORD ScLcmsColorMngtEngineImpl::translateFormatToLcmsFormat(eColorFormat format
 	return lFormat;
 }
 
-int ScLcmsColorMngtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defIntent)
+int ScLcmsColorMgmtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defIntent)
 {
 	int lIntent = defIntent;
 	if (intent == Intent_Perceptual)
@@ -550,7 +550,7 @@ int ScLcmsColorMngtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent,
 	return lIntent;
 }
 
-int ScLcmsColorMngtEngineImpl::cmsErrorHandler(int /*ErrorCode*/, const char *ErrorText)
+int ScLcmsColorMgmtEngineImpl::cmsErrorHandler(int /*ErrorCode*/, const char *ErrorText)
 {
 	std::string msg = std::string("Littlecms : ") + ErrorText;
 	throw lcmsException(msg.c_str());

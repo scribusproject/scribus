@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 #include "scribusapi.h"
-#include "colormngt/sccolormngtstructs.h"
+#include "colormgmt/sccolormgmtstructs.h"
 #include "scimagestructs.h"
 #include "sctextstruct.h"
 #include "scfonts.h"

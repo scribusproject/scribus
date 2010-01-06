@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scconfig.h"
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "scimgdataloader_psd.h"
 #include "util_color.h"
 #include "sccolorengine.h"
@@ -47,7 +47,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 	ScColorProfile prof;
-	ScColorMngtEngine engine(ScCore->defaultEngine);
+	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
@@ -133,7 +133,7 @@ bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int /*page*/, i
 
 bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, bool thumbnail)
 {
-	ScColorMngtEngine engine(ScCore->defaultEngine);
+	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	bool isCMYK = false;
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
@@ -839,7 +839,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	RawImage r2_image;
 	RawImage mask;
 	bool createOk = false;
-	ScColorMngtEngine engine(ScCore->defaultEngine);
+	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	if (header.color_mode == CM_CMYK)
 	{
 		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, (uint)5));
@@ -1333,7 +1333,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 
 bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 {
-	ScColorMngtEngine engine(ScCore->defaultEngine);
+	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	// Find out if the data is compressed.
 	// Known values:
 	//   0: no compression

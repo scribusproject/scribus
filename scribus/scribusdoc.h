@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "documentinformation.h"
 #include "observable.h"
 #include "page.h"
@@ -1035,7 +1035,7 @@ public:
 	int GroupCounter;
 	CMSData CMSSettings;
 
-	ScColorMngtEngine colorEngine;
+	ScColorMgmtEngine colorEngine;
 	ScColorProfile DocInputImageRGBProf;
 	ScColorProfile DocInputImageCMYKProf;
 	ScColorProfile DocInputRGBProf;

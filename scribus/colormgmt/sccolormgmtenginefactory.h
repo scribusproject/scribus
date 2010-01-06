@@ -5,18 +5,18 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#ifndef SCCOLORMNGTENGINEFACTORY_H
-#define SCCOLORMNGTENGINEFACTORY_H
+#ifndef SCCOLORMGMTENGINEFACTORY_H
+#define SCCOLORMGMTENGINEFACTORY_H
 
-#include "sccolormngtengine.h"
+#include "sccolormgmtengine.h"
 
-class ScColorMngtEngineFactory
+class ScColorMgmtEngineFactory
 {
 public:
-	ScColorMngtEngine createEngine(int engineID);
-	ScColorMngtEngine createDefaultEngine();
+	ScColorMgmtEngine createEngine(int engineID);
+	ScColorMgmtEngine createDefaultEngine();
 };
 
-extern ScColorMngtEngineFactory colorMngtEngineFactory;
+extern ScColorMgmtEngineFactory colorMgmtEngineFactory;
 
 #endif

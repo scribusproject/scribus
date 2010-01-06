@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scconfig.h"
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"

@@ -12,9 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "icc34.h" //part of lcms1
-#include "sccolormngtelem.h"
+#include "sccolormgmtelem.h"
 
-class ScColorProfileData : public ScColorMngtElem
+class ScColorProfileData : public ScColorMgmtElem
 {
 protected:
 	QString m_profilePath;

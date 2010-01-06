@@ -43,7 +43,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormngt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
+				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormgmt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
 				IgnoreStandardIncludePath="false"
 				MinimalRebuild="true"
@@ -136,7 +136,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormngt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
+				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormgmt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -227,7 +227,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormngt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
+				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormgmt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
 				IgnoreStandardIncludePath="false"
 				MinimalRebuild="true"
@@ -320,7 +320,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormngt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
+				AdditionalIncludeDirectories="..\vc8;..\..\scribus;..\..\scribus\colormgmt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -20508,107 +20508,107 @@
 			Name="colorMgmt"
 			>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtelem.h"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtelem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtengine.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtengine.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtengine.h"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtengine.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtenginedata.h"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtenginedata.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtenginefactory.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtenginefactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtenginefactory.h"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtenginefactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtimplelem.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtimplelem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtimplelem.h"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtimplelem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtstructs.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtstructs.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolormngtstructs.h"
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtstructs.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolorprofile.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolorprofile.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolorprofile.h"
+				RelativePath="..\..\scribus\colormgmt\sccolorprofile.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolorprofilecache.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolorprofilecache.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolorprofilecache.h"
+				RelativePath="..\..\scribus\colormgmt\sccolorprofilecache.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolorprofiledata.h"
+				RelativePath="..\..\scribus\colormgmt\sccolorprofiledata.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolortransform.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolortransform.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolortransform.h"
+				RelativePath="..\..\scribus\colormgmt\sccolortransform.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolortransformdata.h"
+				RelativePath="..\..\scribus\colormgmt\sccolortransformdata.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolortransformpool.cpp"
+				RelativePath="..\..\scribus\colormgmt\sccolortransformpool.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sccolortransformpool.h"
+				RelativePath="..\..\scribus\colormgmt\sccolortransformpool.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sclcmscolormngtengineimpl.cpp"
+				RelativePath="..\..\scribus\colormgmt\sclcmscolormgmtengineimpl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sclcmscolormngtengineimpl.h"
+				RelativePath="..\..\scribus\colormgmt\sclcmscolormgmtengineimpl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sclcmscolorprofileimpl.cpp"
+				RelativePath="..\..\scribus\colormgmt\sclcmscolorprofileimpl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sclcmscolorprofileimpl.h"
+				RelativePath="..\..\scribus\colormgmt\sclcmscolorprofileimpl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sclcmscolortransformimpl.cpp"
+				RelativePath="..\..\scribus\colormgmt\sclcmscolortransformimpl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormngt\sclcmscolortransformimpl.h"
+				RelativePath="..\..\scribus\colormgmt\sclcmscolortransformimpl.h"
 				>
 			</File>
 		</Filter>

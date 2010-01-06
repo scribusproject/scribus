@@ -10,12 +10,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QList>
 #include <QWeakPointer>
-#include "sccolormngtstructs.h"
+#include "sccolormgmtstructs.h"
 #include "sccolortransform.h"
 
 class ScColorTransformPool
 {
-	friend class ScColorMngtEngineData;
+	friend class ScColorMgmtEngineData;
 
 public:
 	ScColorTransformPool (int engineID);

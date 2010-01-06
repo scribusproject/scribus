@@ -5,19 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "sccolormngtenginefactory.h"
-#include "sclcmscolormngtengineimpl.h"
+#include "sccolormgmtenginefactory.h"
+#include "sclcmscolormgmtengineimpl.h"
 
-ScColorMngtEngineFactory colorMngtEngineFactory;
+ScColorMgmtEngineFactory colorMgmtEngineFactory;
 
-ScColorMngtEngine ScColorMngtEngineFactory::createEngine(int engineID)
+ScColorMgmtEngine ScColorMgmtEngineFactory::createEngine(int engineID)
 {
 	// for now just return default engine
 	return createDefaultEngine();
 }
 
-ScColorMngtEngine ScColorMngtEngineFactory::createDefaultEngine()
+ScColorMgmtEngine ScColorMgmtEngineFactory::createDefaultEngine()
 {
-	ScColorMngtEngine lcmsEngine(new ScLcmsColorMngtEngineImpl());
+	ScColorMgmtEngine lcmsEngine(new ScLcmsColorMgmtEngineImpl());
 	return lcmsEngine;
 }

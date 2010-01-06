@@ -5,34 +5,34 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#ifndef SCCOLORMNGTIMPLELEM_H
-#define SCCOLORMNGTIMPLELEM_H
+#ifndef SCCOLORMGMTIMPLELEM_H
+#define SCCOLORMGMTIMPLELEM_H
 
-#include "sccolormngtelem.h"
-#include "sccolormngtengine.h"
+#include "sccolormgmtelem.h"
+#include "sccolormgmtengine.h"
 
 class ScColorProfileImplBase : public ScColorProfileData
 {
 protected:
-	ScColorMngtEngine m_engine;
+	ScColorMgmtEngine m_engine;
 
 public:
-	ScColorProfileImplBase(const ScColorMngtEngine& engine);
+	ScColorProfileImplBase(const ScColorMgmtEngine& engine);
 
-	virtual ScColorMngtEngine& engine();
-	virtual const ScColorMngtEngine& engine() const;
+	virtual ScColorMgmtEngine& engine();
+	virtual const ScColorMgmtEngine& engine() const;
 };
 
 class ScColorTransformImplBase : public ScColorTransformData
 {
 protected:
-	ScColorMngtEngine m_engine;
+	ScColorMgmtEngine m_engine;
 
 public:
-	ScColorTransformImplBase(const ScColorMngtEngine& engine);
+	ScColorTransformImplBase(const ScColorMgmtEngine& engine);
 
-	virtual ScColorMngtEngine& engine();
-	virtual const ScColorMngtEngine& engine() const;
+	virtual ScColorMgmtEngine& engine();
+	virtual const ScColorMgmtEngine& engine() const;
 };
 
 #endif

@@ -21,8 +21,8 @@ public:
 	ScColorTransform(ScColorTransformData* data);
 	ScColorTransform(const QSharedPointer<ScColorTransformData>& data);
 	
-	ScColorMngtEngine& engine() { return m_data->engine(); }
-	const ScColorMngtEngine& engine() const { return m_data->engine(); }
+	ScColorMgmtEngine& engine() { return m_data->engine(); }
+	const ScColorMgmtEngine& engine() const { return m_data->engine(); }
 
 	inline bool isNull()    const { return (m_data.isNull() || m_data->isNull()); }
 	inline operator bool () const { return !isNull(); }

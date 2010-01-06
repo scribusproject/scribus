@@ -5,26 +5,26 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
  
-#ifndef SCCOLORMNGTENGINE_H
-#define SCCOLORMNGTENGINE_H
+#ifndef SCCOLORMGMTENGINE_H
+#define SCCOLORMGMTENGINE_H
 
 #include <QList>
 #include <QSharedPointer>
 #include "scribusapi.h"
-#include "sccolormngtenginedata.h"
+#include "sccolormgmtenginedata.h"
 
-class SCRIBUS_API ScColorMngtEngine
+class SCRIBUS_API ScColorMgmtEngine
 {
 public:
-	ScColorMngtEngine(ScColorMngtEngineData*);
+	ScColorMgmtEngine(ScColorMgmtEngineData*);
 	
 	// Getters
 	int   engineID() const;
 	const QString& description() const;
-	const ScColorMngtStrategy& strategy() const;
+	const ScColorMgmtStrategy& strategy() const;
 	
 	// Setters, only for  color management strategy, and purely virtual ;)
-	void setStrategy(const ScColorMngtStrategy& strategy);
+	void setStrategy(const ScColorMgmtStrategy& strategy);
 
 	// function for getting available profile in a directory
 	QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive);
@@ -47,11 +47,11 @@ public:
 									 eRenderIntent proofingIntent, long transformFlags);
 									 
 	// color engine equality operator function
-	bool operator==(const ScColorMngtEngine& other) const;
-	bool operator!=(const ScColorMngtEngine& other) const;
+	bool operator==(const ScColorMgmtEngine& other) const;
+	bool operator!=(const ScColorMgmtEngine& other) const;
 	
 protected:
-	QSharedPointer<ScColorMngtEngineData> m_data;
+	QSharedPointer<ScColorMgmtEngineData> m_data;
 };
 
 #endif

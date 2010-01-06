@@ -1067,7 +1067,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
-					ScColorMngtEngine engine = doc->colorEngine;
+					ScColorMgmtEngine engine = doc->colorEngine;
 					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocDisplayProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for( int yi=0; yi < h2; ++yi )
 					{
@@ -1129,7 +1129,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
-					ScColorMngtEngine engine = doc->colorEngine;
+					ScColorMgmtEngine engine = doc->colorEngine;
 					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocDisplayProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for (int y=0; y < h2; ++y )
 					{

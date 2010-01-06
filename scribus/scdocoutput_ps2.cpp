@@ -80,7 +80,7 @@ bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 
 		eColorFormat outputDataTypeColors = Format_Undefined;
 		eColorFormat outputDataTypeImages = Format_Undefined;
-		ScColorMngtEngine engine(m_doc->colorEngine);
+		ScColorMgmtEngine engine(m_doc->colorEngine);
 		m_options.hProfile = engine.openProfileFromFile(m_options.outputProfile);
 		if (static_cast<int>(m_options.hProfile.colorSpace()) == icSigRgbData)
 		{

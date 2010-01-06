@@ -5,16 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#ifndef SCCOLORMNGTELEM_H
-#define SCCOLORMNGTELEM_H
+#ifndef SCCOLORMGMTELEM_H
+#define SCCOLORMGMTELEM_H
 
-class ScColorMngtEngine;
+class ScColorMgmtEngine;
 
-class ScColorMngtElem
+class ScColorMgmtElem
 {
 public:
-	virtual ScColorMngtEngine& engine() = 0;
-	virtual const ScColorMngtEngine& engine() const = 0;
+	virtual ScColorMgmtEngine& engine() = 0;
+	virtual const ScColorMgmtEngine& engine() const = 0;
 };
 
 #endif

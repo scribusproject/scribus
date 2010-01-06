@@ -9,15 +9,15 @@ for which a new license (GPL+exception) is in place.
 #define SCLCMSCOLORTRANSFORMIMPL_H
 
 #include "lcms.h"
-#include "sccolormngtimplelem.h"
+#include "sccolormgmtimplelem.h"
 #include "sccolortransformdata.h"
 
 class ScLcmsColorTransformImpl : public ScColorTransformImplBase
 {
-	friend class ScLcmsColorMngtEngineImpl;
+	friend class ScLcmsColorMgmtEngineImpl;
 
 public:
-	ScLcmsColorTransformImpl(ScColorMngtEngine& engine, cmsHTRANSFORM lcmsTransform);
+	ScLcmsColorTransformImpl(ScColorMgmtEngine& engine, cmsHTRANSFORM lcmsTransform);
 	virtual ~ScLcmsColorTransformImpl();
 
 	virtual bool isNull() const;

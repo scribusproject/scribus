@@ -11,15 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "lcms.h"
-#include "sccolormngtimplelem.h"
+#include "sccolormgmtimplelem.h"
 #include "sccolorprofiledata.h"
 
 class ScLcmsColorProfileImpl : public ScColorProfileImplBase
 {
-	friend class ScLcmsColorMngtEngineImpl;
+	friend class ScLcmsColorMgmtEngineImpl;
 
 public:
-	ScLcmsColorProfileImpl(ScColorMngtEngine& engine, cmsHPROFILE lcmsProfile);
+	ScLcmsColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile);
 	virtual ~ScLcmsColorProfileImpl();
 
 	virtual bool isNull() const;

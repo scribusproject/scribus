@@ -4,24 +4,24 @@ ${CMAKE_SOURCE_DIR}/scribus
 ${LCMS_INCLUDE_DIR}
 )
 
-SET(SCRIBUS_COLORMNGT_LIB_SOURCES
-	sccolormngtengine.cpp
-	sccolormngtenginefactory.cpp
-	sccolormngtimplelem.cpp
-	sccolormngtstructs.cpp
+SET(SCRIBUS_COLORMGMT_LIB_SOURCES
+	sccolormgmtengine.cpp
+	sccolormgmtenginefactory.cpp
+	sccolormgmtimplelem.cpp
+	sccolormgmtstructs.cpp
 	sccolorprofile.cpp
 	sccolorprofilecache.cpp
 	sccolortransform.cpp
 	sccolortransformpool.cpp
-	sclcmscolormngtengineimpl.cpp
+	sclcmscolormgmtengineimpl.cpp
 	sclcmscolorprofileimpl.cpp
 	sclcmscolortransformimpl.cpp
 )
-SET(SCRIBUS_COLORMNGT_LIB "scribus_colormngt_lib")
-ADD_LIBRARY(${SCRIBUS_COLORMNGT_LIB} STATIC ${SCRIBUS_COLORMNGT_LIB_SOURCES})
+SET(SCRIBUS_COLORMGMT_LIB "scribus_colormgmt_lib")
+ADD_LIBRARY(${SCRIBUS_COLORMGMT_LIB} STATIC ${SCRIBUS_COLORMGMT_LIB_SOURCES})
 # This is a convenience library that for linkage purposes is part of Scribus's
 # main API.
-SET_TARGET_PROPERTIES(${SCRIBUS_COLORMNGT_LIB}
+SET_TARGET_PROPERTIES(${SCRIBUS_COLORMGMT_LIB}
   PROPERTIES
   COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
   )

@@ -6,66 +6,66 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <cassert>
-#include "sccolormngtengine.h"
+#include "sccolormgmtengine.h"
 
-ScColorMngtEngine::ScColorMngtEngine(ScColorMngtEngineData* data) : m_data(data)
+ScColorMgmtEngine::ScColorMgmtEngine(ScColorMgmtEngineData* data) : m_data(data)
 {
 	assert(data != NULL);
 }
 
-int ScColorMngtEngine::engineID() const
+int ScColorMgmtEngine::engineID() const
 {
 	return m_data->engineID();
 }
 
-const QString& ScColorMngtEngine::description() const
+const QString& ScColorMgmtEngine::description() const
 {
 	return m_data->description();
 }
 
-const ScColorMngtStrategy& ScColorMngtEngine::strategy() const
+const ScColorMgmtStrategy& ScColorMgmtEngine::strategy() const
 {
 	return m_data->strategy();
 }
 
-void ScColorMngtEngine::setStrategy(const ScColorMngtStrategy& strategy)
+void ScColorMgmtEngine::setStrategy(const ScColorMgmtStrategy& strategy)
 {
 	m_data->setStrategy(strategy);
 }
 
-QList<ScColorProfileInfo> ScColorMngtEngine::getAvailableProfileInfo(const QString& directory, bool recursive)
+QList<ScColorProfileInfo> ScColorMgmtEngine::getAvailableProfileInfo(const QString& directory, bool recursive)
 {
 	return m_data->getAvailableProfileInfo(directory, recursive);
 }
 
-ScColorProfile ScColorMngtEngine::openProfileFromFile(const QString& filePath)
+ScColorProfile ScColorMgmtEngine::openProfileFromFile(const QString& filePath)
 {
 	return m_data->openProfileFromFile(*this, filePath);
 }
 
-ScColorProfile ScColorMngtEngine::openProfileFromMem( const QByteArray& array)
+ScColorProfile ScColorMgmtEngine::openProfileFromMem( const QByteArray& array)
 {
 	return m_data->openProfileFromMem(*this, array);
 }
 
-ScColorProfile ScColorMngtEngine::createProfile_sRGB()
+ScColorProfile ScColorMgmtEngine::createProfile_sRGB()
 {
 	return m_data->createProfile_sRGB(*this);
 }
 
-ScColorProfile ScColorMngtEngine::createProfile_Lab()
+ScColorProfile ScColorMgmtEngine::createProfile_Lab()
 {
 	return m_data->createProfile_Lab(*this);
 }
 
-ScColorTransform ScColorMngtEngine::createTransform(const ScColorProfile& inputProfile , eColorFormat inputFormat,
+ScColorTransform ScColorMgmtEngine::createTransform(const ScColorProfile& inputProfile , eColorFormat inputFormat,
 	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat, 
                                              eRenderIntent renderIntent, long transformFlags)
 {
 	return m_data->createTransform(*this, inputProfile, inputFormat, outputProfile, outputFormat, renderIntent, transformFlags);
 }
 
-ScColorTransform ScColorMngtEngine::createProofingTransform(const ScColorProfile& inputProfile, eColorFormat inputFormat,
+ScColorTransform ScColorMgmtEngine::createProofingTransform(const ScColorProfile& inputProfile, eColorFormat inputFormat,
 	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
 											 const ScColorProfile& proofingProfile, eRenderIntent renderIntent, 
                                              eRenderIntent proofingIntent, long transformFlags)
@@ -74,12 +74,12 @@ ScColorTransform ScColorMngtEngine::createProofingTransform(const ScColorProfile
 	                                       proofingProfile, renderIntent, proofingIntent, transformFlags);
 }
 
-bool ScColorMngtEngine::operator==(const ScColorMngtEngine& other) const
+bool ScColorMgmtEngine::operator==(const ScColorMgmtEngine& other) const
 {
 	return m_data == other.m_data;
 }
 
-bool ScColorMngtEngine::operator!=(const ScColorMngtEngine& other) const
+bool ScColorMgmtEngine::operator!=(const ScColorMgmtEngine& other) const
 {
 	return m_data != other.m_data;
 }

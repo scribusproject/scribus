@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sclcmscolorprofileimpl.h"
 
-ScLcmsColorProfileImpl::ScLcmsColorProfileImpl(ScColorMngtEngine& engine, cmsHPROFILE lcmsProfile)
+ScLcmsColorProfileImpl::ScLcmsColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile)
                       : ScColorProfileImplBase(engine), m_profileHandle(lcmsProfile)
 {
 

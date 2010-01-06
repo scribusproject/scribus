@@ -63,7 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include "resourcecollection.h"
 #include "sccolorengine.h"
 #include "ui/scmessagebox.h"
-#include "colormngt/sccolormngtenginefactory.h"
+#include "colormgmt/sccolormgmtenginefactory.h"
 #include "scpainter.h"
 #include "scraction.h"
 #include "scribus.h"
@@ -688,8 +688,8 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	HasCMS = false;
 	ScColorProfile inputProf;
 
-	colorEngine = colorMngtEngineFactory.createDefaultEngine();
-	ScColorMngtStrategy colorStrategy;
+	colorEngine = colorMgmtEngineFactory.createDefaultEngine();
+	ScColorMgmtStrategy colorStrategy;
 	colorStrategy.useBlackPointCompensation = CMSSettings.BlackPoint;
 	colorStrategy.useBlackPreservation      = false;
 	colorEngine.setStrategy(colorStrategy);

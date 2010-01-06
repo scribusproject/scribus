@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scconfig.h"
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "scimgdataloader_tiff.h"
 #include "scribuscore.h"
 #include "util_color.h"
@@ -38,7 +38,7 @@ void ScImgDataLoader_TIFF::initSupportedFormatList(void)
 
 void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
-	ScColorMngtEngine engine(ScCore->defaultEngine);
+	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 	if ( !QFile::exists(fn) )
@@ -592,7 +592,7 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 
 bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, bool thumbnail)
 {
-	ScColorMngtEngine engine(ScCore->defaultEngine);
+	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	bool bilevel = false;
 	bool failedPS = false;
 	bool foundPS = false;

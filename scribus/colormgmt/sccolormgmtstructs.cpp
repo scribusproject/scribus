@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "sccolormngtstructs.h"
+#include "sccolormgmtstructs.h"
 
 bool operator==(const ScColorTransformInfo& v1, const ScColorTransformInfo& v2)
 {

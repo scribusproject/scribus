@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 class ScribusDoc;
 
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 
 class SCRIBUS_API CMSettings
 {

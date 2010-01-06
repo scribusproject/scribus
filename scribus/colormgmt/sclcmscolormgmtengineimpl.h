@@ -5,42 +5,42 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#ifndef SCLCMSCOLORMNGTENGINEIMPL_H
-#define SCLCMSCOLORMNGTENGINEIMPL_H
+#ifndef SCLCMSCOLORMGMTENGINEIMPL_H
+#define SCLCMSCOLORMGMTENGINEIMPL_H
 
 #include <stdexcept>
 
 #include "lcms.h"
-#include "sccolormngtenginedata.h"
+#include "sccolormgmtenginedata.h"
 #include "sccolorprofilecache.h"
 
-class ScLcmsColorMngtEngineImpl : public ScColorMngtEngineData
+class ScLcmsColorMgmtEngineImpl : public ScColorMgmtEngineData
 {
 	friend class ScLcmsColorTransformImpl;
 
 public:
-	ScLcmsColorMngtEngineImpl();
+	ScLcmsColorMgmtEngineImpl();
 
 	// Setter, only for  color management strategy
-	virtual void setStrategy(const ScColorMngtStrategy& strategy);
+	virtual void setStrategy(const ScColorMgmtStrategy& strategy);
 
 	// function for getting available profile in a directory
 	virtual QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive);
 	
 	// functions for opening icc profiles
-	virtual ScColorProfile openProfileFromFile(ScColorMngtEngine& engine, const QString& filePath);
-	virtual ScColorProfile openProfileFromMem (ScColorMngtEngine& engine, const QByteArray& array);
+	virtual ScColorProfile openProfileFromFile(ScColorMgmtEngine& engine, const QString& filePath);
+	virtual ScColorProfile openProfileFromMem (ScColorMgmtEngine& engine, const QByteArray& array);
 	
 	// functions for creating profiles
-	virtual ScColorProfile createProfile_sRGB(ScColorMngtEngine& engine);
-	virtual ScColorProfile createProfile_Lab (ScColorMngtEngine& engine);
+	virtual ScColorProfile createProfile_sRGB(ScColorMgmtEngine& engine);
+	virtual ScColorProfile createProfile_Lab (ScColorMgmtEngine& engine);
 	
 	// functions for creating transforms
-	virtual ScColorTransform createTransform(ScColorMngtEngine& colorManagementEngine,
+	virtual ScColorTransform createTransform(ScColorMgmtEngine& colorManagementEngine,
 		                                     const ScColorProfile& inputProfile , eColorFormat inputFormat,
 	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
 											 eRenderIntent renderIntent, long transformFlags);
-	virtual ScColorTransform createProofingTransform(ScColorMngtEngine& colorManagementEngine,
+	virtual ScColorTransform createProofingTransform(ScColorMgmtEngine& colorManagementEngine,
 		                                     const ScColorProfile& inputProfile , eColorFormat inputFormat,
 	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
 											 const ScColorProfile& proofing, eRenderIntent renderIntent, 

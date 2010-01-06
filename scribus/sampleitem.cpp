@@ -136,7 +136,7 @@ void SampleItem::setBgShade(int c)
 	bgShade = c;
 }
 
-void SampleItem::setBgColorMngt(bool enable)
+void SampleItem::setBgColorMgmt(bool enable)
 {
 	m_Doc->PageColors["__whiteforpreviewbg__"].setSpotColor(!enable);
 }

@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 
 #ifdef NLS_PROTO
 class ScText;

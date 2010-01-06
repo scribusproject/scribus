@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 
 #include "cmsettings.h"
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "scclocale.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -82,7 +82,7 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 					}
 					if (tmp.startsWith("%%EndICCProfile"))
 					{
-						ScColorMngtEngine engine(ScCore->defaultEngine);
+						ScColorMgmtEngine engine(ScCore->defaultEngine);
 						ScColorProfile prof = engine.openProfileFromMem(psdata);
 						if (prof)
 						{
@@ -427,7 +427,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 							}
 							if (tmp.startsWith("%%EndICCProfile"))
 							{
-								ScColorMngtEngine engine(ScCore->defaultEngine);
+								ScColorMgmtEngine engine(ScCore->defaultEngine);
 								ScColorProfile prof = engine.openProfileFromMem(psdata);
 								if (prof)
 								{

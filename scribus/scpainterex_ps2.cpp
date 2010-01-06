@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
  
 #include <cmath>
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "sccolorengine.h"
 #include "util.h"
 

@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusapi.h"
 
-#include "colormngt/sccolormngtengine.h"
+#include "colormgmt/sccolormgmtengine.h"
 
 class QWidget;
 class FileWatcher;
@@ -113,7 +113,7 @@ public:
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
 
-	ScColorMngtEngine defaultEngine;
+	ScColorMgmtEngine defaultEngine;
 	ScColorProfile   monitorProfile;
 	ScColorProfile   defaultRGBProfile;
 	ScColorProfile   defaultCMYKProfile;

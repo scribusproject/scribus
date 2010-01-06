@@ -12,10 +12,10 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "icc34.h" //part of lcms1
-#include "sccolormngtelem.h"
-#include "sccolormngtstructs.h"
+#include "sccolormgmtelem.h"
+#include "sccolormgmtstructs.h"
 
-class ScColorTransformData  : public ScColorMngtElem
+class ScColorTransformData  : public ScColorMgmtElem
 {
 protected:
 	ScColorTransformInfo m_transformInfo;

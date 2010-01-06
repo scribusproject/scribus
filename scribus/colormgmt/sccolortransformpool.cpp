@@ -6,8 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QSharedPointer>
-#include "sccolormngtengine.h"
-#include "sccolormngtstructs.h"
+#include "sccolormgmtengine.h"
+#include "sccolormgmtstructs.h"
 #include "sccolortransformpool.h"
 
 ScColorTransformPool::ScColorTransformPool(int engineID) : m_engineID(engineID)

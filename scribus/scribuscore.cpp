@@ -37,11 +37,11 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 #include "util_ghostscript.h"
-#include "colormngt/sccolormngtenginefactory.h"
+#include "colormgmt/sccolormgmtenginefactory.h"
 
 extern ScribusQApp* ScQApp;
 
-ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMngtEngineFactory.createDefaultEngine())
+ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMgmtEngineFactory.createDefaultEngine())
 {
 	m_ScribusInitialized=false;
 	m_SplashScreen=0;
@@ -50,7 +50,7 @@ ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMngtEngineFactory.cre
 // 	m_PaletteParent=0;
 	m_currScMW=0;
 
-	ScColorMngtStrategy strategy;
+	ScColorMgmtStrategy strategy;
 	strategy.useBlackPointCompensation = true;
 	strategy.useBlackPreservation      = false;
 	defaultEngine.setStrategy(strategy);
@@ -477,12 +477,9 @@ void ScribusCore::InitDefaultColorTransforms(void)
 		MonitorProfiles.insert(defaultRGBString, defaultRGBProfile.profilePath());
 
 	// Open monitor profile as defined by user preferences
-	if (prefsManager->appPrefs.colorPrefs.DCMSset.CMSinUse)
-	{
-		QString displayProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
-		if (MonitorProfiles.contains(displayProfile))
-			monitorProfile = defaultEngine.openProfileFromFile( MonitorProfiles[displayProfile] );
-	}
+	QString displayProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+	if (MonitorProfiles.contains(displayProfile))
+		monitorProfile = defaultEngine.openProfileFromFile( MonitorProfiles[displayProfile] );
 	if (monitorProfile.isNull())
 	{
 		prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = defaultRGBString;
