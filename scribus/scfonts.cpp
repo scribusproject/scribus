@@ -310,9 +310,16 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	FT_Face         face = NULL;
 	struct testCache foCache;
 	QFileInfo fic(filename);
+	QDateTime lastMod = fic.lastModified();
+	QTime lastModTime = lastMod.time();
+	if (lastModTime.msec() != 0)  //Sometime file time is stored with precision up to msecs
+	{
+		lastModTime.setHMS(lastModTime.hour(), lastModTime.minute(), lastModTime.second());
+		lastMod.setTime(lastModTime);
+	}
 	foCache.isOK = false;
 	foCache.isChecked = true;
-	foCache.lastMod = fic.lastModified();
+	foCache.lastMod = lastMod;
 	if (checkedFonts.count() == 0)
 	{
 		firstRun = true;
@@ -377,7 +384,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 				checkedFonts[filename].isChecked = true;
 				return true;
 			}
-			if (checkedFonts[filename].lastMod != fic.lastModified())
+			if (checkedFonts[filename].lastMod != foCache.lastMod)
 			{
 				ScCore->setSplashStatus( QObject::tr("Modified Font found, checking...") );
 				FT_UInt gindex = 0;
