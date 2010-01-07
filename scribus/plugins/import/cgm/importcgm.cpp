@@ -353,8 +353,13 @@ bool CgmPlug::convert(QString fn)
 	edgeWidth = 0.0;
 	edgeColor = "Black";
 	fillColor = "White";
+	fillType = 1;
 	minColor = 0;
 	maxColor = 255;
+	clipRect = QRectF();
+	useClipRect = true;
+	clipSet = false;
+	lineVisible = true;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -473,7 +478,10 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			handleStartPictureBody(w, h);
 		}
 		else
+		{
 			handleStartPictureBody(docWidth, docHeight);
+			firstPage = true;
+		}
 		qDebug() << "BEGIN PICTURE BODY";
 	}
 	else if (elemID == 5)
@@ -634,7 +642,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		maxColorIndex = data;
- 		qDebug() << "MAXIMUM COLOUR INDEX" << maxColorIndex;
+//		qDebug() << "MAXIMUM COLOUR INDEX" << maxColorIndex;
 	}
 	else if (elemID == 10)
 	{
@@ -687,7 +695,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 12)
 	{
-		alignStreamToWord(ts, paramLen);
+//		alignStreamToWord(ts, paramLen);
 		qDebug() << "METAFILE DEFAULTS REPLACEMENT" << paramLen;
 	}
 	else if (elemID == 13)
@@ -806,7 +814,7 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		FPoint max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
-		QRectF vd = QRectF(max.x(), max.y(), min.x(), min.y());
+		QRectF vd = QRectF(QPointF(max.x(), max.y()), QPointF(min.x(), min.y()));
 		if (vd.height() > 0)
 			vcdFlippedV = true;
 		if (vd.width() < 0)
@@ -817,7 +825,9 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		metaScale = 400.0 / qMax(vdcWidth, vdcHeight);
 		lineWidth = qMax(vdcWidth, vdcHeight) / 1000;
 		vcdSet = true;
-		qDebug() << "VDC EXTENT" << vdcWidth << vdcHeight << metaScale;
+		if (!clipSet)
+			clipRect = QRectF(vd.left() * metaScale, vd.top() * metaScale, vdcWidth * metaScale, vdcHeight * metaScale);
+		qDebug() << "VDC EXTENT" << vd.left() << vd.top() << vdcWidth << vdcHeight << metaScale;
 	}
 	else if (elemID == 7)
 	{
@@ -923,37 +933,96 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 // 		qDebug() << "VDC REAL PRECISION" << vdcReal << vdcMantissa;
 	}
 	else if (elemID == 3)
-		qDebug() << "AUXILIARY COLOUR";
-	else if (elemID == 4)
-		qDebug() << "TRANSPARENCY";
-	else if (elemID == 5)
-		qDebug() << "CLIP RECTANGLE";
-	else if (elemID == 6)
-		qDebug() << "CLIP INDICATOR";
-	else if (elemID == 7)
-		qDebug() << "LINE CLIPPING MODE";
-	else if (elemID == 8)
-		qDebug() << "MARKER CLIPPING MODE";
-	else if (elemID == 9)
-		qDebug() << "EDGE CLIPPING MODE";
-	else if (elemID == 10)
-		qDebug() << "NEW REGION";
-	else if (elemID == 11)
-		qDebug() << "SAVE PRIMITIVE CONTEXT";
-	else if (elemID == 12)
-		qDebug() << "RESTORE PRIMITIVE CONTEXT";
-	else if (elemID == 17)
-		qDebug() << "PROTECTION REGION INDICATOR";
-	else if (elemID == 18)
-		qDebug() << "GENERALIZED TEXT PATH MODE";
-	else if (elemID == 19)
-		qDebug() << "MITRE LIMIT";
-	else if (elemID == 20)
-		qDebug() << "TRANSPARENT CELL COLOUR";
-	else
-		qDebug() << "Class 3 ID" << elemID << "Len" << paramLen;
-	if (elemID > 2)
+	{
 		alignStreamToWord(ts, paramLen);
+		qDebug() << "AUXILIARY COLOUR";
+	}
+	else if (elemID == 4)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TRANSPARENCY";
+	}
+	else if (elemID == 5)
+	{
+		FPoint max, min;
+		max = getBinaryCoords(ts);
+		min = getBinaryCoords(ts);
+		QRectF vd = QRectF(QPointF(max.x(), max.y()), QPointF(min.x(), min.y()));
+		vd = vd.normalized();
+		double w = convertCoords(vd.width());
+		double h = convertCoords(vd.height());
+		double x = convertCoords(vd.left());
+		double y = convertCoords(vd.top());
+		x += m_Doc->currentPage()->xOffset();
+		y += m_Doc->currentPage()->yOffset();
+		clipRect = QRectF(x, y, w, h);
+		clipSet = true;
+		qDebug() << "CLIP RECTANGLE" << clipRect;
+	}
+	else if (elemID == 6)
+	{
+		ts >> data;
+		if (data == 0)
+			useClipRect = false;
+		else
+			useClipRect = true;
+		qDebug() << "CLIP INDICATOR" << useClipRect;
+	}
+	else if (elemID == 7)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "LINE CLIPPING MODE";
+	}
+	else if (elemID == 8)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "MARKER CLIPPING MODE";
+	}
+	else if (elemID == 9)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "EDGE CLIPPING MODE";
+	}
+	else if (elemID == 10)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "NEW REGION";
+	}
+	else if (elemID == 11)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "SAVE PRIMITIVE CONTEXT";
+	}
+	else if (elemID == 12)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "RESTORE PRIMITIVE CONTEXT";
+	}
+	else if (elemID == 17)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "PROTECTION REGION INDICATOR";
+	}
+	else if (elemID == 18)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "GENERALIZED TEXT PATH MODE";
+	}
+	else if (elemID == 19)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "MITRE LIMIT";
+	}
+	else if (elemID == 20)
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "TRANSPARENT CELL COLOUR";
+	}
+	else
+	{
+		alignStreamToWord(ts, paramLen);
+		qDebug() << "Class 3 ID" << elemID << "Len" << paramLen;
+	}
 }
 
 void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
@@ -998,7 +1067,21 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		getBinaryPath(ts, paramLen);
 		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+		int z;
+		if (lineVisible)
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
+		}
+		else
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+		}
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
@@ -1025,13 +1108,27 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		FPoint max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
-		QRectF vd = QRectF(max.x(), max.y(), min.x(), min.y());
+		QRectF vd = QRectF(QPointF(max.x(), max.y()), QPointF(min.x(), min.y()));
 		vd = vd.normalized();
 		double w = convertCoords(vd.width());
 		double h = convertCoords(vd.height());
 		double x = convertCoords(vd.left());
 		double y = convertCoords(vd.top());
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, fillColor, edgeColor, true);
+		int z;
+		if (lineVisible)
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, fillColor, edgeColor, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, CommonStrings::None, edgeColor, true);
+		}
+		else
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, fillColor, CommonStrings::None, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+		}
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
@@ -1047,7 +1144,21 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		double r = convertCoords(getBinaryDistance(ts));
 		x = x - (r / 2.0);
 		y = y - (r / 2.0);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r, r, edgeWidth, fillColor, edgeColor, true);
+		int z;
+		if (lineVisible)
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r, r, edgeWidth, fillColor, edgeColor, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r, r, edgeWidth, CommonStrings::None, edgeColor, true);
+		}
+		else
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r, r, edgeWidth, fillColor, CommonStrings::None, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r, r, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+		}
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
@@ -1076,7 +1187,42 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 17)
 	{
-		alignStreamToWord(ts, paramLen);
+		FPoint center, r1, r2;
+		center = getBinaryCoords(ts);
+		double cx = convertCoords(center.x());
+		double cy = convertCoords(center.y());
+		r1 = getBinaryCoords(ts);
+		double r1x = convertCoords(r1.x());
+		double r1y = convertCoords(r1.y());
+		r2 = getBinaryCoords(ts);
+		double r2x = convertCoords(r2.x());
+		double r2y = convertCoords(r2.y());
+		double distX = distance(r1x - cx, r1y - cy);
+		double distY = distance(r2x - cx, r2y - cy);
+		double rotB = xy2Deg(r1x - cx, r1y - cy);
+		QPainterPath ell;
+		ell.addEllipse(QPointF(cx, cy), distX, distY);
+		Coords.fromQPainterPath(ell);
+		int z;
+		if (lineVisible)
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
+		}
+		else
+		{
+			if ((fillType != 0) || (fillType != 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+		}
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->PoLine = Coords.copy();
+		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		finishItem(ite);
+		ite->setLineStyle(edgeType);
 		qDebug() << "ELLIPSE";
 	}
 	else if (elemID == 18)
@@ -1123,11 +1269,11 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		getBinaryBezierPath(ts, paramLen);
 		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
-		ite->setLineStyle(edgeType);
+		ite->setLineStyle(lineType);
 //		qDebug() << "POLYBEZIER";
 	}
 	else if (elemID == 27)
@@ -1278,8 +1424,10 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 22)
 	{
-		alignStreamToWord(ts, paramLen);
-// 		qDebug() << "INTERIOR STYLE";
+		quint16 data;
+		ts >> data;
+		fillType = data;
+ 		qDebug() << "INTERIOR STYLE" << fillType;
 	}
 	else if (elemID == 23)
 	{
@@ -1335,7 +1483,12 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 30)
 	{
-		alignStreamToWord(ts, paramLen);
+		quint16 data;
+		ts >> data;
+		if (data == 0)
+			lineVisible = false;
+		else
+			lineVisible = true;
 // 		qDebug() << "EDGE VISIBILITY";
 	}
 	else if (elemID == 31)
@@ -1464,7 +1617,7 @@ void CgmPlug::decodeClass7(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	if (elemID == 1)
 		qDebug() << "MESSAGE";
 	else if (elemID == 2)
-		qDebug() << "APPLICATION DATA" << paramLen;
+		qDebug() << "APPLICATION DATA" << paramLen << "at" << ts.device()->pos();
 	else
 		qDebug() << "Class 7 ID" << elemID << "Len" << paramLen;
 	alignStreamToWord(ts, paramLen);

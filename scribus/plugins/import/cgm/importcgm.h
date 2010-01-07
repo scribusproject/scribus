@@ -139,9 +139,14 @@ private:
 	double edgeWidth;
 	uint minColor, maxColor;
 	QString lineColor;
+	bool lineVisible;
 	QString edgeColor;
 	QString fillColor;
+	int fillType;
 	QMap<uint, QString> ColorTableMap;
+	QRectF clipRect;
+	bool useClipRect;
+	bool clipSet;
 
 	QList<PageItem*> Elements;
 	int currentItemNr;
