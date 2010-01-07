@@ -13708,6 +13708,10 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <comment>python error</comment>
         <translation>Kan ikke sætte tekst-afstande for andet end tekst-ramme.</translation>
     </message>
+    <message>
+        <source>Kurdish</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>

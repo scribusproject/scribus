@@ -8823,6 +8823,22 @@ arr&amp;ondis :</translation>
         <source>Enable or disable exporting of the object</source>
         <translation>Active ou désactive l&apos;export d&apos;un object</translation>
     </message>
+    <message>
+        <source>Arrow head style for start of line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrow head style for end of line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effective horizontal DPI of the image after scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effective vertical DPI of the image after scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -12687,6 +12703,10 @@ Liens externes
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Impossible de modifier la distance au texte sur un cadre non texte.</translation>
+    </message>
+    <message>
+        <source>Kurdish</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -9956,6 +9956,22 @@ Corners:</source>
         <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Arrow head style for start of line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrow head style for end of line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effective horizontal DPI of the image after scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effective vertical DPI of the image after scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -13970,6 +13986,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kurdish</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

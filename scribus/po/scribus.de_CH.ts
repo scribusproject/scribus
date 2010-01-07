@@ -13299,6 +13299,22 @@ ab&amp;runden:</translation>
         <source>Enable or disable exporting of the object</source>
         <translation>Export des Objektes aktivieren oder deaktivieren</translation>
     </message>
+    <message>
+        <source>Arrow head style for start of line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrow head style for end of line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effective horizontal DPI of the image after scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effective vertical DPI of the image after scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -18020,6 +18036,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
         <translation>%1 verwendet mehr als 8 Bit pro Kanal. Scribus wird weniger wichtige Bits nicht berücksichtigen</translation>
+    </message>
+    <message>
+        <source>Kurdish</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
