@@ -630,7 +630,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		colorPrecision = data;
-//		qDebug() << "COLOUR PRECISION" << colorPrecision;
+		qDebug() << "COLOUR PRECISION" << colorPrecision;
 	}
 	else if (elemID == 8)
 	{
@@ -686,7 +686,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		}
 		else
 			alignStreamToWord(ts, paramLen);
-//		qDebug() << "COLOUR VALUE EXTENT" << minColor << maxColor;
+		qDebug() << "COLOUR VALUE EXTENT" << minColor << maxColor;
 	}
 	else if (elemID == 11)
 	{
@@ -824,6 +824,8 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		vdcHeight = vd.height();
 		metaScale = 400.0 / qMax(vdcWidth, vdcHeight);
 		lineWidth = qMax(vdcWidth, vdcHeight) / 1000;
+		baseX = -vd.left() * metaScale;
+		baseY = vd.top() * metaScale;
 		vcdSet = true;
 		if (!clipSet)
 			clipRect = QRectF(vd.left() * metaScale, vd.top() * metaScale, vdcWidth * metaScale, vdcHeight * metaScale);
@@ -1335,7 +1337,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 4)
 	{
 		lineColor = getBinaryColor(ts);
-//		qDebug() << "LINE COLOUR" << lineColor;
+		qDebug() << "LINE COLOUR" << lineColor;
 	}
 	else if (elemID == 5)
 	{
@@ -1479,7 +1481,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 29)
 	{
 		edgeColor = getBinaryColor(ts);
-//		qDebug() << "EDGE COLOUR" << edgeColor;
+		qDebug() << "EDGE COLOUR" << edgeColor;
 	}
 	else if (elemID == 30)
 	{
@@ -1789,8 +1791,11 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 	{
 		if (colorPrecision == 8)
 		{
-			quint8 r, g, b;
-			ts >> r >> g >> b;
+			quint8 ri, gi, bi;
+			ts >> ri >> gi >> bi;
+			uint r = ri;
+			uint g = gi;
+			uint b = bi;
 			r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
 			g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
 			b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
@@ -1798,8 +1803,11 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 		}
 		else if (colorPrecision == 16)
 		{
-			quint16 r, g, b;
-			ts >> r >> g >> b;
+			quint16 ri, gi, bi;
+			ts >> ri >> gi >> bi;
+			uint r = ri;
+			uint g = gi;
+			uint b = bi;
 			r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
 			g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
 			b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
@@ -1810,8 +1818,12 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 	{
 		if (colorPrecision == 8)
 		{
-			quint8 c, m, y, k;
-			ts >> c >> m >> y >> k;
+			quint8 ci, mi, yi, ki;
+			ts >> ci >> mi >> yi >> ki;
+			uint c = ci;
+			uint m = mi;
+			uint y = yi;
+			uint k = ki;
 			c = qRound(c * (maxColor - minColor) / static_cast<double>(maxColor));
 			m = qRound(m * (maxColor - minColor) / static_cast<double>(maxColor));
 			y = qRound(y * (maxColor - minColor) / static_cast<double>(maxColor));
@@ -1820,8 +1832,12 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 		}
 		else if (colorPrecision == 16)
 		{
-			quint8 c, m, y, k;
-			ts >> c >> m >> y >> k;
+			quint16 ci, mi, yi, ki;
+			ts >> ci >> mi >> yi >> ki;
+			uint c = ci;
+			uint m = mi;
+			uint y = yi;
+			uint k = ki;
 			c = qRound(c * (maxColor - minColor) / static_cast<double>(maxColor));
 			m = qRound(m * (maxColor - minColor) / static_cast<double>(maxColor));
 			y = qRound(y * (maxColor - minColor) / static_cast<double>(maxColor));
