@@ -79,7 +79,7 @@ private:
 	void    decodeClass8(QDataStream &ts, quint16 elemID, quint16 paramLen);
 	void    decodeClass9(QDataStream &ts, quint16 elemID, quint16 paramLen);
 	void    getBinaryBezierPath(QDataStream &ts, quint16 paramLen);
-	void    getBinaryPath(QDataStream &ts, quint16 paramLen);
+	void    getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint = false);
 	void    getBinaryColorTable(QDataStream &ts, quint16 paramLen);
 	QString getBinaryIndexedColor(QDataStream &ts);
 	ScColor getBinaryDirectColor(QDataStream &ts);
