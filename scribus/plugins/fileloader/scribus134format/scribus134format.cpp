@@ -918,7 +918,7 @@ void Scribus134Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->opToolPrefs.dispY       = attrs.valueAsDouble("dispY", 10.0);
 	doc->opToolPrefs.constrain   = attrs.valueAsDouble("constrain", 15.0);
 	//CB Reset doc zoom step value to 200% instead of old values.
-	if (doc->opToolPrefs.magStep < 100)
+	if (doc->opToolPrefs.magStep <= 100)
 		doc->opToolPrefs.magStep = 200;
 	doc->itemToolPrefs.textTabFillChar = attrs.valueAsString("TabFill","");
 	doc->itemToolPrefs.textTabWidth   = attrs.valueAsDouble("TabWidth", 36.0);

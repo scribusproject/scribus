@@ -1953,8 +1953,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.opToolPrefs.magMax  = dc.attribute("MAGMAX", "3200").toInt();
 			appPrefs.opToolPrefs.magStep = dc.attribute("MAGSTEP", "200").toInt();
 			//CB Reset prefs zoom step value to 200% instead of old values.
-			if (appPrefs.opToolPrefs.magStep<100)
-				appPrefs.opToolPrefs.magStep=200;
+			if (appPrefs.opToolPrefs.magStep <= 100)
+				appPrefs.opToolPrefs.magStep = 200;
 			appPrefs.itemToolPrefs.imageFillColor = dc.attribute("CPICT", CommonStrings::None);
 			appPrefs.itemToolPrefs.imageFillColorShade = dc.attribute("PICTSHADE", "100").toInt();
 			appPrefs.itemToolPrefs.imageScaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
