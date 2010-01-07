@@ -1808,9 +1808,9 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 			uint r = ri;
 			uint g = gi;
 			uint b = bi;
-			r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
-			g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
-			b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
+			r = qRound((r * (maxColor - minColor) / static_cast<double>(maxColor)) / 65535.0 * 255.0);
+			g = qRound((g * (maxColor - minColor) / static_cast<double>(maxColor)) / 65535.0 * 255.0);
+			b = qRound((b * (maxColor - minColor) / static_cast<double>(maxColor)) / 65535.0 * 255.0);
 			ret = ScColor(r, g, b);
 		}
 	}
@@ -1838,10 +1838,10 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 			uint m = mi;
 			uint y = yi;
 			uint k = ki;
-			c = qRound(c * (maxColor - minColor) / static_cast<double>(maxColor));
-			m = qRound(m * (maxColor - minColor) / static_cast<double>(maxColor));
-			y = qRound(y * (maxColor - minColor) / static_cast<double>(maxColor));
-			k = qRound(k * (maxColor - minColor) / static_cast<double>(maxColor));
+			c = qRound((c * (maxColor - minColor) / static_cast<double>(maxColor)) / 65535.0 * 255.0);
+			m = qRound((m * (maxColor - minColor) / static_cast<double>(maxColor)) / 65535.0 * 255.0);
+			y = qRound((y * (maxColor - minColor) / static_cast<double>(maxColor)) / 65535.0 * 255.0);
+			k = qRound((k * (maxColor - minColor) / static_cast<double>(maxColor)) / 65535.0 * 255.0);
 			ret = ScColor(c, m, y, k);
 		}
 	}
