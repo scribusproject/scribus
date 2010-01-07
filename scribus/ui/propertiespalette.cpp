@@ -5340,6 +5340,7 @@ void PropertiesPalette::languageChange()
 	TabStack->setItemText(idLineItem, tr("&Line"));
 	TabStack->setItemText(idColorsItem, tr("&Colors"));
 	TabStack->setItemText(idGroupItem, tr("&Group"));
+	TabStack->setItemText(idTransparencyItem, tr("&Transparency"));
 
 	NameGroup->setTitle( tr("Name"));
 	GeoGroup->setTitle( tr("Geometry"));
