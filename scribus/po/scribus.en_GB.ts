@@ -2717,7 +2717,17 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)(new line)
+(new line)
+Deletes the colour &quot;name&quot;. Every occurence of that colour is replaced by the
+colour &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the colour
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colours if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named colour wasn&apos;t found.
+May raise ValueError if an invalid colour name is specified.</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -2727,7 +2737,12 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the colour &quot;name&quot; is replaced by the colour &quot;replace&quot;.
+
+May raise NotFoundError if a named colour wasn&apos;t found.
+May raise ValueError if an invalid colour name is specified.</translation>
     </message>
 </context>
 <context>
@@ -9819,19 +9834,19 @@ Corners:</translation>
     </message>
     <message>
         <source>Arrow head style for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrow head style for start of line</translation>
     </message>
     <message>
         <source>Arrow head style for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrow head style for end of line</translation>
     </message>
     <message>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Effective horizontal DPI of the image after scaling</translation>
     </message>
     <message>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Effective vertical DPI of the image after scaling</translation>
     </message>
 </context>
 <context>
@@ -10403,7 +10418,7 @@ Corners:</translation>
     </message>
     <message>
         <source>A write error occured, please check available disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>A write error occured, please check available disk space</translation>
     </message>
 </context>
 <context>
@@ -13664,7 +13679,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Kurdish</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurdish</translation>
     </message>
 </context>
 <context>

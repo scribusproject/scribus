@@ -2681,7 +2681,11 @@ Returns the text distances of the text frame &quot;name&quot; expressed in point
 distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextDistances([&quot;name&quot;]) -&gt; tuple
+
+Returns the text distances of the text frame &quot;name&quot; expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
+is not given the currently selected item is used.</translation>
     </message>
     <message>
         <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
@@ -2692,7 +2696,13 @@ selected item is used.
 
 May throw ValueError if any of the distances are out of bounds (must be positive).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
+
+Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
+&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw ValueError if any of the distances are out of bounds (must be positive).</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -2707,7 +2717,17 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)(new line)
+(new line)
+Deletes the colour &quot;name&quot;. Every occurence of that colour is replaced by the
+colour &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the colour
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colours if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named colour wasn&apos;t found.
+May raise ValueError if an invalid colour name is specified.</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -2717,7 +2737,12 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the colour &quot;name&quot; is replaced by the colour &quot;replace&quot;.
+
+May raise NotFoundError if a named colour wasn&apos;t found.
+May raise ValueError if an invalid colour name is specified.</translation>
     </message>
 </context>
 <context>
@@ -4531,23 +4556,23 @@ May raise ValueError if an invalid color name is specified.
     </message>
     <message>
         <source>Submit format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Submit format:</translation>
     </message>
     <message>
         <source>FDF</source>
-        <translation type="unfinished"></translation>
+        <translation>FDF</translation>
     </message>
     <message>
         <source>HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML</translation>
     </message>
     <message>
         <source>XFDF</source>
-        <translation type="unfinished"></translation>
+        <translation>XFDF</translation>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -7231,11 +7256,11 @@ failed!</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished">Scaling width of characters</translation>
+        <translation>Scaling width of characters</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished">Scaling height of characters</translation>
+        <translation>Scaling height of characters</translation>
     </message>
 </context>
 <context>
@@ -9809,19 +9834,19 @@ Corners:</translation>
     </message>
     <message>
         <source>Arrow head style for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrow head style for start of line</translation>
     </message>
     <message>
         <source>Arrow head style for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrow head style for end of line</translation>
     </message>
     <message>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Effective horizontal DPI of the image after scaling</translation>
     </message>
     <message>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Effective vertical DPI of the image after scaling</translation>
     </message>
 </context>
 <context>
@@ -10388,8 +10413,12 @@ Corners:</translation>
         <translation>Exporting Items on Current Page:</translation>
     </message>
     <message>
+        <source>A write error occurred, please check available disk space</source>
+        <translation type="obsolete">A write error occurred, please check available disk space</translation>
+    </message>
+    <message>
         <source>A write error occured, please check available disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>A write error occured, please check available disk space</translation>
     </message>
 </context>
 <context>
@@ -13631,26 +13660,26 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 has more than 8 bits per channel, Scribus will not preserve less significant bits</translation>
     </message>
     <message>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cannot get text distances of non-text frame.</translation>
     </message>
     <message>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Text distances out of bounds, must be positive.</translation>
     </message>
     <message>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cannot set text distances on a non-text frame.</translation>
     </message>
     <message>
         <source>Kurdish</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurdish</translation>
     </message>
 </context>
 <context>
@@ -18192,7 +18221,7 @@ Error:%2 at line: %3, row: %4</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Remember association</source>
