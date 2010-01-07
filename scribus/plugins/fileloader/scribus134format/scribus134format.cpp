@@ -424,8 +424,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->toolSettings.dispY = ScCLocale::toDoubleC( dc.attribute("dispY"), 10.0);
 		m_Doc->toolSettings.constrain = ScCLocale::toDoubleC( dc.attribute("constrain"), 15.0);
 		//CB Reset doc zoom step value to 200% instead of old values.
-		if (m_Doc->toolSettings.magStep<100)
-			m_Doc->toolSettings.magStep=200;
+		if (m_Doc->toolSettings.magStep <= 100)
+			m_Doc->toolSettings.magStep = 200;
 		m_Doc->toolSettings.tabFillChar = dc.attribute("TabFill","");
 		m_Doc->toolSettings.dTabWidth= ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
 		if (dc.hasAttribute("CPICT"))

@@ -410,8 +410,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->toolSettings.magMax     = dc.attribute("MAGMAX", "3200").toInt();
 		m_Doc->toolSettings.magStep    = dc.attribute("MAGSTEP", "200").toInt();
 		//CB Reset doc zoom step value to 200% instead of old values.
-		if (m_Doc->toolSettings.magStep<100)
-			m_Doc->toolSettings.magStep=200;
+		if (m_Doc->toolSettings.magStep <= 100)
+			m_Doc->toolSettings.magStep = 200;
 		m_Doc->toolSettings.tabFillChar = dc.attribute("TabFill","");
 		m_Doc->toolSettings.dTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
 		if (dc.hasAttribute("CPICT"))
