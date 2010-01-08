@@ -99,7 +99,7 @@ private:
 	void    handleMetaFileDescription(QString value);
 	QString handleColor(ScColor &color, QString proposedName);
 	double  convertCoords(double input);
-	void    finishItem(PageItem* ite);
+	void    finishItem(PageItem* ite, bool line = true);
 
 /* common variables */
 	int metaFileVersion;
@@ -134,8 +134,12 @@ private:
 
 	int lineBundleIndex;
 	Qt::PenStyle lineType;
+	Qt::PenCapStyle lineCap;
+	Qt::PenJoinStyle lineJoin;
 	double lineWidth;
 	Qt::PenStyle edgeType;
+	Qt::PenCapStyle edgeCap;
+	Qt::PenJoinStyle edgeJoin;
 	double edgeWidth;
 	uint minColor, maxColor;
 	QString lineColor;
