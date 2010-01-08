@@ -151,6 +151,10 @@ private:
 	QRectF clipRect;
 	bool useClipRect;
 	bool clipSet;
+	QPainterPath regionPath;
+	bool recordRegion;
+	int currentRegion;
+	QMap<int, QPainterPath> regionMap;
 
 	QList<PageItem*> Elements;
 	int currentItemNr;
