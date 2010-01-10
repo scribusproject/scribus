@@ -67,6 +67,7 @@ void Query::Leave()
 			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
 			return;
 		}
+		accept();
 	}
 	else
 		accept();
