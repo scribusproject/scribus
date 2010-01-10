@@ -16463,6 +16463,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_scmwmenumanager.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\moc_scplugin.cpp"
 				>
 			</File>
