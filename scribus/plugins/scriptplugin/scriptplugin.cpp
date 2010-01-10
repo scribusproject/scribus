@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/customfdialog.h"
 #include "guiapp.h"
 #include "ui/helpbrowser.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "objimageexport.h"
 #include "objpdffile.h"
 #include "objprinter.h"

@@ -5,11 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          texttoolb.cpp  -  description
-                             -------------------
-    begin                : Sun Mar 10 2002
-    copyright            : (C) 2002 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+	begin                : Jan 2010
+	copyright            : (C) 2010 by Craig Bradney
+	email                : cbradney@zip.com.au
  ***************************************************************************/
 
 /***************************************************************************
@@ -21,23 +19,23 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QToolButton>
+#ifndef SCMWMENUMANAGER_H
+#define SCMWMENUMANAGER_H
 
-#include "filetoolbar.h"
-#include "ui/scmwmenumanager.h"
-#include "scraction.h"
-#include "scribus.h"
+#include <QMenu>
+#include <QObject>
 
-FileToolBar::FileToolBar(ScribusMainWindow* parent) : ScToolBar( tr("File"), "File", parent)
+#include "menumanager.h"
+#include "scribusapi.h"
+
+class ScMWMenuManager : public MenuManager
 {
-	addAction(parent->scrActions["fileNew"]);
-	addAction(parent->scrActions["fileOpen"]);
-	QToolButton* tb = dynamic_cast<QToolButton*>(widgetForAction(parent->scrActions["fileOpen"]));
-	tb->setMenu(parent->scrMenuMgr->getLocalPopupMenu("FileOpenRecent"));
-	tb->setPopupMode(QToolButton::DelayedPopup);
-	addAction(parent->scrActions["fileSave"]);
-	addAction(parent->scrActions["fileClose"]);
-	addAction(parent->scrActions["filePrint"]);
-	addAction(parent->scrActions["toolsPreflightVerifier"]);
-	addAction(parent->scrActions["fileExportAsPDF"]);
-}
+	Q_OBJECT
+	public:
+		 ScMWMenuManager(QMenuBar* mb, QObject *parent=0);
+
+	public slots:
+		void languageChange();
+};
+
+#endif // SCMWMENUMANAGER_H

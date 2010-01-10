@@ -39,36 +39,39 @@ class ScribusMainWindow;
 class SCRIBUS_API MenuManager : public QObject
 {
 	Q_OBJECT
-public:
-	MenuManager(QMenuBar* mb, QObject *parent = 0);
-	~MenuManager();
+	public:
+		MenuManager(QMenuBar* mb, QObject *parent = 0);
+		~MenuManager();
 
-	enum MenuType {Normal, DLL};
+		enum MenuType {Normal, DLL};
 
-	bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
-	bool addMenuToMenu(const QString & child, const QString &parent);
-	bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
-	bool clearMenu(const QString &menuName);
-	void setText(const QString &menuName, const QString &menuText);
-	void setMenuIcon(const QString &menuName, const QIcon &menuIcon);
-	QMenu *getLocalPopupMenu(const QString &menuName);
-	void setMenuEnabled(const QString &menuName, const bool enabled);
-	bool addMenuToMenuBar(const QString &menuName);
-	bool addMenuToMenuBarBefore(const QString &, const QString &);
-	bool removeMenuFromMenuBar(const QString &menuName);
-	bool addMenuToWidgetOfAction(const QString &menuName, ScrAction *action);
+		bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
+		bool addMenuToMenu(const QString & child, const QString &parent);
+		bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
+		bool clearMenu(const QString &menuName);
+		void setText(const QString &menuName, const QString &menuText);
+		void setMenuIcon(const QString &menuName, const QIcon &menuIcon);
+		QMenu *getLocalPopupMenu(const QString &menuName);
+		void setMenuEnabled(const QString &menuName, const bool enabled);
+		bool addMenuToMenuBar(const QString &menuName);
+		bool addMenuToMenuBarBefore(const QString &, const QString &);
+		bool removeMenuFromMenuBar(const QString &menuName);
+		bool addMenuToWidgetOfAction(const QString &menuName, ScrAction *action);
 
-	bool addMenuItem(ScrAction *menuAction, const QString &parent);
-	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction);
-	bool addMenuSeparator(const QString &parent);
+		bool addMenuItem(ScrAction *menuAction, const QString &parent, bool enabled);
+		bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, bool enabled, ScrAction *afterMenuAction);
+		bool addMenuSeparator(const QString &parent);
 
-	bool removeMenuItem(ScrAction *menuAction, const QString &parent);
+		bool removeMenuItem(ScrAction *menuAction, const QString &parent);
 
-	void runMenuAtPos(const QString &, const QPoint);
+		void runMenuAtPos(const QString &, const QPoint);
 
-	void generateKeyManList(QStringList *actionNames);
-	bool empty();
-	bool menuExists(const QString &menuName);
+		void generateKeyManList(QStringList *actionNames);
+		bool empty();
+		bool menuExists(const QString &menuName);
+
+	public slots:
+		void languageChange();
 
 private:
 	QMenuBar *scribusMenuBar;

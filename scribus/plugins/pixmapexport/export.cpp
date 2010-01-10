@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scmessagebox.h"
 #include "scribus.h"
 #include "scraction.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "util.h"
 #include "commonstrings.h"
 #include "scpaths.h"

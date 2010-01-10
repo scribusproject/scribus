@@ -48,23 +48,23 @@ ui/positionsetter.ui
 ui/rotationsetter.ui
 )
 SET(SCRIBUS_ITEMSETTERS_CLASS
-openpalettemanager.h
-openpalettemodel.h
-pageitemsettersmanager.h
-ui/openpalette.h
-ui/openpaletteview.h
-ui/pageitempositionsetter.h
-ui/pageitemrotationsetter.h
+	openpalettemanager.h
+	openpalettemodel.h
+	pageitemsettersmanager.h
+	ui/openpalette.h
+	ui/openpaletteview.h
+	ui/pageitempositionsetter.h
+	ui/pageitemrotationsetter.h
 )
 SET(SCRIBUS_ITEMSETTERS_SRC
-openpalettemanager.cpp
-openpalettemodel.cpp
-pageitemsettersmanager.cpp
-ui/openpalette.cpp
-ui/openpaletteview.cpp
-ui/pageitemsetterbase.cpp
-ui/pageitempositionsetter.cpp
-ui/pageitemrotationsetter.cpp
+	openpalettemanager.cpp
+	openpalettemodel.cpp
+	pageitemsettersmanager.cpp
+	ui/openpalette.cpp
+	ui/openpaletteview.cpp
+	ui/pageitemsetterbase.cpp
+	ui/pageitempositionsetter.cpp
+	ui/pageitemrotationsetter.cpp
 )
 
 SET(SCRIBUS_UI_SRC
@@ -339,6 +339,7 @@ SET(SCRIBUS_MOC_CLASSES
   scribusdoc.h
   scribusview.h
   scribuswin.h
+  ui/scmwmenumanager.h
   ui/scrpalettebase.h
   ui/scrspinbox.h
   ui/sctablewidget.h
@@ -689,6 +690,7 @@ SET(SCRIBUS_SOURCES
   scribusdoc.cpp
   scribusview.cpp
   scribuswin.cpp
+  ui/scmwmenumanager.cpp
   ui/scrpalettebase.cpp
   ui/scrspinbox.cpp
   scslainforeader.cpp

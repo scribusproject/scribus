@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "prefsmanager.h"
 #include "pageitem.h"
 #include "prefsfile.h"

@@ -445,11 +445,6 @@ void ActionManager::initItemMenuActions()
 	name="itemPDFFieldProps";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
-	(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
-	(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
-	(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
-	(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
-
 	(*scrActions)["itemImageIsVisible"]->setToggleAction(true);
 	(*scrActions)["itemPreviewLow"]->setToggleAction(true);
 	(*scrActions)["itemPreviewNormal"]->setToggleAction(true);
@@ -1564,16 +1559,6 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrActio
 	(*actionMap)["unicodeSpaceThick"]->setTexts( tr("Thick Space"));
 	(*actionMap)["unicodeSpaceMid"]->setTexts( tr("Mid Space"));
 	(*actionMap)["unicodeSpaceHair"]->setTexts( tr("Hair Space"));
-
-// 	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Insert Smart Hyphen"));
-// 	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Insert Non Breaking Dash"));
-// 	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Insert Non Breaking Space"));
-// 	(*actionMap)["unicodePageNumber"]->setText( tr("Insert Page Number"));
-// 	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
-// 	(*actionMap)["unicodeFrameBreak"]->setText( tr("Frame Break"));
-// 	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
-// 	(*actionMap)["unicodeZerowidthSpace"]->setText( tr("&Zero Width Space"));
-// 	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setText( tr("Zero Width NB Space"));
 
 	(*actionMap)["unicodeLigature_ff"]->setTexts( tr("ff"));
 	(*actionMap)["unicodeLigature_fi"]->setTexts( tr("fi"));

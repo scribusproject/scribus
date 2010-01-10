@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "undogui.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "scraction.h"
 #include "util_icon.h"
 

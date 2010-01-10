@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fileunzip.h"
 #include "fpointarray.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "pageitem.h"
 #include "pluginmanager.h"
 #include "prefscontext.h"

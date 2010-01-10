@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
 #include "loadsaveplugin.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

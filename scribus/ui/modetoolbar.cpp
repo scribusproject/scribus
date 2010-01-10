@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "modetoolbar.h"
 
 #include "autoformbuttongroup.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "polyprops.h"
 #include "scraction.h"
 #include "scribus.h"

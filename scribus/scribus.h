@@ -86,7 +86,7 @@ class GuideManager;
 class HelpBrowser;
 class LayerPalette;
 class Measurements;
-class MenuManager;
+class ScMWMenuManager;
 class ModeToolBar;
 class NodePalette;
 class OutlinePalette;
@@ -242,7 +242,7 @@ public:
 	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
 	QMap<QString, QPointer<ScToolBar> > scrToolBars;
 	QMultiHash<QString, QActionGroup*> scrActionGroups;
-	MenuManager* scrMenuMgr;
+	ScMWMenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	QStringList RecentDocs;
 
@@ -589,9 +589,6 @@ private:
 	void NoFrameEdit();
 
 	QLabel* mainWindowStatusLabel;
-	QString recentFileMenuName;
-	QString recentPasteMenuName;
-	QString layerMenuName;
 	QPixmap noIcon;
 	EditToolBar *editToolBar;
 	FileToolBar *fileToolBar;

@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QLabel>
 
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "pluginmanagerprefsgui.h"
 #include "pluginmanager.h"
 #include "scraction.h"

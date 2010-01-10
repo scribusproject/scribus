@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "nftemplate.h"
 #include "nftdialog.h"
 #include "scraction.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "undomanager.h"
 #include "prefsmanager.h"
 

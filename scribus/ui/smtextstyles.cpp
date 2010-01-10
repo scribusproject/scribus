@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "commonstrings.h"
 #include "fontcombo.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 #include "sccombobox.h"

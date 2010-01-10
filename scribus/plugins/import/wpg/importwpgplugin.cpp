@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/customfdialog.h"
 #include "importwpg.h"
 #include "importwpgplugin.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "page.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

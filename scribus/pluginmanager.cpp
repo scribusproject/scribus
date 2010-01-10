@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "ui/sctoolbar.h"
 #include "selection.h"
-#include "menumanager.h"
+#include "ui/scmwmenumanager.h"
 #include "scraction.h"
 #include "ui/splash.h"
 #include "prefsmanager.h"
@@ -312,7 +312,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 						if (!mw->scrMenuMgr->menuExists(ai.menu))
 							mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
 					}
-					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu);
+					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
 				}
 			}
 			else
@@ -326,7 +326,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 					if (!mw->scrMenuMgr->menuExists(ai.menu))
 						mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
 				}
-				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, afterAction);
+				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, true, afterAction);
 			}
 			if (!ai.toolbar.isEmpty())
 			{
