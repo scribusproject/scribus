@@ -71,7 +71,7 @@ class SCRIBUS_API MenuManager : public QObject
 		bool menuExists(const QString &menuName);
 
 	public slots:
-		void languageChange();
+		void languageChange() {};
 
 private:
 	QMenuBar *scribusMenuBar;
