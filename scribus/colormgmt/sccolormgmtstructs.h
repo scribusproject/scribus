@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "icc34.h" //part of lcms1
 #include <QString>
 
+// If you change that enum do not forget to update functions
+// colorFormatType() and colorFormatHasAlpha()
 typedef enum
 {
 	Format_Undefined,
@@ -32,6 +34,15 @@ typedef enum
 	Format_GRAY_16,
 	Format_LabA_8
 } eColorFormat;
+
+typedef enum
+{
+	Color_Unknown,
+	Color_RGB,
+	Color_CMYK,
+	Color_Gray,
+	Color_Lab
+} eColorType;
 
 typedef enum
 {
@@ -85,5 +96,10 @@ typedef struct
 } ScColorTransformInfo;
 
 bool operator==(const ScColorTransformInfo& v1, const ScColorTransformInfo& v2);
+
+eColorType colorFormatType(eColorFormat format);
+uint       colorFormatNumChannels(eColorFormat format);
+uint       colorFormatBytesPerChannel(eColorFormat format);
+bool       colorFormatHasAlpha(eColorFormat format);
 
 #endif
