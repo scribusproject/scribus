@@ -87,6 +87,9 @@ uint colorFormatNumChannels(eColorFormat format)
 	case Format_LabA_8:
 		channels = 4;
 		break;
+	default: // For the pure sake of shutting gcc up
+		channels = 0;
+		break;
 	}
 	return channels;
 }
@@ -117,6 +120,9 @@ uint colorFormatBytesPerChannel(eColorFormat format)
 	case Format_GRAY_16:
 		bytes = 2;
 		break;
+	default: // For the pure sake of shutting gcc up
+		bytes = 0;
+		break;
 	}
 	return bytes;
 }
@@ -136,6 +142,9 @@ bool colorFormatHasAlpha(eColorFormat format)
 	case Format_CMYKA_16:
 	case Format_LabA_8:
 		hasAlpha = true;
+		break;
+	default: // For the pure sake of shutting gcc up
+		hasAlpha = false;
 		break;
 	}
 	return hasAlpha;
