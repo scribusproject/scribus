@@ -176,6 +176,14 @@ public:
 	virtual PageItem_TextFrame * asTextFrame() { return NULL; }
 	virtual PageItem_LatexFrame * asLatexFrame() { return NULL; }
 
+	virtual bool isImageFrame() const { return false; }
+	virtual bool isLine()       const { return false; }
+	virtual bool isPathText()   const { return false; }
+	virtual bool isPolygon()    const { return false; }
+	virtual bool isPolyLine()   const { return false; }
+	virtual bool isTextFrame()  const { return false; }
+	virtual bool isLatexFrame() const { return false; }
+
 
 	/** @brief Frame Type
 	 *

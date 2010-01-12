@@ -40,6 +40,8 @@ public:
 	~PageItem_PathText() {};
 	
 	virtual PageItem_PathText * asPathText() { return this; }
+	virtual bool isPathText() const { return true; }
+
 	virtual void layout();
 	virtual bool createInfoGroup(QFrame *, QGridLayout *);
 //	virtual bool createContextMenu(QMenu *, int);

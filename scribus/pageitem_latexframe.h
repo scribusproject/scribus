@@ -49,6 +49,8 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		~PageItem_LatexFrame();
 		
 		virtual PageItem_LatexFrame * asLatexFrame() { return this; }
+		virtual bool isLatexFrame() const { return true; }
+
 		virtual void clearContents();
 		virtual ItemType realItemType() const { return PageItem::LatexFrame; }
 		virtual void applicableActions(QStringList& actionList);
