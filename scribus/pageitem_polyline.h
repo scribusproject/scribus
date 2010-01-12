@@ -40,6 +40,7 @@ public:
 	~PageItem_PolyLine() {};
 	
 	virtual PageItem_PolyLine * asPolyLine() { return this; }
+	virtual bool isPolyLine() const { return true; }
 	
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();

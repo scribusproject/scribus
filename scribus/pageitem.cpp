@@ -5152,24 +5152,27 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 double PageItem::visualXPos() const
 {
 	double extraSpace = 0.0;
-	if (NamedLStyle.isEmpty())
+	if (!isLine())
 	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-			extraSpace = m_lineWidth / 2.0;
-		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		if (NamedLStyle.isEmpty())
 		{
-			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
-			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = sqrt(ww*ww + hh*hh);
+			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+				extraSpace = m_lineWidth / 2.0;
+			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+			{
+				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+				double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
+				double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
+				extraSpace = sqrt(ww*ww + hh*hh);
+			}
 		}
-	}
-	else
-	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		struct SingleLine& sl = ml[ml.size()-1];
-		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
-			extraSpace = sl.Width / 2.0;
+		else
+		{
+			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			struct SingleLine& sl = ml[ml.size()-1];
+			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+				extraSpace = sl.Width / 2.0;
+		}
 	}
 	return Xpos - extraSpace;
 }
@@ -5202,24 +5205,27 @@ double PageItem::visualYPos() const
 double PageItem::visualWidth() const
 {
 	double extraSpace = 0.0;
-	if (NamedLStyle.isEmpty())
+	if (!isLine())
 	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-			extraSpace = m_lineWidth;
-		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		if (NamedLStyle.isEmpty())
 		{
-			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
-			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = sqrt(ww*ww + hh*hh);
+			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+				extraSpace = m_lineWidth;
+			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+			{
+				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+				double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
+				double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
+				extraSpace = sqrt(ww*ww + hh*hh);
+			}
 		}
-	}
-	else
-	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		struct SingleLine& sl = ml[ml.size()-1];
-		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
-			extraSpace = sl.Width;
+		else
+		{
+			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			struct SingleLine& sl = ml[ml.size()-1];
+			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+				extraSpace = sl.Width;
+		}
 	}
 	return Width + extraSpace;
 }
@@ -5246,7 +5252,7 @@ double PageItem::visualHeight() const
 		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
 			extraSpace = sl.Width;
 	}
-	return Height + extraSpace;
+	return isLine() ? extraSpace : Height + extraSpace;
 }
 
 bool PageItem::pointWithinItem(const int x, const int y) const

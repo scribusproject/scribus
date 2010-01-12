@@ -41,6 +41,8 @@ public:
 	~PageItem_ImageFrame() {};
 
 	virtual PageItem_ImageFrame * asImageFrame() { return this; }
+	virtual bool isImageFrame() const { return true; }
+
 	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
 	virtual void clearContents();
 	

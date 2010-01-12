@@ -255,22 +255,22 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				psx->setBrush(m_brush["selection-group-inside"]);
 				double lineAdjust(psx->pen().width()/m_canvas->scale());
 				double x, y, w, h;
+				w = currItem->visualWidth() ;
+				h = currItem->visualHeight() ;
 				if (currItem->rotation() != 0)
 				{
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->lineWidth()/-2.0;
-					y = currItem->lineWidth()/-2.0;
+					x = currItem->asLine() ? 0 : (currItem->lineWidth() / -2.0);
+					y = currItem->asLine() ? (h / -2.0) : (currItem->lineWidth() / -2.0);
 				}
 				else
 				{
 					psx->translate(currItem->visualXPos(), currItem->visualYPos());
-					x = -lineAdjust;
-					y = -lineAdjust;
+					x = currItem->asLine() ? 0 : -lineAdjust;
+					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
-				w = currItem->visualWidth() ;
-				h = (currItem->asLine()) ? currItem->visualHeight() - 1.0 : currItem->visualHeight() ;
 
 				psx->drawRect(QRectF(x, y, w, h));
 
@@ -299,22 +299,22 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->setBrush(m_brush["selection"]);
 			double lineAdjust(psx->pen().width()/m_canvas->scale());
 			double x, y, w, h;
+			w = currItem->visualWidth();
+			h = currItem->visualHeight();
 			if (currItem->rotation() != 0)
 			{
 				psx->setRenderHint(QPainter::Antialiasing);
 				psx->translate(currItem->xPos(), currItem->yPos());
 				psx->rotate(currItem->rotation());
-				x = currItem->lineWidth()/-2.0;
-				y = currItem->lineWidth()/-2.0;
+				x = currItem->asLine() ? 0 : (currItem->lineWidth() / -2.0);
+				y = currItem->asLine() ? (h / -2.0) : (currItem->lineWidth( ) / -2.0);
 			}
 			else
 			{
 				psx->translate(currItem->visualXPos(), currItem->visualYPos());
-				x = -lineAdjust;
-				y = -lineAdjust;
+				x = currItem->asLine() ? 0 : -lineAdjust;
+				y = currItem->asLine() ? 0 : -lineAdjust;
 			}
-			w = currItem->visualWidth() ;
-			h = (currItem->asLine()) ? currItem->visualHeight() - 1.0 : currItem->visualHeight() ;
 			
 			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
@@ -326,9 +326,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				if(currItem->asLine())
 				{
 					psx->setRenderHint(QPainter::Antialiasing);
-					psx->drawPie(QRectF(x+w-markWidth, y+h-markWidth,2* markWidth,2* markWidth), 180 * 16, 270 * 16);
+					psx->drawEllipse(QRectF(x+w-markWidth, y+h/2.0-markWidth, 2* markWidth,2* markWidth));
 // 					psx->setBrush(Qt::blue); // sometimes we forget which is what :)
-					psx->drawPie(QRectF(x-markWidth, y-markWidth, 2* markWidth, 2* markWidth), 0 * 16, 270 * 16);
+					psx->drawEllipse(QRectF(x-markWidth, y+h/2.0-markWidth, 2* markWidth, 2* markWidth));
 				}
 				else
 				{

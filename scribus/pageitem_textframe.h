@@ -53,6 +53,7 @@ public:
 	~PageItem_TextFrame() {};
 
 	virtual PageItem_TextFrame * asTextFrame() { return this; }
+	virtual bool isTextFrame() const { return true; }
 	
 	virtual void clearContents();
 	

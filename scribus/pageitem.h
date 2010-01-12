@@ -191,6 +191,14 @@ public:
 	virtual PageItem_OSGFrame * asOSGFrame() { return NULL; }
 #endif
 
+	virtual bool isImageFrame() const { return false; }
+	virtual bool isLine()       const { return false; }
+	virtual bool isPathText()   const { return false; }
+	virtual bool isPolygon()    const { return false; }
+	virtual bool isPolyLine()   const { return false; }
+	virtual bool isTextFrame()  const { return false; }
+	virtual bool isLatexFrame() const { return false; }
+	virtual bool isOSGFrame()   const { return false; }
 
 	/** @brief Frame Type
 	 *

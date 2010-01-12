@@ -40,6 +40,7 @@ public:
 	~PageItem_Line() {};
 	
 	virtual PageItem_Line * asLine() { return this; }
+	virtual bool isLine() const { return true; }
 	
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();

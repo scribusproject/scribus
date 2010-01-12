@@ -77,6 +77,8 @@ class SCRIBUS_API PageItem_OSGFrame : public PageItem_ImageFrame
 		~PageItem_OSGFrame();
 		
 		virtual PageItem_OSGFrame * asOSGFrame() { return this; }
+		virtual bool isOSGFrame() const { return true; }
+
 		virtual ItemType realItemType() const { return PageItem::OSGFrame; }
 		virtual void clearContents();
 		void setImage(QImage &image);
