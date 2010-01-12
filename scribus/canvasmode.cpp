@@ -163,11 +163,11 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 
 void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 {
-	QTime t;
-	t.start();
-	QTime tt;
-	int tg(0);
-	QStringList tu;
+//	QTime t;
+//	t.start();
+//	QTime tt;
+//	int tg(0);
+//	QStringList tu;
 	QString ds;
 	psx->scale(m_canvas->scale(), m_canvas->scale());
 	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
@@ -200,7 +200,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		x = -lineAdjust;
 		y = -lineAdjust;
 
-		tt.start();
+//		tt.start();
 		psx->drawRect(QRectF(x, y, w, h));
 		if(drawHandles)
 		{
@@ -215,7 +215,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
 			psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
 		}
-		tg=tt.elapsed();
+//		tg=tt.elapsed();
 		psx->restore();
 
 		// items inside a a multi
@@ -302,9 +302,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				y = currItem->asLine() ? 0 : -lineAdjust;
 			}
 			
-			tt.start();
+//			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
-			tu << QString::number(tt.elapsed());
+//			tu << QString::number(tt.elapsed());
 			if(drawHandles && !currItem->locked())
 			{
 				psx->setBrush(m_brush["handle"]);
