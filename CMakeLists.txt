@@ -497,7 +497,7 @@ ENDIF(PNG_FOUND)
 #>> ZLIB, PNG
 
 IF (WANT_NOOSG)
-    MESSAGE("Building without 3D-Extension")
+	MESSAGE("Building without 3D Extension")
 ELSE (WANT_NOOSG)
   FIND_PACKAGE(OSG)
   IF(OSG_FOUND)
@@ -505,7 +505,7 @@ ELSE (WANT_NOOSG)
     SET(HAVE_OSG 1)
     FIND_PACKAGE(OpenGL)
   ELSE(OSG_FOUND)
-    MESSAGE("No OSG found, building without 3D-Extension")
+	MESSAGE("No OSG found, building without 3D Extension")
   ENDIF(OSG_FOUND)
 ENDIF (WANT_NOOSG)
 
@@ -672,13 +672,17 @@ ENDIF(LIBPODOFO_FOUND)
 #>>PoDoFo for AI PDF import
 
 #<<GraphicksMagick++ for image import
-SET(GMAGICK_DIR ${CMAKE_MODULE_PATH})
-FIND_PACKAGE(GMAGICK)
-IF(GMAGICK_FOUND)
-  MESSAGE("GraphicksMagick++ Found OK")
-ELSE(GMAGICK_FOUND)
-  MESSAGE("GraphicksMagick++ NOT found! Building without additional image format support!")
-ENDIF(GMAGICK_FOUND)
+IF (WANT_GRAPHICSMAGICK)
+  SET(GMAGICK_DIR ${CMAKE_MODULE_PATH})
+  FIND_PACKAGE(GMAGICK)
+  IF(GMAGICK_FOUND)
+	MESSAGE("GraphicksMagick++ Found OK")
+  ELSE(GMAGICK_FOUND)
+	MESSAGE("GraphicksMagick++ NOT found! Building without additional image format support!")
+  ENDIF(GMAGICK_FOUND)
+ELSE (WANT_GRAPHICSMAGICK)
+  MESSAGE("Building without GraphicksMagick++")
+ENDIF (WANT_GRAPHICSMAGICK)
 #>>GraphicksMagick++ for image import
 
 ##############################################################################################################
