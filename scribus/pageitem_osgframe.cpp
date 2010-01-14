@@ -23,6 +23,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "pageitem_osgframe.h"
 
+#if defined(_MSC_VER)
+#define _USE_MATH_DEFINES
+#endif
+#include <cmath>
+
 #include <QDebug>
 #include <osgDB/ReadFile>
 #include <osgUtil/Optimizer>

@@ -16,10 +16,14 @@ for which a new license (GPL+exception) is in place.
 #include <osg/Material>
 #include <osgUtil/Optimizer>
 
+#include "scconfig.h"
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <cstdlib>
 #include <string>
 #include "exportPRC.h"

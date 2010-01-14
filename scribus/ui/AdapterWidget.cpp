@@ -16,13 +16,17 @@ for which a new license (GPL+exception) is in place.
 #include <osgViewer/ViewerEventHandlers>
 #include <osgGA/TrackballManipulator>
 
+#include "scconfig.h"
+
 #include <QtCore>
 #include <QtGui>
 #include <QtOpenGL>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <cstdlib>
 #include <cassert>
 #include <string>
