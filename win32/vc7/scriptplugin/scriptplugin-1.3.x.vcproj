@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.00"
+	Name="scriptplugin-1.3.3.x"
+	ProjectGUID="{A1C9766A-07E2-4105-A5D9-3AA74B2A220F}"
+	Keyword="Win32Proj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\scribus-vc7-debug\scribus\plugins"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\build-objs-vc7\$(ConfigurationName)\$(TargetName)"
+			ConfigurationType="2"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES)\lcms-1.15\include&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\include&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\include&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES)\Python-2.4.2\Include&quot;;&quot;$(LIBRARIES)\Python-2.4.2\PC&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_DLL;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"
+				DisableSpecificWarnings="4005;4138;4190;4251;4267"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="qt-mt3.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcmsd.lib python24_d.lib scribus_api.lib"
+				OutputFile="$(OutDir)/scriptplugin.dll"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(LIBRARIES)\lcms-1.15\lib&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\lib&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\lib&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES)\Python-2.4.2\libs&quot;;&quot;$(QTDIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/scriptplugin.pdb"
+				SubSystem="2"
+				ImportLibrary="$(OutDir)/scriptplugin.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\scribus-vc7-release\scribus\plugins"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\build-objs-vc7\$(ConfigurationName)\$(TargetName)"
+			ConfigurationType="2"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="1"
+				InlineFunctionExpansion="1"
+				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES)\lcms-1.15\include&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\include&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\include&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\include&quot;;&quot;$(LIBRARIES)\Python-2.4.2\Include&quot;;&quot;$(LIBRARIES)\Python-2.4.2\PC&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QT_DLL;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4005;4138;4190;4251;4267"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="qt-mt3.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms.lib python24.lib scribus_api.lib"
+				OutputFile="$(OutDir)/scriptplugin.dll"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(LIBRARIES)\lcms-1.15\lib&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\lib&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\lib&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\lib&quot;;&quot;$(LIBRARIES)\Python-2.4.2\libs&quot;;&quot;$(QTDIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/scriptplugin.pdb"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				ImportLibrary="$(OutDir)/scriptplugin.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdcolor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmddialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmddoc.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdgetsetprop.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdmani.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdmisc.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdobj.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdpage.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdsetprop.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdtext.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdutil.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\guiapp.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\objimageexport.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\objpdffile.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\objprinter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\pconsole.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\scriptercore.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.cpp">
+			</File>
+			<File
+				RelativePath="scriptplugin-1.3.x.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp">
+			</File>
+			<File
+				RelativePath="stdafx.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\svgimport.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\valuedialog.cpp">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc">
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdcolor.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmddialog.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmddoc.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdgetsetprop.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdmani.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdmisc.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdobj.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdpage.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdsetprop.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdtext.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdutil.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdvar.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\guiapp.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\objimageexport.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\objpdffile.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\objprinter.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\pconsole.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\scriptercore.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="stdafx.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\svgimport.h">
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\valuedialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

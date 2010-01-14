@@ -1,0 +1,4897 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.00"
+	Name="Scribus 1.3.3.x"
+	ProjectGUID="{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}"
+	Keyword="Win32Proj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="..\..\..\Scribus-builds\scribus-vc7-debug\scribus"
+			IntermediateDirectory="..\..\..\Scribus-builds\build-objs-vc7\$(ConfigurationName)\$(TargetName)"
+			ConfigurationType="1"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="0"
+				EnableIntrinsicFunctions="FALSE"
+				AdditionalIncludeDirectories="..\vc7;..\..\scribus;..\..\scribus\text;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES)\lcms-1.15\include&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\include&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\include&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;QT_DLL;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
+				IgnoreStandardIncludePath="FALSE"
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				DisableLanguageExtensions="FALSE"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"
+				DisableSpecificWarnings="4005;4244;4251;4267"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="qt-mt3.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcmsd.lib GdiPlus.lib mscms.lib"
+				OutputFile="$(OutDir)/Scribus.exe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;$(LIBRARIES)\lcms-1.15\lib&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\lib&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\lib&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\lib&quot;"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/Scribus.pdb"
+				SubSystem="1"
+				ImportLibrary="$(OutDir)/Scribus_api.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="..\..\..\Scribus-builds\scribus-vc7-release\scribus"
+			IntermediateDirectory="..\..\..\Scribus-builds\build-objs-vc7\$(ConfigurationName)\$(TargetName)"
+			ConfigurationType="1"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="1"
+				InlineFunctionExpansion="1"
+				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="..\vc7;..\..\scribus;..\..\scribus\text;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES)\lcms-1.15\include&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\include&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\include&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\include&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_DLL;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="TRUE"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4005;4244;4251;4267"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="qt-mt3.lib qtmain.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms.lib GdiPlus.lib mscms.lib"
+				OutputFile="$(OutDir)/Scribus.exe"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;$(LIBRARIES)\lcms-1.15\lib&quot;;&quot;$(LIBRARIES)\freetype-2.3.5\lib&quot;;&quot;$(LIBRARIES)\cairo-1.4.14\lib&quot;;&quot;$(LIBRARIES)\libjpeg-6b-3\lib&quot;;&quot;$(LIBRARIES)\libtiff-3.8.2\lib&quot;"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/Scribus.pdb"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				ImportLibrary="$(OutDir)/Scribus_api.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
+			<File
+				RelativePath="..\..\scribus\about.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\aboutplugins.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\actionmanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\aligndistribute.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\alignselect.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\annot.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\annota.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\applytemplatedialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\arrowchooser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\autoform.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\autoformbuttongroup.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\bookmwin.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\bookpalette.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\buttonicon.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\charselect.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\checkDocument.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmserrorhandling.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmsprefs.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmsutil.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmykfw.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\collect4output.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorchart.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorcombo.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorm.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorsetmanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\commonstrings.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cpalette.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cupsoptions.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\customfdialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\dcolor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\deferredtask.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\delpages.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\docinfo.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\docitemattrprefs.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\docsections.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\documentchecker.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\documentinformation.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\druck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\dynamictip.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\edit1format.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\editformats.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\editor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\effectsdialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\exif.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\extimageprops.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fileloader.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\filesearch.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fileunzip.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\filewatcher.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fmitem.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fontcombo.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fontprefs.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fontreplacedialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fparser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fpoint.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fpointarray.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fpoptimizer.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\frameedit.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gradienteditor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gsutil.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtaction.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtdialogs.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtfont.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtframestyle.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtgettext.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtmeasure.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtparagraphstyle.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtstyle.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtwriter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\guidemanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\helpbrowser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hnjalloc.c">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hruler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hyask.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hyphen.c">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hyphenator.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hysettings.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\imageinfodialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\insertTable.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\inspage.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\ioapi.c">
+			</File>
+			<File
+				RelativePath="..\..\scribus\javadocs.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\keymanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\langmgr.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\layers.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\linecombo.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\lineformats.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\linkbutton.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\loadsaveplugin.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\loremipsum.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\main_win32.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\margindialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\marginwidget.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\md5.c">
+			</File>
+			<File
+				RelativePath="..\..\scribus\mdup.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\measurements.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\menumanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\mergedoc.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\missing.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\movepage.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\mpalette.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\mspinbox.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiline.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiprogressdialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\muster.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\navigator.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\newfile.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\newtemp.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\page.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_imageframe.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_line.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_pathtext.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_polygon.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_polyline.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_textframe.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitemattributes.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pagelayout.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageselector.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pagesize.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdflib.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdfoptions.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdfoptionsio.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdfopts.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\picsearch.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\picstatus.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pluginmanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pluginmanagerprefsgui.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\polygonwidget.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\polyprops.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefs.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefscontext.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsdialogbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsfile.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsmanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefspanel.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsreader.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefstable.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\preview.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\printerutil.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pslib.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\query.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\rc4.c">
+			</File>
+			<File
+				RelativePath="..\..\scribus\reformdoc.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\rulermover.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sampleitem.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sccolor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sccolorshade.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sccombobox.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scdocoutput.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scdocoutput_ps2.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scfontmetrics.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scfonts.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scfonts_ttf.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scimage.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scmenu.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scmessagebox.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpageoutput.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpageoutput_ps2.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpainter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpainterex_gdi.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpainterex_ps2.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpaths.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scplugin.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpreview.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scraction.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scrap.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribus.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusXml.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusapp.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusdoc.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusview.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribuswin.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scrpalettebase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scslainforeader.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sctoolbar.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scwinprint.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\search.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\seiten.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\selection.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\selfield.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\serializer.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\shadebutton.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\smlinestyle.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\spalette.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\splash.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\stencilreader.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\story.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\text\storytext.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\styleitem.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\stylemanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\styleselect.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabcheckdoc.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabguides.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabmanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabpdfoptions.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabruler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabtools.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabtypography.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocgenerator.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocindexprefs.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tree.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\undogui.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\undomanager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\undoobject.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\undostate.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\units.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\unzip.c">
+			</File>
+			<File
+				RelativePath="..\..\scribus\upgradechecker.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\useprintermarginsdialog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\util.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\vgradient.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\vgradientex.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\vruler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\werktoolb.cpp">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc">
+			<File
+				RelativePath="..\..\scribus\about.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\aboutplugins.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\actionmanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\aligndistribute.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\alignselect.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\annot.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\annota.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\annotation.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\applytemplatedialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\arrowchooser.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\autoform.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\autoformbuttongroup.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\bookmwin.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\bookpalette.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\buttonicon.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\charselect.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\checkDocument.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmserrorhandling.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmsprefs.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmsutil.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\cmykfw.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\collect4output.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\color.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies=""/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorchart.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorcombo.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorm.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colorsetmanager.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\commonstrings.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\cpalette.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\crypt.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\cupsoptions.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\customfdialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\dcolor.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\deferredtask.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\delpages.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\docinfo.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\docitemattrprefs.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\docsections.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\documentchecker.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\documentinformation.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\druck.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\dynamictip.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\edit1format.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\editformats.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\editor.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\effectsdialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\exif.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\extimageprops.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\fileloader.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\filesearch.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\fileunzip.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\filewatcher.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\fmitem.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fontcombo.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\fontprefs.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\fontreplacedialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\fparser.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fpconfig.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fpoint.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fpointarray.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\fptypes.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\frameedit.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\gradienteditor.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\gsutil.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtaction.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtdialogs.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtfont.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtframestyle.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtgettext.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtmeasure.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtparagraphstyle.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtstyle.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\gtwriter.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\guidemanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\helpbrowser.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\hnjalloc.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hruler.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\hyask.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\hyphen.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\hyphenator.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\hysettings.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\icons5.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\icons6.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\imageinfodialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\insertTable.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\inspage.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ioapi.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\javadocs.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\keymanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\langmgr.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\layers.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\linecombo.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\lineformats.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\linkbutton.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\loadsaveplugin.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\loremipsum.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\margindialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\marginwidget.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\md5.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\mdup.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\measurements.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\menumanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\mergedoc.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\missing.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\movepage.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\mpalette.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\mspinbox.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiline.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiprogressdialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\muster.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\navigator.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\newfile.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\newtemp.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\page.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_imageframe.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_line.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_pathtext.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_polygon.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_polyline.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_textframe.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitemattributes.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pagelayout.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageselector.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pagesize.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pagestructs.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdflib.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdfoptions.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdfoptionsio.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pdfopts.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\picsearch.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\picstatus.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pluginmanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pluginmanagerprefsgui.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\polygonwidget.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\polyprops.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefs.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefscontext.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsdialogbase.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsfile.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsmanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefspanel.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsreader.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefsstructs.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\prefstable.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\preview.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\printerutil.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pslib.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\query.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\rc4.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\reformdoc.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="resource.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\rulermover.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\sampleitem.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\sccolor.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sccolorshade.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sccombobox.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scconfig.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scdocoutput.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scdocoutput_ps2.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scfontmetrics.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scfonts.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scfonts_ttf.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scimage.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sclistboxpixmap.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scmenu.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scmessagebox.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpageoutput.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpageoutput_ps2.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpainter.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpainterex_gdi.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpainterex_ps2.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpainterexbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpaths.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpixmapcache.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scplugin.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpreview.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scraction.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scrap.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribus.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusXml.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusapi.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusapp.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusdoc.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusstructs.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribusview.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scribuswin.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scrpalettebase.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scslainforeader.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sctextstruct.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\sctoolbar.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scwinprint.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\search.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\seiten.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\selection.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\selfield.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\serializer.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\shadebutton.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\smlinestyle.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\spalette.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\splash.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\stencilreader.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\story.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\text\storytext.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\styleitem.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\stylemanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\styleselect.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabcheckdoc.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabguides.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabmanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabpdfoptions.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabruler.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabtools.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tabtypography.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocgenerator.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocindexprefs.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tree.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\undogui.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\undomanager.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\undoobject.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\undostate.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\units.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\unzip.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\upgradechecker.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\useprintermarginsdialog.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\util.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\vgradient.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\vgradientex.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\vruler.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\werktoolb.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<File
+				RelativePath="Scribus 1.3.x cvs.rc">
+			</File>
+			<File
+				RelativePath="scribusdoc.ico">
+			</File>
+			<File
+				RelativePath="scribusicon.ico">
+			</File>
+		</Filter>
+		<Filter
+			Name="Generated Form Files"
+			Filter="">
+			<File
+				RelativePath="..\..\scribus\aboutpluginsbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\aboutpluginsbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\docitemattrprefsbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\docitemattrprefsbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\docsectionsbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\docsectionsbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiprogressdialogbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiprogressdialogbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitemattributesbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitemattributesbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\smlinestylewbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\smlinestylewbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\stylemanagerbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\stylemanagerbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocindexprefsbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocindexprefsbase.h">
+			</File>
+			<File
+				RelativePath="..\..\scribus\useprintermarginsdialogbase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\scribus\useprintermarginsdialogbase.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Generated Moc Files"
+			Filter="">
+			<File
+				RelativePath="..\..\scribus\aboutpluginsbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\docitemattrprefsbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\docsectionsbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiprogressdialogbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitemattributesbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\smlinestylewbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\stylemanagerbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocindexprefsbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\useprintermarginsdialogbase.moc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Form Files"
+			Filter="">
+			<File
+				RelativePath="..\..\scribus\aboutpluginsbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\docitemattrprefsbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\docsectionsbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\multiprogressdialogbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitemattributesbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\smlinestylewbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\stylemanagerbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tocindexprefsbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\useprintermarginsdialogbase.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\uic.exe -o &quot;$(InputDir)\$(InputName).cpp&quot; -impl &quot;$(InputDir)\$(InputName).h&quot; &quot;$(InputPath)&quot;
+$(QTDIR)\bin\moc.exe &quot;$(InputDir)\$(InputName).h&quot; -o &quot;$(InputDir)\$(InputName).moc&quot;
+"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe;$(QTDIR)\bin\moc.exe"
+						Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp;$(InputDir)\$(InputName).moc"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Win-config"
+			Filter="">
+			<File
+				RelativePath="win-config.h">
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
