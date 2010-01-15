@@ -497,7 +497,7 @@ ENDIF(PNG_FOUND)
 #>> ZLIB, PNG
 
 IF (WANT_NOOSG)
-	MESSAGE("Building without 3D Extension")
+  MESSAGE("Building without 3D Extension")
 ELSE (WANT_NOOSG)
   FIND_PACKAGE(OSG)
   IF(OSG_FOUND)
