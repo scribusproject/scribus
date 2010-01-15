@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
+#include "util_formats.h"
 #include "util_math.h"
 #include "util_color.h"
 
@@ -79,7 +80,8 @@ void ImportIdml::registerFormats()
 	fmt.trName = idmlName;
 	fmt.formatId = FORMATID_IDMLIMPORT;
 	fmt.filter =idmlName + "(*.idml *.IDML)"; // QFileDialog filter
-        fmt.nameMatch = QRegExp("\\.(idml|IDML)?", Qt::CaseInsensitive);
+	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::IDML, 1)+"$", Qt::CaseInsensitive);
+//        fmt.nameMatch = QRegExp("\\.(idml|IDML)?", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
         fmt.mimeTypes = QStringList();
