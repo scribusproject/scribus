@@ -85,7 +85,7 @@ private:
 	ScColor getBinaryDirectColor(QDataStream &ts);
 	QString getBinaryColor(QDataStream &ts);
 	double  getBinaryDistance(QDataStream &ts);
-	FPoint  getBinaryCoords(QDataStream &ts);
+	QPointF getBinaryCoords(QDataStream &ts, bool raw = false);
 	uint    getBinaryUInt(QDataStream &ts, int intP);
 	int     getBinaryInt(QDataStream &ts, int intP);
 	double  getBinaryReal(QDataStream &ts, int realP, int realM);
@@ -155,6 +155,7 @@ private:
 	bool recordRegion;
 	int currentRegion;
 	QMap<int, QPainterPath> regionMap;
+	QPointF fillRefPoint;
 
 	QList<PageItem*> Elements;
 	int currentItemNr;
@@ -177,6 +178,7 @@ private:
 	bool importRunning;
 	bool firstPage;
 	bool vcdSet;
+	bool wasEndPic;
 
 public slots:
 	void cancelRequested() { cancel = true; }

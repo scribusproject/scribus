@@ -365,6 +365,7 @@ bool CgmPlug::convert(QString fn)
 	clipSet = false;
 	lineVisible = true;
 	recordRegion = false;
+	wasEndPic = false;
 	currentRegion = 0;
 	if(progressDialog)
 	{
@@ -488,7 +489,7 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			handleStartPictureBody(docWidth, docHeight);
 			firstPage = true;
 		}
-		// qDebug() << "BEGIN PICTURE BODY";
+		qDebug() << "BEGIN PICTURE BODY";
 	}
 	else if (elemID == 5)
 	{
@@ -507,7 +508,8 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (firstPage)
 				handleStartPictureBody(docWidth, docHeight);
 		}
-		// qDebug() << "END PICTURE";
+		wasEndPic = true;
+		qDebug() << "END PICTURE";
 	}
 	else if (elemID == 6)
 	{
@@ -602,7 +604,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		metaFileVersion = data;
- 		// qDebug() << "METAFILE VERSION" << data;
+ 		qDebug() << "METAFILE VERSION" << data;
 	}
 	else if (elemID == 2)
 		handleMetaFileDescription(getBinaryText(ts));
@@ -610,13 +612,13 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		vdcType = data;
- 		// qDebug() << "VDC TYPE" << data;
+ 		qDebug() << "VDC TYPE" << data;
 	}
 	else if (elemID == 4)
 	{
 		ts >> data;
 		intPrecision = data;
- 		// qDebug() << "INTEGER PRECISION" << data;
+ 		qDebug() << "INTEGER PRECISION" << data;
 	}
 	else if (elemID == 5)
 	{
@@ -628,25 +630,25 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		realFraction = data;
 		if (realPrecision == 0)
 			realPrecisionSet = true;
- 		// qDebug() << "REAL PRECISION" << realPrecision << realMantissa << realFraction;
+ 		qDebug() << "REAL PRECISION" << realPrecision << realMantissa << realFraction;
 	}
 	else if (elemID == 6)
 	{
 		ts >> data;
 		indexPrecision = data;
- 		// qDebug() << "INDEX PRECISION" << indexPrecision;
+ 		qDebug() << "INDEX PRECISION" << indexPrecision;
 	}
 	else if (elemID == 7)
 	{
 		ts >> data;
 		colorPrecision = data;
-		// qDebug() << "COLOUR PRECISION" << colorPrecision;
+		qDebug() << "COLOUR PRECISION" << colorPrecision;
 	}
 	else if (elemID == 8)
 	{
 		ts >> data;
 		colorIndexPrecision = data;
-		// qDebug() << "COLOUR INDEX PRECISION" << colorIndexPrecision;
+		qDebug() << "COLOUR INDEX PRECISION" << colorIndexPrecision;
 	}
 	else if (elemID == 9)
 	{
@@ -731,7 +733,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 17)
 	{
-		FPoint max, min;
+		QPointF max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
  		// qDebug() << "MAXIMUM VDC EXTENT" << min.x() << min.y() << max.x() << max.y();
@@ -793,13 +795,13 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			sc = getBinaryReal(ts, 0, 9);
 		if (metaFileScaleMode != 0)
 			metaFileScale = sc;
-		// qDebug() << "SCALING MODE" << metaFileScaleMode << metaFileScale;
+		qDebug() << "SCALING MODE" << metaFileScaleMode << metaFileScale;
 	}
 	else if (elemID == 2)
 	{
 		ts >> data;
 		colorMode = data;
-		// qDebug() << "COLOUR SELECTION MODE" << colorMode;
+		qDebug() << "COLOUR SELECTION MODE" << colorMode;
 	}
 	else if (elemID == 3)
 	{
@@ -821,10 +823,10 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 6)
 	{
-		FPoint max, min;
-		max = getBinaryCoords(ts);
-		min = getBinaryCoords(ts);
-		QRectF vd = QRectF(QPointF(max.x(), max.y()), QPointF(min.x(), min.y()));
+		QPointF max, min;
+		max = getBinaryCoords(ts, true);
+		min = getBinaryCoords(ts, true);
+		QRectF vd = QRectF(max, min);
 		if (vd.height() > 0)
 			vcdFlippedV = true;
 		if (vd.width() < 0)
@@ -849,7 +851,7 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 8)
 	{
-		FPoint max, min;
+		QPointF max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
 		// qDebug() << "DEVICE VIEWPORT" << min.x() << min.y() << max.x() << max.y();
@@ -956,10 +958,10 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 5)
 	{
-		FPoint max, min;
+		QPointF max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
-		QRectF vd = QRectF(QPointF(max.x(), max.y()), QPointF(min.x(), min.y()));
+		QRectF vd = QRectF(max, min);
 		vd = vd.normalized();
 		double w = convertCoords(vd.width());
 		double h = convertCoords(vd.height());
@@ -1164,8 +1166,77 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 9)
 	{
+		int pos = ts.device()->pos();
+		QPointF p, q, r;
+		int nx, ny, cp;
+		quint16 mode;
+		p = getBinaryCoords(ts);
+		q = getBinaryCoords(ts);
+		r = getBinaryCoords(ts);
+		nx = getBinaryUInt(ts, intPrecision);
+		ny = getBinaryUInt(ts, intPrecision);
+		cp = getBinaryUInt(ts, intPrecision);
+		ts >> mode;
+		int bytesRead = ts.device()->pos() - pos;
+		qDebug() << "CELL ARRAY at" << ts.device()->pos() << paramLen;
+		qDebug() << "Size" << nx << ny << "Colormode" << cp << "Compression" << mode;
+//		double distY = distance(q.x() - p.x(), q.y() - p.y());
+		double distX = distance(r.x() - p.x(), r.y() - p.y());
+		double distY = nx / distX * ny;
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + convertCoords(p.x()), baseY + convertCoords(p.y()), convertCoords(distX), convertCoords(distY), edgeWidth, CommonStrings::None, CommonStrings::None, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		finishItem(ite, false);
+		quint16 flag = paramLen & 0x8000;
+		quint16 pLen = (paramLen & 0x7FFF) - bytesRead;
+		QByteArray imageData;
+		imageData.resize(0);
+		QByteArray rD = ts.device()->read(pLen);
+		imageData.append(rD);
+		while (flag)
+		{
+			ts >> pLen;
+			flag = pLen & 0x8000;
+			pLen = pLen & 0x7FFF;
+			QByteArray rD = ts.device()->read(pLen);
+			imageData.append(rD);
+		}
+		ts.device()->seek(pos);
 		alignStreamToWord(ts, paramLen);
-		qDebug() << "CELL ARRAY";
+		QImage image = QImage(nx, ny, QImage::Format_ARGB32);
+		if (mode == 1)
+		{
+			if (cp == 24)
+			{
+				int baseAdr = 0;
+				for (int yy = 0; yy < ny; yy++)
+				{
+					QRgb *q = (QRgb*)(image.scanLine(yy));
+					int rowCount = 0;
+					for (int xx = 0; xx < nx; xx++)
+					{
+						uchar r, g, b;
+						r = imageData[baseAdr + rowCount];
+						g = imageData[baseAdr + rowCount + 1];
+						b = imageData[baseAdr + rowCount + 2];
+						*q++ = qRgba(r, g, b, 255);
+						rowCount += 3;
+					}
+					baseAdr += 3 * nx;
+					int adj = baseAdr % 2;
+					if (adj != 0)
+						baseAdr++;
+				}
+			}
+		}
+		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
+		ite->tempImageFile->open();
+		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		ite->tempImageFile->close();
+		ite->isInlineImage = true;
+		image.save(fileName, "PNG");
+		m_Doc->LoadPict(fileName, z);
+		ite->setImageScalingMode(false, false);
 	}
 	else if (elemID == 10)
 	{
@@ -1174,10 +1245,10 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 11)
 	{
-		FPoint max, min;
+		QPointF max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
-		QRectF vd = QRectF(QPointF(max.x(), max.y()), QPointF(min.x(), min.y()));
+		QRectF vd = QRectF(max, min);
 		vd = vd.normalized();
 		double w = convertCoords(vd.width());
 		double h = convertCoords(vd.height());
@@ -1210,7 +1281,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 12)
 	{
-		FPoint max, min;
+		QPointF max, min;
 		max = getBinaryCoords(ts);
 		double x = convertCoords(max.x());
 		double y = convertCoords(max.y());
@@ -1264,7 +1335,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 17)
 	{
-		FPoint center, r1, r2;
+		QPointF center, r1, r2;
 		center = getBinaryCoords(ts);
 		double cx = convertCoords(center.x());
 		double cy = convertCoords(center.y());
@@ -1573,8 +1644,11 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 31)
 	{
-		alignStreamToWord(ts, paramLen);
- 		qDebug() << "FILL REFERENCE POINT";
+		QPointF p = getBinaryCoords(ts);
+		double x = convertCoords(p.x());
+		double y = convertCoords(p.y());
+		fillRefPoint = QPointF(x + m_Doc->currentPage()->xOffset(), y + m_Doc->currentPage()->yOffset());
+ 		// qDebug() << "FILL REFERENCE POINT" << fillRefPoint;
 	}
 	else if (elemID == 32)
 	{
@@ -1650,6 +1724,31 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 43)
 	{
+/*		int pos = ts.device()->pos();
+		uint type = getBinaryUInt(ts, indexPrecision);
+		QPointF p, p2;
+		if (type == 1)
+		{
+			int posE = ts.device()->pos();
+			p = QPointF(convertCoords(getBinaryDistance(ts)), convertCoords(getBinaryDistance(ts)));
+			qDebug() << "End Point" << p << " at" << posE;
+		}
+		else if (type == 2)
+		{
+			int posE = ts.device()->pos();
+			p = QPointF(convertCoords(getBinaryDistance(ts)), convertCoords(getBinaryDistance(ts)));
+			p2 = QPointF(convertCoords(getBinaryDistance(ts)), convertCoords(getBinaryDistance(ts)));
+			qDebug() << "Points" << p << p2 << " at" << posE;
+		}
+		int posI = ts.device()->pos();
+		uint index = getBinaryUInt(ts, intPrecision);
+		qDebug() << "Stages " << index << " at" << posI;
+		for (uint s = 0; s < index; s++)
+		{
+			double s1 = getBinaryReal(ts, realPrecision, realMantissa);
+			qDebug() << "first 2 Stages " << s1;
+		}
+		ts.device()->seek(pos); */
 		alignStreamToWord(ts, paramLen);
 		qDebug() << "INTERPOLATED INTERIOR";
 	}
@@ -1823,13 +1922,13 @@ void CgmPlug::getBinaryBezierPath(QDataStream &ts, quint16 paramLen)
 		int posA = ts.device()->pos();
 		if ((first) || (type == 1))
 		{
-			FPoint p = getBinaryCoords(ts);
+			QPointF p = getBinaryCoords(ts);
 			Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
 			first = false;
 		}
-		FPoint p1 = getBinaryCoords(ts);
-		FPoint p2 = getBinaryCoords(ts);
-		FPoint p3 = getBinaryCoords(ts);
+		QPointF p1 = getBinaryCoords(ts);
+		QPointF p2 = getBinaryCoords(ts);
+		QPointF p3 = getBinaryCoords(ts);
 		Coords.svgCurveToCubic(convertCoords(p1.x()), convertCoords(p1.y()), convertCoords(p2.x()), convertCoords(p2.y()), convertCoords(p3.x()), convertCoords(p3.y()));
 		int posN = ts.device()->pos();
 		bytesRead += posN - posA;
@@ -1845,12 +1944,12 @@ void CgmPlug::getBinaryBezierPath(QDataStream &ts, quint16 paramLen)
 			int posA = ts.device()->pos();
 			if (type == 1)
 			{
-				FPoint p = getBinaryCoords(ts);
+				QPointF p = getBinaryCoords(ts);
 				Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
 			}
-			FPoint p1 = getBinaryCoords(ts);
-			FPoint p2 = getBinaryCoords(ts);
-			FPoint p3 = getBinaryCoords(ts);
+			QPointF p1 = getBinaryCoords(ts);
+			QPointF p2 = getBinaryCoords(ts);
+			QPointF p3 = getBinaryCoords(ts);
 			Coords.svgCurveToCubic(convertCoords(p1.x()), convertCoords(p1.y()), convertCoords(p2.x()), convertCoords(p2.y()), convertCoords(p3.x()), convertCoords(p3.y()));
 			int posN = ts.device()->pos();
 			bytesRead += posN - posA;
@@ -1870,7 +1969,7 @@ void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint)
 	while (bytesRead < paramLen)
 	{
 		int posA = ts.device()->pos();
-		FPoint p = getBinaryCoords(ts);
+		QPointF p = getBinaryCoords(ts);
 		if (first)
 		{
 			Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
@@ -1896,7 +1995,7 @@ void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint)
 			int posA = ts.device()->pos();
 			if (disjoint)
 			{
-				FPoint p = getBinaryCoords(ts);
+				QPointF p = getBinaryCoords(ts);
 				if (first)
 				{
 					Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
@@ -1911,7 +2010,7 @@ void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint)
 			}
 			else
 			{
-				FPoint p = getBinaryCoords(ts);
+				QPointF p = getBinaryCoords(ts);
 				Coords.svgLineTo(convertCoords(p.x()), convertCoords(p.y()));
 			}
 			int posN = ts.device()->pos();
@@ -2061,28 +2160,34 @@ double CgmPlug::getBinaryDistance(QDataStream &ts)
 	return ret;
 }
 
-FPoint CgmPlug::getBinaryCoords(QDataStream &ts)
+QPointF CgmPlug::getBinaryCoords(QDataStream &ts, bool raw)
 {
-	FPoint ret = FPoint(0.0, 0.0);
+	QPointF ret = QPointF(0.0, 0.0);
 	if (vdcType == 0)				// integer coords
 	{
 		int x = getBinaryInt(ts, vdcInt);
 		int y = getBinaryInt(ts, vdcInt);
-		if (vcdFlippedV)
-			y = vdcHeight - y;
-		if (vcdFlippedH)
-			x = vdcWidth - x;
-		ret = FPoint(x, y);
+		if (!raw)
+		{
+			if (vcdFlippedV)
+				y = vdcHeight - y;
+			if (vcdFlippedH)
+				x = vdcWidth - x;
+		}
+		ret = QPointF(x, y);
 	}
 	else
 	{
 		double x = getBinaryReal(ts, vdcReal, vdcMantissa);
 		double y = getBinaryReal(ts, vdcReal, vdcMantissa);
-		if (vcdFlippedV)
-			y = vdcHeight - y;
-		if (vcdFlippedH)
-			x = vdcWidth - x;
-		ret = FPoint(x, y);
+		if (!raw)
+		{
+			if (vcdFlippedV)
+				y = vdcHeight - y;
+			if (vcdFlippedH)
+				x = vdcWidth - x;
+		}
+		ret = QPointF(x, y);
 	}
 	return ret;
 }
@@ -2189,7 +2294,14 @@ double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
 			qint16 whole;
 			ts >> whole;
 			ts >> fraction;
-			val = whole + (fraction / static_cast<double>(0xFFFF));
+			int gpart = whole;
+			val = gpart + (fraction / static_cast<double>(0xFFFF));
+/*			quint16 flag = whole & 0x8000;
+			whole = whole & 0x7FFF;
+			if (flag)
+				val = whole - (fraction / static_cast<double>(0xFFFF));
+			else
+				val = whole + (fraction / static_cast<double>(0xFFFF)); */
 		}
 		else
 		{
@@ -2197,7 +2309,14 @@ double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
 			qint32 whole;
 			ts >> whole;
 			ts >> fraction;
-			val = whole + (fraction / static_cast<double>(0xFFFFFFFF));
+			int gpart = whole;
+			val = gpart + (fraction / static_cast<double>(0xFFFFFFFF));
+/*			quint32 flag = whole & 0x80000000;
+			whole = whole & 0x7FFFFFFF;
+			if (flag)
+				val = whole - (fraction / static_cast<double>(0xFFFFFFFF));
+			else
+				val = whole + (fraction / static_cast<double>(0xFFFFFFFF)); */
 		}
 	}
 	return val;
@@ -2242,7 +2361,17 @@ QString CgmPlug::getBinaryText(QDataStream &ts)
 
 void CgmPlug::alignStreamToWord(QDataStream &ts, uint len)
 {
-	ts.skipRawData(len);
+	quint16 flag;
+	flag = len & 0x8000;
+	quint16 paramLen = len & 0x7FFF;
+	ts.skipRawData(paramLen);
+	while (flag)
+	{
+		ts >> paramLen;
+		flag = paramLen & 0x8000;
+		paramLen = paramLen & 0x7FFF;
+		ts.skipRawData(paramLen);
+	}
 	uint adj = ts.device()->pos() % 2;
 	if (adj != 0)
 		ts.skipRawData(1);
@@ -2279,10 +2408,14 @@ void CgmPlug::handleStartPictureBody(double width, double height)
 		}
 		else
 		{
-			m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
-			m_Doc->addPage(m_Doc->currentPage()->pageNr()+1);
-			m_Doc->view()->addPage(m_Doc->currentPage()->pageNr(), true);
+			if (wasEndPic)
+			{
+				m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+				m_Doc->addPage(m_Doc->currentPage()->pageNr()+1);
+				m_Doc->view()->addPage(m_Doc->currentPage()->pageNr(), true);
+			}
 		}
+		wasEndPic = false;
 		firstPage = false;
 	}
 }
