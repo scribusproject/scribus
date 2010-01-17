@@ -129,7 +129,7 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
         <translation>messagebarText(&quot;streng&quot;)
 
-Skriver &quot;streng&quot; til Scribus beskedfelt (status linie). Teksten
+Skriver &quot;streng&quot; til Scribus beskedfelt (statuslinje). Teksten
 skal være UTF8 kodet eller &apos;unicode&apos; streng (anbefalet).
 </translation>
     </message>
@@ -149,7 +149,7 @@ May raise IndexError if the page number is out of range
 Laver en ny side. Hvis &quot;hvor&quot; er -1, så tilføjes den nye side i slutningen
 af dokumentet, ellers er den ny side indsat før &quot;hvor&quot;. Side-numre er
 talt fra 1 og opefter, lige meget hvad nummer den første side har fået.
-Den valgfri parameter &quot;masterside&quot; angiver navnet på den master side, 
+Den valgfri parameter &quot;masterside&quot; angiver navnet på den masterside, 
 der skal bruges til den nye side.
 
 Kan rejse IndexError hvis side-nummer er uden for tilladte værdi
@@ -563,7 +563,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineColor([&quot;navn&quot;]) -&gt; streng
 
-Returnerer navnet på linie-farven på objektet &quot;navn&quot;.
+Returnerer navnet på linjefarven på objektet &quot;navn&quot;.
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -575,7 +575,7 @@ is not given the currently selected Item is used.
 </source>
         <translation>getLineWidth([&quot;navn&quot;]) -&gt; integer
 
-Returnerer linie-bredde på på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linjebredde på på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -587,7 +587,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineShade([&quot;navn&quot;]) -&gt; integer
 
-Returnerer værdien for liniens farvemætning  på objektet &quot;navn&quot;. 
+Returnerer værdien for linjens farvemætning  på objektet &quot;navn&quot;. 
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -600,7 +600,7 @@ JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
         <translation>getLineJoin([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer typen af liniesamlingen på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer typen af linjesamlingen på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element. Samlingstyperne er
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </translation>
@@ -614,7 +614,7 @@ CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
         <translation>getLineEnd([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer typen af linieenden på objektet &quot;navn&quot; Hvis &quot;navn&quot; 
+Returnerer typen af linjeenden på objektet &quot;navn&quot; Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element. Endetyperne er
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </translation>
@@ -628,8 +628,8 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
         <translation>getLineStyle([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer liniestilen på objektet &quot;navn&quot; Hvis &quot;navn&quot; ikke 
-angives, så bruges det markerede element. Liniestilene er
+Returnerer linjestilen på objektet &quot;navn&quot; Hvis &quot;navn&quot; ikke 
+angives, så bruges det markerede element. Linjestilene er
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </translation>
     </message>
@@ -1138,7 +1138,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 </source>
         <translation>createLine(x1, y1, x2, y2, [&quot;navn&quot;]) -&gt; streng
 
-Laver en ny linie fra punktet(x1, y1) til punktet(x2, y2) og returnerer 
+Laver en ny linje fra punktet(x1, y1) til punktet(x2, y2) og returnerer 
 dens navn. Koordinaterne er givet i dokumentets nuværende måle-enhed 
 (se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
 du behøver dette navn for yderligere adgang til dette objekt. Hvis &quot;navn&quot;
@@ -1163,7 +1163,7 @@ the number of values passed don&apos;t group into points without leftovers.
 </source>
         <translation>createPolyLine(liste, [&quot;navn&quot;]) -&gt; streng
 
-Laver en ny poly-linie og returnerer dens navn. Poly-liniens punkter 
+Laver en ny poly-linje og returnerer dens navn. Poly-linjens punkter 
 er placeret i listen &quot;liste&quot; i følgende orden: [x1, y1, x2, y2...xn, yn].
 Koordinaterne er givet i dokumentets nuværende måle-enhed 
 (se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
@@ -1415,7 +1415,7 @@ document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
         <translation>getHGuides() -&gt; liste
 
-Returnerer en liste med positionerne for de horisontale hjælpelinier. Værdierne er 
+Returnerer en liste med positionerne for de horisontale hjælpelinjer. Værdierne er 
 angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
 </translation>
     </message>
@@ -1430,11 +1430,11 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 </source>
         <translation>setHGuides(liste)
 
-Sætter horisontale hjælpelinier. Input-parameter skal være en liste med hlælpeliniernes
+Sætter horisontale hjælpelinjer. Input-parameter skal være en liste med hlælpelinjernes
 placeringer angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
 
-Eksempel: setHGuides(getHGuides() + [200.0, 210.0] # tilføjer ny hjælpelinie uden nogen mistet
-          setHGuides([90,250]) # Erstatter nuværende hjælpelinier fuldstændigt
+Eksempel: setHGuides(getHGuides() + [200.0, 210.0] # tilføjer ny hjælpelinje uden nogen mistet
+          setHGuides([90,250]) # Erstatter nuværende hjælpelinjer fuldstændigt
 </translation>
     </message>
     <message>
@@ -1507,7 +1507,7 @@ is not given the currently selected item is used.
 </source>
         <translation>setLineColor(&quot;farve&quot;, [&quot;navn&quot;])
 
-Sætter linie-farven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
+Sætter linje-farven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
 er navnet på en af de definerede farver. Hvis &quot;navn&quot; ikke angives, så 
 bruges det markerede element.
 </translation>
@@ -1523,11 +1523,11 @@ May raise ValueError if the line width is out of bounds.
 </source>
         <translation>setLineWidth(bredde, [&quot;navn&quot;])
 
-Sætter linie-bredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
+Sætter linje-bredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
 området fra 0.0 til 12.0 inklusivt, og er angivet i punkter. Hvis &quot;navn&quot; ikke 
 angives, så bruges det markerede element.
 
-Kan rejse ValueError hvis linie-bredden er uden for tilladte område.</translation>
+Kan rejse ValueError hvis linje-bredden er uden for tilladte område.</translation>
     </message>
     <message>
         <source>setLineShade(shade, [&quot;name&quot;])
@@ -1541,7 +1541,7 @@ May raise ValueError if the line shade is out of bounds.
 </source>
         <translation>setLineShade(farvemætning, [&quot;navn&quot;]) -&gt; integer
 
-Sætter farvemætningen på linie-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
+Sætter farvemætningen på linje-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
 &quot;farvemætning&quot; skal være en integer værdi i området fra 0 (lysest) til 100
 (fuld farvemætning). Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 
@@ -1557,7 +1557,7 @@ predefined constants for join - JOIN_&lt;type&gt;.
 </source>
         <translation>setLineJoin(samling, [&quot;navn&quot;])
 
-Sætter typen af liniesamling på objektet &quot;navn&quot; til typen &quot;samling&quot;. 
+Sætter typen af linjesamling på objektet &quot;navn&quot; til typen &quot;samling&quot;. 
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
 predefinerede konstanter for samlingen - JOIN_&lt;type&gt;.
 </translation>
@@ -1571,7 +1571,7 @@ predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
         <translation>setLineEnd(endetype, [&quot;navn&quot;])
 
-Sætter typen af linieende på objektet &quot;navn&quot; til typen &quot;endetype&quot; .
+Sætter typen af linjeende på objektet &quot;navn&quot; til typen &quot;endetype&quot; .
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
 predefinerede konstanter for endetyperne - CAP_&lt;type&gt;.
 </translation>
@@ -1585,7 +1585,7 @@ constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
         <translation>setLineStyle(stil, [&quot;navn&quot;])
 
-Sætter linie-stil for objektet &quot;navn&quot; til stilen &quot;stil&quot;. Hvis &quot;navn&quot; ikke 
+Sætter linje-stil for objektet &quot;navn&quot; til stilen &quot;stil&quot;. Hvis &quot;navn&quot; ikke 
 angives, så bruges det markerede element. Der er predefinerede 
 konstanter for &quot;stil&quot; - LINE_&lt;type&gt;.
 </translation>
@@ -1635,10 +1635,10 @@ May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
         <translation>setMultiLine(&quot;navngivetStil&quot;, [&quot;navn&quot;])
 
-sætter linie-stil på objektet &quot;navn&quot; til navngivet stil &quot;navngivetStil&quot;.
+sætter linje-stil på objektet &quot;navn&quot; til navngivet stil &quot;navngivetStil&quot;.
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 
-Kan rejse NotFoundError hvis linie-stilen ikke eksisterer.
+Kan rejse NotFoundError hvis linje-stilen ikke eksisterer.
 </translation>
     </message>
     <message>
@@ -1707,7 +1707,7 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineSpacing([&quot;navn&quot;]) -&gt; komma-tal
 
-Returnerer linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; udtrykt i punkter.
+Returnerer linje-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; udtrykt i punkter.
 Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
 </translation>
     </message>
@@ -1799,11 +1799,11 @@ May throw ValueError if the line spacing is out of bounds.
 </source>
         <translation>setLineSpacing(størrelse, [&quot;navn&quot;])
 
-Sætter linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. 
+Sætter linje-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. 
 &quot;størrelse&quot; er angivet i punkter. Hvis &quot;navn&quot; ikke er givet, så bruges 
 det markerede element.
 
-Kan rejse ValueError hvis linie-afstanden er uden for gyldigt område.
+Kan rejse ValueError hvis linje-afstanden er uden for gyldigt område.
 </translation>
     </message>
     <message>
@@ -2023,7 +2023,7 @@ won&apos;t automatically notice when you change the document using a script.
 </source>
         <translation>docChanged(bool)
 
-Aktiverer/deaktiverer &quot;gem-ikonet&quot; i Scribus værktøjslinie og  &quot;Gem&quot; i fil-menuen. 
+Aktiverer/deaktiverer &quot;gem-ikonet&quot; i Scribus værktøjslinje og  &quot;Gem&quot; i fil-menuen. 
 Det er brugbart at kalde denne procedure, når du ændrer dokumentet, fordi Scribus 
 ikke automatisk opdager, når du har ændret dokumentet ved at bruge en script.
 </translation>
@@ -2447,8 +2447,8 @@ style name or None when user cancels the dialog.
 </source>
         <translation>newStyleDialog() -&gt; streng
 
-Viser &apos;Lav ny afsnits typografi&apos; vindue. Funktionen returnerer det rigtige
-typografi navn eller Intet når bruger annullerer vinduet.
+Viser &apos;Lav ny afsnitstypografi&apos; vindue. Funktionen returnerer det rigtige
+typografinavn eller Intet når bruger annullerer vinduet.
 </translation>
     </message>
     <message>
@@ -2597,7 +2597,7 @@ strings.
 </source>
         <translation>setInfo(&quot;forfatter&quot;, &quot;info&quot;, &quot;beskrivelse&quot;) -&gt; bool
 
-Sætter dokument information. &quot;Forfatter&quot;, &quot;Info&quot;, &quot;Beskrivelse&quot; er
+Sætter dokumentinformation. &quot;Forfatter&quot;, &quot;Info&quot;, &quot;Beskrivelse&quot; er
 strenge.
 </translation>
     </message>
@@ -2630,7 +2630,7 @@ is not given the currently selected Item is used.
 </source>
         <translation>getLineTransparency([&quot;navn&quot;]) -&gt; komma-tal
 
-Returnerer linie gennemsigtigheden for objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linje gennemsigtigheden for objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.</translation>
     </message>
     <message>
@@ -2652,7 +2652,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>setLineTransparency(gennemsigtighed, [&quot;navn&quot;])
 
-Sætter linie-gennemsigtigheden for objektet &quot;navn&quot; til gennemsigtighed
+Sætter linje-gennemsigtigheden for objektet &quot;navn&quot; til gennemsigtighed
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.</translation>
     </message>
     <message>
@@ -2898,7 +2898,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     <name>AboutPluginsBase</name>
     <message>
         <source>Scribus: About Plug-ins</source>
-        <translation>Scribus: Om Plug-ins</translation>
+        <translation>Scribus: Om plug-ins</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -2965,7 +2965,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation>&amp;Dokument indstillinger...</translation>
+        <translation>&amp;Dokumentindstillinger...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -2985,7 +2985,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
-        <translation>&amp;Element handlings-tilstand</translation>
+        <translation>&amp;Element-handlingstilstand</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -3021,15 +3021,15 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Afsnits typografier...</translation>
+        <translation>&amp;Afsnitstypografier...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Liniestile...</translation>
+        <translation>&amp;linjestile...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
-        <translation>&amp;Master sider...</translation>
+        <translation>&amp;Mastersider...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
@@ -3105,7 +3105,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>&amp;Image Effects</source>
-        <translation>&amp;Billed effekter</translation>
+        <translation>&amp;Billedeffekter</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
@@ -3177,7 +3177,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation>Udvidede billed egenskaber</translation>
+        <translation>Udvidede billedegenskaber</translation>
     </message>
     <message>
         <source>&amp;Low Resolution</source>
@@ -3193,19 +3193,19 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>Er PDF-&amp;Bogmærke</translation>
+        <translation>Er PDF-&amp;bogmærke</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>Er PDF-&amp;Kommentar</translation>
+        <translation>Er PDF-&amp;kommentar</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation>Kommentar e&amp;genskaber</translation>
+        <translation>Kommentar-e&amp;genskaber</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation>Felt ege&amp;nskaber</translation>
+        <translation>Felt-ege&amp;nskaber</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
@@ -3233,7 +3233,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation>B&amp;illed ramme</translation>
+        <translation>B&amp;illedramme</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3277,7 +3277,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation>Håndtér &amp;hjælpelinier...</translation>
+        <translation>Håndtér &amp;hjælpelinjer...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
@@ -3321,11 +3321,11 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation>Vis &amp;hjælpelinier</translation>
+        <translation>Vis &amp;hjælpelinjer</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Vis b&amp;asislinie-gitter</translation>
+        <translation>Vis b&amp;asislinje-gitter</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
@@ -3333,7 +3333,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Show Control Characters</source>
-        <translation>Vis kontrol tegn</translation>
+        <translation>Vis kontroltegn</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
@@ -3341,7 +3341,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>Kl&amp;æb til hjælpelinier</translation>
+        <translation>Kl&amp;æb til hjælpelinjer</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -3369,7 +3369,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Action &amp;History</source>
-        <translation>&amp;Handlings historie</translation>
+        <translation>&amp;Handlingshistorik</translation>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
@@ -3377,7 +3377,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation>Ops&amp;til på linie og fordel</translation>
+        <translation>Ops&amp;til på linje og fordel</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -3401,11 +3401,11 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation>&amp;Linie</translation>
+        <translation>&amp;linje</translation>
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation>&amp;Frihånds linie</translation>
+        <translation>&amp;Frihåndslinje</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -3473,7 +3473,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Insert Line</source>
-        <translation>Indsæt linie</translation>
+        <translation>Indsæt linje</translation>
     </message>
     <message>
         <source>Insert Bezier Curve</source>
@@ -3481,7 +3481,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Indsæt frihånds-linie</translation>
+        <translation>Indsæt frihåndslinje</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3509,7 +3509,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation>Scribus &amp;Manual...</translation>
+        <translation>Scribus &amp;manual...</translation>
     </message>
     <message>
         <source>Smart &amp;Hyphen</source>
@@ -3529,7 +3529,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>New Line</source>
-        <translation>Ny linie</translation>
+        <translation>Ny linje</translation>
     </message>
     <message>
         <source>Frame Break</source>
@@ -3649,11 +3649,11 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Toggle Guides</source>
-        <translation>Slå hjælpelinier til/fra</translation>
+        <translation>Slå hjælpelinjer til/fra</translation>
     </message>
     <message>
         <source>Manage Page Properties...</source>
-        <translation>Håndtér side egenskaber...</translation>
+        <translation>Håndtér sideegenskaber...</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -3681,7 +3681,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation>Om &amp;Plug-ins</translation>
+        <translation>Om &amp;plug-ins</translation>
     </message>
     <message>
         <source>More Info...</source>
@@ -3823,11 +3823,11 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation>Opstil på linie og fordel</translation>
+        <translation>Opstil på linje og fordel</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation>Opstil på linie</translation>
+        <translation>Opstil på linje</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -3851,7 +3851,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Guide</source>
-        <translation>Hjælpelinie</translation>
+        <translation>Hjælpelinje</translation>
     </message>
     <message>
         <source>Selection</source>
@@ -3859,23 +3859,23 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Align right sides of objects to left side of anchor</source>
-        <translation>Stil højre sider af objekter på linie efter venstre side af anker</translation>
+        <translation>Stil højre sider af objekter på linje efter venstre side af anker</translation>
     </message>
     <message>
         <source>Align left sides of objects to right side of anchor</source>
-        <translation>Stil venstre sider af objekter på linie efter højre side af anker</translation>
+        <translation>Stil venstre sider af objekter på linje efter højre side af anker</translation>
     </message>
     <message>
         <source>Align bottoms</source>
-        <translation>Stil bund-sider på linie</translation>
+        <translation>Stil bund-sider på linje</translation>
     </message>
     <message>
         <source>Align right sides</source>
-        <translation>Stil højre sider på linie</translation>
+        <translation>Stil højre sider på linje</translation>
     </message>
     <message>
         <source>Align tops of objects to bottom of anchor</source>
-        <translation>Stil top-sider af objekter på linie efter bunden af anker</translation>
+        <translation>Stil top-sider af objekter på linje efter bunden af anker</translation>
     </message>
     <message>
         <source>Center on vertical axis</source>
@@ -3883,7 +3883,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Align left sides</source>
-        <translation>Stil venstre sider på linie</translation>
+        <translation>Stil venstre sider på linje</translation>
     </message>
     <message>
         <source>Center on horizontal axis</source>
@@ -3891,15 +3891,15 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Align bottoms of objects to top of anchor</source>
-        <translation>Stil bund-sider af objekter på linie efter toppen af anker</translation>
+        <translation>Stil bund-sider af objekter på linje efter toppen af anker</translation>
     </message>
     <message>
         <source>Align tops</source>
-        <translation>Stil top-sider på linie</translation>
+        <translation>Stil top-sider på linje</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Markerede hjælpelinier:</translation>
+        <translation>&amp;Markerede hjælpelinjer:</translation>
     </message>
     <message>
         <source>Distribute</source>
@@ -4389,7 +4389,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Multi-Line</source>
-        <translation>Multi-linie</translation>
+        <translation>Multi-linje</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -4711,11 +4711,11 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation>&amp;Stregkode generator...</translation>
+        <translation>&amp;Stregkodegenerator...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation>Scribus brugerflade for ren Postscript stregkode skriver</translation>
+        <translation>Scribus brugerflade for ren Postscript stregkodeskriver</translation>
     </message>
 </context>
 <context>
@@ -4789,7 +4789,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation>Stregkode fremstilling</translation>
+        <translation>Stregkode-fremstilling</translation>
     </message>
     <message>
         <source>Barcode</source>
@@ -4809,7 +4809,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Reset the barcode samples</source>
-        <translation>Nulstil stregkode prøverne</translation>
+        <translation>Nulstil stregkode-prøverne</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
@@ -4849,11 +4849,11 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation>Baggrundsfarve - under kode linierne</translation>
+        <translation>Baggrundsfarve - under kode linjerne</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation>&amp;Linier</translation>
+        <translation>&amp;linjer</translation>
     </message>
     <message>
         <source>Alt+L</source>
@@ -4861,7 +4861,7 @@ Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation>Farve på linierne i stregkoden</translation>
+        <translation>Farve på linjerne i stregkoden</translation>
     </message>
     <message>
         <source>&amp;Text</source>
@@ -5118,7 +5118,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>System Profiles</source>
-        <translation>System profiler</translation>
+        <translation>Systemprofiler</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
@@ -5224,15 +5224,15 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
-        <translation>Standard Farveprofil for importerede RGB billeder</translation>
+        <translation>Standard Farveprofil for importerede RGB-billeder</translation>
     </message>
     <message>
         <source>&amp;RGB Images:</source>
-        <translation>&amp;RGB billeder:</translation>
+        <translation>&amp;RGB-billeder:</translation>
     </message>
     <message>
         <source>&amp;CMYK Images:</source>
-        <translation>&amp;CMYK billeder:</translation>
+        <translation>&amp;CMYK-billeder:</translation>
     </message>
 </context>
 <context>
@@ -5545,7 +5545,7 @@ Giv den venligst et navn</translation>
     </message>
     <message>
         <source>Object is a PDF Annotation or Field</source>
-        <translation>Objekt er en PDF kommentar eller felt</translation>
+        <translation>Objekt er en PDF-kommentar eller felt</translation>
     </message>
     <message>
         <source>Object is a placed PDF</source>
@@ -6215,11 +6215,11 @@ Giv den venligst et navn</translation>
     </message>
     <message>
         <source>Edit Line Color Properties</source>
-        <translation>Redigér liniefarve egenskaber</translation>
+        <translation>Redigér linjefarve-egenskaber</translation>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
-        <translation>Redigér fyldfarve egenskaber</translation>
+        <translation>Redigér fyldfarve-egenskaber</translation>
     </message>
     <message>
         <source>Saturation of color</source>
@@ -6274,11 +6274,11 @@ Giv den venligst et navn</translation>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
-        <translation>CSV import indstillinger</translation>
+        <translation>CSV importindstillinger</translation>
     </message>
     <message>
         <source>Field delimiter:</source>
-        <translation>Felt adskiller:</translation>
+        <translation>Felt-adskiller:</translation>
     </message>
     <message>
         <source>(TAB)</source>
@@ -6286,7 +6286,7 @@ Giv den venligst et navn</translation>
     </message>
     <message>
         <source>Value delimiter:</source>
-        <translation>Værdi adskiller:</translation>
+        <translation>Værdi-adskiller:</translation>
     </message>
     <message>
         <source>First row is a header</source>
@@ -6542,7 +6542,7 @@ Dette kan indstilles i Præferencer.</translation>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
-        <translation>Dokument information</translation>
+        <translation>Dokumentinformation</translation>
     </message>
     <message>
         <source>&amp;Title:</source>
@@ -6821,7 +6821,7 @@ Dette kan indstilles i Præferencer.</translation>
     <name>DocumentItemAttributesBase</name>
     <message>
         <source>Document Item Attributes</source>
-        <translation>Dokument element kvaliteter</translation>
+        <translation>Dokument element-kvaliteter</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7140,7 +7140,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Linie afstand</translation>
+        <translation>linjeafstand</translation>
     </message>
     <message>
         <source> pt</source>
@@ -7168,7 +7168,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation>Bestemmer højden af unicialen i antal linier</translation>
+        <translation>Bestemmer højden af unicialen i antal linjer</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
@@ -7188,7 +7188,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation>&amp;Linier:</translation>
+        <translation>&amp;linjer:</translation>
     </message>
     <message>
         <source> %</source>
@@ -7200,15 +7200,15 @@ fejlede!</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation>Fast linieafstand</translation>
+        <translation>Fast linjeafstand</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation>Automatisk linieafstand</translation>
+        <translation>Automatisk linjeafstand</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation>Ret ind efter basislinie-gitter</translation>
+        <translation>Ret ind efter basislinje-gitter</translation>
     </message>
     <message>
         <source>Drop Caps</source>
@@ -7220,7 +7220,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>Preview of the Paragraph Style</source>
-        <translation>Vis afsnits typografi</translation>
+        <translation>Vis afsnitstypografi</translation>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
@@ -7228,7 +7228,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
-        <translation>Slår prøvetekst for denne afsnits typografi til/fra</translation>
+        <translation>Slår prøvetekst for denne afsnitstypografi til/fra</translation>
     </message>
     <message>
         <source>Name of the style is not unique</source>
@@ -7248,11 +7248,11 @@ fejlede!</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation>Forskydning til tegnenes basislinie</translation>
+        <translation>Forskydning til tegnenes basislinje</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation>Tryk og hold nede for at vælge linieafstandens type.</translation>
+        <translation>Tryk og hold nede for at vælge linjeafstandens type.</translation>
     </message>
     <message>
         <source>Auto</source>
@@ -7338,7 +7338,7 @@ fejlede!</translation>
     <name>EffectsDialog</name>
     <message>
         <source>Image Effects</source>
-        <translation>Billed effekter</translation>
+        <translation>Billedeffekter</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -7548,7 +7548,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <name>ExtImageProps</name>
     <message>
         <source>Extended Image Properties</source>
-        <translation>Udvidede billed egenskaber</translation>
+        <translation>Udvidede billedegenskaber</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -7729,7 +7729,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <name>FontPrefs</name>
     <message>
         <source>Font Name</source>
-        <translation>Font navn</translation>
+        <translation>Fontnavn</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
@@ -7782,7 +7782,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>Font navn</translation>
+        <translation>Fontnavn</translation>
     </message>
     <message>
         <source>Use Font</source>
@@ -7869,7 +7869,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Font navn</translation>
+        <translation>Fontnavn</translation>
     </message>
     <message>
         <source>Doc</source>
@@ -8001,15 +8001,15 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <name>GuideManager</name>
     <message>
         <source>Horizontal Guides</source>
-        <translation>Horisontale hjælpelinier</translation>
+        <translation>Horisontale hjælpelinjer</translation>
     </message>
     <message>
         <source>Manage Guides</source>
-        <translation>Håndtér hjælpelinier</translation>
+        <translation>Håndtér hjælpelinjer</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
-        <translation>Vertikale hjælpelinier</translation>
+        <translation>Vertikale hjælpelinjer</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
@@ -8037,11 +8037,11 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Lås hjælpelinier</translation>
+        <translation>&amp;Lås hjælpelinjer</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
-        <translation>Rækker og kolonner - Automatiske hjælpelinier</translation>
+        <translation>Rækker og kolonner - Automatiske hjælpelinjer</translation>
     </message>
     <message>
         <source>&amp;Rows:</source>
@@ -8086,7 +8086,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
-        <translation>Placér hjælpelinierne i dokumentet. Hjælpelinie håndtering er stadig åben, men ændringerne er vedvarende</translation>
+        <translation>Placér hjælpelinjerne i dokumentet. Hjælpelinje håndtering er stadig åben, men ændringerne er vedvarende</translation>
     </message>
     <message>
         <source>&amp;Apply to All Pages</source>
@@ -8094,7 +8094,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation>Hjælpelinie</translation>
+        <translation>Hjælpelinje</translation>
     </message>
     <message>
         <source>Unit</source>
@@ -8106,7 +8106,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>There is empty (0.0) guide already</source>
-        <translation>Der er allerede tom (0.0) hjælpelinie</translation>
+        <translation>Der er allerede tom (0.0) hjælpelinje</translation>
     </message>
 </context>
 <context>
@@ -8279,7 +8279,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>Orddelings &amp;forslag</translation>
+        <translation>Orddelings-&amp;forslag</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
@@ -8290,7 +8290,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <name>ImageInfoDialog</name>
     <message>
         <source>Image Info</source>
-        <translation>Billed Info</translation>
+        <translation>Billedinfo</translation>
     </message>
     <message>
         <source>General Info</source>
@@ -8418,7 +8418,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Master side:</translation>
+        <translation>&amp;Masterside:</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -8458,7 +8458,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Master Pages</source>
-        <translation>Master sider</translation>
+        <translation>Mastersider</translation>
     </message>
 </context>
 <context>
@@ -8685,7 +8685,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Edit Line Styles</source>
-        <translation>Redigér liniestile</translation>
+        <translation>Redigér linjestile</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -8744,7 +8744,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Liniebredde:</translation>
+        <translation>linjebredde:</translation>
     </message>
 </context>
 <context>
@@ -8779,23 +8779,23 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Massiv linie</translation>
+        <translation>Massiv linje</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Streg linie</translation>
+        <translation>Streg linje</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Prik linie</translation>
+        <translation>Prik linje</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Streg prik linie</translation>
+        <translation>Streg prik linje</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Streg prik prik linie</translation>
+        <translation>Streg prik prik linje</translation>
     </message>
 </context>
 <context>
@@ -8844,7 +8844,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
-        <translation>Håndtér side egenskaber</translation>
+        <translation>Håndtér sideegenskaber</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -8884,7 +8884,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -8911,11 +8911,11 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Afstand mellem top margen-hjælpelinie og sidens kant</translation>
+        <translation>Afstand mellem top margen-hjælpelinje og sidens kant</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Afstand mellem bund margen-hjælpelinie og sidens kant</translation>
+        <translation>Afstand mellem bund margen-hjælpelinje og sidens kant</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
@@ -8939,11 +8939,11 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand mellem venstre margen-hjælpelinie og sidens kant. Hvis der er valgt modstående sider, så kan denne margen bruges til at opnå de rigtige margener for indbinding</translation>
+        <translation>Afstand mellem venstre margen-hjælpelinje og sidens kant. Hvis der er valgt modstående sider, så kan denne margen bruges til at opnå de rigtige margener for indbinding</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand mellem højre margen-hjælpelinie og kanten af siden. Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opnå de rigtige margener for indbinding</translation>
+        <translation>Afstand mellem højre margen-hjælpelinje og kanten af siden. Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opnå de rigtige margener for indbinding</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -8958,7 +8958,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
-        <translation>Redigér Master sider</translation>
+        <translation>Redigér Mastersider</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -9324,7 +9324,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Linieafstand</translation>
+        <translation>linjeafstand</translation>
     </message>
     <message>
         <source>Start Offset:</source>
@@ -9456,23 +9456,23 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Pattern of line</source>
-        <translation>Liniemønster</translation>
+        <translation>linjemønster</translation>
     </message>
     <message>
         <source>Thickness of line</source>
-        <translation>Linietykkelse</translation>
+        <translation>linjetykkelse</translation>
     </message>
     <message>
         <source>Type of line joins</source>
-        <translation>Typen af liniesamlinger</translation>
+        <translation>Typen af linjesamlinger</translation>
     </message>
     <message>
         <source>Type of line end</source>
-        <translation>Typen af linie-enden</translation>
+        <translation>Typen af linje-enden</translation>
     </message>
     <message>
         <source>Line style of current object</source>
-        <translation>Liniestil af valgte objekt</translation>
+        <translation>linjestil af valgte objekt</translation>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
@@ -9548,23 +9548,23 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Cell Lines</source>
-        <translation>Cellelinier</translation>
+        <translation>Cellelinjer</translation>
     </message>
     <message>
         <source>Line at Top</source>
-        <translation>Linie for oven</translation>
+        <translation>linje for oven</translation>
     </message>
     <message>
         <source>Line at the Left</source>
-        <translation>Linie i venstre side</translation>
+        <translation>linje i venstre side</translation>
     </message>
     <message>
         <source>Line at the Right </source>
-        <translation>Linie i højre side</translation>
+        <translation>linje i højre side</translation>
     </message>
     <message>
         <source>Line at Bottom</source>
-        <translation>Linie i bunden</translation>
+        <translation>linje i bunden</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
@@ -9612,7 +9612,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation>&amp;Linie</translation>
+        <translation>&amp;linje</translation>
     </message>
     <message>
         <source>&amp;Colors</source>
@@ -9648,7 +9648,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation>Brug &amp;omrids linie</translation>
+        <translation>Brug &amp;omrids linje</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
@@ -9722,11 +9722,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
-        <translation>T&amp;ypen af linie:</translation>
+        <translation>T&amp;ypen af linje:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation>Linie&amp;bredde:</translation>
+        <translation>linje&amp;bredde:</translation>
     </message>
     <message>
         <source>Ed&amp;ges:</source>
@@ -9766,15 +9766,15 @@ hjørner:</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation>Fast linieafstand</translation>
+        <translation>Fast linjeafstand</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation>Automatisk linieafstand</translation>
+        <translation>Automatisk linjeafstand</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation>Ret ind efter basislinie-gitter</translation>
+        <translation>Ret ind efter basislinje-gitter</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
@@ -9794,7 +9794,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation>Forskydning til tegnenes basislinie</translation>
+        <translation>Forskydning til tegnenes basislinje</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
@@ -9830,7 +9830,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Brug en anden linie, oprindeligt baseret på rammens form, for tekst-flydning af tekstrammer bagved objektet. </translation>
+        <translation>Brug en anden linje, oprindeligt baseret på rammens form, for tekst-flydning af tekstrammer bagved objektet. </translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
@@ -9842,7 +9842,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation>Tryk og hold nede for at vælge linieafstandens tilstand.</translation>
+        <translation>Tryk og hold nede for at vælge linjeafstandens tilstand.</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
@@ -9850,11 +9850,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Arrow head style for start of line</source>
-        <translation>Pilhoved-stil for start af linie</translation>
+        <translation>Pilhoved-stil for start af linje</translation>
     </message>
     <message>
         <source>Arrow head style for end of line</source>
-        <translation>Pilhoved-stil for slutning af linie</translation>
+        <translation>Pilhoved-stil for slutning af linje</translation>
     </message>
     <message>
         <source>Effective horizontal DPI of the image after scaling</source>
@@ -9873,7 +9873,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Streg prik prik linie</translation>
+        <translation>Streg prik prik linje</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -9881,7 +9881,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Liniebredde:</translation>
+        <translation>linjebredde:</translation>
     </message>
     <message>
         <source>Edit Style</source>
@@ -9893,11 +9893,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Streg linie</translation>
+        <translation>Streg linje</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Prik linie</translation>
+        <translation>Prik linje</translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -9913,11 +9913,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Streg prik linie</translation>
+        <translation>Streg prik linje</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Massiv linie</translation>
+        <translation>Massiv linje</translation>
     </message>
     <message>
         <source> pt</source>
@@ -9993,7 +9993,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -10159,11 +10159,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Edit &amp;Contour Line</source>
-        <translation>Redigér &amp;omrids linie</translation>
+        <translation>Redigér &amp;omrids linje</translation>
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation>Nu&amp;lstil omrids linie</translation>
+        <translation>Nu&amp;lstil omrids linje</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
@@ -10223,11 +10223,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
-        <translation>Aktivér Redigering af omrids linie</translation>
+        <translation>Aktivér Redigering af omrids linje</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation>Nulstil omrids linien til den originale form på rammen</translation>
+        <translation>Nulstil omrids linjen til den originale form på rammen</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Right</source>
@@ -10310,7 +10310,7 @@ hjørner:</translation>
     <name>OdtDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Brug dokumentnavn som en forstavelse til afsnits typografier</translation>
+        <translation>Brug dokumentnavn som en forstavelse til afsnitstypografier</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -10322,7 +10322,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation>OpenDokument import indstillinger</translation>
+        <translation>OpenDokument importindstillinger</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -10330,11 +10330,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation>Sammenflet afsnits typografier efter kvaliteter. Dette resulterer i færre ens afsnits typografier, vil bevare typografi kvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
+        <translation>Sammenflet afsnitstypografier efter kvaliteter. Dette resulterer i færre ens afsnitstypografier, vil bevare typografi kvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Sæt dokumentnavn foran afsnits typografiens navn i Scribus.</translation>
+        <translation>Sæt dokumentnavn foran afsnitstypografiens navn i Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
@@ -10342,11 +10342,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation>Sammenflet afsnits typografier</translation>
+        <translation>Sammenflet afsnitstypografier</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation>Overskriv afsnits typografier</translation>
+        <translation>Overskriv afsnitstypografier</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -10582,7 +10582,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation>linje</translation>
     </message>
     <message>
         <source>Polygon</source>
@@ -10590,7 +10590,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Poly-linie</translation>
+        <translation>Poly-linje</translation>
     </message>
     <message>
         <source>PathText</source>
@@ -10625,7 +10625,7 @@ hjørner:</translation>
     <name>PageItemAttributesBase</name>
     <message>
         <source>Page Item Attributes</source>
-        <translation>Side element kvaliteter</translation>
+        <translation>Side element-kvaliteter</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10996,7 +10996,7 @@ hjørner:</translation>
     <name>PluginManagerPrefsGui</name>
     <message>
         <source>Plugin Manager</source>
-        <translation>Plugin håndtering</translation>
+        <translation>Plugin-håndtering</translation>
     </message>
     <message>
         <source>Plugin</source>
@@ -11105,7 +11105,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation>Hjælpelinier</translation>
+        <translation>Hjælpelinjer</translation>
     </message>
     <message>
         <source>Document</source>
@@ -11121,7 +11121,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <source>Display</source>
@@ -11181,7 +11181,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation>Antal linier der rulles for hver bevægelse af muse-hjulet</translation>
+        <translation>Antal linjer der rulles for hver bevægelse af muse-hjulet</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
@@ -11341,7 +11341,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
-        <translation>Dokument skab&amp;eloner:</translation>
+        <translation>Dokument-skab&amp;eloner:</translation>
     </message>
     <message>
         <source>Units:</source>
@@ -11353,7 +11353,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Action history length</source>
-        <translation>Handlings historie længde</translation>
+        <translation>Handlingshistorikkens længde</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -11373,7 +11373,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation>Dokument element kvaliteter</translation>
+        <translation>Dokument element-kvaliteter</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
@@ -11381,7 +11381,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation>Tastatur genveje</translation>
+        <translation>Tastatur-genveje</translation>
     </message>
     <message>
         <source>Page Display</source>
@@ -11401,7 +11401,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation>Vis Text kontrol tegn</translation>
+        <translation>Vis Tekst-kontroltegn</translation>
     </message>
     <message>
         <source>Show Frames</source>
@@ -11421,7 +11421,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation>Visning af aktuelle afsnits typografi er synlig under redigering af typografier</translation>
+        <translation>Visning af aktuelle afsnitstypografi er synlig under redigering af typografier</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
@@ -11441,7 +11441,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
-        <translation>Ekstra mappe for dokument skabeloner</translation>
+        <translation>Ekstra mappe for dokument-skabeloner</translation>
     </message>
     <message>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
@@ -11521,11 +11521,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Vælg standardværdi for det sprog Scribus skal køres med. Hvis feltet er tomt, vælges sproget fra miljø-variablerne. Du kan stadig tilsidesætte dette ved en kommandolinie option under start af Scribus</translation>
+        <translation>Vælg standardværdi for det sprog Scribus skal køres med. Hvis feltet er tomt, vælges sproget fra miljø-variablerne. Du kan stadig tilsidesætte dette ved en kommandolinje option under start af Scribus</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation>PostScript fortolker</translation>
+        <translation>PostScript-fortolker</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
@@ -11533,7 +11533,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation>Sæt antallet af handlings-historien i trin. Hvis værdien er 0, vil et uendelig antal gemmes.</translation>
+        <translation>Sæt antallet af handlingshistorik i trin. Hvis værdien er 0, vil et uendelig antal gemmes.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
@@ -11622,7 +11622,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation>Fejlede at indlæse prefs XML fra &quot;%1&quot;: %2 linie %3, kol %4</translation>
+        <translation>Fejlede at indlæse prefs XML fra &quot;%1&quot;: %2 linje %3, kol %4</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -12589,7 +12589,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan ikke hente linie-afstand fra andet end tekst-ramme.</translation>
+        <translation>Kan ikke hente linje-afstand fra andet end tekst-ramme.</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
@@ -12774,12 +12774,12 @@ Ekstern Lænker</translation>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation>Linie-afstand uden for tilladt område - skal være &gt;= 0.1.</translation>
+        <translation>linje-afstand uden for tilladt område - skal være &gt;= 0.1.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte linie-afstand i andet end tekst-ramme.</translation>
+        <translation>Kan ikke sætte linje-afstand i andet end tekst-ramme.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
@@ -12909,7 +12909,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Master Page </source>
-        <translation>Master side </translation>
+        <translation>Masterside </translation>
     </message>
     <message>
         <source>4A0</source>
@@ -13166,7 +13166,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Document Template: </source>
-        <translation>Dokument skabelon: </translation>
+        <translation>Dokument-skabelon: </translation>
     </message>
     <message>
         <source>Failed to open document.</source>
@@ -13299,12 +13299,12 @@ Ekstern Lænker</translation>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
-        <translation>Linie-bredde uden for tilladt område, skal være 0 &lt;= linie_bredde &lt;= 12.</translation>
+        <translation>linje-bredde uden for tilladt område, skal være 0 &lt;= linje_bredde &lt;= 12.</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Linie-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100.</translation>
+        <translation>linje-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100.</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
@@ -13314,7 +13314,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation>Liniestil ikke fundet.</translation>
+        <translation>linjestil ikke fundet.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
@@ -13579,7 +13579,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Barcode Generator</source>
-        <translation>Stregkode generator</translation>
+        <translation>Stregkodegenerator</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
@@ -13620,7 +13620,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
-        <translation>Den givne master side stemmer ikke overens med nogen eksisterende.</translation>
+        <translation>Den givne masterside stemmer ikke overens med nogen eksisterende.</translation>
     </message>
     <message>
         <source>Arabic</source>
@@ -13710,7 +13710,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Kurdish</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurdisk</translation>
     </message>
 </context>
 <context>
@@ -13834,11 +13834,11 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <name>ReformDoc</name>
     <message>
         <source>Document Setup</source>
-        <translation>Dokument indstillinger</translation>
+        <translation>Dokumentindstillinger</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
@@ -13910,11 +13910,11 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Document Information</source>
-        <translation>Dokument information</translation>
+        <translation>Dokumentinformation</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation>Hjælpelinier</translation>
+        <translation>Hjælpelinjer</translation>
     </message>
     <message>
         <source>Page Display</source>
@@ -13938,7 +13938,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation>Vis Text kontrol tegn</translation>
+        <translation>Vis Tekst-kontroltegn</translation>
     </message>
     <message>
         <source>Show Frames</source>
@@ -13970,7 +13970,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation>Dokument element kvaliteter</translation>
+        <translation>Dokument element-kvaliteter</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
@@ -14058,7 +14058,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
-        <translation>Kør som udvidelses script</translation>
+        <translation>Kør som udvidelses-script</translation>
     </message>
 </context>
 <context>
@@ -14132,7 +14132,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Lines</source>
-        <translation>Linier</translation>
+        <translation>linjer</translation>
     </message>
 </context>
 <context>
@@ -14610,7 +14610,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>Vis udskrift indstillinger</translation>
+        <translation>Vis udskriftindstillinger</translation>
     </message>
     <message>
         <source>Level</source>
@@ -14622,7 +14622,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF Indstillinger</translation>
+        <translation>&amp;PDF-indstillinger</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -14904,7 +14904,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation>&amp;Vis udskrift indstillinger</translation>
+        <translation>&amp;Vis udskriftindstillinger</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -15140,11 +15140,11 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>Vis udskrift indstillinger</translation>
+        <translation>Vis udskriftindstillinger</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF Indstillinger</translation>
+        <translation>&amp;PDF-indstillinger</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
@@ -15292,7 +15292,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
-        <translation>Aktivér udvidelses scripts</translation>
+        <translation>Aktivér udvidelses-scripts</translation>
     </message>
     <message>
         <source>Extensions</source>
@@ -15385,7 +15385,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Paragraph Style</source>
-        <translation>Afsnits typografi</translation>
+        <translation>Afsnitstypografi</translation>
     </message>
     <message>
         <source>Stroke Color</source>
@@ -15854,7 +15854,7 @@ Vertikal forskydning: %3</translation>
     <name>SxwDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Brug dokumentnavn som en forstavelse til afsnits typografier</translation>
+        <translation>Brug dokumentnavn som en forstavelse til afsnitstypografier</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -15874,15 +15874,15 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation>Sammenflet afsnits typografier</translation>
+        <translation>Sammenflet afsnitstypografier</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation>Sammenflet afsnits typografier efter kvaliteter. Dette resulterer i færre ens afsnits typografier, vil bevare typografi kvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
+        <translation>Sammenflet afsnitstypografier efter kvaliteter. Dette resulterer i færre ens afsnitstypografier, vil bevare typografi kvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Sæt dokumentnavn foran afsnits typografiens navn i Scribus.</translation>
+        <translation>Sæt dokumentnavn foran afsnitstypografiens navn i Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
@@ -15890,7 +15890,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation>Overskriv afsnits typografier</translation>
+        <translation>Overskriv afsnitstypografier</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -15953,11 +15953,11 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation>Element kvaliteten som bliver brugt på rammer som grundlag for at lave indgangene</translation>
+        <translation>Element-kvaliteten som bliver brugt på rammer som grundlag for at lave indgangene</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Placér indgangenes sidenumre i begyndelse eller slutningen af linien, eller slet ikke</translation>
+        <translation>Placér indgangenes sidenumre i begyndelse eller slutningen af linjen, eller slet ikke</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -15969,11 +15969,11 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation>Afsnits typografien som er brugt på indgangslinierne</translation>
+        <translation>Afsnitstypografien som er brugt på indgangslinjerne</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation>Afsnits typografi:</translation>
+        <translation>Afsnitstypografi:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
@@ -16024,11 +16024,11 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation>Element kvaliteten som bliver brugt på rammer som grundlag for at lave indgangene</translation>
+        <translation>Element-kvaliteten som bliver brugt på rammer som grundlag for at lave indgangene</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Placér indgangenes sidenumre i begyndelse eller slutningen af linien, eller slet ikke</translation>
+        <translation>Placér indgangenes sidenumre i begyndelse eller slutningen af linjen, eller slet ikke</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -16040,11 +16040,11 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation>Afsnits typografien brugt på indgangslinierne</translation>
+        <translation>Afsnitstypografien brugt på indgangslinjerne</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation>Afsnits typografi:</translation>
+        <translation>Afsnitstypografi:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
@@ -16099,7 +16099,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
-        <translation>Kontrollér PDF kommentarer og felter</translation>
+        <translation>Kontrollér PDF-kommentarer og felter</translation>
     </message>
     <message>
         <source>Add Profile</source>
@@ -16146,7 +16146,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation>Vis Hjælpelinier</translation>
+        <translation>Vis Hjælpelinjer</translation>
     </message>
     <message>
         <source>Color:</source>
@@ -16174,75 +16174,75 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Vis basislinie-gitter</translation>
+        <translation>Vis basislinje-gitter</translation>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation>Basislinie instillinger</translation>
+        <translation>Basislinje-instillinger</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation>Basislinie &amp;gitter:</translation>
+        <translation>Basislinje-&amp;gitter:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>Basislinie forsk&amp;ydning:</translation>
+        <translation>Basislinje-forsk&amp;ydning:</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
-        <translation>Hjælpelinier er ikke synlige gennem objekter på siden</translation>
+        <translation>Hjælpelinjer er ikke synlige gennem objekter på siden</translation>
     </message>
     <message>
         <source>Guides are visible above all objects on the page</source>
-        <translation>Hjælpelinier er synlige over alle objekter på siden</translation>
+        <translation>Hjælpelinjer er synlige over alle objekter på siden</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation>Afstand mellem linierne</translation>
+        <translation>Afstand mellem linjerne</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation>Afstand mellem hovedlinierne</translation>
+        <translation>Afstand mellem hovedlinjerne</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation>Farve på linierne</translation>
+        <translation>Farve på linjerne</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation>Farve på hovedlinierne</translation>
+        <translation>Farve på hovedlinjerne</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
-        <translation>Farve på de hjælpelinier du indsætter</translation>
+        <translation>Farve på de hjælpelinjer du indsætter</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation>Farve på margenlinier</translation>
+        <translation>Farve på margenlinjer</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
-        <translation>Farve på basislinie-gitter</translation>
+        <translation>Farve på basislinje-gitter</translation>
     </message>
     <message>
         <source>Turns the basegrid on or off</source>
-        <translation>Slår basislinie-gitter til eller fra</translation>
+        <translation>Slår basislinje-gitter til eller fra</translation>
     </message>
     <message>
         <source>Distance between the lines of the baseline grid</source>
-        <translation>Afstand mellem linier i basislinie-gitteret</translation>
+        <translation>Afstand mellem linjer i basislinje-gitteret</translation>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation>Afstand fra toppen af siden til den første basislinie</translation>
+        <translation>Afstand fra toppen af siden til den første basislinje</translation>
     </message>
     <message>
         <source>Turns the gridlines on or off</source>
-        <translation>Slår gitterlinierne til eller fra</translation>
+        <translation>Slår gitterlinjerne til eller fra</translation>
     </message>
     <message>
         <source>Turns the guides on or off</source>
-        <translation>Slår hjælpelinierne til eller fra</translation>
+        <translation>Slår hjælpelinjerne til eller fra</translation>
     </message>
     <message>
         <source>Turns the margins on or off</source>
@@ -16250,7 +16250,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinie. Efter at have indstillet dette, er du nød til at genstarte Scribus, før ændringen træder i kraft.</translation>
+        <translation>Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinje. Efter at have indstillet dette, er du nød til at genstarte Scribus, før ændringen træder i kraft.</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
@@ -16268,7 +16268,7 @@ Vertikal forskydning: %3</translation>
     <name>TabPDFOptions</name>
     <message>
         <source>Export Range</source>
-        <translation>Eksport område</translation>
+        <translation>Eksportområde</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
@@ -16284,7 +16284,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation>fil indstillinger</translation>
+        <translation>fil-indstillinger</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
@@ -16320,7 +16320,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation>&amp;Opløsning for EPS grafik:</translation>
+        <translation>&amp;Opløsning for EPS-grafik:</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
@@ -16412,7 +16412,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>&amp;Moving Lines:</source>
-        <translation>&amp;Bevægelige linier:</translation>
+        <translation>&amp;Bevægelige linjer:</translation>
     </message>
     <message>
         <source>F&amp;rom the:</source>
@@ -16580,7 +16580,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation>linje</translation>
     </message>
     <message>
         <source>Round</source>
@@ -16697,15 +16697,15 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Vælg en adgangskode for læsere af PDF-Filen.</translation>
+        <translation>Vælg en adgangskode for læsere af PDF-filen.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Tillad udskrivning af PDF-Filen. Udskrivning er ikke muligt uden afkryds.</translation>
+        <translation>Tillad udskrivning af PDF-filen. Udskrivning er ikke muligt uden afkryds.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Tillad ændring af PDF-Filen. Ændring af PDF-Filen er ikke muligt uden afkryds.</translation>
+        <translation>Tillad ændring af PDF-filen. Ændring af PDF-filen er ikke muligt uden afkryds.</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
@@ -16773,15 +16773,15 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
-        <translation>Komprimering Kvali&amp;tet:</translation>
+        <translation>Kvali&amp;tet:</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation>Tillad kopiering af tekst eller grafik fra PDF-Filen. Tekst og grafik kan ikke kopieres uden afkryds.</translation>
+        <translation>Tillad kopiering af tekst eller grafik fra PDF-filen. Tekst og grafik kan ikke kopieres uden afkryds.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation>Tillad at kommentarer og felter kan tilføjes PDF-Filen. Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
+        <translation>Tillad at kommentarer og felter kan tilføjes PDF-filen. Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -16833,7 +16833,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Compression Metho&amp;d:</source>
-        <translation>Komprimering &amp;Metode:</translation>
+        <translation>&amp;Metode:</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
@@ -16921,7 +16921,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Image Compression Method</source>
-        <translation>Billed komprimeringsmetode</translation>
+        <translation>Billed-komprimeringsmetode</translation>
     </message>
     <message>
         <source>Javascript to be executed
@@ -16935,7 +16935,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Bestemmer PDF kompatibiliteten. Standarden er PDF 1.3, som giver den største kompatibilitet. Vælg PDF 1.4, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering. PDF 1.5 er nødvendig, når du ønsker at bevare objekter i separate lag inden i PDF filen.  PDF/X-3 bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
+        <translation>Bestemmer PDF-kompatibiliteten. Standarden er PDF 1.3, som giver den største kompatibilitet. Vælg PDF 1.4, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering. PDF 1.5 er nødvendig, når du ønsker at bevare objekter i separate lag inden i PDF filen.  PDF/X-3 bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
@@ -17022,11 +17022,11 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Tab Fill Character:</source>
-        <translation>Tabulerings udfyldnings-tegn:</translation>
+        <translation>Tabulering udfyldnings-tegn:</translation>
     </message>
     <message>
         <source>Tab Width:</source>
-        <translation>Tabulerings bredde:</translation>
+        <translation>Tabuleringsbredde:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
@@ -17042,7 +17042,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation>&amp;Liniefarve:</translation>
+        <translation>&amp;linjefarve:</translation>
     </message>
     <message>
         <source> %</source>
@@ -17062,15 +17062,15 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Liniestil:</translation>
+        <translation>linjestil:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation>Linie&amp;bredde:</translation>
+        <translation>linje&amp;bredde:</translation>
     </message>
     <message>
         <source>Line S&amp;tyle:</source>
-        <translation>Linies&amp;til:</translation>
+        <translation>linjes&amp;til:</translation>
     </message>
     <message>
         <source>Arrows:</source>
@@ -17150,7 +17150,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation>Tegn linier - egenskaber</translation>
+        <translation>Tegn linjer - egenskaber</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
@@ -17198,11 +17198,11 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation>Figurers liniefarve</translation>
+        <translation>Figurers linjefarve</translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
-        <translation>Liniefarvens mætningsgrad</translation>
+        <translation>linjefarvens mætningsgrad</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
@@ -17210,11 +17210,11 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation>Figurers liniestil</translation>
+        <translation>Figurers linjestil</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation>Figurers liniebredde</translation>
+        <translation>Figurers linjebredde</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
@@ -17230,7 +17230,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation>Liniernes farve</translation>
+        <translation>linjernes farve</translation>
     </message>
     <message>
         <source>Saturation of color</source>
@@ -17238,11 +17238,11 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation>Liniernes stil</translation>
+        <translation>linjernes stil</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation>Bredde på linie</translation>
+        <translation>Bredde på linje</translation>
     </message>
     <message>
         <source>Custom:</source>
@@ -17274,7 +17274,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation>Underlinie</translation>
+        <translation>Underlinje</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -17370,15 +17370,15 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation>Automatisk &amp;linieafstand</translation>
+        <translation>Automatisk &amp;linjeafstand</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation>Linie afstand:</translation>
+        <translation>linjeafstand:</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Forskydning over basislinien af fonten på en linie</translation>
+        <translation>Forskydning over basislinjen af fonten på en linje</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -17386,7 +17386,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Forskydning under basislinien af den normale font på en linie</translation>
+        <translation>Forskydning under basislinjen af den normale font på en linje</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -17398,11 +17398,11 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Procentvis forøgelse over fontstørrelsen af linieafstanden</translation>
+        <translation>Procentvis forøgelse over fontstørrelsen af linjeafstanden</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Forskydning under basislinien af den normale font udtrykt som en procentdel af fontens nedadgående højde</translation>
+        <translation>Forskydning under basislinjen af den normale font udtrykt som en procentdel af fontens nedadgående højde</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
@@ -17410,7 +17410,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Forskydning over basislinien af den normale font udtrykt som en procentdel af fontens opadgående højde</translation>
+        <translation>Forskydning over basislinjen af den normale font udtrykt som en procentdel af fontens opadgående højde</translation>
     </message>
 </context>
 <context>
@@ -17437,7 +17437,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Indrykning af den første linie i et afsnit</translation>
+        <translation>Indrykning af den første linje i et afsnit</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
@@ -17473,7 +17473,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation>Underlinie</translation>
+        <translation>Underlinje</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -17535,35 +17535,35 @@ når PDF dokument åbnes:</translation>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation>Tilføj vertikale hjælpelinier</translation>
+        <translation>Tilføj vertikale hjælpelinjer</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation>Tilføj horisontale hjælpelinier</translation>
+        <translation>Tilføj horisontale hjælpelinjer</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation>Fjern vertikale hjælpelinier</translation>
+        <translation>Fjern vertikale hjælpelinjer</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation>Fjern horisontale hjælpelinier</translation>
+        <translation>Fjern horisontale hjælpelinjer</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation>Flyt vertikale hjælpelinier</translation>
+        <translation>Flyt vertikale hjælpelinjer</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation>Flyt horisontale hjælpelinier</translation>
+        <translation>Flyt horisontale hjælpelinjer</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation>Lås hjælpelinier</translation>
+        <translation>Lås hjælpelinjer</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation>Frigør hjælpelinier</translation>
+        <translation>Frigør hjælpelinjer</translation>
     </message>
     <message>
         <source>Move</source>
@@ -17613,7 +17613,7 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation>Opstil på linie/Fordel</translation>
+        <translation>Opstil på linje/Fordel</translation>
     </message>
     <message>
         <source>Items involved</source>
@@ -17637,11 +17637,11 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Set line color</source>
-        <translation>Angiv liniefarve</translation>
+        <translation>Angiv linjefarve</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation>Angiv liniefarve-mætning</translation>
+        <translation>Angiv linjefarve-mætning</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
@@ -17703,23 +17703,23 @@ til %2</translation>
     </message>
     <message>
         <source>Set line color transparency</source>
-        <translation>Angiv liniefarve-gennemsigtighed</translation>
+        <translation>Angiv linjefarve-gennemsigtighed</translation>
     </message>
     <message>
         <source>Set line style</source>
-        <translation>Angiv liniestil</translation>
+        <translation>Angiv linjestil</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
-        <translation>Angiv linie-endens stil</translation>
+        <translation>Angiv linje-endens stil</translation>
     </message>
     <message>
         <source>Set the style of line join</source>
-        <translation>Vælg af liniesamling</translation>
+        <translation>Vælg af linjesamling</translation>
     </message>
     <message>
         <source>Set line width</source>
-        <translation>Vælg liniebredde</translation>
+        <translation>Vælg linjebredde</translation>
     </message>
     <message>
         <source>No style</source>
@@ -17727,11 +17727,11 @@ til %2</translation>
     </message>
     <message>
         <source>Set custom line style</source>
-        <translation>Vælg bruger liniestil</translation>
+        <translation>Vælg bruger linjestil</translation>
     </message>
     <message>
         <source>Do not use custom line style</source>
-        <translation>Brug ikke bruger liniestil</translation>
+        <translation>Brug ikke bruger linjestil</translation>
     </message>
     <message>
         <source>Set start arrow</source>
@@ -17787,11 +17787,11 @@ til %2</translation>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation>Vælg linieafstand</translation>
+        <translation>Vælg linjeafstand</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
-        <translation>Vælg afsnits typografi</translation>
+        <translation>Vælg afsnitstypografi</translation>
     </message>
     <message>
         <source>Set language</source>
@@ -17823,7 +17823,7 @@ til %2</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Poly-linie</translation>
+        <translation>Poly-linje</translation>
     </message>
     <message>
         <source>Convert to</source>
@@ -17855,7 +17855,7 @@ til %2</translation>
     </message>
     <message>
         <source>Text flows around contour line</source>
-        <translation>Tekst flyder uden om konturlinie</translation>
+        <translation>Tekst flyder uden om konturlinje</translation>
     </message>
     <message>
         <source>No text flow</source>
@@ -17867,7 +17867,7 @@ til %2</translation>
     </message>
     <message>
         <source>No contour line</source>
-        <translation>Ingen konturlinie</translation>
+        <translation>Ingen konturlinje</translation>
     </message>
     <message>
         <source>Page %1</source>
@@ -17895,7 +17895,7 @@ til %2</translation>
     </message>
     <message>
         <source>Edit contour line</source>
-        <translation>Redigér konturlinie</translation>
+        <translation>Redigér konturlinje</translation>
     </message>
     <message>
         <source>Edit shape</source>
@@ -17903,7 +17903,7 @@ til %2</translation>
     </message>
     <message>
         <source>Reset contour line</source>
-        <translation>Nulstil konturlinie</translation>
+        <translation>Nulstil konturlinje</translation>
     </message>
     <message>
         <source>Add page</source>
@@ -18007,7 +18007,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Modify image effects</source>
-        <translation>Ændr billed effekter</translation>
+        <translation>Ændr billedeffekter</translation>
     </message>
 </context>
 <context>
@@ -18018,7 +18018,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Action History</source>
-        <translation>Handlings historie</translation>
+        <translation>Handlingshistorik</translation>
     </message>
     <message>
         <source>Show selected object only</source>
@@ -18067,7 +18067,7 @@ X: %4, Y: %5</translation>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Kunne ikke åbne versionsfil: &quot;%1&quot;
-Fejl: %2 på linie: %3, række: %4</translation>
+Fejl: %2 på linje: %3, række: %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
@@ -18210,15 +18210,15 @@ Fejl: %2 på linie: %3, række: %4</translation>
     </message>
     <message>
         <source>PDF Tools</source>
-        <translation>PDF Værktøjer</translation>
+        <translation>PDF-værktøjer</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation>Indsæt PDF Felter</translation>
+        <translation>Indsæt PDF-felter</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>Indsæt PDF Kommentar</translation>
+        <translation>Indsæt PDF-kommentar</translation>
     </message>
 </context>
 <context>
@@ -18347,7 +18347,7 @@ Fejl: %2 på linie: %3, række: %4</translation>
     </message>
     <message>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Dokument skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
+        <translation>Dokument-skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
@@ -18359,7 +18359,7 @@ Fejl: %2 på linie: %3, række: %4</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Når du fjerner en skabelon fra &apos;Nyt Fra skabelon&apos; vinduet slettes kun linien fra template.xml. Dokumentfilerne bliver ikke slettet. Pop op menuen vil kun vise &quot;Fjern&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
+        <translation>Når du fjerner en skabelon fra &apos;Nyt Fra skabelon&apos; vinduet slettes kun linjen fra template.xml. Dokumentfilerne bliver ikke slettet. Pop op menuen vil kun vise &quot;Fjern&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
@@ -18524,7 +18524,7 @@ Fejl: %2 på linie: %3, række: %4</translation>
     </message>
     <message>
         <source>paragraph style</source>
-        <translation>afsnits typografi</translation>
+        <translation>afsnitstypografi</translation>
     </message>
     <message>
         <source>all instances of</source>
