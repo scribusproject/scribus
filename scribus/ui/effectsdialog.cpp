@@ -542,10 +542,9 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 		{
 			usedEffects->addItem( tr("Blur"));
 			QString tmpstr = effectsList.at(a).effectParameters;
-			double radius = ScCLocale::toDoubleC(tmpstr);
-			// surely we dont need to do it this way, do we? - av
-			//ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-			//fp >> radius;
+			double radius;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> radius; // has to be read from stream, as two numbers are stored in effectParameters
 			blRadius->setValue(radius / imageScale);
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), QString("%1 1.0").arg(radius / imageScale));
 		}
