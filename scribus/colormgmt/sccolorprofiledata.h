@@ -18,7 +18,7 @@ class ScColorProfileData : public ScColorMgmtElem
 {
 protected:
 	QString m_profilePath;
-	QString m_profileData;
+	QByteArray m_profileData;
 
 public:
 
