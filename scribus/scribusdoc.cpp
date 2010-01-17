@@ -883,7 +883,7 @@ void ScribusDoc::enableCMS(bool enable)
 {
 	m_ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
 	m_ScMW->mainWindowProgressBar->reset();
-	int cc = PageColors.count() + Items->count();
+	int cc = PageColors.count() + MasterItems.count() + DocItems.count();
 	m_ScMW->mainWindowProgressBar->setMaximum(cc);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	bool oldCM = CMSSettings.CMSinUse;
@@ -5158,7 +5158,13 @@ void ScribusDoc::updateAllItemQColors()
 //CB Moved from view
 void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
-	uint docItemCount=Items->count();
+	RecalcPictures(&MasterItems, Pr, PrCMYK, dia);
+	RecalcPictures(&DocItems, Pr, PrCMYK, dia);
+}
+
+void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
+{
+	uint docItemCount=items->count();
 	if ( docItemCount!= 0)
 	{
 		bool usingGUI=ScCore->usingGUI();
@@ -5168,7 +5174,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 		PageItem* it;
 		for (uint i=0; i < docItemCount; ++i)
 		{
-			it = Items->at(i);
+			it = items->at(i);
 			if ((it->itemType() == PageItem::ImageFrame) && (it->PictureIsAvailable))
 			{
 				if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
@@ -5181,7 +5187,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 					if (!Pr->contains(it->IProfile))
 						it->IProfile = CMSSettings.DefaultImageRGBProfile;
 				}
-				LoadPict(it->Pfile, i, true);
+				loadPict(it->Pfile, it, true);
 			}
 			if (usingGUI)
 			{
