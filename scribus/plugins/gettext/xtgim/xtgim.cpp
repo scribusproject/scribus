@@ -37,7 +37,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
-#include "ui/stylemanager.h"
 #include "styles/paragraphstyle.h"
 #include "styles/charstyle.h"
 
