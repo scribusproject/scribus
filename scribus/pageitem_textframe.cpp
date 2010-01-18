@@ -490,7 +490,7 @@ struct LineControl {
 	}
 	
 	/// find x position where this line must end
-	double endOfLine(const QRegion& shape, const QTransform& pf2, double ascent, double descent, double morespace = 0)
+	double endOfLine(const QRegion& shape, const QTransform& pf2, double morespace = 0)
 	{
 		// Keep old code for reference
 		/*double EndX = floor(qMax(line.x, qMin(colRight,breakXPos) - 1));
@@ -511,8 +511,8 @@ struct LineControl {
 
 		double StartX = floor(qMax(line.x, qMin(colRight,breakXPos) - 1));
 		int xPos  = static_cast<int>(ceil(maxX + insets.Right));
-		int yDesc = static_cast<int>(yPos+descent);
-		int yAsc  = static_cast<int>(ceil(yPos-ascent));
+		int yDesc = static_cast<int>(yPos+line.descent);
+		int yAsc  = static_cast<int>(ceil(yPos-line.ascent));
 
 		QPoint pt12 (xPos, yDesc);
 		QPoint pt22 (xPos, yAsc);
@@ -1650,7 +1650,7 @@ void PageItem_TextFrame::layout()
 				{
 					// find end of line
 					current.breakLine(itemText, a);
-					EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+					EndX = current.endOfLine(cl, pf2, style.rightMargin());
 					current.finishLine(EndX);
 					
 //					if (style.alignment() != 0)
@@ -1717,7 +1717,7 @@ void PageItem_TextFrame::layout()
 							hl->glyph.xadvance = 0;
 						}
 						
-						EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+						EndX = current.endOfLine(cl, pf2, style.rightMargin());
 						current.finishLine(EndX);
 
 //???						current.breakXPos = current.line.x;
@@ -1800,7 +1800,7 @@ void PageItem_TextFrame::layout()
 //						qDebug() << QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
 //							   .arg(a);
-						EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+						EndX = current.endOfLine(cl, pf2, style.rightMargin());
 						current.finishLine(EndX);
 //						qDebug() << QString("no break pos: %1-%2 @ %3 wid %4 nat %5 endX %6")
 //							   .arg(current.line.firstItem).arg(current.line.firstItem)
@@ -2123,7 +2123,7 @@ void PageItem_TextFrame::layout()
 		int a = itemText.length()-1;
 		hl = a >=0 ? itemText.item(a) : NULL;
 		current.breakLine(itemText, a);
-		EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+		EndX = current.endOfLine(cl, pf2, style.rightMargin());
 		current.finishLine(EndX);
 
 //		if (style.alignment() != 0)
