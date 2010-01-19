@@ -45,6 +45,7 @@ public:
 	QCheckBox* rasterPDF;
 	QCheckBox* checkForGIF;
 	QCheckBox* ignoreOffLayers;
+	QCheckBox* checkOffConflictLayers;
 	QGroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;

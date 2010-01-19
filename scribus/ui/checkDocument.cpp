@@ -386,6 +386,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 // 		resultError = true;
 		bool hasError = false;
 // 		globalGraveError = false;
+		bool layoutGraveError = false;
 		itemError = false;
 // 		QTreeWidgetItem * pagep = 0;
 		// LAYERS **********************************************8
@@ -410,17 +411,28 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						case Transparency:
 							errorText->setText(COLUMN_ITEM, tr("Transparency used"));
+							errorText->setIcon(COLUMN_ITEM, graveError );
+							layoutGraveError = true;
 							break;
 						case BlendMode:
 							errorText->setText(COLUMN_ITEM, tr("Blendmode used"));
+							errorText->setIcon(COLUMN_ITEM, graveError );
+							layoutGraveError = true;
+							break;
+						case OffConflictLayers:
+							errorText->setText(COLUMN_ITEM, tr("Print/Visible Mismatch"));
+							errorText->setIcon(COLUMN_ITEM, onlyWarning );
 							break;
 						default:
 							break;
 					}
-					errorText->setIcon(COLUMN_ITEM, graveError );
+//					errorText->setIcon(COLUMN_ITEM, graveError );
 				}
 				layer->setText(COLUMN_ITEM,tr("Layer \"%1\"").arg(doc->layerName(docLayerErrorsIt.key())));
-				layer->setIcon(COLUMN_ITEM, graveError );
+				if (layoutGraveError)
+					layer->setIcon(COLUMN_ITEM, graveError );
+				else
+					layer->setIcon(COLUMN_ITEM, onlyWarning );
 				layer->setText(COLUMN_PROBLEM, tr("Issue(s): %1").arg(doc->docLayerErrors[docLayerErrorsIt.key()].count()));
 				layer->setExpanded(true);
 // 				pagep = layer;
