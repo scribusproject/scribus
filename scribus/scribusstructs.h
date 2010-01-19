@@ -375,6 +375,7 @@ public:
 	}
 };
 
+//CB: Using 17 for OffConflictLayers as we moved onto 17 in 150svn
 typedef enum {
 	MissingGlyph=1,
 	TextOverflow=2,
@@ -387,7 +388,8 @@ typedef enum {
 	ImageDPITooHigh=9,
 	ImageIsGIF=10,
 	BlendMode=11,
-	WrongFontInAnnotation=12
+	WrongFontInAnnotation=12,
+	OffConflictLayers=17
 } PreflightError;
 
 typedef QMap<PreflightError, int> errorCodes;

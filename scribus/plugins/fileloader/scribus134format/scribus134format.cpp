@@ -514,6 +514,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				checkerSettings.checkRasterPDF = static_cast<bool>(pg.attribute("checkRasterPDF", "1").toInt());
 				checkerSettings.checkForGIF = static_cast<bool>(pg.attribute("checkForGIF", "1").toInt());
 				checkerSettings.ignoreOffLayers = static_cast<bool>(pg.attribute("ignoreOffLayers", "0").toInt());
+				checkerSettings.checkOffConflictLayers = static_cast<bool>(pg.attribute("checkOffConflictLayers", "0").toInt());
 				m_Doc->checkerProfiles[pg.attribute("Name")] = checkerSettings;
 			}
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
@@ -981,7 +982,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						//m_Doc->Pages = &m_Doc->MasterPages;
 						m_Doc->setMasterPageMode(true);
 					}
-					int docGc = m_Doc->GroupCounter, pagenr = -1;
+//CB comment out as no longer used					int docGc = m_Doc->GroupCounter, 
+					int pagenr = -1;
 					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 					{
 						m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
@@ -1229,7 +1231,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				{
 					QDomElement pite = pa.toElement();
 					m_Doc->setMasterPageMode(false);
-					int docGc = m_Doc->GroupCounter;
+					//int docGc = m_Doc->GroupCounter;
 					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
@@ -3004,7 +3006,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						if (pg.attribute("NEXTITEM").toInt() != -1)
 							itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
 					}*/
-					int docGc = m_Doc->GroupCounter;
+					//int docGc = m_Doc->GroupCounter;
 					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pg, m_Doc, fileDir);
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
@@ -3219,7 +3221,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							if (pg.attribute("NEXTITEM").toInt() != -1)
 								itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
 					}*/
-					int docGc = m_Doc->GroupCounter;
+					//int docGc = m_Doc->GroupCounter;
 					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
