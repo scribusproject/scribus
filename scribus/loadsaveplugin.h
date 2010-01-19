@@ -65,6 +65,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Get the highest priority format of a given id, or 0 if
 		// not found / not available.
 		static const FileFormat * getFormatById(const int id);
+		static FileFormat* getFormatByExt(const QString ext);
 
 		// Non-static members implemented by plugins:
 		//
@@ -107,7 +108,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		virtual bool checkFlags(int flags);
 
 		/// Register the passed format so it can be used by the app
-		void registerFormat(const FileFormat & fmt);
+		void registerFormat(FileFormat & fmt);
 
 		/// Unregister the format with format ID `id' that references by the calling plugin.
 		void unregisterFormat(unsigned int id);

@@ -43,15 +43,16 @@ ImportXarPlugin::ImportXarPlugin() : LoadSavePlugin(),
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
+	registerFormats();
 	languageChange();
 }
 
 void ImportXarPlugin::languageChange()
 {
-	importAction->setText( tr("Import Pict..."));
-	// (Re)register file format support
-	unregisterAll();
-	registerFormats();
+	importAction->setText( tr("Import Xara..."));
+	FileFormat* fmt = getFormatByExt("xar");
+	fmt->trName = tr("XARA \"*.xar\" File");
+	fmt->filter = tr("XARA \"*.xar\" File (*.xar *.XAR)");
 }
 
 ImportXarPlugin::~ImportXarPlugin()
@@ -85,13 +86,13 @@ void ImportXarPlugin::deleteAboutData(const AboutData* about) const
 void ImportXarPlugin::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::XAR); // Human readable name
-	fmt.formatId = FORMATID_XARIMPORT;
-	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::XAR); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::XAR, 1)+"$", Qt::CaseInsensitive);
+	fmt.trName = tr("XARA \"*.xar\" File"); // Human readable name
+	fmt.formatId = 0;
+	fmt.filter = tr("XARA \"*.xar\" File (*.cgm *.CGM)"); // QFileDialog filter
+	fmt.nameMatch = QRegExp("\\.xar$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
-	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::XAR); // MIME types
+	fmt.mimeTypes = QStringList(); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
 }

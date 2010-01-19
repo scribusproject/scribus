@@ -685,7 +685,7 @@ public:
 	 */
 	void RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	/**
-	/**
+	 *
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */
 	void canvasMinMax(FPoint&, FPoint&);

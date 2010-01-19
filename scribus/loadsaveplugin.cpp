@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "commonstrings.h"
 #include "scribuscore.h"
+#include "plugins/formatidlist.h"
 #include <QList>
 
 QList<FileFormat> LoadSavePlugin::formats;
@@ -34,6 +35,15 @@ const QList<FileFormat> & LoadSavePlugin::supportedFormats()
 const FileFormat * LoadSavePlugin::getFormatById(const int id)
 {
 	QList<FileFormat>::iterator it(findFormat(id));
+	if (it == formats.end())
+		return 0;
+	else
+		return &(*it);
+}
+
+FileFormat* LoadSavePlugin::getFormatByExt(const QString ext)
+{
+	QList<FileFormat>::iterator it(findFormat(ext));
 	if (it == formats.end())
 		return 0;
 	else
@@ -127,7 +137,7 @@ bool LoadSavePlugin::checkFlags(int flags)
 	return true;
 }
 
-void LoadSavePlugin::registerFormat(const FileFormat & fmt)
+void LoadSavePlugin::registerFormat(FileFormat & fmt)
 {
 	// We insert the format in a very specific location so that the formats
 	// list is sorted by ascending id, then descending priority.
@@ -136,16 +146,33 @@ void LoadSavePlugin::registerFormat(const FileFormat & fmt)
 	//     - Equal ID and lesser or equal priority; or
 	//     - Greater ID
 	// If we don't find one, we insert before the end iterator, ie append.
-	QList<FileFormat>::iterator it(formats.begin());
-	QList<FileFormat>::iterator itEnd(formats.end());
-	while (it != itEnd)
+	if (fmt.formatId == 0) // only for custom plugins
 	{
-		if ( ( ((*it).formatId == fmt.formatId) && ((*it).priority <= fmt.priority) ) ||
-			 ((*it).formatId > fmt.formatId)) 
-				break;
-		++it;
+		uint id;
+		if (formats.isEmpty())
+			id = FORMATID_FIRSTUSER;
+		else
+		{
+			id = qMax(static_cast<int>(formats.last().formatId), FORMATID_FIRSTUSER-1);
+			id++;
+		}
+		fmt.formatId = id;
+		formats.insert(id, fmt);
 	}
-	formats.insert(it, fmt);
+	else
+	{
+		QList<FileFormat>::iterator it(formats.begin());
+		QList<FileFormat>::iterator itEnd(formats.end());
+		while (it != itEnd)
+		{
+			if ( ( ((*it).formatId == fmt.formatId) && ((*it).priority <= fmt.priority) ) ||
+				((*it).formatId > fmt.formatId)) 
+					break;
+			++it;
+		}
+		formats.insert(it, fmt);
+	}
+	//qDebug("Format: Id: %3u, Prio: %3hu, Name: %s", fmt.formatId, fmt.priority, fmt.trName.toLocal8Bit().data() );
 	//printFormatList(); // DEBUG
 }
 

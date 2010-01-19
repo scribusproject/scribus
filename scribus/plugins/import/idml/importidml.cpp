@@ -37,6 +37,7 @@ ImportIdml::ImportIdml() : LoadSavePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
+	registerFormats();
 	languageChange();
 }
 
@@ -47,8 +48,9 @@ ImportIdml::~ImportIdml()
 
 void ImportIdml::languageChange()
 {
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("idml");
+	fmt->trName = tr("Adobe Indesign IDML");
+	fmt->filter = tr("Adobe Indesign IDML (*.idml *.IDML)");
 }
 
 const QString ImportIdml::fullTrName() const
@@ -76,17 +78,16 @@ void ImportIdml::deleteAboutData(const AboutData* about) const
 void ImportIdml::registerFormats()
 {
 	FileFormat fmt(this);
-        QString idmlName=tr("Adobe Indesign IDML");
+	QString idmlName=tr("Adobe Indesign IDML");
 	fmt.trName = idmlName;
-	fmt.formatId = FORMATID_IDMLIMPORT;
+	fmt.formatId = 0;
 	fmt.filter =idmlName + "(*.idml *.IDML)"; // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::IDML, 1)+"$", Qt::CaseInsensitive);
-//        fmt.nameMatch = QRegExp("\\.(idml|IDML)?", Qt::CaseInsensitive);
+	fmt.nameMatch = QRegExp("\\.idml$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
-        fmt.mimeTypes = QStringList();
-        fmt.mimeTypes.append("application/vnd.adobe.indesign-idml-package");
-        fmt.priority = 64; // Priority
+	fmt.mimeTypes = QStringList();
+	fmt.mimeTypes.append("application/vnd.adobe.indesign-idml-package");
+	fmt.priority = 64; // Priority
 	registerFormat(fmt);
 }
 

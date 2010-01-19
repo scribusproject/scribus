@@ -37,9 +37,6 @@ FormatsManager::FormatsManager()
 #endif
 	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "aff" << "sk" << "sk1");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
-	m_fmts.insert(FormatsManager::XAR,  QStringList() << "xar");
-	m_fmts.insert(FormatsManager::CGM,  QStringList() << "cgm");
-	m_fmts.insert(FormatsManager::IDML, QStringList() << "idml");
 	
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript \"*.eps\"");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
@@ -62,9 +59,6 @@ FormatsManager::FormatsManager()
 #endif
 	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
 	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macintosh Pict File");
-	m_fmtNames[FormatsManager::XAR]  = QObject::tr("XARA \"*.xar\" File");
-	m_fmtNames[FormatsManager::CGM]  = QObject::tr("CGM File");
-	m_fmtNames[FormatsManager::IDML]  = QObject::tr("IDML File");
 	
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
@@ -83,9 +77,6 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::CVG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::WPG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PCT,  QStringList() << "");
-	m_fmtMimeTypes.insert(FormatsManager::XAR,  QStringList() << "");
-	m_fmtMimeTypes.insert(FormatsManager::CGM,  QStringList() << "");
-	m_fmtMimeTypes.insert(FormatsManager::IDML, QStringList() << "");
 			
 	QMapIterator<int, QStringList> i(m_fmts);
 	while (i.hasNext()) 

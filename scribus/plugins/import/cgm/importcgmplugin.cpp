@@ -50,22 +50,16 @@ ImportCgmPlugin::ImportCgmPlugin() : LoadSavePlugin(),
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
+	registerFormats();
 	languageChange();
 }
-/*
-void ImportXfigPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 void ImportCgmPlugin::languageChange()
 {
 	importAction->setText( tr("Import Cgm..."));
-	// (Re)register file format support
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("cgm");
+	fmt->trName = tr("CGM File");
+	fmt->filter = tr("CGM File (*.cgm *.CGM)");
 }
 
 ImportCgmPlugin::~ImportCgmPlugin()
@@ -83,8 +77,8 @@ const ScActionPlugin::AboutData* ImportCgmPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports Cgm Files");
-	about->description = tr("Imports most Cgm files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports CGM Files");
+	about->description = tr("Imports most binary CGM files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
@@ -99,13 +93,13 @@ void ImportCgmPlugin::deleteAboutData(const AboutData* about) const
 void ImportCgmPlugin::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::CGM); // Human readable name
-	fmt.formatId = FORMATID_CGMIMPORT;
-	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::CGM); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::CGM, 1)+"$", Qt::CaseInsensitive);
+	fmt.trName = tr("CGM File"); // Human readable name
+	fmt.formatId = 0;
+	fmt.filter = tr("CGM File (*.cgm *.CGM)"); // QFileDialog filter
+	fmt.nameMatch = QRegExp("\\.cgm$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
-	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::CGM); // MIME types
+	fmt.mimeTypes = QStringList(); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
 }
