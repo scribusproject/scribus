@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribus.h"
+#include "scimagecachemanager.h"
 
 #include "scconfig.h"
 
@@ -129,6 +130,7 @@ void defaultCrashHandler(int sig)
 		std::cout << sigHdr.toStdString() << std::endl;
 		std::cout << sigLine.toStdString() << std::endl;
 		std::cout << sigMsg.toStdString() << std::endl;
+		ScImageCacheManager::instance().removeMasterLock();
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();

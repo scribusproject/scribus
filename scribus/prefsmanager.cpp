@@ -492,6 +492,10 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.fitWindow = false;
 	appPrefs.pdfPrefs.PageLayout = PDFOptions::SinglePage;
 	appPrefs.pdfPrefs.openAction = "";
+	appPrefs.imageCachePrefs.cacheEnabled = false;
+	appPrefs.imageCachePrefs.maxCacheSizeMiB = 1000;
+	appPrefs.imageCachePrefs.maxCacheEntries = 1000;
+	appPrefs.imageCachePrefs.compressionLevel = 1;
 
 	//Attribute setup
 	appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
@@ -1724,6 +1728,13 @@ bool PrefsManager::WritePref(QString ho)
 	liElem.setAttribute("useStandardLI", static_cast<int>(appPrefs.miscPrefs.useStandardLI));
 	liElem.setAttribute("paragraphsLI", appPrefs.miscPrefs.paragraphsLI);
 	elem.appendChild(liElem);
+	// image cache
+	QDomElement icElem = docu.createElement("ImageCache");
+	icElem.setAttribute("cacheEnabled", appPrefs.imageCachePrefs.cacheEnabled);
+	icElem.setAttribute("maxCacheSizeMiB", appPrefs.imageCachePrefs.maxCacheSizeMiB);
+	icElem.setAttribute("maxCacheEntries", appPrefs.imageCachePrefs.maxCacheEntries);
+	icElem.setAttribute("compressionLevel", appPrefs.imageCachePrefs.compressionLevel);
+	elem.appendChild(icElem);
 	// write file
 	bool result = false;
 	QFile f(ho);
@@ -2448,6 +2459,14 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.miscPrefs.useStandardLI = static_cast<bool>(dc.attribute("useStandardLI", "0").toInt());
 			appPrefs.miscPrefs.paragraphsLI = dc.attribute("paragraphsLI", "10").toInt();
+		}
+		// cache manager
+		if (dc.tagName() == "ImageCache")
+		{
+			appPrefs.imageCachePrefs.cacheEnabled = static_cast<bool>(dc.attribute("cacheEnabled", "0").toInt());
+			appPrefs.imageCachePrefs.maxCacheSizeMiB = dc.attribute("maxCacheSizeMiB", "1000").toInt();
+			appPrefs.imageCachePrefs.maxCacheEntries = dc.attribute("maxCacheEntries", "1000").toInt();
+			appPrefs.imageCachePrefs.compressionLevel = dc.attribute("compressionLevel", "1").toInt();
 		}
 		DOC=DOC.nextSibling();
 	}

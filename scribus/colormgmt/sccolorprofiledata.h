@@ -16,11 +16,15 @@ for which a new license (GPL+exception) is in place.
 
 class ScColorProfileData : public ScColorMgmtElem
 {
+private:
+	mutable QString m_profileDataHash;
+
 protected:
 	QString m_profilePath;
 	QByteArray m_profileData;
 
 public:
+	QString dataHash() const;
 
 	QString path() const { return m_profilePath; }
 

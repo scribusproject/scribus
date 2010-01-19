@@ -105,6 +105,7 @@ SET(SCRIBUS_UI_SRC
   ui/prefs_fontsbase.ui
   ui/prefs_guidesbase.ui
   ui/prefs_hyphenatorbase.ui
+  ui/prefs_imagecachebase.ui
   ui/prefs_keyboardshortcutsbase.ui
   ui/prefs_miscellaneousbase.ui
   ui/prefs_pathsbase.ui
@@ -295,6 +296,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/prefs_fonts.h
   ui/prefs_guides.h
   ui/prefs_hyphenator.h
+  ui/prefs_imagecache.h
   ui/prefs_keyboardshortcuts.h
   ui/prefs_miscellaneous.h
   ui/prefs_paths.h
@@ -326,6 +328,9 @@ SET(SCRIBUS_MOC_CLASSES
   ui/scfilewidget.h
   scgtplugin.h
   schelptreemodel.h
+  scimagecachedir.h
+  scimagecachefile.h
+  scimagecachemanager.h
   ui/scinputdialog.h
   ui/scmenu.h
   ui/scmessagebox.h
@@ -608,6 +613,7 @@ SET(SCRIBUS_SOURCES
   ui/prefs_fonts.cpp
   ui/prefs_guides.cpp
   ui/prefs_hyphenator.cpp
+  ui/prefs_imagecache.cpp
   ui/prefs_keyboardshortcuts.cpp
   ui/prefs_miscellaneous.cpp
   ui/prefs_paths.cpp
@@ -654,6 +660,11 @@ SET(SCRIBUS_SOURCES
   scgzfile.cpp
   schelptreemodel.cpp
   scimage.cpp
+  scimagecacheproxy.cpp
+  scimagecachedir.cpp
+  scimagecachefile.cpp
+  scimagecachemanager.cpp
+  scimagecachewriteaction.cpp
   scimagestructs.cpp
   scimgdataloader.cpp
   scimgdataloader_gimp.cpp
@@ -667,6 +678,7 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_wpg.cpp
   ui/scinputdialog.cpp
   sclayer.cpp
+  sclockedfile.cpp
   ui/scmenu.cpp
   ui/scmessagebox.cpp
   scmimedata.cpp

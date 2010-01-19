@@ -30,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 class ScStreamFilter;
 class CMSettings;
+class ScImageCacheProxy;
+class ScColorProfile;
 
 class SCRIBUS_API ScImage : private QImage
 {
@@ -94,7 +96,7 @@ public:
 	void applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk);
 
 	// Generate a low res image for user preview
-	void createLowRes(double scale);
+	bool createLowRes(double scale);
 
 	// Scale this image in-place
 	void scaleImage(int width, int height);
@@ -106,6 +108,8 @@ public:
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
 	bool loadPicture(const QString & fn, int page, const CMSettings& cmSettings, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
+	bool loadPicture(ScImageCacheProxy & cache, bool & fromCache, int page, const CMSettings& cmSettings, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
+	bool saveCache(ScImageCacheProxy & cache);
 
 	ImageInfoRecord imgInfo;
 
@@ -128,6 +132,8 @@ private:
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
 	int  getOptimalKernelWidth(double radius, double sigma);
 	void applyCurve(const QVector<int>& curveTable, bool cmyk);
+
+	void addProfileToCacheModifiers(ScImageCacheProxy & cache, const QString & prefix, const ScColorProfile & profile) const;
 };
 
 #endif

@@ -11,6 +11,7 @@ SET(SCRIBUS_COLORMGMT_LIB_SOURCES
 	sccolormgmtstructs.cpp
 	sccolorprofile.cpp
 	sccolorprofilecache.cpp
+	sccolorprofiledata.cpp
 	sccolorspacedata.cpp
 	sccolortransform.cpp
 	sccolortransformpool.cpp

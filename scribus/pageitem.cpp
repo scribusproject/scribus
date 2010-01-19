@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "resourcecollection.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
+#include "scimagecacheproxy.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scpattern.h"
@@ -5276,6 +5277,24 @@ bool PageItem::mouseWithinItem(const int x, const int y, double scale) const
 	return transRect.contains(x, y);
 }
 
+QString PageItem::getImageEffectsModifier() const
+{
+	bool first = true;
+	QString buffer;
+	QTextStream ts(&buffer);
+	ScImageEffectList::const_iterator i = effectsInUse.begin();
+	while (i != effectsInUse.end())
+	{
+		if (first)
+			first = false;
+		else
+			ts << "/";
+		ts << i->effectCode << ":" << i->effectParameters;
+		i++;
+	}
+	return buffer;
+}
+
 bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution, bool showMsg)
 {
 	if (! asImageFrame())
@@ -5296,7 +5315,12 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	CMSettings cms(m_Doc, IProfile, IRender);
 	cms.setUseEmbeddedProfile(UseEmbedded);
 	cms.allowSoftProofing(true);
-	if (!pixm.loadPicture(filename, pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, gsRes, &dummy, showMsg))
+	ScImageCacheProxy imgcache(filename);
+	imgcache.addModifier("lowResType", QString::number(pixm.imgInfo.lowResType));
+	if (!effectsInUse.isEmpty())
+		imgcache.addModifier("effectsInUse", getImageEffectsModifier());
+	bool fromCache = false;
+	if (!pixm.loadPicture(imgcache, fromCache, pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, gsRes, &dummy, showMsg))
 	{
 		Pfile = fi.absoluteFilePath();
 		PictureIsAvailable = false;
@@ -5354,11 +5378,24 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		}
 		BBoxX = pixm.imgInfo.BBoxX;
 		BBoxH = pixm.imgInfo.BBoxH;
-		OrigW = pixm.width();
-		OrigH = pixm.height();
+		if (fromCache)
+		{
+			OrigW = imgcache.getInfo("OrigW").toInt();
+			OrigH = imgcache.getInfo("OrigH").toInt();
+		}
+		else
+		{
+			OrigW = pixm.width();
+			OrigH = pixm.height();
+			imgcache.addInfo("OrigW", QString::number(OrigW));
+			imgcache.addInfo("OrigH", QString::number(OrigH));
+		}
 		isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
 		if (!isRaster)
+		{
 			effectsInUse.clear();
+			imgcache.delModifier("effectsInUse");
+		}
 		UseEmbedded=pixm.imgInfo.isEmbedded;
 		if (pixm.imgInfo.isEmbedded)
 		{
@@ -5368,7 +5405,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		else
 			IProfile = pixm.imgInfo.profileName;
 	}
-	if (PictureIsAvailable)
+	if (PictureIsAvailable && !fromCache)
 	{
 		if ((pixm.imgInfo.colorspace == ColorSpaceDuotone) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
 		{
@@ -5490,6 +5527,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				ef.effectParameters = efVal;
 			}
 			effectsInUse.append(ef);
+			imgcache.addModifier("effectsInUse", getImageEffectsModifier());
 		}
 		pixm.applyEffect(effectsInUse, m_Doc->PageColors, false);
 //		if (reload)
@@ -5506,9 +5544,17 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				double ratio = pixels / 3000000.0;
 				scaling *= sqrt(ratio);
 			}
-			pixm.createLowRes(scaling);
-			pixm.imgInfo.lowResScale = scaling;
+			if (pixm.createLowRes(scaling))
+			{
+				pixm.imgInfo.lowResScale = scaling;
+				pixm.saveCache(imgcache);
+			}
+			else
+				pixm.imgInfo.lowResScale = 1.0;
 		}
+	}
+	if (PictureIsAvailable)
+	{
 		if ((m_Doc->view()->m_canvas->usePreviewVisual()))
 		{
 			VisionDefectColor defect;
@@ -6305,4 +6351,5 @@ void PageItem::setInlineData(QString data)
 		}
 	}
 }
+
 

@@ -187,7 +187,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 						continue;
 					if (docItem->textFlowAroundObject())
 						result = result.subtract(itemShape(docItem, 0, 0));
-					if (docItem->isGroupControl)
+					if (docItem->isGroupControl && !docItem->Groups.isEmpty())
 						currentGroup = docItem->Groups.top();
 				}
 			} // for all docItems

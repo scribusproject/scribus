@@ -352,6 +352,15 @@ struct ScripterPrefs
 {
 };
 
+// Image Cache
+struct ImageCachePrefs
+{
+	bool cacheEnabled;    //!< Enable the image cache
+	int maxCacheSizeMiB;  //!< Maximum total size of image cache in MiB
+	int maxCacheEntries;  //!< Maximum number of cache entries
+	int compressionLevel; //!< Cache image compression level (see QImage)
+};
+
 struct ApplicationPrefs
 {
 	UIPrefs uiPrefs;
@@ -379,6 +388,7 @@ struct ApplicationPrefs
 	CheckerPrefsList checkerPrefsList;
 	StoryEditorPrefs storyEditorPrefs;
 	PrintPreviewPrefs printPreviewPrefs;
+	ImageCachePrefs imageCachePrefs;
 
 	QList<ArrowDesc> arrowStyles;
 	QMap<QString, VGradient> defaultGradients;

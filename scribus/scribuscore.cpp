@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
+#include "scimagecachemanager.h"
 #include "scpaths.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
@@ -194,6 +195,15 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	m_HaveCMS = false;
 	getCMSProfiles(showProfileInfo);
 	initCMS();
+
+	setSplashStatus( tr("Initializing Image Cache") );
+	ScImageCacheManager & icm = ScImageCacheManager::instance();
+	icm.setEnabled(prefsManager->appPrefs.imageCachePrefs.cacheEnabled);
+	icm.setMaxCacheSizeMiB(prefsManager->appPrefs.imageCachePrefs.maxCacheSizeMiB);
+	icm.setMaxCacheEntries(prefsManager->appPrefs.imageCachePrefs.maxCacheEntries);
+	icm.setCompressionLevel(prefsManager->appPrefs.imageCachePrefs.compressionLevel);
+	icm.initialize();
+
 	/*
 		initPalettes();
 

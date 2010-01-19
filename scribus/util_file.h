@@ -64,5 +64,14 @@ bool SCRIBUS_API copyFileToStream(const QString& source, QDataStream& target);
    * @return true on success, false on failre.
 **/
 bool SCRIBUS_API moveFile(const QString& source, const QString& target);
+/**
+* @brief Update the access and modification time of a file
+   * 
+   * This function updates the access and modification time of a file.
+   *
+   * @param  file name of the file to touch
+   * @return true on success, false on failure.
+**/
+bool SCRIBUS_API touchFile(const QString& file);
 
 #endif

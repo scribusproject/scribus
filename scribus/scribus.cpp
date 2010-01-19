@@ -49,6 +49,12 @@ for which a new license (GPL+exception) is in place.
 #include <QTranslator>
 #include <QWheelEvent>
 
+#ifdef DEBUG_LOAD_TIMES
+#include <QDebug>
+#include <QTime>
+#include <sys/times.h>
+#endif
+
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>
@@ -221,6 +227,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/vruler.h"
 #include "loadsaveplugin.h"
 #include "plugins/formatidlist.h"
+#include "scimagecachemanager.h"
 
 
 #if defined(_WIN32)
@@ -3630,6 +3637,12 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 
 bool ScribusMainWindow::loadDoc(QString fileName)
 {
+#ifdef DEBUG_LOAD_TIMES
+	QTime t;
+	struct tms tms1, tms2;
+	t.start();
+	times(&tms1);
+#endif
 	undoManager->setUndoEnabled(false);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
@@ -4005,6 +4018,16 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	undoManager->setUndoEnabled(true);
 	doc->setModified(false);
+#ifdef DEBUG_LOAD_TIMES
+	times(&tms2);
+	double ticks = sysconf(_SC_CLK_TCK);
+	double user  = (tms2.tms_utime - tms1.tms_utime)/ticks;
+	double sys   = (tms2.tms_stime - tms1.tms_stime)/ticks;
+	double cuser = (tms2.tms_cutime - tms1.tms_cutime)/ticks;
+	double csys  = (tms2.tms_cstime - tms1.tms_cstime)/ticks;
+	qDebug("loaded document in %.3f seconds (%.3f user + %.3f sys = %.3f sec, child %.3f user + %.3f sys = %.3f sec)",
+		t.elapsed()/1000.0, user, sys, user + sys, cuser, csys, cuser + csys);
+#endif
 	return ret;
 }
 
@@ -7583,6 +7606,11 @@ void ScribusMainWindow::slotPrefs150Org()
 					qWarning( "%s", message.toLocal8Bit().data() );
 			}
 		}
+		ScImageCacheManager & icm = ScImageCacheManager::instance();
+		icm.setEnabled(newPrefs.imageCachePrefs.cacheEnabled);
+		icm.setMaxCacheSizeMiB(newPrefs.imageCachePrefs.maxCacheSizeMiB);
+		icm.setMaxCacheEntries(newPrefs.imageCachePrefs.maxCacheEntries);
+		icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
 	}
 
 	prefsManager->SavePrefs();

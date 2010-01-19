@@ -7,6 +7,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_file.h"
 
+#ifdef _MSC_VER
+# include <sys/utime.h>
+#else
+# include <utime.h>
+#endif
+
 #include <QDataStream>
 #include <QFile>
 #include <QString>
@@ -168,4 +174,14 @@ bool moveFile(const QString& source, const QString& target)
 	if (moveSucceed)
 		moveSucceed &= QFile::remove(source);
 	return moveSucceed;
+}
+
+bool touchFile(const QString& file)
+{
+#if defined(_WIN32) && defined(HAVE_UNICODE)
+	return _wutime((const wchar_t*) file.utf16(), NULL) == 0;
+#else
+	QByteArray fname = file.toLocal8Bit();
+	return utime(fname.data(), NULL) == 0;
+#endif
 }

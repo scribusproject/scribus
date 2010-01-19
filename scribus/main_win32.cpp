@@ -46,6 +46,7 @@ using namespace std;
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribus.h"
+#include "scimagecachemanager.h"
 
 #include "scconfig.h"
 
@@ -289,6 +290,7 @@ void defaultCrashHandler(DWORD exceptionCode)
 			ScMW->emergencySave();
 			ScMW->close();
 		}
+		ScImageCacheManager::instance().removeMasterLock();
 	}
 	ExitProcess(255);
 }

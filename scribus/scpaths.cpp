@@ -336,6 +336,11 @@ QString ScPaths::getApplicationDataDir(void)
 #endif
 }
 
+QString ScPaths::getImageCacheDir(void)
+{
+	return getApplicationDataDir() + "cache/img/";
+}
+
 QString ScPaths::getPluginDataDir(void)
 {
 	return getApplicationDataDir() + "plugins/";

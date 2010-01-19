@@ -15,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "sccolor.h"
 
+class ScImageCacheProxy;
+
 struct ImageLoadRequest
 {
 	bool visible;
@@ -80,6 +82,10 @@ public:
 	ExifValues(void);
 	void init(void);
 
+	// Remember to increment this version number and update
+	// the QDataStream operators if this class in changed.
+	static const qint32 dsVersion;
+
 	int width;
 	int height;
 	float ExposureTime;
@@ -120,6 +126,14 @@ class ImageInfoRecord
 public:
 	ImageInfoRecord(void);
 	void init(void);
+
+	// Remember to increment this version number and update
+	// the serialization routines if this class in changed.
+	static const int iirVersion;
+
+	bool canSerialize() const;
+	bool serialize(ScImageCacheProxy & cache) const;
+	bool deserialize(const ScImageCacheProxy & cache);
 
 	ImageTypeEnum type;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
 	int  xres;

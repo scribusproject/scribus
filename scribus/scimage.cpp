@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "exif.h"
 #include "sccolorengine.h"
+#include "scimagecacheproxy.h"
 #include "scstreamfilter.h"
 #include "util.h"
 #include "util_color.h"
@@ -1185,14 +1186,17 @@ void ScImage::swapRGBA()
 	}
 }
 
-void ScImage::createLowRes(double scale)
+bool ScImage::createLowRes(double scale)
 {
 	int w = qRound(width() / scale);
 	int h = qRound(height() / scale);
+	if (w >= width() && h >= height())  // don't do unnecessary scaling
+		return false;
 	QImage tmp = scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	if (tmp.format() != QImage::Format_ARGB32)
 		tmp = tmp.convertToFormat(QImage::Format_ARGB32);
 	QImage::operator=(tmp);
+	return true;
 }
 
 bool ScImage::convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
@@ -1957,6 +1961,60 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 		}
 		delete pDataLoader;
 	}
+}
+
+void ScImage::addProfileToCacheModifiers(ScImageCacheProxy & cache, const QString & prefix, const ScColorProfile & profile) const
+{
+	if (profile)
+	{
+		cache.addModifier(prefix + "ProfileDescription", profile.productDescription());
+		const ScColorProfileData *pd = profile.data();
+		if (pd)
+		{
+			QString hash = pd->dataHash();
+			if (!hash.isEmpty())
+				cache.addModifier(prefix + "ProfileHash", hash);
+		}
+	}
+}
+
+bool ScImage::loadPicture(ScImageCacheProxy & cache, bool & fromCache, int page, const CMSettings& cmSettings,
+						  RequestType requestType, int gsRes, bool *realCMYK, bool showMsg)
+{
+	if (cache.enabled())
+	{
+		ScColorMgmtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
+		cache.addModifier("cmEngineID", QString::number(engine.engineID()));
+		cache.addModifier("cmEngineDescription", engine.description());
+		cache.addModifier("useEmbeddedProfile", QString::number(static_cast<int>(cmSettings.useEmbeddedProfile())));
+		cache.addModifier("softProofingAllowed", QString::number(static_cast<int>(cmSettings.softProofingAllowed())));
+		cache.addModifier("requestType", QString::number(static_cast<int>(requestType)));
+		cache.addModifier("gsRes", QString::number(gsRes));
+		cache.addModifier("useColorManagement", QString::number(static_cast<int>(cmSettings.useColorManagement())));
+		cache.addModifier("doSoftProofing", QString::number(static_cast<int>(cmSettings.doSoftProofing())));
+		cache.addModifier("doGamutCheck", QString::number(static_cast<int>(cmSettings.doGamutCheck())));
+		cache.addModifier("useBlackPoint", QString::number(static_cast<int>(cmSettings.useBlackPoint())));
+		cache.addModifier("imageRenderingIntent", QString::number(static_cast<int>(cmSettings.imageRenderingIntent())));
+		addProfileToCacheModifiers(cache, "monitor", cmSettings.monitorProfile());
+		addProfileToCacheModifiers(cache, "printer", cmSettings.printerProfile());
+
+		fromCache = imgInfo.lowResType != 0 && cache.canUseCachedImage() && cache.load(*this) && imgInfo.deserialize(cache);
+
+		if (fromCache)
+		{
+			cache.touch();
+			return true;
+		}
+	}
+	else
+		fromCache = false;
+
+	return loadPicture(cache.getFilename(), page, cmSettings, requestType, gsRes, realCMYK, showMsg);
+}
+
+bool ScImage::saveCache(ScImageCacheProxy & cache)
+{
+	return cache.enabled() && imgInfo.serialize(cache) && cache.save(*this);
 }
 
 bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSettings,

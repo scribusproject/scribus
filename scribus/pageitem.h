@@ -1104,6 +1104,13 @@ public:
 	
 	void updateConstants();
 	
+private:
+	/**
+	 * @brief Helper method to create a modifier string from the current image effects list.
+	 * @sa loadImage()
+	 */
+	QString getImageEffectsModifier() const;
+
 protected:
 
 	void drawLockedMarker(ScPainter *p);
