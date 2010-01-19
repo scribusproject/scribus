@@ -55,6 +55,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkRasterPDF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkRasterPDF;
 	checkerSettings.checkForGIF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkForGIF;
 	checkerSettings.ignoreOffLayers = currDoc->checkerProfiles[currDoc->curCheckProfile].ignoreOffLayers;
+	checkerSettings.checkOffConflictLayers = currDoc->checkerProfiles[currDoc->curCheckProfile].checkOffConflictLayers;
 	checkerSettings.checkNotCMYKOrSpot = currDoc->checkerProfiles[currDoc->curCheckProfile].checkNotCMYKOrSpot;
 	checkerSettings.checkDeviceColorsAndOutputIntend = currDoc->checkerProfiles[currDoc->curCheckProfile].checkDeviceColorsAndOutputIntend;
 	checkerSettings.checkFontNotEmbedded = currDoc->checkerProfiles[currDoc->curCheckProfile].checkFontNotEmbedded;
@@ -73,6 +74,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	{
 		layerError.clear();
 		currDoc->Layers.levelToLayer(ll, Lnr);
+		if ((ll.isViewable != ll.isPrintable) && (checkerSettings.checkOffConflictLayers))
+			layerError.insert(OffConflictLayers, 0);
 		if ((!ll.isViewable) && (checkerSettings.ignoreOffLayers))
 			continue;
 		if ((!ll.isPrintable) && (checkerSettings.ignoreOffLayers))

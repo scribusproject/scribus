@@ -434,7 +434,8 @@ typedef enum {
 	NotCMYKOrSpot=13,
 	DeviceColorAndOutputIntend=14,
 	FontNotEmbedded=15,
-	EmbeddedFontIsOpenType=16
+	EmbeddedFontIsOpenType=16,
+	OffConflictLayers=17
 } PreflightError;
 
 typedef QMap<PreflightError, int> errorCodes;

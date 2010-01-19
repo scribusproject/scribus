@@ -1492,6 +1492,7 @@ bool PrefsManager::WritePref(QString ho)
 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
 		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.value().checkForGIF));
 		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
+		dc79a.setAttribute("checkOffConflictLayers", static_cast<int>(itcp.value().checkOffConflictLayers));
 		dc79a.setAttribute("minResolution",ScCLocale::toQStringC(itcp.value().minResolution));
 		dc79a.setAttribute("maxResolution",ScCLocale::toQStringC(itcp.value().maxResolution));
 		dc79a.setAttribute("checkNotCMYKOrSpot", static_cast<int>(itcp.value().checkNotCMYKOrSpot));
@@ -2164,6 +2165,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
 			checkerSettings.checkForGIF = static_cast<bool>(dc.attribute("checkForGIF", "1").toInt());
 			checkerSettings.ignoreOffLayers = static_cast<bool>(dc.attribute("ignoreOffLayers", "0").toInt());
+			checkerSettings.checkOffConflictLayers = static_cast<bool>(dc.attribute("checkOffConflictLayers", "0").toInt());
 			checkerSettings.checkNotCMYKOrSpot = static_cast<bool>(dc.attribute("checkNotCMYKOrSpot", "0").toInt());
 			checkerSettings.checkDeviceColorsAndOutputIntend = static_cast<bool>(dc.attribute("checkDeviceColorsAndOutputIntend", "0").toInt());
 			checkerSettings.checkFontNotEmbedded = static_cast<bool>(dc.attribute("checkFontNotEmbedded", "0").toInt());
@@ -2508,6 +2510,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.checkForGIF = true;
 		checkerSettings.ignoreOffLayers = false;
+		checkerSettings.checkOffConflictLayers = false;
 		checkerSettings.minResolution = 144.0;
 		checkerSettings.maxResolution = 2400.0;
 		checkerSettings.checkNotCMYKOrSpot = false;
