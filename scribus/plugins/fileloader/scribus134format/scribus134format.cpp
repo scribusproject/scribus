@@ -1004,6 +1004,7 @@ bool Scribus134Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 	checkerSettings.checkRasterPDF    = attrs.valueAsBool("checkRasterPDF", true);
 	checkerSettings.checkForGIF       = attrs.valueAsBool("checkForGIF", true);
 	checkerSettings.ignoreOffLayers   = attrs.valueAsBool("ignoreOffLayers", false);
+	checkerSettings.checkOffConflictLayers = attrs.valueAsBool("checkOffConflictLayers", false);
 	doc->checkerProfiles[profileName] = checkerSettings;
 	return true;
 }

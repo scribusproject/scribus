@@ -300,6 +300,7 @@ void Scribus134Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 		docu.writeAttribute("checkRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
 		docu.writeAttribute("checkForGIF", static_cast<int>(itcp.value().checkForGIF));
 		docu.writeAttribute("ignoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
+		docu.writeAttribute("checkOffConflictLayers", static_cast<int>(itcp.value().checkOffConflictLayers));
 		//docu.writeEndElement();
 	}
 }
