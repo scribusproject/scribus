@@ -4719,8 +4719,9 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 							{
 								ScText hl3;
 								static_cast<CharStyle&>(hl3) = static_cast<const CharStyle&>(hl2);
-								/* HACK to fix Bug #8446 */
+								//<< HACK to fix Bug #8446
 								hl3.setEffects(hl3.effects() & (~(ScStyle_Outline)));
+								//>>
 								hl3.ch = hl2.ch;
 								hl3.glyph.glyph = hl2.glyph.glyph;
 								hl3.setFillColor(hl2.strokeColor());
@@ -4756,8 +4757,9 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						gl2 = gl2->more;
 					}
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-					/* HACK to fix Bug #8446 */
+					//<< HACK to fix Bug #8446
 					hl2.setEffects(hl2.effects() & (~(ScStyle_Outline)));
+					//>>
 					hl2.setFillColor(hl->strokeColor());
 					hl2.setFillShade(hl->strokeShade());
 					hl2.glyph.xadvance = hl->glyph.xadvance;
@@ -4819,8 +4821,9 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						{
 							ScText hl3;
 							static_cast<CharStyle&>(hl3) = static_cast<const CharStyle&>(hl2);
-							/* HACK to fix Bug #8446 */
+							//<< HACK to fix Bug #8446
 							hl3.setEffects(hl3.effects() & (~(ScStyle_Outline)));
+							//>>
 							hl3.ch = hl2.ch;
 							hl3.glyph.glyph = hl2.glyph.glyph;
 							hl3.setFillColor(hl2.strokeColor());
@@ -4849,8 +4852,9 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				hl2.ch = ch;
 				hl2.glyph.glyph = hl->glyph.glyph;
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-				/* HACK to fix Bug #8446 */
+				//<< HACK to fix Bug #8446
 				hl2.setEffects(hl2.effects() & (~(ScStyle_Outline)));
+				//>>
 				hl2.setFillColor(hl->strokeColor());
 				hl2.setFillShade(hl->strokeShade());
 				hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
