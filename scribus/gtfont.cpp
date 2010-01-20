@@ -246,7 +246,7 @@ void gtFont::setWeight(QString newWeight)
 	{
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
-		setflags |= ~weightWasSet;
+		setflags &= ~weightWasSet;
 	}
 	if (weightIndex < 0)
 	{
