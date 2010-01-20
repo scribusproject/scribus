@@ -8,8 +8,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_PREFLIGHTVERIFIER_H
 #define PREFS_PREFLIGHTVERIFIER_H
 
+#include <QString>
+
+
 #include "ui_prefs_preflightverifierbase.h"
 #include "prefs_pane.h"
+#include "prefsstructs.h"
 #include "scribusapi.h"
 
 class SCRIBUS_API Prefs_PreflightVerifier : public Prefs_Pane, Ui::Prefs_PreflightVerifier
@@ -23,6 +27,20 @@ class SCRIBUS_API Prefs_PreflightVerifier : public Prefs_Pane, Ui::Prefs_Preflig
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 	public slots:
 		void languageChange();
+
+
+
+	protected slots:
+		void putProfile();
+		void setProfile(const QString& name);
+		void addProf();
+		void delProf();
+
+	protected:
+		QString tempNewProfileName;
+		CheckerPrefsList checkerProfile;
+		QString currentProfile;
+		void updateProfile(const QString& name);
 };
 
 #endif // PREFS_PREFLIGHTVERIFIER_H
