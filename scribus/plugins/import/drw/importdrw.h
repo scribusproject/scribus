@@ -69,7 +69,7 @@ private:
 	void handlePreviewBitmap(QDataStream &ds);
 	QString handleColor(ScColor &color, QString proposedName);
 	QString getColor(QDataStream &ds);
-	void finishItem(PageItem* ite);
+	void finishItem(PageItem* ite, bool scale = true);
 	double getValue(QDataStream &ds);
 	double getRawValue(QDataStream &ds);
 	QPointF getCoordinate(QDataStream &ds);

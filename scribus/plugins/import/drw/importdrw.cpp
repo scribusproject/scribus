@@ -434,7 +434,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 6:
 			cmdText = "DRW Polygon";
-			if (createObjCode == 1)
+			if ((createObjCode == 1) || (createObjCode == 3))
 			{
 				bool first = true;
 				bool first2 = true;
@@ -457,7 +457,8 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 						if (coor == startP)
 						{
 							first = true;
-							Coords.svgClosePath();
+							if (createObjCode == 1)
+								Coords.svgClosePath();
 						}
 						else
 							Coords.svgLineTo(coor.x(), coor.y());
@@ -499,7 +500,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 				//	Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 					currentItem->PoLine = Coords.copy();
-					finishItem(currentItem);
+					finishItem(currentItem, false);
 				}
 				createObjCode = 0;
 				currentItem = NULL;
@@ -743,7 +744,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			lineWidth = getValue(ds);
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
-		//	currentItem->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(currentItem);
 			break;
 		case 5:
@@ -765,7 +765,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			ds >> dummy;
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
-			createObjCode = 1;
+			createObjCode = 3;
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			break;
@@ -796,7 +796,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			lineWidth = getValue(ds);
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, fillC, CommonStrings::None, true);
 			currentItem = m_Doc->Items->at(z);
-		//	currentItem->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(currentItem);
 			if (data8 == 11)
 				currentItem->setCornerRadius(cornerRadius);
@@ -821,7 +820,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			lineWidth = getValue(ds);
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
-		//	currentItem->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(currentItem);
 			break;
 		case 14:
@@ -1083,7 +1081,7 @@ QString DrwPlug::getColor(QDataStream &ds)
 	return handleColor(color, "FromDRW"+color.name());
 }
 
-void DrwPlug::finishItem(PageItem* ite)
+void DrwPlug::finishItem(PageItem* ite, bool scale)
 {
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -1091,20 +1089,23 @@ void DrwPlug::finishItem(PageItem* ite)
 //	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 //	m_Doc->AdjustItemSize(ite);
-	QPainterPath pa = ite->PoLine.toQPainterPath(true);
-	QRectF bb = pa.boundingRect();
-	double scx = 1.0;
-	double scy = 1.0;
-	if ((bb.width() == 0.0) || (ite->width() == 0.0))
-		scx = 1.0;
-	else
-		scx = ite->width() / bb.width();
-	if ((bb.height() == 0.0) || (ite->height() == 0.0))
-		scy = 1.0;
-	else
-		scy = ite->height() / bb.height();
+	if (scale)
+	{
+		QPainterPath pa = ite->PoLine.toQPainterPath(true);
+		QRectF bb = pa.boundingRect();
+		double scx = 1.0;
+		double scy = 1.0;
+		if ((bb.width() == 0.0) || (ite->width() == 0.0))
+			scx = 1.0;
+		else
+			scx = ite->width() / bb.width();
+		if ((bb.height() == 0.0) || (ite->height() == 0.0))
+			scy = 1.0;
+		else
+			scy = ite->height() / bb.height();
 //	qDebug() << scx << scy;
-	ite->PoLine.scale(scx, scy);
+		ite->PoLine.scale(scx, scy);
+	}
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->updateClip();
