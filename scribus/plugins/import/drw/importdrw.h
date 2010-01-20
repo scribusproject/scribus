@@ -75,7 +75,15 @@ private:
 	QPointF getCoordinate(QDataStream &ds);
 	
 	QList<PageItem*> Elements;
-	QStack<QList<PageItem*> > groupStack;
+	struct DRWGroup
+	{
+		double xoffset;
+		double yoffset;
+		int nrOfItems;
+		int counter;
+		QList<PageItem*> GElements;
+	};
+	QStack<DRWGroup> groupStack;
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
@@ -86,6 +94,9 @@ private:
 	int createObjCode;
 	int nrOfPoints;
 	PageItem *currentItem;
+
+	int symbolCount;
+	int recordCount;
 
 	FPointArray Coords;
 	QByteArray cmdData;
