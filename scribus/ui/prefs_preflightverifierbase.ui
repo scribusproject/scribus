@@ -213,10 +213,30 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="minimumResolutionSpinBox"/>
+          <widget class="QSpinBox" name="minimumResolutionSpinBox">
+           <property name="suffix">
+            <string> dpi</string>
+           </property>
+           <property name="minimum">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <number>4800</number>
+           </property>
+          </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="maximumResolutionSpinBox"/>
+          <widget class="QSpinBox" name="maximumResolutionSpinBox">
+           <property name="suffix">
+            <string> dpi</string>
+           </property>
+           <property name="minimum">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <number>4800</number>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_5">
