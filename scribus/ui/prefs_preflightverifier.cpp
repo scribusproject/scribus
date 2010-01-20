@@ -6,15 +6,29 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "prefs_preflightverifier.h"
+#include "prefsstructs.h"
 
 Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent)
-	: QWidget(parent)
+	: Prefs_Pane(parent)
 {
 	setupUi(this);
-
+	languageChange();
 }
 
 Prefs_PreflightVerifier::~Prefs_PreflightVerifier()
 {
 }
 
+void Prefs_PreflightVerifier::languageChange()
+{
+}
+
+void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData)
+{
+
+}
+
+void Prefs_PreflightVerifier::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
+{
+
+}

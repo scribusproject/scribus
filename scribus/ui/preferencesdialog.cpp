@@ -47,12 +47,14 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), prefs_Hyphenator);
 	prefs_Fonts = new Prefs_Fonts(this);
 	addItem( tr("Fonts"), loadIcon("font.png"), prefs_Fonts);
-	prefs_Printer = new Prefs_Printer(this);
-	addItem( tr("Printer"), loadIcon("printer.png"), prefs_Printer);
 	prefs_ColorManagement = new Prefs_ColorManagement(this);
 	addItem( tr("Color Management"), loadIcon("blend.png"), prefs_ColorManagement);
+	prefs_Printer = new Prefs_Printer(this);
+	addItem( tr("Printer"), loadIcon("printer.png"), prefs_Printer);
 	prefs_PDFExport = new Prefs_PDFExport(this);
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), prefs_PDFExport);
+	prefs_PreflightVerifier = new Prefs_PreflightVerifier(this);
+	addItem( tr("Preflight Verifier"), loadIcon("acroread32.png"), prefs_PreflightVerifier);
 	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(this);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), prefs_DocumentItemAttributes);
 	prefs_TableOfContents = new Prefs_TableOfContents(this);
@@ -121,8 +123,9 @@ void PreferencesDialog::setupGui()
 	prefs_OperatorTools->restoreDefaults(&localPrefs);
 	prefs_Hyphenator->restoreDefaults(&localPrefs);
 	prefs_Fonts->restoreDefaults(&localPrefs);
-	prefs_PDFExport->restoreDefaults(&localPrefs);
 	prefs_Printer->restoreDefaults(&localPrefs);
+	prefs_PDFExport->restoreDefaults(&localPrefs);
+	prefs_PreflightVerifier->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
@@ -142,8 +145,9 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
 	prefs_Hyphenator->saveGuiToPrefs(&localPrefs);
 	prefs_Fonts->saveGuiToPrefs(&localPrefs);
-	prefs_PDFExport->saveGuiToPrefs(&localPrefs);
 	prefs_Printer->saveGuiToPrefs(&localPrefs);
+	prefs_PDFExport->saveGuiToPrefs(&localPrefs);
+	prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);

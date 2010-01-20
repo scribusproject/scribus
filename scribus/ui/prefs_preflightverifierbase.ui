@@ -69,21 +69,21 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="verifierOutputProfileComboBox"/>
          </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="addVerifierProfilePushButton">
            <property name="text">
             <string>Add New Profile</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="removeVerifierProfilePushButton">
            <property name="text">
             <string>Remove Profile</string>
            </property>
@@ -141,56 +141,56 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="profileIgnoreAllErrorsCheckBox">
          <property name="text">
           <string>Ignore all errors</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_3">
+        <widget class="QCheckBox" name="autoCheckBeforePrintExportCheckBox">
          <property name="text">
           <string>Automatic check before printing or exporting</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QCheckBox" name="checkMissingGlyphsCheckBox">
          <property name="text">
           <string>Check for missing glyphs</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_4">
+        <widget class="QCheckBox" name="checkItemsOffPageCheckBox">
          <property name="text">
           <string>Check for items not on a page</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_5">
+        <widget class="QCheckBox" name="checkTextOverflowCheckBox">
          <property name="text">
           <string>Check for overflow in text frames</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_6">
+        <widget class="QCheckBox" name="checkTransparenciesCheckBox">
          <property name="text">
           <string>Check for used transparencies</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_7">
+        <widget class="QCheckBox" name="checkMissingImagesCheckBox">
          <property name="text">
           <string>Check for missing images</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_8">
+        <widget class="QCheckBox" name="checkImageResolutionCheckBox">
          <property name="text">
           <string>Check image resolution</string>
          </property>
@@ -209,10 +209,10 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QSpinBox" name="minimumResolutionSpinBox"/>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox_2"/>
+          <widget class="QSpinBox" name="maximumResolutionSpinBox"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_5">
@@ -224,37 +224,37 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_9">
+        <widget class="QCheckBox" name="checkPlacedPDFCheckBox">
          <property name="text">
           <string>Check for placed PDF files</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_11">
+        <widget class="QCheckBox" name="checkGIFsCheckBox">
          <property name="text">
           <string>Check for GIF images</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_10">
+        <widget class="QCheckBox" name="checkPDFAnnotFieldsCheckBox">
          <property name="text">
           <string>Check for PDF Annotations and Fields</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_12">
+        <widget class="QCheckBox" name="checkVisiblePrintableLayersCheckBox">
          <property name="text">
-          <string>Ignore non-printable layers</string>
+          <string>Check for Visible/Printable mismatch in layers</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_13">
+        <widget class="QCheckBox" name="checkNonPrintableLayersCheckBox">
          <property name="text">
-          <string>Check for Visible/Printable Mismatch in Layers</string>
+          <string>Ignore non-printable layers</string>
          </property>
         </widget>
        </item>
