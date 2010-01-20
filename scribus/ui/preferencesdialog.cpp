@@ -54,7 +54,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	prefs_PDFExport = new Prefs_PDFExport(this);
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), prefs_PDFExport);
 	prefs_PreflightVerifier = new Prefs_PreflightVerifier(this);
-	addItem( tr("Preflight Verifier"), loadIcon("acroread32.png"), prefs_PreflightVerifier);
+	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), prefs_PreflightVerifier);
 	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(this);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), prefs_DocumentItemAttributes);
 	prefs_TableOfContents = new Prefs_TableOfContents(this);
