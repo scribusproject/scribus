@@ -448,6 +448,9 @@ struct LineControl {
 		for (int j = line.firstItem; j <= last; ++j)
 			if ( (itemText.item(j)->effects() & ScStyle_SuppressSpace) == 0)
 				breakXPos += itemText.item(j)->glyph.wide();
+		// #8194, #8717 : update line ascent and descent with sensible values
+		// so that endOfLine() returns correct result
+		updateHeightMetrics(itemText);
 	}
 	
 	/// use the last remembered break to set line width and itemrange
@@ -591,6 +594,37 @@ struct LineControl {
 		}
 		return result;
 	}
+
+	double getLineDescent(const StoryText& itemText)
+	{
+		double result = 0;
+		if ((itemText.text(line.firstItem) == SpecialChars::PARSEP) || (itemText.text(line.firstItem) == SpecialChars::LINEBREAK))
+			result = itemText.charStyle(line.firstItem).font().descent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
+		else if (itemText.object(line.firstItem) != 0)
+			result = 0.0;
+		else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
+			result = itemText.charStyle(line.firstItem).font().realCharDescent(itemText.text(line.firstItem), itemText.charStyle(line.firstItem).fontSize() / 10.0);
+		for (int zc = 0; zc < itemsInLine; ++zc)
+		{
+			QChar ch = itemText.text(line.firstItem + zc);
+			if ((ch == SpecialChars::PAGENUMBER) || (ch == SpecialChars::PAGECOUNT))
+				ch = '8'; // should have highest ascender even in oldstyle
+			const CharStyle& cStyle(itemText.charStyle(line.firstItem + zc));
+			if ((ch == SpecialChars::TAB) || (ch == QChar(10))
+				|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
+				|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::LINEBREAK)
+				|| (ch == SpecialChars::FRAMEBREAK) || (ch.isSpace()))
+				continue;
+			double desc;
+			if (itemText.object(line.firstItem + zc) != 0)
+				desc = 0.0;
+			else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
+				desc = cStyle.font().realCharDescent(ch, cStyle.fontSize() / 10.0);
+			//	qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result);
+			result = qMax(result, desc);
+		}
+		return result;
+	}
 	
 	double getLineHeight(const StoryText& itemText)
 	{
@@ -616,6 +650,36 @@ struct LineControl {
 			result = qMax(result, asce);
 		}
 		return result;
+	}
+
+	void updateHeightMetrics(const StoryText& itemText)
+	{
+		double asce, desc;
+		line.ascent  = 0;
+		line.descent = 0;
+		for (int zc = 0; zc < itemsInLine; ++zc)
+		{
+			QChar ch = itemText.text(line.firstItem+zc);
+			if ((ch == SpecialChars::TAB) || (ch == QChar(10))
+				|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
+				|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::FRAMEBREAK)
+				|| (ch == SpecialChars::LINEBREAK) || (ch.isSpace()))
+				continue;
+			const CharStyle& cStyle(itemText.charStyle(line.firstItem + zc));
+			if (itemText.object(line.firstItem+zc) != 0)
+			{
+				asce = (itemText.object(line.firstItem+zc)->gHeight + itemText.object(line.firstItem+zc)->lineWidth()) * (itemText.charStyle(line.firstItem+zc).scaleV() / 1000.0);
+				desc = 0.0;
+			}
+			else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
+			{
+				asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0);
+				desc = cStyle.font().realCharDescent(ch, cStyle.fontSize() / 10.0);
+			}
+			//	qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result);
+			line.ascent  = qMax(line.ascent, asce);
+			line.descent = qMax(line.descent, desc);
+		}
 	}
 	
 	
