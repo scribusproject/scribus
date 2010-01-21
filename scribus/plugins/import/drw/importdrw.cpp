@@ -413,27 +413,27 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 //	quint8 data8;
 	quint16 data16;
 	ds.setByteOrder(QDataStream::LittleEndian);
-	QString cmdText = "";
+	QString cmdText = QString("Record %1 Type: ").arg(recordCount);
 	bool printMSG = false;
 	switch (cmd)
 	{
 		case 1:
-			cmdText = QString("DRW Background Color %1").arg(getColor(ds));
+			cmdText += QString("DRW Background Color %1").arg(getColor(ds));
 			break;
 		case 2:
-			cmdText = "DRW Facename";
+			cmdText += "DRW Facename";
 			break;
 		case 3:
-			cmdText = "DRW Version";
+			cmdText += "DRW Version";
 			break;
 		case 4:
-			cmdText = "DRW ID";
+			cmdText += "DRW ID";
 			break;
 		case 5:
-			cmdText = "DRW Overlay";
+			cmdText += "DRW Overlay";
 			break;
 		case 6:
-			cmdText = "DRW Polygon";
+			cmdText += "DRW Polygon";
 			if ((createObjCode == 1) || (createObjCode == 3))
 			{
 				bool first = true;
@@ -466,7 +466,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				}
 				if (currentItem != NULL)
 				{
-				//	Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 					currentItem->PoLine = Coords.copy();
 					finishItem(currentItem);
 				}
@@ -498,7 +497,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				}
 				if (currentItem != NULL)
 				{
-				//	Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 					currentItem->PoLine = Coords.copy();
 					finishItem(currentItem, false);
 				}
@@ -511,61 +509,61 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			decodeSymbol(ds);
 			break;
 		case 8:
-			cmdText = "DRW Text";
+			cmdText += "DRW Text";
 			break;
 		case 9:
-			cmdText = "DRW Color";
+			cmdText += "DRW Color";
 			break;
 		case 10:
-			cmdText = "DRW Color Flag";
+			cmdText += "DRW Color Flag";
 			break;
 		case 11:
-			cmdText = "DRW Preview Bitmap";
+			cmdText += "DRW Preview Bitmap";
 //			handlePreviewBitmap(ds);
 			break;
 		case 14:
-			cmdText = "DRW View";
+			cmdText += "DRW View";
 			break;
 		case 15:
-			cmdText = "DRW Old Grid";
+			cmdText += "DRW Old Grid";
 			break;
 		case 16:
-			cmdText = "DRW Curr Overlay";
+			cmdText += "DRW Curr Overlay";
 			break;
 		case 17:
-			cmdText = "DRW Visible";
+			cmdText += "DRW Visible";
 			break;
 		case 18:
-			cmdText = "DRW Comment";
+			cmdText += "DRW Comment";
 			break;
 		case 19:
-			cmdText = "DRW Info";
+			cmdText += "DRW Info";
 			break;
 		case 20:
-			cmdText = "DRW Bitmap";
+			cmdText += "DRW Bitmap";
 			break;
 		case 21:
-			cmdText = "DRW Font";
+			cmdText += "DRW Font";
 			break;
 		case 22:
-			cmdText = "DRW Grid";
+			cmdText += "DRW Grid";
 			break;
 		case 23:
-			cmdText = "DRW Overlay Name";
+			cmdText += "DRW Overlay Name";
 			break;
 		case 24:
-			cmdText = "DRW Dimensions";
+			cmdText += "DRW Dimensions";
 			break;
 		case 25:
 			ds >> data16;
 			scaleFactor = (1.0 / static_cast<double>(data16)) * 72.0;
-			cmdText = QString("DRW Resolution %1").arg(data16);
+			cmdText += QString("DRW Resolution %1").arg(data16);
 			break;
 		case 26:
-			cmdText = "DRW Ruler";
+			cmdText += "DRW Ruler";
 			break;
 		case 27:
-			cmdText = "DRW Page";
+			cmdText += "DRW Page";
 			docWidth = getValue(ds);
 			docHeight = getValue(ds);
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -581,49 +579,49 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			}
 			break;
 		case 28:
-			cmdText = "DRW Pattern";
+			cmdText += "DRW Pattern";
 			break;
 		case 29:
-			cmdText = "DRW Locked";
+			cmdText += "DRW Locked";
 			break;
 		case 30:
-			cmdText = "DRW Gradient";
+			cmdText += QString("DRW Gradient  Data %1").arg(QString(cmdData.toHex().left(64)));
 			break;
 		case 31:
-			cmdText = "DRW Text Hdr";
+			cmdText += "DRW Text Hdr";
 			break;
 		case 32:
-			cmdText = "DRW Band";
+			cmdText += "DRW Band";
 			break;
 		case 33:
 			ds >> data16;
-			cmdText = QString("DRW Symbolversion %1").arg(data16);
+			cmdText += QString("DRW Symbolversion %1").arg(data16);
 			break;
 		case 34:
-			cmdText = "DRW Text Para";
+			cmdText += "DRW Text Para";
 			break;
 		case 35:
-			cmdText = "DRW Colortable";
+			cmdText += "DRW Colortable";
 			break;
 		case 36:
-			cmdText = "DRW Text Extra";
+			cmdText += "DRW Text Extra";
 			break;
 		case 37:
-			cmdText = "DRW Max Link ID";
+			cmdText += "DRW Max Link ID";
 			break;
 		case 44:
-			cmdText = "Skip Symbols";
+			cmdText += "Skip Symbols";
 			break;
 		case 254:
-			cmdText = "DRW EOF";
+			cmdText += "DRW EOF";
 			printMSG = true;
 			break;
 		case 255:
-			cmdText = "DRW Start File";
+			cmdText += "DRW Start File";
 			printMSG = true;
 			break;
 		default:
-			cmdText = QString("Unknown Cmd-Nr %1  Data %2").arg(cmd).arg(QString(cmdData.toHex().left(64)));
+			cmdText += QString("Unknown Cmd-Nr %1  Data %2").arg(cmd).arg(QString(cmdData.toHex().left(64)));
 			break;
 	}
 	if (printMSG)
@@ -653,11 +651,28 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			{
 				if (cElements.nrOfItems == cElements.counter)
 				{
-					groupStack.pop();
+					DRWGroup popped = groupStack.pop();
 					cElements = groupStack.top();
+					tmpSel->clear();
+					for (int dre = 0;  dre < popped.GElements.count(); ++dre)
+					{
+						tmpSel->addItem(popped.GElements.at(dre), true);
+						groupStack.top().GElements.append(popped.GElements.at(dre));
+					}
 					bX = cElements.xoffset;
 					bY = cElements.yoffset;
-					cmdText += QString("dropping complex Object Offsets %1 %2\n").arg(cElements.xoffset).arg(cElements.yoffset);
+					if ((tmpSel->width() != 0) && (tmpSel->height() != 0) && (popped.width != 0) && (popped.height != 0))
+					{
+						double scx = 1.0;
+						if (tmpSel->width() != popped.width)
+							scx = popped.width / tmpSel->width();
+						double scy = 1.0;
+						if (tmpSel->height() != popped.height)
+							scy = popped.height / tmpSel->height();
+						m_Doc->scaleGroup(scx, scy, true, tmpSel);
+					}
+					tmpSel->clear();
+				//	cmdText += QString("dropping complex Object Offsets %1 %2\n").arg(cElements.xoffset).arg(cElements.yoffset);
 				}
 				else
 					break;
@@ -665,7 +680,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			groupStack.top().counter++;
 		}
 	}
-/*	if ((symbolCount > 53) && (symbolCount < 59))
+/*	if ((symbolCount > 53) && (symbolCount < 57))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(symbolCount));
 		f.open(QIODevice::WriteOnly);
@@ -710,6 +725,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			fillColor = getColor(ds);
 			if (patternIndex != 0)
 				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
 			ds >> dummy;
 			ds >> nPoints;
 			ds >> appFlags;
@@ -730,6 +750,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			cmdText += "Ellipse";
 			ds >> patternIndex;
 			fillColor = getColor(ds);
+			if (patternIndex != 0)
+				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
 			boundingBoxXO = getValue(ds);
 			boundingBoxYO = getValue(ds);
 			boundingBoxWO = getValue(ds);
@@ -742,7 +769,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			ds >> dummy;
 			ds >> dummy;
 			lineWidth = getValue(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			finishItem(currentItem);
 			break;
@@ -756,6 +783,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			cmdText += "Polyline";
 			ds >> patternIndex;
 			fillColor = getColor(ds);
+			if (patternIndex != 0)
+				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
 			ds >> dummy;
 			ds >> nPoints;
 			ds >> appFlags;
@@ -766,7 +800,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 3;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			break;
 		case 9:
@@ -782,6 +816,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			fillColor = getColor(ds);
 			if (patternIndex != 0)
 				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
 			boundingBoxXO = getValue(ds);
 			boundingBoxYO = getValue(ds);
 			boundingBoxWO = getValue(ds);
@@ -794,7 +833,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			ds >> dummy;
 			ds >> dummy;
 			lineWidth = getValue(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, fillC, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			finishItem(currentItem);
 			if (data8 == 11)
@@ -806,6 +845,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			fillColor = getColor(ds);
 			if (patternIndex != 0)
 				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
 			boundingBoxXO = getValue(ds);
 			boundingBoxYO = getValue(ds);
 			boundingBoxWO = getValue(ds);
@@ -832,14 +876,20 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			cmdText += "filled quadratic Spline";
 			break;
 		case 17:
+			ds >> patternIndex;
+			fillColor = getColor(ds);
 			ds.device()->seek(0x2B);
 			ds >> dummy;
 			gElements.xoffset = bX + bBox.x();
 			gElements.yoffset = bY + bBox.y();
+			gElements.width = bBox.width();
+			gElements.height = bBox.height();
 			gElements.nrOfItems = dummy;
 			gElements.counter = 0;
+			gElements.patternIndex = patternIndex;
+			gElements.fillColor = fillColor;
 			groupStack.push(gElements);
-			cmdText += QString("filled complex Object Count %1  Offsets %2 %3").arg(dummy).arg(gElements.xoffset).arg(gElements.yoffset);
+			cmdText += QString("filled complex Object Count %1  Offsets %2 %3 Size %4 %5").arg(dummy).arg(gElements.xoffset).arg(gElements.yoffset).arg(bBox.width()).arg(bBox.height());
 			break;
 		case 18:
 			cmdText += "parabolic Arc";
@@ -857,6 +907,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			cmdText += "Bezier line";
 			ds >> patternIndex;
 			fillColor = getColor(ds);
+			if (patternIndex != 0)
+				fillC = fillColor;
 			ds >> dummy;
 			ds >> nPoints;
 			ds >> appFlags;
@@ -867,7 +919,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 2;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			break;
 		case 24:
@@ -876,6 +928,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			fillColor = getColor(ds);
 			if (patternIndex != 0)
 				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
 			ds >> dummy;
 			ds >> nPoints;
 			ds >> appFlags;
@@ -911,12 +968,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 	if (printMSG)
 	{
 		qDebug() << cmdText;
+		if (currentItem != NULL)
+			qDebug() << currentItem->itemName();
 //		qDebug() << "Pos" << position << "Box" << bBox;
 //		qDebug() << "Rot" << rotationAngle << "Bounding Box" << bBoxO;
 //		qDebug() << "Line" << lineColor << "LWidth" << lineWidth << "Fill" << fillColor;
 //		qDebug() << "Scale" << scaleX << " " << scaleY;
-//		qDebug() << QString("Flags %1").arg(flags, 8, 2, QChar('0'));
-//		qDebug() << QString("Pattern %1").arg(patternIndex, 2, 16, QChar('0'));
+		qDebug() << QString("Flags %1").arg(flags, 8, 2, QChar('0')) << QString("Pattern %1").arg(patternIndex, 2, 16, QChar('0'));
 //		if (createObjCode == 1)
 //			qDebug() << "Expecting" << nrOfPoints;
 	}
@@ -1112,8 +1170,7 @@ void DrwPlug::finishItem(PageItem* ite, bool scale)
 	Elements.append(ite);
 	if (groupStack.count() != 0)
 	{
-		DRWGroup cElements = groupStack.top();
-		cElements.GElements.append(ite);
+		groupStack.top().GElements.append(ite);
 	}
 	Coords.resize(0);
 	Coords.svgInit();

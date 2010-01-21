@@ -79,8 +79,12 @@ private:
 	{
 		double xoffset;
 		double yoffset;
+		double width;
+		double height;
 		int nrOfItems;
 		int counter;
+		quint8 patternIndex;
+		QString fillColor;
 		QList<PageItem*> GElements;
 	};
 	QStack<DRWGroup> groupStack;
