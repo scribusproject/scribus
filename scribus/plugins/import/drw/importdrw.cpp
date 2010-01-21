@@ -324,6 +324,7 @@ bool DrwPlug::convert(QString fn)
 	nrOfPoints = 0;
 	symbolCount = 0;
 	recordCount = 0;
+	imageValid = false;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -353,6 +354,8 @@ bool DrwPlug::convert(QString fn)
 			decodeCmdData(ts, dataLen, cmd);
 			decodeCmd(cmd, pos);
 			progressDialog->setProgress("GI", ts.device()->pos());
+			if (cmd == 254)
+				break;
 			qApp->processEvents();
 		}
 		if (Elements.count() == 0)
@@ -409,6 +412,13 @@ void DrwPlug::decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd)
 void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
+/*	if ((recordCount > 1241) && (recordCount < 1245))
+	{
+		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
+		f.open(QIODevice::WriteOnly);
+		f.write(cmdData);
+		f.close();
+	} */
 	QDataStream ds(cmdData);
 //	quint8 data8;
 	quint16 data16;
@@ -424,7 +434,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += "DRW Facename";
 			break;
 		case 3:
-			cmdText += "DRW Version";
+			cmdText += QString("DRW Version Data %1").arg(QString(cmdData.toHex().left(64)));
 			break;
 		case 4:
 			cmdText += "DRW ID";
@@ -541,6 +551,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 20:
 			cmdText += "DRW Bitmap";
+			printMSG = true;
 			break;
 		case 21:
 			cmdText += "DRW Font";
@@ -592,6 +603,67 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 32:
 			cmdText += "DRW Band";
+/* For this record the documentation is completly wrong
+
+	offs	meaning
+	0		X-Offset
+	2		Y-Offset
+	4		bytes per row
+	6		number of rows stored in this record
+	8+		Image Data as raw uncompressed values
+*/
+			if (imageValid)
+			{
+				quint16 xoff, yoff, len, count;
+				ds >> xoff >> yoff >> len >> count;
+				if (bitsPerPixel == 24)
+				{
+					for (quint16 y = 0; y < count; y++)
+					{
+						QRgb *q = (QRgb*)(tmpImage.scanLine(yoff + y));
+						for (quint16 x = 0; x < imageWidth; x++)
+						{
+							quint8 r, g, b;
+							ds >> r >> g >> b;
+							*q = qRgba(r, g, b, 255);
+							q++;
+						}
+						scanLinesRead++;
+					}
+				}
+				else if (bitsPerPixel == 8)
+				{
+					for (quint16 y = 0; y < count; y++)
+					{
+						QRgb *q = (QRgb*)(tmpImage.scanLine(yoff + y));
+						for (quint16 x = 0; x < imageWidth; x++)
+						{
+							quint8 r;
+							ds >> r;
+							*q = qRgba(r, r, r, 255);
+							q++;
+						}
+						scanLinesRead++;
+					}
+				}
+				if (scanLinesRead >= imageHeight)
+				{
+					if (currentItem != NULL)
+					{
+						tmpImage = tmpImage.convertToFormat(QImage::Format_ARGB32);
+						currentItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
+						currentItem->tempImageFile->open();
+						QString fileName = getLongPathName(currentItem->tempImageFile->fileName());
+						currentItem->tempImageFile->close();
+						currentItem->isInlineImage = true;
+						tmpImage.save(fileName, "PNG");
+						m_Doc->loadPict(fileName, currentItem);
+						currentItem->setImageScalingMode(false, false);
+					}
+					imageValid = false;
+					tmpImage = QImage();
+				}
+			}
 			break;
 		case 33:
 			ds >> data16;
@@ -617,7 +689,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			printMSG = true;
 			break;
 		case 255:
-			cmdText += "DRW Start File";
+			cmdText += QString("DRW Start File Data %1").arg(QString(cmdData.toHex().left(64)));
 			printMSG = true;
 			break;
 		default:
@@ -902,6 +974,25 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			break;
 		case 22:
 			cmdText += "Bitmap monochrome";
+			ds >> dummy;
+			boundingBoxXO = getValue(ds);
+			boundingBoxYO = getValue(ds);
+			boundingBoxWO = getValue(ds);
+			boundingBoxHO = getValue(ds);
+			ds >> bitsPerPixel;
+			ds >> bytesScanline;
+			ds >> planes;
+			ds >> imageHeight;
+			ds >> imageWidth;
+			if ((bitsPerPixel == 24) || (bitsPerPixel == 8))
+			{
+				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, CommonStrings::None, true);
+				currentItem = m_Doc->Items->at(z);
+				finishItem(currentItem);
+				scanLinesRead = 0;
+				tmpImage = QImage(imageWidth, imageHeight, QImage::Format_ARGB32);
+				imageValid = true;
+			}
 			break;
 		case 23:
 			cmdText += "Bezier line";
@@ -951,9 +1042,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			break;
 		case 26:
 			cmdText += "virtual Bitmap";
+			printMSG = true;
 			break;
 		case 27:
 			cmdText += "simple Clip Path";
+			printMSG = true;
 			break;
 		case 28:
 			cmdText += "tiled Clip Path";
@@ -970,11 +1063,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 		qDebug() << cmdText;
 		if (currentItem != NULL)
 			qDebug() << currentItem->itemName();
+		if (imageValid)
+			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
 //		qDebug() << "Pos" << position << "Box" << bBox;
 //		qDebug() << "Rot" << rotationAngle << "Bounding Box" << bBoxO;
 //		qDebug() << "Line" << lineColor << "LWidth" << lineWidth << "Fill" << fillColor;
 //		qDebug() << "Scale" << scaleX << " " << scaleY;
-		qDebug() << QString("Flags %1").arg(flags, 8, 2, QChar('0')) << QString("Pattern %1").arg(patternIndex, 2, 16, QChar('0'));
+//		qDebug() << QString("Flags %1").arg(flags, 8, 2, QChar('0')) << QString("Pattern %1").arg(patternIndex, 2, 16, QChar('0'));
 //		if (createObjCode == 1)
 //			qDebug() << "Expecting" << nrOfPoints;
 	}

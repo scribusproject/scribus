@@ -98,6 +98,14 @@ private:
 	int createObjCode;
 	int nrOfPoints;
 	PageItem *currentItem;
+	QImage tmpImage;
+	quint16 bitsPerPixel;
+	quint16 bytesScanline;
+	quint16 planes;
+	quint16 imageHeight;
+	quint16 imageWidth;
+	quint16 scanLinesRead;
+	bool imageValid;
 
 	int symbolCount;
 	int recordCount;
