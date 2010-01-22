@@ -100,12 +100,16 @@ private:
 	int nrOfPoints;
 	PageItem *currentItem;
 	QImage tmpImage;
+	QImage tmpImage2;
 	quint16 bitsPerPixel;
 	quint16 bytesScanline;
 	quint16 planes;
 	quint16 imageHeight;
 	quint16 imageWidth;
 	quint16 scanLinesRead;
+	quint8 rTrans;
+	quint8 gTrans;
+	quint8 bTrans;
 	bool imageValid;
 
 	int symbolCount;

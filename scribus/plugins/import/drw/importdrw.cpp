@@ -412,7 +412,7 @@ void DrwPlug::decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd)
 void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
-/*	if ((recordCount > 1241) && (recordCount < 1245))
+/*	if ((recordCount > 1241) && (recordCount < 1243))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
 		f.open(QIODevice::WriteOnly);
@@ -424,7 +424,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	quint16 data16;
 	ds.setByteOrder(QDataStream::LittleEndian);
 	QString cmdText = QString("Record %1 Type: ").arg(recordCount);
-	bool printMSG = true;
+	bool printMSG = false;
 	switch (cmd)
 	{
 		case 1:
@@ -636,6 +636,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					for (quint16 y = 0; y < count; y++)
 					{
 						QRgb *q = (QRgb*)(tmpImage.scanLine(yoff + y));
+						int pos = ds.device()->pos();
 						for (quint16 x = 0; x < imageWidth; x++)
 						{
 							quint8 r;
@@ -643,6 +644,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 							*q = qRgba(r, r, r, 255);
 							q++;
 						}
+						QByteArray data;
+						data.resize(imageWidth);
+						ds.device()->seek(pos);
+						ds.readRawData(data.data(), imageWidth);
+						memcpy(tmpImage2.scanLine(yoff + y), data.data(), imageWidth);
 						scanLinesRead++;
 					}
 				}
@@ -650,7 +656,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 					if (currentItem != NULL)
 					{
-						tmpImage = tmpImage.convertToFormat(QImage::Format_ARGB32);
+					//	tmpImage = tmpImage.convertToFormat(QImage::Format_ARGB32);
 						currentItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
 						currentItem->tempImageFile->open();
 						QString fileName = getLongPathName(currentItem->tempImageFile->fileName());
@@ -674,6 +680,30 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 35:
 			cmdText += "DRW Colortable";
+			if (currentItem != NULL)
+			{
+				if (currentItem->asImageFrame())
+				{
+					QString fileName = getLongPathName(currentItem->tempImageFile->fileName());
+					if (!fileName.isEmpty())
+					{
+						QVector<QRgb> colors;
+						for (quint16 cc = 0; cc < 255; cc++)	// now reading ColorTable, exactly 1024 bytes
+						{
+							quint8 r, g, b, a;
+							ds >> r >> g >> b >> a;				// values are stored in BGR order
+							if ((r == rTrans) && (g == gTrans) && (b == bTrans))
+								colors.append(qRgba(r, g, b, 0));
+							else
+								colors.append(qRgb(r, g, b));
+						}
+						tmpImage2.setColorTable(colors);
+						tmpImage2 = tmpImage2.convertToFormat(QImage::Format_ARGB32);
+						tmpImage2.save(fileName, "PNG");
+						m_Doc->loadPict(fileName, currentItem, true);
+					}
+				}
+			}
 			break;
 		case 36:
 			cmdText += "DRW Text Extra";
@@ -1026,6 +1056,10 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds >> planes;
 			ds >> imageHeight;
 			ds >> imageWidth;
+			ds >> dummy;
+			ds >> rTrans;
+			ds >> gTrans;
+			ds >> bTrans;
 			if ((bitsPerPixel == 24) || (bitsPerPixel == 8))
 			{
 				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + bBox.x() + bX, baseY + bBox.y() + bY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, CommonStrings::None, true);
@@ -1033,6 +1067,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 				finishItem(currentItem);
 				scanLinesRead = 0;
 				tmpImage = QImage(imageWidth, imageHeight, QImage::Format_ARGB32);
+				if (bitsPerPixel == 8)
+					tmpImage2 = QImage(imageWidth, imageHeight, QImage::Format_Indexed8);
 				imageValid = true;
 			}
 			break;
