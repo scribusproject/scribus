@@ -806,6 +806,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						res.fromQPainterPath(gesPa);
 						res.translate(-selRect.x(), -selRect.y());
 						PageItem *ite = tmpSel->takeItem(0);
+						selectedItemCount = tmpSel->count();
+						for (uint i = 0; i < selectedItemCount; ++i)
+						{
+							Elements.removeAll(tmpSel->itemAt(i));
+						}
 						ite->setXYPos(popped.xoffset + m_Doc->currentPage()->xOffset(), popped.yoffset + m_Doc->currentPage()->yOffset());
 						ite->PoLine = res.copy();
 						FPoint wh = getMaxClipF(&ite->PoLine);
