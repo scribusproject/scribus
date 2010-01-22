@@ -65,7 +65,7 @@ private:
 	bool convert(QString fn);
 	void decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd);
 	void decodeCmd(quint8 cmd, int pos);
-	void decodeSymbol(QDataStream &ds);
+	void decodeSymbol(QDataStream &ds, bool last = false);
 	void handlePreviewBitmap(QDataStream &ds);
 	QString handleColor(ScColor &color, QString proposedName);
 	QString getColor(QDataStream &ds);
@@ -85,6 +85,7 @@ private:
 		int counter;
 		quint8 patternIndex;
 		QString fillColor;
+		QString lineColor;
 		QList<PageItem*> GElements;
 	};
 	QStack<DRWGroup> groupStack;

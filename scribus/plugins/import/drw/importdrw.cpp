@@ -424,7 +424,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	quint16 data16;
 	ds.setByteOrder(QDataStream::LittleEndian);
 	QString cmdText = QString("Record %1 Type: ").arg(recordCount);
-	bool printMSG = false;
+	bool printMSG = true;
 	switch (cmd)
 	{
 		case 1:
@@ -517,6 +517,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 		case 7:
 			cmdText = "";
 			decodeSymbol(ds);
+			printMSG = false;
 			break;
 		case 8:
 			cmdText += "DRW Text";
@@ -551,7 +552,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 20:
 			cmdText += "DRW Bitmap";
-			printMSG = true;
 			break;
 		case 21:
 			cmdText += "DRW Font";
@@ -686,11 +686,10 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 254:
 			cmdText += "DRW EOF";
-			printMSG = true;
+			decodeSymbol(ds, true);
 			break;
 		case 255:
 			cmdText += QString("DRW Start File Data %1").arg(QString(cmdData.toHex().left(64)));
-			printMSG = true;
 			break;
 		default:
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2").arg(cmd).arg(QString(cmdData.toHex().left(64)));
@@ -703,7 +702,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	}
 }
 
-void DrwPlug::decodeSymbol(QDataStream &ds)
+void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 {
 	symbolCount++;
 	QString cmdText = QString("Symbol %1 Type:").arg(symbolCount);
@@ -729,19 +728,59 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 					for (int dre = 0;  dre < popped.GElements.count(); ++dre)
 					{
 						tmpSel->addItem(popped.GElements.at(dre), true);
-						groupStack.top().GElements.append(popped.GElements.at(dre));
 					}
 					bX = cElements.xoffset;
 					bY = cElements.yoffset;
-					if ((tmpSel->width() != 0) && (tmpSel->height() != 0) && (popped.width != 0) && (popped.height != 0))
+					uint selectedItemCount = tmpSel->count();
+					if (selectedItemCount > 0)
 					{
-						double scx = 1.0;
-						if (tmpSel->width() != popped.width)
-							scx = popped.width / tmpSel->width();
-						double scy = 1.0;
-						if (tmpSel->height() != popped.height)
-							scy = popped.height / tmpSel->height();
-						m_Doc->scaleGroup(scx, scy, true, tmpSel);
+						if ((tmpSel->width() != 0) && (tmpSel->height() != 0) && (popped.width != 0) && (popped.height != 0))
+						{
+							double scx = 1.0;
+							if (tmpSel->width() != popped.width)
+								scx = popped.width / tmpSel->width();
+							double scy = 1.0;
+							if (tmpSel->height() != popped.height)
+								scy = popped.height / tmpSel->height();
+							m_Doc->scaleGroup(scx, scy, true, tmpSel);
+						}
+						QRectF selRect = tmpSel->getGroupRect();
+						QPainterPath gesPa;
+						bool firstP = true;
+						for (uint i = 0; i < selectedItemCount; ++i)
+						{
+							QPainterPath pa;
+							PageItem *item = tmpSel->itemAt(i);
+							item->PoLine.translate(item->xPos(), item->yPos());
+							if (item->asPolyLine())
+								pa = item->PoLine.toQPainterPath(false);
+							else
+								pa = item->PoLine.toQPainterPath(true);
+							const QPainterPath::Element &elm = pa.elementAt(0);
+							QPointF lastP = gesPa.currentPosition();
+							bool conn = false;
+							if ((fabs(lastP.x() - elm.x) > 3) || (fabs(lastP.y() - elm.y) > 3))
+								conn = true;
+							if ((firstP) || (conn))
+							{
+								gesPa.addPath(pa);
+								firstP = false;
+							}
+							else
+								gesPa.connectPath(pa);
+						}
+						FPointArray res;
+						res.fromQPainterPath(gesPa);
+						res.translate(-selRect.x(), -selRect.y());
+						PageItem *ite = tmpSel->takeItem(0);
+						ite->setXYPos(popped.xoffset + m_Doc->currentPage()->xOffset(), popped.yoffset + m_Doc->currentPage()->yOffset());
+						ite->PoLine = res.copy();
+						FPoint wh = getMaxClipF(&ite->PoLine);
+						ite->setWidthHeight(wh.x(),wh.y());
+						ite->setFillColor(popped.fillColor);
+						ite->setLineColor(popped.lineColor);
+						groupStack.top().GElements.append(ite);
+						m_Doc->itemSelection_DeleteItem(tmpSel);
 					}
 					tmpSel->clear();
 				//	cmdText += QString("dropping complex Object Offsets %1 %2\n").arg(cElements.xoffset).arg(cElements.yoffset);
@@ -752,6 +791,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			groupStack.top().counter++;
 		}
 	}
+	if (last)
+		return;
 /*	if ((symbolCount > 53) && (symbolCount < 57))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(symbolCount));
@@ -960,6 +1001,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			gElements.counter = 0;
 			gElements.patternIndex = patternIndex;
 			gElements.fillColor = fillColor;
+			gElements.lineColor = lineColor;
 			groupStack.push(gElements);
 			cmdText += QString("filled complex Object Count %1  Offsets %2 %3 Size %4 %5").arg(dummy).arg(gElements.xoffset).arg(gElements.yoffset).arg(bBox.width()).arg(bBox.height());
 			break;
@@ -1042,11 +1084,9 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 			break;
 		case 26:
 			cmdText += "virtual Bitmap";
-			printMSG = true;
 			break;
 		case 27:
 			cmdText += "simple Clip Path";
-			printMSG = true;
 			break;
 		case 28:
 			cmdText += "tiled Clip Path";
@@ -1063,8 +1103,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds)
 		qDebug() << cmdText;
 		if (currentItem != NULL)
 			qDebug() << currentItem->itemName();
-		if (imageValid)
-			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
+//		if (imageValid)
+//			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
 //		qDebug() << "Pos" << position << "Box" << bBox;
 //		qDebug() << "Rot" << rotationAngle << "Bounding Box" << bBoxO;
 //		qDebug() << "Line" << lineColor << "LWidth" << lineWidth << "Fill" << fillColor;
