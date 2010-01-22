@@ -786,18 +786,21 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 								pa = item->PoLine.toQPainterPath(false);
 							else
 								pa = item->PoLine.toQPainterPath(true);
-							const QPainterPath::Element &elm = pa.elementAt(0);
-							QPointF lastP = gesPa.currentPosition();
-							bool conn = false;
-							if ((fabs(lastP.x() - elm.x) > 3) || (fabs(lastP.y() - elm.y) > 3))
-								conn = true;
-							if ((firstP) || (conn))
+							if (!pa.isEmpty())
 							{
-								gesPa.addPath(pa);
-								firstP = false;
+								const QPainterPath::Element &elm = pa.elementAt(0);
+								QPointF lastP = gesPa.currentPosition();
+								bool conn = false;
+								if ((fabs(lastP.x() - elm.x) > 3) || (fabs(lastP.y() - elm.y) > 3))
+									conn = true;
+								if ((firstP) || (conn))
+								{
+									gesPa.addPath(pa);
+									firstP = false;
+								}
+								else
+									gesPa.connectPath(pa);
 							}
-							else
-								gesPa.connectPath(pa);
 						}
 						FPointArray res;
 						res.fromQPainterPath(gesPa);
