@@ -883,7 +883,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					//m_Doc->Pages = &m_Doc->MasterPages;
 					m_Doc->setMasterPageMode(true);
 				}
-				int docGc = m_Doc->GroupCounter, pagenr = -1;
+				//int docGc = m_Doc->GroupCounter, 
+				int pagenr = -1;
 				if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 				{
 					m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
