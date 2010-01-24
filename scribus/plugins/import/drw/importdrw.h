@@ -89,6 +89,18 @@ private:
 		QList<PageItem*> GElements;
 	};
 	QStack<DRWGroup> groupStack;
+	struct DRWObjectList
+	{
+		double groupX;
+		double groupY;
+		double width;
+		double height;
+		quint16 nrOfItems;
+		quint16 counter;
+		QString itemGroupName;
+		QList<PageItem*> GElements;
+	};
+	QStack<DRWObjectList> listStack;
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
