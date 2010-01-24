@@ -855,19 +855,10 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 				for (int dre = 0;  dre < popped.GElements.count(); ++dre)
 				{
 					tmpSel->addItem(popped.GElements.at(dre), true);
-					popped.GElements.at(dre)->Groups.push(m_Doc->GroupCounter);
 				}
 				uint selectedItemCount = tmpSel->count();
 				if (selectedItemCount > 0)
 				{
-					popped.groupItem->Groups.push(m_Doc->GroupCounter);
-					if (popped.itemGroupName.isEmpty())
-						popped.groupItem->setItemName( tr("Group%1").arg(popped.groupItem->Groups.top()));
-					else
-						popped.groupItem->setItemName(popped.itemGroupName);
-					popped.groupItem->AutoName = false;
-					popped.groupItem->isGroupControl = true;
-					popped.groupItem->groupsLastItem = tmpSel->itemAt(selectedItemCount - 1);
 					if ((tmpSel->width() != 0) && (tmpSel->height() != 0) && (popped.width != 0) && (popped.height != 0))
 					{
 						double scx = 1.0;
@@ -878,6 +869,19 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 							scy = popped.height / tmpSel->height();
 						m_Doc->scaleGroup(scx, scy, true, tmpSel);
 					}
+					for (uint i = 0; i < selectedItemCount; ++i)
+					{
+						PageItem *item = tmpSel->itemAt(i);
+						item->Groups.push(m_Doc->GroupCounter);
+					}
+					popped.groupItem->Groups.push(m_Doc->GroupCounter);
+					if (popped.itemGroupName.isEmpty())
+						popped.groupItem->setItemName( tr("Group%1").arg(popped.groupItem->Groups.top()));
+					else
+						popped.groupItem->setItemName(popped.itemGroupName);
+					popped.groupItem->AutoName = false;
+					popped.groupItem->isGroupControl = true;
+					popped.groupItem->groupsLastItem = tmpSel->itemAt(selectedItemCount - 1);
 				}
 				m_Doc->GroupCounter++;
 				tmpSel->clear();
