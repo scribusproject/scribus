@@ -219,7 +219,7 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_ItemTools))
 			prefs_ItemTools->enableFontPreview(true);
 		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_TableOfContents))
-			prefs_TableOfContents->setupItemAttrs( prefs_DocumentItemAttributes->getDocAttributesNames() );;
+			prefs_TableOfContents->setupItemAttrs( prefs_DocumentItemAttributes->getDocAttributesNames() );
 	}
 }
 
