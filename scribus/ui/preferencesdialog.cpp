@@ -126,6 +126,8 @@ void PreferencesDialog::setupGui()
 	prefs_Printer->restoreDefaults(&localPrefs);
 	prefs_PDFExport->restoreDefaults(&localPrefs);
 	prefs_PreflightVerifier->restoreDefaults(&localPrefs);
+	prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
+	prefs_TableOfContents->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
@@ -148,6 +150,8 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_Printer->saveGuiToPrefs(&localPrefs);
 	prefs_PDFExport->saveGuiToPrefs(&localPrefs);
 	prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
+	prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
+	prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
@@ -214,6 +218,8 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 		prefsStackWidget->setCurrentIndex(stackWidgetMap[ic]);
 		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_ItemTools))
 			prefs_ItemTools->enableFontPreview(true);
+		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_TableOfContents))
+			prefs_TableOfContents->setupItemAttrs( prefs_DocumentItemAttributes->getDocAttributesNames() );;
 	}
 }
 

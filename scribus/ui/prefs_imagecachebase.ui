@@ -96,7 +96,7 @@
             <enum>QAbstractSpinBox::UpDownArrows</enum>
            </property>
            <property name="suffix">
-            <string> MiB</string>
+            <string> Mb</string>
            </property>
            <property name="minimum">
             <number>100</number>

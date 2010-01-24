@@ -8,16 +8,59 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_TABLEOFCONTENTS_H
 #define PREFS_TABLEOFCONTENTS_H
 
+#include <QStringList>
+
 #include "ui_prefs_tableofcontentsbase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_TableOfContents : public QWidget, Ui::Prefs_TableOfContents
+class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfContents
 {
 	Q_OBJECT
 
 	public:
 		Prefs_TableOfContents(QWidget* parent=0);
 		~Prefs_TableOfContents();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
+
+//		virtual void setup( ToCSetupVector * tocsetups, ScribusDoc * doc );
+//		virtual void generatePageItemList();
+		void setupItemAttrs( QStringList newNames );
+//		virtual void selectToC( int numberSelected );
+//		virtual void addToC();
+//		virtual void updateToCListBox();
+//		virtual void updateParagraphStyleComboBox();
+//		virtual void deleteToC();
+//		virtual void itemAttributeSelected( const QString & itemAttributeName );
+//		virtual void itemFrameSelected( const QString & frameName );
+//		virtual void itemPageNumberPlacedSelected( const QString & pageLocation );
+//		virtual void itemParagraphStyleSelected( const QString & itemStyle );
+//		virtual void setToCName( const QString & newName );
+//		virtual void nonPrintingFramesSelected( bool showNonPrinting );
+//
+//	protected:
+//		int numSelected;
+//		QString strPNNotShown;
+//		QString strPNEnd;
+//		QString strPNBeginning;
+//		QString trStrPNNotShown;
+//		QString trStrPNEnd;
+//		QString trStrPNBeginning;
+//		ToCSetupVector localToCSetupVector;
+//		QString trStrNone;
+//		ScribusDoc *currDoc;
+//		QString selectedTOCAttrName;
+//		QStringList paragraphStyleList;
+//		QString strNone;
+//
+//	private:
+//		void init();
+//		void destroy();
+
 };
 
 #endif // PREFS_TABLEOFCONTENTS_H
