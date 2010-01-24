@@ -832,6 +832,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						ite->setFillColor(popped.fillColor);
 						ite->setLineColor(popped.lineColor);
 						groupStack.top().GElements.append(ite);
+						listStack.top().GElements.append(ite);
 						m_Doc->itemSelection_DeleteItem(tmpSel);
 					}
 					tmpSel->clear();
@@ -854,10 +855,19 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 				for (int dre = 0;  dre < popped.GElements.count(); ++dre)
 				{
 					tmpSel->addItem(popped.GElements.at(dre), true);
+					popped.GElements.at(dre)->Groups.push(m_Doc->GroupCounter);
 				}
 				uint selectedItemCount = tmpSel->count();
 				if (selectedItemCount > 0)
 				{
+					popped.groupItem->Groups.push(m_Doc->GroupCounter);
+					if (popped.itemGroupName.isEmpty())
+						popped.groupItem->setItemName( tr("Group%1").arg(popped.groupItem->Groups.top()));
+					else
+						popped.groupItem->setItemName(popped.itemGroupName);
+					popped.groupItem->AutoName = false;
+					popped.groupItem->isGroupControl = true;
+					popped.groupItem->groupsLastItem = tmpSel->itemAt(selectedItemCount - 1);
 					if ((tmpSel->width() != 0) && (tmpSel->height() != 0) && (popped.width != 0) && (popped.height != 0))
 					{
 						double scx = 1.0;
@@ -869,6 +879,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						m_Doc->scaleGroup(scx, scy, true, tmpSel);
 					}
 				}
+				m_Doc->GroupCounter++;
 				tmpSel->clear();
 			}
 			else
@@ -945,15 +956,22 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			currentItem = m_Doc->Items->at(z);
 			break;
 		case 2:
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
+			gList.groupItem = m_Doc->Items->at(z);
 			gList.groupX = groupX + bBox.x();
 			gList.groupY = groupY + bBox.y();
 			gList.width = bBox.width();
 			gList.height = bBox.height();
+			gList.itemGroupName = "";
 			ds.device()->seek(0x26);
 			ds >> dummy;
 			gList.nrOfItems = dummy;
 			gList.counter = 0;
 			listStack.push(gList);
+			gList.groupItem->ClipEdited = true;
+			gList.groupItem->FrameType = 3;
+			gList.groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+			Elements.append(gList.groupItem);
 			cmdText += QString("Group  Count %1").arg(dummy);
 		/*	if (printMSG)
 			{
@@ -1240,8 +1258,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 		qDebug() << cmdText;
 //		if (currentItem != NULL)
 //			qDebug() << currentItem->itemName();
-		if (imageValid)
-			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
+//		if (imageValid)
+//			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
 //		qDebug() << "Pos" << position << "Box" << bBox;
 //		qDebug() << "Rot" << rotationAngle << "Bounding Box" << bBoxO;
 //		qDebug() << "Line" << lineColor << "LWidth" << lineWidth << "Fill" << fillColor;

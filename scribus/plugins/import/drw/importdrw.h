@@ -98,6 +98,7 @@ private:
 		quint16 nrOfItems;
 		quint16 counter;
 		QString itemGroupName;
+		PageItem* groupItem;
 		QList<PageItem*> GElements;
 	};
 	QStack<DRWObjectList> listStack;
