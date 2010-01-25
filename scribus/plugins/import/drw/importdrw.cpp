@@ -417,7 +417,7 @@ void DrwPlug::decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd)
 void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
-/*	if ((recordCount > 9) && (recordCount < 12))
+/*	if ((recordCount > 83) && (recordCount < 91))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
 		f.open(QIODevice::WriteOnly);
@@ -821,12 +821,12 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 					uint selectedItemCount = tmpSel->count();
 					if (selectedItemCount > 0)
 					{
+						double scx = 1.0;
+						double scy = 1.0;
 						if ((tmpSel->width() != 0) && (tmpSel->height() != 0) && (popped.width != 0) && (popped.height != 0))
 						{
-							double scx = 1.0;
 							if (tmpSel->width() != popped.width)
 								scx = popped.width / tmpSel->width();
-							double scy = 1.0;
 							if (tmpSel->height() != popped.height)
 								scy = popped.height / tmpSel->height();
 							m_Doc->scaleGroup(scx, scy, true, tmpSel);
@@ -875,6 +875,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->setFillColor(popped.fillColor);
 						ite->setLineWidth(popped.lineWidth);
+						ite->setLineWidth(ite->lineWidth() / qMin(scx, scy));
 						handleLineStyle(ite, popped.flags, popped.lineColor);
 						handleGradient(ite, popped.patternIndex, popped.fillColor, popped.backColor, QRectF(0, 0, ite->width(), ite->height()));
 						groupStack.top().GElements.append(ite);
@@ -1639,6 +1640,7 @@ void DrwPlug::finishItem(PageItem* ite, bool scale)
 			scy = ite->height() / bb.height();
 //	qDebug() << scx << scy;
 		ite->PoLine.scale(scx, scy);
+		ite->setLineWidth(ite->lineWidth() / qMin(scx, scy));
 	}
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
