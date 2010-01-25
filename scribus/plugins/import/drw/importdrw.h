@@ -66,6 +66,8 @@ private:
 	void decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd);
 	void decodeCmd(quint8 cmd, int pos);
 	void decodeSymbol(QDataStream &ds, bool last = false);
+	void handleLineStyle(PageItem* currentItem, quint8 flags, QString lineColor);
+	void handleGradient(PageItem* currentItem, quint8 patternIndex, QString fillColor, QString backColor, QRectF bBox);
 	void handlePreviewBitmap(QDataStream &ds);
 	QString handleColor(ScColor &color, QString proposedName);
 	QString getColor(QDataStream &ds);
@@ -81,11 +83,14 @@ private:
 		double yoffset;
 		double width;
 		double height;
+		double lineWidth;
 		int nrOfItems;
 		int counter;
 		quint8 patternIndex;
+		quint8 flags;
 		QString fillColor;
 		QString lineColor;
+		QString backColor;
 		QList<PageItem*> GElements;
 	};
 	QStack<DRWGroup> groupStack;
@@ -102,6 +107,14 @@ private:
 		QList<PageItem*> GElements;
 	};
 	QStack<DRWObjectList> listStack;
+	struct DRWGradient
+	{
+		int type;
+		double xOffset;
+		double yOffset;
+		double angle;
+	};
+	QMap<int, DRWGradient> gradientMap;
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
