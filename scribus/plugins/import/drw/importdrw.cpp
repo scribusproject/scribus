@@ -944,13 +944,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	}
 	if (last)
 		return;
-/*	if ((symbolCount > 53) && (symbolCount < 57))
+/*	if ((symbolCount > 30) && (symbolCount < 41))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(symbolCount));
 		f.open(QIODevice::WriteOnly);
 		f.write(cmdData);
 		f.close();
-	} */
+	}*/
 	int z;
 	quint8 data8, flags, patternIndex, appFlags;
 	quint16 dummy, nPoints, nItems;
@@ -1028,6 +1028,9 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			gList.groupItem->ClipEdited = true;
 			gList.groupItem->FrameType = 3;
 			gList.groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+			gList.groupItem->OldB2 = gList.groupItem->width();
+			gList.groupItem->OldH2 = gList.groupItem->height();
+			gList.groupItem->updateClip();
 			Elements.append(gList.groupItem);
 			cmdText += QString("Group  Count %1").arg(dummy);
 		/*	if (printMSG)
@@ -1088,10 +1091,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = patternIndex * scaleFactor;
 			Coords.resize(0);
 			Coords.svgInit();
-			Coords.svgMoveTo(posStart.x(), posStart.y());
-			Coords.svgLineTo(posEnd.x(), posEnd.y());
+			Coords.svgMoveTo(fabs(posStart.x()), fabs(posStart.y()));
+			Coords.svgLineTo(fabs(posEnd.x()), fabs(posEnd.y()));
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
+			currentItem->PoLine = Coords.copy();
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
 			break;
