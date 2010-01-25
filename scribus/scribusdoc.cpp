@@ -10389,7 +10389,10 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		h -= g;
 		FPoint h1(h.x(), h.y(), 0, 0, 0, scx, scy);
 		if (bb->Groups.count() != 0)				// change the LineWidth only when the item is within a real Group
-			bb->setLineWidth(qMax(bb->lineWidth()*((scx+scy)/2), 0.01));
+		{
+			if (bb->lineWidth() != 0)				// don't try to scale hairlines
+				bb->setLineWidth(qMax(bb->lineWidth()*((scx+scy)/2), 0.01));
+		}
 		if (bb->itemType() == PageItem::Line)
 		{
 			bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
