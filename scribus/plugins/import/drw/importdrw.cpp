@@ -440,6 +440,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 2:
 			cmdText += "DRW Facename";
+			printMSG = true;
 			break;
 		case 3:
 			cmdText += QString("DRW Version Data %1").arg(QString(cmdData.toHex().left(64)));
@@ -451,6 +452,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 5:
 			cmdText += "DRW Overlay";
+			printMSG = true;
 			break;
 		case 6:
 			cmdText += "DRW Polygon";
@@ -562,6 +564,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 8:
 			cmdText += "DRW Text";
+			printMSG = true;
 			break;
 		case 9:
 			cmdText += "DRW Color";
@@ -581,9 +584,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 16:
 			cmdText += "DRW Curr Overlay";
+			printMSG = true;
 			break;
 		case 17:
 			cmdText += "DRW Visible";
+			printMSG = true;
 			break;
 		case 18:
 			cmdText += "DRW Comment";
@@ -593,15 +598,18 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 20:
 			cmdText += "DRW Bitmap";
+			printMSG = true;
 			break;
 		case 21:
 			cmdText += "DRW Font";
+			printMSG = true;
 			break;
 		case 22:
 			cmdText += "DRW Grid";
 			break;
 		case 23:
 			cmdText += "DRW Overlay Name";
+			printMSG = true;
 			break;
 		case 24:
 			cmdText += "DRW Dimensions";
@@ -632,9 +640,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 28:
 			cmdText += "DRW Pattern";
+			printMSG = true;
 			break;
 		case 29:
 			cmdText += "DRW Locked";
+			printMSG = true;
 			break;
 		case 30:
 			ds >> data8;
@@ -652,6 +662,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 31:
 			cmdText += "DRW Text Hdr";
+			printMSG = true;
 			break;
 		case 32:
 			cmdText += "DRW Band";
@@ -730,6 +741,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 34:
 			cmdText += "DRW Text Para";
+			printMSG = true;
 			break;
 		case 35:
 			cmdText += "DRW Colortable";
@@ -744,7 +756,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 						for (quint16 cc = 0; cc < 255; cc++)	// now reading ColorTable, exactly 1024 bytes
 						{
 							quint8 r, g, b, a;
-							ds >> r >> g >> b >> a;				// values are stored in BGR order
+							ds >> r >> g >> b >> a;				// values are stored in RGB order
 							if ((r == rTrans) && (g == gTrans) && (b == bTrans))
 								colors.append(qRgba(r, g, b, 0));
 							else
@@ -760,6 +772,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 36:
 			cmdText += "DRW Text Extra";
+			printMSG = true;
 			break;
 		case 37:
 			cmdText += "DRW Max Link ID";
@@ -778,11 +791,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2").arg(cmd).arg(QString(cmdData.toHex().left(64)));
 			break;
 	}
-	if (printMSG)
+/*	if (printMSG)
 	{
 		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
 //		qDebug() << "\tData:" << cmdData.toHex().left(32);
-	}
+	} */
 }
 
 void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
@@ -944,7 +957,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	}
 	if (last)
 		return;
-/*	if ((symbolCount > 30) && (symbolCount < 41))
+/*	if ((symbolCount > 514) && (symbolCount < 517))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(symbolCount));
 		f.open(QIODevice::WriteOnly);
@@ -965,15 +978,17 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	ds >> flags;
 	QPainterPath path;
 	QPointF posEnd, posStart;
+	QTransform mat;
 	QPointF position = getCoordinate(ds);
 	double boundingBoxX = getValue(ds);
 	double boundingBoxY = getValue(ds);
 	double boundingBoxW = getValue(ds);
 	double boundingBoxH = getValue(ds);
-	QRectF bBox = QRectF(QPointF(boundingBoxX, boundingBoxY), QPointF(boundingBoxW, boundingBoxH));
+	QRectF bBox = QRectF(QPointF(boundingBoxX, boundingBoxY), QPointF(boundingBoxW, boundingBoxH)).normalized();
 	double rotationAngle = getRawValue(ds);
 	double scaleX = getRawValue(ds);
 	double scaleY = getRawValue(ds);
+	double rotS, rotE;
 	lineColor = getColor(ds);
 	ds >> dummy;		// handle
 	ds >> dummy;		// next
@@ -984,6 +999,44 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	{
 		case 0:
 			cmdText += "elliptical Arc";
+			ds >> patternIndex;
+			fillColor = getColor(ds);
+			if (patternIndex != 0)
+				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
+			posStart = getCoordinate(ds);
+			posEnd = getCoordinate(ds);
+			boundingBoxXO = getValue(ds);
+			boundingBoxYO = getValue(ds);
+			boundingBoxWO = getValue(ds);
+			boundingBoxHO = getValue(ds);
+			ds.device()->seek(0x38);
+			backColor = getColor(ds);
+			lineWidth = getValue(ds);
+			rotS = xy2Deg(posStart.x() - (boundingBoxWO / 2.0), posStart.y() - (boundingBoxHO / 2.0));
+			if (rotS < 0)
+				rotS = 360.0 - fabs(rotS);
+			rotE = xy2Deg(posEnd.x() - (boundingBoxWO / 2.0), posEnd.y() - (boundingBoxHO / 2.0));
+			if (rotE < 0)
+				rotE = 360.0 - fabs(rotE);
+			rotE = rotE - rotS;
+			path = QPainterPath();
+			path.arcMoveTo(QRectF(0, 0, boundingBoxWO, boundingBoxHO), rotS);
+			path.arcTo(QRectF(0, 0, boundingBoxWO, boundingBoxHO), rotS, rotE);
+			mat.scale(1, -1);
+			mat.translate(0, -boundingBoxHO);
+			path = mat.map(path);
+			bBoxO = path.boundingRect();
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			currentItem = m_Doc->Items->at(z);
+			currentItem->PoLine.fromQPainterPath(path);
+			currentItem->PoLine.translate(-bBoxO.x(), 0);
+			handleLineStyle(currentItem, flags, lineColor);
+			finishItem(currentItem);
 			break;
 		case 1:
 			cmdText += "filled Polygon";
@@ -1196,6 +1249,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			break;
 		case 14:
 			cmdText += "elliptical Arc, clockwise";
+			printMSG = true;
 			break;
 		case 15:
 			cmdText += "filled parabolic Arc";
@@ -1395,7 +1449,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			qDebug() << cmdText;
 //		if (imageValid)
 //			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
-//		qDebug() << "Pos" << position << "Box" << bBox;
+		qDebug() << "Pos" << rotS << " --> " << rotE << " Box " << boundingBoxWO << boundingBoxHO;
 //		qDebug() << "Rot" << rotationAngle << "Bounding Box" << bBoxO;
 //		qDebug() << "Line" << lineColor << "LWidth" << lineWidth << "Fill" << fillColor;
 //		qDebug() << "Scale" << scaleX << " " << scaleY;
