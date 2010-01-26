@@ -125,6 +125,7 @@ private:
 	int createObjCode;
 	int nrOfPoints;
 	PageItem *currentItem;
+
 	QImage tmpImage;
 	QImage tmpImage2;
 	quint16 bitsPerPixel;
@@ -137,6 +138,12 @@ private:
 	quint8 gTrans;
 	quint8 bTrans;
 	bool imageValid;
+
+	quint8 fontID;
+	quint16 nrOfChars;
+	quint16 fontSize;
+	QString fontName;
+	QMap<quint8, QString> fontMap;
 
 	int symbolCount;
 	int recordCount;

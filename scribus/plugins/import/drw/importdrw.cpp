@@ -417,7 +417,7 @@ void DrwPlug::decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd)
 void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
-/*	if ((recordCount > 83) && (recordCount < 91))
+/*	if ((recordCount > 2) && (recordCount < 4))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
 		f.open(QIODevice::WriteOnly);
@@ -426,7 +426,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	} */
 	QDataStream ds(cmdData);
 	DRWGradient gradient;
-	quint8 data8;
+	quint8 data8, chData;
 	quint16 data16;
 	int index;
 	ds.setByteOrder(QDataStream::LittleEndian);
@@ -564,7 +564,34 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 8:
 			cmdText += "DRW Text";
-			printMSG = true;
+			if (createObjCode == 5)
+			{
+				QString tx = QString(cmdData.left(nrOfChars));
+				QPainterPath path;
+				QString fontN = "Arial";
+				if (fontMap.contains(fontID))
+					fontN = fontMap[fontID];
+				QFont textFont = QFont(fontN, fontSize);
+				path.addText( 0, 0, textFont, tx);
+				QFontMetrics fm(textFont);
+				QTransform txS;
+				QRectF bbox = path.boundingRect();
+				txS = QTransform();
+				txS.scale(scaleFactor, scaleFactor);
+				path = txS.map(path);
+				txS = QTransform();
+				bbox = path.boundingRect();
+				txS.translate(-bbox.x(), -bbox.y());
+				txS.translate(0, fm.leading() * scaleFactor);
+				path = txS.map(path);
+				if (currentItem != NULL)
+				{
+					currentItem->PoLine.fromQPainterPath(path);
+					finishItem(currentItem, false);
+				}
+				createObjCode = 0;
+				currentItem = NULL;
+			}
 			break;
 		case 9:
 			cmdText += "DRW Color";
@@ -601,7 +628,18 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			printMSG = true;
 			break;
 		case 21:
-			cmdText += "DRW Font";
+			ds >> fontID;
+			ds.device()->seek(0x13);
+			fontName = "";
+			ds >> chData;
+			while (chData != 0)
+			{
+				fontName += QChar(chData);
+				ds >> chData;
+			}
+			fontName = fontName.trimmed();
+			fontMap.insert(fontID, fontName);
+			cmdText += QString("DRW Font %1").arg(fontName);
 			printMSG = true;
 			break;
 		case 22:
@@ -791,11 +829,12 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2").arg(cmd).arg(QString(cmdData.toHex().left(64)));
 			break;
 	}
-/*	if (printMSG)
+	printMSG = false;
+	if (printMSG)
 	{
 		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
 //		qDebug() << "\tData:" << cmdData.toHex().left(32);
-	} */
+	}
 }
 
 void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
@@ -989,6 +1028,10 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	double scaleX = getRawValue(ds);
 	double scaleY = getRawValue(ds);
 	double rotS, rotE;
+	double posX = baseX + bBox.x() + bX + groupX;
+	double posY = baseY + bBox.y() + bY + groupY;
+//	double posX = baseX + position.x() + bX + groupX;
+//	double posY = baseY + position.y() + bY + groupY;
 	lineColor = getColor(ds);
 	ds >> dummy;		// handle
 	ds >> dummy;		// next
@@ -1031,7 +1074,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			mat.translate(0, -boundingBoxHO);
 			path = mat.map(path);
 			bBoxO = path.boundingRect();
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			currentItem->PoLine.translate(-bBoxO.x(), 0);
@@ -1060,13 +1103,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 1;
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 			break;
 		case 2:
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
 			gList.groupItem = m_Doc->Items->at(z);
 			gList.groupX = groupX + bBox.x();
 			gList.groupY = groupY + bBox.y();
@@ -1118,18 +1161,32 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds.device()->seek(0x38);
 			backColor = getColor(ds);
 			lineWidth = getValue(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
+			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 			finishItem(currentItem);
 			break;
 		case 5:
 			cmdText += "Text";
+			ds >> dummy;
+			ds >> fontID;
+			ds >> nrOfChars;
+			ds >> fontSize;
+			createObjCode = 5;
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), 0, lineColor, CommonStrings::None, true);
+			currentItem = m_Doc->Items->at(z);
 			break;
 		case 6:
 			cmdText += "Line";
 			posEnd = getCoordinate(ds);
 			posStart = getCoordinate(ds);
+			if ((posEnd.x() < 0) || (posEnd.y() < 0) || (posStart.x() < 0) || (posStart.y() < 0))
+			{
+				QPointF tmp = posEnd;
+				posEnd = posStart;
+				posStart = tmp;
+			}
 			ds >> patternIndex;
 			ds >> dummy;
 			boundingBoxHO = getValue(ds);
@@ -1146,7 +1203,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			Coords.svgInit();
 			Coords.svgMoveTo(fabs(posStart.x()), fabs(posStart.y()));
 			Coords.svgLineTo(fabs(posEnd.x()), fabs(posEnd.y()));
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine = Coords.copy();
 			handleLineStyle(currentItem, flags, lineColor);
@@ -1174,7 +1231,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 3;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			break;
@@ -1209,7 +1266,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds.device()->seek(0x38);
 			backColor = getColor(ds);
 			lineWidth = getValue(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
@@ -1241,7 +1298,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds.device()->seek(0x38);
 			backColor = getColor(ds);
 			lineWidth = getValue(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
@@ -1249,7 +1306,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			break;
 		case 14:
 			cmdText += "elliptical Arc, clockwise";
-			printMSG = true;
 			break;
 		case 15:
 			cmdText += "filled parabolic Arc";
@@ -1364,7 +1420,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds >> bTrans;
 			if ((bitsPerPixel == 24) || (bitsPerPixel == 8))
 			{
-				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, CommonStrings::None, true);
+				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, CommonStrings::None, true);
 				currentItem = m_Doc->Items->at(z);
 				finishItem(currentItem);
 				scanLinesRead = 0;
@@ -1391,7 +1447,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 2;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			break;
@@ -1417,7 +1473,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 2;
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
@@ -1441,6 +1497,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			cmdText += "Unknown";
 			break;
 	}
+	printMSG = false;
 	if (printMSG)
 	{
 		if (currentItem != NULL)
@@ -1449,7 +1506,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			qDebug() << cmdText;
 //		if (imageValid)
 //			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
-		qDebug() << "Pos" << rotS << " --> " << rotE << " Box " << boundingBoxWO << boundingBoxHO;
+//		qDebug() << "Pos" << rotS << " --> " << rotE << " Box " << boundingBoxWO << boundingBoxHO;
 //		qDebug() << "Rot" << rotationAngle << "Bounding Box" << bBoxO;
 //		qDebug() << "Line" << lineColor << "LWidth" << lineWidth << "Fill" << fillColor;
 //		qDebug() << "Scale" << scaleX << " " << scaleY;
