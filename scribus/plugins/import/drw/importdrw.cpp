@@ -1224,13 +1224,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			gList.groupItem->updateClip();
 			Elements.append(gList.groupItem);
 			cmdText += QString("Group  Count %1").arg(dummy);
-		/*	if (printMSG)
-			{
-				QFile f(QString("/home/franz/cmddatas%1.bin").arg(symbolCount));
-				f.open(QIODevice::WriteOnly);
-				f.write(cmdData);
-				f.close();
-			} */
 			break;
 		case 3:
 			cmdText += "Ellipse";
@@ -1283,24 +1276,24 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 				posStart = tmp;
 			}
 			ds >> patternIndex;
-			ds >> dummy;
-			boundingBoxHO = getValue(ds);
-			cornerRadius = getValue(ds);
-			ds >> appFlags;
-			ds >> dummy;
-			ds >> dummy;
-			ds >> dummy;
 			ds.device()->seek(0x38);
 			backColor = getColor(ds);
 			lineWidth = getValue(ds);
 			lineWidth = patternIndex * scaleFactor;
-			Coords.resize(0);
-			Coords.svgInit();
-			Coords.svgMoveTo(fabs(posStart.x()), fabs(posStart.y()));
-			Coords.svgLineTo(fabs(posEnd.x()), fabs(posEnd.y()));
+			path = QPainterPath();
+			path.moveTo(posStart);
+			path.lineTo(posEnd);
+			bBoxO = path.boundingRect();
+			if ((bBoxO.x() < 0) || (bBoxO.y() < 0))
+			{
+				path = QPainterPath();
+				path.moveTo(posEnd);
+				path.lineTo(posStart);
+			}
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
-			currentItem->PoLine = Coords.copy();
+			currentItem->PoLine.fromQPainterPath(path);
+			currentItem->PoLine.translate(-bBoxO.x(), -bBoxO.y());
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
 			break;
@@ -1401,6 +1394,40 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			break;
 		case 14:
 			cmdText += "elliptical Arc, clockwise";
+			ds >> patternIndex;
+			fillColor = getColor(ds);
+			if (patternIndex != 0)
+				fillC = fillColor;
+			if (groupStack.count() > 1)
+			{
+				if (groupStack.top().patternIndex != 0)
+					fillC = groupStack.top().fillColor;
+			}
+			posStart = getCoordinate(ds);
+			posEnd = getCoordinate(ds);
+			boundingBoxXO = getValue(ds);
+			boundingBoxYO = getValue(ds);
+			boundingBoxWO = getValue(ds);
+			boundingBoxHO = getValue(ds);
+			ds.device()->seek(0x38);
+			backColor = getColor(ds);
+			lineWidth = getValue(ds);
+			sLin = QLineF(QPointF(boundingBoxWO / 2.0, boundingBoxHO / 2.0), posStart);
+			eLin = QLineF(QPointF(boundingBoxWO / 2.0, boundingBoxHO / 2.0), posEnd);
+			rotS = sLin.angle();
+			rotE = eLin.angle();
+			rotE = rotE - rotS;
+			path = QPainterPath();
+			path.arcMoveTo(QRectF(0, 0, boundingBoxWO, boundingBoxHO), rotS);
+			path.arcTo(QRectF(0, 0, boundingBoxWO, boundingBoxHO), rotS, rotE);
+			path = mat.map(path);
+			bBoxO = path.boundingRect();
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			currentItem = m_Doc->Items->at(z);
+			currentItem->PoLine.fromQPainterPath(path);
+			currentItem->PoLine.translate(-bBoxO.x(), 0);
+			handleLineStyle(currentItem, flags, lineColor);
+			finishItem(currentItem);
 			break;
 		case 15:
 			cmdText += "filled parabolic Arc";
