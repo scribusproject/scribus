@@ -140,9 +140,20 @@ private:
 	bool imageValid;
 
 	quint8 fontID;
+	quint8 fontStyle;
 	quint16 nrOfChars;
 	quint16 fontSize;
+	quint16 fontWidth;
+	quint16 nrOfParagraphs;
+	quint16 paragraphCounter;
 	QString fontName;
+	QString fontColor;
+	struct DRWParagraph
+	{
+		quint8 paragraphAlignment;
+		quint16 paragraphLen;
+	};
+	QList<DRWParagraph> paragraphList;
 	QMap<quint8, QString> fontMap;
 
 	int symbolCount;

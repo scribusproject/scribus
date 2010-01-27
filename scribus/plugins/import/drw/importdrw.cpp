@@ -417,7 +417,7 @@ void DrwPlug::decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd)
 void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
-/*	if ((recordCount > 2) && (recordCount < 4))
+/*	if ((recordCount > 687) && (recordCount < 700))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
 		f.open(QIODevice::WriteOnly);
@@ -429,6 +429,8 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	quint8 data8, chData;
 	quint16 data16;
 	int index;
+	QFont font;
+	QString textFont;
 	ds.setByteOrder(QDataStream::LittleEndian);
 	QString cmdText = QString("Record %1 Type: ").arg(recordCount);
 	bool printMSG = false;
@@ -638,9 +640,45 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				ds >> chData;
 			}
 			fontName = fontName.trimmed();
+			fontName.replace( QRegExp( "'" ) , QChar( ' ' ) );
+			font = QFont(fontName, 12);
+			textFont = QFontInfo(font).family();
+			if (textFont != fontName)
+			{
+				textFont = m_Doc->itemToolPrefs.textFont;
+				bool found = false;
+				SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+				for ( ; it.hasNext(); it.next())
+				{
+					QString fam;
+					QString fn = it.current().scName();
+					int pos = fn.indexOf(" ");
+					fam = fn.left(pos);
+					if (fam == fontName)
+					{
+						found = true;
+						break;
+					}
+				}
+				if (!found)
+				{
+					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
+					{
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						MissingFont *dia = new MissingFont(0, fontName, m_Doc);
+						dia->exec();
+						textFont = dia->getReplacementFont();
+						delete dia;
+						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+						PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = textFont;
+						fontName = textFont;
+					}
+					else
+						fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+				}
+			}
 			fontMap.insert(fontID, fontName);
 			cmdText += QString("DRW Font %1").arg(fontName);
-			printMSG = true;
 			break;
 		case 22:
 			cmdText += "DRW Grid";
@@ -700,7 +738,34 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 31:
 			cmdText += "DRW Text Hdr";
-			printMSG = true;
+			ds >> data8;					// Version
+			ds >> data8;					// vertical alignment
+			cmdText += QString(" VAlign %1").arg(data8);
+			ds >> data16;					// MemFlags ????
+			ds >> data16;					// Textrotation
+			ds >> fontID;					// Font Nr
+			cmdText += QString(" Font %1").arg(fontID);
+			ds >> fontStyle;				// Style
+			ds >> fontWidth;				// Width
+			ds >> fontSize;					// Height
+			cmdText += QString(" Size %1").arg(fontSize);
+			ds >> nrOfParagraphs;			// Nr of paragraph records
+			paragraphCounter = 0;
+			cmdText += QString(" NoPara %1").arg(nrOfParagraphs);
+			paragraphList.clear();
+			for (quint16 a = 0; a < nrOfParagraphs; a++)
+			{
+				DRWParagraph para;
+				ds >> data16;
+				ds >> data16;
+				ds >> data16;
+				ds >> para.paragraphAlignment;
+				ds.skipRawData(18);
+				ds >> para.paragraphLen;
+				para.paragraphLen -= 17;
+				ds.skipRawData(4);
+				paragraphList.append(para);
+			}
 			break;
 		case 32:
 			cmdText += "DRW Band";
@@ -711,7 +776,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	2		Y-Offset
 	4		bytes per row
 	6		number of rows stored in this record
-	8+		Image Data as raw uncompressed values
+	8+		Image Data as raw uncompressed values, rows are aligned to even bytes
 */
 			if (imageValid)
 			{
@@ -779,7 +844,40 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 34:
 			cmdText += "DRW Text Para";
-			printMSG = true;
+			ds.device()->seek(0x11);
+			if (createObjCode == 6)
+			{
+				if (currentItem != NULL)
+				{
+					DRWParagraph para = paragraphList.at(paragraphCounter);
+					paragraphCounter++;
+					ParagraphStyle newStyle;
+					newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(1));
+					newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(para.paragraphAlignment));
+					newStyle.charStyle().setFontSize(fontSize * scaleFactor * 10.0 * 0.8);
+					QString fontN = m_Doc->itemToolPrefs.textFont;
+					if (fontMap.contains(fontID))
+						fontN = fontMap[fontID];
+					newStyle.charStyle().setFont((*m_Doc->AllFonts)[fontN]);
+					newStyle.charStyle().setFillColor(fontColor);
+					newStyle.setLineSpacing(newStyle.charStyle().font().height(fontSize * scaleFactor * 10.0 * 0.8));
+					if (para.paragraphLen > 0)
+					{
+						int pos = currentItem->itemText.length();
+						QByteArray data;
+						data.resize(para.paragraphLen);
+						ds.readRawData(data.data(), para.paragraphLen);
+						QString chars = QString(data);
+						if (!chars.isEmpty())
+						{
+							currentItem->itemText.insertChars( -1, chars);
+							currentItem->itemText.applyStyle(pos, newStyle);
+						}
+						if (nrOfParagraphs > 0)
+							currentItem->itemText.insertChars(-1, SpecialChars::PARSEP);
+					}
+				}
+			}
 			break;
 		case 35:
 			cmdText += "DRW Colortable";
@@ -1018,6 +1116,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	QPainterPath path;
 	QPointF posEnd, posStart;
 	QTransform mat;
+	QLineF sLin, eLin;
 	QPointF position = getCoordinate(ds);
 	double boundingBoxX = getValue(ds);
 	double boundingBoxY = getValue(ds);
@@ -1060,18 +1159,14 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds.device()->seek(0x38);
 			backColor = getColor(ds);
 			lineWidth = getValue(ds);
-			rotS = xy2Deg(posStart.x() - (boundingBoxWO / 2.0), posStart.y() - (boundingBoxHO / 2.0));
-			if (rotS < 0)
-				rotS = 360.0 - fabs(rotS);
-			rotE = xy2Deg(posEnd.x() - (boundingBoxWO / 2.0), posEnd.y() - (boundingBoxHO / 2.0));
-			if (rotE < 0)
-				rotE = 360.0 - fabs(rotE);
+			sLin = QLineF(QPointF(boundingBoxWO / 2.0, boundingBoxHO / 2.0), posStart);
+			eLin = QLineF(QPointF(boundingBoxWO / 2.0, boundingBoxHO / 2.0), posEnd);
+			rotS = sLin.angle();
+			rotE = eLin.angle();
 			rotE = rotE - rotS;
 			path = QPainterPath();
 			path.arcMoveTo(QRectF(0, 0, boundingBoxWO, boundingBoxHO), rotS);
 			path.arcTo(QRectF(0, 0, boundingBoxWO, boundingBoxHO), rotS, rotE);
-			mat.scale(1, -1);
-			mat.translate(0, -boundingBoxHO);
 			path = mat.map(path);
 			bBoxO = path.boundingRect();
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
@@ -1480,6 +1575,12 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			break;
 		case 25:
 			cmdText += "Rich Text";
+			fontColor = lineColor;
+			createObjCode = 6;
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, CommonStrings::None, CommonStrings::None, true);
+			currentItem = m_Doc->Items->at(z);
+			currentItem->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+			finishItem(currentItem);
 			break;
 		case 26:
 			cmdText += "virtual Bitmap";
@@ -1497,7 +1598,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			cmdText += "Unknown";
 			break;
 	}
-	printMSG = false;
 	if (printMSG)
 	{
 		if (currentItem != NULL)
