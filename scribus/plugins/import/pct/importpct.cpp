@@ -259,6 +259,20 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				delete ss;
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
+				if (importedColors.count() != 0)
+				{
+					for (int cd = 0; cd < importedColors.count(); cd++)
+					{
+						m_Doc->PageColors.remove(importedColors[cd]);
+					}
+				}
+				if (importedPatterns.count() != 0)
+				{
+					for (int cd = 0; cd < importedPatterns.count(); cd++)
+					{
+						m_Doc->docPatterns.remove(importedPatterns[cd]);
+					}
+				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
@@ -345,6 +359,7 @@ bool PctPlug::convert(QString fn)
 	postscriptMode = false;
 	textIsPostScript = false;
 	importedColors.clear();
+	importedPatterns.clear();
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
 	currentItemNr = 0;
@@ -409,6 +424,13 @@ bool PctPlug::convert(QString fn)
 				for (int cd = 0; cd < importedColors.count(); cd++)
 				{
 					m_Doc->PageColors.remove(importedColors[cd]);
+				}
+			}
+			if (importedPatterns.count() != 0)
+			{
+				for (int cd = 0; cd < importedPatterns.count(); cd++)
+				{
+					m_Doc->docPatterns.remove(importedPatterns[cd]);
 				}
 			}
 		}
@@ -2117,6 +2139,7 @@ void PctPlug::setFillPattern(PageItem* ite)
 		patternName = "Pattern_"+newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");
 		m_Doc->addPattern(patternName, pat);
+		importedPatterns.append(patternName);
 		patternMap.insert(patNa, patternName);
 	}
 	else

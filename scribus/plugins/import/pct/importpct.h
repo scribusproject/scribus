@@ -113,6 +113,7 @@ private:
 	int currRectType;
 	QRect lastImageRect;
 	QStringList importedColors;
+	QStringList importedPatterns;
 	QPoint ovalSize;
 	QMap<int, QString> fontMap;
 	int currentTextSize;

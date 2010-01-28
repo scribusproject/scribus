@@ -402,6 +402,7 @@ private:
 	QStack<XarStyle*>	m_gc;
 	QString activeLayer;
 	QStringList importedColors;
+	QStringList importedPatterns;
 	FPointArray clipCoords;
 	FPointArray Coords;
 	FPointArray textPath;
