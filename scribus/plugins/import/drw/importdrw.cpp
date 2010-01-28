@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
+#include "pageitem_imageframe.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -42,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scmimedata.h"
 #include "scpaths.h"
+#include "scpattern.h"
 #include "scribus.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
@@ -263,6 +265,20 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				delete ss;
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
+				if (importedColors.count() != 0)
+				{
+					for (int cd = 0; cd < importedColors.count(); cd++)
+					{
+						m_Doc->PageColors.remove(importedColors[cd]);
+					}
+				}
+				if (importedPatterns.count() != 0)
+				{
+					for (int cd = 0; cd < importedPatterns.count(); cd++)
+					{
+						m_Doc->docPatterns.remove(importedPatterns[cd]);
+					}
+				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
@@ -310,6 +326,7 @@ bool DrwPlug::convert(QString fn)
 	Coords.resize(0);
 	Coords.svgInit();
 	importedColors.clear();
+	importedPatterns.clear();
 	DRWGroup gElements;
 	gElements.xoffset = 0.0;
 	gElements.yoffset = 0.0;
@@ -372,6 +389,13 @@ bool DrwPlug::convert(QString fn)
 					m_Doc->PageColors.remove(importedColors[cd]);
 				}
 			}
+			if (importedPatterns.count() != 0)
+			{
+				for (int cd = 0; cd < importedPatterns.count(); cd++)
+				{
+					m_Doc->docPatterns.remove(importedPatterns[cd]);
+				}
+			}
 		}
 		f.close();
 	}
@@ -417,7 +441,7 @@ void DrwPlug::decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd)
 void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
-/*	if ((recordCount > 687) && (recordCount < 700))
+/*	if ((recordCount > 12) && (recordCount < 14))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
 		f.open(QIODevice::WriteOnly);
@@ -426,6 +450,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	} */
 	QDataStream ds(cmdData);
 	DRWGradient gradient;
+	QByteArray pattern;
 	quint8 data8, chData;
 	quint16 data16;
 	int index;
@@ -438,11 +463,9 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 	{
 		case 1:
 			cmdText += QString("DRW Background Color %1").arg(getColor(ds));
-			printMSG = false;
 			break;
 		case 2:
 			cmdText += "DRW Facename";
-			printMSG = true;
 			break;
 		case 3:
 			cmdText += QString("DRW Version Data %1").arg(QString(cmdData.toHex().left(64)));
@@ -454,7 +477,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 5:
 			cmdText += "DRW Overlay";
-			printMSG = true;
 			break;
 		case 6:
 			cmdText += "DRW Polygon";
@@ -613,11 +635,9 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 16:
 			cmdText += "DRW Curr Overlay";
-			printMSG = true;
 			break;
 		case 17:
 			cmdText += "DRW Visible";
-			printMSG = true;
 			break;
 		case 18:
 			cmdText += "DRW Comment";
@@ -627,7 +647,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 20:
 			cmdText += "DRW Bitmap";
-			printMSG = true;
 			break;
 		case 21:
 			ds >> fontID;
@@ -641,20 +660,14 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			}
 			fontName = fontName.trimmed();
 			fontName.replace( QRegExp( "'" ) , QChar( ' ' ) );
-			font = QFont(fontName, 12);
-			textFont = QFontInfo(font).family();
-			if (textFont != fontName)
 			{
 				textFont = m_Doc->itemToolPrefs.textFont;
 				bool found = false;
 				SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 				for ( ; it.hasNext(); it.next())
 				{
-					QString fam;
 					QString fn = it.current().scName();
-					int pos = fn.indexOf(" ");
-					fam = fn.left(pos);
-					if (fam == fontName)
+					if (fn == fontName)
 					{
 						found = true;
 						break;
@@ -685,7 +698,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 23:
 			cmdText += "DRW Overlay Name";
-			printMSG = true;
 			break;
 		case 24:
 			cmdText += "DRW Dimensions";
@@ -716,11 +728,13 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 28:
 			cmdText += "DRW Pattern";
-			printMSG = true;
+			ds >> data8;
+			pattern.resize(16);
+			ds.readRawData(pattern.data(), 16);
+			patternDataMap.insert(data8, pattern);
 			break;
 		case 29:
 			cmdText += "DRW Locked";
-			printMSG = true;
 			break;
 		case 30:
 			ds >> data8;
@@ -908,7 +922,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 36:
 			cmdText += "DRW Text Extra";
-			printMSG = true;
 			break;
 		case 37:
 			cmdText += "DRW Max Link ID";
@@ -927,7 +940,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2").arg(cmd).arg(QString(cmdData.toHex().left(64)));
 			break;
 	}
-	printMSG = false;
 	if (printMSG)
 	{
 		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
@@ -1094,13 +1106,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	}
 	if (last)
 		return;
-/*	if ((symbolCount > 514) && (symbolCount < 517))
+/*	if ((symbolCount > 31) && (symbolCount < 33))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(symbolCount));
 		f.open(QIODevice::WriteOnly);
 		f.write(cmdData);
 		f.close();
-	}*/
+	} */
 	int z;
 	quint8 data8, flags, patternIndex, appFlags;
 	quint16 dummy, nPoints, nItems;
@@ -1697,6 +1709,92 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 			}
 		}
 	}
+	else if (((patternIndex > 0x80) && (patternIndex < 0xC0)) || (patternIndex > 0xC0))
+	{
+		int ind;
+		if (patternIndex > 0xC0)
+			ind = patternIndex - 0xC0;
+		else
+			ind = patternIndex - 0x80;
+		if (patternDataMap.contains(ind))
+		{
+			QColor back = ScColorEngine::getRGBColor(m_Doc->PageColors[fillColor], m_Doc);
+			QColor fore = ScColorEngine::getRGBColor(m_Doc->PageColors[backColor], m_Doc);
+			QString patNa = QString("%1%2%3").arg(back.name()).arg(fore.name()).arg(ind);
+			QString patternName;
+			if (!patternMap.contains(patNa))
+			{
+				uint oldNum = m_Doc->TotalItems;
+				QByteArray data = patternDataMap[ind];
+				QVector<QRgb> colors;
+				colors.append(back.rgb());
+				colors.append(fore.rgb());
+				int offs = 0;
+				QImage image;
+				if (patternIndex > 0xC0)
+				{
+					image = QImage(16, 8, QImage::Format_Mono);
+					image.setColorTable(colors);
+					for (int rr = 0; rr < 8; rr++)
+					{
+						uchar *q = (uchar*)(image.scanLine(rr));
+						*q++ = data[offs++];
+						*q++ = data[offs++];
+					}
+				}
+				else
+				{
+					image = QImage(8, 8, QImage::Format_Mono);
+					image.setColorTable(colors);
+					for (int rr = 0; rr < 8; rr++)
+					{
+						uchar *q = (uchar*)(image.scanLine(rr));
+						*q++ = data[offs++];
+						offs++;
+					}
+				}
+				image = image.convertToFormat(QImage::Format_ARGB32);
+				ScPattern pat = ScPattern();
+				pat.setDoc(m_Doc);
+				PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+				newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
+				newItem->tempImageFile->open();
+				QString fileName = getLongPathName(newItem->tempImageFile->fileName());
+				newItem->tempImageFile->close();
+				newItem->isInlineImage = true;
+				image.save(fileName, "PNG");
+				if (newItem->loadImage(fileName, false, 72, false))
+				{
+					pat.width = image.width();
+					pat.height = image.height();
+					pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+					pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+					pat.pattern = newItem->pixm.qImage().copy();
+					newItem->setWidth(pat.pattern.width());
+					newItem->setHeight(pat.pattern.height());
+					newItem->SetRectFrame();
+					newItem->gXpos = 0.0;
+					newItem->gYpos = 0.0;
+					newItem->gWidth = pat.pattern.width();
+					newItem->gHeight = pat.pattern.height();
+					pat.items.append(newItem);
+					newItem->ItemNr = pat.items.count();
+				}
+				patternName = "Pattern_"+newItem->itemName();
+				patternName = patternName.trimmed().simplified().replace(" ", "_");
+				m_Doc->addPattern(patternName, pat);
+				patternMap.insert(patNa, patternName);
+				m_Doc->TotalItems = oldNum;
+			}
+			else
+				patternName = patternMap[patNa];
+			importedPatterns.append(patternName);
+			currentItem->setPattern(patternName);
+			currentItem->GrType = 8;
+		}
+	}
+//	else
+//		qDebug() << "Patternfill Item:" << currentItem->itemName() << QString("Pattern %1").arg(patternIndex, 2, 16, QChar('0'));
 }
 
 void DrwPlug::handlePreviewBitmap(QDataStream &ds)

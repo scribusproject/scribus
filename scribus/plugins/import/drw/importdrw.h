@@ -115,10 +115,13 @@ private:
 		double angle;
 	};
 	QMap<int, DRWGradient> gradientMap;
+	QMap<int, QByteArray> patternDataMap;
+	QMap<QString, QString> patternMap;
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
 	QStringList importedColors;
+	QStringList importedPatterns;
 	QString lineColor;
 	QString fillColor;
 	double lineWidth;
