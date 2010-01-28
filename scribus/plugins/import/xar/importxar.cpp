@@ -1677,6 +1677,8 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
 		newItem->tempImageFile->close();
 		newItem->isInlineImage = true;
+		image.setDotsPerMeterY(2834);
+		image.setDotsPerMeterX(2834);
 		image.save(fileName, "PNG");
 		if (newItem->loadImage(fileName, false, 72, false))
 		{
@@ -2261,6 +2263,8 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
 		newItem->tempImageFile->close();
 		newItem->isInlineImage = true;
+		image.setDotsPerMeterY(2834);
+		image.setDotsPerMeterX(2834);
 		image.save(fileName, "PNG");
 		if (newItem->loadImage(fileName, false, 72, false))
 		{
@@ -2411,6 +2415,8 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
 		newItem->tempImageFile->close();
 		newItem->isInlineImage = true;
+		image.setDotsPerMeterY(2834);
+		image.setDotsPerMeterX(2834);
 		image.save(fileName, "PNG");
 		if (newItem->loadImage(fileName, false, 72, false))
 		{

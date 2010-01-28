@@ -2118,6 +2118,8 @@ void PctPlug::setFillPattern(PageItem* ite)
 		QString fileName = getLongPathName(newItem->tempImageFile->fileName());
 		newItem->tempImageFile->close();
 		newItem->isInlineImage = true;
+		image.setDotsPerMeterY(2834);
+		image.setDotsPerMeterX(2834);
 		image.save(fileName, "PNG");
 		if (newItem->loadImage(fileName, false, 72, false))
 		{

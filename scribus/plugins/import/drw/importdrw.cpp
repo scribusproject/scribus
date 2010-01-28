@@ -1727,12 +1727,12 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 				uint oldNum = m_Doc->TotalItems;
 				QByteArray data = patternDataMap[ind];
 				QVector<QRgb> colors;
-				colors.append(back.rgb());
-				colors.append(fore.rgb());
 				int offs = 0;
 				QImage image;
 				if (patternIndex > 0xC0)
 				{
+					colors.append(qRgb(255,255,255));
+					colors.append(back.rgb());
 					image = QImage(16, 8, QImage::Format_Mono);
 					image.setColorTable(colors);
 					for (int rr = 0; rr < 8; rr++)
@@ -1744,6 +1744,8 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 				}
 				else
 				{
+					colors.append(back.rgb());
+					colors.append(fore.rgb());
 					image = QImage(8, 8, QImage::Format_Mono);
 					image.setColorTable(colors);
 					for (int rr = 0; rr < 8; rr++)
@@ -1757,11 +1759,13 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 				ScPattern pat = ScPattern();
 				pat.setDoc(m_Doc);
 				PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-				newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
+				newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
 				newItem->tempImageFile->open();
 				QString fileName = getLongPathName(newItem->tempImageFile->fileName());
 				newItem->tempImageFile->close();
 				newItem->isInlineImage = true;
+				image.setDotsPerMeterY(2834);
+				image.setDotsPerMeterX(2834);
 				image.save(fileName, "PNG");
 				if (newItem->loadImage(fileName, false, 72, false))
 				{
