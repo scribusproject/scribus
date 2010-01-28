@@ -557,7 +557,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				QPointF startP;
 				int a = 0;
 				QPainterPath pa;
-				while (a < nrOfPoints)
+				while (a < nrOfPoints-1)
 				{
 					if (first)
 					{
@@ -568,7 +568,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 						first = false;
 					}
 					QPointF p1 = getCoordinate(ds);
+					if ((p1.x() < -32768) || (p1.x() > 32768) || (p1.y() < -32768) || (p1.y() > 32768))
+						qDebug() << "Invalid Point";
 					QPointF p2 = getCoordinate(ds);
+					if ((p2.x() < -32768) || (p2.x() > 32768) || (p2.y() < -32768) || (p2.y() > 32768))
+						qDebug() << "Invalid Point";
 					a += 2;
 					pa.quadTo(p1.x(), p1.y(), p2.x(), p2.y());
 				}
@@ -1281,6 +1285,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			cmdText += "Line";
 			posEnd = getCoordinate(ds);
 			posStart = getCoordinate(ds);
+			if (posStart == posEnd)
+				break;
 			if ((posEnd.x() < 0) || (posEnd.y() < 0) || (posStart.x() < 0) || (posStart.y() < 0))
 			{
 				QPointF tmp = posEnd;
@@ -1465,9 +1471,11 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			backColor = getColor(ds);
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
-//			createObjCode = 4;
-//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
-//			currentItem = m_Doc->Items->at(z);
+			createObjCode = 4;
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			currentItem = m_Doc->Items->at(z);
+			handleLineStyle(currentItem, flags, lineColor);
+			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 			break;
 		case 17:
 			ds >> patternIndex;
@@ -1529,9 +1537,10 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			backColor = getColor(ds);
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
-//			createObjCode = 4;
-//			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
-//			currentItem = m_Doc->Items->at(z);
+			createObjCode = 4;
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + bBox.x() + bX + groupX, baseY + bBox.y() + bY + groupY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			currentItem = m_Doc->Items->at(z);
+			handleLineStyle(currentItem, flags, lineColor);
 			break;
 		case 20:
 			cmdText += "complex Polyline";
@@ -1964,25 +1973,21 @@ void DrwPlug::finishItem(PageItem* ite, bool scale)
 {
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-//	FPoint wh = getMaxClipF(&ite->PoLine);
-//	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-//	m_Doc->AdjustItemSize(ite);
 	if (scale)
 	{
 		QPainterPath pa = ite->PoLine.toQPainterPath(true);
 		QRectF bb = pa.boundingRect();
 		double scx = 1.0;
 		double scy = 1.0;
-		if ((bb.width() == 0.0) || (ite->width() == 0.0))
-			scx = 1.0;
-		else
+		if ((bb.width() != 0.0) && (ite->width() != 0.0))
 			scx = ite->width() / bb.width();
-		if ((bb.height() == 0.0) || (ite->height() == 0.0))
-			scy = 1.0;
 		else
+			scx = 1.0;
+		if ((bb.height() != 0.0) && (ite->height() != 0.0))
 			scy = ite->height() / bb.height();
-//	qDebug() << scx << scy;
+		else
+			scy = 1.0;
 		ite->PoLine.scale(scx, scy);
 		ite->setLineWidth(ite->lineWidth() / qMin(scx, scy));
 	}
@@ -1992,7 +1997,7 @@ void DrwPlug::finishItem(PageItem* ite, bool scale)
 	Elements.append(ite);
 	if (groupStack.count() != 0)
 		groupStack.top().GElements.append(ite);
-	if (listStack.count() != 0)
+	if (listStack.count() > 1)
 		listStack.top().GElements.append(ite);
 	Coords.resize(0);
 	Coords.svgInit();
