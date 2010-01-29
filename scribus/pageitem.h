@@ -304,6 +304,7 @@ public:
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	QRectF getBoundingRect() const;
+	QRectF getCurrentBoundingRect(double moreSpace = 0.0) const;
 	QRectF getVisualBoundingRect() const;
 	void getTransform(QTransform& mat) const;
 	QTransform getTransform() const;

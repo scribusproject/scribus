@@ -4839,6 +4839,16 @@ QRectF PageItem::getBoundingRect() const
 	return QRectF(x,y,x2-x,y2-y);
 }
 
+QRectF PageItem::getCurrentBoundingRect(double moreSpace) const
+{
+	double x = BoundingX - moreSpace / 2.0;
+	double y = BoundingY - moreSpace / 2.0;
+	double w = BoundingW + moreSpace;
+	double h = BoundingH + moreSpace;
+	QRectF ret = QRectF(x, y, w, h);
+	return ret;
+}
+
 QRectF PageItem::getVisualBoundingRect() const
 {
 	double x,y,x2,y2;

@@ -925,7 +925,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				QTransform p;
 				m_canvas->Transform(docItem, p);
 			//	QRegion apr = QRegion(docItem->Clip * p);
-				QRect apr2(docItem->getRedrawBounding(m_canvas->scale()));
+				QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
 			//	if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
 				if ((Sele.contains(apr2)) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
 				{
