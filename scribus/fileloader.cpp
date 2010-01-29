@@ -2230,12 +2230,14 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
 	if (startArrowIndex < 0 || startArrowIndex > static_cast<int>(doc->arrowStyles.size()))
 	{
-		qDebug(QString("invalid start arrow for line: %1").arg(startArrowIndex));
-		startArrowIndex = 0;
+	/* PL nnuke this so Mandriva's compiler will not error out im keeping this in as it must have been useful
+	qDebug(QString("invalid start arrow for line: %1").arg(startArrowIndex)); */
+			startArrowIndex = 0;
 	}
 	if (endArrowIndex < 0 || endArrowIndex > static_cast<int>(doc->arrowStyles.size()))
 	{
-		qDebug(QString("invalid end arrow for line: %1").arg(endArrowIndex));
+	/* PL nnuke this so Mandriva's compiler will not error out im keeping this in as it must have been useful
+	  qDebug(QString("invalid end arrow for line: %1").arg(endArrowIndex)); */
 		endArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
