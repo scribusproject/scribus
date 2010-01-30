@@ -132,6 +132,7 @@ void PreferencesDialog::setupGui()
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
 	prefs_Display->restoreDefaults(&localPrefs);
+	prefs_ExternalTools->restoreDefaults(&localPrefs);
 	prefs_ImageCache->restoreDefaults(&localPrefs);
 }
 
@@ -155,6 +156,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
+	prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
 	prefs_ImageCache->saveGuiToPrefs(&localPrefs);
 }
 

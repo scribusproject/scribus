@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>687</width>
-    <height>804</height>
+    <width>782</width>
+    <height>984</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,11 +45,11 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>644</width>
-        <height>782</height>
+        <width>739</width>
+        <height>877</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QLabel" name="label_2">
          <property name="font">
@@ -126,11 +126,11 @@
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
+            <enum>QSizePolicy::Minimum</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>21</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -155,11 +155,11 @@
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
+            <enum>QSizePolicy::Minimum</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>21</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -317,7 +317,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QLabel" name="imageToolLabel_2">
+          <widget class="QLabel" name="webBrowserLabel">
            <property name="text">
             <string>Name of &amp;Executable:</string>
            </property>
@@ -330,14 +330,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="imageToolLineEdit_2">
+          <widget class="QLineEdit" name="webBrowserLineEdit">
            <property name="toolTip">
             <string>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="imageToolChangeButton_2">
+          <widget class="QPushButton" name="webBrowserChangeButton">
            <property name="text">
             <string>&amp;Change...</string>
            </property>
@@ -350,6 +350,70 @@
        </item>
        <item>
         <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Uniconvertor</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="uniconverterLabel">
+           <property name="text">
+            <string>Name of &amp;Executable:</string>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
+           </property>
+           <property name="buddy">
+            <cstring>imageToolLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="uniconvertorLineEdit">
+           <property name="toolTip">
+            <string>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="uniconvertorChangeButton">
+           <property name="text">
+            <string>&amp;Change...</string>
+           </property>
+           <property name="shortcut">
+            <string>Alt+C</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_5">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -393,44 +457,51 @@
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout">
-         <item row="0" column="1">
-          <widget class="QPushButton" name="latexConfigUpButton">
-           <property name="text">
-            <string>Up</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="latexConfigDownButton">
-           <property name="text">
-            <string>Down</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="latexConfigAddButton">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QPushButton" name="latexConfigDeleteButton">
-           <property name="text">
-            <string>Delete</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" rowspan="5">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
           <widget class="QListWidget" name="latexConfigsListWidget"/>
          </item>
-         <item row="4" column="1">
-          <widget class="QPushButton" name="latexConfigChangeCommandButton">
-           <property name="text">
-            <string>Change...</string>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <property name="spacing">
+            <number>-1</number>
            </property>
-          </widget>
+           <item>
+            <widget class="QPushButton" name="latexConfigUpButton">
+             <property name="text">
+              <string>Up</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="latexConfigDownButton">
+             <property name="text">
+              <string>Down</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="latexConfigAddButton">
+             <property name="text">
+              <string>Add</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="latexConfigDeleteButton">
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="latexConfigChangeCommandButton">
+             <property name="text">
+              <string>Change...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -483,11 +554,11 @@
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
+            <enum>QSizePolicy::Minimum</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>31</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -503,12 +574,25 @@
            </property>
           </widget>
          </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout">
          <item>
-          <widget class="QCheckBox" name="latexForceDpiCheckBox">
+          <widget class="QCheckBox" name="latexForceDPICheckBox">
            <property name="toolTip">
             <string>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</string>
            </property>
@@ -522,9 +606,12 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -555,6 +642,19 @@
             <number>2400</number>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -628,7 +728,7 @@
   <tabstop>latexEditorChangeButton</tabstop>
   <tabstop>latexEmptyFrameCheckBox</tabstop>
   <tabstop>latexEmbeddedEditorCheckBox</tabstop>
-  <tabstop>latexForceDpiCheckBox</tabstop>
+  <tabstop>latexForceDPICheckBox</tabstop>
   <tabstop>latexResolutionSpinBox</tabstop>
   <tabstop>rescanButton</tabstop>
  </tabstops>

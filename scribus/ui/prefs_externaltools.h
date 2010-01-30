@@ -9,15 +9,42 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_EXTERNALTOOLS_H
 
 #include "ui_prefs_externaltoolsbase.h"
+#include "prefs_pane.h"
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
-class SCRIBUS_API Prefs_ExternalTools : public QWidget, Ui::Prefs_ExternalTools
+class SCRIBUS_API Prefs_ExternalTools : public Prefs_Pane, Ui::Prefs_ExternalTools
 {
 	Q_OBJECT
 
 	public:
 		Prefs_ExternalTools(QWidget* parent=0);
 		~Prefs_ExternalTools();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
+
+	protected:
+		bool fileInPath(QString file);
+		void insertConfigItem(QString config, int row = -1);
+		void setConfigItemText(QListWidgetItem *item);
+		QMap<QString, QString> commands;
+
+	protected slots:
+		void changePostScriptTool();
+		void changeImageTool();
+		void changeWebBrowser();
+		void changeUniconvertor();
+		void changeLatexEditor();
+		void rescanForTools();
+		void upButtonPressed();
+		void downButtonPressed();
+		void addConfig();
+		void deleteConfig();
+		void changeLatexPath();
+
 };
 
 #endif // PREFS_EXTERNALTOOLS_H
