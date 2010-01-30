@@ -4915,27 +4915,28 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 void ScribusDoc::removePageFromSection(const uint pageIndex)
 {
 	//Get the section of the new page index.
-	bool found=false;
+	bool found = false;
+	uint fromIndex, toIndex;
 	DocumentSectionMap::Iterator it = sections.begin();
 	for (; it!= sections.end(); ++it)
 	{
 		if (pageIndex>=it.value().fromindex && pageIndex<=it.value().toindex)
 		{
-			found=true;
+			fromIndex = it.value().fromindex;
+			toIndex   = it.value().toindex - 1;
+			if (fromIndex > toIndex) // Remove section in that case
+				sections.remove(it.key());
 			break;
 		}
 	}
-	//Our page was not in a section
-	if (!found)
-		return;
-
-	--it.value().toindex;
-	++it;
-	while (it!=sections.end())
+	for (it = sections.begin(); it != sections.end(); ++it)
 	{
-		--it.value().fromindex;
-		--it.value().toindex;
-		++it;
+		fromIndex = it.value().fromindex;
+		toIndex   = it.value().toindex;
+		if  (fromIndex > pageIndex)
+			--it.value().fromindex;
+		if  (toIndex >= pageIndex)
+			--it.value().toindex;
 	}
 	//Now update the Pages' internal storage of their page number
 	updateSectionPageNumbersToPages();
