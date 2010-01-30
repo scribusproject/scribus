@@ -943,9 +943,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		{
 			if (pgit->isAnnotation())
 			{
+				int annotType  = pgit->annotation().Type();
+				bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
-				if (pgit->itemText.length() > 0)
+				if (pgit->itemText.length() > 0 || mustEmbed)
 				{
 					if (Options.Version < PDFOptions::PDFVersion_14)
 						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
@@ -965,9 +967,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		{
 			if (pgit->isAnnotation())
 			{
+				int annotType  = pgit->annotation().Type();
+				bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
-				if (pgit->itemText.length() > 0)
+				if (pgit->itemText.length() > 0 || mustEmbed)
 				{
 					if (Options.Version < PDFOptions::PDFVersion_14)
 						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
@@ -987,9 +991,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		{
 			if (pgit->isAnnotation())
 			{
+				int annotType  = pgit->annotation().Type();
+				bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
-				if (pgit->itemText.length() > 0)
+				if (pgit->itemText.length() > 0 || mustEmbed)
 				{
 					if (Options.Version < PDFOptions::PDFVersion_14)
 						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
