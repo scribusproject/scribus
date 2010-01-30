@@ -23,6 +23,18 @@
 				becomes
 				\[J = \int r^2 \mathrm{d}m\]
 			</en>
+			<cs>
+				\section*{Návod}
+				Jestliže můžete číst tento text, nastavení \LaTeX ových rámců funguje!\\
+				Umístění rovnic je velmi snadné:\\
+				Klikněte na pravé tlačítko myši $\Rightarrow$ Změnit zdroj\\
+				a nahraďte tento text svým vlastním. Například z
+				\begin{verbatim}
+					\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				se stane
+				\[J = \int r^2 \mathrm{d}m\]
+			</cs>
 			<de>
 				\section*{Einführung}
 				Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
@@ -101,6 +113,7 @@
 	<tab type="settings">
 		<title><i18n>
 				<en>Fonts/Headers</en>
+				<cs>Fonty/Hlavičky</cs>
 				<de>Schriften/Header</de>
 				<fr>Polices/En-tête</fr>
 				<pl>Fonty/Nagłówki</pl>
@@ -108,6 +121,7 @@
 		</i18n></title>
 		<comment><i18n>
 			<en>Fonts only work when installed on your computer!</en>
+			<cs>Fonty fungují jen když jsou nainstalovány ve vašem počítači!</cs>
 			<de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de>
 			<fr>Les polices fonctionnent uniquement lorsqu'elles sont installées sur votre ordinateur !</fr>
 			<pl>Fonty muszą być zainstalowane na twoim komputerze!</pl>
@@ -116,6 +130,7 @@
 		<list name="font" default="">
 			<title><i18n>
 				<en>Font:</en>
+				<cs>Font:</cs>
 				<de>Schrift:</de>
 				<fr>Police :</fr>
 				<pl>Font:</pl>
@@ -129,6 +144,7 @@
 		</list>
 		<comment><i18n>
 			<en>Note: You have to include \sf at the beginning of your text for Helvetica and \tt for Courier!</en>
+			<cs>Pozn.: Před text psaným Helveticou napište na začátek  \sf, pro Courier \tt!</cs>
 			<de>Hinweis: Am Anfang des Textes muss zusätzlich \sf für Helvetica und \tt für Courier stehen!</de>
 			<pl>Uwaga: Na początku tekstu należy dodatkowo umieścić \sf dla fontu Helvetica i \tt dla fontu Courier!</pl>
 			<ru>Примечание: необходимо включить команду \sf в начало текста для Helvetica и \tt для Courier!</ru>
@@ -136,6 +152,7 @@
 		<list name="fontsize" default="11pt">
 			<title><i18n>
 					<en>Fontsize:</en>
+					<cs>Velikost písma:</cs>
 					<de>Schriftgröße:</de>
 					<fr>Taille police :</fr>
 					<pl>Stopień pisma:</pl>
@@ -152,12 +169,14 @@
 		</list>
 		<!--Not working yet! <color name="fg"><i18n>
 				<en>Fontcolor</en>
+				<cs>Barva písma</cs>
 				<de>Textfarbe</de>
 				<fr>Couleur police</fr>
 				<pl>Kolor fontu</pl>
 			</i18n></color>
 		<color name="bg"><i18n>
 				<en>Backgroundcolor</en>
+				<cs>Barva pozadí</cs>
 				<de>Hintergrundfarbe</de>
 				<fr>Couleur de fond</fr>
 				<pl>Kolor tła</pl>
@@ -165,6 +184,7 @@
 		-->
 		<text name="additionalheaders" type="long" default="\usepackage{amsmath}"><i18n>
 			<en>Additional Headers:</en>
+			<cs>Dodatečné hlavičky:</cs>
 			<de>Zusätzliche Header:</de>
 			<fr>En-tête additionnel :</fr>
 			<pl>Dodatkowe nagłówki:</pl>
@@ -174,6 +194,7 @@
 	<tab type="items">
 		<title><i18n>
 				<en>Relation symbols</en>
+				<cs>Symboly relací</cs>
 				<fr>Symboles et opérateurs</fr>
 				<de>Verhältnissymbole</de>
 				<pl>Symbole relacji</pl>
@@ -412,6 +433,7 @@
 	<tab type="items">
 		<title><i18n>
 				<en>Arrows</en>
+				<cs>Šipky</cs>
 				<de>Pfeile</de>
 				<fr>Flèches</fr>
 				<pl>Strzałki</pl>
@@ -490,6 +512,7 @@
 	<tab type="items">
 		<title><i18n>
 				<en>Miscellaneous symbols</en>
+				<cs>Různé symboly</cs>
 				<de>Verschiedenes</de>
 				<fr>Symboles divers</fr>
 				<pl>Różne symbole</pl>
@@ -558,6 +581,7 @@
 	<tab type="items">
 		<title><i18n>
 				<en>Delimiters</en>
+				<cs>Rozdělovací znaky</cs>
 				<de>Trenner</de>
 				<fr>Délimiteurs</fr>
 				<pl>Znaki rozdzielające</pl>
@@ -599,6 +623,7 @@
 	<tab type="items">
 		<title><i18n>
 				<en>Greek Alphabet</en>
+				<cs>Řecká abeceda</cs>
 				<de>Griechisches Alphabet</de>
 				<fr>Alphabet Grec</fr>
 				<pl>Alfabet grecki</pl>
@@ -648,6 +673,7 @@
 	<tab type="items">
 		<title><i18n>
 			<en>Math alphabets</en>
+			<cs>Matematická abeceda</cs>
 			<de>Mathe-Alphabete</de>
 			<fr>Alphabet Math</fr>
 			<pl>Alfabet matematyczny</pl>
@@ -829,6 +855,7 @@
 		<item value="\text{[Regular text]}"  image="textr_egulartext.png">
 			<i18n>
 				<en>Regular text</en>
+				<cs>Normální text</cs>
 				<de>Normaler Text</de>
 				<fr>Texte normal</fr>
 				<pl>Zwykły tekst</pl>
@@ -839,6 +866,7 @@
 	<tab type="items">
 		<title><i18n>
 			<en>Math accents</en>
+			<cs>Matematické akcenty</cs>
 			<de>Mathe-Akzente</de>
 			<fr>Accents Math</fr>
 			<pl>Akcenty matematyczne</pl>
