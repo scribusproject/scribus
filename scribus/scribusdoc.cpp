@@ -4388,6 +4388,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 	}
 	if (!isLoading())
 	{
+		undoManager->setUndoEnabled(false);
 		uint docItemsCount=Items->count();
 		for (uint ite = 0; ite < docItemsCount; ++ite)
 		{
@@ -4417,6 +4418,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 			}
 			item->setRedrawBounding();
 		}
+		undoManager->setUndoEnabled(true);
 	}
 
 	if(isLoading() && is12doc)
