@@ -45,3 +45,4 @@ void Prefs_ImageCache::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->imageCachePrefs.maxCacheEntries = cacheEntryLimitSpinBox->value();
 	prefsData->imageCachePrefs.compressionLevel = compressionLevelSpinBox->value();
 }
+

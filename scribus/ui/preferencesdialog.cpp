@@ -128,6 +128,7 @@ void PreferencesDialog::setupGui()
 	prefs_PreflightVerifier->restoreDefaults(&localPrefs);
 	prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
 	prefs_TableOfContents->restoreDefaults(&localPrefs);
+	prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
@@ -153,6 +154,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
 	prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
 	prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
+	prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
