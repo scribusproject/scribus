@@ -341,18 +341,18 @@ class Foi_postscript : public Foi
 			{
 				bool brokenMetric = false;
 				QString metricsFile;
-				for (uint i = 0; i < fontMetrics.size(); ++i)
+				for (uint i = 0; i < fontMetrics.size(); ++i) 
 				{
 					metricsFile = fontMetrics[i];
 					if (FT_Attach_File(face, metricsFile.local8Bit().data()))
 					{
-						qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath).arg(metricsFile).latin1());
+						qDebug"%s"(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath).arg(metricsFile).latin1());
 						brokenMetric = true;
 					}
 					else
 					{
 						if (brokenMetric)
-							qDebug(QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFilePath()).arg(metricsFile).latin1());
+							qDebug"%s"(QObject::tr("Valid metrics were found for font %1, using metrics in file  %2").arg(fontFilePath()).arg(metricsFile).latin1());
 						metricsFound = true;
 						break;
 					}
