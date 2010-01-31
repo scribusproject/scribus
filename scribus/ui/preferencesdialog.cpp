@@ -14,7 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui/preferencesdialog.h"
 
 #include "commonstrings.h"
+#include "pluginmanager.h"
 #include "prefsmanager.h"
+#include "scplugin.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "units.h"
@@ -89,7 +91,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 
 	initPreferenceValues();
 	setupGui();
-
+	addPlugins();
 }
 
 
@@ -197,7 +199,7 @@ void PreferencesDialog::setupListWidget()
 
 }
 
-int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget *tab)
+int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget* tab)
 {
 	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
 	QListWidgetItem* newItem = new QListWidgetItem(icon, name, preferencesTypeList);
@@ -242,6 +244,45 @@ void PreferencesDialog::changeEvent(QEvent *e)
 void PreferencesDialog::languageChange()
 {
 	setWindowTitle( tr( "Preferences" ) );
+}
+
+void PreferencesDialog::addPlugins()
+{
+	// Scan for plugins that provide a prefs widget, and add it to the
+	// prefs dialog.
+	// For each plugin, enabled or not:
+	ScPlugin* plugin = 0;
+	QWidget* panel = 0;
+	QString panelCaption;
+	QPixmap panelIcon;
+
+	PluginManager& pluginManager = PluginManager::instance();
+	QStringList pluginNames(pluginManager.pluginNames(true));
+
+	foreach (QString pName, pluginManager.pluginNames(true))
+	{
+		// Ask the plugin manager for a plugin (skipping disabled plugins).
+		plugin = pluginManager.getPlugin(pName, false);
+		// If we got a plugin (which we know is enabled):
+		if (plugin)
+		{
+			// Ask the plugin for a prefs widget
+			bool wantPanel = plugin->newPrefsPanelWidget(prefsStackWidget, panel, panelCaption, panelIcon);
+			// If it gave us one...
+			if (wantPanel)
+			{
+				// Ensure that we got sane return values
+				Q_ASSERT(panel);
+				Q_ASSERT(!panelIcon.isNull());
+				Q_ASSERT(!panelCaption.isNull());
+				// plug it in to the dialog,
+				addItem(panelCaption, panelIcon, panel);
+				// and connect a signal to tell it to save its
+				// settings.
+				connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
+			}
+		}
+	}
 }
 
 void PreferencesDialog::arrangeIcons()

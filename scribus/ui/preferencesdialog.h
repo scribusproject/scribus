@@ -71,11 +71,14 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		void applyButtonClicked();
 
 
-	private:
+	protected:
 		int addItem(QString name, QPixmap icon, QWidget *tab);
 		void setupListWidget();
 		void arrangeIcons();
 		void initPreferenceValues();
+		/*! \brief Scans plugins for those that want to add a prefs widget and
+		hooks them up to the dialog. */
+		void addPlugins();
 
 		Prefs_ColorManagement *prefs_ColorManagement;
 		Prefs_UserInterface *prefs_UserInterface;
