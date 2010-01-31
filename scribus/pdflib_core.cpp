@@ -1837,7 +1837,9 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 					{
 						int da = static_cast<int>(*it);
-						if (da != 0)
+						// #8758: Custom dotted lines don't export properly to pdf
+						// Null values have to be exported if line end != flat
+						if ((da != 0) || (ite->lineEnd() != Qt::FlatCap))
 							PutPage(QString::number(da)+" ");
 					}
 					PutPage("] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n");
@@ -3074,7 +3076,9 @@ QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
 			int da = static_cast<int>(*it);
-			if (da != 0)
+			// #8758: Custom dotted lines don't export properly to pdf
+			// Null values have to be exported if line end != flat
+			if ((da != 0) || (ite->lineEnd() != Qt::FlatCap))
 				tmp += QString::number(da)+" ";
 		}
 		tmp += "] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n";
@@ -3210,7 +3214,9 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
 			int da = static_cast<int>(*it);
-			if (da != 0)
+			// #8758: Custom dotted lines don't export properly to pdf
+			// Null values have to be exported if line end != flat
+			if ((da != 0) || (ite->lineEnd() != Qt::FlatCap))
 				tmp += QString::number(da)+" ";
 		}
 		tmp += "] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n";
@@ -4315,7 +4321,9 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				for ( it = embedded->DashValues.begin(); it != embedded->DashValues.end(); ++it )
 				{
 					int da = static_cast<int>(*it);
-					if (da != 0)
+					// #8758: Custom dotted lines don't export properly to pdf
+					// Null values have to be exported if line end != flat
+					if ((da != 0) || (embedded->lineEnd() != Qt::FlatCap))
 						tmp2 += QString::number(da)+" ";
 				}
 				tmp2 += "] "+QString::number(static_cast<int>(embedded->DashOffset))+" d\n";
@@ -5107,7 +5115,9 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				for ( it = item->DashValues.begin(); it != item->DashValues.end(); ++it )
 				{
 					int da = static_cast<int>(*it);
-					if (da != 0)
+					// #8758: Custom dotted lines don't export properly to pdf
+					// Null values have to be exported if line end != flat
+					if ((da != 0) || (item->lineEnd() != Qt::FlatCap))
 						tmp2 += QString::number(da)+" ";
 				}
 				tmp2 += "] "+QString::number(static_cast<int>(item->DashOffset))+" d\n";
