@@ -150,7 +150,7 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 		emit dashChanged();
 		return;
 	}
-	if ((m->y() < height()) && (m->y() > 16) && (m->x() > 0) && (m->x() < width()))
+	if ((m->y() < height()) && (m->y() > 16) && (m->x() > 9) && (m->x() < width() - 9))
 	{
 		if (ActStop != -1)
 		{
