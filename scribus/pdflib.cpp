@@ -6147,7 +6147,7 @@ void PDFlib::PDF_Error(const QString& errorMsg)
 {
 	ErrorMessage = errorMsg;
 	if (!ScQApp->usingGUI())
-		qDebug(errorMsg.local8Bit().data());
+		qDebug"%s"(errorMsg.local8Bit().data());
 }
 
 void PDFlib::PDF_Error_WriteFailure(void)
