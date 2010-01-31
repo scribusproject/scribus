@@ -46,19 +46,19 @@
         <x>0</x>
         <y>0</y>
         <width>663</width>
-        <height>349</height>
+        <height>350</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="confirmFontReplacementsCheckBox">
          <property name="text">
           <string>Always ask before fonts are replaced when loading a document</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QCheckBox" name="previewParaStylesCheckBox">
          <property name="text">
           <string>Preview of current Paragraph Style is visible when editing Styles</string>
          </property>
@@ -102,7 +102,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_3">
+        <widget class="QCheckBox" name="useStandardLoremIpsumCheckBox">
          <property name="text">
           <string>Always use standard Lorem Ipsum text</string>
          </property>
@@ -118,7 +118,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QSpinBox" name="loremIpsumParaCountSpinBox"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_2">

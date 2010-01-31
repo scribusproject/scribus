@@ -134,6 +134,7 @@ void PreferencesDialog::setupGui()
 	prefs_Scrapbook->restoreDefaults(&localPrefs);
 	prefs_Display->restoreDefaults(&localPrefs);
 	prefs_ExternalTools->restoreDefaults(&localPrefs);
+	prefs_Miscellaneous->restoreDefaults(&localPrefs);
 	prefs_ImageCache->restoreDefaults(&localPrefs);
 }
 
@@ -159,6 +160,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
 	prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
+	prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
 	prefs_ImageCache->saveGuiToPrefs(&localPrefs);
 }
 
