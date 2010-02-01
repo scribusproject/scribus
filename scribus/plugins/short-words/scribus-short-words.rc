@@ -145,8 +145,8 @@ it=c/o ,C.P. ,v. ,V. ,v.le ,V.le ,
 it=S. ,S.ta ,
 ## Measure units
 it= g, gr, kg, q, t,
-it= mm, cm, m, km, Km
-it= ha, cmq, cmc, mc, mq, kmq, Kmq
+it= mm, cm, m, km, Km,
+it= ha, cmq, cmc, mc, mq, kmq, Kmq,
 it= s, min., h,
 it= km/h, Km/h, m/s,
 it= KWh, kW, V,
