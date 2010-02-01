@@ -491,7 +491,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					QPointF coor = getCoordinate(ds);
 					if (first)
 					{
-						path.moveTo(coor.x(), coor.y());
+						path.moveTo(coor);
 						if (first2)
 							startP = coor;
 						first = false;
@@ -506,7 +506,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 								path.closeSubpath();
 						}
 						else
-							path.lineTo(coor.x(), coor.y());
+							path.lineTo(coor);
 					}
 				}
 				if (currentItem != NULL)
@@ -532,7 +532,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					{
 						QPointF coor = getCoordinate(ds);
 						a++;
-						path.moveTo(coor.x(), coor.y());
+						path.moveTo(coor);
 						startP = coor;
 						first = false;
 					}
@@ -540,7 +540,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					QPointF p2 = getCoordinate(ds);
 					QPointF p3 = getCoordinate(ds);
 					a += 3;
-					path.cubicTo(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+					path.cubicTo(p1, p2, p3);
 				}
 				if (currentItem != NULL)
 				{
@@ -562,14 +562,14 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					{
 						QPointF coor = getCoordinate(ds);
 						a++;
-						path.moveTo(coor.x(), coor.y());
+						path.moveTo(coor);
 						startP = coor;
 						first = false;
 					}
 					QPointF p1 = getCoordinate(ds);
 					QPointF p2 = getCoordinate(ds);
 					a += 2;
-					path.quadTo(p1.x(), p1.y(), p2.x(), p2.y());
+					path.cubicTo(p1, p1, p2);
 				}
 				if (currentItem != NULL)
 				{
@@ -1474,8 +1474,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = getValue(ds);
 			path = QPainterPath();
 			path.moveTo(posStart);
-			path.quadTo(posMid, posEnd);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			path.cubicTo(posMid, posMid, posEnd);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			bBoxO = path.boundingRect();
@@ -1506,7 +1506,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = getValue(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 4;
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
@@ -1571,8 +1571,9 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			lineWidth = getValue(ds);
 			path = QPainterPath();
 			path.moveTo(posStart);
-			path.quadTo(posMid, posEnd);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			path.cubicTo(posMid, posMid, posEnd);
+		//	path.quadTo(posMid, posEnd);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			bBoxO = path.boundingRect();
