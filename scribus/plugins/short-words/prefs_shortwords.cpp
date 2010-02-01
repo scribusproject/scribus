@@ -6,15 +6,27 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "prefs_shortwords.h"
+#include "prefsstructs.h"
 
 Prefs_ShortWords::Prefs_ShortWords(QWidget* parent)
-	: QWidget(parent)
+	: Prefs_Pane(parent)
 {
 	setupUi(this);
-
+	languageChange();
 }
 
 Prefs_ShortWords::~Prefs_ShortWords()
 {
 }
 
+void Prefs_ShortWords::languageChange()
+{
+}
+
+void Prefs_ShortWords::restoreDefaults(struct ApplicationPrefs *prefsData)
+{
+}
+
+void Prefs_ShortWords::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
+{
+}

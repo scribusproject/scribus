@@ -33,6 +33,14 @@ bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,
 	return false;
 }
 
+bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,
+									QWidget*& /* panel */,
+									QString& /* caption */,
+									QPixmap& /* icon */)
+{
+	return false;
+}
+
 const QString & ScPlugin::lastError() const
 {
 	return m_lastError;

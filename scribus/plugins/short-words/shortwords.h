@@ -37,6 +37,8 @@ class PLUGIN_API ShortWordsPlugin : public ScActionPlugin
 		/*! \brief Preference widget */
 		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 										 QString& caption, QPixmap& icon);
+		virtual bool newPrefsPanelWidget(QWidget* parent, QWidget*& panel,
+										 QString& caption, QPixmap& icon);
 		// Special features (none)
 };
 

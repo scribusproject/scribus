@@ -26,13 +26,13 @@ or documentation
 #include <QPixmap>
 
 #include "shortwords.h"
-//#include "shortwords.moc"
 #include "version.h"
 #include "vlnadialog.h"
 #include "configuration.h"
 #include "parse.h"
 #include "page.h"
 #include "swprefsgui.h"
+#include "prefs_shortwords.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -155,10 +155,8 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 	return true;
 }
 
-bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent,
-									       PrefsPanel*& panel,
-									       QString& caption,
-									       QPixmap& icon)
+bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
+										   QString& caption, QPixmap& icon)
 {
 	panel = new SWPrefsGui(parent);
 	Q_CHECK_PTR(panel);
@@ -167,4 +165,12 @@ bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent,
 	return true;
 }
 
-
+bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, QWidget*& panel,
+										   QString& caption, QPixmap& icon)
+{
+	panel = new Prefs_ShortWords(parent);
+	Q_CHECK_PTR(panel);
+	caption = tr("Short Words");
+	icon = loadIcon("shortwords.png");
+	return true;
+}
