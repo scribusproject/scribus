@@ -23,6 +23,7 @@ SET(SHORTWORDS_PLUGIN_SOURCES
   prefs_shortwords.cpp
   shortwords.cpp
   swprefsgui.cpp
+  swsyntaxhighlighter.cpp
   vlnadialog.cpp
 )
 

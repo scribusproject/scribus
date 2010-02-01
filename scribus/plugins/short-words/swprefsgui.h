@@ -7,8 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef SWPREFSGUI_H
 #define SWPREFSGUI_H
 
-#include <QSyntaxHighlighter>
-
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -58,20 +56,6 @@ class SWPrefsGui : public PrefsPanel
 
 	protected slots:
 		virtual void languageChange();
-};
-
-/*! Simple syntax highlighting for configuration editor (QTextEdit).
-\author Petr Vanek, <petr@yarpen.cz>
- */
-class SWSyntaxHighlighter : public QSyntaxHighlighter
-{
-	public:
-		SWSyntaxHighlighter(QTextEdit *textEdit);
-
-		/*! Reimplementation of the Qt highligtion for simple cfg file
-		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
-		 */
-		void highlightBlock(const QString &text);
 };
 
 #endif

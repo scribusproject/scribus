@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "swprefsgui.h"
+#include "swsyntaxhighlighter.h"
 #include "version.h"
 #include "scpaths.h"
 #include "commonstrings.h"
@@ -166,30 +167,3 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 	return true;
 }
 
-
-/*
- * Syntax highlighting
- */
-SWSyntaxHighlighter::SWSyntaxHighlighter(QTextEdit *textEdit)
-	: QSyntaxHighlighter(textEdit)
-{
-}
-
-void SWSyntaxHighlighter::highlightBlock(const QString &text)
-{
-	// position in the text
-	if (text.isEmpty())
-		return;
-	if (text[0] == '#')
-	{
-		QFont f(document()->defaultFont());
-		f.setItalic(true);
-		QTextCharFormat myClassFormat;
-		myClassFormat.setFont(f);
-		myClassFormat.setForeground(Qt::gray);
-		setFormat(0, text.length(), myClassFormat);
-	}
-	return;
-}
-
-//#include "swprefsgui.moc"
