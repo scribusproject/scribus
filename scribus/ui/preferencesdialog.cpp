@@ -73,8 +73,8 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	addItem( tr("Miscellaneous"), loadIcon("misc.png"), prefs_Miscellaneous);
 	prefs_Plugins = new Prefs_Plugins(this);
 	addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
-	prefs_ShortWords = new Prefs_ShortWords(this);
-	addItem( tr("Short Words"), loadIcon("tools.png"), prefs_ShortWords);
+//	prefs_ShortWords = new Prefs_ShortWords(this);
+//	addItem( tr("Short Words"), loadIcon("tools.png"), prefs_ShortWords);
 	prefs_Scripter = new Prefs_Scripter(this);
 	addItem( tr("Scripter"), loadIcon("tools.png"), prefs_Scripter);
 	prefs_ImageCache = new Prefs_ImageCache(this);
