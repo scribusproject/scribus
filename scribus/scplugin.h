@@ -172,8 +172,8 @@ class SCRIBUS_API ScPlugin : public QObject
 		*/
 		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 										 QString& caption, QPixmap& icon);
-		//virtual bool newPrefsPanelWidget(QWidget* parent, QWidget* panel,
-		//								 QString& caption, QPixmap& icon);
+		bool newPrefsPanelWidget(QWidget* parent, QWidget* panel,
+								 QString& caption, QPixmap& icon) {return false;};
 
 		/*! @brief Return descriptive information about the plug-in
 		 *
