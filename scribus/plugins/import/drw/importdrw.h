@@ -84,6 +84,8 @@ private:
 		double width;
 		double height;
 		double lineWidth;
+		double scaleX;
+		double scaleY;
 		int nrOfItems;
 		int counter;
 		quint8 patternIndex;
@@ -100,6 +102,8 @@ private:
 		double groupY;
 		double width;
 		double height;
+		double scaleX;
+		double scaleY;
 		quint16 nrOfItems;
 		quint16 counter;
 		QString itemGroupName;
@@ -165,6 +169,8 @@ private:
 	FPointArray Coords;
 	QByteArray cmdData;
 	double scaleFactor;
+	double scaleX;
+	double scaleY;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;
