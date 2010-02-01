@@ -10043,6 +10043,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	ma.rotate(currItem->rotation());
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
 	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
+//	#8541, #8761: "when resizing with ALT-arrow, the size values in the PP aren't updated"
 //	currItem->setWidthHeight(newX, newY, true);
 	currItem->setWidthHeight(newX, newY);
 	if ((rotMode != 0) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
