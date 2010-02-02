@@ -88,6 +88,7 @@ private:
 		double scaleY;
 		int nrOfItems;
 		int counter;
+		bool filled;
 		quint8 patternIndex;
 		quint8 flags;
 		QString fillColor;
@@ -171,6 +172,8 @@ private:
 	double scaleFactor;
 	double scaleX;
 	double scaleY;
+	double rotationAngle;
+	QPointF posPivot;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;
