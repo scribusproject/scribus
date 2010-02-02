@@ -46,7 +46,7 @@
         <x>0</x>
         <y>0</y>
         <width>742</width>
-        <height>537</height>
+        <height>538</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -72,7 +72,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="extensionScriptsChk">
          <property name="text">
           <string>Enable Extension Scripts</string>
          </property>
@@ -88,10 +88,10 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="startupScriptEdit"/>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="startupScriptChangeButton">
            <property name="text">
             <string>Change...</string>
            </property>
@@ -151,7 +151,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="textButton">
              <property name="text">
               <string/>
              </property>
@@ -165,7 +165,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="commentButton">
              <property name="text">
               <string/>
              </property>
@@ -179,7 +179,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="keywordButton">
              <property name="text">
               <string/>
              </property>
@@ -193,7 +193,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QPushButton" name="pushButton_4">
+            <widget class="QPushButton" name="signButton">
              <property name="text">
               <string/>
              </property>
@@ -207,7 +207,7 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QPushButton" name="pushButton_8">
+            <widget class="QPushButton" name="errorButton">
              <property name="text">
               <string/>
              </property>
@@ -221,7 +221,7 @@
             </widget>
            </item>
            <item row="5" column="1">
-            <widget class="QPushButton" name="pushButton_6">
+            <widget class="QPushButton" name="stringButton">
              <property name="text">
               <string/>
              </property>
@@ -235,7 +235,7 @@
             </widget>
            </item>
            <item row="6" column="1">
-            <widget class="QPushButton" name="pushButton_5">
+            <widget class="QPushButton" name="numberButton">
              <property name="text">
               <string/>
              </property>
