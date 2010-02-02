@@ -24,6 +24,21 @@ class SCRIBUS_API Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
 
 	public slots:
 		void languageChange();
+		//! \brief Apply changes to prefs. Auto connected.
+		void apply();
+
+	protected slots:
+		/*! \brief Save the content into user file. */
+		virtual void saveButton_pressed();
+		/*! \brief Re-reads system wide config file. */
+		virtual void resetButton_pressed();
+		/*! \brief Text editor changed. */
+		virtual void cfgEdit_changed();
+
+	protected:
+		/*! \brief Load cfg file.
+		\param filename string with full path and name.*/
+		bool loadCfgFile(QString filename);
 };
 
 #endif // PREFS_SHORTWORDS_H
