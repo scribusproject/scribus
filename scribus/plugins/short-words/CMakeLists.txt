@@ -14,7 +14,7 @@ SET(SHORTWORDS_PLUGIN_MOC_CLASSES
   prefs_shortwords.h
   shortwords.h
   swprefsgui.h
-  vlnadialog.h
+  swdialog.h
 )
 
 SET(SHORTWORDS_PLUGIN_SOURCES
@@ -24,7 +24,7 @@ SET(SHORTWORDS_PLUGIN_SOURCES
   shortwords.cpp
   swprefsgui.cpp
   swsyntaxhighlighter.cpp
-  vlnadialog.cpp
+  swdialog.cpp
 )
 
 SET(SCRIBUS_SHORTWORDS_PLUGIN "scribusshortwords")

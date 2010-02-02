@@ -27,7 +27,7 @@ or documentation
 
 #include "shortwords.h"
 #include "version.h"
-#include "vlnadialog.h"
+#include "swdialog.h"
 #include "configuration.h"
 #include "parse.h"
 #include "page.h"

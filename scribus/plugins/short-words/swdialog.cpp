@@ -16,7 +16,7 @@ or documentation
 */
 
 #include "version.h"
-#include "vlnadialog.h"
+#include "swdialog.h"
 
 #include "scribus.h"
 #include "scpaths.h"
