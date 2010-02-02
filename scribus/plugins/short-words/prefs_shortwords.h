@@ -10,9 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_prefs_shortwordsbase.h"
 #include "ui/prefs_pane.h"
-#include "scribusapi.h"
 
-class SCRIBUS_API Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
+class Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
 {
 	Q_OBJECT
 

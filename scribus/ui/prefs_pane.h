@@ -9,8 +9,9 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_PANE_H
 
 #include <QWidget>
+#include "scribusapi.h"
 
-class Prefs_Pane : public QWidget
+class SCRIBUS_API Prefs_Pane : public QWidget
 {
 	Q_OBJECT
 
