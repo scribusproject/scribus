@@ -513,8 +513,10 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
 					QRectF bBox = path.boundingRect();
-					currentItem->PoLine.translate(-bBox.x(), 0);
-					currentItem->PoLine.translate(0, -bBox.y());
+					if (bBox.x() < 0)
+						currentItem->PoLine.translate(-bBox.x(), 0);
+					if (bBox.y() < 0)
+						currentItem->PoLine.translate(0, -bBox.y());
 					finishItem(currentItem);
 				}
 				createObjCode = 0;
@@ -545,6 +547,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				if (currentItem != NULL)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
+					QRectF bBox = path.boundingRect();
+					if (bBox.x() < 0)
+						currentItem->PoLine.translate(-bBox.x(), 0);
+					if (bBox.y() < 0)
+						currentItem->PoLine.translate(0, -bBox.y());
 					finishItem(currentItem);
 				}
 				createObjCode = 0;
@@ -574,6 +581,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				if (currentItem != NULL)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
+					QRectF bBox = path.boundingRect();
+					if (bBox.x() < 0)
+						currentItem->PoLine.translate(-bBox.x(), 0);
+					if (bBox.y() < 0)
+						currentItem->PoLine.translate(0, -bBox.y());
 					finishItem(currentItem);
 				}
 				createObjCode = 0;
@@ -941,6 +953,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2 Size %3").arg(cmd).arg(QString(cmdData.toHex().left(64))).arg(cmdData.size());
 			break;
 	}
+	printMSG = false;
 	if (printMSG)
 	{
 		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
@@ -986,18 +999,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 					{
 						double scx = 1.0;
 						double scy = 1.0;
-						if ((popped.scaleX != 0) || (popped.scaleY != 0))
-						{
-							if ((tmpSel->width() != 0) && (tmpSel->height() != 0) && (popped.width != 0) && (popped.height != 0))
-							{
-								if (tmpSel->width() != popped.width)
-									scx = popped.width / tmpSel->width();
-								if (tmpSel->height() != popped.height)
-									scy = popped.height / tmpSel->height();
-								m_Doc->scaleGroup(scx, scy, true, tmpSel);
-							}
-						}
-						QRectF selRect = tmpSel->getGroupRect();
 						QPainterPath gesPa;
 						bool firstP = true;
 						for (uint i = 0; i < selectedItemCount; ++i)
@@ -1027,11 +1028,38 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						}
 						if (!gesPa.isEmpty())
 						{
+							QRectF bb = gesPa.boundingRect();
+							if (popped.rotationAngle != 0)
+							{
+								QTransform mt;
+								mt.translate(-bb.x(), -bb.y());
+								gesPa = mt.map(gesPa);
+								QTransform ma;
+								ma.translate(popped.posPivot.x(), popped.posPivot.y());
+								ma.rotate(-popped.rotationAngle / 10.0);
+								gesPa = ma.map(gesPa);
+							}
+							bb = gesPa.boundingRect();
+							QTransform mt;
+							mt.translate(-bb.x(), -bb.y());
+							gesPa = mt.map(gesPa);
+							if ((popped.scaleX != 0) || (popped.scaleY != 0))
+							{
+								if ((bb.width() != 0) && (bb.height() != 0) && (popped.width != 0) && (popped.height != 0))
+								{
+									if (bb.width() != popped.width)
+										scx = popped.width / bb.width();
+									if (bb.height() != popped.height)
+										scy = popped.height / bb.height();
+									QTransform ms;
+									ms.scale(scx, scy);
+									gesPa = ms.map(gesPa);
+								}
+							}
 							FPointArray res;
 							res.fromQPainterPath(gesPa);
-							res.translate(-selRect.x(), -selRect.y());
 							PageItem *ite = tmpSel->takeItem(0);
-							ite->setXYPos(popped.xoffset + m_Doc->currentPage()->xOffset(), popped.yoffset + m_Doc->currentPage()->yOffset());
+							ite->setXYPos(popped.xoffset + baseX, popped.yoffset + baseY);
 							ite->PoLine = res.copy();
 							FPoint wh = getMaxClipF(&ite->PoLine);
 							ite->setWidthHeight(wh.x(),wh.y());
@@ -1109,6 +1137,22 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 					popped.groupItem->AutoName = false;
 					popped.groupItem->isGroupControl = true;
 					popped.groupItem->groupsLastItem = tmpSel->itemAt(selectedItemCount - 1);
+				/*	if (popped.rotationAngle != 0)
+					{
+						PageItem* currItem;
+						QTransform ma;
+						ma.translate(posPivot.x(), posPivot.y());
+						ma.scale(1, 1);
+						ma.rotate(popped.rotationAngle);
+						FPoint n;
+						for (int a = 0; a < tmpSel->count(); ++a)
+						{
+							currItem = tmpSel->itemAt(a);
+							FPoint n = FPoint(currItem->xPos() - posPivot.x(), currItem->yPos() - posPivot.y());
+							currItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
+							currItem->rotateBy(popped.rotationAngle);
+						}
+					} */
 				}
 				m_Doc->GroupCounter++;
 				tmpSel->clear();
@@ -1245,6 +1289,13 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			gList.height = bBox.height();
 			gList.scaleX = scaleX;
 			gList.scaleY = scaleY;
+			gList.rotationAngle = rotationAngle;
+			ds.device()->seek(0x38);
+			backColor = getColor(ds);
+			lineWidth = getValue(ds);
+			ds >> dummy;
+			posPivot = getCoordinate(ds);
+			gList.posPivot = posPivot;
 			gList.itemGroupName = "";
 			gList.GElements.clear();
 			ds.device()->seek(0x26);
@@ -1562,6 +1613,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			gElements.lineWidth = lineWidth;
 			gElements.scaleX = scaleX;
 			gElements.scaleY = scaleY;
+			gElements.rotationAngle = rotationAngle;
+			gElements.posPivot = posPivot;
 			if (data8 == 17)
 				gElements.filled = true;
 			else
@@ -1763,6 +1816,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			cmdText += "Unknown";
 			break;
 	}
+	printMSG = false;
 	if (printMSG)
 	{
 		if (currentItem != NULL)

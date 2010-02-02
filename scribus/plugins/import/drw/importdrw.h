@@ -86,6 +86,7 @@ private:
 		double lineWidth;
 		double scaleX;
 		double scaleY;
+		double rotationAngle;
 		int nrOfItems;
 		int counter;
 		bool filled;
@@ -94,6 +95,7 @@ private:
 		QString fillColor;
 		QString lineColor;
 		QString backColor;
+		QPointF posPivot;
 		QList<PageItem*> GElements;
 	};
 	QStack<DRWGroup> groupStack;
@@ -105,6 +107,8 @@ private:
 		double height;
 		double scaleX;
 		double scaleY;
+		double rotationAngle;
+		QPointF posPivot;
 		quint16 nrOfItems;
 		quint16 counter;
 		QString itemGroupName;
