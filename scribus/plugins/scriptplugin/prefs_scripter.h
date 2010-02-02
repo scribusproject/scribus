@@ -9,15 +9,23 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_SCRIPTER_H
 
 #include "ui_prefs_scripterbase.h"
+#include "ui/prefs_pane.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API Prefs_Scripter : public QWidget, Ui::Prefs_Scripter
+class SCRIBUS_API Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 {
 	Q_OBJECT
 
 	public:
 		Prefs_Scripter(QWidget* parent=0);
 		~Prefs_Scripter();
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+
+	public slots:
+		void languageChange();
+		//! \brief Apply changes to prefs. Auto connected.
+		void apply();
 };
 
 #endif // PREFS_SCRIPTER_H

@@ -22,7 +22,6 @@ or documentation
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QTextCodec>
-//Added by qt3to4:
 #include <QPixmap>
 
 #include "shortwords.h"

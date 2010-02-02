@@ -29,9 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_miscellaneous.h"
 #include "ui/prefs_plugins.h"
 #include "ui/prefs_preflightverifier.h"
-#include "ui/prefs_scripter.h"
 #include "ui/prefs_scrapbook.h"
-//#include "ui/prefs_shortwords.h"
 #include "ui/prefs_typography.h"
 #include "ui/prefs_itemtools.h"
 #include "ui/prefs_operatortools.h"
@@ -93,9 +91,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_Miscellaneous *prefs_Miscellaneous;
 		Prefs_Plugins *prefs_Plugins;
 		Prefs_PreflightVerifier *prefs_PreflightVerifier;
-		Prefs_Scripter *prefs_Scripter;
 		Prefs_Scrapbook *prefs_Scrapbook;
-		//Prefs_ShortWords *prefs_ShortWords;
 		Prefs_Typography *prefs_Typography;
 		Prefs_ItemTools *prefs_ItemTools;
 		Prefs_OperatorTools *prefs_OperatorTools;

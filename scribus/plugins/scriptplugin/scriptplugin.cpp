@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 
 // include cmdvar.h first, as it pulls in <Python.h>
 #include "cmdvar.h"
-
 #include "cmdcolor.h"
 #include "cmddialog.h"
 #include "cmddoc.h"
@@ -44,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "objimageexport.h"
 #include "objpdffile.h"
 #include "objprinter.h"
+#include "prefs_scripter.h"
 #include "ui/propertiespalette.h"
 #include "scconfig.h"
 #include "scpaths.h"
@@ -198,12 +198,21 @@ bool ScriptPlugin::cleanupPlugin()
 	return true;
 }
 
-bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent,
-									   PrefsPanel*& panel,
-									   QString& caption,
-									   QPixmap& icon)
+bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
+										   QString& caption, QPixmap& icon)
 {
 	panel = new ScripterPrefsGui(parent);
+	Q_CHECK_PTR(panel);
+	caption = tr("Scripter");
+	icon = loadIcon("python.png");
+	return true;
+}
+
+
+bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, QWidget*& panel,
+										   QString& caption, QPixmap& icon)
+{
+	panel = new Prefs_Scripter(parent);
 	Q_CHECK_PTR(panel);
 	caption = tr("Scripter");
 	icon = loadIcon("python.png");

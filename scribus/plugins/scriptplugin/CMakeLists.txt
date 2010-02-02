@@ -10,6 +10,7 @@ SET(SCRIPTER_PLUGIN_UI_SRC
   pconsole.ui
   runscriptdialog.ui
   scripterprefsgui.ui
+  prefs_scripterbase.ui
 )
 
 SET(SCRIPTER_PLUGIN_MOC_CLASSES
@@ -18,6 +19,7 @@ SET(SCRIPTER_PLUGIN_MOC_CLASSES
   scriptercore.h
   scripterprefsgui.h
   runscriptdialog.h
+  prefs_scripter.h
 )
 
 SET(SCRIPTER_PLUGIN_SOURCES
@@ -39,6 +41,7 @@ SET(SCRIPTER_PLUGIN_SOURCES
   objpdffile.cpp
   objprinter.cpp
   pconsole.cpp
+  prefs_scripter.cpp
   runscriptdialog.cpp
   scriptercore.cpp
   scripterprefsgui.cpp

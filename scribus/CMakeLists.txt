@@ -112,7 +112,6 @@ SET(SCRIBUS_UI_SRC
   ui/prefs_pluginsbase.ui
   ui/prefs_preflightverifierbase.ui
   ui/prefs_printerbase.ui
-  ui/prefs_scripterbase.ui
   ui/prefs_scrapbookbase.ui
   ui/prefs_typographybase.ui
   ui/prefs_userinterfacebase.ui
@@ -305,7 +304,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/prefs_preflightverifier.h
   ui/prefs_printer.h
   ui/prefs_scrapbook.h
-  ui/prefs_scripter.h
   ui/prefs_typography.h
   ui/prefs_userinterface.h
   ui/prefs_itemtools.h
@@ -621,7 +619,6 @@ SET(SCRIBUS_SOURCES
   ui/prefs_preflightverifier.cpp
   ui/prefs_printer.cpp
   ui/prefs_scrapbook.cpp
-  ui/prefs_scripter.cpp
   ui/prefs_typography.cpp
   ui/prefs_userinterface.cpp
   ui/prefs_itemtools.cpp
