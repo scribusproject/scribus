@@ -359,7 +359,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
 	PageItem *currItem;
-	bool erf = false;
+	//bool erf = false;
 	m->accept();
 	if (commonMouseMove(m))
 		return;

@@ -30,6 +30,7 @@ public:
 	ScColorMgmtEngineData(const QString& desc, int uniqueID) : m_engineID(uniqueID), 
 	                                                           m_description(desc)
 	{}
+	virtual ~ScColorMgmtEngineData() {};
 	
 	// Getters
 	int   engineID() const { return m_engineID; }

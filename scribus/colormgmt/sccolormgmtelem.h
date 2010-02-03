@@ -13,6 +13,7 @@ class ScColorMgmtEngine;
 class ScColorMgmtElem
 {
 public:
+	virtual ~ScColorMgmtElem() {};
 	virtual ScColorMgmtEngine& engine() = 0;
 	virtual const ScColorMgmtEngine& engine() const = 0;
 };
