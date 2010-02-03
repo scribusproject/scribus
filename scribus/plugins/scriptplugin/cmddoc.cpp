@@ -392,5 +392,5 @@ PV */
 void cmddocdocwarnings()
 {
     QStringList s;
-    s << scribus_newdocument__doc__ << scribus_newdoc__doc__ <<  scribus_closedoc__doc__ << scribus_havedoc__doc__ << scribus_opendoc__doc__ << scribus_savedoc__doc__ << scribus_getdocname__doc__ << scribus_savedocas__doc__ << scribus_setinfo__doc__ <<scribus_setmargins__doc__ <<scribus_setunit__doc__ <<scribus_getunit__doc__ <<scribus_loadstylesfromfile__doc__ <<scribus_setdoctype__doc__ <<scribus_closemasterpage__doc__ <<scribus_masterpagenames__doc__ <<scribus_editmasterpage__doc__ <<scribus_createmasterpage__doc__ <<scribus_deletemasterpage__doc__;
+    s << scribus_newdocument__doc__ << scribus_newdoc__doc__ <<  scribus_closedoc__doc__ << scribus_havedoc__doc__ << scribus_opendoc__doc__ << scribus_savedoc__doc__ << scribus_getdocname__doc__ << scribus_savedocas__doc__ << scribus_setinfo__doc__ <<scribus_setmargins__doc__ <<scribus_setunit__doc__ <<scribus_getunit__doc__ <<scribus_loadstylesfromfile__doc__ <<scribus_setdoctype__doc__ <<scribus_closemasterpage__doc__ <<scribus_masterpagenames__doc__ <<scribus_editmasterpage__doc__ <<scribus_createmasterpage__doc__ <<scribus_deletemasterpage__doc__ << scribus_setbaseline__doc__;
 }

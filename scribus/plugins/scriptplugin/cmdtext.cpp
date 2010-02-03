@@ -1143,5 +1143,6 @@ void cmdtextdocwarnings()
 	  << scribus_setpdfbookmark__doc__ << scribus_ispdfbookmark__doc__
 	  << scribus_hyphenatetext__doc__ << scribus_dehyphenatetext__doc__
 	  << scribus_gettextdistances__doc__ << scribus_settextdistances__doc__
-	  << scribus_settextscalingh__doc__ << scribus_settextscalingv__doc__;
+	  << scribus_settextscalingh__doc__ << scribus_settextscalingv__doc__
+	  << scribus_setlinespacemode__doc__;
 }
