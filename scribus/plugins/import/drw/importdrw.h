@@ -133,10 +133,14 @@ private:
 	QStringList importedPatterns;
 	QString lineColor;
 	QString fillColor;
+	QString backColor;
 	double lineWidth;
 	int createObjCode;
 	int nrOfPoints;
 	PageItem *currentItem;
+	quint8 flags;
+	quint8 patternIndex;
+	QRectF bBox;
 
 	QImage tmpImage;
 	QImage tmpImage2;
