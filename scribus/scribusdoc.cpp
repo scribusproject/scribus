@@ -4879,35 +4879,19 @@ void ScribusDoc::updateSectionPageNumbersToPages()
 
 void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location, const uint count)
 {
-	//Get the section of the new page index.
-	bool found=false;
+	uint fromIndex, toIndex;
+	uint searchedIndex = (otherPageIndex > 0) ? (otherPageIndex - 1) : 0;
+	if ((location == 0) && (searchedIndex > 0))
+		--searchedIndex;
 	DocumentSectionMap::Iterator it = sections.begin();
-	if (otherPageIndex==0)
-		found=true;
 	for (; it!= sections.end(); ++it)
 	{
-		if (otherPageIndex-1>=it.value().fromindex && otherPageIndex-1<=it.value().toindex)
-		{
-			found=true;
-			break;
-		}
-	}
-	//Our page was not in a section
-	if (!found)
-		return;
-	DocumentSectionMap::Iterator it2(it);
-
-	//For this if: We are adding before the beginning of a section, so we must put this
-	//new page in the previous section and then increment the rest
-	if (otherPageIndex-1==it.value().fromindex && location==0 && it!=sections.begin())
-		--it2;
-	it2.value().toindex+=count;
-	++it2;
-	while (it2!=sections.end())
-	{
-		it2.value().fromindex+=count;
-		it2.value().toindex+=count;
-		++it2;
+		fromIndex = it.value().fromindex;
+		toIndex   = it.value().toindex;
+		if  (fromIndex > searchedIndex)
+			it.value().fromindex += count;
+		if  (toIndex >= searchedIndex)
+			it.value().toindex += count;
 	}
 	//Now update the Pages' internal storage of their page number
 	updateSectionPageNumbersToPages();
