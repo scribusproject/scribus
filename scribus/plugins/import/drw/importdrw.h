@@ -70,6 +70,7 @@ private:
 	void handleGradient(PageItem* currentItem, quint8 patternIndex, QString fillColor, QString backColor, QRectF bBox);
 	void handlePreviewBitmap(QDataStream &ds);
 	QString handleColor(ScColor &color, QString proposedName);
+	void getCommonData(QDataStream &ds);
 	QString getColor(QDataStream &ds);
 	void finishItem(PageItem* ite, bool scale = true);
 	double getValue(QDataStream &ds);
