@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QColorDialog>
 #include <QFileDialog>
+#include <QPalette>
 
 #include "prefs_scripter.h"
 #include "scriptercore.h"
