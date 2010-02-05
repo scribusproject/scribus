@@ -442,7 +442,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
 	bool printMSG = false;
-/*	if ((recordCount > 876) && (recordCount < 881))
+/*	if ((recordCount > 15) && (recordCount < 17))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
 		f.open(QIODevice::WriteOnly);
@@ -584,8 +584,9 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 						first = false;
 					}
 					QPointF p1 = getCoordinate(ds);
+					a++;
 					QPointF p2 = getCoordinate(ds);
-					a += 2;
+					a++;
 					path.quadTo(p1, p2);
 				}
 				if (currentItem != NULL)
@@ -968,7 +969,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2 Size %3").arg(cmd).arg(QString(cmdData.toHex().left(64))).arg(cmdData.size());
 			break;
 	}
-	printMSG = false;
+//	printMSG = false;
 	if (printMSG)
 	{
 		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
@@ -1021,18 +1022,26 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 							QPainterPath pa;
 							PageItem *item = tmpSel->itemAt(i);
 							item->PoLine.translate(item->xPos(), item->yPos());
-							if (item->asPolyLine())
+						//	if (item->asPolyLine())
 								pa = item->PoLine.toQPainterPath(false);
-							else
-								pa = item->PoLine.toQPainterPath(true);
+						//	else
+						//		pa = item->PoLine.toQPainterPath(true);
 							if (!pa.isEmpty())
 							{
 								const QPainterPath::Element &elm = pa.elementAt(0);
-								QPointF lastP = gesPa.currentPosition();
+								QPointF lastP = pa.currentPosition();
 								bool conn = false;
-								if ((fabs(lastP.x() - elm.x) > 3) || (fabs(lastP.y() - elm.y) > 3))
+								bool conn2 = false;
+								if ((fabs(lastP.x() - elm.x) < 1) && (fabs(lastP.y() - elm.y) < 1))
 									conn = true;
-								if ((firstP) || (conn))
+								if (!gesPa.isEmpty())
+								{
+									const QPainterPath::Element &elm2 = gesPa.elementAt(0);
+									QPointF lastP2 = gesPa.currentPosition();
+									if ((fabs(lastP2.x() - elm2.x) < 1) && (fabs(lastP2.y() - elm2.y) < 1))
+										conn2 = true;
+								}
+								if ((firstP) || (conn) || (conn2))
 								{
 									gesPa.addPath(pa);
 									firstP = false;
@@ -1071,6 +1080,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 									gesPa = ms.map(gesPa);
 								}
 					//		}
+							if (popped.filled)
+								gesPa.closeSubpath();
 							FPointArray res;
 							res.fromQPainterPath(gesPa);
 							PageItem *ite = tmpSel->takeItem(0);
