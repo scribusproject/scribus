@@ -3033,13 +3033,14 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	PutPage("q\n"); // Save
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
 		markOffs = 20.0 + Options.markOffset;
-	if (!pag->MPageNam.isEmpty())
-	{
+	// #8773 - incorrect page position if MPageNam.isEmpty()
+	/*if (!pag->MPageNam.isEmpty())
+	{*/
 		getBleeds(ActPageP, bleedLeft, bleedRight);
 		PutPage("1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
 		bleedDisplacementX = bleedLeft+markOffs;
 		bleedDisplacementY = Options.bleeds.Bottom+markOffs;
-	}
+	/*}*/
 	if ( (Options.MirrorH) && (!pag->MPageNam.isEmpty()) )
 		PutPage("-1 0 0 1 "+FToStr(ActPageP->width())+" 0 cm\n");
 	if ( (Options.MirrorV) && (!pag->MPageNam.isEmpty()) )
