@@ -1269,6 +1269,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path = QPainterPath();
 			path.arcMoveTo(bBoxO, rotS);
 			path.arcTo(bBoxO, rotS, rotE);
+			scaleX = 1;
+			scaleY = 1;
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
@@ -1466,12 +1468,14 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			eLin = QLineF(bBoxO.center(), posEnd);
 			rotS = sLin.angle();
 			rotE = eLin.angle();
-		//	if (rotS > rotE)
-		//		rotS = rotS - 360;
-			rotE = rotE - rotS;
+			if (rotS < rotE)
+				rotS = rotS + 360;
+			rotE = rotS - rotE;
 			path = QPainterPath();
 			path.arcMoveTo(bBoxO, rotS);
-			path.arcTo(bBoxO, rotS, rotE);
+			path.arcTo(bBoxO, rotS, -rotE);
+			scaleX = 1;
+			scaleY = 1;
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
@@ -1495,7 +1499,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path = QPainterPath();
 			path.moveTo(posStart);
 			path.cubicTo(posMid, posMid, posEnd);
-//			path.quadTo(posMid, posEnd);
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
@@ -1579,7 +1582,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path = QPainterPath();
 			path.moveTo(posStart);
 			path.cubicTo(posMid, posMid, posEnd);
-		//	path.quadTo(posMid, posEnd);
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
