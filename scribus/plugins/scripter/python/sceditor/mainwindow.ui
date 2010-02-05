@@ -1,0 +1,115 @@
+<ui version="4.0" >
+ <class>ScriptEditor</class>
+ <widget class="QMainWindow" name="ScriptEditor" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>624</width>
+    <height>449</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Script Editor</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>28</y>
+     <width>624</width>
+     <height>397</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>624</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="menu_New" >
+     <property name="title" >
+      <string>&amp;New</string>
+     </property>
+     <addaction name="actionNewPython" />
+     <addaction name="actionNewQtScript" />
+    </widget>
+    <addaction name="menu_New" />
+    <addaction name="actionClose" />
+    <addaction name="separator" />
+    <addaction name="actionExit" />
+   </widget>
+   <widget class="QMenu" name="menuRun" >
+    <property name="title" >
+     <string>&amp;Run</string>
+    </property>
+    <addaction name="actionRun" />
+    <addaction name="actionRunConsole" />
+   </widget>
+   <addaction name="menuFile" />
+   <addaction name="menuRun" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>425</y>
+     <width>624</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="actionClose" >
+   <property name="text" >
+    <string>&amp;Close</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionRun" >
+   <property name="text" >
+    <string>&amp;Run</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionRunConsole" >
+   <property name="text" >
+    <string>Run script in &amp;console</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionNewPython" >
+   <property name="text" >
+    <string>Python</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionNewQtScript" >
+   <property name="text" >
+    <string>QtScript</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

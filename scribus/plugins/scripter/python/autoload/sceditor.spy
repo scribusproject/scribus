@@ -1,0 +1,5 @@
+## title = Script &Editor and Console
+## shortcut = Esc,e
+
+import sceditor
+sceditor.launch(Scripter.dialogs.mainWindow.qt)

@@ -1,0 +1,11 @@
+## title = Get help on Scripter
+## menu = &Help
+## separator_before = True
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+URL = "http://scripterng.blogspot.com"
+
+if not QDesktopServices.openUrl(QUrl(URL)):
+    import webbrowser
+    webbrowser.open_new(URL)

@@ -1,0 +1,38 @@
+sceditor
+ * syntax highlighting for QtScript
+ * writer indenter for QtScript
+ * autocomplete everything with rope
+ * add autocomplete for PyQt
+ * update to new rope release?
+ 
+scribusscript.py
+ * add zip-file support
+
+scripterng_runtime.py
+ * share namespaces between Python and QtScript
+ * support exceptions with QtScript
+ * make sure that objects are deleted after use in QtScript
+ 
+api (base)
+ * newDocument
+ * activeDocument, documents
+   - activeLayer, layers
+   - activePage, pages
+     - pageItems
+ * activeWindow, windows
+ * dialogs
+   - inputBox
+   - alert/showMessage
+ * prefs for non-plug-in contexts
+ * importSVG
+ 
+examples
+ * dockable dialogs
+ * port old extensions: xmlrpc, tearoff, quotationmarks
+ * simple ScribusStuff.org browser
+
+other
+ * web repository/ghns-client (http://scribusstuff.org/)
+ * evaluate further serializing features in Scribus
+ * update documentation, add tutorial, report on blog
+ * add THANKS file

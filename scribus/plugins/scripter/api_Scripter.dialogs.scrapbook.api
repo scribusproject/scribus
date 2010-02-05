@@ -1,0 +1,613 @@
+/**
+* Scripter.dialogs.scrapbook.objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.modal
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.windowModality
+* Property
+* type is Qt::WindowModality 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.enabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.geometry
+* Property
+* type is QRect 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.frameGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.normalGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.x
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.y
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.pos
+* Property
+* type is QPoint 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.frameSize
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.size
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.width
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.height
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.rect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.childrenRect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.childrenRegion
+* Property
+* type is QRegion  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.sizePolicy
+* Property
+* type is QSizePolicy 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.minimumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.maximumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.minimumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.minimumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.maximumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.maximumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.sizeIncrement
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.baseSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.palette
+* Property
+* type is QPalette 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.font
+* Property
+* type is QFont 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.cursor
+* Property
+* type is QCursor 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.mouseTracking
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.isActiveWindow
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.focusPolicy
+* Property
+* type is Qt::FocusPolicy 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.focus
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.contextMenuPolicy
+* Property
+* type is Qt::ContextMenuPolicy 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.updatesEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.visible
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.minimized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.maximized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.fullScreen
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.sizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.minimumSizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.scrapbook.acceptDrops
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.windowTitle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.windowIcon
+* Property
+* type is QIcon 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.windowIconText
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.windowOpacity
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.windowModified
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.toolTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.statusTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.whatsThis
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.accessibleName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.accessibleDescription
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.layoutDirection
+* Property
+* type is Qt::LayoutDirection 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.autoFillBackground
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.styleSheet
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.locale
+* Property
+* type is QLocale 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.windowFilePath
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.sizeGripEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.modal
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.scrapbook.destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.dialogs.scrapbook.destroyed()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.deleteLater()
+*/
+
+/**
+* Scripter.dialogs.scrapbook._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.dialogs.scrapbook.customContextMenuRequested(pos)
+* pos is a QPoint
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setDisabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setWindowModified(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setWindowTitle(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setStyleSheet(styleSheet)
+* styleSheet is a QString
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setFocus()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.update()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.repaint()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setVisible(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setHidden(hidden)
+* hidden is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.show()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.hide()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setShown(shown)
+* shown is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.showMinimized()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.showMaximized()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.showFullScreen()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.showNormal()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.close()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.raise()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.lower()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.updateMicroFocus()
+*/
+
+/**
+* Scripter.dialogs.scrapbook._q_showIfNotHidden()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.finished(result)
+* result is a int
+*/
+
+/**
+* Scripter.dialogs.scrapbook.accepted()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.rejected()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.exec()
+* returns int
+*/
+
+/**
+* Scripter.dialogs.scrapbook.done(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.scrapbook.accept()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.reject()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.showExtension(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.paletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setPaletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.setFontSize()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.exec(newParent)
+* newParent is a QWidget*
+* returns int
+*/
+
+/**
+* Scripter.dialogs.scrapbook.reject()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.updateRecentMenue()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.pasteToActualPage(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.scrapbook.languageChange()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.ObjFromMenu(text)
+* text is a QString
+*/
+
+/**
+* Scripter.dialogs.scrapbook.handleDoubleClick(ite)
+* ite is a QListWidgetItem*
+*/
+
+/**
+* Scripter.dialogs.scrapbook.handlePasteToPage()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.HandleMouse(p)
+* p is a QPoint
+*/
+
+/**
+* Scripter.dialogs.scrapbook.copyObj(id)
+* id is a int
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.scrapbook.moveObj(id)
+* id is a int
+*/
+
+/**
+* Scripter.dialogs.scrapbook.deleteObj()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.deleteAllObj()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.renameObj()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.NewLib()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.Load()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.SaveAs()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.closeLib()
+*/
+
+/**
+* Scripter.dialogs.scrapbook.libChanged(index)
+* index is a int
+*/
+
+/**
+* Scripter.dialogs.scrapbook.Import()
+*/

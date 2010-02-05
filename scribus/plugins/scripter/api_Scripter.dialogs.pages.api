@@ -1,0 +1,613 @@
+/**
+* Scripter.dialogs.pages.objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.modal
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.windowModality
+* Property
+* type is Qt::WindowModality 
+*/
+
+/**
+* Scripter.dialogs.pages.enabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.geometry
+* Property
+* type is QRect 
+*/
+
+/**
+* Scripter.dialogs.pages.frameGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.normalGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.x
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.y
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.pos
+* Property
+* type is QPoint 
+*/
+
+/**
+* Scripter.dialogs.pages.frameSize
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.size
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.pages.width
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.height
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.rect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.childrenRect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.childrenRegion
+* Property
+* type is QRegion  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.sizePolicy
+* Property
+* type is QSizePolicy 
+*/
+
+/**
+* Scripter.dialogs.pages.minimumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.pages.maximumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.pages.minimumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.pages.minimumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.pages.maximumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.pages.maximumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.pages.sizeIncrement
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.pages.baseSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.pages.palette
+* Property
+* type is QPalette 
+*/
+
+/**
+* Scripter.dialogs.pages.font
+* Property
+* type is QFont 
+*/
+
+/**
+* Scripter.dialogs.pages.cursor
+* Property
+* type is QCursor 
+*/
+
+/**
+* Scripter.dialogs.pages.mouseTracking
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.isActiveWindow
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.focusPolicy
+* Property
+* type is Qt::FocusPolicy 
+*/
+
+/**
+* Scripter.dialogs.pages.focus
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.contextMenuPolicy
+* Property
+* type is Qt::ContextMenuPolicy 
+*/
+
+/**
+* Scripter.dialogs.pages.updatesEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.visible
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.minimized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.maximized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.fullScreen
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.sizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.minimumSizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.pages.acceptDrops
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.windowTitle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.windowIcon
+* Property
+* type is QIcon 
+*/
+
+/**
+* Scripter.dialogs.pages.windowIconText
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.windowOpacity
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.dialogs.pages.windowModified
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.toolTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.statusTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.whatsThis
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.accessibleName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.accessibleDescription
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.layoutDirection
+* Property
+* type is Qt::LayoutDirection 
+*/
+
+/**
+* Scripter.dialogs.pages.autoFillBackground
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.styleSheet
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.locale
+* Property
+* type is QLocale 
+*/
+
+/**
+* Scripter.dialogs.pages.windowFilePath
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.pages.sizeGripEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.modal
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.pages.destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.dialogs.pages.destroyed()
+*/
+
+/**
+* Scripter.dialogs.pages.deleteLater()
+*/
+
+/**
+* Scripter.dialogs.pages._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.dialogs.pages.customContextMenuRequested(pos)
+* pos is a QPoint
+*/
+
+/**
+* Scripter.dialogs.pages.setEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.setDisabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.setWindowModified(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.setWindowTitle(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.pages.setStyleSheet(styleSheet)
+* styleSheet is a QString
+*/
+
+/**
+* Scripter.dialogs.pages.setFocus()
+*/
+
+/**
+* Scripter.dialogs.pages.update()
+*/
+
+/**
+* Scripter.dialogs.pages.repaint()
+*/
+
+/**
+* Scripter.dialogs.pages.setVisible(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.setHidden(hidden)
+* hidden is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.show()
+*/
+
+/**
+* Scripter.dialogs.pages.hide()
+*/
+
+/**
+* Scripter.dialogs.pages.setShown(shown)
+* shown is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.showMinimized()
+*/
+
+/**
+* Scripter.dialogs.pages.showMaximized()
+*/
+
+/**
+* Scripter.dialogs.pages.showFullScreen()
+*/
+
+/**
+* Scripter.dialogs.pages.showNormal()
+*/
+
+/**
+* Scripter.dialogs.pages.close()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.pages.raise()
+*/
+
+/**
+* Scripter.dialogs.pages.lower()
+*/
+
+/**
+* Scripter.dialogs.pages.updateMicroFocus()
+*/
+
+/**
+* Scripter.dialogs.pages._q_showIfNotHidden()
+*/
+
+/**
+* Scripter.dialogs.pages.finished(result)
+* result is a int
+*/
+
+/**
+* Scripter.dialogs.pages.accepted()
+*/
+
+/**
+* Scripter.dialogs.pages.rejected()
+*/
+
+/**
+* Scripter.dialogs.pages.exec()
+* returns int
+*/
+
+/**
+* Scripter.dialogs.pages.done(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.pages.accept()
+*/
+
+/**
+* Scripter.dialogs.pages.reject()
+*/
+
+/**
+* Scripter.dialogs.pages.showExtension(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.paletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.setPaletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.setFontSize()
+*/
+
+/**
+* Scripter.dialogs.pages.exec(newParent)
+* newParent is a QWidget*
+* returns int
+*/
+
+/**
+* Scripter.dialogs.pages.reject()
+*/
+
+/**
+* Scripter.dialogs.pages.EditTemp(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.pages.gotoPage(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.pages.setView(view)
+* view is a ScribusView*
+*/
+
+/**
+* Scripter.dialogs.pages.deleteMasterPage(tmp)
+* tmp is a QString
+*/
+
+/**
+* Scripter.dialogs.pages.pageView_movePage(r, c)
+* r is a int
+* c is a int
+*/
+
+/**
+* Scripter.dialogs.pages.pageView_gotoPage(r, c, b)
+* r is a int
+* c is a int
+* b is a int
+*/
+
+/**
+* Scripter.dialogs.pages.enablePalette(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.pages.handlePageLayout(layout)
+* layout is a int
+*/
+
+/**
+* Scripter.dialogs.pages.handleFirstPage(fp)
+* fp is a int
+*/
+
+/**
+* Scripter.dialogs.pages.rebuildMasters()
+*/
+
+/**
+* Scripter.dialogs.pages.rebuildPages()
+*/
+
+/**
+* Scripter.dialogs.pages.Rebuild()
+*/
+
+/**
+* Scripter.dialogs.pages.markPage(nr)
+* nr is a uint
+*/
+
+/**
+* Scripter.dialogs.pages.selMasterPage()
+*/
+
+/**
+* Scripter.dialogs.pages.CreateIcon(nr, pixin)
+* nr is a int
+* pixin is a QPixmap
+* returns QPixmap
+*/
+
+/**
+* Scripter.dialogs.pages.languageChange()
+*/

@@ -1,0 +1,9 @@
+## name = fullscreen
+## title = Toggle fullscreen
+## shortcut = Esc, f
+
+mainWin = Scripter.dialogs.mainWindow
+if mainWin.fullScreen:
+    mainWin.showNormal()
+else:
+    mainWin.showFullScreen()

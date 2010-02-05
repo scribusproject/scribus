@@ -1,0 +1,302 @@
+## name = objectexplorer
+## title = Object Explorer
+## description = With this dialog you can see which methods and properties are available
+## shortcut = Esc,o
+## subroutine = run
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+import mikro
+import __main__
+
+
+class MethodItem(QTreeWidgetItem):
+
+    def __init__(self, parent, obj, name, return_type, args):
+        QTreeWidgetItem.__init__(self, parent, [name,
+                                                return_type,
+                                                args])
+        self.obj = obj
+        self.name = name
+        self.return_type = return_type
+        self.args = args
+
+
+    def call(self):
+        obj = mikro.create_pyqt_object(self.obj)
+        method = getattr(obj, self.name)
+        if self.args:
+            value, ok = QInputDialog.getText(
+                qApp.activeWindow(), "Call %s.%s(%s)" % (
+                obj.objectName or ("(%s-instance)" % obj.qt.metaObject().className()),
+                self.name, self.args),
+                "Arguments:")
+            if not ok:
+                return
+            value = str(value)
+            if not value:
+                return
+            try:
+                args = eval(value, __main__.__dict__)
+                if not isinstance(args, tuple):
+                    args = (args,)
+            except Exception, e:
+                QMessageBox.warning(qApp.activeWindow(), "Error evaluating input", str(e))
+                return
+        else:
+            args = ()
+        result = mikro.unwrap(method(*args))
+        if isinstance(result, QObject): 
+            ObjectExplorer.open(result)
+        else:
+            QMessageBox.information(
+                qApp.activeWindow(),
+                "Result of method call",
+                repr(result))
+
+
+
+class MethodList(QTreeWidget):
+
+    def __init__(self, parent):
+        QTreeWidget.__init__(self, parent)
+        self.setColumnCount(3)
+        self.setHeaderLabels(["Name", "Return-Type", "Arguments"])
+        self.connect(self,
+                     SIGNAL("itemDoubleClicked(QTreeWidgetItem*, int)"),
+                     self.doubleClicked)
+
+
+    def doubleClicked(self, item, col):
+        item.call()
+
+
+    def refresh(self, obj):
+        self.obj = obj
+        self.items = []
+        self.clear()
+        mo = self.obj.metaObject()
+        for i in xrange(mo.methodCount()):
+            m = mo.method(i)
+            if m.access() in [QMetaMethod.Private, QMetaMethod.Protected]:
+                continue
+            name, sig = str(m.signature()).split("(", 1)
+            if m.methodType() == QMetaMethod.Signal:
+                name += " [SIGNAL]"
+            types = [str(t) for t in m.parameterTypes()]
+            names = [str(n) or "arg%i" % (i+1) for i, n in enumerate(m.parameterNames())]
+            params = ", ".join("%s %s" % (t, n) for n, t in zip(types, names))
+            ti = MethodItem(self, self.obj,
+                name, m.typeName(), params, 
+                )
+            self.items.append(ti)
+
+
+
+
+class VariantList(QObject):
+                    
+    def __init__(self, l):
+        QObject.__init__(self, None)
+        self.l = l
+
+    def children(self):
+        return self.l
+
+
+
+class PropertyItem(QTreeWidgetItem):
+
+
+    def __init__(self, parent, obj, name, value):
+        self.obj = obj
+        self.name = name
+        self.value = value
+        self.typeName = str(value.typeName())        
+        QTreeWidgetItem.__init__(self, parent, [self.name,
+                                                self.value.toString(), self.typeName])
+
+
+    def open(self):
+        if self.typeName in ["QObject*", "QWidget*"]:
+            if self.value:
+                obj = mikro.from_variant(self.value)
+                ObjectExplorer.open(obj)
+        elif self.typeName == "QVariantList":
+            l = mikro.from_variant(self.value)
+            ObjectExplorer.open(VariantList(l))
+        else:
+            value, ok = QInputDialog.getText(
+                qApp.activeWindow(), "Change property",
+                self.name)
+            if not ok:
+                return
+            try:
+                value = eval(str(value), __main__.__dict__)
+            except Exception, e:
+                QMessageBox.warning(qApp.activeWindow(), "Error evaluating input", str(e))
+                return
+            obj = mikro.wrap(self.obj, True)
+            setattr(obj, self.name, value)
+            self.treeWidget().refresh(self.obj)
+
+
+
+class PropertyList(QTreeWidget):
+
+
+    def __init__(self, parent):
+        QTreeWidget.__init__(self, parent)
+        self.setColumnCount(3)
+        self.setHeaderLabels(["Name", "Value", "Type"])
+        self.connect(self,
+                     SIGNAL("itemDoubleClicked(QTreeWidgetItem*, int)"),
+                     self.doubleClicked)
+
+
+
+    def doubleClicked(self, item, col):
+        item.open()
+
+
+    def refresh(self, obj):
+        self.instances = []
+        self.obj = obj
+        names = [str(pn) for pn in self.obj.dynamicPropertyNames()]
+        mo = self.obj.metaObject()
+        for i in xrange(mo.propertyCount()):
+            p = mo.property(i)
+            names.append(p.name())
+        names.sort()
+        self.items = []
+        self.clear()
+        for i, n in enumerate(names):
+            ti = PropertyItem(self, self.obj, n, self.obj.property(n))
+            self.items.append(ti)
+
+
+
+class ObjectItem(QTreeWidgetItem):
+
+    def __init__(self, parent, obj):
+        QTreeWidgetItem.__init__(self, parent,
+                                 [obj.objectName(), obj.metaObject().className()])
+        self.obj = obj
+        self.setChildIndicatorPolicy(QTreeWidgetItem.ShowIndicator)
+        self.items = []
+
+    def refresh(self):
+        if len(self.items): 
+            return
+        for child in self.obj.children():
+            oi = ObjectItem(self, child)
+            self.items.append(oi)
+
+
+
+class ObjectList(QTreeWidget):
+
+
+    def __init__(self, parent):
+        QTreeWidget.__init__(self, parent)
+        self.setRootIsDecorated(True)
+        self.setItemsExpandable(True)
+        self.setColumnCount(2)
+        self.setHeaderLabels(["Name", "Type"])
+        #self.expandToDepth(1)
+        self.connect(self, SIGNAL("itemClicked(QTreeWidgetItem *, int)"), self.clicked)
+
+
+    def clicked(self, item, col):
+        item.setExpanded(not item.isExpanded())
+        if item.isExpanded():
+            item.refresh()
+
+
+    def refresh(self, obj):
+        self.obj = obj
+        self.item = ObjectItem(self, self.obj)
+
+
+
+class ObjectTab(QTabWidget):
+
+
+    def __init__(self, parent):
+        QTabWidget.__init__(self, parent)
+        self.propertylist = PropertyList(self)
+        self.addTab(self.propertylist, "Properties")
+        self.methodlist = MethodList(self)
+        self.addTab(self.methodlist, "Methods")
+
+
+    def refresh(self, obj):
+        self.obj = obj
+        self.propertylist.refresh(obj)
+        self.methodlist.refresh(obj)
+
+
+
+class ObjectExplorer(QDialog):
+      
+    instance = None
+
+
+    def __init__(self, obj=None):
+        QDialog.__init__(self)
+        ObjectExplorer.instance = self
+        self.splitter = QSplitter(self)
+        self.objectlist = ObjectList(self.splitter)
+        self.connect(
+            self.objectlist,
+            SIGNAL("itemClicked(QTreeWidgetItem *, int)"),
+            self.object_clicked)
+        self.objecttab = ObjectTab(self.splitter)
+        self.resize(800, 600)
+        self.vlayout = QVBoxLayout(self)
+        self.setLayout(self.vlayout)
+        self.layout().addWidget(self.splitter)
+        if obj:
+            self.refresh(obj)
+    
+
+    @classmethod
+    def open(cls, obj):
+        if cls.instance:
+            cls.instance.refresh(obj)
+        else:
+            cls.instance = cls(obj)
+        return cls.instance
+
+
+    def refresh(self, obj):
+        self.obj = mikro.unwrap(obj)
+        self.setWindowTitle("%s: %s  -  Object Explorer" % (
+            str(self.obj.objectName()) or "(unnamed)",
+            self.obj.metaObject().className(),
+            ))
+        self.objectlist.refresh(self.obj)
+        self.objecttab.refresh(self.obj)
+
+
+    def object_clicked(self, item, col):
+        self.objecttab.refresh(item.obj)
+
+
+
+
+def run():
+    oe = ObjectExplorer.open(Scripter)
+    oe.show()
+    while oe.isVisible():
+        qApp.processEvents()
+
+
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    oe = ObjectExplorer()
+    oe.refresh(oe)
+    oe.exec_()

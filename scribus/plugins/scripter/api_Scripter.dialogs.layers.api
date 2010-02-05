@@ -1,0 +1,628 @@
+/**
+* Scripter.dialogs.layers.objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.modal
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.windowModality
+* Property
+* type is Qt::WindowModality 
+*/
+
+/**
+* Scripter.dialogs.layers.enabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.geometry
+* Property
+* type is QRect 
+*/
+
+/**
+* Scripter.dialogs.layers.frameGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.normalGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.x
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.y
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.pos
+* Property
+* type is QPoint 
+*/
+
+/**
+* Scripter.dialogs.layers.frameSize
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.size
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.layers.width
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.height
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.rect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.childrenRect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.childrenRegion
+* Property
+* type is QRegion  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.sizePolicy
+* Property
+* type is QSizePolicy 
+*/
+
+/**
+* Scripter.dialogs.layers.minimumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.layers.maximumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.layers.minimumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.layers.minimumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.layers.maximumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.layers.maximumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.layers.sizeIncrement
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.layers.baseSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.layers.palette
+* Property
+* type is QPalette 
+*/
+
+/**
+* Scripter.dialogs.layers.font
+* Property
+* type is QFont 
+*/
+
+/**
+* Scripter.dialogs.layers.cursor
+* Property
+* type is QCursor 
+*/
+
+/**
+* Scripter.dialogs.layers.mouseTracking
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.isActiveWindow
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.focusPolicy
+* Property
+* type is Qt::FocusPolicy 
+*/
+
+/**
+* Scripter.dialogs.layers.focus
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.contextMenuPolicy
+* Property
+* type is Qt::ContextMenuPolicy 
+*/
+
+/**
+* Scripter.dialogs.layers.updatesEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.visible
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.minimized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.maximized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.fullScreen
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.sizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.minimumSizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.layers.acceptDrops
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.windowTitle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.windowIcon
+* Property
+* type is QIcon 
+*/
+
+/**
+* Scripter.dialogs.layers.windowIconText
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.windowOpacity
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.dialogs.layers.windowModified
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.toolTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.statusTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.whatsThis
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.accessibleName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.accessibleDescription
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.layoutDirection
+* Property
+* type is Qt::LayoutDirection 
+*/
+
+/**
+* Scripter.dialogs.layers.autoFillBackground
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.styleSheet
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.locale
+* Property
+* type is QLocale 
+*/
+
+/**
+* Scripter.dialogs.layers.windowFilePath
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.layers.sizeGripEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.modal
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.layers.destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.dialogs.layers.destroyed()
+*/
+
+/**
+* Scripter.dialogs.layers.deleteLater()
+*/
+
+/**
+* Scripter.dialogs.layers._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.dialogs.layers.customContextMenuRequested(pos)
+* pos is a QPoint
+*/
+
+/**
+* Scripter.dialogs.layers.setEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.setDisabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.setWindowModified(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.setWindowTitle(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.layers.setStyleSheet(styleSheet)
+* styleSheet is a QString
+*/
+
+/**
+* Scripter.dialogs.layers.setFocus()
+*/
+
+/**
+* Scripter.dialogs.layers.update()
+*/
+
+/**
+* Scripter.dialogs.layers.repaint()
+*/
+
+/**
+* Scripter.dialogs.layers.setVisible(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.setHidden(hidden)
+* hidden is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.show()
+*/
+
+/**
+* Scripter.dialogs.layers.hide()
+*/
+
+/**
+* Scripter.dialogs.layers.setShown(shown)
+* shown is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.showMinimized()
+*/
+
+/**
+* Scripter.dialogs.layers.showMaximized()
+*/
+
+/**
+* Scripter.dialogs.layers.showFullScreen()
+*/
+
+/**
+* Scripter.dialogs.layers.showNormal()
+*/
+
+/**
+* Scripter.dialogs.layers.close()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.layers.raise()
+*/
+
+/**
+* Scripter.dialogs.layers.lower()
+*/
+
+/**
+* Scripter.dialogs.layers.updateMicroFocus()
+*/
+
+/**
+* Scripter.dialogs.layers._q_showIfNotHidden()
+*/
+
+/**
+* Scripter.dialogs.layers.finished(result)
+* result is a int
+*/
+
+/**
+* Scripter.dialogs.layers.accepted()
+*/
+
+/**
+* Scripter.dialogs.layers.rejected()
+*/
+
+/**
+* Scripter.dialogs.layers.exec()
+* returns int
+*/
+
+/**
+* Scripter.dialogs.layers.done(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.layers.accept()
+*/
+
+/**
+* Scripter.dialogs.layers.reject()
+*/
+
+/**
+* Scripter.dialogs.layers.showExtension(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.paletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.setPaletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.layers.setFontSize()
+*/
+
+/**
+* Scripter.dialogs.layers.exec(newParent)
+* newParent is a QWidget*
+* returns int
+*/
+
+/**
+* Scripter.dialogs.layers.reject()
+*/
+
+/**
+* Scripter.dialogs.layers.LayerChanged()
+*/
+
+/**
+* Scripter.dialogs.layers.LayerActivated(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.layers.addLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.dupLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.removeLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.upLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.downLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.changeName(row, col)
+* row is a int
+* col is a int
+*/
+
+/**
+* Scripter.dialogs.layers.visibleLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.printLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.lockLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.flowToggleLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.outlineToggleLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.toggleAllfromHeader(index)
+* index is a int
+*/
+
+/**
+* Scripter.dialogs.layers.markLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.changeOpacity()
+*/
+
+/**
+* Scripter.dialogs.layers.changeBlendMode(blend)
+* blend is a int
+*/
+
+/**
+* Scripter.dialogs.layers.setActiveLayer(row)
+* row is a int
+*/
+
+/**
+* Scripter.dialogs.layers.ClearInhalt()
+*/
+
+/**
+* Scripter.dialogs.layers.markActiveLayer(layerNumber)
+* layerNumber is a int
+*/
+
+/**
+* Scripter.dialogs.layers.markActiveLayer()
+*/
+
+/**
+* Scripter.dialogs.layers.languageChange()
+*/

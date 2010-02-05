@@ -1,0 +1,46 @@
+## name = dynapidocs
+## title = Create docs of objects inside Scribus
+## description = generates files with the samee docstring-format
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+
+def inspect(obj, prefix=""):
+    out_buffer = []
+    def out(*args):
+        l = " ".join(str(a) for a in args)
+        out_buffer.append(l)
+    mo  = obj.metaObject()
+    for i in range(mo.propertyCount()):
+        mp = mo.property(i)
+        out("/**")
+        out("*", prefix+mp.name())
+        out("*", "Property")
+        out("*", "type is", mp.typeName(),  not mp.isWritable() and " (read-only)" or "")
+        out("*/")
+        out()
+    for i in range(mo.methodCount()):
+        mm = mo.method(i)
+        types = [str(t) for t in mm.parameterTypes()]
+        names = [str(n) or "arg%i" % (i+1) for i, n in enumerate(mm.parameterNames())]
+        func = str(mm.signature()).split("(", 1)[0]
+        out("/**")
+        out("*", prefix+func+"(%s)" % ", ".join(names))
+        for name, typename in zip(names, types):
+            if name != typename:
+                out("*", "%s is a %s" % (name, typename))
+        r = str(mm.typeName())
+        if r:
+            out("*", "returns", r)
+        out("*/")
+        out()
+    return "\n".join(out_buffer)
+
+
+for prefix in [
+     "Scripter.dialogs.mainWindow", "Scripter.dialogs.properties",
+     "Scripter.dialogs.layers", "Scripter.dialogs.pages"]:
+    obj = eval(prefix)
+    data = inspect(obj.qt, prefix + ".")
+    open("/tmp/api_%s.i" % prefix, "w").write(data)

@@ -1,0 +1,40 @@
+## title = &Run script from file
+## shortcut = Esc,r
+## subroutine = run
+import os
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+from scribusscript import load_filename
+from excepthook import show_current_error
+
+RECENT_LENGTH = 5
+CONFIG_CONTEXT = "scripter"
+CONFIG_PATH = "runfile_path"
+CONFIG_RECENT = "runfile_recent"
+
+
+def run():
+    prefs = Scripter.preferences
+    examples_path = os.path.join(Scripter.path, "examples")
+    path = prefs.getString(CONFIG_CONTEXT, CONFIG_PATH) or examples_path
+    
+    filename = QFileDialog.getOpenFileName(
+      Scripter.dialogs.mainWindow.qt, i18n("Run script"), path, "*.scs *.spy *.sqts *.sjs")
+    filename = str(filename)
+    if filename:
+        recent = str(prefs.getString(CONFIG_CONTEXT,CONFIG_RECENT))
+        recent = [r for r in recent.split(",") if r]
+        if len(recent) > RECENT_LENGTH:
+            del recent[0]
+        recent.append(filename)
+        prefs.setString(CONFIG_CONTEXT, CONFIG_RECENT, ",".join(recent))
+        
+        path, name = os.path.split(filename)
+        prefs.setString(CONFIG_CONTEXT, CONFIG_PATH, path)
+        try:
+            script = load_filename(filename)
+        except:
+            show_current_error("Error loading script %r" % name)
+        else:
+            script.run()

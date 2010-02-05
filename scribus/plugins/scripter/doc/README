@@ -1,0 +1,20 @@
+Between the old prototype and the current version there are several
+changes. A lot of code was cleaned up. Additionally the plug-in type
+was changed from ScActionPlugin to ScPersistentPlugin.
+
+Currently you cannot see that much except some debug messages on the
+console. The other new stuff is under the hood.
+
+For testing make sure that the plug-in is loaded. Therefore open the
+global preferences dialog and look in the plug-ins section.
+
+If you want to know how to integrate the plug-in into your build please 
+see the INSTALL file.
+
+
+You need the newest PyQt release, available at 
+http://www.riverbankcomputing.co.uk/software/pyqt/download
+
+Unfortunately version 4.4 is not available in most current distributions. 
+But for Ubuntu you can use the Intrepid Ibex packages at
+http://packages.ubuntu.com/intrepid/python-qt4

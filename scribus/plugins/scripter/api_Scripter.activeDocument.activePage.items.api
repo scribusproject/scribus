@@ -1,0 +1,445 @@
+/**
+* Scripter.activeDocument.activePage.items[i].objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].itemName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].fillColor
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].lineColor
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].fillShade
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].lineShade
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].fillTransparency
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].lineTransparency
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].m_Locked
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].m_SizeLocked
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].m_ImageIsFlippedV
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].m_ImageIsFlippedH
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].lineWidth
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].customLineStyle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].startArrowIndex
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].endArrowIndex
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].m_PrintEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].xPos
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].yPos
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].width
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].height
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].rotation
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].imageXScale
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].imageYScale
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].imageXOffset
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].imageYOffset
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].reversed
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].cornerRadius
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textToFrameDistLeft
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textToFrameDistRight
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textToFrameDistTop
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textToFrameDistBottom
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].ColGap
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].Cols
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].firstLineOffset
+* Property
+* type is FirstLineOffsetPolicy 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].itemType
+* Property
+* type is ItemType 
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].destroyed()
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].deleteLater()
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i]._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].myself(arg1)
+* arg1 is a PageItem*
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].frameType(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].position(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].widthAndHeight(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].rotation(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].colors(arg1, arg2, arg3, arg4)
+* arg1 is a QString
+* arg2 is a QString
+* arg3 is a double
+* arg4 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].gradientType(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].patternFill(arg1, arg2, arg3, arg4, arg5, arg6)
+* arg1 is a QString
+* arg2 is a double
+* arg3 is a double
+* arg4 is a double
+* arg5 is a double
+* arg6 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].gradientColorUpdate(arg1, arg2, arg3, arg4, arg5, arg6)
+* arg1 is a double
+* arg2 is a double
+* arg3 is a double
+* arg4 is a double
+* arg5 is a double
+* arg6 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].transparency(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].blendmode(arg1, arg2)
+* arg1 is a int
+* arg2 is a int
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].frameLocked(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].frameSizeLocked(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].frameFlippedH(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].frameFlippedV(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].printEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].columns(arg1, arg2)
+* arg1 is a int
+* arg2 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].cornerRadius(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].lineWidth(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].lineStyleCapJoin(arg1, arg2, arg3)
+* arg1 is a Qt::PenStyle
+* arg2 is a Qt::PenCapStyle
+* arg3 is a Qt::PenJoinStyle
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].lineSpacing(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textKerning(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textStyle(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textFont(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textSize(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textWidthScale(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textHeightScale(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textBaseLineOffset(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textOutline(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textShadow(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textUnderline(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textStrike(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textColor(arg1, arg2, arg3, arg4)
+* arg1 is a QString
+* arg2 is a QString
+* arg3 is a double
+* arg4 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textFormatting(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].textToFrameDistances(arg1, arg2, arg3, arg4)
+* arg1 is a double
+* arg2 is a double
+* arg3 is a double
+* arg4 is a double
+*/
+
+/**
+* Scripter.activeDocument.activePage.items[i].imageOffsetScale(arg1, arg2, arg3, arg4)
+* arg1 is a double
+* arg2 is a double
+* arg3 is a double
+* arg4 is a double
+*/

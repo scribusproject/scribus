@@ -1,0 +1,473 @@
+2008-08-17 22:00  henning
+
+	* python/sceditor/console.py: updated keywords and added ScripterNG
+	  to namespace
+
+2008-08-17 21:51  henning
+
+	* api_page.cpp, api_page.h: added activePage.newText, newRectange,
+	  newEllipse, newImage, newLine
+
+2008-08-17 16:48  henning
+
+	* api_document.cpp, api_document.h, api_page.cpp, api_page.h: added
+	  selection property to document and page
+
+2008-08-17 04:57  henning
+
+	* api_window.cpp, doc/ChangeLog, doc/python_src.zip,
+	  scripterngimpl.cpp: updated documentation
+	  make use of COLLECTOR
+
+2008-08-17 04:43  henning
+
+	* python/sceditor/assist.py, python/sceditor/dockwidget.py,
+	  python/sceditor/indenter.py, python/sceditor/widget.py: removed
+	  unused imports, small fixes
+
+2008-08-17 04:32  henning
+
+	* python/mikro.py, python/sceditor/assist.py,
+	  python/sceditor/console.py, python/sceditor/dockwidget.py,
+	  python/sceditor/mainwindow.py, python/sceditor/widget.py:
+	  refactoring: expand star imports
+	  backspace only works beginning with column 4 in console
+
+2008-08-17 03:58  henning
+
+	* python/sceditor/console.py, python/sceditor/highlighter.py,
+	  python/sceditor/mainwindow.py, python/sceditor/widget.py: added
+	  simple highlighting for QtScript and fixed a console bug
+
+2008-08-16 03:42  henning
+
+	* api_dialogs.cpp, api_document.cpp, api_document.h, api_page.cpp,
+	  api_page.h, api_prefs.cpp, python/excepthook.py,
+	  python/init_scripterng.py, python/mikro.py, scripterng.cpp,
+	  scripterngimpl.cpp, scripterngimpl.h: added activeDocument.items
+	  which returns all Item objects of active
+	  document
+	  there are now #defines SCRIPTERNG for ScripterNGImpl::instance()
+	  and COLLECTOR for ScripterNGImpl::instance()->instance()
+
+2008-08-15 14:22  henning
+
+	* doc/BUGS, doc/ChangeLog, doc/TODO: updated docs
+
+2008-08-15 05:25  henning
+
+	* python/examples/objectexplorer.spy, python/mikro.py: add wrapper
+	  for dynamic property names
+
+2008-08-15 05:24  henning
+
+	* python/sceditor/console.py, python/sceditor/mainwindow.py: enable
+	  redraw and update screen after each run
+
+2008-08-15 02:12  henning
+
+	* python/autoload/fullscreen.spy: added "toggle fullscreen" menu
+	  entry - saves a lot of pixels
+
+2008-08-15 02:11  henning
+
+	* api_document.cpp, api_page.cpp, api_page.h,
+	  python/cleanup_scripterng.py, python/examples/objectexplorer.spy,
+	  python/init_scripterng.py, python/mikro.py,
+	  python/sceditor/mainwindow.py, python/scripterng_runtime.py,
+	  scripterng.cpp, scripterngimpl.cpp, scripterngimpl.h: changed
+	  object/memory management to prevent segfaults on exit
+	  fixed focus problem in objectexplorer
+	  added ScripterNG.activeDocument.activePage.activeItem
+	  added app as alias for ScripterNG to type less
+	  added support for with-statement in mikro
+
+2008-08-14 23:28  henning
+
+	* doc/AUTHORS, doc/ChangeLog, doc/LICENSE, doc/THANKS,
+	  doc/research.html, python/sceditor/THANKS: added more
+	  documentation and the typical gnu-style doc files
+
+2008-08-14 23:05  henning
+
+	* python/excepthook.py, python/init_scripterng.py, python/mikro.py,
+	  python/permitdlg.py, python/scribusscript.py,
+	  python/scripterng_hooks.py, python/scripterng_runtime.py:
+	  recfacoring: expand star-imports
+
+2008-08-14 03:37  henning
+
+	* apidocs.py, dynapidocs.spy, new_api.py,
+	  python/cleanup_scripterng.py, python/examples/objectexplorer.spy,
+	  python/excepthook.py, python/init_scripterng.py, python/mikro.py,
+	  python/permitdlg.py, python/scribusscript.py,
+	  python/scripterng_hooks.py, python/scripterng_runtime.py,
+	  python/update_allowed_scripts.py: added more docs to Python files
+	  and cleaned up the code
+
+2008-08-13 20:57  henning
+
+	* api_ScripterNG.activeDocument.activePage.items.api,
+	  api_ScripterNG.dialogs.layers.api,
+	  api_ScripterNG.dialogs.mainWindow.api,
+	  api_ScripterNG.dialogs.nodes.api,
+	  api_ScripterNG.dialogs.outline.api,
+	  api_ScripterNG.dialogs.pages.api,
+	  api_ScripterNG.dialogs.properties.api,
+	  api_ScripterNG.dialogs.scrapbook.api, api_dialogs.h,
+	  api_document.cpp, api_document.h, api_page.cpp, api_prefs.cpp,
+	  api_prefs.h, api_window.cpp, api_window.h, apidocs.py,
+	  doc/INSTALL, doc/reference.html, doc/reference_dialogs.html,
+	  doc/reference_items.html, dynapidocs.spy, scripterng.cpp,
+	  scripterngimpl.cpp, scripterngimpl.h: lots of documentation,
+	  fixes and a more complete preferences module
+	  generate simple reference documentation from source and at
+	  runtime by introspection
+
+2008-08-13 20:54  henning
+
+	* python/autoload/runfile.spy, python/autoload/sceditor.spy,
+	  python/examples/objectexplorer.spy, python/init_scripterng.py,
+	  python/mikro.py, python/permitdlg.py, python/scripterng_hooks.py,
+	  python/scripterng_runtime.py: Changes because of changes in
+	  preferences API
+	  using ScipterNG.dialogs.mainWindow instead of
+	  scripterng_hooks.mainWindow
+
+2008-08-13 04:59  henning
+
+	* api_page.cpp, python/mikro.py: re-enabled garbage collection
+
+2008-08-13 04:53  henning
+
+	* api_document.cpp, api_document.h, api_item.cpp, api_item.h,
+	  api_page.cpp, api_page.h, python/examples/objectexplorer.spy,
+	  python/mikro.py, scripterngimpl.cpp, scripterngimpl.h: added
+	  support for QVariantList in mikro
+	  fixed objectexplorer
+	  added activePage
+	  and activePage.items with access to all item properties
+
+2008-08-13 01:21  henning
+
+	* CMakeLists.txt, new_api.py, scripterngimpl.cpp, scripterngimpl.h:
+	  fixed typo
+
+2008-08-13 01:19  henning
+
+	* new_api.py: stop if file already exists
+
+2008-08-13 00:54  henning
+
+	* api_dialogs.cpp, api_dialogs.h: forgot to add new files
+
+2008-08-13 00:47  henning
+
+	* CMakeLists.txt, api_document.cpp, api_prefs.cpp,
+	  python/autoload/runfile.spy, python/mikro.py,
+	  python/sceditor/console.py, python/scripterng_runtime.py,
+	  scripterngimpl.cpp, scripterngimpl.h: fixed memory management -
+	  requires now that every ScripterNG created object is a child
+	  object ob Scripter NG or Scripter->collector()
+	  added some debugging output
+	  ScripterNG.Preferences is now ScripterNG.preferences
+	  ScritperNG.dialogs gives access to every major dialog
+
+2008-08-12 23:04  henning
+
+	* python/examples/objectexplorer.spy: added an object explorer
+
+2008-08-12 05:24  henning
+
+	* doc/TUTORIAL: added some words about QtScript and Python
+
+2008-08-12 03:53  henning
+
+	* python/autoload/help.spy: moved help into help-menu
+
+2008-08-12 02:50  henning
+
+	* CMakeLists.txt, api_document.cpp, api_document.h, api_window.cpp,
+	  python/autoload/runfile.spy, python/examples,
+	  python/examples/test.spy, python/examples/test.sqts,
+	  python/mikro.py, python/scripterng_runtime.py, scripterng.cpp,
+	  scripterngimpl.cpp, scripterngimpl.h: Large commit:
+	  garbage collecting C++ objects created from QtScript :-)
+	  added aboutdata
+	  realized that cleanup is not called by the plugin-manager
+	  added examples
+	  added inspection of dynamic properties
+	  throw exceptions from Python functions into QtScript
+
+2008-08-12 00:44  henning
+
+	* doc/TODO: update
+
+2008-08-12 00:36  henning
+
+	* api_document.cpp, api_document.h, api_window.cpp, api_window.h,
+	  python/scribusscript.py: redraw is now a property to force a
+	  redraw use
+	  ScripterNG.activeWindow.update()
+	  
+	  margins is now a real property object with "sub-propertys"
+
+2008-08-10 19:08  henning
+
+	* CMakeLists.txt: forgot to update CMakeLists for new dockwidget
+
+2008-08-10 17:48  henning
+
+	* python/sceditor/arrow-down.png, python/sceditor/arrow-right.png,
+	  python/sceditor/dockwidget.py: added better dockwidget - will be
+	  used later
+
+2008-08-10 17:21  henning
+
+	* python/init_scripterng.py, python/permitdlg.py,
+	  python/permitdlg.ui, python/permitdlg_ui.py,
+	  python/pyqtscript.py, python/safe_eval.py,
+	  python/scribusscript.py, python/scripterng_runtime.py,
+	  python/update_allowed_scripts.py: added source checker to warn
+	  about unsafe scripts
+
+2008-08-10 03:47  henning
+
+	* python/autoload/help.spy: added help menu item which opens
+	  scripterng.blogspot.com (for now..)
+
+2008-08-10 03:46  henning
+
+	* python/autoload/runfile.spy: fixed bug
+
+2008-08-10 03:44  henning
+
+	* CMakeLists.txt, scripterngimpl.cpp, scripterngimpl.h: added
+	  api_window dependency
+
+2008-08-10 03:43  henning
+
+	* doc/TUTORIAL, new_api.py: corrected scaffolind
+
+2008-08-10 03:42  henning
+
+	* python/mikro.py: added more convert-functions for QVariant
+
+2008-08-10 03:41  henning
+
+	* api_document.cpp, api_document.h, api_example.cpp,
+	  api_window.cpp, api_window.h: added activeWindow
+	  (scroll,zoom,redraw), activeDocument.margins
+
+2008-08-10 01:02  henning
+
+	* doc/POSTPONED: added some reasons for changed plans
+
+2008-08-09 23:59  henning
+
+	* doc/TUTORIAL, python/init_scripterng.py: I forgot to mention in
+	  the last commit:
+	  Now scripts can defined in separate files (documented here in
+	  doc/TUTORIAL) and will be loaded at start-up.
+
+2008-08-09 23:03  henning
+
+	* CMakeLists.txt, new_api.py, python/autoload,
+	  python/autoload/about.spy, python/autoload/runfile.spy,
+	  python/autoload/sceditor.spy, python/excepthook.py,
+	  python/init_scripterng.py, python/scribusscript.py,
+	  python/scriptdescriptor.py, python/scripterng_hooks.py,
+	  python/scripterng_runtime.py: error-dialog is now an
+	  extension-dialog and can be used on demand
+
+2008-08-09 23:01  henning
+
+	* python/sceditor/console.py: release stdout after close
+
+2008-08-09 23:00  henning
+
+	* BUGS, INSTALL, README, TODO: moved documentation to doc/
+
+2008-08-09 22:59  henning
+
+	* doc, doc/BUGS, doc/INSTALL, doc/README, doc/TODO: moved
+	  documentation
+
+2008-08-08 13:56  henning
+
+	* python/scriptdescriptor.py: prepare integration for script
+	  descriptors
+
+2008-08-08 02:56  henning
+
+	* TODO: updated TODO
+
+2008-08-08 02:46  henning
+
+	* BUGS, TODO: Some more documentation related to development.
+
+2008-08-07 01:31  henning
+
+	* python/init_scripterng.py, python/mikro.py: Make sure that
+	  QObjects are deleted when corresponding Python objects are
+	  deleted
+
+2008-08-07 01:01  henning
+
+	* api_document.cpp, python/mikro.py, scripterngimpl.cpp,
+	  scripterngimpl.h: Added property support for QObjects and
+	  QWidgets
+	  Now activeDocument is created on the fly via the property-getter.
+	  This needs some kind of caching.
+
+2008-08-06 15:17  henning
+
+	* CMakeLists.txt, api_example.cpp, api_example.h, api_prefs.cpp,
+	  api_prefs.h, pythonize.cpp, pythonize.h, scripterng.cpp,
+	  scripterng.h, scripterngimpl.cpp, scripterngimpl.h: Added
+	  copyright header and fixed indention with astyle
+	  Forgot to add api_document to CMakeLists
+
+2008-08-06 15:15  henning
+
+	* api_document.cpp, api_document.h: Started to change API to be
+	  more like InDesign object model
+
+2008-08-06 14:31  henning
+
+	* INSTALL, api_example.cpp, api_example.h, api_prefs.cpp,
+	  api_prefs.h, new_api.py: added api template and simple
+	  scaffolding script
+
+2008-08-06 01:48  henning
+
+	* python/scriptdescriptor.py: parser for script descriptor files
+
+2008-06-19 22:55  henning
+
+	* scripterngimpl.cpp: forgot to raise error if openDocument fails
+
+2008-06-19 22:55  henning
+
+	* python/init_scripterng.py: make mikro.Error class available as
+	  ScripterNG.Error
+
+2008-06-19 22:06  henning
+
+	* api_prefs.cpp, scripterng.cpp, scripterngimpl.cpp,
+	  scripterngimpl.h: added checkDocument, haveDocument,
+	  closeDocument, openDocument and setModified
+
+2008-06-19 21:52  henning
+
+	* python/init_scripterng.py, python/sceditor/__init__.py,
+	  python/sceditor/mainwindow.py: menu and mainwindow are now
+	  attributes of ScripterNG. EditorMainWindow is now a child of
+	  ScribusMainWindow
+
+2008-06-19 21:50  henning
+
+	* python/mikro.py: added exception support. Use RAISE from
+	  scripterimpl.h
+
+2008-06-19 00:46  henning
+
+	* python/sceditor/console.py, python/sceditor/highlighter.py,
+	  python/sceditor/widget.py: Ported source editor from QTextEdit to
+	  QPlainTextEdit which is faster.
+	  Disabled empty_format in highlighter.
+
+2008-06-16 23:05  henning
+
+	* python/mikro.py: improved speed of child object access
+
+2008-06-16 01:43  henning
+
+	* api_prefs.cpp, python/init_scripterng.py, scripterngimpl.cpp:
+	  ScripterNG(impl) is now top-level object (from the scripting
+	  point of view),
+	  changed parent for ApiPrefs.
+	  Removed not working reload menu item and added a run script menu
+	  item
+
+2008-06-14 23:41  henning
+
+	* python/excepthook.py, python/excepthook.ui,
+	  python/excepthook_ui.py, python/init_scripterng.py,
+	  scripterngimpl.cpp: Added a nice looking error handler if a
+	  script raises an exception
+
+2008-06-14 05:11  henning
+
+	* CMakeLists.txt, python/sandbox.py, python/sceditor,
+	  python/sceditor/__init__.py, python/sceditor/assist.py,
+	  python/sceditor/console.py, python/sceditor/highlighter.py,
+	  python/sceditor/indenter.py, python/sceditor/mainwindow.py,
+	  python/sceditor/mainwindow.ui, python/sceditor/mainwindow_ui.py,
+	  python/sceditor/rope.zip, python/sceditor/widget.py: Removed
+	  sandbox.
+	  Added a small editor/console for Python and (partly) QtScript
+
+2008-06-14 05:08  henning
+
+	* scripterngimpl.cpp: removed a warning
+
+2008-06-14 05:08  henning
+
+	* python/init_scripterng.py: cleaner init
+
+2008-06-14 05:07  henning
+
+	* python/mikro.py: Better introspection support for ScripterNG
+	  object (via __members__)
+
+2008-06-12 15:17  henning
+
+	* python/mikro.py: Moved mikro test code into separate file
+
+2008-06-12 02:16  henning
+
+	* python/mikro.py: Fixed connect and added disconnect
+
+2008-06-12 02:15  henning
+
+	* python/init_scripterng.py: Check for PyQt4 and report problems on
+	  console
+
+2008-06-12 01:52  henning
+
+	* python/mikro.py: Named child objects are now available as
+	  attributes
+
+2008-06-12 00:56  henning
+
+	* python/init_scripterng.py, python/mikro.py: First use of PyQt 4.4
+	  features.
+	  C++ methods can now be called from Python scripts inside
+	  ScripterNG.
+	  This is an important step to make Scribus functionality available
+	  to
+	  Python.
+	  It's not that much code but it required heavy thinking about a
+	  efficient implementation.
+
+2008-06-10 22:58  henning
+
+	* python/init_scripterng.py, python/sandbox.py,
+	  python/scripterng_hooks.py, scripterngimpl.cpp: Now the plug-in
+	  can hook into menus and a menu entry in the ScripterNG
+	  menu with an example editor/shell was added.
+
+2008-06-10 00:13  henning
+
+	* README, scripterngimpl.cpp: added README document and unified
+	  some indentions
+
+2008-06-09 22:21  henning
+
+	* ., CMakeLists.txt, INSTALL, api_prefs.cpp, api_prefs.h, python,
+	  python/cleanup_scripterng.py, python/init_scripterng.py,
+	  python/mikro.py, python/pyqtscript.py, pythonize.cpp,
+	  pythonize.h, scripterng.cpp, scripterng.h, scripterngimpl.cpp,
+	  scripterngimpl.h: first updated version in new repository
+

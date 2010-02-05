@@ -1,0 +1,146 @@
+Here is some information how you can extend and use ScripterNG
+
+Create an API module
+====================
+
+Go to the scripterng plug-in directory and call
+ ./new_api.py test
+This will generate two files:
+ * api_test.h
+ * api_test.cpp
+from api_example.{h,cpp} as a template.
+
+The files are added to CMakeLists.txt and the header file is included
+in scripterngimpl.h
+
+Inside these files there is a class TestAPI defined. By default the
+class is a child of ScriperNGImpl and has the object-name Test.
+So the class will be automatically available under the name
+ScriperNG.Test from Python or QtScript.
+
+The class is created at start-up in scriperngimpl.cpp but you might want
+to change that. Look for the activeDocument Q_PROPERTY in scripterngimpl to
+see how to create an object on demand.
+
+To write a function which is available for scripting you have to write
+a public slot method. Allowed as parameters and as return types are
+basic types (int, bool, ..) and Qt objects. Pointers to pointers and
+complicated stuff like that does not work - but would not make any
+sense anyway...
+One caveat: If you want to return instances of QObject or QWidget you have to
+declare the base class QObject or QWidget as return type. The correct
+typecasting is done later at runtime via the Qt Meta-Object system.
+
+That's all. You do not have to know anything about the scripting
+language or about any binding api to do parameter conversation and
+validation. This is done by ScripterNG.
+
+
+
+Script Descriptor Files
+=======================
+
+These files describe a script. Its extension is .scs and you can write
+them easily by hand. Here are the possible options and their defaults:
+  name =
+  title = 
+  description = 
+  icon = 
+  menu = ScripterNG
+  shortcut =                # A valid QKeySequence as a string, see Qt4-docs
+  filename =                # name of script file
+  subroutine =              # additional entry point?
+  author = 
+  contact = 
+  homepage = 
+  version = 
+  copyright =               # GPL2
+  scribus_version = 
+  redraw = True
+  mode = interactive        # allowed: batch, interactive, extension
+  language = python         # allowed: python, qtscript
+  separator_before = False  # in menu
+  separator_after = False  # in menu
+  background_mode = False   # threaded execution only for non-gui scripts
+More options are already planned and will come with a later release.
+Feedback on needed features is always welcome.
+
+If you put a script descriptor file inside the scripterng/autoload
+or ~/.scribus/scripterng/autoload folder it will be loaded at startup, 
+added to the menu bar, etc.
+Every entry you see in the ScriperNG menu is already a separate script
+in autoload.
+
+You can also put the script descriptor inside a source file at the
+top in double comments. Python files have to be called .spy and look
+like this:
+  # -*- coding: utf-8 -*-
+  ## name = about
+  ## title = About ScripterNG
+  ## shortcut = Esc,a
+  # ScripterNG is a builtin and does not need to be imported
+  ScripterNG.aboutScripterNG()
+  
+With QtScript (extension is .sqts) the same is possible:
+  /// name = aboutqts
+  /// title = About ScripterNG from QtScript
+  ScripterNG.aboutScripter();
+
+Support for .zip-packaged scripts is on the TODO.
+
+
+
+Writing Scripts in Python and QtScript
+======================================
+
+QtScript is the name of the EcmaScript implementation in Qt. 
+It is better known under the name JavaScript. Besides its popular use in 
+browsers it gained acceptance as a scripting language (e.g. in InDesign). 
+See http://doc.trolltech.com/4.4/qtscript.html#ecmascript-compatibility
+for details about the Qt implementation
+If you want to write an Scribus extension you have to know how to react to
+events: http://doc.trolltech.com/4.4/signalsandslots.html
+
+If you are not sure about choosing Python or JavaScript for scripting in
+Scribus, here are some hints.
+For both languages there is a great amount of documentation and
+free articles on the internet available, e.g.:
+  * http://www.diveintopython.org/toc/index.html
+  * http://www.unix.com.ua/orelly/web/jscript/
+For a C/C++ or PHP programmer the syntax of QtScript might be more appealling 
+because it's nearly the same. Python is suitable for beginners as well as computer
+scientists. 
+Additionally Python provides powerful third-party libraries (database 
+connectivity, file formats, ..) and gives full access to the GUI framework Qt 
+used by Scribus.
+QtScript on the other hand is a safe language and without access to
+external modules it cannot access your system directly.
+
+Besides these differences the actual scripting is very similar because
+both language access the same API. The API is very intuitive. It has a
+logical object hierarchy with properties which you can read and change.
+
+Some technical details: 
+  * In QtScript the garbage collector deletes C++ objects after the 
+    script has finished. 
+  * In Python the garbage collector can delete an object after it is 
+    not used any more.
+  * Currently both languages do not share a common namespace. This 
+    might change with a later release.
+
+
+
+Differences to old scripter
+===========================
+
+The new API is completely different. You have to learn something new, sorry.
+But the this API is far more logical. The object model and the heavy
+use of properties makes programming very easy.
+
+The old scripter had a function called setUnit to switch between points,
+millimeters, picas and inches. This has been removed. Every method
+now only accepts points. There will be some helper functions added at
+a later stage to convert between units. For now you might want to look
+at http://en.wikipedia.org/wiki/Point_(typography) to write your own
+converter or to start to think in points.
+

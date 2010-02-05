@@ -1,0 +1,608 @@
+/**
+* Scripter.dialogs.outline.objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.modal
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.windowModality
+* Property
+* type is Qt::WindowModality 
+*/
+
+/**
+* Scripter.dialogs.outline.enabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.geometry
+* Property
+* type is QRect 
+*/
+
+/**
+* Scripter.dialogs.outline.frameGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.normalGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.x
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.y
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.pos
+* Property
+* type is QPoint 
+*/
+
+/**
+* Scripter.dialogs.outline.frameSize
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.size
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.outline.width
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.height
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.rect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.childrenRect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.childrenRegion
+* Property
+* type is QRegion  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.sizePolicy
+* Property
+* type is QSizePolicy 
+*/
+
+/**
+* Scripter.dialogs.outline.minimumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.outline.maximumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.outline.minimumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.outline.minimumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.outline.maximumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.outline.maximumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.outline.sizeIncrement
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.outline.baseSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.outline.palette
+* Property
+* type is QPalette 
+*/
+
+/**
+* Scripter.dialogs.outline.font
+* Property
+* type is QFont 
+*/
+
+/**
+* Scripter.dialogs.outline.cursor
+* Property
+* type is QCursor 
+*/
+
+/**
+* Scripter.dialogs.outline.mouseTracking
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.isActiveWindow
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.focusPolicy
+* Property
+* type is Qt::FocusPolicy 
+*/
+
+/**
+* Scripter.dialogs.outline.focus
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.contextMenuPolicy
+* Property
+* type is Qt::ContextMenuPolicy 
+*/
+
+/**
+* Scripter.dialogs.outline.updatesEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.visible
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.minimized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.maximized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.fullScreen
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.sizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.minimumSizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.outline.acceptDrops
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.windowTitle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.windowIcon
+* Property
+* type is QIcon 
+*/
+
+/**
+* Scripter.dialogs.outline.windowIconText
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.windowOpacity
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.dialogs.outline.windowModified
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.toolTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.statusTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.whatsThis
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.accessibleName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.accessibleDescription
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.layoutDirection
+* Property
+* type is Qt::LayoutDirection 
+*/
+
+/**
+* Scripter.dialogs.outline.autoFillBackground
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.styleSheet
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.locale
+* Property
+* type is QLocale 
+*/
+
+/**
+* Scripter.dialogs.outline.windowFilePath
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.outline.sizeGripEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.modal
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.outline.destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.dialogs.outline.destroyed()
+*/
+
+/**
+* Scripter.dialogs.outline.deleteLater()
+*/
+
+/**
+* Scripter.dialogs.outline._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.dialogs.outline.customContextMenuRequested(pos)
+* pos is a QPoint
+*/
+
+/**
+* Scripter.dialogs.outline.setEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.setDisabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.setWindowModified(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.setWindowTitle(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.outline.setStyleSheet(styleSheet)
+* styleSheet is a QString
+*/
+
+/**
+* Scripter.dialogs.outline.setFocus()
+*/
+
+/**
+* Scripter.dialogs.outline.update()
+*/
+
+/**
+* Scripter.dialogs.outline.repaint()
+*/
+
+/**
+* Scripter.dialogs.outline.setVisible(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.setHidden(hidden)
+* hidden is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.show()
+*/
+
+/**
+* Scripter.dialogs.outline.hide()
+*/
+
+/**
+* Scripter.dialogs.outline.setShown(shown)
+* shown is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.showMinimized()
+*/
+
+/**
+* Scripter.dialogs.outline.showMaximized()
+*/
+
+/**
+* Scripter.dialogs.outline.showFullScreen()
+*/
+
+/**
+* Scripter.dialogs.outline.showNormal()
+*/
+
+/**
+* Scripter.dialogs.outline.close()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.outline.raise()
+*/
+
+/**
+* Scripter.dialogs.outline.lower()
+*/
+
+/**
+* Scripter.dialogs.outline.updateMicroFocus()
+*/
+
+/**
+* Scripter.dialogs.outline._q_showIfNotHidden()
+*/
+
+/**
+* Scripter.dialogs.outline.finished(result)
+* result is a int
+*/
+
+/**
+* Scripter.dialogs.outline.accepted()
+*/
+
+/**
+* Scripter.dialogs.outline.rejected()
+*/
+
+/**
+* Scripter.dialogs.outline.exec()
+* returns int
+*/
+
+/**
+* Scripter.dialogs.outline.done(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.outline.accept()
+*/
+
+/**
+* Scripter.dialogs.outline.reject()
+*/
+
+/**
+* Scripter.dialogs.outline.showExtension(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.paletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.setPaletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.setFontSize()
+*/
+
+/**
+* Scripter.dialogs.outline.exec(newParent)
+* newParent is a QWidget*
+* returns int
+*/
+
+/**
+* Scripter.dialogs.outline.reject()
+*/
+
+/**
+* Scripter.dialogs.outline.ToggleAllPalettes()
+*/
+
+/**
+* Scripter.dialogs.outline.selectElement(arg1, arg2, arg3)
+* arg1 is a int
+* arg2 is a int
+* arg3 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.selectPage(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.outline.selectMasterPage(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.outline.BuildTree(storeVals)
+* storeVals is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.BuildTree()
+*/
+
+/**
+* Scripter.dialogs.outline.filterTree(keyword)
+* keyword is a QString
+*/
+
+/**
+* Scripter.dialogs.outline.languageChange()
+*/
+
+/**
+* Scripter.dialogs.outline.slotShowSelect(SNr, Nr)
+* SNr is a uint
+* Nr is a int
+*/
+
+/**
+* Scripter.dialogs.outline.setPaletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.outline.slotRightClick(point)
+* point is a QPoint
+*/
+
+/**
+* Scripter.dialogs.outline.slotRenameItem()
+*/
+
+/**
+* Scripter.dialogs.outline.slotDoRename(ite, col)
+* ite is a QTreeWidgetItem*
+* col is a int
+*/
+
+/**
+* Scripter.dialogs.outline.slotMultiSelect()
+*/
+
+/**
+* Scripter.dialogs.outline.slotSelect(ite, col)
+* ite is a QTreeWidgetItem*
+* col is a int
+*/

@@ -7,9 +7,12 @@ ADD_SUBDIRECTORY(gettext)
 # ADD_SUBDIRECTORY(newfromtemplateplugin)
 ADD_SUBDIRECTORY(pixmapexport)
 ADD_SUBDIRECTORY(saveastemplateplugin)
+#scripter1
 IF(NOT WIN32)
   ADD_SUBDIRECTORY(scriptplugin)
 ENDIF(NOT WIN32)
+#scripter2
+#ADD_SUBDIRECTORY(scripter)
 ADD_SUBDIRECTORY(short-words)
 ADD_SUBDIRECTORY(svgexplugin)
 ADD_SUBDIRECTORY(tools)
