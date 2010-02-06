@@ -476,7 +476,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				listStack.top().itemGroupName = QString(cmdData);
 			break;
 		case 5:
-			cmdText += "DRW Overlay";
+			cmdText += QString("DRW Overlay Data %1").arg(QString(cmdData.toHex().left(20)));
 			break;
 		case 6:
 			cmdText += "DRW Polygon";
@@ -502,8 +502,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 						if (coor == startP)
 						{
 							first = true;
-							if (createObjCode == 1)
-								path.closeSubpath();
+							path.closeSubpath();
 						}
 						else
 							path.lineTo(coor);
@@ -618,13 +617,19 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			if (createObjCode == 5)
 			{
 				QString tx = QString(cmdData.left(nrOfChars));
+				QStringList parList = tx.split(QChar(13));
+				double yp = 0;
 				QPainterPath path;
 				QString fontN = "Arial";
 				if (fontMap.contains(fontID))
 					fontN = fontMap[fontID];
-				QFont textFont = QFont(fontN, fontSize);
-				path.addText( 0, 0, textFont, tx);
+				QFont textFont = QFont(fontN, fontSize * 0.8);
 				QFontMetrics fm(textFont);
+				for (int a = 0; a < parList.size(); a++)
+				{
+					path.addText( 0, yp, textFont, parList[a].trimmed());
+					yp += fm.lineSpacing();
+				}
 				QTransform txS;
 				QRectF bbox = path.boundingRect();
 				txS = QTransform();
@@ -661,16 +666,16 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += "DRW Old Grid";
 			break;
 		case 16:
-			cmdText += "DRW Curr Overlay";
+			cmdText += QString("DRW Curr Overlay Data %1").arg(QString(cmdData.toHex().left(20)));
 			break;
 		case 17:
-			cmdText += "DRW Visible";
+			cmdText += QString("DRW Visible Data %1").arg(QString(cmdData.toHex().left(20)));
 			break;
 		case 18:
-			cmdText += "DRW Comment";
+			cmdText += QString("DRW Comment Data %1").arg(QString(cmdData.toHex().left(20)));
 			break;
 		case 19:
-			cmdText += "DRW Info";
+			cmdText += QString("DRW Info Data %1").arg(QString(cmdData).left(20));
 			break;
 		case 20:
 			cmdText += "DRW Bitmap";
@@ -724,7 +729,8 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += "DRW Grid";
 			break;
 		case 23:
-			cmdText += "DRW Overlay Name";
+			cmdText += QString("DRW Overlay Name Data %1").arg(QString(cmdData).left(20));
+			printMSG = true;
 			break;
 		case 24:
 			cmdText += "DRW Dimensions";
@@ -864,7 +870,6 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 					if (currentItem != NULL)
 					{
-					//	tmpImage = tmpImage.convertToFormat(QImage::Format_ARGB32);
 						currentItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
 						currentItem->tempImageFile->open();
 						QString fileName = getLongPathName(currentItem->tempImageFile->fileName());
@@ -969,7 +974,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2 Size %3").arg(cmd).arg(QString(cmdData.toHex().left(64))).arg(cmdData.size());
 			break;
 	}
-//	printMSG = false;
+	printMSG = false;
 	if (printMSG)
 	{
 		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
@@ -1022,10 +1027,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 							QPainterPath pa;
 							PageItem *item = tmpSel->itemAt(i);
 							item->PoLine.translate(item->xPos(), item->yPos());
-						//	if (item->asPolyLine())
-								pa = item->PoLine.toQPainterPath(false);
-						//	else
-						//		pa = item->PoLine.toQPainterPath(true);
+							pa = item->PoLine.toQPainterPath(false);
 							if (!pa.isEmpty())
 							{
 								const QPainterPath::Element &elm = pa.elementAt(0);
@@ -1033,13 +1035,19 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 								bool conn = false;
 								bool conn2 = false;
 								if ((fabs(lastP.x() - elm.x) < 1) && (fabs(lastP.y() - elm.y) < 1))
+								{
+									pa.closeSubpath();
 									conn = true;
+								}
 								if (!gesPa.isEmpty())
 								{
 									const QPainterPath::Element &elm2 = gesPa.elementAt(0);
 									QPointF lastP2 = gesPa.currentPosition();
 									if ((fabs(lastP2.x() - elm2.x) < 1) && (fabs(lastP2.y() - elm2.y) < 1))
+									{
+										gesPa.closeSubpath();
 										conn2 = true;
+									}
 								}
 								if ((firstP) || (conn) || (conn2))
 								{
@@ -1067,19 +1075,16 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 							QTransform mt;
 							mt.translate(-bb.x(), -bb.y());
 							gesPa = mt.map(gesPa);
-					//		if ((popped.scaleX != 0) || (popped.scaleY != 0))
-					//		{
-								if ((bb.width() != 0) && (bb.height() != 0) && (popped.width != 0) && (popped.height != 0))
-								{
-									if (bb.width() != popped.width)
-										scx = popped.width / bb.width();
-									if (bb.height() != popped.height)
-										scy = popped.height / bb.height();
-									QTransform ms;
-									ms.scale(scx, scy);
-									gesPa = ms.map(gesPa);
-								}
-					//		}
+							if ((bb.width() != 0) && (bb.height() != 0) && (popped.width != 0) && (popped.height != 0))
+							{
+								if (bb.width() != popped.width)
+									scx = popped.width / bb.width();
+								if (bb.height() != popped.height)
+									scy = popped.height / bb.height();
+								QTransform ms;
+								ms.scale(scx, scy);
+								gesPa = ms.map(gesPa);
+							}
 							if (popped.filled)
 								gesPa.closeSubpath();
 							FPointArray res;
@@ -1112,7 +1117,6 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						m_Doc->itemSelection_DeleteItem(tmpSel);
 					}
 					tmpSel->clear();
-				//	cmdText += QString("dropping complex Object Offsets %1 %2\n").arg(cElements.xoffset).arg(cElements.yoffset);
 				}
 				else
 					break;
@@ -1353,6 +1357,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds >> fontID;
 			ds >> nrOfChars;
 			ds >> fontSize;
+			fontColor = lineColor;
 			createObjCode = 5;
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), 0, lineColor, CommonStrings::None, true);
 			currentItem = m_Doc->Items->at(z);
