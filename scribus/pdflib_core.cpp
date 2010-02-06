@@ -189,7 +189,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
 		{
-			pageNsMpa.insert(doc.MasterNames[doc.Pages->at(pageNs[a]-1)->MPageNam], 0);
+			pageNsMpa.insert(doc.MasterNames[doc.DocPages.at(pageNs[a]-1)->MPageNam], 0);
 		}
 		if (usingGUI)
 		{
@@ -225,11 +225,11 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 			qApp->processEvents();
 			if (abortExport) break;
 
-			PDF_Begin_Page(doc.Pages->at(pageNs[a]-1), pm);
+			PDF_Begin_Page(doc.DocPages.at(pageNs[a]-1), pm);
 			qApp->processEvents();
 			if (abortExport) break;
 
-			if (!PDF_ProcessPage(doc.Pages->at(pageNs[a]-1), pageNs[a]-1, doc.PDF_Options.doClip))
+			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, doc.PDF_Options.doClip))
 				error = abortExport = true;
 			qApp->processEvents();
 			if (abortExport) break;
@@ -3081,7 +3081,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const Page* pag
 		return true;
 	if (doc.MasterItems.count() <= 0)
 		return true;
-	const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
+	const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.DocPages.at(PNr)->MPageNam]);
 	int   mPageIndex  = doc.MasterPages.indexOf((Page* const) mPage) + 1;
 
 	if (!Options.MirrorH)
@@ -6053,7 +6053,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 		tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
 		item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
 		inPattern++;
-		if (!PDF_ProcessItem(tmpOut, item, doc.Pages->at(0), 0, true, true))
+		if (!PDF_ProcessItem(tmpOut, item, doc.DocPages.at(0), 0, true, true))
 			return false;
 		tmp2 += tmpOut;
 		item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
@@ -6721,7 +6721,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
 			item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
 			inPattern++;
-			if (!PDF_ProcessItem(tmpOut, item, doc.Pages->at(0), 0, true, true))
+			if (!PDF_ProcessItem(tmpOut, item, doc.DocPages.at(0), 0, true, true))
 				return false;
 			tmp2 += tmpOut;
 			item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
@@ -9390,8 +9390,8 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 						bd.Prev = ccb - 1;
 						ccb++;
 						bd.Page = PageTree.Kids[tel->OwnPage];
-						bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()),
-									static_cast<int>(doc.Pages->at(tel->OwnPage)->height() - (tel->yPos()  - doc.Pages->at(tel->OwnPage)->yOffset())),
+						bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+									static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 									static_cast<int>(tel->width()),
 									static_cast<int>(tel->height()));
 						Beads.append(bd);
@@ -9404,8 +9404,8 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
-					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()),
-								static_cast<int>(doc.Pages->at(tel->OwnPage)->height() - (tel->yPos()  - doc.Pages->at(tel->OwnPage)->yOffset())),
+					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+								static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->width()),
 								static_cast<int>(tel->height()));
 					Beads.append(bd);
