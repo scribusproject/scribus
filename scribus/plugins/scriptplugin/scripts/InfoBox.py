@@ -21,21 +21,31 @@
 
 """
 (C) 2005 by Thomas R. Koll, <tomk32@gmx.de>, http://verlag.tomk32.de
-(c) 2008 modifications, additional features by Gregory Pittman
+
+(c) 2008, 2010 modifications, additional features, and some repair
+    by Gregory Pittman
 
 A simple script for exact placement of a frame (infobox)
 over the current textbox, asking the user for the width
 of the infobox and in which column to place it.
+
 Some enhancements:
+
 * You can now create a text frame or an image frame, and also load
 an image.
-* More than one infobox can be added to a text frame
-* Height and Y-Pos of top of infobox can be specified
-* Works with any page unit - pts, mm, in, and picas
+
+* More than one infobox can be added to a text frame by repeatedly running
+  the script (ie, no name conflicts occur).
+
+* Height and Y-Pos of top of infobox can be specified.
+
+* Works with any page unit - pts, mm, in, and picas, cm, and even ciceros.
+
 * Infobox has Text Flows Around Frame activated, also
-  Scale Image to Frame for images
+  Scale Image to Frame for images.
 
 USAGE
+
 Select a textframe, start the script and have phun
 Default name for the infobox is 'infobox' + name_of_selected_frame,
 but this can be changed.
@@ -48,11 +58,6 @@ try:
 except ImportError:
     print "Unable to import the 'scribus' module. This script will only run within"
     print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
-    sys.exit(1)
-try:
-    from PIL import Image
-except ImportError:
-    print "Unable to import the Python Imaging Library module."
     sys.exit(1)
 
 def main(argv):
@@ -131,11 +136,9 @@ def main(argv):
     else:
         if (frametype == 'imageL'):
 	    imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
-            im = Image.open(imageload)
-            xsize, ysize = im.size
-	    new_height = float(ysize)/float(xsize)*new_width
 	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
 	    scribus.loadImage(imageload, new_image)
+            scribus.messageBox('Please Note',"Your frame will be created once you click OK.\n\nUse the Context Menu to Adjust Frame to Image.\n\nIf your image does not fill the width completely,\nstretch the frame vertically first.",scribus.BUTTON_OK)
         else:
 	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
         scribus.textFlowMode(new_image, 1)
