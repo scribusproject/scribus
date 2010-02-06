@@ -179,7 +179,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
 		{
-			pageNsMpa.insert(doc.MasterNames[doc.Pages->at(pageNs[a]-1)->MPageNam], 0);
+			pageNsMpa.insert(doc.MasterNames[doc.DocPages.at(pageNs[a]-1)->MPageNam], 0);
 		}
 		if (usingGUI)
 		{
@@ -215,11 +215,11 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 			qApp->processEvents();
 			if (abortExport) break;
 
-			PDF_Begin_Page(doc.Pages->at(pageNs[a]-1), pm);
+			PDF_Begin_Page(doc.DocPages.at(pageNs[a]-1), pm);
 			qApp->processEvents();
 			if (abortExport) break;
 
-			if (!PDF_ProcessPage(doc.Pages->at(pageNs[a]-1), pageNs[a]-1, doc.PDF_Options.doClip))
+			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, doc.PDF_Options.doClip))
 				error = abortExport = true;
 			qApp->processEvents();
 			if (abortExport) break;
@@ -952,9 +952,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			}
 		}
 	}
-	for (int d = 0; d < doc.Items->count(); ++d)
+	for (int d = 0; d < doc.DocItems.count(); ++d)
 	{
-		pgit = doc.Items->at(d);
+		pgit = doc.DocItems.at(d);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
@@ -2731,7 +2731,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	}
 	if (!pag->MPageNam.isEmpty())
 	{
-		const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
+		const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.DocPages.at(PNr)->MPageNam]);
 		int   mPageIndex  = doc.MasterPages.indexOf((Page* const) mPage) + 1;
 		if (doc.MasterItems.count() != 0)
 		{
@@ -5070,7 +5070,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
 			item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
 			inPattern++;
-			if (!PDF_ProcessItem(tmpOut, item, doc.Pages->at(0), 0, true, true))
+			if (!PDF_ProcessItem(tmpOut, item, doc.DocPages.at(0), 0, true, true))
 				return false;
 			tmp2 += tmpOut;
 			item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
@@ -7535,9 +7535,9 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	Threads.clear();
 	if (Options.Articles)
 	{
-		for (int ele = 0; ele < doc.Items->count(); ++ele)
+		for (int ele = 0; ele < doc.DocItems.count(); ++ele)
 		{
-			PageItem* tel = doc.Items->at(ele);
+			PageItem* tel = doc.DocItems.at(ele);
 			if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
 					(!tel->inPdfArticle))
 			{
@@ -7554,8 +7554,8 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 						bd.Prev = ccb - 1;
 						ccb++;
 						bd.Page = PageTree.Kids[tel->OwnPage];
-						bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()),
-									static_cast<int>(doc.Pages->at(tel->OwnPage)->height() - (tel->yPos()  - doc.Pages->at(tel->OwnPage)->yOffset())),
+						bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+									static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 									static_cast<int>(tel->width()),
 									static_cast<int>(tel->height()));
 						Beads.append(bd);
@@ -7568,8 +7568,8 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
-					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()),
-								static_cast<int>(doc.Pages->at(tel->OwnPage)->height() - (tel->yPos()  - doc.Pages->at(tel->OwnPage)->yOffset())),
+					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+								static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->width()),
 								static_cast<int>(tel->height()));
 					Beads.append(bd);
@@ -7602,8 +7602,8 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				}
 			}
 		}
-		for (int ele = 0; ele < doc.Items->count(); ++ele)
-			doc.Items->at(ele)->inPdfArticle = false;
+		for (int ele = 0; ele < doc.DocItems.count(); ++ele)
+			doc.DocItems.at(ele)->inPdfArticle = false;
 	}
 	XRef[7] = bytesWritten();
 	PutDoc("8 0 obj\n[");
