@@ -3491,7 +3491,7 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 
 bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
-	ParagraphStyle vg;
+	ParagraphStyle pstyle;
 	QDomDocument docu("scridoc");
 	QString f (readSLA(fileName));
 	if (f.isEmpty())
@@ -3510,7 +3510,10 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 		{
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="STYLE")
-				GetStyle(&pg, &vg, &docParagraphStyles, doc, false);
+			{
+				pstyle.erase();
+				GetStyle(&pg, &pstyle, &docParagraphStyles, doc, false);
+			}
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();
@@ -3540,6 +3543,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="CHARSTYLE")
 			{
+				cstyle.erase();
 				GetCStyle(&pg, doc, cstyle);
 				docCharStyles.create(cstyle);
 			}

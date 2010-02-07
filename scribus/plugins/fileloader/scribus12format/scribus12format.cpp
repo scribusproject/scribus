@@ -1697,7 +1697,7 @@ QString Scribus12Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *do
 */
 bool Scribus12Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
-	ParagraphStyle vg;
+	ParagraphStyle pstyle;
 	QDomDocument docu("scridoc");
 	QString tmpf, tmf;
 // 	DoFonts.clear();
@@ -1718,7 +1718,10 @@ bool Scribus12Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 		{
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="STYLE")
-				GetStyle(&pg, &vg, &docParagraphStyles, doc, false);
+			{
+				pstyle.erase();
+				GetStyle(&pg, &pstyle, &docParagraphStyles, doc, false);
+			}
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();

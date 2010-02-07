@@ -3084,7 +3084,7 @@ QString Scribus13Format::AskForFont(QString fStr, ScribusDoc *doc)
 
 bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
-	ParagraphStyle vg;
+	ParagraphStyle pstyle;
 	QDomDocument docu("scridoc");
 	QString tmpf, tmf;
 	QString f (readSLA(fileName));
@@ -3104,7 +3104,10 @@ bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 		{
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="STYLE")
-				GetStyle(&pg, &vg, &docParagraphStyles, doc, false);
+			{
+				pstyle.erase();
+				GetStyle(&pg, &pstyle, &docParagraphStyles, doc, false);
+			}
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();
