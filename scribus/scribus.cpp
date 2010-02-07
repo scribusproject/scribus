@@ -7540,11 +7540,12 @@ void ScribusMainWindow::slotPrefsOrg()
 
 void ScribusMainWindow::slotPrefs150Org()
 {
-	QString oldMonitorProfile = ScCore->monitorProfile.productDescription();
+	QString oldMonitorProfile(ScCore->monitorProfile.productDescription());
 	slotSelect();
 	struct ApplicationPrefs oldPrefs(prefsManager->appPrefs);
 	PreferencesDialog prefsDialog(this);
-	if (prefsDialog.exec()==QDialog::Accepted)
+	int prefsResult=prefsDialog.exec();
+	if (prefsResult==QDialog::Accepted)
 	{
 		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
 		prefsManager->setNewPrefs(newPrefs);
@@ -7611,9 +7612,9 @@ void ScribusMainWindow::slotPrefs150Org()
 		icm.setMaxCacheSizeMiB(newPrefs.imageCachePrefs.maxCacheSizeMiB);
 		icm.setMaxCacheEntries(newPrefs.imageCachePrefs.maxCacheEntries);
 		icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
-	}
 
-	prefsManager->SavePrefs();
+		prefsManager->SavePrefs();
+	}
 }
 
 void ScribusMainWindow::ShowSubs()

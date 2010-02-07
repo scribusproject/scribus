@@ -77,8 +77,11 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	addItem( tr("Image Cache"), loadIcon("tools.png"), prefs_ImageCache);
 
 	arrangeIcons();
-	preferencesTypeList->item(0)->setSelected(true);
-	itemSelected(preferencesTypeList->item(0));
+	if (preferencesTypeList->count()>0)
+	{
+		preferencesTypeList->item(0)->setSelected(true);
+		itemSelected(preferencesTypeList->item(0));
+	}
 
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
@@ -172,7 +175,8 @@ void PreferencesDialog::applyButtonClicked()
 void PreferencesDialog::accept()
 {
 	saveGuiToPrefs();
-	QDialog::accept ();
+	emit accepted();
+	return QDialog::accept();
 }
 
 void PreferencesDialog::setupListWidget()

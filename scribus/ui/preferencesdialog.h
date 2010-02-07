@@ -57,12 +57,13 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		ApplicationPrefs prefs() const { return localPrefs; }
 
 	public slots:
+		/// \brief Overridden to emit accepted(), which plugin panels use
+		virtual void accept();
 		void itemSelected(QListWidgetItem* ic);
 		void newItemSelected();
 		void restoreDefaults();
 		void setupGui();
 		void saveGuiToPrefs();
-		virtual void accept();
 
 	protected slots:
 		virtual void languageChange();
