@@ -252,7 +252,7 @@ void PreferencesDialog::addPlugins()
 	// prefs dialog.
 	// For each plugin, enabled or not:
 	ScPlugin* plugin = 0;
-	QWidget* panel = 0;
+	Prefs_Pane* panel = 0;
 	QString panelCaption;
 	QPixmap panelIcon;
 

@@ -154,8 +154,7 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 	return true;
 }
 
-bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
-										   QString& caption, QPixmap& icon)
+bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel, QString& caption, QPixmap& icon)
 {
 	panel = new SWPrefsGui(parent);
 	Q_CHECK_PTR(panel);
@@ -164,8 +163,7 @@ bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 	return true;
 }
 
-bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, QWidget*& panel,
-										   QString& caption, QPixmap& icon)
+bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, QString& caption, QPixmap& icon)
 {
 	panel = new Prefs_ShortWords(parent);
 	Q_CHECK_PTR(panel);

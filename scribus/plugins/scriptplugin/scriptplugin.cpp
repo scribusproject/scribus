@@ -198,8 +198,7 @@ bool ScriptPlugin::cleanupPlugin()
 	return true;
 }
 
-bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
-										   QString& caption, QPixmap& icon)
+bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel, QString& caption, QPixmap& icon)
 {
 	panel = new ScripterPrefsGui(parent);
 	Q_CHECK_PTR(panel);
@@ -209,8 +208,7 @@ bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 }
 
 
-bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, QWidget*& panel,
-										   QString& caption, QPixmap& icon)
+bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, QString& caption, QPixmap& icon)
 {
 	panel = new Prefs_Scripter(parent);
 	Q_CHECK_PTR(panel);

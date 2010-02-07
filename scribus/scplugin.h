@@ -19,6 +19,7 @@ class ScribusDoc;
 class ScribusMainWindow;
 class DeferredTask;
 class PrefsPanel;
+class Prefs_Pane;
 
 /**
  * \brief Abstract super class for all Scribus plug-ins
@@ -172,7 +173,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		*/
 		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 										 QString& caption, QPixmap& icon);
-		virtual bool newPrefsPanelWidget(QWidget* parent, QWidget*& panel,
+		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel,
 								 QString& caption, QPixmap& icon);
 
 		/*! @brief Return descriptive information about the plug-in
