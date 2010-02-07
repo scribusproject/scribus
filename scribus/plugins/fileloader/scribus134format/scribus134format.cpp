@@ -3335,8 +3335,7 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 
 bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
-	ParagraphStyle vg;
-	QString tmpf;
+	ParagraphStyle pstyle;
 	QString f (readSLA(fileName));
 	if (f.isEmpty())
 		return false;
@@ -3364,7 +3363,8 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 		}
 		if (tagName == "STYLE")
 		{
-			getStyle(vg, reader, &docParagraphStyles, doc, false);
+			pstyle.erase();
+			getStyle(pstyle, reader, &docParagraphStyles, doc, false);
 		}
 	}
 	return success;
@@ -3399,6 +3399,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 		}
 		if (tagName == "CHARSTYLE")
 		{
+			cstyle.erase();
 			readCharacterStyleAttrs(doc, attrs, cstyle);
 			docCharStyles.create(cstyle);
 		}
