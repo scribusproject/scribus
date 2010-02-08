@@ -52,7 +52,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget);
 	addItem( tr("Color Management"), loadIcon("blend.png"), prefs_ColorManagement);
 	prefs_Printer = new Prefs_Printer(prefsStackWidget);
-	addItem( tr("Printer"), loadIcon("printer.png"), prefs_Printer);
+	addItem( tr("Printer"), loadIcon("22/printer.png"), prefs_Printer);
 	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget);
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), prefs_PDFExport);
 	prefs_PreflightVerifier = new Prefs_PreflightVerifier(prefsStackWidget);
@@ -66,7 +66,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget);
 	addItem( tr("Scrapbook"), loadIcon("scrap.png"), prefs_Scrapbook);
 	prefs_Display = new Prefs_Display(prefsStackWidget);
-	addItem( tr("Display"), loadIcon("screen.png"), prefs_Display);
+	addItem( tr("Display"), loadIcon("22/video-display.png"), prefs_Display);
 	prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget);
 	addItem( tr("External Tools"), loadIcon("externaltools.png"), prefs_ExternalTools);
 	prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget);
@@ -74,7 +74,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	prefs_Plugins = new Prefs_Plugins(prefsStackWidget);
 	addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
 	prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget);
-	addItem( tr("Image Cache"), loadIcon("tools.png"), prefs_ImageCache);
+	addItem( tr("Image Cache"), loadIcon("22/image-x-generic.png"), prefs_ImageCache);
 
 	arrangeIcons();
 	if (preferencesTypeList->count()>0)

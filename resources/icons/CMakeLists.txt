@@ -337,6 +337,7 @@ INSTALL(FILES
 16/preferences-desktop-font.png
 16/preferences-desktop-keyboard-shortcuts.png
 16/preflight-verifier.png
+16/printer.png
 16/show-object.png
 16/story-editor.png
 16/stroke-cap-butt.png
@@ -350,6 +351,7 @@ INSTALL(FILES
 16/text-frame-link.png
 16/text-frame-unlink.png
 16/transform-rotate.png
+16/video-display.png
 16/zoom-in.png
 16/zoom-original.png
 16/zoom-out.png
@@ -456,6 +458,7 @@ INSTALL(FILES
 22/preferences-desktop-font.png
 22/preferences-desktop-keyboard-shortcuts.png
 22/preflight-verifier.png
+22/printer.png
 22/story-editor.png
 22/swap-left.png
 22/swap-right.png
@@ -468,6 +471,7 @@ INSTALL(FILES
 22/transform-shear-left.png
 22/transform-shear-right.png
 22/transform-shear-up.png
+22/video-display.png
 22/zoom-in.png
 22/zoom-original.png
 22/zoom-out.png
