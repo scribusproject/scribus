@@ -62,6 +62,7 @@ XarPlug::XarPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
+	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 

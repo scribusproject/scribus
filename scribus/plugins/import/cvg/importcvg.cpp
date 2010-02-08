@@ -52,7 +52,164 @@ CvgPlug::CvgPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
+	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+}
+
+QImage CvgPlug::readThumbnail(QString fName)
+{
+	QFileInfo fi = QFileInfo(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	bool haveDoc = false;
+	double b, h;
+	parseHeader(fName, b, h);
+	if (b == 0.0)
+		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	if (h == 0.0)
+		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = b;
+	docHeight = h;
+	ScribusView* tempView;
+	progressDialog = NULL;
+	if (!m_Doc)
+	{
+		haveDoc = true;
+		m_Doc = new ScribusDoc();
+		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
+		tempView->setScale(1);
+		m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
+	}
+	baseX = m_Doc->currentPage()->xOffset();
+	baseY = m_Doc->currentPage()->yOffset();
+	Elements.clear();
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->updatesOn(false);
+	m_Doc->scMW()->ScriptRunning = true;
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(fi.path());
+	int groupCount = m_Doc->GroupCounter;
+	int itemCount = m_Doc->TotalItems;
+	if (convert(fName))
+	{
+		tmpSel->clear();
+		QDir::setCurrent(CurDirP);
+		if (Elements.count() > 0)
+		{
+			bool isGroup = true;
+			int firstElem = -1;
+			if (Elements.at(0)->Groups.count() != 0)
+				firstElem = Elements.at(0)->Groups.top();
+			for (int bx = 0; bx < Elements.count(); ++bx)
+			{
+				PageItem* bxi = Elements.at(bx);
+				if (bxi->Groups.count() != 0)
+				{
+					if (bxi->Groups.top() != firstElem)
+						isGroup = false;
+				}
+				else
+					isGroup = false;
+			}
+			if (!isGroup)
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				uint lowestItem = 999999;
+				uint highestItem = 0;
+				for (int a = 0; a < Elements.count(); ++a)
+				{
+					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+					PageItem* currItem = Elements.at(a);
+					lowestItem = qMin(lowestItem, currItem->ItemNr);
+					highestItem = qMax(highestItem, currItem->ItemNr);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				double gx = minx;
+				double gy = miny;
+				double gw = maxx - minx;
+				double gh = maxy - miny;
+				PageItem *high = m_Doc->Items->at(highestItem);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				PageItem *neu = m_Doc->Items->takeAt(z);
+				m_Doc->Items->insert(lowestItem, neu);
+				neu->Groups.push(m_Doc->GroupCounter);
+				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->AutoName = false;
+				neu->isGroupControl = true;
+				neu->groupsLastItem = high;
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
+				for (int a = 0; a < m_Doc->Items->count(); ++a)
+				{
+					m_Doc->Items->at(a)->ItemNr = a;
+				}
+				Elements.prepend(neu);
+				m_Doc->GroupCounter++;
+			}
+		}
+		m_Doc->DoDrawing = true;
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		m_Doc->m_Selection->delaySignalsOn();
+		QImage tmpImage;
+		if (Elements.count() > 0)
+		{
+			for (int dre=0; dre<Elements.count(); ++dre)
+			{
+				tmpSel->addItem(Elements.at(dre), true);
+			}
+			tmpSel->setGroupRect();
+			double sc = 500.0 / qMax(tmpSel->width(), tmpSel->height());
+			m_Doc->scaleGroup(sc, sc, true, tmpSel);
+			tmpImage = Elements.at(0)->DrawObj_toImage();
+		}
+		m_Doc->itemSelection_DeleteItem(tmpSel);
+		m_Doc->view()->updatesOn(true);
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->setLoading(false);
+		if (importedColors.count() != 0)
+		{
+			for (int cd = 0; cd < importedColors.count(); cd++)
+			{
+				m_Doc->PageColors.remove(importedColors[cd]);
+			}
+		}
+		m_Doc->m_Selection->delaySignalsOff();
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+		m_Doc->GroupCounter = groupCount;
+		m_Doc->TotalItems = itemCount;
+		return tmpImage;
+	}
+	else
+	{
+		QDir::setCurrent(CurDirP);
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->view()->updatesOn(true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+	}
+	m_Doc->GroupCounter = groupCount;
+	m_Doc->TotalItems = itemCount;
+	return QImage();
 }
 
 bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
@@ -314,7 +471,6 @@ void CvgPlug::parseHeader(QString fName, double &b, double &h)
 		b = pgY / 72.0;
 		h = pgY / 72.0 * scPg;
 		f.close();
-		qDebug() << "Y" << pgY << "W" << pgW << "H" << pgH << "Scale" << scPg;
 	}
 }
 
@@ -370,7 +526,8 @@ bool CvgPlug::convert(QString fn)
 				getObjects(ts, colorFlag, lenData - 26);
 			}
 			ts.device()->seek(currentFilePos + lenData - 6);
-			progressDialog->setProgress("GI", ts.device()->pos());
+			if (progressDialog)
+				progressDialog->setProgress("GI", ts.device()->pos());
 			qApp->processEvents();
 		}
 		if (Elements.count() == 0)

@@ -519,6 +519,57 @@ ScribusDoc::~ScribusDoc()
 {
 	m_guardedObject.nullify();
 	CloseCMSProfiles();
+	ScCore->fileWatcher->stop();
+	ScCore->fileWatcher->removeFile(DocName);
+	for (int a = 0; a < DocItems.count(); ++a)
+	{
+		PageItem *currItem = DocItems.at(a);
+		if (currItem->PictureIsAvailable)
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
+		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+		{
+			QFileInfo fi(currItem->Pfile);
+			ScCore->fileWatcher->removeDir(fi.absolutePath());
+		}
+	}
+	for (int a = 0; a < MasterItems.count(); ++a)
+	{
+		PageItem *currItem = MasterItems.at(a);
+		if (currItem->PictureIsAvailable)
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
+		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+		{
+			QFileInfo fi(currItem->Pfile);
+			ScCore->fileWatcher->removeDir(fi.absolutePath());
+		}
+	}
+	for (int a = 0; a < FrameItems.count(); ++a)
+	{
+		PageItem *currItem = FrameItems.at(a);
+		if (currItem->PictureIsAvailable)
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
+		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+		{
+			QFileInfo fi(currItem->Pfile);
+			ScCore->fileWatcher->removeDir(fi.absolutePath());
+		}
+	}
+	QStringList patterns = docPatterns.keys();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (int o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if (currItem->PictureIsAvailable)
+				ScCore->fileWatcher->removeFile(currItem->Pfile);
+			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+			{
+				QFileInfo fi(currItem->Pfile);
+				ScCore->fileWatcher->removeDir(fi.absolutePath());
+			}
+		}
+	}
 	while (!DocItems.isEmpty())
 	{
 		delete DocItems.takeFirst();
@@ -548,6 +599,7 @@ ScribusDoc::~ScribusDoc()
 	if (docHyphenator)
 		delete docHyphenator;
 	delete m_serializer;
+	ScCore->fileWatcher->start();
 }
 
 
