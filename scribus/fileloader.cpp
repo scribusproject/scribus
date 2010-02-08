@@ -468,6 +468,14 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		}
 }
 
+QImage FileLoader::ReadThumbnail(const QString& fileName)
+{
+	QList<FileFormat>::const_iterator it;
+	if (findFormat(FileType, it))
+		return (*it).readThumbnail(fileName);
+	return QImage();
+}
+
 bool FileLoader::postLoad(ScribusDoc* currDoc)
 {
 	//CB #3749 We have to set these up in post load as each format will load into the doc itself

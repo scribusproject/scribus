@@ -4993,7 +4993,7 @@ void LegacyMode::importToPage()
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
-	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
+	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

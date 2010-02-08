@@ -60,6 +60,7 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(QString fn);
 
 private:
 	bool convert(QString fn);
@@ -190,6 +191,8 @@ private:
 	Selection* tmpSel;
 	int importerFlags;
 	QString baseFile;
+	QImage thumbnailImage;
+	bool thumbRead;
 
 public slots:
 	void cancelRequested() { cancel = true; }

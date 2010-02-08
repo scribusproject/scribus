@@ -288,6 +288,11 @@ bool LoadSavePlugin::readPageCount(const QString& /*fileName*/, int* /*num1*/, i
 	return false;
 }
 
+QImage LoadSavePlugin::readThumbnail(const QString& /*fileName*/)
+{
+	return QImage();
+}
+
 bool FileFormat::loadFile(const QString & fileName, int flags, int index) const
 {
 	if (plug && load)
@@ -381,6 +386,11 @@ bool FileFormat::readColors(const QString& fileName, ColorList & colors) const
 bool FileFormat::readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) const
 {
 	return (plug && load) ? plug->readPageCount(fileName, num1, num2, masterPageNames) : false;
+}
+
+QImage FileFormat::readThumbnail(const QString& fileName) const
+{
+	return (plug && load) ? plug->readThumbnail(fileName) : QImage();
 }
 
 

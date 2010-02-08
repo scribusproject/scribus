@@ -38,6 +38,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "customfdialog.h"
 
+#include "fileloader.h"
+#include "loadsaveplugin.h"
+#include "../plugins/formatidlist.h"
 #include "scfilewidget.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
@@ -140,6 +143,31 @@ void FDialogPreview::GenPreview(QString name)
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1));
  	QStringList formats = formatD.split("|");
 	formats.append("pat");
+	
+	QStringList allFormatsV;
+	int fmtCode = FORMATID_ODGIMPORT;
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
+	while (fmt != 0)
+	{
+		if (fmt->load)
+		{
+			QString fmC = "";
+			int an = fmt->filter.indexOf("(");
+			int en = fmt->filter.indexOf(")");
+			while (an != -1)
+			{
+				fmC = fmt->filter.mid(an+1, en-an-1);
+				fmC.remove("*.");
+				allFormatsV += fmC.split(" ", QString::SkipEmptyParts);
+				an = fmt->filter.indexOf("(", en);
+				en = fmt->filter.indexOf(")", an);
+			}
+			
+		}
+		fmtCode++;
+		fmt = LoadSavePlugin::getFormatById(fmtCode);
+	}
+	
 	if (ext.isEmpty())
 		ext = getImageType(name);
 	if (formats.contains(ext.toUtf8()))
@@ -165,16 +193,7 @@ void FDialogPreview::GenPreview(QString name)
 			int yres = im.imgInfo.yres;
 			QString tmp = "";
 			QString tmp2 = "";
-			QImage im2;
-			if ((ix > w-5) || (iy > h-44))
-			{
-				double sx = im.width() / static_cast<double>(w-5);
-				double sy = im.height() / static_cast<double>(h-44);
-				im2 = sy < sx ? im.scaled(qRound(im.width() / sx), qRound(im.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation)
-								: im.scaled(qRound(im.width() / sy), qRound(im.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-			}
-			else
-				im2 = im.qImage(); // no need to copy
+			QImage im2 = im.scaled(w - 5, h - 44, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 			QPainter p;
 			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 			// Qt4 FIXME imho should be better
@@ -194,6 +213,33 @@ void FDialogPreview::GenPreview(QString name)
 			p.end();
 			setPixmap(pm);
 			repaint();
+		}
+	}
+	else if (allFormatsV.contains(ext.toUtf8()))
+	{
+		FileLoader *fileLoader = new FileLoader(name);
+		int testResult = fileLoader->TestFile();
+		delete fileLoader;
+		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+		{
+			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+			if( fmt )
+			{
+				QImage im = fmt->readThumbnail(name);
+				if (!im.isNull())
+				{
+					im = im.scaled(w - 5, h - 5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+					QPainter p;
+					QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+					pm = *pixmap();
+					p.begin(&pm);
+					p.fillRect(0, 0, w, h, b);
+					p.drawImage((w - im.width()) / 2, (h - im.height()) / 2, im);
+					p.end();
+					setPixmap(pm);
+					repaint();
+				}
+			}
 		}
 	}
 	else
@@ -423,6 +469,12 @@ void CustomFDialog::togglePreview()
 {
 	previewIsShown = !previewIsShown;
 	pw->setVisible(previewIsShown);
+	if (previewIsShown)
+	{
+		QStringList sel = fileDialog->selectedFiles();
+		if (!sel.isEmpty())
+			pw->GenPreview(QDir::fromNativeSeparators(sel[0]));
+	}
 }
 
 void CustomFDialog::setSelection(QString sel)

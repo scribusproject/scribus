@@ -61,7 +61,175 @@ DrwPlug::DrwPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
+	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+}
+
+QImage DrwPlug::readThumbnail(QString fName)
+{
+	QFileInfo fi = QFileInfo(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	bool haveDoc = false;
+	double b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	double h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = b;
+	docHeight = h;
+	ScribusView* tempView;
+	progressDialog = NULL;
+	if (!m_Doc)
+	{
+		haveDoc = true;
+		m_Doc = new ScribusDoc();
+		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
+		tempView->setScale(1);
+		m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
+	}
+	baseX = m_Doc->currentPage()->xOffset();
+	baseY = m_Doc->currentPage()->yOffset();
+	Elements.clear();
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->updatesOn(false);
+	m_Doc->scMW()->ScriptRunning = true;
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(fi.path());
+	int groupCount = m_Doc->GroupCounter;
+	int itemCount = m_Doc->TotalItems;
+	if (convert(fName))
+	{
+		if (!thumbRead)
+		{
+			tmpSel->clear();
+			QDir::setCurrent(CurDirP);
+			if (Elements.count() > 0)
+			{
+				bool isGroup = true;
+				int firstElem = -1;
+				if (Elements.at(0)->Groups.count() != 0)
+					firstElem = Elements.at(0)->Groups.top();
+				for (int bx = 0; bx < Elements.count(); ++bx)
+				{
+					PageItem* bxi = Elements.at(bx);
+					if (bxi->Groups.count() != 0)
+					{
+						if (bxi->Groups.top() != firstElem)
+							isGroup = false;
+					}
+					else
+						isGroup = false;
+				}
+				if (!isGroup)
+				{
+					double minx = 99999.9;
+					double miny = 99999.9;
+					double maxx = -99999.9;
+					double maxy = -99999.9;
+					uint lowestItem = 999999;
+					uint highestItem = 0;
+					for (int a = 0; a < Elements.count(); ++a)
+					{
+						Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+						PageItem* currItem = Elements.at(a);
+						lowestItem = qMin(lowestItem, currItem->ItemNr);
+						highestItem = qMax(highestItem, currItem->ItemNr);
+						double x1, x2, y1, y2;
+						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+						minx = qMin(minx, x1);
+						miny = qMin(miny, y1);
+						maxx = qMax(maxx, x2);
+						maxy = qMax(maxy, y2);
+					}
+					double gx = minx;
+					double gy = miny;
+					double gw = maxx - minx;
+					double gh = maxy - miny;
+					PageItem *high = m_Doc->Items->at(highestItem);
+					int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+					PageItem *neu = m_Doc->Items->takeAt(z);
+					m_Doc->Items->insert(lowestItem, neu);
+					neu->Groups.push(m_Doc->GroupCounter);
+					neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+					neu->AutoName = false;
+					neu->isGroupControl = true;
+					neu->groupsLastItem = high;
+					neu->setTextFlowMode(PageItem::TextFlowDisabled);
+					for (int a = 0; a < m_Doc->Items->count(); ++a)
+					{
+						m_Doc->Items->at(a)->ItemNr = a;
+					}
+					Elements.prepend(neu);
+					m_Doc->GroupCounter++;
+				}
+			}
+		}
+		m_Doc->DoDrawing = true;
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		m_Doc->m_Selection->delaySignalsOn();
+		QImage tmpImage;
+		if (thumbRead)
+			tmpImage = thumbnailImage;
+		else
+		{
+			if (Elements.count() > 0)
+			{
+				for (int dre=0; dre<Elements.count(); ++dre)
+				{
+					tmpSel->addItem(Elements.at(dre), true);
+				}
+				tmpSel->setGroupRect();
+				double sc = 500.0 / qMax(tmpSel->width(), tmpSel->height());
+				m_Doc->scaleGroup(sc, sc, true, tmpSel);
+				tmpImage = Elements.at(0)->DrawObj_toImage();
+			}
+		}
+		m_Doc->itemSelection_DeleteItem(tmpSel);
+		m_Doc->view()->updatesOn(true);
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->setLoading(false);
+		if (importedColors.count() != 0)
+		{
+			for (int cd = 0; cd < importedColors.count(); cd++)
+			{
+				m_Doc->PageColors.remove(importedColors[cd]);
+			}
+		}
+		if (importedPatterns.count() != 0)
+		{
+			for (int cd = 0; cd < importedPatterns.count(); cd++)
+			{
+				m_Doc->docPatterns.remove(importedPatterns[cd]);
+			}
+		}
+		m_Doc->m_Selection->delaySignalsOff();
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+		m_Doc->GroupCounter = groupCount;
+		m_Doc->TotalItems = itemCount;
+		return tmpImage;
+	}
+	else
+	{
+		QDir::setCurrent(CurDirP);
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->view()->updatesOn(true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+	}
+	m_Doc->GroupCounter = groupCount;
+	m_Doc->TotalItems = itemCount;
+	return QImage();
 }
 
 bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
@@ -346,6 +514,7 @@ bool DrwPlug::convert(QString fn)
 	symbolCount = 0;
 	recordCount = 0;
 	imageValid = false;
+	thumbRead = false;
 	currentItem = NULL;
 	if(progressDialog)
 	{
@@ -375,9 +544,15 @@ bool DrwPlug::convert(QString fn)
 			ts >> cmd;
 			decodeCmdData(ts, dataLen, cmd);
 			decodeCmd(cmd, pos);
-			progressDialog->setProgress("GI", ts.device()->pos());
+			if (progressDialog)
+				progressDialog->setProgress("GI", ts.device()->pos());
 			if (cmd == 254)
 				break;
+			if ((importerFlags & LoadSavePlugin::lfCreateThumbnail) && (cmd == 11))
+			{
+				thumbRead = true;
+				break;
+			}
 			qApp->processEvents();
 		}
 		if (Elements.count() == 0)
@@ -643,6 +818,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				if (currentItem != NULL)
 				{
 					currentItem->PoLine.fromQPainterPath(path);
+					currentItem->setWidth(bbox.width());
 					finishItem(currentItem, false);
 				}
 				createObjCode = 0;
@@ -657,7 +833,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 11:
 			cmdText += "DRW Preview Bitmap";
-//			handlePreviewBitmap(ds);
+			handlePreviewBitmap(ds);
 			break;
 		case 14:
 			cmdText += "DRW View";
@@ -781,7 +957,8 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			ds >> data16;
 			gradient.angle = data16 / 10.0;
 			gradientMap.insert(index, gradient);
-			cmdText += QString("DRW Gradient  Index: %1 Type: %2 Offsets: %3 %4").arg(index).arg(gradient.type).arg(gradient.xOffset).arg(gradient.yOffset);
+			cmdText += QString("DRW Gradient  Index: %1 Type: %2 Offsets: %3 %4 Angle: %5").arg(index).arg(gradient.type).arg(gradient.xOffset).arg(gradient.yOffset).arg(gradient.angle);
+			printMSG = true;
 			break;
 		case 31:
 			cmdText += "DRW Text Hdr";
@@ -1301,31 +1478,34 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
 			break;
 		case 2:
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
-			gList.groupItem = m_Doc->Items->at(z);
-			gList.groupX = groupX + bBox.x();
-			gList.groupY = groupY + bBox.y();
-			gList.width = bBox.width();
-			gList.height = bBox.height();
-			gList.scaleX = scaleX;
-			gList.scaleY = scaleY;
-			gList.rotationAngle = rotationAngle;
 			getCommonData(ds);
-			gList.posPivot = posPivot;
-			gList.itemGroupName = "";
-			gList.GElements.clear();
 			ds.device()->seek(0x26);
 			ds >> dummy;
-			gList.nrOfItems = dummy;
-			gList.counter = 0;
-			listStack.push(gList);
-			gList.groupItem->ClipEdited = true;
-			gList.groupItem->FrameType = 3;
-			gList.groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
-			gList.groupItem->OldB2 = gList.groupItem->width();
-			gList.groupItem->OldH2 = gList.groupItem->height();
-			gList.groupItem->updateClip();
-			Elements.append(gList.groupItem);
+			if (dummy > 0)
+			{
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
+				gList.groupItem = m_Doc->Items->at(z);
+				gList.groupX = groupX + bBox.x();
+				gList.groupY = groupY + bBox.y();
+				gList.width = bBox.width();
+				gList.height = bBox.height();
+				gList.scaleX = scaleX;
+				gList.scaleY = scaleY;
+				gList.rotationAngle = rotationAngle;
+				gList.nrOfItems = dummy;
+				gList.counter = 0;
+				gList.posPivot = posPivot;
+				gList.itemGroupName = "";
+				gList.GElements.clear();
+				listStack.push(gList);
+				gList.groupItem->ClipEdited = true;
+				gList.groupItem->FrameType = 3;
+				gList.groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+				gList.groupItem->OldB2 = gList.groupItem->width();
+				gList.groupItem->OldH2 = gList.groupItem->height();
+				gList.groupItem->updateClip();
+				Elements.append(gList.groupItem);
+			}
 			cmdText += QString("Group  Count %1").arg(dummy);
 			break;
 		case 3:
@@ -1752,6 +1932,10 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 		if (gradientMap.contains(ind))
 		{
 			grad = gradientMap[ind];
+			if (grad.xOffset > 1)
+				grad.xOffset -= 1;
+			if (grad.yOffset > 1)
+				grad.yOffset -= 1;
 			double xoff = bBox.width() * grad.xOffset;
 			double yoff = bBox.height() * grad.yOffset;
 			VGradient FillGradient = VGradient(VGradient::linear);
@@ -1759,18 +1943,20 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 			const ScColor& gradC1 = m_Doc->PageColors[fillColor];
 			FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, fillColor, 100 );
 			const ScColor& gradC2 = m_Doc->PageColors[backColor];
-			FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, backColor, 100 );
 			if (grad.type == 1)
 			{
+				FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), qMin(grad.yOffset, 0.99), 0.5, 1.0, backColor, 100 );
+				FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 1.0, 0.5, 1.0, fillColor, 100 );
 				currentItem->GrType = 6;
 				currentItem->fill_gradient = FillGradient;
-				currentItem->setGradientVector(bBox.width() / 2.0, 0, bBox.width() / 2.0, yoff, 0, 0, 1, 0);
+				currentItem->setGradientVector(bBox.width() / 2.0, 0, bBox.width() / 2.0, bBox.height(), 0, 0, 1, 0);
 			}
 			else
 			{
+				FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, backColor, 100 );
 				currentItem->GrType = 7;
 				currentItem->fill_gradient = FillGradient;
-				currentItem->setGradientVector(xoff, yoff, 0.0, 0.0, xoff, yoff, 1, 0);
+				currentItem->setGradientVector(xoff, yoff, qMax(bBox.width(), bBox.height()), qMax(bBox.width(), bBox.height()), xoff, yoff, 1, 0);
 			}
 		}
 	}
@@ -1869,93 +2055,19 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 
 void DrwPlug::handlePreviewBitmap(QDataStream &ds)
 {
-	quint16 w, h, offs, flag, dummy;
-	ds >> offs;					// read Offset to ColorTable
-	ds >> dummy;
-	ds >> w;					// read Width
-	ds >> dummy;
-	ds >> h;					// read Height;
-	ds >> dummy;
-	ds >> dummy;				// might indicate image type 1 = indexed
-	ds >> dummy;				// might indicate bits used for data
-	ds >> flag;					// flag for image data, 0 = uncompressed, 1 = compressed
-	ds.device()->seek(offs);	// jump to start of ColorTable
-	QVector<QRgb> colors;
-	for (quint16 cc = 0; cc < 256; cc++)	// now reading ColorTable, exactly 1024 bytes
-	{
-		quint8 r, g, b, a;
-		ds >> b >> g >> r >> a;				// values are stored in BGR order
-		colors.append(qRgb(r, g, b));
-	}
-	QImage image = QImage(w, h, QImage::Format_Indexed8);
-	image.setColorTable(colors);
-	for (quint16 yy = 0; yy < h; yy++)		// now reading Image, data are index values to ColorTable
-	{
-		QByteArray data;
-		data.resize(w);
-		if (flag == 0)							// raw uncompressed data
-		{
-			ds.readRawData(data.data(), w);
-			uint adj = ds.device()->pos() % 4;	// scanline data is aligned to 32bit words
-			if (adj != 0)
-				ds.skipRawData(adj);
-		}
-		else if (flag == 1)						// data is compressed
-		{
-			data.resize(0);
-			quint16 count = 0;
-			quint8 dd, val;
-			while (count < w)
-			{
-				ds >> dd;								// read byte count
-				if (dd != 0)
-				{
-					ds >> val;							// read value
-					for (quint8 r = 0; r < dd; r++)
-					{
-						data.append(val);
-					}
-					count += dd;
-				}
-				else									// if byte count == 0, next byte is a counter
-				{										// of uncompressed bytes to copy to result
-					ds >> dd;
-					for (quint8 r = 0; r < dd; r++)
-					{
-						ds >> val;
-						data.append(val);
-					}
-					count += dd;
-				}
-			}
-			ds >> dummy;
-		}
-		memcpy(image.scanLine(yy), data.data(), w);
-	}
-	image = image.convertToFormat(QImage::Format_ARGB32);
-	image = image.mirrored(false, true);	// image data is upside down
-
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
-	PageItem *ite = m_Doc->Items->at(z);
-	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
-	ite->tempImageFile->open();
-	QString fileName = getLongPathName(ite->tempImageFile->fileName());
-	ite->tempImageFile->close();
-	ite->isInlineImage = true;
-	image.save(fileName, "PNG");
-	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-	m_Doc->LoadPict(fileName, z);
-	ite->setImageScalingMode(false, false);
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	FPoint wh = getMaxClipF(&ite->PoLine);
-	ite->setWidthHeight(wh.x(),wh.y());
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_Doc->AdjustItemSize(ite);
-	ite->OldB2 = ite->width();
-	ite->OldH2 = ite->height();
-	ite->updateClip();
-	Elements.append(ite);
+	/* create a fake BMP header section */
+	QByteArray header;
+	header.resize(14);
+	header.fill(0);
+	QDataStream hs(&header, QIODevice::ReadWrite);
+	hs.setByteOrder(QDataStream::LittleEndian);
+	quint16 size;
+	size = 0x4D42;
+	hs << size;
+	size = cmdData.size() + 14;
+	hs << size;
+	header.append(cmdData);
+	thumbnailImage.loadFromData(header, "BMP");
 }
 
 QString DrwPlug::handleColor(ScColor &color, QString proposedName)

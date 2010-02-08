@@ -42,6 +42,7 @@ public:
 	bool ReadPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
 	bool ReadColors(const QString& fileName, ColorList & colors);
 	bool ReadLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
+	QImage ReadThumbnail(const QString& fileName);
 	bool postLoad(ScribusDoc* currDoc);
  	void informReplacementFonts();
 	QString FileName;

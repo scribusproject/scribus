@@ -88,7 +88,7 @@ void ImportXarPlugin::registerFormats()
 	FileFormat fmt(this);
 	fmt.trName = tr("XARA \"*.xar\" File"); // Human readable name
 	fmt.formatId = 0;
-	fmt.filter = tr("XARA \"*.xar\" File (*.cgm *.CGM)"); // QFileDialog filter
+	fmt.filter = tr("XARA \"*.xar\" File (*.xar *.XAR)"); // QFileDialog filter
 	fmt.nameMatch = QRegExp("\\.xar$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
@@ -153,4 +153,24 @@ bool ImportXarPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 	return true;
+}
+
+QImage ImportXarPlugin::readThumbnail(const QString& fileName)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return QImage();
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = ScCore->primaryMainWindow()->doc;
+	XarPlug *dia = new XarPlug(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(dia);
+	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
 }

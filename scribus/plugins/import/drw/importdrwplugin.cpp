@@ -161,3 +161,23 @@ bool ImportDrwPlugin::import(QString fileName, int flags)
 	delete dia;
 	return true;
 }
+
+QImage ImportDrwPlugin::readThumbnail(const QString& fileName)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return QImage();
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = ScCore->primaryMainWindow()->doc;
+	DrwPlug *dia = new DrwPlug(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(dia);
+	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
+}

@@ -42,14 +42,15 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		enum loadFlags
 		{
-			lfCreateDoc      =   1,
-			lfUseCurrentPage =   2,
-			lfInsertPage     =   4,
-			lfInteractive    =   8,
-			lfScripted       =  16,
-			lfKeepColors     =  32,
-			lfKeepGradients  =  64,
-			lfKeepPatterns   = 128
+			lfCreateDoc       =   1,
+			lfUseCurrentPage  =   2,
+			lfInsertPage      =   4,
+			lfInteractive     =   8,
+			lfScripted        =  16,
+			lfKeepColors      =  32,
+			lfKeepGradients   =  64,
+			lfKeepPatterns    = 128,
+			lfCreateThumbnail = 256
 		};
 
 		// Static functions:
@@ -101,6 +102,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
+		virtual QImage readThumbnail(const QString& fileName);
 		
 	protected:
 
@@ -194,6 +196,7 @@ class SCRIBUS_API FileFormat
 		bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty) const;
 		bool readColors(const QString& fileName, ColorList & colors) const;
 		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) const;
+		QImage readThumbnail(const QString& fileName) const;
 		//
 		// Data members
 		//
