@@ -34,7 +34,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget);
 	addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
 	prefs_Paths = new Prefs_Paths(prefsStackWidget);
-	addItem( tr("Paths"), loadIcon("tools.png"), prefs_Paths);
+	addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
 	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget);
 	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
 	prefs_Guides = new Prefs_Guides(prefsStackWidget);
@@ -48,7 +48,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	prefs_Hyphenator = new Prefs_Hyphenator(prefsStackWidget);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), prefs_Hyphenator);
 	prefs_Fonts = new Prefs_Fonts(prefsStackWidget);
-	addItem( tr("Fonts"), loadIcon("font.png"), prefs_Fonts);
+	addItem( tr("Fonts"), loadIcon("22/preferences-desktop-font.png"), prefs_Fonts);
 	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget);
 	addItem( tr("Color Management"), loadIcon("blend.png"), prefs_ColorManagement);
 	prefs_Printer = new Prefs_Printer(prefsStackWidget);
@@ -62,7 +62,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget);
 	addItem( tr("Tables of Contents"), loadIcon("tabtocindex.png"), prefs_TableOfContents);
 	prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget);
-	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), prefs_KeyboardShortcuts);
+	addItem( tr("Keyboard Shortcuts"), loadIcon("22/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
 	prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget);
 	addItem( tr("Scrapbook"), loadIcon("scrap.png"), prefs_Scrapbook);
 	prefs_Display = new Prefs_Display(prefsStackWidget);

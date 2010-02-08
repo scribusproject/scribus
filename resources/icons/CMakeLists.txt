@@ -232,6 +232,7 @@ wordsOnly.png
 )
 
 INSTALL(FILES
+16/accessories-text-editor.png
 16/align-horizontal-center.png
 16/align-horizontal-left-out.png
 16/align-horizontal-left.png
@@ -333,6 +334,8 @@ INSTALL(FILES
 16/page-simple.png
 16/pdf-annotations.png
 16/pointer.png
+16/preferences-desktop-font.png
+16/preferences-desktop-keyboard-shortcuts.png
 16/preflight-verifier.png
 16/show-object.png
 16/story-editor.png
@@ -342,6 +345,7 @@ INSTALL(FILES
 16/stroke-join-bevel.png
 16/stroke-join-miter.png
 16/stroke-join-round.png
+16/system-file-manager.png
 16/text-field.png
 16/text-frame-link.png
 16/text-frame-unlink.png
@@ -354,6 +358,7 @@ INSTALL(FILES
 )
 
 INSTALL(FILES
+22/accessories-text-editor.png
 22/align-horizontal-center.png
 22/align-horizontal-left-out.png
 22/align-horizontal-left.png
@@ -448,10 +453,13 @@ INSTALL(FILES
 22/measure.png
 22/pdf-annotations.png
 22/pointer.png
+22/preferences-desktop-font.png
+22/preferences-desktop-keyboard-shortcuts.png
 22/preflight-verifier.png
 22/story-editor.png
 22/swap-left.png
 22/swap-right.png
+22/system-file-manager.png
 22/text-field.png
 22/text-frame-link.png
 22/text-frame-unlink.png
