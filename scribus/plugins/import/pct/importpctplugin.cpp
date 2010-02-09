@@ -89,6 +89,7 @@ void ImportPctPlugin::registerFormats()
 	fmt.formatId = FORMATID_PCTIMPORT;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PCT); // QFileDialog filter
 	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PCT, 1)+"$", Qt::CaseInsensitive);
+	fmt.fileExtensions = QStringList() << "pct" << "pic" << "pict";
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PCT); // MIME types

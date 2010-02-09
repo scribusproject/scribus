@@ -76,17 +76,14 @@ QImage DrwPlug::readThumbnail(QString fName)
 	docHeight = h;
 	ScribusView* tempView;
 	progressDialog = NULL;
-	if (!m_Doc)
-	{
-		haveDoc = true;
-		m_Doc = new ScribusDoc();
-		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
-		m_Doc->addPage(0);
-		tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
-		tempView->setScale(1);
-		m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
-	}
+	haveDoc = true;
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
+	tempView->setScale(1);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	Elements.clear();
@@ -171,7 +168,11 @@ QImage DrwPlug::readThumbnail(QString fName)
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
 		if (thumbRead)
+		{
 			tmpImage = thumbnailImage;
+			tmpImage.setText("XSize", QString("%1").arg(docWidth));
+			tmpImage.setText("YSize", QString("%1").arg(docHeight));
+		}
 		else
 		{
 			if (Elements.count() > 0)
@@ -181,9 +182,13 @@ QImage DrwPlug::readThumbnail(QString fName)
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
-				double sc = 500.0 / qMax(tmpSel->width(), tmpSel->height());
+				double xs = tmpSel->width();
+				double ys = tmpSel->height();
+				double sc = 500.0 / qMax(xs, ys);
 				m_Doc->scaleGroup(sc, sc, true, tmpSel);
 				tmpImage = Elements.at(0)->DrawObj_toImage();
+				tmpImage.setText("XSize", QString("%1").arg(xs));
+				tmpImage.setText("YSize", QString("%1").arg(ys));
 			}
 		}
 		m_Doc->itemSelection_DeleteItem(tmpSel);
@@ -549,10 +554,9 @@ bool DrwPlug::convert(QString fn)
 			if (cmd == 254)
 				break;
 			if ((importerFlags & LoadSavePlugin::lfCreateThumbnail) && (cmd == 11))
-			{
 				thumbRead = true;
+			if ((importerFlags & LoadSavePlugin::lfCreateThumbnail) && (cmd == 27) && (thumbRead))
 				break;
-			}
 			qApp->processEvents();
 		}
 		if (Elements.count() == 0)

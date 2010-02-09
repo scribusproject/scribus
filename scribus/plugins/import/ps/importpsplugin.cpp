@@ -95,6 +95,7 @@ void ImportPSPlugin::registerFormats()
 	fmt.formatId = FORMATID_EPSIMPORT;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS);// QFileDialog filter
  	fmt.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS, 1)+")$", Qt::CaseInsensitive);
+	fmt.fileExtensions = QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept";
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::EPS); // MIME types
@@ -106,6 +107,7 @@ void ImportPSPlugin::registerFormats()
 	fmt2.formatId = FORMATID_PSIMPORT;
 	fmt2.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PS);// QFileDialog filter
  	fmt2.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::PS, 1)+")$", Qt::CaseInsensitive);
+	fmt.fileExtensions = QStringList() << "ps";
 	fmt2.load = true;
 	fmt2.save = false;
 	fmt2.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PS); // MIME types
@@ -117,6 +119,7 @@ void ImportPSPlugin::registerFormats()
 	fmt3.formatId = FORMATID_PDFIMPORT;
 	fmt3.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF);// QFileDialog filter
 	fmt3.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", Qt::CaseInsensitive);
+	fmt.fileExtensions = QStringList() << "pdf";
 	fmt3.load = true;
 	fmt3.save = false;
 	fmt3.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PDF); // MIME types

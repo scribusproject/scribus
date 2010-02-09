@@ -129,6 +129,7 @@ void OODrawImportPlugin::registerFormats()
 	odtformat.formatId = FORMATID_ODGIMPORT;
 	odtformat.filter = odtName + " (*.odg *.ODG)"; // QFileDialog filter
 	odtformat.nameMatch = QRegExp("\\.odg$", Qt::CaseInsensitive);
+	odtformat.fileExtensions = QStringList() << "odg";
 	odtformat.load = true;
 	odtformat.save = false;
 	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
@@ -141,6 +142,7 @@ void OODrawImportPlugin::registerFormats()
 	sxdformat.formatId = FORMATID_SXDIMPORT;
 	sxdformat.filter = sxdName + " (*.sxd *.SXD)"; // QFileDialog filter
 	sxdformat.nameMatch = QRegExp("\\.sxd$", Qt::CaseInsensitive);
+	sxdformat.fileExtensions = QStringList() << "sxd";
 	sxdformat.load = true;
 	sxdformat.save = false;
 	sxdformat.mimeTypes = QStringList("application/vnd.sun.xml.draw"); // MIME types

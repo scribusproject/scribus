@@ -96,6 +96,7 @@ void ImportCvgPlugin::registerFormats()
 	fmt.formatId = FORMATID_CVGIMPORT;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::CVG); // QFileDialog filter
 	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::CVG, 1)+"$", Qt::CaseInsensitive);
+	fmt.fileExtensions = QStringList() << "cvg";
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::CVG); // MIME types

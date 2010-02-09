@@ -83,6 +83,7 @@ void ImportIdml::registerFormats()
 	fmt.formatId = 0;
 	fmt.filter =idmlName + "(*.idml *.IDML)"; // QFileDialog filter
 	fmt.nameMatch = QRegExp("\\.idml$", Qt::CaseInsensitive);
+	fmt.fileExtensions = QStringList() << "idml";
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = QStringList();

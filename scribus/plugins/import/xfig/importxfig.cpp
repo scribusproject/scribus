@@ -54,7 +54,223 @@ XfigPlug::XfigPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
+	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+}
+
+QImage XfigPlug::readThumbnail(QString fName)
+{
+	QFileInfo fi = QFileInfo(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	bool haveDoc = false;
+	double b, h, x, y;
+	parseHeader(fName, x, y, b, h);
+	docX = x;
+	docY = y;
+	if (b == 0.0)
+		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	if (h == 0.0)
+		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = b - x;
+	docHeight = h - y;
+	ScribusView* tempView;
+	progressDialog = NULL;
+	haveDoc = true;
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
+	tempView->setScale(1);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
+	baseX = m_Doc->currentPage()->xOffset();
+	baseY = m_Doc->currentPage()->yOffset();
+	Elements.clear();
+	CustColors.clear();
+	importedColors.insert(0, "Black");
+	importedColors.insert(1, "Blue");
+	importedColors.insert(2, "Green");
+	importedColors.insert(3, "Cyan");
+	importedColors.insert(4, "Red");
+	importedColors.insert(5, "Magenta");
+	importedColors.insert(6, "Yellow");
+	importedColors.insert(7, "White");
+	importedColors.insert(8, "Blue4");
+	importedColors.insert(9, "Blue3");
+	importedColors.insert(10, "Blue2");
+	importedColors.insert(11, "LtBlue");
+	importedColors.insert(12, "Green4");
+	importedColors.insert(13, "Green3");
+	importedColors.insert(14, "Green2");
+	importedColors.insert(15, "Cyan4");
+	importedColors.insert(16, "Cyan3");
+	importedColors.insert(17, "Cyan2");
+	importedColors.insert(18, "Red4");
+	importedColors.insert(19, "Red3");
+	importedColors.insert(20, "Red2");
+	importedColors.insert(21, "Magenta4");
+	importedColors.insert(22, "Magenta3");
+	importedColors.insert(23, "Magenta2");
+	importedColors.insert(24, "Brown4");
+	importedColors.insert(25, "Brown3");
+	importedColors.insert(26, "Brown2");
+	importedColors.insert(27, "Pink4");
+	importedColors.insert(28, "Pink3");
+	importedColors.insert(29, "Pink2");
+	importedColors.insert(30, "Pink");
+	importedColors.insert(31, "Gold");
+	CustColors.insert("Blue", ScColor(0, 0, 255));
+	CustColors.insert("Blue4", ScColor(0, 0, 144));
+	CustColors.insert("Blue3", ScColor(0, 0, 176));
+	CustColors.insert("Blue2", ScColor(0, 0, 208));
+	CustColors.insert("LtBlue", ScColor(135, 206, 255));
+	CustColors.insert("Cyan", ScColor(255, 0, 0, 0));
+	CustColors.insert("Cyan4", ScColor(0, 144, 144));
+	CustColors.insert("Cyan3", ScColor(0, 176, 176));
+	CustColors.insert("Cyan2", ScColor(0, 208, 208));
+	CustColors.insert("Green", ScColor(255, 0, 255, 0));
+	CustColors.insert("Green4", ScColor(0, 144, 0));
+	CustColors.insert("Green3", ScColor(0, 176, 0));
+	CustColors.insert("Green2", ScColor(0, 208, 0));
+	CustColors.insert("Red", ScColor(0, 255, 255, 0));
+	CustColors.insert("Red4", ScColor(144, 0, 0));
+	CustColors.insert("Red3", ScColor(176, 0, 0));
+	CustColors.insert("Red2", ScColor(208, 0, 0));
+	CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
+	CustColors.insert("Magenta", ScColor(0, 255, 0, 0));
+	CustColors.insert("Magenta4", ScColor(144, 0, 144));
+	CustColors.insert("Magenta3", ScColor(176, 0, 176));
+	CustColors.insert("Magenta2", ScColor(208, 0, 208));
+	CustColors.insert("Brown4", ScColor(128, 48, 0));
+	CustColors.insert("Brown3", ScColor(160, 64, 0));
+	CustColors.insert("Brown2", ScColor(192, 96, 0));
+	CustColors.insert("Pink4", ScColor(255, 128, 128));
+	CustColors.insert("Pink3", ScColor(255, 160, 160));
+	CustColors.insert("Pink2", ScColor(255, 192, 192));
+	CustColors.insert("Pink", ScColor(255, 224, 224));
+	CustColors.insert("Gold", ScColor(255, 215, 0));
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->updatesOn(false);
+	m_Doc->scMW()->ScriptRunning = true;
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(fi.path());
+	int groupCount = m_Doc->GroupCounter;
+	int itemCount = m_Doc->TotalItems;
+	if (convert(fName))
+	{
+		tmpSel->clear();
+		QDir::setCurrent(CurDirP);
+		if (Elements.count() > 0)
+		{
+			bool isGroup = true;
+			int firstElem = -1;
+			if (Elements.at(0)->Groups.count() != 0)
+				firstElem = Elements.at(0)->Groups.top();
+			for (int bx = 0; bx < Elements.count(); ++bx)
+			{
+				PageItem* bxi = Elements.at(bx);
+				if (bxi->Groups.count() != 0)
+				{
+					if (bxi->Groups.top() != firstElem)
+						isGroup = false;
+				}
+				else
+					isGroup = false;
+			}
+			if (!isGroup)
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				uint lowestItem = 999999;
+				uint highestItem = 0;
+				for (int a = 0; a < Elements.count(); ++a)
+				{
+					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+					PageItem* currItem = Elements.at(a);
+					lowestItem = qMin(lowestItem, currItem->ItemNr);
+					highestItem = qMax(highestItem, currItem->ItemNr);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				double gx = minx;
+				double gy = miny;
+				double gw = maxx - minx;
+				double gh = maxy - miny;
+				PageItem *high = m_Doc->Items->at(highestItem);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				PageItem *neu = m_Doc->Items->takeAt(z);
+				m_Doc->Items->insert(lowestItem, neu);
+				neu->Groups.push(m_Doc->GroupCounter);
+				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->AutoName = false;
+				neu->isGroupControl = true;
+				neu->groupsLastItem = high;
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
+				for (int a = 0; a < m_Doc->Items->count(); ++a)
+				{
+					m_Doc->Items->at(a)->ItemNr = a;
+				}
+				Elements.prepend(neu);
+				m_Doc->GroupCounter++;
+			}
+		}
+		m_Doc->DoDrawing = true;
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		m_Doc->m_Selection->delaySignalsOn();
+		QImage tmpImage;
+		if (Elements.count() > 0)
+		{
+			for (int dre=0; dre<Elements.count(); ++dre)
+			{
+				tmpSel->addItem(Elements.at(dre), true);
+			}
+			tmpSel->setGroupRect();
+			double xs = tmpSel->width();
+			double ys = tmpSel->height();
+			double sc = 500.0 / qMax(xs, ys);
+			m_Doc->scaleGroup(sc, sc, true, tmpSel);
+			tmpImage = Elements.at(0)->DrawObj_toImage();
+			tmpImage.setText("XSize", QString("%1").arg(xs));
+			tmpImage.setText("YSize", QString("%1").arg(ys));
+		}
+		m_Doc->itemSelection_DeleteItem(tmpSel);
+		m_Doc->view()->updatesOn(true);
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->setLoading(false);
+		m_Doc->m_Selection->delaySignalsOff();
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+		m_Doc->GroupCounter = groupCount;
+		m_Doc->TotalItems = itemCount;
+		return tmpImage;
+	}
+	else
+	{
+		QDir::setCurrent(CurDirP);
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->view()->updatesOn(true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+	}
+	m_Doc->GroupCounter = groupCount;
+	m_Doc->TotalItems = itemCount;
+	return QImage();
 }
 
 bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
@@ -1578,7 +1794,8 @@ bool XfigPlug::convert(QString fn)
 			if (tmp.startsWith("#"))
 				continue;
 			processData(ts, tmp);
-			progressDialog->setProgress("GI", ts.device()->pos());
+			if (progressDialog)
+				progressDialog->setProgress("GI", ts.device()->pos());
 			qApp->processEvents();
 		}
 		resortItems();

@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "loadsaveplugin.h"
 #include "../plugins/formatidlist.h"
+#include "prefsmanager.h"
 #include "scfilewidget.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
@@ -48,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "scribusstructs.h"
 #include "scslainforeader.h"
+#include "units.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
@@ -76,6 +78,7 @@ ImIconProvider::ImIconProvider() : QFileIconProvider()
 
 QIcon ImIconProvider::icon(const QFileInfo &fi) const
 {
+	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_ODGIMPORT);
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		return QFileIconProvider::icon(fi);
@@ -98,8 +101,7 @@ QIcon ImIconProvider::icon(const QFileInfo &fi) const
 			return oosxdpm;
 		else if (ext.endsWith("sxw", Qt::CaseInsensitive))
 			return oosxwpm;
-		else if (ext.endsWith("svg") || ext.endsWith("svgz") || ext.endsWith("cvg") || ext.endsWith("wpg") || ext.endsWith("fig")
-				 || ext.endsWith("ai") || ext.endsWith("wmf") || ext.endsWith("pct") || ext.endsWith("pict") || ext.endsWith("pic"))
+		else if (allFormatsV.contains(ext))
 			return vectorpm;
 		else
 			return QFileIconProvider::icon(fi);
@@ -144,30 +146,7 @@ void FDialogPreview::GenPreview(QString name)
  	QStringList formats = formatD.split("|");
 	formats.append("pat");
 	
-	QStringList allFormatsV;
-	int fmtCode = FORMATID_ODGIMPORT;
-	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
-	while (fmt != 0)
-	{
-		if (fmt->load)
-		{
-			QString fmC = "";
-			int an = fmt->filter.indexOf("(");
-			int en = fmt->filter.indexOf(")");
-			while (an != -1)
-			{
-				fmC = fmt->filter.mid(an+1, en-an-1);
-				fmC.remove("*.");
-				allFormatsV += fmC.split(" ", QString::SkipEmptyParts);
-				an = fmt->filter.indexOf("(", en);
-				en = fmt->filter.indexOf(")", an);
-			}
-			
-		}
-		fmtCode++;
-		fmt = LoadSavePlugin::getFormatById(fmtCode);
-	}
-	
+	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_ODGIMPORT);
 	if (ext.isEmpty())
 		ext = getImageType(name);
 	if (formats.contains(ext.toUtf8()))
@@ -228,13 +207,19 @@ void FDialogPreview::GenPreview(QString name)
 				QImage im = fmt->readThumbnail(name);
 				if (!im.isNull())
 				{
-					im = im.scaled(w - 5, h - 5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+					QString desc = tr("Size:")+" ";
+					desc += value2String(im.text("XSize").toDouble(), PrefsManager::instance()->appPrefs.docSetupPrefs.docUnitIndex, true, true);
+					desc += " x ";
+					desc += value2String(im.text("YSize").toDouble(), PrefsManager::instance()->appPrefs.docSetupPrefs.docUnitIndex, true, true);
+					im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 					QPainter p;
 					QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 					pm = *pixmap();
 					p.begin(&pm);
-					p.fillRect(0, 0, w, h, b);
-					p.drawImage((w - im.width()) / 2, (h - im.height()) / 2, im);
+					p.fillRect(0, 0, w, h-21, b);
+					p.fillRect(0, h-21, w, 21, QColor(255, 255, 255));
+					p.drawImage((w - im.width()) / 2, (h - 21 - im.height()) / 2, im);
+					p.drawText(2, h-5, desc);
 					p.end();
 					setPixmap(pm);
 					repaint();

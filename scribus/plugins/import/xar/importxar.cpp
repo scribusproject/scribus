@@ -114,6 +114,10 @@ QImage XarPlug::readThumbnail(QString fName)
 						tsc.readRawData(data.data(), dataLen);
 						image.loadFromData(data);
 					}
+					else if (opCode == 45)
+						handleSpreadInfo(tsc);
+					else
+						tsc.skipRawData(dataLen);
 				}
 				ts.skipRawData(dataLen+1);
 			}
@@ -125,14 +129,17 @@ QImage XarPlug::readThumbnail(QString fName)
 					data.resize(dataLen);
 					ts.readRawData(data.data(), dataLen);
 					image.loadFromData(data);
-					break;
 				}
+				else if (opCode == 45)
+					handleSpreadInfo(ts);
 				else
 					ts.skipRawData(dataLen);
 			}
 		}
 		f.close();
 	}
+	image.setText("XSize", QString("%1").arg(docWidth));
+	image.setText("YSize", QString("%1").arg(docHeight));
 	return image;
 }
 

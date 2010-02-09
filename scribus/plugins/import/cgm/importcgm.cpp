@@ -59,7 +59,163 @@ CgmPlug::CgmPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
+	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+}
+
+QImage CgmPlug::readThumbnail(QString fName)
+{
+	QFileInfo fi = QFileInfo(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	bool haveDoc = false;
+	double b, h;
+	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	docWidth = b;
+	docHeight = h;
+	ScribusView* tempView;
+	progressDialog = NULL;
+	haveDoc = true;
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
+	tempView->setScale(1);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
+	baseX = m_Doc->currentPage()->xOffset();
+	baseY = m_Doc->currentPage()->yOffset();
+	Elements.clear();
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->updatesOn(false);
+	m_Doc->scMW()->ScriptRunning = true;
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(fi.path());
+	int groupCount = m_Doc->GroupCounter;
+	int itemCount = m_Doc->TotalItems;
+	if (convert(fName))
+	{
+		tmpSel->clear();
+		QDir::setCurrent(CurDirP);
+		if (Elements.count() > 0)
+		{
+			bool isGroup = true;
+			int firstElem = -1;
+			if (Elements.at(0)->Groups.count() != 0)
+				firstElem = Elements.at(0)->Groups.top();
+			for (int bx = 0; bx < Elements.count(); ++bx)
+			{
+				PageItem* bxi = Elements.at(bx);
+				if (bxi->Groups.count() != 0)
+				{
+					if (bxi->Groups.top() != firstElem)
+						isGroup = false;
+				}
+				else
+					isGroup = false;
+			}
+			if (!isGroup)
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				uint lowestItem = 999999;
+				uint highestItem = 0;
+				for (int a = 0; a < Elements.count(); ++a)
+				{
+					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+					PageItem* currItem = Elements.at(a);
+					lowestItem = qMin(lowestItem, currItem->ItemNr);
+					highestItem = qMax(highestItem, currItem->ItemNr);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				double gx = minx;
+				double gy = miny;
+				double gw = maxx - minx;
+				double gh = maxy - miny;
+				PageItem *high = m_Doc->Items->at(highestItem);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				PageItem *neu = m_Doc->Items->takeAt(z);
+				m_Doc->Items->insert(lowestItem, neu);
+				neu->Groups.push(m_Doc->GroupCounter);
+				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->AutoName = false;
+				neu->isGroupControl = true;
+				neu->groupsLastItem = high;
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
+				for (int a = 0; a < m_Doc->Items->count(); ++a)
+				{
+					m_Doc->Items->at(a)->ItemNr = a;
+				}
+				Elements.prepend(neu);
+				m_Doc->GroupCounter++;
+			}
+		}
+		m_Doc->DoDrawing = true;
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		m_Doc->m_Selection->delaySignalsOn();
+		QImage tmpImage;
+		if (Elements.count() > 0)
+		{
+			for (int dre=0; dre<Elements.count(); ++dre)
+			{
+				tmpSel->addItem(Elements.at(dre), true);
+			}
+			tmpSel->setGroupRect();
+			double xs = tmpSel->width();
+			double ys = tmpSel->height();
+			double sc = 500.0 / qMax(xs, ys);
+			if (sc < 1)
+				m_Doc->scaleGroup(sc, sc, true, tmpSel);
+			tmpImage = Elements.at(0)->DrawObj_toImage();
+			tmpImage.setText("XSize", QString("%1").arg(xs));
+			tmpImage.setText("YSize", QString("%1").arg(ys));
+		}
+		m_Doc->itemSelection_DeleteItem(tmpSel);
+		m_Doc->view()->updatesOn(true);
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->setLoading(false);
+		if (importedColors.count() != 0)
+		{
+			for (int cd = 0; cd < importedColors.count(); cd++)
+			{
+				m_Doc->PageColors.remove(importedColors[cd]);
+			}
+		}
+		m_Doc->m_Selection->delaySignalsOff();
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+		m_Doc->GroupCounter = groupCount;
+		m_Doc->TotalItems = itemCount;
+		return tmpImage;
+	}
+	else
+	{
+		QDir::setCurrent(CurDirP);
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->view()->updatesOn(true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (haveDoc)
+		{
+			delete tempView;
+			delete m_Doc;
+		}
+	}
+	m_Doc->GroupCounter = groupCount;
+	m_Doc->TotalItems = itemCount;
+	return QImage();
 }
 
 bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
@@ -402,7 +558,8 @@ bool CgmPlug::convert(QString fn)
 				if (paramLen == 31)
 					ts >> paramLen;
 				decodeBinary(ts, elemClass, elemID, paramLen);
-				progressDialog->setProgress("GI", ts.device()->pos());
+				if (progressDialog)
+					progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -1083,30 +1240,36 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	if (elemID == 1)
 	{
 		getBinaryPath(ts, paramLen);
-		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-		if (recordRegion)
-			regionPath.addPath(Coords.toQPainterPath(false));
-		else
+		if (Coords.size() > 3)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
-			PageItem *ite = m_Doc->Items->at(z);
-			ite->PoLine = Coords.copy();
-			finishItem(ite);
+			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			if (recordRegion)
+				regionPath.addPath(Coords.toQPainterPath(false));
+			else
+			{
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->PoLine = Coords.copy();
+				finishItem(ite);
+			}
 		}
 		// qDebug() << "POLYLINE";
 	}
 	else if (elemID == 2)
 	{
 		getBinaryPath(ts, paramLen, true);
-		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-		if (recordRegion)
-			regionPath.addPath(Coords.toQPainterPath(false));
-		else
+		if (Coords.size() > 3)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
-			PageItem *ite = m_Doc->Items->at(z);
-			ite->PoLine = Coords.copy();
-			finishItem(ite);
+			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			if (recordRegion)
+				regionPath.addPath(Coords.toQPainterPath(false));
+			else
+			{
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->PoLine = Coords.copy();
+				finishItem(ite);
+			}
 		}
 		// qDebug() << "DISJOINT POLYLINE";
 	}
@@ -1133,29 +1296,32 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 7)
 	{
 		getBinaryPath(ts, paramLen);
-		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-		if (recordRegion)
-			regionPath.addPath(Coords.toQPainterPath(true));
-		else
+		if (Coords.size() > 3)
 		{
-			int z;
-			if (lineVisible)
-			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-			}
+			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			if (recordRegion)
+				regionPath.addPath(Coords.toQPainterPath(true));
 			else
 			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
+				int z;
+				if (lineVisible)
+				{
+					if ((fillType != 0) || (fillType != 4))
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+					else
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
+				}
 				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+				{
+					if ((fillType != 0) || (fillType != 4))
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
+					else
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+				}
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->PoLine = Coords.copy();
+				finishItem(ite, false);
 			}
-			PageItem *ite = m_Doc->Items->at(z);
-			ite->PoLine = Coords.copy();
-			finishItem(ite, false);
 		}
 		// qDebug() << "POLYGON";
 	}
@@ -1423,15 +1589,18 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 26)
 	{
 		getBinaryBezierPath(ts, paramLen);
-		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-		if (recordRegion)
-			regionPath.addPath(Coords.toQPainterPath(false));
-		else
+		if (Coords.size() > 3)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
-			PageItem *ite = m_Doc->Items->at(z);
-			ite->PoLine = Coords.copy();
-			finishItem(ite);
+			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			if (recordRegion)
+				regionPath.addPath(Coords.toQPainterPath(false));
+			else
+			{
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->PoLine = Coords.copy();
+				finishItem(ite);
+			}
 		}
 		// qDebug() << "POLYBEZIER";
 	}

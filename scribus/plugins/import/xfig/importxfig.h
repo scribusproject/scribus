@@ -53,6 +53,7 @@ public:
 	\retval bool true if import was ok
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(QString fn);
 
 private:
 	

@@ -55,6 +55,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		// Static functions:
 
+		// Return a list of file extensions
+		static const QStringList getExtensionsForImport(const int id = 47);
+
 		// Return a list of format descriptions suitable for use with
 		// QFileDialog.  You can convert it to QString form with
 		// fileDialogSaveFilter().join(";;")
@@ -217,6 +220,8 @@ class SCRIBUS_API FileFormat
 		QRegExp nameMatch;
 		// MIME type(s) that should be matched by this format.
 		QStringList mimeTypes;
+		// Extension list supported by format
+		QStringList fileExtensions;
 		// Can we load it?
 		bool load;
 		// Can we save it?
