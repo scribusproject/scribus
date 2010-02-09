@@ -22,7 +22,7 @@ ScCLocale::ScCLocale()
 #if defined(Q_WS_WIN)
 	cLocale = _create_locale(LC_ALL, "C");
 #else
-  #if not defined(Q_OS_SOLARIS
+  #if not defined(Q_OS_SOLARIS)
 	cLocale = newlocale(LC_ALL_MASK, "C", NULL);
   #endif
 #endif
@@ -33,7 +33,7 @@ ScCLocale::~ScCLocale()
 #if defined(Q_WS_WIN)
 	_free_locale(cLocale);
 #else
-  #if not defined(Q_OS_SOLARIS
+  #if not defined(Q_OS_SOLARIS)
 	freelocale(cLocale);
   #endif
 #endif
