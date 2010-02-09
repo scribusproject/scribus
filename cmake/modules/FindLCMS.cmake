@@ -19,8 +19,9 @@
 # SET(LCMS_LIBS ${_lcmsCflags})
 
 FIND_PATH(LCMS_INCLUDE_DIR lcms.h
-/usr/include
-/usr/local/include
+  /usr/include
+  /usr/local/include
+  PATH_SUFFIXES lcms
 )
 
 FIND_LIBRARY(LCMS_LIBRARY_RELEASE
