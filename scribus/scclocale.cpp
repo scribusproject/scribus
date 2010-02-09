@@ -93,9 +93,11 @@ double ScCLocale::strtod ( const char * str, char ** endptr )
 	if(NULL == that()->cLocale)
 	{
 		// a sade workaround
+		double result(0.0);
 		setlocale(LC_NUMERIC, "C");
-		return strtod(str, endptr);
+		result = strtod(str, endptr);
 		setlocale(LC_NUMERIC, "");
+		return result;
 	}
 	else
 	{
