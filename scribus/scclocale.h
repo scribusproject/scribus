@@ -29,7 +29,7 @@
 #define XLocaleType _locale_t
 #else
   #if defined (Q_OS_SOLARIS)
-  #define XLocaleType char*;//dummy?
+  #define XLocaleType char*   //dummy?
   #else
   #define XLocaleType locale_t
   #endif
