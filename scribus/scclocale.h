@@ -28,7 +28,11 @@
 #if defined(Q_WS_WIN)
 #define XLocaleType _locale_t
 #else
-#define XLocaleType locale_t
+  #if defined (Q_OS_SOLARIS)
+  #define XLocaleType char*;//dummy?
+  #else
+  #define XLocaleType locale_t
+  #endif
 #endif
 
 #include "scribusapi.h"

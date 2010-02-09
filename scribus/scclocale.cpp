@@ -22,7 +22,9 @@ ScCLocale::ScCLocale()
 #if defined(Q_WS_WIN)
 	cLocale = _create_locale(LC_ALL, "C");
 #else
+  #if not defined(Q_OS_SOLARIS
 	cLocale = newlocale(LC_ALL_MASK, "C", NULL);
+  #endif
 #endif
 }
 
@@ -31,7 +33,9 @@ ScCLocale::~ScCLocale()
 #if defined(Q_WS_WIN)
 	_free_locale(cLocale);
 #else
+  #if not defined(Q_OS_SOLARIS
 	freelocale(cLocale);
+  #endif
 #endif
 }
 
@@ -104,7 +108,16 @@ double ScCLocale::strtod ( const char * str, char ** endptr )
 #if defined(Q_WS_WIN)
 		return _strtod_l(str, endptr, that()->cLocale);
 #else
+  #if defined(Q_OS_SOLARIS)
 		return strtod_l(str, endptr, that()->cLocale);
+  #else
+		char *oldlocale=setlocale(LC_NUMERIC, NULL);
+		double result(0.0);
+		setlocale(LC_NUMERIC, "C");
+		result = strtod(str, endptr);
+                setlocale(LC_NUMERIC, oldlocale);
+		return result;
+  #endif
 #endif
 	}
 }
