@@ -139,6 +139,15 @@ public:
 		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), PDx(other.PDx), 
 		embedded(other.embedded), ch(other.ch)
 	{
+		glyph.more = NULL;
+		GlyphLayout *layout = &glyph;
+		const GlyphLayout *otherLayout = &other.glyph;
+		while (otherLayout->more)
+		{
+			layout->more = new GlyphLayout(*otherLayout->more);
+			layout       = layout->more;
+			otherLayout  = otherLayout->more;
+		}
 		if (other.parstyle)
 			parstyle = new ParagraphStyle(*other.parstyle);
 	}
