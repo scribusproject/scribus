@@ -49,6 +49,8 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "scribusstructs.h"
 #include "scslainforeader.h"
+#include "stencilreader.h"
+#include "scpreview.h"
 #include "units.h"
 #include "util.h"
 #include "util_color.h"
@@ -101,7 +103,7 @@ QIcon ImIconProvider::icon(const QFileInfo &fi) const
 			return oosxdpm;
 		else if (ext.endsWith("sxw", Qt::CaseInsensitive))
 			return oosxwpm;
-		else if (allFormatsV.contains(ext))
+		else if (allFormatsV.contains(ext) || ext.endsWith("sce", Qt::CaseInsensitive) || ext.endsWith("sml", Qt::CaseInsensitive) || ext.endsWith("shape", Qt::CaseInsensitive))
 			return vectorpm;
 		else
 			return QFileIconProvider::icon(fi);
@@ -225,6 +227,91 @@ void FDialogPreview::GenPreview(QString name)
 					repaint();
 				}
 			}
+		}
+	}
+	else if (ext.toUtf8() == "sml")
+	{
+		QPixmap pmi;
+		QByteArray cf;
+		if (loadRawText(name, cf))
+		{
+			QString f = QString::fromUtf8(cf.data());
+			StencilReader *pre = new StencilReader();
+			pmi = pre->createPreview(f);
+			QImage im = pmi.toImage();
+			im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			QPainter p;
+			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			pm = *pixmap();
+			p.begin(&pm);
+			p.fillRect(0, 0, w, h-21, b);
+			p.fillRect(0, h-21, w, 21, QColor(255, 255, 255));
+			p.drawImage((w - im.width()) / 2, (h - 21 - im.height()) / 2, im);
+			QString desc = tr("Size:")+QString(" %1 x %2").arg(im.width()).arg(im.height());
+			p.drawText(2, h-5, desc);
+			p.end();
+			setPixmap(pm);
+			repaint();
+			delete pre;
+		}
+	}
+	else if (ext.toUtf8() == "shape")
+	{
+		QPixmap pmi;
+		QByteArray cf;
+		if (loadRawText(name, cf))
+		{
+			QString f = QString::fromUtf8(cf.data());
+			StencilReader *pre = new StencilReader();
+			QString f2 = pre->createShape(f);
+			ScPreview *pre2 = new ScPreview();
+			pmi = pre2->createPreview(f2);
+			QImage im = pmi.toImage();
+			im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			QPainter p;
+			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			pm = *pixmap();
+			p.begin(&pm);
+			p.fillRect(0, 0, w, h-21, b);
+			p.fillRect(0, h-21, w, 21, QColor(255, 255, 255));
+			p.drawImage((w - im.width()) / 2, (h - 21 - im.height()) / 2, im);
+			QString desc = tr("Size:")+QString(" %1 x %2").arg(im.width()).arg(im.height());
+			p.drawText(2, h-5, desc);
+			p.end();
+			setPixmap(pm);
+			repaint();
+			delete pre;
+			delete pre2;
+		}
+	}
+	else if (ext.toUtf8() == "sce")
+	{
+		QPixmap pmi;
+		QByteArray cf;
+		if (loadRawText(name, cf))
+		{
+			QString f;
+			if (cf.left(16) == "<SCRIBUSELEMUTF8")
+				f = QString::fromUtf8(cf.data());
+			else
+				f = cf.data();
+			ScPreview *pre = new ScPreview();
+			pmi = pre->createPreview(f);
+			QImage im = pmi.toImage();
+			im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			QPainter p;
+			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			pm = *pixmap();
+			p.begin(&pm);
+			p.fillRect(0, 0, w, h-21, b);
+			p.fillRect(0, h-21, w, 21, QColor(255, 255, 255));
+			p.drawImage((w - im.width()) / 2, (h - 21 - im.height()) / 2, im);
+			QString desc = tr("Size:")+QString(" %1 x %2").arg(im.width()).arg(im.height());
+			p.drawText(2, h-5, desc);
+			p.end();
+			setPixmap(pm);
+			repaint();
+			delete pre;
 		}
 	}
 	else
