@@ -93,6 +93,7 @@ void ImportXarPlugin::registerFormats()
 	fmt.fileExtensions = QStringList() << "xar";
 	fmt.load = true;
 	fmt.save = false;
+	fmt.thumb = true;
 	fmt.mimeTypes = QStringList(); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);

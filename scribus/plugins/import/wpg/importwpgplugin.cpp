@@ -99,6 +99,7 @@ void ImportWpgPlugin::registerFormats()
 	fmt.fileExtensions = QStringList() << "wpg";
 	fmt.load = true;
 	fmt.save = false;
+	fmt.thumb = true;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::WPG); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);

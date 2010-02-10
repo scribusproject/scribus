@@ -148,7 +148,7 @@ void FDialogPreview::GenPreview(QString name)
  	QStringList formats = formatD.split("|");
 	formats.append("pat");
 	
-	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_ODGIMPORT);
+	QStringList allFormatsV = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
 	if (ext.isEmpty())
 		ext = getImageType(name);
 	if (formats.contains(ext.toUtf8()))

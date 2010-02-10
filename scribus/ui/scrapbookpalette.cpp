@@ -43,6 +43,9 @@ for which a new license (GPL+exception) is in place.
 #include "query.h"
 #include "scpreview.h"
 #include "stencilreader.h"
+#include "fileloader.h"
+#include "loadsaveplugin.h"
+#include "plugins/formatidlist.h"
 #include "util.h"
 #include "util_file.h"
 #include "util_icon.h"
@@ -71,6 +74,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 
  void BibView::startDrag(Qt::DropActions supportedActions)
  {
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
 	QString dt = objectMap[currentItem()->text()].Data;
 	QFileInfo fi(dt);
 	if (fi.suffix().toLower() == "sml")
@@ -92,6 +96,14 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 		delete pre;
 	}
 	else if (fi.suffix().toLower() == "sce")
+	{
+		if ( fi.exists() )
+		{
+			QUrl ur = QUrl::fromLocalFile(dt);
+			dt = ur.toString();
+		}
+	}
+	else if (vectorFiles.contains(fi.suffix().toLower()))
 	{
 		if ( fi.exists() )
 		{
@@ -361,6 +373,51 @@ void BibView::SaveContents(QString name, QString oldName)
 			pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/"+fi3.baseName()+".png")), "PNG");
 		}
 	}
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	for (int v = 0; v < vectorFiles.count(); v++)
+	{
+		QString ext = "*." + vectorFiles[v];
+		QDir d4(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		if ((d4.exists()) && (d4.count() != 0))
+		{
+			for (uint dc = 0; dc < d4.count(); ++dc)
+			{
+				QByteArray cf;
+				if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d4[dc])), cf))
+					continue;
+				QFile fil(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+				if(!fil.open(QIODevice::WriteOnly))
+					continue ;
+				QDataStream s(&fil);
+				s.writeRawData(cf.data(), cf.length());
+				fil.close();
+				QPixmap pm;
+				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				if (fi2.exists())
+					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				else
+				{
+					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+					int testResult = fileLoader->TestFile();
+					delete fileLoader;
+					if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+					{
+						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+						if( fmt )
+						{
+							QImage im = fmt->readThumbnail(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+							if (canWrite)
+								im.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")), "PNG");
+							pm = QPixmap::fromImage(im);
+						}
+					}
+				}
+				QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+				pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/"+fi3.baseName()+".png")), "PNG");
+			}
+		}
+	}
 }
 
 void BibView::ReadOldContents(QString name, QString newName)
@@ -495,6 +552,41 @@ void BibView::ReadContents(QString name)
 				delete pre2;
 			}
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])), pm);
+		}
+	}
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	for (int v = 0; v < vectorFiles.count(); v++)
+	{
+		QString ext = "*." + vectorFiles[v];
+		QDir d4(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		if ((d4.exists()) && (d4.count() != 0))
+		{
+			for (uint dc = 0; dc < d4.count(); ++dc)
+			{
+				QPixmap pm;
+				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				if (fi2.exists())
+					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				else
+				{
+					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+					int testResult = fileLoader->TestFile();
+					delete fileLoader;
+					if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+					{
+						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+						if( fmt )
+						{
+							QImage im = fmt->readThumbnail(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
+							if (canWrite)
+								im.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")), "PNG");
+							pm = QPixmap::fromImage(im);
+						}
+					}
+				}
+				AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])), pm);
+			}
 		}
 	}
 	QMap<QString,Elem>::Iterator itf;

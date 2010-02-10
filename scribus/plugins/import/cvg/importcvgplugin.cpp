@@ -99,6 +99,7 @@ void ImportCvgPlugin::registerFormats()
 	fmt.fileExtensions = QStringList() << "cvg";
 	fmt.load = true;
 	fmt.save = false;
+	fmt.thumb = true;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::CVG); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);

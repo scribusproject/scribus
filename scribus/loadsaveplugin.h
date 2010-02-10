@@ -57,6 +57,8 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		// Return a list of file extensions
 		static const QStringList getExtensionsForImport(const int id = 47);
+		// Return a list of file extensions
+		static const QStringList getExtensionsForPreview(const int id = 47);
 
 		// Return a list of format descriptions suitable for use with
 		// QFileDialog.  You can convert it to QString form with
@@ -181,9 +183,9 @@ class SCRIBUS_API FileFormat
 {
 	public:
 		// Default ctor to make QValueList happy
-		FileFormat() : load(false), save(false), plug(0) {}
+		FileFormat() : load(false), save(false), thumb(false), plug(0) {}
 		// Standard ctor that sets up a valid FileFormat
-		FileFormat(LoadSavePlugin * plug) : load(false), save(false), plug(plug) {}
+		FileFormat(LoadSavePlugin * plug) : load(false), save(false), thumb(false), plug(plug) {}
 		// Load a file with this format
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
 		// Save a file with this format
@@ -226,6 +228,8 @@ class SCRIBUS_API FileFormat
 		bool load;
 		// Can we save it?
 		bool save;
+		// Do we support thumbnails
+		bool thumb;
 		// Priority of this format from 0 (lowest, tried last) to
 		// 255 (highest, tried first). 64-128 recommended in general.
 		// Priority controls the order options are displayed in when a file

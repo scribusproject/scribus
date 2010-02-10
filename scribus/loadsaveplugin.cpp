@@ -92,6 +92,38 @@ const QStringList LoadSavePlugin::getExtensionsForImport(const int id)
 	return filterList;
 }
 
+const QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
+{
+	QList<FileFormat>::const_iterator it(findFormat(id));
+	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	QStringList filterList;
+	// We know the list is sorted by id, then priority, so we can just take the
+	// highest priority entry for each ID, and we can start with the first entry
+	// in the list.
+	//First, check if we even have any plugins to load with
+	if (it!=itEnd)
+	{
+		if (((*it).load) && ((*it).thumb))
+			filterList.append((*it).fileExtensions);
+		unsigned int lastID = (*it).formatId;
+		++it;
+		for ( ; it != itEnd ; ++it )
+		{
+			// Find the next load/save (as appropriate) plugin for the next format type
+			if ((((*it).load) && ((*it).thumb)) && ((*it).formatId > lastID))
+			{
+				// And add it to the filter list, since we know it's 
+				// the highest priority because of the sort order.
+				filterList.append((*it).fileExtensions);
+				lastID = (*it).formatId;
+			}
+		}
+	}
+	else
+		qDebug("%s", tr("No File Loader Plugins Found").toLocal8Bit().data());
+	return filterList;
+}
+
 const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 {
 	QList<FileFormat>::const_iterator it(formats.constBegin());
@@ -422,7 +454,7 @@ bool FileFormat::readPageCount(const QString& fileName, int *num1, int *num2, QS
 
 QImage FileFormat::readThumbnail(const QString& fileName) const
 {
-	return (plug && load) ? plug->readThumbnail(fileName) : QImage();
+	return (plug && load && thumb) ? plug->readThumbnail(fileName) : QImage();
 }
 
 

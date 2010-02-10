@@ -92,6 +92,7 @@ void ImportPctPlugin::registerFormats()
 	fmt.fileExtensions = QStringList() << "pct" << "pic" << "pict";
 	fmt.load = true;
 	fmt.save = false;
+	fmt.thumb = true;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PCT); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);

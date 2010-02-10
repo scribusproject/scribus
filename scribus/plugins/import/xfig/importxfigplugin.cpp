@@ -99,6 +99,7 @@ void ImportXfigPlugin::registerFormats()
 	fmt.fileExtensions = QStringList() << "fig";
 	fmt.load = true;
 	fmt.save = false;
+	fmt.thumb = true;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::XFIG); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
