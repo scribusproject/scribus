@@ -39,9 +39,9 @@ class SCRIBUS_API FormatsManager
 		{
 			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768,
 #ifdef GMAGICK_FOUND
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|65536|262144,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|65536,  // all Types suitable for Image Frames
 #else
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|262144,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512,  // all Types suitable for Image Frames
 #endif
 			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072|262144,  // All pure vector image types
 			RASTORIMAGES	= 2|4|8|32|512|65536,  // All pure rastor image types

@@ -154,3 +154,23 @@ bool ImportPctPlugin::import(QString fileName, int flags)
 	delete dia;
 	return true;
 }
+
+QImage ImportPctPlugin::readThumbnail(const QString& fileName)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return QImage();
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = ScCore->primaryMainWindow()->doc;
+	PctPlug *dia = new PctPlug(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(dia);
+	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
+}

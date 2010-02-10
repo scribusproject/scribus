@@ -369,7 +369,7 @@ QString value2String(double unitValue, int unitIndex, bool round2Precision, bool
 	else
 		s=QString::number(pts2value(unitValue, unitIndex));
 	if (appendSuffix)
-		s += unitGetStrFromIndex(unitIndex);
+		s += " "+unitGetStrFromIndex(unitIndex);
 	return s;
 }
 
