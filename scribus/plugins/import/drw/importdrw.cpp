@@ -69,33 +69,24 @@ QImage DrwPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	bool haveDoc = false;
 	double b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	double h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
-	ScribusView* tempView;
 	progressDialog = NULL;
-	haveDoc = true;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
-	tempView->setScale(1);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	int groupCount = m_Doc->GroupCounter;
-	int itemCount = m_Doc->TotalItems;
 	if (convert(fName))
 	{
 		if (!thumbRead)
@@ -164,7 +155,6 @@ QImage DrwPlug::readThumbnail(QString fName)
 			}
 		}
 		m_Doc->DoDrawing = true;
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
 		if (thumbRead)
@@ -191,32 +181,10 @@ QImage DrwPlug::readThumbnail(QString fName)
 				tmpImage.setText("YSize", QString("%1").arg(ys));
 			}
 		}
-		m_Doc->itemSelection_DeleteItem(tmpSel);
-		m_Doc->view()->updatesOn(true);
 		m_Doc->scMW()->ScriptRunning = false;
 		m_Doc->setLoading(false);
-		if (importedColors.count() != 0)
-		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
-		}
-		if (importedPatterns.count() != 0)
-		{
-			for (int cd = 0; cd < importedPatterns.count(); cd++)
-			{
-				m_Doc->docPatterns.remove(importedPatterns[cd]);
-			}
-		}
 		m_Doc->m_Selection->delaySignalsOff();
-		if (haveDoc)
-		{
-			delete tempView;
-			delete m_Doc;
-		}
-		m_Doc->GroupCounter = groupCount;
-		m_Doc->TotalItems = itemCount;
+		delete m_Doc;
 		return tmpImage;
 	}
 	else
@@ -224,16 +192,8 @@ QImage DrwPlug::readThumbnail(QString fName)
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->ScriptRunning = false;
-		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if (haveDoc)
-		{
-			delete tempView;
-			delete m_Doc;
-		}
+		delete m_Doc;
 	}
-	m_Doc->GroupCounter = groupCount;
-	m_Doc->TotalItems = itemCount;
 	return QImage();
 }
 
@@ -550,14 +510,16 @@ bool DrwPlug::convert(QString fn)
 			decodeCmdData(ts, dataLen, cmd);
 			decodeCmd(cmd, pos);
 			if (progressDialog)
+			{
 				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 			if (cmd == 254)
 				break;
 			if ((importerFlags & LoadSavePlugin::lfCreateThumbnail) && (cmd == 11))
 				thumbRead = true;
 			if ((importerFlags & LoadSavePlugin::lfCreateThumbnail) && (cmd == 27) && (thumbRead))
 				break;
-			qApp->processEvents();
 		}
 		if (Elements.count() == 0)
 		{

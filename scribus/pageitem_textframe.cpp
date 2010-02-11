@@ -2392,7 +2392,7 @@ void PageItem_TextFrame::invalidateLayout()
 	}
 }
 
-void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
+void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 {
 	if(invalid)
 		layout();
@@ -2678,7 +2678,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
-	ScribusView* view = m_Doc->view();
 	if (m_Doc->layerOutline(LayerID))
 	{
 		p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2810,6 +2809,13 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	p->setFillMode(ScPainter::Solid);
 	p->setStrokeMode(ScPainter::Solid);
+	p->restore();
+}
+
+void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
+{
+	ScribusView* view = m_Doc->view();
+	p->save();
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm

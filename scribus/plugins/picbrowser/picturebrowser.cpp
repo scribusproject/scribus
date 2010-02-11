@@ -13,6 +13,10 @@ for which a new license (GPL+exception) is in place.
 #include "previewimage.h"
 #include "loadimage.h"
 
+#include "fileloader.h"
+#include "loadsaveplugin.h"
+#include "../../plugins/formatidlist.h"
+
 #include "prefsfile.h"
 #include "prefsmanager.h"
 
@@ -230,6 +234,13 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 0));
 	nameFilters = formatD.split(" ", QString::SkipEmptyParts);
 	nameFilters.append("*.svg");
+
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	for (int v = 0; v < vectorFiles.count(); v++)
+	{
+		nameFilters.append("*." + vectorFiles[v]);
+	}
+
 
 //filter/search setup
 	connect ( filterTargetCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( filterTargetComboboxChanged ( int ) ) );

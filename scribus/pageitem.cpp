@@ -736,6 +736,8 @@ void PageItem::setWidth(const double newWidth)
 {
 	Width = newWidth;
 	updateConstants();
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -744,6 +746,8 @@ void PageItem::setHeight(const double newHeight)
 {
 	Height = newHeight;
 	updateConstants();
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -764,6 +768,8 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 	Width = newWidth;
 	Height = newHeight;
 	updateConstants();
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -777,6 +783,8 @@ void PageItem::resizeBy(const double dH, const double dW)
 	if (dW!=0.0)
 		Height+=dW;
 	updateConstants();
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -784,9 +792,9 @@ void PageItem::resizeBy(const double dH, const double dW)
 void PageItem::setRotation(const double newRotation, bool drawingOnly)
 {
 	Rot=newRotation;
-	checkChanges();
 	if (drawingOnly || m_Doc->isLoading())
 		return;
+	checkChanges();
 	emit rotation(Rot);
 }
 
@@ -795,6 +803,8 @@ void PageItem::rotateBy(const double dR)
 	if (dR==0.0)
 		return;
 	Rot+=dR;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit rotation(Rot);
 }
@@ -807,6 +817,8 @@ void PageItem::setSelected(const bool toSelect)
 void PageItem::setImageXScale(const double newImageXScale)
 {
 	LocalScX=newImageXScale;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
@@ -814,6 +826,8 @@ void PageItem::setImageXScale(const double newImageXScale)
 void PageItem::setImageYScale(const double newImageYScale)
 {
 	LocalScY=newImageYScale;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
@@ -822,6 +836,8 @@ void PageItem::setImageXYScale(const double newImageXScale, const double newImag
 {
 	LocalScX=newImageXScale;
 	LocalScY=newImageYScale;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
@@ -829,6 +845,8 @@ void PageItem::setImageXYScale(const double newImageXScale, const double newImag
 void PageItem::setImageXOffset(const double newImageXOffset)
 {
 	LocalX=newImageXOffset;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
@@ -836,6 +854,8 @@ void PageItem::setImageXOffset(const double newImageXOffset)
 void PageItem::setImageYOffset(const double newImageYOffset)
 {
 	LocalY=newImageYOffset;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
@@ -844,6 +864,8 @@ void PageItem::setImageXYOffset(const double newImageXOffset, const double newIm
 {
 	LocalX=newImageXOffset;
 	LocalY=newImageYOffset;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
@@ -856,6 +878,8 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 		LocalX+=dX;
 	if (dY!=0.0)
 		LocalY+=dY;
+	if (m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
@@ -1127,37 +1151,30 @@ void PageItem::setCornerRadius(double newRadius)
  */
 void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 {
-// 	qDebug << "PageItem::DrawObj";
-	double sc;
 	if (!m_Doc->DoDrawing)
-	{
-//		Tinput = false;
 		return;
-	}
 	if (cullingArea.isNull())
 	{
 		cullingArea = QRectF(QPointF(m_Doc->minCanvasCoordinate.x(), m_Doc->minCanvasCoordinate.y()), 
 							 QPointF(m_Doc->maxCanvasCoordinate.x(), m_Doc->maxCanvasCoordinate.y())).toAlignedRect();
 	}
 	
-	DrawObj_Pre(p, sc);
+	DrawObj_Pre(p);
 	if (m_Doc->layerOutline(LayerID))
 	{
 		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine) && (!isGroupControl))
-			DrawObj_Item(p, cullingArea, sc);
+			DrawObj_Item(p, cullingArea);
 	}
 	else
 	{
 		if (!isGroupControl)
-			DrawObj_Item(p, cullingArea, sc);
+			DrawObj_Item(p, cullingArea);
 	}
 	DrawObj_Post(p);
 }
 
-void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
+void PageItem::DrawObj_Pre(ScPainter *p)
 {
-	ScribusView* view = m_Doc->view();
-	sc = view->scale();
 	p->save();
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
@@ -1322,7 +1339,6 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
-	ScribusView* view = m_Doc->view();
 	if (!isGroupControl)
 	{
 		if (m_Doc->layerOutline(LayerID))
@@ -1486,6 +1502,16 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	p->setBlendModeFill(0);
 	p->setStrokeMode(ScPainter::Solid);
 	p->setBlendModeStroke(0);
+	p->restore();
+}
+
+void PageItem::DrawObj_Decoration(ScPainter *p)
+{
+	ScribusView* view = m_Doc->view();
+	p->save();
+	if (!isEmbedded)
+		p->translate(Xpos, Ypos);
+	p->rotate(Rot);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double aestheticFactor(5.0);
@@ -1631,9 +1657,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		embedded->Dirty = Dirty;
 		embedded->invalid = true;
-		double sc;
 		double pws = embedded->m_lineWidth;
-		embedded->DrawObj_Pre(p, sc);
+		embedded->DrawObj_Pre(p);
 		switch(embedded->itemType())
 		{
 			case ImageFrame:
@@ -1642,12 +1667,12 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			case OSGFrame:
 			case Polygon:
 			case PathText:
-				embedded->DrawObj_Item(p, cullingArea, sc);
+				embedded->DrawObj_Item(p, cullingArea);
 				break;
 			case Line:
 			case PolyLine:
 				embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-				embedded->DrawObj_Item(p, cullingArea, sc);
+				embedded->DrawObj_Item(p, cullingArea);
 				break;
 			default:
 				break;
@@ -5565,7 +5590,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	}
 	if (PictureIsAvailable)
 	{
-		if ((m_Doc->view()->m_canvas->usePreviewVisual()))
+		if (m_Doc->view() && (m_Doc->view()->m_canvas->usePreviewVisual()))
 		{
 			VisionDefectColor defect;
 			QColor tmpC;

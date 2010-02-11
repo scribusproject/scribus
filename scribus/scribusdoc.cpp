@@ -598,7 +598,8 @@ ScribusDoc::~ScribusDoc()
 	}
 	if (docHyphenator)
 		delete docHyphenator;
-	delete m_serializer;
+	if (m_serializer)
+		delete m_serializer;
 	ScCore->fileWatcher->start();
 }
 
@@ -669,11 +670,16 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 void ScribusDoc::setGUI(bool hasgui, ScribusMainWindow* mw, ScribusView* view)
 {
 	m_hasGUI = hasgui;
-	m_ScMW=mw;
+	m_ScMW = mw;
 	//FIXME: stop using m_View
-	m_View=view;
-	docHyphenator=new Hyphenator(m_ScMW, this);
-	Q_CHECK_PTR(docHyphenator);
+	m_View = view;
+	if (m_hasGUI)
+	{
+		docHyphenator = new Hyphenator(m_ScMW, this);
+		Q_CHECK_PTR(docHyphenator);
+	}
+	else
+		docHyphenator = NULL;
 }
 
 
@@ -4112,16 +4118,22 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 	{
 		if (!reload)
 		{
-			QFileInfo fi(pageItem->Pfile);
-			ScCore->fileWatcher->addDir(fi.absolutePath());
+			if (m_hasGUI)
+			{
+				QFileInfo fi(pageItem->Pfile);
+				ScCore->fileWatcher->addDir(fi.absolutePath());
+			}
 		}
 		return false;
 	}
 	if (!reload)
 	{
-		QFileInfo fi(pageItem->Pfile);
-		ScCore->fileWatcher->addDir(fi.absolutePath());
-		ScCore->fileWatcher->addFile(pageItem->Pfile);
+		if (m_hasGUI)
+		{
+			QFileInfo fi(pageItem->Pfile);
+			ScCore->fileWatcher->addDir(fi.absolutePath());
+			ScCore->fileWatcher->addFile(pageItem->Pfile);
+		}
 	}
 	if (!isLoading())
 	{
@@ -6770,9 +6782,12 @@ void ScribusDoc::connectDocSignals()
 {
 	if (ScCore->usingGUI())
 	{
-		connect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
-		connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
-		connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
+		if (m_hasGUI)
+		{
+			connect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
+			connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
+			connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
+		}
 //		connect(this, SIGNAL(refreshItem(PageItem*)), view(), SLOT(RefreshItem(PageItem*)));
 //		connect(this, SIGNAL(updateContents()), view(), SLOT(slotUpdateContents()));
 //		connect(this, SIGNAL(updateContents(const QRect&)), view(), SLOT(slotUpdateContents(const QRect&)));
@@ -9968,7 +9983,7 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 /*	if (!loading)
 		emit UpdtObj(currentPage->pageNr(), b->ItemNr); */
 	//FIXME: stop using m_View
-	QRect oldR(currItem->getRedrawBounding(m_View->scale()));
+//	QRect oldR(currItem->getRedrawBounding(m_View->scale()));
 	setRedrawBounding(currItem);
 //	QRect newR(currItem->getRedrawBounding(m_View->scale()));
 //	if ((!m_View->operItemMoving) && (!currItem->Sizing))

@@ -118,7 +118,7 @@ void PageItem_LatexFrame::deleteImageFile()
 	imgValid = false;
 }
 
-void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e, double sc)
+void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 {
 	layout();
 	if (!imgValid && !err)
@@ -141,7 +141,7 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e, double sc)
 	else
 	{
 		//Just pass it to ImageFrame
-		PageItem_ImageFrame::DrawObj_Item(p, e, sc);
+		PageItem_ImageFrame::DrawObj_Item(p, e);
 	}
 }
 

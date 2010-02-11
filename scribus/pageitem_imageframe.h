@@ -52,7 +52,7 @@ public:
 	virtual QString infoDescription();
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
+	virtual void DrawObj_Item(ScPainter *p, QRectF e);
 
 };
 

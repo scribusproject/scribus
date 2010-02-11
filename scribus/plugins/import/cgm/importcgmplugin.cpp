@@ -174,7 +174,7 @@ QImage ImportCgmPlugin::readThumbnail(const QString& fileName)
 		UndoManager::instance()->setUndoEnabled(false);
 		wasUndo = true;
 	}
-	m_Doc = ScCore->primaryMainWindow()->doc;
+	m_Doc = NULL;
 	CgmPlug *dia = new CgmPlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);

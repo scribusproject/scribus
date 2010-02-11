@@ -21,6 +21,11 @@
 #include "previewimage.h"
 #include "picturebrowser.h"
 
+#include "fileloader.h"
+#include "loadsaveplugin.h"
+#include "../../plugins/formatidlist.h"
+#include "scimagecachemanager.h"
+
 #include <QMetaType>
 
 loadImagesThread::loadImagesThread ( PictureBrowser *parent, PreviewImagesModel *parentModel )
@@ -56,6 +61,9 @@ loadImagesThreadInstance::loadImagesThreadInstance()
 
 void loadImagesThreadInstance::processLoadImageJob ( int row, QString path, int size, int tpId )
 {
+	ScImageCacheManager & icm = ScImageCacheManager::instance();
+	bool cacheEnabled = icm.enabled();
+	icm.setEnabled(false);
 	//check if list of files has changed and this job is obsolete
 	if ( pModel->pId != tpId )
 	{
@@ -65,6 +73,50 @@ void loadImagesThreadInstance::processLoadImageJob ( int row, QString path, int 
 	if ( qAbs ( row - pictureBrowser->currentRow ) > 2* ( pictureBrowser->previewIconsVisible ) )
 	{
 		emit imageLoadError ( row, tpId, 0 );
+		return;
+	}
+
+	QFileInfo fi = QFileInfo(path);
+	QString ext = fi.suffix().toLower();
+	QStringList allFormatsV = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	if (allFormatsV.contains(ext.toUtf8()))
+	{
+		FileLoader *fileLoader = new FileLoader(path);
+		int testResult = fileLoader->TestFile();
+		delete fileLoader;
+		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+		{
+			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+			if( fmt )
+			{
+				QImage im = fmt->readThumbnail(path);
+				if (!im.isNull())
+				{
+					ImageInformation *imgInfo = new ImageInformation;
+					( *imgInfo ).width = im.text("XSize").toDouble();
+					( *imgInfo ).height = im.text("YSize").toDouble();
+					( *imgInfo ).type = 6;
+					( *imgInfo ).colorspace = 0;
+					( *imgInfo ).xdpi = 72;
+					( *imgInfo ).ydpi = 72;
+					( *imgInfo ).layers = 0;
+					( *imgInfo ).embedded = false;
+					( *imgInfo ).profileName = "";
+					( *imgInfo ).valid = true;
+
+					if ( ( im.width() > ( size-2 ) ) || ( im.height() > ( size-2 ) ) )
+					{
+						emit imageLoaded ( row, im.scaled ( ( size-2 ), ( size-2 ), Qt::KeepAspectRatio, Qt::SmoothTransformation ), imgInfo, tpId );
+					}
+					//image is <= our icon -> put it in as it is
+					else
+					{
+						emit imageLoaded ( row, im.copy(), imgInfo, tpId );
+					}
+				}
+			}
+		}
+		icm.setEnabled(cacheEnabled);
 		return;
 	}
 
@@ -120,5 +172,6 @@ void loadImagesThreadInstance::processLoadImageJob ( int row, QString path, int 
 		( *imgInfo ).valid = false;
 		emit imageLoaded ( row, QImage(), imgInfo, tpId );
 	}
+	icm.setEnabled(cacheEnabled);
 }
 

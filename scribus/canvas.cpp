@@ -1434,7 +1434,10 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 			currItem->savedOwnPage = currItem->OwnPage;
 			currItem->OwnPage = page->pageNr();
 			if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+			{
 				currItem->DrawObj(painter, cullingArea);
+				currItem->DrawObj_Decoration(painter);
+			}
 			FPointArray cl = currItem->PoLine.copy();
 			QTransform mm;
 			mm.translate(currItem->xPos(), currItem->yPos());
@@ -1464,6 +1467,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 				if (m_viewMode.forceRedraw)
 					currItem->invalidateLayout();
 				currItem->DrawObj(painter, cullingArea);
+				currItem->DrawObj_Decoration(painter);
 			}
 //							else 
 //								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
@@ -1495,7 +1499,10 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 					cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 				}
 				if ((cullingArea.intersects(cite->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+				{
 					cite->DrawObj(painter, cullingArea);
+					cite->DrawObj_Decoration(painter);
+				}
 				cite->OwnPage = cite->savedOwnPage;
 				if (!currItem->ChangedMasterItem)
 				{
@@ -1649,6 +1656,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 // 							if (m_viewMode.forceRedraw)
 // 								currItem->invalidateLayout();
 				currItem->DrawObj(painter, cullingArea);
+				currItem->DrawObj_Decoration(painter);
 			}
 //						currItem->Redrawn = true;
 			if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
@@ -1681,7 +1689,10 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 				painter->restore();
 				PageItem *cite = groupStack2.pop();
 				if ((cullingArea.intersects(cite->getBoundingRect())) && (((m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
+				{
 					cite->DrawObj(painter, cullingArea);
+					cite->DrawObj_Decoration(painter);
+				}
 				groupStack.pop();
 				if (groupStack.count() == 0)
 					break;

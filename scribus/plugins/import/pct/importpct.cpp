@@ -63,7 +63,6 @@ QImage PctPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	bool haveDoc = false;
 	double b, h, x, y;
 	parseHeader(fName, x, y, b, h);
 	if (b == 0.0)
@@ -72,28 +71,20 @@ QImage PctPlug::readThumbnail(QString fName)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
-	ScribusView* tempView;
 	progressDialog = NULL;
-	haveDoc = true;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	tempView = new ScribusView(0, ScCore->primaryMainWindow(), m_Doc);
-	tempView->setScale(1);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), tempView);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
 	baseX = m_Doc->currentPage()->xOffset() - x;
 	baseY = m_Doc->currentPage()->yOffset() - y;
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	int groupCount = m_Doc->GroupCounter;
-	int itemCount = m_Doc->TotalItems;
 	if (convert(fName))
 	{
 		tmpSel->clear();
@@ -159,7 +150,6 @@ QImage PctPlug::readThumbnail(QString fName)
 			}
 		}
 		m_Doc->DoDrawing = true;
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
 		if (Elements.count() > 0)
@@ -177,25 +167,10 @@ QImage PctPlug::readThumbnail(QString fName)
 			tmpImage.setText("XSize", QString("%1").arg(xs));
 			tmpImage.setText("YSize", QString("%1").arg(ys));
 		}
-		m_Doc->itemSelection_DeleteItem(tmpSel);
-		m_Doc->view()->updatesOn(true);
 		m_Doc->scMW()->ScriptRunning = false;
 		m_Doc->setLoading(false);
-		if (importedColors.count() != 0)
-		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
-		}
 		m_Doc->m_Selection->delaySignalsOff();
-		if (haveDoc)
-		{
-			delete tempView;
-			delete m_Doc;
-		}
-		m_Doc->GroupCounter = groupCount;
-		m_Doc->TotalItems = itemCount;
+		delete m_Doc;
 		return tmpImage;
 	}
 	else
@@ -203,16 +178,8 @@ QImage PctPlug::readThumbnail(QString fName)
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->ScriptRunning = false;
-		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if (haveDoc)
-		{
-			delete tempView;
-			delete m_Doc;
-		}
+		delete m_Doc;
 	}
-	m_Doc->GroupCounter = groupCount;
-	m_Doc->TotalItems = itemCount;
 	return QImage();
 }
 
@@ -664,7 +631,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0002:		// Background Pattern
 					handleLineModeEnd();
-					qDebug() << "Background Pattern";
+//					qDebug() << "Background Pattern";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0003:		// Text Font
@@ -676,11 +643,11 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0005:		// Text Mode
 					handleLineModeEnd();
 					ts >> dataLen;
-					qDebug() << "Text Mode" << dataLen;
+//					qDebug() << "Text Mode" << dataLen;
 //					alignStreamToWord(ts, 2);
 					break;
 				case 0x0006:		// Extra Space
-					qDebug() << "Extra Space";
+//					qDebug() << "Extra Space";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x0007:		// Pen Size
@@ -689,7 +656,7 @@ void PctPlug::parsePict(QDataStream &ts)
 				case 0x0008:		// Pen Mode
 					handleLineModeEnd();
 					ts >> dataLen;
-					qDebug() << "Pen Mode" << dataLen;
+//					qDebug() << "Pen Mode" << dataLen;
 //					alignStreamToWord(ts, 2);
 					break;
 				case 0x0009:		// Pen Pattern
@@ -697,14 +664,14 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x000A:		// Fill Pattern
 					handleLineModeEnd();
-					qDebug() << "Fill Pattern";
+//					qDebug() << "Fill Pattern";
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x000B:		// Oval Size
 					handleOvalSize(ts);
 					break;
 				case 0x000C:		// Origin
-					qDebug() << "Origin";
+//					qDebug() << "Origin";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x000D:		// Text Size
@@ -722,7 +689,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 8);
 					break;
 				case 0x0011:		// Version
-					qDebug() << "Version";
+//					qDebug() << "Version";
 					alignStreamToWord(ts, 1);
 					break;
 				case 0x0015:		// Fractional pen position
@@ -731,7 +698,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, 2);
 					break;
 				case 0x0016:		// Extra char space
-					qDebug() << "Extra char space";
+//					qDebug() << "Extra char space";
 					alignStreamToWord(ts, 2);
 					break;
 				case 0x0017:
@@ -746,14 +713,14 @@ void PctPlug::parsePict(QDataStream &ts)
 					handleColorRGB(ts, true);
 					break;
 				case 0x001C:		// Highlight mode
-					qDebug() << "Highlight mode";
+//					qDebug() << "Highlight mode";
 					break;
 				case 0x001D:		// Highlight color RGB
-					qDebug() << "Highlight color RGB";
+//					qDebug() << "Highlight color RGB";
 					alignStreamToWord(ts, 6);
 					break;
 				case 0x001E:		// Use default highlight color
-					qDebug() << "Use default highlight color";
+//					qDebug() << "Use default highlight color";
 					break;
 				case 0x0020:		// Line
 					handleLine(ts);
@@ -792,12 +759,12 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x002D:		// Line justify
 					handleLineModeEnd();
-					qDebug() << "Line justify";
+//					qDebug() << "Line justify";
 					alignStreamToWord(ts, 10);
 					break;
 				case 0x002E:		// Glyph state
 					handleLineModeEnd();
-					qDebug() << "Glyph state";
+//					qDebug() << "Glyph state";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen);
 					break;
@@ -883,27 +850,27 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0060:		// Frame arc
 					handleLineModeEnd();
-					qDebug() << "Frame arc";
+//					qDebug() << "Frame arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0061:		// Paint arc
 					handleLineModeEnd();
-					qDebug() << "Paint arc";
+//					qDebug() << "Paint arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0062:		// Erase arc
 					handleLineModeEnd();
-					qDebug() << "Erase arc";
+//					qDebug() << "Erase arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0063:		// Invert arc
 					handleLineModeEnd();
-					qDebug() << "Invert arc";
+//					qDebug() << "Invert arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0064:		// Fill arc
 					handleLineModeEnd();
-					qDebug() << "Fill arc";
+//					qDebug() << "Fill arc";
 					alignStreamToWord(ts, 12);
 					break;
 				case 0x0065:
@@ -914,27 +881,27 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0068:		// Frame same arc
 					handleLineModeEnd();
-					qDebug() << "Frame same arc";
+//					qDebug() << "Frame same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x0069:		// Paint same arc
 					handleLineModeEnd();
-					qDebug() << "Paint same arc";
+//					qDebug() << "Paint same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x006A:		// Erase same arc
 					handleLineModeEnd();
-					qDebug() << "Erase same arc";
+//					qDebug() << "Erase same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x006B:		// Invert same arc
 					handleLineModeEnd();
-					qDebug() << "Invert same arc";
+//					qDebug() << "Invert same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x006C:		// Fill same arc
 					handleLineModeEnd();
-					qDebug() << "Fill same arc";
+//					qDebug() << "Fill same arc";
 					alignStreamToWord(ts, 4);
 					break;
 				case 0x006D:
@@ -959,23 +926,23 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0078:		// Frame same poly
 					handleLineModeEnd();
-					qDebug() << "Frame same poly";
+//					qDebug() << "Frame same poly";
 					break;
 				case 0x0079:		// Paint same poly
 					handleLineModeEnd();
-					qDebug() << "Paint same poly";
+//					qDebug() << "Paint same poly";
 					break;
 				case 0x007A:		// Erase same poly
 					handleLineModeEnd();
-					qDebug() << "Erase same poly";
+//					qDebug() << "Erase same poly";
 					break;
 				case 0x007B:		// Invert same poly
 					handleLineModeEnd();
-					qDebug() << "Invert same poly";
+//					qDebug() << "Invert same poly";
 					break;
 				case 0x007C:		// Fill same poly
 					handleLineModeEnd();
-					qDebug() << "Fill same poly";
+//					qDebug() << "Fill same poly";
 					break;
 				case 0x007D:
 				case 0x007E:
@@ -983,31 +950,31 @@ void PctPlug::parsePict(QDataStream &ts)
 //					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0080:		// Frame region
-					qDebug() << "Frame region";
+//					qDebug() << "Frame region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0081:		// Paint region
 					handleLineModeEnd();
-					qDebug() << "Paint region";
+//					qDebug() << "Paint region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0082:		// Erase region
 					handleLineModeEnd();
-					qDebug() << "Erase region";
+//					qDebug() << "Erase region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0083:		// Invert region
 					handleLineModeEnd();
-					qDebug() << "Invert region";
+//					qDebug() << "Invert region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
 				case 0x0084:		// Fill region
 					handleLineModeEnd();
-					qDebug() << "Fill region";
+//					qDebug() << "Fill region";
 					ts >> dataLen;
 					alignStreamToWord(ts, dataLen-2);
 					break;
@@ -1020,23 +987,23 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x0088:		// Frame same region
 					handleLineModeEnd();
-					qDebug() << "Frame same region";
+//					qDebug() << "Frame same region";
 					break;
 				case 0x0089:		// Paint same region
 					handleLineModeEnd();
-					qDebug() << "Paint same region";
+//					qDebug() << "Paint same region";
 					break;
 				case 0x008A:		// Erase same region
 					handleLineModeEnd();
-					qDebug() << "Erase same region";
+//					qDebug() << "Erase same region";
 					break;
 				case 0x008B:		// Invert same region
 					handleLineModeEnd();
-					qDebug() << "Invert same region";
+//					qDebug() << "Invert same region";
 					break;
 				case 0x008C:		// Fill same region
 					handleLineModeEnd();
-					qDebug() << "Fill same region";
+//					qDebug() << "Fill same region";
 					break;
 				case 0x008D:
 				case 0x008E:
@@ -1044,27 +1011,27 @@ void PctPlug::parsePict(QDataStream &ts)
 //					qDebug() << "Reserved by Apple";
 					break;
 				case 0x0090:		// Bits Rect
-					qDebug() << "Bits Rect";
+//					qDebug() << "Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0091:		// Bits Region
-					qDebug() << "Bits Region";
+//					qDebug() << "Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0098:		// Pack Bits Rect
-					qDebug() << "Pack Bits Rect";
+//					qDebug() << "Pack Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x0099:		// Pack Bits Region
-					qDebug() << "Pack Bits Region";
+//					qDebug() << "Pack Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009A:		// Direct Bits Rect
-					qDebug() << "Direct Bits Rect";
+//					qDebug() << "Direct Bits Rect";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x009B:		// Direct Bits Region
-					qDebug() << "Direct Bits Region";
+//					qDebug() << "Direct Bits Region";
 					handlePixmap(ts, opCode);
 					break;
 				case 0x00A0:		// Short Comment
@@ -1093,7 +1060,7 @@ void PctPlug::parsePict(QDataStream &ts)
 						m_Doc->LoadPict(fileName, z);
 						ite->setImageScalingMode(false, false);
 					}
-					qDebug() << "End of Pict";
+//					qDebug() << "End of Pict";
 					return;
 					break;
 				case 0x0200:		// Reserved by Apple
@@ -1110,7 +1077,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					alignStreamToWord(ts, dataLenLong);
 					break;
 				default:
-					qDebug() << QString("Not implemented OpCode: 0x%1 at %2").arg(opCode, 4, 16, QLatin1Char('0')).arg(ts.device()->pos()-2);
+//					qDebug() << QString("Not implemented OpCode: 0x%1 at %2").arg(opCode, 4, 16, QLatin1Char('0')).arg(ts.device()->pos()-2);
 					return;
 					break;
 			}
@@ -1329,7 +1296,7 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None, true);
 		else
 		{
-			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
+//			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 			return;
 		}
 		ite = m_Doc->Items->at(z);
@@ -1398,7 +1365,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 	else
 	{
-		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
+//		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 		return;
 	}
 	ite = m_Doc->Items->at(z);
@@ -1487,7 +1454,7 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
 		else
 		{
-			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
+//			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 			return;
 		}
 		ite = m_Doc->Items->at(z);
@@ -2027,137 +1994,137 @@ void PctPlug::handleComment(QDataStream &ts, bool longComment)
 	switch (commentCode)
 	{
 		case 100:			// picAppComment
-			qDebug() << "Comment type: picAppComment";
+//			qDebug() << "Comment type: picAppComment";
 			break;
 		case 130:			// picDwgBeg
-			qDebug() << "Comment type: picDwgBeg";
+//			qDebug() << "Comment type: picDwgBeg";
 			break;
 		case 131:			// picDwgEnd
-			qDebug() << "Comment type: picDwgEnd";
+//			qDebug() << "Comment type: picDwgEnd";
 			break;
 		case 140:			// picGrpBeg
-			qDebug() << "Comment type: picGrpBeg";
+//			qDebug() << "Comment type: picGrpBeg";
 			break;
 		case 141:			// picGrpEnd
-			qDebug() << "Comment type: picGrpEnd";
+//			qDebug() << "Comment type: picGrpEnd";
 			break;
 		case 142:			// picBitBeg
-			qDebug() << "Comment type: picBitBeg";
+//			qDebug() << "Comment type: picBitBeg";
 			break;
 		case 143:			// picBitEnd
-			qDebug() << "Comment type: picBitEnd";
+//			qDebug() << "Comment type: picBitEnd";
 			break;
 		case 150:			// TextBegin
-			qDebug() << "Comment type: TextBegin";
+//			qDebug() << "Comment type: TextBegin";
 			break;
 		case 151:			// TextEnd
-			qDebug() << "Comment type: TextEnd";
+//			qDebug() << "Comment type: TextEnd";
 			break;
 		case 152:			// StringBegin
-			qDebug() << "Comment type: StringBegin";
+//			qDebug() << "Comment type: StringBegin";
 			break;
 		case 153:			// StringEnd
-			qDebug() << "Comment type: StringEnd";
+//			qDebug() << "Comment type: StringEnd";
 			break;
 		case 154:			// TextCenter
-			qDebug() << "Comment type: TextCenter";
+//			qDebug() << "Comment type: TextCenter";
 			break;
 		case 155:			// LineLayoutOff
-			qDebug() << "Comment type: LineLayoutOff";
+//			qDebug() << "Comment type: LineLayoutOff";
 			break;
 		case 156:			// LineLayoutOn
-			qDebug() << "Comment type: LineLayoutOn";
+//			qDebug() << "Comment type: LineLayoutOn";
 			break;
 		case 157:			// ClientLineLayout
-			qDebug() << "Comment type: ClientLineLayout";
+//			qDebug() << "Comment type: ClientLineLayout";
 			break;
 		case 160:			// PolyBegin
-			qDebug() << "Comment type: PolyBegin";
+//			qDebug() << "Comment type: PolyBegin";
 			break;
 		case 161:			// PolyEnd
-			qDebug() << "Comment type: PolyEnd";
+//			qDebug() << "Comment type: PolyEnd";
 			break;
 		case 163:			// PolyIgnore
-			qDebug() << "Comment type: PolyIgnore";
+//			qDebug() << "Comment type: PolyIgnore";
 			break;
 		case 164:			// PolySmooth
-			qDebug() << "Comment type: PolySmooth";
+//			qDebug() << "Comment type: PolySmooth";
 			break;
 		case 165:			// PolyClose
-			qDebug() << "Comment type: PolyClose";
+//			qDebug() << "Comment type: PolyClose";
 			break;
 		case 170:			// picArrw1 Arrowhead on 2nd point of line
-			qDebug() << "Comment type: picArrw1";
+//			qDebug() << "Comment type: picArrw1";
 			break;
 		case 171:			// picArrw2 Arrowhead on 1nd point of line
-			qDebug() << "Comment type: picArrw2";
+//			qDebug() << "Comment type: picArrw2";
 			break;
 		case 172:			// picArrw3 Arrowhead on both endpoints
-			qDebug() << "Comment type: picArrw3";
+//			qDebug() << "Comment type: picArrw3";
 			break;
 		case 173:			// picArrwEnd End of arrowhead comment
-			qDebug() << "Comment type: picArrwEnd";
+//			qDebug() << "Comment type: picArrwEnd";
 			break;
 		case 180:			// DashedLine
-			qDebug() << "Comment type: DashedLine";
+//			qDebug() << "Comment type: DashedLine";
 			break;
 		case 181:			// DashedStop
-			qDebug() << "Comment type: DashedStop";
+//			qDebug() << "Comment type: DashedStop";
 			break;
 		case 182:			// SetLineWidth
-			qDebug() << "Comment type: SetLineWidth";
+//			qDebug() << "Comment type: SetLineWidth";
 			break;
 		case 190:			// PostScriptBegin
 			postscriptMode = true;
-			qDebug() << "Comment type: PostScriptBegin";
+//			qDebug() << "Comment type: PostScriptBegin";
 			break;
 		case 191:			// PostScriptEnd
 			postscriptMode = false;
 			textIsPostScript = false;
-			qDebug() << "Comment type: PostScriptEnd";
+//			qDebug() << "Comment type: PostScriptEnd";
 			break;
 		case 192:			// PostScriptHandle
-			qDebug() << "Comment type: PostScriptHandle";
+//			qDebug() << "Comment type: PostScriptHandle";
 			break;
 		case 193:			// PostScriptFile
-			qDebug() << "Comment type: PostScriptFile";
+//			qDebug() << "Comment type: PostScriptFile";
 			break;
 		case 194:			// TextIsPostScript
 			textIsPostScript = true;
-			qDebug() << "Comment type: TextIsPostScript";
+//			qDebug() << "Comment type: TextIsPostScript";
 			break;
 		case 195:			// ResourcePS
-			qDebug() << "Comment type: ResourcePS";
+//			qDebug() << "Comment type: ResourcePS";
 			break;
 		case 196:			// PSBeginNoSave
-			qDebug() << "Comment type: PSBeginNoSave";
+//			qDebug() << "Comment type: PSBeginNoSave";
 			break;
 		case 200:			// RotateBegin
-			qDebug() << "Comment type: RotateBegin";
+//			qDebug() << "Comment type: RotateBegin";
 			break;
 		case 201:			// RotateEnd
-			qDebug() << "Comment type: RotateEnd";
+//			qDebug() << "Comment type: RotateEnd";
 			break;
 		case 210:			// FormsPrinting
-			qDebug() << "Comment type: FormsPrinting";
+//			qDebug() << "Comment type: FormsPrinting";
 			break;
 		case 211:			// EndFormsPrinting
-			qDebug() << "Comment type: EndFormsPrinting";
+//			qDebug() << "Comment type: EndFormsPrinting";
 			break;
 		case 220:			// CMBeginProfile
-			qDebug() << "Comment type: CMBeginProfile";
+//			qDebug() << "Comment type: CMBeginProfile";
 			break;
 		case 221:			// CMEndProfile
-			qDebug() << "Comment type: CMEndProfile";
+//			qDebug() << "Comment type: CMEndProfile";
 			break;
 		case 222:			// CMEnableMatching
-			qDebug() << "Comment type: CMEnableMatching";
+//			qDebug() << "Comment type: CMEnableMatching";
 			break;
 		case 223:			// CMDisableMatching
-			qDebug() << "Comment type: CMDisableMatching";
+//			qDebug() << "Comment type: CMDisableMatching";
 			break;
 		default:
-			qDebug() << "Unknown Pict-Comment" << commentCode;
+//			qDebug() << "Unknown Pict-Comment" << commentCode;
 			break;
 	}
 	if (longComment)
