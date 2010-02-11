@@ -224,7 +224,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	keepFrameWHRatioButton->setCheckable( true );
 	keepFrameWHRatioButton->setAutoRaise( true );
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
-	keepFrameWHRatioButton->setChecked(true);
+	keepFrameWHRatioButton->setChecked(false);
 	GeoGroupLayout->addWidget( keepFrameWHRatioButton, 2, 2, 2, 1 );
 	Rotation = new ScrSpinBox( GeoGroup, 6);
 	Rotation->setWrapping( true );
