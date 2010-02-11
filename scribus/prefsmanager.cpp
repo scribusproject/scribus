@@ -1840,7 +1840,7 @@ bool PrefsManager::ReadPref(QString ho)
 				appPrefs.uiPrefs.useSmallWidgets = dc.attribute("UseSmallWidgets").toInt();
 			else
 				appPrefs.uiPrefs.useSmallWidgets = static_cast<bool>(dc.attribute("UI_USESMALLWIDGETS", "0").toInt());
-			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UI_USETABS", "0").toInt());
+			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UI_USESTABS", "0").toInt());
 			appPrefs.pathPrefs.documents = dc.attribute("DOC","");
 			appPrefs.pathPrefs.colorProfiles = dc.attribute("PROFILES","");
 			appPrefs.pathPrefs.scripts = dc.attribute("SCRIPTS","");
