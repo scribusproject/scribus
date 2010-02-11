@@ -77,6 +77,7 @@ private:
 	double m_origRatio;
 	QRectF m_bounds;
 	QRectF m_origBounds;
+	QPoint m_mousePressPoint;
 	UndoTransaction* m_transactionStarted;
 	double m_extraWidth;
 	double m_extraHeight;

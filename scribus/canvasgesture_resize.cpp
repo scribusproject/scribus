@@ -148,17 +148,23 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
 //		qDebug() << "ResizeGesture::release: new bounds" << m_bounds;
-		doResize(m->modifiers() & Qt::AltModifier);
-		m_doc->setRedrawBounding(currItem);
-		if (currItem->asImageFrame())
-			currItem->AdjustPictScale();
+		if (m_bounds != m_origBounds)
+		{
+			doResize(m->modifiers() & Qt::AltModifier);
+			m_doc->setRedrawBounding(currItem);
+			if (currItem->asImageFrame())
+				currItem->AdjustPictScale();
+		}
 		m_view->resetMousePressed();
 		// necessary since mousebutton is still recorded pressed, and otherwise checkchanges() will do nothing
 		// we must check changes on whole selection otherwise resize operation won't undo correctly on groups
-		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
-			m_doc->m_Selection->itemAt(i)->checkChanges();
-		currItem->invalidateLayout();
-		currItem->update();
+		if (m_bounds != m_origBounds)
+		{
+			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+				m_doc->m_Selection->itemAt(i)->checkChanges();
+			currItem->invalidateLayout();
+			currItem->update();
+		}
 	}
 //	qDebug() << "ResizeGesture::release: transaction" << m_transactionStarted;
 	if (m_transactionStarted)
@@ -324,6 +330,11 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
 	
+	if (m_mousePressPoint == m->globalPos())
+	{
+		m_bounds = m_origBounds;
+		return;
+	}
 
 	// snap to grid	+ snap to guides
 	bool isCorner = m_handle == Canvas::NORTHWEST || m_handle == Canvas::NORTHEAST 
@@ -526,6 +537,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 void ResizeGesture::mousePressEvent(QMouseEvent *m)
 {
 	FPoint point = m_canvas->globalToCanvas(m->globalPos());
+	m_mousePressPoint = m->globalPos();
 	if (m_doc->m_Selection->count() == 0)
 	{
 		m_handle = Canvas::OUTSIDE;
