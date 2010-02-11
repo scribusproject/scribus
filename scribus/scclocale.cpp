@@ -113,7 +113,7 @@ double ScCLocale::strtod ( const char * str, char ** endptr )
 		double result(0.0);
 		setlocale(LC_NUMERIC, "C");
 		result = strtod(str, endptr);
-                setlocale(LC_NUMERIC, oldlocale);
+		setlocale(LC_NUMERIC, oldlocale);
 		return result;
   #else
 		return strtod_l(str, endptr, that()->cLocale);
