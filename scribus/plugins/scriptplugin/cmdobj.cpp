@@ -296,8 +296,8 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
 		{
-			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
+			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
+			ScCore->primaryMainWindow()->doc->Items->at(ic)->AutoName = false;
 		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
@@ -383,8 +383,8 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
 		{
-			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
+			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
+			ScCore->primaryMainWindow()->doc->Items->at(ic)->AutoName = false;
 		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
@@ -479,8 +479,8 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
 		{
-			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
+			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
+			ScCore->primaryMainWindow()->doc->Items->at(ic)->AutoName = false;
 		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
