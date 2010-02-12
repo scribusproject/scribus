@@ -2211,6 +2211,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
+	m_view->redrawMarker->hide();
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if (m_doc->appMode == modeEditGradientVectors)
@@ -2400,7 +2401,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			}
 			m_view->HaveSelRect = false;
 			shiftSelItems = false;
-			m_view->redrawMarker->hide();
+//			m_view->redrawMarker->hide();
 			m_view->updateContents();
 		}
 		if (m_doc->appMode != modeEdit)
