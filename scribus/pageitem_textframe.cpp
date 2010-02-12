@@ -2816,6 +2816,9 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 {
 	ScribusView* view = m_Doc->view();
 	p->save();
+	if (!isEmbedded)
+		p->translate(Xpos, Ypos);
+	p->rotate(Rot);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
