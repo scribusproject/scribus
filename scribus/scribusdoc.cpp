@@ -10433,6 +10433,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		FPointArray gr;
 		gr.addPoint(bb->GrStartX, bb->GrStartY);
 		gr.addPoint(bb->GrEndX, bb->GrEndY);
+		gr.addPoint(bb->GrFocalX, bb->GrFocalY);
 		FPoint g(gx, gy);
 		FPoint b(0, 0, bb->xPos(), bb->yPos(), bb->rotation(), 1, 1);
 		b -= g;
@@ -10509,6 +10510,8 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		bb->GrStartY = gr.point(0).y();
 		bb->GrEndX = gr.point(1).x();
 		bb->GrEndY = gr.point(1).y();
+		bb->GrFocalX = gr.point(2).x();
+		bb->GrFocalY = gr.point(2).y();
 		bb->updateGradientVectors();
 	}
 	bb = itemSelection->itemAt(0);
