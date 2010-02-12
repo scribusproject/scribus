@@ -10,6 +10,7 @@ imagedialog.ui
 
 SET(PICTUREBROWSER_PLUGIN_MOC_CLASSES
 collection.h
+findimage.h
 imagedialog.h
 loadimage.h
 multicombobox.h

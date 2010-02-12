@@ -47,9 +47,9 @@ void loadImagesThread::run()
 	qRegisterMetaType<ImageInformation *> ( "ImageInformation*" );
 	qRegisterMetaType<QImage> ( "QImage" );
 
-	connect ( &help, SIGNAL ( imageLoaded ( int, const QImage, ImageInformation*, int ) ), pModel, SLOT ( processLoadedImage ( int, const QImage, ImageInformation*, int ) ) );
-	connect ( &help, SIGNAL ( imageLoadError ( int, int, int ) ), pModel, SLOT ( processImageLoadError ( int, int, int ) ) );
-	connect ( pictureBrowser, SIGNAL ( loadImageJob ( int, QString, int, int ) ), &help, SLOT ( processLoadImageJob ( int, QString, int, int ) ) );
+	connect(&help, SIGNAL(imageLoaded(int, const QImage, ImageInformation*, int) ), pModel, SLOT(processLoadedImage(int, const QImage, ImageInformation*, int)), Qt::QueuedConnection);
+	connect(&help, SIGNAL(imageLoadError(int, int, int)), pModel, SLOT(processImageLoadError(int, int, int)), Qt::QueuedConnection);
+	connect(pictureBrowser, SIGNAL(loadImageJob(int, QString, int, int)), &help, SLOT(processLoadImageJob(int, QString, int, int)), Qt::QueuedConnection);
 
 	exec();
 }

@@ -27,6 +27,8 @@
 //thread to search images in a folder and subfolders
 class findImagesThread : public QThread
 {
+	Q_OBJECT
+
 	public:
 		//parameters:
 		//const QString& path2: path to be searched

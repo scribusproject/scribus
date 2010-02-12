@@ -588,7 +588,7 @@ void PictureBrowser::dirChosen ( const QModelIndex &index )
 		if ( !fit )
 		{
 			fit = new findImagesThread ( currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs );
-			connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ) );
+			connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ), Qt::QueuedConnection );
 			fit->start();
 		}
 		else
@@ -680,7 +680,7 @@ void PictureBrowser::findImagesThreadFinished()
 
 		//maybe the state of folderBrowserIncludeSubdirs needs to be saved when canceling the old thread
 		fit = new findImagesThread ( currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs );
-		connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ) );
+		connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ), Qt::QueuedConnection );
 		fit->start();
 	}
 	else
