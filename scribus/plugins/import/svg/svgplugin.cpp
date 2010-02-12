@@ -128,6 +128,7 @@ void SVGImportPlugin::registerFormats()
 	fmt.fileExtensions = QStringList() << "svg" << "svgz";
 	fmt.load = true;
 	fmt.save = false;
+	fmt.thumb = true;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::SVG);
 	fmt.priority = 64;
 	registerFormat(fmt);
@@ -149,7 +150,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-	m_Doc=ScCore->primaryMainWindow()->doc;
+	m_Doc = ScCore->primaryMainWindow()->doc;
 	ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 	if (filename.isEmpty())
 	{
@@ -179,7 +180,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
-	SVGPlug *dia = new SVGPlug(mw, flags);
+	SVGPlug *dia = new SVGPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->import(filename, trSettings, flags);
 	if (activeTransaction)
@@ -202,11 +203,30 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	return true;
 }
 
-SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
-	QObject(mw)
-{	
-	tmpSel=new Selection(this, false);
-	m_Doc=mw->doc;
+QImage SVGImportPlugin::readThumbnail(const QString& fileName)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return QImage();
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = NULL;
+	SVGPlug *dia = new SVGPlug(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(dia);
+	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
+}
+
+SVGPlug::SVGPlug( ScribusDoc* doc, int flags )
+{
+	tmpSel = new Selection(this, false);
+	m_Doc = doc;
 	unsupported = false;
 	importFailed = false;
 	importCanceled = true;
@@ -216,8 +236,141 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	docDesc = "";
 	docTitle = "";
 	groupLevel = 0;
+	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 //	m_gc.setAutoDelete( true );
+}
+
+QImage SVGPlug::readThumbnail(QString fName)
+{
+	if (!loadData(fName))
+		return QImage();
+	QString CurDirP = QDir::currentPath();
+	QFileInfo efp(fName);
+	QDir::setCurrent(efp.path());
+	SvgStyle *gc = new SvgStyle;
+	QDomElement docElem = inpdoc.documentElement();
+	QSize wh = parseWidthHeight(docElem);
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(wh.width(), wh.height(), 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->scMW()->ScriptRunning = true;
+	gc->FontFamily = m_Doc->itemToolPrefs.textFont;
+	if (!m_Doc->PageColors.contains("Black"))
+		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	m_gc.push( gc );
+	viewTransformX = 0;
+	viewTransformY = 0;
+	viewScaleX = 1;
+	viewScaleY = 1;
+	if( !docElem.attribute( "viewBox" ).isEmpty() )
+	{
+		QString viewbox( docElem.attribute( "viewBox" ) );
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
+		if (points.size() > 3)
+		{
+			QTransform matrix;
+			QSize wh2 = parseWidthHeight(docElem);
+			double w2 = wh2.width();
+			double h2 = wh2.height();
+			addGraphicContext();
+			viewTransformX = ScCLocale::toDoubleC(points[0]);
+			viewTransformY = ScCLocale::toDoubleC(points[1]);
+			viewScaleX = w2 / ScCLocale::toDoubleC(points[2]);
+			viewScaleY = h2 / ScCLocale::toDoubleC(points[3]);
+			matrix.translate(-viewTransformX * viewScaleX, -viewTransformY * viewScaleY);
+			matrix.scale(viewScaleX, viewScaleY);
+			m_gc.top()->matrix = matrix;
+		}
+	}
+	QList<PageItem*> Elements = parseGroup( docElem );
+	tmpSel->clear();
+	QImage tmpImage = QImage();
+	if (Elements.count() > 0)
+	{
+		bool isGroup = true;
+		int firstElem = -1;
+		if (Elements.at(0)->Groups.count() != 0)
+			firstElem = Elements.at(0)->Groups.top();
+		for (int bx = 0; bx < Elements.count(); ++bx)
+		{
+			PageItem* bxi = Elements.at(bx);
+			if (bxi->Groups.count() != 0)
+			{
+				if (bxi->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
+		}
+		if (!isGroup)
+		{
+			double minx = 99999.9;
+			double miny = 99999.9;
+			double maxx = -99999.9;
+			double maxy = -99999.9;
+			uint lowestItem = 999999;
+			uint highestItem = 0;
+			for (int a = 0; a < Elements.count(); ++a)
+			{
+				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+				PageItem* currItem = Elements.at(a);
+				lowestItem = qMin(lowestItem, currItem->ItemNr);
+				highestItem = qMax(highestItem, currItem->ItemNr);
+				double x1, x2, y1, y2;
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			PageItem *high = m_Doc->Items->at(highestItem);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+			PageItem *neu = m_Doc->Items->takeAt(z);
+			m_Doc->Items->insert(lowestItem, neu);
+			neu->Groups.push(m_Doc->GroupCounter);
+			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+			neu->AutoName = false;
+			neu->isGroupControl = true;
+			neu->groupsLastItem = high;
+			for (int a = 0; a < m_Doc->Items->count(); ++a)
+			{
+				m_Doc->Items->at(a)->ItemNr = a;
+			}
+			neu->setRedrawBounding();
+			neu->setTextFlowMode(PageItem::TextFlowDisabled);
+			Elements.prepend(neu);
+			m_Doc->GroupCounter++;
+		}
+		m_Doc->DoDrawing = true;
+		m_Doc->m_Selection->delaySignalsOn();
+		for (int dre=0; dre<Elements.count(); ++dre)
+		{
+			tmpSel->addItem(Elements.at(dre), true);
+		}
+		tmpSel->setGroupRect();
+		double xs = tmpSel->width();
+		double ys = tmpSel->height();
+		double sc = 500.0 / qMax(xs, ys);
+		m_Doc->scaleGroup(sc, sc, true, tmpSel);
+		tmpImage = Elements.at(0)->DrawObj_toImage();
+		tmpImage.setText("XSize", QString("%1").arg(xs));
+		tmpImage.setText("YSize", QString("%1").arg(ys));
+		m_Doc->m_Selection->delaySignalsOff();
+	}
+	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->setLoading(false);
+	delete m_Doc;
+	QDir::setCurrent(CurDirP);
+	return tmpImage;
 }
 
 bool SVGPlug::import(QString fname, const TransactionSettings& trSettings, int flags)

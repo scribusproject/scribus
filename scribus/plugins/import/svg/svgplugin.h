@@ -38,6 +38,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
+		virtual QImage readThumbnail(const QString& fileName);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 	public slots:
@@ -223,9 +224,10 @@ public:
 	\param fName QString
 	\param isInteractive flag to use GUI
 	 */
-	SVGPlug(ScribusMainWindow *mw, int flags);
+	SVGPlug(ScribusDoc* doc, int flags);
 	~SVGPlug();
 	bool import(QString fname, const TransactionSettings& trSettings, int flags);
+	QImage readThumbnail(QString fn);
 	bool loadData(QString fname);
 	void convert(const TransactionSettings& trSettings, int flags);
 	void addGraphicContext();
@@ -302,6 +304,7 @@ public:
 	QMap<QString, QString> importedPattTrans;
 	double inGroupXOrigin;
 	double inGroupYOrigin;
+	int importerFlags;
 };
 
 #endif
