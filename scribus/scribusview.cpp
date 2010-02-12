@@ -4816,8 +4816,6 @@ double ScribusView::scale() const
 	return m_canvas->scale();
 }
 
-
-
 bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 {
 //	if (obj == horizRuler || obj == vertRuler || obj == rulerMover)
@@ -4853,7 +4851,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		m_canvasMode->mouseDoubleClickEvent(m);
 		return true;
 	}
-	else if (/* obj == widget() && */ event->type() == QEvent::KeyPress)
+	else if (event->type() == QEvent::KeyPress)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
 		if (m_canvasMode->handleKeyEvents())
@@ -4862,7 +4860,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			m_ScMW->keyPressEvent(m);
 		return true;
 	}
-	else if (/* obj == widget() && */ event->type() == QEvent::KeyRelease)
+	else if (event->type() == QEvent::KeyRelease)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
 		if (m_canvasMode->handleKeyEvents())

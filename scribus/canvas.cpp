@@ -1648,6 +1648,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 			{
 				currItem->invalid = false;
 				currItem->DrawObj(painter, cullingArea);
+				currItem->DrawObj_Decoration(painter);
 			}
 			else
 			{
