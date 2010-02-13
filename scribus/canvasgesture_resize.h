@@ -78,6 +78,7 @@ private:
 	QPoint m_mousePressPoint;
 	QRectF m_bounds;
 	QRectF m_origBounds;
+	QRectF m_mousePressBounds;
 	UndoTransaction* m_transactionStarted;
 	double m_extraWidth;
 	double m_extraHeight;
