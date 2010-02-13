@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
+#include "util_ghostscript.h"
 
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
@@ -68,8 +69,188 @@ AIPlug::AIPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
+	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	progressDialog = NULL;
+}
+
+QImage AIPlug::readThumbnail(QString fNameIn)
+{
+	QString fName = fNameIn;
+	double x, y, b, h;
+	CustColors.clear();
+	importedColors.clear();
+	importedGradients.clear();
+	importedPatterns.clear();
+	QFileInfo fi = QFileInfo(fName);
+/* Check if the file is an old style AI or one of the newer PDF wrapped ones */
+	QFile fT(fName);
+	if (fT.open(QIODevice::ReadOnly))
+	{
+		QByteArray tempBuf(9, ' ');
+		fT.read(tempBuf.data(), 8);
+		fT.close();
+		if (tempBuf.startsWith("%PDF"))
+		{
+			QString tmp, cmd1, cmd2;
+			QString pdfFile = QDir::convertSeparators(fName);
+			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+			int ret = -1;
+			tmp.setNum(1);
+			QStringList args;
+			args.append("-r72");
+			args.append("-sOutputFile="+tmpFile);
+			args.append("-dFirstPage="+tmp);
+			args.append("-dLastPage="+tmp);
+			args.append(pdfFile);
+			ret = callGS(args);
+			if (ret == 0)
+			{
+				QImage image;
+				image.load(tmpFile);
+				QFile::remove(tmpFile);
+				image.setText("XSize", QString("%1").arg(image.width()));
+				image.setText("YSize", QString("%1").arg(image.height()));
+				return image;
+			}
+			else
+				return QImage();
+		}
+	}
+	QFile fT2(fName);
+	if (fT2.open(QIODevice::ReadOnly))
+	{
+		QByteArray tempBuf(25, ' ');
+		fT2.read(tempBuf.data(), 20);
+		fT2.close();
+		/* Illustrator CS files might be compressed
+			the compressed Data starts right after the "%AI12_CompressedData" comment
+			Compression is a simple zlib compression */
+		if (tempBuf.startsWith("%AI12_CompressedData"))
+			decompressAIData(fName);
+	}
+	progressDialog = NULL;
+/* Set default Page to size defined in Preferences */
+	x = 0.0;
+	y = 0.0;
+	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	parseHeader(fName, x, y, b, h);
+	docX = x;
+	docY = y;
+	docWidth = b - x;
+	docHeight = h - y;
+	baseX = 0;
+	baseY = 0;
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	baseX = m_Doc->currentPage()->xOffset();
+	baseY = m_Doc->currentPage()->yOffset();
+	ColorList::Iterator it;
+	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	{
+		if (!m_Doc->PageColors.contains(it.key()))
+		{
+			m_Doc->PageColors.insert(it.key(), it.value());
+			importedColors.append(it.key());
+		}
+	}
+	Elements.clear();
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->scMW()->ScriptRunning = true;
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(fi.path());
+	QImage tmpImage;
+	if (convert(fName))
+	{
+		tmpSel->clear();
+		QDir::setCurrent(CurDirP);
+		if (Elements.count() > 0)
+		{
+			bool isGroup = true;
+			int firstElem = -1;
+			if (Elements.at(0)->Groups.count() != 0)
+				firstElem = Elements.at(0)->Groups.top();
+			for (int bx = 0; bx < Elements.count(); ++bx)
+			{
+				PageItem* bxi = Elements.at(bx);
+				if (bxi->Groups.count() != 0)
+				{
+					if (bxi->Groups.top() != firstElem)
+						isGroup = false;
+				}
+				else
+					isGroup = false;
+			}
+			if (!isGroup)
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				uint lowestItem = 999999;
+				uint highestItem = 0;
+				for (int a = 0; a < Elements.count(); ++a)
+				{
+					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+					PageItem* currItem = Elements.at(a);
+					lowestItem = qMin(lowestItem, currItem->ItemNr);
+					highestItem = qMax(highestItem, currItem->ItemNr);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				double gx = minx;
+				double gy = miny;
+				double gw = maxx - minx;
+				double gh = maxy - miny;
+				PageItem *high = m_Doc->Items->at(highestItem);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				PageItem *neu = m_Doc->Items->takeAt(z);
+				m_Doc->Items->insert(lowestItem, neu);
+				neu->Groups.push(m_Doc->GroupCounter);
+				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->isGroupControl = true;
+				neu->groupsLastItem = high;
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
+				for (int a = 0; a < m_Doc->Items->count(); ++a)
+				{
+					m_Doc->Items->at(a)->ItemNr = a;
+				}
+				Elements.prepend(neu);
+				m_Doc->GroupCounter++;
+			}
+		}
+		m_Doc->DoDrawing = true;
+		m_Doc->m_Selection->delaySignalsOn();
+		for (int dre=0; dre<Elements.count(); ++dre)
+		{
+			tmpSel->addItem(Elements.at(dre), true);
+		}
+		tmpSel->setGroupRect();
+		double xs = tmpSel->width();
+		double ys = tmpSel->height();
+		double sc = 500.0 / qMax(xs, ys);
+		m_Doc->scaleGroup(sc, sc, true, tmpSel);
+		tmpImage = Elements.at(0)->DrawObj_toImage();
+		tmpImage.setText("XSize", QString("%1").arg(xs));
+		tmpImage.setText("YSize", QString("%1").arg(ys));
+		m_Doc->m_Selection->delaySignalsOff();
+	}
+	else
+		tmpImage = QImage();
+	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->setLoading(false);
+	delete m_Doc;
+	QDir::setCurrent(CurDirP);
+	return tmpImage;
 }
 
 bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
@@ -1911,18 +2092,23 @@ void AIPlug::processData(QString data)
 				textFont = family;
 			else
 			{
-				if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
-				{
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					MissingFont *dia = new MissingFont(0, family, m_Doc);
-					dia->exec();
-					QString tmpf = dia->getReplacementFont();
-					delete dia;
-					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-					PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = tmpf;
-				}
+				if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+					textFont = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
 				else
-					textFont = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+				{
+					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
+					{
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						MissingFont *dia = new MissingFont(0, family, m_Doc);
+						dia->exec();
+						QString tmpf = dia->getReplacementFont();
+						delete dia;
+						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+						PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = tmpf;
+					}
+					else
+						textFont = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+				}
 			}
 			textSize *= 10.0;
 		}
@@ -2375,8 +2561,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				processPattern(ts);
 			if (tmp.startsWith("End_NonPrinting"))
 				break;
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("BeginPattern:"))
@@ -2390,8 +2579,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				break;
 			else
 				processGradientData(tmp);
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("BeginPalette"))
@@ -2401,8 +2593,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndPalette"))
 				break;
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("BeginSymbol"))
@@ -2412,8 +2607,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndSymbol"))
 				break;
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("BeginDocumentData"))
@@ -2423,8 +2621,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndDocumentData"))
 				break;
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("%%BeginProlog"))
@@ -2434,8 +2635,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndProlog"))
 				break;
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("%%BeginData"))
@@ -2445,8 +2649,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndData"))
 				break;
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("%%BeginCrops"))
@@ -2456,15 +2663,21 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndCrops"))
 				break;
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("BeginRaster"))
 	{
 		processRaster(ts);
-		progressDialog->setProgress("GI", ts.device()->pos());
-		qApp->processEvents();
+		if(progressDialog)
+		{
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
+		}
 	}
 	else if (tmp.startsWith("BeginLayer"))
 	{
@@ -2480,8 +2693,11 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				break;
 			else
 				processData(tmp);
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 }
@@ -2580,8 +2796,11 @@ bool AIPlug::convert(QString fn)
 				processComment(ts, tmp);
 			else
 				processData(tmp);
-			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 		f.close();
 	}
