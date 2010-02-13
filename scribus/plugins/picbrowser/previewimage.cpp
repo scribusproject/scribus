@@ -481,7 +481,7 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 	if ( role == Qt::DecorationRole )
 	{
 		pictureBrowser->currentRow = row;
-
+/*
 		//preload icons before and after current icon
 		if ( ( row - pictureBrowser->previewIconsVisible ) >= 0 )
 		{
@@ -504,7 +504,7 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 				pictureBrowser->callLoadImageThread ( row + pictureBrowser->previewIconsVisible, pId );
 			}
 		}
-
+*/
 		if ( !tmpImage->previewIconCreated )
 		{
 			if ( !tmpImage->previewImageLoading )

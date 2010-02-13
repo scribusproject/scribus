@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QString>
 #include <QThread>
+#include <QMutex>
 
 class ImageInformation;
 class PictureBrowser;
@@ -42,11 +43,12 @@ class loadImagesThread : public QThread
 		void run();
 
 	private:
+		QMutex mutex;
 		//contains a pointer to the calling PictureBrowser object
 		PictureBrowser *pictureBrowser;
 		//contains a pointer to the related PreviewImagesModel
 		PreviewImagesModel *pModel;
-};
+/*};
 
 
 //a helper class to get the signals/slots executed in the right thread
@@ -61,7 +63,7 @@ class loadImagesThreadInstance : public QObject
 		PictureBrowser *pictureBrowser;
 		//contains a pointer to the related PreviewImagesModel
 		PreviewImagesModel *pModel;
-
+*/
 	signals:
 		//emitted when image was loaded
 		//parameters:
