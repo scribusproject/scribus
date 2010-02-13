@@ -148,7 +148,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
 //		qDebug() << "ResizeGesture::release: new bounds" << m_bounds;
-		if (m_bounds != m_origBounds)
+		if (m_bounds != m_mousePressBounds)
 		{
 			doResize(m->modifiers() & Qt::AltModifier);
 			m_doc->setRedrawBounding(currItem);
@@ -158,7 +158,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		m_view->resetMousePressed();
 		// necessary since mousebutton is still recorded pressed, and otherwise checkchanges() will do nothing
 		// we must check changes on whole selection otherwise resize operation won't undo correctly on groups
-		if (m_bounds != m_origBounds)
+		if (m_bounds != m_mousePressBounds)
 		{
 			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 				m_doc->m_Selection->itemAt(i)->checkChanges();
@@ -332,7 +332,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	
 	if (m_mousePressPoint == m->globalPos())
 	{
-		m_bounds = m_origBounds;
+		m_bounds = m_mousePressBounds;
 		return;
 	}
 
@@ -556,5 +556,6 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 	{
 		prepare(m_handle);
 		m->accept();
+		m_mousePressBounds = m_bounds;
 	}
 }

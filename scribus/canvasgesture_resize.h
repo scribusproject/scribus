@@ -75,9 +75,10 @@ private:
 	Canvas::FrameHandle m_handle;
 	double m_rotation;
 	double m_origRatio;
+	QPoint m_mousePressPoint;
 	QRectF m_bounds;
 	QRectF m_origBounds;
-	QPoint m_mousePressPoint;
+	QRectF m_mousePressBounds;
 	UndoTransaction* m_transactionStarted;
 	double m_extraWidth;
 	double m_extraHeight;
