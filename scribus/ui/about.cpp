@@ -107,14 +107,14 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab );
-	pixmapLabel1->setPixmap(loadIcon("scribus_logo.png", true));
+	pixmapLabel1->setPixmap(loadIcon("Splash.png", true));
 	pixmapLabel1->setFixedSize(QSize(pixmapLabel1->pixmap()->width(), pixmapLabel1->pixmap()->height()));
 	pixmapLabel1->setAlignment(Qt::AlignCenter);
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "1";
+	QString BUILD_DAY = "13";
 	QString BUILD_MONTH = CommonStrings::february;
 	QString BUILD_YEAR = "2010";
 	QString BUILD_TIME = "";
