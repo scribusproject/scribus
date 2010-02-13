@@ -10556,14 +10556,14 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 
 
 
-void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selection* customSelection)
+const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selection* customSelection)
 {
 		Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 		if (itemSelection->count() < 1)
-			return;
+			return NULL;
 		int objectsLayer = itemSelection->objectsLayer();
 		if (objectsLayer == -1)
-			return;
+			return NULL;
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
@@ -10707,6 +10707,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 			m_ScMW->scrActions["itemUngroup"]->setEnabled(true);
 		}
 		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+		return groupItem;
 }
 
 void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
@@ -11584,5 +11585,6 @@ void ScribusDoc::RotMode(const int& val)
 	rotMode = val;
 	emit rotationMode(rotMode);
 }
+
 
 

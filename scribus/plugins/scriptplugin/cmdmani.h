@@ -110,11 +110,11 @@ PyObject *scribus_deselect(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_groupobj__doc__,
-QT_TR_NOOP("groupObjects(list)\n\
+QT_TR_NOOP("groupObjects(list) -> string\n\
 \n\
 Groups the objects named in \"list\" together. \"list\" must contain the names\n\
 of the objects to be grouped. If \"list\" is not given the currently selected\n\
-items are used.\n\
+items are used. Returns the group name for further referencing.\n\
 "));
 /*! Group objects named in list. */
 PyObject *scribus_groupobj(PyObject * /*self*/, PyObject* args);

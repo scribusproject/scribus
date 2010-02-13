@@ -257,10 +257,12 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		delete tempSelection;
 		return NULL;
 	}
-	ScCore->primaryMainWindow()->doc->itemSelection_GroupObjects(false, false, finalSelection);
+
+	const PageItem* group = ScCore->primaryMainWindow()->doc->itemSelection_GroupObjects(false, false, finalSelection);
 	finalSelection=0;
 	delete tempSelection;
-	Py_RETURN_NONE;
+	
+	return (group ? PyString_FromString(group->itemName().toUtf8()) : NULL);
 }
 
 PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
