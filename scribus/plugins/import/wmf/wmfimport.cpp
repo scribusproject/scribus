@@ -137,11 +137,10 @@ static const ushort symbol_to_unicode[96] = {
 	0x03C8, 0x03B6, 0x03EA, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD
 };
 
-WMFImport::WMFImport( ScribusMainWindow* mw, int flags ) :
-	QObject(mw)
+WMFImport::WMFImport( ScribusDoc* doc, int flags )
 {	
 	m_tmpSel = new Selection(this, false);
-	m_Doc    = mw->doc;
+	m_Doc    = doc;
 	unsupported = false;
 	importFailed = false;
 	importCanceled = true;
@@ -328,6 +327,113 @@ void WMFImport::pointsToAngle( double xStart, double yStart, double xEnd, double
 	angleStart  = (int)(aStart * 180.0 / 3.14166);
 	angleLength = (int)(aLength * 180.0 / 3.14166);
 	if ( angleLength < 0 ) angleLength = 360.0 + angleLength;
+}
+
+QImage WMFImport::readThumbnail(QString fname)
+{
+	if (!loadWMF(fname))
+	{
+		importFailed = true;
+		return QImage();
+	}
+	QString CurDirP = QDir::currentPath();
+	QFileInfo efp(fname);
+	QDir::setCurrent(efp.path());
+	double scale  = (m_Dpi > 0) ? 72.0 / m_Dpi : 0.05;
+	double width  = m_BBox.width() * scale;
+	double height = m_BBox.height() * scale;
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->scMW()->ScriptRunning = true;
+	m_Doc->PageColors.ensureBlackAndWhite();
+	QList<PageItem*> Elements = parseWmfCommands();
+	m_tmpSel->clear();
+	if (Elements.count() > 0)
+	{
+		bool isGroup = true;
+		int firstElem = -1;
+		if (Elements.at(0)->Groups.count() != 0)
+			firstElem = Elements.at(0)->Groups.top();
+		for (int bx = 0; bx < Elements.count(); ++bx)
+		{
+			PageItem* bxi = Elements.at(bx);
+			if (bxi->Groups.count() != 0)
+			{
+				if (bxi->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
+		}
+		if (!isGroup)
+		{
+			double minx = 99999.9;
+			double miny = 99999.9;
+			double maxx = -99999.9;
+			double maxy = -99999.9;
+			uint lowestItem = 999999;
+			uint highestItem = 0;
+			for (int a = 0; a < Elements.count(); ++a)
+			{
+				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+				PageItem* currItem = Elements.at(a);
+				lowestItem = qMin(lowestItem, currItem->ItemNr);
+				highestItem = qMax(highestItem, currItem->ItemNr);
+				double x1, x2, y1, y2;
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			PageItem *high = m_Doc->Items->at(highestItem);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+			PageItem *neu = m_Doc->Items->takeAt(z);
+			m_Doc->Items->insert(lowestItem, neu);
+			neu->Groups.push(m_Doc->GroupCounter);
+			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+			neu->AutoName = false;
+			neu->isGroupControl = true;
+			neu->groupsLastItem = high;
+			for (int a = 0; a < m_Doc->Items->count(); ++a)
+			{
+				m_Doc->Items->at(a)->ItemNr = a;
+			}
+			neu->setRedrawBounding();
+			neu->setTextFlowMode(PageItem::TextFlowDisabled);
+			Elements.prepend(neu);
+			m_Doc->GroupCounter++;
+		}
+	}
+	m_Doc->DoDrawing = true;
+	m_Doc->m_Selection->delaySignalsOn();
+	for (int dre=0; dre<Elements.count(); ++dre)
+	{
+		m_tmpSel->addItem(Elements.at(dre), true);
+	}
+	m_tmpSel->setGroupRect();
+	double xs = m_tmpSel->width();
+	double ys = m_tmpSel->height();
+	double sc = 500.0 / qMax(xs, ys);
+	m_Doc->scaleGroup(sc, sc, true, m_tmpSel);
+	QImage tmpImage = Elements.at(0)->DrawObj_toImage();
+	tmpImage.setText("XSize", QString("%1").arg(xs));
+	tmpImage.setText("YSize", QString("%1").arg(ys));
+	m_Doc->m_Selection->delaySignalsOff();
+	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->setLoading(false);
+	delete m_Doc;
+	QDir::setCurrent(CurDirP);
+	return tmpImage;
 }
 
 bool WMFImport::import(QString fname, const TransactionSettings& trSettings, int flags)

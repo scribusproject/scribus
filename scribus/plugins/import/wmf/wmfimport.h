@@ -40,10 +40,11 @@ class WMFImport : public QObject
 
 public:
 
-	WMFImport(ScribusMainWindow *mw, int flags);
+	WMFImport(ScribusDoc* doc, int flags);
 	~WMFImport();
 
 	bool import(QString fname, const TransactionSettings& trSettings, int flags);
+	QImage readThumbnail(QString fn);
 
 	void wmfClosePath(FPointArray *i);
 	void wmfMoveTo(double x1, double y1);

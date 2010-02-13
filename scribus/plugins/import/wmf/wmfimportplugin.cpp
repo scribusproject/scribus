@@ -116,6 +116,7 @@ void WMFImportPlugin::registerFormats()
 	fmt.fileExtensions = QStringList() << "wmf";
 	fmt.load = true;
 	fmt.save = false;
+	fmt.thumb = true;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::WMF);
 	fmt.priority = 64;
 	registerFormat(fmt);
@@ -166,7 +167,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
-	WMFImport *dia = new WMFImport(mw, flags);
+	WMFImport *dia = new WMFImport(m_Doc, flags);
 	dia->import(filename, trSettings, flags);
 	Q_CHECK_PTR(dia);
 	if (activeTransaction)
@@ -188,4 +189,24 @@ bool WMFImportPlugin::import(QString filename, int flags)
 	bool success = !dia->importFailed;
 	delete dia;
 	return success;
+}
+
+QImage WMFImportPlugin::readThumbnail(const QString& fileName)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return QImage();
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = NULL;
+	WMFImport *dia = new WMFImport(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(dia);
+	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
 }
