@@ -311,7 +311,7 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	if (tmpStyle.charStyle().font().isNone())
 		return QPixmap();
-
+	bool oldUndoEnabled=UndoManager::instance()->undoEnabled();
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
@@ -362,7 +362,7 @@ QPixmap SampleItem::getSample(int width, int height)
 		m_Doc->view()->setScale(sca);
 	m_Doc->appMode = userAppMode;
 //	m_Doc->docParagraphStyles.remove(tmpIndex);
-	UndoManager::instance()->setUndoEnabled(true);
+	UndoManager::instance()->setUndoEnabled(oldUndoEnabled);
 	return QPixmap::fromImage(pm);
 }
 
