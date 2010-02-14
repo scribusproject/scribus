@@ -132,6 +132,7 @@ void OODrawImportPlugin::registerFormats()
 	odtformat.fileExtensions = QStringList() << "odg";
 	odtformat.load = true;
 	odtformat.save = false;
+	odtformat.thumb = true;
 	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
 	odtformat.priority = 64; // Priority
 	registerFormat(odtformat);
@@ -145,6 +146,7 @@ void OODrawImportPlugin::registerFormats()
 	sxdformat.fileExtensions = QStringList() << "sxd";
 	sxdformat.load = true;
 	sxdformat.save = false;
+	sxdformat.thumb = true;
 	sxdformat.mimeTypes = QStringList("application/vnd.sun.xml.draw"); // MIME types
 	sxdformat.priority = 64; // Priority
 	registerFormat(sxdformat);
@@ -214,6 +216,26 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 	return importDone;
 }
 
+QImage OODrawImportPlugin::readThumbnail(const QString& fileName)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return QImage();
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = NULL;
+	OODPlug *dia = new OODPlug(m_Doc);
+	Q_CHECK_PTR(dia);
+	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
+}
+
 OODPlug::OODPlug(ScribusDoc* doc)
 {
 	m_Doc=doc;
@@ -223,6 +245,197 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	importCanceled = true;
 	importedColors.clear();
 	tmpSel=new Selection(this, false);
+}
+
+QImage OODPlug::readThumbnail(QString fileName )
+{
+	QByteArray f, f2, f3;
+	if ( !QFile::exists(fileName) )
+		return QImage();
+	FileUnzip* fun = new FileUnzip(fileName);
+	stylePath   = fun->getFile("styles.xml");
+	contentPath = fun->getFile("content.xml");
+	metaPath = fun->getFile("meta.xml");
+	delete fun;
+	// Qt4 NULL -> isNull()
+	if ((!stylePath.isNull()) && (!contentPath.isNull()))
+	{
+		HaveMeta = false;
+		QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
+		docname = docname.left(docname.lastIndexOf("."));
+		loadRawText(stylePath, f);
+		if(!inpStyles.setContent(f))
+			return QImage();
+		loadRawText(contentPath, f2);
+		if(!inpContents.setContent(f2))
+			return QImage();
+		QFile::remove(stylePath);
+		QFile::remove(contentPath);
+		HaveMeta = false;
+		if (!metaPath.isEmpty())
+		{
+			loadRawText(metaPath, f3);
+			HaveMeta = inpMeta.setContent(f3);
+			QFile::remove(f3);
+		}
+	}
+	else if ((stylePath.isNull()) && (!contentPath.isNull()))
+	{
+		QFile f2(contentPath);
+		f2.remove();
+	}
+	else if ((!stylePath.isNull()) && (contentPath.isNull()))
+	{
+		QFile f1(stylePath);
+		f1.remove();
+	}
+	QString CurDirP = QDir::currentPath();
+	QFileInfo efp(fileName);
+	QDir::setCurrent(efp.path());
+	bool isOODraw2 = false;
+	QDomNode drawPagePNode;
+	QList<PageItem*> Elements;
+	createStyleMap( inpStyles );
+	QDomElement docElem = inpContents.documentElement();
+	QDomNode automaticStyles = docElem.namedItem( "office:automatic-styles" );
+	if( !automaticStyles.isNull() )
+		insertStyles( automaticStyles.toElement() );
+	QDomNode body = docElem.namedItem( "office:body" );
+	QDomNode drawPage = body.namedItem( "draw:page" );
+	if ( drawPage.isNull() )
+	{
+		QDomNode offDraw = body.namedItem( "office:drawing" );
+		drawPage = offDraw.namedItem( "draw:page" );
+		if (drawPage.isNull())
+			return QImage();
+		else
+		{
+			isOODraw2 = true;
+			drawPagePNode = body.namedItem( "office:drawing" );
+		}
+	}
+	else 
+		drawPagePNode = body;
+	StyleStack::Mode mode = isOODraw2 ? StyleStack::OODraw2x : StyleStack::OODraw1x;
+	m_styleStack.setMode( mode );
+	QDomElement dp = drawPage.toElement();
+	QDomElement *master = m_styles[dp.attribute( "draw:master-page-name" )];
+	QDomElement *style = NULL;
+	QDomElement properties;
+	if (isOODraw2)
+	{
+		style = m_styles.value(master->attribute( "style:page-layout-name" ), NULL);
+		if (style)
+			properties = style->namedItem("style:page-layout-properties" ).toElement();
+	}
+	else
+	{
+		style = m_styles.value(master->attribute( "style:page-master-name" ), NULL);
+		if (style)
+			properties = style->namedItem( "style:properties" ).toElement();
+	}
+	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
+	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	Elements.clear();
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->scMW()->ScriptRunning = true;
+	if (!m_Doc->PageColors.contains("Black"))
+		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	QDomNode drawPag = drawPagePNode.firstChild();
+	QDomElement dpg = drawPag.toElement();
+	m_styleStack.clear();
+	fillStyleStack( dpg );
+	QList<PageItem*> el = parseGroup( dpg );
+	for (int ec = 0; ec < el.count(); ++ec)
+		Elements.append(el.at(ec));
+	tmpSel->clear();
+	QImage tmpImage = QImage();
+	if (Elements.count() > 0)
+	{
+		bool isGroup = true;
+		int firstElem = -1;
+		if (Elements.at(0)->Groups.count() != 0)
+			firstElem = Elements.at(0)->Groups.top();
+		for (int bx = 0; bx < Elements.count(); ++bx)
+		{
+			PageItem* bxi = Elements.at(bx);
+			if (bxi->Groups.count() != 0)
+			{
+				if (bxi->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
+		}
+		if (!isGroup)
+		{
+			double minx = 99999.9;
+			double miny = 99999.9;
+			double maxx = -99999.9;
+			double maxy = -99999.9;
+			uint lowestItem = 999999;
+			uint highestItem = 0;
+			for (int a = 0; a < Elements.count(); ++a)
+			{
+				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+				PageItem* currItem = Elements.at(a);
+				lowestItem = qMin(lowestItem, currItem->ItemNr);
+				highestItem = qMax(highestItem, currItem->ItemNr);
+				double x1, x2, y1, y2;
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			PageItem *high = m_Doc->Items->at(highestItem);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+			PageItem *neu = m_Doc->Items->takeAt(z);
+			m_Doc->Items->insert(lowestItem, neu);
+			neu->Groups.push(m_Doc->GroupCounter);
+			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+			neu->AutoName = false;
+			neu->isGroupControl = true;
+			neu->groupsLastItem = high;
+			neu->setTextFlowMode(PageItem::TextFlowDisabled);
+			for (int a = 0; a < m_Doc->Items->count(); ++a)
+			{
+				m_Doc->Items->at(a)->ItemNr = a;
+			}
+			Elements.prepend(neu);
+			m_Doc->GroupCounter++;
+		}
+		m_Doc->DoDrawing = true;
+		m_Doc->m_Selection->delaySignalsOn();
+		for (int dre=0; dre<Elements.count(); ++dre)
+		{
+			tmpSel->addItem(Elements.at(dre), true);
+		}
+		tmpSel->setGroupRect();
+		double xs = tmpSel->width();
+		double ys = tmpSel->height();
+		double sc = 500.0 / qMax(xs, ys);
+		m_Doc->scaleGroup(sc, sc, true, tmpSel);
+		tmpImage = Elements.at(0)->DrawObj_toImage();
+		tmpImage.setText("XSize", QString("%1").arg(xs));
+		tmpImage.setText("YSize", QString("%1").arg(ys));
+		m_Doc->m_Selection->delaySignalsOff();
+		m_Doc->setLoading(false);
+	}
+	m_Doc->scMW()->ScriptRunning = false;
+	delete m_Doc;
+	QDir::setCurrent(CurDirP);
+	return tmpImage;
 }
 
 bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, int flags )
