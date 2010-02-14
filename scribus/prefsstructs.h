@@ -273,6 +273,7 @@ struct ScrapbookPrefs
 	int numScrapbookCopies;
 	bool doCopyToScrapbook; //! When copying (copy/paste), also copy to a scrapbook
 	bool persistentScrapbook; //! Keep the scrapbook contents between sessions
+	bool writePreviews;		//! Write previews to the scrapbook dir;
 };
 
 struct DisplayPrefs

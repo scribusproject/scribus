@@ -304,6 +304,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.recentDocCount = 5;
 	appPrefs.scrapbookPrefs.doCopyToScrapbook = true;
 	appPrefs.scrapbookPrefs.persistentScrapbook = false;
+	appPrefs.scrapbookPrefs.writePreviews = true;
 	appPrefs.scrapbookPrefs.numScrapbookCopies = 10;
 	appPrefs.displayPrefs.marginColored = false;
 	appPrefs.docSetupPrefs.pageSize = "A4";
@@ -1418,6 +1419,7 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc73=docu.createElement("SCRAPBOOK");
 	dc73.setAttribute("CopyToScrapbook",static_cast<int>(appPrefs.scrapbookPrefs.doCopyToScrapbook));
 	dc73.setAttribute("persistentScrapbook",static_cast<int>(appPrefs.scrapbookPrefs.persistentScrapbook));
+	dc73.setAttribute("writePreviews",static_cast<int>(appPrefs.scrapbookPrefs.writePreviews));
 	dc73.setAttribute("numScrapbookCopies",appPrefs.scrapbookPrefs.numScrapbookCopies);
 	for (int rd=0; rd<appPrefs.scrapbookPrefs.RecentScrapbooks.count(); ++rd)
 	{
@@ -2034,6 +2036,7 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.scrapbookPrefs.doCopyToScrapbook = static_cast<bool>(dc.attribute("CopyToScrapbook", "1").toInt());
 			appPrefs.scrapbookPrefs.persistentScrapbook = static_cast<bool>(dc.attribute("persistentScrapbook", "0").toInt());
+			appPrefs.scrapbookPrefs.writePreviews = static_cast<bool>(dc.attribute("writePreviews", "1").toInt());
 			appPrefs.scrapbookPrefs.numScrapbookCopies = dc.attribute("numScrapbookCopies", "10").toInt();
 			QDomNode scrp = dc.firstChild();
 			while(!scrp.isNull())

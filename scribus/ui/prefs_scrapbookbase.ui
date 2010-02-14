@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>677</width>
-        <height>315</height>
+        <width>683</width>
+        <height>327</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -61,6 +61,13 @@
         <widget class="QCheckBox" name="keepCopiedAcrossSessionsCheckBox">
          <property name="text">
           <string>Keep Copied Items Permanently Across Sessions</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="writePreviews">
+         <property name="text">
+          <string>Write Item Previews to the Scrapbook Directory</string>
          </property>
         </widget>
        </item>

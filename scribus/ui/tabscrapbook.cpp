@@ -20,5 +20,6 @@ void TabScrapbook::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	useScrapBookasExtension->setChecked(prefsData->scrapbookPrefs.doCopyToScrapbook);
 	persistentScrapbook->setChecked(prefsData->scrapbookPrefs.persistentScrapbook);
+	writePreviews->setChecked(prefsData->scrapbookPrefs.writePreviews);
 	numScrapCopies->setValue(prefsData->scrapbookPrefs.numScrapbookCopies);
 }

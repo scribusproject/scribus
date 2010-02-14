@@ -1,9 +1,10 @@
-<ui version="4.0" >
- <author>Petr Vanek &lt;petr@scribus.info></author>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Petr Vanek &lt;petr@scribus.info&gt;</author>
  <comment>scrapbook panel for prefs UI</comment>
  <class>TabScrapbook</class>
- <widget class="QWidget" name="TabScrapbook" >
-  <property name="geometry" >
+ <widget class="QWidget" name="TabScrapbook">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -11,73 +12,74 @@
     <height>203</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>11</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QCheckBox" name="useScrapBookasExtension" >
-     <property name="toolTip" >
+    <widget class="QCheckBox" name="useScrapBookasExtension">
+     <property name="toolTip">
       <string>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>Send Copied Items Automatically to Scrapbook</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="persistentScrapbook" >
-     <property name="toolTip" >
+    <widget class="QCheckBox" name="persistentScrapbook">
+     <property name="toolTip">
       <string>This enables copied items to be kept permanently in the scrapbook.</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>Keep Copied Items Permanently Across Sessions</string>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
+    <widget class="QCheckBox" name="writePreviews">
+     <property name="text">
+      <string>Write Item Previews into the Scrapbook Directory</string>
      </property>
-     <property name="spacing" >
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
+     <property name="margin">
+      <number>0</number>
+     </property>
      <item>
-      <widget class="QLabel" name="textLabel2" >
-       <property name="toolTip" >
+      <widget class="QLabel" name="textLabel2">
+       <property name="toolTip">
         <string>The minimum number is 1; the maximum us 100.</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Number of Copied Items to Keep in Scrapbook:</string>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="numScrapCopies" >
-       <property name="maximum" >
-        <number>100</number>
-       </property>
-       <property name="minimum" >
+      <widget class="QSpinBox" name="numScrapCopies">
+       <property name="minimum">
         <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -89,13 +91,13 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>97</height>
@@ -105,7 +107,7 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>

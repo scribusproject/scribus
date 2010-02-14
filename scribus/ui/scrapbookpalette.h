@@ -52,6 +52,7 @@ signals:
 	void CloseMpal();
 	void CloseTpal();
 	void objDropped(QString text);
+	void fileDropped(QString path, int testResult);
 
 protected:
 	void dragEnterEvent(QDragEnterEvent *e);
@@ -89,6 +90,7 @@ public:
 	
 public slots:
 	void languageChange();
+	void ObjFromFile(QString path, int testResult);
 	void ObjFromMenu(QString text);
 
 private slots:

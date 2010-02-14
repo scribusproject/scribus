@@ -390,6 +390,7 @@ void Preferences::updatePreferences()
 
 	prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook = tabScrapbook->useScrapBookasExtension->isChecked();
 	prefsManager->appPrefs.scrapbookPrefs.persistentScrapbook = tabScrapbook->persistentScrapbook->isChecked();
+	prefsManager->appPrefs.scrapbookPrefs.writePreviews = tabScrapbook->writePreviews->isChecked();
 	prefsManager->appPrefs.scrapbookPrefs.numScrapbookCopies = tabScrapbook->numScrapCopies->value();
 
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.itemToolPrefs.polyCorners,
