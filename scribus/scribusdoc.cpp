@@ -263,6 +263,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	init();
 	bleeds = prefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
+	PDF_Options.useDocBleeds = true;
 	Print_Options.firstUse = true;
 }
 
@@ -378,6 +379,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	init();
 	bleeds = prefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
+	PDF_Options.useDocBleeds = true;
 	Print_Options.firstUse = true;
 }
 
