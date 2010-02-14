@@ -1933,8 +1933,11 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		view = tempView;
 	tempDoc->setCurrentPage(tempDoc->Pages->at(0));
 	tempDoc->setGUI(requiresGUI, this, tempView);
-	tempDoc->docHyphenator->ignoredWords = prefsManager->appPrefs.hyphPrefs.ignoredWords;
-	tempDoc->docHyphenator->specialWords = prefsManager->appPrefs.hyphPrefs.specialWords;
+	if (requiresGUI)
+	{
+		tempDoc->docHyphenator->ignoredWords = prefsManager->appPrefs.hyphPrefs.ignoredWords;
+		tempDoc->docHyphenator->specialWords = prefsManager->appPrefs.hyphPrefs.specialWords;
+	}
 	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
 
