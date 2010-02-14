@@ -36,12 +36,14 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QToolTip>
 #include <QPainter>
+#include <QProgressDialog>
 
 #include "commonstrings.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "query.h"
 #include "scpreview.h"
+#include "scribuscore.h"
 #include "stencilreader.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
@@ -488,11 +490,36 @@ void BibView::ReadContents(QString name)
 	QString nd;
 	if (name.endsWith(QDir::convertSeparators("/")))
 		nd = name.left(name.length()-1);
+	int fileCount = 0;
+	int readCount = 0;
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		fileCount += d.count();
+	QDir d2(name, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		fileCount += d2.count();
+	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		fileCount += d3.count();
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	for (int v = 0; v < vectorFiles.count(); v++)
+	{
+		QString ext = "*." + vectorFiles[v];
+		QDir d4(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		fileCount += d4.count();
+	}
+	QProgressDialog *pgDia = NULL;
+	if (ScCore->initialized())
+	{
+		pgDia = new QProgressDialog("Reading Files...", QString(), 0, fileCount, this);
+		pgDia->setWindowModality(Qt::WindowModal);
+	}
 	if ((d.exists()) && (d.count() != 0))
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
+			if (pgDia)
+			{
+				pgDia->setValue(readCount);
+				readCount++;
+			}
 			QPixmap pm;
 			QByteArray cf;
 			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), cf))
@@ -517,11 +544,15 @@ void BibView::ReadContents(QString name)
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), pm);
 		}
 	}
-	QDir d2(name, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{
 		for (uint dc = 0; dc < d2.count(); ++dc)
 		{
+			if (pgDia)
+			{
+				pgDia->setValue(readCount);
+				readCount++;
+			}
 			QPixmap pm;
 			QByteArray cf;
 			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(name + "/" + d2[dc])), cf))
@@ -542,11 +573,15 @@ void BibView::ReadContents(QString name)
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d2[dc])), pm);
 		}
 	}
-	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d3.exists()) && (d3.count() != 0))
 	{
 		for (uint dc = 0; dc < d3.count(); ++dc)
 		{
+			if (pgDia)
+			{
+				pgDia->setValue(readCount);
+				readCount++;
+			}
 			QPixmap pm;
 			QByteArray cf;
 			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])), cf))
@@ -576,7 +611,6 @@ void BibView::ReadContents(QString name)
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])), pm);
 		}
 	}
-	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
 	for (int v = 0; v < vectorFiles.count(); v++)
 	{
 		QString ext = "*." + vectorFiles[v];
@@ -585,6 +619,11 @@ void BibView::ReadContents(QString name)
 		{
 			for (uint dc = 0; dc < d4.count(); ++dc)
 			{
+				if (pgDia)
+				{
+					pgDia->setValue(readCount);
+					readCount++;
+				}
 				QPixmap pm;
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
 				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
@@ -611,6 +650,11 @@ void BibView::ReadContents(QString name)
 				AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])), pm);
 			}
 		}
+	}
+	if (pgDia)
+	{
+		pgDia->setValue(fileCount);
+		delete pgDia;
 	}
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
