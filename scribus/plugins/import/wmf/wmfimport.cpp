@@ -425,7 +425,7 @@ QImage WMFImport::readThumbnail(QString fname)
 		double ys = m_tmpSel->height();
 		double sc = 500.0 / qMax(xs, ys);
 		m_Doc->scaleGroup(sc, sc, true, m_tmpSel);
-		QImage tmpImage = Elements.at(0)->DrawObj_toImage();
+		tmpImage = Elements.at(0)->DrawObj_toImage();
 		tmpImage.setText("XSize", QString("%1").arg(xs));
 		tmpImage.setText("YSize", QString("%1").arg(ys));
 		m_Doc->m_Selection->delaySignalsOff();
