@@ -353,6 +353,7 @@ QImage WMFImport::readThumbnail(QString fname)
 	m_Doc->PageColors.ensureBlackAndWhite();
 	QList<PageItem*> Elements = parseWmfCommands();
 	m_tmpSel->clear();
+	QImage tmpImage = QImage();
 	if (Elements.count() > 0)
 	{
 		bool isGroup = true;
@@ -413,24 +414,24 @@ QImage WMFImport::readThumbnail(QString fname)
 			Elements.prepend(neu);
 			m_Doc->GroupCounter++;
 		}
+		m_Doc->DoDrawing = true;
+		m_Doc->m_Selection->delaySignalsOn();
+		for (int dre=0; dre<Elements.count(); ++dre)
+		{
+			m_tmpSel->addItem(Elements.at(dre), true);
+		}
+		m_tmpSel->setGroupRect();
+		double xs = m_tmpSel->width();
+		double ys = m_tmpSel->height();
+		double sc = 500.0 / qMax(xs, ys);
+		m_Doc->scaleGroup(sc, sc, true, m_tmpSel);
+		QImage tmpImage = Elements.at(0)->DrawObj_toImage();
+		tmpImage.setText("XSize", QString("%1").arg(xs));
+		tmpImage.setText("YSize", QString("%1").arg(ys));
+		m_Doc->m_Selection->delaySignalsOff();
+		m_Doc->setLoading(false);
 	}
-	m_Doc->DoDrawing = true;
-	m_Doc->m_Selection->delaySignalsOn();
-	for (int dre=0; dre<Elements.count(); ++dre)
-	{
-		m_tmpSel->addItem(Elements.at(dre), true);
-	}
-	m_tmpSel->setGroupRect();
-	double xs = m_tmpSel->width();
-	double ys = m_tmpSel->height();
-	double sc = 500.0 / qMax(xs, ys);
-	m_Doc->scaleGroup(sc, sc, true, m_tmpSel);
-	QImage tmpImage = Elements.at(0)->DrawObj_toImage();
-	tmpImage.setText("XSize", QString("%1").arg(xs));
-	tmpImage.setText("YSize", QString("%1").arg(ys));
-	m_Doc->m_Selection->delaySignalsOff();
 	m_Doc->scMW()->ScriptRunning = false;
-	m_Doc->setLoading(false);
 	delete m_Doc;
 	QDir::setCurrent(CurDirP);
 	return tmpImage;
