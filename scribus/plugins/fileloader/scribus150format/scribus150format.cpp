@@ -1684,6 +1684,9 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 			GuideManagerCore::Standard,
 			attrs.hasAttribute("NumHGuides"));
 	GuideManagerIO::readSelection(attrs.valueAsString("AGSelection"), newPage);
+
+	newPage->guides.addHorizontals(newPage->guides.getAutoHorizontals(newPage), GuideManagerCore::Auto);
+	newPage->guides.addVerticals(newPage->guides.getAutoVerticals(newPage), GuideManagerCore::Auto);
 	return true;
 }
 
@@ -3136,6 +3139,9 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 											GuideManagerCore::Standard,
 											attrs.hasAttribute("NumHGuides"));
 			GuideManagerIO::readSelection(attrs.valueAsString("AGSelection"), newPage);
+
+			newPage->guides.addHorizontals(newPage->guides.getAutoHorizontals(newPage), GuideManagerCore::Auto);
+			newPage->guides.addVerticals(newPage->guides.getAutoVerticals(newPage), GuideManagerCore::Auto);
 		}
 		if ((tagName == "PAGEOBJECT") || (tagName == "MASTEROBJECT") || (tagName == "FRAMEOBJECT"))
 		{

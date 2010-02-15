@@ -236,6 +236,106 @@ double GuideManagerCore::vertical(uint ix, GuideType type)
 	return -1.0; // just for compiler warning
 }
 
+Guides GuideManagerCore::getAutoHorizontals(Page* page)
+{
+	Guides guides;
+	double rowSize;
+	int value = m_horizontalAutoCount;
+	double offset = 0.0;
+	double newPageHeight = page->height();
+
+	if (page == NULL)
+		page = m_page;
+	if (page == NULL)
+		return guides;
+
+	if (m_horizontalAutoCount == 0)
+		return guides;
+	++value;
+
+	if (m_horizontalAutoRefer == 1)
+	{
+		newPageHeight = newPageHeight - page->Margins.Top - page->Margins.Bottom;
+		offset = page->Margins.Top;
+	}
+	else if (m_horizontalAutoRefer == 2)
+	{
+		if (qRound(page->guides.gy) != 0.0)
+		{
+			offset = page->guides.gy;
+			newPageHeight = page->guides.gh;
+		}
+	}
+
+	if (page->guides.horizontalAutoGap() > 0.0)
+		rowSize = (newPageHeight - (value - 1) * page->guides.horizontalAutoGap()) / value;
+	else
+		rowSize = newPageHeight / value;
+
+	for (int i = 1, gapCount = 0; i < value; ++i)
+	{
+		if (page->guides.horizontalAutoGap() > 0.0)
+		{
+			guides.append(offset + i * rowSize + gapCount * page->guides.horizontalAutoGap());
+			++gapCount;
+			guides.append(offset + i * rowSize + gapCount * page->guides.horizontalAutoGap());
+		}
+		else
+			guides.append(offset + rowSize * i);
+	}
+	return guides;
+}
+
+Guides GuideManagerCore::getAutoVerticals(Page* page)
+{
+	Guides guides;
+	double columnSize;
+	int value = m_verticalAutoCount;
+	double offset = 0.0;
+	double newPageWidth = page->width();
+
+	if (page == NULL)
+		page = m_page;
+	if (page == NULL)
+		return guides;
+
+	if (m_verticalAutoCount == 0)
+		return guides;
+	++value;
+
+	if (m_horizontalAutoRefer == 1)
+	{
+		newPageWidth = newPageWidth - page->Margins.Left - page->Margins.Right;
+		offset = page->Margins.Left;
+	}
+	else if (m_horizontalAutoRefer == 2)
+	{
+		if (qRound(page->guides.gx) != 0)
+		{
+			offset = page->guides.gx;
+			newPageWidth = page->guides.gw;
+		}
+	}
+
+	if (page->guides.verticalAutoGap() > 0.0)
+		columnSize = (newPageWidth - (value - 1) * page->guides.verticalAutoGap()) / value;
+	else
+		columnSize = newPageWidth / value;
+
+	for (int i = 1, gapCount = 0; i < value; ++i)
+	{
+		if (page->guides.verticalAutoGap() > 0.0)
+		{
+			guides.append(offset + i * columnSize + gapCount * page->guides.verticalAutoGap());
+			++gapCount;
+			guides.append(offset + i * columnSize + gapCount * page->guides.verticalAutoGap());
+		}
+		else
+			guides.append(offset + columnSize * i);
+	}
+	return guides;
+}
+
 void GuideManagerCore::clearHorizontals(GuideType type)
 {
 	switch (type)
