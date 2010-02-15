@@ -406,7 +406,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->itemToolPrefs.shapeLineColorShade    = dc.attribute("PENSHADE", "100").toInt();
 		m_Doc->itemToolPrefs.lineColorShade = dc.attribute("LINESHADE", "100").toInt();
 		m_Doc->itemToolPrefs.shapeFillColorShade     = dc.attribute("BRUSHSHADE", "100").toInt();
-		m_Doc->opToolPrefs.magMin     = dc.attribute("MAGMIN", "10").toInt();
+		m_Doc->opToolPrefs.magMin     = dc.attribute("MAGMIN", "1").toInt();
 		m_Doc->opToolPrefs.magMax     = dc.attribute("MAGMAX", "3200").toInt();
 		m_Doc->opToolPrefs.magStep    = dc.attribute("MAGSTEP", "200").toInt();
 		//CB Reset doc zoom step value to 200% instead of old values.

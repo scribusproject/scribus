@@ -444,7 +444,7 @@ TabTools::TabTools( QWidget* parent, struct ItemToolPrefs *prefsData, int unitIn
 	subTabZoomLayout->addWidget( zoomHeadLine, 0, 0, 1, 2, Qt::AlignHCenter | Qt::AlignTop );
 	minimumZoom = new QSpinBox( subTabZoom);
 	minimumZoom->setMaximum( 3200 );
-	minimumZoom->setMinimum( 10 );
+	minimumZoom->setMinimum( 1 );
 	minimumZoom->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( minimumZoom, 1, 1, Qt::AlignLeft );
 	textLabel21b = new QLabel( tr( "Mi&nimum:" ), subTabZoom);

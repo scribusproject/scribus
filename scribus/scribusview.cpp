@@ -191,7 +191,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 // 	setCurrentComboItem(previewQualitySwitcher, tr("Normal"));
 	previewQualitySwitcher->setCurrentIndex(Prefs->itemToolPrefs.imageLowResType);
 
-	zoomSpinBox = new ScrSpinBox( 10, 3200, this, 6 );
+	zoomSpinBox = new ScrSpinBox( 1, 3200, this, 6 );
 	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
 	zoomSpinBox->setValue( 100 );

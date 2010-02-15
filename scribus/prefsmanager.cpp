@@ -281,7 +281,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.lineWidth = 1;
 	appPrefs.itemToolPrefs.lineStartArrow = 0;
 	appPrefs.itemToolPrefs.lineEndArrow = 0;
-	appPrefs.opToolPrefs.magMin = 10;
+	appPrefs.opToolPrefs.magMin = 1;
 	appPrefs.opToolPrefs.magMax = 3200;
 	appPrefs.opToolPrefs.magStep = 200;
 	appPrefs.itemToolPrefs.imageFillColor = CommonStrings::None;
@@ -1963,7 +1963,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.shapeLineColorShade = dc.attribute("PENSHADE").toInt();
 			appPrefs.itemToolPrefs.lineColorShade = dc.attribute("LINESHADE").toInt();
 			appPrefs.itemToolPrefs.shapeFillColorShade  = dc.attribute("BRUSHSHADE").toInt();
-			appPrefs.opToolPrefs.magMin  = dc.attribute("MAGMIN", "10").toInt();
+			appPrefs.opToolPrefs.magMin  = dc.attribute("MAGMIN", "1").toInt();
 			appPrefs.opToolPrefs.magMax  = dc.attribute("MAGMAX", "3200").toInt();
 			appPrefs.opToolPrefs.magStep = dc.attribute("MAGSTEP", "200").toInt();
 			//CB Reset prefs zoom step value to 200% instead of old values.

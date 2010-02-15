@@ -914,7 +914,7 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs.shapeLineColorShade     = attrs.valueAsInt("PENSHADE", 100);
 	doc->itemToolPrefs.lineColorShade  = attrs.valueAsInt("LINESHADE", 100);
 	doc->itemToolPrefs.shapeFillColorShade      = attrs.valueAsInt("BRUSHSHADE", 100);
-	doc->opToolPrefs.magMin      = attrs.valueAsInt("MAGMIN", 10);
+	doc->opToolPrefs.magMin      = attrs.valueAsInt("MAGMIN", 1);
 	doc->opToolPrefs.magMax      = attrs.valueAsInt("MAGMAX", 3200);
 	doc->opToolPrefs.magStep     = attrs.valueAsInt("MAGSTEP", 200);
 	doc->opToolPrefs.dispX       = attrs.valueAsDouble("dispX", 10.0);
