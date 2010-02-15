@@ -1781,6 +1781,7 @@ void PageItem_TextFrame::layout()
 							hl->glyph.xadvance = 0;
 						}
 						
+						current.updateHeightMetrics(itemText);
 						EndX = current.endOfLine(cl, pf2, style.rightMargin());
 						current.finishLine(EndX);
 
