@@ -967,6 +967,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						pg.hasAttribute("NumHGuides"));
 				GuideManagerIO::readSelection(pg.attribute("AGSelection"), Apage);
 				
+				Apage->guides.addHorizontals(Apage->guides.getAutoHorizontals(Apage), GuideManagerCore::Auto);
+				Apage->guides.addVerticals(Apage->guides.getAutoVerticals(Apage), GuideManagerCore::Auto);
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
@@ -2956,6 +2958,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 												GuideManagerCore::Standard,
 												pg.hasAttribute("NumHGuides"));
 				GuideManagerIO::readSelection(pg.attribute("AGSelection"), Apage);
+
+				Apage->guides.addHorizontals(Apage->guides.getAutoHorizontals(Apage), GuideManagerCore::Auto);
+				Apage->guides.addVerticals(Apage->guides.getAutoVerticals(Apage), GuideManagerCore::Auto);
 				
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))

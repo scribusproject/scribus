@@ -99,6 +99,11 @@ private:
 	\param page A reference to the page to store values. */
 	void storePageValues(Page * page);
 
+	/*! \brief Save needed (Auto) values into GuideManagerCore.
+	To be restored on the page return.
+	\param page A reference to the page to store values. */
+	void storePageValues(GuideManagerCore);
+
 	/*! \brief Overriden QDialog method to operate selection related widgets.
 	Auto guides tab. It disables the "selection" radio buttons when there
 	is no selection on current page. */

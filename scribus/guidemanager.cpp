@@ -550,92 +550,44 @@ void GuideManager::windowActivationChange(bool oldActive)
 
 Guides GuideManager::getAutoVerticals()
 {
-	Guides retval;
-	double columnSize;
-	int value = verticalAutoCountSpin->value();
-	double offset = 0.0;
-	double newPageWidth = currentPage->width();
+GuideManagerCore guides;
 
-	if (value == 0)
-		return retval;
-	++value;
+	double gapValue = 0.0;
+	if (horizontalAutoGapCheck->isChecked())
+		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
+	guides.setHorizontalAutoGap(gapValue);
+	guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+	guides.setHorizontalAutoRefer(horizontalRefer());
 
-	if (verticalRefer() == 1)
-	{
-		newPageWidth = newPageWidth - currentPage->Margins.Left - currentPage->Margins.Right;
-		offset = currentPage->Margins.Left;
-	}
-	else if (verticalRefer() == 2)
-	{
-		if (qRound(currentPage->guides.gx) != 0)
-		{
-			offset = currentPage->guides.gx;
-			newPageWidth = currentPage->guides.gw;
-		}
-	}
+	gapValue = 0.0;
+	if (verticalAutoGapCheck->isChecked())
+		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
+	guides.setVerticalAutoGap(gapValue);
+	guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+	guides.setVerticalAutoRefer(verticalRefer());
 
-	if (currentPage->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
-		columnSize = (newPageWidth - (value - 1) * currentPage->guides.verticalAutoGap()) / value;
-	else
-		columnSize = newPageWidth / value;
-
-	for (int i = 1, gapCount = 0; i < value; ++i)
-	{
-		if (currentPage->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
-		{
-			retval.append(offset + i * columnSize + gapCount * currentPage->guides.verticalAutoGap());
-			++gapCount;
-			retval.append(offset + i * columnSize + gapCount * currentPage->guides.verticalAutoGap());
-		}
-		else
-			retval.append(offset + columnSize * i);
-	}
-	return retval;
+	return guides.getAutoVerticals(currentPage);
 }
 
 Guides GuideManager::getAutoHorizontals()
 {
-	Guides retval;
-	double rowSize;
-	int value = horizontalAutoCountSpin->value();
-	double offset = 0.0;
-	double newPageHeight = currentPage->height();
+	GuideManagerCore guides;
 
-	if (value == 0)
-		return retval;
-	++value;
+	double gapValue = 0.0;
+	if (horizontalAutoGapCheck->isChecked())
+		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
+	guides.setHorizontalAutoGap(gapValue);
+	guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+	guides.setHorizontalAutoRefer(horizontalRefer());
 
-	if (horizontalRefer() == 1)
-	{
-		newPageHeight = newPageHeight - currentPage->Margins.Top - currentPage->Margins.Bottom;
-		offset = currentPage->Margins.Top;
-	}
-	else if (horizontalRefer() == 2)
-	{
-		if (qRound(currentPage->guides.gy) != 0.0)
-		{
-			offset = currentPage->guides.gy;
-			newPageHeight = currentPage->guides.gh;
-		}
-	}
+	gapValue = 0.0;
+	if (verticalAutoGapCheck->isChecked())
+		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
+	guides.setVerticalAutoGap(gapValue);
+	guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+	guides.setVerticalAutoRefer(verticalRefer());
 
-	if (currentPage->guides.horizontalAutoGap() > 0.0 && horizontalAutoGapCheck->isChecked())
-		rowSize = (newPageHeight - (value - 1) * currentPage->guides.horizontalAutoGap()) / value;
-	else
-		rowSize = newPageHeight / value;
-
-	for (int i = 1, gapCount = 0; i < value; ++i)
-	{
-		if (currentPage->guides.horizontalAutoGap() > 0.0&& horizontalAutoGapCheck->isChecked())
-		{
-			retval.append(offset + i * rowSize + gapCount * currentPage->guides.horizontalAutoGap());
-			++gapCount;
-			retval.append(offset + i * rowSize + gapCount * currentPage->guides.horizontalAutoGap());
-		}
-		else
-			retval.append(offset + rowSize * i);
-	}
-	return retval;
+	return guides.getAutoHorizontals(currentPage);
 }
 
 void GuideManager::resetSelectionForPage()
