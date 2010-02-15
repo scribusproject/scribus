@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>683</width>
-        <height>327</height>
+        <width>677</width>
+        <height>316</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -65,7 +65,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="writePreviews">
+        <widget class="QCheckBox" name="writePreviewsCheckBox">
          <property name="text">
           <string>Write Item Previews to the Scrapbook Directory</string>
          </property>

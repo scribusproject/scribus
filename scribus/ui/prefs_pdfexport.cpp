@@ -86,7 +86,7 @@ void Prefs_PDFExport::languageChange()
 	pdfVersionComboBox->addItem("PDF 1.3 (Acrobat 4)");
 	pdfVersionComboBox->addItem("PDF 1.4 (Acrobat 5)");
 	pdfVersionComboBox->addItem("PDF 1.5 (Acrobat 6)");
-	if (cmsEnabled)// && (!PDFXProfiles.isEmpty()))
+	//if (cmsEnabled)// && (!PDFXProfiles.isEmpty()))
 	{
 		pdfVersionComboBox->addItem("PDF/X-1a");
 		pdfVersionComboBox->addItem("PDF/X-3");
@@ -126,26 +126,6 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 	int unitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	unitChange(unitIndex);
-/*
-	tabPDF = new TabPDFOptions( prefsWidgets,
-								prefsData->pdfPrefs,
-								prefsData->fontPrefs.AvailFonts,
-								ScCore->PDFXProfiles,
-								DocFonts,
-								prefsData->pdfPrefs.PresentVals,
-								docUnitIndex,
-								prefsData->docSetupPrefs.pageHeight,
-								prefsData->docSetupPrefs.pageWidth,
-								0 );
-
-void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
-									const SCFonts &AllFonts,
-									const ProfilesL & PDFXProfiles,
-									const QMap<QString, int> & DocFonts,
-									const QList<PDFPresentationData> & Eff,
-									int unitIndex, double PageH, double PageB,
-									ScribusDoc * mdoc, bool exporting)
-*/
 
 	exportAllPagesRadioButton->setChecked(true);
 	enableRangeControls(false);

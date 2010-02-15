@@ -30,7 +30,7 @@ void Prefs_Scrapbook::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	autoSendCopiedToScrapCheckBox->setChecked(prefsData->scrapbookPrefs.doCopyToScrapbook);
 	keepCopiedAcrossSessionsCheckBox->setChecked(prefsData->scrapbookPrefs.persistentScrapbook);
-	writePreviews->setChecked(prefsData->scrapbookPrefs.writePreviews);
+	writePreviewsCheckBox->setChecked(prefsData->scrapbookPrefs.writePreviews);
 	itemCountKeptInScrapbookSpinBox->setValue(prefsData->scrapbookPrefs.numScrapbookCopies);
 }
 
@@ -38,7 +38,7 @@ void Prefs_Scrapbook::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->scrapbookPrefs.doCopyToScrapbook=autoSendCopiedToScrapCheckBox->isChecked();
 	prefsData->scrapbookPrefs.persistentScrapbook=keepCopiedAcrossSessionsCheckBox->isChecked();
-	prefsData->scrapbookPrefs.writePreviews=writePreviews->isChecked();
+	prefsData->scrapbookPrefs.writePreviews=writePreviewsCheckBox->isChecked();
 	prefsData->scrapbookPrefs.numScrapbookCopies=itemCountKeptInScrapbookSpinBox->value();
 }
 
