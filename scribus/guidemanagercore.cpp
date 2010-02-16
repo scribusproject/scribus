@@ -303,12 +303,12 @@ Guides GuideManagerCore::getAutoVerticals(Page* page)
 		return guides;
 	++value;
 
-	if (m_horizontalAutoRefer == 1)
+	if (m_verticalAutoRefer == 1)
 	{
 		newPageWidth = newPageWidth - page->Margins.Left - page->Margins.Right;
 		offset = page->Margins.Left;
 	}
-	else if (m_horizontalAutoRefer == 2)
+	else if (m_verticalAutoRefer == 2)
 	{
 		if (qRound(page->guides.gx) != 0)
 		{
