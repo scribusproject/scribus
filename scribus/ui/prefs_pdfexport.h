@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+#include "pdfoptions.h"
 class ScribusDoc;
 
 class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
@@ -24,6 +25,10 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 
+	signals:
+		void noInfo();
+		void hasInfo();
+
 	public slots:
 		void languageChange();
 		void unitChange(int);
@@ -32,10 +37,22 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void enableRangeControls(bool);
 		void enableSecurityControls(bool);
 		void createPageNumberRange();
+		void setMaximumResolution();
+		void enableProfiles(int);
+		void enableLPI(int);
+		void enablePG();
+		void enablePGI();
+		void enablePGI2();
+		void enablePDFX(int);
 
 	protected:
+		void setCustomRenderingWidgetsShown(bool);
+		void setSolidsImagesWidgetsShown(bool);
+		void setSolidsImagesWidgetsEnabled(bool);
 		bool cmsEnabled;
 		ScribusDoc* m_doc;
+		QString defaultSolidColorRGBProfile;
+		PDFOptions Opts;
 };
 
 #endif // PREFS_PDFEXPORT_H

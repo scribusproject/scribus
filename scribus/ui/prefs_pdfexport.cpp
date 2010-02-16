@@ -28,15 +28,15 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent)
 
 	connect(exportChosenPagesRadioButton, SIGNAL(toggled(bool)), this, SLOT(enableRangeControls(bool)));
 	connect(exportRangeMorePushButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
-//	connect(DSColor, SIGNAL(clicked()), this, SLOT(DoDownsample()));
+	connect(maxResolutionLimitCheckBox, SIGNAL(clicked()), this, SLOT(setMaximumResolution()));
 //	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirror()));
 //	connect(MirrorV, SIGNAL(clicked()), this, SLOT(PDFMirror()));
 //	connect(RotateDeg, SIGNAL(activated(int)), this, SLOT(Rotation(int)));
-//	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
-//	connect(EmbedProfs, SIGNAL(clicked()), this, SLOT(EnablePG()));
-//	connect(EmbedProfs2, SIGNAL(clicked()), this, SLOT(EnablePGI()));
-//	connect(NoEmbedded, SIGNAL(clicked()), this, SLOT(EnablePGI2()));
-//	connect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
+	connect(outputIntentionComboBox, SIGNAL(activated(int)), this, SLOT(enableProfiles(int)));
+	connect(useSolidColorProfileCheckBox, SIGNAL(clicked()), this, SLOT(enablePG()));
+	connect(useImageProfileCheckBox, SIGNAL(clicked()), this, SLOT(enablePGI()));
+	connect(doNotUseEmbeddedImageProfileCheckBox, SIGNAL(clicked()), this, SLOT(enablePGI2()));
+	connect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
 	connect(useEncryptionCheckBox, SIGNAL(clicked(bool)), this, SLOT(enableSecurityControls(bool)));
 }
 
@@ -100,25 +100,33 @@ void Prefs_PDFExport::languageChange()
 	pageBindingComboBox->addItem( tr("Right Margin"));
 	pageBindingComboBox->setCurrentIndex(i);
 
-	i = outputIntentionCheckBox->currentIndex();
-	outputIntentionCheckBox->clear();
-	outputIntentionCheckBox->addItem( tr( "Screen / Web" ) );
-	outputIntentionCheckBox->addItem( tr( "Printer" ) );
-	outputIntentionCheckBox->addItem( tr( "Grayscale" ) );
-	outputIntentionCheckBox->setCurrentIndex(i);
+	i = outputIntentionComboBox->currentIndex();
+	outputIntentionComboBox->clear();
+	outputIntentionComboBox->addItem( tr( "Screen / Web" ) );
+	outputIntentionComboBox->addItem( tr( "Printer" ) );
+	outputIntentionComboBox->addItem( tr( "Grayscale" ) );
+	outputIntentionComboBox->setCurrentIndex(i);
 
-//	LPIfunc->clear();
-//	LPIfunc->addItem( tr( "Simple Dot" ) );
-//	LPIfunc->addItem( tr( "Line" ) );
-//	LPIfunc->addItem( tr( "Round" ) );
-//	LPIfunc->addItem( tr( "Ellipse" ) );
+	i = customRenderingSpotFunctionComboBox->currentIndex();
+	customRenderingSpotFunctionComboBox->clear();
+	customRenderingSpotFunctionComboBox->addItem( tr( "Simple Dot" ) );
+	customRenderingSpotFunctionComboBox->addItem( tr( "Line" ) );
+	customRenderingSpotFunctionComboBox->addItem( tr( "Round" ) );
+	customRenderingSpotFunctionComboBox->addItem( tr( "Ellipse" ) );
+	customRenderingSpotFunctionComboBox->setCurrentIndex(i);
 
-//	QString tmp_ip[] = { tr("Perceptual"), tr("Relative Colorimetric"), tr("Saturation"), tr("Absolute Colorimetric")};
-//	size_t ar_ip = sizeof(tmp_ip) / sizeof(*tmp_ip);
-//	for (uint a = 0; a < ar_ip; ++a)
-//		IntendS->addItem(tmp_ip[a]);
-//	for (uint a = 0; a < ar_ip; ++a)
-//		IntendI->addItem(tmp_ip[a]);
+	i = solidColorRenderingIntentComboBox->currentIndex();
+	int j=imageRenderingIntentComboBox->currentIndex();
+	solidColorRenderingIntentComboBox->clear();
+	imageRenderingIntentComboBox->clear();
+	QString tmp_ip[] = { tr("Perceptual"), tr("Relative Colorimetric"), tr("Saturation"), tr("Absolute Colorimetric")};
+	size_t ar_ip = sizeof(tmp_ip) / sizeof(*tmp_ip);
+	for (uint a = 0; a < ar_ip; ++a)
+		solidColorRenderingIntentComboBox->addItem(tmp_ip[a]);
+	for (uint a = 0; a < ar_ip; ++a)
+		imageRenderingIntentComboBox->addItem(tmp_ip[a]);
+	solidColorRenderingIntentComboBox->setCurrentIndex(i);
+	imageRenderingIntentComboBox->setCurrentIndex(j);
 }
 
 void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -126,7 +134,8 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 	int unitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	unitChange(unitIndex);
-
+	Opts=prefsData->pdfPrefs;
+	defaultSolidColorRGBProfile=prefsData->colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	exportAllPagesRadioButton->setChecked(true);
 	enableRangeControls(false);
 	rotationComboBox->setCurrentIndex(prefsData->pdfPrefs.RotateDeg / 90);
@@ -177,13 +186,13 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 	enableSecurityControls(prefsData->pdfPrefs.Encrypt);
 
 	if (prefsData->pdfPrefs.UseRGB)
-		outputIntentionCheckBox->setCurrentIndex(0);
+		outputIntentionComboBox->setCurrentIndex(0);
 	else
 	{
 		if (prefsData->pdfPrefs.isGrayscale)
-			outputIntentionCheckBox->setCurrentIndex(2);
+			outputIntentionComboBox->setCurrentIndex(2);
 		else
-			outputIntentionCheckBox->setCurrentIndex(1);
+			outputIntentionComboBox->setCurrentIndex(1);
 	}
 	convertSpotsToProcessCheckBox->setChecked(!prefsData->pdfPrefs.UseSpotColors);
 
@@ -199,12 +208,13 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 	printRegistrationMarksCheckBox->setChecked(prefsData->pdfPrefs.registrationMarks);
 	printColorBarsCheckBox->setChecked(prefsData->pdfPrefs.colorMarks);
 	printPageInfoCheckBox->setChecked(prefsData->pdfPrefs.docInfoMarks);
+
 }
 
 
 void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-
+ //TODO
 }
 
 void Prefs_PDFExport::enableRangeControls(bool enabled)
@@ -239,4 +249,245 @@ void Prefs_PDFExport::createPageNumberRange()
 		}
 	}
 	exportPageListLineEdit->setText(QString::null);
+}
+
+void Prefs_PDFExport::setMaximumResolution()
+{
+	if (maxResolutionLimitCheckBox->isChecked())
+	{
+		maxExportResolutionSpinBox->setEnabled(true);
+		if (maxExportResolutionSpinBox->value() > epsExportResolutionSpinBox->value())
+			maxExportResolutionSpinBox->setValue(epsExportResolutionSpinBox->value());
+	}
+	else
+		maxExportResolutionSpinBox->setEnabled(false);
+}
+
+void Prefs_PDFExport::enableProfiles(int i)
+{
+	enableLPI(i);
+	bool setter = false;
+	if (i == 1 && pdfVersionComboBox->currentIndex() != 3)
+		setter = true;
+
+	setSolidsImagesWidgetsEnabled(setter);
+}
+
+void Prefs_PDFExport::enableLPI(int i)
+{
+	if (i == 1)
+	{
+		QString tp(Opts.SolidProf);
+		if (!ScCore->InputProfiles.contains(tp))
+		{
+			if (m_doc != 0)
+				tp = m_doc->CMSSettings.DefaultSolidColorRGBProfile;
+			else
+				tp = defaultSolidColorRGBProfile;
+		}
+		solidColorProfileComboBox->clear();
+		ProfilesL::Iterator itp;
+		ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
+		for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
+		{
+			solidColorProfileComboBox->addItem(itp.key());
+			if (itp.key() == tp)
+			{
+				if (cmsEnabled)
+					solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count()-1);
+			}
+		}
+		if (cmsEnabled)
+			solidColorRenderingIntentComboBox->setCurrentIndex(Opts.Intent);
+		QString tp1 = Opts.ImageProf;
+		if (!ScCore->InputProfiles.contains(tp1))
+		{
+			if (m_doc != 0)
+				tp1 = m_doc->CMSSettings.DefaultSolidColorRGBProfile;
+			else
+				tp1 = defaultSolidColorRGBProfile;
+		}
+		imageProfileComboBox->clear();
+		ProfilesL::Iterator itp2;
+		ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
+		for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+		{
+			imageProfileComboBox->addItem(itp2.key());
+			if (itp2.key() == tp1)
+			{
+				if (cmsEnabled)
+					imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count()-1);
+			}
+		}
+		if (cmsEnabled)
+			imageRenderingIntentComboBox->setCurrentIndex(Opts.Intent2);
+		setSolidsImagesWidgetsShown(cmsEnabled);
+		convertSpotsToProcessCheckBox->show();
+		if (m_doc!=0)
+		{
+			useCustomRenderingCheckBox->show();
+			setCustomRenderingWidgetsShown(useCustomRenderingCheckBox->isChecked());
+		}
+	}
+	else
+	{
+		convertSpotsToProcessCheckBox->hide();
+		useCustomRenderingCheckBox->hide();
+		setCustomRenderingWidgetsShown(false);
+	}
+}
+
+void Prefs_PDFExport::setCustomRenderingWidgetsShown(bool visible)
+{
+	useCustomRenderingCheckBox->setShown(visible);
+	customRenderingColorComboBox->setShown(visible);
+	customRenderingFrequencySpinBox->setShown(visible);
+	customRenderingAngleSpinBox->setShown(visible);
+	customRenderingSpotFunctionComboBox->setShown(visible);
+}
+
+
+void Prefs_PDFExport::setSolidsImagesWidgetsShown(bool visible)
+{
+	useSolidColorProfileCheckBox->setShown(visible);
+	solidColorProfileComboBox->setShown(visible);
+	solidColorRenderingIntentComboBox->setShown(visible);
+	useImageProfileCheckBox->setShown(visible);
+	doNotUseEmbeddedImageProfileCheckBox->setShown(visible);
+	imageProfileComboBox->setShown(visible);
+	imageRenderingIntentComboBox->setShown(visible);
+}
+void Prefs_PDFExport::setSolidsImagesWidgetsEnabled(bool enabled)
+{
+	useSolidColorProfileCheckBox->setEnabled(enabled);
+	solidColorProfileComboBox->setEnabled(enabled);
+	solidColorRenderingIntentComboBox->setEnabled(enabled);
+	useImageProfileCheckBox->setEnabled(enabled);
+	doNotUseEmbeddedImageProfileCheckBox->setEnabled(enabled);
+	imageProfileComboBox->setEnabled(enabled);
+	imageRenderingIntentComboBox->setEnabled(enabled);
+}
+
+
+void Prefs_PDFExport::enablePGI()
+{
+	bool setter=false;
+	if (useImageProfileCheckBox->isChecked())
+		setter = doNotUseEmbeddedImageProfileCheckBox->isChecked() ? true : false;
+	imageProfileComboBox->setEnabled(setter);
+	imageRenderingIntentComboBox->setEnabled(setter);
+	doNotUseEmbeddedImageProfileCheckBox->setEnabled(useImageProfileCheckBox->isChecked());
+}
+
+void Prefs_PDFExport::enablePGI2()
+{
+	bool setter = doNotUseEmbeddedImageProfileCheckBox->isChecked() ? true : false;
+	imageProfileComboBox->setEnabled(setter);
+	imageRenderingIntentComboBox->setEnabled(setter);
+}
+
+void Prefs_PDFExport::enablePG()
+{
+	bool setter = useSolidColorProfileCheckBox->isChecked() ? true : false;
+
+	solidColorProfileComboBox->setEnabled(setter);
+	solidColorRenderingIntentComboBox->setEnabled(setter);
+}
+
+void Prefs_PDFExport::enablePDFX(int i)
+{
+	includeLayersCheckBox->setEnabled((i == 2) || (i == 5));
+	/*
+	if (useLayers2)
+		useLayers2->setEnabled((i == 2) || (i == 5));
+	if (doc != 0 && pdfExport)
+	{
+		int currentEff = EffectType->currentIndex();
+		disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+		EffectType->clear();
+		EffectType->addItem( tr("No Effect"));
+		EffectType->addItem( tr("Blinds"));
+		EffectType->addItem( tr("Box"));
+		EffectType->addItem( tr("Dissolve"));
+		EffectType->addItem( tr("Glitter"));
+		EffectType->addItem( tr("Split"));
+		EffectType->addItem( tr("Wipe"));
+		if (i == 2)
+		{
+			EffectType->addItem( tr("Push"));
+			EffectType->addItem( tr("Cover"));
+			EffectType->addItem( tr("Uncover"));
+			EffectType->addItem( tr("Fade"));
+			EffectType->setCurrentIndex(currentEff);
+		}
+		else
+		{
+			if (currentEff > 6)
+			{
+				currentEff = 0;
+				EffectType->setCurrentIndex(0);
+				SetEffOpts(0);
+				for (int pg = 0; pg < doc->Pages->count(); ++pg)
+				{
+					if (EffVal[pg].effectType > 6)
+						EffVal[pg].effectType = 0;
+				}
+			}
+			else
+				EffectType->setCurrentIndex(currentEff);
+		}
+		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+	}
+	*/
+	if (i < 3)  // not PDF/X
+	{
+		pdfx3OutputProfileComboBox->setEnabled(false);
+		pdfx3InfoStringLineEdit->setEnabled(false);
+		tabWidget->setTabEnabled(2, true);
+		outputIntentionComboBox->setEnabled(true);
+		useImageProfileCheckBox->setEnabled(true);
+		emit hasInfo();
+		/*
+		if (m_doc != 0 && pdfExport)
+		{
+			CheckBox10->setEnabled(true);
+			EmbedFonts->setEnabled(true);
+			if (EmbedList->count() != 0)
+				FromEmbed->setEnabled(true);
+			ToEmbed->setEnabled(true);
+		}
+		*/
+		return;
+	}
+	// PDF/X is selected
+	disconnect(outputIntentionComboBox, SIGNAL(activated(int)), this, SLOT(enableProfiles(int)));
+	outputIntentionComboBox->setCurrentIndex(1);
+	outputIntentionComboBox->setEnabled(false);
+	enableProfiles(1);
+	if ((i == 4) || (i == 5)) // X3 or X4, enforcing color profiles on images
+	{
+		useImageProfileCheckBox->setChecked(true);
+		useImageProfileCheckBox->setEnabled(false);
+	}
+	/*
+	if (m_doc != 0 && pdfExport)
+	{
+//		EmbedFonts->setChecked(true);
+		EmbedAll();
+		CheckBox10->setChecked(false);
+		CheckBox10->setEnabled(false);
+//		EmbedFonts->setEnabled(false);
+		FromEmbed->setEnabled(false);
+		ToEmbed->setEnabled(false);
+		if (InfoString->text().isEmpty())
+			emit noInfo();
+		else
+			emit hasInfo();
+	}
+	*/
+	enablePGI();
+	pdfx3OutputProfileComboBox->setEnabled(true);
+	pdfx3InfoStringLineEdit->setEnabled(true);
+	tabWidget->setTabEnabled(2, false);
+	connect(outputIntentionComboBox, SIGNAL(activated(int)), this, SLOT(enableProfiles(int)));
 }
