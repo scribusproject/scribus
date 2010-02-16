@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 #include <QHideEvent>
 #include <QKeySequence>
+#include <QShowEvent>
 
 #include "scribusapi.h"
 class PrefsContext;
@@ -43,11 +44,6 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 		~ScrPaletteBase() {};
 		/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
 		//virtual void keyPressEvent(QKeyEvent *keyEvent);
-		/** @brief Captures the close event and changes it to hide */
-		virtual void closeEvent(QCloseEvent *closeEvent);
-		/** @brief Stores the geometry of the window when hiding. */
-		void hideEvent(QHideEvent*);
-		virtual void show();
 		virtual void hide();
 		void startup();
 		
@@ -67,6 +63,13 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 		void storePosition(int newX, int newY);
 		void storeSize();
 		void storeVisibility(bool);
+
+		/** @brief Restore the geometry of the window when showing it. */
+		virtual void showEvent(QShowEvent *showEvent);
+		/** @brief Captures the close event and changes it to hide */
+		virtual void closeEvent(QCloseEvent *closeEvent);
+		/** @brief Stores the geometry of the window when hiding. */
+		virtual void hideEvent(QHideEvent*);
 		
 		PrefsContext* palettePrefs;
 		QString prefsContextName;
