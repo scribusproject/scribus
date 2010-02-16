@@ -229,6 +229,8 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 			prefs_ItemTools->enableFontPreview(true);
 		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_TableOfContents))
 			prefs_TableOfContents->setupItemAttrs( prefs_DocumentItemAttributes->getDocAttributesNames() );
+		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_PDFExport))
+			prefs_PDFExport->enableCMS(prefs_ColorManagement->cmActive());
 	}
 }
 

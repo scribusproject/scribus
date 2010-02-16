@@ -81,18 +81,7 @@ void Prefs_PDFExport::languageChange()
 	imageCompressionQualityComboBox->addItem( tr( "Minimum" ) );
 	imageCompressionQualityComboBox->setCurrentIndex(i);
 
-	i = pdfVersionComboBox->currentIndex();
-	pdfVersionComboBox->clear();
-	pdfVersionComboBox->addItem("PDF 1.3 (Acrobat 4)");
-	pdfVersionComboBox->addItem("PDF 1.4 (Acrobat 5)");
-	pdfVersionComboBox->addItem("PDF 1.5 (Acrobat 6)");
-	//if (cmsEnabled)// && (!PDFXProfiles.isEmpty()))
-	{
-		pdfVersionComboBox->addItem("PDF/X-1a");
-		pdfVersionComboBox->addItem("PDF/X-3");
-		pdfVersionComboBox->addItem("PDF/X-4");
-	}
-	pdfVersionComboBox->setCurrentIndex(i);
+	addPDFVersions(true);//if (cmsEnabled)// && (!PDFXProfiles.isEmpty()))
 
 	i = pageBindingComboBox->currentIndex();
 	pageBindingComboBox->clear();
@@ -544,6 +533,14 @@ void Prefs_PDFExport::enableSecurityControls(bool enabled)
 	allowAnnotatingCheckBox->setEnabled(enabled);
 }
 
+
+void Prefs_PDFExport::enableCMS(bool enabled)
+{
+	cmsEnabled=enabled;
+	addPDFVersions(enabled);
+	enableProfiles(1);
+}
+
 void Prefs_PDFExport::createPageNumberRange()
 {
 	if (m_doc!=0)
@@ -818,4 +815,24 @@ void Prefs_PDFExport::enablePDFX(int i)
 	pdfx3InfoStringLineEdit->setEnabled(true);
 	tabWidget->setTabEnabled(2, false);
 	connect(outputIntentionComboBox, SIGNAL(activated(int)), this, SLOT(enableProfiles(int)));
+}
+
+void Prefs_PDFExport::addPDFVersions(bool addPDFXStrings)
+{
+	disconnect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
+	int i = pdfVersionComboBox->currentIndex();
+	pdfVersionComboBox->clear();
+	pdfVersionComboBox->addItem("PDF 1.3 (Acrobat 4)");
+	pdfVersionComboBox->addItem("PDF 1.4 (Acrobat 5)");
+	pdfVersionComboBox->addItem("PDF 1.5 (Acrobat 6)");
+	if (addPDFXStrings)
+	{
+		pdfVersionComboBox->addItem("PDF/X-1a");
+		pdfVersionComboBox->addItem("PDF/X-3");
+		pdfVersionComboBox->addItem("PDF/X-4");
+	}
+	else
+		i=qMin(i,2);
+	pdfVersionComboBox->setCurrentIndex(i);
+	connect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
 }

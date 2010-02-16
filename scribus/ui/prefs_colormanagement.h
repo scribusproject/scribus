@@ -24,7 +24,7 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		void setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
-
+		bool cmActive();
 	protected:
 		bool m_canChangeMonitorProfile;
 

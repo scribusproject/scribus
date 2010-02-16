@@ -127,6 +127,11 @@ void Prefs_ColorManagement::saveGuiToPrefs(struct ApplicationPrefs *prefsData) c
 	}
 }
 
+bool Prefs_ColorManagement::cmActive()
+{
+	return activateCMCheckBox->isChecked();
+}
+
 void Prefs_ColorManagement::cmActivated(bool active)
 {
 	imageRenderingIntentComboBox->setEnabled( active );
