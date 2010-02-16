@@ -714,7 +714,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="label_20">
+            <widget class="QLabel" name="solidColorsLabel">
              <property name="font">
               <font>
                <weight>75</weight>
@@ -727,7 +727,7 @@
             </widget>
            </item>
            <item>
-            <widget class="Line" name="line">
+            <widget class="Line" name="solidColorsLine">
              <property name="font">
               <font>
                <pointsize>14</pointsize>
@@ -788,7 +788,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="label_21">
+            <widget class="QLabel" name="imagesLabel">
              <property name="font">
               <font>
                <weight>75</weight>
@@ -801,7 +801,7 @@
             </widget>
            </item>
            <item>
-            <widget class="Line" name="line_11">
+            <widget class="Line" name="imagesLine">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -875,7 +875,7 @@
             </widget>
            </item>
            <item>
-            <widget class="Line" name="line_12">
+            <widget class="Line" name="customRenderingLine">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>

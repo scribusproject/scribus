@@ -23,6 +23,8 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		Prefs_PDFExport(QWidget* parent=0);
 		~Prefs_PDFExport();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData, ScribusDoc* doc, const ProfilesL & PDFXProfiles,
+									 const QMap<QString, int> & DocFonts);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 
 	signals:
@@ -48,10 +50,13 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 	protected:
 		void setCustomRenderingWidgetsShown(bool);
 		void setSolidsImagesWidgetsShown(bool);
-		void setSolidsImagesWidgetsEnabled(bool);
+		void enableCustomRenderingWidgets(bool);
+		void enableSolidsImagesWidgets(bool);
+		void enablePDFXWidgets(bool);
 		bool cmsEnabled;
 		ScribusDoc* m_doc;
 		QString defaultSolidColorRGBProfile;
+		QString defaultPrinterProfile;
 		PDFOptions Opts;
 };
 

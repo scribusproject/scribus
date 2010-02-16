@@ -125,7 +125,8 @@ void PreferencesDialog::setupGui()
 	prefs_Hyphenator->restoreDefaults(&localPrefs);
 	prefs_Fonts->restoreDefaults(&localPrefs);
 	prefs_Printer->restoreDefaults(&localPrefs);
-	prefs_PDFExport->restoreDefaults(&localPrefs);
+	QMap<QString, int> DocFonts;
+	prefs_PDFExport->restoreDefaults(&localPrefs, NULL, ScCore->PDFXProfiles, DocFonts);
 	prefs_PreflightVerifier->restoreDefaults(&localPrefs);
 	prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
 	prefs_TableOfContents->restoreDefaults(&localPrefs);
