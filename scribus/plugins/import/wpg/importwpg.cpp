@@ -788,7 +788,7 @@ bool WpgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
-				md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+				md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
 				delete ss;
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);

@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include <QXmlStreamWriter>
 class PageItem;
 class PrefsManager;
-class ScribusView;
 class SCFonts;
 class ScribusDoc;
 class ScPattern;
@@ -51,9 +50,9 @@ public:
 	\retval bool true = Scribus format file, false : not Scribus
 	*/
 	bool    ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
-	bool    ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
-	bool    ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view, int toLayer);
-	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
+	bool    ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub);
+	bool    ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, int toLayer);
+	QString WriteElem(ScribusDoc *doc, Selection *selection);
 
 	ColorList Farben;
 	StyleSet<ParagraphStyle> docParagraphStyles;
@@ -79,7 +78,7 @@ protected:
 	void GetItemText (const QXmlStreamAttributes& attrs, StoryText& story, ScribusDoc *doc, LastStyles* last, bool VorLFound, bool impo);
 	void GetStyle(QXmlStreamReader& reader, ParagraphStyle &vg, StyleSet<ParagraphStyle>* tempStyles, ScribusDoc* doc, bool fl);
 
-	void ReadPattern(QXmlStreamReader& reader, ScribusDoc* doc, ScribusView *view, const QString& fileName, int& GrMax, bool styleFound, bool newVersion);
+	void ReadPattern(QXmlStreamReader& reader, ScribusDoc* doc, const QString& fileName, int& GrMax, bool styleFound, bool newVersion);
 	void ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle& style, ScribusDoc* doc);
 	void ReadCStyle (const QXmlStreamAttributes& attrs, CharStyle& style, ScribusDoc* doc);
 	void ReadPStyle (QXmlStreamReader& reader, ParagraphStyle &style, ScribusDoc* doc);

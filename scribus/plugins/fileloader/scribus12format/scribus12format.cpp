@@ -552,7 +552,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					/*int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;*/
 					uint last = m_Doc->Items->count();
-					m_View->PasteItem(&OB, true);
+					m_Doc->PasteItem(&OB);
 					/*m_Doc->GroupCounter = docGc;*/
 					Neu = m_Doc->Items->at(last);
 					Neu->OnMasterPage = PgNam;
@@ -1427,7 +1427,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						IT=IT.nextSibling();
 					}
 					OB.itemText = "";
-					m_View->PasteItem(&OB, true);
+					m_Doc->PasteItem(&OB);
 					Neu = m_Doc->Items->at(counter);
 					IT=OBJ.firstChild();
 					LastStyles* last = new LastStyles();

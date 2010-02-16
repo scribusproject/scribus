@@ -521,7 +521,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 				tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
-				md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+				md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
 				delete ss;
 /*#ifndef Q_WS_MAC*/
 // see #2196

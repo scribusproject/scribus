@@ -4781,7 +4781,7 @@ void ScribusMainWindow::slotEditCut()
 			if (prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook)
 			{
 				ScriXmlDoc ss;
-				QString buffer = ss.WriteElem(doc, view, doc->m_Selection);
+				QString buffer = ss.WriteElem(doc, doc->m_Selection);
 				scrapbookPalette->ObjFromCopyAction(buffer, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
@@ -4866,7 +4866,7 @@ void ScribusMainWindow::slotEditCopy()
 			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
 				ScriXmlDoc ss;
-				QString buffer = ss.WriteElem(doc, view, doc->m_Selection);
+				QString buffer = ss.WriteElem(doc, doc->m_Selection);
 				scrapbookPalette->ObjFromCopyAction(buffer, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
@@ -8110,7 +8110,7 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 		view->requestMode(submodeEndNodeEdit);
 
 	ScriXmlDoc ss;
-	if(ss.ReadElem(xml, prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.fontPrefs.GFontSub, vie))
+	if(ss.ReadElem(xml, prefsManager->appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.fontPrefs.GFontSub))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -8693,7 +8693,7 @@ void ScribusMainWindow::SetShortCut()
 void ScribusMainWindow::PutScrap()
 {
 	ScriXmlDoc ss;
-	QString objectString = ss.WriteElem(doc, view, doc->m_Selection);
+	QString objectString = ss.WriteElem(doc, doc->m_Selection);
 	QDomDocument docu("scridoc");
 	docu.setContent(objectString);
 	QDomElement elem = docu.documentElement();

@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "prefsmanager.h"
 #include "scclocale.h"
-#include "scribusview.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "text/nlsconfig.h"
@@ -1024,14 +1023,14 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	return (succeed && !sReader.hasError());
 }
 
-bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
+bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub)
 {
 	// Do not suppose the existence of layer with id = 0
 	// return ReadElemToLayer(fileName, avail, doc, Xp, Yp, Fi, loc, FontSub, view, 0);
-	return ReadElemToLayer(fileName, avail, doc, Xp, Yp, Fi, loc, FontSub, view, doc->activeLayer());
+	return ReadElemToLayer(fileName, avail, doc, Xp, Yp, Fi, loc, FontSub, doc->activeLayer());
 }
 
-bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view, int toLayer)
+bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, int toLayer)
 {
 	QString ff;
 	struct CopyPasteBuffer OB;
@@ -1247,7 +1246,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			ScPattern pat;
 //			uint ac = doc->Items->count();
 			QString patFile = Fi ? fileName : QString();
-			ReadPattern(sReader, doc, view, patFile, GrMax, VorLFound, newVersion);
+			ReadPattern(sReader, doc, patFile, GrMax, VorLFound, newVersion);
 			
 		}
 	}
@@ -1544,7 +1543,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 		if (sReader.isEndElement() && (tagName == "ITEM"))
 		{
 			LastStyles lastStyle;
-			view->PasteItem(&OB, true, true, false);
+			doc->PasteItem(&OB, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			Neu->OverrideCompressionMethod = OB.OverrideCompressionMethod;
 			Neu->OverrideCompressionQuality = OB.OverrideCompressionQuality;
@@ -1683,8 +1682,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	return (!sReader.hasError());
 }
 
-void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusView *view, const QString& fileName, 
-							 int& GrMax, bool styleFound, bool newVersion)
+void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, const QString& fileName, int& GrMax, bool styleFound, bool newVersion)
 {
 	QString tmp, tmpf, tmf;
 	QList<PageItem*>  TableItems;
@@ -1920,7 +1918,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 		if (tagName1 == "PatternItem" && reader.isEndElement())
 		{
 			LastStyles lastStyle;
-			view->PasteItem(&OB, true, true, false);
+			doc->PasteItem(&OB, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			Neu->OverrideCompressionMethod = OB.OverrideCompressionMethod;
 			Neu->OverrideCompressionQuality = OB.OverrideCompressionQuality;
@@ -2051,7 +2049,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	doc->GroupCounter = GrMax + 1;
 }
 
-QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* selection)
+QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 {
 	if (selection->count()==0)
 		return "";
@@ -2412,8 +2410,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	return documentStr;
 }
 
-void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, 
-							 QMap<int, int> &UsedMapped2Saved)
+void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved)
 {
 	QString text, tmp, tmpy;
 	QString CurDirP = QDir::currentPath();

@@ -584,6 +584,7 @@ public:
 	 * unnecessary part from the view for now which is overloaded with non ScrollView code.
 	 */
 	//TODO: void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
+	void PasteItem(struct CopyPasteBuffer *Buffer, bool drag = false, bool noResize = true);
 	
 	/**
 	 * @brief Add an Item to the document.

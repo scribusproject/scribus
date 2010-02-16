@@ -224,7 +224,6 @@ public:
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
-	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false, bool noResize = true);
 //	void QueryFarben();
 	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool groupTransactionStarted() { return m_groupTransactions > 0; }

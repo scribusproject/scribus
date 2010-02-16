@@ -312,7 +312,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
-				md->setScribusElem(ss->WriteElem(m_doc, m_view, m_doc->m_Selection));
+				md->setScribusElem(ss->WriteElem(m_doc, m_doc->m_Selection));
 				delete ss;
 				ss = NULL;
 				QDrag* dr = new QDrag(m_view);

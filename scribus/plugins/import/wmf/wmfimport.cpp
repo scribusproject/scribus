@@ -801,7 +801,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			m_tmpSel->setGroupRect();
 			ScElemMimeData* md = new ScElemMimeData();
-			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), m_tmpSel));
+			md->setScribusElem(ss->WriteElem(m_Doc, m_tmpSel));
 			delete ss;
 /*#ifndef QT_MAC*/
 // see #2526

@@ -734,7 +734,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			//CB keep for reference conversion for now
 			//Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view()->viewport());
 			ScElemMimeData* md = new ScElemMimeData();
-			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+			md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
 			delete ss;
 /*#ifndef Q_WS_MAC*/
 // see #2196, #2526

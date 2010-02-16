@@ -625,7 +625,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			tmpSel->setGroupRect();
 			ScElemMimeData* md = new ScElemMimeData();
-			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+			md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
 			delete ss;
 /*#ifndef Q_WS_MAC*/
 // see #2526

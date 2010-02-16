@@ -394,7 +394,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
-				md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+				md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
 				delete ss;
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
@@ -583,7 +583,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
 	bool printMSG = false;
-/*	if ((recordCount > 15) && (recordCount < 17))
+/*	if ((recordCount > 29) && (recordCount < 33))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
 		f.open(QIODevice::WriteOnly);
@@ -849,19 +849,24 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				}
 				if (!found)
 				{
-					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
-					{
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						MissingFont *dia = new MissingFont(0, fontName, m_Doc);
-						dia->exec();
-						textFont = dia->getReplacementFont();
-						delete dia;
-						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-						PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = textFont;
-						fontName = textFont;
-					}
+					if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+						fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
 					else
-						fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+					{
+						if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
+						{
+							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+							MissingFont *dia = new MissingFont(0, fontName, m_Doc);
+							dia->exec();
+							textFont = dia->getReplacementFont();
+							delete dia;
+							qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+							PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName] = textFont;
+							fontName = textFont;
+						}
+						else
+							fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[fontName];
+					}
 				}
 			}
 			fontMap.insert(fontID, fontName);
@@ -907,6 +912,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			pattern.resize(16);
 			ds.readRawData(pattern.data(), 16);
 			patternDataMap.insert(data8, pattern);
+			printMSG = true;
 			break;
 		case 29:
 			cmdText += "DRW Locked";
@@ -1849,6 +1855,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			cmdText += "Unknown";
 			break;
 	}
+	printMSG = false;
 	if (printMSG)
 	{
 		if (currentItem != NULL)
