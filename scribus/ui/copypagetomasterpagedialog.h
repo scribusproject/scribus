@@ -18,7 +18,7 @@ public:
 	CopyPageToMasterPageDialog(int existingMasterNamesCount, QStringList& pageLocations, int currentLocation = -1, QWidget *parent = 0);
 	~CopyPageToMasterPageDialog();
 	
-	void values(QString &pageName, bool &copyAppliedMaster, int pageLocation) const;
+	void values(QString &pageName, bool &copyAppliedMaster, int &pageLocation) const;
 
 };
 

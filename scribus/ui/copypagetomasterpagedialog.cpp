@@ -30,7 +30,7 @@ CopyPageToMasterPageDialog::~CopyPageToMasterPageDialog()
 {
 }
 
-void CopyPageToMasterPageDialog::values(QString &pageName, bool &copyAppliedMaster, int pageLocation) const
+void CopyPageToMasterPageDialog::values(QString &pageName, bool &copyAppliedMaster, int &pageLocation) const
 {
 	pageName=nameLineEdit->text();
 	copyAppliedMaster=(copyMasterItemsCheckBox->checkState()==Qt::Checked);
