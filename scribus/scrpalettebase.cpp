@@ -163,9 +163,12 @@ void ScrPaletteBase::hideEvent(QHideEvent*)
 	storeSize();
 }
 
-void ScrPaletteBase::show()
+void ScrPaletteBase::showEvent(QShowEvent *showEvent)
 {
-	if (palettePrefs)
+	// According to Qt doc, non-spontaneous show events are sent to widgets
+	// immediately before they are shown. We want to restore geometry for those
+	// events as spontaneous events are delivered after dialog has been shown
+	if (palettePrefs && !showEvent->spontaneous())
 	{
 		QDesktopWidget *d = QApplication::desktop();
 		QSize gStrut = QApplication::globalStrut();
@@ -209,7 +212,7 @@ void ScrPaletteBase::show()
 		}
 		storeVisibility(true);
 	}
-	QDialog::show();
+	QDialog::showEvent(showEvent);
 }
 
 void ScrPaletteBase::hide()
