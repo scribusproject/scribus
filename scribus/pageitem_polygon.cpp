@@ -57,26 +57,6 @@ void PageItem_Polygon::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	}
 }
 
-/*
-bool PageItem_Polygon::createContextMenu(QMenu *menu, int step)
-{
-	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
-	
-	if (menu == 0) return false;
-	switch(step) {
-		case 30:
-			menu->addSeparator();
-			menu->addAction(actions["itemConvertToBezierCurve"]);
-			menu->addAction(actions["itemConvertToImageFrame"]);
-			menu->addAction(actions["itemConvertToTextFrame"]);
-		break;
-		default:
-			return false;
-	}
-	return true;
-}
-*/
-
 void PageItem_Polygon::applicableActions(QStringList & actionList)
 {
 	actionList << "itemConvertToBezierCurve";
