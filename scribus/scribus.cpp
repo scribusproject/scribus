@@ -7500,7 +7500,7 @@ void ScribusMainWindow::slotPrefs150Org()
 	{
 		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
 		prefsManager->setNewPrefs(newPrefs);
-
+		prefsManager->applyLoadedShortCuts();
 		// TODO:
 		// CB: Hoping to clean this into a nicer function
 		//
@@ -8876,13 +8876,10 @@ QString ScribusMainWindow::GetLang(QString inLang)
 
 void ScribusMainWindow::ImageEffects()
 {
-	qDebug()<<"void ScribusMainWindow::ImageEffects()";
 	if (HaveDoc)
 	{
-		qDebug()<<"void ScribusMainWindow::ImageEffects():HaveDoc";
 		if (doc->m_Selection->count() != 0)
 		{
-			qDebug()<<"void ScribusMainWindow::ImageEffects():(doc->m_Selection->count() != 0)";
 			PageItem *currItem = doc->m_Selection->itemAt(0);
 			EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
 			if (dia->exec())

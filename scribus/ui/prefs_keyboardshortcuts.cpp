@@ -242,7 +242,7 @@ bool Prefs_KeyboardShortcuts::exportKeySet(QString filename)
 void Prefs_KeyboardShortcuts::resetKeySet()
 {
 	QString location=ScPaths::instance().shareDir();
-	QString defaultKeySetFileName=QDir::convertSeparators(location+"keysets/scribus13.xml");
+	QString defaultKeySetFileName=QDir::convertSeparators(location+"keysets/scribus15.xml");
 	importKeySet(defaultKeySetFileName);
 }
 
