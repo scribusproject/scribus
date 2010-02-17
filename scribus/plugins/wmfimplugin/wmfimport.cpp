@@ -574,8 +574,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
-	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
-	m_Doc->scMW()->ScriptRunning = true;
+	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	//gc->Family = m_Doc->toolSettings.defFont;
 	m_Doc->PageColors.ensureBlackAndWhite();
@@ -660,7 +659,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 		}
 	}
 	m_Doc->DoDrawing = true;
-	m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+	m_Doc->scMW()->setScriptRunning(false);
 	if (interactive)
 		m_Doc->setLoading(false);
 	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));

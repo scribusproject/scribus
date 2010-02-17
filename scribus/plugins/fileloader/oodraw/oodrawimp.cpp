@@ -387,8 +387,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
-	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
-	m_Doc->scMW()->ScriptRunning = true;
+	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
@@ -483,7 +482,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		}
 	}
 	m_Doc->DoDrawing = true;
-	m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+	m_Doc->scMW()->setScriptRunning(false);
 	if (interactive)
 		m_Doc->setLoading(false);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -2013,5 +2012,6 @@ OODPlug::~OODPlug()
 	m_styles.clear();
 	m_draws.clear();
 }
+
 
 

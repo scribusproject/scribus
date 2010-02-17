@@ -237,7 +237,7 @@ void OutlinePalette::setPaletteShown(bool visible)
 
 void OutlinePalette::slotRightClick(QPoint point)
 {
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	QTreeWidgetItem *ite = reportDisplay->itemAt(point);
 	if (ite == NULL)
@@ -271,7 +271,7 @@ void OutlinePalette::slotRenameItem()
 
 void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 {
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	disconnect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
@@ -387,7 +387,7 @@ QTreeWidgetItem* OutlinePalette::getListItem(int SNr, int Nr)
 
 void OutlinePalette::slotShowSelect(uint SNr, int Nr)
 {
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	if (currDoc==NULL)
 		return;
@@ -480,7 +480,7 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 
 void OutlinePalette::reopenTree()
 {
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	if (currDoc->OpenNodes.count() == 0)
 		return;
@@ -535,7 +535,7 @@ void OutlinePalette::buildReopenVals()
 
 void OutlinePalette::slotMultiSelect()
 {
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	if (currDoc==NULL)
 		return;
@@ -588,7 +588,7 @@ void OutlinePalette::slotMultiSelect()
 
 void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 {
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	selectionTriggered = true;
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
@@ -644,7 +644,7 @@ void OutlinePalette::resizeEvent(QResizeEvent *r)
 */
 void OutlinePalette::BuildTree(bool storeVals)
 {
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
 	if (currDoc==NULL)
 		return;
