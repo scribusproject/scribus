@@ -6,6 +6,6 @@ INSTALL(FILES
 icalamus.xml
 pageplusx3.xml
 pagestream.xml
-scribus13.xml
+scribus15.xml
   DESTINATION ${SHAREDIR}keysets
 )
