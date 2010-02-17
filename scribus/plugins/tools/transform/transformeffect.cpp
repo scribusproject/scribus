@@ -178,7 +178,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				currDoc->DoDrawing = false;
 				currDoc->view()->updatesOn(false);
 				currDoc->m_Selection->delaySignalsOn();
-				currDoc->scMW()->ScriptRunning = true;
+				currDoc->scMW()->setScriptRunning(true);
 				QTransform comulatedMatrix = matrix;
 				PageItem *currItem = currDoc->m_Selection->itemAt(0);
 				Elements.append(currItem);
@@ -255,7 +255,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				currDoc->DoDrawing = true;
 				currDoc->m_Selection->delaySignalsOff();
 				currDoc->view()->updatesOn(true);
-				currDoc->scMW()->ScriptRunning = false;
+				currDoc->scMW()->setScriptRunning(false);
 				currDoc->m_Selection->connectItemToGUI();
 			}
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));

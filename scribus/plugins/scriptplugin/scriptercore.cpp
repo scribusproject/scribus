@@ -267,7 +267,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	{
 		ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
 		ScCore->primaryMainWindow()->pagePalette->setView(NULL);
-		ScCore->primaryMainWindow()->ScriptRunning = true;
+		ScCore->primaryMainWindow()->setScriptRunning(true);
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
@@ -372,15 +372,15 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		Py_EndInterpreter(state);
 		PyEval_RestoreThread(stateo);
 //		qApp->restoreOverrideCursor();
-	}
-	ScCore->primaryMainWindow()->ScriptRunning = false;
+		ScCore->primaryMainWindow()->setScriptRunning(false);
+	}	
 }
 
 void ScripterCore::slotRunScript(const QString Script)
 {
 	ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
 	ScCore->primaryMainWindow()->pagePalette->setView(NULL);
-	ScCore->primaryMainWindow()->ScriptRunning = true;
+	ScCore->primaryMainWindow()->setScriptRunning(true);
 	inValue = Script;
 	QString cm;
 	cm = "# -*- coding: utf8 -*- \n";
@@ -443,7 +443,7 @@ void ScripterCore::slotRunScript(const QString Script)
 		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
 			Py_XDECREF(result);
 	}
-	ScCore->primaryMainWindow()->ScriptRunning = false;
+	ScCore->primaryMainWindow()->setScriptRunning(false);
 }
 
 void ScripterCore::slotInteractiveScript(bool visible)

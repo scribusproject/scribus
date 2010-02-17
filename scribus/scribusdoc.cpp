@@ -9989,7 +9989,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	DoDrawing = false;
 	view()->updatesOn(false);
 	m_Selection->delaySignalsOn();
-	m_ScMW->ScriptRunning = true;
+	m_ScMW->setScriptRunning(true);
 	if (mdData.type==0) // Copy and offset or set a gap
 	{
 		double dH = mdData.copyShiftGapH / docUnitRatio;
@@ -10079,7 +10079,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	DoDrawing = true;
 	m_Selection->delaySignalsOff();
 	view()->updatesOn(true);
-	m_ScMW->ScriptRunning = false;
+	m_ScMW->setScriptRunning(false);
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
 	view()->DrawNew();
@@ -12039,6 +12039,7 @@ void ScribusDoc::RotMode(const int& val)
 	rotMode = val;
 	emit rotationMode(rotMode);
 }
+
 
 
 

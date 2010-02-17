@@ -712,7 +712,7 @@ void PagePalette::handleFirstPage(int fp)
 
 void PagePalette::rebuildMasters()
 {
-	if (m_scMW->ScriptRunning)
+	if (m_scMW->scriptIsRunning())
 		return;
 	masterPageList->clear();
 	if (currView == 0)
@@ -733,7 +733,7 @@ void PagePalette::rebuildMasters()
 
 void PagePalette::rebuildPages()
 {
-	if (m_scMW->ScriptRunning)
+	if (m_scMW->scriptIsRunning())
 		return;
 	QString str;
 	disconnect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
@@ -861,7 +861,7 @@ void PagePalette::markPage(uint nr)
 
 void PagePalette::setView(ScribusView *view)
 {
-	if (m_scMW->ScriptRunning)
+	if (m_scMW->scriptIsRunning())
 		return;
 	currView = view;
 }
@@ -938,4 +938,5 @@ const bool PagePalette::getThumb()
 {
 	return masterPageList->Thumb;
 }
+
 

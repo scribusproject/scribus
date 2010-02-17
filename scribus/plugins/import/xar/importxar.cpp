@@ -235,8 +235,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
-	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
-	m_Doc->scMW()->ScriptRunning = true;
+	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
@@ -305,7 +304,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			}
 		}
 		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
@@ -381,7 +380,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	{
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}

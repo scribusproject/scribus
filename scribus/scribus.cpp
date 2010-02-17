@@ -437,7 +437,7 @@ void ScribusMainWindow::initToolBars()
 void ScribusMainWindow::initDefaultValues()
 {
 	HaveDoc = false;
-	ScriptRunning = false;
+	ScriptRunning = 0;
 	view = NULL;
 	doc = NULL;
 	DocNr = 1;
@@ -3733,7 +3733,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view->updatesOn(false);
 		doc->SoftProofing = false;
 		doc->Gamut = false;
-		ScriptRunning = true;
+		setScriptRunning(true);
 		bool loadSuccess=fileLoader->LoadFile(doc);
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
 		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
@@ -3748,7 +3748,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			delete w;
 			view=NULL;
 			doc=NULL;
-			ScriptRunning = false;
+			setScriptRunning(false);
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			mainWindowStatusLabel->setText("");
 			mainWindowProgressBar->reset();
@@ -3762,7 +3762,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		fileLoader->informReplacementFonts();
 		setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
 		view->unitChange();
-		ScriptRunning = false;
+		setScriptRunning(false);
 		view->Deselect(true);
 		mainWindowStatusLabel->setText("");
 		mainWindowProgressBar->reset();
@@ -6467,7 +6467,7 @@ void ScribusMainWindow::setAppMode(int mode)
 void ScribusMainWindow::setMainWindowActive()
 {
 	activateWindow();
-	if (!ScriptRunning)
+	if (!scriptIsRunning())
 		raise();
 }
 
@@ -7603,7 +7603,7 @@ void ScribusMainWindow::ShowSubs()
 // 	pdfToolBar->initVisibility();
 
 	activateWindow();
-	if (!ScriptRunning)
+	if (!scriptIsRunning())
 		raise();
 }
 

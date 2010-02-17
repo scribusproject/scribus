@@ -143,6 +143,9 @@ public:
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
 	void getDefaultPrinter(QString& name, QString& file, QString& command);
 
+	inline bool scriptIsRunning(void) const { return (ScriptRunning > 0); }
+	inline void setScriptRunning(bool value) { ScriptRunning += (value ? 1 : -1); }
+
 	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	bool DoFileSave(const QString& fileName, QString* savedFileName = NULL);
@@ -229,7 +232,6 @@ public:
 	ScribusWin* ActWin;
 	QClipboard *ClipB;
 	QString LoadEnc;
-	bool ScriptRunning;
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 
@@ -587,6 +589,8 @@ private:
 	void updateColorMenu(QProgressBar* progressBar=NULL);
 	void ToggleFrameEdit();
 	void NoFrameEdit();
+
+	int ScriptRunning;
 
 	QLabel* mainWindowStatusLabel;
 	QPixmap noIcon;

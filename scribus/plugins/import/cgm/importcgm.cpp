@@ -83,8 +83,7 @@ QImage CgmPlug::readThumbnail(QString fName)
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
-	m_Doc->scMW()->ScriptRunning = true;
+	m_Doc->scMW()->setScriptRunning(true);
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
@@ -169,7 +168,7 @@ QImage CgmPlug::readThumbnail(QString fName)
 			tmpImage.setText("XSize", QString("%1").arg(xs));
 			tmpImage.setText("YSize", QString("%1").arg(ys));
 		}
-		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		m_Doc->m_Selection->delaySignalsOff();
 		delete m_Doc;
@@ -179,7 +178,7 @@ QImage CgmPlug::readThumbnail(QString fName)
 	{
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+		m_Doc->scMW()->setScriptRunning(false);
 		delete m_Doc;
 	}
 	return QImage();
@@ -278,8 +277,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
-	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
-	m_Doc->scMW()->ScriptRunning = true;
+	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
@@ -348,7 +346,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			}
 		}
 		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
@@ -408,7 +406,7 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	{
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
+		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}

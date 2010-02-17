@@ -467,7 +467,7 @@ void ScribusView::changed(QRectF re)
 		m_oldCanvasWidth = newCanvasWidth;
 		m_oldCanvasHeight = newCanvasHeight;
 	}
-	if (!Doc->isLoading() && !m_ScMW->ScriptRunning)
+	if (!Doc->isLoading() && !m_ScMW->scriptIsRunning())
 	{
 // 		qDebug() << "ScribusView-changed(): changed region:" << re;
 		m_canvas->m_viewMode.forceRedraw = true;
@@ -893,7 +893,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		e->acceptProposedAction();
 		//<<#3524
 		activateWindow();
-		if (!m_ScMW->ScriptRunning)
+		if (!m_ScMW->scriptIsRunning())
 			raise();
 		m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
 		updateContents();
@@ -2426,7 +2426,7 @@ void ScribusView::rememberOldZoomLocation(int mx, int my)
 
 void ScribusView::setRulerPos(int x, int y)
 {
-	if (m_ScMW->ScriptRunning)
+	if (m_ScMW->scriptIsRunning())
 		return;
 	if (Doc->guidesSettings.rulerMode)
 	{
@@ -2501,7 +2501,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 void ScribusView::reformPages(bool moveObjects)
 {
 	Doc->reformPages(moveObjects);
-	if (!m_ScMW->ScriptRunning)
+	if (!m_ScMW->scriptIsRunning())
 		setContentsPos(qRound((Doc->currentPage()->xOffset()-10 - 0*Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->currentPage()->yOffset()-10 - 0*Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 	if (!Doc->isLoading())
 	{
@@ -2669,7 +2669,7 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 
 void ScribusView::setMenTxt(int Seite)
 {
-	if (m_ScMW->ScriptRunning)
+	if (m_ScMW->scriptIsRunning())
 		return;
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaximum(Doc->masterPageMode() ? 1 : Doc->Pages->count());
@@ -2781,7 +2781,7 @@ void ScribusView::DrawNew()
 {
 // 	qDebug("ScribusView::DrawNew");
 // 	printBacktrace(24);
-	if (m_ScMW->ScriptRunning)
+	if (m_ScMW->scriptIsRunning())
 		return;
 	m_canvas->m_viewMode.forceRedraw = true;
 	m_canvas->resetRenderMode();
@@ -2795,7 +2795,7 @@ void ScribusView::DrawNew()
 
 void ScribusView::SetCCPo(double x, double y)
 {
-	if (m_ScMW->ScriptRunning)
+	if (m_ScMW->scriptIsRunning())
 		return;
 	QPoint nx = m_canvas->canvasToLocal(FPoint(x, y));
 	QSize viewsize = viewport()->size();
@@ -2805,7 +2805,7 @@ void ScribusView::SetCCPo(double x, double y)
 
 void ScribusView::SetCPo(double x, double y)
 {
-	if (m_ScMW->ScriptRunning)
+	if (m_ScMW->scriptIsRunning())
 		return;
 	QPoint nx = m_canvas->canvasToLocal(FPoint(x, y));
 	setContentsPos(nx.x(), nx.y());
@@ -2870,7 +2870,7 @@ void ScribusView::GotoPa(int Seite)
 void ScribusView::GotoPage(int Seite)
 {
 	Doc->setCurrentPage(Doc->Pages->at(Seite));
-	if (m_ScMW->ScriptRunning)
+	if (m_ScMW->scriptIsRunning())
 		return;
 	setMenTxt(Seite);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
