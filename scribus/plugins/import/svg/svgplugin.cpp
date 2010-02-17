@@ -258,6 +258,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
+	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
 	m_Doc->scMW()->ScriptRunning = true;
 	gc->FontFamily = m_Doc->itemToolPrefs.textFont;
 	if (!m_Doc->PageColors.contains("Black"))
@@ -366,7 +367,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 		tmpImage.setText("YSize", QString("%1").arg(ys));
 		m_Doc->m_Selection->delaySignalsOff();
 	}
-	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->scMW()->ScriptRunning = wasScriptRunning;
 	m_Doc->setLoading(false);
 	delete m_Doc;
 	QDir::setCurrent(CurDirP);
@@ -459,6 +460,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
+	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	gc->FontFamily = m_Doc->itemToolPrefs.textFont;
@@ -589,7 +591,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		}
 	}
 	m_Doc->DoDrawing = true;
-	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->scMW()->ScriptRunning = wasScriptRunning;
 	if (interactive)
 		m_Doc->setLoading(false);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));

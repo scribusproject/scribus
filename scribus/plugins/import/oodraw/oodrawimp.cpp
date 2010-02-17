@@ -344,6 +344,7 @@ QImage OODPlug::readThumbnail(QString fileName )
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
+	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
 	m_Doc->scMW()->ScriptRunning = true;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
@@ -432,7 +433,7 @@ QImage OODPlug::readThumbnail(QString fileName )
 		m_Doc->m_Selection->delaySignalsOff();
 		m_Doc->setLoading(false);
 	}
-	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->scMW()->ScriptRunning = wasScriptRunning;
 	delete m_Doc;
 	QDir::setCurrent(CurDirP);
 	return tmpImage;
@@ -601,6 +602,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
+	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	if (!m_Doc->PageColors.contains("Black"))
@@ -696,7 +698,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		}
 	}
 	m_Doc->DoDrawing = true;
-	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->scMW()->ScriptRunning = wasScriptRunning;
 	if (interactive)
 		m_Doc->setLoading(false);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));

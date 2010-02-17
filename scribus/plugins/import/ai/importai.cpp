@@ -161,6 +161,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
+	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
 	m_Doc->scMW()->ScriptRunning = true;
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
@@ -246,7 +247,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 	}
 	else
 		tmpImage = QImage();
-	m_Doc->scMW()->ScriptRunning = false;
+	m_Doc->scMW()->ScriptRunning = wasScriptRunning;
 	m_Doc->setLoading(false);
 	delete m_Doc;
 	QDir::setCurrent(CurDirP);
@@ -395,6 +396,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
+	bool wasScriptRunning = m_Doc->scMW()->ScriptRunning;
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
@@ -487,7 +489,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			}
 		}
 		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
@@ -573,7 +575,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	{
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->scMW()->ScriptRunning = wasScriptRunning;
 		m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
