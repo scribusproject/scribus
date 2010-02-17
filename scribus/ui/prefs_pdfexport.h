@@ -56,6 +56,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void enablePDFXWidgets(bool);
 		void addPDFVersions(bool);
 		bool cmsEnabled;
+		double unitRatio;
 		ScribusDoc* m_doc;
 		QString defaultSolidColorRGBProfile;
 		QString defaultPrinterProfile;

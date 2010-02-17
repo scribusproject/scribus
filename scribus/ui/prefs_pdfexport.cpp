@@ -47,7 +47,7 @@ Prefs_PDFExport::~Prefs_PDFExport()
 
 void Prefs_PDFExport::unitChange(int unitIndex)
 {
-	double unitRatio = unitGetRatioFromIndex(unitIndex);
+	unitRatio = unitGetRatioFromIndex(unitIndex);
 	registrationMarkOffsetSpinBox->setNewUnit(unitIndex);
 	registrationMarkOffsetSpinBox->setMinimum(0);
 	registrationMarkOffsetSpinBox->setMaximum(3000 * unitRatio);
@@ -127,7 +127,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, Scribu
 {
 	m_doc=doc;
 	int unitIndex = prefsData->docSetupPrefs.docUnitIndex;
-	double unitRatio = unitGetRatioFromIndex(unitIndex);
+	unitRatio = unitGetRatioFromIndex(unitIndex);
 	unitChange(unitIndex);
 	Opts=prefsData->pdfPrefs;
 	defaultSolidColorRGBProfile=prefsData->colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
@@ -512,7 +512,94 @@ if (mdoc != 0 && exporting)
 
 void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
- //TODO
+	prefsData->pdfPrefs.Thumbnails = generateThumbnailsCheckBox->isChecked();
+	prefsData->pdfPrefs.Compress = compressTextAndVectorGraphicsCheckBox->isChecked();
+	prefsData->pdfPrefs.CompressMethod = (PDFOptions::PDFCompression) imageCompressionMethodComboBox->currentIndex();
+	prefsData->pdfPrefs.Quality = imageCompressionQualityComboBox->currentIndex();
+	prefsData->pdfPrefs.Resolution = epsExportResolutionSpinBox->value();
+	prefsData->pdfPrefs.RecalcPic = maxResolutionLimitCheckBox->isChecked();
+	prefsData->pdfPrefs.PicRes = maxExportResolutionSpinBox->value();
+	prefsData->pdfPrefs.Bookmarks = includeBookmarksCheckBox->isChecked();
+	prefsData->pdfPrefs.Binding = pageBindingComboBox->currentIndex();
+	prefsData->pdfPrefs.MirrorH = pageMirrorHorizontalToolButton->isChecked();
+	prefsData->pdfPrefs.MirrorV = pageMirrorVerticalToolButton->isChecked();
+	prefsData->pdfPrefs.RotateDeg = rotationComboBox->currentIndex() * 90;
+	prefsData->pdfPrefs.Articles = saveLinkedTextFramesAsArticlesCheckBox->isChecked();
+	prefsData->pdfPrefs.Encrypt = useEncryptionCheckBox->isChecked();
+	prefsData->pdfPrefs.UseLPI = useCustomRenderingCheckBox->isChecked();
+	prefsData->pdfPrefs.UseSpotColors = !convertSpotsToProcessCheckBox->isChecked();
+	prefsData->pdfPrefs.doMultiFile = false;
+	prefsData->pdfPrefs.cropMarks  = printCropMarksCheckBox->isChecked();
+	prefsData->pdfPrefs.bleedMarks = printBleedMarksCheckBox->isChecked();
+	prefsData->pdfPrefs.registrationMarks = printRegistrationMarksCheckBox->isChecked();
+	prefsData->pdfPrefs.colorMarks = printColorBarsCheckBox->isChecked();
+	prefsData->pdfPrefs.docInfoMarks = printPageInfoCheckBox->isChecked();
+	prefsData->pdfPrefs.markOffset = registrationMarkOffsetSpinBox->value() / unitRatio;
+	//TODO for export: prefsData->pdfPrefs.useDocBleeds = docBleeds->isChecked();
+	prefsData->pdfPrefs.bleeds=bleedsWidget->margins();
+	prefsData->pdfPrefs.doClip = clipToPrinterMarginsCheckBox->isChecked();
+	if (useEncryptionCheckBox->isChecked())
+	{
+		int Perm = -64;
+		if (pdfVersionComboBox->currentIndex() == 1)
+			Perm &= ~0x00240000;
+		if (allowPrintingCheckBox->isChecked())
+			Perm += 4;
+		if (allowChangingCheckBox->isChecked())
+			Perm += 8;
+		if (allowCopyingCheckBox->isChecked())
+			Perm += 16;
+		if (allowAnnotatingCheckBox->isChecked())
+			Perm += 32;
+		prefsData->pdfPrefs.Permissions = Perm;
+		prefsData->pdfPrefs.PassOwner = passwordOwnerLineEdit->text();
+		prefsData->pdfPrefs.PassUser = passwordUserLineEdit->text();
+	}
+	if (pdfVersionComboBox->currentIndex() == 0)
+		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_13;
+	if (pdfVersionComboBox->currentIndex() == 1)
+		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_14;
+	if (pdfVersionComboBox->currentIndex() == 2)
+		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_15;
+	if (pdfVersionComboBox->currentIndex() == 3)
+		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_X1a;
+	if (pdfVersionComboBox->currentIndex() == 4)
+		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_X3;
+	if (pdfVersionComboBox->currentIndex() == 5)
+		prefsData->pdfPrefs.Version = PDFOptions::PDFVersion_X4;
+	if (outputIntentionComboBox->currentIndex() == 0)
+	{
+		prefsData->pdfPrefs.isGrayscale = false;
+		prefsData->pdfPrefs.UseRGB = true;
+		prefsData->pdfPrefs.UseProfiles = false;
+		prefsData->pdfPrefs.UseProfiles2 = false;
+	}
+	else
+	{
+		if (outputIntentionComboBox->currentIndex() == 2)
+		{
+			prefsData->pdfPrefs.isGrayscale = true;
+			prefsData->pdfPrefs.UseRGB = false;
+			prefsData->pdfPrefs.UseProfiles = false;
+			prefsData->pdfPrefs.UseProfiles2 = false;
+		}
+		else
+		{
+			prefsData->pdfPrefs.isGrayscale = false;
+			prefsData->pdfPrefs.UseRGB = false;
+			if (/*CMSuse*/ ScCore->haveCMS())
+			{
+				prefsData->pdfPrefs.UseProfiles = useSolidColorProfileCheckBox->isChecked();
+				prefsData->pdfPrefs.UseProfiles2 = useImageProfileCheckBox->isChecked();
+				prefsData->pdfPrefs.Intent = solidColorRenderingIntentComboBox->currentIndex();
+				prefsData->pdfPrefs.Intent2 = imageRenderingIntentComboBox->currentIndex();
+				prefsData->pdfPrefs.EmbeddedI = doNotUseEmbeddedImageProfileCheckBox->isChecked();
+				prefsData->pdfPrefs.SolidProf = solidColorProfileComboBox->currentText();
+				prefsData->pdfPrefs.ImageProf = imageProfileComboBox->currentText();
+				prefsData->pdfPrefs.PrintProf = pdfx3OutputProfileComboBox->currentText();
+			}
+		}
+	}
 }
 
 void Prefs_PDFExport::enableRangeControls(bool enabled)
