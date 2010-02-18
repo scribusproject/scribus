@@ -11,6 +11,18 @@ for which a new license (GPL+exception) is in place.
 #include "cmdvar.h"
 
 /*! docstring */
+PyDoc_STRVAR(scribus_placevec__doc__,
+QT_TR_NOOP("placeVectorFile(\"filename\", x, y)\n\
+\n\
+Places the Vectorgrapics \"filename\" onto the current page,\n\
+x and y specify the coordinate of the topleft corner of the graphic placed on the page\n\
+\n\
+If loading was successful, the selection contains the imported grapic\n\
+"));
+/*! Places a Vector file. */
+PyObject *scribus_placevec(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_placesvg__doc__,
 QT_TR_NOOP("placeSVG(\"filename\", x, y)\n\
 \n\
@@ -20,7 +32,7 @@ x and y specify the coordinate of the topleft corner of the SVG placed on the pa
 If loading was successful, the selection contains the imported SVG\n\
 "));
 /*! Places an SVG file. */
-PyObject *scribus_placesvg(PyObject * /*self*/, PyObject* args);
+//PyObject *scribus_placesvg(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_placeeps__doc__,
@@ -32,7 +44,7 @@ x and y specify the coordinate of the topleft corner of the EPS placed on the pa
 If loading was successful, the selection contains the imported EPS\n\
 "));
 /*! Places an EPS file. */
-PyObject *scribus_placeeps(PyObject * /*self*/, PyObject* args);
+//PyObject *scribus_placeeps(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_placesxd__doc__,
@@ -44,7 +56,7 @@ x and y specify the coordinate of the topleft corner of the SXD placed on the pa
 If loading was successful, the selection contains the imported SXD\n\
 "));
 /*! Places an SXD file. */
-PyObject *scribus_placesxd(PyObject * /*self*/, PyObject* args);
+//PyObject *scribus_placesxd(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_placeodg__doc__,
@@ -56,6 +68,6 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 If loading was successful, the selection contains the imported ODG\n\
 "));
 /*! Places an ODG file. */
-PyObject *scribus_placeodg(PyObject * /*self*/, PyObject* args);
+//PyObject *scribus_placeodg(PyObject * /*self*/, PyObject* args);
 
 #endif
