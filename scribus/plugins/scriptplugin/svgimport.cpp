@@ -33,7 +33,10 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.suffix().toLower();
 	if (!allFormatsV.contains(ext))
+	{
+		PyErr_SetString(PyExc_Exception, "Requested Import plugin not available");
 		return NULL;
+	}
 	FileLoader *fileLoader = new FileLoader(fName);
 	int testResult = fileLoader->TestFile();
 	delete fileLoader;
@@ -59,7 +62,7 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		PyErr_SetString(PyExc_Exception, "Requested Import plugin not available");
+		PyErr_SetString(PyExc_Exception, "Requested File cannot be imported");
 		return NULL;
 	}
 //	Py_INCREF(Py_None);
