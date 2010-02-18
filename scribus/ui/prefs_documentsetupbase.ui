@@ -38,7 +38,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -175,7 +175,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Page Layouts</string>
+          <string>Page Layout</string>
          </property>
         </widget>
        </item>
@@ -266,7 +266,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Margins and Bleeds</string>
+       <string>Margins &amp;&amp; Bleeds</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -389,7 +389,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>20</height>
+           <height>0</height>
           </size>
          </property>
         </spacer>
@@ -448,7 +448,7 @@
        <item>
         <widget class="QCheckBox" name="autosaveCheckBox">
          <property name="text">
-          <string>Autosave</string>
+          <string>Enable Automatic Saving of Documents</string>
          </property>
         </widget>
        </item>
@@ -523,7 +523,7 @@
        <item>
         <widget class="QCheckBox" name="undoCheckBox">
          <property name="text">
-          <string>Undo/Redo</string>
+          <string>Enable Undo/Redo System</string>
          </property>
         </widget>
        </item>

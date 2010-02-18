@@ -48,6 +48,7 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		 */
 		void setSize(const QString & gr);
 		void setPageSize();
+		void slotUndo(bool);
 		void unitChange();
 
 	private:

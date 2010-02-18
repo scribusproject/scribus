@@ -4277,6 +4277,8 @@ bool ScribusMainWindow::slotFileSaveAs()
 			fna = wdir;
 		fna += doc->DocName + ".sla";
 	}
+	if (prefsManager->appPrefs.docSetupPrefs.saveCompressed)
+		fna.append(".gz");
 	QString fileSpec=tr("Documents (*.sla *.sla.gz);;All Files (*)");
 // 	bool setter=true;
 	int optionFlags = fdCompressFile | fdHidePreviewCheckBox;

@@ -10,7 +10,10 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "ui/newmarginwidget.h"
 #include "pagesize.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "prefsstructs.h"
+#include "undomanager.h"
 #include "units.h"
 #include "util.h"
 
@@ -40,6 +43,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent)
 	connect(pageHeightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	connect(pageLayoutButtonGroup, SIGNAL(buttonReleased(int)), this, SLOT(pageLayoutChanged(int)));
 	connect(pageUnitsComboBox, SIGNAL(activated(int)), this, SLOT(unitChange()));
+	connect(undoCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotUndo(bool)));
 }
 
 Prefs_DocumentSetup::~Prefs_DocumentSetup()
@@ -146,10 +150,15 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	bleedsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
 	bleedsWidget->setPageSize(prefsPageSizeName);
 	bleedsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
-/*
-	GroupAS->setChecked( prefsData->docSetupPrefs.AutoSave );
-	ASTime->setValue(prefsData->docSetupPrefs.AutoSaveTime / 1000 / 60);
-	*/
+	saveCompressedCheckBox->setChecked(prefsData->docSetupPrefs.saveCompressed);
+	autosaveCheckBox->setChecked( prefsData->docSetupPrefs.AutoSave );
+	autosaveIntervalSpinBox->setValue(prefsData->docSetupPrefs.AutoSaveTime / 1000 / 60);
+	undoCheckBox->setChecked(PrefsManager::instance()->prefsFile->getContext("undo")->getBool("enabled", true));
+	int undoLength = UndoManager::instance()->getHistoryLength();
+	if (undoLength == -1)
+		undoLengthSpinBox->setEnabled(false);
+	else
+		undoLengthSpinBox->setValue(undoLength);
 	unitChange();
 }
 
@@ -163,6 +172,16 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->pageSets[prefsData->docSetupPrefs.pagePositioning].FirstPage=layoutFirstPageIsComboBox->currentIndex();
 	prefsData->docSetupPrefs.margins=marginsWidget->margins();
 	prefsData->docSetupPrefs.bleeds=bleedsWidget->margins();
+	prefsData->docSetupPrefs.saveCompressed=saveCompressedCheckBox->isChecked();
+	prefsData->docSetupPrefs.AutoSave=autosaveCheckBox->isChecked();
+	prefsData->docSetupPrefs.AutoSaveTime = autosaveIntervalSpinBox->value() * 1000 * 60;
+	bool undoActive=undoCheckBox->isChecked();
+	if (!undoActive)
+		UndoManager::instance()->clearStack();
+	UndoManager::instance()->setUndoEnabled(undoActive);
+	UndoManager::instance()->setAllHistoryLengths(undoLengthSpinBox->value());
+	static PrefsContext *undoPrefs = PrefsManager::instance()->prefsFile->getContext("undo");
+	undoPrefs->set("enabled", undoActive);
 }
 
 void Prefs_DocumentSetup::setupPageSets()
@@ -261,4 +280,9 @@ void Prefs_DocumentSetup::setSize(const QString &newSize)
 	pageWidthSpinBox->blockSignals(false);
 	pageHeightSpinBox->blockSignals(false);
 	delete ps2;
+}
+
+void Prefs_DocumentSetup::slotUndo(bool isEnabled)
+{
+	undoLengthSpinBox->setEnabled(isEnabled);
 }
