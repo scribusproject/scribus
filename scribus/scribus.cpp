@@ -4277,12 +4277,13 @@ bool ScribusMainWindow::slotFileSaveAs()
 			fna = wdir;
 		fna += doc->DocName + ".sla";
 	}
-	if (prefsManager->appPrefs.docSetupPrefs.saveCompressed)
+	bool saveCompressed=prefsManager->appPrefs.docSetupPrefs.saveCompressed;
+	if (saveCompressed)
 		fna.append(".gz");
+
 	QString fileSpec=tr("Documents (*.sla *.sla.gz);;All Files (*)");
-// 	bool setter=true;
 	int optionFlags = fdCompressFile | fdHidePreviewCheckBox;
-	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags);
+	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags, &saveCompressed);
 	if (!fn.isEmpty())
 	{
 		docContext->set("save_as", fn.left(fn.lastIndexOf("/")));
@@ -8603,6 +8604,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		dia->setExtension(f.completeSuffix());
 		dia->setZipExtension(f.completeSuffix() + ".gz");
 		dia->setSelection(defNa);
+		dia->SaveZip->setChecked(*docom);
 	}
 	if (optionFlags & fdDirectoriesOnly)
 	{
