@@ -9,28 +9,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-//Added by qt3to4:
-#include <QPixmap>
-#include <QList>
 
-class QString;
-class ScColor;
-class PrefsManager;
-class QDomDocument;
+#include <QImage>
+#include <QString>
 
 class SCRIBUS_API ScPreview
 {
 public:
 	ScPreview();
 	~ScPreview() {};
-	QPixmap createPreview(QString data);
-	void SetQColor(QColor *tmp, const QString& farbe, double shad);
-	void DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mode, double Siz);
-	QMap<QString,ScColor> Farben;
-	QMap<QString,multiLine> MLineStyles;
-	QList<uint> Segments;
-protected:
-	PrefsManager* prefsManager;
+	QImage createPreview(QString data);
 };
 #endif
 

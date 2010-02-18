@@ -75,7 +75,6 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
 	prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget);
 	addItem( tr("Image Cache"), loadIcon("22/image-x-generic.png"), prefs_ImageCache);
-
 	arrangeIcons();
 	if (preferencesTypeList->count()>0)
 	{
