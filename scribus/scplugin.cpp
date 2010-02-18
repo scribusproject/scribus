@@ -230,7 +230,9 @@ bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 			correctAppMode = true;
 		if (correctAppMode)
 		{
-			if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
+			if (ai.needsNumObjects == -1)
+				return true;
+			else if ((ai.needsNumObjects > 2) && (docSelectionCount > 0))
 				return true;
 			else
 				return false;
