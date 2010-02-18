@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
 /***************************************************************************
                           customfdialog.cpp  -  description
                              -------------------
@@ -257,7 +258,6 @@ void FDialogPreview::GenPreview(QString name)
 	}
 	else if (ext.toUtf8() == "shape")
 	{
-		QPixmap pmi;
 		QByteArray cf;
 		if (loadRawText(name, cf))
 		{
@@ -265,8 +265,7 @@ void FDialogPreview::GenPreview(QString name)
 			StencilReader *pre = new StencilReader();
 			QString f2 = pre->createShape(f);
 			ScPreview *pre2 = new ScPreview();
-			pmi = pre2->createPreview(f2);
-			QImage im = pmi.toImage();
+			QImage im = pre2->createPreview(f2);
 			im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 			QPainter p;
 			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
@@ -286,7 +285,6 @@ void FDialogPreview::GenPreview(QString name)
 	}
 	else if (ext.toUtf8() == "sce")
 	{
-		QPixmap pmi;
 		QByteArray cf;
 		if (loadRawText(name, cf))
 		{
@@ -296,8 +294,7 @@ void FDialogPreview::GenPreview(QString name)
 			else
 				f = cf.data();
 			ScPreview *pre = new ScPreview();
-			pmi = pre->createPreview(f);
-			QImage im = pmi.toImage();
+			QImage im = pre->createPreview(f);
 			im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 			QPainter p;
 			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));

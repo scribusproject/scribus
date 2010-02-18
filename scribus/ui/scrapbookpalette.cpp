@@ -4,12 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/****************************************************************************
-** Form implementation generated from reading ui file 'Bib.ui'
-**
-** Created: Sun Oct 14 19:47:56 2001
-**
-****************************************************************************/
+
 #include "scrapbookpalette.h"
 
 #include <QEvent>
@@ -323,7 +318,7 @@ void BibView::SaveContents(QString name, QString oldName)
 				else
 					f = cf.data();
 				ScPreview *pre = new ScPreview();
-				pm = pre->createPreview(f);
+				pm = QPixmap::fromImage(pre->createPreview(f));
 				delete pre;
 			}
 			QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])));
@@ -388,7 +383,7 @@ void BibView::SaveContents(QString name, QString oldName)
 				StencilReader *pre = new StencilReader();
 				QString f2 = pre->createShape(f);
 				ScPreview *pre2 = new ScPreview();
-				pm = pre2->createPreview(f2);
+				pm = QPixmap::fromImage(pre2->createPreview(f2));
 				delete pre;
 				delete pre2;
 			}
@@ -536,7 +531,7 @@ void BibView::ReadContents(QString name)
 				else
 					f = cf.data();
 				ScPreview *pre = new ScPreview();
-				pm = pre->createPreview(f);
+				pm = QPixmap::fromImage(pre->createPreview(f));
 				if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
 					pm.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
@@ -602,7 +597,7 @@ void BibView::ReadContents(QString name)
 				StencilReader *pre = new StencilReader();
 				QString f2 = pre->createShape(f);
 				ScPreview *pre2 = new ScPreview();
-				pm = pre2->createPreview(f2);
+				pm = QPixmap::fromImage(pre2->createPreview(f2));
 				if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
 					pm.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
@@ -659,10 +654,7 @@ void BibView::ReadContents(QString name)
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
-		if (itf.value().Preview.width() > 60)
-			itf.value().Preview = itf.value().Preview.scaledToWidth(60, Qt::SmoothTransformation);
-		if (itf.value().Preview.height() > 60)
-			itf.value().Preview = itf.value().Preview.scaledToHeight(60, Qt::SmoothTransformation);
+		itf.value().Preview = itf.value().Preview.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPixmap pm(60, 60);
 		pm.fill(palette().color(QPalette::Base));
 		QPainter p;
@@ -1127,10 +1119,7 @@ bool Biblio::copyObj(int id)
 		if (fiD.baseName() != nam)
 			adjustReferences(QDir::convertSeparators(bv->ScFilename + "/" + nam + "." + fi.completeSuffix().toLower()));
 	}
-	if (pm.width() > 60)
-		pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
-	if (pm.height() > 60)
-		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
 	pm2.fill(palette().color(QPalette::Base));
 	QPainter p;
@@ -1524,14 +1513,11 @@ void Biblio::ObjFromMenu(QString text)
 	QString ff = text;
 	activeBView->checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
-	QPixmap pm = pre->createPreview(ff);
+	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
 	activeBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
 	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
 		pm.save(QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
-	if (pm.width() > 60)
-		pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
-	if (pm.height() > 60)
-		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
 	pm2.fill(palette().color(QPalette::Base));
 	QPainter p;
@@ -1595,14 +1581,11 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 	QString ff = text;
 	tempBView->checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
-	QPixmap pm = pre->createPreview(ff);
+	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
 	tempBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), pm);
 	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
 		pm.save(QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam +".png")), "PNG");
-	if (pm.width() > 60)
-		pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
-	if (pm.height() > 60)
-		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
 	pm2.fill(palette().color(QPalette::Base));
 	QPainter p;
