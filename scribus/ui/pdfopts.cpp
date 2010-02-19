@@ -351,11 +351,11 @@ void PDFExportDialog::updateDocOptions()
 				{
 					ScColorProfile hIn = doc->colorEngine.openProfileFromFile(  appPrinterProfiles[Opts.PrintProf] );
 					cmsDescriptorName = hIn.productDescription();
-					if (static_cast<int>(hIn.colorSpace()) == icSigRgbData)
+					if (hIn.colorSpace() == ColorSpace_Rgb)
 						components = 3;
-					if (static_cast<int>(hIn.colorSpace()) == icSigCmykData)
+					if (hIn.colorSpace() == ColorSpace_Cmyk)
 						components = 4;
-					if (static_cast<int>(hIn.colorSpace()) == icSigCmyData)
+					if (hIn.colorSpace() == ColorSpace_Cmy)
 						components = 3;
 					Opts.Info = Options->InfoString->text();
 					Opts.Encrypt = false;

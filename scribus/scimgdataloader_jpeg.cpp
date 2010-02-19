@@ -80,11 +80,11 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 		ScColorProfile prof = ScCore->defaultEngine.openProfileFromMem(profArray);
 		if (prof)
 		{
-			if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
+			if (prof.colorSpace() == ColorSpace_Rgb)
 				m_profileComponents = 3;
-			if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
+			if (prof.colorSpace() == ColorSpace_Cmyk)
 				m_profileComponents = 4;
-			if (static_cast<int>(prof.colorSpace()) == icSigGrayData)
+			if (prof.colorSpace() == ColorSpace_Gray)
 				m_profileComponents = 1;
 			m_embeddedProfile = profArray;
 		}

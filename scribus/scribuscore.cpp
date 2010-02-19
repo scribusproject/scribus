@@ -401,43 +401,43 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 		}
 		switch (static_cast<int>(profInfo.deviceClass))
 		{
-		case icSigInputClass:
-			if (static_cast<int>(profInfo.colorSpace) == icSigRgbData)
+		case Class_Input:
+			if (profInfo.colorSpace == ColorSpace_Rgb)
 			{
 				if (!InputProfiles.contains(profileName))
 					InputProfiles.insert(profileName, profInfo.file);
 			}
 			break;
-		case icSigColorSpaceClass:
-			if (static_cast<int>(profInfo.colorSpace) == icSigRgbData)
+		case Class_ColorSpace:
+			if (profInfo.colorSpace == ColorSpace_Rgb)
 			{
 				if (!InputProfiles.contains(profileName))
 					InputProfiles.insert(profileName, profInfo.file);
 			}
-			if (static_cast<int>(profInfo.colorSpace) == icSigCmykData)
+			if (profInfo.colorSpace == ColorSpace_Cmyk)
 			{
 				if (!InputProfilesCMYK.contains(profileName))
 					InputProfilesCMYK.insert(profileName, profInfo.file);
 			}
 			break;
-		case icSigDisplayClass:
-			if (static_cast<int>(profInfo.colorSpace) == icSigRgbData)
+		case Class_Display:
+			if (profInfo.colorSpace == ColorSpace_Rgb)
 			{
 				if (!MonitorProfiles.contains(profileName))
 					MonitorProfiles.insert(profileName, profInfo.file);
 				if (!InputProfiles.contains(profileName))
 					InputProfiles.insert(profileName, profInfo.file);
 			}
-			if (static_cast<int>(profInfo.colorSpace) == icSigCmykData)
+			if (profInfo.colorSpace == ColorSpace_Cmyk)
 			{
 				if (!InputProfilesCMYK.contains(profileName))
 					InputProfilesCMYK.insert(profileName, profInfo.file);
 			}
 			break;
-		case icSigOutputClass:
+		case Class_Output:
 			// Disable rgb printer profile detection until effective support
 			// PrinterProfiles.insert(nam, pfad + d[dc], false);
-			if (static_cast<int>(profInfo.colorSpace) == icSigCmykData)
+			if (profInfo.colorSpace == ColorSpace_Cmyk)
 			{
 				if (!PDFXProfiles.contains(profileName))
 					PDFXProfiles.insert(profileName, profInfo.file);

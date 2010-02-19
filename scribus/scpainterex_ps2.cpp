@@ -485,14 +485,14 @@ void ScPainterEx_Ps2::putColor( ScColorShade& colorShade, bool doFill )
 			cmsTranform = m_options.cmykToOutputColorTransform;
 		}
 		cmsTranform.apply(colorIn, colorOut, 1 );
-		if (static_cast<int>(m_options.hProfile.colorSpace()) == icSigRgbData)
+		if (m_options.hProfile.colorSpace() == ColorSpace_Rgb)
 		{
 			r = colorOut[0] / 257;
 			g = colorOut[1] / 257;
 			b = colorOut[2] / 257;
 			colorMode = rgbMode;
 		}
-		else if (static_cast<int>(m_options.hProfile.colorSpace()) == icSigCmykData)
+		else if (m_options.hProfile.colorSpace() == ColorSpace_Cmyk)
 		{
 			c = colorOut[0] / 257;
 			m = colorOut[1] / 257;

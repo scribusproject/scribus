@@ -82,12 +82,12 @@ bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 		eColorFormat outputDataTypeImages = Format_Undefined;
 		ScColorMgmtEngine engine(m_doc->colorEngine);
 		m_options.hProfile = engine.openProfileFromFile(m_options.outputProfile);
-		if (static_cast<int>(m_options.hProfile.colorSpace()) == icSigRgbData)
+		if (m_options.hProfile.colorSpace() == ColorSpace_Rgb)
 		{
 			outputDataTypeColors = Format_RGB_16;
 			outputDataTypeImages = Format_ARGB_8;
 		}
-		else if (static_cast<int>(m_options.hProfile.colorSpace()) == icSigCmykData)
+		else if (m_options.hProfile.colorSpace() == ColorSpace_Cmyk)
 		{
 			outputDataTypeColors = Format_CMYK_16;
 			outputDataTypeImages = Format_CMYK_8;

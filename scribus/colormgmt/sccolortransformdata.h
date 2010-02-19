@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QString>
 
-#include "icc34.h" //part of lcms1
 #include "sccolormgmtelem.h"
 #include "sccolormgmtstructs.h"
 

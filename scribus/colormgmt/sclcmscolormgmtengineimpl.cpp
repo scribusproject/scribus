@@ -92,8 +92,8 @@ QList<ScColorProfileInfo> ScLcmsColorMgmtEngineImpl::getAvailableProfileInfo(con
 					profileInfos.append(profileInfo);
 					continue;
 				}
-				profileInfo.colorSpace  = cmsGetColorSpace(hIn);
-				profileInfo.deviceClass = cmsGetDeviceClass(hIn);
+				profileInfo.colorSpace  = translateLcmsColorSpaceType( cmsGetColorSpace(hIn) );
+				profileInfo.deviceClass = translateLcmsProfileClass( cmsGetDeviceClass(hIn) );
 				profileInfos.append(profileInfo);
 				cmsCloseProfile(hIn);
 				hIn = NULL;
@@ -548,6 +548,54 @@ int ScLcmsColorMgmtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent,
 	if (intent == Intent_Absolute_Colorimetric)
 		lIntent = INTENT_ABSOLUTE_COLORIMETRIC;
 	return lIntent;
+}
+
+eColorSpaceType ScLcmsColorMgmtEngineImpl::translateLcmsColorSpaceType(icColorSpaceSignature signature)
+{
+	eColorSpaceType colorSpaceType = ColorSpace_Unknown;
+    if (signature == icSigXYZData)
+		colorSpaceType = ColorSpace_XYZ;
+    if (signature == icSigLabData)
+		colorSpaceType = ColorSpace_Lab;
+    if (signature == icSigLuvData)
+		colorSpaceType = ColorSpace_Luv;
+    if (signature == icSigYCbCrData)
+		colorSpaceType = ColorSpace_YCbCr;
+    if (signature == icSigYxyData)
+		colorSpaceType = ColorSpace_Yxy;
+    if (signature == icSigRgbData)
+		colorSpaceType = ColorSpace_Rgb;
+    if (signature == icSigGrayData)
+		colorSpaceType = ColorSpace_Gray;
+    if (signature == icSigHsvData)
+		colorSpaceType = ColorSpace_Hsv;
+    if (signature == icSigHlsData)
+		colorSpaceType = ColorSpace_Hls;
+    if (signature == icSigCmykData)
+		colorSpaceType = ColorSpace_Cmyk;
+    if (signature == icSigCmyData)
+		colorSpaceType = ColorSpace_Cmy;
+	return colorSpaceType;
+}
+
+eProfileClass ScLcmsColorMgmtEngineImpl::translateLcmsProfileClass(icProfileClassSignature signature)
+{
+	eProfileClass profileClass = Class_Unknown;
+	if (signature == icSigInputClass)
+		profileClass = Class_Input;
+    if (signature == icSigDisplayClass)
+		profileClass = Class_Display;
+    if (signature == icSigOutputClass)
+		profileClass = Class_Output;
+    if (signature == icSigLinkClass)
+		profileClass = Class_Link;
+    if (signature == icSigAbstractClass)
+		profileClass = Class_Abstract;
+    if (signature == icSigColorSpaceClass)
+		profileClass = Class_ColorSpace;
+    if (signature == icSigNamedColorClass)
+		profileClass = Class_NamedColor;
+	return profileClass;
 }
 
 int ScLcmsColorMgmtEngineImpl::cmsErrorHandler(int /*ErrorCode*/, const char *ErrorText)

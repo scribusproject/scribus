@@ -801,7 +801,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 
 	ScColorProfile inputProfRGB;
 	ScColorProfile inputProfCMYK;
-	if (static_cast<int>(DocPrinterProf.colorSpace()) == icSigCmykData)
+	if (DocPrinterProf.colorSpace() == ColorSpace_Cmyk)
 	{
 		inputProf = (CMSSettings.SoftProofOn && CMSSettings.SoftProofFullOn) ? DocInputCMYKProf : DocPrinterProf;
 		inputProfRGB  = DocInputRGBProf;
@@ -832,23 +832,23 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 						IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags | Ctf_GamutCheck);
 
-	if (static_cast<int>(DocInputRGBProf.colorSpace()) == icSigRgbData)
+	if (DocInputRGBProf.colorSpace() == ColorSpace_Rgb)
 			CMSSettings.ComponentsInput2 = 3;
-	if (static_cast<int>(DocInputRGBProf.colorSpace()) == icSigCmykData)
+	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsInput2 = 4;
-	if (static_cast<int>(DocInputRGBProf.colorSpace()) == icSigCmyData)
+	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmy)
 			CMSSettings.ComponentsInput2 = 3;
-	if (static_cast<int>(DocInputCMYKProf.colorSpace()) == icSigRgbData)
+	if (DocInputCMYKProf.colorSpace() == ColorSpace_Rgb)
 			CMSSettings.ComponentsInput3 = 3;
-	if (static_cast<int>(DocInputCMYKProf.colorSpace()) == icSigCmykData)
+	if (DocInputCMYKProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsInput3 = 4;
-	if (static_cast<int>(DocInputCMYKProf.colorSpace()) == icSigCmyData)
+	if (DocInputCMYKProf.colorSpace() == ColorSpace_Cmy)
 			CMSSettings.ComponentsInput3 = 3;
-	if (static_cast<int>(DocPrinterProf.colorSpace()) == icSigRgbData)
+	if (DocPrinterProf.colorSpace() == ColorSpace_Rgb)
 			CMSSettings.ComponentsPrinter = 3;
-	if (static_cast<int>(DocPrinterProf.colorSpace()) == icSigCmykData)
+	if (DocPrinterProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsPrinter = 4;
-	if (static_cast<int>(DocPrinterProf.colorSpace()) == icSigCmyData)
+	if (DocPrinterProf.colorSpace() == ColorSpace_Cmy)
 			CMSSettings.ComponentsPrinter = 3;
 
 	bool success  = (stdTransRGBMon && stdTransCMYKMon && stdProofImg  && stdProofImgCMYK &&

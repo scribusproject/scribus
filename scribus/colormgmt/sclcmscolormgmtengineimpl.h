@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScLcmsColorMgmtEngineImpl : public ScColorMgmtEngineData
 {
+	friend class ScLcmsColorProfileImpl;
 	friend class ScLcmsColorTransformImpl;
 
 public:
@@ -57,6 +58,8 @@ protected:
 	static DWORD translateFlagsToLcmsFlags(long flags);
 	static DWORD translateFormatToLcmsFormat(eColorFormat format);
 	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defaut = Intent_Relative_Colorimetric);
+	static eColorSpaceType translateLcmsColorSpaceType(icColorSpaceSignature);
+	static eProfileClass   translateLcmsProfileClass(icProfileClassSignature);
 
 	// Exception class thrown by cmsErrorHandler
 	class lcmsException : public std::runtime_error 

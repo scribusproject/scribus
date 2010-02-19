@@ -86,9 +86,9 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 						ScColorProfile prof = engine.openProfileFromMem(psdata);
 						if (prof)
 						{
-							if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
+							if (prof.colorSpace() == ColorSpace_Rgb)
 								m_profileComponents = 3;
-							if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
+							if (prof.colorSpace() == ColorSpace_Cmyk)
 								m_profileComponents = 4;
 							m_imageInfoRecord.profileName = prof.productDescription();
 							m_imageInfoRecord.isEmbedded = true;
@@ -431,9 +431,9 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								ScColorProfile prof = engine.openProfileFromMem(psdata);
 								if (prof)
 								{
-									if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
+									if (prof.colorSpace() == ColorSpace_Rgb)
 										m_profileComponents = 3;
-									if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
+									if (prof.colorSpace() == ColorSpace_Cmyk)
 										m_profileComponents = 4;
 									m_imageInfoRecord.profileName = prof.productDescription();
 									m_imageInfoRecord.isEmbedded = true;

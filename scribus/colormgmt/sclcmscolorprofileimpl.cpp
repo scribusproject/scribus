@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "sclcmscolorprofileimpl.h"
+#include "sclcmscolormgmtengineimpl.h"
 
 ScLcmsColorProfileImpl::ScLcmsColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile)
                       : ScColorProfileImplBase(engine), m_profileHandle(lcmsProfile)
@@ -23,18 +24,18 @@ bool ScLcmsColorProfileImpl::isNull() const
 	return (m_profileHandle == NULL);
 }
 
-icColorSpaceSignature ScLcmsColorProfileImpl::colorSpace()  const
+eColorSpaceType ScLcmsColorProfileImpl::colorSpace()  const
 {
 	if (m_profileHandle)
-		return cmsGetColorSpace(m_profileHandle);
-	return ((icColorSpaceSignature) 0);
+		return ScLcmsColorMgmtEngineImpl::translateLcmsColorSpaceType( cmsGetColorSpace(m_profileHandle) );
+	return ColorSpace_Unknown;
 }
 
-icProfileClassSignature ScLcmsColorProfileImpl::deviceClass() const
+eProfileClass ScLcmsColorProfileImpl::deviceClass() const
 {
 	if (m_profileHandle)
-		return cmsGetDeviceClass(m_profileHandle);
-	return ((icProfileClassSignature) 0);
+		return ScLcmsColorMgmtEngineImpl::translateLcmsProfileClass( cmsGetDeviceClass(m_profileHandle) );
+	return Class_Unknown;
 }
 
 QString ScLcmsColorProfileImpl::productDescription() const

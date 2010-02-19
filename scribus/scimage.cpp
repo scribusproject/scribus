@@ -1950,11 +1950,11 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 			prof = ScCore->defaultEngine.openProfileFromMem(embeddedProfile);
 			if (prof)
 			{
-				if (static_cast<int>(prof.colorSpace()) == icSigRgbData)
+				if (prof.colorSpace() == ColorSpace_Rgb)
 					*components = 3;
-				if (static_cast<int>(prof.colorSpace()) == icSigCmykData)
+				if (prof.colorSpace() == ColorSpace_Cmyk)
 					*components = 4;
-				if (static_cast<int>(prof.colorSpace()) == icSigGrayData)
+				if (prof.colorSpace() == ColorSpace_Gray)
 					*components = 1;
 				*profile = embeddedProfile;
 			}
@@ -2057,8 +2057,8 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		ScColorProfile prof = cmSettings.outputProfile();
 		if (prof.isNull())
 			return false;
-		icColorSpaceSignature cspace = prof.colorSpace();
-		if (cspace != icSigRgbData && cspace != icSigCmykData)
+		eColorSpaceType cspace = prof.colorSpace();
+		if (cspace != ColorSpace_Rgb && cspace != ColorSpace_Cmyk)
 			return false;
 	}
 
@@ -2207,24 +2207,24 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
 		eColorFormat inputProfFormat  = Format_BGRA_8;
 		eColorFormat outputProfFormat = Format_YMCK_8;
-		int inputProfColorSpace = static_cast<int>(inputProf.colorSpace());
-		if ( inputProfColorSpace == icSigRgbData )
+		eColorSpaceType inputProfColorSpace = inputProf.colorSpace();
+		if ( inputProfColorSpace == ColorSpace_Rgb )
 			inputProfFormat = isPsdTiff ? Format_RGBA_8 : Format_BGRA_8; // Later make tiff and psd loader use Format_BGRA_8
-		else if (( inputProfColorSpace == icSigCmykData ) && (isPsdTiff || pDataLoader->useRawImage()))
+		else if (( inputProfColorSpace == ColorSpace_Cmyk ) && (isPsdTiff || pDataLoader->useRawImage()))
 		{
 			if (pDataLoader->r_image.channels() == 5)
 				inputProfFormat = Format_CMYKA_8;
 			else
 				inputProfFormat = Format_CMYK_8;
 		}
-		else if ( inputProfColorSpace == icSigCmykData )
+		else if ( inputProfColorSpace == ColorSpace_Cmyk )
 			inputProfFormat = Format_YMCK_8;
-		else if ( inputProfColorSpace == icSigGrayData )
+		else if ( inputProfColorSpace == ColorSpace_Gray )
 			inputProfFormat = Format_GRAY_8;
-		int outputProfColorSpace = static_cast<int>(printerProf.colorSpace());
-		if ( outputProfColorSpace == icSigRgbData )
+		eColorSpaceType outputProfColorSpace = printerProf.colorSpace();
+		if ( outputProfColorSpace == ColorSpace_Rgb )
 			outputProfFormat = Format_BGRA_8;
-		else if ( outputProfColorSpace == icSigCmykData )
+		else if ( outputProfColorSpace == ColorSpace_Cmyk )
 			outputProfFormat = Format_YMCK_8;
 		if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
 		{
@@ -2241,7 +2241,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		case CMYKData: // CMYK
 //			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
 				xform = engine.createTransform(inputProf, inputProfFormat, printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
-			if (outputProfColorSpace != icSigCmykData )
+			if (outputProfColorSpace != ColorSpace_Cmyk )
 				*realCMYK = isCMYK = false;
 			break;
 		case Thumbnail:
@@ -2277,7 +2277,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 			}
-			outputProfColorSpace = icSigRgbData;
+			outputProfColorSpace = ColorSpace_Rgb;
 			break;
 		case RawData: // no Conversion just raw Data
 			xform = 0;
@@ -2295,13 +2295,13 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			break;
 		case OutputProfile: // CMYK
 			ScColorProfile outputProfile = cmSettings.outputProfile();
-			outputProfColorSpace = static_cast<int>(outputProfile.colorSpace());
-			if ( outputProfColorSpace == icSigRgbData )
+			outputProfColorSpace = outputProfile.colorSpace();
+			if ( outputProfColorSpace == ColorSpace_Rgb )
 				outputProfFormat = Format_BGRA_8;
-			else if ( outputProfColorSpace == icSigCmykData )
+			else if ( outputProfColorSpace == ColorSpace_Cmyk )
 				outputProfFormat = Format_YMCK_8;
 			xform = engine.createTransform(inputProf, inputProfFormat, outputProfile, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
-			isCMYK = (outputProfColorSpace == icSigCmykData);
+			isCMYK = (outputProfColorSpace == ColorSpace_Cmyk);
 			if (realCMYK)
 				*realCMYK = isCMYK;
 			break;
@@ -2325,7 +2325,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				uchar* ptr = scanLine(i);
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 					ptr2 = pDataLoader->r_image.scanLine(i);
-				if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace != icSigCmykData) )
+				if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace != ColorSpace_Cmyk) )
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
 					unsigned char* uc = new unsigned char[width()];
@@ -2337,7 +2337,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 					xform.apply(uc, ptr, width());
 					delete[] uc;
 				}
-				else if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace == icSigCmykData) )
+				else if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace == ColorSpace_Cmyk) )
 				{
 					unsigned char  value;
 					unsigned char* ucs = ptr2 ? ptr2 : ptr;
@@ -2365,7 +2365,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb *p;
-					if (isCMYK && outputProfColorSpace != icSigCmykData && !bilevel)
+					if (isCMYK && outputProfColorSpace != ColorSpace_Cmyk && !bilevel)
 					{
 						p = (QRgb *) ptr;
 						for (int j = 0; j < width(); j++, p++)
@@ -2375,7 +2375,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				else
 				{
 					// This might fix Bug #6328, please test.
-					if (outputProfColorSpace != icSigCmykData && bilevel)
+					if (outputProfColorSpace != ColorSpace_Cmyk && bilevel)
 					{
 						QRgb alphaFF;
 						QRgb *p;
@@ -2387,7 +2387,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 							ptr2 += 4;
 						}
 					}
-					if (outputProfColorSpace != icSigCmykData && !bilevel)
+					if (outputProfColorSpace != ColorSpace_Cmyk && !bilevel)
 					{
 						if (pDataLoader->r_image.channels() == 5)
 						{

@@ -24,9 +24,9 @@ public:
 
 	virtual bool isNull() const;
 
-	virtual icColorSpaceSignature   colorSpace()  const;
-	virtual icProfileClassSignature deviceClass() const;
-	virtual QString                 productDescription() const;
+	virtual eColorSpaceType colorSpace()  const;
+	virtual eProfileClass   deviceClass() const;
+	virtual QString         productDescription() const;
 
 protected:
 	cmsHPROFILE     m_profileHandle;

@@ -164,11 +164,11 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					{
 						if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
 						{
-							int currPrintProfCS = -1;
+							eColorSpaceType currPrintProfCS = ColorSpace_Unknown;
 							if (currDoc->HasCMS)
 							{
 								ScColorProfile printerProf = currDoc->DocPrinterProf;
-								currPrintProfCS = static_cast<int>(printerProf.colorSpace());
+								currPrintProfCS = printerProf.colorSpace();
 							}
 							if (checkerSettings.checkNotCMYKOrSpot)
 							{
@@ -186,12 +186,12 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							{
 								for (int i=0; i<usedColorSpaces.size(); ++i)
 								{
-									if (currPrintProfCS == icSigCmykData && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
+									if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
 									{
 										itemError.insert(DeviceColorAndOutputIntend, 0);
 										break;
 									}
-									else if (currPrintProfCS == icSigRgbData && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+									else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 									{
 										itemError.insert(DeviceColorAndOutputIntend, 0);
 										break;
@@ -413,12 +413,12 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							{
 								for (int i=0; i<usedColorSpaces.size(); ++i)
 								{
-									if (currPrintProfCS == icSigCmykData && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
+									if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
 									{
 										itemError.insert(DeviceColorAndOutputIntend, 0);
 										break;
 									}
-									else if (currPrintProfCS == icSigRgbData && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+									else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 									{
 										itemError.insert(DeviceColorAndOutputIntend, 0);
 										break;

@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLORMGMTSTRUCTS_H
 #define SCCOLORMGMTSTRUCTS_H
 
-#include "icc34.h" //part of lcms1
 #include <QString>
 
 // If you change that enum do not forget to update functions
@@ -61,6 +60,34 @@ typedef enum
 	Intent_Max = 4
 } eRenderIntent;
 
+typedef enum 
+{
+	ColorSpace_Unknown,
+    ColorSpace_XYZ,
+    ColorSpace_Lab,
+    ColorSpace_Luv,
+    ColorSpace_YCbCr,
+    ColorSpace_Yxy,
+    ColorSpace_Rgb,
+    ColorSpace_Gray,
+    ColorSpace_Hsv,
+    ColorSpace_Hls,
+    ColorSpace_Cmyk,
+    ColorSpace_Cmy
+} eColorSpaceType;
+
+typedef enum 
+{
+	Class_Unknown,
+    Class_Input,
+    Class_Display,
+    Class_Output,
+    Class_Link,
+    Class_Abstract,
+    Class_ColorSpace,
+    Class_NamedColor
+} eProfileClass;
+
 class ScColorMgmtStrategy
 {
 public:
@@ -78,8 +105,8 @@ typedef struct
 {
 	QString file;
 	QString description;
-	icColorSpaceSignature   colorSpace;
-	icProfileClassSignature deviceClass;
+	eColorSpaceType colorSpace;
+	eProfileClass   deviceClass;
 	QString debug;
 } ScColorProfileInfo;
 

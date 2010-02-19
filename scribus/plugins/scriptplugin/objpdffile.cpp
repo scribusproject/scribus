@@ -1109,11 +1109,11 @@ static PyObject *PDFfile_save(PDFfile *self)
 				ScColorProfile profile;
 				profile = ScCore->defaultEngine.openProfileFromFile(ScCore->PrinterProfiles[ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf]);
 				nam = profile.productDescription();
-				if (static_cast<int>(profile.colorSpace()) == icSigRgbData)
+				if (profile.colorSpace() == ColorSpace_Rgb)
 					Components = 3;
-				if (static_cast<int>(profile.colorSpace()) == icSigCmykData)
+				if (profile.colorSpace() == ColorSpace_Cmyk)
 					Components = 4;
-				if (static_cast<int>(profile.colorSpace()) == icSigCmyData)
+				if (profile.colorSpace() == ColorSpace_Cmy)
 					Components = 3;
 				ScCore->primaryMainWindow()->doc->PDF_Options.Info = PyString_AsString(self->info);
 				self->bleedt = minmaxd(self->bleedt, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());

@@ -19,18 +19,18 @@ ScColorProfile::ScColorProfile(const QSharedPointer<ScColorProfileData>& data) :
 {
 }
 
-icColorSpaceSignature ScColorProfile::colorSpace() const
+eColorSpaceType ScColorProfile::colorSpace() const
 {
 	if (m_data)
 		return m_data->colorSpace();
-	return ((icColorSpaceSignature) 0);
+	return ColorSpace_Unknown;
 }
 
-icProfileClassSignature ScColorProfile::deviceClass() const
+eProfileClass ScColorProfile::deviceClass() const
 {
 	if (m_data)
 		return m_data->deviceClass();
-	return ((icProfileClassSignature) 0);
+	return Class_Unknown;
 }
 
 QString ScColorProfile::profilePath() const

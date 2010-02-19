@@ -55,11 +55,11 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 			ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
 			if (tiffProf)
 			{
-				if (static_cast<int>(tiffProf.colorSpace()) == icSigRgbData)
+				if (tiffProf.colorSpace() == ColorSpace_Rgb)
 					m_profileComponents = 3;
-				if (static_cast<int>(tiffProf.colorSpace()) == icSigCmykData)
+				if (tiffProf.colorSpace() == ColorSpace_Cmyk)
 					m_profileComponents = 4;
-				if (static_cast<int>(tiffProf.colorSpace()) == icSigGrayData)
+				if (tiffProf.colorSpace() == ColorSpace_Gray)
 					m_profileComponents = 1;
 				m_embeddedProfile = profArray;
 			}

@@ -11,8 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QString>
 
-#include "icc34.h" //part of lcms1
 #include "sccolormgmtelem.h"
+#include "sccolormgmtstructs.h"
 
 class ScColorProfileData : public ScColorMgmtElem
 {
@@ -29,8 +29,8 @@ public:
 	QString path() const { return m_profilePath; }
 
 	virtual bool isNull() const = 0;
-	virtual icColorSpaceSignature   colorSpace()  const = 0;
-	virtual icProfileClassSignature deviceClass() const = 0;
+	virtual eColorSpaceType colorSpace()  const = 0;
+	virtual eProfileClass   deviceClass() const = 0;
 	virtual QString productDescription() const = 0;
 };
 

@@ -31,8 +31,8 @@ public:
 	QString profilePath() const;
 	QString productDescription() const;
 	
-	icColorSpaceSignature   colorSpace()  const;
-	icProfileClassSignature deviceClass() const;
+	eColorSpaceType colorSpace()  const;
+	eProfileClass   deviceClass() const;
 	
 	const ScColorProfileData* data() const { return m_data.data(); }
 
