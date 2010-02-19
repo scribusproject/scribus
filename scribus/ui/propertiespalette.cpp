@@ -1698,9 +1698,27 @@ void PropertiesPalette::SelTab(int t)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	foreach (QObject *o, TabStack->widget(t)->children())
+	{
+		// Layouts, boxes etc aren't widgets at all
+		// so let's skip them silently...
+		QWidget *w = qobject_cast<QWidget*>(o);
+		if (w)
+		{
+			QWidget *i = TabStack->widget(t);
+			while ((i = i->nextInFocusChain()) != TabStack->widget(t))
+			{
+				if (((i->focusPolicy() & Qt::TabFocus) == Qt::TabFocus) && !i->focusProxy() && i->isEnabled())
+				{
+					i->setFocus();
+					break;
+				}
+			}
+		}
+	}
 	// fix for #5991: Property Palette text input box focus stays even when on another tab
 	// Disable widgets in all pages except current one - PV
-	bool enable;
+/*	bool enable;
 	for (int i = 0; i < TabStack->count(); ++i)
 	{
 		enable = (i == t);
@@ -1878,7 +1896,7 @@ void PropertiesPalette::SelTab(int t)
 			SCustom->setEnabled(false);
 		}
 #endif
-	}
+	} */
 }
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
@@ -2532,6 +2550,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	}
 #endif
 	updateSpinBoxConstants();
+	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
 
 void PropertiesPalette::NewSel(int nr)
