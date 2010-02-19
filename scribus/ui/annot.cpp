@@ -877,7 +877,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	LayoutFN1c->setSpacing( 5 );
 	LayoutFN1c->setMargin( 0 );
 	Format0c = new QComboBox(DateGroup);
-	QString tmp_form[] = {"m/d", "m/d/yy", "mm/dd/yy", "mm/yy", "d-mmm", "d-mmm-yy", "dd-mmm-yy", "yy-mm-dd",
+	QString tmp_form[] = {"m/d", "m/d/yy", "mm/dd/yy", "mm/yy", "d-mmm", "d-mmm-yy", "dd-mmm-yy", "dd/mm/yy", "dd/mm/yyyy", "yy-mm-dd",
 	                    "mmm-yy", "mmmm-yy", "mmm d, yyyy", "mmmm d, yyyy", "m/d/yy h:MM tt", "m/d/yy HH:MM", "yyyy-mm-dd"};
 	size_t array_form = sizeof(tmp_form) / sizeof(*tmp_form);
 	/* PFJ - 28/02/04 - Altered from uint to int and var name */
@@ -1456,6 +1456,10 @@ void Annot::setDateSample(const QString& ds)
 		tmp = "d-MMM-yy";
 	if (ds == "dd-mmm-yy")
 		tmp = "dd-MMM-yy";
+	if (ds == "dd/mm/yy")
+		tmp = "dd/MM/yy";
+	if (ds == "dd/mm/yyyy")
+		tmp = "dd/MM/yyyy";
 	if (ds == "yy-mm-dd")
 		tmp = "yy-MM-dd";
 	if (ds == "mmm-yy")
