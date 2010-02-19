@@ -49,11 +49,11 @@ public:
 	void mouseReleaseEvent(QMouseEvent *m);
 	void paintEvent(QPaintEvent *e);
 	void drawMark(int x, int y);
-	bool SetSeite(int Seite, int Size, QString fn = "");
+	bool SetPage(int Seite, int Size, QString fn = "");
 	int Xp;
 	int Yp;
-	int Breite;
-	int Hoehe;
+	int Width;
+	int Height;
 	ScribusView* view;
 	QPixmap pmx;
 	

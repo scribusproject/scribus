@@ -61,17 +61,17 @@ public:
 	QPushButton* PushButton2;
 	PageItem* item;
 	ScribusView* view;
-	int Breite;
-	int Hoehe;
-	int OriBreite;
-	int OriHoehe;
+	int Width;
+	int Height;
+	int OriWidth;
+	int OriHeight;
 	int MaxSeite;
 
 public slots:
 	void SetCoords(double x, double y);
-	void SetPg(int v);
+	void SetPage(int v);
 	void SetCross();
-	void SetVals();
+	void SetValues();
 	void SetTarget(int i);
 	void GetFile();
 
