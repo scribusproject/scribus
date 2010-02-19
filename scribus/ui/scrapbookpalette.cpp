@@ -74,6 +74,8 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
 	QString dt = objectMap[currentItem()->text()].Data;
 	QFileInfo fi(dt);
+	QMimeData *mimeData = new QMimeData;
+	QList<QUrl> urlList;
 	if (fi.suffix().toLower() == "sml")
 	{
 		QByteArray cf;
@@ -82,6 +84,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 		StencilReader *pre = new StencilReader();
 		dt = pre->createObjects(f);
 		delete pre;
+		mimeData->setText(dt);
 	}
 	else if (fi.suffix().toLower() == "shape")
 	{
@@ -91,13 +94,15 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 		StencilReader *pre = new StencilReader();
 		dt = pre->createShape(f);
 		delete pre;
+		mimeData->setText(dt);
 	}
 	else if (fi.suffix().toLower() == "sce")
 	{
 		if ( fi.exists() )
 		{
 			QUrl ur = QUrl::fromLocalFile(dt);
-			dt = ur.toString();
+			urlList.append(ur);
+			mimeData->setUrls(urlList);
 		}
 	}
 	else if (vectorFiles.contains(fi.suffix().toLower()))
@@ -105,11 +110,10 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 		if ( fi.exists() )
 		{
 			QUrl ur = QUrl::fromLocalFile(dt);
-			dt = ur.toString();
+			urlList.append(ur);
+			mimeData->setUrls(urlList);
 		}
 	}
-	QMimeData *mimeData = new QMimeData;
-	mimeData->setText(dt);
 	QDrag *drag = new QDrag(this);
 	drag->setMimeData(mimeData);
 	drag->setDragCursor(objectMap[currentItem()->text()].Preview, Qt::CopyAction);
