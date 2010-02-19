@@ -52,8 +52,8 @@ public:
 	bool SetSeite(int Seite, int Size, QString fn = "");
 	int Xp;
 	int Yp;
-	int Breite;
-	int Hoehe;
+	int Width;
+	int Height;
 	ScribusView* view;
 	QPixmap pmx;
 	

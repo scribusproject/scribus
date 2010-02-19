@@ -37,11 +37,11 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	if (!fn.isEmpty())
 	{
-		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
+		QPixmap img = LoadPDF(fn, Seite, Size, &Width, &Height);
 		if (!img.isNull())
 			pmx = img;
 		else
-			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
+			pmx = LoadPDF(fn, 1, Size, &Width, &Height);
 	}
 	else
 		pmx=QPixmap::fromImage(vie->PageToPixmap(Seite, Size));
@@ -100,14 +100,14 @@ bool Navigator::SetSeite(int Seite, int Size, QString fn)
 	bool ret = false;
 	if (!fn.isEmpty())
 	{
-		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
+		QPixmap img = LoadPDF(fn, Seite, Size, &Width, &Height);
 		if (!img.isNull())
 		{
 			pmx = img;
 			ret = true;
 		}
 		else
-			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
+			pmx = LoadPDF(fn, 1, Size, &Width, &Height);
 	}
 	else
 	{

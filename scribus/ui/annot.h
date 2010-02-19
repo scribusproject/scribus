@@ -206,10 +206,10 @@ public:
 	QPushButton* PushButton2;
 	PageItem* item;
 	ScribusView* view;
-	int Breite;
-	int Hoehe;
-	int OriBreite;
-	int OriHoehe;
+	int Width;
+	int Height;
+	int OriWidth;
+	int OriHeight;
 	int ScrEdited;
 	int FormNum;
 	QString JavaScr;
@@ -239,17 +239,17 @@ public slots:
 	void HandleCalc();
 	void SetCalc();
 	void SetFoScript ( int it );
-	void SetCo ( double x, double y );
-	void SetPg ( int v );
+	void SetCoords ( double x, double y );
+	void SetPage ( int v );
 	void SetCross();
-	void SetVals();
-	void SetZiel ( int i );
+	void SetValues();
+	void SetAnnotationType ( int i );
 	void GetFile();
-	void SetActTyp ( int it );
+	void SetActionType ( int it );
 	void SetLimit();
-	void SetActScript ( int it );
+	void SetActionScript ( int it );
 	void setDateSample ( const QString& ds );
-	void SetExternL();
+	void SetExternLink();
 
 protected:
 	QVBoxLayout* AnnotLayout;

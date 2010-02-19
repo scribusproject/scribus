@@ -61,10 +61,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	setWindowTitle( tr( "Field Properties" ) );
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	item = it;
-	Breite = b;
-	Hoehe = h;
-	OriBreite = b;
-	OriHoehe = h;
+	Width = b;
+	Height = h;
+	OriWidth = b;
+	OriHeight = h;
 	view = vie;
 	MaxSeite = Seite;
 	QStringList tl;
@@ -648,16 +648,16 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox11Layout->addWidget( TextLabel41, 3, 0 );
 	SpinBox21 = new QSpinBox( GroupBox11 );
 	SpinBox21->setSuffix( tr( " pt" ) );
-	SpinBox21->setMaximum(Breite);
+	SpinBox21->setMaximum(Width);
 	SpinBox21->setValue(tl[0].toInt());
 	GroupBox11Layout->addWidget( SpinBox21, 3, 1 );
 	TextLabel51 = new QLabel( GroupBox11 );
 	TextLabel51->setText( tr( "Y-Pos:" ) );
 	GroupBox11Layout->addWidget( TextLabel51, 4, 0 );
 	SpinBox31 = new QSpinBox( GroupBox11 );
-	SpinBox31->setMaximum(Hoehe);
+	SpinBox31->setMaximum(Height);
 	SpinBox31->setSuffix( tr( " pt" ) );
-	SpinBox31->setValue(Hoehe-tl[1].toInt());
+	SpinBox31->setValue(Height-tl[1].toInt());
 	GroupBox11Layout->addWidget( SpinBox31, 4, 1 );
 	Fram2->addWidget(GroupBox11);
 
@@ -720,8 +720,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		LExtern->setChecked(true);
 		if (!Destfile->text().isEmpty())
 		{
-			Breite = Pg1->Breite;
-			Hoehe = Pg1->Hoehe;
+			Width = Pg1->Width;
+			Height = Pg1->Height;
 		}
 		else
 		{
@@ -1124,7 +1124,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame9->setFrameShadow( QFrame::Plain );
 	Fram->addWidget(Frame9);
 
-	SetZiel(item->annotation().Type()-2);
+	SetAnnotationType(item->annotation().Type()-2);
 	Layout1_2 = new QHBoxLayout;
 	Layout1_2->setSpacing( 5 );
 	Layout1_2->setMargin( 0 );
@@ -1139,7 +1139,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	PushButton2->setText( tr( "Cancel" ) );
 	Layout1_2->addWidget( PushButton2 );
 	AnnotLayout->addLayout( Layout1_2 );
-	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
+	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetValues()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(EditFormat, SIGNAL(clicked()), this, SLOT(editFormatSc()));
 	connect(EditKeystr, SIGNAL(clicked()), this, SLOT(editKeySc()));
@@ -1149,11 +1149,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	connect(SeField, SIGNAL(clicked()), this, SLOT(SelectFelder()));
 	connect(Format0c, SIGNAL(activated(const QString&)), this, SLOT(setDateSample(const QString&)));
 	connect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
-	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
-	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
-	connect(SelAction, SIGNAL(activated(int)), this, SLOT(SetActScript(int)));
-	connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
-	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
+	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetAnnotationType(int)));
+	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
+	connect(SelAction, SIGNAL(activated(int)), this, SLOT(SetActionScript(int)));
+	connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 	connect(SpinBox21, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(SpinBox31, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(Limit, SIGNAL(clicked()), this, SLOT(SetLimit()));
@@ -1185,13 +1185,13 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	connect(UseIcons, SIGNAL(clicked()), this, SLOT(IconsEin()));
 	connect(PlaceIcon, SIGNAL(clicked()), this, SLOT(IPlace()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
-	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
+	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternLink()));
 	connect(Name, SIGNAL(Leaved()), this, SLOT(NewName()));
 	NoSpell->setToolTip( tr( "Flag is ignored for PDF 1.3" ) );
 	NoScroll->setToolTip( tr( "Flag is ignored for PDF 1.3" ) );
 	CalcFields->setToolTip( tr( "Enter a comma separated list of fields here" ) );
 	IconNR->setToolTip( tr("You need at least the Icon for Normal to use Icons for Buttons"));
-	SetPg(qMin(SpinBox11->value(), MaxSeite));
+	SetPage(qMin(SpinBox11->value(), MaxSeite));
 	SetCross();
 	resize( minimumSizeHint() );
 }
@@ -1761,15 +1761,15 @@ void Annot::SetFoScript(int it)
 	item->annotation().setFormat(it);
 }
 
-void Annot::SetCo(double x, double y)
+void Annot::SetCoords(double x, double y)
 {
-	SpinBox21->setValue(static_cast<int>(x*Breite));
-	SpinBox31->setValue(static_cast<int>(y*Hoehe));
+	SpinBox21->setValue(static_cast<int>(x*Width));
+	SpinBox31->setValue(static_cast<int>(y*Height));
 }
 
-void Annot::SetPg(int v)
+void Annot::SetPage(int v)
 {
-	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
+	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 	{
 		if (!Pg1->SetSeite(v, 100, Destfile->text()))
@@ -1777,34 +1777,34 @@ void Annot::SetPg(int v)
 			SpinBox11->setValue(1);
 			Pg1->SetSeite(1, 100, Destfile->text());
 		}
-		Breite = Pg1->Breite;
-		Hoehe = Pg1->Hoehe;
-		//		SetCo(0,0);
+		Width = Pg1->Width;
+		Height = Pg1->Height;
+		//		SetCoords(0,0);
 	}
 	else
 	{
 		Pg1->SetSeite(qMin(v-1, MaxSeite-1), 100);
 		SpinBox11->setValue(qMin(v, MaxSeite));
-		Breite = OriBreite;
-		Hoehe = OriHoehe;
-		//		SetCo(0,0);
+		Width = OriWidth;
+		Height = OriHeight;
+		//		SetCoords(0,0);
 	}
-	SpinBox21->setMaximum(Breite);
-	SpinBox31->setMaximum(Hoehe);
-	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
+	SpinBox21->setMaximum(Width);
+	SpinBox31->setMaximum(Height);
+	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 }
 
 void Annot::SetCross()
 {
 	int x,y;
-	disconnect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
-	x = static_cast<int>(static_cast<double>(SpinBox21->value())/static_cast<double>(Breite)*Pg1->pmx.width());
-	y = static_cast<int>(static_cast<double>(SpinBox31->value())/static_cast<double>(Hoehe)*Pg1->pmx.height());
+	disconnect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	x = static_cast<int>(static_cast<double>(SpinBox21->value())/static_cast<double>(Width)*Pg1->pmx.width());
+	y = static_cast<int>(static_cast<double>(SpinBox31->value())/static_cast<double>(Height)*Pg1->pmx.height());
 	Pg1->drawMark(x, y);
-	connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 }
 
-void Annot::SetVals()
+void Annot::SetValues()
 {
 	QString tmp, tmp2;
 	QString Nfo("");
@@ -2002,7 +2002,7 @@ void Annot::SetVals()
 				item->annotation().setActionType(2);
 			}
 			item->annotation().setZiel(SpinBox11->value()-1);
-			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Hoehe-SpinBox31->value())+" 0");
+			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Height-SpinBox31->value())+" 0");
 			break;
 		case 3:
 			item->annotation().setActionType(3);
@@ -2040,9 +2040,9 @@ void Annot::SetVals()
 	accept();
 }
 
-void Annot::SetZiel(int it)
+void Annot::SetAnnotationType(int it)
 {
-	disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
+	disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
 	disconnect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 	int tmpac = item->annotation().ActionType();
 	if ((tmpac == 7) || (tmpac == 9))
@@ -2084,7 +2084,7 @@ void Annot::SetZiel(int it)
 			setter = ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 9)) ? true : false;
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
-			SetActTyp(tmpac);
+			SetActionType(tmpac);
 			break;
 		}
 	case 3:
@@ -2114,7 +2114,7 @@ void Annot::SetZiel(int it)
 		ActionCombo->addItem( tr( "None" ) );
 		ActionCombo->addItem( tr( "JavaScript" ) );
 		ActionCombo->setCurrentIndex(qMin(tmpac, 1));
-		SetActTyp(tmpac);
+		SetActionType(tmpac);
 		break;
 	default:
 		Fram->setCurrentIndex(2);
@@ -2131,7 +2131,7 @@ void Annot::SetZiel(int it)
 	MaxChars->setValue(setter == true ? item->annotation().MaxChar() : 0);
 	Limit->setChecked(setter);
 	MaxChars->setEnabled(setter);
-	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
+	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
 	connect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 }
 
@@ -2140,9 +2140,9 @@ void Annot::SetLimit()
 	Limit->isChecked() ? MaxChars->setEnabled(true) :MaxChars->setEnabled(false);
 }
 
-void Annot::SetExternL()
+void Annot::SetExternLink()
 {
-	disconnect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
+	disconnect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternLink()));
 	bool enable;
 	if (!LExtern->isChecked())
 	{
@@ -2150,7 +2150,7 @@ void Annot::SetExternL()
 		enable = false;
 		//		Destfile->setEnabled(false);
 		//		ChFile->setEnabled(false);
-		SetPg(qMin(SpinBox11->value(), MaxSeite));
+		SetPage(qMin(SpinBox11->value(), MaxSeite));
 	}
 	else
 	{
@@ -2173,14 +2173,14 @@ void Annot::SetExternL()
 				LExtern->setChecked(false);
 			}
 		}
-		SetPg(qMin(SpinBox11->value(), MaxSeite));
+		SetPage(qMin(SpinBox11->value(), MaxSeite));
 	}
 	Destfile->setEnabled(enable);
 	ChFile->setEnabled(enable);
-	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
+	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternLink()));
 }
 
-void Annot::SetActTyp(int it)
+void Annot::SetActionType(int it)
 {
 	bool setter;
 	switch (it)
@@ -2200,7 +2200,7 @@ void Annot::SetActTyp(int it)
 		setter = item->annotation().ActionType() != 7 ? true : false;
 		Destfile->setEnabled(setter);
 		ChFile->setEnabled(setter);
-		SetPg(qMin(SpinBox11->value(), MaxSeite));
+		SetPage(qMin(SpinBox11->value(), MaxSeite));
 		break;
 	case 1:
 		Fram2->setCurrentIndex(1);
@@ -2212,7 +2212,7 @@ void Annot::SetActTyp(int it)
 	}
 }
 
-void Annot::SetActScript(int it)
+void Annot::SetActionScript(int it)
 {
 	switch (ScrEdited)
 	{
@@ -2281,7 +2281,7 @@ void Annot::GetFile()
 			Destfile->setText(fn);
 			SpinBox11->setValue(1);
 			SpinBox11->setMaximum(1000);
-			SetPg(1);
+			SetPage(1);
 		}
 	}
 }
