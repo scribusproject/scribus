@@ -365,12 +365,14 @@ void Page::copySizingProperties(Page* sourcePage, const MarginStruct& pageMargin
 	m_initialWidth = sourcePage->m_initialWidth;
 	m_initialHeight = sourcePage->m_initialHeight;
 
-	Margins.Top = pageMargins.Top;
+	Margins.Top    = pageMargins.Top;
 	Margins.Bottom = pageMargins.Bottom;
-	Margins.Left = pageMargins.Left;//todo fix for layouts
-	Margins.Right = pageMargins.Right;
-	initialMargins.Top = pageMargins.Top;
-	initialMargins.Bottom = pageMargins.Bottom;
-	initialMargins.Left = pageMargins.Left;
-	initialMargins.Right = pageMargins.Right;
+	Margins.Left   = pageMargins.Left;//todo fix for layouts
+	Margins.Right  = pageMargins.Right;
+	// #8859 do not get initialMargins from pageMargins otherwise
+	// margins may be inverted when applying master pages
+	initialMargins.Top    = sourcePage->initialMargins.Top;
+	initialMargins.Bottom = sourcePage->initialMargins.Bottom;
+	initialMargins.Left   = sourcePage->initialMargins.Left;
+	initialMargins.Right  = sourcePage->initialMargins.Right;
 }
