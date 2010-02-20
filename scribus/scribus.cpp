@@ -9265,7 +9265,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 		for( int i = 0; i < fileUrls.count(); ++i )
 		{
 			fileUrl = fileUrls[i].toLocalFile().toLower();
-			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
+			if (fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") || fileUrl.endsWith(".sml") || fileUrl.endsWith(".shape") || fileUrl.endsWith(".sce"))
 			{
 				accepted = true;
 				break;
@@ -9283,6 +9283,12 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 				}
 			}
 		}
+	}
+	else if (e->mimeData()->hasText())
+	{
+		QString text = e->mimeData()->text();
+		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")))
+			accepted = true;
 	}
 	if (accepted)
 		e->accept();
@@ -9308,6 +9314,45 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					loadDoc( fi.absoluteFilePath() );
 				}
 			}
+			else if ((fileUrl.endsWith(".shape")) || (fileUrl.endsWith(".sml")) || (fileUrl.endsWith(".sce")))
+			{
+				QUrl url( fileUrls[i] );
+				QFileInfo fi(url.path());
+				if ( fi.exists() )
+				{
+					accepted = true;
+					QString data;
+					QByteArray cf;
+					loadRawText(url.toLocalFile(), cf);
+					if (fileUrl.endsWith(".sce"))
+						data = QString::fromUtf8(cf.data());
+					else
+					{
+						QString f = QString::fromUtf8(cf.data());
+						StencilReader *pre = new StencilReader();
+						if (fileUrl.endsWith(".shape"))
+							data = pre->createShape(f);
+						else if (fileUrl.endsWith(".sml"))
+							data = pre->createObjects(f);
+						delete pre;
+					}
+					double gx, gy, gw, gh;
+					ScriXmlDoc *ss = new ScriXmlDoc();
+					if(ss->ReadElemHeader(data, false, &gx, &gy, &gw, &gh))
+					{
+						doFileNew(gw, gh, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+						HaveNewDoc();
+						doc->reformPages(true);
+						if (fileUrl.endsWith(".sce"))
+							slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
+						else
+							slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+						slotDocCh(false);
+						doc->regionsChanged()->update(QRectF());
+						delete ss;
+					}
+				}
+			}
 			else
 			{
 				QUrl url( fileUrls[i] );
@@ -9322,6 +9367,28 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 						accepted = true;
 						loadDoc( fi.absoluteFilePath() );
 					}
+				}
+			}
+		}
+	}
+	else
+	{
+		if (e->mimeData()->hasText())
+		{
+			QString text = e->mimeData()->text();
+			if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")))
+			{
+				double gx, gy, gw, gh;
+				ScriXmlDoc *ss = new ScriXmlDoc();
+				if(ss->ReadElemHeader(text, false, &gx, &gy, &gw, &gh))
+				{
+					doFileNew(gw, gh, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+					HaveNewDoc();
+					doc->reformPages(true);
+					slotElemRead(text, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
+					slotDocCh(false);
+					doc->regionsChanged()->update(QRectF());
+					delete ss;
 				}
 			}
 		}
