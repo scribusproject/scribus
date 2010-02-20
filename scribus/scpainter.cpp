@@ -2245,9 +2245,11 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			np3 = points->point(poi+2);
 			if (np4 == np3)
 				continue;
-		//	if ((np == np1) && (np2 == np3))
-		//		cairo_line_to( m_cr, np3.x(), np3.y());
-		//	else
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 6)
+			if ((np == np1) && (np2 == np3))
+				cairo_line_to( m_cr, np3.x(), np3.y());
+			else
+#endif
 				cairo_curve_to(m_cr, np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
 			np4 = np3;
 		}
