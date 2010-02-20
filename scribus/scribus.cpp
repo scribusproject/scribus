@@ -727,8 +727,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustImageToFrame"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["styleImageEffects"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item");
 	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "ItemPreviewSettings");
 	scrMenuMgr->addMenuSeparator("ItemPreviewSettings");
@@ -767,6 +768,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["itemLockSize"]->setEnabled(false);
 	scrActions["itemPrintingEnabled"]->setEnabled(false);
 	scrActions["itemImageIsVisible"]->setEnabled(false);
+	scrActions["styleImageEffects"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 	scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 	scrActions["itemConvertToImageFrame"]->setEnabled(false);
