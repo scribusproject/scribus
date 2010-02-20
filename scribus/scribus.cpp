@@ -765,8 +765,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustImageToFrame"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["styleImageEffects"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item", false);
 	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "ItemPreviewSettings", false);
 	scrMenuMgr->addMenuSeparator("ItemPreviewSettings");
@@ -8594,7 +8595,7 @@ void ScribusMainWindow::StatusPic()
 QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString filter, QString defNa,
                                 int optionFlags, bool *docom, bool *doFont, bool *doProfiles)
 {
-	QString retval = "";
+	QString retval("");
 	// changed from "this" to qApp->activeWindow() to be sure it will be opened
 	// with the current active window as parent. E.g. it won't hide StoryEditor etc. -- PV
 	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), wDir, caption, filter, optionFlags);
