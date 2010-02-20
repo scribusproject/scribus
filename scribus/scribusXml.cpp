@@ -1007,7 +1007,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 			tName = sReader.name();
 			if ((tName == "SCRIBUSELEM") || (tName == "SCRIBUSELEMUTF8"))
 			{
-				QXmlStreamAttributes attrs;
+				QXmlStreamAttributes attrs = sReader.attributes();;
 				QString attx = attrs.value("XP").toString();
 				QString atty = attrs.value("YP").toString();
 				QString attw = attrs.value("W").toString();
