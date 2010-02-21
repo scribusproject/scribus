@@ -647,13 +647,16 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 							}
 						}
 					}
-					if (tmp.startsWith("%%RGBCustomColor"))
+					if ((tmp.startsWith("%%RGBCustomColor")) || (tmp.startsWith("%%RGBProcessColor")))
 					{
 						if (tmp.contains("(atend)"))
 							isAtend = true;
 						else
 						{
-							tmp = tmp.remove(0,17);
+							if (tmp.startsWith("%%RGBCustomColor"))
+								tmp = tmp.remove(0,17);
+							else if (tmp.startsWith("%%RGBProcessColor"))
+								tmp = tmp.remove(0,18);
 							ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y;
 							FarNam = ts2.readAll();
