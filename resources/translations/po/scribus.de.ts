@@ -482,7 +482,11 @@ Wenn das Sichern fehlschlägt, erscheint derzeit keine Fehlermeldung.</translati
 Returns the name the document was saved under.
 If the document was not saved before the name is empty.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getDocName() -&gt; string
+
+Returns the name the document was saved under.
+If the document was not saved before the name is empty.
+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.h" line="156"/>
@@ -12097,7 +12101,7 @@ Der &quot;Einfügen&quot;-Button fügt ein Zeichen in die Textauswahl ein. &quot
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="423"/>
         <source>Print/Visible Mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckbarkeit/Sichtbarkeit von Ebenen inkonsistent</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="437"/>
@@ -12150,7 +12154,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../../scribus/collect4output.cpp" line="65"/>
         <source>Cannot create directory:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnis %1 kann nicht angelegt werden</translation>
     </message>
     <message>
         <location filename="../../../scribus/collect4output.cpp" line="80"/>
@@ -13688,7 +13692,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="415"/>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurven (*.scu *.SCU);;Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="453"/>
@@ -13698,7 +13702,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="453"/>
         <source>Curve Files (*.scu *.scu);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurven (*.scu *.SCU);;Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="487"/>
@@ -18601,13 +18605,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="93"/>
         <source>An error occured while opening file or file is damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Öffnen der Datei. Die Datei ist möglicherweise beschädigt</translation>
     </message>
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="98"/>
         <source>An error occured while parsing file at line %1, column %2 :
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Parsen der Datei in Zeile %1, Spalte %2 :
+%3</translation>
     </message>
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="80"/>
@@ -27370,7 +27375,7 @@ Externe Links</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="273"/>
         <source>Invalid property</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültige Eigenschaft</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="319"/>
@@ -30986,7 +30991,8 @@ Drehung: %4</translation>
         <location filename="../../../scribus/scribus.cpp" line="3823"/>
         <source>File does not exist on the specified path :
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei existiert nicht im angegebenen Pfad:
+%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3868"/>
@@ -33367,7 +33373,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="92"/>
         <source>Check for Visible/Printable Mismatch in Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Inkonsistente Einstellungen für Druckbarkeit/Sichtbarkeit von Ebenen überprüfen</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="99"/>
