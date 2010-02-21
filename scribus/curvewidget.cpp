@@ -63,7 +63,7 @@ void KCurve::paintEvent(QPaintEvent *)
 	//  draw background
 	p1.fillRect(QRect(0, 0, wWidth, wHeight), QColor(255, 255, 255));
 	// Draw grid separators.
-	p1.setPen(QPen::QPen(Qt::gray, 1, Qt::SolidLine));
+	p1.setPen(QPen(Qt::gray, 1, Qt::SolidLine));
 	p1.drawLine(wWidth/4, 0, wWidth/4, wHeight);
 	p1.drawLine(wWidth/2, 0, wWidth/2, wHeight);
 	p1.drawLine(3*wWidth/4, 0, 3*wWidth/4, wHeight);
@@ -73,7 +73,7 @@ void KCurve::paintEvent(QPaintEvent *)
 
 	// Draw curve.
 	double curvePrevVal = getCurveValue(0.0);
-	p1.setPen(QPen::QPen(Qt::black, 1, Qt::SolidLine));
+	p1.setPen(QPen(Qt::black, 1, Qt::SolidLine));
 	for (x = 0 ; x < wWidth ; x++)
 	{
 		double curveX;
@@ -90,12 +90,12 @@ void KCurve::paintEvent(QPaintEvent *)
 		FPoint p = m_points.point(dh);
 		if(p == m_grab_point)
 		{
-			p1.setPen(QPen::QPen(Qt::red, 3, Qt::SolidLine));
+			p1.setPen(QPen(Qt::red, 3, Qt::SolidLine));
 			p1.drawEllipse( int(p.x() * wWidth) - 2, wHeight - 2 - int(p.y() * wHeight), 4, 4 );
 		}
 		else
 		{
-			p1.setPen(QPen::QPen(Qt::red, 1, Qt::SolidLine));
+			p1.setPen(QPen(Qt::red, 1, Qt::SolidLine));
 			p1.drawEllipse( int(p.x() * wWidth) - 3, wHeight - 3 - int(p.y() * wHeight), 6, 6 );
 		}
 	}
