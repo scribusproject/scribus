@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstream.h"
 #include "sccolorengine.h"
 #include "fileloader.h"
+#include "loadsaveplugin.h"
 #include "plugins/formatidlist.h"
 #include "util.h"
 #include "util_formats.h"
@@ -589,7 +590,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 	{
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.suffix().toLower();
-		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
+		if (extensionIndicatesEPSorPS(ext))
 		{
 			QString tmp, tmp2, FarNam;
 			double c, m, y, k;
@@ -692,43 +693,6 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 					}
 					if (tmp.startsWith("%%EndComments"))
 					{
-						if (ext == "ai")
-						{
-							while (!ts.atEnd())
-							{
-								bool isX = false;
-								tmp = readLinefromDataStream(ts);
-								if ((tmp.endsWith("Xa") || tmp.endsWith(" k") || tmp.endsWith(" x")) && (tmp.length() > 4))
-								{
-									ScTextStream ts2(&tmp, QIODevice::ReadOnly);
-									ts2 >> c >> m >> y >> k;
-									if (tmp.endsWith(" x"))
-									{
-										isX = true;
-										int an = tmp.indexOf("(");
-										int en = tmp.lastIndexOf(")");
-										FarNam = tmp.mid(an+1, en-an-1);
-										FarNam = FarNam.simplified();
-									}
-									tmp = readLinefromDataStream(ts);
-									if (tmp.endsWith("Pc"))
-									{
-										if (!isX)
-										{
-											tmp = tmp.trimmed();
-											tmp = tmp.remove(0,1);
-											int en = tmp.indexOf(")");
-											FarNam = tmp.mid(0, en);
-											FarNam = FarNam.simplified();
-										}
-										cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
-										cc.setSpotColor(true);
-										if (!EditColors.contains(FarNam))
-											EditColors.insert(FarNam, cc);
-									}
-								}
-							}
-						}
 						if (!isAtend)
 							break;
 					}
@@ -738,19 +702,22 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 		}
 		else
 		{
-			FileLoader fl(fileName);
-			int test = fl.TestFile();
-			if ((test == FORMATID_SLA150IMPORT) || (test == FORMATID_SLA134IMPORT) || 
-				(test == FORMATID_SLA13XIMPORT) || (test == FORMATID_SLA12XIMPORT))
+			QStringList allFormatsV = LoadSavePlugin::getExtensionsForColors();
+			if (allFormatsV.contains(ext))
 			{
-				ColorList LColors;
-				if (fl.ReadColors(fileName, LColors))
+				FileLoader fl(fileName);
+				int testResult = fl.TestFile();
+				if (testResult != -1)
 				{
-					ColorList::Iterator it;
-					for (it = LColors.begin(); it != LColors.end(); ++it)
+					ColorList LColors;
+					if (fl.ReadColors(fileName, LColors))
 					{
-						if (!EditColors.contains(it.key()))
-							EditColors.insert(it.key(), it.value());
+						ColorList::Iterator it;
+						for (it = LColors.begin(); it != LColors.end(); ++it)
+						{
+							if (!EditColors.contains(it.key()))
+								EditColors.insert(it.key(), it.value());
+						}
 					}
 				}
 			}

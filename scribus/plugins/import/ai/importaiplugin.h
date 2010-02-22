@@ -34,6 +34,7 @@ class PLUGIN_API ImportAIPlugin : public LoadSavePlugin
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual QImage readThumbnail(const QString& fileName);
+		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 	public slots:

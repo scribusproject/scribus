@@ -111,10 +111,12 @@ void Scribus12Format::registerFormats()
 	fmt.formatId = FORMATID_SLA12XIMPORT;
 	fmt.load = true;
 	fmt.save = false;
+	fmt.colorReading = true;
 	fmt.filter = fmt.trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", Qt::CaseInsensitive);
 	fmt.mimeTypes = QStringList();
 	fmt.mimeTypes.append("application/x-scribus");
+	fmt.fileExtensions = QStringList() << "sla" << "sla.gz" << "scd" << "scd.gz";
 	fmt.priority = 64;
 	registerFormat(fmt);
 }

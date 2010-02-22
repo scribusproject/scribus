@@ -253,6 +253,95 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 	return tmpImage;
 }
 
+bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
+{
+	QString fName = fNameIn;
+	bool success = false;
+	cancel = false;
+	double x, y, b, h;
+	convertedPDF = false;
+	CustColors.clear();
+	importedColors.clear();
+	importedGradients.clear();
+	importedPatterns.clear();
+	QFileInfo fi = QFileInfo(fName);
+/* Check if the file is an old style AI or one of the newer PDF wrapped ones */
+	QFile fT(fName);
+	if (fT.open(QIODevice::ReadOnly))
+	{
+		QByteArray tempBuf(9, ' ');
+		fT.read(tempBuf.data(), 8);
+		fT.close();
+		if (tempBuf.startsWith("%PDF"))
+		{
+			QFileInfo bF2(fName);
+			QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
+			if (!extractFromPDF(fName, tmpFile))
+				return false;
+			convertedPDF = true;
+			fName = tmpFile;
+		}
+	}
+	QFile fT2(fName);
+	if (fT2.open(QIODevice::ReadOnly))
+	{
+		QByteArray tempBuf(25, ' ');
+		fT2.read(tempBuf.data(), 20);
+		fT2.close();
+		/* Illustrator CS files might be compressed
+			the compressed Data starts right after the "%AI12_CompressedData" comment
+			Compression is a simple zlib compression */
+		if (tempBuf.startsWith("%AI12_CompressedData"))
+			decompressAIData(fName);
+	}
+	progressDialog = NULL;
+/* Set default Page to size defined in Preferences */
+	x = 0.0;
+	y = 0.0;
+	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	parseHeader(fName, x, y, b, h);
+	docX = x;
+	docY = y;
+	docWidth = b - x;
+	docHeight = h - y;
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	baseX = m_Doc->currentPage()->xOffset();
+	baseY = m_Doc->currentPage()->yOffset();
+	ColorList::Iterator it;
+	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	{
+		if (!m_Doc->PageColors.contains(it.key()))
+		{
+			m_Doc->PageColors.insert(it.key(), it.value());
+			importedColors.append(it.key());
+		}
+	}
+	Elements.clear();
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->scMW()->setScriptRunning(true);
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(fi.path());
+	convert(fName);
+	if (importedColors.count() != 0)
+	{
+		colors = m_Doc->PageColors;
+		success = true;
+	}
+	m_Doc->scMW()->setScriptRunning(false);
+	m_Doc->setLoading(false);
+	delete m_Doc;
+	QDir::setCurrent(CurDirP);
+	if (convertedPDF)
+		QFile::remove(fName);
+	return success;
+}
+
 bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	QString fName = fNameIn;
@@ -769,12 +858,13 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 {
 	QString tmp, BBox, tmp2, FarNam;
 	ScColor cc;
-//	double c, m, yc, k;
+	double c, m, yc, k;
 	bool found = false;
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
 	{
 /* Try to find Bounding Box */
+		bool isAtend = false;
 		QDataStream ts(&f);
 		while (!ts.atEnd())
 		{
@@ -826,8 +916,133 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				if (res.count() > 0)
 					docTitle = res[0];
 			}
+			if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
+			{
+				if (tmp.contains("(atend)"))
+					isAtend = true;
+				else
+				{
+					if (tmp.startsWith("%%CMYKCustomColor"))
+						tmp = tmp.remove(0,18);
+					else if (tmp.startsWith("%%CMYKProcessColor"))
+						tmp = tmp.remove(0,19);
+					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+					ts2 >> c >> m >> yc >> k;
+					FarNam = ts2.readAll();
+					FarNam = FarNam.trimmed();
+					FarNam = FarNam.remove(0,1);
+					FarNam = FarNam.remove(FarNam.length()-1,1);
+					FarNam = FarNam.simplified();
+					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
+					cc.setSpotColor(true);
+					if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
+						CustColors.insert(FarNam, cc);
+					while (!ts.atEnd())
+					{
+						quint64 oldPos = ts.device()->pos();
+						tmp = readLinefromDataStream(ts);
+						if (!tmp.startsWith("%%+"))
+						{
+							ts.device()->seek(oldPos);
+							break;
+						}
+						tmp = tmp.remove(0,3);
+						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+						ts2 >> c >> m >> yc >> k;
+						FarNam = ts2.readAll();
+						FarNam = FarNam.trimmed();
+						FarNam = FarNam.remove(0,1);
+						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam = FarNam.simplified();
+						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
+						cc.setSpotColor(true);
+						if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
+							CustColors.insert(FarNam, cc);
+					}
+				}
+			}
+			if ((tmp.startsWith("%%RGBCustomColor")) || (tmp.startsWith("%%RGBProcessColor")))
+			{
+				if (tmp.contains("(atend)"))
+					isAtend = true;
+				else
+				{
+					if (tmp.startsWith("%%RGBCustomColor"))
+						tmp = tmp.remove(0,17);
+					else if (tmp.startsWith("%%RGBProcessColor"))
+						tmp = tmp.remove(0,18);
+					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+					ts2 >> c >> m >> yc;
+					FarNam = ts2.readAll();
+					FarNam = FarNam.trimmed();
+					FarNam = FarNam.remove(0,1);
+					FarNam = FarNam.remove(FarNam.length()-1,1);
+					FarNam = FarNam.simplified();
+					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
+					if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
+						CustColors.insert(FarNam, cc);
+					while (!ts.atEnd())
+					{
+						quint64 oldPos = ts.device()->pos();
+						tmp = readLinefromDataStream(ts);
+						if (!tmp.startsWith("%%+"))
+						{
+							ts.device()->seek(oldPos);
+							break;
+						}
+						tmp = tmp.remove(0,3);
+						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+						ts2 >> c >> m >> yc;
+						FarNam = ts2.readAll();
+						FarNam = FarNam.trimmed();
+						FarNam = FarNam.remove(0,1);
+						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam = FarNam.simplified();
+						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
+						if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
+							CustColors.insert(FarNam, cc);
+					}
+				}
+			}
 			if (tmp.startsWith("%%EndComments"))
-				break;
+			{
+				while (!ts.atEnd())
+				{
+					bool isX = false;
+					tmp = readLinefromDataStream(ts);
+					if ((tmp.endsWith("Xa") || tmp.endsWith(" k") || tmp.endsWith(" x")) && (tmp.length() > 4))
+					{
+						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
+						ts2 >> c >> m >> yc >> k;
+						if (tmp.endsWith(" x"))
+						{
+							isX = true;
+							int an = tmp.indexOf("(");
+							int en = tmp.lastIndexOf(")");
+							FarNam = tmp.mid(an+1, en-an-1);
+							FarNam = FarNam.simplified();
+						}
+						tmp = readLinefromDataStream(ts);
+						if (tmp.endsWith("Pc"))
+						{
+							if (!isX)
+							{
+								tmp = tmp.trimmed();
+								tmp = tmp.remove(0,1);
+								int en = tmp.indexOf(")");
+								FarNam = tmp.mid(0, en);
+								FarNam = FarNam.simplified();
+							}
+							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
+							cc.setSpotColor(true);
+							if (!CustColors.contains(FarNam))
+								CustColors.insert(FarNam, cc);
+						}
+					}
+				}
+				if (!isAtend)
+					break;
+			}
 		}
 		f.close();
 		if (found)
@@ -841,7 +1056,6 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				h = ScCLocale::toDoubleC(bb[3]);
 			}
 		}
-		importColorsFromFile(fName, CustColors);
 	}
 	return found;
 }

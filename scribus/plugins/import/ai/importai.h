@@ -53,6 +53,7 @@ public:
 	 */
 	bool import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(QString fn);
+	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
 	

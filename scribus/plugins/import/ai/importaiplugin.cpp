@@ -100,6 +100,7 @@ void ImportAIPlugin::registerFormats()
 	fmt.load = true;
 	fmt.save = false;
 	fmt.thumb = true;
+	fmt.colorReading = true;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::AI); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
@@ -180,6 +181,26 @@ QImage ImportAIPlugin::readThumbnail(const QString& fileName)
 	AIPlug *dia = new AIPlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
+}
+
+bool ImportAIPlugin::readColors(const QString& fileName, ColorList &colors)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return false;
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = NULL;
+	AIPlug *dia = new AIPlug(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(dia);
+	bool ret = dia->readColors(fileName, colors);
 	if (wasUndo)
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
