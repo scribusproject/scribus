@@ -107,7 +107,7 @@ void ImportPSPlugin::registerFormats()
 	fmt2.formatId = FORMATID_PSIMPORT;
 	fmt2.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PS);// QFileDialog filter
  	fmt2.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::PS, 1)+")$", Qt::CaseInsensitive);
-	fmt.fileExtensions = QStringList() << "ps";
+	fmt2.fileExtensions = QStringList() << "ps";
 	fmt2.load = true;
 	fmt2.save = false;
 	fmt2.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PS); // MIME types
@@ -119,7 +119,7 @@ void ImportPSPlugin::registerFormats()
 	fmt3.formatId = FORMATID_PDFIMPORT;
 	fmt3.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF);// QFileDialog filter
 	fmt3.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", Qt::CaseInsensitive);
-	fmt.fileExtensions = QStringList() << "pdf";
+	fmt3.fileExtensions = QStringList() << "pdf";
 	fmt3.load = true;
 	fmt3.save = false;
 	fmt3.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PDF); // MIME types
