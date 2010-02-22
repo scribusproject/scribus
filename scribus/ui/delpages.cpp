@@ -57,20 +57,22 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( fromPageData, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
-	connect( toPageData, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
+	connect( fromPageData, SIGNAL( editingFinished() ), this, SLOT( fromChanged() ) );
+	connect( toPageData, SIGNAL( editingFinished() ), this, SLOT( toChanged() ) );
 }
 
-void DelPages::fromChanged(int pageNumber)
+void DelPages::fromChanged()
 {
+	int pageNumber=fromPageData->value();
 	if (pageNumber > toPageData->value())
 		toPageData->setValue(pageNumber);
 	if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
 		toPageData->setValue(toPageData->maximum()-1);
 }
 
-void DelPages::toChanged(int pageNumber)
+void DelPages::toChanged()
 {
+	int pageNumber=toPageData->value();
 	if (pageNumber < fromPageData->value())
 		fromPageData->setValue(pageNumber);
 	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maximum()))
