@@ -40,8 +40,8 @@ private:
 	QSpinBox* fromPageData;
 
 private slots:
-	virtual void fromChanged(int pageNumber);
-	virtual void toChanged(int pageNumber);
+	virtual void fromChanged();
+	virtual void toChanged();
 };
 
 #endif // DELPAGES_H
