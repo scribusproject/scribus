@@ -5384,7 +5384,6 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			oldLocalScY = LocalScY = 72.0 / yres;
 			oldLocalX = LocalX = 0;
 			oldLocalY = LocalY = 0;
-			
 			if ((m_Doc->itemToolPrefs.imageUseEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
 			{
 				pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
@@ -5439,6 +5438,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		}
 		else
 			IProfile = pixm.imgInfo.profileName;
+		AdjustPictScale();
 	}
 	if (PictureIsAvailable && !fromCache)
 	{
