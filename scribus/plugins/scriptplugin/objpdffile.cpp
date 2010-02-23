@@ -49,6 +49,13 @@ typedef struct
 	PyObject *fonts; // list of string - fonts to  embed
 	PyObject *pages; // list of int - pages to print
 	int thumbnails; // bool -
+	int cropmarks; // bool -
+	int cropmarksoffset; // int
+	int bleedmarks; // bool -
+	int registrationmarks; // bool -
+	int colormarks; //  bool -
+	int pageinformation; // bool -
+	int embedpdf; // bool -
 	int compress; // bool -
 	int compressmtd; // int - 0=automatic 1=jpeg 2=zip 3=none
 	int quality; // int - 0=Maximum 4=minimum
@@ -139,6 +146,20 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		}
 // set thumbnails attribute
 		self->thumbnails = 0;
+// set cropmarks attribute
+		self->cropmarks = 0;
+// set cropmarks offset attribute
+		self->cropmarksoffset = 0;
+// set bleedmarks attribute
+		self->bleedmarks = 0;
+// set registrationmarks attribute
+		self->registrationmarks = 0;
+// set colormarks attribute
+		self->colormarks = 0;
+// set pageinformation attribute
+		self->pageinformation = 0;
+// set embedpdf attribute
+		self->embedpdf = 0;
 // set compress attribute
 		self->compress = 0;
 // set compressmtd attribute
@@ -321,8 +342,22 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 	Py_DECREF(self->pages);
 	self->pages = pages;
-// do not print thumbnails
+// print thumbnails ?
 	self->thumbnails = ScCore->primaryMainWindow()->doc->PDF_Options.Thumbnails;
+// output crop marks ?
+	self->cropmarks = ScCore->primaryMainWindow()->doc->PDF_Options.cropMarks;	
+// cropmarks offset 
+	self->cropmarksoffset = ScCore->primaryMainWindow()->doc->PDF_Options.markOffset;
+// output bleed marks ?
+	self->bleedmarks = ScCore->primaryMainWindow()->doc->PDF_Options.bleedMarks;	
+// output registration marks ?
+	self->registrationmarks = ScCore->primaryMainWindow()->doc->PDF_Options.registrationMarks;	
+// output color bars ?
+	self->colormarks = ScCore->primaryMainWindow()->doc->PDF_Options.colorMarks;	
+// output page information ?
+	self->pageinformation = ScCore->primaryMainWindow()->doc->PDF_Options.docInfoMarks;	
+// embed pdf and eps ?
+	self->embedpdf = ScCore->primaryMainWindow()->doc->PDF_Options.embedPDF;
 // set automatic compression
 	self->compress = ScCore->primaryMainWindow()->doc->PDF_Options.Compress;
 	self->compressmtd = ScCore->primaryMainWindow()->doc->PDF_Options.CompressMethod;
@@ -513,6 +548,13 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 
 static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("thumbnails"), T_INT, offsetof(PDFfile, thumbnails), 0, const_cast<char*>("Generate thumbnails. Bool value.")},
+	{const_cast<char*>("cropmarks"), T_INT, offsetof(PDFfile, cropmarks), 0, const_cast<char*>("Output cropmarks. Bool value.")},
+	{const_cast<char*>("cropmarksoffset"), T_INT, offsetof(PDFfile, cropmarksoffset), 0, const_cast<char*>("Cropmarks offset. Int value.")},
+	{const_cast<char*>("bleedmarks"), T_INT, offsetof(PDFfile, bleedmarks), 0, const_cast<char*>("Output bleedmarks. Bool value.")},
+	{const_cast<char*>("registrationmarks"), T_INT, offsetof(PDFfile, registrationmarks), 0, const_cast<char*>("Output registrationmarks. Bool value.")},
+	{const_cast<char*>("colormarks"), T_INT, offsetof(PDFfile, colormarks), 0, const_cast<char*>("Output colormarks. Bool value.")},
+	{const_cast<char*>("pageinformation"), T_INT, offsetof(PDFfile, pageinformation), 0, const_cast<char*>("Output page information. Bool value.")},
+	{const_cast<char*>("embedpdf"), T_INT, offsetof(PDFfile, embedpdf), 0, const_cast<char*>("Embed EPS and PDF files. Bool value.")},
 	{const_cast<char*>("compress"), T_INT, offsetof(PDFfile, compress), 0, const_cast<char*>("Compression switch. Bool value.")},
 	{const_cast<char*>("compressmtd"), T_INT, offsetof(PDFfile, compressmtd), 0, const_cast<char*>("Compression method.\n\t0 - Automatic\n\t1 - JPEG\n\t2 - zip\n\t3 - None.")},
 	{const_cast<char*>("quality"), T_INT, offsetof(PDFfile, quality), 0, const_cast<char*>("Image quality\n\t0 - Maximum\n\t1 - High\n\t2 - Medium\n\t3 - Low\n\t4 - Minimum")},
@@ -983,6 +1025,20 @@ static PyObject *PDFfile_save(PDFfile *self)
 	}
 // apply thumbnails attribute
 	ScCore->primaryMainWindow()->doc->PDF_Options.Thumbnails = self->thumbnails;
+// apply cropmarks attribute
+	ScCore->primaryMainWindow()->doc->PDF_Options.cropMarks = self->cropmarks;
+// apply cropmarks offset attribute
+	ScCore->primaryMainWindow()->doc->PDF_Options.markOffset = self->cropmarksoffset;
+// apply bleedmarks attribute
+	ScCore->primaryMainWindow()->doc->PDF_Options.bleedMarks = self->bleedmarks;
+// apply registrationmarks attribute
+	ScCore->primaryMainWindow()->doc->PDF_Options.registrationMarks = self->registrationmarks;
+// apply colormarks attribute
+	ScCore->primaryMainWindow()->doc->PDF_Options.colorMarks = self->colormarks;
+// apply pageinformation attribute
+	ScCore->primaryMainWindow()->doc->PDF_Options.docInfoMarks = self->pageinformation;
+// apply embedpdf attribute
+	ScCore->primaryMainWindow()->doc->PDF_Options.embedPDF = self->embedpdf;
 // apply compress attribute
 	self->compressmtd = minmaxi(self->compressmtd, 0, 3);
 	ScCore->primaryMainWindow()->doc->PDF_Options.Compress = self->compress;
