@@ -11,11 +11,33 @@
 <dt><a name="-changeColor"><strong>changeColor</strong></a>(...)</dt>
 <dd><code>changeColor("name", c, m, y, k)</code>
 <p>Changes the color "name" to the specified CMYK value. The color value is defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
+<p>Note : deprecated, use changeColorCMYK() instead</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-changeColorRGB"><strong>changeColorRGB</strong></a>(...)</dt>
+<dd><code>changeColorRGB("name", r, g, b)</code>
+<p>Changes the color "name" to the specified RGB value. The color value is defined via three components r = red, g = green, b = blue. Color components should be in the range from 0 to 255.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-changeColorCMYK"><strong>changeColorCMYK</strong></a>(...)</dt>
+<dd><code>changeColorCMYK("name", c, m, y, k)</code>
+<p>Changes the color "name" to the specified CMYK value. The color value is defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
 <p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
 
 <dt><a name="-defineColor"><strong>defineColor</strong></a>(...)</dt>
 <dd><code>defineColor("name", c, m, y, k)</code>
-<p>Defines a new color "name". The color Value is defined via four components: c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
+<p>Defines a new color "name". The color Value is defined via three components: c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
+<p>Note : deprecated, use defineColorCMYK() instead.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-defineColorRGB"><strong>defineColorRGB</strong></a>(...)</dt>
+<dd><code>defineColorRGB("name", r, g, b)</code>
+<p>Defines a new color "name". The color Value is defined via three components: r = red, g = green, b = blue. Color components should be in the range from 0 to 255.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-defineColorCMYK"><strong>defineColorCMYK</strong></a>(...)</dt>
+<dd><code>defineColorCMYK("name", c, m, y, k)</code>
+<p>Defines a new color "name". The color Value is defined via three components: c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
 <p>May raise ValueError if an invalid color name is specified.</p></dd>
 
 <dt><a name="-deleteColor"><strong>deleteColor</strong></a>(...)</dt>

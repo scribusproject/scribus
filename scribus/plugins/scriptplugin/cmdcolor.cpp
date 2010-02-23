@@ -77,7 +77,12 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 	return Py_BuildValue("(iii)", static_cast<long>(rgb.red()), static_cast<long>(rgb.green()), static_cast<long>(rgb.blue()));
 }
 
-PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setcolor(PyObject*  self, PyObject* args)
+{
+	return scribus_setcolorcmyk(self, args);
+}
+
+PyObject *scribus_setcolorcmyk(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int c, m, y, k;
@@ -113,7 +118,48 @@ PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setcolorrgb(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int r, g, b;
+	if (!PyArg_ParseTuple(args, "esiii", "utf-8", &Name, &r, &g, &b))
+		return NULL;
+	if (strcmp(Name, "") == 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	QString col = QString::fromUtf8(Name);
+	if (ScCore->primaryMainWindow()->HaveDoc)
+	{
+		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
+		{
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document.","python error").toLocal8Bit().constData());
+			return NULL;
+		}
+		ScCore->primaryMainWindow()->doc->PageColors[col].setColorRGB(r, g, b);
+	}
+	else
+	{
+		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		if (!colorList->contains(col))
+		{
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
+			return NULL;
+		}
+		(*colorList)[col].setColorRGB(r, g, b);
+	}
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_newcolor(PyObject* self, PyObject* args)
+{
+	return scribus_newcolorcmyk(self, args);
+}
+
+PyObject *scribus_newcolorcmyk(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int c, m, y, k;
@@ -126,24 +172,60 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 	}
 	QString col = QString::fromUtf8(Name);
 	if (ScCore->primaryMainWindow()->HaveDoc)
-		{
-			if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
-				ScCore->primaryMainWindow()->doc->PageColors.insert(col, ScColor(c, m, y, k));
-			else
-				// FIXME: Given that we have a changeColour function, should we really be
-				// silently changing colours in newColour?
-				ScCore->primaryMainWindow()->doc->PageColors[col].setColor(c, m, y, k);
-		}
+	{
+		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
+			ScCore->primaryMainWindow()->doc->PageColors.insert(col, ScColor(c, m, y, k));
+		else
+			// FIXME: Given that we have a changeColour function, should we really be
+			// silently changing colours in newColour?
+			ScCore->primaryMainWindow()->doc->PageColors[col].setColor(c, m, y, k);
+	}
 	else
-		{
-			ColorList* colorList=PrefsManager::instance()->colorSetPtr();
-			if (!colorList->contains(col))
-				colorList->insert(col, ScColor(c, m, y, k));
-			else
-				// FIXME: Given that we have a changeColour function, should we really be
-				// silently changing colours in newColour?
-				(*colorList)[col].setColor(c, m, y, k);
-		}
+	{
+		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		if (!colorList->contains(col))
+			colorList->insert(col, ScColor(c, m, y, k));
+		else
+			// FIXME: Given that we have a changeColour function, should we really be
+			// silently changing colours in newColour?
+			(*colorList)[col].setColor(c, m, y, k);
+	}
+ //	Py_INCREF(Py_None);
+ //	return Py_None;
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_newcolorrgb(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int r, g, b;
+	if (!PyArg_ParseTuple(args, "esiii", "utf-8", &Name, &r, &g, &b))
+		return NULL;
+	if (strcmp(Name, "") == 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	QString col = QString::fromUtf8(Name);
+	if (ScCore->primaryMainWindow()->HaveDoc)
+	{
+		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
+			ScCore->primaryMainWindow()->doc->PageColors.insert(col, ScColor(r, g, b));
+		else
+			// FIXME: Given that we have a changeColour function, should we really be
+			// silently changing colours in newColour?
+			ScCore->primaryMainWindow()->doc->PageColors[col].setColorRGB(r, g, b);
+	}
+	else
+	{
+		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		if (!colorList->contains(col))
+			colorList->insert(col, ScColor(r, g, b));
+		else
+			// FIXME: Given that we have a changeColour function, should we really be
+			// silently changing colours in newColour?
+			(*colorList)[col].setColorRGB(r, g, b);
+	}
  //	Py_INCREF(Py_None);
  //	return Py_None;
 	Py_RETURN_NONE;
@@ -165,10 +247,10 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
 		if (ScCore->primaryMainWindow()->doc->PageColors.contains(col) && (ScCore->primaryMainWindow()->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
-			{
-				ScCore->primaryMainWindow()->doc->PageColors.remove(col);
-				ReplaceColor(col, rep);
-			}
+		{
+			ScCore->primaryMainWindow()->doc->PageColors.remove(col);
+			ReplaceColor(col, rep);
+		}
 		else
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document.","python error").toLocal8Bit().constData());
@@ -281,6 +363,6 @@ void cmdcolordocswarnings()
 {
     QStringList s;
     s << scribus_colornames__doc__ << scribus_getcolor__doc__ << scribus_getcolorasrgb__doc__;
-    s << scribus_setcolor__doc__ << scribus_newcolor__doc__ << scribus_delcolor__doc__;
+    s << scribus_setcolor__doc__ << scribus_newcolor__doc__ << scribus_newcolorrgb__doc__ << scribus_delcolor__doc__;
 	s << scribus_replcolor__doc__ << scribus_isspotcolor__doc__ << scribus_setspotcolor__doc__;
 }

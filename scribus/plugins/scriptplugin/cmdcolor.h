@@ -58,6 +58,7 @@ QT_TR_NOOP("changeColor(\"name\", c, m, y, k)\n\
 Changes the color \"name\" to the specified CMYK value. The color value is\n\
 defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.\n\
 Color components should be in the range from 0 to 255.\n\
+Note : deprecated, use changeColorCMYK() instead.\n\
 \n\
 May raise NotFoundError if the named color wasn't found.\n\
 May raise ValueError if an invalid color name is specified.\n\
@@ -66,8 +67,50 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_setcolor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setcolorcmyk__doc__,
+QT_TR_NOOP("changeColorCMYK(\"name\", c, m, y, k)\n\
+\n\
+Changes the color \"name\" to the specified CMYK value. The color value is\n\
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.\n\
+Color components should be in the range from 0 to 255.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Sets named color with C,M,Y,K params. */
+PyObject *scribus_setcolorcmyk(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setcolorrgb__doc__,
+QT_TR_NOOP("changeColorRGB(\"name\", r, g, b)\n\
+\n\
+Changes the color \"name\" to the specified RGB value. The color value is\n\
+defined via three components r = red, g = green, b = blue.\n\
+Color components should be in the range from 0 to 255.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Sets named color with R, G, B params. */
+PyObject *scribus_setcolorrgb(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_newcolor__doc__,
 QT_TR_NOOP("defineColor(\"name\", c, m, y, k)\n\
+\n\
+Defines a new color \"name\". The color Value is defined via four components:\n\
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in\n\
+the range from 0 to 255.\n\
+Note : deprecated, use defineColorCMYK() instead.\n\
+\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Creates new color with name, C, M, Y, K params. */
+PyObject *scribus_newcolor(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_newcolorcmyk__doc__,
+QT_TR_NOOP("defineColorCMYK(\"name\", c, m, y, k)\n\
 \n\
 Defines a new color \"name\". The color Value is defined via four components:\n\
 c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in\n\
@@ -76,7 +119,20 @@ the range from 0 to 255.\n\
 May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Creates new color with name, C, M, Y, K params. */
-PyObject *scribus_newcolor(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_newcolorcmyk(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_newcolorrgb__doc__,
+QT_TR_NOOP("defineColorRGB(\"name\", r, g, b)\n\
+\n\
+Defines a new color \"name\". The color Value is defined via three components:\n\
+r = red, g = green, b = blue. Color components should be in\n\
+the range from 0 to 255.\n\
+\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Creates new color with name, R, G, B params. */
+PyObject *scribus_newcolorrgb(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_delcolor__doc__,
@@ -137,4 +193,5 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_setspotcolor(PyObject * /*self*/, PyObject* args);
 
 #endif
+
 

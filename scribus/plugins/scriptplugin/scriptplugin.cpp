@@ -297,6 +297,8 @@ PyMethodDef scribus_methods[] = {
 	// 2004/10/03 pv - aliases with common Python syntax - ClassName methodName
 	// 2004-11-06 cr - move aliasing to dynamically generated wrapper functions, sort methoddef
 	{const_cast<char*>("changeColor"), scribus_setcolor, METH_VARARGS, tr(scribus_setcolor__doc__)},
+	{const_cast<char*>("changeColorRGB"), scribus_setcolorrgb, METH_VARARGS, tr(scribus_setcolorrgb__doc__)},
+	{const_cast<char*>("changeColorCMYK"), scribus_setcolorcmyk, METH_VARARGS, tr(scribus_setcolorcmyk__doc__)},
 	{const_cast<char*>("closeDoc"), (PyCFunction)scribus_closedoc, METH_NOARGS, tr(scribus_closedoc__doc__)},
 	{const_cast<char*>("closeMasterPage"), (PyCFunction)scribus_closemasterpage, METH_NOARGS, tr(scribus_closemasterpage__doc__)},
 	{const_cast<char*>("createBezierLine"), scribus_bezierline, METH_VARARGS, tr(scribus_bezierline__doc__)},
@@ -314,6 +316,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("createCharStyle"), (PyCFunction)scribus_createcharstyle, METH_KEYWORDS, tr(scribus_createcharstyle__doc__)},
 	{const_cast<char*>("currentPage"), (PyCFunction)scribus_actualpage, METH_NOARGS, tr(scribus_actualpage__doc__)},
 	{const_cast<char*>("defineColor"), scribus_newcolor, METH_VARARGS, tr(scribus_newcolor__doc__)},
+	{const_cast<char*>("defineColorRGB"), scribus_newcolorrgb, METH_VARARGS, tr(scribus_newcolorrgb__doc__)},
+	{const_cast<char*>("defineColorCMYK"), scribus_newcolorcmyk, METH_VARARGS, tr(scribus_newcolorcmyk__doc__)},
 	{const_cast<char*>("deleteColor"), scribus_delcolor, METH_VARARGS, tr(scribus_delcolor__doc__)},
 	{const_cast<char*>("deleteLayer"), scribus_removelayer, METH_VARARGS, tr(scribus_removelayer__doc__)},
 	{const_cast<char*>("deleteMasterPage"), scribus_deletemasterpage, METH_VARARGS, tr(scribus_deletemasterpage__doc__)},

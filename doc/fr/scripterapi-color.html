@@ -12,6 +12,21 @@
 <dd><code><a href="#-changeColor">changeColor</a>("nom", c, m, j, n)</code>
 <p>Change la couleur "nom" pour la valeur CMJN sp&eacute;cifi&eacute;e. La valeur de la couleur est d&eacute;finie par quatre composants c = Cyan, m = Magenta, j = Jaune et n = Noir. 
 Les composants de la couleur doivent se situer entre 0 et 255.</p>
+<p>Note : cette fonction sera supprim&eacute;e dans une version ult&eacute;rieure, veuillez utiliser changeColorCMYK() &agrave; la place.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e est introuvable.
+Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-changeColorRGB"><strong>changeColorRGB</strong></a>(...)</dt>
+<dd><code><a href="#-changeColorRGB">changeColorRGB</a>("nom", r, v, b)</code>
+<p>Change la couleur "nom" pour la valeur RVB sp&eacute;cifi&eacute;e. La valeur de la couleur est d&eacute;finie par trois composants r = rouge, v = vert, b = bleu. 
+Les composants de la couleur doivent se situer entre 0 et 255.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e est introuvable.
+Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-changeColorCMYK"><strong>changeColorCMYK</strong></a>(...)</dt>
+<dd><code><a href="#-changeColorCMYK">changeColorCMYK</a>("nom", c, m, j, n)</code>
+<p>Change la couleur "nom" pour la valeur CMJN sp&eacute;cifi&eacute;e. La valeur de la couleur est d&eacute;finie par quatre composants c = Cyan, m = Magenta, j = Jaune et n = Noir. 
+Les composants de la couleur doivent se situer entre 0 et 255.</p>
 <p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e est introuvable.
 Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
 
@@ -19,6 +34,19 @@ Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute
 <dd><code><a href="#-defineColor">defineColor</a>("nom", c, m, j, n)</code>
 <p>D&eacute;finit une nouvelle couleur "nom". La valeur de la couleur est
 d&eacute;finie par quatre composants : c = Cyan, m = Magenta, j = Jaune et n = Noir. Les composants de la couleur doivent se situer entre 0 et 255.</p>
+<p>Note : cette fonction sera supprim&eacute;e dans une version ult&eacute;rieure, veuillez utiliser defineColorCMYK() &agrave; la place.</p>
+<p>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-defineColorCMYK"><strong>defineColorCMYK</strong></a>(...)</dt>
+<dd><code><a href="#-defineColorCMYK">defineColorCMYK</a>("nom", c, m, j, n)</code>
+<p>D&eacute;finit une nouvelle couleur "nom". La valeur de la couleur est
+d&eacute;finie par quatre composants : c = Cyan, m = Magenta, j = Jaune et n = Noir. Les composants de la couleur doivent se situer entre 0 et 255.</p>
+<p>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-defineColorRGB"><strong>defineColorRGB</strong></a>(...)</dt>
+<dd><code><a href="#-defineColorRGB">defineColorRGB</a>("nom", r, v, b)</code>
+<p>D&eacute;finit une nouvelle couleur "nom". La valeur de la couleur est
+d&eacute;finie par trois composants : r = rouge, v = vert, b = bleu. Les composants de la couleur doivent se situer entre 0 et 255.</p>
 <p>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
 
 <dt><a name="-deleteColor"><strong>deleteColor</strong></a>(...)</dt>
