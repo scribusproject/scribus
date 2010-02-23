@@ -368,6 +368,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 		actionList << "itemUpdateImage";
 		actionList << "editClearContents";
 		actionList << "editCopyContents";
+		actionList << "itemToggleInlineImage";
 		if (isRaster)
 		{
 			actionList << "styleImageEffects";

@@ -6387,4 +6387,27 @@ void PageItem::setInlineData(QString data)
 	}
 }
 
+void PageItem::makeImageInline()
+{
+	QFileInfo fi(Pfile);
+	QString ext = fi.suffix();
+	tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+	tempImageFile->open();
+	QString fileName = getLongPathName(tempImageFile->fileName());
+	tempImageFile->close();
+	isInlineImage = true;
+	copyFile(Pfile, fileName);
+	Pfile = fileName;
+}
 
+void PageItem::makeImageExternal(QString path)
+{
+	if ((tempImageFile) && (isInlineImage) && (!path.isEmpty()))
+	{
+		copyFile(Pfile, path);
+		Pfile = path;
+		isInlineImage = false;
+		delete tempImageFile;
+		tempImageFile = NULL;
+	}
+}

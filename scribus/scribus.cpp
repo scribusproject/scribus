@@ -768,6 +768,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["styleImageEffects"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["itemToggleInlineImage"], "Item", false);
 	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "ItemPreviewSettings", false);
 	scrMenuMgr->addMenuSeparator("ItemPreviewSettings");
@@ -2609,6 +2610,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && !currItem->isTableItem);
 	scrActions["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->pixm.imgInfo.valid);
+	scrActions["itemToggleInlineImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", SelectedType==PageItem::ImageFrame);
 	scrActions["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
@@ -2738,6 +2740,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["itemImageIsVisible"]->setChecked(currItem->imageShown());
+		scrActions["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
 		scrActions["itemPreviewLow"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
 		scrActions["itemPreviewNormal"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
 		scrActions["itemPreviewFull"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewFull"]->actionInt());
@@ -4178,6 +4181,73 @@ void ScribusMainWindow::slotGetClipboardImage()
 	}
 }
 
+void ScribusMainWindow::toogleInlineState()
+{
+	if (doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->itemType() == PageItem::ImageFrame)
+		{
+			if (currItem->PictureIsAvailable)
+			{
+				if (currItem->isImageInline())
+				{
+					QFileInfo fiB(currItem->Pfile);
+					QString fna = fiB.fileName();
+					PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
+					QString wdir = ".";
+					if (doc->hasName)
+					{
+						QFileInfo fi(doc->DocName);
+						wdir = QDir::fromNativeSeparators( fi.path() );
+					}
+					else
+					{
+						QString prefsDocDir = prefsManager->documentDir();
+						if (!prefsDocDir.isEmpty())
+							wdir = docContext->get("place_as", prefsDocDir);
+						else
+							wdir = docContext->get("place_as", ".");
+						wdir = QDir::fromNativeSeparators( wdir );
+					}
+					QString fileName = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fna, fdHidePreviewCheckBox);
+					if (!fileName.isEmpty())
+					{
+						if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
+							ScCore->fileWatcher->removeFile(currItem->Pfile);
+						docContext->set("place_as", fileName.left(fileName.lastIndexOf("/")));
+						if (overwrite(this, fileName))
+						{
+							currItem->makeImageExternal(fileName);
+							ScCore->fileWatcher->addFile(currItem->Pfile);
+							bool fho = currItem->imageFlippedH();
+							bool fvo = currItem->imageFlippedV();
+							doc->loadPict(currItem->Pfile, currItem, true);
+							currItem->setImageFlippedH(fho);
+							currItem->setImageFlippedV(fvo);
+							currItem->AdjustPictScale();
+						}
+					}
+				}
+				else
+				{
+					if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
+						ScCore->fileWatcher->removeFile(currItem->Pfile);
+					currItem->makeImageInline();
+					ScCore->fileWatcher->addFile(currItem->Pfile);
+					bool fho = currItem->imageFlippedH();
+					bool fvo = currItem->imageFlippedV();
+					doc->loadPict(currItem->Pfile, currItem, true);
+					currItem->setImageFlippedH(fho);
+					currItem->setImageFlippedV(fvo);
+					currItem->AdjustPictScale();
+				}
+				scrActions["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
+			}
+		}
+	}
+}
+
 void ScribusMainWindow::slotFileAppend()
 {
 	if (doc->m_Selection->count() != 0)
@@ -4282,7 +4352,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	if (saveCompressed)
 		fna.append(".gz");
 
-	QString fileSpec=tr("Documents (*.sla *.sla.gz);;All Files (*)");
+	QString fileSpec = tr("Documents (*.sla *.sla.gz);;All Files (*)");
 	int optionFlags = fdCompressFile | fdHidePreviewCheckBox;
 	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags, &saveCompressed);
 	if (!fn.isEmpty())
@@ -8605,13 +8675,17 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		dia->setExtension(f.completeSuffix());
 		dia->setZipExtension(f.completeSuffix() + ".gz");
 		dia->setSelection(defNa);
-		dia->SaveZip->setChecked(*docom);
+		if (docom != NULL)
+			dia->SaveZip->setChecked(*docom);
 	}
 	if (optionFlags & fdDirectoriesOnly)
 	{
-		dia->SaveZip->setChecked(*docom);
-		dia->WithFonts->setChecked(*doFont);
-		dia->WithProfiles->setChecked(*doProfiles);
+		if (docom != NULL)
+			dia->SaveZip->setChecked(*docom);
+		if (doFont != NULL)
+			dia->WithFonts->setChecked(*doFont);
+		if (doProfiles != NULL)
+			dia->WithProfiles->setChecked(*doProfiles);
 	}
 	if (dia->exec() == QDialog::Accepted)
 	{
@@ -8627,9 +8701,12 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		}
 		else
 		{
-			*docom = dia->SaveZip->isChecked();
-			*doFont = dia->WithFonts->isChecked();
-			*doProfiles = dia->WithProfiles->isChecked();
+			if (docom != NULL)
+				*docom = dia->SaveZip->isChecked();
+			if (doFont != NULL)
+				*doFont = dia->WithFonts->isChecked();
+			if (doProfiles != NULL)
+				*doProfiles = dia->WithProfiles->isChecked();
 		}
 		this->repaint();
 		retval = dia->selectedFile();

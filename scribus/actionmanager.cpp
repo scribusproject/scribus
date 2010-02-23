@@ -428,6 +428,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemExtendedImageProperties";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="itemToggleInlineImage";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemPreviewLow";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 2));
 	name="itemPreviewNormal";
@@ -449,6 +451,7 @@ void ActionManager::initItemMenuActions()
 	(*scrActions)["itemPreviewLow"]->setToggleAction(true);
 	(*scrActions)["itemPreviewNormal"]->setToggleAction(true);
 	(*scrActions)["itemPreviewFull"]->setToggleAction(true);
+	(*scrActions)["itemToggleInlineImage"]->setToggleAction(true);
 
 	name="itemShapeEdit";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
@@ -483,6 +486,7 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemAttributes"], SIGNAL(triggered()), mainWindow, SLOT(objectAttributes()) );
 	connect( (*scrActions)["itemShapeEdit"], SIGNAL(triggered()), mainWindow, SLOT(toggleNodeEdit()) );
 	connect( (*scrActions)["itemImageInfo"], SIGNAL(triggered()), mainWindow, SLOT(getImageInfo()) );
+	connect( (*scrActions)["itemToggleInlineImage"], SIGNAL(triggered()), mainWindow, SLOT(toogleInlineState()) );
 }
 
 void ActionManager::initInsertMenuActions()
@@ -1367,6 +1371,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemUpdateImage"]->setTexts( tr("&Update Image"));
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));
 	(*scrActions)["itemAdjustImageToFrame"]->setTexts( tr("Adjust Image to Frame"));
+	(*scrActions)["itemToggleInlineImage"]->setTexts( tr("Image Inline"));
 	(*scrActions)["itemExtendedImageProperties"]->setTexts( tr("Extended Image Properties"));
 	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
 	(*scrActions)["itemPreviewNormal"]->setTexts( tr("&Normal Resolution"));
@@ -1758,7 +1763,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "typeEffectNormal" << "typeEffectUnderline" << "typeEffectUnderlineWords" << "typeEffectStrikeThrough" << "typeEffectAllCaps" << "typeEffectSmallCaps" << "typeEffectSuperscript" << "typeEffectSubscript" << "typeEffectOutline" << "typeEffectShadow" << "styleImageEffects" << "styleTabulators";
 	//Item
 	++itmenu;
-	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemAdjustImageToFrame" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
+	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemAdjustImageToFrame" << "itemToggleInlineImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
 	//Insert
 	++itmenu;
 	itmenu->second

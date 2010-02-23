@@ -662,6 +662,8 @@ public:
 	QString inlineExt;
 	void setInlineExt(QString val) { inlineExt = val; }
 	void setInlineData(QString data);
+	void makeImageInline();
+	void makeImageExternal(QString path);
 	
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
 	double textToFrameDistLeft() const { return Extra; }

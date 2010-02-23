@@ -30,7 +30,7 @@
 #include "undomanager.h"
 #include "canvasmode_legacy.h"
 
-#include "util.h" //just for tdebug
+// #include "util.h" //just for tdebug
 
 ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, ScribusDoc* doc, QWidget * parent) :
 	QMenu(parent),
@@ -41,9 +41,9 @@ ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, Scri
 {
 	if (m_Sel.count()>0)
 	{
-		tDebug("process Selection start");
+//		tDebug("process Selection start");
 		processSelection();
-		tDebug("process Selection end");
+//		tDebug("process Selection end");
 		createMenuItems_Selection();
 	}
 }
@@ -192,6 +192,11 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_AP->scrActions["itemAdjustImageToFrame"]);
 		if (m_actionList.contains("itemExtendedImageProperties"))
 			addAction(m_AP->scrActions["itemExtendedImageProperties"]);
+		if (m_actionList.contains("itemAdjustFrameToImage"))
+		{
+			if (currItem->PictureIsAvailable)
+				addAction(m_AP->scrActions["itemToggleInlineImage"]);
+		}
 		if (m_actionList.contains("itemImageInfo"))
 			addAction(m_AP->scrActions["itemImageInfo"]);
 		if (m_actionList.contains("itemUpdateImage"))
