@@ -177,7 +177,8 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		double newY = mousePointDoc.y(); //m->y();
 //		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
 //		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
-		FPoint np(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
+		FPoint npx(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
+		QPointF np = QPointF(npx.x(), npx.y());
 		if (m_view->editStrokeGradient == 1)
 		{
 			if (m_gradientPoint == useGradientStart)
@@ -201,16 +202,40 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			}
 			if (m_gradientPoint == useGradientFocal)
 			{
-				currItem->GrStrokeFocalX -= np.x();
-				currItem->GrStrokeFocalY -= np.y();
+				double rotEnd = xy2Deg(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
+				QTransform qmatrix;
+				qmatrix.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
+				qmatrix.rotate(rotEnd);
+				double mask_gradientSkew = 0.0;
+				if (currItem->GrStrokeSkew == 90)
+					mask_gradientSkew = 1;
+				else if (currItem->GrStrokeSkew == 180)
+					mask_gradientSkew = 0;
+				else if (currItem->GrStrokeSkew == 270)
+					mask_gradientSkew = -1;
+				else if (currItem->GrStrokeSkew == 390)
+					mask_gradientSkew = 0;
+				else
+					mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrStrokeSkew);
+				qmatrix.shear(mask_gradientSkew, 0);
+				qmatrix.translate(0, currItem->GrStrokeStartY * (1.0 - currItem->GrStrokeScale));
+				qmatrix.translate(-currItem->GrStrokeStartX, -currItem->GrStrokeStartY);
+				qmatrix.scale(1, currItem->GrStrokeScale);
+				QTransform m = qmatrix.inverted();
+				QPointF shR = qmatrix.map(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY));
+				QPointF shRe = m.map(shR - np);
+				currItem->GrStrokeFocalX = shRe.x();
+				currItem->GrStrokeFocalY = shRe.y();
 				if (currItem->GrTypeStroke == 7)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrStrokeFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrStrokeFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						QPointF shR = qmatrix.map(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY));
+						QPointF shRe = m.map(shR + np);
+						currItem->GrStrokeFocalX = shRe.x();
+						currItem->GrStrokeFocalY = shRe.y();
 					}
 				}
 			}
@@ -272,16 +297,40 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			}
 			if (m_gradientPoint == useGradientFocal)
 			{
-				currItem->GrMaskFocalX -= np.x();
-				currItem->GrMaskFocalY -= np.y();
+				double rotEnd = xy2Deg(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
+				QTransform qmatrix;
+				qmatrix.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);
+				qmatrix.rotate(rotEnd);
+				double mask_gradientSkew = 0.0;
+				if (currItem->GrMaskSkew == 90)
+					mask_gradientSkew = 1;
+				else if (currItem->GrMaskSkew == 180)
+					mask_gradientSkew = 0;
+				else if (currItem->GrMaskSkew == 270)
+					mask_gradientSkew = -1;
+				else if (currItem->GrMaskSkew == 390)
+					mask_gradientSkew = 0;
+				else
+					mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrMaskSkew);
+				qmatrix.shear(mask_gradientSkew, 0);
+				qmatrix.translate(0, currItem->GrMaskStartY * (1.0 - currItem->GrMaskScale));
+				qmatrix.translate(-currItem->GrMaskStartX, -currItem->GrMaskStartY);
+				qmatrix.scale(1, currItem->GrMaskScale);
+				QTransform m = qmatrix.inverted();
+				QPointF shR = qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY));
+				QPointF shRe = m.map(shR - np);
+				currItem->GrMaskFocalX = shRe.x();
+				currItem->GrMaskFocalY = shRe.y();
 				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrMaskFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrMaskFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						QPointF shR = qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY));
+						QPointF shRe = m.map(shR + np);
+						currItem->GrMaskFocalX = shRe.x();
+						currItem->GrMaskFocalY = shRe.y();
 					}
 				}
 			}
@@ -343,16 +392,40 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			}
 			if (m_gradientPoint == useGradientFocal)
 			{
-				currItem->GrFocalX -= np.x();
-				currItem->GrFocalY -= np.y();
+				double rotEnd = xy2Deg(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
+				QTransform qmatrix;
+				qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
+				qmatrix.rotate(rotEnd);
+				double mask_gradientSkew = 0.0;
+				if (currItem->GrSkew == 90)
+					mask_gradientSkew = 1;
+				else if (currItem->GrSkew == 180)
+					mask_gradientSkew = 0;
+				else if (currItem->GrSkew == 270)
+					mask_gradientSkew = -1;
+				else if (currItem->GrSkew == 390)
+					mask_gradientSkew = 0;
+				else
+					mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
+				qmatrix.shear(mask_gradientSkew, 0);
+				qmatrix.translate(0, currItem->GrStartY * (1.0 - currItem->GrScale));
+				qmatrix.translate(-currItem->GrStartX, -currItem->GrStartY);
+				qmatrix.scale(1, currItem->GrScale);
+				QTransform m = qmatrix.inverted();
+				QPointF shR = qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY));
+				QPointF shRe = m.map(shR - np);
+				currItem->GrFocalX = shRe.x();
+				currItem->GrFocalY = shRe.y();
 				if (currItem->GrType == 7)
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						QPointF shR = qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY));
+						QPointF shRe = m.map(shR + np);
+						currItem->GrFocalX = shRe.x();
+						currItem->GrFocalY = shRe.y();
 					}
 				}
 			}
