@@ -4773,6 +4773,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		}
 		else
 			IProfile = pixm.imgInfo.profileName;
+		AdjustPictScale();
 	}
 	if (PictureIsAvailable)
 	{
