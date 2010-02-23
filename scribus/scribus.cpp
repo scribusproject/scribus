@@ -89,7 +89,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/charselect.h"
 #include "ui/checkDocument.h"
 #include "ui/cmsprefs.h"
-#include "collect4output.h"
+#include "ui/collectforoutput_ui.h"
 #include "ui/colorcombo.h"
 #include "ui/colorm.h"
 #include "commonstrings.h"
@@ -8973,8 +8973,10 @@ void ScribusMainWindow::ImageEffects()
 
 QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool withProfiles, const QString& )
 {
-	CollectForOutput c(doc, withFonts, withProfiles, compress);
-	return c.collect();
+	CollectForOutput_UI c(this, doc, QString::null, withFonts, withProfiles, compress);
+	QString newFileName;
+	QString errorMsg=c.collect(newFileName);
+	return newFileName;
 }
 
 void ScribusMainWindow::docCheckToggle(bool visible)
