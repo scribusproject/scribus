@@ -69,6 +69,7 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	showImagesCheckBox->setChecked(prefsData->guidesPrefs.showPic);
 	showControlCharsCheckBox->setChecked(prefsData->guidesPrefs.showControls);
+	showRulersCheckBox->setChecked(prefsData->guidesPrefs.rulersShown);
 	showRulersRelativeToPageCheckBox->setChecked(prefsData->guidesPrefs.rulerMode);
 	showTextChainsCheckBox->setChecked(prefsData->guidesPrefs.linkShown);
 	showFramesCheckBox->setChecked(prefsData->guidesPrefs.framesShown);
@@ -357,6 +358,7 @@ void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->guidesPrefs.showPic=showImagesCheckBox->isChecked();
 	prefsData->guidesPrefs.showControls=showControlCharsCheckBox->isChecked();
+	prefsData->guidesPrefs.rulersShown=showRulersCheckBox->isChecked();
 	prefsData->guidesPrefs.rulerMode=showRulersRelativeToPageCheckBox->isChecked();
 	prefsData->guidesPrefs.linkShown=showTextChainsCheckBox->isChecked();
 	prefsData->guidesPrefs.framesShown=showFramesCheckBox->isChecked();
