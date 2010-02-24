@@ -69,6 +69,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_text.h"
 #include "util_file.h"
+#include "util_icon.h"
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
 #endif
@@ -1575,6 +1576,26 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			p->setupPolygon(&ContourLine);
 #endif
 			p->strokePath();
+		}
+		if (itemType()==ImageFrame)
+		{
+			double minres = m_Doc->checkerProfiles[m_Doc->curCheckProfile].minResolution;
+			double maxres = m_Doc->checkerProfiles[m_Doc->curCheckProfile].maxResolution;
+			bool checkres = m_Doc->checkerProfiles[m_Doc->curCheckProfile].checkResolution;
+			if  ((((72.0 / imageXScale()) < minres) 
+				|| ((72.0 / imageYScale()) < minres) 
+				|| ((72.0 / imageXScale()) > maxres) 
+				|| ((72.0 / imageYScale()) > maxres)) 
+				&& (isRaster) && (checkres) && (!view->m_canvas->isPreviewMode()))
+			{
+				double ofx = Width - 22.0;
+				double ofy = Height - 22.0;
+				p->save();
+				p->translate(ofx, ofy);
+				QImage ico = loadIcon("22/dialog-warning.png").toImage();
+				p->drawImage(&ico);
+				p->restore();
+			}
 		}
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))
 		{
