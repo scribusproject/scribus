@@ -20,35 +20,15 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include "text/nlsconfig.h"
 
-SampleItem::SampleItem(ScribusDoc* doc) :
-	QObject()
+SampleItem::SampleItem() : QObject()
 {
-	used = true;
-	m_Doc=doc;
-
-	if (doc==0)
-	{
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		// FIXME: main preformance issue here! PV
-		m_Doc=ScCore->primaryMainWindow()->doFileNew(//pageWidth, pageHeight,
-									0,0,
-									//topMargin, leftMargin, rightMargin, bottomMargin,
-									1, 1, 1, 1,
-									// autoframes. It's disabled in python
-									// columnDistance, numberCols, autoframes,
-									0, 1, false,
-									//pagesType, unit, firstPageOrder,
-									1, 1, 1,
-									//orientation, firstPageNr, "Custom", requires gui, page count, showview);
-									1, 1, "custom", false, 1, false);
-		//m_Doc = new ScribusDoc();
-		Q_ASSERT(m_Doc!=0);
-		if (!m_Doc)
-			return;
-		m_Doc->pageSets[1/*pagesType*/].FirstPage = 1;//firstPageOrder;
-		used = false;
-		qApp->changeOverrideCursor(Qt::ArrowCursor);
-	}
+	m_Doc = new ScribusDoc();
+	if (!m_Doc)
+		return;
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(1, 1, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
 	// tmp colors. to be removed in descrictor
 	m_Doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
 	m_Doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
@@ -91,20 +71,7 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 
 SampleItem::~SampleItem()
 {
-	cleanupTemporary();
-	// clean tmp document
-	if (used == false)
-	{
-		m_Doc->setModified(false);
-		//Do this manually as the sample item's doc was never put into the main windows workspace and doc list etc
-		//m_Doc->scMW()->slotFileClose();
-		m_Doc->view()->disconnect();
-		m_Doc->WinHan->disconnect();
-		m_Doc->disconnect();
-		delete m_Doc->view();
-		delete m_Doc->WinHan;
-		delete m_Doc;
-	}
+	delete m_Doc;
 }
 
 void SampleItem::setText(QString aText)
@@ -317,23 +284,12 @@ QPixmap SampleItem::getSample(int width, int height)
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
 	QImage pm(width, height, QImage::Format_ARGB32);
 	ScPainter *painter = new ScPainter(&pm, width, height, 1.0, 0);
-	double sca = 1.0; // original scale to set back at the end...
-	int userAppMode = m_Doc->appMode; // We need to be in normal when creating/repainting items
-	m_Doc->appMode = modeNormal;
-
-	if (m_Doc->view() != NULL)
-	{
-		sca = m_Doc->view()->scale();
-		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
-	}
-	painter->setZoomFactor(m_Doc->view()->scale());
+	painter->setZoomFactor(PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
 
 	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
 
 	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->itemToolPrefs.textSize / 10.0));
-//	m_Doc->docParagraphStyles.create(tmpStyle);
-//	int tmpIndex = m_Doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
 	previewItem->itemText.clear();
@@ -358,18 +314,7 @@ QPixmap SampleItem::getSample(int width, int height)
 		(*m_Doc->AllFonts)[fontName].decreaseUsage(); // was increased by AddFont()
 		m_Doc->UsedFonts.remove(fontName);
 	}
-	if (m_Doc->view() != NULL)
-		m_Doc->view()->setScale(sca);
-	m_Doc->appMode = userAppMode;
 //	m_Doc->docParagraphStyles.remove(tmpIndex);
 	UndoManager::instance()->setUndoEnabled(true);
 	return QPixmap::fromImage(pm);
-}
-
-void SampleItem::cleanupTemporary()
-{
-	// clear tmp colors
-	m_Doc->PageColors.remove("__blackforpreview__");
-	m_Doc->PageColors.remove("__whiteforpreview__");
-	m_Doc->PageColors.remove("__whiteforpreviewbg__");
 }

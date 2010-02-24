@@ -26,7 +26,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	setWindowIcon(loadIcon("AppIcon.png"));
 	m_Doc=doc;
 
-	sampleItem = new SampleItem(m_Doc);
+	sampleItem = new SampleItem();
 
 	languageChange();
 

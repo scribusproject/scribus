@@ -315,7 +315,7 @@ void Prefs_ItemTools::updateFontPreview()
 	if (!showFontPreview)
 		return;
 
-	SampleItem si(m_doc);
+	SampleItem si;
 	si.setText( tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (textFrameFillColorComboBox->currentText() != CommonStrings::tr_NoneColor)
 	{

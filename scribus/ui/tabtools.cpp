@@ -916,7 +916,7 @@ void TabTools::setSample()
 	if (!fontPreview)
 		return;
 
-	SampleItem si(docu);
+	SampleItem si;
 	si.setText( tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (colorComboTextBackground->currentText() != CommonStrings::tr_NoneColor)
 	{

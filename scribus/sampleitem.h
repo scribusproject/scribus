@@ -20,15 +20,6 @@ class ScribusDoc;
 /*! \brief Provides sample "text frame" as pixmap.
 You can create a pixmap with standard Scribus text frame
 here. It can be used as a kind of preview.
-It needs at least one existing ScribusDoc - so there
-is one created if ScWM->doc is null (then it's destroyed
-of course).
-SampleItem creates 2 temporary colors in scribus document -
-Black and white - to be sure to display B/W preview correctly
-every time. These color are renoved in descructor. Or used
-cleanupTemporary() method.
-\warning Be sure there will be called destructor or cleanupTemporary()
-at the end of work with it!
 \author Petr Vanek <petr@yarpen.cz>
 */
 class SCRIBUS_API SampleItem : QObject
@@ -36,7 +27,7 @@ class SCRIBUS_API SampleItem : QObject
 	Q_OBJECT
 
 	public:
-		SampleItem(ScribusDoc* doc);
+		SampleItem();
 		~SampleItem();
 
 		/*! \brief Set sample text.
@@ -114,7 +105,6 @@ class SCRIBUS_API SampleItem : QObject
 		Existing or created one */
 		ScribusDoc *m_Doc;
 		//! \brief Is the doc created used only? true = used
-		bool used;
 		int bgShade;
 };
 
