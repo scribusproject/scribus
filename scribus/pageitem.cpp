@@ -1586,7 +1586,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				|| ((72.0 / imageYScale()) < minres) 
 				|| ((72.0 / imageXScale()) > maxres) 
 				|| ((72.0 / imageYScale()) > maxres)) 
-				&& (isRaster) && (checkres) && (!view->m_canvas->isPreviewMode()))
+				&& (isRaster) && (checkres) && (!view->m_canvas->isPreviewMode()) && (PrefsManager::instance()->appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
 			{
 				double ofx = Width - 22.0;
 				double ofy = Height - 22.0;
