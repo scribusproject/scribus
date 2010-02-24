@@ -7263,7 +7263,6 @@ void ScribusDoc::updatePict(QString name)
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
 		}
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
@@ -7276,7 +7275,6 @@ void ScribusDoc::updatePict(QString name)
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
 		}
 	}
 	for (int a = 0; a <FrameItems.count(); ++a)
@@ -7289,7 +7287,6 @@ void ScribusDoc::updatePict(QString name)
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
 		}
 	}
 	QStringList patterns = docPatterns.keys();
@@ -7306,7 +7303,6 @@ void ScribusDoc::updatePict(QString name)
 				loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
-				currItem->AdjustPictScale();
 			}
 		}
 		PageItem *ite = pa.items.at(0);
@@ -7335,7 +7331,6 @@ void ScribusDoc::updatePictDir(QString name)
 						loadPict(currItem->Pfile, currItem, true);
 						currItem->setImageFlippedH(fho);
 						currItem->setImageFlippedV(fvo);
-						currItem->AdjustPictScale();
 						ScCore->fileWatcher->addFile(currItem->Pfile);
 					}
 				}
@@ -7359,7 +7354,6 @@ void ScribusDoc::updatePictDir(QString name)
 						loadPict(currItem->Pfile, currItem, true);
 						currItem->setImageFlippedH(fho);
 						currItem->setImageFlippedV(fvo);
-						currItem->AdjustPictScale();
 						ScCore->fileWatcher->addFile(currItem->Pfile);
 					}
 				}
@@ -7383,7 +7377,6 @@ void ScribusDoc::updatePictDir(QString name)
 						loadPict(currItem->Pfile, currItem, true);
 						currItem->setImageFlippedH(fho);
 						currItem->setImageFlippedV(fvo);
-						currItem->AdjustPictScale();
 						ScCore->fileWatcher->addFile(currItem->Pfile);
 					}
 				}
@@ -7411,7 +7404,6 @@ void ScribusDoc::updatePictDir(QString name)
 							loadPict(currItem->Pfile, currItem, true);
 							currItem->setImageFlippedH(fho);
 							currItem->setImageFlippedV(fvo);
-							currItem->AdjustPictScale();
 							ScCore->fileWatcher->addFile(currItem->Pfile);
 						}
 					}
@@ -7644,7 +7636,6 @@ void ScribusDoc::updatePic()
 						loadPict(currItem->Pfile, currItem, true);
 						currItem->setImageFlippedH(fho);
 						currItem->setImageFlippedV(fvo);
-						currItem->AdjustPictScale();
 						toUpdate=true;
 					}
 				}

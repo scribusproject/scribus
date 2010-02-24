@@ -4076,9 +4076,6 @@ void ScribusMainWindow::slotGetContent()
 				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				doc->LoadPict(fileName, currItem->ItemNr, false, true);
-				//view->AdjustPictScale(currItem, false);
-				//false was ignored anyway
-				currItem->AdjustPictScale();
 				propertiesPalette->setScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				view->DrawNew();
@@ -4168,7 +4165,6 @@ void ScribusMainWindow::slotGetClipboardImage()
 					currItem->Pfile = fileName;
 					img.save(fileName, "PNG");
 					doc->LoadPict(fileName, currItem->ItemNr, false, true);
-					currItem->AdjustPictScale();
 					propertiesPalette->setScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					view->DrawNew();
@@ -4225,7 +4221,6 @@ void ScribusMainWindow::toogleInlineState()
 							doc->loadPict(currItem->Pfile, currItem, true);
 							currItem->setImageFlippedH(fho);
 							currItem->setImageFlippedV(fvo);
-							currItem->AdjustPictScale();
 						}
 					}
 				}
@@ -4240,7 +4235,6 @@ void ScribusMainWindow::toogleInlineState()
 					doc->loadPict(currItem->Pfile, currItem, true);
 					currItem->setImageFlippedH(fho);
 					currItem->setImageFlippedV(fvo);
-					currItem->AdjustPictScale();
 				}
 				scrActions["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
 			}
@@ -9527,7 +9521,6 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
-				imageItem->AdjustPictScale();
 				imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
 				if (absolute==0)
 					imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);

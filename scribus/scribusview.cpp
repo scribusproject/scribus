@@ -3046,7 +3046,6 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 								Doc->loadPict(currItem->Pfile, currItem, true);
 								currItem->setImageFlippedH(fho);
 								currItem->setImageFlippedV(fvo);
-								currItem->AdjustPictScale();
 							}
 						}
 					}
@@ -3074,7 +3073,6 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 									Doc->loadPict(currItem->Pfile, currItem, true);
 									currItem->setImageFlippedH(fho);
 									currItem->setImageFlippedV(fvo);
-									currItem->AdjustPictScale();
 								}
 							}
 						}
@@ -3109,7 +3107,6 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 					Doc->loadPict(currItem->Pfile, currItem, true);
 					currItem->setImageFlippedH(fho);
 					currItem->setImageFlippedV(fvo);
-					currItem->AdjustPictScale();
 				}
 			}
 

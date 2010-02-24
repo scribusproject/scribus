@@ -1907,7 +1907,6 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 				newItem->pixm.imgInfo.isRequest = true;
 				doc->loadPict(newItem->Pfile, newItem, true);
 			}
-			newItem->AdjustPictScale();
 		}
 	}
 
