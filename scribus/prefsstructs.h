@@ -296,6 +296,7 @@ struct DisplayPrefs
 	double pageGapHorizontal; //! Horizontal gap between pages
 	double pageGapVertical; //! Vertical gap between pages
 	double displayScale; //! Display scale, typically used to set the scale of the display to 100% of real values.
+	bool showVerifierWarningsOnCanvas; //! Show preflight verifier warnings on canvas
 };
 
 struct ExternalToolsPrefs

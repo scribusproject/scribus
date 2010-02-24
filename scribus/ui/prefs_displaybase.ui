@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>686</width>
-    <height>486</height>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -114,6 +114,13 @@
           <widget class="QCheckBox" name="showPageShadowCheckBox">
            <property name="text">
             <string>Show Page Shadow</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="showVerifierWarningsOnCanvasCheckBox">
+           <property name="text">
+            <string>Show Preflight Verifier Warnings on the Page</string>
            </property>
           </widget>
          </item>

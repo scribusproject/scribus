@@ -266,6 +266,7 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.constrain = 15.0;
 	appPrefs.displayPrefs.paperColor = QColor(Qt::white);
 	appPrefs.displayPrefs.showPageShadow = true;
+	appPrefs.displayPrefs.showVerifierWarningsOnCanvas = true;
 	appPrefs.displayPrefs.frameColor = QColor(Qt::red);
 	appPrefs.displayPrefs.frameNormColor = QColor(Qt::black);
 	appPrefs.displayPrefs.frameGroupColor = QColor(Qt::darkCyan);
@@ -1308,6 +1309,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc1a.setAttribute("MARGC",appPrefs.guidesPrefs.marginColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.displayPrefs.marginColored));
 	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.displayPrefs.displayScale));
+	dc1a.setAttribute("ShowVerifierWarningsOnCanvas",static_cast<int>(appPrefs.displayPrefs.showVerifierWarningsOnCanvas));
+
 	elem.appendChild(dc1a);
 	// Font information must be written before FONTS element so that face "usable"
 	// member is set properly before one try to set default font. Allows to check
@@ -1908,6 +1911,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.displayPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
 			appPrefs.displayPrefs.displayScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.displayPrefs.displayScale);
+			appPrefs.displayPrefs.showVerifierWarningsOnCanvas = static_cast<bool>(dc.attribute("ShowVerifierWarningsOnCanvas", "1").toInt());
 		}
 		if (dc.tagName()=="TYPO")
 		{
