@@ -712,7 +712,7 @@ void ScribusMainWindow::initMenuBar()
 //	scrActions["editSearchReplace"]->setEnabled(false);
 //	scrActions["editReplaceColors"]->setEnabled(false);
 //	scrActions["editPatterns"]->setEnabled(false);
-//	scrActions["editGradients"]->setEnabled(false);
+	scrActions["editGradients"]->setEnabled(true);
 // 	scrActions["editStyles"]->setEnabled(false);
 //	scrActions["editMasterPages"]->setEnabled(false);
 //	scrActions["editJavascripts"]->setEnabled(false);
