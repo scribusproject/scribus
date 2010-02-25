@@ -162,7 +162,10 @@ void KernFeature::makeCoverage()
 				}
 			}
 			else
+			{
 				qDebug() <<"Unknow Coverage Format:"<<CoverageFormat;
+				continue;
+			}
 
 			makePairs ( SubTable );
 		}
