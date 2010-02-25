@@ -5,6 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QColorDialog>
+#include <QFontDialog>
+#include <QPixmap>
 #include <QStyleFactory>
 
 #include "langmgr.h"
@@ -31,7 +34,8 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent)
 		themeComboBox->addItem(styleList[i]);
 
 	connect(languageComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
-
+	connect(storyEditorFontPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFont()));
+	connect(storyEditorFontColorPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFontColor()));
 }
 
 Prefs_UserInterface::~Prefs_UserInterface()
@@ -67,6 +71,14 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	useTabsForDocumentsCheckBox->setChecked(prefsData->uiPrefs.useTabs);
 	showSplashCheckBox->setChecked(prefsData->uiPrefs.showSplashOnStartup);
 	useSmallWidgetsCheckBox->setChecked(prefsData->uiPrefs.useSmallWidgets);
+
+	storyEditorUseSmartSelectionCheckBox->setChecked(prefsData->storyEditorPrefs.smartTextSelection);
+	seFont.fromString(prefsData->storyEditorPrefs.guiFont);
+	storyEditorFontPushButton->setText(seFont.family());
+	QPixmap pm(100, 30);
+	pm.fill(prefsData->storyEditorPrefs.guiFontColorBackground);
+	seFontColor = prefsData->storyEditorPrefs.guiFontColorBackground;
+	storyEditorFontColorPushButton->setIcon(pm);
 }
 
 void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
@@ -82,6 +94,10 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->uiPrefs.useTabs=useTabsForDocumentsCheckBox->isChecked();
 	prefsData->uiPrefs.showSplashOnStartup=showSplashCheckBox->isChecked();
 	prefsData->uiPrefs.useSmallWidgets=useSmallWidgetsCheckBox->isChecked();
+
+	prefsData->storyEditorPrefs.guiFont=seFont.toString();
+	prefsData->storyEditorPrefs.guiFontColorBackground=seFontColor;
+	prefsData->storyEditorPrefs.smartTextSelection=storyEditorUseSmartSelectionCheckBox->isChecked();
 }
 
 
@@ -90,3 +106,26 @@ void Prefs_UserInterface::setSelectedGUILang( const QString &newLang )
 	selectedGUILang = LanguageManager::instance()->getAbbrevFromLang(newLang);
 }
 
+
+void Prefs_UserInterface::changeStoryEditorFontColor()
+{
+	QColor newColor(QColorDialog::getColor(seFontColor, this));
+	if (newColor.isValid())
+	{
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		seFontColor = newColor;
+		storyEditorFontColorPushButton->setIcon(pm);
+	}
+}
+
+void Prefs_UserInterface::changeStoryEditorFont()
+{
+	bool ok;
+	QFont newFont(QFontDialog::getFont( &ok, seFont, this ));
+	if (ok)
+	{
+		seFont = newFont;
+		storyEditorFontPushButton->setText(seFont.family());
+	}
+}

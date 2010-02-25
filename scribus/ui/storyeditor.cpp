@@ -1658,8 +1658,7 @@ void StoryEditor::initActions()
 	seActions.insert("settingsBackground", new ScrAction("", QKeySequence(), this));
 	seActions.insert("settingsDisplayFont", new ScrAction("", QKeySequence(), this));
 	seActions.insert("settingsSmartTextSelection", new ScrAction("", QKeySequence(), this));
-	smartSelection = false;
-	seActions["settingsSmartTextSelection"]->setChecked(false);
+	seActions["settingsSmartTextSelection"]->setChecked(smartSelection);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);
 
 	connect( seActions["settingsBackground"], SIGNAL(triggered()), this, SLOT(setBackPref()) );
@@ -1780,6 +1779,7 @@ void StoryEditor::buildGUI()
 {
 	unicodeCharActionNames.clear();
 	seActions.clear();
+	smartSelection=prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
 	initActions();
 	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
 	seActions["unicodeSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
@@ -1913,6 +1913,12 @@ void StoryEditor::buildGUI()
 	QFont fo;
 	fo.fromString(prefsManager->appPrefs.storyEditorPrefs.guiFont);
 	Editor->setFont(fo);
+	QPalette pal;
+	QColor newColor(prefsManager->appPrefs.storyEditorPrefs.guiFontColorBackground);
+	pal.setColor(QPalette::Active, QPalette::Base, newColor);
+	pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
+	pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
+	Editor->setPalette(pal);
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
 	EditorBar->editor = Editor;
@@ -2196,7 +2202,7 @@ void StoryEditor::setBackPref()
 		pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
 		pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
 		Editor->setPalette(pal);
-		prefsManager->appPrefs.storyEditorPrefs.guiFontColor = newColor;
+		prefsManager->appPrefs.storyEditorPrefs.guiFontColorBackground = newColor;
 	}
 	blockUpdate = false;
 }

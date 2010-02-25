@@ -327,8 +327,9 @@ struct MiscellaneousPrefs
 
 struct StoryEditorPrefs
 {
-	QColor guiFontColor; //! Color of the text used in the Story Editor window
+	QColor guiFontColorBackground; //! Color of the background for text used in the Story Editor window
 	QString guiFont; //! Font of the text used in the Story Editor window
+	bool smartTextSelection; //! Use smart text selection (relates to spacing mostly)
 };
 
 struct PrintPreviewPrefs

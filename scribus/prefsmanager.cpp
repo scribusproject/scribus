@@ -369,7 +369,8 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.gs_AntiAliasText = true;
 	appPrefs.extToolPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.extToolPrefs.gs_Resolution = 72;
-	appPrefs.storyEditorPrefs.guiFontColor = QColor(Qt::white);
+	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor(Qt::white);
+	appPrefs.storyEditorPrefs.smartTextSelection=false;
 	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = "";
 	appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = "";
 	appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = "";
@@ -1273,8 +1274,6 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("ScratchTop", appPrefs.displayPrefs.scratch.Top);
 	dc.setAttribute("GapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapHorizontal));
 	dc.setAttribute("GapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapVertical));
-	dc.setAttribute("STECOLOR", appPrefs.storyEditorPrefs.guiFontColor.name());
-	dc.setAttribute("STEFONT", appPrefs.storyEditorPrefs.guiFont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.miscPrefs.haveStylePreview));
 	dc.setAttribute("UI_SHOWSTARTUPDIALOG", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
 	dc.setAttribute("UI_SHOWSPLASHSCREEN", static_cast<int>(appPrefs.uiPrefs.showSplashOnStartup));
@@ -1284,6 +1283,11 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("showMouseCoordinates", static_cast<int>(appPrefs.displayPrefs.showMouseCoordinates));
 	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.uiPrefs.stickyTools));
 	elem.appendChild(dc);
+	QDomElement deSE=docu.createElement("StoryEditor");
+	deSE.setAttribute("Font",appPrefs.storyEditorPrefs.guiFont);
+	deSE.setAttribute("FontColorBackground",appPrefs.storyEditorPrefs.guiFontColorBackground.name());
+	deSE.setAttribute("SmartTextSelection",static_cast<int>(appPrefs.storyEditorPrefs.smartTextSelection));
+	elem.appendChild(deSE);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",ScCLocale::toQStringC(appPrefs.guidesPrefs.minorGridSpacing));
 	dc1.setAttribute("MAJOR",ScCLocale::toQStringC(appPrefs.guidesPrefs.majorGridSpacing));
@@ -1873,13 +1877,15 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.displayPrefs.scratch.Top    = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
 			appPrefs.displayPrefs.pageGapHorizontal  = ScCLocale::toDoubleC(dc.attribute("GapHorizontal"), 0.0);
 			appPrefs.displayPrefs.pageGapVertical    = ScCLocale::toDoubleC(dc.attribute("GapVertical"), 40.0);
-			if (dc.hasAttribute("STECOLOR"))
-				appPrefs.storyEditorPrefs.guiFontColor = QColor(dc.attribute("STECOLOR"));
-			if (dc.hasAttribute("STEFONT"))
-				appPrefs.storyEditorPrefs.guiFont = dc.attribute("STEFONT");
 			appPrefs.displayPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
 			appPrefs.displayPrefs.showMouseCoordinates = static_cast<bool>(dc.attribute("showMouseCoordinates", "1").toInt());
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("stickyTools", "0").toInt());
+		}
+		if (dc.tagName()=="StoryEditor")
+		{
+			appPrefs.storyEditorPrefs.guiFont  = dc.attribute("Font","");
+			appPrefs.storyEditorPrefs.guiFontColorBackground  = QColor(dc.attribute("FontColorBackground", "#FFFFFF"));
+			appPrefs.storyEditorPrefs.smartTextSelection = static_cast<bool>(dc.attribute("SmartTextSelection", "0").toInt());
 		}
 		if (dc.tagName()=="GRID")
 		{

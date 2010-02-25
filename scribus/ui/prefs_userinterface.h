@@ -8,6 +8,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_USERINTERFACE_H
 #define PREFS_USERINTERFACE_H
 
+#include <QColor>
+#include <QFont>
+#include <QString>
+
 #include "ui_prefs_userinterfacebase.h"
 #include "prefs_pane.h"
 #include "scribusapi.h"
@@ -27,10 +31,13 @@ class SCRIBUS_API Prefs_UserInterface : public Prefs_Pane, Ui::Prefs_UserInterfa
 
 	protected:
 		QString selectedGUILang;
+		QColor seFontColor;
+		QFont seFont;
 
 	private slots:
 		void setSelectedGUILang( const QString &newLang );
-
+		void changeStoryEditorFont();
+		void changeStoryEditorFontColor();
 };
 
 #endif // PREFS_USERINTERFACE_H
