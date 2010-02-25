@@ -218,6 +218,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			//CB if annotation, open the annotation dialog
 			if (currItem->isAnnotation())
 			{
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				m_view->requestMode(submodeAnnotProps);
 				//mousePressEvent(m);
 			}
@@ -960,7 +961,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (GetItem(&currItem))
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
+	//	qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 		if (m_doc->m_Selection->count() > 1)
 		{
 			m_doc->m_Selection->setGroupRect();

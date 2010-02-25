@@ -334,6 +334,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 		//CB if annotation, open the annotation dialog
 		if (currItem->isAnnotation())
 		{
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			m_view->requestMode(submodeAnnotProps);
 		}
 		//otherwise, select between the whitespace
