@@ -133,6 +133,10 @@ localization = {
        'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
        'Ottobre', 'Novembre', 'Dicembre'],
     [u'Luned\xec', u'Marted\xec', u'Mercoled\xec', u'Gioved\xec', u'Venerd\xec', 'Sabato', 'Domenica']],
+# Norwegian by Joacim Thomassen joacim@net.homelinux.org
+'Norwegian' :
+    [['Januar', 'Februar','Mars', 'April','Mai', 'Juni','Juli', 'August','September', 'Oktober', 'November', 'Desember'],
+     ['Mandag', 'Tirsdag','Onsdag', 'Torsdag','Fredag', 'Lørdag','Søndag']],
 # Polish by "Łukasz [DeeJay1] Jernaś" <deejay1@nsj.srem.pl>
 'Polish' :
     [['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj',
@@ -276,7 +280,7 @@ class ScCalendar:
         newPage(-1, self.masterPage)
 
 class ScEventCalendar(ScCalendar):
-    """ Parent class for event 
+    """ Parent class for event
         (horizontal event, vertical event) calendar types """
 
     def __init__(self, year, months = [], firstDay = calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
@@ -327,7 +331,7 @@ class ScHorizontalEventCalendar(ScEventCalendar):
         self.rowSize = self.height / 8
 
     def printWeekNo(self, week):
-        """ Dummy for now 
+        """ Dummy for now
             (for this type of calendar - see ScVerticalEventCalendar) """
         return
 
@@ -354,10 +358,10 @@ class ScHorizontalEventCalendar(ScEventCalendar):
     def setupMasterPage(self):
         """ Create a master page (not used for this type of calendar """
         createMasterPage(self.masterPage)
-        closeMasterPage() 
+        closeMasterPage()
 
 class ScVerticalCalendar(ScCalendar):
-    """ Parent class for vertical 
+    """ Parent class for vertical
         (classic, vertical event) calendar types """
 
     def __init__(self, year, months = [], firstDay = calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
@@ -446,7 +450,7 @@ class ScVerticalEventCalendar(ScVerticalCalendar, ScEventCalendar):
     def printWeekNo(self, week):
         """ Print the week number for the given week"""
         weekCel = createText(self.marginl, self.calHeight, self.width, self.rowSize)
-        # Week number: of this week's Thursday. 
+        # Week number: of this week's Thursday.
         # See http://docs.python.org/library/datetime.html#datetime.date.isocalendar
         # Note that week calculation isn't perfectly universal yet:
         # http://en.wikipedia.org/wiki/Week_number#Week_number
