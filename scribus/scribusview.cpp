@@ -1498,6 +1498,8 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	FPoint oldPos(currItem->xyPos());
 	double offsX = currItem->width() / 2.0;
 	double offsY = currItem->height() / 2.0;
+	double oldWidth = currItem->width();
+	double oldHeight = currItem->height();
 	ma.translate(-offsX, -offsY);
 	switch (mode)
 	{
@@ -1526,10 +1528,10 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		ma.shear(0, 0.017455);
 		break;
 	case 8:
-		ma.scale(1.0 - (scaling / currItem->width()),1.0 - (scaling / currItem->height()));
+		ma.scale(1.0 - (scaling / oldWidth),1.0 - (scaling / oldHeight));
 		break;
 	case 9:
-		ma.scale(1.0 + (scaling / currItem->width()),1.0 + (scaling / currItem->height()));
+		ma.scale(1.0 + (scaling / oldWidth),1.0 + (scaling / oldHeight));
 		break;
 	}
 	currItem->PoLine.map(ma);
@@ -1567,10 +1569,10 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		ma2.shear(0, 0.017455);
 		break;
 	case 8:
-		ma2.scale(1.0 - (scaling / currItem->width()),1.0 - (scaling / currItem->height()));
+		ma2.scale(1.0 - (scaling / oldWidth),1.0 - (scaling / oldHeight));
 		break;
 	case 9:
-		ma2.scale(1.0 + (scaling / currItem->width()),1.0 + (scaling / currItem->height()));
+		ma2.scale(1.0 + (scaling / oldWidth),1.0 + (scaling / oldHeight));
 		break;
 	}
 	double x = ma2.m11() * n.x() + ma2.m21() * n.y() + ma2.dx();
