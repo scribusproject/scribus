@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
+#include "sctextstream.h"
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {
@@ -50,8 +51,27 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
+
+	// Grab the old selection - but use it only where is there any
+	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	bool hadOrigSelection = (tempSelection.count() != 0);
+
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	// Clear the selection
+	ScCore->primaryMainWindow()->view->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+
+	// scale
 	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
 	ScCore->primaryMainWindow()->doc->updatePic();
+
+	// Now restore the selection.
+	ScCore->primaryMainWindow()->view->Deselect();
+	if (hadOrigSelection)
+		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -73,9 +93,128 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
+
+	// Grab the old selection - but use it only where is there any
+	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	bool hadOrigSelection = (tempSelection.count() != 0);
+
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	// Clear the selection
+	ScCore->primaryMainWindow()->view->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+
+	// scale
 	double newScaleX = x / item->pixm.imgInfo.xres * 72.0;
 	double newScaleY = y / item->pixm.imgInfo.yres * 72.0;
 	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(newScaleX, newScaleY); //CB why when this is done above?
+	ScCore->primaryMainWindow()->doc->updatePic();
+
+	// Now restore the selection.
+	ScCore->primaryMainWindow()->view->Deselect();
+	if (hadOrigSelection)
+		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double x, y;
+	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+	if (! item->asImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	// Grab the old selection - but use it only where is there any
+	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	bool hadOrigSelection = (tempSelection.count() != 0);
+
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	// Clear the selection
+	ScCore->primaryMainWindow()->view->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+
+	// offset
+	ScCore->primaryMainWindow()->doc->itemSelection_SetImageOffset(x, y); //CB why when this is done above?
+	ScCore->primaryMainWindow()->doc->updatePic();
+
+	// Now restore the selection.
+	ScCore->primaryMainWindow()->view->Deselect();
+	if (hadOrigSelection)
+		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setimagebrightness(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double n;
+	if (!PyArg_ParseTuple(args, "d|es", &n, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+	if (! item->asImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	ImageEffect ef;
+	ef.effectCode = ScImage::EF_BRIGHTNESS;
+	ScTextStream fp(&ef.effectParameters, QIODevice::WriteOnly);
+	fp << n;
+
+	item->effectsInUse.append(ef);
+	item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
+	
+	ScCore->primaryMainWindow()->doc->updatePic();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setimagegrayscale(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+	if (! item->asImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	ImageEffect ef;
+	ef.effectCode = ScImage::EF_GRAYSCALE;
+
+	item->effectsInUse.append(ef);
+	item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
+	
 	ScCore->primaryMainWindow()->doc->updatePic();
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -110,13 +249,13 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->doc->moveGroup(ValueToPoint(x), ValueToPoint(y));
 		ScCore->primaryMainWindow()->view->endGroupTransaction();
 	}
-	else
+	else {
 		ScCore->primaryMainWindow()->doc->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
+		}
 	// Now restore the selection.
 	ScCore->primaryMainWindow()->view->Deselect();
 	if (hadOrigSelection)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
-
 	Py_RETURN_NONE;
 }
 
@@ -443,5 +582,5 @@ void cmdmanidocwarnings()
 	  << scribus_ungroupobj__doc__ << scribus_scalegroup__doc__
 	  << scribus_loadimage__doc__ << scribus_scaleimage__doc__
 	  << scribus_setimagescale__doc__ << scribus_lockobject__doc__
-	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__;
+	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__ << scribus_setimagebrightness__doc__ << scribus_setimagegrayscale__doc__ << scribus_setimageoffset__doc__;
 }

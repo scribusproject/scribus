@@ -169,6 +169,18 @@ May raise WrongFrameTypeError if the target frame is not an image frame\n\
 PyObject *scribus_scaleimage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setimageoffset__doc__,
+QT_TR_NOOP("setImageOffset(x, y [, \"name\"])\n\
+\n\
+Sets the internal offset of the picture in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame\n\
+"));
+/*! Scale Image. */
+PyObject *scribus_setimageoffset(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setimagescale__doc__,
 QT_TR_NOOP("setImageScale(x, y [, \"name\"])\n\
 \n\
@@ -180,6 +192,31 @@ May raise WrongFrameTypeError if the target frame is not an image frame\n\
 "));
 /*! Scale Image. */
 PyObject *scribus_setimagescale(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setimagebrightness__doc__,
+QT_TR_NOOP("setImageBrightness(n [, \"name\"])\n\
+\n\
+Set image brightness effect of the picture in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used. A number of 1\n\
+means 100 %. Brightness factor is equal to the value shown on properties palette.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame\n\
+"));
+/*! Set Image Brightness. */
+PyObject *scribus_setimagebrightness(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setimagegrayscale__doc__,
+QT_TR_NOOP("setImageGrayscale([\"name\"])\n\
+\n\
+Set image grayscale effect of the picture in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame\n\
+"));
+/*! Set Image Brightness. */
+PyObject *scribus_setimagegrayscale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_lockobject__doc__,
