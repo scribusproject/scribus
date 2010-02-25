@@ -953,7 +953,16 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 		{
 			pa.items.at(o)->getNamedResources(lists);
 		}
-	}	
+	}
+	QMap<QString,VGradient>::ConstIterator itg;
+	for (itg = docGradients.begin(); itg != docGradients.end(); ++itg)
+	{
+		QList<VColorStop*> cstops = itg.value().colorStops();
+		for (uint cst = 0; cst < itg.value().Stops(); ++cst)
+		{
+			lists.collectColor(cstops.at(cst)->name);
+		}
+	}
 }
 
 
@@ -5419,7 +5428,6 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 void ScribusDoc::removePageFromSection(const uint pageIndex)
 {
 	//Get the section of the new page index.
-	bool found = false;
 	uint fromIndex, toIndex;
 	DocumentSectionMap::Iterator it = sections.begin();
 	for (; it!= sections.end(); ++it)
