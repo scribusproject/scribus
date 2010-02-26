@@ -1175,7 +1175,7 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 			double r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);
 			if (maskMode == 3)
-				a = 1.0 - (0.3 * r + 0.59 * g + 0.11 * b);
+				a = /* 1.0 - */(0.3 * r + 0.59 * g + 0.11 * b);
 			cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 		}
 		cairo_matrix_t matrix;
@@ -1217,10 +1217,10 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 				{
 					r = *s;
 					if (qAlpha(r) == 0)
-						k = 255;
+						k = 0; // 255;
 					else
 						k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-					*s = qRgba(qRed(r), qGreen(r), qBlue(r), 255 - k);
+					*s = qRgba(qRed(r), qGreen(r), qBlue(r), /* 255 - */ k);
 					s++;
 				}
 			}
@@ -2055,7 +2055,7 @@ void ScPainter::setClipPath()
 #endif
 }
 
-void ScPainter::drawImage( QImage *image )
+void ScPainter::drawImage( QImage *image)
 {
 #ifdef HAVE_CAIRO
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 2, 6)

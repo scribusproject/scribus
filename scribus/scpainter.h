@@ -78,7 +78,7 @@ public:
 	
 	virtual void setClipPath();
 
-	virtual void drawImage( QImage *image );
+	virtual void drawImage( QImage *image);
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();

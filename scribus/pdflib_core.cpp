@@ -5842,7 +5842,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			double r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);
 			if ((GType == 4) || (GType == 5))
-				a = 1.0 - (0.3 * r + 0.59 * g + 0.11 * b);
+				a = /* 1.0 - */ (0.3 * r + 0.59 * g + 0.11 * b);
 			if ((cst == 0) && (actualStop != 0.0))
 			{
 				StopVec.append(0.0);
@@ -5870,7 +5870,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc("/ShadingType 3\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
 		PutDoc("/Extend [true true]\n");
-		if (GType == 1)
+		if ((GType == 1) || (GType == 4))
 			PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
 		else
 			PutDoc("/Coords ["+FToStr(FocalX)+" "+FToStr(-FocalY)+" 0.0 "+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)))+"]\n");
@@ -6332,8 +6332,11 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	colorShades.clear();
 	QTransform mpa;
 	bool spotMode = false;
-	mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-	mpa.rotate(-currItem->rotation());
+	if (inPattern == 0)
+	{
+		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+		mpa.rotate(-currItem->rotation());
+	}
 	if (Gskew == 90)
 		Gskew = 1;
 	else if (Gskew == 180)

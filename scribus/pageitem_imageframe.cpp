@@ -142,9 +142,46 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 						p->scale(1, -1);
 					}
 					p->translate(LocalX*LocalScX, LocalY*LocalScY);
+					double mscalex = 1.0 / LocalScX;
+					double mscaley = 1.0 / LocalScY;
 					p->scale(LocalScX, LocalScY);
 					if (pixm.imgInfo.lowResType != 0)
+					{
 						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
+						mscalex *= 1.0 / pixm.imgInfo.lowResScale;
+						mscaley *= 1.0 / pixm.imgInfo.lowResScale;
+					}
+					if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+					{
+						if ((GrMask == 1) || (GrMask == 2))
+							p->setMaskMode(1);
+						else
+							p->setMaskMode(3);
+						if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
+							gradientMaskVal = "";
+						if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
+							mask_gradient = m_Doc->docGradients[gradientMaskVal];
+						p->mask_gradient = mask_gradient;
+						if ((GrMask == 1) || (GrMask == 4))
+							p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), GrMaskScale, GrMaskSkew);
+						else
+							p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskFocalX * mscalex, GrMaskFocalY * mscaley), GrMaskScale, GrMaskSkew);
+					}
+					else if ((GrMask == 3) || (GrMask == 6))
+					{
+						if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
+							p->setMaskMode(0);
+						else
+						{
+							p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX * mscalex, patternMaskScaleY * mscaley, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+							if (GrMask == 3)
+								p->setMaskMode(2);
+							else
+								p->setMaskMode(4);
+						}
+					}
+					else
+						p->setMaskMode(0);
 					p->drawImage(pixm.qImagePtr());
 				}
 			}
