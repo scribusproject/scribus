@@ -1371,7 +1371,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemUpdateImage"]->setTexts( tr("&Update Image"));
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));
 	(*scrActions)["itemAdjustImageToFrame"]->setTexts( tr("Adjust Image to Frame"));
-	(*scrActions)["itemToggleInlineImage"]->setTexts( tr("Image Inline"));
+	(*scrActions)["itemToggleInlineImage"]->setTexts( tr("Embed Image"));
 	(*scrActions)["itemExtendedImageProperties"]->setTexts( tr("Extended Image Properties"));
 	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
 	(*scrActions)["itemPreviewNormal"]->setTexts( tr("&Normal Resolution"));
