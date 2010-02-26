@@ -363,6 +363,7 @@ void cmdcolordocswarnings()
 {
     QStringList s;
     s << scribus_colornames__doc__ << scribus_getcolor__doc__ << scribus_getcolorasrgb__doc__;
-    s << scribus_setcolor__doc__ << scribus_newcolor__doc__ << scribus_newcolorrgb__doc__ << scribus_delcolor__doc__;
+    s << scribus_setcolor__doc__ << scribus_setcolorrgb__doc__ << scribus_setcolorcmyk__doc__; 
+	s << scribus_newcolor__doc__ << scribus_newcolorrgb__doc__ << scribus_newcolorcmyk__doc__<< scribus_delcolor__doc__;
 	s << scribus_replcolor__doc__ << scribus_isspotcolor__doc__ << scribus_setspotcolor__doc__;
 }
