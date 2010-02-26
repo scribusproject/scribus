@@ -94,7 +94,7 @@ class SCRIBUS_API SampleItem : QObject
 		*/
 		QPixmap getSample(int width, int height);
 		/*! \brief Remove the tmp issues. */
-		void cleanupTemporary();
+		void cleanupTemporary() {};
 
 	private:
 		//! \brief Text to be rendered
