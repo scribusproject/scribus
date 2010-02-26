@@ -103,7 +103,6 @@ FontPreview::~FontPreview()
 	prefs->set("fontSize", sizeSpin->value());
 	prefs->set("phrase", displayEdit->text());
 	prefs->set("extendedView", extendedCheckBox->isChecked());
-	sampleItem->cleanupTemporary(); // just to be sure
 }
 
 void FontPreview::languageChange()
