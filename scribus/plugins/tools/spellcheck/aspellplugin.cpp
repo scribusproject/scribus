@@ -57,7 +57,7 @@ void AspellPlugin::languageChange()
 
 const QString AspellPlugin::fullTrName() const
 {
-	return QObject::tr("Spell check (aspell)");
+	return QObject::tr("Spell check (Aspell)");
 }
 
 const ScActionPlugin::AboutData* AspellPlugin::getAboutData() const
@@ -67,8 +67,8 @@ const ScActionPlugin::AboutData* AspellPlugin::getAboutData() const
 	about->authors = "Gora Mohanty <gora@srijan.in>";
 	about->shortDescription = tr( "Spell-checking support" );
 	about->description =
-	  tr( "Adds support for spell-checking via aspell. Languages "
-	      "can be chosen from among the installed aspell "
+	  tr( "Adds support for spell-checking via Aspell. Languages "
+	      "can be chosen from among the installed Aspell "
 	      "dictionaries, and spell-checking can be done on the "
 	      "fly, or on selected text." );
 	about->version = tr( "0.1" );
@@ -95,9 +95,7 @@ bool AspellPlugin::run(ScribusDoc* doc, QString target)
 	{
 		doc->scMW()->scrActions[m_actionInfo.name]->setEnabled(false);
 		doc->scMW()->scrActions[m_actionInfo.name]->setVisible(false);
-		QMessageBox::warning(doc->scMW(),
-							 tr("Aspell Plugin Error"),
-							 myPluginImpl->errorMessage());
+		QMessageBox::warning(doc->scMW(), tr("Aspell Plugin Error"), myPluginImpl->errorMessage());
 	}
 	delete myPluginImpl;
 	return true;

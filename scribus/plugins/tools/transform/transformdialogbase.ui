@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TransformDialogBase</class>
- <widget class="QDialog" name="TransformDialogBase" >
-  <property name="geometry" >
+ <widget class="QDialog" name="TransformDialogBase">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,57 +10,57 @@
     <height>283</height>
    </rect>
   </property>
-  <property name="minimumSize" >
+  <property name="minimumSize">
    <size>
     <width>500</width>
     <height>260</height>
    </size>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Transform</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout">
      <item>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QListWidget" name="transformSelector" />
+        <widget class="QListWidget" name="transformSelector"/>
        </item>
        <item>
-        <layout class="QHBoxLayout" >
+        <layout class="QHBoxLayout">
          <item>
-          <widget class="QToolButton" name="buttonAdd" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+          <widget class="QToolButton" name="buttonAdd">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Add</string>
            </property>
-           <property name="popupMode" >
+           <property name="popupMode">
             <enum>QToolButton::InstantPopup</enum>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="buttonRemove" >
-           <property name="enabled" >
+          <widget class="QPushButton" name="buttonRemove">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Remove</string>
            </property>
           </widget>
          </item>
          <item>
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>21</width>
              <height>26</height>
@@ -68,27 +69,27 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="buttonUp" >
-           <property name="enabled" >
+          <widget class="QPushButton" name="buttonUp">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>u</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="buttonDown" >
-           <property name="enabled" >
+          <widget class="QPushButton" name="buttonDown">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>d</string>
            </property>
           </widget>
@@ -98,319 +99,319 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QStackedWidget" name="transformStack" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+        <widget class="QStackedWidget" name="transformStack">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>160</width>
            <height>16</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::Panel</enum>
          </property>
-         <property name="currentIndex" >
+         <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="blankPage" />
-         <widget class="QWidget" name="pageScale" >
-          <layout class="QGridLayout" >
-           <item row="0" column="0" colspan="3" >
-            <widget class="QLabel" name="label_3" >
-             <property name="font" >
+         <widget class="QWidget" name="blankPage"/>
+         <widget class="QWidget" name="pageScale">
+          <layout class="QGridLayout">
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="label_3">
+             <property name="font">
               <font>
                <pointsize>11</pointsize>
               </font>
              </property>
-             <property name="text" >
+             <property name="text">
               <string>Scaling</string>
              </property>
-             <property name="alignment" >
+             <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="1" column="0" >
-            <widget class="QLabel" name="label" >
-             <property name="text" >
+           <item row="1" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
               <string>Horizontal</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1" >
-            <widget class="ScrSpinBox" name="horizontalScale" >
-             <property name="sizePolicy" >
-              <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+           <item row="1" column="1">
+            <widget class="ScrSpinBox" name="horizontalScale">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="minimumSize" >
+             <property name="minimumSize">
               <size>
                <width>60</width>
                <height>0</height>
               </size>
              </property>
-             <property name="suffix" >
+             <property name="suffix">
               <string> %</string>
              </property>
-             <property name="decimals" >
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+             <property name="value">
+              <number>100</number>
+             </property>
+             <property name="decimals" stdset="0">
               <number>1</number>
-             </property>
-             <property name="minimum" >
-              <double>0.100000000000000</double>
-             </property>
-             <property name="maximum" >
-              <double>1000.000000000000000</double>
-             </property>
-             <property name="value" >
-              <double>100.000000000000000</double>
              </property>
             </widget>
            </item>
-           <item rowspan="2" row="1" column="2" >
-            <widget class="LinkButton" name="scaleLink" >
-             <property name="minimumSize" >
+           <item row="1" column="2" rowspan="2">
+            <widget class="LinkButton" name="scaleLink">
+             <property name="minimumSize">
               <size>
                <width>15</width>
                <height>15</height>
               </size>
              </property>
-             <property name="maximumSize" >
+             <property name="maximumSize">
               <size>
                <width>15</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="text" >
+             <property name="text">
               <string/>
              </property>
-             <property name="checkable" >
+             <property name="checkable">
               <bool>true</bool>
              </property>
-             <property name="autoRaise" >
+             <property name="autoRaise">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="2" column="0" >
-            <widget class="QLabel" name="label_2" >
-             <property name="text" >
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
               <string>Vertical</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1" >
-            <widget class="ScrSpinBox" name="verticalScale" >
-             <property name="sizePolicy" >
-              <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+           <item row="2" column="1">
+            <widget class="ScrSpinBox" name="verticalScale">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="minimumSize" >
+             <property name="minimumSize">
               <size>
                <width>60</width>
                <height>0</height>
               </size>
              </property>
-             <property name="suffix" >
+             <property name="suffix">
               <string> %</string>
              </property>
-             <property name="decimals" >
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+             <property name="value">
+              <number>100</number>
+             </property>
+             <property name="decimals" stdset="0">
               <number>1</number>
-             </property>
-             <property name="minimum" >
-              <double>0.100000000000000</double>
-             </property>
-             <property name="maximum" >
-              <double>1000.000000000000000</double>
-             </property>
-             <property name="value" >
-              <double>100.000000000000000</double>
              </property>
             </widget>
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="pageTranslate" >
-          <layout class="QGridLayout" >
-           <item row="0" column="0" colspan="2" >
-            <widget class="QLabel" name="label_4" >
-             <property name="font" >
+         <widget class="QWidget" name="pageTranslate">
+          <layout class="QGridLayout">
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="label_4">
+             <property name="font">
               <font>
                <pointsize>11</pointsize>
               </font>
              </property>
-             <property name="text" >
+             <property name="text">
               <string>Translation</string>
              </property>
-             <property name="alignment" >
+             <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="1" column="0" >
-            <widget class="QLabel" name="label_5" >
-             <property name="text" >
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
               <string>Horizontal</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1" >
-            <widget class="ScrSpinBox" name="translateHorizontal" >
-             <property name="minimum" >
-              <double>-30000.000000000000000</double>
+           <item row="1" column="1">
+            <widget class="ScrSpinBox" name="translateHorizontal">
+             <property name="minimum">
+              <number>-30000</number>
              </property>
-             <property name="maximum" >
-              <double>30000.000000000000000</double>
+             <property name="maximum">
+              <number>30000</number>
              </property>
             </widget>
            </item>
-           <item row="2" column="0" >
-            <widget class="QLabel" name="label_6" >
-             <property name="text" >
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
               <string>Vertical</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1" >
-            <widget class="ScrSpinBox" name="translateVertical" >
-             <property name="minimum" >
-              <double>-30000.000000000000000</double>
+           <item row="2" column="1">
+            <widget class="ScrSpinBox" name="translateVertical">
+             <property name="minimum">
+              <number>-30000</number>
              </property>
-             <property name="maximum" >
-              <double>30000.000000000000000</double>
+             <property name="maximum">
+              <number>30000</number>
              </property>
             </widget>
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="pageRotate" >
-          <layout class="QGridLayout" >
-           <item row="0" column="0" colspan="2" >
-            <widget class="QLabel" name="label_7" >
-             <property name="font" >
+         <widget class="QWidget" name="pageRotate">
+          <layout class="QGridLayout">
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="label_7">
+             <property name="font">
               <font>
                <pointsize>11</pointsize>
               </font>
              </property>
-             <property name="text" >
+             <property name="text">
               <string>Rotate</string>
              </property>
-             <property name="alignment" >
+             <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="1" column="0" >
-            <widget class="QLabel" name="label_8" >
-             <property name="text" >
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
               <string>Angle</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1" >
-            <widget class="ScrSpinBox" name="rotationValue" >
-             <property name="decimals" >
+           <item row="1" column="1">
+            <widget class="ScrSpinBox" name="rotationValue">
+             <property name="minimum">
+              <number>-360</number>
+             </property>
+             <property name="maximum">
+              <number>360</number>
+             </property>
+             <property name="decimals" stdset="0">
               <number>1</number>
-             </property>
-             <property name="minimum" >
-              <double>-360.000000000000000</double>
-             </property>
-             <property name="maximum" >
-              <double>360.000000000000000</double>
              </property>
             </widget>
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="Seite" >
-          <layout class="QGridLayout" >
-           <item row="0" column="0" colspan="3" >
-            <widget class="QLabel" name="label_10" >
-             <property name="font" >
+         <widget class="QWidget" name="Seite">
+          <layout class="QGridLayout">
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="label_10">
+             <property name="font">
               <font>
                <pointsize>11</pointsize>
               </font>
              </property>
-             <property name="text" >
+             <property name="text">
               <string>Skew</string>
              </property>
-             <property name="alignment" >
+             <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="1" column="0" >
-            <widget class="QLabel" name="label_11" >
-             <property name="text" >
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
               <string>Horizontal</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1" >
-            <widget class="ScrSpinBox" name="horizontalSkew" >
-             <property name="decimals" >
+           <item row="1" column="1">
+            <widget class="ScrSpinBox" name="horizontalSkew">
+             <property name="minimum">
+              <number>-89</number>
+             </property>
+             <property name="maximum">
+              <number>89</number>
+             </property>
+             <property name="decimals" stdset="0">
               <number>1</number>
-             </property>
-             <property name="minimum" >
-              <double>-89.000000000000000</double>
-             </property>
-             <property name="maximum" >
-              <double>89.000000000000000</double>
              </property>
             </widget>
            </item>
-           <item rowspan="2" row="1" column="2" >
-            <widget class="LinkButton" name="linkSkew" >
-             <property name="minimumSize" >
+           <item row="1" column="2" rowspan="2">
+            <widget class="LinkButton" name="linkSkew">
+             <property name="minimumSize">
               <size>
                <width>15</width>
                <height>15</height>
               </size>
              </property>
-             <property name="maximumSize" >
+             <property name="maximumSize">
               <size>
                <width>15</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="text" >
+             <property name="text">
               <string/>
              </property>
-             <property name="checkable" >
+             <property name="checkable">
               <bool>true</bool>
              </property>
-             <property name="autoRaise" >
+             <property name="autoRaise">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="2" column="0" >
-            <widget class="QLabel" name="label_12" >
-             <property name="text" >
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
               <string>Vertical</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1" >
-            <widget class="ScrSpinBox" name="verticalSkew" >
-             <property name="decimals" >
+           <item row="2" column="1">
+            <widget class="ScrSpinBox" name="verticalSkew">
+             <property name="minimum">
+              <number>-89</number>
+             </property>
+             <property name="maximum">
+              <number>89</number>
+             </property>
+             <property name="decimals" stdset="0">
               <number>1</number>
-             </property>
-             <property name="minimum" >
-              <double>-89.000000000000000</double>
-             </property>
-             <property name="maximum" >
-              <double>89.000000000000000</double>
              </property>
             </widget>
            </item>
@@ -419,16 +420,16 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" >
+        <layout class="QHBoxLayout">
          <item>
-          <widget class="QGroupBox" name="RotationGroup" >
-           <property name="title" >
-            <string>Origin</string>
+          <widget class="QGroupBox" name="RotationGroup">
+           <property name="title">
+            <string>Basepoint</string>
            </property>
-           <layout class="QVBoxLayout" >
+           <layout class="QVBoxLayout">
             <item>
-             <widget class="BasePointWidget" native="1" name="basePoint" >
-              <property name="minimumSize" >
+             <widget class="BasePointWidget" name="basePoint" native="true">
+              <property name="minimumSize">
                <size>
                 <width>56</width>
                 <height>56</height>
@@ -440,20 +441,20 @@
           </widget>
          </item>
          <item>
-          <layout class="QVBoxLayout" >
+          <layout class="QVBoxLayout">
            <item>
-            <widget class="QLabel" name="label_9" >
-             <property name="text" >
+            <widget class="QLabel" name="label_9">
+             <property name="text">
               <string>Copies</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="numberOfCopies" >
-             <property name="minimum" >
+            <widget class="QSpinBox" name="numberOfCopies">
+             <property name="minimum">
               <number>0</number>
              </property>
-             <property name="maximum" >
+             <property name="maximum">
               <number>200</number>
              </property>
             </widget>
@@ -464,10 +465,10 @@
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>31</width>
            <height>21</height>
@@ -480,23 +481,23 @@
     </layout>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="5" margin="10" />
+ <layoutdefault spacing="5" margin="10"/>
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>LinkButton</class>
@@ -518,11 +519,11 @@
    <receiver>TransformDialogBase</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -534,11 +535,11 @@
    <receiver>TransformDialogBase</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>

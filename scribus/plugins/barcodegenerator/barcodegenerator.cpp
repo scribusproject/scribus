@@ -102,7 +102,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	useSamples = true;
 	guiColor = ui.codeEdit->palette().color(QPalette::Window);
-	ui.bcCombo->addItem(tr("Select Type")); // to prevent 1st gs call
+	ui.bcCombo->addItem(tr("Barcode")); // to prevent 1st gs call
 	ui.bcCombo->addItems(map.keys());
 	ui.okButton->setText(CommonStrings::tr_OK);
 	ui.cancelButton->setText(CommonStrings::tr_Cancel);
@@ -160,7 +160,7 @@ void BarcodeGenerator::bcComboChanged()
 	if (ui.bcCombo->currentIndex() == 0)
 	{
 		ui.okButton->setEnabled(false);
-		ui.sampleLabel->setText(tr("Select Barcode Type"));
+		ui.sampleLabel->setText(tr("Select Type"));
 		return;
 	}
 	else

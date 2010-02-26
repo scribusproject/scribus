@@ -35,7 +35,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	editLayout = new QGridLayout();
 	editLayout->setSpacing( 5 );
 	editLayout->setMargin( 0 );
-	RotationGroupContainer = new QGroupBox( tr("Origin"), this);
+	RotationGroupContainer = new QGroupBox( tr("Basepoint"), this);
 	Layout12a = new QGridLayout(RotationGroupContainer);
 	Layout12a->setSpacing( 0 );
 	Layout12a->setMargin( 5 );

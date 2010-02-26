@@ -41,7 +41,7 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	// Get stored language, jargon, encoding settings
 	fprefs = PrefsManager::instance()->prefsFile->getPluginContext( kDEF_CONTEXT );
 	getPreferences();
-	QString text = tr( "Loaded " ) + (fentry == kDEF_ASPELL_ENTRY ? tr( "default " ) : "") + fentry + tr( " aspell dictionary." );
+	QString text = tr( "Loaded " ) + (fentry == kDEF_ASPELL_ENTRY ? tr( "default " ) : "") + fentry + tr( " Aspell dictionary." );
 	doc->scMW()->setStatusBarInfoText( text );
 	try
 	{
@@ -87,7 +87,7 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	catch( const std::invalid_argument& err )
 	{
 		QString warn = tr( "aspellplugin (AspellPluginImpl::"
-				   "AspellPluginImpl): Error in aspell "
+				   "AspellPluginImpl): Error in Aspell "
 				   "speller configuration." );
 		qWarning( "%s", warn.toUtf8().data() );
 	}
@@ -95,7 +95,7 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	{
 		QString warn = tr( "aspellplugin (AspellPluginImpl::"
 				   "AspellPluginImpl): Error in creating "
-				   "aspell speller." );
+				   "Aspell speller." );
 		qWarning( "%s", warn.toUtf8().data() );
 	}
 	activateSpellGUI(true);
@@ -112,7 +112,7 @@ AspellPluginImpl::~AspellPluginImpl()
 	catch( const std::runtime_error& err )
 	{
 		qWarning( "aspellplugin (AspellPluginImpl::~AspellPlugin"
-			  "Impl): Error in saving aspell word lists." );
+			  "Impl): Error in saving Aspell word lists." );
 	}
 
 	delete fsuggest;
