@@ -21,9 +21,9 @@ for which a new license (GPL+exception) is in place.
 
 
 GuideManagerCore::GuideManagerCore():
+	gx(0), gy(0), gw(0), gh(0),
 	undoManager(UndoManager::instance()),
 	m_page(0),
-	gx(0), gy(0), gw(0), gh(0),
 	m_horizontalAutoGap(0.0),
 	m_verticalAutoGap(0.0),
 	m_horizontalAutoCount(0),
