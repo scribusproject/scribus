@@ -1528,12 +1528,12 @@ StoryEditor::~StoryEditor()
 void StoryEditor::showEvent(QShowEvent *)
 {
 	charSelect = new CharSelect(this);
-	charSelect->userTableModel()->setCharacters(
-			ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
-	connect(charSelect, SIGNAL(insertSpecialChar()),
-			 this, SLOT(slot_insertSpecialChar()));
-	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
-			 this, SLOT(slot_insertUserSpecialChar(QChar)));
+	charSelect->userTableModel()->setCharacters(ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
+	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
+
+	smartSelection=prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
+	seActions["settingsSmartTextSelection"]->setChecked(smartSelection);
 }
 
 void StoryEditor::hideEvent(QHideEvent *)
@@ -1541,10 +1541,7 @@ void StoryEditor::hideEvent(QHideEvent *)
 	if (charSelect)
 	{
 		if (charSelectUsed)
-		{
-			ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters(
-					charSelect->userTableModel()->characters());
-		}
+			ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters(charSelect->userTableModel()->characters());
 		if (charSelect->isVisible())
 			charSelect->close();
 		disconnect(charSelect, SIGNAL(insertSpecialChar()),
@@ -1699,6 +1696,8 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["editEditStyle"], "Edit", true);
 	seMenuMgr->addMenuItem(seActions["editFontPreview"], "Edit", true);
 	seMenuMgr->addMenuItem(seActions["editUpdateFrame"], "Edit", false);
+	seMenuMgr->addMenuSeparator("Edit");
+	seMenuMgr->addMenuItem(seActions["settingsSmartTextSelection"], "Edit", true);
 	seMenuMgr->createMenu("Insert", tr("&Insert"));
 	seMenuMgr->addMenuItem(seActions["insertGlyph"], "Insert", true);
 	seMenuMgr->addMenuItem(seActions["insertSampleText"], "Insert", true);
@@ -1972,7 +1971,7 @@ void StoryEditor::languageChange()
 	seMenuMgr->setText("Settings", tr("&Settings"));
 	seActions["settingsBackground"]->setTexts( tr("&Background..."));
 	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
-	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart text selection"));
+	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart Text Selection"));
 
 	//Unicode Actions
 	ActionManager::languageChangeUnicodeActions(&seActions);

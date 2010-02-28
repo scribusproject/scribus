@@ -381,7 +381,7 @@ public:
 	StoryEditor( QWidget* parent );
 // 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor();
-	
+
 	virtual void changeEvent(QEvent *e);
 
 	void setCurrentDocumentAndItem(ScribusDoc *doc=NULL, PageItem *item=NULL);
