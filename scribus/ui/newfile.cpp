@@ -668,7 +668,7 @@ void NewDoc::setSize(QString gr)
 
 void NewDoc::setDocLayout(int layout)
 {
-	marginGroup->setFacingPages(!(layout == singlePage));
+	marginGroup->setFacingPages(layout != singlePage);
 	m_choosenLayout = layout;
 	firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[m_choosenLayout].FirstPage);
 }

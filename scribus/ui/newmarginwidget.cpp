@@ -212,7 +212,7 @@ void NewMarginWidget::setPreset()
 	leftMarginSpinBox->setEnabled(item != PresetLayout::nineparts);
 	if (item!=PresetLayout::none)
 		marginLinkCheckBox->setChecked(false);
-	marginLinkCheckBox->setEnabled(item==PresetLayout::none);
+	marginLinkCheckBox->setEnabled(item==PresetLayout::none || !presetLayoutComboBox->isEnabled());
 	leftMarginSpinBox->blockSignals(false);
 	rightMarginSpinBox->blockSignals(false);
 	topMarginSpinBox->blockSignals(false);

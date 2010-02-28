@@ -384,7 +384,6 @@ void MarginWidget::setPreset()
 	if (pageType == 1)
 		rightR->setEnabled(false);
 	leftR->setEnabled(item != PresetLayout::nineparts);
-	qDebug()<<item;
 	if (item!=PresetLayout::none)
 		linkMargins->setChecked(false);
 	linkMargins->setEnabled(item==PresetLayout::none || !presetCombo->isEnabled());
