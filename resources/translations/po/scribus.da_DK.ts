@@ -524,7 +524,11 @@ Hvis &quot;gem fil&quot; fejler, er der ikke nogen måde at fortælle det på.
 Returns the name the document was saved under.
 If the document was not saved before the name is empty.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getDocName() -&gt; streng
+
+Returnerer navnet, som dokumenter var gemt under.
+Hvis dokumentet ikke har været gemt før, er navn tomt.
+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.h" line="156"/>
@@ -611,7 +615,7 @@ current document.
 </source>
         <translation>loadStylesFromFile(&quot;filnavn&quot;)
 
-Indlæser afsnits-typografierne fra Scribus dokumentet &quot;filnavn&quot; 
+Indlæser afsnitstypografierne fra Scribus dokumentet &quot;filnavn&quot; 
 ind i det aktive dokument.
 </translation>
     </message>
@@ -741,7 +745,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineColor([&quot;navn&quot;]) -&gt; streng
 
-Returnerer navnet på linie-farven på objektet &quot;navn&quot;.
+Returnerer navnet på linjefarven på objektet &quot;navn&quot;.
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -754,7 +758,7 @@ is not given the currently selected Item is used.
 </source>
         <translation>getLineTransparency([&quot;navn&quot;]) -&gt; komma-tal
 
-Returnerer liniens gennemsigtighed af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linjens gennemsigtighed af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -767,7 +771,7 @@ is not given the currently selected Item is used.
 </source>
         <translation>getLineBlendmode([&quot;navn&quot;]) -&gt; heltal
 
-Returnerer linie blandindings-tilstanden af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linje blandindings-tilstanden af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -780,7 +784,7 @@ is not given the currently selected Item is used.
 </source>
         <translation>getLineWidth([&quot;navn&quot;]) -&gt; integer
 
-Returnerer linie-bredde på på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linjebredde på på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -793,7 +797,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineShade([&quot;navn&quot;]) -&gt; integer
 
-Returnerer værdien for liniens farvemætning  på objektet &quot;navn&quot;. 
+Returnerer værdien for linjens farvemætning  på objektet &quot;navn&quot;. 
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -807,7 +811,7 @@ JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
         <translation>getLineJoin([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer typen af liniesamlingen på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer typen af linjesamlingen på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element. Samlingstyperne er
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </translation>
@@ -822,7 +826,7 @@ CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
         <translation>getLineEnd([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer typen af linieenden på objektet &quot;navn&quot; Hvis &quot;navn&quot; 
+Returnerer typen af linjeenden på objektet &quot;navn&quot; Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element. Endetyperne er
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </translation>
@@ -837,8 +841,8 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
         <translation>getLineStyle([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer liniestilen på objektet &quot;navn&quot; Hvis &quot;navn&quot; ikke 
-angives, så bruges det markerede element. Liniestilene er
+Returnerer linjestilen på objektet &quot;navn&quot; Hvis &quot;navn&quot; ikke 
+angives, så bruges det markerede element. Linjestilene er
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </translation>
     </message>
@@ -1854,7 +1858,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 </source>
         <translation>createLine(x1, y1, x2, y2, [&quot;navn&quot;]) -&gt; streng
 
-Opretter en ny linie fra punktet(x1, y1) til punktet(x2, y2) og returnerer 
+Opretter en ny linje fra punktet(x1, y1) til punktet(x2, y2) og returnerer 
 dens navn. Koordinaterne er givet i dokumentets nuværende måle-enhed 
 (se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
 du behøver dette navn for yderligere adgang til dette objekt. Hvis &quot;navn&quot;
@@ -1880,7 +1884,7 @@ the number of values passed don&apos;t group into points without leftovers.
 </source>
         <translation>createPolyLine(liste, [&quot;navn&quot;]) -&gt; streng
 
-Opretter en ny poly-linie og returnerer dens navn. Poly-liniens punkter 
+Opretter en ny poly-linje og returnerer dens navn. Poly-linjens punkter 
 er placeret i listen &quot;liste&quot; i følgende orden: [x1, y1, x2, y2...xn, yn].
 Koordinaterne er givet i dokumentets nuværende måle-enhed 
 (se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
@@ -2016,7 +2020,7 @@ Kaldes med parametrene streng &quot;navn&quot; og valgfrit heltal &quot;tilstand
 &quot;Tilstand&quot; sat til 0 vil deaktivere tekst flyder omkring objekt.
 &quot;Tilstand&quot; sat til 1 vil få tekst til at flyde omkring objekt ramme.
 &quot;Tilstand&quot; sat til 2 vil få tekst til at flyde omkring indbindings boks.
-&quot;Tilstand&quot; sat til 3 vil få tekst til at flyde omkring omrids linien.
+&quot;Tilstand&quot; sat til 3 vil få tekst til at flyde omkring omrids linjen.
 Hvis &quot;tilstand&quot; ikke er angivet vil tilstanden blive slået til eller fra.
 </translation>
     </message>
@@ -2056,7 +2060,7 @@ Return a list of the names of all paragraph styles in the current document.
 </source>
         <translation>getAllStyles() -&gt; liste
 
-Returnerer en liste af navne på alle afsnits-typografier i det aktive dokument.
+Returnerer en liste af navne på alle afsnitstypografier i det aktive dokument.
 </translation>
     </message>
     <message>
@@ -2087,7 +2091,7 @@ May raise IndexError if the page number is out of range
 Opretter en ny side. Hvis &quot;hvor&quot; er -1, så tilføjes den nye side i slutningen
 af dokumentet, ellers er den ny side indsat før &quot;hvor&quot;. Side-numre er
 talt fra 1 og opefter, lige meget hvad nummer den første side har fået.
-Den valgfri parameter &quot;masterside&quot; angiver navnet på den master side, 
+Den valgfri parameter &quot;masterside&quot; angiver navnet på den masterside, 
 der skal bruges til den nye side.
 
 Kan rejse IndexError hvis side-nummer er uden for tilladte værdi
@@ -2198,7 +2202,7 @@ document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
         <translation>getHGuides() -&gt; liste
 
-Returnerer en liste med positionerne for de horisontale hjælpelinier. Værdierne er 
+Returnerer en liste med positionerne for de horisontale hjælpelinjer. Værdierne er 
 angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
 </translation>
     </message>
@@ -2214,11 +2218,11 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 </source>
         <translation>setHGuides(liste)
 
-Sætter horisontale hjælpelinier. Input-parameter skal være en liste med hlælpeliniernes
+Sætter horisontale hjælpelinjer. Input-parameter skal være en liste med hlælpelinjernes
 placeringer angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
 
-Eksempel: setHGuides(getHGuides() + [200.0, 210.0] # tilføjer ny hjælpelinie uden nogen mistet
-          setHGuides([90,250]) # Erstatter nuværende hjælpelinier fuldstændigt
+Eksempel: setHGuides(getHGuides() + [200.0, 210.0] # tilføjer ny hjælpelinje uden nogen mistet
+          setHGuides([90,250]) # Erstatter nuværende hjælpelinjer fuldstændigt
 </translation>
     </message>
     <message>
@@ -2263,7 +2267,11 @@ Se  UNIT_&lt;type&gt; konstanter og getPageMargins()
 Returns a tuple with a particular page&apos;s size measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageNSize() -&gt; tuple
+
+Returnerer en tuple med en specifik sides størrelse målt i dokumentets nuværende måleenhed.
+Se UNIT_&lt;type&gt; konstanter og getPageMargins()
+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.h" line="174"/>
@@ -2272,7 +2280,11 @@ See UNIT_&lt;type&gt; constants and getPageMargins()
 Returns a tuple with a particular page&apos;s margins measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageNMargins() -&gt; tuple
+
+Returnerer en tuple med en specifik sides margener målt i dokumentets nuværende måleenhed.
+Se UNIT_&lt;type&gt; konstanter og getPageMargins()
+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.h" line="187"/>
@@ -2391,7 +2403,7 @@ is not given the currently selected item is used.
 </source>
         <translation>setLineColor(&quot;farve&quot;, [&quot;navn&quot;])
 
-Sætter linie-farven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
+Sætter linjefarven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
 er navnet på en af de definerede farver. Hvis &quot;navn&quot; ikke angives, så 
 bruges det markerede element.
 </translation>
@@ -2405,7 +2417,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>setLineTransparency(gennemsigtighed, [&quot;navn&quot;])
 
-Sætter linie-gennemsigtigheden på objektet &quot;navn&quot; til gennemsigtighed
+Sætter linje-gennemsigtigheden på objektet &quot;navn&quot; til gennemsigtighed
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -2418,7 +2430,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>setLineBlendmode(blandingstilstand, [&quot;navn&quot;])
 
-Sætter linieblandings-tilstanden på objektet &quot;navn&quot; til blandingstilstand
+Sætter linjeblandings-tilstanden på objektet &quot;navn&quot; til blandingstilstand
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.</translation>
     </message>
     <message>
@@ -2433,7 +2445,7 @@ May raise ValueError if the line width is out of bounds.
 </source>
         <translation>setLineWidth(bredde, [&quot;navn&quot;])
 
-Sætter linie-bredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
+Sætter linjebredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
 området fra 0.0 til 12.0 inklusivt, og er angivet i punkter. Hvis &quot;navn&quot; ikke 
 angives, så bruges det markerede element.
 </translation>
@@ -2451,7 +2463,7 @@ May raise ValueError if the line shade is out of bounds.
 </source>
         <translation>setLineShade(farvemætning, [&quot;navn&quot;]) -&gt; integer
 
-Sætter farvemætningen på linie-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
+Sætter farvemætningen på linjefarven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
 &quot;farvemætning&quot; skal være en integer værdi i området fra 0 (lysest) til 100
 (fuld farvemætning). Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 
@@ -2468,7 +2480,7 @@ predefined constants for join - JOIN_&lt;type&gt;.
 </source>
         <translation>setLineJoin(samling, [&quot;navn&quot;])
 
-Sætter typen af liniesamling på objektet &quot;navn&quot; til typen &quot;samling&quot;. 
+Sætter typen af linjesamling på objektet &quot;navn&quot; til typen &quot;samling&quot;. 
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
 predefinerede konstanter for samlingen - JOIN_&lt;type&gt;.
 </translation>
@@ -2483,7 +2495,7 @@ predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
         <translation>setLineEnd(endetype, [&quot;navn&quot;])
 
-Sætter typen af linieende på objektet &quot;navn&quot; til typen &quot;endetype&quot; .
+Sætter typen af linjeende på objektet &quot;navn&quot; til typen &quot;endetype&quot; .
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
 predefinerede konstanter for endetyperne - CAP_&lt;type&gt;.
 </translation>
@@ -2498,7 +2510,7 @@ constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
         <translation>setLineStyle(stil, [&quot;navn&quot;])
 
-Sætter linie-stil for objektet &quot;navn&quot; til stilen &quot;stil&quot;. Hvis &quot;navn&quot; ikke 
+Sætter linje-stil for objektet &quot;navn&quot; til stilen &quot;stil&quot;. Hvis &quot;navn&quot; ikke 
 angives, så bruges det markerede element. Der er predefinerede 
 konstanter for &quot;stil&quot; - LINE_&lt;type&gt;.
 </translation>
@@ -2551,10 +2563,10 @@ May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
         <translation>setMultiLine(&quot;navngivetStil&quot;, [&quot;navn&quot;])
 
-sætter linie-stil på objektet &quot;navn&quot; til navngivet stil &quot;navngivetStil&quot;.
+sætter linje-stil på objektet &quot;navn&quot; til navngivet stil &quot;navngivetStil&quot;.
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 
-Kan rejse NotFoundError hvis linie-stilen ikke eksisterer.
+Kan rejse NotFoundError hvis linje-stilen ikke eksisterer.
 </translation>
     </message>
     <message>
@@ -2604,19 +2616,19 @@ dropcapoffset [optional] -&gt; offset of the caps if used
 </source>
         <translation>createParagraphStyle(...)
 ￼
-Opretter en afsnits-typografi: Denne funktion tager følgende nøgleords parametre:
+Opretter en afsnitstypografi: Denne funktion tager følgende nøgleords parametre:
 
-&quot;navn&quot; [påkrævet] -&gt; angiver navnet på afsnits-typografien, der skal laves
+&quot;navn&quot; [påkrævet] -&gt; angiver navnet på afsnitstypografien, der skal laves
 
-linieafstands-tilstand [valgfrit] -&gt; angiver linieafstands-tilstanden, mulige tilstande er:￼
+linjeafstands-tilstand [valgfrit] -&gt; angiver linjeafstands-tilstanden, mulige tilstande er:￼
 
-fast linieafstand:          0
+fast linjeafstand:          0
 ￼
-automatisk linieafstand:      1
+automatisk linjeafstand:      1
 ￼
-grundlinie gitter linieafstand:  2
+grundlinje gitter linjeafstand:  2
 ￼
-linieafstand [valgfrit] -&gt; angiver linieafstanden hvis der bruges fast linieafstand
+linjeafstand [valgfrit] -&gt; angiver linjeafstanden hvis der bruges fast linjeafstand
 
 justering [valgfrit] -&gt; angiver justering af afsnittet
 
@@ -2634,11 +2646,11 @@ venstremargen [valgfrit], højremargen [valgfrit] -&gt; angiver margen
 
 ￼￼afstandfør [valgfrit], afstandefter [valgfrit] -&gt; angiver afstanden til det forrige og efterfølgende afsnit
 
-førsteindrykning￼ [valgfri] -&gt; indrykningen af den første linie
+førsteindrykning￼ [valgfri] -&gt; indrykningen af den første linje
 
 haruncial [valgfrit] -&gt; angiver om der er unicialer (1 = ja, 0 = nej)￼￼
 
-uniciallinier [valgfrit] -&gt; højde (i linier) af unicialerne hvis de er brugt￼￼
+uniciallinjer [valgfrit] -&gt; højde (i linjer) af unicialerne hvis de er brugt￼￼
 
 unicialforskydning [valgfrit] -&gt; forskydning af unicialerne hvis de er brugt￼￼
 
@@ -2745,7 +2757,7 @@ tracking [optional] -&gt; tracking of the text
 ￼
 ￼&quot;stregfarve&quot; [valgfrit], &quot;streg-farvemætning&quot; [valgfrit] -&gt; angiver streg tilvalg￼
 
-￼grundlinieforskydning [valgfrit] -&gt; forskydning af grundlinien￼
+￼grundlinjeforskydning [valgfrit] -&gt; forskydning af grundlinjen￼
 
 ￼skygge-xforskydning [valgfrit], skygge-yforskydning [valgfrit] -&gt; forskydning af skyggen hvis den bruges￼
 
@@ -2818,7 +2830,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getTextLines([&quot;navn&quot;]) -&gt; heltal
 
-Returnerer antal tekst-linier i tekst-rammen &quot;navn&quot;.
+Returnerer antal tekst-linjer i tekst-rammen &quot;navn&quot;.
 Hvis &quot;navn&quot; ikke angives,  så bruges det markerede element.
 </translation>
     </message>
@@ -2864,7 +2876,7 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineSpacing([&quot;navn&quot;]) -&gt; komma-tal
 
-Returnerer linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; udtrykt i punkter.
+Returnerer linje-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; udtrykt i punkter.
 Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
 </translation>
     </message>
@@ -2999,11 +3011,11 @@ May throw ValueError if the line spacing is out of bounds.
 </source>
         <translation>setLineSpacing(størrelse, [&quot;navn&quot;])
 
-Sætter linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. 
+Sætter linje-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. 
 &quot;størrelse&quot; er angivet i punkter. Hvis &quot;navn&quot; ikke er givet, så bruges 
 det markerede element.
 
-Kan rejse ValueError hvis linie-afstanden er uden for gyldigt område.
+Kan rejse ValueError hvis linje-afstanden er uden for gyldigt område.
 </translation>
     </message>
     <message>
@@ -3294,7 +3306,7 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation>isPDFBookmark([&quot;navn&quot;]) -&gt; bool
 
-Returnerer &quot;true&quot; hvis tekst-rammen &quot;navn&quot; er et PDF bogmærke.
+Returnerer &quot;true&quot; hvis tekst-rammen &quot;navn&quot; er et PDF-bogmærke.
 Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
 
 Kan rejse WrongFrameTypeError, hvis målrammen ikke er en tekst-ramme
@@ -3309,7 +3321,7 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
         <translation>messagebarText(&quot;streng&quot;)
 
-Skriver &quot;streng&quot; til Scribus beskedfelt (status linie). Teksten
+Skriver &quot;streng&quot; til Scribus beskedfelt (status linje). Teksten
 skal være UTF8 kodet eller &apos;unicode&apos; streng (anbefalet).
 </translation>
     </message>
@@ -3383,7 +3395,7 @@ won&apos;t automatically notice when you change the document using a script.
 </source>
         <translation>docChanged(bool)
 
-Aktiverer/deaktiverer &quot;gem-ikonet&quot; i Scribus værktøjslinie og  &quot;Gem&quot; i fil-menuen. 
+Aktiverer/deaktiverer &quot;gem-ikonet&quot; i Scribus værktøjslinje og  &quot;Gem&quot; i fil-menuen. 
 Det er brugbart at kalde denne procedure, når du ændrer dokumentet, fordi Scribus 
 ikke automatisk opdager, når du har ændret dokumentet ved at bruge en script.
 </translation>
@@ -3409,7 +3421,7 @@ Scroll the document in main GUI window by x and y.
 </source>
         <translation>scrollDocument(x,y)
 
-Ruller dokumentet i hoved-GUI winduet med værdierne x og y.
+Ruller dokumentet i hoved-GUI-vinduet med værdierne x og y.
 </translation>
     </message>
     <message>
@@ -3730,7 +3742,7 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
         <translation type="obsolete">messagebarText(&quot;streng&quot;)
 
-Skriver &quot;streng&quot; til Scribus beskedfelt (status linie). Teksten
+Skriver &quot;streng&quot; til Scribus beskedfelt (status linje). Teksten
 skal være UTF8 kodet eller &apos;unicode&apos; streng (anbefalet).
 </translation>
     </message>
@@ -4167,7 +4179,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="obsolete">getLineColor([&quot;navn&quot;]) -&gt; streng
 
-Returnerer navnet på linie-farven på objektet &quot;navn&quot;.
+Returnerer navnet på linje-farven på objektet &quot;navn&quot;.
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -4179,7 +4191,7 @@ is not given the currently selected Item is used.
 </source>
         <translation type="obsolete">getLineWidth([&quot;navn&quot;]) -&gt; integer
 
-Returnerer linie-bredde på på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linje-bredde på på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -4191,7 +4203,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="obsolete">getLineShade([&quot;navn&quot;]) -&gt; integer
 
-Returnerer værdien for liniens farvemætning  på objektet &quot;navn&quot;. 
+Returnerer værdien for linjens farvemætning  på objektet &quot;navn&quot;. 
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -4204,7 +4216,7 @@ JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
         <translation type="obsolete">getLineJoin([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer typen af liniesamlingen på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer typen af linjesamlingen på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element. Samlingstyperne er
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </translation>
@@ -4218,7 +4230,7 @@ CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
         <translation type="obsolete">getLineEnd([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer typen af linieenden på objektet &quot;navn&quot; Hvis &quot;navn&quot; 
+Returnerer typen af linjeenden på objektet &quot;navn&quot; Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element. Endetyperne er
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </translation>
@@ -4232,8 +4244,8 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
         <translation type="obsolete">getLineStyle([&quot;navn&quot;]) -&gt; integer (se kontanter)
 
-Returnerer liniestilen på objektet &quot;navn&quot; Hvis &quot;navn&quot; ikke 
-angives, så bruges det markerede element. Liniestilene er
+Returnerer linjestilen på objektet &quot;navn&quot; Hvis &quot;navn&quot; ikke 
+angives, så bruges det markerede element. Linjestilene er
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </translation>
     </message>
@@ -4724,7 +4736,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 </source>
         <translation type="obsolete">createLine(x1, y1, x2, y2, [&quot;navn&quot;]) -&gt; streng
 
-Laver en ny linie fra punktet(x1, y1) til punktet(x2, y2) og returnerer 
+Laver en ny linje fra punktet(x1, y1) til punktet(x2, y2) og returnerer 
 dens navn. Koordinaterne er givet i dokumentets nuværende måle-enhed 
 (se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
 du behøver dette navn for yderligere adgang til dette objekt. Hvis &quot;navn&quot;
@@ -4749,7 +4761,7 @@ the number of values passed don&apos;t group into points without leftovers.
 </source>
         <translation type="obsolete">createPolyLine(liste, [&quot;navn&quot;]) -&gt; streng
 
-Laver en ny poly-linie og returnerer dens navn. Poly-liniens punkter 
+Laver en ny poly-linje og returnerer dens navn. Poly-linjens punkter 
 er placeret i listen &quot;liste&quot; i følgende orden: [x1, y1, x2, y2...xn, yn].
 Koordinaterne er givet i dokumentets nuværende måle-enhed 
 (se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
@@ -4987,7 +4999,7 @@ document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
         <translation type="obsolete">getHGuides() -&gt; liste
 
-Returnerer en liste med positionerne for de horisontale hjælpelinier. Værdierne er 
+Returnerer en liste med positionerne for de horisontale hjælpelinjer. Værdierne er 
 angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
 </translation>
     </message>
@@ -5002,11 +5014,11 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 </source>
         <translation type="obsolete">setHGuides(liste)
 
-Sætter horisontale hjælpelinier. Input-parameter skal være en liste med hlælpeliniernes
+Sætter horisontale hjælpelinjer. Input-parameter skal være en liste med hlælpelinjernes
 placeringer angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
 
-Eksempel: setHGuides(getHGuides() + [200.0, 210.0] # tilføjer ny hjælpelinie uden nogen mistet
-          setHGuides([90,250]) # Erstatter nuværende hjælpelinier fuldstændigt
+Eksempel: setHGuides(getHGuides() + [200.0, 210.0] # tilføjer ny hjælpelinje uden nogen mistet
+          setHGuides([90,250]) # Erstatter nuværende hjælpelinjer fuldstændigt
 </translation>
     </message>
     <message>
@@ -5079,7 +5091,7 @@ is not given the currently selected item is used.
 </source>
         <translation type="obsolete">setLineColor(&quot;farve&quot;, [&quot;navn&quot;])
 
-Sætter linie-farven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
+Sætter linje-farven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
 er navnet på en af de definerede farver. Hvis &quot;navn&quot; ikke angives, så 
 bruges det markerede element.
 </translation>
@@ -5095,7 +5107,7 @@ May raise ValueError if the line width is out of bounds.
 </source>
         <translation type="obsolete">setLineWidth(bredde, [&quot;navn&quot;])
 
-Sætter linie-bredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
+Sætter linje-bredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
 området fra 0.0 til 12.0 inklusivt, og er angivet i punkter. Hvis &quot;navn&quot; ikke 
 angives, så bruges det markerede element.
 </translation>
@@ -5112,7 +5124,7 @@ May raise ValueError if the line shade is out of bounds.
 </source>
         <translation type="obsolete">setLineShade(farvemætning, [&quot;navn&quot;]) -&gt; integer
 
-Sætter farvemætningen på linie-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
+Sætter farvemætningen på linje-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
 &quot;farvemætning&quot; skal være en integer værdi i området fra 0 (lysest) til 100
 (fuld farvemætning). Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 
@@ -5128,7 +5140,7 @@ predefined constants for join - JOIN_&lt;type&gt;.
 </source>
         <translation type="obsolete">setLineJoin(samling, [&quot;navn&quot;])
 
-Sætter typen af liniesamling på objektet &quot;navn&quot; til typen &quot;samling&quot;. 
+Sætter typen af linjesamling på objektet &quot;navn&quot; til typen &quot;samling&quot;. 
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
 predefinerede konstanter for samlingen - JOIN_&lt;type&gt;.
 </translation>
@@ -5142,7 +5154,7 @@ predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
         <translation type="obsolete">setLineEnd(endetype, [&quot;navn&quot;])
 
-Sætter typen af linieende på objektet &quot;navn&quot; til typen &quot;endetype&quot; .
+Sætter typen af linjeende på objektet &quot;navn&quot; til typen &quot;endetype&quot; .
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
 predefinerede konstanter for endetyperne - CAP_&lt;type&gt;.
 </translation>
@@ -5156,7 +5168,7 @@ constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
         <translation type="obsolete">setLineStyle(stil, [&quot;navn&quot;])
 
-Sætter linie-stil for objektet &quot;navn&quot; til stilen &quot;stil&quot;. Hvis &quot;navn&quot; ikke 
+Sætter linje-stil for objektet &quot;navn&quot; til stilen &quot;stil&quot;. Hvis &quot;navn&quot; ikke 
 angives, så bruges det markerede element. Der er predefinerede 
 konstanter for &quot;stil&quot; - LINE_&lt;type&gt;.
 </translation>
@@ -5206,10 +5218,10 @@ May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
         <translation type="obsolete">setMultiLine(&quot;navngivetStil&quot;, [&quot;navn&quot;])
 
-sætter linie-stil på objektet &quot;navn&quot; til navngivet stil &quot;navngivetStil&quot;.
+sætter linje-stil på objektet &quot;navn&quot; til navngivet stil &quot;navngivetStil&quot;.
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 
-Kan rejse NotFoundError hvis linie-stilen ikke eksisterer.
+Kan rejse NotFoundError hvis linje-stilen ikke eksisterer.
 </translation>
     </message>
     <message>
@@ -5278,7 +5290,7 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="obsolete">getLineSpacing([&quot;navn&quot;]) -&gt; komma-tal
 
-Returnerer linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; udtrykt i punkter.
+Returnerer linje-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; udtrykt i punkter.
 Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
 </translation>
     </message>
@@ -5370,11 +5382,11 @@ May throw ValueError if the line spacing is out of bounds.
 </source>
         <translation type="obsolete">setLineSpacing(størrelse, [&quot;navn&quot;])
 
-Sætter linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. 
+Sætter linje-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. 
 &quot;størrelse&quot; er angivet i punkter. Hvis &quot;navn&quot; ikke er givet, så bruges 
 det markerede element.
 
-Kan rejse ValueError hvis linie-afstanden er uden for gyldigt område.
+Kan rejse ValueError hvis linje-afstanden er uden for gyldigt område.
 </translation>
     </message>
     <message>
@@ -5594,7 +5606,7 @@ won&apos;t automatically notice when you change the document using a script.
 </source>
         <translation type="obsolete">docChanged(bool)
 
-Aktiverer/deaktiverer &quot;gem-ikonet&quot; i Scribus værktøjslinie og  &quot;Gem&quot; i fil-menuen. 
+Aktiverer/deaktiverer &quot;gem-ikonet&quot; i Scribus værktøjslinje og  &quot;Gem&quot; i fil-menuen. 
 Det er brugbart at kalde denne procedure, når du ændrer dokumentet, fordi Scribus 
 ikke automatisk opdager, når du har ændret dokumentet ved at bruge en script.
 </translation>
@@ -6116,7 +6128,7 @@ is not given the currently selected Item is used.
 </source>
         <translation type="obsolete">getLineTransparency([&quot;navn&quot;]) -&gt; komma-tal
 
-Returnerer liniens gennemsigtighed af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linjens gennemsigtighed af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -6128,7 +6140,7 @@ is not given the currently selected Item is used.
 </source>
         <translation type="obsolete">getLineBlendmode([&quot;navn&quot;]) -&gt; heltal
 
-Returnerer linie blandindings-tilstanden af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+Returnerer linje blandindings-tilstanden af objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -6256,7 +6268,7 @@ Kaldes med parametrene streng &quot;navn&quot; og valgfrit heltal &quot;tilstand
 &quot;Tilstand&quot; sat til 0 vil deaktivere tekst flyder omkring objekt.
 &quot;Tilstand&quot; sat til 1 vil få tekst til at flyde omkring objekt ramme.
 &quot;Tilstand&quot; sat til 2 vil få tekst til at flyde omkring indbindings boks.
-&quot;Tilstand&quot; sat til 3 vil få tekst til at flyde omkring omrids linien.
+&quot;Tilstand&quot; sat til 3 vil få tekst til at flyde omkring omrids linjen.
 Hvis &quot;tilstand&quot; ikke er angivet vil tilstanden blive slået til eller fra.
 </translation>
     </message>
@@ -6276,7 +6288,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="obsolete">getTextLines([&quot;navn&quot;]) -&gt; heltal
 
-Returnerer antal tekst-linier i tekst-rammen &quot;navn&quot;.
+Returnerer antal tekst-linjer i tekst-rammen &quot;navn&quot;.
 Hvis &quot;navn&quot; ikke angives,  så bruges det markerede element.
 </translation>
     </message>
@@ -6500,7 +6512,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="obsolete">setLineTransparency(gennemsigtighed, [&quot;navn&quot;])
 
-Sætter linie-gennemsigtigheden af objektet &quot;navn&quot; til gennemsigtighed
+Sætter linje-gennemsigtigheden af objektet &quot;navn&quot; til gennemsigtighed
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
 </translation>
     </message>
@@ -6512,7 +6524,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="obsolete">setLineBlendmode(blandingstilstand, [&quot;navn&quot;])
 
-Sætter linieblandings-tilstanden af objektet &quot;navn&quot; til blandingstilstand
+Sætter linjeblandings-tilstanden af objektet &quot;navn&quot; til blandingstilstand
 Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.</translation>
     </message>
     <message>
@@ -6952,7 +6964,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1273"/>
         <source>Document &amp;Setup...</source>
-        <translation>&amp;Dokument indstillinger...</translation>
+        <translation>&amp;Dokumentindstillinger...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1275"/>
@@ -6977,7 +6989,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1281"/>
         <source>&amp;Item Action Mode</source>
-        <translation>&amp;Element handlings-tilstand</translation>
+        <translation>&amp;Element-handlingstilstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1282"/>
@@ -7009,7 +7021,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1292"/>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Søg/erstat...</translation>
+        <translation>&amp;Søg/Erstat...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
@@ -7024,7 +7036,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1299"/>
         <source>&amp;Master Pages...</source>
-        <translation>&amp;Master sider...</translation>
+        <translation>&amp;Mastersider...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1274"/>
@@ -7118,7 +7130,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1336"/>
         <source>&amp;Image Effects</source>
-        <translation>&amp;Billed effekter</translation>
+        <translation>&amp;Billedeffekter</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1337"/>
@@ -7208,7 +7220,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1362"/>
         <source>Extended Image Properties</source>
-        <translation>Udvidede billed egenskaber</translation>
+        <translation>Udvidede billedegenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1363"/>
@@ -7228,12 +7240,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1366"/>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>Er PDF-&amp;Bogmærke</translation>
+        <translation>Er PDF-&amp;bogmærke</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1367"/>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>Er PDF-&amp;Kommentar</translation>
+        <translation>Er PDF-&amp;kommentar</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
@@ -7243,7 +7255,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1369"/>
         <source>Field P&amp;roperties</source>
-        <translation>Felt ege&amp;nskaber</translation>
+        <translation>Felt-ege&amp;nskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1370"/>
@@ -7278,7 +7290,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1376"/>
         <source>&amp;Image Frame</source>
-        <translation>B&amp;illed ramme</translation>
+        <translation>B&amp;illedramme</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1378"/>
@@ -7333,7 +7345,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1395"/>
         <source>Manage &amp;Guides...</source>
-        <translation>Håndtér &amp;hjælpelinier...</translation>
+        <translation>Håndtér &amp;hjælpelinjer...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1401"/>
@@ -7382,12 +7394,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1413"/>
         <source>Show G&amp;uides</source>
-        <translation>Vis &amp;hjælpelinier</translation>
+        <translation>Vis &amp;hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1415"/>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Vis &amp;grundlinie-gitter</translation>
+        <translation>Vis &amp;grundlinjegitter</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1416"/>
@@ -7397,7 +7409,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1417"/>
         <source>Show Control Characters</source>
-        <translation>Vis kontrol tegn</translation>
+        <translation>Vis kontroltegn</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1420"/>
@@ -7407,7 +7419,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1421"/>
         <source>Sna&amp;p to Guides</source>
-        <translation>Kl&amp;æb til hjælpelinier</translation>
+        <translation>Kl&amp;æb til hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1426"/>
@@ -7442,7 +7454,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1433"/>
         <source>Action &amp;History</source>
-        <translation>&amp;Handlings historie</translation>
+        <translation>&amp;Handlingshistorik</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1434"/>
@@ -7452,7 +7464,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1435"/>
         <source>&amp;Align and Distribute</source>
-        <translation>Ops&amp;til på linie og fordel</translation>
+        <translation>Ops&amp;til på linje og fordel</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1436"/>
@@ -7479,11 +7491,11 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation type="obsolete">&amp;Linie</translation>
+        <translation type="obsolete">&amp;Linje</translation>
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation type="obsolete">&amp;Frihånds linie</translation>
+        <translation type="obsolete">&amp;Frihånds linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1441"/>
@@ -7561,7 +7573,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     </message>
     <message>
         <source>Insert Line</source>
-        <translation type="obsolete">Indsæt linie</translation>
+        <translation type="obsolete">Indsæt linje</translation>
     </message>
     <message>
         <source>Insert Bezier Curve</source>
@@ -7569,7 +7581,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation type="obsolete">Indsæt frihånds-linie</translation>
+        <translation type="obsolete">Indsæt frihånds-linje</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
@@ -7603,12 +7615,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1485"/>
         <source>Toolti&amp;ps</source>
-        <translation>Hj&amp;ælpe-tekst</translation>
+        <translation>Hj&amp;ælpetekst</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1487"/>
         <source>Scribus &amp;Manual...</source>
-        <translation>Scribus &amp;Manual...</translation>
+        <translation>Scribus &amp;manual...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1505"/>
@@ -7633,7 +7645,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1510"/>
         <source>New Line</source>
-        <translation>Ny linie</translation>
+        <translation>Ny linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1511"/>
@@ -7693,12 +7705,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1496"/>
         <source>Toggle Guides</source>
-        <translation>Slå hjælpelinier til/fra</translation>
+        <translation>Slå hjælpelinjer til/fra</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1396"/>
         <source>Manage Page Properties...</source>
-        <translation>Håndtér side egenskaber...</translation>
+        <translation>Håndtér sideegenskaber...</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -7940,7 +7952,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1465"/>
         <source>Insert PDF Combo Box</source>
-        <translation>Indsæt PDF kombo boks</translation>
+        <translation>Indsæt PDF-komboboks</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1466"/>
@@ -7980,7 +7992,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1385"/>
         <source>Sticky Tools</source>
-        <translation>Klæb til værktøjer</translation>
+        <translation>Klæbrig-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1526"/>
@@ -8123,7 +8135,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1458"/>
         <source>Insert &amp;Line</source>
-        <translation>Indsæt &amp;linie</translation>
+        <translation>Indsæt &amp;linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1459"/>
@@ -8133,12 +8145,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1460"/>
         <source>Insert &amp;Freehand Line</source>
-        <translation>Indsæt &amp;frihånds-linie</translation>
+        <translation>Indsæt &amp;frihåndslinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1488"/>
         <source>Scribus Homepage</source>
-        <translation>Scribus Hjemmside</translation>
+        <translation>Scribus hjemmside</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1489"/>
@@ -8168,7 +8180,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1483"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;Om Plugins</translation>
+        <translation>&amp;Om plugins</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1497"/>
@@ -8208,7 +8220,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1492"/>
         <source>Check for Updates</source>
-        <translation>Tjek for Opdateringer</translation>
+        <translation>Tjek for opdateringer</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1509"/>
@@ -8338,7 +8350,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1486"/>
         <source>Move/Resize Value Indicator</source>
-        <translation>/Flyt/Ændre størrelse Værdi-viser</translation>
+        <translation>Flyt/Ændre størrelse på værdi-indikator</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1258"/>
@@ -8359,12 +8371,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="35"/>
         <source>Align</source>
-        <translation>Opstil på linie</translation>
+        <translation>Opstil på linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="79"/>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Markerede hjælpelinier:</translation>
+        <translation>&amp;Markerede hjælpelinjer:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="92"/>
@@ -8416,15 +8428,15 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <name>AlignDistributeBase</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="obsolete">Opstil på linie og fordel</translation>
+        <translation type="obsolete">Opstil på linje og fordel</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="obsolete">Opstil på linie</translation>
+        <translation type="obsolete">Opstil på linje</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="obsolete">&amp;Markerede hjælpelinier:</translation>
+        <translation type="obsolete">&amp;Markerede hjælpelinjer:</translation>
     </message>
     <message>
         <source>&amp;Relative To:</source>
@@ -8448,7 +8460,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="90"/>
         <source>Align and Distribute</source>
-        <translation>Opstil på linie og fordel</translation>
+        <translation>Opstil på linje og fordel</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="93"/>
@@ -8478,7 +8490,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="100"/>
         <source>Guide</source>
-        <translation>Hjælpelinie</translation>
+        <translation>Hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="101"/>
@@ -8488,12 +8500,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="111"/>
         <source>Align bottoms</source>
-        <translation>Stil bund-sider på linie</translation>
+        <translation>Stil bund-sider på linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="113"/>
         <source>Align right sides</source>
-        <translation>Stil højre sider på linie</translation>
+        <translation>Stil højre sider på linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="117"/>
@@ -8503,7 +8515,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="119"/>
         <source>Align left sides</source>
-        <translation>Stil venstre sider på linie</translation>
+        <translation>Stil venstre sider på linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="121"/>
@@ -8513,12 +8525,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="125"/>
         <source>Align tops</source>
-        <translation>Stil top-sider på linie</translation>
+        <translation>Stil top-sider på linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="127"/>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Markerede hjælpelinier:</translation>
+        <translation>&amp;Markerede hjælpelinjer:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="135"/>
@@ -8578,7 +8590,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="91"/>
         <source>Align</source>
-        <translation>Opstil på linie</translation>
+        <translation>Opstil på linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="92"/>
@@ -8588,22 +8600,22 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="107"/>
         <source>Align right sides of items to left side of anchor</source>
-        <translation>Stil højre sider af elementer på linie efter venstre side af anker</translation>
+        <translation>Stil højre sider af elementer på linje efter venstre side af anker</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
         <source>Align left sides of items to right side of anchor</source>
-        <translation>Stil venstre sider af elementer på linie efter højre side af anker</translation>
+        <translation>Stil venstre sider af elementer på linje efter højre side af anker</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="115"/>
         <source>Align tops of items to bottom of anchor</source>
-        <translation>Stil top-sider af elementer på linie efter bunden af anker</translation>
+        <translation>Stil top-sider af elementer på linje efter bunden af anker</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="123"/>
         <source>Align bottoms of items to top of anchor</source>
-        <translation>Stil bund-sider af elementer på linie efter toppen af anker</translation>
+        <translation>Stil bund-sider af elementer på linje efter toppen af anker</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="130"/>
@@ -8648,12 +8660,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="103"/>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Juster relativt til:&lt;ul&gt;&lt;li&gt;Først markerede element&lt;/li&gt;&lt;li&gt;Andet markerede element&lt;/li&gt;&lt;li&gt;Den aktive sidde&lt;/li&gt;&lt;li&gt;Margenerne på den aktive  side&lt;/li&gt;&lt;li&gt;En hjælpelinie&lt;/li&gt;&lt;li&gt;Det markerede&lt;/ul&gt;&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Juster relativt til:&lt;ul&gt;&lt;li&gt;Først markerede element&lt;/li&gt;&lt;li&gt;Andet markerede element&lt;/li&gt;&lt;li&gt;Den aktive sidde&lt;/li&gt;&lt;li&gt;Margenerne på den aktive  side&lt;/li&gt;&lt;li&gt;En hjælpelinje&lt;/li&gt;&lt;li&gt;Det markerede&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>The location of the selected guide to align to</source>
-        <translation>Placeringen af den markerede hjælpelinie, hvortil der skal justeres</translation>
+        <translation>Placeringen af den markerede hjælpelinje, hvortil der skal justeres</translation>
     </message>
 </context>
 <context>
@@ -8922,7 +8934,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annot.cpp" line="61"/>
         <source>Field Properties</source>
-        <translation>Felt egenskaber</translation>
+        <translation>Felt-egenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/annot.cpp" line="213"/>
@@ -9181,7 +9193,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annot.cpp" line="438"/>
         <source>Multi-Line</source>
-        <translation>Multi-linie</translation>
+        <translation>Multi-linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/annot.cpp" line="213"/>
@@ -9875,7 +9887,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcode.cpp" line="39"/>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation>Scribus brugerflade til Ren postscript Stregkode generator</translation>
+        <translation>Scribus brugerflade til Ren postscript Stregkodegenerator</translation>
     </message>
 </context>
 <context>
@@ -9972,7 +9984,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="145"/>
         <source>Select Barcode Type</source>
-        <translation>Vælg stregkode type</translation>
+        <translation>Vælg stregkodetype</translation>
     </message>
 </context>
 <context>
@@ -10003,7 +10015,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="103"/>
         <source>Reset the barcode samples</source>
-        <translation>Nulstil stregkode prøverne</translation>
+        <translation>Nulstil stregkode-prøverne</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
@@ -10051,12 +10063,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="181"/>
         <source>Background color - under the code lines</source>
-        <translation>Baggrundsfarve - under kode linierne</translation>
+        <translation>Baggrundsfarve - under kode linjerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="216"/>
         <source>&amp;Lines</source>
-        <translation>&amp;Linier</translation>
+        <translation>&amp;Linjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="219"/>
@@ -10066,7 +10078,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="213"/>
         <source>Color of the lines in barcode</source>
-        <translation>Farve på linierne i stregkoden</translation>
+        <translation>Farve på linjerne i stregkoden</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="248"/>
@@ -10603,27 +10615,27 @@ alle farver, rgb eller cmyk, er konverteret til printerens farverum.</translatio
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="50"/>
         <source>System Profiles</source>
-        <translation>System profiler</translation>
+        <translation>Systemprofiler</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="74"/>
         <source>&amp;RGB Images:</source>
-        <translation>&amp;RGB Billeder:</translation>
+        <translation>&amp;RGB-billeder:</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="90"/>
         <source>Default color profile for imported RGB images</source>
-        <translation>Standard Farveprofil for importerede RGB billeder</translation>
+        <translation>Standard Farveprofil for importerede RGB-billeder</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="97"/>
         <source>&amp;CMYK Images:</source>
-        <translation>&amp;CMYK Billeder:</translation>
+        <translation>&amp;CMYK-billeder:</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="113"/>
         <source>Default color profile for imported CMYK images</source>
-        <translation>Standard Farveprofil for importerede CMYK billeder</translation>
+        <translation>Standard Farveprofil for importerede CMYK-billeder</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="120"/>
@@ -11369,8 +11381,7 @@ Give den venligst et navn</translation>
         <source>X: %1
 Y: %2</source>
         <translation>X: %1
-
-</translation>
+Y: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvas.cpp" line="2231"/>
@@ -11399,7 +11410,7 @@ Højde: %2</translation>
     <message>
         <location filename="../../../scribus/canvas.cpp" line="2268"/>
         <source>Angle: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vinkel: %1</translation>
     </message>
 </context>
 <context>
@@ -11912,7 +11923,7 @@ Insert-tasten indsætter en glyf i feltet for neden og delete-tasten fjerner det
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="681"/>
         <source>Object is a PDF Annotation or Field</source>
-        <translation>Objekt er en PDF kommentar eller felt</translation>
+        <translation>Objekt er en PDF-kommentar eller felt</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="682"/>
@@ -11987,7 +11998,7 @@ Insert-tasten indsætter en glyf i feltet for neden og delete-tasten fjerner det
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="423"/>
         <source>Print/Visible Mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Udskriv/Synligt misforhold</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="431"/>
@@ -12015,12 +12026,12 @@ Insert-tasten indsætter en glyf i feltet for neden og delete-tasten fjerner det
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="684"/>
         <source>Annotation uses a non TrueType font</source>
-        <translation>Kommentering bruger ikke TrueType fonte</translation>
+        <translation>Kommentar bruger en font, som ikke er TrueType</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="669"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Preflight profil til grundlag for report-generering. Tilvalg kan sættes i dokument indstillinger eller preferencer</translation>
+        <translation>Preflight profil til grundlag for report-generering. Tilvalg kan sættes i dokumentindstillinger eller preferencer</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="670"/>
@@ -12051,7 +12062,7 @@ Insert-tasten indsætter en glyf i feltet for neden og delete-tasten fjerner det
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="448"/>
         <source>Master Pages</source>
-        <translation>Master sider</translation>
+        <translation>Mastersider</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="661"/>
@@ -12095,7 +12106,8 @@ for øjeblikket %2 x %3 DPI</translation>
         <location filename="../../../scribus/collect4output.cpp" line="65"/>
         <source>Cannot create directory:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke oprette mappe:
+%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/collect4output.cpp" line="80"/>
@@ -12674,27 +12686,27 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="316"/>
         <source>Solid Line</source>
-        <translation>Massiv linie</translation>
+        <translation>Massiv linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="317"/>
         <source>Dashed Line</source>
-        <translation>Streg linie</translation>
+        <translation>Streg linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="318"/>
         <source>Dotted Line</source>
-        <translation>Prik linie</translation>
+        <translation>Prik linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="319"/>
         <source>Dash Dot Line</source>
-        <translation>Streg prik linie</translation>
+        <translation>Streg prik linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="320"/>
         <source>Dash Dot Dot Line</source>
-        <translation>Streg prik prik linie</translation>
+        <translation>Streg prik prik linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="364"/>
@@ -12809,7 +12821,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="269"/>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation>Linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="270"/>
@@ -12819,7 +12831,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="271"/>
         <source>Polyline</source>
-        <translation>Poly-linie</translation>
+        <translation>Poly-linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="272"/>
@@ -12850,7 +12862,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="278"/>
         <source>PDF Combo Box</source>
-        <translation>PDF kombo-boks</translation>
+        <translation>PDF-komboboks</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="279"/>
@@ -12895,17 +12907,17 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="325"/>
         <source>Default Paragraph Style</source>
-        <translation>Standard afsnits-typografi</translation>
+        <translation>Standard afsnitstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="326"/>
         <source>Default Character Style</source>
-        <translation>Standard Skrifttegn-typografi</translation>
+        <translation>Standard Skrifttegnstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="327"/>
         <source>Default Line Style</source>
-        <translation>Stansard Linie-stil</translation>
+        <translation>Stansard Linje-stil</translation>
     </message>
 </context>
 <context>
@@ -12946,7 +12958,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/ui/copypagetomasterpage.ui" line="39"/>
         <source>Copy Applied Master Page Items</source>
-        <translation>Kopiér anvendte master-side elementer</translation>
+        <translation>Kopiér anvendte masterside-elementer</translation>
     </message>
 </context>
 <context>
@@ -13008,12 +13020,12 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1038"/>
         <source>Edit Line Color Properties</source>
-        <translation>Redigér liniefarve egenskaber</translation>
+        <translation>Redigér linjefarve-egenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1039"/>
         <source>Edit Fill Color Properties</source>
-        <translation>Redigér fyldfarve egenskaber</translation>
+        <translation>Redigér fyldfarve-egenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1040"/>
@@ -13478,12 +13490,12 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/plugins/gettext/csvim/csvdia.cpp" line="27"/>
         <source>CSV Importer Options</source>
-        <translation>CSV import indstillinger</translation>
+        <translation>CSV importindstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/csvim/csvdia.cpp" line="37"/>
         <source>Field delimiter:</source>
-        <translation>Felt adskiller:</translation>
+        <translation>Felt-adskiller:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/csvim/csvdia.cpp" line="44"/>
@@ -13494,7 +13506,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/plugins/gettext/csvim/csvdia.cpp" line="53"/>
         <source>Value delimiter:</source>
-        <translation>Værdi adskiller:</translation>
+        <translation>Værdi-adskiller:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/csvim/csvdia.cpp" line="68"/>
@@ -13621,7 +13633,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="415"/>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurve Filer (*.scu *.SCU);;Alle filer (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="453"/>
@@ -13631,7 +13643,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="453"/>
         <source>Curve Files (*.scu *.scu);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurve Filer (*.scu *.scu);;Alle filer (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="487"/>
@@ -13821,7 +13833,7 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="30"/>
         <source>Document Information</source>
-        <translation>Dokument information</translation>
+        <translation>Dokumentinformation</translation>
     </message>
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="39"/>
@@ -14207,7 +14219,7 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <location filename="../../../scribus/docitemattrprefs.ui" line="13"/>
         <source>Document Item Attributes</source>
-        <translation>Dokument element kvaliteter</translation>
+        <translation>Dokument element-kvaliteter</translation>
     </message>
     <message>
         <location filename="../../../scribus/docitemattrprefs.ui" line="82"/>
@@ -14413,7 +14425,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation type="obsolete">Linie afstand</translation>
+        <translation type="obsolete">Linje afstand</translation>
     </message>
     <message>
         <source> pt</source>
@@ -14441,7 +14453,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation type="obsolete">Bestemmer højden af unicialen i antal linier</translation>
+        <translation type="obsolete">Bestemmer højden af unicialen i antal linjer</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
@@ -14461,7 +14473,7 @@ fejlede!</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation type="obsolete">&amp;Linier:</translation>
+        <translation type="obsolete">&amp;Linjer:</translation>
     </message>
     <message>
         <source> %</source>
@@ -14473,15 +14485,15 @@ fejlede!</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation type="obsolete">Fast linieafstand</translation>
+        <translation type="obsolete">Fast linjeafstand</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="obsolete">Automatisk linieafstand</translation>
+        <translation type="obsolete">Automatisk linjeafstand</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation type="obsolete">Ret ind efter basislinie-gitter</translation>
+        <translation type="obsolete">Ret ind efter basislinje-gitter</translation>
     </message>
     <message>
         <source>Drop Caps</source>
@@ -14517,11 +14529,11 @@ fejlede!</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation type="obsolete">Forskydning til tegnenes basislinie</translation>
+        <translation type="obsolete">Forskydning til tegnenes basislinje</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation type="obsolete">Tryk for at vælge linieafstandens type</translation>
+        <translation type="obsolete">Tryk for at vælge linjeafstandens type</translation>
     </message>
     <message>
         <source>Auto</source>
@@ -14654,7 +14666,7 @@ fejlede!</translation>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="45"/>
         <source>Image Effects</source>
-        <translation>Billed effekter</translation>
+        <translation>Billedeffekter</translation>
     </message>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="82"/>
@@ -15077,7 +15089,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/extimageprops.cpp" line="39"/>
         <source>Extended Image Properties</source>
-        <translation>Udvidede billed egenskaber</translation>
+        <translation>Udvidede billedegenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/extimageprops.cpp" line="50"/>
@@ -15340,7 +15352,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="148"/>
         <source>Family:</source>
-        <translation type="unfinished"></translation>
+        <translation>Familie:</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="149"/>
@@ -15350,12 +15362,12 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="151"/>
         <source>Font Family of Selected Text or Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Font-familie for markerede tekst eller tekstramme</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="152"/>
         <source>Font Style of Selected Text or Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Font-stil for markerede tekst eller tekstramme</translation>
     </message>
 </context>
 <context>
@@ -15363,7 +15375,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/fontlistmodel.cpp" line="63"/>
         <source>Font Name</source>
-        <translation>Font navn</translation>
+        <translation>Fontnavn</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontlistmodel.cpp" line="65"/>
@@ -15455,7 +15467,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/fontprefs.cpp" line="66"/>
         <source>Font Name</source>
-        <translation>Font navn</translation>
+        <translation>Fontnavn</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontprefs.cpp" line="48"/>
@@ -15880,7 +15892,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <name>GuideManager</name>
     <message>
         <source>Edit Guide</source>
-        <translation type="obsolete">Redigér hjælpelinie</translation>
+        <translation type="obsolete">Redigér hjælpelinje</translation>
     </message>
     <message>
         <source>Enter a position:</source>
@@ -15888,7 +15900,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>New Guide</source>
-        <translation type="obsolete">Ny hjælpelinie</translation>
+        <translation type="obsolete">Ny hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="224"/>
@@ -15906,7 +15918,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="obsolete">Hjælpelinie</translation>
+        <translation type="obsolete">Hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="229"/>
@@ -15970,7 +15982,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <location filename="../../../scribus/guidemanager.cpp" line="233"/>
         <location filename="../../../scribus/guidemanager.ui" line="119"/>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Lås hjælpelinier</translation>
+        <translation>&amp;Lås hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="234"/>
@@ -16070,55 +16082,55 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/guidemanager.ui" line="337"/>
         <source>Delete all guides from the current page</source>
-        <translation>Slet alle hjælpelinier fra den aktive side</translation>
+        <translation>Slet alle hjælpelinjer fra den aktive side</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="250"/>
         <location filename="../../../scribus/guidemanager.ui" line="340"/>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation>Slet hjælpelinier fra den aktive &amp;side</translation>
+        <translation>Slet hjælpelinjer fra den aktive &amp;side</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.ui" line="350"/>
         <source>Delete all guides from the current document</source>
-        <translation>Slet alle hjælpelinier fra det aktive dokument</translation>
+        <translation>Slet alle hjælpelinjer fra det aktive dokument</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="251"/>
         <location filename="../../../scribus/guidemanager.ui" line="353"/>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation>Slet hjælpelinier fra &amp;alle sider</translation>
+        <translation>Slet hjælpelinjer fra &amp;alle sider</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="223"/>
         <location filename="../../../scribus/guidemanager.ui" line="15"/>
         <source>Guide Manager</source>
-        <translation>Håndtér hjælpelinier</translation>
+        <translation>Håndtér hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="253"/>
         <source>Add a new horizontal guide</source>
-        <translation>Tilføj en ny horisontal hjælpelinie</translation>
+        <translation>Tilføj en ny horisontal hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="254"/>
         <source>Delete the selected horizontal guide</source>
-        <translation>Slet den valgte horisontale hjælpelinie</translation>
+        <translation>Slet den valgte horisontale hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="255"/>
         <source>Add a new vertical guide</source>
-        <translation>Tilføj en ny vertikal hjælpelinie</translation>
+        <translation>Tilføj en ny vertikal hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="256"/>
         <source>Delete the selected vertical guide</source>
-        <translation>Slet den valgte vertikale hjælpelinie</translation>
+        <translation>Slet den valgte vertikale hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="257"/>
         <source>Lock the guides</source>
-        <translation>Lås hjælpelinierne</translation>
+        <translation>Lås hjælpelinjerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="258"/>
@@ -16128,67 +16140,67 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="259"/>
         <source>Number of horizontal guides to create</source>
-        <translation>Antal horisontale hjælpelinier der skal oprettes</translation>
+        <translation>Antal horisontale hjælpelinjer der skal oprettes</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="260"/>
         <source>Number of vertical guides to create</source>
-        <translation>Antal vertikale hjælpelinier der skal oprettes</translation>
+        <translation>Antal vertikale hjælpelinjer der skal oprettes</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="261"/>
         <source>Create rows with guides, with an additional gap between the rows</source>
-        <translation>Opret rækker med hjælpelinier, med ekstra afstand mellem rækkerne</translation>
+        <translation>Opret rækker med hjælpelinjer, med ekstra afstand mellem rækkerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="262"/>
         <source>Create columns with guides, with an additional gap between the columns</source>
-        <translation>Opret kolonner med hjælpelinier, med ekstra afstand mellem kolonnerne</translation>
+        <translation>Opret kolonner med hjælpelinjer, med ekstra afstand mellem kolonnerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="263"/>
         <source>Create the selected number of horizontal guides relative to the current page</source>
-        <translation>Opret det valgte antal horisontale hjælpelinier relativt til den aktive side</translation>
+        <translation>Opret det valgte antal horisontale hjælpelinjer relativt til den aktive side</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="264"/>
         <source>Create the selected number of horizontal guides relative to the current page&apos;s margins</source>
-        <translation>Opret det valgte antal horisontale hjælpelinier relativt til den aktive sides margener</translation>
+        <translation>Opret det valgte antal horisontale hjælpelinjer relativt til den aktive sides margener</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="265"/>
         <source>Create the selected number of horizontal guides relative to the current selection of items</source>
-        <translation>Opret det valgte antal horisontale hjælpelinier relativt til den aktive markering af elementer</translation>
+        <translation>Opret det valgte antal horisontale hjælpelinjer relativt til den aktive markering af elementer</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="266"/>
         <source>Create the selected number of vertical guides relative to the current page</source>
-        <translation>Opret det valgte antal vertikale hjælpelinier relativt til den aktive side</translation>
+        <translation>Opret det valgte antal vertikale hjælpelinjer relativt til den aktive side</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="267"/>
         <source>Create the selected number of vertical guides relative to the current page&apos;s margins</source>
-        <translation>Opret det valgte antal vertikale hjælpelinier relativt til den aktive sides margener</translation>
+        <translation>Opret det valgte antal vertikale hjælpelinjer relativt til den aktive sides margener</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="268"/>
         <source>Create the selected number of vertical guides relative to the current selection of items</source>
-        <translation>Opret det valgte antal vertikale hjælpelinier relativt til den aktive markering af elementer</translation>
+        <translation>Opret det valgte antal vertikale hjælpelinjer relativt til den aktive markering af elementer</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="269"/>
         <source>Apply the shown guides to all pages in the document</source>
-        <translation>Anvend de viste hjælpelinier på alle sider i dokumentet</translation>
+        <translation>Anvend de viste hjælpelinjer på alle sider i dokumentet</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="270"/>
         <source>Delete all guides shown on the current page</source>
-        <translation>Slet alle hjælpelinier som er vist på den aktive side</translation>
+        <translation>Slet alle hjælpelinjer som er vist på den aktive side</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="271"/>
         <source>Delete all guides from all pages</source>
-        <translation>Slet alle hjælpelinier på alle sider</translation>
+        <translation>Slet alle hjælpelinjer på alle sider</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.cpp" line="241"/>
@@ -16203,7 +16215,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <name>GuideManagerBase</name>
     <message>
         <source>Manage Guides</source>
-        <translation type="obsolete">Håndtér hjælpelinier</translation>
+        <translation type="obsolete">Håndtér hjælpelinjer</translation>
     </message>
     <message>
         <source>&amp;Single</source>
@@ -16215,7 +16227,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="obsolete">Hjælpelinie</translation>
+        <translation type="obsolete">Hjælpelinje</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -16255,7 +16267,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation type="obsolete">&amp;Lås hjælpelinier</translation>
+        <translation type="obsolete">&amp;Lås hjælpelinjer</translation>
     </message>
     <message>
         <source>Appl&amp;y to All Pages</source>
@@ -16319,19 +16331,19 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Delete all guides from the current page</source>
-        <translation type="obsolete">Slet alle hjælpelinier fra den aktive side</translation>
+        <translation type="obsolete">Slet alle hjælpelinjer fra den aktive side</translation>
     </message>
     <message>
         <source>Delete all guides from the current document</source>
-        <translation type="obsolete">Slet alle hjælpelinier fra det aktive dokument</translation>
+        <translation type="obsolete">Slet alle hjælpelinjer fra det aktive dokument</translation>
     </message>
     <message>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation type="obsolete">Slet hjælpelinier fra den aktive &amp;side</translation>
+        <translation type="obsolete">Slet hjælpelinjer fra den aktive &amp;side</translation>
     </message>
     <message>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation type="obsolete">Slet hjælpelinier fra &amp;alle sider</translation>
+        <translation type="obsolete">Slet hjælpelinjer fra &amp;alle sider</translation>
     </message>
 </context>
 <context>
@@ -16647,7 +16659,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/imageinfodialog.cpp" line="23"/>
         <source>Image Info</source>
-        <translation>Billed Info</translation>
+        <translation>BilledInfo</translation>
     </message>
     <message>
         <location filename="../../../scribus/imageinfodialog.cpp" line="30"/>
@@ -16790,7 +16802,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Line Styles</source>
-        <translation type="obsolete">Linie stile</translation>
+        <translation type="obsolete">Linje stile</translation>
     </message>
     <message>
         <source>In case of a name clash</source>
@@ -17051,7 +17063,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/plugins/imposition/impositionplugin.cpp" line="70"/>
         <source>Imposition on grids, booklets and folds</source>
-        <translation>Udskydning på linienet, pjecer og foldere</translation>
+        <translation>Udskydning på linjenet, pjecer og foldere</translation>
     </message>
 </context>
 <context>
@@ -17090,7 +17102,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/inspage.cpp" line="79"/>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Master side:</translation>
+        <translation>&amp;Masterside:</translation>
     </message>
     <message>
         <location filename="../../../scribus/inspage.cpp" line="207"/>
@@ -17135,7 +17147,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/inspage.cpp" line="67"/>
         <source>Master Pages</source>
-        <translation>Master sider</translation>
+        <translation>Mastersider</translation>
     </message>
 </context>
 <context>
@@ -17175,7 +17187,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="85"/>
         <source>&amp;Image Frame</source>
-        <translation>B&amp;illed ramme</translation>
+        <translation>B&amp;illedramme</translation>
     </message>
     <message>
         <source>Alt+I</source>
@@ -17950,7 +17962,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/latexeditor.cpp" line="529"/>
         <source>Insert Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Indsæt symbol</translation>
     </message>
     <message>
         <source>Run external editor...</source>
@@ -18312,7 +18324,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="90"/>
@@ -18337,7 +18349,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Edit Line Styles</source>
-        <translation type="obsolete">Redigér liniestile</translation>
+        <translation type="obsolete">Redigér linjestile</translation>
     </message>
     <message>
         <source>New Style</source>
@@ -18384,14 +18396,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="obsolete">Liniebredde:</translation>
+        <translation type="obsolete">Linjebredde:</translation>
     </message>
 </context>
 <context>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation type="obsolete">LinieStilWBase</translation>
+        <translation type="obsolete">LinjeStilWBase</translation>
     </message>
     <message>
         <source>%</source>
@@ -18399,7 +18411,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="obsolete">Liniebredde:</translation>
+        <translation type="obsolete">Linjebredde:</translation>
     </message>
 </context>
 <context>
@@ -18434,19 +18446,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Add a new line</source>
-        <translation type="obsolete">Tilføj en ny linie</translation>
+        <translation type="obsolete">Tilføj en ny linje</translation>
     </message>
     <message>
         <source>Remove a line</source>
-        <translation type="obsolete">Fjern en linie</translation>
+        <translation type="obsolete">Fjern en linje</translation>
     </message>
     <message>
         <source>Line style</source>
-        <translation type="obsolete">Liniestil</translation>
+        <translation type="obsolete">Linjestil</translation>
     </message>
     <message>
         <source>Line width</source>
-        <translation type="obsolete">Liniebredde</translation>
+        <translation type="obsolete">Linjebredde</translation>
     </message>
     <message>
         <source>End style</source>
@@ -18458,11 +18470,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Line color</source>
-        <translation type="obsolete">Liniefarve</translation>
+        <translation type="obsolete">Linjefarve</translation>
     </message>
     <message>
         <source>Line shade</source>
-        <translation type="obsolete">Linieskygge</translation>
+        <translation type="obsolete">Linjeskygge</translation>
     </message>
 </context>
 <context>
@@ -18475,13 +18487,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="93"/>
         <source>An error occured while opening file or file is damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Der opstod en fejl under indlæsning af fil, eller fil er ødelagt</translation>
     </message>
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="98"/>
         <source>An error occured while parsing file at line %1, column %2 :
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Der opstod en fejl under analysering af fil i linje %1 kolonne %2 :
+%3</translation>
     </message>
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="80"/>
@@ -18558,7 +18571,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="31"/>
         <source>Manage Page Properties</source>
-        <translation>Håndtér side egenskaber</translation>
+        <translation>Håndtér sideegenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="39"/>
@@ -18603,7 +18616,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="109"/>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="89"/>
@@ -18618,7 +18631,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="121"/>
         <source>Master Page:</source>
-        <translation>Master side:</translation>
+        <translation>Masterside:</translation>
     </message>
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="175"/>
@@ -18673,12 +18686,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="156"/>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Afstand mellem top margen-hjælpelinie og sidens kant</translation>
+        <translation>Afstand mellem top margen-hjælpelinje og sidens kant</translation>
     </message>
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="157"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Afstand mellem bund margen-hjælpelinie og sidens kant</translation>
+        <translation>Afstand mellem bund margen-hjælpelinje og sidens kant</translation>
     </message>
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="211"/>
@@ -18723,7 +18736,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="86"/>
         <source>All Master Pages</source>
-        <translation>Alle master sider</translation>
+        <translation>Alle mastersider</translation>
     </message>
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="91"/>
@@ -18733,7 +18746,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="108"/>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="126"/>
@@ -18793,12 +18806,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="158"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand mellem venstre margen-hjælpelinie og sidens kant. Hvis der er valgt dobbelt-sidet, 3 eller 4-fold layout, så kan denne margen bruges til at opnå de rigtige margener for indbinding</translation>
+        <translation>Afstand mellem venstre margen-hjælpelinje og sidens kant. Hvis der er valgt dobbelt-sidet, 3 eller 4-fold layout, så kan denne margen bruges til at opnå de rigtige margener for indbinding</translation>
     </message>
     <message>
         <location filename="../../../scribus/marginwidget.cpp" line="159"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand mellem højre margen-hjælpelinie og sidens kant. Hvis der er valgt dobbelt-sidet, 3 eller 4-fold layout, så kan denne margen bruges til at opnå de rigtige margener for indbinding</translation>
+        <translation>Afstand mellem højre margen-hjælpelinje og sidens kant. Hvis der er valgt dobbelt-sidet, 3 eller 4-fold layout, så kan denne margen bruges til at opnå de rigtige margener for indbinding</translation>
     </message>
 </context>
 <context>
@@ -18806,7 +18819,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/masterpagepalette.cpp" line="97"/>
         <source>Edit Master Pages</source>
-        <translation>Redigér Master sider</translation>
+        <translation>Redigér Mastersider</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -19173,7 +19186,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="73"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="94"/>
@@ -19283,7 +19296,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="obsolete">Liniebredde:</translation>
+        <translation type="obsolete">Linjebredde:</translation>
     </message>
     <message>
         <source>Edit Style</source>
@@ -19581,7 +19594,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/newfile.cpp" line="266"/>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/newfile.cpp" line="144"/>
@@ -19793,12 +19806,12 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="905"/>
         <source>Edit &amp;Contour Line</source>
-        <translation>Redigér &amp;omrids linie</translation>
+        <translation>Redigér &amp;omrids linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="906"/>
         <source>&amp;Reset Contour Line</source>
-        <translation>Nu&amp;lstil omrids linie</translation>
+        <translation>Nu&amp;lstil omrids linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="909"/>
@@ -19873,12 +19886,12 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="935"/>
         <source>Activate Contour Line Editing Mode</source>
-        <translation>Aktivér Redigering af omrids linie</translation>
+        <translation>Aktivér Redigering af omrids linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="936"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation>Nulstil omrids linien til den originale form på rammen</translation>
+        <translation>Nulstil omrids linjen til den originale form på rammen</translation>
     </message>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="922"/>
@@ -19928,7 +19941,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="937"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
-        <translation>Nulstil kontur-linien til billedets fritlægningsmaske</translation>
+        <translation>Nulstil kontur-linjen til billedets fritlægningsmaske</translation>
     </message>
     <message>
         <location filename="../../../scribus/nodeeditpalette.cpp" line="241"/>
@@ -20012,7 +20025,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="70"/>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Brug dokumentnavn som en forstavelse til afsnits typografier</translation>
+        <translation>Brug dokumentnavn som en forstavelse til afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -20027,7 +20040,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="43"/>
         <source>OpenDocument Importer Options</source>
-        <translation>OpenDokument import indstillinger</translation>
+        <translation>OpenDokument importindstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="54"/>
@@ -20037,12 +20050,12 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="63"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation>Sammenflet afsnits typografier efter kvaliteter. Dette resulterer i færre ens afsnits typografier, vil bevare typografi kvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
+        <translation>Sammenflet afsnitstypografier efter kvaliteter. Dette resulterer i færre ens afsnitstypografier, vil bevare typografikvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Sæt dokumentnavn foran afsnits typografiens navn i Scribus.</translation>
+        <translation>Sæt dokumentnavn foran afsnitstypografiens navn i Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
@@ -20052,12 +20065,12 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="61"/>
         <source>Merge Paragraph Styles</source>
-        <translation>Sammenflet afsnits typografier</translation>
+        <translation>Sammenflet afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="52"/>
         <source>Overwrite Paragraph Styles</source>
-        <translation>Overskriv afsnits typografier</translation>
+        <translation>Overskriv afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/odtim/odtdia.cpp" line="92"/>
@@ -20180,7 +20193,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/styleselect.cpp" line="98"/>
         <source>Linewidth</source>
-        <translation>Liniebredde</translation>
+        <translation>Linjebredde</translation>
     </message>
 </context>
 <context>
@@ -20311,7 +20324,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/ui/pdftoolbar.cpp" line="29"/>
         <source>PDF Tools</source>
-        <translation>PDF Værktøjer</translation>
+        <translation>PDF-værktøjer</translation>
     </message>
 </context>
 <context>
@@ -20708,7 +20721,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pageitem.cpp" line="398"/>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation>Linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem.cpp" line="402"/>
@@ -20718,7 +20731,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pageitem.cpp" line="406"/>
         <source>Polyline</source>
-        <translation>Poly-linie</translation>
+        <translation>Poly-linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem.cpp" line="410"/>
@@ -21086,12 +21099,12 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="164"/>
         <source>This is usually a problem with your input. Please check the program&apos;s output.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette er sædvanligvis et problem med dit indput. Tjek venligst programmets uddata.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="166"/>
         <source>Do you want to open the editor to fix the problem?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ønsker du at åbne redigeringsprogrammet for at rette problemet?</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="271"/>
@@ -21102,7 +21115,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="419"/>
         <source>The application &quot;%1&quot; failed to start! Please check the path: </source>
-        <translation type="unfinished"></translation>
+        <translation>Programmet &quot;%1&quot; kunne ikke starte! Tjek venligst stien:</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="574"/>
@@ -21140,7 +21153,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pageitem_pathtext.cpp" line="329"/>
         <source>Lines: </source>
-        <translation>Linier: </translation>
+        <translation>Linjer: </translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_pathtext.cpp" line="335"/>
@@ -21173,7 +21186,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pageitem_textframe.cpp" line="3582"/>
         <source>Lines: </source>
-        <translation>Linier: </translation>
+        <translation>Linjer: </translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_textframe.cpp" line="3588"/>
@@ -21332,17 +21345,17 @@ Ofte brugt for at tillade elementer at blive placeret over flere sider</translat
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="73"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="96"/>
         <source>Bends a Polygon along a Polyline</source>
-        <translation>Bøjer en polygon langs en poly-linie</translation>
+        <translation>Bøjer en polygon langs en poly-linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="97"/>
         <source>This plugin bends a Polygon with the help of a Polyline.</source>
-        <translation>Dette plugin bøjer en polygon ved hjælp af en poly-linie.</translation>
+        <translation>Dette plugin bøjer en polygon ved hjælp af en poly-linje.</translation>
     </message>
 </context>
 <context>
@@ -21367,7 +21380,7 @@ Ofte brugt for at tillade elementer at blive placeret over flere sider</translat
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="69"/>
         <source>a straight Line</source>
-        <translation>en lige linie</translation>
+        <translation>en lige linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="74"/>
@@ -21382,12 +21395,12 @@ Ofte brugt for at tillade elementer at blive placeret over flere sider</translat
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="19"/>
         <source>Connect First Line</source>
-        <translation>Forbind første linie</translation>
+        <translation>Forbind første linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="40"/>
         <source>with Second Line</source>
-        <translation>med anden linie</translation>
+        <translation>med anden linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
@@ -21406,12 +21419,12 @@ Ofte brugt for at tillade elementer at blive placeret over flere sider</translat
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="69"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="91"/>
         <source>Connect 2 Polylines.</source>
-        <translation>Forbind 2 poly-linier.</translation>
+        <translation>Forbind 2 poly-linjer.</translation>
     </message>
 </context>
 <context>
@@ -21424,13 +21437,13 @@ Ofte brugt for at tillade elementer at blive placeret over flere sider</translat
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="76"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="99"/>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="100"/>
         <source>Cuts a Polygon by a Polyline</source>
-        <translation>Klipper en polygon med en polylinie</translation>
+        <translation>Klipper en polygon med en polylinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="119"/>
@@ -21451,7 +21464,7 @@ Ofte brugt for at tillade elementer at blive placeret over flere sider</translat
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="150"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
-        <translation>Den klippende linie skal krydse polygonen og
+        <translation>Den klippende linje skal krydse polygonen og
 begge endepunkter skal ligge udenfor polygonen</translation>
     </message>
 </context>
@@ -21711,7 +21724,7 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="78"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="103"/>
@@ -21745,7 +21758,7 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
     <message>
         <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="74"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="96"/>
@@ -22235,7 +22248,7 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="633"/>
         <source>Image Effects...</source>
-        <translation>Billed effekter...</translation>
+        <translation>Billedeffekter...</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="613"/>
@@ -22254,7 +22267,7 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="600"/>
         <source>Extended Image Properties...</source>
-        <translation>Udvidede billed egenskaber...</translation>
+        <translation>Udvidede billedegenskaber...</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.cpp" line="228"/>
@@ -22334,7 +22347,7 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="462"/>
         <source>Page Item:</source>
-        <translation>Side elementer:</translation>
+        <translation>Sideelementer:</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="478"/>
@@ -22626,7 +22639,7 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/pluginmanagerprefsgui.ui" line="20"/>
         <source>Plugin Manager</source>
-        <translation>Plugin håndtering</translation>
+        <translation>Plugin-håndtering</translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanagerprefsgui.ui" line="36"/>
@@ -22796,7 +22809,7 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="82"/>
         <source>Guides</source>
-        <translation>Hjælpelinier</translation>
+        <translation>Hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="79"/>
@@ -22846,12 +22859,12 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="120"/>
         <source>PDF Export</source>
-        <translation>PDF eksport</translation>
+        <translation>PDF-eksport</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="125"/>
         <source>Document Item Attributes</source>
-        <translation>Dokument element kvaliteter</translation>
+        <translation>Dokument element-kvaliteter</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="130"/>
@@ -22861,7 +22874,7 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="133"/>
         <source>Keyboard Shortcuts</source>
-        <translation>Tastatur genveje</translation>
+        <translation>Tastatur-genveje</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="145"/>
@@ -22983,7 +22996,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../../scribus/prefsmanager.cpp" line="1737"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation>Fejlede at læse prefs XML fra &quot;%1&quot;: %2 linie %3, kol %4</translation>
+        <translation>Fejlede at læse prefs XML fra &quot;%1&quot;: %2 linje %3, kol %4</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefsmanager.cpp" line="2430"/>
@@ -23863,7 +23876,7 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="834"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5481"/>
         <source>Line Spacing</source>
-        <translation>Linieafstand</translation>
+        <translation>Linjeafstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5167"/>
@@ -24016,27 +24029,27 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5501"/>
         <source>Pattern of line</source>
-        <translation>Liniemønster</translation>
+        <translation>Linjemønster</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5502"/>
         <source>Thickness of line</source>
-        <translation>Linietykkelse</translation>
+        <translation>Linjetykkelse</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5503"/>
         <source>Type of line joins</source>
-        <translation>Typen af liniesamlinger</translation>
+        <translation>Typen af linjesamlinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5504"/>
         <source>Type of line end</source>
-        <translation>Typen af linie-enden</translation>
+        <translation>Typen af linje-enden</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5505"/>
         <source>Line style of current object</source>
-        <translation>Liniestil af valgte objekt</translation>
+        <translation>Linjestil af valgte objekt</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5509"/>
@@ -24132,27 +24145,27 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5288"/>
         <source>Cell Lines</source>
-        <translation>Cellelinier</translation>
+        <translation>Cellelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5289"/>
         <source>Line at Top</source>
-        <translation>Linie for oven</translation>
+        <translation>Linje for oven</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5290"/>
         <source>Line at the Left</source>
-        <translation>Linie i venstre side</translation>
+        <translation>Linje i venstre side</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5291"/>
         <source>Line at the Right </source>
-        <translation>Linie i højre side</translation>
+        <translation>Linje i højre side</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5292"/>
         <source>Line at Bottom</source>
-        <translation>Linie i bunden</translation>
+        <translation>Linje i bunden</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5527"/>
@@ -24213,7 +24226,7 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5104"/>
         <source>&amp;Line</source>
-        <translation>&amp;Linie</translation>
+        <translation>&amp;Linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5105"/>
@@ -24277,7 +24290,7 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="5176"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5182"/>
         <source>&amp;Use Contour Line</source>
-        <translation>Brug &amp;omrids linie</translation>
+        <translation>Brug &amp;omrids linje</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
@@ -24353,12 +24366,12 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5259"/>
         <source>T&amp;ype of Line:</source>
-        <translation>T&amp;ypen af linie:</translation>
+        <translation>T&amp;ypen af linje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5271"/>
         <source>Line &amp;Width:</source>
-        <translation>Linie&amp;bredde:</translation>
+        <translation>Linje&amp;bredde:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5272"/>
@@ -24407,17 +24420,17 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5237"/>
         <source>Fixed Linespacing</source>
-        <translation>Fast linieafstand</translation>
+        <translation>Fast linjeafstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5238"/>
         <source>Automatic Linespacing</source>
-        <translation>Automatisk linieafstand</translation>
+        <translation>Automatisk linjeafstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5239"/>
         <source>Align to Baseline Grid</source>
-        <translation>Ret ind efter grundlinie-gitter</translation>
+        <translation>Ret ind efter grundlinjegitter</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5219"/>
@@ -24442,7 +24455,7 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5472"/>
         <source>Offset to baseline of characters</source>
-        <translation>Forskydning til tegnenes grundlinie</translation>
+        <translation>Forskydning til tegnenes grundlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5474"/>
@@ -24613,12 +24626,12 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5227"/>
         <source>Image Effects</source>
-        <translation>Billed effekter</translation>
+        <translation>Billedeffekter</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5228"/>
         <source>Extended Image Properties</source>
-        <translation>Udvidede billed egenskaber</translation>
+        <translation>Udvidede billedegenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5294"/>
@@ -24658,13 +24671,13 @@ hjørner:</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="obsolete">Tryk og hold nede for at vælge linieafstands tilstand.</translation>
+        <translation type="obsolete">Tryk og hold nede for at vælge linjeafstands tilstand.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5462"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5467"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation>Når dette er valgt, kan omridslinien redigeres med rediger form værktøjet på paletten længere oppe. Når linien er redigeret via formpaletten, så bliver det en anden separat linie originalt baseret på rammens form for flydning af tekst under objektet. T</translation>
+        <translation>Når dette er valgt, kan omridslinjen redigeres med rediger form værktøjet på paletten længere oppe. Når linjen er redigeret via formpaletten, så bliver det en anden separat linje originalt baseret på rammens form for flydning af tekst under objektet. T</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5160"/>
@@ -24700,12 +24713,12 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5184"/>
         <source>Paragraph St&amp;yle:</source>
-        <translation>Afsnits t&amp;ypografi:</translation>
+        <translation>Afsnitst&amp;ypografi:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5185"/>
         <source>Character St&amp;yle:</source>
-        <translation>Skrifttegn-t&amp;ypografi:</translation>
+        <translation>Skrifttegnst&amp;ypografi:</translation>
     </message>
     <message>
         <source>Optical Margins:</source>
@@ -24746,7 +24759,7 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5484"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>Afsnits typografi fra markerede tekst eller afsnit</translation>
+        <translation>Afsnitstypografi fra markerede tekst eller afsnit</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5485"/>
@@ -24808,7 +24821,7 @@ hjørner:</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="842"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5214"/>
         <source>First Line Offset</source>
-        <translation>Første linie forskydning</translation>
+        <translation>Første linje forskydning</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="832"/>
@@ -24841,7 +24854,7 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="3167"/>
         <source>Baseline</source>
-        <translation>Grundlinie</translation>
+        <translation>Grundlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5447"/>
@@ -24851,22 +24864,22 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5483"/>
         <source>Select the line spacing mode.</source>
-        <translation>Vælg tilstanden for Linieafstand.</translation>
+        <translation>Vælg tilstanden for Linjeafstand.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5490"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation>Sætter højden af den første linie i tekst-rammen til at bruge den største højde af de inkluderede skrifttegn</translation>
+        <translation>Sætter højden af den første linje i tekst-rammen til at bruge den største højde af de inkluderede skrifttegn</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5491"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>Sætter højden af den første linie i tekst-rammen til at bruge den fulde opadgående højde af font(e) der er i brug</translation>
+        <translation>Sætter højden af den første linje i tekst-rammen til at bruge den fulde opadgående højde af font(e) der er i brug</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5492"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation>Sætter højden af den første linie i tekst-rammen til den angivne liniehøjde</translation>
+        <translation>Sætter højden af den første linje i tekst-rammen til den angivne linjehøjde</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5217"/>
@@ -24909,7 +24922,7 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5321"/>
         <source>Hairline</source>
-        <translation>Hårlinie</translation>
+        <translation>Hårlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="932"/>
@@ -24942,12 +24955,12 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5506"/>
         <source>Arrow head style for start of line</source>
-        <translation>Pilhoved-stil for start af linie</translation>
+        <translation>Pilhoved-stil for start af linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5507"/>
         <source>Arrow head style for end of line</source>
-        <translation>Pilhoved-stil for slutning af linie</translation>
+        <translation>Pilhoved-stil for slutning af linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5529"/>
@@ -25052,7 +25065,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Line: %1 Column: %2</source>
-        <translation type="obsolete">Linie: %1 kolonne: %2</translation>
+        <translation type="obsolete">Linje: %1 kolonne: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="163"/>
@@ -25980,7 +25993,7 @@ Ekstern Lænker</translation>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="99"/>
         <source>Kurdish</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurdisk</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="102"/>
@@ -25992,7 +26005,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/langmgr.cpp" line="106"/>
         <location filename="../../../scribus/langmgr.cpp" line="107"/>
         <source>Norwegian (BokmÃ¥l)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norsk (Bokmål)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="108"/>
@@ -26125,7 +26138,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="134"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan ikke hente linie-afstand fra andet end tekst-ramme.</translation>
+        <translation>Kan ikke hente linje-afstand fra andet end tekst-ramme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="174"/>
@@ -26388,13 +26401,13 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="436"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation>Linie-afstand uden for tilladt område - skal være &gt;= 0.1.</translation>
+        <translation>Linje-afstand uden for tilladt område - skal være &gt;= 0.1.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="444"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte linie-afstand i andet end tekst-ramme.</translation>
+        <translation>Kan ikke sætte linje-afstand i andet end tekst-ramme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="499"/>
@@ -26546,7 +26559,7 @@ Ekstern Lænker</translation>
     <message>
         <location filename="../../../scribus/page.cpp" line="91"/>
         <source>Master Page </source>
-        <translation>Master side </translation>
+        <translation>Masterside </translation>
     </message>
     <message>
         <location filename="../../../scribus/pagesize.cpp" line="124"/>
@@ -26850,7 +26863,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/scribus.cpp" line="2041"/>
         <location filename="../../../scribus/scribus.cpp" line="2329"/>
         <source>Document Template: </source>
-        <translation>Dokument skabelon: </translation>
+        <translation>Dokument-skabelon: </translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="152"/>
@@ -26882,7 +26895,7 @@ Ekstern Lænker</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="273"/>
         <source>Invalid property</source>
-        <translation type="unfinished"></translation>
+        <translation>Ugyldig egenskab</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="319"/>
@@ -27022,13 +27035,13 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="245"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
-        <translation>Linie-bredde uden for tilladt område, skal være 0 &lt;= linie_bredde &lt;= 12.</translation>
+        <translation>Linjebredde uden for tilladt område, skal være 0 &lt;= linje_bredde &lt;= 12.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="265"/>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Linie-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100.</translation>
+        <translation>Linje-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="285"/>
@@ -27040,7 +27053,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="377"/>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation>Liniestil ikke fundet.</translation>
+        <translation>Linjestil ikke fundet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="879"/>
@@ -27346,7 +27359,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcode.cpp" line="31"/>
         <source>Barcode Generator</source>
-        <translation>Stregkode generator</translation>
+        <translation>Stregkodegenerator</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fileloader/oodraw/oodrawimp.cpp" line="173"/>
@@ -27406,7 +27419,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.cpp" line="140"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
-        <translation>Den givne master side stemmer ikke overens med nogen eksisterende.</translation>
+        <translation>Den givne masterside stemmer ikke overens med nogen eksisterende.</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="93"/>
@@ -27675,7 +27688,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/styles/charstyle.cpp" line="199"/>
         <source>+baseline %1 </source>
-        <translation>+grundlinie %1 </translation>
+        <translation>+grundlinje %1 </translation>
     </message>
     <message>
         <location filename="../../../scribus/styles/charstyle.cpp" line="201"/>
@@ -27705,7 +27718,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="98"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan ikke hente antal linier fra andet end tekst-ramme.</translation>
+        <translation>Kan ikke hente antal linjer fra andet end tekst-ramme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="59"/>
@@ -27763,7 +27776,7 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="obsolete">Linie</translation>
+        <translation type="obsolete">Linje</translation>
     </message>
     <message>
         <source>Polygon</source>
@@ -27771,7 +27784,7 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation type="obsolete">Poly-linie</translation>
+        <translation type="obsolete">Poly-linje</translation>
     </message>
     <message>
         <source>PathText</source>
@@ -27903,7 +27916,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="38"/>
         <source>PDF Document</source>
-        <translation>PDF-Dokument</translation>
+        <translation>PDF-dokument</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="39"/>
@@ -27983,7 +27996,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="51"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
-        <translation>Kan ikke have en afsnits-typografi uden navn.</translation>
+        <translation>Kan ikke have en afsnitstypografi uden navn.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="71"/>
@@ -28052,7 +28065,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/latexhelpers.cpp" line="66"/>
         <source>Highlighter error: Invalid index returned by QT&apos;s QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fremhævnings-fejl: Ugyldigt index returneret af QT&apos;s OString.indexOf(). Dette er en uforenelighed mellem forskellige QT versioner og det kan kun rettes ved at compilere Scribus med den samme QT-version som er installeret på systemet. Syntax-fremhævning er deaktiveret nu, men optegning af rammer skulle fortsætte med at virke uden problemer.</translation>
     </message>
     <message>
         <location filename="../../../scribus/latexhelpers.cpp" line="412"/>
@@ -28336,7 +28349,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="63"/>
         <source>Document Setup</source>
-        <translation>Dokument indstillinger</translation>
+        <translation>Dokumentindstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="66"/>
@@ -28346,12 +28359,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="69"/>
         <source>Document Information</source>
-        <translation>Dokument information</translation>
+        <translation>Dokumentinformation</translation>
     </message>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="72"/>
         <source>Guides</source>
-        <translation>Hjælpelinier</translation>
+        <translation>Hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="76"/>
@@ -28381,12 +28394,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="96"/>
         <source>PDF Export</source>
-        <translation>PDF eksport</translation>
+        <translation>PDF-eksport</translation>
     </message>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="101"/>
         <source>Document Item Attributes</source>
-        <translation>Dokument element kvaliteter</translation>
+        <translation>Dokument element-kvaliteter</translation>
     </message>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="106"/>
@@ -28467,7 +28480,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="22"/>
         <source>Run as Extension Script</source>
-        <translation>Kør som udvidelses script</translation>
+        <translation>Kør som udvidelses-script</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="13"/>
@@ -28580,7 +28593,7 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Baseline offset</source>
-        <translation type="obsolete">Basislinie forskydning</translation>
+        <translation type="obsolete">Basislinje forskydning</translation>
     </message>
     <message>
         <source>Horizontal scaling</source>
@@ -28644,7 +28657,7 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Baseline offset</source>
-        <translation type="obsolete">Basislinie forskydning</translation>
+        <translation type="obsolete">Basislinje forskydning</translation>
     </message>
     <message>
         <source>Horizontal scaling</source>
@@ -28740,7 +28753,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="84"/>
         <source>Font Family</source>
-        <translation type="unfinished"></translation>
+        <translation>Fontfamilie</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="85"/>
@@ -28750,7 +28763,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="88"/>
         <source>Baseline Offset</source>
-        <translation>Grundlinie forskydning</translation>
+        <translation>Grundlinje forskydning</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="89"/>
@@ -28804,12 +28817,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smtextstyles.cpp" line="1443"/>
         <source>Character Styles</source>
-        <translation>Skrifttegn-typografier</translation>
+        <translation>Skrifttegnstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/smtextstyles.cpp" line="1448"/>
         <source>Character Style</source>
-        <translation>Skrifttegn-typografi</translation>
+        <translation>Skrifttegnstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/smtextstyles.cpp" line="1588"/>
@@ -28859,12 +28872,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="42"/>
         <source>Line Styles</source>
-        <translation>Liniestile</translation>
+        <translation>Linjestile</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="47"/>
         <source>Line Style</source>
-        <translation>Liniestil</translation>
+        <translation>Linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="184"/>
@@ -28891,31 +28904,31 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/smlinestyle.cpp" line="600"/>
         <location filename="../../../scribus/smlinestyle.cpp" line="676"/>
         <source>Solid Line</source>
-        <translation>Massiv linie</translation>
+        <translation>Massiv linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="603"/>
         <location filename="../../../scribus/smlinestyle.cpp" line="679"/>
         <source>Dashed Line</source>
-        <translation>Streg linie</translation>
+        <translation>Streg linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="606"/>
         <location filename="../../../scribus/smlinestyle.cpp" line="682"/>
         <source>Dotted Line</source>
-        <translation>Prik linie</translation>
+        <translation>Prik linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="609"/>
         <location filename="../../../scribus/smlinestyle.cpp" line="685"/>
         <source>Dash Dot Line</source>
-        <translation>Streg prik linie</translation>
+        <translation>Streg prik linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="612"/>
         <location filename="../../../scribus/smlinestyle.cpp" line="688"/>
         <source>Dash Dot Dot Line</source>
-        <translation>Streg prik prik linie</translation>
+        <translation>Streg prik prik linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="672"/>
@@ -28958,22 +28971,22 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="62"/>
         <source>Add a new line</source>
-        <translation>Tilføj en ny linie</translation>
+        <translation>Tilføj en ny linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="63"/>
         <source>Remove a line</source>
-        <translation>Fjern en linie</translation>
+        <translation>Fjern en linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="64"/>
         <source>Line style</source>
-        <translation>Liniestil</translation>
+        <translation>Linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="65"/>
         <source>Line width</source>
-        <translation>Liniebredde</translation>
+        <translation>Linjebredde</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="66"/>
@@ -28988,12 +29001,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="68"/>
         <source>Line color</source>
-        <translation>Liniefarve</translation>
+        <translation>Linjefarve</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="69"/>
         <source>Line shade</source>
-        <translation>Linieskygge</translation>
+        <translation>Linjeskygge</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="148"/>
@@ -29008,7 +29021,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smlinestylewidget.ui" line="256"/>
         <source>Line Width:</source>
-        <translation>Liniebredde:</translation>
+        <translation>Linjebredde:</translation>
     </message>
 </context>
 <context>
@@ -29019,7 +29032,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/smpstylewidget.cpp" line="159"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="330"/>
         <source>Fixed Linespacing</source>
-        <translation>Fast linieafstand</translation>
+        <translation>Fast linjeafstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="35"/>
@@ -29027,7 +29040,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/smpstylewidget.cpp" line="160"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="331"/>
         <source>Automatic Linespacing</source>
-        <translation>Automatisk linieafstand</translation>
+        <translation>Automatisk linjeafstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="36"/>
@@ -29035,7 +29048,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/smpstylewidget.cpp" line="161"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="332"/>
         <source>Align to Baseline Grid</source>
-        <translation>Ret ind efter grundlinie-gitter</translation>
+        <translation>Ret ind efter grundlinjegitter</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="96"/>
@@ -29069,12 +29082,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="137"/>
         <source>Character Style</source>
-        <translation>Skrifttegn-typografi</translation>
+        <translation>Skrifttegnstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="265"/>
         <source>&amp;Lines:</source>
-        <translation>&amp;Linier:</translation>
+        <translation>&amp;Linjer:</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="289"/>
@@ -29089,12 +29102,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="83"/>
         <source>Line Spacing Mode</source>
-        <translation>Linieafstand tilstand</translation>
+        <translation>Linjeafstand tilstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="84"/>
         <source>Line Spacing</source>
-        <translation>Linie afstand</translation>
+        <translation>Linje afstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="85"/>
@@ -29109,7 +29122,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="94"/>
         <source>Drop Cap Lines</source>
-        <translation>Uncial linier</translation>
+        <translation>Uncial linjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="95"/>
@@ -29119,7 +29132,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="97"/>
         <source>First Line Indent</source>
-        <translation>Første linie indrykning</translation>
+        <translation>Første linje indrykning</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="98"/>
@@ -29157,7 +29170,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="639"/>
         <source>Ch&amp;aracter Style</source>
-        <translation>&amp;Skrifttegn-typografi</translation>
+        <translation>&amp;Skrifttegnstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="394"/>
@@ -29270,12 +29283,12 @@ Udtrykt som en procentdel af den aktuelle værdi af det hvide mellemrum.</transl
     <message>
         <location filename="../../../scribus/smtextstyles.cpp" line="56"/>
         <source>Paragraph Styles</source>
-        <translation>Afsnits typografier</translation>
+        <translation>Afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/smtextstyles.cpp" line="61"/>
         <source>Paragraph Style</source>
-        <translation>Afsnits typografi</translation>
+        <translation>Afsnitstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/smtextstyles.cpp" line="227"/>
@@ -29383,17 +29396,17 @@ Udtrykt som en procentdel af den aktuelle værdi af det hvide mellemrum.</transl
     <message>
         <location filename="../../../scribus/smstyleimport.cpp" line="22"/>
         <source>Character Styles</source>
-        <translation>Skrifttegn-typografier</translation>
+        <translation>Skrifttegnstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/smstyleimport.cpp" line="34"/>
         <source>Paragraph Styles</source>
-        <translation>Afsnits typografier</translation>
+        <translation>Afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/smstyleimport.cpp" line="46"/>
         <source>Line Styles</source>
-        <translation>Linie-stile</translation>
+        <translation>Linje-stile</translation>
     </message>
     <message>
         <location filename="../../../scribus/smstyleimport.ui" line="13"/>
@@ -29538,7 +29551,7 @@ Udtrykt som en procentdel af den aktuelle værdi af det hvide mellemrum.</transl
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1182"/>
         <source>Character Settings</source>
-        <translation>Skrifttegn indstillinger</translation>
+        <translation>Skrifttegns-indstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1224"/>
@@ -30330,7 +30343,7 @@ Rotation: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="732"/>
         <source>Preview Settings</source>
-        <translation>Vis udskrift indstillinger</translation>
+        <translation>Vis udskrift-indstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="716"/>
@@ -30346,7 +30359,7 @@ Rotation: %4</translation>
         <location filename="../../../scribus/scribus.cpp" line="740"/>
         <location filename="../../../scribus/scribus.cpp" line="9273"/>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF Indstillinger</translation>
+        <translation>&amp;PDF-indstillinger</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -30444,7 +30457,8 @@ Rotation: %4</translation>
         <location filename="../../../scribus/scribus.cpp" line="3823"/>
         <source>File does not exist on the specified path :
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fil eksisterer ikke på den angivne sti :
+%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3868"/>
@@ -30683,7 +30697,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9272"/>
         <source>Previe&amp;w Settings</source>
-        <translation>&amp;Vis udskrift indstillinger</translation>
+        <translation>&amp;Vis udskrift-indstillinger</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -30704,7 +30718,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7653"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation>Ghostscript : Du kan ikke bruge EPS billeder eller Postscript forhåndsvisning af udskrift</translation>
+        <translation>Ghostscript : Du kan ikke bruge EPS-billeder eller Postscript-forhåndsvisning af udskrift</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
@@ -30833,7 +30847,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7700"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
-        <translation>Ghostscript mangler: PostScript forhåndsvisning af udskrift er ikke tilgængelig</translation>
+        <translation>Ghostscript mangler: PostScript-forhåndsvisning af udskrift er ikke tilgængelig</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3851"/>
@@ -30962,7 +30976,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribusapp.cpp" line="425"/>
         <source>Display a console window</source>
-        <translation>Åbn et konsol windue</translation>
+        <translation>Åbn et konsol-vindue</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusapp.cpp" line="416"/>
@@ -30972,7 +30986,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribusapp.cpp" line="420"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
-        <translation>Hent en fil fra Scribus Hjemmesiden og vis den nyest tilgængelige version.</translation>
+        <translation>Hent en fil fra Scribus hjemmesiden og vis den nyest tilgængelige version.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusapp.cpp" line="418"/>
@@ -31083,7 +31097,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="252"/>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF Indstillinger</translation>
+        <translation>&amp;PDF-indstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="296"/>
@@ -31182,7 +31196,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>Lines: </source>
-        <translation type="obsolete">Linier: </translation>
+        <translation type="obsolete">Linjer: </translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="3666"/>
@@ -31383,7 +31397,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="89"/>
         <source>Enable Extension Scripts</source>
-        <translation>Aktivér udvidelses scripts</translation>
+        <translation>Aktivér udvidelses-scripts</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="50"/>
@@ -31571,7 +31585,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/search.cpp" line="515"/>
         <location filename="../../../scribus/search.cpp" line="608"/>
         <source>Search/Replace</source>
-        <translation>Søg/erstat</translation>
+        <translation>Søg/Erstat</translation>
     </message>
     <message>
         <location filename="../../../scribus/search.cpp" line="96"/>
@@ -32061,7 +32075,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1934"/>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Søg/erstat...</translation>
+        <translation>&amp;Søg/Erstat...</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1935"/>
@@ -32175,7 +32189,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/styleselect.cpp" line="43"/>
         <source>Linewidth</source>
-        <translation>Liniebredde</translation>
+        <translation>Linjebredde</translation>
     </message>
 </context>
 <context>
@@ -32458,7 +32472,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation>Sti værktøjer</translation>
+        <translation>Sti-værktøjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="87"/>
@@ -32476,7 +32490,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="52"/>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Brug dokumentnavn som en forstavelse til afsnits typografier</translation>
+        <translation>Brug dokumentnavn som en forstavelse til afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="61"/>
@@ -32491,7 +32505,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="25"/>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation>OpenOffice.org Tekst import indstillinger</translation>
+        <translation>OpenOffice.org Tekst import-indstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="36"/>
@@ -32501,17 +32515,17 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="43"/>
         <source>Merge Paragraph Styles</source>
-        <translation>Sammenflet afsnits typografier</translation>
+        <translation>Sammenflet afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="45"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation>Sammenflet afsnits typografier efter kvaliteter. Dette resulterer i færre ens afsnits typografier, vil bevare typografi kvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
+        <translation>Sammenflet afsnitstypografier efter kvaliteter. Dette resulterer i færre ens afsnitstypografier, vil bevare typografi-kvaliteter,  selv om det originale dokuments typografier er navngivet forskelligt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="54"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Sæt dokumentnavn foran afsnits typografiens navn i Scribus.</translation>
+        <translation>Sæt dokumentnavn foran afsnitstypografiens navn i Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="63"/>
@@ -32521,7 +32535,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="34"/>
         <source>Overwrite Paragraph Styles</source>
-        <translation>Overskriv afsnits typografier</translation>
+        <translation>Overskriv afsnitstypografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="74"/>
@@ -32599,19 +32613,19 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/tocindexprefs.cpp" line="99"/>
         <location filename="../../../scribus/tocindexprefs.ui" line="125"/>
         <source>Item Attribute Name:</source>
-        <translation>Element kvalitetsnavn:</translation>
+        <translation>Element-kvalitetsnavn:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tocindexprefs.cpp" line="100"/>
         <location filename="../../../scribus/tocindexprefs.ui" line="135"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation>Element kvaliteten som bliver brugt på rammer som grundlag for at oprette indgangene</translation>
+        <translation>Element-kvaliteten som bliver brugt på rammer som grundlag for at oprette indgangene</translation>
     </message>
     <message>
         <location filename="../../../scribus/tocindexprefs.cpp" line="101"/>
         <location filename="../../../scribus/tocindexprefs.ui" line="142"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Placér indgangenes sidenumre i begyndelse eller slutningen af linien, eller slet ikke</translation>
+        <translation>Placér indgangenes sidenumre i begyndelse eller slutningen af linjen, eller slet ikke</translation>
     </message>
     <message>
         <location filename="../../../scribus/tocindexprefs.cpp" line="102"/>
@@ -32629,13 +32643,13 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/tocindexprefs.cpp" line="104"/>
         <location filename="../../../scribus/tocindexprefs.ui" line="159"/>
         <source>The paragraph style used for the entry lines</source>
-        <translation>Afsnits typografien som er brugt på indgangslinierne</translation>
+        <translation>Afsnitstypografien som er brugt på indgangslinjerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/tocindexprefs.cpp" line="105"/>
         <location filename="../../../scribus/tocindexprefs.ui" line="166"/>
         <source>Paragraph Style:</source>
-        <translation>Afsnits typografi:</translation>
+        <translation>Afsnitstypografi:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tocindexprefs.cpp" line="106"/>
@@ -32709,7 +32723,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="obsolete">Placér indgangenes sidenumre i begyndelse eller slutningen af linien, eller slet ikke</translation>
+        <translation type="obsolete">Placér indgangenes sidenumre i begyndelse eller slutningen af linjen, eller slet ikke</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -32721,7 +32735,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="obsolete">Afsnits typografien brugt på indgangslinierne</translation>
+        <translation type="obsolete">Afsnits typografien brugt på indgangslinjerne</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
@@ -32783,12 +32797,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="86"/>
         <source>Check for PDF Annotations and Fields</source>
-        <translation>Kontrollér PDF kommentarer og felter</translation>
+        <translation>Kontrollér PDF-kommentarer og felter</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="92"/>
         <source>Check for Visible/Printable Mismatch in Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollér Synligt/Udskrivbar misforhold i lagene</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="99"/>
@@ -33000,7 +33014,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="56"/>
         <source>Show Text Control Characters</source>
-        <translation>Vis tekst kontrol-tegn</translation>
+        <translation>Vis tekst-kontroltegn</translation>
     </message>
     <message>
         <source>Show Pictures</source>
@@ -33311,7 +33325,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="140"/>
         <source>Margin Guides</source>
-        <translation>Margen hjælpelinier</translation>
+        <translation>Margen hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="150"/>
@@ -33336,7 +33350,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="180"/>
         <source>Action history length</source>
-        <translation>Handlings historie længde</translation>
+        <translation>Handlingshistorikkens længde</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="190"/>
@@ -33376,7 +33390,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="197"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation>Sæt antallet af handlings-historien i trin. Hvis værdien er 0, vil et uendelig antal gemmes.</translation>
+        <translation>Sæt antallet af trin for handlingshistorikken. Hvis værdien er 0, vil et uendelig antal gemmes.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="198"/>
@@ -33461,7 +33475,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabexternaltoolswidget.ui" line="19"/>
         <source>PostScript Interpreter</source>
-        <translation>PostScript fortolker</translation>
+        <translation>PostScript-fortolker</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabexternaltoolswidget.ui" line="73"/>
@@ -33733,7 +33747,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Vælg standardværdi for det sprog Scribus skal køres med. Hvis feltet er tomt, vælges sproget fra miljø-variablerne. Du kan stadig tilsidesætte dette ved en kommandolinie option under start af Scribus</translation>
+        <translation>Vælg standardværdi for det sprog Scribus skal køres med. Hvis feltet er tomt, vælges sproget fra miljø-variablerne. Du kan stadig tilsidesætte dette ved en kommandolinje-option under start af Scribus</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="54"/>
@@ -33743,7 +33757,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="55"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation>Antal linier der rulles for hver bevægelse af muse-hjulet</translation>
+        <translation>Antal linjer der rulles for hver bevægelse af muse-hjulet</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="56"/>
@@ -33778,7 +33792,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="63"/>
         <source>Additional directory for document templates</source>
-        <translation>Ekstra mappe for dokument skabeloner</translation>
+        <translation>Ekstra mappe for dokument-skabeloner</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="98"/>
@@ -33907,7 +33921,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.ui" line="365"/>
         <source>Document &amp;Templates:</source>
-        <translation>Dokument &amp;skabeloner:</translation>
+        <translation>Dokument-&amp;skabeloner:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.ui" line="378"/>
@@ -34067,12 +34081,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="61"/>
         <source>Snap Distance:</source>
-        <translation>Klæbe afstand:</translation>
+        <translation>Klæbeafstand:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="69"/>
         <source>Grab Radius:</source>
-        <translation>Gribe radius:</translation>
+        <translation>Griberadius:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="273"/>
@@ -34082,7 +34096,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="82"/>
         <source>Show Guides</source>
-        <translation>Vis Hjælpelinier</translation>
+        <translation>Vis Hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="88"/>
@@ -34101,12 +34115,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="118"/>
         <source>Show Page Grid</source>
-        <translation>Vis side-gitter</translation>
+        <translation>Vis sidegitter</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="125"/>
         <source>Major Grid</source>
-        <translation>Hoved gitter</translation>
+        <translation>Hovedgitter</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="141"/>
@@ -34122,46 +34136,46 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="174"/>
         <source>Show Baseline Grid</source>
-        <translation>Vis grundlinie-gitter</translation>
+        <translation>Vis grundlinjegitter</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="193"/>
         <source>Baseline Settings</source>
-        <translation>Grundlinie instillinger</translation>
+        <translation>Grundlinjeindstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="200"/>
         <source>Baseline &amp;Grid:</source>
-        <translation>Grundlinie &amp;gitter:</translation>
+        <translation>Grundlinje&amp;gitter:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="205"/>
         <source>Baseline &amp;Offset:</source>
-        <translation>Grundlinie forsk&amp;ydning:</translation>
+        <translation>Grundlinjeforsk&amp;ydning:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="219"/>
         <source>Guides are not visible through objects on the page</source>
-        <translation>Hjælpelinier er ikke synlige gennem objekter på siden</translation>
+        <translation>Hjælpelinjer er ikke synlige gennem objekter på siden</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="220"/>
         <source>Guides are visible above all objects on the page</source>
-        <translation>Hjælpelinier er synlige over alle objekter på siden</translation>
+        <translation>Hjælpelinjer er synlige over alle objekter på siden</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="221"/>
         <source>Distance between the minor grid lines</source>
-        <translation>Afstand mellem linierne</translation>
+        <translation>Afstand mellem linjerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="222"/>
         <source>Distance between the major grid lines</source>
-        <translation>Afstand mellem hovedlinierne</translation>
+        <translation>Afstand mellem hovedlinjerne</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="obsolete">Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinie</translation>
+        <translation type="obsolete">Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinje</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
@@ -34170,52 +34184,52 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="225"/>
         <source>Color of the minor grid lines</source>
-        <translation>Farve på linierne</translation>
+        <translation>Farve på linjerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="226"/>
         <source>Color of the major grid lines</source>
-        <translation>Farve på hovedlinierne</translation>
+        <translation>Farve på hovedlinjerne</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="227"/>
         <source>Color of the guide lines you insert</source>
-        <translation>Farve på de hjælpelinier du indsætter</translation>
+        <translation>Farve på de hjælpelinjer du indsætter</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="228"/>
         <source>Color for the margin lines</source>
-        <translation>Farve på margenlinier</translation>
+        <translation>Farve på margenlinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="229"/>
         <source>Color for the baseline grid</source>
-        <translation>Farve på grundlinie-gitter</translation>
+        <translation>Farve på grundlinjegitter</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="230"/>
         <source>Turns the basegrid on or off</source>
-        <translation>Slår grundlinie-gitter til eller fra</translation>
+        <translation>Slår grundlinjegitter til eller fra</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="231"/>
         <source>Distance between the lines of the baseline grid</source>
-        <translation>Afstand mellem linier i grundlinie-gitteret</translation>
+        <translation>Afstand mellem linjer i grundlinjegitteret</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="232"/>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation>Afstand fra toppen af siden til den første grundlinie</translation>
+        <translation>Afstand fra toppen af siden til den første grundlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="233"/>
         <source>Turns the gridlines on or off</source>
-        <translation>Slår gitterlinierne til eller fra</translation>
+        <translation>Slår gitterlinjerne til eller fra</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="234"/>
         <source>Turns the guides on or off</source>
-        <translation>Slår hjælpelinierne til eller fra</translation>
+        <translation>Slår hjælpelinjerne til eller fra</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="235"/>
@@ -34230,7 +34244,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="223"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinie. Du skal genstarte Scribus før en ændring træder i kraft.</translation>
+        <translation>Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinje. Du skal genstarte Scribus før en ændring træder i kraft.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="224"/>
@@ -34296,7 +34310,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabkeyboardshortcutswidget.ui" line="13"/>
         <source>Keyboard Shortcuts</source>
-        <translation>Tastatur genveje</translation>
+        <translation>Tastatur-genveje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabkeyboardshortcutswidget.ui" line="26"/>
@@ -34585,7 +34599,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabmiscellaneous.ui" line="111"/>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation>Visning af aktuelle afsnits typografi er synlig under redigering af typografier</translation>
+        <translation>Visning af aktuelle afsnitstypografi er synlig under redigering af typografier</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabmiscellaneous.ui" line="121"/>
@@ -34665,7 +34679,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="309"/>
         <source>File Options</source>
-        <translation>fil indstillinger</translation>
+        <translation>fil-indstillinger</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="314"/>
@@ -34711,7 +34725,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="348"/>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation>&amp;Opløsning for EPS grafik:</translation>
+        <translation>&amp;Opløsning for EPS-grafik:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="360"/>
@@ -34819,7 +34833,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="490"/>
         <source>&amp;Moving Lines:</source>
-        <translation>&amp;Bevægelige linier:</translation>
+        <translation>&amp;Bevægelige linjer:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="492"/>
@@ -35048,7 +35062,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="719"/>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation>Linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="720"/>
@@ -35182,17 +35196,17 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="971"/>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Vælg en adgangskode for læsere af PDF-Filen.</translation>
+        <translation>Vælg en adgangskode for læsere af PDF-filen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="972"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Tillad udskrivning af PDF-Filen. Udskrivning er ikke muligt uden afkryds.</translation>
+        <translation>Tillad udskrivning af PDF-filen. Udskrivning er ikke muligt uden afkryds.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="973"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Tillad ændring af PDF-Filen. Ændring af PDF-Filen er ikke muligt uden afkryds.</translation>
+        <translation>Tillad ændring af PDF-filen. Ændring af PDF-filen er ikke muligt uden afkryds.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="978"/>
@@ -35282,12 +35296,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="974"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation>Tillad kopiering af tekst eller grafik fra PDF-Filen. Tekst og grafik kan ikke kopieres uden afkryds.</translation>
+        <translation>Tillad kopiering af tekst eller grafik fra PDF-filen. Tekst og grafik kan ikke kopieres uden afkryds.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="975"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation>Tillad at kommentarer og felter kan tilføjes PDF-Filen. Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
+        <translation>Tillad at kommentarer og felter kan tilføjes PDF-filen. Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="907"/>
@@ -35462,7 +35476,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="362"/>
         <source>Image Compression Method</source>
-        <translation>Billed komprimeringsmetode</translation>
+        <translation>Billed-komprimeringsmetode</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="613"/>
@@ -35573,7 +35587,7 @@ når PDF dokument åbnes:</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="956"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Bestemmer PDF kompatibiliteten.&lt;br/&gt;Standarden er &lt;b&gt;PDF 1.3&lt;/b&gt;, som giver den største kompatibilitet.&lt;br/&gt;Vælg &lt;b&gt;PDF 1.4&lt;/b&gt;, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; er nødvendig, når du ønsker at bevare objekter i separate lag inden i PDF filen.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
+        <translation>Bestemmer PDF-kompatibiliteten.&lt;br/&gt;Standarden er &lt;b&gt;PDF 1.3&lt;/b&gt;, som giver den største kompatibilitet.&lt;br/&gt;Vælg &lt;b&gt;PDF 1.4&lt;/b&gt;, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; er nødvendig, når du ønsker at bevare objekter i separate lag inden i PDF-filen.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="965"/>
@@ -35583,7 +35597,7 @@ når PDF dokument åbnes:</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="966"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation>Komprimering kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau. Selvom du vælger Maksimum, er der altid nogen kvalitetstab ved jpeg.</translation>
+        <translation>Komprimering-kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau. Selvom du vælger Maksimum, er der altid nogen kvalitetstab ved jpeg.</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
@@ -35715,7 +35729,7 @@ når PDF dokument åbnes:</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="994"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation>Tilføj dokument information, som inkluderer dokument titel og side numre</translation>
+        <translation>Tilføj dokumentinformation, som inkluderer dokument titel og side numre</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>
@@ -36365,7 +36379,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="200"/>
         <source>Tab Width:</source>
-        <translation>Tabulerings bredde:</translation>
+        <translation>Tabuleringsbredde:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="208"/>
@@ -36387,7 +36401,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <location filename="../../../scribus/tabtools.cpp" line="236"/>
         <location filename="../../../scribus/tabtools.cpp" line="291"/>
         <source>&amp;Line Color:</source>
-        <translation>&amp;Liniefarve:</translation>
+        <translation>&amp;Linjefarve:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="136"/>
@@ -36426,18 +36440,18 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="267"/>
         <source>Line Style:</source>
-        <translation>Liniestil:</translation>
+        <translation>Linjestil:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="275"/>
         <location filename="../../../scribus/tabtools.cpp" line="327"/>
         <source>Line &amp;Width:</source>
-        <translation>Linie&amp;bredde:</translation>
+        <translation>Linje&amp;bredde:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="306"/>
         <source>Line S&amp;tyle:</source>
-        <translation>Linies&amp;til:</translation>
+        <translation>Linjes&amp;til:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="314"/>
@@ -36545,7 +36559,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="527"/>
         <source>Line Drawing Properties</source>
-        <translation>Tegn linier - egenskaber</translation>
+        <translation>Tegn linjer - egenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="528"/>
@@ -36622,12 +36636,12 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="544"/>
         <source>Line color of shapes</source>
-        <translation>Figurers liniefarve</translation>
+        <translation>Figurers linjefarve</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="545"/>
         <source>Saturation of color of lines</source>
-        <translation>Liniefarvens mætningsgrad</translation>
+        <translation>Linjefarvens mætningsgrad</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="546"/>
@@ -36637,12 +36651,12 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="548"/>
         <source>Line style of shapes</source>
-        <translation>Figurers liniestil</translation>
+        <translation>Figurers linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="549"/>
         <source>Line width of shapes</source>
-        <translation>Figurers liniebredde</translation>
+        <translation>Figurers linjebredde</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="550"/>
@@ -36662,7 +36676,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="553"/>
         <source>Color of lines</source>
-        <translation>Liniernes farve</translation>
+        <translation>Linjernes farve</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="554"/>
@@ -36672,12 +36686,12 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="555"/>
         <source>Style of lines</source>
-        <translation>Liniernes stil</translation>
+        <translation>Linjernes stil</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="556"/>
         <source>Width of lines</source>
-        <translation>Bredde på linie</translation>
+        <translation>Bredde på linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="131"/>
@@ -36710,7 +36724,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="703"/>
         <source>Underscore</source>
-        <translation>Underlinie</translation>
+        <translation>Underlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="704"/>
@@ -36730,7 +36744,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="285"/>
         <source>Lines</source>
-        <translation>Linier</translation>
+        <translation>Linjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="337"/>
@@ -36847,7 +36861,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <location filename="../../../scribus/tabtools.cpp" line="272"/>
         <location filename="../../../scribus/tabtools.cpp" line="324"/>
         <source>Hairline</source>
-        <translation>Hår-linie</translation>
+        <translation>Hår-linje</translation>
     </message>
 </context>
 <context>
@@ -36919,7 +36933,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <location filename="../../../scribus/tabtypography.cpp" line="84"/>
         <location filename="../../../scribus/tabtypography.cpp" line="108"/>
         <source>Line Width:</source>
-        <translation>Liniebredde:</translation>
+        <translation>Linjebredde:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="94"/>
@@ -36939,17 +36953,17 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="134"/>
         <source>Automatic &amp;Line Spacing</source>
-        <translation>Automatisk &amp;linieafstand</translation>
+        <translation>Automatisk &amp;linjeafstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="144"/>
         <source>Line Spacing:</source>
-        <translation>Linie afstand:</translation>
+        <translation>Linje afstand:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="150"/>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Forskydning over grundlinien af fonten på en linie</translation>
+        <translation>Forskydning over grundlinjen af fonten på en linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="151"/>
@@ -36959,7 +36973,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="152"/>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Forskydning under grundlinien af den normale font på en linie</translation>
+        <translation>Forskydning under grundlinjen af den normale font på en linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="153"/>
@@ -36974,23 +36988,23 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="155"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Procentvis forøgelse over fontstørrelsen af linieafstanden</translation>
+        <translation>Procentvis forøgelse over fontstørrelsen af linjeafstanden</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="156"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Forskydning under grundlinien af den normale font udtrykt som en procentdel af fontens nedadgående højde</translation>
+        <translation>Forskydning under grundlinjen af den normale font udtrykt som en procentdel af fontens nedadgående højde</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="157"/>
         <location filename="../../../scribus/tabtypography.cpp" line="159"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation>Liniebredde udtrykt som en procentdel af fontens størrelse</translation>
+        <translation>Linjebredde udtrykt som en procentdel af fontens størrelse</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtypography.cpp" line="158"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Forskydning over grundlinien af den normale font udtrykt som en procentdel af fontens opadgående højde</translation>
+        <translation>Forskydning over grundlinjen af den normale font udtrykt som en procentdel af fontens opadgående højde</translation>
     </message>
 </context>
 <context>
@@ -37027,7 +37041,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabruler.cpp" line="597"/>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Indrykning af den første linie i et afsnit</translation>
+        <translation>Indrykning af den første linje i et afsnit</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabruler.cpp" line="598"/>
@@ -37062,7 +37076,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabruler.cpp" line="505"/>
         <source>Underscore</source>
-        <translation>Underlinie</translation>
+        <translation>Underlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabruler.cpp" line="506"/>
@@ -37373,7 +37387,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     </message>
     <message>
         <source>Lines: </source>
-        <translation type="obsolete">Linier: </translation>
+        <translation type="obsolete">Linjer: </translation>
     </message>
     <message>
         <source>Words: </source>
@@ -37458,7 +37472,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/styleselect.cpp" line="76"/>
         <source>Linewidth</source>
-        <translation>Liniebredde</translation>
+        <translation>Linjebredde</translation>
     </message>
 </context>
 <context>
@@ -37466,42 +37480,42 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="817"/>
         <source>Add vertical guide</source>
-        <translation>Tilføj vertikale hjælpelinier</translation>
+        <translation>Tilføj vertikale hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="818"/>
         <source>Add horizontal guide</source>
-        <translation>Tilføj horisontale hjælpelinier</translation>
+        <translation>Tilføj horisontale hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="819"/>
         <source>Remove vertical guide</source>
-        <translation>Fjern vertikale hjælpelinier</translation>
+        <translation>Fjern vertikale hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="820"/>
         <source>Remove horizontal guide</source>
-        <translation>Fjern horisontale hjælpelinier</translation>
+        <translation>Fjern horisontale hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="823"/>
         <source>Move vertical guide</source>
-        <translation>Flyt vertikale hjælpelinier</translation>
+        <translation>Flyt vertikale hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="824"/>
         <source>Move horizontal guide</source>
-        <translation>Flyt horisontale hjælpelinier</translation>
+        <translation>Flyt horisontale hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="825"/>
         <source>Lock guides</source>
-        <translation>Lås hjælpelinier</translation>
+        <translation>Lås hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="826"/>
         <source>Unlock guides</source>
-        <translation>Frigør hjælpelinier</translation>
+        <translation>Frigør hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="827"/>
@@ -37562,7 +37576,7 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="841"/>
         <source>Align/Distribute</source>
-        <translation>Opstil på linie/Fordel</translation>
+        <translation>Opstil på linje/Fordel</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="842"/>
@@ -37592,12 +37606,12 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="848"/>
         <source>Set line color</source>
-        <translation>Angiv liniefarve</translation>
+        <translation>Angiv linjefarve</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="849"/>
         <source>Set line color shade</source>
-        <translation>Angiv liniefarve-mætning</translation>
+        <translation>Angiv linjefarve-mætning</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="850"/>
@@ -37674,27 +37688,27 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="866"/>
         <source>Set line color transparency</source>
-        <translation>Angiv liniefarve-gennemsigtighed</translation>
+        <translation>Angiv linjefarve-gennemsigtighed</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="867"/>
         <source>Set line style</source>
-        <translation>Angiv liniestil</translation>
+        <translation>Angiv linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="868"/>
         <source>Set the style of line end</source>
-        <translation>Angiv linie-endens stil</translation>
+        <translation>Angiv linje-endens stil</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="869"/>
         <source>Set the style of line join</source>
-        <translation>Vælg af liniesamling</translation>
+        <translation>Vælg af linjesamling</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="870"/>
         <source>Set line width</source>
-        <translation>Vælg liniebredde</translation>
+        <translation>Vælg linjebredde</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="871"/>
@@ -37704,12 +37718,12 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="872"/>
         <source>Set custom line style</source>
-        <translation>Vælg bruger liniestil</translation>
+        <translation>Vælg bruger linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="873"/>
         <source>Do not use custom line style</source>
-        <translation>Brug ikke bruger liniestil</translation>
+        <translation>Brug ikke bruger linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="874"/>
@@ -37779,12 +37793,12 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="888"/>
         <source>Set line spacing</source>
-        <translation>Vælg linieafstand</translation>
+        <translation>Vælg linjeafstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="889"/>
         <source>Set paragraph style</source>
-        <translation>Vælg afsnits typografi</translation>
+        <translation>Vælg afsnitstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="890"/>
@@ -37824,7 +37838,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="898"/>
         <source>Polyline</source>
-        <translation>Poly-linie</translation>
+        <translation>Poly-linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="900"/>
@@ -37864,7 +37878,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="912"/>
         <source>Text flows around contour line</source>
-        <translation>Tekst flyder uden om konturlinie</translation>
+        <translation>Tekst flyder uden om konturlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="914"/>
@@ -37879,7 +37893,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="917"/>
         <source>No contour line</source>
-        <translation>Ingen konturlinie</translation>
+        <translation>Ingen konturlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="918"/>
@@ -37915,7 +37929,7 @@ til %2</translation>
         <location filename="../../../scribus/undomanager.cpp" line="924"/>
         <location filename="../../../scribus/undomanager.cpp" line="950"/>
         <source>Edit contour line</source>
-        <translation>Redigér konturlinie</translation>
+        <translation>Redigér konturlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="925"/>
@@ -37925,7 +37939,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="927"/>
         <source>Reset contour line</source>
-        <translation>Nulstil konturlinie</translation>
+        <translation>Nulstil konturlinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="928"/>
@@ -38111,7 +38125,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="956"/>
         <source>Remove all guides</source>
-        <translation>Fjern alle hjælpelinier</translation>
+        <translation>Fjern alle hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="958"/>
@@ -38126,12 +38140,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="821"/>
         <source>Remove vertical auto guide</source>
-        <translation>Fjern vertikal auto hjælpelinie</translation>
+        <translation>Fjern vertikal auto hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="822"/>
         <source>Remove horizontal auto guide</source>
-        <translation>Fjern horisontal auto hjælpelinie</translation>
+        <translation>Fjern horisontal auto hjælpelinje</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="960"/>
@@ -38141,7 +38155,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="957"/>
         <source>Remove page guides</source>
-        <translation>Fjern side hjælpelinier</translation>
+        <translation>Fjern side hjælpelinjer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="943"/>
@@ -38199,7 +38213,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="308"/>
         <source>Action History</source>
-        <translation>Handlings historie</translation>
+        <translation>Handlingshistorik</translation>
     </message>
     <message>
         <source>Show selected object only</source>
@@ -38218,7 +38232,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="313"/>
         <source>Show the action history for the selected item only. This changes the effect of the undo/redo buttons to act on the object or document.</source>
-        <translation>Vis kun handlings-historien for det valgte element. Dette ændrer effekten af  &apos;Fortryd/Lav igen&apos; knappenrne til at handle på objektet eller dokumentet.</translation>
+        <translation>Vis kun handlingshistorikken for det valgte element. Dette ændrer effekten af  &apos;Fortryd/Lav igen&apos; knappenrne til at handle på objektet eller dokumentet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="314"/>
@@ -38327,7 +38341,7 @@ X: %4, Y: %5</translation>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Kunne ikke åbne versions-fil: %1
-Fejl:%2 på linie: %3, række: %4</translation>
+Fejl:%2 på linje: %3, række: %4</translation>
     </message>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="223"/>
@@ -38361,12 +38375,12 @@ Fejl:%2 på linie: %3, række: %4</translation>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="86"/>
         <source>No data on your computer will be sent to an external location</source>
-        <translation type="unfinished"></translation>
+        <translation>Der vil ikke blive sendt nogen data fra din computer til et eksternt sted</translation>
     </message>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="92"/>
         <source>Attempting to get the Scribus version update file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Forsøger at hente Scribus versions-opdaterings-fil:</translation>
     </message>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="218"/>
@@ -38683,12 +38697,12 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="58"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation>Et dialogvindue, der viser de mulige orddelinger for hvert ord, kommer frem når du bruger de ekstra orddelings tekst tilvalg.</translation>
+        <translation>Et dialogvindue, der viser de mulige orddelinger for hvert ord, kommer frem når du bruger de ekstra orddelings-tekst-tilvalg.</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="61"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>Orddelings &amp;forslag</translation>
+        <translation>Orddelings&amp;forslag</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="68"/>
@@ -38850,7 +38864,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Dokument skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
+        <translation>Dokument-skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="198"/>
@@ -38865,7 +38879,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Når du fjerner en skabelon fra &apos;Nyt Fra skabelon&apos; vinduet slettes kun linien fra template.xml. Dokumentfilerne bliver ikke slettet. Pop op menuen vil kun vise &quot;Fjern&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
+        <translation>Når du fjerner en skabelon fra &apos;Nyt Fra skabelon&apos; vinduet slettes kun linjen fra template.xml. Dokumentfilerne bliver ikke slettet. Pop op menuen vil kun vise &quot;Fjern&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="208"/>
@@ -38957,7 +38971,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/nftwidget.cpp" line="172"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Dokument skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
+        <translation>Dokument-skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/nftwidget.cpp" line="176"/>
@@ -38992,7 +39006,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/nftwidget.cpp" line="192"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Når du fjerner en skabelon fra &apos;Nyt Fra skabelon&apos; vinduet slettes kun linien fra template.xml. Dokumentfilerne bliver ikke slettet. En Popop menu med &quot;fjern&quot; vises kun, hvis du har skrive rettigheder til template.xml filen.</translation>
+        <translation>Når du fjerner en skabelon fra &apos;Nyt Fra skabelon&apos; vinduet slettes kun linjen fra template.xml. Dokumentfilerne bliver ikke slettet. En Popop menu med &quot;fjern&quot; vises kun, hvis du har skrive rettigheder til template.xml filen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/nftwidget.cpp" line="195"/>
@@ -39223,12 +39237,12 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="132"/>
         <source>Polyline</source>
-        <translation>Poly-linie</translation>
+        <translation>Poly-linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="137"/>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation>Linje</translation>
     </message>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="142"/>
@@ -39243,12 +39257,12 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="170"/>
         <source>Line Color</source>
-        <translation>Liniefarve</translation>
+        <translation>Linjefarve</translation>
     </message>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="187"/>
         <source>Line Width</source>
-        <translation>Liniebredde</translation>
+        <translation>Linjebredde</translation>
     </message>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="204"/>
@@ -39322,12 +39336,12 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="167"/>
         <source>Select based on the color of the line or outline</source>
-        <translation>Markér baseret på farven af linien eller omrids</translation>
+        <translation>Markér baseret på farven af linjen eller omrids</translation>
     </message>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="184"/>
         <source>Select based on the width of the line of the item</source>
-        <translation>Markér baseret på bredden af linien af elementet</translation>
+        <translation>Markér baseret på bredden af linjen af elementet</translation>
     </message>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="201"/>
@@ -39472,7 +39486,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="311"/>
         <source>paragraph style</source>
-        <translation>afsnits typografi</translation>
+        <translation>afsnitstypografi</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="315"/>
