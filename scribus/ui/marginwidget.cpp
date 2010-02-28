@@ -354,7 +354,8 @@ void MarginWidget::setPreset()
 	int item = presetCombo->currentIndex();
 
 	MarginStruct marg = presetCombo->getMargins(item, pageWidth, pageHeight, leftR->value() / m_unitRatio);
-	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
+	presetCombo->setEnabled(facingPages);
+
 	bool restoringValues=false;
 	if (item==PresetLayout::none && savedPresetItem!=PresetLayout::none)
 	{
@@ -383,9 +384,10 @@ void MarginWidget::setPreset()
 	if (pageType == 1)
 		rightR->setEnabled(false);
 	leftR->setEnabled(item != PresetLayout::nineparts);
+	qDebug()<<item;
 	if (item!=PresetLayout::none)
 		linkMargins->setChecked(false);
-	linkMargins->setEnabled(item==PresetLayout::none);
+	linkMargins->setEnabled(item==PresetLayout::none || !presetCombo->isEnabled());
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
@@ -466,7 +468,7 @@ void MarginWidget::setMarginPreset(int p)
 	if (savedPresetItem==PresetLayout::none)
 		savedMargins=marginData;
 	int item = presetCombo->currentIndex();
-	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
+	presetCombo->setEnabled(facingPages);
 	bool restoringValues=false;
 	if (item==PresetLayout::none && savedPresetItem!=PresetLayout::none)
 	{
