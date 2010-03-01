@@ -4,7 +4,8 @@
 #Set our CMake minimum version
 #Require 2.4.2 for Qt finding
 #Require 2.4.3 for moc change detection and rpath updates for custom cairo install
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4.5 FATAL_ERROR)
+#its not likely 2.4.x will work any more
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0 FATAL_ERROR)
 
 IF(WIN32)
   IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
@@ -815,12 +816,6 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_TOPLEVEL_TAG "")
   SET(CPACK_SOURCE_IGNORE_FILES
     CMakeCache.txt
-
-    scribus-1.3.5.0.tar.bz2
-    scribus-1.3.5.0.tar.Z
-    scribus-1.3.5.0.svn.tar.gz
-    scribus-1.3.5.1.tar.bz2
-    scribus-1.3.5.1.tar.Z
     scribus-1.3.6.svn.tar.gz
     scribus-1.3.6.svn.tar.Z
     scribus-1.3.6.svn.tar.gz
