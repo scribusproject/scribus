@@ -96,7 +96,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabPrinter = new TabPrinter(prefsWidgets, "tabPrinter");
 	addItem( tr("Printer"), loadIcon("printer.png"), tabPrinter);
 
-	tabDocChecker = new TabCheckDoc(prefsWidgets, prefsData->checkerPrefsList, prefsData->curCheckProfile);
+	tabDocChecker = new TabCheckDoc(prefsWidgets, prefsData->verifierPrefs.checkerPrefsList, prefsData->verifierPrefs.curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	if (ScCore->haveCMS())
@@ -212,7 +212,7 @@ void Preferences::setupGui()
 	// main performance issue in availFonts->GetFonts(HomeP)!
 	// no prefsData here
 	tabFonts->restoreDefaults();
-	tabDocChecker->restoreDefaults(&prefsData->checkerPrefsList, prefsData->curCheckProfile);
+	tabDocChecker->restoreDefaults(&prefsData->verifierPrefs.checkerPrefsList, prefsData->verifierPrefs.curCheckProfile);
 
 	QMap<QString, int> DocFonts;
 	DocFonts.clear();
@@ -458,8 +458,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.guidesPrefs.marginColor = tabGuides->colorMargin;
 	prefsManager->appPrefs.guidesPrefs.guideColor = tabGuides->colorGuides;
 	prefsManager->appPrefs.guidesPrefs.baselineGridColor = tabGuides->colorBaselineGrid;
-	prefsManager->appPrefs.checkerPrefsList = tabDocChecker->checkerProfile;
-	prefsManager->appPrefs.curCheckProfile = tabDocChecker->curCheckProfile->currentText();
+	prefsManager->appPrefs.verifierPrefs.checkerPrefsList = tabDocChecker->checkerProfile;
+	prefsManager->appPrefs.verifierPrefs.curCheckProfile = tabDocChecker->curCheckProfile->currentText();
 	prefsManager->appPrefs.typoPrefs.valueSuperScript = tabTypo->superDisplacement->value();
 	prefsManager->appPrefs.typoPrefs.scalingSuperScript = tabTypo->superScaling->value();
 	prefsManager->appPrefs.typoPrefs.valueSubScript = tabTypo->subDisplacement->value();

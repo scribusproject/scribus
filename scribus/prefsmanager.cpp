@@ -431,8 +431,9 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.showSplashOnStartup = true;
 	appPrefs.uiPrefs.useSmallWidgets = false;
 	appPrefs.uiPrefs.useTabs = false;
-	initDefaultCheckerPrefs(&appPrefs.checkerPrefsList);
-	appPrefs.curCheckProfile = CommonStrings::PostScript;
+	initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
+	appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PostScript;
+	appPrefs.verifierPrefs.showPagesWithoutErrors=false;
 	appPrefs.pdfPrefs.Thumbnails = false;
 	appPrefs.pdfPrefs.Articles = false;
 	appPrefs.pdfPrefs.useLayers = false;
@@ -916,10 +917,10 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	//For 1.3.5, we dump prefs first time around.
 	if (!firstTimeIgnoreOldPrefs)
 		ReadPrefsXML();
-	if (appPrefs.checkerPrefsList.count() == 0)
+	if (appPrefs.verifierPrefs.checkerPrefsList.count() == 0)
 	{
-		initDefaultCheckerPrefs(&appPrefs.checkerPrefsList);
-		appPrefs.curCheckProfile = CommonStrings::PostScript;
+		initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
+		appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PostScript;
 	}
 	if (!appPrefs.uiPrefs.mainWinState.isEmpty())
 	{
@@ -1482,11 +1483,12 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	elem.appendChild(pageSetAttr);
 	QDomElement dc79ac=docu.createElement("Checker");
-	dc79ac.setAttribute("currentProfile", appPrefs.curCheckProfile);
+	dc79ac.setAttribute("currentProfile", appPrefs.verifierPrefs.curCheckProfile);
+	dc79ac.setAttribute("ShowPagesWithoutErrors", appPrefs.verifierPrefs.showPagesWithoutErrors);
 	elem.appendChild(dc79ac);
 	CheckerPrefsList::Iterator itcp;
-	CheckerPrefsList::Iterator itcpend=appPrefs.checkerPrefsList.end();
-	for (itcp = appPrefs.checkerPrefsList.begin(); itcp != itcpend; ++itcp)
+	CheckerPrefsList::Iterator itcpend=appPrefs.verifierPrefs.checkerPrefsList.end();
+	for (itcp = appPrefs.verifierPrefs.checkerPrefsList.begin(); itcp != itcpend; ++itcp)
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());
@@ -1811,7 +1813,7 @@ bool PrefsManager::ReadPref(QString ho)
 	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
-		appPrefs.checkerPrefsList.clear();
+		appPrefs.verifierPrefs.checkerPrefsList.clear();
 	while(!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
@@ -2151,13 +2153,15 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.uiPrefs.RecentDocs.append(dc.attribute("NAME"));
 		if (dc.tagName()=="Checker")
 		{
-			appPrefs.curCheckProfile = dc.attribute("currentProfile", CommonStrings::PostScript);
+			appPrefs.verifierPrefs.curCheckProfile = dc.attribute("currentProfile", CommonStrings::PostScript);
+			appPrefs.verifierPrefs.showPagesWithoutErrors = static_cast<bool>(dc.attribute("ShowPagesWithoutErrors", "0").toInt());
 			//#2516 work around old values until people wont have them anymore, not that these
 			//translated strings should be going into prefs anyway!
-			if ((appPrefs.curCheckProfile == tr("PostScript")) || ((appPrefs.curCheckProfile == tr("Postscript")) ||
-				(appPrefs.curCheckProfile == "Postscript")))
+			if ((appPrefs.verifierPrefs.curCheckProfile == tr("PostScript")) ||
+				((appPrefs.verifierPrefs.curCheckProfile == tr("Postscript")) ||
+				(appPrefs.verifierPrefs.curCheckProfile == "Postscript")))
 			{
-				appPrefs.curCheckProfile = CommonStrings::PostScript;
+				appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PostScript;
 			}
 		}
 		if (dc.tagName()=="CheckProfile")
@@ -2185,7 +2189,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkDeviceColorsAndOutputIntend = static_cast<bool>(dc.attribute("checkDeviceColorsAndOutputIntend", "0").toInt());
 			checkerSettings.checkFontNotEmbedded = static_cast<bool>(dc.attribute("checkFontNotEmbedded", "0").toInt());
 			checkerSettings.checkFontIsOpenType = static_cast<bool>(dc.attribute("checkFontIsOpenType", "0").toInt());
-			appPrefs.checkerPrefsList[name] = checkerSettings;
+			appPrefs.verifierPrefs.checkerPrefsList[name] = checkerSettings;
 		}
 		if (dc.tagName()=="PRINTER")
 		{

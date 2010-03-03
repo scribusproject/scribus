@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "page.h"
+#include "prefsmanager.h"
 #include "documentchecker.h"
 #include "util_icon.h"
 #include "util.h"
@@ -145,6 +146,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	img.loadFromData( image2_data, sizeof( image2_data ), "PNG" );
 	noErrors = img;
 */
+	showPagesWithNoErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
+
 	graveError = loadIcon("22/dialog-error.png");
 	onlyWarning = loadIcon("22/dialog-warning.png");
 	noErrors = loadIcon("ok.png");
@@ -223,6 +226,7 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 
 void CheckDocument::doReScan()
 {
+	showPagesWithNoErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
 	newScan(curCheckProfile->currentText());
 }
 
@@ -452,8 +456,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			QString tmp;
 			hasError = false;
 			pageGraveError = false;
-			QTreeWidgetItem * page = new QTreeWidgetItem( masterPageRootItem);//, pagep );
-			masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
+			QTreeWidgetItem * page=NULL;
+			if (showPagesWithNoErrors)
+			{
+				page = new QTreeWidgetItem( masterPageRootItem);
+				masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
+			}
 // 			pagep = page;
 			QMap<int, errorCodes>::Iterator masterItemErrorsIt;
 			for (masterItemErrorsIt = doc->masterItemErrors.begin();
@@ -463,6 +471,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				if ((doc->MasterItems.at(masterItemErrorsIt.key())->OwnPage == mPage)
 					|| (doc->MasterItems.at(masterItemErrorsIt.key())->OnMasterPage == doc->MasterPages.at(mPage)->pageName()))
 				{
+					if (!showPagesWithNoErrors && page==NULL)
+					{
+						page = new QTreeWidgetItem( masterPageRootItem);
+						masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
+					}
 					hasError = true;
 					QTreeWidgetItem * object = new QTreeWidgetItem( page);
 					masterPageItemMap.insert(object, doc->MasterItems.at(masterItemErrorsIt.key())->ItemNr);
@@ -498,8 +511,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				page->setExpanded( true );
 			}
 			else
-				page->setIcon(COLUMN_ITEM, noErrors );
-			page->setText(COLUMN_ITEM, doc->MasterPages.at(mPage)->pageName());
+			{
+				if (showPagesWithNoErrors && page!=NULL)
+					page->setIcon(COLUMN_ITEM, noErrors );
+			}
+			if (page!=NULL)
+				page->setText(COLUMN_ITEM, doc->MasterPages.at(mPage)->pageName());
 		}
 		masterPageRootItem->setExpanded(true);
 		masterPageRootItem->setText(COLUMN_PROBLEM, tr("Issue(s): %1").arg(mpErrorCount));
@@ -511,8 +528,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			QString tmp;
 			hasError = false;
 			pageGraveError = false;
-			QTreeWidgetItem * page = new QTreeWidgetItem( reportDisplay);//, pagep );
-			pageMap.insert(page, aPage);
+			QTreeWidgetItem * page=NULL;
+			if (showPagesWithNoErrors)
+			{
+				page = new QTreeWidgetItem( reportDisplay);
+				pageMap.insert(page, aPage);
+			}
 // 			pagep = page;
 			QMap<int, errorCodes>::Iterator docItemErrorsIt;
 			for (docItemErrorsIt = doc->docItemErrors.begin();
@@ -521,6 +542,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			{
 				if (doc->DocItems.at(docItemErrorsIt.key())->OwnPage == aPage)
 				{
+					if (!showPagesWithNoErrors && page==NULL)
+					{
+						page = new QTreeWidgetItem( reportDisplay);
+						pageMap.insert(page, aPage);
+					}
 					hasError = true;
 					itemError = false;
 					QTreeWidgetItem * object = new QTreeWidgetItem(page);
@@ -556,8 +582,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				page->setExpanded( true );
 			}
 			else
-				page->setIcon( 0, noErrors );
-			page->setText(COLUMN_ITEM, tr("Page ")+tmp.setNum(aPage+1));
+			{
+				if (showPagesWithNoErrors && page!=NULL)
+					page->setIcon( 0, noErrors );
+			}
+			if (page!=NULL)
+				page->setText(COLUMN_ITEM, tr("Page ")+tmp.setNum(aPage+1));
 		}
 		// END of PAGES
 

@@ -89,15 +89,15 @@ signals:
 	//! \brief Signal emitted when user press the "ignore errors" button.
 	void ignoreAllErrors();
 
-protected:
-	QVBoxLayout* checkDocumentLayout;
-	QHBoxLayout* layout1;
-	QHBoxLayout* layout2;
+
 
 protected slots:
 	virtual void languageChange();
 
-private:
+protected:
+	QVBoxLayout* checkDocumentLayout;
+	QHBoxLayout* layout1;
+	QHBoxLayout* layout2;
 	//! \brief Mappping Page Item - item nr.
 	QMap<QTreeWidgetItem*, int> itemMap;
 	//! \brief Mappping Page - page nr.
@@ -142,6 +142,7 @@ private:
 // 	bool globalGraveError;
 	bool pageGraveError;
 	bool itemError;
+	bool showPagesWithNoErrors;
 
 	int minResDPI;
 	int maxResDPI;
