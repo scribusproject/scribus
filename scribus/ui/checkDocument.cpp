@@ -146,7 +146,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	img.loadFromData( image2_data, sizeof( image2_data ), "PNG" );
 	noErrors = img;
 */
-	showPagesWithNoErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showPagesWithoutErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showNonPrintingLayerErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showNonPrintingLayerErrors;
 
 	graveError = loadIcon("22/dialog-error.png");
 	onlyWarning = loadIcon("22/dialog-warning.png");
@@ -226,7 +227,8 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 
 void CheckDocument::doReScan()
 {
-	showPagesWithNoErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showPagesWithoutErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showNonPrintingLayerErrors=PrefsManager::instance()->appPrefs.verifierPrefs.showNonPrintingLayerErrors;
 	newScan(curCheckProfile->currentText());
 }
 
@@ -457,7 +459,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			pageGraveError = false;
 			QTreeWidgetItem * page=NULL;
-			if (showPagesWithNoErrors)
+			if (showPagesWithoutErrors)
 			{
 				page = new QTreeWidgetItem( masterPageRootItem);
 				masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
@@ -468,10 +470,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				 masterItemErrorsIt != doc->masterItemErrors.end();
 				 ++masterItemErrorsIt)
 			{
-				if ((doc->MasterItems.at(masterItemErrorsIt.key())->OwnPage == mPage)
+				if (((doc->MasterItems.at(masterItemErrorsIt.key())->OwnPage == mPage)
 					|| (doc->MasterItems.at(masterItemErrorsIt.key())->OnMasterPage == doc->MasterPages.at(mPage)->pageName()))
+					&&
+					((showNonPrintingLayerErrors) ||
+					(!showNonPrintingLayerErrors && doc->layerPrintable(doc->MasterItems.at(masterItemErrorsIt.key())->LayerID)))
+					)
 				{
-					if (!showPagesWithNoErrors && page==NULL)
+					if (!showPagesWithoutErrors && page==NULL)
 					{
 						page = new QTreeWidgetItem( masterPageRootItem);
 						masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
@@ -512,7 +518,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			}
 			else
 			{
-				if (showPagesWithNoErrors && page!=NULL)
+				if (showPagesWithoutErrors && page!=NULL)
 					page->setIcon(COLUMN_ITEM, noErrors );
 			}
 			if (page!=NULL)
@@ -529,7 +535,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			pageGraveError = false;
 			QTreeWidgetItem * page=NULL;
-			if (showPagesWithNoErrors)
+			if (showPagesWithoutErrors)
 			{
 				page = new QTreeWidgetItem( reportDisplay);
 				pageMap.insert(page, aPage);
@@ -540,9 +546,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				 docItemErrorsIt != doc->docItemErrors.end();
 				 ++docItemErrorsIt)
 			{
-				if (doc->DocItems.at(docItemErrorsIt.key())->OwnPage == aPage)
+				if (doc->DocItems.at(docItemErrorsIt.key())->OwnPage == aPage &&
+					((showNonPrintingLayerErrors) ||
+					(!showNonPrintingLayerErrors && doc->layerPrintable(doc->DocItems.at(docItemErrorsIt.key())->LayerID)))
+					)
 				{
-					if (!showPagesWithNoErrors && page==NULL)
+					if (!showPagesWithoutErrors && page==NULL)
 					{
 						page = new QTreeWidgetItem( reportDisplay);
 						pageMap.insert(page, aPage);
@@ -583,7 +592,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			}
 			else
 			{
-				if (showPagesWithNoErrors && page!=NULL)
+				if (showPagesWithoutErrors && page!=NULL)
 					page->setIcon( 0, noErrors );
 			}
 			if (page!=NULL)

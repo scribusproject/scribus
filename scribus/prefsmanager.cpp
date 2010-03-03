@@ -434,6 +434,7 @@ void PrefsManager::initDefaults()
 	initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
 	appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PostScript;
 	appPrefs.verifierPrefs.showPagesWithoutErrors=false;
+	appPrefs.verifierPrefs.showNonPrintingLayerErrors=false;
 	appPrefs.pdfPrefs.Thumbnails = false;
 	appPrefs.pdfPrefs.Articles = false;
 	appPrefs.pdfPrefs.useLayers = false;
@@ -1485,6 +1486,7 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc79ac=docu.createElement("Checker");
 	dc79ac.setAttribute("currentProfile", appPrefs.verifierPrefs.curCheckProfile);
 	dc79ac.setAttribute("ShowPagesWithoutErrors", appPrefs.verifierPrefs.showPagesWithoutErrors);
+	dc79ac.setAttribute("ShowNonPrintingLayerErrors", appPrefs.verifierPrefs.showNonPrintingLayerErrors);
 	elem.appendChild(dc79ac);
 	CheckerPrefsList::Iterator itcp;
 	CheckerPrefsList::Iterator itcpend=appPrefs.verifierPrefs.checkerPrefsList.end();
@@ -2155,6 +2157,7 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.verifierPrefs.curCheckProfile = dc.attribute("currentProfile", CommonStrings::PostScript);
 			appPrefs.verifierPrefs.showPagesWithoutErrors = static_cast<bool>(dc.attribute("ShowPagesWithoutErrors", "0").toInt());
+			appPrefs.verifierPrefs.showNonPrintingLayerErrors = static_cast<bool>(dc.attribute("ShowNonPrintingLayerErrors", "0").toInt());
 			//#2516 work around old values until people wont have them anymore, not that these
 			//translated strings should be going into prefs anyway!
 			if ((appPrefs.verifierPrefs.curCheckProfile == tr("PostScript")) ||

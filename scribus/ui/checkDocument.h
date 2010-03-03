@@ -142,7 +142,8 @@ protected:
 // 	bool globalGraveError;
 	bool pageGraveError;
 	bool itemError;
-	bool showPagesWithNoErrors;
+	bool showPagesWithoutErrors;
+	bool showNonPrintingLayerErrors;
 
 	int minResDPI;
 	int maxResDPI;

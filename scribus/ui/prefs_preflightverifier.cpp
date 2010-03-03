@@ -48,6 +48,7 @@ void Prefs_PreflightVerifier::languageChange()
 void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	showPagesWithoutErrorsCheckBox->setChecked(prefsData->verifierPrefs.showPagesWithoutErrors);
+	showNonPrintingLayerErrorsCheckBox->setChecked(prefsData->verifierPrefs.showNonPrintingLayerErrors);
 	checkerProfile = prefsData->verifierPrefs.checkerPrefsList;
 	currentProfileComboBox->clear();
 	CheckerPrefsList::Iterator it;
@@ -81,6 +82,7 @@ void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData
 void Prefs_PreflightVerifier::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->verifierPrefs.showPagesWithoutErrors=showPagesWithoutErrorsCheckBox->isChecked();
+	prefsData->verifierPrefs.showNonPrintingLayerErrors=showNonPrintingLayerErrorsCheckBox->isChecked();
 	prefsData->verifierPrefs.checkerPrefsList = checkerProfile;
 	prefsData->verifierPrefs.curCheckProfile = currentProfileComboBox->currentText();
 

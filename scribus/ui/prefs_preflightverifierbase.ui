@@ -38,7 +38,14 @@
    <item>
     <widget class="QCheckBox" name="showPagesWithoutErrorsCheckBox">
      <property name="text">
-      <string>Verifier window shows pages without errors</string>
+      <string>Show pages without errors</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="showNonPrintingLayerErrorsCheckBox">
+     <property name="text">
+      <string>Show errors for items on layers that will not print</string>
      </property>
     </widget>
    </item>
@@ -82,7 +89,7 @@
         <x>0</x>
         <y>0</y>
         <width>595</width>
-        <height>564</height>
+        <height>543</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">

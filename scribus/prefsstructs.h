@@ -49,6 +49,7 @@ struct VerifierPrefs
 {
 	CheckerPrefsList checkerPrefsList;
 	bool showPagesWithoutErrors;
+	bool showNonPrintingLayerErrors;
 	QString curCheckProfile;
 };
 
