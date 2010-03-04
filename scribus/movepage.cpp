@@ -95,17 +95,18 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 
 	// signals and slots connections
 	if (move)
-		connect( toPageData, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
+		connect( toPageData, SIGNAL( editingFinished() ), this, SLOT( toChanged() ) );
 	connect( mvWhereData, SIGNAL( activated(int) ), this, SLOT( mvWherePageDataDisable(int) ) );
-	connect( fromPageData, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
+	connect( fromPageData, SIGNAL( editingFinished() ), this, SLOT( fromChanged() ) );
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
-void MovePages::fromChanged(int pageNumber)
+void MovePages::fromChanged()
 {
 	if (move)
 	{
+		int pageNumber=fromPageData->value();
 		if (pageNumber > toPageData->value())
 			toPageData->setValue(pageNumber);
 		if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
@@ -113,8 +114,9 @@ void MovePages::fromChanged(int pageNumber)
 	}
 }
 
-void MovePages::toChanged(int pageNumber)
+void MovePages::toChanged()
 {
+	int pageNumber=toPageData->value();
 	if (pageNumber < fromPageData->value())
 		fromPageData->setValue(pageNumber);
 	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maximum()))

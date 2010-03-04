@@ -52,8 +52,8 @@ private:
 	bool move;
 
 private slots:
-	virtual void fromChanged(int);
-	virtual void toChanged(int);
+	virtual void fromChanged();
+	virtual void toChanged();
 	void mvWherePageDataDisable(int index);
 };
 
