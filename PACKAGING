@@ -5,7 +5,7 @@ You can verify them with:
 
 gpg --verify ./tarball.sig ./tarball.tar.bz2
 
-While we also note md5sums and shasums, gpg --verify are more secure and reliable.
+While we also note md5sums and sha1sums, gpg --verify are more secure and reliable.
 
 * The font sampler script, requires tkinter to run properly and optionally 
 python-imaging to enable print previews. Please consider adding these as 

@@ -7,6 +7,11 @@ While 1.3.6 is considered to be usable, you may want to keep the latest 1.3.3.14
 
 If you think you have found a bug in 1.3.6, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
 
+Compiling from Source
+=====================
+
+The Scribus Team endevours to provide pre-built packages for most recent major Linux distributions including Debian, Fedora, Mandriva and openSUSE, along with builds for Windows and OSX. If you need to compile from source please read the BUILDING file in the sources, as it has detailed requirements and hints.
+
 
 Web Resources:
 ==============
