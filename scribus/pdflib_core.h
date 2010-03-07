@@ -121,7 +121,7 @@ private:
 	QString SetGradientColor(const QString& farbe, double Shade);
 	QString putColor(const QString& color, double Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);
-	QString Write_TransparencyGroup(double trans, int blend, QString &data);
+	QString Write_TransparencyGroup(double trans, int blend, QString &data, PageItem *controlItem = 0);
 	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
 	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
 	void    getBleeds(const Page* page, double &left, double &right);

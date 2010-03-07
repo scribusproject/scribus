@@ -142,6 +142,7 @@ public:
 	const VGradient getFillGradient();
 	const VGradient getStrokeGradient();
 	const VGradient getMaskGradient();
+	const VGradient getMaskGradientGroup();
 	void updateColorList();
 	void setGradientEditMode(bool);
 	void updateCmsList();
@@ -160,6 +161,7 @@ public:
 
 	Cpalette *Cpal;
 	Tpalette *Tpal;
+	Tpalette *TpalGroup;
 	Autoforms* SCustom;
 	Autoforms* SCustom2;
 	ParaStyleComboBox *paraStyleCombo;
@@ -296,6 +298,7 @@ private slots:
 	void toggleGradientEdit(int);
 	void NewSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void toggleGradientEditM();
+	void toggleGradientEditMGroup();
 	void DoRevert();
 	void doClearCStyle();
 	void doClearPStyle();
@@ -322,8 +325,11 @@ private slots:
 	void HandleTLines();
 	void setStartArrow(int id);
 	void setEndArrow(int id);
-	void setGroupTransparency(int trans);
+	void setGroupTransparency(double trans);
 	void setGroupBlending(int blend);
+	void setGroupGradMask(int typ);
+	void setGroupPatternMask(QString pattern);
+	void setGroupPatternMaskProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	void doGrouping();
 	void dashChange();
 	void flop(int);
@@ -393,7 +399,7 @@ protected:
 	QHBoxLayout* layout24;
 	QVBoxLayout* page_group_layout;
 	QHBoxLayout* ShapeGroupLayout2;
-	QGridLayout* Layout1t;
+	QVBoxLayout* Layout1t;
 	QHBoxLayout* wordTrackingHLayout;
 	QHBoxLayout* glyphExtensionHLayout;
 	QGridLayout* flopLayout;

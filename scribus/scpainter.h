@@ -124,6 +124,20 @@ private:
 		cairo_surface_t *data;
 		int blendmode;
 		double tranparency;
+		int maskMode;				// 0 = none, 1 = gradient 2 = pattern
+		double mask_patternScaleX;
+		double mask_patternScaleY;
+		double mask_patternOffsetX;
+		double mask_patternOffsetY;
+		double mask_patternRotation;
+		double mask_patternSkewX;
+		double mask_patternSkewY;
+		bool mask_patternMirrorX;
+		bool mask_patternMirrorY;
+		double mask_gradientScale;
+		double mask_gradientSkew;
+		VGradient mask_gradient;
+		ScPattern *maskPattern;
 		FPointArray groupClip;
 		bool pushed;
 	};
@@ -138,6 +152,20 @@ private:
 		QImage *data;
 		int blendmode;
 		double tranparency;
+		int maskMode;				// 0 = none, 1 = gradient 2 = pattern
+		double mask_patternScaleX;
+		double mask_patternScaleY;
+		double mask_patternOffsetX;
+		double mask_patternOffsetY;
+		double mask_patternRotation;
+		double mask_patternSkewX;
+		double mask_patternSkewY;
+		bool mask_patternMirrorX;
+		bool mask_patternMirrorY;
+		double mask_gradientScale;
+		double mask_gradientSkew;
+		VGradient mask_gradient;
+		ScPattern *maskPattern;
 		FPointArray groupClip;
 		bool pushed;
 	};

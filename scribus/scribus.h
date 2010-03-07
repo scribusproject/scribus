@@ -457,6 +457,7 @@ public slots:
 	void updtGradFill();
 	void updtGradStroke();
 	void updtGradMask();
+	void updtGradMaskGroup();
 	/*
 	// Setzt die Pen-Farbe
 	void setPenFarbe(QString farbe);

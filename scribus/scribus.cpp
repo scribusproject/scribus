@@ -7306,6 +7306,14 @@ void ScribusMainWindow::updtGradMask()
 	VGradient vg(propertiesPalette->getMaskGradient());
 	doc->itemSelection_SetMaskGradient(vg);
 }
+
+void ScribusMainWindow::updtGradMaskGroup()
+{
+	if (!HaveDoc)
+		return;
+	VGradient vg(propertiesPalette->getMaskGradientGroup());
+	doc->itemSelection_SetMaskGradient(vg);
+}
 /*
 //CB-->Doc
 void ScribusMainWindow::GetBrushPen()

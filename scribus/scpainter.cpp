@@ -170,6 +170,20 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	m_blendMode = blendmode;
 	la.pushed = false;
 	la.groupClip.resize(0);
+	la.maskMode = maskMode;
+	la.mask_patternScaleX = mask_patternScaleX;
+	la.mask_patternScaleY = mask_patternScaleY;
+	la.mask_patternOffsetX = mask_patternOffsetX;
+	la.mask_patternOffsetY = mask_patternOffsetY;
+	la.mask_patternRotation = mask_patternRotation;
+	la.mask_patternSkewX = mask_patternSkewX;
+	la.mask_patternSkewY = mask_patternSkewY;
+	la.mask_patternMirrorX = mask_patternMirrorX;
+	la.mask_patternMirrorY = mask_patternMirrorY;
+	la.mask_gradientScale = mask_gradientScale;
+	la.mask_gradientSkew = mask_gradientSkew;
+	la.mask_gradient = mask_gradient;
+	la.maskPattern = m_maskPattern;
 	if (clipArray != NULL)
 		la.groupClip = *clipArray;
 #ifdef HAVE_CAIRO
@@ -196,6 +210,20 @@ void ScPainter::endLayer()
 	if (Layers.count() == 0)
 		return;
 	la = Layers.pop();
+	maskMode = la.maskMode;
+	mask_patternScaleX = la.mask_patternScaleX;
+	mask_patternScaleY = la.mask_patternScaleY;
+	mask_patternOffsetX = la.mask_patternOffsetX;
+	mask_patternOffsetY = la.mask_patternOffsetY;
+	mask_patternRotation = la.mask_patternRotation;
+	mask_patternSkewX = la.mask_patternSkewX;
+	mask_patternSkewY = la.mask_patternSkewY;
+	mask_patternMirrorX = la.mask_patternMirrorX;
+	mask_patternMirrorY = la.mask_patternMirrorY;
+	mask_gradientScale = la.mask_gradientScale;
+	mask_gradientSkew = la.mask_gradientSkew;
+	mask_gradient = la.mask_gradient;
+	m_maskPattern = la.maskPattern;
 	if (la.pushed)
 	{
 		cairo_pop_group_to_source (m_cr);
@@ -223,6 +251,7 @@ void ScPainter::endLayer()
 	}
 	m_layerTransparency = la.tranparency;
 	m_blendMode = la.blendmode;
+	maskMode = 0;
 }
 #else
 void ScPainter::endLayer()
@@ -231,6 +260,20 @@ void ScPainter::endLayer()
 	if (Layers.count() == 0)
 		return;
 	la = Layers.top();
+	maskMode = la.maskMode;
+	mask_patternScaleX = la.mask_patternScaleX;
+	mask_patternScaleY = la.mask_patternScaleY;
+	mask_patternOffsetX = la.mask_patternOffsetX;
+	mask_patternOffsetY = la.mask_patternOffsetY;
+	mask_patternRotation = la.mask_patternRotation;
+	mask_patternSkewX = la.mask_patternSkewX;
+	mask_patternSkewY = la.mask_patternSkewY;
+	mask_patternMirrorX = la.mask_patternMirrorX;
+	mask_patternMirrorY = la.mask_patternMirrorY;
+	mask_gradientScale = la.mask_gradientScale;
+	mask_gradientSkew = la.mask_gradientSkew;
+	mask_gradient = la.mask_gradient;
+	m_maskPattern = la.maskPattern;
 	if (la.pushed)
 	{
 		if ((m_blendMode != 0) && (Layers.count() != 0))
@@ -462,6 +505,7 @@ void ScPainter::endLayer()
 	}
 	m_layerTransparency = la.tranparency;
 	m_blendMode = la.blendmode;
+	maskMode = 0;
 }
 #endif
 #else
@@ -471,6 +515,20 @@ void ScPainter::endLayer()
 	if (Layers.count() == 0)
 		return;
 	la = Layers.top();
+	maskMode = la.maskMode;
+	mask_patternScaleX = la.mask_patternScaleX;
+	mask_patternScaleY = la.mask_patternScaleY;
+	mask_patternOffsetX = la.mask_patternOffsetX;
+	mask_patternOffsetY = la.mask_patternOffsetY;
+	mask_patternRotation = la.mask_patternRotation;
+	mask_patternSkewX = la.mask_patternSkewX;
+	mask_patternSkewY = la.mask_patternSkewY;
+	mask_patternMirrorX = la.mask_patternMirrorX;
+	mask_patternMirrorY = la.mask_patternMirrorY;
+	mask_gradientScale = la.mask_gradientScale;
+	mask_gradientSkew = la.mask_gradientSkew;
+	mask_gradient = la.mask_gradient;
+	m_maskPattern = la.maskPattern;
 	if (la.pushed)
 	{
 		if ((m_blendMode > 11) && (Layers.count() != 0))
@@ -724,6 +782,7 @@ void ScPainter::endLayer()
 	}
 	m_layerTransparency = la.tranparency;
 	m_blendMode = la.blendmode;
+	maskMode = 0;
 }
 #endif
 

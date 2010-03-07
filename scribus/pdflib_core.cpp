@@ -3245,7 +3245,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, 
 						tmpData = inh;
 						inh = groupDataStack.pop();
 						if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
-							inh += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
+							inh += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData, controlItem);
 						else
 							inh += tmpData;
 						inh += "Q\n";
@@ -3255,7 +3255,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, 
 						tmpData = Content;
 						Content = groupDataStack.pop();
 						if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
-							Content += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
+							Content += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData, controlItem);
 						else
 							Content += tmpData;
 						PutPage("Q\n");
@@ -3346,8 +3346,9 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const Page* pag, 
 	return true;
 }
 
-QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &data)
+QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &data, PageItem *controlItem)
 {
+	QString ShName = "";
 	QString retString = "";
 	int Gobj = newObject();
 	StartObj(Gobj);
@@ -3356,12 +3357,22 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	PutDoc("/I false\n");
 	PutDoc("/K false\n");
 	PutDoc(">>\nendobj\n");
-	QString ShName = ResNam+QString::number(ResCount);
-	ResCount++;
-	Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - trans)+"\n"
-								   + "/ca "+FToStr(1.0 - trans)+"\n"
-								   + "/SMask /None\n/AIS false\n/OPM 1\n"
-								   + "/BM /" + blendMode(blend) + "\n");
+	if (controlItem != NULL)
+	{
+		retString += "q\n";
+		retString = PDF_TransparenzFill(controlItem);
+	}
+	else
+	{
+		ShName = ResNam+QString::number(ResCount);
+		ResCount++;
+		Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - trans)+"\n"
+									+ "/ca "+FToStr(1.0 - trans)+"\n"
+									+ "/SMask /None\n/AIS false\n/OPM 1\n"
+									+ "/BM /" + blendMode(blend) + "\n");
+		retString += "q\n";
+		retString += "/"+ShName+" gs\n";
+	}
 	uint formObject = newObject();
 	StartObj(formObject);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
@@ -3381,8 +3392,6 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	QString name = ResNam+QString::number(ResCount);
 	ResCount++;
 	Seite.XObjects[name] = formObject;
-	retString += "q\n";
-	retString += "/"+ShName+" gs\n";
 	retString += "/"+name+" Do\n";
 	retString += "Q\n";
 	return retString;
@@ -5800,6 +5809,8 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		StopVec.clear();
 		TransVec.clear();
 		QTransform mpa;
+		if (currItem->isGroupControl)
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 		mpa.rotate(-currItem->rotation());
 		if (Gskew == 90)
 			Gskew = 1;
@@ -5916,7 +5927,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = currItem->lineWidth();
-		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(currItem->width()+lw)+" "+FToStr(-(currItem->height()+lw))+" ]\n");
+		if (currItem->isGroupControl)
+			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+		else
+			PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(currItem->width()+lw)+" "+FToStr(-(currItem->height()+lw))+" ]\n");
 		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 		if (Patterns.count() != 0)
 		{
@@ -5927,7 +5941,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc(">>\n");
 		}
 		PutDoc(">>\n");
-		QString stre = "q\n"+SetClipPath(currItem)+"h\n";
+		QString stre = "q\n";
+		if (currItem->isGroupControl)
+			stre += "1 0 0 1 "+ FToStr(currItem->xPos() - ActPageP->xOffset()) + " " + FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) + " cm\n";
+		stre += SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
 		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
@@ -5969,7 +5986,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			}
 		}
 		PutDoc(" >>\n");
-		PutDoc("/BBox [0 0 "+FToStr(currItem->width())+" "+FToStr(-(currItem->height()))+" ]\n");
+		if (currItem->isGroupControl)
+			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+		else
+			PutDoc("/BBox [0 0 "+FToStr(currItem->width())+" "+FToStr(-(currItem->height()))+" ]\n");
 		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 		if (Patterns.count() != 0)
 		{
@@ -5980,7 +6000,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc(">>\n");
 		}
 		PutDoc(">>\n");
-		QString stre = "q\n"+SetClipPath(currItem)+"h\n";
+		QString stre = "q\n";
+		if (currItem->isGroupControl)
+			stre += "1 0 0 1 "+ FToStr(currItem->xPos() - ActPageP->xOffset()) + " " + FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) + " cm\n";
+		stre += SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		stre += tmpOut+" f*\n";
 		stre += "Q\n";
@@ -6190,6 +6213,8 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	}
 	else if (kind == 2)
 	{
+		if (currItem->isGroupControl)
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 		currItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 		currItem->maskFlip(mirrorX, mirrorY);
 	}

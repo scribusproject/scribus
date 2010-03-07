@@ -75,6 +75,14 @@ void Tpalette::setDocument(ScribusDoc* doc)
 	}
 }
 
+void Tpalette::hideSelectionButtons()
+{
+	editLineSelector->hide();
+	editLineSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+	editFillSelector->hide();
+	editFillSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+}
+
 void Tpalette::updateFromItem()
 {
 	if (currentItem == NULL)
