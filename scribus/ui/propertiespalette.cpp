@@ -1605,6 +1605,16 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		DTop->setValue(i2->textToFrameDistTop()*m_unitRatio);
 		DBottom->setValue(i2->textToFrameDistBottom()*m_unitRatio);
 		DRight->setValue(i2->textToFrameDistRight()*m_unitRatio);
+		if (DCol->value() == 1)
+		{
+			dGap->setEnabled(false);
+			colgapLabel->setEnabled(false);
+		}
+		else
+		{
+			dGap->setEnabled(true);
+			colgapLabel->setEnabled(true);
+		}
 		// I put it here because it’s visually grouped with these elements
 		// but it’s a PageItem prop. and as such should be set without considering
 		// the frame type.
@@ -2367,6 +2377,16 @@ void PropertiesPalette::setCols(int r, double g)
 	}
 	DCol->setMinimum(1);
 	dGap->setMinimum(0);
+	if (DCol->value() == 1)
+	{
+		dGap->setEnabled(false);
+		colgapLabel->setEnabled(false);
+	}
+	else
+	{
+		dGap->setEnabled(true);
+		colgapLabel->setEnabled(true);
+	}
 	HaveItem = tmp;
 }
 
@@ -3258,6 +3278,16 @@ void PropertiesPalette::NewCols()
 	CurItem->Cols = DCol->value();
 	setCols(CurItem->Cols, CurItem->ColGap);
 	CurItem->update();
+	if (DCol->value() == 1)
+	{
+		dGap->setEnabled(false);
+		colgapLabel->setEnabled(false);
+	}
+	else
+	{
+		dGap->setEnabled(true);
+		colgapLabel->setEnabled(true);
+	}
 	emit DocChanged();
 }
 
