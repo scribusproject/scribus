@@ -170,11 +170,6 @@ public:
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
 	BasePointWidget* RotationGroup;
-/*	QRadioButton* TopLeft;
-	QRadioButton* TopRight;
-	QRadioButton* Center;
-	QRadioButton* BottomLeft;
-	QRadioButton* BottomRight; */
 	QGroupBox* textFlowOptions;
 	QGroupBox* textFlowOptions2;
 	QButtonGroup* textFlowOptionsB;
@@ -355,8 +350,6 @@ protected:
 	QVBoxLayout* MpalLayout;
 	QVBoxLayout* pageLayout;
 	QVBoxLayout* pageLayout_2;
-//	QVBoxLayout* pageLayout_2a;
-//	QVBoxLayout* pageLayout_2b;
 	QVBoxLayout* pageLayout_2c;
 	QVBoxLayout* pageLayout_3;
 	QVBoxLayout* pageLayout_4;
@@ -365,14 +358,10 @@ protected:
 	QVBoxLayout* pageLayout_5b;
 	QVBoxLayout* pageLayout_6;
 	QVBoxLayout* pageLayout_7;
-//	QVBoxLayout* OverPLayout;
 	QVBoxLayout* TLineLayout;
 	QHBoxLayout* layout60;
 	QGridLayout* Layout44;
 	QHBoxLayout* Layout13;
-//	QGridLayout* Layout12;
-	QHBoxLayout* layout47;
-	QVBoxLayout* layout46;
 	QGridLayout* layout41;
 	QGridLayout* layout41a;
 	QGridLayout* layout41c;
@@ -382,7 +371,7 @@ protected:
 	QVBoxLayout* Layout24;
 	QHBoxLayout* Layout18;
 	QGridLayout* Layout12_2;
-	QGridLayout* imagePageNumberSelector; 
+	QGridLayout* imagePageNumberSelector;
 	QHBoxLayout* NameGroupLayout;
 	QGridLayout* GeoGroupLayout;
 	QGridLayout* LayerGroupLayout;
@@ -410,7 +399,6 @@ protected:
 	QWidget* page;
 	QWidget* page_2;
 	QWidget* page_2a;
-//	QWidget* page_2b;
 	QWidget* page_2c;
 	QWidget* page_3;
 	QWidget* page_4;
@@ -479,7 +467,6 @@ protected:
 	QLabel* minGlyphExtensionLabel;
 	QLabel* maxGlyphExtensionLabel;
 
-//	LabelButton* colgapLabel;
 	ScComboBox* colgapLabel;
 	StyleSelect* SeStyle;
 	AlignSelect* GroupAlign;
@@ -504,7 +491,6 @@ protected:
 	QGroupBox* ShapeGroup;
 	QGroupBox* ShapeGroup2;
 	QGroupBox* Distance3;
-//	QGroupBox* OverP;
 
 	QToolButton* TabsButton;
 
@@ -558,7 +544,6 @@ protected:
 	QComboBox* LEndStyle;
 	ColorCombo* TxFill;
 	ScComboBox* blendMode;
-//	QComboBox *optMarginCombo;
 	QRadioButton *optMarginRadioNone;
 	QRadioButton *optMarginRadioBoth;
 	QRadioButton *optMarginRadioLeft;
@@ -605,23 +590,16 @@ protected:
 	QRadioButton* FrameScale;
 	QRadioButton* EvenOdd;
 	QRadioButton* NonZero;
-//	QRadioButton* KnockOut;
-//	QRadioButton* Overprint;
 	QRadioButton* flopRealHeight;
 	QRadioButton* flopFontAscent;
 	QRadioButton* flopLineSpacing;
 	
 	QButtonGroup* flopGroup;
 
-//	QFrame* Line1;
-//	QFrame* Line2;
-//	QFrame* Line4;
-//	QFrame* Line5;
 	QFrame* Frame4;
 
 	QMenu* lineSpacingPop;
 
-// 	QToolButton* linespacingButton;
 	QToolButton* DoGroup;
 	QToolButton* DoUnGroup;
 	QToolButton* FlipH;
