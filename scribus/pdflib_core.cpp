@@ -6224,7 +6224,10 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	else if (kind == 2)
 	{
 		if (currItem->isGroupControl)
+		{
 			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-currItem->rotation());
+		}
 		currItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 		currItem->maskFlip(mirrorX, mirrorY);
 	}

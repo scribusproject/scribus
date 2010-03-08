@@ -1456,7 +1456,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 					painter->setMaskMode(0);
 				else
 				{
-					painter->setPatternMask(&m_doc->docPatterns[currItem->patternMask()], currItem->patternMaskScaleX, currItem->patternMaskScaleY, currItem->patternMaskOffsetX + currItem->xPos(), currItem->patternMaskOffsetY + currItem->yPos(), currItem->patternMaskRotation, currItem->patternMaskSkewX, currItem->patternMaskSkewY, currItem->patternMaskMirrorX, currItem->patternMaskMirrorY);
+					painter->setPatternMask(&m_doc->docPatterns[currItem->patternMask()], currItem->patternMaskScaleX, currItem->patternMaskScaleY, currItem->patternMaskOffsetX + currItem->xPos(), currItem->patternMaskOffsetY + currItem->yPos(), currItem->patternMaskRotation + currItem->rotation(), currItem->patternMaskSkewX, currItem->patternMaskSkewY, currItem->patternMaskMirrorX, currItem->patternMaskMirrorY);
 					if (currItem->maskType() == 3)
 						painter->setMaskMode(2);
 					else
@@ -1682,7 +1682,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 					painter->setMaskMode(0);
 				else
 				{
-					painter->setPatternMask(&m_doc->docPatterns[currItem->patternMask()], currItem->patternMaskScaleX, currItem->patternMaskScaleY, currItem->patternMaskOffsetX + currItem->xPos(), currItem->patternMaskOffsetY + currItem->yPos(), currItem->patternMaskRotation, currItem->patternMaskSkewX, currItem->patternMaskSkewY, currItem->patternMaskMirrorX, currItem->patternMaskMirrorY);
+					painter->setPatternMask(&m_doc->docPatterns[currItem->patternMask()], currItem->patternMaskScaleX, currItem->patternMaskScaleY, currItem->patternMaskOffsetX + currItem->xPos(), currItem->patternMaskOffsetY + currItem->yPos(), currItem->patternMaskRotation + currItem->rotation(), currItem->patternMaskSkewX, currItem->patternMaskSkewY, currItem->patternMaskMirrorX, currItem->patternMaskMirrorY);
 					if (currItem->maskType() == 3)
 						painter->setMaskMode(2);
 					else

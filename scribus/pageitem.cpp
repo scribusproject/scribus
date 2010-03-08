@@ -1680,7 +1680,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 					p->setMaskMode(0);
 				else
 				{
-					p->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation, embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
+					p->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation + embedded->rotation(), embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
 					if (embedded->GrMask == 3)
 						p->setMaskMode(2);
 					else
@@ -2042,7 +2042,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 					painter->setMaskMode(0);
 				else
 				{
-					painter->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation, embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
+					painter->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation + embedded->rotation(), embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
 					if (embedded->GrMask == 3)
 						painter->setMaskMode(2);
 					else
