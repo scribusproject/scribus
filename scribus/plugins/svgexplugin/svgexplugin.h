@@ -88,6 +88,7 @@ private:
 	QDomElement processInlineItem(double xpos, double ypos, QTransform &finalMat, ScText *hl, bool pathT, QString trans);
 	QString handleGlyph(uint chr, ScText *hl);
 	QDomElement processArrows(PageItem *Item, QDomElement line, QString trans);
+	QString handleMask(PageItem *Item, double xOffset, double yOffset);
 	QString getFillStyle(PageItem *Item);
 	QString getStrokeStyle(PageItem *Item);
 	void writeBasePatterns();
@@ -130,6 +131,7 @@ private:
 	int GradCount;
 	int ClipCount;
 	int PattCount;
+	int MaskCount;
 	QString baseDir;
 	QDomDocument docu;
 	QDomElement docElement;

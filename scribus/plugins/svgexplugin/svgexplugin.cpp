@@ -199,6 +199,7 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	GradCount = 0;
 	ClipCount = 0;
 	PattCount = 0;
+	MaskCount = 0;
 	docu = QDomDocument("svgdoc");
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
@@ -321,8 +322,13 @@ void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
 			layerGroup = docu.createElement("g");
 			if (!Item->AutoName)
 				layerGroup.setAttribute("id", Item->itemName());
-			if (Item->fillTransparency() != 0)
-				layerGroup.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
+			if (Item->GrMask > 0)
+				layerGroup.setAttribute("mask", handleMask(Item, Item->xPos()-page->xOffset(), Item->yPos()-page->yOffset()));
+			else
+			{
+				if (Item->fillTransparency() != 0)
+					layerGroup.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
+			}
 			QDomElement ob = docu.createElement("clipPath");
 			ob.setAttribute("id", "Clip"+IToStr(ClipCount));
 			QDomElement cl = docu.createElement("path");
@@ -434,6 +440,8 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 		default:
 			break;
 	}
+	if (Item->GrMask > 0)
+		ob.setAttribute("mask", handleMask(Item, xOffset, yOffset));
 	if (!Item->AutoName)
 		ob.setAttribute("id", Item->itemName());
 	parentElem->appendChild(ob);
@@ -1542,6 +1550,142 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		}
 	}
 	return gr;
+}
+
+QString SVGExPlug::handleMask(PageItem *Item, double xOffset, double yOffset)
+{
+	QDomElement grad;
+	QString retVal = "";
+	if (Item->GrMask != 0)
+	{
+		QString maskID = "Mask"+IToStr(MaskCount);
+		MaskCount++;
+		QDomElement mask = docu.createElement("mask");
+		mask.setAttribute("id", maskID);
+		QDomElement ob = docu.createElement("path");
+		ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0 L "+FToStr(Item->width())+" "+FToStr(Item->height())+" L 0 "+FToStr(Item->height())+" Z");
+		if (Item->isGroupControl)
+		{
+			QString trans = "translate("+FToStr(xOffset)+", "+FToStr(yOffset)+")";
+			if (Item->rotation() != 0)
+				trans += " rotate("+FToStr(Item->rotation())+")";
+			ob.setAttribute("transform", trans);
+		}
+		if ((Item->GrMask == 3) || (Item->GrMask == 6))
+		{
+			QString pattID = Item->patternMask()+IToStr(PattCount);
+			PattCount++;
+			ScPattern pa = m_Doc->docPatterns[Item->patternMask()];
+			QDomElement patt = docu.createElement("pattern");
+			patt.setAttribute("id", pattID);
+			patt.setAttribute("height", FToStr(pa.height));
+			patt.setAttribute("width", FToStr(pa.width));
+			patt.setAttribute("patternUnits", "userSpaceOnUse");
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			Item->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+			bool mirrorX, mirrorY;
+			Item->maskFlip(mirrorX, mirrorY);
+			QTransform mpa;
+	//		if (Item->isGroupControl)
+	//		{
+	//			if (Item->rotation() != 0)
+	//				mpa.rotate(-Item->rotation());
+	//		}
+			mpa.translate(patternOffsetX, patternOffsetY);
+			mpa.rotate(patternRotation);
+			mpa.shear(-patternSkewX, patternSkewY);
+			mpa.scale(pa.scaleX, pa.scaleY);
+			mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+			if (mirrorX)
+				mpa.scale(-1, 1);
+			if (mirrorY)
+				mpa.scale(1, -1);
+			patt.setAttribute("patternTransform", MatrixToStr(mpa));
+			patt.setAttribute("xlink:href", "#"+Item->patternMask());
+			globalDefs.appendChild(patt);
+			ob.setAttribute("fill", "url(#"+pattID+")");
+		}
+		else if ((Item->GrMask == 1) || (Item->GrMask == 2) || (Item->GrMask == 4) || (Item->GrMask == 5))
+		{
+			if ((Item->GrMask == 6) || (Item->GrMask == 4))
+			{
+				grad = docu.createElement("linearGradient");
+				grad.setAttribute("x1", FToStr(Item->GrMaskStartX));
+				grad.setAttribute("y1", FToStr(Item->GrMaskStartY));
+				grad.setAttribute("x2", FToStr(Item->GrMaskEndX));
+				grad.setAttribute("y2", FToStr(Item->GrMaskEndY));
+			}
+			else
+			{
+				grad = docu.createElement("radialGradient");
+				grad.setAttribute("r", FToStr(sqrt(pow(Item->GrMaskEndX - Item->GrMaskStartX, 2) + pow(Item->GrMaskEndY - Item->GrMaskStartY,2))));
+				grad.setAttribute("cx", FToStr(Item->GrMaskStartX));
+				grad.setAttribute("cy", FToStr(Item->GrMaskStartY));
+				grad.setAttribute("fx", FToStr(Item->GrMaskFocalX));
+				grad.setAttribute("fy", FToStr(Item->GrMaskFocalY));
+			}
+			double gradientSkew;
+			if (Item->GrMaskSkew == 90)
+				gradientSkew = 1;
+			else if (Item->GrMaskSkew == 180)
+				gradientSkew = 0;
+			else if (Item->GrMaskSkew == 270)
+				gradientSkew = -1;
+			else if (Item->GrMaskSkew == 390)
+				gradientSkew = 0;
+			else
+				gradientSkew = tan(M_PI / 180.0 * Item->GrMaskSkew);
+			QTransform qmatrix;
+			if (Item->GrType == 6)
+			{
+				qmatrix.translate(Item->GrMaskStartX, Item->GrMaskStartY);
+				qmatrix.shear(-gradientSkew, 0);
+				qmatrix.translate(-Item->GrMaskStartX, -Item->GrMaskStartY);
+			}
+			else
+			{
+				double rotEnd = xy2Deg(Item->GrMaskEndX - Item->GrMaskStartX, Item->GrMaskEndY - Item->GrMaskStartY);
+				qmatrix.translate(Item->GrMaskStartX, Item->GrMaskStartY);
+				qmatrix.rotate(rotEnd);
+				qmatrix.shear(gradientSkew, 0);
+				qmatrix.translate(0, Item->GrMaskStartY * (1.0 - Item->GrMaskScale));
+				qmatrix.translate(-Item->GrMaskStartX, -Item->GrMaskStartY);
+				qmatrix.scale(1, Item->GrMaskScale);
+			}
+			grad.setAttribute("gradientTransform", MatrixToStr(qmatrix));
+			grad.setAttribute("id", "Grad"+IToStr(GradCount));
+			grad.setAttribute("gradientUnits", "userSpaceOnUse");
+			QList<VColorStop*> cstops = Item->mask_gradient.colorStops();
+			for (uint cst = 0; cst < Item->mask_gradient.Stops(); ++cst)
+			{
+				QDomElement itcl = docu.createElement("stop");
+				itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+				if (cstops.at(cst)->name == CommonStrings::None)
+					itcl.setAttribute("stop-opacity", FToStr(0));
+				else
+					itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+				itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+				grad.appendChild(itcl);
+			}
+			globalDefs.appendChild(grad);
+			ob.setAttribute("fill", "url(#Grad"+IToStr(GradCount)+")");
+			GradCount++;
+		}
+		if ((Item->lineColor() != CommonStrings::None) && (!Item->isGroupControl))
+		{
+			ob.setAttribute("stroke", "white");
+			if (Item->lineWidth() != 0.0)
+				ob.setAttribute("stroke-width", FToStr(Item->lineWidth()));
+			else
+				ob.setAttribute("stroke-width", "1px");
+		}
+		else
+			ob.setAttribute("stroke", "none");
+		mask.appendChild(ob);
+		globalDefs.appendChild(mask);
+		retVal = "url(#"+maskID+")";
+	}
+	return retVal;
 }
 
 QString SVGExPlug::getFillStyle(PageItem *Item)
