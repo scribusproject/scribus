@@ -5943,7 +5943,12 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc(">>\n");
 		QString stre = "q\n";
 		if (currItem->isGroupControl)
-			stre += "1 0 0 1 "+ FToStr(currItem->xPos() - ActPageP->xOffset()) + " " + FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) + " cm\n";
+		{
+			QTransform mpa;
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-currItem->rotation());
+			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+		}
 		stre += SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
@@ -6002,7 +6007,12 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc(">>\n");
 		QString stre = "q\n";
 		if (currItem->isGroupControl)
-			stre += "1 0 0 1 "+ FToStr(currItem->xPos() - ActPageP->xOffset()) + " " + FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) + " cm\n";
+		{
+			QTransform mpa;
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-currItem->rotation());
+			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+		}
 		stre += SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		stre += tmpOut+" f*\n";
