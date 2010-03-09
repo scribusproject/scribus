@@ -2313,6 +2313,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		UndoManager::instance()->setUndoEnabled(false);
+		currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
+		currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT", 0));
@@ -2372,8 +2374,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->setImageShown( attrs.valueAsInt("PICART"));
 /*		currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 		currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-		currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
-		currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		currItem->setLineWidth(pw);
 		UndoManager::instance()->setUndoEnabled(true);
 		break;
@@ -2393,6 +2393,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		UndoManager::instance()->setUndoEnabled(false);
 		if (attrs.valueAsInt("ANNOTATION", 0) && attrs.valueAsBool("ANICON", false))
 		{
+			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
+			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
 			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT", 0));
@@ -2408,8 +2410,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->setImageShown(attrs.valueAsInt("PICART"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
-			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		}
 		//currItem->convertTo(pt);
 		UndoManager::instance()->setUndoEnabled(true);
@@ -2422,6 +2422,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		UndoManager::instance()->setUndoEnabled(false);
 		if ((attrs.valueAsInt("ANNOTATION", 0)) && (attrs.valueAsBool("ANICON", false)))
 		{
+			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
+			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
 			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT", 0));
@@ -2437,8 +2439,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->setImageShown( attrs.valueAsInt("PICART"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
-			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		}
 		//currItem->convertTo(pt);
 		UndoManager::instance()->setUndoEnabled(true);
