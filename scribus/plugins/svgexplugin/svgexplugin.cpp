@@ -539,8 +539,9 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 			cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
 		ob2.appendChild(cl);
 		globalDefs.appendChild(ob2);
+		QDomElement ob6 = docu.createElement("g");
+		ob6.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
 		QDomElement ob3 = docu.createElement("image");
-		ob3.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
 		ScImage img;
 		CMSettings cms(m_Doc, Item->IProfile, Item->IRender);
 		cms.setUseEmbeddedProfile(Item->UseEmbedded);
@@ -585,7 +586,8 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 		mpa.rotate(Item->imageRotation());
 		ob3.setAttribute("transform", MatrixToStr(mpa));
 		ClipCount++;
-		ob.appendChild(ob3);
+		ob6.appendChild(ob3);
+		ob.appendChild(ob6);
 	}
 	if (Item->NamedLStyle.isEmpty())
 	{
