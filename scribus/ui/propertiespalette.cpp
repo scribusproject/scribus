@@ -893,40 +893,49 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	yposImgLabel->setBuddy(imageYOffsetSpinBox);
 	layout43->addWidget( yposImgLabel, 1, 0 );
 	layout43->addWidget( imageYOffsetSpinBox, 1, 1 );
+	
+	imageRotation = new ScrSpinBox( page_4, 6);
+	imageRotation->setWrapping( true );
+	installSniffer(imageRotation);
+	imageRotationLabel = new QLabel( "Rotation:", page_4 );
+	imageRotationLabel->setBuddy(imageRotation);
+	layout43->addWidget( imageRotationLabel, 2, 0 );
+	layout43->addWidget( imageRotation, 2, 1 );
+	
 	imageXScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageXScaleSpinBox);
 	xscaleLabel = new QLabel( "X-Sc&ale:", page_4 );
 	xscaleLabel->setBuddy(imageXScaleSpinBox);
-	layout43->addWidget( xscaleLabel, 2, 0 );
-	layout43->addWidget( imageXScaleSpinBox, 2, 1 );
+	layout43->addWidget( xscaleLabel, 3, 0 );
+	layout43->addWidget( imageXScaleSpinBox, 3, 1 );
 	imageYScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageYScaleSpinBox);
 	yscaleLabel = new QLabel( "Y-Scal&e:", page_4 );
 	yscaleLabel->setBuddy(imageYScaleSpinBox);
-	layout43->addWidget( yscaleLabel, 3, 0 );
-	layout43->addWidget( imageYScaleSpinBox, 3, 1 );
+	layout43->addWidget( yscaleLabel, 4, 0 );
+	layout43->addWidget( imageYScaleSpinBox, 4, 1 );
 	keepImageWHRatioButton = new LinkButton( page_4 );
 	keepImageWHRatioButton->setCheckable( true );
 	keepImageWHRatioButton->setAutoRaise( true );
 	keepImageWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
-	layout43->addWidget( keepImageWHRatioButton, 2, 2, 2, 1 );
+	layout43->addWidget( keepImageWHRatioButton, 3, 2, 2, 1 );
 	imgDpiX = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiX);
 	imgDPIXLabel = new QLabel( "Actual X-DPI:", page_4 );
 	imgDPIXLabel->setBuddy(imgDpiX);
-	layout43->addWidget( imgDPIXLabel, 4, 0 );
-	layout43->addWidget( imgDpiX, 4, 1 );
+	layout43->addWidget( imgDPIXLabel, 5, 0 );
+	layout43->addWidget( imgDpiX, 5, 1 );
 	imgDpiY = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiY);
 	imgDPIYLabel = new QLabel( "Actual Y-DPI:", page_4 );
 	imgDPIYLabel->setBuddy(imgDpiY);
-	layout43->addWidget( imgDPIYLabel, 5, 0 );
-	layout43->addWidget( imgDpiY, 5, 1 );
+	layout43->addWidget( imgDPIYLabel, 6, 0 );
+	layout43->addWidget( imgDpiY, 6, 1 );
 	keepImageDPIRatioButton = new LinkButton( page_4 );
 	keepImageDPIRatioButton->setCheckable( true );
 	keepImageDPIRatioButton->setAutoRaise( true );
 	keepImageDPIRatioButton->setMaximumSize( QSize( 15, 32767 ) );
-	layout43->addWidget( keepImageDPIRatioButton, 4, 2, 2, 1 );
+	layout43->addWidget( keepImageDPIRatioButton, 5, 2, 2, 1 );
 	pageLayout_4->addLayout( layout43 );
 
 	Layout24 = new QVBoxLayout;
@@ -1126,6 +1135,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
 	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	connect(imageRotation, SIGNAL(valueChanged(double)), this, SLOT(NewLocalRot()));
 	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 	connect(LSize, SIGNAL(valueChanged(double)), this, SLOT(NewLineWidth()));
@@ -1371,6 +1381,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	imageYOffsetSpinBox->setValues( -16777215, maxXYWHVal, precision, 0);
 
 	Rotation->setValues( 0, 359.99, 1, 0);
+	imageRotation->setValues( 0, 359.99, 1, 0);
 	RoundRect->setValues( -300, 300, 2, 0);
 	Extra->setValues( -300, 300, 2, 0);
 	Size->setValues( 0.5, 2048, 2, 1);
@@ -1471,6 +1482,7 @@ void PropertiesPalette::unsetDoc()
 	Width->setValue(0);
 	Height->setValue(0);
 	Rotation->setValue(0);
+	imageRotation->setValue(0);
 	RoundRect->setValue(0);
 	for (int ws = 1; ws < 8; ++ws)
 		TabStack->setItemEnabled(ws, false);
@@ -1696,6 +1708,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	disconnect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
 	disconnect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	disconnect(imageRotation, SIGNAL(valueChanged(double)), this, SLOT(NewLocalRot()));
 	disconnect(DTop, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	disconnect(DLeft, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	disconnect(DRight, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
@@ -1902,16 +1915,22 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 // 			}
 			imageXOffsetSpinBox->setEnabled(setter);
 			imageYOffsetSpinBox->setEnabled(setter);
+			imageRotation->setEnabled(setter);
 		}
 	}
 	setXY(CurItem->xPos(), CurItem->yPos());
 	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setLineWidth(i->lineWidth());
 	setLIvalue(i->lineStyle(), i->lineEnd(), i->lineJoin());
+	double rrR = i->imageRotation();
+	if (i->imageRotation() > 0)
+		rrR = 360 - rrR;
+	imageRotation->setValue(fabs(rrR));
 	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
 	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	connect(imageRotation, SIGNAL(valueChanged(double)), this, SLOT(NewLocalRot()));
 
 	DoGroup->setEnabled(false);
 	DoUnGroup->setEnabled(false);
@@ -2476,6 +2495,7 @@ void PropertiesPalette::ChangeScaling()
 		imageYScaleSpinBox->setEnabled(true);
 		imgDpiX->setEnabled(true);
 		imgDpiY->setEnabled(true);
+		imageRotation->setEnabled(true);
 	}
 	if (FrameScale == sender())
 	{
@@ -2488,6 +2508,7 @@ void PropertiesPalette::ChangeScaling()
 		imageYScaleSpinBox->setEnabled(false);
 		imgDpiX->setEnabled(false);
 		imgDpiY->setEnabled(false);
+		imageRotation->setEnabled(false);
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2495,6 +2516,18 @@ void PropertiesPalette::ChangeScaling()
 		emit UpdtGui(PageItem::ImageFrame);
 		emit DocChanged();
 	}
+}
+
+void PropertiesPalette::setImgRotation(double rot)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	disconnect(imageRotation, SIGNAL(valueChanged(double)), this, SLOT(NewLocalRot()));
+	double rrR = rot;
+	if (rot > 0)
+		rrR = 360 - rrR;
+	imageRotation->setValue(fabs(rrR));
+	connect(imageRotation, SIGNAL(valueChanged(double)), this, SLOT(NewLocalRot()));
 }
 
 void PropertiesPalette::setScaleAndOffset(double scx, double scy, double x, double y)
@@ -3376,6 +3409,14 @@ void PropertiesPalette::NewLocalDpi()
 		connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 		connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	}
+}
+
+void PropertiesPalette::NewLocalRot()
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	if ((HaveDoc) && (HaveItem))
+		doc->itemSelection_SetImageRotation(360 - imageRotation->value());
 }
 
 void PropertiesPalette::handleImageEffects()
@@ -4771,6 +4812,7 @@ void PropertiesPalette::languageChange()
 	yposImgLabel->setText( tr("&Y-Pos:"));
 	xscaleLabel->setText( tr("X-Sc&ale:"));
 	yscaleLabel->setText( tr("Y-Scal&e:"));
+	imageRotationLabel->setText( tr("Rotation:"));
 	FrameScale->setText( tr("Scale &To Frame Size"));
 	Aspect->setText( tr("P&roportional"));
 	EditEffects->setText( tr("Image Effects"));

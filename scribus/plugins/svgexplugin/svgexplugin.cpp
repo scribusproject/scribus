@@ -582,6 +582,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 			mpa.translate(0, Item->height());
 			mpa.scale(1, -1);
 		}
+		mpa.rotate(Item->imageRotation());
 		ob3.setAttribute("transform", MatrixToStr(mpa));
 		ClipCount++;
 		ob.appendChild(ob3);

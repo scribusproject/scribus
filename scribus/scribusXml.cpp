@@ -254,6 +254,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->LocalScY   = attrAsDbl(attrs, "LOCALSCY");
 	OB->LocalX     = attrAsDbl(attrs, "LOCALX");
 	OB->LocalY     = attrAsDbl(attrs, "LOCALY");
+	OB->LocalRot   = attrAsDbl(attrs, "LOCALROT");
 	OB->PicArt     = attrAsInt(attrs, "PICART");
 	OB->flippedH   = attrAsInt(attrs, "FLIPPEDH") % 2;
 	OB->flippedV   = attrAsInt(attrs, "FLIPPEDV") % 2;
@@ -616,6 +617,7 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("LOCALSCY" ,item->imageYScale());
 	writer.writeAttribute("LOCALX"   ,item->imageXOffset());
 	writer.writeAttribute("LOCALY"   ,item->imageYOffset());
+	writer.writeAttribute("LOCALROT" ,item->imageRotation());
 	writer.writeAttribute("PICART"   ,item->imageShown() ? "1" : "0");
 	writer.writeAttribute("PLTSHOW"  ,item->PoShow ? "1" : "0");
 	writer.writeAttribute("BASEOF"   ,item->BaseOffs);
@@ -1583,6 +1585,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 						outFil.close();
 						Neu->setImageXYScale(OB.LocalScX, OB.LocalScY);
 						Neu->setImageXYOffset(OB.LocalX, OB.LocalY);
+						Neu->setImageRotation(OB.LocalRot);
 						Neu->IProfile = OB.IProfile;
 						Neu->EmProfile = OB.EmProfile;
 						Neu->IRender = OB.IRender;
@@ -1620,6 +1623,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 				Neu->pixm.imgInfo.usedPath = itemClip;
 				QTransform cl;
 				cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
+				cl.rotate(Neu->imageRotation());
 				cl.scale(Neu->imageXScale(), Neu->imageYScale());
 				Neu->imageClip.map(cl);
 			}
@@ -1953,6 +1957,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, const QS
 						Neu->Pfile = fileName;
 						Neu->setImageXYScale(OB.LocalScX, OB.LocalScY);
 						Neu->setImageXYOffset(OB.LocalX, OB.LocalY);
+						Neu->setImageRotation(OB.LocalRot);
 						Neu->IProfile = OB.IProfile;
 						Neu->EmProfile = OB.EmProfile;
 						Neu->IRender = OB.IRender;
@@ -1979,6 +1984,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, const QS
 				Neu->pixm.imgInfo.usedPath = patClipPath;
 				QTransform cl;
 				cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
+				cl.rotate(Neu->imageRotation());
 				cl.scale(Neu->imageXScale(), Neu->imageYScale());
 				Neu->imageClip.map(cl);
 			}

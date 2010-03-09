@@ -126,6 +126,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("image-y-scale", toXMLString(item->imageYScale()));
 	result.insert("image-x-position", toXMLString(item->imageXOffset()));
 	result.insert("image-y-position", toXMLString(item->imageYOffset()));
+	result.insert("image-rotation", toXMLString(item->imageRotation()));
 	if (item->OverrideCompressionMethod)
 	{
 		result.insert("COMPRESSIONMETHODOVER", toXMLString(item->OverrideCompressionMethod));
@@ -991,6 +992,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setImageYScale, "image-y-scale", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setImageXOffset, "image-x-position", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setImageYOffset, "image-y-position", &parseDouble ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setImageRotation, "image-rotation", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setImagePagenumber, "pagenumber", &parseInt ));
 	//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>("image-x-dpi", &parseDouble ));  //NYI
 	//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>("image-y-dpi", &parseDouble ));  //NYI

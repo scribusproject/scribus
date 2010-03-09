@@ -1504,6 +1504,10 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutStream("bEPS\n");
 			PutStream(ToStr(PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 72.0 * scalex) + " " + ToStr(PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 72.0 * scaley) + " sc\n");
 			PutStream(ToStr(-c->BBoxX+x * scalex) + " " + ToStr(y * scalex) + " tr\n");
+			int h = c->pixm.height();
+			PutStream("0 " + ToStr(h*scaley) + " tr\n");
+			PutStream(ToStr(-c->imageRotation()) + " ro\n");
+			PutStream("0 " + ToStr(-h*scaley) + " tr\n");
 			if (!Name.isEmpty())
 			{
 				PutStream(PSEncode(Name)+"Bild cvx exec\n");
@@ -1556,6 +1560,9 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		int w = image.width();
 		int h = image.height();
 		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
+		PutStream("0 " + ToStr(h*scaley) + " tr\n");
+		PutStream(ToStr(-c->imageRotation()) + " ro\n");
+		PutStream("0 " + ToStr(-h*scaley) + " tr\n");
 		if ((extensionIndicatesPDF(ext)) && (!c->asLatexFrame()))
 		{
 			scalex *= PrefsManager::instance()->appPrefs.extToolPrefs.gs_Resolution / 300.0;

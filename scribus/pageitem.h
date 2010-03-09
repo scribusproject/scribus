@@ -604,6 +604,8 @@ public:
 	void setImageYOffset(const double);
 	void moveImageXYOffsetBy(const double, const double);
 	void setImageXYOffset(const double, const double);
+	double imageRotation() const { return LocalRot; }
+	void setImageRotation(const double newRotation);
 	//Reverse
 	bool reversed() const { return Reverse; }
 	void setReversed(bool);
@@ -1337,6 +1339,8 @@ protected:
 	double LocalX;
 	/** Image Y Offset to frame */
 	double LocalY;
+	/** Image rotation in frame */
+	double LocalRot;
 	/** If the frame is reversed */
 	bool Reverse;
 
@@ -1503,6 +1507,7 @@ signals:
 	//FIXME: columns, grid ?
 	//Frame image signals
 	void imageOffsetScale(double, double, double, double);
+	void imageRotation(double);
 };
 
 Q_DECLARE_METATYPE(PageItem*);

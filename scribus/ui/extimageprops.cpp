@@ -315,6 +315,7 @@ void ExtImageProps::leaveOK()
 			currentItem->pixm.imgInfo.usedPath = sel[0]->text();
 			QTransform cl;
 			cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
+			cl.rotate(currentItem->imageRotation());
 			cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 			currentItem->imageClip.map(cl);
 		}
@@ -354,6 +355,7 @@ void ExtImageProps::changePreview()
 				currentItem->pixm.imgInfo.usedPath = sel[0]->text();
 				QTransform cl;
 				cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
+				cl.rotate(currentItem->imageRotation());
 				cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 				currentItem->imageClip.map(cl);
 			}
@@ -446,6 +448,7 @@ void ExtImageProps::selPath(QListWidgetItem *c)
 		currentItem->pixm.imgInfo.usedPath = c->text();
 		QTransform cl;
 		cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
+		cl.rotate(currentItem->imageRotation());
 		cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 		currentItem->imageClip.map(cl);
 		currentItem->update();

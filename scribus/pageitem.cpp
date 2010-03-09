@@ -231,6 +231,7 @@ PageItem::PageItem(const PageItem & other)
 	LocalScY(other.LocalScY),
 	LocalX(other.LocalX),
 	LocalY(other.LocalY),
+	LocalRot(other.LocalRot),
 	Reverse(other.Reverse),
 	m_startArrowIndex(other.m_startArrowIndex),
 	m_endArrowIndex(other.m_endArrowIndex),
@@ -435,6 +436,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	OrigH = 0;
 	oldLocalX = LocalX = 0;
 	oldLocalY = LocalY = 0;
+	LocalRot = 0;
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
@@ -883,6 +885,15 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 		return;
 	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
+}
+
+void PageItem::setImageRotation(const double newRotation)
+{
+	LocalRot = newRotation;
+	if (m_Doc->isLoading())
+		return;
+	checkChanges();
+	emit imageRotation(LocalRot);
 }
 
 void PageItem::setReversed(bool newReversed)
@@ -5830,6 +5841,7 @@ void PageItem::AdjustPictScale()
 		return;
 	LocalX = 0;
 	LocalY = 0;
+	LocalRot = 0;
 	double xs = Width / static_cast<double>(OrigW);
 	double ys = Height / static_cast<double>(OrigH);
 	if (AspectRatio)
@@ -5875,6 +5887,7 @@ void PageItem::AdjustPictScale()
 		imageClip.map(cl);
 	}
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
+	emit imageRotation(LocalRot);
 }
 
 void PageItem::setExternalFile(QString val)
@@ -6088,6 +6101,7 @@ bool PageItem::connectToGUI()
 	//Line signals
 	connect(this, SIGNAL(lineWidth(double)), pp, SLOT(setLineWidth(double)));
 	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), pp, SLOT(setScaleAndOffset(double, double, double, double)));
+	connect(this, SIGNAL(imageRotation(double)), pp, SLOT(setImgRotation(double)));
 	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), pp, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	//Frame text signals
 	connect(this, SIGNAL(lineSpacing(double)), pp, SLOT(setLsp(double)));
@@ -6224,6 +6238,7 @@ void PageItem::moveImageInFrame(double newX, double newY)
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
 		QTransform cl;
 		cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
+		cl.rotate(imageRotation());
 		cl.scale(imageXScale(), imageYScale());
 		imageClip.map(cl);
 	}

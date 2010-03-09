@@ -1197,6 +1197,7 @@ public slots:
 	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy, Selection* customSelection=0);
+	void itemSelection_SetImageRotation(double rot, Selection* customSelection=0);
 	void itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePosition);
 	void itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePosition);
 	void itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePosition);

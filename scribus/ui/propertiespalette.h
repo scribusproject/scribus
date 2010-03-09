@@ -202,6 +202,7 @@ public slots:
 	void setExtra(double e);
 	void setTextToFrameDistances(double left, double top, double bottom, double right);
 	void ChangeScaling();
+	void setImgRotation(double rot);
 	void setScaleAndOffset(double scx, double scy, double x, double y);
 	void setLineWidth(double s);
 	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
@@ -273,6 +274,7 @@ private slots:
 	void NewLocalXY();
 	void NewLocalSC();
 	void NewLocalDpi();
+	void NewLocalRot();
 	void NewLineWidth();
 	void NewLineStyle();
 	void NewLineJoin();
@@ -434,6 +436,7 @@ protected:
 	QLabel* xscaleLabel;
 	QLabel* xposImgLabel;
 	QLabel* yposImgLabel;
+	QLabel* imageRotationLabel;
 	QLabel* linewidthLabel;
 	QLabel* endingsLabel;
 	QLabel* linetypeLabel;
@@ -570,6 +573,7 @@ protected:
 	ScrSpinBox* Extra;
 	ScrSpinBox* imageYOffsetSpinBox;
 	ScrSpinBox* imageXOffsetSpinBox;
+	ScrSpinBox* imageRotation;
 	ScrSpinBox* imageYScaleSpinBox;
 	ScrSpinBox* imageXScaleSpinBox;
 	ScrSpinBox* imgDpiX;

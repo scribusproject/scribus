@@ -142,6 +142,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 						p->scale(1, -1);
 					}
 					p->translate(LocalX*LocalScX, LocalY*LocalScY);
+					p->rotate(LocalRot);
 					double mscalex = 1.0 / LocalScX;
 					double mscaley = 1.0 / LocalScY;
 					p->scale(LocalScX, LocalScY);
@@ -306,6 +307,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
 				QTransform cl;
 				cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
+				cl.rotate(imageRotation());
 				cl.scale(imageXScale(), imageYScale());
 				imageClip.map(cl);
 			}

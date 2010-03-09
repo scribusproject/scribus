@@ -149,6 +149,7 @@ struct CopyPasteBuffer
 	double LocalScY;
 	double LocalX;
 	double LocalY;
+	double LocalRot;
 	bool PicArt;
 	bool flippedH;
 	bool flippedV;
@@ -226,6 +227,7 @@ struct CopyContentsBuffer
 	double LocalScY;
 	double LocalX;
 	double LocalY;
+	double LocalRot;
 	double ItemX;
 	double ItemY;
 	ScImageEffectList effects;

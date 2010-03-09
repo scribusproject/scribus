@@ -2449,6 +2449,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		p->setClipPath();
 		p->scale(LocalScX, LocalScY);
 		p->translate(LocalX*LocalScX, LocalY*LocalScY);
+		p->rotate(LocalRot);
 		if (pixm.width() > 0 && pixm.height() > 0)
 			p->drawImage(pixm.qImagePtr());
 		p->restore();//RE2

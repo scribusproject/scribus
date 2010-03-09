@@ -3706,6 +3706,7 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 		undoManager->setUndoEnabled(false);
 		Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		Items->at(z)->setImageRotation(Buffer->LocalRot);
 		Items->at(z)->Pfile = Buffer->Pfile;
 		Items->at(z)->IProfile = Buffer->IProfile;
 		Items->at(z)->EmProfile = Buffer->EmProfile;
@@ -3737,6 +3738,7 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 		{
 			Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 			Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+			Items->at(z)->setImageRotation(Buffer->LocalRot);
 			Items->at(z)->Pfile = Buffer->Pfile;
 			Items->at(z)->Pfile2 = Buffer->Pfile2;
 			Items->at(z)->Pfile3 = Buffer->Pfile3;
@@ -3871,6 +3873,7 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 		undoManager->setUndoEnabled(false);
 		Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		Items->at(z)->setImageRotation(Buffer->LocalRot);
 		Items->at(z)->Pfile = Buffer->Pfile;
 		Items->at(z)->IProfile = Buffer->IProfile;
 		Items->at(z)->EmProfile = Buffer->EmProfile;
@@ -3894,6 +3897,7 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 		undoManager->setUndoEnabled(false);
 		Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		Items->at(z)->setImageRotation(Buffer->LocalRot);
 		Items->at(z)->Pfile = Buffer->Pfile;
 		Items->at(z)->IProfile = Buffer->IProfile;
 		Items->at(z)->EmProfile = Buffer->EmProfile;
@@ -8368,7 +8372,6 @@ void ScribusDoc::itemSelection_SetOverprint(bool overprint, Selection* customSel
 	changed();
 }
 
-
 void ScribusDoc::itemSelection_DoHyphenate()
 {
 	uint selectedItemCount=m_Selection->count();
@@ -8385,7 +8388,6 @@ void ScribusDoc::itemSelection_DoHyphenate()
 	}
 }
 
-
 void ScribusDoc::itemSelection_DoDeHyphenate()
 {
 	uint selectedItemCount=m_Selection->count();
@@ -8401,7 +8403,6 @@ void ScribusDoc::itemSelection_DoDeHyphenate()
 		changed();
 	}
 }
-
 
 void ScribusDoc::itemSelection_SendToLayer(int layerID)
 {
@@ -8441,14 +8442,12 @@ void ScribusDoc::itemSelection_SendToLayer(int layerID)
 	changed();
 }
 
-
 void ScribusDoc::itemSelection_SetAlignment(int s, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
 	newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(s));
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
-
 
 void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* customSelection)
 {
@@ -8473,6 +8472,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
 				QTransform cl;
 				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.rotate(currItem->imageRotation());
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
 			}
@@ -8494,7 +8494,6 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 		changed();
 	}
 }
-
 
 void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* customSelection)
 {
@@ -8519,6 +8518,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
 				QTransform cl;
 				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.rotate(currItem->imageRotation());
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
 			}
@@ -8540,7 +8540,6 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 		changed();
 	}
 }
-
 
 void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, double ox, double oy, Selection* customSelection)
 {
@@ -8569,6 +8568,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
 			QTransform cl;
 			cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+			cl.rotate(currItem->imageRotation());
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
 		}
@@ -8600,6 +8600,31 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 	changed();
 }
 
+void ScribusDoc::itemSelection_SetImageRotation(double rot, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			PageItem *currItem = itemSelection->itemAt(a);
+			currItem->setImageRotation(rot);
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QTransform cl;
+				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.rotate(currItem->imageRotation());
+				cl.scale(currItem->imageXScale(), currItem->imageYScale());
+				currItem->imageClip.map(cl);
+			}
+			currItem->update();
+		}
+		changed();
+	}
+}
 
 void ScribusDoc::buildAlignItemList(Selection* customSelection)
 {

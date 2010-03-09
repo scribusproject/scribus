@@ -9495,6 +9495,7 @@ void ScribusMainWindow::slotEditCopyContents()
 				contentsBuffer.LocalScY = imageItem->imageYScale();
 				contentsBuffer.LocalX   = imageItem->imageXOffset();
 				contentsBuffer.LocalY   = imageItem->imageYOffset();
+				contentsBuffer.LocalRot = imageItem->imageRotation();
 				contentsBuffer.ItemX   = imageItem->xPos();
 				contentsBuffer.ItemY   = imageItem->yPos();
 				contentsBuffer.effects = imageItem->effectsInUse;
@@ -9536,6 +9537,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 					imageItem->setImageXYOffset(
 					((contentsBuffer.ItemX-imageItem->xPos()) / contentsBuffer.LocalScX)+contentsBuffer.LocalX,
 					((contentsBuffer.ItemY-imageItem->yPos()) / contentsBuffer.LocalScY)+contentsBuffer.LocalY);
+				imageItem->setImageRotation(contentsBuffer.LocalRot);
 				imageItem->IProfile=contentsBuffer.inputProfile;
 				imageItem->UseEmbedded=contentsBuffer.useEmbedded;
 				imageItem->IRender=contentsBuffer.renderingIntent;

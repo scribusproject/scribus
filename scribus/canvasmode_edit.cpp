@@ -116,6 +116,7 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 				p->scale(1, -1);
 			}
 			p->translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+			p->rotate(currItem->imageRotation());
 			p->drawRect(0, 0, currItem->pixm.qImagePtr()->width(), currItem->pixm.qImagePtr()->height());
 			p->translate(currItem->pixm.qImagePtr()->width() / 2, currItem->pixm.qImagePtr()->height() / 2);
 			p->scale(1.0 / m_canvas->scale(), 1.0 / m_canvas->scale());

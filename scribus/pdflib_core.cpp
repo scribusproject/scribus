@@ -9161,7 +9161,22 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		}
 	}
 	if (!fromAN && output)
-		*output = QString(embedPre + FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
+	{
+		if (c->imageRotation())
+		{
+			embedPre += "1 0 0 1 "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n";
+			QTransform mpa;
+			mpa.rotate(-c->imageRotation());
+			embedPre += "1 0 0 1 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" cm\n";
+			embedPre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" 0 0 cm\n";
+			embedPre += "1 0 0 1 0 "+FToStr(-ImInfo.Height*ImInfo.sya)+" cm\n";
+			embedPre += FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" 0 0 cm\n";
+		}
+		else
+			embedPre += FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n";
+		*output = QString(embedPre + "/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
+//		*output = QString(embedPre + FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
+	}
 	else if (output)
 		*output = QString("");
 	return true;

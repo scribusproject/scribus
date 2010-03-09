@@ -1357,6 +1357,7 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("LOCALSCY",item->imageYScale());
 	docu.writeAttribute("LOCALX",item->imageXOffset());
 	docu.writeAttribute("LOCALY",item->imageYOffset());
+	docu.writeAttribute("LOCALROT" ,item->imageRotation());
 	docu.writeAttribute("PICART", item->imageShown() ? 1 : 0);
 	docu.writeAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 	docu.writeAttribute("BASEOF", item->BaseOffs);
