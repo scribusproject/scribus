@@ -96,6 +96,36 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 		PageItem_TextFrame* textframe = currItem->asTextFrame();
 		if (textframe)
 			drawTextCursor(p, textframe);
+		else if (currItem->asImageFrame())
+		{
+			p->save();
+			p->translate(currItem->xPos(), currItem->yPos());
+			p->rotate(currItem->rotation());
+			p->setPen(QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setClipRect(QRectF(0.0, 0.0, currItem->width(), currItem->height()));
+			p->setBrush(QColor(0,0,255,10));
+			p->setRenderHint(QPainter::Antialiasing);
+			if (currItem->imageFlippedH())
+			{
+				p->translate(currItem->width(), 0);
+				p->scale(-1, 1);
+			}
+			if (currItem->imageFlippedV())
+			{
+				p->translate(0, currItem->height());
+				p->scale(1, -1);
+			}
+			p->translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+			p->drawRect(0, 0, currItem->pixm.qImagePtr()->width(), currItem->pixm.qImagePtr()->height());
+			p->translate(currItem->pixm.qImagePtr()->width() / 2, currItem->pixm.qImagePtr()->height() / 2);
+			p->scale(1.0 / m_canvas->scale(), 1.0 / m_canvas->scale());
+			p->setPen(QPen(Qt::blue, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			p->drawLine(-10, 0, 10, 0);
+			p->drawLine(0, -10, 0, 10);
+			p->setBrush(QColor(0,0,255,70));
+			p->drawEllipse(QPointF(0.0, 0.0), 10.0, 10.0);
+			p->restore();
+		}
 	}
 }
 
