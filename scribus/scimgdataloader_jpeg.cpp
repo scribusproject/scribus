@@ -473,6 +473,47 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	(void) jpeg_finish_decompress(&cinfo);
 	fclose (infile);
 	jpeg_destroy_decompress (&cinfo);
+	if ((exi) && (ExifInf.exifDataValid))
+	{
+		int ori = ExifInf.getOrientation();
+		int oxres, oyres;
+		if (ori != 1)
+		{
+			QTransform M;
+			QTransform flip = QTransform ( -1,0,0,1,0,0 );
+			switch ( ori )
+			{  // notice intentional fallthroughs
+				case 2:
+					M = flip;
+					break;
+				case 4:
+					M = flip;
+				case 3:
+					M.rotate (180);
+					break;
+				case 5:
+					M = flip;
+				case 6:
+					M.rotate(90);
+					oxres = m_imageInfoRecord.xres;
+					oyres = m_imageInfoRecord.yres;
+					m_imageInfoRecord.xres = oyres;
+					m_imageInfoRecord.yres = oxres;
+					break;
+				case 7:
+					M = flip;
+				case 8:
+					M.rotate(270);
+					oxres = m_imageInfoRecord.xres;
+					oyres = m_imageInfoRecord.yres;
+					m_imageInfoRecord.xres = oyres;
+					m_imageInfoRecord.yres = oxres;
+					break;
+				default: break; // should never happen
+			}
+			m_image = m_image.transformed(M);
+		}
+	}
 	m_imageInfoRecord.layerInfo.clear();
 	m_imageInfoRecord.BBoxX = 0;
 	m_imageInfoRecord.BBoxH = m_image.height();
