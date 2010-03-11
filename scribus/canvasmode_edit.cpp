@@ -406,15 +406,40 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->asImageFrame())
 			{
-				QTransform ro;
-				ro.rotate(-currItem->rotation());
-				QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
-				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
-		//		m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+				if (m->modifiers() & Qt::ShiftModifier)
+				{
+					qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
+					QTransform p;
+					p.translate(currItem->xPos(), currItem->yPos());
+					p.rotate(currItem->rotation());
+					if (currItem->imageFlippedH())
+					{
+						p.translate(currItem->width(), 0);
+						p.scale(-1, 1);
+					}
+					if (currItem->imageFlippedV())
+					{
+						p.translate(0, currItem->height());
+						p.scale(1, -1);
+					}
+					p.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+					QPointF rotP = p.map(QPointF(0.0, 0.0));
+					double itemRotation = xy2Deg(mousePointDoc.x() - rotP.x(), mousePointDoc.y() - rotP.y());
+					currItem->setImageRotation(itemRotation);
+					m_canvas->displayRotHUD(m->globalPos(), itemRotation);
+				}
+				else
+				{
+					qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+					QTransform ro;
+					ro.rotate(-currItem->rotation());
+					QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
+					currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
+					m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
+				}
 				currItem->update();
 				Mxp = newX;
 				Myp = newY;
-				m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
 			}
 			if (currItem->asTextFrame())
 			{
@@ -473,7 +498,12 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						if (currItem->asTextFrame())
 							qApp->changeOverrideCursor(QCursor(Qt::IBeamCursor));
 						if (currItem->asImageFrame())
-							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+						{
+							if (m->modifiers() & Qt::ShiftModifier)
+								qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
+							else
+								qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+						}
 					}
 				}
 				else
@@ -644,8 +674,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				}
 			}
 		}
-		else if (!currItem->asImageFrame() || 
-				 m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
+		else if (!currItem->asImageFrame() || m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
 		{
 			m_view->Deselect(true);
 			if (SeleItem(m))
