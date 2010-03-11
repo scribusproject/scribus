@@ -2257,6 +2257,7 @@ void PropertiesPalette::setXY(double x, double y)
 		return;
 	disconnect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
 	disconnect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
+	bool useLineMode = false;
 	bool tmp = HaveItem;
 	double inX, inY, b, h, r, dummy1, dummy2;
 	QTransform ma;
@@ -2275,6 +2276,7 @@ void PropertiesPalette::setXY(double x, double y)
 			h = CurItem->height();
 			r = CurItem->rotation();
 			ma.translate(x, y);
+			useLineMode = (LMode && CurItem->isLine());
 		}
 	}
 	else
@@ -2287,7 +2289,8 @@ void PropertiesPalette::setXY(double x, double y)
 	HaveItem = false;
 	ma.rotate(r);
 	int bp = RotationGroup->checkedId();
-	if (bp == 0)
+	// #8890 : basepoint is meaningless when lines use "end points" mode
+	if (bp == 0 || useLineMode)
 		n = FPoint(0.0, 0.0);
 	else if (bp == 1)
 		n = FPoint(b, 0.0);
@@ -2311,7 +2314,7 @@ void PropertiesPalette::setXY(double x, double y)
 	}
 	Xpos->setValue(inX*m_unitRatio);
 	Ypos->setValue(inY*m_unitRatio);
-	if ((LMode) && (tmp))
+	if (useLineMode)
 		setBH(CurItem->width(), CurItem->height());
 	HaveItem = tmp;
 	connect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
