@@ -139,6 +139,8 @@ void ActionManager::initFileMenuActions()
 	//Rest of File Menu
 	name="fileDocSetup";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defaultKey(name), mainWindow));
+	name="fileDocSetup150";
+	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defaultKey(name), mainWindow));
 	name="filePreferences";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)[name]->setMenuRole(QAction::PreferencesRole);
@@ -163,6 +165,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileSave"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSaveAs()) );
 	connect( (*scrActions)["fileDocSetup"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
+	connect( (*scrActions)["fileDocSetup150"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup150()) );
 	connect( (*scrActions)["filePreferences"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefsOrg()) );
 	connect( (*scrActions)["filePreferences150"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefs150Org()) );
 	connect( (*scrActions)["fileRevert"], SIGNAL(triggered()), mainWindow, SLOT(slotFileRevert()) );
@@ -1281,6 +1284,7 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
 	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup..."));
+	(*scrActions)["fileDocSetup150"]->setTexts( tr("Document &Setup 150..."));
 	(*scrActions)["filePreferences"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePreferences150"]->setTexts( tr("P&references 150..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
@@ -1745,7 +1749,7 @@ void ActionManager::createDefaultMenus()
 	//File
 	itmenu->second << "fileNew" << "fileNewFromTemplate" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
 	itmenu->second << "fileImportText" << "fileImportText2" << "fileImportAppendText" << "fileImportImage" << "fileImportVector" << "fileExportText" << "fileExportAsEPS" << "fileExportAsPDF";
-	itmenu->second << "fileDocSetup" << "filePreferences" << "filePreferences150" << "filePrint" << "PrintPreview" << "fileQuit";
+	itmenu->second << "fileDocSetup" << "fileDocSetup150" << "filePreferences" << "filePreferences150" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;
 	//Edit
 	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editSelectAllOnLayer" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editEditRenderSource" << "editExtendedImageProperties" << "editColors" << "editReplaceColors" << "editPatterns" << "editGradients" << "editStyles" << "editMasterPages" << "editJavascripts";

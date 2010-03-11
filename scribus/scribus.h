@@ -475,16 +475,11 @@ public slots:
 	void duplicateItem();
 	/** Multiple duplicate current item*/
 	void duplicateItemMulti();
-	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
-	See docSetup() for more info. */
-	bool slotDocSetup();
+
 	void objectAttributes();
 	void getImageInfo();
 	void generateTableOfContents();
-	/*! \brief Change Preferences dialog.
-	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
-	void slotPrefsOrg();
-	void slotPrefs150Org();
+
 //	void saveStyles(StilFormate *dia); //still required for style save from SE
 	void setNewAlignment(int a);
 	void setNewParStyle(const QString& name);
@@ -539,6 +534,14 @@ public slots:
 	It's called from this->slotPrefsOrg() or from Preferences directly.
 	\param dia a reference to the Preferences dialog */
 	void prefsOrg(Preferences* dia);
+	/*! \brief Change Preferences dialog.
+	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
+	void slotPrefsOrg();
+	void slotPrefs150Org();
+	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
+	See docSetup() for more info. */
+	bool slotDocSetup();
+	void slotDocSetup150();
 	//! \brief Insert a frame friendly dialog
 	void slotInsertFrame();
 	//! \brief manages the documents patterns

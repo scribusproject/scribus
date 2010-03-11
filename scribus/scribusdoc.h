@@ -922,7 +922,8 @@ public:
 protected:
 	void addSymbols();
 	bool m_hasGUI;
-	ApplicationPrefs& prefsData;
+	ApplicationPrefs& appPrefsData;
+	ApplicationPrefs docPrefsData;
 	UndoManager * const undoManager;
 	bool loading;
 	bool modified;

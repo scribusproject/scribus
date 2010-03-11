@@ -636,6 +636,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport", false);
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File", false);
+	//scrMenuMgr->addMenuItem(scrActions["fileDocSetup150"], "File", false);
 	scrMenuMgr->addMenuItem(scrActions["filePreferences"], "File", true);
 	scrMenuMgr->addMenuItem(scrActions["filePreferences150"], "File", true);
 	scrMenuMgr->addMenuSeparator("File");
@@ -2224,69 +2225,6 @@ void ScribusMainWindow::windowsMenuActivated( int id )
 	newActWin(windowWidget);
 }
 
-void ScribusMainWindow::docSetup(ReformDoc* dia)
-{
-	slotChangeUnit(dia->getSelectedUnit(), false);
-	dia->updateDocumentSettings();
-	if (dia->imageResolutionChanged())
-	{
-		setStatusBarInfoText( tr("Updating Images"));
-		mainWindowProgressBar->reset();
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		qApp->processEvents();
-		doc->recalcPicturesRes(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		setStatusBarInfoText("");
-		mainWindowProgressBar->reset();
-		view->previewQualitySwitcher->blockSignals(true);
-		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs.imageLowResType);
-		view->previewQualitySwitcher->blockSignals(false);
-	}
-	propertiesPalette->Fonts->RebuildList(doc);
-	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
-	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
-	scrActions["viewShowFrames"]->setChecked(doc->guidesSettings.framesShown);
-	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesSettings.layerMarkersShown);
-	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
-	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
-	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
-	scrActions["viewShowImages"]->setChecked(doc->guidesSettings.showPic);
-	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
-	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
-	scrActions["viewShowRulers"]->setChecked(doc->guidesSettings.rulersShown);
-	scrActions["viewRulerMode"]->setChecked(doc->guidesSettings.rulerMode);
-	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
-	view->cmsToolbarButton->setChecked(doc->HasCMS);
-	//doc emits changed() via this
-	doc->setMasterPageMode(true);
-	view->reformPages();
-	doc->setMasterPageMode(false);
-/*	doc->setLoading(true);
-	uint pageCount=doc->DocPages.count();
-	for (uint c=0; c<pageCount; ++c)
-		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
-	doc->setLoading(false); */
-	view->reformPages();
-	view->GotoPage(doc->currentPage()->pageNr());
-	view->DrawNew();
-	propertiesPalette->ShowCMS();
-	pagePalette->rebuildPages();
-}
-
-bool ScribusMainWindow::slotDocSetup()
-{
-	bool ret = false;
-	ReformDoc* dia = new ReformDoc(this, doc);
-	Q_CHECK_PTR(dia);
-	if (dia->exec())
-	{
-		docSetup(dia);
-		ret = true;
-	}
-	delete dia;
-	return ret;
-}
 
 void ScribusMainWindow::SwitchWin()
 {
@@ -2391,6 +2329,7 @@ void ScribusMainWindow::HaveNewDoc()
  	scrActions["fileSave"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
+	scrActions["fileDocSetup150"]->setEnabled(true);
 	scrActions["fileRevert"]->setEnabled(false);
 	scrActions["fileCollect"]->setEnabled(true);
 	scrActions["fileSaveAs"]->setEnabled(true);
@@ -4460,6 +4399,7 @@ bool ScribusMainWindow::DoFileClose()
 		PluginManager& pluginManager(PluginManager::instance());
 		pluginManager.enableOnlyStartupPluginActions(this);
 		scrActions["fileDocSetup"]->setEnabled(false);
+		scrActions["fileDocSetup150"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileSaveAs"]->setEnabled(false);
@@ -7577,9 +7517,6 @@ void ScribusMainWindow::slotPrefs150Org()
 		struct ApplicationPrefs newPrefs(prefsDialog.prefs());
 		prefsManager->setNewPrefs(newPrefs);
 		prefsManager->applyLoadedShortCuts();
-		// TODO:
-		// CB: Hoping to clean this into a nicer function
-		//
 
 		//TODO: and the other dirs?
 		DocDir = prefsManager->documentDir();
@@ -7608,6 +7545,29 @@ void ScribusMainWindow::slotPrefs150Org()
 			mdiArea->setViewMode(QMdiArea::TabbedView);
 		else
 			mdiArea->setViewMode(QMdiArea::SubWindowView);
+		bool shadowChanged = oldPrefs.displayPrefs.showPageShadow != prefsManager->showPageShadow();
+		QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+		if (!windows.isEmpty())
+		{
+			int windowCount=static_cast<int>(windows.count());
+			for ( int i = 0; i < windowCount; ++i )
+			{
+				QWidget* w = windows.at(i)->widget();
+				ScribusWin* scw = (ScribusWin*) w;
+				ScribusView* scw_v = scw->view();
+				if (oldPrefs.displayPrefs.displayScale != prefsManager->displayScale())
+				{
+					int x = qRound(qMax(scw_v->contentsX() / scw_v->scale(), 0.0));
+					int y = qRound(qMax(scw_v->contentsY() / scw_v->scale(), 0.0));
+					int w = qRound(qMin(scw_v->visibleWidth() / scw_v->scale(), scw->doc()->currentPage()->width()));
+					int h = qRound(qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height()));
+					scw_v->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
+					scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * prefsManager->displayScale());
+				}
+				if (shadowChanged)
+					scw->view()->DrawNew();
+			}
+		}
 
 		QString newMonitorProfile = newPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 		if (oldMonitorProfile != newMonitorProfile)
@@ -7644,6 +7604,83 @@ void ScribusMainWindow::slotPrefs150Org()
 	}
 }
 
+
+void ScribusMainWindow::docSetup(ReformDoc* dia)
+{
+	slotChangeUnit(dia->getSelectedUnit(), false);
+	dia->updateDocumentSettings();
+	if (dia->imageResolutionChanged())
+	{
+		setStatusBarInfoText( tr("Updating Images"));
+		mainWindowProgressBar->reset();
+		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->processEvents();
+		doc->recalcPicturesRes(true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		setStatusBarInfoText("");
+		mainWindowProgressBar->reset();
+		view->previewQualitySwitcher->blockSignals(true);
+		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs.imageLowResType);
+		view->previewQualitySwitcher->blockSignals(false);
+	}
+	propertiesPalette->Fonts->RebuildList(doc);
+	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
+	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
+	scrActions["viewShowFrames"]->setChecked(doc->guidesSettings.framesShown);
+	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesSettings.layerMarkersShown);
+	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
+	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
+	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
+	scrActions["viewShowImages"]->setChecked(doc->guidesSettings.showPic);
+	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
+	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
+	scrActions["viewShowRulers"]->setChecked(doc->guidesSettings.rulersShown);
+	scrActions["viewRulerMode"]->setChecked(doc->guidesSettings.rulerMode);
+	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+	view->cmsToolbarButton->setChecked(doc->HasCMS);
+	//doc emits changed() via this
+	doc->setMasterPageMode(true);
+	view->reformPages();
+	doc->setMasterPageMode(false);
+/*	doc->setLoading(true);
+	uint pageCount=doc->DocPages.count();
+	for (uint c=0; c<pageCount; ++c)
+		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
+	doc->setLoading(false); */
+	view->reformPages();
+	view->GotoPage(doc->currentPage()->pageNr());
+	view->DrawNew();
+	propertiesPalette->ShowCMS();
+	pagePalette->rebuildPages();
+}
+
+bool ScribusMainWindow::slotDocSetup()
+{
+	bool ret = false;
+	ReformDoc* dia = new ReformDoc(this, doc);
+	Q_CHECK_PTR(dia);
+	if (dia->exec())
+	{
+		docSetup(dia);
+		ret = true;
+	}
+	delete dia;
+	return ret;
+}
+
+void ScribusMainWindow::slotDocSetup150()
+{
+	if (!doc)
+		return;
+	//struct ApplicationPrefs oldDocPrefs(doc->docPrefsData);
+	PreferencesDialog prefsDialog(this);
+	int prefsResult=prefsDialog.exec();
+	if (prefsResult==QDialog::Accepted)
+	{
+	//	struct ApplicationPrefs newPrefs(prefsDialog.prefs());
+	}
+}
 void ScribusMainWindow::ShowSubs()
 {
 	QString mess;
@@ -8265,6 +8302,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 			scrActions["fileRevert"]->setEnabled(false);
 			scrActions["fileDocSetup"]->setEnabled(false);
+			scrActions["fileDocSetup150"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
 			scrActions["PrintPreview"]->setEnabled(false);
 			scrActions["toolsPDFPushButton"]->setEnabled(false);
@@ -8297,6 +8335,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
+	scrActions["fileDocSetup150"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
 	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);

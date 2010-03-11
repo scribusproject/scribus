@@ -158,12 +158,13 @@ public:
 
 ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(NULL),
 	m_hasGUI(false),
-	prefsData(PrefsManager::instance()->appPrefs),
+	appPrefsData(PrefsManager::instance()->appPrefs),
+	docPrefsData(PrefsManager::instance()->appPrefs),
 	undoManager(UndoManager::instance()),
 	loading(false),
 	modified(false),
 	ActiveLayer(0),
-	docUnitIndex(prefsData.docSetupPrefs.docUnitIndex),
+	docUnitIndex(appPrefsData.docSetupPrefs.docUnitIndex),
 	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
 	rotMode(0),
 	automaticTextFrames(0),
@@ -177,9 +178,9 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	First(1), Last(0),
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
-	scratch(prefsData.displayPrefs.scratch),
-	GapHorizontal(prefsData.displayPrefs.pageGapHorizontal),
-	GapVertical(prefsData.displayPrefs.pageGapVertical),
+	scratch(appPrefsData.displayPrefs.scratch),
+	GapHorizontal(appPrefsData.displayPrefs.pageGapHorizontal),
+	GapVertical(appPrefsData.displayPrefs.pageGapVertical),
 // 	ScratchLeft(prefsData.ScratchLeft),
 // 	ScratchRight(prefsData.ScratchRight),
 // 	ScratchTop(prefsData.ScratchTop),
@@ -192,7 +193,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
 	pageWidth(0), pageHeight(0),
-	pageSets(prefsData.pageSets),
+	pageSets(appPrefsData.pageSets),
 	PageSp(1), PageSpa(0),
 	currentPageLayout(0),
 	PageOri(0), m_pageSize(0),
@@ -205,17 +206,17 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	ValCount(0),
 	DocName( tr("Document")+"-"),
 	UsedFonts(),
-	AllFonts(&prefsData.fontPrefs.AvailFonts),
+	AllFonts(&appPrefsData.fontPrefs.AvailFonts),
 	AObjects(),
-	papColor(prefsData.displayPrefs.paperColor),
+	papColor(appPrefsData.displayPrefs.paperColor),
 	CurrentSel(-1),
 	nodeEdit(),
-	typographicSettings(prefsData.typoPrefs),
-	guidesSettings(prefsData.guidesPrefs),
-	itemToolPrefs(prefsData.itemToolPrefs),
-	opToolPrefs(prefsData.opToolPrefs),
-	checkerProfiles(prefsData.verifierPrefs.checkerPrefsList),
-	curCheckProfile(prefsData.verifierPrefs.curCheckProfile),
+	typographicSettings(appPrefsData.typoPrefs),
+	guidesSettings(appPrefsData.guidesPrefs),
+	itemToolPrefs(appPrefsData.itemToolPrefs),
+	opToolPrefs(appPrefsData.opToolPrefs),
+	checkerProfiles(appPrefsData.verifierPrefs.checkerPrefsList),
+	curCheckProfile(appPrefsData.verifierPrefs.curCheckProfile),
 	LastAuto(0), FirstAuto(0),
 	DraggedElem(0),
 	ElemToLink(0),
@@ -223,26 +224,26 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	docParagraphStyles(),
 	docCharStyles(),
 	Layers(),
-	marginColored(prefsData.displayPrefs.marginColored),
+	marginColored(appPrefsData.displayPrefs.marginColored),
 	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
 	JavaScripts(),
 	TotalItems(0),
-	MinWordLen(prefsData.hyphPrefs.MinWordLen),
-	HyCount(prefsData.hyphPrefs.HyCount),
-	Language(prefsData.hyphPrefs.Language),
-	Automatic(prefsData.hyphPrefs.Automatic),
-	AutoCheck(prefsData.hyphPrefs.AutoCheck),
-	PDF_Options(prefsData.pdfPrefs),
+	MinWordLen(appPrefsData.hyphPrefs.MinWordLen),
+	HyCount(appPrefsData.hyphPrefs.HyCount),
+	Language(appPrefsData.hyphPrefs.Language),
+	Automatic(appPrefsData.hyphPrefs.Automatic),
+	AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
+	PDF_Options(appPrefsData.pdfPrefs),
 	RePos(false),
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	AutoSave(prefsData.docSetupPrefs.AutoSave),
-	AutoSaveTime(prefsData.docSetupPrefs.AutoSaveTime),
+	AutoSave(appPrefsData.docSetupPrefs.AutoSave),
+	AutoSaveTime(appPrefsData.docSetupPrefs.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
-	arrowStyles(prefsData.arrowStyles),
+	arrowStyles(appPrefsData.arrowStyles),
 	WinHan(0),
 	DoDrawing(true),
 	OpenNodes(),
@@ -250,8 +251,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	docLayerErrors(),
 	docItemErrors(),
 	masterItemErrors(),
-	docItemAttributes(prefsData.itemAttrPrefs.defaultItemAttributes),
-	docToCSetups(prefsData.tocPrefs.defaultToCSetups),
+	docItemAttributes(appPrefsData.itemAttrPrefs.defaultItemAttributes),
+	docToCSetups(appPrefsData.tocPrefs.defaultToCSetups),
 	// sections
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(0),
@@ -262,7 +263,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	m_docUpdater(NULL)
 {
 	init();
-	bleeds = prefsData.docSetupPrefs.bleeds;
+	bleeds = appPrefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
 	PDF_Options.useDocBleeds = true;
 	Print_Options.firstUse = true;
@@ -271,7 +272,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 
 ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup) : UndoObject( tr("Document")),
 	m_hasGUI(false),
-	prefsData(PrefsManager::instance()->appPrefs),
+	appPrefsData(PrefsManager::instance()->appPrefs),
+	docPrefsData(PrefsManager::instance()->appPrefs),
 	undoManager(UndoManager::instance()),
 	loading(false),
 	modified(false),
@@ -290,9 +292,9 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	First(1), Last(0),
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
-	scratch(prefsData.displayPrefs.scratch),
-	GapHorizontal(prefsData.displayPrefs.pageGapHorizontal),
-	GapVertical(prefsData.displayPrefs.pageGapVertical),
+	scratch(appPrefsData.displayPrefs.scratch),
+	GapHorizontal(appPrefsData.displayPrefs.pageGapHorizontal),
+	GapVertical(appPrefsData.displayPrefs.pageGapVertical),
 // 	ScratchLeft(prefsData.ScratchLeft),
 // 	ScratchRight(prefsData.ScratchRight),
 // 	ScratchTop(prefsData.ScratchTop),
@@ -306,8 +308,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_Selection(new Selection(this, true)),
 	pageWidth(pagesize.width()), pageHeight(pagesize.height()),
 	pageMargins(margins),
-	marginPreset(prefsData.docSetupPrefs.marginPreset),
-	pageSets(prefsData.pageSets),
+	marginPreset(appPrefsData.docSetupPrefs.marginPreset),
+	pageSets(appPrefsData.pageSets),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	currentPageLayout(pagesSetup.pageArrangement),
 	PageOri(pagesSetup.orientation), m_pageSize(pagesize.name()),
@@ -320,17 +322,17 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	ValCount(0),
 	DocName(docName),
 	UsedFonts(),
-	AllFonts(&prefsData.fontPrefs.AvailFonts),
+	AllFonts(&appPrefsData.fontPrefs.AvailFonts),
 	AObjects(),
-	papColor(prefsData.displayPrefs.paperColor),
+	papColor(appPrefsData.displayPrefs.paperColor),
 	CurrentSel(-1),
 	nodeEdit(),
-	typographicSettings(prefsData.typoPrefs),
-	guidesSettings(prefsData.guidesPrefs),
-	itemToolPrefs(prefsData.itemToolPrefs),
-	opToolPrefs(prefsData.opToolPrefs),
-	checkerProfiles(prefsData.verifierPrefs.checkerPrefsList),
-	curCheckProfile(prefsData.verifierPrefs.curCheckProfile),
+	typographicSettings(appPrefsData.typoPrefs),
+	guidesSettings(appPrefsData.guidesPrefs),
+	itemToolPrefs(appPrefsData.itemToolPrefs),
+	opToolPrefs(appPrefsData.opToolPrefs),
+	checkerProfiles(appPrefsData.verifierPrefs.checkerPrefsList),
+	curCheckProfile(appPrefsData.verifierPrefs.curCheckProfile),
 	LastAuto(0), FirstAuto(0),
 	DraggedElem(0),
 	ElemToLink(0),
@@ -338,26 +340,26 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	docParagraphStyles(),
 	docCharStyles(),
 	Layers(),
-	marginColored(prefsData.displayPrefs.marginColored),
+	marginColored(appPrefsData.displayPrefs.marginColored),
 	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
 	JavaScripts(),
 	TotalItems(0),
-	MinWordLen(prefsData.hyphPrefs.MinWordLen),
-	HyCount(prefsData.hyphPrefs.HyCount),
-	Language(prefsData.hyphPrefs.Language),
-	Automatic(prefsData.hyphPrefs.Automatic),
-	AutoCheck(prefsData.hyphPrefs.AutoCheck),
-	PDF_Options(prefsData.pdfPrefs),
+	MinWordLen(appPrefsData.hyphPrefs.MinWordLen),
+	HyCount(appPrefsData.hyphPrefs.HyCount),
+	Language(appPrefsData.hyphPrefs.Language),
+	Automatic(appPrefsData.hyphPrefs.Automatic),
+	AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
+	PDF_Options(appPrefsData.pdfPrefs),
 	RePos(false),
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	AutoSave(prefsData.docSetupPrefs.AutoSave),
-	AutoSaveTime(prefsData.docSetupPrefs.AutoSaveTime),
+	AutoSave(appPrefsData.docSetupPrefs.AutoSave),
+	AutoSaveTime(appPrefsData.docSetupPrefs.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
-	arrowStyles(prefsData.arrowStyles),
+	arrowStyles(appPrefsData.arrowStyles),
 	WinHan(0),
 	DoDrawing(true),
 	OpenNodes(),
@@ -365,8 +367,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	docLayerErrors(),
 	docItemErrors(),
 	masterItemErrors(),
-	docItemAttributes(prefsData.itemAttrPrefs.defaultItemAttributes),
-	docToCSetups(prefsData.tocPrefs.defaultToCSetups),
+	docItemAttributes(appPrefsData.itemAttrPrefs.defaultItemAttributes),
+	docToCSetups(appPrefsData.tocPrefs.defaultToCSetups),
 	// sections
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(0),
@@ -378,7 +380,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 {
 	pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
-	bleeds = prefsData.docSetupPrefs.bleeds;
+	bleeds = appPrefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
 	PDF_Options.useDocBleeds = true;
 	Print_Options.firstUse = true;
@@ -416,38 +418,38 @@ void ScribusDoc::init()
 	PDF_Options.Intent = CMSSettings.DefaultIntentColors;
 	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
 
-	AddFont(prefsData.itemToolPrefs.textFont);//, prefsData.AvailFonts[prefsData.itemToolPrefs.textFont]->Font);
-	itemToolPrefs.textFont = prefsData.itemToolPrefs.textFont;
-	itemToolPrefs.textSize = prefsData.itemToolPrefs.textSize;
-	itemToolPrefs.textTabFillChar = prefsData.itemToolPrefs.textTabFillChar;
-	opToolPrefs.dispX = prefsData.opToolPrefs.dispX;
-	opToolPrefs.dispY = prefsData.opToolPrefs.dispY;
-	opToolPrefs.constrain = prefsData.opToolPrefs.constrain;
+	AddFont(appPrefsData.itemToolPrefs.textFont);//, prefsData.AvailFonts[prefsData.itemToolPrefs.textFont]->Font);
+	itemToolPrefs.textFont = appPrefsData.itemToolPrefs.textFont;
+	itemToolPrefs.textSize = appPrefsData.itemToolPrefs.textSize;
+	itemToolPrefs.textTabFillChar = appPrefsData.itemToolPrefs.textTabFillChar;
+	opToolPrefs.dispX = appPrefsData.opToolPrefs.dispX;
+	opToolPrefs.dispY = appPrefsData.opToolPrefs.dispY;
+	opToolPrefs.constrain = appPrefsData.opToolPrefs.constrain;
 
 	PageColors.ensureBlackAndWhite();
-	if (prefsData.itemToolPrefs.shapeLineColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.shapeLineColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.shapeLineColor]);
-	itemToolPrefs.shapeLineColor = prefsData.itemToolPrefs.shapeLineColor;
-	if (prefsData.itemToolPrefs.lineColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.lineColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.lineColor]);
-	itemToolPrefs.lineColor = prefsData.itemToolPrefs.lineColor;
-	if (prefsData.itemToolPrefs.textColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.textColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textColor]);
-	itemToolPrefs.textColor = prefsData.itemToolPrefs.textColor;
-	if (prefsData.itemToolPrefs.textStrokeColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.textStrokeColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textStrokeColor]);
-	itemToolPrefs.textStrokeColor = prefsData.itemToolPrefs.textStrokeColor;
-	if (prefsData.itemToolPrefs.shapeFillColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.shapeFillColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.shapeFillColor]);
-	itemToolPrefs.shapeFillColor = prefsData.itemToolPrefs.shapeFillColor;
-	if (prefsData.itemToolPrefs.imageFillColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.imageFillColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.imageFillColor]);
-	itemToolPrefs.imageFillColor = prefsData.itemToolPrefs.imageFillColor;
-	if (prefsData.itemToolPrefs.textFillColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.textFillColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textFillColor]);
-	itemToolPrefs.textFillColor = prefsData.itemToolPrefs.textFillColor;
-	if (prefsData.itemToolPrefs.textLineColor != CommonStrings::None)
-		PageColors.insert(prefsData.itemToolPrefs.textLineColor, prefsData.colorPrefs.DColors[prefsData.itemToolPrefs.textLineColor]);
+	if (appPrefsData.itemToolPrefs.shapeLineColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.shapeLineColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.shapeLineColor]);
+	itemToolPrefs.shapeLineColor = appPrefsData.itemToolPrefs.shapeLineColor;
+	if (appPrefsData.itemToolPrefs.lineColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.lineColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.lineColor]);
+	itemToolPrefs.lineColor = appPrefsData.itemToolPrefs.lineColor;
+	if (appPrefsData.itemToolPrefs.textColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.textColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.textColor]);
+	itemToolPrefs.textColor = appPrefsData.itemToolPrefs.textColor;
+	if (appPrefsData.itemToolPrefs.textStrokeColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.textStrokeColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.textStrokeColor]);
+	itemToolPrefs.textStrokeColor = appPrefsData.itemToolPrefs.textStrokeColor;
+	if (appPrefsData.itemToolPrefs.shapeFillColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.shapeFillColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.shapeFillColor]);
+	itemToolPrefs.shapeFillColor = appPrefsData.itemToolPrefs.shapeFillColor;
+	if (appPrefsData.itemToolPrefs.imageFillColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.imageFillColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.imageFillColor]);
+	itemToolPrefs.imageFillColor = appPrefsData.itemToolPrefs.imageFillColor;
+	if (appPrefsData.itemToolPrefs.textFillColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.textFillColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.textFillColor]);
+	itemToolPrefs.textFillColor = appPrefsData.itemToolPrefs.textFillColor;
+	if (appPrefsData.itemToolPrefs.textLineColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.textLineColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.textLineColor]);
 
 	
 	ParagraphStyle pstyle;
@@ -469,7 +471,7 @@ void ScribusDoc::init()
 	CharStyle cstyle;
 	cstyle.setDefaultStyle(true);
 	cstyle.setName(CommonStrings::DefaultCharacterStyle);
-	cstyle.setFont(prefsData.fontPrefs.AvailFonts[itemToolPrefs.textFont]);
+	cstyle.setFont(appPrefsData.fontPrefs.AvailFonts[itemToolPrefs.textFont]);
 	cstyle.setFontSize(itemToolPrefs.textSize);
 	cstyle.setFeatures(QStringList(CharStyle::INHERIT));
 	cstyle.setFillColor(itemToolPrefs.textColor);
@@ -503,7 +505,7 @@ void ScribusDoc::init()
 	
 	Layers.addLayer( tr("Background") );
 	// Fixme: Check PDF version input
-	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.pdfPrefs.Version;
+	PDF_Options.Version = (PDFOptions::PDFVersion)appPrefsData.pdfPrefs.Version;
 
 	PDF_Options.firstUse = true;
 	docPatterns.clear();
@@ -3630,7 +3632,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 						ScriXmlDoc *ss = new ScriXmlDoc();
 						QString dataS = ss->WriteElem(this, &tempSelection);
 						setCurrentPage(targetPage);
-						ss->ReadElemToLayer(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, it->ID);
+						ss->ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
 						delete ss;
 						setMasterPageMode(false);
 					}
@@ -3659,7 +3661,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				QString dataS = ss->WriteElem(this, &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
-				ss->ReadElemToLayer(dataS, prefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.fontPrefs.GFontSub, it->ID);
+				ss->ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
 				delete ss;
 				setMasterPageMode(false);
 			}
@@ -5584,7 +5586,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
 					{
 						ScriXmlDoc *ss = new ScriXmlDoc();
-						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.fontPrefs.GFontSub,(*it).ID);
+						ss->ReadElemToLayer(itemBuffer[lcount], appPrefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub,(*it).ID);
 						delete ss;
 					}
 					lcount++;
