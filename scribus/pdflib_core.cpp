@@ -3360,7 +3360,7 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	if (controlItem != NULL)
 	{
 		retString += "q\n";
-		retString = PDF_TransparenzFill(controlItem);
+		retString += PDF_TransparenzFill(controlItem);
 	}
 	else
 	{
