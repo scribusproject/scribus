@@ -116,7 +116,6 @@ double ScXmlStreamAttributes::valueAsDouble (const char* attrName, double def) c
 	QStringRef att = value(QLatin1String(attrName));
 	if (!att.isEmpty())
 	{
-		bool success = false;
 		QString strVal = QString::fromRawData(att.constData(), att.length());
 		retValue = ScCLocale::toDoubleC(strVal, def);
 	}
@@ -129,7 +128,6 @@ double ScXmlStreamAttributes::valueAsDouble (const QString& attrName, double def
 	QStringRef att = value(attrName);
 	if (!att.isEmpty())
 	{
-		bool success = false;
 		QString strVal = QString::fromRawData(att.constData(), att.length());
 		retValue = ScCLocale::toDoubleC(strVal, def);
 	}

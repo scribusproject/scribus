@@ -104,7 +104,7 @@ class BarcodeGenerator : public QDialog
 		\param dpi optional DPI value. Default is 72 for preview.
 		\retval bool true on success.
 		*/
-		bool paintBarcode(QString fileName = 0, int dpi = 72);
+		bool paintBarcode(QString fileName = "", int dpi = 72);
 		/*! \brief Create color preview.
 		Used for Color box feedback.
 		\param l A pointer to the sample QLabel

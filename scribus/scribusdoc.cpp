@@ -196,7 +196,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	pageSets(appPrefsData.pageSets),
 	PageSp(1), PageSpa(0),
 	currentPageLayout(0),
-	PageOri(0), m_pageSize(0),
+	PageOri(0), m_pageSize(),
 	FirstPnum(1),
 	useRaster(false),
 	PageColors(this, true),
