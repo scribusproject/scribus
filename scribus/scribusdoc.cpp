@@ -3049,7 +3049,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					Really.insert(it->itemText.charStyle(e).font().replacementName(), QMap<uint, FPointArray>());
 			}
 			uint chr = it->itemText.text(e).unicode();
-			if ((chr == 13) || (chr == 32) || (chr == 29))
+			if ((chr == 13) || (chr == 32) || ((chr >= 26) && (chr <= 29)))
 				continue;
 			if (chr == 9)
 			{
