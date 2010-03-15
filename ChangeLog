@@ -1,5 +1,7 @@
 
 Scribus - 1.3.6svn
+- 0008714: [Build System] Building Scribus 1.3.5.1 on OpenSolaris snv_130 x64 fails with errors in saxiohelper.o (cbradney) - closed.
+- 0008934: [Translation] Polish translation update for 1.3.6 (jghali) - closed.
 - 0008913: [Import / Export] The Xpos and Ypos parameters of the images are ignored (fschmid) - closed.
 - 0008936: [Graphics / Image Frames] Scribus>Help>About/Authors: Typo in my surname (jghali) - closed.
 - 0008935: [Translation] Update of Dutch trunk and 1.3.5 translation (jghali) - closed.
