@@ -1,5 +1,146 @@
 
 Scribus - 1.3.6svn
+- 0008913: [Import / Export] The Xpos and Ypos parameters of the images are ignored (fschmid) - closed.
+- 0008936: [Graphics / Image Frames] Scribus>Help>About/Authors: Typo in my surname (jghali) - closed.
+- 0008935: [Translation] Update of Dutch trunk and 1.3.5 translation (jghali) - closed.
+- 0008932: [Translation] update of Slovak translation (jghali) - closed.
+- 0008890: [User Interface] incorrect XYZ tab measurements for straight lines (jghali) - closed.
+- 0008924: [Translation] Czech translation for 1.3.6 (cbradney) - closed.
+- 0008918: [Translation] Hungarian translation update (jghali) - closed.
+- 0008905: [User Interface] "Move Pages" calculates valid range too soon (cbradney) - closed.
+- 0008897: [Translation] editorconfig translation (Czech update) for 1.3.6 (subik) - closed.
+- 0008849: [General] In the 'New Document' dialog, issue when trying to apply the same margins’ values to all fields (cbradney) - closed.
+- 0008601: [Documentation] Readme content is average at best (cbradney) - closed.
+- 0008894: [Translation] Danish Translation (cbradney) - closed.
+- 0007470: [Shape Drawing] Unable to change the size of an image in inches (jghali) - closed.
+- 0008880: [Translation] Translation update for French (cbradney) - closed.
+- 0008874: [Shape Drawing] shape > edit > shrink by value is not "centered" (fschmid) - closed.
+- 0008831: [General] Image option "fit to frame" is not always followed (fschmid) - closed.
+- 0008867: [User Interface] Delete page range tries to be smart too soon (cbradney) - closed.
+- 0008859: [Canvas] bad master page margins in double page layout (jghali) - closed.
+- 0008827: [Graphics / Image Frames] Ctrl+E does not raise 'Image Effects' dialog (cbradney) - closed.
+- 0008862: [Translation] German Translations for 1.3.6 (cbradney) - closed.
+- 0008852: [General] format date (fschmid) - closed.
+- 0008854: [Translation] Italian translation update (cbradney) - closed.
+- 0008821: [User Interface] Style editor/manger creeps offscreen (jghali) - closed.
+- 0008739: [Typography] Line breaking do not work. (jghali) - closed.
+- 0008819: [Import / Export] Use document bleed settings by default (jghali) - closed.
+- 0008194: [Story Editor / Text Frames] Wrong text alignment under some point size (jghali) - closed.
+- 0008813: [Canvas] column / row guides are not correctly shown when reopening a document (jghali) - closed.
+- 0008824: [General] Guide Manager - Column/Row - Verticals - Refer to Margins doesn`t work (jghali) - closed.
+- 0008786: [User Interface] Click on frame resizes it (jghali) - closed.
+- 0008816: [User Interface] Zoom level cannot go below 10% (fschmid) - closed.
+- 0008761: [Canvas] width/height spinboxes do not update while you resize using arrow keys (jghali) - closed.
+- 0008779: [Import / Export] imported character styles are incorrect (jghali) - closed.
+- 0008793: [General] Crash with error 0000011 while trying to cut text block from master page (jghali) - closed.
+- 0008131: [User Interface] White pixel on left mouse click (fschmid) - closed.
+- 0008804: [Scripter] createPolyLine, createPolygon and createBezierLine with explicit id's make scribus crash (jghali) - closed.
+- 0008787: [Story Editor / Text Frames] make proportional resize of frames disabled by default (jghali) - closed.
+- 0008773: [Import / Export] Second page shifted by bleed amount at PDF export (jghali) - closed.
+- 0008776: [Scripter] Fix for broken Infobox.py (jghali) - closed.
+- 0008664: [Scripter] Pimp my CalendarWizard (subik) - closed.
+- 0008758: [Shape Drawing] Custom dotted lines don't export properly to pdf - closed.
+- 0008752: [Canvas] "drag selecting" is not as accurate as scribus drawing capabilities (jghali) - closed.
+- 0008751: [Import / Export] Incorrect export of empty pdf fields (jghali) - closed.
+- 0008756: [User Interface] Error when entering Document Setup and freezes after apply any change (jghali) - closed.
+- 0008759: [Translation] updated editorconfig (added Czech support) (cbradney) - closed.
+- 0008622: [Import / Export] collect elements for output needs existing directory (jghali) - closed.
+- 0008719: [Graphics / Image Frames] [PATCH] Master page items not updated when changing color management properties (jghali) - closed.
+- 0000398: [User Interface] kerning information not updated when selecting text (cbradney) - closed.
+- 0008716: [Graphics / Image Frames] [PATCH] Fix reloading of blur parameters in effects dialog (jghali) - closed.
+- 0008717: [Story Editor / Text Frames] First line of text cannot be centred (jghali) - closed.
+- 0007767: [Printing] preflight verifier: layer's printability and visibility mismatch (cbradney) - closed.
+- 0008683: [User Interface] magnifier does not work (jghali) - closed.
+- 0008700: [Graphics / Image Frames] Copying and pasting image frames and shapes does not work (jghali) - closed.
+- 0008701: [Shape Drawing] Regression: Resize line no longer works at high zoom level (jghali) - closed.
+- 0008032: [Translation] Breton language for 1.3.5svn (jghali) - closed.
+- 0008315: [User Interface] UI in breton language (jghali) - closed.
+- 0008679: [Fonts] "Modified Font found" at every startup (jghali) - closed.
+- 0008676: [Story Editor / Text Frames] Newline badly handled when saving/opening causing text overflow (jghali) - closed.
+- 0008549: [PDF] Postscript images backround rendered opaque in pdf's although displayed transparent on canvas (fschmid) - closed.
+- 0008573: [Scripter] UnicodeDecodeError in scripter (jghali) - closed.
+- 0008575: [General] Grouping object on a different layer makes some / all other objects invisible (jghali) - closed.
+- 0008592: [Printing] Incorrect postscript separations (jghali) - closed.
+- 0008509: [Fonts] Crash after deselecting all used fonts except one. (jghali) - closed.
+- 0007411: [Usability] Remove frame handles when Selection switchs to Editing tools (jghali) - closed.
+- 0008606: [General] Informative message when opening file fails (jghali) - closed.
+- 0008627: [Typography] Convert to outlines then to image frames, click undo - page content disappears (jghali) - closed.
+- 0006374: [Import / Export] Scribus version 1.2.2 file fails to open and hangs scribus (jghali) - closed.
+- 0008379: [Graphics / Image Frames] Render frames with non-Auto resolution preview incorrectly (jghali) - closed.
+- 0008642: [Story Editor / Text Frames] Inconsistent use of gWidth versus Width when laying out lines with inline frames (jghali) - closed.
+- 0008654: [Build System] ldd fails to link (malex) - closed.
+- 0008605: [Build System] lib2geom and wpg fail to build due missing -fPIC on amd64 (cbradney) - closed.
+- 0008600: [Translation] Updated Chinese (Traditional) (cbradney) - closed.
+- 0008603: [General] Incorrect default masterpage name selected in insert page dialog (jghali) - closed.
+- 0008597: [Scripter] Add getDocName function to scripter plugin. (cbradney) - closed.
+- 0008576: [General] Grouping/Ungrouping/deleting objects takes forever when outline palette is visible (jghali) - closed.
+- 0008582: [Import / Export] importing SVG into the attached SLA crashes Scribus (jghali) - closed.
+- 0002215: [Internal] Audit and fix text encoding handling (jghali) - closed.
+- 0007933: [Story Editor / Text Frames] Switching between text frames non-intuitive (patch attached) (jghali) - closed.
+- 0006265: [Usability] should keep "edit text" mode (jghali) - closed.
+- 0008545: [Graphics / Image Frames] Remove the preview option from the load/save dialog for SCU curves (fschmid) - closed.
+- 0008550: [Import / Export] Crash when importing UTF-16 text (cbradney) - closed.
+- 0008542: [Canvas] "windows > arrange pages" doesn't close with the ESC key (jghali) - closed.
+- 0008372: [General] Scribus outputs invalid XML when saving doc with inline frame (jghali) - closed.
+- 0008369: [Graphics / Image Frames] After deleting page containing inline frame, scribus crashes on exit (jghali) - closed.
+- 0008380: [PDF] Embed EPS/PDF Files produces slightly wrong scale/position when file dimensions are not an integral number of points (jghali) - closed.
+- 0008385: [PDF] Tab filler characters are printed incorrectly to PDF and to PS (jghali) - closed.
+- 0008424: [Color Management] Pure black CMYK(0,0,0,100) is wrong in PS when Color Profiles Applied (jghali) - closed.
+- 0008476: [Usability] crash due to signal 0000006 after the delete of table of contens item (jghali) - closed.
+- 0008495: [Import / Export] Save as PDF maximum image resolution, 300dpi != 400dpi (fschmid) - closed.
+- 0008362: [Canvas] Snapping to guides/margins moves frames/objects, not resizes (jghali) - closed.
+- 0008488: [General] Crash with Signal 0000011 on loading corrupted document (jghali) - closed.
+- 0008535: [Color Management] OpenOffice colors (cbradney) - closed.
+- 0008530: [Color Management] Errors in BS swatches (cbradney) - closed.
+- 0008512: [General] Scribus crash on changing bleed values (jghali) - closed.
+- 0008255: [Scripter] Pagesize (cbradney) - closed.
+- 0008264: [Import / Export] British Standard Colours (plinnell) - closed.
+- 0008529: [Color Management] Errors in the color swatches (cbradney) - closed.
+- 0008196: [Graphics / Image Frames] NBS/ISCC colours (plinnell) - closed.
+- 0008191: [Import / Export] Crayon colour set (plinnell) - closed.
+- 0008192: [Import / Export] CC/Tango colours (plinnell) - closed.
+- 0008224: [Translation] Properties: inconsistant german translation (cbradney) - closed.
+- 0008521: [Internal] Overprint setting is lost when copying page (fschmid) - closed.
+- 0008050: [General] Master pages with identical names automatically regenerated (jghali) - closed.
+- 0007595: [Usability] undo remembers to many steps while dragging guides (jghali) - closed.
+- 0008448: [User Interface] Userdefined Shortcuts of Group "Style" delete Text during editing. (cbradney) - closed.
+- 0007798: [Story Editor / Text Frames] ctrl+shift+"X" deletes any selected text (cbradney) - closed.
+- 0008477: [Story Editor / Text Frames] graphical selection of link position in Annotation Properties doesn't work (jghali) - closed.
+- 0007297: [User Interface] In all font dialogs (Prefs, DocSetup, Font Preview), replace the Style caption with Face or Font (cbradney) - closed.
+- 0008033: [Shape Drawing] Copy Item Properties not working with gradients (jghali) - closed.
+- 0008497: [User Interface] "Link text frames" and sticky tools (cbradney) - closed.
+- 0008494: [User Interface] Cannot browse images in 'Manage images' with arrow keys (jghali) - closed.
+- 0008261: [User Interface] Hyphanation grayed out until active textframe has been left and is re-entered again (cbradney) - closed.
+- 0008491: [User Interface] Wrong tooltips for font dropdown lists (cbradney) - closed.
+- 0008293: [PDF] Missing calendar date in PDF field (fschmid) - closed.
+- 0008375: [Usability] Better error messages for Render Frames (Herm) - closed.
+- 0003473: [General] Pasting from clipboard does not work (jghali) - closed.
+- 0008417: [General] Bleed is not handled correctly on master pages (jghali) - closed.
+- 0008371: [PDF] patterns with spaces/special chars in their names cause PDF corruption (jghali) - closed.
+- 0008030: [Graphics / Image Frames] In-line frames do not export to pdf if shifted from one linked frame to another (jghali) - closed.
+- 0008418: [Translation] update korean translation file (jghali) - closed.
+- 0008400: [Import / Export] Imported PDF images exports the same page regardless of individual setting (fschmid) - closed.
+- 0008426: [Canvas] guides jump with double-sided layout and asymmetric margins (subik) - closed.
+- 0008453: [General] use Ctrl+Tab instead of Tab for selecting next window (jghali) - closed.
+- 0008443: [General] Layers are lost when a page is converted to a master page (jghali) - closed.
+- 0008447: [Translation] Brazilian Portuguese Translation Update (cbradney) - closed.
+- 0008421: [Translation] Updated Russian translation for 1.3.5.1/1.3.6 (cbradney) - closed.
+- 0008410: [Story Editor / Text Frames] Baseline shift is not saved for tab characters (jghali) - closed.
+- 0004632: [Graphics / Image Frames] Option to rename patterns (fschmid) - closed.
+- 0008381: [Graphics / Image Frames] Scribus crashes when window is closed while still rendering preview mode (jghali) - closed.
+- 0008396: [Graphics / Image Frames] In-line text frames do not display on screen (fschmid) - closed.
+- 0008346: [Graphics / Image Frames] No seamless construction of pattern (fschmid) - closed.
+- 0004325: [Undo/Redo] Loading of pattern(s) is included in undo/redo (fschmid) - closed.
+- 0008370: [PDF] Inline Render Frames Don't Always Export Properly to PDF (fschmid) - closed.
+- 0008383: [Import / Export] PDF export window misses progress numbers in progressbar in front of % (jghali) - closed.
+- 0008393: [Graphics / Image Frames] Import problem of old scribus-documents (fschmid) - closed.
+- 0007900: [Shape Drawing] - display number of degrees during rotation of object (fschmid) - closed.
+- 0008363: [Build System] The installed Qt version 4.4.3 is too old, at least version 4.5.0 is required (cbradney) - closed.
+- 0008365: [General] Saved file cannot be reopened (jghali) - closed.
+- 0006352: [General] Mastro page not avalaible on Italian interface (jghali) - closed.
+- 0008330: [Shape Drawing] "Convert Stroke to Path" is buggy (fschmid) - closed.
+- 0008344: [Translation] Updated Russian translation (jghali) - closed.
+- 0008335: [Import / Export] Page Import blocks scribus (jghali) - closed.
 - 0008326: [PDF] PDF is corrupt (jghali) - resolved.
 Scribus - 1.3.5svn
 - 0008331: [Story Editor / Text Frames] Pasting text into a text frame with mouse doesn't work (cbradney) - resolved.
