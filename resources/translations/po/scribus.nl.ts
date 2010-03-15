@@ -13497,7 +13497,7 @@ Als er geen ankerpunt geslecteerd is, zullen alle ankerpunten worden teruggezet.
     <message>
         <location filename="../../../scribus/outlinepalette.cpp" line="767"/>
         <source>Page </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pagina</translation>
     </message>
     <message>
         <location filename="../../../scribus/outlinepalette.cpp" line="822"/>
@@ -14665,7 +14665,7 @@ en de beide eindpunten moeten buiten de plygoon liggen</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="97"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="195"/>
@@ -15117,7 +15117,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/picstatus.cpp" line="287"/>
         <source>TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">TIFF</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.cpp" line="290"/>
@@ -21095,17 +21095,17 @@ Hierdoor kan het zijn dat de afbeelding niet correct geprint wordt</translation>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="40"/>
         <source>Miter Join</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verstek</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="41"/>
         <source>Bevel Join</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Schuin</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="42"/>
         <source>Round Join</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rond</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="62"/>
@@ -29001,7 +29001,7 @@ Wilt u in plaats daarvan de standaardbrowser van het systeem starten?</translati
     <message>
         <location filename="../../../scribus/useprintermarginsdialog.ui" line="192"/>
         <source>Alt+O</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Atl+O</translation>
     </message>
     <message>
         <location filename="../../../scribus/useprintermarginsdialog.ui" line="199"/>
