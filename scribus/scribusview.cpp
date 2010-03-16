@@ -3583,14 +3583,14 @@ void ScribusView::TextToPath()
 					double chs = charStyle.fontSize();
 					if (hl->effects() & ScStyle_SmallCaps)
 					{
-						if (chstr.toUpper() != chstr)
+						if (chstr[0].toUpper() != chstr[0])
 						{
 							chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
-							chstr = chstr.toUpper();
+							chstr = chstr[0].toUpper();
 						}
 					}
 					else if (hl->effects() & ScStyle_AllCaps)
-						chstr = chstr.toUpper();
+						chstr = chstr[0].toUpper();
 //					double csi = static_cast<double>(chs) / 100.0;
 					uint chr = chstr[0].unicode();
 					QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
@@ -3877,14 +3877,14 @@ void ScribusView::TextToPath()
 						double chs = charStyle.fontSize();
 						if (hl->effects() & ScStyle_SmallCaps)
 						{
-							if (chstr.toUpper() != chstr)
+							if (chstr[0].toUpper() != chstr[0])
 							{
 								chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
-								chstr = chstr.toUpper();
+								chstr = chstr[0].toUpper();
 							}
 						}
 						else if (hl->effects() & ScStyle_AllCaps)
-							chstr = chstr.toUpper();
+							chstr = chstr[0].toUpper();
 						double csi = static_cast<double>(chs) / 100.0;
 						uint chr = chstr[0].unicode();
 						QTransform chma, chma2, chma3, chma4, chma6;
