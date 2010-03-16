@@ -340,14 +340,15 @@ static QString blendMode(int code)
 
 QByteArray PDFLibCore::EncodeUTF16(const QString &in)
 {
-	QString tmp("");
-	for (int d = 0; d < in.length(); ++d)
-	{
-		QChar cc(in.at(d));
-		if ((cc == '(') || (cc == ')') || (cc == '\\'))
-			tmp += '\\';
-		tmp += cc;
-	}
+//	QString tmp("");
+//	for (int d = 0; d < in.length(); ++d)
+//	{
+//		QChar cc(in.at(d));
+//		if ((cc == '(') || (cc == ')') || (cc == '\\'))
+//			tmp += '\\';
+//		tmp += cc;
+//	}
+	QString tmp = in;
 	QByteArray cres = ucs2Codec->fromUnicode( tmp );
 #ifndef WORDS_BIGENDIAN
 	// on little endian systems we ned to swap bytes:
@@ -5690,7 +5691,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		}
 	}
 	QString anTitle = ite->itemName().replace(".", "_" );
-	QStringList bmst = bm.split("\\r", QString::SkipEmptyParts);
+	QStringList bmst = bm.split(QChar(13), QString::SkipEmptyParts);
+	QStringList bmstUtf16 = bmUtf16.split("\\r", QString::SkipEmptyParts);
 	const QString m[] = {"4", "5", "F", "l", "H", "n"};
 	QString ct(m[ite->annotation().ChkStil()]);
 	uint annotationObj = newObject();
@@ -5814,13 +5816,13 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 						PutDoc(bmst[0]);
 					PutDoc(")\n/DV ");
 					cnx = "(";
-					if (bmst.count() > 0)
-						cnx += bmst[0];
+					if (bmstUtf16.count() > 0)
+						cnx += bmstUtf16[0];
 					cnx += ")";
 					PutDoc(EncStringUTF16(cnx,annotationObj)+"\n");
 					PutDoc("/Opt [ ");
-					for (int bmc = 0; bmc < bmst.count(); ++bmc)
-						PutDoc(EncStringUTF16("("+bmst[bmc]+")",annotationObj)+"\n");
+					for (int bmc = 0; bmc < bmstUtf16.count(); ++bmc)
+						PutDoc(EncStringUTF16("("+bmstUtf16[bmc]+")",annotationObj)+"\n");
 					PutDoc("]\n");
 					appearanceObj = newObject();
 					PutDoc("/AP << /N "+QString::number(appearanceObj)+" 0 R >>\n");
