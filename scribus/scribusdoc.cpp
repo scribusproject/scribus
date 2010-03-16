@@ -3038,7 +3038,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPointArray> > & Really, uint lc)
 {
 	FPointArray gly;
-	QString chstr;
+	QChar chstr;
 	if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 	{
 		for (int e = 0; e < it->itemText.length(); ++e)
@@ -3057,14 +3057,14 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				{
 					if (it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
 						continue;
-					chstr = QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
+					chstr = it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar;
 					if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
-						if (chstr.toUpper() != QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
+						if (chstr.toUpper() != chstr)
 							chstr = chstr.toUpper();
 					}
-					chr = chstr[0].unicode();
-					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
+					chr = chstr.unicode();
+					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr);
 					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
 					if (!it->itemText.charStyle(e).font().replacementName().isEmpty())
 						Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
@@ -3073,14 +3073,14 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				{
 					if (it->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
 						continue;
-					chstr = QString(it->itemText.defaultStyle().tabValues()[t1].tabFillChar);
+					chstr = it->itemText.defaultStyle().tabValues()[t1].tabFillChar;
 					if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
-						if (chstr.toUpper() != QString(it->itemText.defaultStyle().tabValues()[t1].tabFillChar))
+						if (chstr.toUpper() != chstr)
 							chstr = chstr.toUpper();
 					}
-					chr = chstr[0].unicode();
-					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
+					chr = chstr.unicode();
+					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr);
 					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
 					if (!it->itemText.charStyle(e).font().replacementName().isEmpty())
 						Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
@@ -3180,10 +3180,10 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 			}
 			if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 			{
-				chstr = it->itemText.text(e, 1);
-				if (chstr.toUpper() != it->itemText.text(e, 1))
+				chstr = it->itemText.text(e);
+				if (chstr.toUpper() != chstr)
 					chstr = chstr.toUpper();
-				chr = chstr[0].unicode();
+				chr = chstr.unicode();
 			}
 			if (it->itemText.charStyle(e).font().canRender(chr))
 			{
