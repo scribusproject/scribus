@@ -77,8 +77,8 @@ PROJECT(scribus)
 #where VERSION_SUFFIX is of the form "", "cvs" or "Ncvs" (N being the minor patch level)
 SET (VERSION_MAJOR "1")
 SET (VERSION_MINOR "3")
-SET (VERSION_PATCH "6")
-SET (VERSION_SUFFIX "")
+SET (VERSION_PATCH "7")
+SET (VERSION_SUFFIX "svn")
 SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX})
 MESSAGE(STATUS "Scribus ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
 
@@ -816,9 +816,10 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_TOPLEVEL_TAG "")
   SET(CPACK_SOURCE_IGNORE_FILES
     CMakeCache.txt
-    scribus-1.3.6.svn.tar.gz
-    scribus-1.3.6.svn.tar.Z
-    scribus-1.3.6.svn.tar.gz
+    scribus-1.3.7.svn.tar.gz
+    scribus-1.3.7.svn.tar.Z
+    scribus-1.3.7.svn.tar.gz
+    scribus-1.3.7.svn.tar.gz
     "~$"
     "\\\\.cvsignore$"
     "\\\\.o$"
