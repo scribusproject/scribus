@@ -2098,7 +2098,7 @@ void StoryEditor::setSmart(bool newSmartSelection)
 	smartSelection = newSmartSelection;
 }
 
-void StoryEditor::closeEvent(QCloseEvent *)
+void StoryEditor::closeEvent(QCloseEvent *e)
 {
 	if (textChanged)
 	{
@@ -2116,6 +2116,7 @@ void StoryEditor::closeEvent(QCloseEvent *)
 		}
 		else if (t == QMessageBox::Cancel)
 		{
+			e->ignore();
 			blockUpdate = false;
 			return;
 		}
