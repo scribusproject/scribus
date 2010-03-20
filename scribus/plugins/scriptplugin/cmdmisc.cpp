@@ -710,7 +710,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 				return Py_None;
 			}
 			ScCore->primaryMainWindow()->doc->removeLayer(num2);
-			ScCore->primaryMainWindow()->doc->Layers.removeLayerByNumber(num2);
+			ScCore->primaryMainWindow()->doc->Layers.removeLayerByID(num2);
 			ScCore->primaryMainWindow()->doc->setActiveLayer(0);
 			ScCore->primaryMainWindow()->changeLayer(0);
 			found = true;
