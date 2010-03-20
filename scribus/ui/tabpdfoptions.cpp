@@ -1316,7 +1316,18 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		if (itp3.key() == tp3)
 			PrintProfC->setCurrentIndex(PrintProfC->count()-1);
 	}
-	InfoString->setText(Opts.Info);
+	if (!Opts.Info.isEmpty())
+		InfoString->setText(Opts.Info);
+	else
+	{
+		if (mdoc != 0 && exporting)
+		{
+			QFileInfo fi(mdoc->DocName);
+			InfoString->setText(fi.fileName());
+		}
+		else
+			InfoString->setText( tr("InfoString"));
+	}
 	BleedTop->setValue(Opts.bleeds.Top*unitRatio);
 	BleedBottom->setValue(Opts.bleeds.Bottom*unitRatio);
 	BleedRight->setValue(Opts.bleeds.Right*unitRatio);
