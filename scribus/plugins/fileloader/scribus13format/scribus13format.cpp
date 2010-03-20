@@ -2235,7 +2235,6 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->setLineColor(CommonStrings::None);
 	else
 		currItem->setLineColor(Pcolor2);
-	currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(Pshade);
 	currItem->setLineShade(Pshade2);
 	ParagraphStyle pstyle;
