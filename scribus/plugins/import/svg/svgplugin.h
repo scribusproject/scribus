@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
-#include "../formatidlist.h"
+#include "../../formatidlist.h"
 #include "vgradient.h"
 
 class ScrAction;
