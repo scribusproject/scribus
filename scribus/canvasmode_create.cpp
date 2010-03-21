@@ -254,7 +254,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				if (m->modifiers() & Qt::ControlModifier)
 				{
-					QRectF bounds(QPoint(createObjectPos.x(), createObjectPos.y()), QPoint(newX, newY));
+					QRectF bounds(QPointF(createObjectPos.x(), createObjectPos.y()), QPointF(newX, newY));
 					double newRot = xy2Deg(bounds.width(), bounds.height());
 					if (newRot < 0.0)
 						newRot += 360;
@@ -272,8 +272,10 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				double nx = np2.x();
 				double ny = np2.y();
 				m_doc->ApplyGuides(&nx, &ny);
-				newX = qRound(nx);
-				newY = qRound(ny);
+				// #8959 : suppress qRound here as this prevent drawing line with angle constrain
+				// precisely and does not allow to stick precisely to grid or guides
+				newX = /*qRound(*/nx/*)*/;
+				newY = /*qRound(*/ny/*)*/;
 			//}
 
 			canvasCurrCoord.setXY(newX, newY);
