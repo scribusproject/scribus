@@ -201,7 +201,7 @@ void Preferences::setupGui()
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
-	tabView->restoreDefaults(prefsData, prefsData->guidesPrefs, prefsData->pageSets, prefsData->docSetupPrefs.pagePositioning, prefsData->displayPrefs.scratch);
+	tabView->restoreDefaults(prefsData, prefsData->guidesPrefs, prefsData->docSetupPrefs.pagePositioning, prefsData->displayPrefs.scratch);
 	tabView->gapHorizontal->setValue(prefsData->displayPrefs.pageGapHorizontal);
 	tabView->gapVertical->setValue(prefsData->displayPrefs.pageGapVertical);
 	tabScrapbook->restoreDefaults(prefsData);

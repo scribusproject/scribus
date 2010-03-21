@@ -164,8 +164,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	loading(false),
 	modified(false),
 	ActiveLayer(0),
-	docUnitIndex(appPrefsData.docSetupPrefs.docUnitIndex),
-	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
+	//->Prefs docUnitIndex(appPrefsData.docSetupPrefs.docUnitIndex),
 	rotMode(0),
 	automaticTextFrames(0),
 	m_masterPageMode(false),
@@ -178,22 +177,21 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	First(1), Last(0),
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
-	scratch(appPrefsData.displayPrefs.scratch),
-	GapHorizontal(appPrefsData.displayPrefs.pageGapHorizontal),
-	GapVertical(appPrefsData.displayPrefs.pageGapVertical),
+	//scratch(appPrefsData.displayPrefs.scratch),
+	//->Prefs GapHorizontal(appPrefsData.displayPrefs.pageGapHorizontal),
+	//->Prefs GapVertical(appPrefsData.displayPrefs.pageGapVertical),
 // 	ScratchLeft(prefsData.ScratchLeft),
 // 	ScratchRight(prefsData.ScratchRight),
 // 	ScratchTop(prefsData.ScratchTop),
 // 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
 	pageWidth(0), pageHeight(0),
-	pageSets(appPrefsData.pageSets),
+	//->Prefs pageSets(appPrefsData.pageSets),
 	PageSp(1), PageSpa(0),
 	currentPageLayout(0),
 	PageOri(0), m_pageSize(),
@@ -208,7 +206,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	UsedFonts(),
 	AllFonts(&appPrefsData.fontPrefs.AvailFonts),
 	AObjects(),
-	papColor(appPrefsData.displayPrefs.paperColor),
+	//->Prefs papColor(appPrefsData.displayPrefs.paperColor),
 	CurrentSel(-1),
 	nodeEdit(),
 	typographicSettings(appPrefsData.typoPrefs),
@@ -229,11 +227,11 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	colorEngine(ScCore->defaultEngine),
 	JavaScripts(),
 	TotalItems(0),
-	MinWordLen(appPrefsData.hyphPrefs.MinWordLen),
-	HyCount(appPrefsData.hyphPrefs.HyCount),
-	Language(appPrefsData.hyphPrefs.Language),
-	Automatic(appPrefsData.hyphPrefs.Automatic),
-	AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
+	//->Prefs MinWordLen(appPrefsData.hyphPrefs.MinWordLen),
+	//->Prefs HyCount(appPrefsData.hyphPrefs.HyCount),
+	//->Prefs Language(appPrefsData.hyphPrefs.Language),
+	//->Prefs Automatic(appPrefsData.hyphPrefs.Automatic),
+	//->Prefs AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
 	PDF_Options(appPrefsData.pdfPrefs),
 	RePos(false),
 	BookMarks(),
@@ -262,6 +260,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	m_updateManager(),
 	m_docUpdater(NULL)
 {
+	docUnitRatio=unitGetRatioFromIndex(docPrefsData.docSetupPrefs.docUnitIndex);
+	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
 	init();
 	bleeds = appPrefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
@@ -278,8 +278,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	loading(false),
 	modified(false),
 	ActiveLayer(0),
-	docUnitIndex(unitindex),
-	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
+	//->Prefs docUnitIndex(unitindex),
+	docUnitRatio(unitGetRatioFromIndex(appPrefsData.docSetupPrefs.docUnitIndex)),
 	rotMode(0),
 	automaticTextFrames(pagesSetup.autoTextFrames),
 	m_masterPageMode(false),
@@ -292,15 +292,14 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	First(1), Last(0),
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
-	scratch(appPrefsData.displayPrefs.scratch),
-	GapHorizontal(appPrefsData.displayPrefs.pageGapHorizontal),
-	GapVertical(appPrefsData.displayPrefs.pageGapVertical),
+	//->Prefs scratch(appPrefsData.displayPrefs.scratch),
+	//->Prefs GapHorizontal(appPrefsData.displayPrefs.pageGapHorizontal),
+	//->Prefs GapVertical(appPrefsData.displayPrefs.pageGapVertical),
 // 	ScratchLeft(prefsData.ScratchLeft),
 // 	ScratchRight(prefsData.ScratchRight),
 // 	ScratchTop(prefsData.ScratchTop),
 // 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
@@ -309,7 +308,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	pageWidth(pagesize.width()), pageHeight(pagesize.height()),
 	pageMargins(margins),
 	marginPreset(appPrefsData.docSetupPrefs.marginPreset),
-	pageSets(appPrefsData.pageSets),
+//->Prefs	pageSets(appPrefsData.pageSets),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	currentPageLayout(pagesSetup.pageArrangement),
 	PageOri(pagesSetup.orientation), m_pageSize(pagesize.name()),
@@ -324,7 +323,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	UsedFonts(),
 	AllFonts(&appPrefsData.fontPrefs.AvailFonts),
 	AObjects(),
-	papColor(appPrefsData.displayPrefs.paperColor),
+	//->Prefs papColor(appPrefsData.displayPrefs.paperColor),
 	CurrentSel(-1),
 	nodeEdit(),
 	typographicSettings(appPrefsData.typoPrefs),
@@ -345,11 +344,11 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	colorEngine(ScCore->defaultEngine),
 	JavaScripts(),
 	TotalItems(0),
-	MinWordLen(appPrefsData.hyphPrefs.MinWordLen),
-	HyCount(appPrefsData.hyphPrefs.HyCount),
-	Language(appPrefsData.hyphPrefs.Language),
-	Automatic(appPrefsData.hyphPrefs.Automatic),
-	AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
+	//->Prefs MinWordLen(appPrefsData.hyphPrefs.MinWordLen),
+	//->Prefs HyCount(appPrefsData.hyphPrefs.HyCount),
+	//->Prefs Language(appPrefsData.hyphPrefs.Language),
+	//->Prefs Automatic(appPrefsData.hyphPrefs.Automatic),
+	//->Prefs AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
 	PDF_Options(appPrefsData.pdfPrefs),
 	RePos(false),
 	BookMarks(),
@@ -378,7 +377,10 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_updateManager(),
 	m_docUpdater(NULL)
 {
-	pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
+	docPrefsData.docSetupPrefs.docUnitIndex=unitindex;
+	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
+	setPageSetFirstPage(pagesSetup.pageArrangement, pagesSetup.firstPageLocation);
+	//->Prefs pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
 	bleeds = appPrefsData.docSetupPrefs.bleeds;
 	PDF_Options.bleeds = bleeds;
@@ -611,8 +613,9 @@ ScribusDoc::~ScribusDoc()
 
 void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
 {
-	docUnitIndex=unitIndex;
-	pageSets[fp].FirstPage = firstLeft;
+	docPrefsData.docSetupPrefs.docUnitIndex=unitIndex;
+	setPageSetFirstPage(fp, firstLeft);
+	//->Prefs pageSets[fp].FirstPage = firstLeft;
 	PageOri = orientation;
 	m_pageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;
@@ -1721,7 +1724,7 @@ void ScribusDoc::addSymbols()
 Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	assert(masterPageMode()==false);
-	Page* addedPage = new Page(scratch.Left, DocPages.count()*(pageHeight+scratch.Bottom+scratch.Top)+scratch.Top, pageWidth, pageHeight);
+	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, pageWidth, pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -1753,7 +1756,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 {
 	//CB We dont create master pages (yet) with a pageCount based location
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
-	Page* addedPage = new Page(scratch.Left, scratch.Top, pageWidth, pageHeight);
+	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pageWidth, pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -3252,14 +3255,14 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 
 void ScribusDoc::setUnitIndex(const int newIndex)
 {
-	docUnitIndex=newIndex;
-	docUnitRatio = unitGetRatioFromIndex( docUnitIndex );
+	docPrefsData.docSetupPrefs.docUnitIndex=newIndex;
+	docUnitRatio = unitGetRatioFromIndex( newIndex );
 }
 
 
 int ScribusDoc::unitIndex() const
 {
-	return docUnitIndex;
+	return docPrefsData.docSetupPrefs.docUnitIndex;
 }
 
 
@@ -3324,7 +3327,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 
 		Ap->initialMargins.Top = Mp->Margins.Top;
 		Ap->initialMargins.Bottom = Mp->Margins.Bottom;
-		if (pageSets[currentPageLayout].Columns == 1)
+		if (pageSets()[currentPageLayout].Columns == 1)
 		{
 			Ap->initialMargins.Left = Mp->Margins.Left;
 			Ap->initialMargins.Right = Mp->Margins.Right;
@@ -4827,12 +4830,12 @@ void ScribusDoc::reformPages(bool moveObjects)
 {
 	QMap<uint, oldPageVar> pageTable;
 	struct oldPageVar oldPg;
-	int counter = pageSets[currentPageLayout].FirstPage;
+	int counter = pageSets()[currentPageLayout].FirstPage;
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
-	double currentXPos=scratch.Left, currentYPos=scratch.Top, lastYPos=Pages->at(0)->initialHeight();
+	double currentXPos=docPrefsData.displayPrefs.scratch.Left, currentYPos=docPrefsData.displayPrefs.scratch.Top, lastYPos=Pages->at(0)->initialHeight();
 //	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
-	currentXPos += (pageWidth+GapHorizontal) * counter;
+	currentXPos += (pageWidth+docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
 	lastYPos = Pages->at(0)->initialHeight();
 	Page* Seite;
@@ -4847,14 +4850,14 @@ void ScribusDoc::reformPages(bool moveObjects)
 		Seite->setPageNr(a);
 		if (masterPageMode())
 		{
-			Seite->setXOffset(scratch.Left);
-			Seite->setYOffset(scratch.Top);
+			Seite->setXOffset(docPrefsData.displayPrefs.scratch.Left);
+			Seite->setYOffset(docPrefsData.displayPrefs.scratch.Top);
 			if (Seite->LeftPg == 0)
 			{
 				Seite->Margins.Right = Seite->initialMargins.Right;
 				Seite->Margins.Left = Seite->initialMargins.Left;
 			}
-			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < pageSets[currentPageLayout].Columns))
+			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < pageSets()[currentPageLayout].Columns))
 			{
 				Seite->Margins.Left = Seite->initialMargins.Left;
 				Seite->Margins.Right = Seite->initialMargins.Left;
@@ -4871,10 +4874,10 @@ void ScribusDoc::reformPages(bool moveObjects)
 			Seite->setHeight(Seite->initialHeight());
 			Seite->setXOffset(currentXPos);
 			Seite->setYOffset(currentYPos);
-			if (counter < pageSets[currentPageLayout].Columns-1)
+			if (counter < pageSets()[currentPageLayout].Columns-1)
 			{
 //				currentXPos += Seite->width() + pageSets[currentPageLayout].GapHorizontal;
-				currentXPos += Seite->width() + GapHorizontal;
+				currentXPos += Seite->width() + docPrefsData.displayPrefs.pageGapHorizontal;
 				lastYPos = qMax(lastYPos, Seite->height());
 				if (counter == 0)
 				{
@@ -4889,12 +4892,12 @@ void ScribusDoc::reformPages(bool moveObjects)
 			}
 			else
 			{
-				currentXPos = scratch.Left;
-				if (pageSets[currentPageLayout].Columns > 1)
-					currentYPos += qMax(lastYPos, Seite->height())+GapVertical;
+				currentXPos = docPrefsData.displayPrefs.scratch.Left;
+				if (pageSets()[currentPageLayout].Columns > 1)
+					currentYPos += qMax(lastYPos, Seite->height())+docPrefsData.displayPrefs.pageGapVertical;
 //					currentYPos += qMax(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
 				else
-					currentYPos += Seite->height()+GapVertical;
+					currentYPos += Seite->height()+docPrefsData.displayPrefs.pageGapVertical;
 //					currentYPos += Seite->height()+pageSets[currentPageLayout].GapVertical;
 //				lastYPos = qMax(lastYPos, Seite->height());
 				lastYPos = 0;
@@ -4902,11 +4905,11 @@ void ScribusDoc::reformPages(bool moveObjects)
 				Seite->Margins.Left = Seite->initialMargins.Left;
 			}
 			counter++;
-			if (counter > pageSets[currentPageLayout].Columns-1)
+			if (counter > pageSets()[currentPageLayout].Columns-1)
 			{
 				counter = 0;
 				rowcounter++;
-				if (rowcounter > pageSets[currentPageLayout].Rows-1)
+				if (rowcounter > pageSets()[currentPageLayout].Rows-1)
 				{
 //					currentYPos += GapVertical;
 //					currentYPos += pageSets[currentPageLayout].GapBelow;
@@ -4916,8 +4919,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 		}
 		Seite->Margins.Top = Seite->initialMargins.Top;
 		Seite->Margins.Bottom = Seite->initialMargins.Bottom;
-		maxXPos = qMax(maxXPos, Seite->xOffset()+Seite->width()+scratch.Right);
-		maxYPos = qMax(maxYPos, Seite->yOffset()+Seite->height()+scratch.Bottom);
+		maxXPos = qMax(maxXPos, Seite->xOffset()+Seite->width()+docPrefsData.displayPrefs.scratch.Right);
+		maxYPos = qMax(maxYPos, Seite->yOffset()+Seite->height()+docPrefsData.displayPrefs.scratch.Bottom);
 	}
 	if (!isLoading())
 	{
@@ -4960,8 +4963,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 	{
 		FPoint minPoint, maxPoint;
 		canvasMinMax(minPoint, maxPoint);
-		FPoint maxSize(qMax(maxXPos, maxPoint.x()+scratch.Right), qMax(maxYPos, maxPoint.y()+scratch.Bottom));
-		adjustCanvas(FPoint(qMin(0.0, minPoint.x()-scratch.Left),qMin(0.0, minPoint.y()-scratch.Top)), maxSize, true);
+		FPoint maxSize(qMax(maxXPos, maxPoint.x()+docPrefsData.displayPrefs.scratch.Right), qMax(maxYPos, maxPoint.y()+docPrefsData.displayPrefs.scratch.Bottom));
+		adjustCanvas(FPoint(qMin(0.0, minPoint.x()-docPrefsData.displayPrefs.scratch.Left),qMin(0.0, minPoint.y()-docPrefsData.displayPrefs.scratch.Top)), maxSize, true);
 		changed();
 	}
 	else
@@ -5002,7 +5005,7 @@ void ScribusDoc::getBleeds(const Page* page, const MarginStruct& baseValues, Mar
 {
 	bleedData.Bottom = baseValues.Bottom;
 	bleedData.Top    = baseValues.Top;
-	if (pageSets[currentPageLayout].Columns == 1)
+	if (pageSets()[currentPageLayout].Columns == 1)
 	{
 		bleedData.Right = baseValues.Right;
 		bleedData.Left  = baseValues.Left;
@@ -5531,7 +5534,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			--destLocation;
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
-		Page* destination = new Page(scratch.Left, DocPages.count()*(pageHeight+scratch.Bottom+scratch.Top)+scratch.Top, pageWidth, pageHeight);
+		Page* destination = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, pageWidth, pageHeight);
 		destination->setDocument(this);
 		destination->setPageNr(destLocation);
 		lastDest = destination;
@@ -5546,7 +5549,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		//TODO make a fucntion to do this margin stuff and use elsewhere too
 		destination->initialMargins.Top = from->initialMargins.Top;
 		destination->initialMargins.Bottom = from->initialMargins.Bottom;
-		if (pageSets[currentPageLayout].Columns == 1)
+		if (pageSets()[currentPageLayout].Columns == 1)
 		{
 			destination->initialMargins.Left = from->initialMargins.Left;
 			destination->initialMargins.Right = from->initialMargins.Right;
@@ -5609,7 +5612,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 
 void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 {
-	int setcol=pageSets[currentPageLayout].Columns;
+	int setcol=pageSets()[currentPageLayout].Columns;
 	if (setcol==1)
 	{
 		Page* pageToAdjust=DocPages.at(pageIndex);
@@ -5699,7 +5702,7 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 	int myCol=columnOfPage(pageIndex);
 	if (myCol==0) //Left hand page
 		return LeftPage;
-	else if (myCol>= pageSets[currentPageLayout].Columns-1) // Right hand page
+	else if (myCol>= pageSets()[currentPageLayout].Columns-1) // Right hand page
 		return RightPage;
 	else //Middle pages
 		return MiddlePage;
@@ -5707,8 +5710,8 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 
 int ScribusDoc::columnOfPage(int pageIndex) const
 {
-	int setcol=pageSets[currentPageLayout].Columns;
-	return ((pageIndex % setcol) + pageSets[currentPageLayout].FirstPage) % setcol;
+	int setcol=pageSets()[currentPageLayout].Columns;
+	return ((pageIndex % setcol) + pageSets()[currentPageLayout].FirstPage) % setcol;
 }
 
 
@@ -7191,8 +7194,8 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 void ScribusDoc::setRedrawBounding(PageItem *currItem)
 {
 	currItem->setRedrawBounding();
-	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+scratch.Right, currItem->BoundingY+currItem->BoundingH+scratch.Bottom);
-	FPoint minSize(currItem->BoundingX-scratch.Left, currItem->BoundingY-scratch.Top);
+	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+docPrefsData.displayPrefs.scratch.Right, currItem->BoundingY+currItem->BoundingH+docPrefsData.displayPrefs.scratch.Bottom);
+	FPoint minSize(currItem->BoundingX-docPrefsData.displayPrefs.scratch.Left, currItem->BoundingY-docPrefsData.displayPrefs.scratch.Top);
 	adjustCanvas(minSize, maxSize);
 }
 
@@ -10191,7 +10194,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 
 void ScribusDoc::createDefaultMasterPages()
 {
-	int setcol = pageSets[currentPageLayout].Columns;
+	int setcol = pageSets()[currentPageLayout].Columns;
 	if (setcol == 1)
 	{
 		addMasterPage(0, CommonStrings::trMasterPageNormal);
@@ -10227,7 +10230,7 @@ void ScribusDoc::createDefaultMasterPages()
 
 void ScribusDoc::createNewDocPages(int pageCount)
 {
-	int setcol = pageSets[currentPageLayout].Columns;
+	int setcol = pageSets()[currentPageLayout].Columns;
 	int createCount=qMax(pageCount,1);
 	if (setcol == 1)
 	{
@@ -12066,6 +12069,10 @@ void ScribusDoc::RotMode(const int& val)
 	emit rotationMode(rotMode);
 }
 
+void ScribusDoc::setPageSetFirstPage(int layout, int fp)
+{
+	docPrefsData.pageSets[layout].FirstPage=fp;
+}
 
 
 

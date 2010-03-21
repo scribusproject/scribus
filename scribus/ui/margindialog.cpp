@@ -90,7 +90,8 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 		dsGroupBox7Layout->addWidget( TextLabel3, 4, 0, 1, 2 );
 		Links = new QComboBox( dsGroupBox7 );
 		QStringList::Iterator pNames;
-		for(pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
+		QList<PageSet> pageSet(doc->pageSets());
+		for(pNames = pageSet[doc->currentPageLayout].pageNames.begin(); pNames != pageSet[doc->currentPageLayout].pageNames.end(); ++pNames )
 		{
 			//Links->insertItem((*pNames));
 			Links->addItem(CommonStrings::translatePageSetLocString((*pNames)));

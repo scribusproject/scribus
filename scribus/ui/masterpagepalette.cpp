@@ -222,7 +222,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		destination->initialMargins.Top = from->initialMargins.Top;
 		destination->initialMargins.Bottom = from->initialMargins.Bottom;
-		if (currentDoc->pageSets[currentDoc->currentPageLayout].Columns == 1)
+		if (currentDoc->pageSets()[currentDoc->currentPageLayout].Columns == 1)
 		{
 			destination->initialMargins.Left = from->initialMargins.Left;
 			destination->initialMargins.Right = from->initialMargins.Right;

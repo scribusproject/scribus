@@ -150,11 +150,11 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("DISc",m_Doc->CMSSettings.DefaultIntentColors);
 	docu.writeAttribute("DIIm",m_Doc->CMSSettings.DefaultIntentImages);
 	docu.writeAttribute("ALAYER", m_Doc->activeLayer());
-	docu.writeAttribute("LANGUAGE", m_Doc->Language);
-	docu.writeAttribute("MINWORDLEN", m_Doc->MinWordLen);
-	docu.writeAttribute("HYCOUNT", m_Doc->HyCount);
-	docu.writeAttribute("AUTOMATIC", static_cast<int>(m_Doc->Automatic));
-	docu.writeAttribute("AUTOCHECK", static_cast<int>(m_Doc->AutoCheck));
+	docu.writeAttribute("LANGUAGE", m_Doc->hyphLanguage());
+	docu.writeAttribute("MINWORDLEN", m_Doc->hyphMinimumWordLength());
+	docu.writeAttribute("HYCOUNT", m_Doc->hyphConsecutiveLines());
+	docu.writeAttribute("AUTOMATIC", static_cast<int>(m_Doc->hyphAutomatic()));
+	docu.writeAttribute("AUTOCHECK", static_cast<int>(m_Doc->hyphAutoCheck()));
 	docu.writeAttribute("GUIDELOCK", static_cast<int>(m_Doc->GuideLock));
 	docu.writeAttribute("SnapToGuides", static_cast<int>(m_Doc->SnapGuides));
 	docu.writeAttribute("SnapToGrid", static_cast<int>(m_Doc->useRaster));
@@ -185,12 +185,12 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs.polyUseFactor));
 	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));
 	docu.writeAttribute("AutoSaveTime", m_Doc->AutoSaveTime);
-	docu.writeAttribute("ScratchBottom", m_Doc->scratch.Bottom);
-	docu.writeAttribute("ScratchLeft", m_Doc->scratch.Left);
-	docu.writeAttribute("ScratchRight", m_Doc->scratch.Right);
-	docu.writeAttribute("ScratchTop", m_Doc->scratch.Top);
-	docu.writeAttribute("GapHorizontal", m_Doc->GapHorizontal);
-	docu.writeAttribute("GapVertical", m_Doc->GapVertical);
+	docu.writeAttribute("ScratchBottom", m_Doc->scratch()->Bottom);
+	docu.writeAttribute("ScratchLeft", m_Doc->scratch()->Left);
+	docu.writeAttribute("ScratchRight", m_Doc->scratch()->Right);
+	docu.writeAttribute("ScratchTop", m_Doc->scratch()->Top);
+	docu.writeAttribute("GapHorizontal", m_Doc->pageGapHorizontal());
+	docu.writeAttribute("GapVertical", m_Doc->pageGapVertical());
 	docu.writeAttribute("StartArrow", m_Doc->itemToolPrefs.lineStartArrow);
 	docu.writeAttribute("EndArrow", m_Doc->itemToolPrefs.lineEndArrow);
 	docu.writeAttribute("PEN",m_Doc->itemToolPrefs.shapeLineColor);
@@ -231,7 +231,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("BaseC", m_Doc->guidesSettings.baselineGridColor.name());
 	docu.writeAttribute("GuideZ", m_Doc->guidesSettings.guideRad);
 	docu.writeAttribute("BACKG", static_cast<int>(m_Doc->guidesSettings.guidePlacement));
-	docu.writeAttribute("PAGEC",m_Doc->papColor.name());
+	docu.writeAttribute("PAGEC",m_Doc->paperColor().name());
 	docu.writeAttribute("MARGC",m_Doc->guidesSettings.marginColor.name());
 	docu.writeAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
 	docu.writeAttribute("currentProfile", m_Doc->curCheckProfile);
@@ -851,7 +851,8 @@ void Scribus150Format::writePageSets(ScXmlStreamWriter & docu)
 {	
 	docu.writeStartElement("PageSets");
 	QList<PageSet>::Iterator itpgset;
-	for(itpgset = m_Doc->pageSets.begin(); itpgset != m_Doc->pageSets.end(); ++itpgset )
+	QList<PageSet> pageSet(m_Doc->pageSets());
+	for(itpgset = pageSet.begin(); itpgset != pageSet.end(); ++itpgset )
 	{
 		docu.writeStartElement("Set");
 		docu.writeAttribute("Name", (*itpgset).Name);

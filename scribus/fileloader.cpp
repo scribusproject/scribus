@@ -483,11 +483,11 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	//FIXME: Remove these duplicate settings altogether
 	if (currDoc->docHyphenator!=0)
 	{
-			currDoc->docHyphenator->Automatic=currDoc->Automatic;
-			currDoc->docHyphenator->AutoCheck=currDoc->AutoCheck;
-			currDoc->docHyphenator->Language=currDoc->Language;
-			currDoc->docHyphenator->MinWordLen=currDoc->MinWordLen;
-			currDoc->docHyphenator->HyCount=currDoc->HyCount;
+			currDoc->docHyphenator->Automatic=currDoc->hyphAutomatic();
+			currDoc->docHyphenator->AutoCheck=currDoc->hyphAutoCheck();
+			currDoc->docHyphenator->Language=currDoc->hyphLanguage();
+			currDoc->docHyphenator->MinWordLen=currDoc->hyphMinimumWordLength();
+			currDoc->docHyphenator->HyCount=currDoc->hyphConsecutiveLines();
 	}
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 	{

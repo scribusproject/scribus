@@ -46,23 +46,23 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 	hdict(0),
 	useAble(false),
 	codec(0),
-	MinWordLen(doc->MinWordLen),
-	HyCount(doc->HyCount),
-	Automatic(doc->Automatic),
-	AutoCheck(doc->AutoCheck)
+	MinWordLen(doc->hyphMinimumWordLength()),
+	HyCount(doc->hyphConsecutiveLines()),
+	Automatic(doc->hyphAutomatic()),
+	AutoCheck(doc->hyphAutoCheck())
 {
-		//FIXME:av pick up language from charstyle
-	QString pfad = ScPaths::instance().dictDir();
+	//FIXME:av pick up language from charstyle
+	QString pfad(ScPaths::instance().dictDir());
 	LanguageManager * lmgr(LanguageManager::instance());
-	if (!lmgr->getHyphFilename(doc->Language, false).isEmpty() )
-		Language = doc->Language;
+	if (!lmgr->getHyphFilename(doc->hyphLanguage(), false).isEmpty() )
+		Language = doc->hyphLanguage();
 	else
 	{
 		Language = PrefsManager::instance()->appPrefs.hyphPrefs.Language;
-		doc->Language = Language;
+		doc->setHyphLanguage(Language);
 	}
 // 	pfad += ScCore->primaryMainWindow()->Sprachen[Language];
-	pfad += lmgr->getHyphFilename( doc->Language, false );
+	pfad += lmgr->getHyphFilename( doc->hyphLanguage(), false );
 	QFile f(pfad);
 	if (f.open(QIODevice::ReadOnly))
 	{
@@ -140,10 +140,10 @@ void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num)
 	Automatic = Autom;
 	AutoCheck = ACheck;
 	HyCount = Num;
-	doc->MinWordLen = Wordlen;
-	doc->Automatic = Autom;
-	doc->AutoCheck = AutoCheck;
-	doc->HyCount = Num;
+	doc->setHyphMinimumWordLength(Wordlen);
+	doc->setHyphAutomatic(Autom);
+	doc->setHyphAutoCheck(AutoCheck);
+	doc->setHyphAutoCheck(Num);
 }
 
 void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC)

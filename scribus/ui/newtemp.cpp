@@ -49,7 +49,8 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 		Layout3->setMargin( 0 );
 		Links = new QComboBox( this );
 		QStringList::Iterator pNames;
-		for(pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
+		QList<PageSet> pageSet(doc->pageSets());
+		for(pNames = pageSet[doc->currentPageLayout].pageNames.begin(); pNames != pageSet[doc->currentPageLayout].pageNames.end(); ++pNames )
 		{
 			//Links->insertItem((*pNames));
 			Links->addItem(CommonStrings::translatePageSetLocString((*pNames)));

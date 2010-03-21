@@ -229,7 +229,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	resize( QSize(320, 340).expandedTo(minimumSizeHint()) );
 	QList<QTreeWidgetItem *> defItem;
 	defItem.clear();
-	defItem = loremList->findItems(langmgr->getTransLangFromLang(m_Doc->Language), Qt::MatchExactly);
+	defItem = loremList->findItems(langmgr->getTransLangFromLang(m_Doc->hyphLanguage()), Qt::MatchExactly);
 	if (defItem.count() == 0)
 		defItem = loremList->findItems(standardloremtext, Qt::MatchExactly);
 	if (defItem.count() != 0)

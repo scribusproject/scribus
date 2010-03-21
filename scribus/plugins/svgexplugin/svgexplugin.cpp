@@ -238,7 +238,7 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 		backG.setAttribute("y", "0");
 		backG.setAttribute("width", FToStr(pageWidth));
 		backG.setAttribute("height", FToStr(pageHeight));
-		backG.setAttribute("style", "fill:"+m_Doc->papColor.name()+";" + "stroke:none;");
+		backG.setAttribute("style", "fill:"+m_Doc->paperColor().name()+";" + "stroke:none;");
 		docElement.appendChild(backG);
 	}
 	ScLayer ll;

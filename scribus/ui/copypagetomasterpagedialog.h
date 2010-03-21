@@ -15,7 +15,7 @@ class SCRIBUS_API CopyPageToMasterPageDialog : public QDialog, public Ui::CopyPa
 {
 Q_OBJECT
 public:
-	CopyPageToMasterPageDialog(int existingMasterNamesCount, QStringList& pageLocations, int currentLocation = -1, QWidget *parent = 0);
+	CopyPageToMasterPageDialog(int existingMasterNamesCount, const QStringList& pageLocations, int currentLocation = -1, QWidget *parent = 0);
 	~CopyPageToMasterPageDialog();
 	
 	void values(QString &pageName, bool &copyAppliedMaster, int &pageLocation) const;

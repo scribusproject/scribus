@@ -63,11 +63,11 @@ void HySettings::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void HySettings::restoreDefaults(ScribusDoc *doc)
 {
-	verbose->setChecked(!doc->Automatic);
-	input->setChecked(doc->AutoCheck);
-	setCurrentComboItem(language, LanguageManager::instance()->getTransLangFromLang(doc->Language));
-	wordLen->setValue(doc->MinWordLen);
-	maxCount->setValue(doc->HyCount);
+	verbose->setChecked(!doc->hyphAutomatic());
+	input->setChecked(doc->hyphAutoCheck());
+	setCurrentComboItem(language, LanguageManager::instance()->getTransLangFromLang(doc->hyphLanguage()));
+	wordLen->setValue(doc->hyphMinimumWordLength());
+	maxCount->setValue(doc->hyphConsecutiveLines());
 	ignoreList->addItems(doc->docHyphenator->ignoredWords.toList());
 	ignoreList->sortItems();
 	exceptList->addItems(doc->docHyphenator->specialWords.values());

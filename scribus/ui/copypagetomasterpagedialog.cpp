@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "copypagetomasterpagedialog.h"
 
-CopyPageToMasterPageDialog::CopyPageToMasterPageDialog(int existingMasterNamesCount, QStringList& pageLocations, int currentLocation, QWidget *parent)
+CopyPageToMasterPageDialog::CopyPageToMasterPageDialog(int existingMasterNamesCount, const QStringList& pageLocations, int currentLocation, QWidget *parent)
  : QDialog(parent)
 {
 	setupUi(this);

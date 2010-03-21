@@ -1423,7 +1423,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg--;
 					else
-						pg -= doc->pageSets[doc->currentPageLayout].Columns;
+						pg -= doc->pageSets()[doc->currentPageLayout].Columns;
 					if (pg > -1)
 						view->GotoPage(pg);
 				}
@@ -1439,7 +1439,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg++;
 					else
-						pg += doc->pageSets[doc->currentPageLayout].Columns;
+						pg += doc->pageSets()[doc->currentPageLayout].Columns;
 					if (pg < static_cast<int>(doc->Pages->count()))
 						view->GotoPage(pg);
 				}
@@ -1698,7 +1698,7 @@ void ScribusMainWindow::startUpDialog()
 				pagesize = ps2.name();
 			}
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset());
-			doc->pageSets[facingPages].FirstPage = firstPage;
+			doc->setPageSetFirstPage(facingPages, firstPage);
 			doc->bleeds.Bottom = dia->bleedBottom();
 			doc->bleeds.Top = dia->bleedTop();
 			doc->bleeds.Left = dia->bleedLeft();
@@ -1780,7 +1780,7 @@ bool ScribusMainWindow::slotFileNew()
 		}
 		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset()))
 		{
-			doc->pageSets[facingPages].FirstPage = firstPage;
+			doc->setPageSetFirstPage(facingPages, firstPage);
 			doc->bleeds.Bottom = dia->bleedBottom();
 			doc->bleeds.Top = dia->bleedTop();
 			doc->bleeds.Left = dia->bleedLeft();
@@ -3408,17 +3408,16 @@ void ScribusMainWindow::updateItemLayerList()
 bool ScribusMainWindow::slotDocOpen()
 {
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
-	QString docDir = ".";
-	QString prefsDocDir=prefsManager->documentDir();
+	QString docDir(".");
+	QString prefsDocDir(prefsManager->documentDir());
 	if (!prefsDocDir.isEmpty())
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
 //	formats.remove("PDF (*.pdf *.PDF);;");
-	QString fileName = CFileDialog( docDir, tr("Open"), formats);
-	if (fileName.isEmpty())
-		// User cancelled
+	QString fileName(CFileDialog( docDir, tr("Open"), formats));
+	if (fileName.isEmpty()) // User cancelled
 		return false;
 	QFileInfo fi(fileName);
 	docContext->set("docsopen", fi.absolutePath());
@@ -3846,7 +3845,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		else
 			doc->setName(FName);
 		doc->setMasterPageMode(false);
-		doc->Language = GetLang(doc->Language);
+		doc->setHyphLanguage(GetLang(doc->hyphLanguage()));
 		HaveNewDoc();
 //		propertiesPalette->Cpal->ChooseGrad(0);
 //		propertiesPalette->updateCList();
@@ -5413,7 +5412,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 			ss->set("BASED", basedOn->join("|"));
 		else
 		{
-			int setcol = doc->pageSets[doc->currentPageLayout].Columns;
+			int setcol = doc->pageSets()[doc->currentPageLayout].Columns;
 			if (setcol == 1)
 				ss->set("BASED", CommonStrings::trMasterPageNormal);
 			else if (setcol == 2)
@@ -5435,7 +5434,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	QStringList base;
 	if (basedOn == NULL)
 	{
-		int setcol = doc->pageSets[doc->currentPageLayout].Columns;
+		int setcol = doc->pageSets()[doc->currentPageLayout].Columns;
 		if (setcol == 1)
 			base.append( CommonStrings::trMasterPageNormal);
 		else if (setcol == 2)
@@ -5469,7 +5468,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	view->updatesOn(false);
 	for (cc = 0; cc < numPages; ++cc)
 	{
-		slotNewPage(wot, base[(wot+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns], mov); //Avoid the master page application with QString::null
+		slotNewPage(wot, base[(wot+doc->pageSets()[doc->currentPageLayout].FirstPage) % doc->pageSets()[doc->currentPageLayout].Columns], mov); //Avoid the master page application with QString::null
 //		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
 		//CB: #8212: added overrideMasterPageSizing, but keeping default to true for other calls for now, off for calls from InsPage
 		if (overrideMasterPageSizing)
@@ -5531,7 +5530,8 @@ void ScribusMainWindow::duplicateToMasterPage()
 	if (doc->currentPageLayout != singlePage)
 	{
 		QStringList locationEntries;
-		for(QStringList::Iterator pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
+		QList<PageSet> pageSet(doc->pageSets());
+		for(QStringList::Iterator pNames = pageSet[doc->currentPageLayout].pageNames.begin(); pNames != pageSet[doc->currentPageLayout].pageNames.end(); ++pNames )
 		{
 			locationEntries << CommonStrings::translatePageSetLocString(*pNames);
 		}
@@ -5539,7 +5539,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 		pageLocationCount=locationEntries.count();
 	}
 
-	CopyPageToMasterPageDialog copyDialog(doc->MasterNames.count(), doc->pageSets[doc->currentPageLayout].pageNames, pageLocationIndex, this);
+	CopyPageToMasterPageDialog copyDialog(doc->MasterNames.count(), doc->pageSets()[doc->currentPageLayout].pageNames, pageLocationIndex, this);
 	if (copyDialog.exec())
 	{
 		bool copyFromMaster=false;

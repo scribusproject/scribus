@@ -143,6 +143,29 @@ public:
 	MassObservable<Page*>     * pagesChanged() { return &m_pagesChanged; }
 	MassObservable<QRectF>    * regionsChanged() { return &m_regionsChanged; }
 	void invalidateRegion(QRectF region);
+
+
+	MarginStruct* scratch() { return &docPrefsData.displayPrefs.scratch; }
+	double pageGapHorizontal() const { return docPrefsData.displayPrefs.pageGapHorizontal; }
+	double pageGapVertical() const { return docPrefsData.displayPrefs.pageGapVertical; }
+	void setPageGapHorizontal(double h) { docPrefsData.displayPrefs.pageGapHorizontal=h; }
+	void setPageGapVertical(double v) { docPrefsData.displayPrefs.pageGapVertical=v; }
+	const QList<PageSet>& pageSets() const { return docPrefsData.pageSets; }
+	void setPageSetFirstPage(int layout, int fp);
+	void clearPageSets() { docPrefsData.pageSets.clear(); }
+	void appendToPageSets(const PageSet& ps) { docPrefsData.pageSets.append(ps); }
+	void setPaperColor(const QColor &c) { docPrefsData.displayPrefs.paperColor=c; }
+	const QColor& paperColor() const { return docPrefsData.displayPrefs.paperColor; }
+	int hyphMinimumWordLength() const { return docPrefsData.hyphPrefs.MinWordLen; }
+	int hyphConsecutiveLines() const { return docPrefsData.hyphPrefs.HyCount; }
+	const QString& hyphLanguage() const { return docPrefsData.hyphPrefs.Language; }
+	bool hyphAutomatic() const { return docPrefsData.hyphPrefs.Automatic; }
+	bool hyphAutoCheck() const { return docPrefsData.hyphPrefs.AutoCheck; }
+	void setHyphMinimumWordLength(int i) { docPrefsData.hyphPrefs.MinWordLen=i; }
+	void setHyphConsecutiveLines(int i) { docPrefsData.hyphPrefs.HyCount=i; }
+	void setHyphLanguage(const QString& s) { docPrefsData.hyphPrefs.Language=s; }
+	void setHyphAutomatic(bool b) { docPrefsData.hyphPrefs.Automatic=b; }
+	void setHyphAutoCheck(bool b) { docPrefsData.hyphPrefs.AutoCheck=b; }
 	
 	// Add, delete and move pages
 	
@@ -928,7 +951,7 @@ protected:
 	bool loading;
 	bool modified;
 	int ActiveLayer;
-	int docUnitIndex;
+	//->Prefs int docUnitIndex;
 	double docUnitRatio;
 	int rotMode;
 	bool automaticTextFrames; // Flag for automatic Textframes
@@ -949,9 +972,9 @@ public: // Public attributes
 	bool SnapGuides;
 	bool GuideLock;
 	/** \brief Scratch space around Pages */
-	MarginStruct scratch;
-	double GapHorizontal;
-	double GapVertical;
+	//->Prefs MarginStruct scratch;
+	//->Prefs double GapHorizontal;
+	//->Prefs double GapVertical;
 // 	double ScratchLeft;
 // 	double ScratchRight;
 // 	double ScratchTop;
@@ -984,7 +1007,7 @@ public: // Public attributes
 	/** \brief Margins */
 	MarginStruct pageMargins;
 	int marginPreset;
-	QList<PageSet> pageSets;
+	//->Prefs QList<PageSet> pageSets;
 	MarginStruct bleeds;
 // 	double BleedTop;
 // 	double BleedLeft;
@@ -1015,7 +1038,7 @@ public: // Public attributes
 	QMap<QString,int> UsedFonts;
 	SCFonts * const AllFonts;
 	QList<AlignObjs> AObjects;
-	QColor papColor;
+	//->Prefs QColor papColor;
 	int CurrentSel;
 	ParagraphStyle currentStyle;
 
@@ -1072,11 +1095,11 @@ public:
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;
-	int MinWordLen;
-	int HyCount;
-	QString Language;
-	bool Automatic;
-	bool AutoCheck;
+	//->Prefs int MinWordLen;
+	//->Prefs int HyCount;
+	//->Prefs QString Language;
+	//->Prefs bool Automatic;
+	//->Prefsbool AutoCheck;
 	PDFOptions PDF_Options;
 	PrintOptions Print_Options;
 	bool RePos;

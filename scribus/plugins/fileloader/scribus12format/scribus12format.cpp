@@ -289,7 +289,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			fp = 1;
 		if (m_Doc->currentPageLayout == 0)
 			fp = 0;
-		m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = fp;
+		m_Doc->setPageSetFirstPage(m_Doc->currentPageLayout, fp);
 		m_Doc->setUsesAutomaticTextFrames(dc.attribute("AUTOTEXT").toInt());
 		m_Doc->PageSp=dc.attribute("AUTOSPALTEN").toInt();
 		m_Doc->PageSpa=ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));
@@ -353,11 +353,11 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->CMSSettings.DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
 		m_Doc->CMSSettings.DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
 		activeLayer = dc.attribute("ALAYER", "0").toInt();
-		m_Doc->Language = dc.attribute("LANGUAGE", "");
-		m_Doc->MinWordLen = dc.attribute("MINWORDLEN", "3").toInt();
-		m_Doc->HyCount = dc.attribute("HYCOUNT", "2").toInt();
-		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
-		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
+		m_Doc->setHyphLanguage(dc.attribute("LANGUAGE", ""));
+		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());
+		m_Doc->setHyphConsecutiveLines(dc.attribute("HYCOUNT", "2").toInt());
+		m_Doc->setHyphAutomatic(static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt()));
+		m_Doc->setHyphAutoCheck(static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt()));
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
 		m_Doc->SnapGuides = static_cast<bool>(dc.attribute("SnapToGuides", "0").toInt());
 		m_Doc->useRaster = static_cast<bool>(dc.attribute("SnapToGrid", "0").toInt());
@@ -506,7 +506,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerID = obj.attribute("LAYER", "0").toInt();
-					OB.Language = obj.attribute("LANGUAGE", m_Doc->Language);
+					OB.Language = obj.attribute("LANGUAGE", m_Doc->hyphLanguage());
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
@@ -1384,7 +1384,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerID = layerTrans[obj.attribute("LAYER", "0").toInt()];
-					OB.Language = obj.attribute("LANGUAGE", m_Doc->Language);
+					OB.Language = obj.attribute("LANGUAGE", m_Doc->hyphLanguage());
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{

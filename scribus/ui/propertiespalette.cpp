@@ -4639,7 +4639,7 @@ void PropertiesPalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->doc()->Language = (m_ScMW->GetLang(langCombo->currentText()));
+		CurItem->doc()->setHyphLanguage(m_ScMW->GetLang(langCombo->currentText()));
 		emit DocChanged();
 	}
 }

@@ -60,7 +60,8 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(rulerUnitCombo, SIGNAL(activated(int)), this, SLOT(drawRuler()));
 }
 
-void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct GuidesPrefs &guidesSettings, QList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
+void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct GuidesPrefs &guidesSettings, int pageLayout, MarginStruct &scratch)
+//void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct GuidesPrefs &guidesSettings, QList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
 {
 	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);

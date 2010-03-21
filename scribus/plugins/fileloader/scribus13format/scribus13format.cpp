@@ -261,7 +261,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		}
 		if (DOC.namedItem("PageSets").isNull())
 		{
-			m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = fp;
+			m_Doc->setPageSetFirstPage(m_Doc->currentPageLayout, fp);
 //			m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
 //			m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
 //			m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
@@ -326,9 +326,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->CMSSettings.DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
 		m_Doc->CMSSettings.DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
 		layerToSetActive=dc.attribute("ALAYER", "0").toInt();
-		m_Doc->Language = dc.attribute("LANGUAGE", "");
-		m_Doc->MinWordLen = dc.attribute("MINWORDLEN", "3").toInt();
-		m_Doc->HyCount = dc.attribute("HYCOUNT", "2").toInt();
+		m_Doc->setHyphLanguage(dc.attribute("LANGUAGE", ""));
+		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());
+		m_Doc->setHyphConsecutiveLines(dc.attribute("HYCOUNT", "2").toInt());
 		if (dc.hasAttribute("PAGEWIDTH"))
 			m_Doc->pageWidth = ScCLocale::toDoubleC(dc.attribute("PAGEWIDTH"));
 		else
@@ -339,8 +339,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->pageMargins.Top   = qMax(0.0, ScCLocale::toDoubleC("BORDERTOP"));
 		m_Doc->pageMargins.Bottom= qMax(0.0, ScCLocale::toDoubleC("BORDERBOTTOM"));
 		m_Doc->marginPreset = dc.attribute("PRESET", "0").toInt();
-		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
-		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
+		m_Doc->setHyphAutomatic(static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt()));
+		m_Doc->setHyphAutoCheck(static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt()));
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
 		m_Doc->guidesSettings.minorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
 		m_Doc->guidesSettings.majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
@@ -368,15 +368,15 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->itemToolPrefs.polyUseFactor = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 		m_Doc->AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
-		m_Doc->scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
+		double leftScratch;
 		// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 		// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
 		if (dc.hasAttribute("ScatchLeft"))
-			m_Doc->scratch.Left = ScCLocale::toDoubleC(dc.attribute("ScatchLeft"), 100.0);
+			leftScratch = ScCLocale::toDoubleC(dc.attribute("ScatchLeft"), 100.0);
 		else
-			m_Doc->scratch.Left = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
-		m_Doc->scratch.Right = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
-		m_Doc->scratch.Top   = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
+			leftScratch = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
+		m_Doc->scratch()->set(ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0), leftScratch,
+							  ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0), ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0));
 		m_Doc->itemToolPrefs.lineStartArrow = dc.attribute("StartArrow", "0").toInt();
 		m_Doc->itemToolPrefs.lineEndArrow = dc.attribute("EndArrow", "0").toInt();
 		m_Doc->itemToolPrefs.imageScaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
@@ -420,7 +420,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->itemToolPrefs.imageFillColor = dc.attribute("CPICT");
 		m_Doc->itemToolPrefs.imageFillColorShade = ScCLocale::toDoubleC(dc.attribute("PICTSHADE"), 100.0);
 		if (dc.hasAttribute("PAGEC"))
-			m_Doc->papColor = QColor(dc.attribute("PAGEC"));
+			m_Doc->setPaperColor(QColor(dc.attribute("PAGEC")));
 		if (dc.hasAttribute("MARGC"))
 			m_Doc->guidesSettings.marginColor = QColor(dc.attribute("MARGC"));
 		if (dc.hasAttribute("MINORC"))
@@ -452,7 +452,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if (pg.tagName()=="PageSets")
 			{
 				QDomNode PGS = PAGE.firstChild();
-				m_Doc->pageSets.clear();
+				m_Doc->clearPageSets();
 				while(!PGS.isNull())
 				{
 					QDomElement PgsAttr = PGS.toElement();
@@ -475,11 +475,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 								pageS.pageNames.append(CommonStrings::untranslatePageSetLocString(PgsAttrN.attribute("Name")));
 							PGSN = PGSN.nextSibling();
 						}
-						m_Doc->pageSets.append(pageS);
-						if (m_Doc->pageSets.count()-1 == m_Doc->currentPageLayout)
+						//->Prefs m_Doc->pageSets.append(pageS);
+						m_Doc->appendToPageSets(pageS);
+						if (m_Doc->pageSets().count()-1 == m_Doc->currentPageLayout)
 						{
-							m_Doc->GapHorizontal = ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0);
-							m_Doc->GapVertical   = ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 0.0);
+							m_Doc->setPageGapHorizontal(ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0));
+							m_Doc->setPageGapVertical(ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 0.0));
 						}
 					}
 					PGS = PGS.nextSibling();
@@ -1251,11 +1252,11 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("DISc",m_Doc->CMSSettings.DefaultIntentColors);
 	dc.setAttribute("DIIm",m_Doc->CMSSettings.DefaultIntentImages);
 	dc.setAttribute("ALAYER", m_Doc->activeLayer());
-	dc.setAttribute("LANGUAGE", m_Doc->Language);
-	dc.setAttribute("MINWORDLEN", m_Doc->MinWordLen);
-	dc.setAttribute("HYCOUNT", m_Doc->HyCount);
-	dc.setAttribute("AUTOMATIC", static_cast<int>(m_Doc->Automatic));
-	dc.setAttribute("AUTOCHECK", static_cast<int>(m_Doc->AutoCheck));
+	dc.setAttribute("LANGUAGE", m_Doc->hyphLanguage());
+	dc.setAttribute("MINWORDLEN", m_Doc->hyphMinimumWordLength());
+	dc.setAttribute("HYCOUNT", m_Doc->hyphConsecutiveLines());
+	dc.setAttribute("AUTOMATIC", static_cast<int>(m_Doc->hyphAutomatic()));
+	dc.setAttribute("AUTOCHECK", static_cast<int>(m_Doc->hyphAutoCheck()));
 	dc.setAttribute("GUIDELOCK", static_cast<int>(m_Doc->GuideLock));
 	dc.setAttribute("SnapToGuides", static_cast<int>(m_Doc->SnapGuides));
 	dc.setAttribute("SnapToGrid", static_cast<int>(m_Doc->useRaster));
@@ -1284,10 +1285,10 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs.polyUseFactor));
 	dc.setAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));
 	dc.setAttribute("AutoSaveTime", m_Doc->AutoSaveTime);
-	dc.setAttribute("ScratchBottom", m_Doc->scratch.Bottom);
-	dc.setAttribute("ScratchLeft", m_Doc->scratch.Left);
-	dc.setAttribute("ScratchRight", m_Doc->scratch.Right);
-	dc.setAttribute("ScratchTop", m_Doc->scratch.Top);
+	dc.setAttribute("ScratchBottom", m_Doc->scratch()->Bottom);
+	dc.setAttribute("ScratchLeft", m_Doc->scratch()->Left);
+	dc.setAttribute("ScratchRight", m_Doc->scratch()->Right);
+	dc.setAttribute("ScratchTop", m_Doc->scratch()->Top);
 	dc.setAttribute("StartArrow", m_Doc->itemToolPrefs.lineStartArrow);
 	dc.setAttribute("EndArrow", m_Doc->itemToolPrefs.lineEndArrow);
 	dc.setAttribute("PEN",m_Doc->itemToolPrefs.shapeLineColor);
@@ -1325,7 +1326,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("BaseC", m_Doc->guidesSettings.baselineGridColor.name());
 	dc.setAttribute("GuideZ", m_Doc->guidesSettings.guideRad);
 	dc.setAttribute("BACKG", static_cast<int>(m_Doc->guidesSettings.guidePlacement));
-	dc.setAttribute("PAGEC",m_Doc->papColor.name());
+	dc.setAttribute("PAGEC",m_Doc->paperColor().name());
 	dc.setAttribute("MARGC",m_Doc->guidesSettings.marginColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
 	dc.setAttribute("currentProfile", m_Doc->curCheckProfile);
@@ -1656,7 +1657,8 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
 	QList<PageSet>::Iterator itpgset;
-	for(itpgset = m_Doc->pageSets.begin(); itpgset != m_Doc->pageSets.end(); ++itpgset )
+	QList<PageSet> pageSet(m_Doc->pageSets());
+	for(itpgset = pageSet.begin(); itpgset != pageSet.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
 		pgst.setAttribute("Name", (*itpgset).Name);

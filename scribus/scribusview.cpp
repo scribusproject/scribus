@@ -2921,8 +2921,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 	ScLayer layer;
 	layer.isViewable = false;
 	int Nr = Doc->MasterNames[name];
-	int clipx = static_cast<int>(Doc->scratch.Left);
-	int clipy = static_cast<int>(Doc->scratch.Top);
+	int clipx = static_cast<int>(Doc->scratch()->Left);
+	int clipy = static_cast<int>(Doc->scratch()->Top);
 	int clipw = qRound(Doc->MasterPages.at(Nr)->width());
 	int cliph = qRound(Doc->MasterPages.at(Nr)->height());
 	if ((clipw > 0) && (cliph > 0))
@@ -2944,13 +2944,13 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		m_canvas->m_viewMode.forceRedraw = true;
 		pm = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height(), 1.0, 0);
-		painter->clear(Doc->papColor);
+		painter->clear(Doc->paperColor());
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
 		if (drawFrame)
 		{
 			painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			painter->setBrush(Doc->papColor);
+			painter->setBrush(Doc->paperColor());
 			painter->drawRect(clipx, clipy, clipw, cliph);
 		}
 		painter->beginLayer(1.0, 0);
@@ -3014,13 +3014,13 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			Doc->setLoading(true);
 			Doc->setCurrentPage(Doc->DocPages.at(Nr));
 			ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
-			painter->clear(Doc->papColor);
+			painter->clear(Doc->paperColor());
 			painter->translate(-clipx, -clipy);
 			painter->setFillMode(ScPainter::Solid);
 			if (drawFrame)
 			{
 				painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				painter->setBrush(Doc->papColor);
+				painter->setBrush(Doc->paperColor());
 				painter->drawRect(clipx, clipy, clipw, cliph);
 			}
 			painter->beginLayer(1.0, 0);

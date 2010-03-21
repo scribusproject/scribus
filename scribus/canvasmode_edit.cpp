@@ -798,8 +798,8 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			{
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				FPoint maxSize(gx+gw+m_doc->scratch.Right, gy+gh+m_doc->scratch.Bottom);
-				FPoint minSize(gx-m_doc->scratch.Left, gy-m_doc->scratch.Top);
+				FPoint maxSize(gx+gw+m_doc->scratch()->Right, gy+gh+m_doc->scratch()->Bottom);
+				FPoint minSize(gx-m_doc->scratch()->Left, gy-m_doc->scratch()->Top);
 				m_doc->adjustCanvas(minSize, maxSize);
 			}
 			m_doc->setRedrawBounding(currItem);

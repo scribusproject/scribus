@@ -570,7 +570,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	//Will of course be replaced by per page settings although we still probably need a document default
 	if (!hasPageSets)
 	{
-		m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = firstPage;
+		m_Doc->setPageSetFirstPage(m_Doc->currentPageLayout, firstPage);
+//->Prefs		m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = firstPage;
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
@@ -742,9 +743,9 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->PageSpa = attrs.valueAsDouble("ABSTSPALTEN");
 	m_Doc->setUnitIndex( attrs.valueAsInt("UNITS", 0) );
 
-	m_Doc->Language   = attrs.valueAsString("LANGUAGE", "");
-	m_Doc->MinWordLen = attrs.valueAsInt("MINWORDLEN", 3);
-	m_Doc->HyCount    = attrs.valueAsInt("HYCOUNT", 2);
+	m_Doc->setHyphLanguage(attrs.valueAsString("LANGUAGE", ""));
+	m_Doc->setHyphMinimumWordLength(attrs.valueAsInt("MINWORDLEN", 3));
+	m_Doc->setHyphConsecutiveLines(attrs.valueAsInt("HYCOUNT", 2));
 
 	if (attrs.hasAttribute("PAGEWIDTH"))
 		m_Doc->pageWidth = attrs.valueAsDouble("PAGEWIDTH");
@@ -760,8 +761,8 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->bleeds.Left   = attrs.valueAsDouble("BleedLeft", 0.0);
 	m_Doc->bleeds.Right  = attrs.valueAsDouble("BleedRight", 0.0);
 	m_Doc->bleeds.Bottom = attrs.valueAsDouble("BleedBottom", 0.0);
-	m_Doc->Automatic = attrs.valueAsBool("AUTOMATIC", true);
-	m_Doc->AutoCheck = attrs.valueAsBool("AUTOCHECK", false);
+	m_Doc->setHyphAutomatic(attrs.valueAsBool("AUTOMATIC", true));
+	m_Doc->setHyphAutoCheck(attrs.valueAsBool("AUTOCHECK", false));
 	m_Doc->GuideLock = attrs.valueAsBool("GUIDELOCK", false);
 	
 	m_Doc->rulerXoffset = attrs.valueAsDouble("rulerXoffset", 0.0);
@@ -771,20 +772,21 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	
 	m_Doc->AutoSave       = attrs.valueAsBool("AutoSave", false);
 	m_Doc->AutoSaveTime   = attrs.valueAsInt("AutoSaveTime", 600000);
-	m_Doc->scratch.Bottom = attrs.valueAsDouble("ScratchBottom", 20.0);
+	double leftScratch;
 	// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 	// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
 	if (attrs.hasAttribute("ScatchLeft"))
-		m_Doc->scratch.Left = attrs.valueAsDouble("ScatchLeft", 100.0);
+		leftScratch = attrs.valueAsDouble("ScatchLeft", 100.0);
 	else
-		m_Doc->scratch.Left = attrs.valueAsDouble("ScratchLeft", 100.0);
-	m_Doc->scratch.Right = attrs.valueAsDouble("ScratchRight", 100.0);
-	m_Doc->scratch.Top   = attrs.valueAsDouble("ScratchTop", 20.0);
-	m_Doc->GapHorizontal = attrs.valueAsDouble("GapHorizontal", -1.0);
-	m_Doc->GapVertical   = attrs.valueAsDouble("GapVertical", -1.0);
+		leftScratch = attrs.valueAsDouble("ScratchLeft", 100.0);
+	m_Doc->scratch()->set(attrs.valueAsDouble("ScratchTop", 20.0), leftScratch,
+						  attrs.valueAsDouble("ScratchBottom", 20.0),attrs.valueAsDouble("ScratchRight", 100.0));
+	m_Doc->setPageGapHorizontal(attrs.valueAsDouble("GapHorizontal", -1.0));
+	m_Doc->setPageGapVertical(attrs.valueAsDouble("GapVertical", -1.0));
 	
 	if (attrs.hasAttribute("PAGEC"))
-		m_Doc->papColor = QColor(attrs.valueAsString("PAGEC"));
+		m_Doc->setPaperColor(QColor(attrs.valueAsString("PAGEC")));
+		//->Prefs m_Doc->papColor = QColor(attrs.valueAsString("PAGEC"));
 	
 	m_Doc->marginColored = attrs.valueAsBool("RANDF", false);
 
@@ -953,7 +955,7 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 	struct PageSet pageS;
 	ScXmlStreamAttributes attrs;
 
-	doc->pageSets.clear();
+	doc->clearPageSets();
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -976,11 +978,12 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 		}
 		if(reader.isEndElement() && tagName == "Set")
 		{
-			doc->pageSets.append(pageS);
-			if ((doc->pageSets.count()-1 == doc->currentPageLayout) && ((doc->GapHorizontal < 0) && (doc->GapVertical < 0)))
+//			doc->pageSets.append(pageS);
+			doc->appendToPageSets(pageS);
+			if ((doc->pageSets().count()-1 == doc->currentPageLayout) && ((doc->pageGapHorizontal() < 0) && (doc->pageGapVertical() < 0)))
 			{
-				doc->GapHorizontal = attrs.valueAsDouble("GapHorizontal", 0.0);
-				doc->GapVertical   = attrs.valueAsDouble("GapBelow", 0.0);
+				doc->setPageGapHorizontal(attrs.valueAsDouble("GapHorizontal", 0.0));
+				doc->setPageGapVertical(attrs.valueAsDouble("GapBelow", 0.0));
 			}
 		}
 		if (reader.isStartElement() && tagName == "PageNames")

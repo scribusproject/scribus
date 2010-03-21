@@ -68,7 +68,7 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 								0, 1, false,
 								pagesType, unit, firstPageOrder,
 								orientation, firstPageNr, "Custom", true, numPages);
-	ScCore->primaryMainWindow()->doc->pageSets[pagesType].FirstPage = firstPageOrder;
+	ScCore->primaryMainWindow()->doc->setPageSetFirstPage(pagesType, firstPageOrder);
 
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -283,7 +283,7 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if (ScCore->primaryMainWindow()->doc->currentPageLayout == fp)
-		ScCore->primaryMainWindow()->doc->pageSets[ScCore->primaryMainWindow()->doc->currentPageLayout].FirstPage = fsl;
+		ScCore->primaryMainWindow()->doc->setPageSetFirstPage(ScCore->primaryMainWindow()->doc->currentPageLayout, fsl);
 	ScCore->primaryMainWindow()->view->reformPages();
 	ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber()); // is this needed?
 	ScCore->primaryMainWindow()->view->DrawNew();   // is this needed?

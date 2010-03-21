@@ -141,10 +141,10 @@ void ReformDoc::restoreDefaults()
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	tabPage->restoreDefaults(currDoc);
-	tabView->restoreDefaults(prefsData, currDoc->guidesSettings, currDoc->pageSets, currDoc->currentPageLayout, currDoc->scratch);
-	tabView->gapHorizontal->setValue(currDoc->GapHorizontal); // * unitRatio);
-	tabView->gapVertical->setValue(currDoc->GapVertical); // * unitRatio);
-	tabView->setPaperColor(currDoc->papColor);
+	tabView->restoreDefaults(prefsData, currDoc->guidesSettings, currDoc->currentPageLayout, *currDoc->scratch());
+	tabView->gapHorizontal->setValue(currDoc->pageGapHorizontal()); // * unitRatio);
+	tabView->gapVertical->setValue(currDoc->pageGapVertical()); // * unitRatio);
+	tabView->setPaperColor(currDoc->paperColor());
 	tabView->setMarginColored(currDoc->marginColored);
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
@@ -182,7 +182,7 @@ void ReformDoc::setDS(int layout)
 {
 	tabPage->marginGroup->setFacingPages(!(layout == singlePage));
 	tabPage->choosenLayout = layout;
-	tabPage->docLayout->firstPage->setCurrentIndex(currDoc->pageSets[tabPage->choosenLayout].FirstPage);
+	tabPage->docLayout->firstPage->setCurrentIndex(currDoc->pageSets()[tabPage->choosenLayout].FirstPage);
 //	tabView->gapHorizontal->setValue(currDoc->pageSets[tabPage->choosenLayout].GapHorizontal * unitRatio);
 //	tabView->gapVertical->setValue(currDoc->pageSets[tabPage->choosenLayout].GapBelow * unitRatio);
 //	tabView->gapHorizontal->setValue(currDoc->GapHorizontal * unitRatio);
@@ -222,10 +222,10 @@ void ReformDoc::updateDocumentSettings()
 {
 	MarginStruct updatedMargins(tabPage->marginGroup->margins());
 	int fp = tabPage->choosenLayout;
-	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentIndex();
+	currDoc->setPageSetFirstPage(fp, tabPage->docLayout->firstPage->currentIndex());
 //	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
-	currDoc->GapVertical = tabView->gapVertical->value() / currDoc->unitRatio();
-	currDoc->GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
+	currDoc->setPageGapHorizontal(tabView->gapVertical->value() / currDoc->unitRatio());
+	currDoc->setPageGapVertical(tabView->gapHorizontal->value() / currDoc->unitRatio());
 //	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(updatedMargins, fp);
@@ -234,12 +234,13 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->pageWidth = tabPage->pageW;
 	currDoc->pageHeight = tabPage->pageH;
 	currDoc->marginPreset = tabPage->marginGroup->getMarginPreset();
-	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->scratch.Top;
-	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->scratch.Left;
-	currDoc->scratch.Bottom = tabView->bottomScratch->value() / currDoc->unitRatio();
-	currDoc->scratch.Left = tabView->leftScratch->value() / currDoc->unitRatio();
-	currDoc->scratch.Right = tabView->rightScratch->value() / currDoc->unitRatio();
-	currDoc->scratch.Top = tabView->topScratch->value() / currDoc->unitRatio();
+	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Top;
+	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Left;
+	currDoc->scratch()->set(tabView->topScratch->value() / currDoc->unitRatio(), tabView->leftScratch->value() / currDoc->unitRatio(), tabView->bottomScratch->value() / currDoc->unitRatio(), tabView->rightScratch->value() / currDoc->unitRatio());
+//	currDoc->scratch.Bottom = tabView->bottomScratch->value() / currDoc->unitRatio();
+//	currDoc->scratch.Left = tabView->leftScratch->value() / currDoc->unitRatio();
+//	currDoc->scratch.Right = tabView->rightScratch->value() / currDoc->unitRatio();
+//	currDoc->scratch.Top = tabView->topScratch->value() / currDoc->unitRatio();
 	currDoc->bleeds.Bottom = tabPage->marginGroup->bottomBleed();
 	currDoc->bleeds.Top = tabPage->marginGroup->topBleed();
 	currDoc->bleeds.Left = tabPage->marginGroup->leftBleed();
@@ -296,8 +297,8 @@ void ReformDoc::updateDocumentSettings()
 			pp->initialMargins=updatedMargins;
 			pp->marginPreset=currDoc->marginPreset;
 		}
-		pp->setXOffset(currDoc->scratch.Left);
-		pp->setYOffset(currDoc->scratch.Top);
+		pp->setXOffset(currDoc->scratch()->Left);
+		pp->setYOffset(currDoc->scratch()->Top);
 	}
 	uint docItemsCount = currDoc->MasterItems.count();
 	for (uint ite = 0; ite < docItemsCount; ++ite)
@@ -308,7 +309,7 @@ void ReformDoc::updateDocumentSettings()
 	}
 	currDoc->guidesSettings.guidePlacement = tabGuides->inBackground->isChecked();
 	currDoc->marginColored = tabView->checkUnprintable->isChecked();
-	currDoc->papColor = tabView->colorPaper;
+	currDoc->setPaperColor(tabView->colorPaper);
 	currDoc->guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
 	currDoc->guidesSettings.showBleed = tabView->checkBleed->isChecked();
 	currDoc->guidesSettings.framesShown = tabView->checkFrame->isChecked();
@@ -444,7 +445,7 @@ void ReformDoc::updateDocumentSettings()
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
 */
-	currDoc->Language = tabHyphenator->getLanguage();
+	currDoc->setHyphLanguage(tabHyphenator->getLanguage());
 	
 	currDoc->docHyphenator->slotNewSettings(tabHyphenator->getWordLen(),
 											!tabHyphenator->getVerbose(),
