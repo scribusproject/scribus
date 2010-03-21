@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\svgimplugin\svgplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\svg\svgplugin.cpp"
 				>
 			</File>
 		</Filter>
@@ -380,7 +380,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\svgimplugin\svgplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\svg\svgplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\svgimplugin\moc_svgplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\svg\moc_svgplugin.cpp"
 				>
 			</File>
 		</Filter>

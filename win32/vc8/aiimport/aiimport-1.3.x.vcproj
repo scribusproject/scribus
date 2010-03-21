@@ -371,11 +371,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\aiimplugin\importai.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ai\importai.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\aiimplugin\importaiplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ai\importaiplugin.cpp"
 				>
 			</File>
 		</Filter>
@@ -384,7 +384,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\aiimplugin\importai.h"
+				RelativePath="..\..\..\scribus\plugins\import\ai\importai.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\aiimplugin\importaiplugin.h"
+				RelativePath="..\..\..\scribus\plugins\import\ai\importaiplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -484,11 +484,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\aiimplugin\moc_importai.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ai\moc_importai.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\aiimplugin\moc_importaiplugin.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\ai\moc_importaiplugin.cpp"
 				>
 			</File>
 		</Filter>

@@ -367,7 +367,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\oodraw\oodrawimp.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\oodraw\oodrawimp.cpp"
 				>
 			</File>
 			<File
@@ -375,7 +375,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\oodraw\stylestack.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\oodraw\stylestack.cpp"
 				>
 			</File>
 		</Filter>
@@ -384,7 +384,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\oodraw\oodrawimp.h"
+				RelativePath="..\..\..\scribus\plugins\import\oodraw\oodrawimp.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -432,7 +432,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\oodraw\stylestack.h"
+				RelativePath="..\..\..\scribus\plugins\import\oodraw\stylestack.h"
 				>
 			</File>
 		</Filter>
@@ -440,7 +440,7 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\oodraw\moc_oodrawimp.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\oodraw\moc_oodrawimp.cpp"
 				>
 			</File>
 		</Filter>
