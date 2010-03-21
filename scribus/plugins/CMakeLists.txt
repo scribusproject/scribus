@@ -1,6 +1,7 @@
 ADD_SUBDIRECTORY(aiimplugin)
 ADD_SUBDIRECTORY(barcodegenerator)
 ADD_SUBDIRECTORY(colorwheel)
+ADD_SUBDIRECTORY(cvg)
 ADD_SUBDIRECTORY(fileloader)
 ADD_SUBDIRECTORY(fontpreview)
 ADD_SUBDIRECTORY(gettext)
