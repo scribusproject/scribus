@@ -271,8 +271,8 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	marginGroup->setPageWidthHeight(prefsData->pageWidth, prefsData->pageHeight);
 	marginGroup->setPageSize(prefsPageSizeName);
 	marginGroup->setMarginPreset(prefsData->marginPreset);
-	GroupAS->setChecked( prefsData->AutoSave );
-	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
+	GroupAS->setChecked( prefsData->autoSave() );
+	ASTime->setValue(prefsData->autoSaveTime() / 1000 / 60);
 	connect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));

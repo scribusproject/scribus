@@ -99,7 +99,7 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	: QObject(&docu),
 	doc(docu),
 	ActPageP(0),
-	Options(doc.PDF_Options),
+	Options(doc.pdfOptions()),
 	Bvie(0),
 	ucs2Codec(0),
 	ObjCounter(7),
@@ -220,7 +220,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		}
 		for (uint a = 0; a < pageNs.size() && !abortExport; ++a)
 		{
-			if (doc.PDF_Options.Thumbnails)
+			if (doc.pdfOptions().Thumbnails)
 				pm = thumbs[pageNs[a]];
 			qApp->processEvents();
 			if (abortExport) break;
@@ -229,7 +229,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 			qApp->processEvents();
 			if (abortExport) break;
 
-			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, doc.PDF_Options.doClip))
+			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, doc.pdfOptions().doClip))
 				error = abortExport = true;
 			qApp->processEvents();
 			if (abortExport) break;
@@ -245,8 +245,8 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		ret = true;//Even when aborting we return true. Dont want that "couldnt write msg"
 		if (!abortExport)
 		{
-			if ((doc.PDF_Options.Version == PDFOptions::PDFVersion_X3) || (doc.PDF_Options.Version == PDFOptions::PDFVersion_X1a) || (doc.PDF_Options.Version == PDFOptions::PDFVersion_X4))
-				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
+			if ((doc.pdfOptions().Version == PDFOptions::PDFVersion_X3) || (doc.pdfOptions().Version == PDFOptions::PDFVersion_X1a) || (doc.pdfOptions().Version == PDFOptions::PDFVersion_X4))
+				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.pdfOptions().PrintProf], nam, Components);
 			else
 				ret = PDF_End_Doc();
 		}

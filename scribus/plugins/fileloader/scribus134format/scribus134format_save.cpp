@@ -180,8 +180,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYCUR", m_Doc->itemToolPrefs.polyCurvature);
 	docu.writeAttribute("POLYFD", m_Doc->itemToolPrefs.polyFactorGuiVal);
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs.polyUseFactor));
-	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));
-	docu.writeAttribute("AutoSaveTime", m_Doc->AutoSaveTime);
+	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->autoSave()));
+	docu.writeAttribute("AutoSaveTime", m_Doc->autoSaveTime());
 	docu.writeAttribute("ScratchBottom", m_Doc->scratch()->Bottom);
 	docu.writeAttribute("ScratchLeft", m_Doc->scratch()->Left);
 	docu.writeAttribute("ScratchRight", m_Doc->scratch()->Right);
@@ -650,84 +650,84 @@ void Scribus134Format::writePrintOptions(ScXmlStreamWriter & docu)
 void Scribus134Format::writePdfOptions(ScXmlStreamWriter & docu) 
 {
 	docu.writeStartElement("PDF");
-	docu.writeAttribute("firstUse", static_cast<int>(m_Doc->PDF_Options.firstUse));
-	docu.writeAttribute("Thumbnails", static_cast<int>(m_Doc->PDF_Options.Thumbnails));
-	docu.writeAttribute("Articles", static_cast<int>(m_Doc->PDF_Options.Articles));
-	docu.writeAttribute("Bookmarks", static_cast<int>(m_Doc->PDF_Options.Bookmarks));
-	docu.writeAttribute("Compress", static_cast<int>(m_Doc->PDF_Options.Compress));
-	docu.writeAttribute("CMethod", m_Doc->PDF_Options.CompressMethod);
-	docu.writeAttribute("Quality", m_Doc->PDF_Options.Quality);
-	docu.writeAttribute("MirrorH", static_cast<int>(m_Doc->PDF_Options.MirrorH));
-	docu.writeAttribute("MirrorV", static_cast<int>(m_Doc->PDF_Options.MirrorV));
-	docu.writeAttribute("Clip", static_cast<int>(m_Doc->PDF_Options.doClip));
-	docu.writeAttribute("RotateDeg", static_cast<int>(m_Doc->PDF_Options.RotateDeg));
-	docu.writeAttribute("PresentMode", static_cast<int>(m_Doc->PDF_Options.PresentMode));
-	docu.writeAttribute("RecalcPic", static_cast<int>(m_Doc->PDF_Options.RecalcPic));
-	docu.writeAttribute("Grayscale", static_cast<int>(m_Doc->PDF_Options.isGrayscale));
-	docu.writeAttribute("RGBMode", static_cast<int>(m_Doc->PDF_Options.UseRGB));
-	docu.writeAttribute("UseProfiles", static_cast<int>(m_Doc->PDF_Options.UseProfiles));
-	docu.writeAttribute("UseProfiles2", static_cast<int>(m_Doc->PDF_Options.UseProfiles2));
-	docu.writeAttribute("Binding", m_Doc->PDF_Options.Binding);
-	docu.writeAttribute("PicRes", m_Doc->PDF_Options.PicRes);
-	docu.writeAttribute("Resolution", m_Doc->PDF_Options.Resolution);
-	docu.writeAttribute("Version", m_Doc->PDF_Options.Version);
-	docu.writeAttribute("Intent", m_Doc->PDF_Options.Intent);
-	docu.writeAttribute("Intent2", m_Doc->PDF_Options.Intent2);
-	docu.writeAttribute("SolidP", m_Doc->PDF_Options.SolidProf);
-	docu.writeAttribute("ImageP", m_Doc->PDF_Options.ImageProf);
-	docu.writeAttribute("PrintP", m_Doc->PDF_Options.PrintProf);
-	docu.writeAttribute("InfoString", m_Doc->PDF_Options.Info);
-	docu.writeAttribute("BTop", m_Doc->PDF_Options.bleeds.Top);
-	docu.writeAttribute("BLeft", m_Doc->PDF_Options.bleeds.Left);
-	docu.writeAttribute("BRight", m_Doc->PDF_Options.bleeds.Right);
-	docu.writeAttribute("BBottom", m_Doc->PDF_Options.bleeds.Bottom);
-	docu.writeAttribute("useDocBleeds", static_cast<int>(m_Doc->PDF_Options.useDocBleeds));
-	docu.writeAttribute("cropMarks", static_cast<int>(m_Doc->PDF_Options.cropMarks));
-	docu.writeAttribute("bleedMarks", static_cast<int>(m_Doc->PDF_Options.bleedMarks));
-	docu.writeAttribute("registrationMarks", static_cast<int>(m_Doc->PDF_Options.registrationMarks));
-	docu.writeAttribute("colorMarks", static_cast<int>(m_Doc->PDF_Options.colorMarks));
-	docu.writeAttribute("docInfoMarks", static_cast<int>(m_Doc->PDF_Options.docInfoMarks));
-	docu.writeAttribute("markOffset", m_Doc->PDF_Options.markOffset);
-	docu.writeAttribute("ImagePr", static_cast<int>(m_Doc->PDF_Options.EmbeddedI));
-	docu.writeAttribute("PassOwner", m_Doc->PDF_Options.PassOwner);
-	docu.writeAttribute("PassUser", m_Doc->PDF_Options.PassUser);
-	docu.writeAttribute("Permissions", m_Doc->PDF_Options.Permissions);
-	docu.writeAttribute("Encrypt", static_cast<int>(m_Doc->PDF_Options.Encrypt));
-	docu.writeAttribute("UseLayers", static_cast<int>(m_Doc->PDF_Options.useLayers));
-	docu.writeAttribute("UseLpi", static_cast<int>(m_Doc->PDF_Options.UseLPI));
-	docu.writeAttribute("UseSpotColors", static_cast<int>(m_Doc->PDF_Options.UseSpotColors));
-	docu.writeAttribute("doMultiFile", static_cast<int>(m_Doc->PDF_Options.doMultiFile));
-	docu.writeAttribute("displayBookmarks", static_cast<int>(m_Doc->PDF_Options.displayBookmarks));
-	docu.writeAttribute("displayFullscreen", static_cast<int>(m_Doc->PDF_Options.displayFullscreen));
-	docu.writeAttribute("displayLayers", static_cast<int>(m_Doc->PDF_Options.displayLayers));
-	docu.writeAttribute("displayThumbs", static_cast<int>(m_Doc->PDF_Options.displayThumbs));
-	docu.writeAttribute("hideMenuBar", static_cast<int>(m_Doc->PDF_Options.hideMenuBar));
-	docu.writeAttribute("hideToolBar", static_cast<int>(m_Doc->PDF_Options.hideToolBar));
-	docu.writeAttribute("fitWindow", static_cast<int>(m_Doc->PDF_Options.fitWindow));
-	docu.writeAttribute("PageLayout", m_Doc->PDF_Options.PageLayout);
-	docu.writeAttribute("openAction", m_Doc->PDF_Options.openAction);
-	for (int pdoF = 0; pdoF < m_Doc->PDF_Options.EmbedList.count(); ++pdoF)
+	docu.writeAttribute("firstUse", static_cast<int>(m_Doc->pdfOptions().firstUse));
+	docu.writeAttribute("Thumbnails", static_cast<int>(m_Doc->pdfOptions().Thumbnails));
+	docu.writeAttribute("Articles", static_cast<int>(m_Doc->pdfOptions().Articles));
+	docu.writeAttribute("Bookmarks", static_cast<int>(m_Doc->pdfOptions().Bookmarks));
+	docu.writeAttribute("Compress", static_cast<int>(m_Doc->pdfOptions().Compress));
+	docu.writeAttribute("CMethod", m_Doc->pdfOptions().CompressMethod);
+	docu.writeAttribute("Quality", m_Doc->pdfOptions().Quality);
+	docu.writeAttribute("MirrorH", static_cast<int>(m_Doc->pdfOptions().MirrorH));
+	docu.writeAttribute("MirrorV", static_cast<int>(m_Doc->pdfOptions().MirrorV));
+	docu.writeAttribute("Clip", static_cast<int>(m_Doc->pdfOptions().doClip));
+	docu.writeAttribute("RotateDeg", static_cast<int>(m_Doc->pdfOptions().RotateDeg));
+	docu.writeAttribute("PresentMode", static_cast<int>(m_Doc->pdfOptions().PresentMode));
+	docu.writeAttribute("RecalcPic", static_cast<int>(m_Doc->pdfOptions().RecalcPic));
+	docu.writeAttribute("Grayscale", static_cast<int>(m_Doc->pdfOptions().isGrayscale));
+	docu.writeAttribute("RGBMode", static_cast<int>(m_Doc->pdfOptions().UseRGB));
+	docu.writeAttribute("UseProfiles", static_cast<int>(m_Doc->pdfOptions().UseProfiles));
+	docu.writeAttribute("UseProfiles2", static_cast<int>(m_Doc->pdfOptions().UseProfiles2));
+	docu.writeAttribute("Binding", m_Doc->pdfOptions().Binding);
+	docu.writeAttribute("PicRes", m_Doc->pdfOptions().PicRes);
+	docu.writeAttribute("Resolution", m_Doc->pdfOptions().Resolution);
+	docu.writeAttribute("Version", m_Doc->pdfOptions().Version);
+	docu.writeAttribute("Intent", m_Doc->pdfOptions().Intent);
+	docu.writeAttribute("Intent2", m_Doc->pdfOptions().Intent2);
+	docu.writeAttribute("SolidP", m_Doc->pdfOptions().SolidProf);
+	docu.writeAttribute("ImageP", m_Doc->pdfOptions().ImageProf);
+	docu.writeAttribute("PrintP", m_Doc->pdfOptions().PrintProf);
+	docu.writeAttribute("InfoString", m_Doc->pdfOptions().Info);
+	docu.writeAttribute("BTop", m_Doc->pdfOptions().bleeds.Top);
+	docu.writeAttribute("BLeft", m_Doc->pdfOptions().bleeds.Left);
+	docu.writeAttribute("BRight", m_Doc->pdfOptions().bleeds.Right);
+	docu.writeAttribute("BBottom", m_Doc->pdfOptions().bleeds.Bottom);
+	docu.writeAttribute("useDocBleeds", static_cast<int>(m_Doc->pdfOptions().useDocBleeds));
+	docu.writeAttribute("cropMarks", static_cast<int>(m_Doc->pdfOptions().cropMarks));
+	docu.writeAttribute("bleedMarks", static_cast<int>(m_Doc->pdfOptions().bleedMarks));
+	docu.writeAttribute("registrationMarks", static_cast<int>(m_Doc->pdfOptions().registrationMarks));
+	docu.writeAttribute("colorMarks", static_cast<int>(m_Doc->pdfOptions().colorMarks));
+	docu.writeAttribute("docInfoMarks", static_cast<int>(m_Doc->pdfOptions().docInfoMarks));
+	docu.writeAttribute("markOffset", m_Doc->pdfOptions().markOffset);
+	docu.writeAttribute("ImagePr", static_cast<int>(m_Doc->pdfOptions().EmbeddedI));
+	docu.writeAttribute("PassOwner", m_Doc->pdfOptions().PassOwner);
+	docu.writeAttribute("PassUser", m_Doc->pdfOptions().PassUser);
+	docu.writeAttribute("Permissions", m_Doc->pdfOptions().Permissions);
+	docu.writeAttribute("Encrypt", static_cast<int>(m_Doc->pdfOptions().Encrypt));
+	docu.writeAttribute("UseLayers", static_cast<int>(m_Doc->pdfOptions().useLayers));
+	docu.writeAttribute("UseLpi", static_cast<int>(m_Doc->pdfOptions().UseLPI));
+	docu.writeAttribute("UseSpotColors", static_cast<int>(m_Doc->pdfOptions().UseSpotColors));
+	docu.writeAttribute("doMultiFile", static_cast<int>(m_Doc->pdfOptions().doMultiFile));
+	docu.writeAttribute("displayBookmarks", static_cast<int>(m_Doc->pdfOptions().displayBookmarks));
+	docu.writeAttribute("displayFullscreen", static_cast<int>(m_Doc->pdfOptions().displayFullscreen));
+	docu.writeAttribute("displayLayers", static_cast<int>(m_Doc->pdfOptions().displayLayers));
+	docu.writeAttribute("displayThumbs", static_cast<int>(m_Doc->pdfOptions().displayThumbs));
+	docu.writeAttribute("hideMenuBar", static_cast<int>(m_Doc->pdfOptions().hideMenuBar));
+	docu.writeAttribute("hideToolBar", static_cast<int>(m_Doc->pdfOptions().hideToolBar));
+	docu.writeAttribute("fitWindow", static_cast<int>(m_Doc->pdfOptions().fitWindow));
+	docu.writeAttribute("PageLayout", m_Doc->pdfOptions().PageLayout);
+	docu.writeAttribute("openAction", m_Doc->pdfOptions().openAction);
+	for (int pdoF = 0; pdoF < m_Doc->pdfOptions().EmbedList.count(); ++pdoF)
 	{
 		docu.writeEmptyElement("Fonts");
-		docu.writeAttribute("Name", m_Doc->PDF_Options.EmbedList[pdoF]);
+		docu.writeAttribute("Name", m_Doc->pdfOptions().EmbedList[pdoF]);
 	}
-	for (int pdoS = 0; pdoS < m_Doc->PDF_Options.SubsetList.count(); ++pdoS)
+	for (int pdoS = 0; pdoS < m_Doc->pdfOptions().SubsetList.count(); ++pdoS)
 	{
 		docu.writeEmptyElement("Subset");
-		docu.writeAttribute("Name", m_Doc->PDF_Options.SubsetList[pdoS]);
+		docu.writeAttribute("Name", m_Doc->pdfOptions().SubsetList[pdoS]);
 	}
-	for (int pdoE = 0; pdoE < m_Doc->PDF_Options.PresentVals.count(); ++pdoE)
+	for (int pdoE = 0; pdoE < m_Doc->pdfOptions().PresentVals.count(); ++pdoE)
 	{
 		docu.writeEmptyElement("Effekte");
-		docu.writeAttribute("pageEffectDuration", m_Doc->PDF_Options.PresentVals[pdoE].pageEffectDuration);
-		docu.writeAttribute("pageViewDuration", m_Doc->PDF_Options.PresentVals[pdoE].pageViewDuration);
-		docu.writeAttribute("effectType", m_Doc->PDF_Options.PresentVals[pdoE].effectType);
-		docu.writeAttribute("Dm", m_Doc->PDF_Options.PresentVals[pdoE].Dm);
-		docu.writeAttribute("M", m_Doc->PDF_Options.PresentVals[pdoE].M);
-		docu.writeAttribute("Di", m_Doc->PDF_Options.PresentVals[pdoE].Di);
+		docu.writeAttribute("pageEffectDuration", m_Doc->pdfOptions().PresentVals[pdoE].pageEffectDuration);
+		docu.writeAttribute("pageViewDuration", m_Doc->pdfOptions().PresentVals[pdoE].pageViewDuration);
+		docu.writeAttribute("effectType", m_Doc->pdfOptions().PresentVals[pdoE].effectType);
+		docu.writeAttribute("Dm", m_Doc->pdfOptions().PresentVals[pdoE].Dm);
+		docu.writeAttribute("M", m_Doc->pdfOptions().PresentVals[pdoE].M);
+		docu.writeAttribute("Di", m_Doc->pdfOptions().PresentVals[pdoE].Di);
 	}
 	QMap<QString,LPIData>::Iterator itlp;
-	for (itlp = m_Doc->PDF_Options.LPISettings.begin(); itlp != m_Doc->PDF_Options.LPISettings.end(); ++itlp)
+	for (itlp = m_Doc->pdfOptions().LPISettings.begin(); itlp != m_Doc->pdfOptions().LPISettings.end(); ++itlp)
 	{
 		docu.writeEmptyElement("LPI");
 		docu.writeAttribute("Color", itlp.key());

@@ -166,7 +166,12 @@ public:
 	void setHyphLanguage(const QString& s) { docPrefsData.hyphPrefs.Language=s; }
 	void setHyphAutomatic(bool b) { docPrefsData.hyphPrefs.Automatic=b; }
 	void setHyphAutoCheck(bool b) { docPrefsData.hyphPrefs.AutoCheck=b; }
-	
+	bool autoSave() const { return docPrefsData.docSetupPrefs.AutoSave; }
+	int autoSaveTime() const  { return docPrefsData.docSetupPrefs.AutoSaveTime; }
+	void setAutoSave(bool b) { docPrefsData.docSetupPrefs.AutoSave=b; }
+	void setAutoSaveTime(int i) { docPrefsData.docSetupPrefs.AutoSaveTime=i; }
+	PDFOptions& pdfOptions() { return docPrefsData.pdfPrefs; }
+
 	// Add, delete and move pages
 	
 	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
@@ -1099,8 +1104,8 @@ public:
 	//->Prefs int HyCount;
 	//->Prefs QString Language;
 	//->Prefs bool Automatic;
-	//->Prefsbool AutoCheck;
-	PDFOptions PDF_Options;
+	//->Prefs bool AutoCheck;
+	//->Prefs PDFOptions PDF_Options;
 	PrintOptions Print_Options;
 	bool RePos;
 	struct BookMa {
@@ -1118,8 +1123,8 @@ public:
 	QList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;
-	bool AutoSave;
-	int AutoSaveTime;
+	//->Prefs bool AutoSave;
+	//->Prefs int AutoSaveTime;
 	QTimer * const autoSaveTimer;
 	QMap<QString,multiLine> MLineStyles;
 	QList<ArrowDesc> arrowStyles;

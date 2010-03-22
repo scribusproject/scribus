@@ -232,13 +232,13 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	//->Prefs Language(appPrefsData.hyphPrefs.Language),
 	//->Prefs Automatic(appPrefsData.hyphPrefs.Automatic),
 	//->Prefs AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
-	PDF_Options(appPrefsData.pdfPrefs),
+	//->Prefs PDF_Options(appPrefsData.pdfPrefs),
 	RePos(false),
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	AutoSave(appPrefsData.docSetupPrefs.AutoSave),
-	AutoSaveTime(appPrefsData.docSetupPrefs.AutoSaveTime),
+	//->Prefs AutoSave(appPrefsData.docSetupPrefs.AutoSave),
+	//->Prefs AutoSaveTime(appPrefsData.docSetupPrefs.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
 	arrowStyles(appPrefsData.arrowStyles),
@@ -264,8 +264,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
 	init();
 	bleeds = appPrefsData.docSetupPrefs.bleeds;
-	PDF_Options.bleeds = bleeds;
-	PDF_Options.useDocBleeds = true;
+	docPrefsData.pdfPrefs.bleeds = bleeds;
+	docPrefsData.pdfPrefs.useDocBleeds = true;
 	Print_Options.firstUse = true;
 }
 
@@ -349,13 +349,13 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	//->Prefs Language(appPrefsData.hyphPrefs.Language),
 	//->Prefs Automatic(appPrefsData.hyphPrefs.Automatic),
 	//->Prefs AutoCheck(appPrefsData.hyphPrefs.AutoCheck),
-	PDF_Options(appPrefsData.pdfPrefs),
+	//->Prefs PDF_Options(appPrefsData.pdfPrefs),
 	RePos(false),
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
-	AutoSave(appPrefsData.docSetupPrefs.AutoSave),
-	AutoSaveTime(appPrefsData.docSetupPrefs.AutoSaveTime),
+	//->Prefs AutoSave(appPrefsData.docSetupPrefs.AutoSave),
+	//->Prefs AutoSaveTime(appPrefsData.docSetupPrefs.AutoSaveTime),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
 	arrowStyles(appPrefsData.arrowStyles),
@@ -383,8 +383,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	//->Prefs pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
 	bleeds = appPrefsData.docSetupPrefs.bleeds;
-	PDF_Options.bleeds = bleeds;
-	PDF_Options.useDocBleeds = true;
+	docPrefsData.pdfPrefs.bleeds = bleeds;
+	docPrefsData.pdfPrefs.useDocBleeds = true;
 	Print_Options.firstUse = true;
 }
 
@@ -414,11 +414,11 @@ void ScribusDoc::init()
 
 	PrefsManager *prefsManager = PrefsManager::instance();
 	CMSSettings = prefsManager->appPrefs.colorPrefs.DCMSset;
-	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
-	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
-	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
-	PDF_Options.Intent = CMSSettings.DefaultIntentColors;
-	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
+	pdfOptions().SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
+	pdfOptions().ImageProf = CMSSettings.DefaultImageRGBProfile;
+	pdfOptions().PrintProf = CMSSettings.DefaultPrinterProfile;
+	pdfOptions().Intent = CMSSettings.DefaultIntentColors;
+	pdfOptions().Intent2 = CMSSettings.DefaultIntentImages;
 
 	AddFont(appPrefsData.itemToolPrefs.textFont);//, prefsData.AvailFonts[prefsData.itemToolPrefs.textFont]->Font);
 	itemToolPrefs.textFont = appPrefsData.itemToolPrefs.textFont;
@@ -506,15 +506,16 @@ void ScribusDoc::init()
 	currentStyle = pstyle;
 	
 	Layers.addLayer( tr("Background") );
-	// Fixme: Check PDF version input
-	PDF_Options.Version = (PDFOptions::PDFVersion)appPrefsData.pdfPrefs.Version;
+	// FIXME: Check PDF version input
+	//TODO: Check if this is needed now we ue appPrefsData --> docPrefsData
+	pdfOptions().Version = (PDFOptions::PDFVersion)appPrefsData.pdfPrefs.Version;
 
-	PDF_Options.firstUse = true;
+	pdfOptions().firstUse = true;
 	docPatterns.clear();
 	docGradients.clear();
 
-	if (AutoSave && ScCore->usingGUI())
-		autoSaveTimer->start(AutoSaveTime);
+	if (autoSave() && ScCore->usingGUI())
+		autoSaveTimer->start(autoSaveTime());
 	//Do this after all the collections have been created and cleared!
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
@@ -622,20 +623,20 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	currentPageLayout = fp;
 	setName(documentName);
 	HasCMS = false;
-	if (!PDF_Options.UseLPI)
+	if (!pdfOptions().UseLPI)
 	{
-		PDF_Options.LPISettings.clear();
+		pdfOptions().LPISettings.clear();
 		struct LPIData lpo;
 		lpo.Frequency = 133;
 		lpo.SpotFunc = 3;
 		lpo.Angle = 105;
-		PDF_Options.LPISettings.insert("Cyan", lpo);
+		pdfOptions().LPISettings.insert("Cyan", lpo);
 		lpo.Angle = 75;
-		PDF_Options.LPISettings.insert("Magenta", lpo);
+		pdfOptions().LPISettings.insert("Magenta", lpo);
 		lpo.Angle = 90;
-		PDF_Options.LPISettings.insert("Yellow", lpo);
+		pdfOptions().LPISettings.insert("Yellow", lpo);
 		lpo.Angle = 45;
-		PDF_Options.LPISettings.insert("Black", lpo);
+		pdfOptions().LPISettings.insert("Black", lpo);
 		ActiveLayer = 0;
 	}
 
@@ -649,11 +650,11 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PageColors.setDocument(this);
 
 	CMSSettings = prefsManager->appPrefs.colorPrefs.DCMSset;
-	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
-	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
-	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
-	PDF_Options.Intent = CMSSettings.DefaultIntentColors;
-	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
+	pdfOptions().SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
+	pdfOptions().ImageProf = CMSSettings.DefaultImageRGBProfile;
+	pdfOptions().PrintProf = CMSSettings.DefaultPrinterProfile;
+	pdfOptions().Intent = CMSSettings.DefaultIntentColors;
+	pdfOptions().Intent2 = CMSSettings.DefaultIntentImages;
 	BlackPoint   = CMSSettings.BlackPoint;
 	SoftProofing = CMSSettings.SoftProofOn;
 	Gamut        = CMSSettings.GamutCheck;
@@ -664,7 +665,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 		if (OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 		{
 			HasCMS = true;
-			PDF_Options.SComp = CMSSettings.ComponentsInput2;
+			pdfOptions().SComp = CMSSettings.ComponentsInput2;
 		}
 		else
 		{
@@ -902,11 +903,11 @@ void ScribusDoc::enableCMS(bool enable)
 	else if (OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 	{
 		HasCMS = true;
-		PDF_Options.SComp = CMSSettings.ComponentsInput2;
-		PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
-		PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
-		PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
-		PDF_Options.Intent = CMSSettings.DefaultIntentColors;
+		pdfOptions().SComp = CMSSettings.ComponentsInput2;
+		pdfOptions().SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
+		pdfOptions().ImageProf = CMSSettings.DefaultImageRGBProfile;
+		pdfOptions().PrintProf = CMSSettings.DefaultPrinterProfile;
+		pdfOptions().Intent = CMSSettings.DefaultIntentColors;
 		m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
 		RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
 	}

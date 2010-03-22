@@ -90,8 +90,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabDocChecker = new TabCheckDoc(prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
-	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
-								ScCore->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
+	tabPDF = new TabPDFOptions( prefsWidgets, doc->pdfOptions(), PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
+								ScCore->PDFXProfiles, doc->UsedFonts, doc->pdfOptions().PresentVals,
 								docUnitIndex, doc->pageHeight, doc->pageWidth, doc );
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
 
@@ -152,8 +152,8 @@ void ReformDoc::restoreDefaults()
 	tabTools->restoreDefaults(&currDoc->itemToolPrefs, &currDoc->opToolPrefs, docUnitIndex);
 	tabFonts->restoreDefaults();
 	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
-	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
-							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
+	tabPDF->restoreDefaults(currDoc->pdfOptions(), PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
+							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->pdfOptions().PresentVals,
 							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, currDoc, false);
 	if (ScCore->haveCMS())
 		tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
@@ -436,11 +436,11 @@ void ReformDoc::updateDocumentSettings()
 									&currDoc->itemToolPrefs.polyUseFactor,
 									&currDoc->itemToolPrefs.polyRotation,
 									&currDoc->itemToolPrefs.polyCurvature);
-	currDoc->AutoSave = tabPage->GroupAS->isChecked();
-	currDoc->AutoSaveTime = tabPage->ASTime->value() * 60 * 1000;
+	currDoc->setAutoSave(tabPage->GroupAS->isChecked());
+	currDoc->setAutoSaveTime(tabPage->ASTime->value() * 60 * 1000);
 	currDoc->autoSaveTimer->stop();
-	if (currDoc->AutoSave)
-		currDoc->autoSaveTimer->start(currDoc->AutoSaveTime);
+	if (currDoc->autoSave())
+		currDoc->autoSaveTimer->start(currDoc->autoSaveTime());
 
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
@@ -486,11 +486,11 @@ void ReformDoc::updateDocumentSettings()
 			else if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				currDoc->HasCMS = true;
-				currDoc->PDF_Options.SComp = currDoc->CMSSettings.ComponentsInput2;
-				currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultSolidColorRGBProfile;
-				currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
-				currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
-				currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentColors;
+				currDoc->pdfOptions().SComp = currDoc->CMSSettings.ComponentsInput2;
+				currDoc->pdfOptions().SolidProf = currDoc->CMSSettings.DefaultSolidColorRGBProfile;
+				currDoc->pdfOptions().ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
+				currDoc->pdfOptions().PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
+				currDoc->pdfOptions().Intent = currDoc->CMSSettings.DefaultIntentColors;
 				updCol = true;
 			}
 			else
@@ -533,35 +533,35 @@ void ReformDoc::updateDocumentSettings()
 	for (it3a = uf.begin(); it3a != it3aend; ++it3a)
 		currDoc->AddFont(*it3a);
 
-	currDoc->PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
-	currDoc->PDF_Options.Compress = tabPDF->Compression->isChecked();
-	currDoc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression) tabPDF->CMethod->currentIndex();
-	currDoc->PDF_Options.Quality = tabPDF->CQuality->currentIndex();
-	currDoc->PDF_Options.embedPDF = tabPDF->EmbedPDF->isChecked();
-	currDoc->PDF_Options.Resolution = tabPDF->Resolution->value();
-	currDoc->PDF_Options.RecalcPic = tabPDF->DSColor->isChecked();
-	currDoc->PDF_Options.PicRes = tabPDF->ValC->value();
-	currDoc->PDF_Options.Bookmarks = tabPDF->CheckBM->isChecked();
-	currDoc->PDF_Options.Binding = tabPDF->ComboBind->currentIndex();
-	currDoc->PDF_Options.MirrorH = tabPDF->MirrorH->isChecked();
-	currDoc->PDF_Options.MirrorV = tabPDF->MirrorV->isChecked();
-	currDoc->PDF_Options.RotateDeg = tabPDF->RotateDeg->currentIndex() * 90;
-	currDoc->PDF_Options.Articles = tabPDF->Article->isChecked();
-	currDoc->PDF_Options.Encrypt = tabPDF->Encry->isChecked();
-	currDoc->PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
-	currDoc->PDF_Options.useLayers = tabPDF->useLayers->isChecked();
-	currDoc->PDF_Options.UseSpotColors = !tabPDF->useSpot->isChecked();
-	currDoc->PDF_Options.doMultiFile = false;
-	currDoc->PDF_Options.bleeds.Bottom = tabPDF->BleedBottom->value() / currDoc->unitRatio();
-	currDoc->PDF_Options.bleeds.Top = tabPDF->BleedTop->value() / currDoc->unitRatio();
-	currDoc->PDF_Options.bleeds.Left = tabPDF->BleedLeft->value() / currDoc->unitRatio();
-	currDoc->PDF_Options.bleeds.Right = tabPDF->BleedRight->value() / currDoc->unitRatio();
-	currDoc->PDF_Options.doClip = tabPDF->ClipMarg->isChecked();
+	currDoc->pdfOptions().Thumbnails = tabPDF->CheckBox1->isChecked();
+	currDoc->pdfOptions().Compress = tabPDF->Compression->isChecked();
+	currDoc->pdfOptions().CompressMethod = (PDFOptions::PDFCompression) tabPDF->CMethod->currentIndex();
+	currDoc->pdfOptions().Quality = tabPDF->CQuality->currentIndex();
+	currDoc->pdfOptions().embedPDF = tabPDF->EmbedPDF->isChecked();
+	currDoc->pdfOptions().Resolution = tabPDF->Resolution->value();
+	currDoc->pdfOptions().RecalcPic = tabPDF->DSColor->isChecked();
+	currDoc->pdfOptions().PicRes = tabPDF->ValC->value();
+	currDoc->pdfOptions().Bookmarks = tabPDF->CheckBM->isChecked();
+	currDoc->pdfOptions().Binding = tabPDF->ComboBind->currentIndex();
+	currDoc->pdfOptions().MirrorH = tabPDF->MirrorH->isChecked();
+	currDoc->pdfOptions().MirrorV = tabPDF->MirrorV->isChecked();
+	currDoc->pdfOptions().RotateDeg = tabPDF->RotateDeg->currentIndex() * 90;
+	currDoc->pdfOptions().Articles = tabPDF->Article->isChecked();
+	currDoc->pdfOptions().Encrypt = tabPDF->Encry->isChecked();
+	currDoc->pdfOptions().UseLPI = tabPDF->UseLPI->isChecked();
+	currDoc->pdfOptions().useLayers = tabPDF->useLayers->isChecked();
+	currDoc->pdfOptions().UseSpotColors = !tabPDF->useSpot->isChecked();
+	currDoc->pdfOptions().doMultiFile = false;
+	currDoc->pdfOptions().bleeds.Bottom = tabPDF->BleedBottom->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().bleeds.Top = tabPDF->BleedTop->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().bleeds.Left = tabPDF->BleedLeft->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().bleeds.Right = tabPDF->BleedRight->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().doClip = tabPDF->ClipMarg->isChecked();
 	/* DISABLED CR 2006-12-07 Work around #2964
-	currDoc->PDF_Options.displayBookmarks = tabPDF->useBookmarks->isChecked();
-	currDoc->PDF_Options.displayFullscreen = tabPDF->useFullScreen->isChecked();
-	currDoc->PDF_Options.displayLayers = tabPDF->useLayers2->isChecked();
-	currDoc->PDF_Options.displayThumbs = tabPDF->useThumbnails->isChecked();
+	currDoc->pdfOptions().displayBookmarks = tabPDF->useBookmarks->isChecked();
+	currDoc->pdfOptions().displayFullscreen = tabPDF->useFullScreen->isChecked();
+	currDoc->pdfOptions().displayLayers = tabPDF->useLayers2->isChecked();
+	currDoc->pdfOptions().displayThumbs = tabPDF->useThumbnails->isChecked();
 	int pgl = PDFOptions::SinglePage;
 	if (tabPDF->singlePage->isChecked())
 		pgl = PDFOptions::SinglePage;
@@ -571,9 +571,9 @@ void ReformDoc::updateDocumentSettings()
 		pgl = PDFOptions::TwoColumnLeft;
 	else if (tabPDF->doublePageRight->isChecked())
 		pgl = PDFOptions::TwoColumnRight;
-	currDoc->PDF_Options.PageLayout = pgl;
+	currDoc->pdfOptions().PageLayout = pgl;
 	*/
-	currDoc->PDF_Options.openAction = "";
+	currDoc->pdfOptions().openAction = "";
 	if (tabPDF->Encry->isChecked())
 	{
 		int Perm = -64;
@@ -587,48 +587,48 @@ void ReformDoc::updateDocumentSettings()
 			Perm += 16;
 		if (tabPDF->AddSec->isChecked())
 			Perm += 32;
-		currDoc->PDF_Options.Permissions = Perm;
-		currDoc->PDF_Options.PassOwner = tabPDF->PassOwner->text();
-		currDoc->PDF_Options.PassUser = tabPDF->PassUser->text();
+		currDoc->pdfOptions().Permissions = Perm;
+		currDoc->pdfOptions().PassOwner = tabPDF->PassOwner->text();
+		currDoc->pdfOptions().PassUser = tabPDF->PassUser->text();
 	}
 	if (tabPDF->PDFVersionCombo->currentIndex() == 0)
-		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_13;
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_13;
 	if (tabPDF->PDFVersionCombo->currentIndex() == 1)
-		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_14;
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_14;
 	if (tabPDF->PDFVersionCombo->currentIndex() == 2)
-		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_15;
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_15;
 	if (tabPDF->PDFVersionCombo->currentIndex() == 3)
-		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_X3;
 	if (tabPDF->OutCombo->currentIndex() == 0)
 	{
-		currDoc->PDF_Options.isGrayscale = false;
-		currDoc->PDF_Options.UseRGB = true;
-		currDoc->PDF_Options.UseProfiles = false;
-		currDoc->PDF_Options.UseProfiles2 = false;
+		currDoc->pdfOptions().isGrayscale = false;
+		currDoc->pdfOptions().UseRGB = true;
+		currDoc->pdfOptions().UseProfiles = false;
+		currDoc->pdfOptions().UseProfiles2 = false;
 	}
 	else
 	{
 		if (tabPDF->OutCombo->currentIndex() == 3)
 		{
-			currDoc->PDF_Options.isGrayscale = true;
-			currDoc->PDF_Options.UseRGB = false;
-			currDoc->PDF_Options.UseProfiles = false;
-			currDoc->PDF_Options.UseProfiles2 = false;
+			currDoc->pdfOptions().isGrayscale = true;
+			currDoc->pdfOptions().UseRGB = false;
+			currDoc->pdfOptions().UseProfiles = false;
+			currDoc->pdfOptions().UseProfiles2 = false;
 		}
 		else
 		{
-			currDoc->PDF_Options.isGrayscale = false;
-			currDoc->PDF_Options.UseRGB = false;
+			currDoc->pdfOptions().isGrayscale = false;
+			currDoc->pdfOptions().UseRGB = false;
 			if (currDoc->HasCMS)
 			{
-				currDoc->PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
-				currDoc->PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
-				currDoc->PDF_Options.Intent = tabPDF->IntendS->currentIndex();
-				currDoc->PDF_Options.Intent2 = tabPDF->IntendI->currentIndex();
-				currDoc->PDF_Options.EmbeddedI = tabPDF->NoEmbedded->isChecked();
-				currDoc->PDF_Options.SolidProf = tabPDF->SolidPr->currentText();
-				currDoc->PDF_Options.ImageProf = tabPDF->ImageP->currentText();
-				currDoc->PDF_Options.PrintProf = tabPDF->PrintProfC->currentText();
+				currDoc->pdfOptions().UseProfiles = tabPDF->EmbedProfs->isChecked();
+				currDoc->pdfOptions().UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
+				currDoc->pdfOptions().Intent = tabPDF->IntendS->currentIndex();
+				currDoc->pdfOptions().Intent2 = tabPDF->IntendI->currentIndex();
+				currDoc->pdfOptions().EmbeddedI = tabPDF->NoEmbedded->isChecked();
+				currDoc->pdfOptions().SolidProf = tabPDF->SolidPr->currentText();
+				currDoc->pdfOptions().ImageProf = tabPDF->ImageP->currentText();
+				currDoc->pdfOptions().PrintProf = tabPDF->PrintProfC->currentText();
 			}
 		}
 	}

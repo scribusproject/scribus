@@ -3714,19 +3714,19 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			prefsManager->initDefaultCheckerPrefs(&doc->checkerProfiles);
 			doc->curCheckProfile = CommonStrings::PostScript;
 		}
-		if (doc->PDF_Options.LPISettings.count() == 0)
+		if (doc->pdfOptions().LPISettings.count() == 0)
 		{
 			struct LPIData lpo;
 			lpo.Frequency = 133;
 			lpo.SpotFunc = 3;
 			lpo.Angle = 105;
-			doc->PDF_Options.LPISettings.insert("Cyan", lpo);
+			doc->pdfOptions().LPISettings.insert("Cyan", lpo);
 			lpo.Angle = 75;
-			doc->PDF_Options.LPISettings.insert("Magenta", lpo);
+			doc->pdfOptions().LPISettings.insert("Magenta", lpo);
 			lpo.Angle = 90;
-			doc->PDF_Options.LPISettings.insert("Yellow", lpo);
+			doc->pdfOptions().LPISettings.insert("Yellow", lpo);
 			lpo.Angle = 45;
-			doc->PDF_Options.LPISettings.insert("Black", lpo);
+			doc->pdfOptions().LPISettings.insert("Black", lpo);
 		}
 
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
@@ -3779,26 +3779,26 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
 				doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 			}
-			if (!ScCore->PrinterProfiles.contains(doc->PDF_Options.PrintProf))
+			if (!ScCore->PrinterProfiles.contains(doc->pdfOptions().PrintProf))
 			{
 				cmsWarning = true;
-				missing.append(doc->PDF_Options.PrintProf);
+				missing.append(doc->pdfOptions().PrintProf);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
-				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
+				doc->pdfOptions().PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 			}
-			if (!ScCore->InputProfiles.contains(doc->PDF_Options.ImageProf))
+			if (!ScCore->InputProfiles.contains(doc->pdfOptions().ImageProf))
 			{
 				cmsWarning = true;
-				missing.append(doc->PDF_Options.ImageProf);
+				missing.append(doc->pdfOptions().ImageProf);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
-				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultImageRGBProfile;
+				doc->pdfOptions().ImageProf = doc->CMSSettings.DefaultImageRGBProfile;
 			}
-			if (!ScCore->InputProfiles.contains(doc->PDF_Options.SolidProf))
+			if (!ScCore->InputProfiles.contains(doc->pdfOptions().SolidProf))
 			{
 				cmsWarning = true;
-				missing.append(doc->PDF_Options.SolidProf);
+				missing.append(doc->pdfOptions().SolidProf);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
-				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
+				doc->pdfOptions().SolidProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			}
 			if (cmsWarning)
 			{
@@ -3817,7 +3817,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 			{
 				doc->HasCMS = true;
-				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+				doc->pdfOptions().SComp = doc->CMSSettings.ComponentsInput2;
 			}
 			else
 			{
@@ -3948,8 +3948,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		connect(undoManager, SIGNAL(undoRedoDone()), doc, SLOT(undoRedoDone()));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		doc->connectDocSignals();
-		if (doc->AutoSave)
-			doc->autoSaveTimer->start(doc->AutoSaveTime);
+		if (doc->autoSave())
+			doc->autoSaveTimer->start(doc->autoSaveTime());
 // 		scrActions["fileSave"]->setEnabled(false);
 		doc->NrItems = bookmarkPalette->BView->NrItems;
 		doc->First = bookmarkPalette->BView->First;
@@ -4303,7 +4303,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 			else if (!ret)
 				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg( QDir::toNativeSeparators(fn) ), CommonStrings::tr_OK);
 			else
-				doc->PDF_Options.fileName = ""; // #1482 reset the pdf file name
+				doc->pdfOptions().fileName = ""; // #1482 reset the pdf file name
 		}
 	}
 	mainWindowStatusLabel->setText( tr("Ready"));
@@ -8007,35 +8007,35 @@ void ScribusMainWindow::doSaveAsPDF()
 // reenabling the following line fixes Bug #7630, not sure why this line was commented out.
 // 	doc->reorganiseFonts();
 	QMap<QString, int> ReallyUsed = doc->reorganiseFonts(); //doc->UsedFonts;
-	if (doc->PDF_Options.EmbedList.count() != 0)
+	if (doc->pdfOptions().EmbedList.count() != 0)
 	{
 		QList<QString> tmpEm;
 		QList<QString>::Iterator itef;
-		for (itef = doc->PDF_Options.EmbedList.begin(); itef != doc->PDF_Options.EmbedList.end(); ++itef)
+		for (itef = doc->pdfOptions().EmbedList.begin(); itef != doc->pdfOptions().EmbedList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
 				tmpEm.append((*itef));
 		}
-		doc->PDF_Options.EmbedList = tmpEm;
+		doc->pdfOptions().EmbedList = tmpEm;
 	}
-	if (doc->PDF_Options.SubsetList.count() != 0)
+	if (doc->pdfOptions().SubsetList.count() != 0)
 	{
 		QList<QString> tmpEm;
 		QList<QString>::Iterator itef;
-		for (itef = doc->PDF_Options.SubsetList.begin(); itef != doc->PDF_Options.SubsetList.end(); ++itef)
+		for (itef = doc->pdfOptions().SubsetList.begin(); itef != doc->pdfOptions().SubsetList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
 				tmpEm.append((*itef));
 		}
-		doc->PDF_Options.SubsetList = tmpEm;
+		doc->pdfOptions().SubsetList = tmpEm;
 	}
-	MarginStruct optBleeds = doc->PDF_Options.bleeds;
-	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.fontPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
+	MarginStruct optBleeds(doc->pdfOptions().bleeds);
+	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->pdfOptions(), doc->pdfOptions().PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.fontPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
 	if (dia.exec())
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		dia.updateDocOptions();
-		doc->PDF_Options.firstUse = false;
+		doc->pdfOptions().firstUse = false;
 		ReOrderText(doc, view);
 		QString pageString(dia.getPagesString());
 		std::vector<int> pageNs;
@@ -8043,13 +8043,13 @@ void ScribusMainWindow::doSaveAsPDF()
 		QMap<int,QPixmap> thumbs;
 		int components=dia.colorSpaceComponents();
 		QString nam(dia.cmsDescriptor());
-		QString fileName = doc->PDF_Options.fileName;
+		QString fileName = doc->pdfOptions().fileName;
 		QString errorMsg;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
-		if (doc->PDF_Options.useDocBleeds)
-			doc->PDF_Options.bleeds = doc->bleeds;
+		if (doc->pdfOptions().useDocBleeds)
+			doc->pdfOptions().bleeds = doc->bleeds;
 
-		if (doc->PDF_Options.doMultiFile)
+		if (doc->pdfOptions().doMultiFile)
 		{
 			bool cancelled = false;
 			QFileInfo fi(fileName);
@@ -8065,14 +8065,14 @@ void ScribusMainWindow::doSaveAsPDF()
 				pageNs2.push_back(pageNs[aa]);
 				pageNumbersSize = pageNs2.size();
 				QPixmap pm(10,10);
-				if (doc->PDF_Options.Thumbnails)
+				if (doc->pdfOptions().Thumbnails)
 					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
 				thumbs.insert(1, pm);
 				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.fileName);
+					QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
 					if (!errorMsg.isEmpty())
 						message = QString("%1\n%2").arg(message).arg(errorMsg);
 					QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
@@ -8087,21 +8087,21 @@ void ScribusMainWindow::doSaveAsPDF()
 			for (uint ap = 0; ap < pageNumbersSize; ++ap)
 			{
 				QPixmap pm(10,10);
-				if (doc->PDF_Options.Thumbnails)
+				if (doc->pdfOptions().Thumbnails)
 					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[ap]-1, 100));
 				thumbs.insert(pageNs[ap], pm);
 			}
 			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs, errorMsg))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.fileName);
+				QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
 				if (!errorMsg.isEmpty())
 					message = QString("%1\n%2").arg(message).arg(errorMsg);
 				QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
 			}
 		}
-		if (doc->PDF_Options.useDocBleeds)
-			doc->PDF_Options.bleeds = optBleeds;
+		if (doc->pdfOptions().useDocBleeds)
+			doc->pdfOptions().bleeds = optBleeds;
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 }

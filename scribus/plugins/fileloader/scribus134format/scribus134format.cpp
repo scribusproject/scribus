@@ -628,8 +628,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 
 	// start auto save timer if needed
-	if (m_Doc->AutoSave  && ScCore->usingGUI())
-		m_Doc->autoSaveTimer->start(m_Doc->AutoSaveTime);
+	if (m_Doc->autoSave()  && ScCore->usingGUI())
+		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
 	
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(reader.characterOffset());
@@ -765,8 +765,8 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->SnapGuides   = attrs.valueAsBool("SnapToGuides", false);
 	m_Doc->useRaster    = attrs.valueAsBool("SnapToGrid", false);
 	
-	m_Doc->AutoSave       = attrs.valueAsBool("AutoSave", false);
-	m_Doc->AutoSaveTime   = attrs.valueAsInt("AutoSaveTime", 600000);
+	m_Doc->setAutoSave(attrs.valueAsBool("AutoSave", false));
+	m_Doc->setAutoSaveTime(attrs.valueAsInt("AutoSaveTime", 600000));
 
 	double leftScratch;
 	// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
@@ -1355,64 +1355,64 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 
-	doc->PDF_Options.firstUse   = attrs.valueAsBool("firstUse", true);
-	doc->PDF_Options.Articles   = attrs.valueAsBool("Articles");
-	doc->PDF_Options.Thumbnails = attrs.valueAsBool("Thumbnails");
-	doc->PDF_Options.Compress   = attrs.valueAsBool("Compress");
-	doc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression)attrs.valueAsInt("CMethod", 0);
-	doc->PDF_Options.Quality    = attrs.valueAsInt("Quality", 0);
-	doc->PDF_Options.RecalcPic  = attrs.valueAsBool("RecalcPic");
-	doc->PDF_Options.Bookmarks  = attrs.valueAsBool("Bookmarks");
-	doc->PDF_Options.MirrorH    = attrs.valueAsBool("MirrorH", false);
-	doc->PDF_Options.MirrorV    = attrs.valueAsBool("MirrorV", false);
-	doc->PDF_Options.RotateDeg  = attrs.valueAsInt("RotateDeg", 0);
-	doc->PDF_Options.doClip     = attrs.valueAsBool("Clip", false);
-	doc->PDF_Options.PresentMode = attrs.valueAsBool("PresentMode");
-	doc->PDF_Options.PicRes     = attrs.valueAsInt("PicRes");
+	doc->pdfOptions().firstUse   = attrs.valueAsBool("firstUse", true);
+	doc->pdfOptions().Articles   = attrs.valueAsBool("Articles");
+	doc->pdfOptions().Thumbnails = attrs.valueAsBool("Thumbnails");
+	doc->pdfOptions().Compress   = attrs.valueAsBool("Compress");
+	doc->pdfOptions().CompressMethod = (PDFOptions::PDFCompression)attrs.valueAsInt("CMethod", 0);
+	doc->pdfOptions().Quality    = attrs.valueAsInt("Quality", 0);
+	doc->pdfOptions().RecalcPic  = attrs.valueAsBool("RecalcPic");
+	doc->pdfOptions().Bookmarks  = attrs.valueAsBool("Bookmarks");
+	doc->pdfOptions().MirrorH    = attrs.valueAsBool("MirrorH", false);
+	doc->pdfOptions().MirrorV    = attrs.valueAsBool("MirrorV", false);
+	doc->pdfOptions().RotateDeg  = attrs.valueAsInt("RotateDeg", 0);
+	doc->pdfOptions().doClip     = attrs.valueAsBool("Clip", false);
+	doc->pdfOptions().PresentMode = attrs.valueAsBool("PresentMode");
+	doc->pdfOptions().PicRes     = attrs.valueAsInt("PicRes");
 	// Fixme: check input pdf version
-	doc->PDF_Options.Version    = (PDFOptions::PDFVersion) attrs.valueAsInt("Version");
-	doc->PDF_Options.Resolution = attrs.valueAsInt("Resolution");
-	doc->PDF_Options.Binding    = attrs.valueAsInt("Binding");
-	doc->PDF_Options.fileName   = "";
-	doc->PDF_Options.isGrayscale   = attrs.valueAsBool("Grayscale", false);
-	doc->PDF_Options.UseRGB        = attrs.valueAsBool("RGBMode", false);
-	doc->PDF_Options.UseProfiles   = attrs.valueAsBool("UseProfiles", false);
-	doc->PDF_Options.UseProfiles2  = attrs.valueAsBool("UseProfiles2", false);
-	doc->PDF_Options.Intent        = attrs.valueAsInt("Intent", 1);
-	doc->PDF_Options.Intent2       = attrs.valueAsInt("Intent2", 1);
-	doc->PDF_Options.SolidProf     = attrs.valueAsString("SolidP", "");
-	doc->PDF_Options.ImageProf     = attrs.valueAsString("ImageP", "");
-	doc->PDF_Options.PrintProf     = attrs.valueAsString("PrintP", "");
-	doc->PDF_Options.Info          = attrs.valueAsString("InfoString", "");
-	doc->PDF_Options.bleeds.Top    = attrs.valueAsDouble("BTop", 0.0);
-	doc->PDF_Options.bleeds.Left   = attrs.valueAsDouble("BLeft", 0.0);
-	doc->PDF_Options.bleeds.Right  = attrs.valueAsDouble("BRight", 0.0);
-	doc->PDF_Options.bleeds.Bottom = attrs.valueAsDouble("BBottom", 0.0);
-	doc->PDF_Options.useDocBleeds  = attrs.valueAsBool("useDocBleeds", true);
-	doc->PDF_Options.cropMarks     = attrs.valueAsBool("cropMarks", false);
-	doc->PDF_Options.bleedMarks    = attrs.valueAsBool("bleedMarks", false);
-	doc->PDF_Options.registrationMarks = attrs.valueAsBool("registrationMarks", false);
-	doc->PDF_Options.colorMarks    = attrs.valueAsBool("colorMarks", false);
-	doc->PDF_Options.docInfoMarks  = attrs.valueAsBool("docInfoMarks", false);
-	doc->PDF_Options.markOffset    = attrs.valueAsDouble("markOffset", 0.0);
-	doc->PDF_Options.EmbeddedI     = attrs.valueAsBool("ImagePr", false);
-	doc->PDF_Options.PassOwner     = attrs.valueAsString("PassOwner", "");
-	doc->PDF_Options.PassUser      = attrs.valueAsString("PassUser", "");
-	doc->PDF_Options.Permissions   = attrs.valueAsInt("Permissions", -4);
-	doc->PDF_Options.Encrypt       = attrs.valueAsBool("Encrypt", false);
-	doc->PDF_Options.useLayers     = attrs.valueAsBool("UseLayers", false);
-	doc->PDF_Options.UseLPI        = attrs.valueAsBool("UseLpi", false);
-	doc->PDF_Options.UseSpotColors = attrs.valueAsBool("UseSpotColors", true);
-	doc->PDF_Options.doMultiFile   = attrs.valueAsBool("doMultiFile", false);
-	doc->PDF_Options.displayBookmarks =  attrs.valueAsBool("displayBookmarks", false);
-	doc->PDF_Options.displayFullscreen = attrs.valueAsBool("displayFullscreen", false);
-	doc->PDF_Options.displayLayers = attrs.valueAsBool("displayLayers", false);
-	doc->PDF_Options.displayThumbs = attrs.valueAsBool("displayThumbs", false);
-	doc->PDF_Options.hideMenuBar   = attrs.valueAsBool("hideMenuBar", false);
-	doc->PDF_Options.hideToolBar   = attrs.valueAsBool("hideToolBar", false);
-	doc->PDF_Options.fitWindow     = attrs.valueAsBool("fitWindow", false);
-	doc->PDF_Options.PageLayout    = attrs.valueAsInt("PageLayout", 0);
-	doc->PDF_Options.openAction    = attrs.valueAsString("openAction", "");
+	doc->pdfOptions().Version    = (PDFOptions::PDFVersion) attrs.valueAsInt("Version");
+	doc->pdfOptions().Resolution = attrs.valueAsInt("Resolution");
+	doc->pdfOptions().Binding    = attrs.valueAsInt("Binding");
+	doc->pdfOptions().fileName   = "";
+	doc->pdfOptions().isGrayscale   = attrs.valueAsBool("Grayscale", false);
+	doc->pdfOptions().UseRGB        = attrs.valueAsBool("RGBMode", false);
+	doc->pdfOptions().UseProfiles   = attrs.valueAsBool("UseProfiles", false);
+	doc->pdfOptions().UseProfiles2  = attrs.valueAsBool("UseProfiles2", false);
+	doc->pdfOptions().Intent        = attrs.valueAsInt("Intent", 1);
+	doc->pdfOptions().Intent2       = attrs.valueAsInt("Intent2", 1);
+	doc->pdfOptions().SolidProf     = attrs.valueAsString("SolidP", "");
+	doc->pdfOptions().ImageProf     = attrs.valueAsString("ImageP", "");
+	doc->pdfOptions().PrintProf     = attrs.valueAsString("PrintP", "");
+	doc->pdfOptions().Info          = attrs.valueAsString("InfoString", "");
+	doc->pdfOptions().bleeds.Top    = attrs.valueAsDouble("BTop", 0.0);
+	doc->pdfOptions().bleeds.Left   = attrs.valueAsDouble("BLeft", 0.0);
+	doc->pdfOptions().bleeds.Right  = attrs.valueAsDouble("BRight", 0.0);
+	doc->pdfOptions().bleeds.Bottom = attrs.valueAsDouble("BBottom", 0.0);
+	doc->pdfOptions().useDocBleeds  = attrs.valueAsBool("useDocBleeds", true);
+	doc->pdfOptions().cropMarks     = attrs.valueAsBool("cropMarks", false);
+	doc->pdfOptions().bleedMarks    = attrs.valueAsBool("bleedMarks", false);
+	doc->pdfOptions().registrationMarks = attrs.valueAsBool("registrationMarks", false);
+	doc->pdfOptions().colorMarks    = attrs.valueAsBool("colorMarks", false);
+	doc->pdfOptions().docInfoMarks  = attrs.valueAsBool("docInfoMarks", false);
+	doc->pdfOptions().markOffset    = attrs.valueAsDouble("markOffset", 0.0);
+	doc->pdfOptions().EmbeddedI     = attrs.valueAsBool("ImagePr", false);
+	doc->pdfOptions().PassOwner     = attrs.valueAsString("PassOwner", "");
+	doc->pdfOptions().PassUser      = attrs.valueAsString("PassUser", "");
+	doc->pdfOptions().Permissions   = attrs.valueAsInt("Permissions", -4);
+	doc->pdfOptions().Encrypt       = attrs.valueAsBool("Encrypt", false);
+	doc->pdfOptions().useLayers     = attrs.valueAsBool("UseLayers", false);
+	doc->pdfOptions().UseLPI        = attrs.valueAsBool("UseLpi", false);
+	doc->pdfOptions().UseSpotColors = attrs.valueAsBool("UseSpotColors", true);
+	doc->pdfOptions().doMultiFile   = attrs.valueAsBool("doMultiFile", false);
+	doc->pdfOptions().displayBookmarks =  attrs.valueAsBool("displayBookmarks", false);
+	doc->pdfOptions().displayFullscreen = attrs.valueAsBool("displayFullscreen", false);
+	doc->pdfOptions().displayLayers = attrs.valueAsBool("displayLayers", false);
+	doc->pdfOptions().displayThumbs = attrs.valueAsBool("displayThumbs", false);
+	doc->pdfOptions().hideMenuBar   = attrs.valueAsBool("hideMenuBar", false);
+	doc->pdfOptions().hideToolBar   = attrs.valueAsBool("hideToolBar", false);
+	doc->pdfOptions().fitWindow     = attrs.valueAsBool("fitWindow", false);
+	doc->pdfOptions().PageLayout    = attrs.valueAsInt("PageLayout", 0);
+	doc->pdfOptions().openAction    = attrs.valueAsString("openAction", "");
 
 	QStringRef tagName = reader.name();
 	while(!reader.atEnd() && !reader.hasError())
@@ -1430,19 +1430,19 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			lpo.Angle     = attrs.valueAsInt("Angle");
 			lpo.Frequency = attrs.valueAsInt("Frequency");
 			lpo.SpotFunc  = attrs.valueAsInt("SpotFunction");
-			doc->PDF_Options.LPISettings[attrs.valueAsString("Color")] = lpo;
+			doc->pdfOptions().LPISettings[attrs.valueAsString("Color")] = lpo;
 		}
 		if(tName == "Fonts")
 		{
 			QString fname = attrs.valueAsString("Name");
-			if (!doc->PDF_Options.EmbedList.contains(fname))
-				doc->PDF_Options.EmbedList.append(fname);
+			if (!doc->pdfOptions().EmbedList.contains(fname))
+				doc->pdfOptions().EmbedList.append(fname);
 		}
 		if(tName == "Subset")
 		{
 			QString sname = attrs.valueAsString("Name");
-			if (!doc->PDF_Options.SubsetList.contains(sname))
-				doc->PDF_Options.SubsetList.append(sname);
+			if (!doc->pdfOptions().SubsetList.contains(sname))
+				doc->pdfOptions().SubsetList.append(sname);
 		}
 		if(tName == "Effekte")
 		{
@@ -1453,7 +1453,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			ef.Dm = attrs.valueAsInt("Dm");
 			ef.M  = attrs.valueAsInt("M");
 			ef.Di = attrs.valueAsInt("Di");
-			doc->PDF_Options.PresentVals.append(ef);
+			doc->pdfOptions().PresentVals.append(ef);
 		}
 	}
 	return !reader.hasError();

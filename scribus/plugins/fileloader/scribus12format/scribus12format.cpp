@@ -635,54 +635,54 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			}
 			if(pg.tagName()=="PDF")
 			{
-				m_Doc->PDF_Options.Articles = static_cast<bool>(pg.attribute("Articles").toInt());
-				m_Doc->PDF_Options.Thumbnails = static_cast<bool>(pg.attribute("Thumbnails").toInt());
-				m_Doc->PDF_Options.Compress = static_cast<bool>(pg.attribute("Compress").toInt());
-				m_Doc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression) pg.attribute("CMethod", "0").toInt();
-				m_Doc->PDF_Options.Quality = pg.attribute("Quality", "0").toInt();
-				m_Doc->PDF_Options.RecalcPic = static_cast<bool>(pg.attribute("RecalcPic").toInt());
-				m_Doc->PDF_Options.Bookmarks = static_cast<bool>(pg.attribute("Bookmarks").toInt());
+				m_Doc->pdfOptions().Articles = static_cast<bool>(pg.attribute("Articles").toInt());
+				m_Doc->pdfOptions().Thumbnails = static_cast<bool>(pg.attribute("Thumbnails").toInt());
+				m_Doc->pdfOptions().Compress = static_cast<bool>(pg.attribute("Compress").toInt());
+				m_Doc->pdfOptions().CompressMethod = (PDFOptions::PDFCompression) pg.attribute("CMethod", "0").toInt();
+				m_Doc->pdfOptions().Quality = pg.attribute("Quality", "0").toInt();
+				m_Doc->pdfOptions().RecalcPic = static_cast<bool>(pg.attribute("RecalcPic").toInt());
+				m_Doc->pdfOptions().Bookmarks = static_cast<bool>(pg.attribute("Bookmarks").toInt());
 				if (pg.hasAttribute("MirrorH"))
-					m_Doc->PDF_Options.MirrorH = static_cast<bool>(pg.attribute("MirrorH").toInt());
+					m_Doc->pdfOptions().MirrorH = static_cast<bool>(pg.attribute("MirrorH").toInt());
 				else
-					m_Doc->PDF_Options.MirrorH = false;
+					m_Doc->pdfOptions().MirrorH = false;
 				if (pg.hasAttribute("MirrorV"))
-					m_Doc->PDF_Options.MirrorV = static_cast<bool>(pg.attribute("MirrorV").toInt());
+					m_Doc->pdfOptions().MirrorV = static_cast<bool>(pg.attribute("MirrorV").toInt());
 				else
-					m_Doc->PDF_Options.MirrorV = false;
+					m_Doc->pdfOptions().MirrorV = false;
 				if (pg.hasAttribute("RotateDeg"))
-					m_Doc->PDF_Options.RotateDeg = pg.attribute("RotateDeg", "0").toInt();
+					m_Doc->pdfOptions().RotateDeg = pg.attribute("RotateDeg", "0").toInt();
 				else
-					m_Doc->PDF_Options.RotateDeg = 0;
-				m_Doc->PDF_Options.PresentMode = static_cast<bool>(pg.attribute("PresentMode").toInt());
-				m_Doc->PDF_Options.PicRes = pg.attribute("PicRes").toInt();
-				m_Doc->PDF_Options.Version = (PDFOptions::PDFVersion)pg.attribute("Version").toInt();
-				m_Doc->PDF_Options.Resolution = pg.attribute("Resolution").toInt();
-				m_Doc->PDF_Options.Binding = pg.attribute("Binding").toInt();
-				m_Doc->PDF_Options.fileName = "";
-				m_Doc->PDF_Options.isGrayscale = false;
-				m_Doc->PDF_Options.UseRGB = static_cast<bool>(pg.attribute("RGBMode", "0").toInt());
-				m_Doc->PDF_Options.UseProfiles = static_cast<bool>(pg.attribute("UseProfiles", "0").toInt());
-				m_Doc->PDF_Options.UseProfiles2 = static_cast<bool>(pg.attribute("UseProfiles2", "0").toInt());
-				m_Doc->PDF_Options.Intent = pg.attribute("Intent", "1").toInt();
-				m_Doc->PDF_Options.Intent2 = pg.attribute("Intent2", "1").toInt();
-				m_Doc->PDF_Options.SolidProf = pg.attribute("SolidP", "");
-				m_Doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
-				m_Doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
-				m_Doc->PDF_Options.Info = pg.attribute("InfoString", "");
-				m_Doc->PDF_Options.bleeds.Top = ScCLocale::toDoubleC(pg.attribute("BTop"), 0.0);
-				m_Doc->PDF_Options.bleeds.Left = ScCLocale::toDoubleC(pg.attribute("BLeft"), 0.0);
-				m_Doc->PDF_Options.bleeds.Right = ScCLocale::toDoubleC(pg.attribute("BRight"), 0.0);
-				m_Doc->PDF_Options.bleeds.Bottom = ScCLocale::toDoubleC(pg.attribute("BBottom"), 0.0);
-				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
-				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
-				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
-				m_Doc->PDF_Options.Permissions = pg.attribute("Permissions", "-4").toInt();
-				m_Doc->PDF_Options.Encrypt = static_cast<bool>(pg.attribute("Encrypt", "0").toInt());
-				m_Doc->PDF_Options.useLayers = static_cast<bool>(pg.attribute("UseLayers", "0").toInt());
-				m_Doc->PDF_Options.UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
-				m_Doc->PDF_Options.UseSpotColors = true;
-				m_Doc->PDF_Options.doMultiFile = false;
+					m_Doc->pdfOptions().RotateDeg = 0;
+				m_Doc->pdfOptions().PresentMode = static_cast<bool>(pg.attribute("PresentMode").toInt());
+				m_Doc->pdfOptions().PicRes = pg.attribute("PicRes").toInt();
+				m_Doc->pdfOptions().Version = (PDFOptions::PDFVersion)pg.attribute("Version").toInt();
+				m_Doc->pdfOptions().Resolution = pg.attribute("Resolution").toInt();
+				m_Doc->pdfOptions().Binding = pg.attribute("Binding").toInt();
+				m_Doc->pdfOptions().fileName = "";
+				m_Doc->pdfOptions().isGrayscale = false;
+				m_Doc->pdfOptions().UseRGB = static_cast<bool>(pg.attribute("RGBMode", "0").toInt());
+				m_Doc->pdfOptions().UseProfiles = static_cast<bool>(pg.attribute("UseProfiles", "0").toInt());
+				m_Doc->pdfOptions().UseProfiles2 = static_cast<bool>(pg.attribute("UseProfiles2", "0").toInt());
+				m_Doc->pdfOptions().Intent = pg.attribute("Intent", "1").toInt();
+				m_Doc->pdfOptions().Intent2 = pg.attribute("Intent2", "1").toInt();
+				m_Doc->pdfOptions().SolidProf = pg.attribute("SolidP", "");
+				m_Doc->pdfOptions().ImageProf = pg.attribute("ImageP", "");
+				m_Doc->pdfOptions().PrintProf = pg.attribute("PrintP", "");
+				m_Doc->pdfOptions().Info = pg.attribute("InfoString", "");
+				m_Doc->pdfOptions().bleeds.Top = ScCLocale::toDoubleC(pg.attribute("BTop"), 0.0);
+				m_Doc->pdfOptions().bleeds.Left = ScCLocale::toDoubleC(pg.attribute("BLeft"), 0.0);
+				m_Doc->pdfOptions().bleeds.Right = ScCLocale::toDoubleC(pg.attribute("BRight"), 0.0);
+				m_Doc->pdfOptions().bleeds.Bottom = ScCLocale::toDoubleC(pg.attribute("BBottom"), 0.0);
+				m_Doc->pdfOptions().EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
+				m_Doc->pdfOptions().PassOwner = pg.attribute("PassOwner", "");
+				m_Doc->pdfOptions().PassUser = pg.attribute("PassUser", "");
+				m_Doc->pdfOptions().Permissions = pg.attribute("Permissions", "-4").toInt();
+				m_Doc->pdfOptions().Encrypt = static_cast<bool>(pg.attribute("Encrypt", "0").toInt());
+				m_Doc->pdfOptions().useLayers = static_cast<bool>(pg.attribute("UseLayers", "0").toInt());
+				m_Doc->pdfOptions().UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
+				m_Doc->pdfOptions().UseSpotColors = true;
+				m_Doc->pdfOptions().doMultiFile = false;
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
 				{
@@ -693,17 +693,17 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 						lpo.Angle = pdfF.attribute("Angle").toInt();
 						lpo.Frequency = pdfF.attribute("Frequency").toInt();
 						lpo.SpotFunc = pdfF.attribute("SpotFunction").toInt();
-						m_Doc->PDF_Options.LPISettings[pdfF.attribute("Color")] = lpo;
+						m_Doc->pdfOptions().LPISettings[pdfF.attribute("Color")] = lpo;
 					}
 					if(pdfF.tagName() == "Fonts")
 					{
-						if (!m_Doc->PDF_Options.EmbedList.contains(pdfF.attribute("Name")))
-							m_Doc->PDF_Options.EmbedList.append(pdfF.attribute("Name"));
+						if (!m_Doc->pdfOptions().EmbedList.contains(pdfF.attribute("Name")))
+							m_Doc->pdfOptions().EmbedList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Subset")
 					{
-						if (!m_Doc->PDF_Options.SubsetList.contains(pdfF.attribute("Name")))
-							m_Doc->PDF_Options.SubsetList.append(pdfF.attribute("Name"));
+						if (!m_Doc->pdfOptions().SubsetList.contains(pdfF.attribute("Name")))
+							m_Doc->pdfOptions().SubsetList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
@@ -714,7 +714,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
     					ef.Dm = pdfF.attribute("Dm").toInt();
     					ef.M = pdfF.attribute("M").toInt();
 		    			ef.Di = pdfF.attribute("Di").toInt();
-						m_Doc->PDF_Options.PresentVals.append(ef);
+						m_Doc->pdfOptions().PresentVals.append(ef);
 					}
 					PFO = PFO.nextSibling();
 				}

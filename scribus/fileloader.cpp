@@ -287,8 +287,8 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->itemToolPrefs.polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
 	currDoc->itemToolPrefs.polyFactorGuiVal = prefsManager->appPrefs.itemToolPrefs.polyFactorGuiVal;
 	currDoc->itemToolPrefs.polyUseFactor = prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
-	currDoc->AutoSave = prefsManager->appPrefs.docSetupPrefs.AutoSave;
-	currDoc->AutoSaveTime = prefsManager->appPrefs.docSetupPrefs.AutoSaveTime;
+	currDoc->setAutoSave(prefsManager->appPrefs.docSetupPrefs.AutoSave);
+	currDoc->setAutoSaveTime(prefsManager->appPrefs.docSetupPrefs.AutoSaveTime);
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
 	//dummyScFaces.clear();
 	bool ret = false;
