@@ -206,7 +206,7 @@ QObject *ScripterImpl::newDocument(
         RAISE("Page creation failed");
         return NULL;
     }
-    ScCore->primaryMainWindow()->doc->pageSets[pagesType].FirstPage = firstPageOrder;
+    ScCore->primaryMainWindow()->doc->setPageSetFirstPage(pagesType, firstPageOrder);
     return activeDocument();
 }
 
