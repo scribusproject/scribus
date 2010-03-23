@@ -170,7 +170,19 @@ public:
 	int autoSaveTime() const  { return docPrefsData.docSetupPrefs.AutoSaveTime; }
 	void setAutoSave(bool b) { docPrefsData.docSetupPrefs.AutoSave=b; }
 	void setAutoSaveTime(int i) { docPrefsData.docSetupPrefs.AutoSaveTime=i; }
+	//FIXME (maybe) :non const, the loaders make a mess here
 	PDFOptions& pdfOptions() { return docPrefsData.pdfPrefs; }
+	ObjAttrVector& itemAttributes() { return docPrefsData.itemAttrPrefs.defaultItemAttributes; }
+	void setItemAttributes(ObjAttrVector& oav) { docPrefsData.itemAttrPrefs.defaultItemAttributes=oav;}
+	void clearItemAttributes() { docPrefsData.itemAttrPrefs.defaultItemAttributes.clear(); }
+	void appendToItemAttributes(const ObjectAttribute& oa) { docPrefsData.itemAttrPrefs.defaultItemAttributes.append(oa); }
+	ToCSetupVector& tocSetups() { return docPrefsData.tocPrefs.defaultToCSetups; }
+	void setTocSetups(ToCSetupVector& tsv) { docPrefsData.tocPrefs.defaultToCSetups=tsv; }
+	void clearTocSetups() { docPrefsData.tocPrefs.defaultToCSetups.clear(); }
+	void appendToTocSetups(const ToCSetup& ts) { docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
+
+	//->Prefs ObjAttrVector docItemAttributes;
+	//->Prefs ToCSetupVector docToCSetups;
 
 	// Add, delete and move pages
 	
@@ -915,7 +927,7 @@ public:
 	/*! \brief Apply grid to an FPoint, from ScribusView */
 	FPoint ApplyGridF(const FPoint& in);
 	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
-	bool hasTOCSetup() { return !docToCSetups.empty(); }
+	bool hasTOCSetup() { return !docPrefsData.tocPrefs.defaultToCSetups.empty(); }
 	//! \brief Get the closest guide to the given point
 	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM);
 	//! \brief Snap an item to the guides
@@ -1144,8 +1156,8 @@ public:
 	QMap<int, errorCodes> docItemErrors;
 	QMap<int, errorCodes> masterItemErrors;
 	//Attributes to be applied to frames
-	ObjAttrVector docItemAttributes;
-	ToCSetupVector docToCSetups;
+	//->Prefs ObjAttrVector docItemAttributes;
+	//->Prefs ToCSetupVector docToCSetups;
 	DocumentSectionMap sections;
 	FPointArray symReturn;
 	FPointArray symNewLine;

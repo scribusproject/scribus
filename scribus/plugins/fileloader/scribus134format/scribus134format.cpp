@@ -1511,7 +1511,7 @@ bool Scribus134Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader)
 {
 	QStringRef tagName = reader.name();
-	doc->docItemAttributes.clear();
+	doc->clearItemAttributes();
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1528,7 +1528,7 @@ bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 			objattr.relationship   = attrs.valueAsString("Relationship");
 			objattr.relationshipto = attrs.valueAsString("RelationshipTo");
 			objattr.autoaddto = attrs.valueAsString("AutoAddTo");
-			doc->docItemAttributes.append(objattr);
+			doc->appendToItemAttributes(objattr);
 		}
 	}
 	return !reader.hasError();
@@ -1537,7 +1537,7 @@ bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader)
 {
 	QStringRef tagName = reader.name();
-	m_Doc->docToCSetups.clear();
+	m_Doc->clearTocSetups();
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1559,7 +1559,7 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 				tocsetup.pageLocation = End;
 			if (numberPlacement == "NotShown")
 				tocsetup.pageLocation = NotShown;
-			doc->docToCSetups.append(tocsetup);
+			doc->appendToTocSetups(tocsetup);
 		}
 	}
 	return !reader.hasError();

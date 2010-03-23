@@ -703,7 +703,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if(pg.tagName()=="DocItemAttributes")
 			{
 				QDomNode DIA = PAGE.firstChild();
-				m_Doc->docItemAttributes.clear();
+				m_Doc->clearItemAttributes();
 				while(!DIA.isNull())
 				{
 					QDomElement itemAttr = DIA.toElement();
@@ -717,7 +717,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						objattr.relationship=itemAttr.attribute("Relationship");
 						objattr.relationshipto=itemAttr.attribute("RelationshipTo");
 						objattr.autoaddto=itemAttr.attribute("AutoAddTo");
-						m_Doc->docItemAttributes.append(objattr);
+						m_Doc->appendToItemAttributes(objattr);
 					}
 					DIA = DIA.nextSibling();
 				}
@@ -725,7 +725,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if(pg.tagName()=="TablesOfContents")
 			{
 				QDomNode TOC = PAGE.firstChild();
-				m_Doc->docToCSetups.clear();
+				m_Doc->clearTocSetups();
 				while(!TOC.isNull())
 				{
 					QDomElement tocElem = TOC.toElement();
@@ -744,7 +744,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 							tocsetup.pageLocation=End;
 						if (numberPlacement=="NotShown")
 							tocsetup.pageLocation=NotShown;
-						m_Doc->docToCSetups.append(tocsetup);
+						m_Doc->appendToTocSetups(tocsetup);
 					}
 					TOC = TOC.nextSibling();
 				}
@@ -1582,7 +1582,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	}
 	dc.appendChild(pdf);
 	QDomElement docItemAttrs = docu.createElement("DocItemAttributes");
-	for(ObjAttrVector::Iterator objAttrIt = m_Doc->docItemAttributes.begin() ; objAttrIt != m_Doc->docItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
 	{
 		QDomElement itemAttr = docu.createElement("ItemAttribute");
 		itemAttr.setAttribute("Name", (*objAttrIt).name);
@@ -1596,7 +1596,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	}
 	dc.appendChild(docItemAttrs);
 	QDomElement tocElem = docu.createElement("TablesOfContents");
-	for(ToCSetupVector::Iterator tocSetupIt = m_Doc->docToCSetups.begin() ; tocSetupIt != m_Doc->docToCSetups.end(); ++tocSetupIt )
+	for(ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
 	{
 		QDomElement tocsetup = docu.createElement("TableOfContents");
 		tocsetup.setAttribute("Name", (*tocSetupIt).name);

@@ -1516,7 +1516,7 @@ bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader)
 {
 	QStringRef tagName = reader.name();
-	doc->docItemAttributes.clear();
+	doc->clearItemAttributes();
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1533,7 +1533,7 @@ bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 			objattr.relationship   = attrs.valueAsString("Relationship");
 			objattr.relationshipto = attrs.valueAsString("RelationshipTo");
 			objattr.autoaddto = attrs.valueAsString("AutoAddTo");
-			doc->docItemAttributes.append(objattr);
+			doc->appendToItemAttributes(objattr);
 		}
 	}
 	return !reader.hasError();
@@ -1542,7 +1542,7 @@ bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader)
 {
 	QStringRef tagName = reader.name();
-	m_Doc->docToCSetups.clear();
+	m_Doc->clearTocSetups();
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1557,14 +1557,14 @@ bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 			tocsetup.frameName    = attrs.valueAsString("FrameName");
 			tocsetup.textStyle    = attrs.valueAsString("Style");
 			tocsetup.listNonPrintingFrames = QVariant(attrs.valueAsString("ListNonPrinting")).toBool();
-			QString numberPlacement = attrs.valueAsString("NumberPlacement");
+			QString numberPlacement(attrs.valueAsString("NumberPlacement"));
 			if (numberPlacement == "Beginning")
 				tocsetup.pageLocation = Beginning;
 			if (numberPlacement == "End")
 				tocsetup.pageLocation = End;
 			if (numberPlacement == "NotShown")
 				tocsetup.pageLocation = NotShown;
-			doc->docToCSetups.append(tocsetup);
+			doc->appendToTocSetups(tocsetup);
 		}
 	}
 	return !reader.hasError();

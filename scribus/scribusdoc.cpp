@@ -249,8 +249,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	docLayerErrors(),
 	docItemErrors(),
 	masterItemErrors(),
-	docItemAttributes(appPrefsData.itemAttrPrefs.defaultItemAttributes),
-	docToCSetups(appPrefsData.tocPrefs.defaultToCSetups),
+	//->Prefs docItemAttributes(appPrefsData.itemAttrPrefs.defaultItemAttributes),
+	//->Prefs docToCSetups(appPrefsData.tocPrefs.defaultToCSetups),
 	// sections
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(0),
@@ -366,8 +366,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	docLayerErrors(),
 	docItemErrors(),
 	masterItemErrors(),
-	docItemAttributes(appPrefsData.itemAttrPrefs.defaultItemAttributes),
-	docToCSetups(appPrefsData.tocPrefs.defaultToCSetups),
+	//->Prefs docItemAttributes(appPrefsData.itemAttrPrefs.defaultItemAttributes),
+	//->Prefs docToCSetups(appPrefsData.tocPrefs.defaultToCSetups),
 	// sections
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(0),
@@ -1612,7 +1612,7 @@ QStringList ScribusDoc::getItemAttributeNames()
 {
 	QStringList nameList;
 
-	for(ObjAttrVector::Iterator it = docItemAttributes.begin(); it!= docItemAttributes.end(); ++it)
+	for(ObjAttrVector::Iterator it = itemAttributes().begin(); it!= itemAttributes().end(); ++it)
 		nameList.append((*it).name);
 	return nameList;
 }

@@ -9289,7 +9289,7 @@ void ScribusMainWindow::objectAttributes()
 		if (pageItem!=NULL)
 		{
 			PageItemAttributes *pageItemAttrs = new PageItemAttributes( this );
-			pageItemAttrs->setup(pageItem->getObjectAttributes(), &doc->docItemAttributes);
+			pageItemAttrs->setup(pageItem->getObjectAttributes(), &doc->itemAttributes());
 			//CB TODO Probably want this non modal in the future
 			if (pageItemAttrs->exec()==QDialog::Accepted)
 				pageItem->setObjectAttributes(pageItemAttrs->getNewAttributes());

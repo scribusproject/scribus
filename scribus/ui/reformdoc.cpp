@@ -97,12 +97,12 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	tabDocItemAttributes = new DocumentItemAttributes(prefsWidgets);
 	docAttributesList=tabDocItemAttributes->getDocAttributesNames();
-	tabDocItemAttributes->setup(&doc->docItemAttributes);
+	tabDocItemAttributes->setup(&doc->itemAttributes());
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDocItemAttributes);
 
 	tabTOCIndexPrefs = new TOCIndexPrefs( prefsWidgets );
 	tabTOCIndexPrefs->setupItemAttrs( docAttributesList );
-	tabTOCIndexPrefs->setup(&(currDoc->docToCSetups), currDoc);
+	tabTOCIndexPrefs->setup(&(currDoc->tocSetups()), currDoc);
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
 
 	tabDocSections = new DocSections(prefsWidgets);
@@ -634,8 +634,8 @@ void ReformDoc::updateDocumentSettings()
 	}
 
 	currDoc->documentInfo = docInfos->getDocInfo();
-	currDoc->docItemAttributes = *(tabDocItemAttributes->getNewAttributes());
-	currDoc->docToCSetups = *(tabTOCIndexPrefs->getNewToCs());
+	currDoc->setItemAttributes(*(tabDocItemAttributes->getNewAttributes()));
+	currDoc->setTocSetups(*(tabTOCIndexPrefs->getNewToCs()));
 	currDoc->sections = tabDocSections->getNewSections();
 
 	uint itemCount=currDoc->Items->count();

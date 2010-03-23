@@ -765,7 +765,7 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 void Scribus150Format::writeDocItemAttributes(ScXmlStreamWriter & docu) 
 {
 	docu.writeStartElement("DocItemAttributes");
-	for(ObjAttrVector::Iterator objAttrIt = m_Doc->docItemAttributes.begin() ; objAttrIt != m_Doc->docItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
 	{
 		docu.writeEmptyElement("ItemAttribute");
 		docu.writeAttribute("Name", (*objAttrIt).name);
@@ -783,7 +783,7 @@ void Scribus150Format::writeDocItemAttributes(ScXmlStreamWriter & docu)
 void Scribus150Format::writeTOC(ScXmlStreamWriter & docu) 
 {
 	docu.writeStartElement("TablesOfContents");
-	for(ToCSetupVector::Iterator tocSetupIt = m_Doc->docToCSetups.begin() ; tocSetupIt != m_Doc->docToCSetups.end(); ++tocSetupIt )
+	for(ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
 	{
 		docu.writeEmptyElement("TableOfContents");
 		docu.writeAttribute("Name", (*tocSetupIt).name);

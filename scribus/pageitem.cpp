@@ -681,7 +681,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
-	for(ObjAttrVector::Iterator objAttrIt = m_Doc->docItemAttributes.begin() ; objAttrIt != m_Doc->docItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
 	{
 		if (((*objAttrIt).autoaddto=="textframes" && m_ItemType==TextFrame) ||
 			((*objAttrIt).autoaddto=="imageframes" && m_ItemType==ImageFrame)
