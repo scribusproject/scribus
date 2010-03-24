@@ -85,7 +85,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_ghostscript.h"
 #ifdef HAVE_OSG
-	#include "prc/exportPRC.h"
+	#include "third_party/prc/exportPRC.h"
 #endif
 
 using namespace std;
