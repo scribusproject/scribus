@@ -1153,6 +1153,10 @@ void PageItem_TextFrame::layout()
 				double realCharHeight = charStyle.font().realCharHeight(chstr[0], 1);
 				double realCharAscent = charStyle.font().realCharAscent(chstr[0], 1);
 				double fontAscent     = charStyle.font().ascent(style.charStyle().fontSize() / 10.0);
+				if (realCharHeight == 0.0)
+					realCharHeight = charStyle.font().height(style.charStyle().fontSize() / 10.0);
+				if (realCharAscent == 0.0)
+					realCharAscent = fontAscent;
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				{
 					chsd = (10 * ((m_Doc->guidesSettings.valueBaselineGrid * (DropLines-1) + fontAscent) / realCharHeight));
@@ -1218,6 +1222,9 @@ void PageItem_TextFrame::layout()
 				// drop caps are wider...
 				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
+					double itemHeight = hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth();
+					if (itemHeight == 0)
+						itemHeight = charStyle.font().height(style.charStyle().fontSize() / 10.0);
 					wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						asce = m_Doc->guidesSettings.valueBaselineGrid * DropLines;
@@ -1229,16 +1236,19 @@ void PageItem_TextFrame::layout()
 							asce = charStyle.font().height(style.charStyle().fontSize() / 10.0) * DropLines;
 					}
 					hl->glyph.scaleH /= hl->glyph.scaleV;
-					hl->glyph.scaleV = (asce / (hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()));
+					hl->glyph.scaleV = (asce / itemHeight);
 					hl->glyph.scaleH *= hl->glyph.scaleV;
 				}
 				else
 				{
+					double realCharHeight = charStyle.font().realCharHeight(chstr[0], charStyle.fontSize() / 10.0);
+					if (realCharHeight == 0)
+						realCharHeight = charStyle.font().height(style.charStyle().fontSize() / 10.0);
 					wide = charStyle.font().realCharWidth(chstr[0], chsd / 10.0);
 					asce = charStyle.font().realCharHeight(chstr[0], chsd / 10.0);
 //					qDebug() QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]);
 					hl->glyph.scaleH /= hl->glyph.scaleV;
-					hl->glyph.scaleV = (asce / charStyle.font().realCharHeight(chstr[0], charStyle.fontSize() / 10.0));
+					hl->glyph.scaleV = (asce / realCharHeight);
 					hl->glyph.scaleH *= hl->glyph.scaleV;
 				}
 				hl->glyph.xadvance = wide;
