@@ -933,6 +933,16 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
+					QByteArray farN;
+					for (int a = 0; a < FarNam.length(); a++)
+					{
+						QChar ch = FarNam.at(a);
+						uint chc = ch.unicode();
+						if (chc > 255)
+							farN.append(chc >> 8);
+						farN.append(chc & 0x00FF);
+					}
+					FarNam = QString::fromUtf8(farN.constData());
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 					cc.setSpotColor(true);
 					if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
@@ -954,6 +964,16 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
+						QByteArray farN;
+						for (int a = 0; a < FarNam.length(); a++)
+						{
+							QChar ch = FarNam.at(a);
+							uint chc = ch.unicode();
+							if (chc > 255)
+								farN.append(chc >> 8);
+							farN.append(chc & 0x00FF);
+						}
+						FarNam = QString::fromUtf8(farN.constData());
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 						cc.setSpotColor(true);
 						if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
@@ -978,6 +998,16 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
+					QByteArray farN;
+					for (int a = 0; a < FarNam.length(); a++)
+					{
+						QChar ch = FarNam.at(a);
+						uint chc = ch.unicode();
+						if (chc > 255)
+							farN.append(chc >> 8);
+						farN.append(chc & 0x00FF);
+					}
+					FarNam = QString::fromUtf8(farN.constData());
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
 					if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
 						CustColors.insert(FarNam, cc);
@@ -998,6 +1028,16 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
+						QByteArray farN;
+						for (int a = 0; a < FarNam.length(); a++)
+						{
+							QChar ch = FarNam.at(a);
+							uint chc = ch.unicode();
+							if (chc > 255)
+								farN.append(chc >> 8);
+							farN.append(chc & 0x00FF);
+						}
+						FarNam = QString::fromUtf8(farN.constData());
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
 						if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
 							CustColors.insert(FarNam, cc);
@@ -1021,6 +1061,16 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 							int en = tmp.lastIndexOf(")");
 							FarNam = tmp.mid(an+1, en-an-1);
 							FarNam = FarNam.simplified();
+							QByteArray farN;
+							for (int a = 0; a < FarNam.length(); a++)
+							{
+								QChar ch = FarNam.at(a);
+								uint chc = ch.unicode();
+								if (chc > 255)
+									farN.append(chc >> 8);
+								farN.append(chc & 0x00FF);
+							}
+							FarNam = QString::fromUtf8(farN.constData());
 						}
 						tmp = readLinefromDataStream(ts);
 						if (tmp.endsWith("Pc"))
@@ -1032,6 +1082,16 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 								int en = tmp.indexOf(")");
 								FarNam = tmp.mid(0, en);
 								FarNam = FarNam.simplified();
+								QByteArray farN;
+								for (int a = 0; a < FarNam.length(); a++)
+								{
+									QChar ch = FarNam.at(a);
+									uint chc = ch.unicode();
+									if (chc > 255)
+										farN.append(chc >> 8);
+									farN.append(chc & 0x00FF);
+								}
+								FarNam = QString::fromUtf8(farN.constData());
 							}
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 							cc.setSpotColor(true);
