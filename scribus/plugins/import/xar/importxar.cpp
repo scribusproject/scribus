@@ -2708,6 +2708,7 @@ void XarPlug::createBrushItem(QDataStream &ts)
 	gg.isBrush = true;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
+	neu->isGroupControl = true;
 	gg.groupItem = neu;
 	Elements.append(neu);
 	XarStyle *gc = m_gc.top();
@@ -2725,6 +2726,7 @@ void XarPlug::createGroupItem()
 	gg.isBrush = false;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
+	neu->isGroupControl = true;
 	gg.groupItem = neu;
 	Elements.append(neu);
 	XarStyle *gc = m_gc.top();
@@ -2742,6 +2744,7 @@ void XarPlug::createClipItem()
 	gg.isBrush = false;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
+	neu->isGroupControl = true;
 	gg.groupItem = neu;
 	Elements.append(neu);
 	XarStyle *gc = m_gc.top();
