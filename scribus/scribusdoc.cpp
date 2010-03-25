@@ -3900,7 +3900,7 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 		}
 	case PageItem::OSGFrame:
 #ifdef HAVE_OSG
-		z = itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		z = itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, docPrefsData.itemToolPrefs.imageFillColor, CommonStrings::None, true);
 		undoManager->setUndoEnabled(false);
 		Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
