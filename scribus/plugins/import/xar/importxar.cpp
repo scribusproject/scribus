@@ -286,7 +286,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				double gw = maxx - minx;
 				double gh = maxy - miny;
 				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 				PageItem *neu = m_Doc->Items->takeAt(z);
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
@@ -633,7 +633,7 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		data.resize(dataLen);
 		ts.readRawData(data.data(), dataLen);
 		image.loadFromData(data);
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
 		ite->tempImageFile->open();

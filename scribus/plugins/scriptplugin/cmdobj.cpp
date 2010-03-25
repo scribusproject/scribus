@@ -29,8 +29,8 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Rectangle,
 								pageUnitXToDocX(x), pageUnitYToDocY(y),
 								ValueToPoint(w), ValueToPoint(h),
-								ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth,
-								ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor, true);
+								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
 	if (Name != EMPTY_STRING)
 	{
@@ -60,9 +60,9 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 										pageUnitYToDocY(y),
 										ValueToPoint(w),
 										ValueToPoint(h),
-										ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth,
-										ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor,
-										ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor,
+										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor,
 										true);
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
@@ -98,7 +98,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 									pageUnitYToDocY(y),
 									ValueToPoint(w),
 									ValueToPoint(h),
-									1, ScCore->primaryMainWindow()->doc->itemToolPrefs.imageFillColor,
+									1, ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
 									CommonStrings::None, true);
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
@@ -134,8 +134,8 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 								pageUnitYToDocY(y),
 								ValueToPoint(w),
 								ValueToPoint(h),
-								ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth, CommonStrings::None,
-								ScCore->primaryMainWindow()->doc->itemToolPrefs.textColor, true);
+								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, CommonStrings::None,
+								ScCore->primaryMainWindow()->doc->itemToolPrefs().textColor, true);
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
 //		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -175,9 +175,9 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 //	}
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Line, PageItem::Unspecified,
 							   x, y, w, h,
-							   ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth,
-							   ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor,
-							   ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor, true);
+							   ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+							   ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+							   ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(i);
 	it->setRotation(xy2Deg(w-x, h-y));
 	it->setWidthHeight(sqrt(pow(x-w, 2.0) + pow(y-h, 2.0)), 1.0);
@@ -251,7 +251,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor, true);
+	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -335,7 +335,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor, true);
+	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -430,7 +430,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	//int ic = ScCore->primaryMainWindow()->view->PaintPolyLine(x, y, 1, 1,	ScCore->primaryMainWindow()->doc->toolSettings.dWidth, ScCore->primaryMainWindow()->doc->toolSettings.dBrush, ScCore->primaryMainWindow()->doc->toolSettings.dPen);
-	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor, true);
+	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);

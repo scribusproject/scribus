@@ -410,7 +410,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternStrokePath = false;
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
-	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs.shapeLineStyle);
+	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs().shapeLineStyle);
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
 	Select = false;
@@ -427,7 +427,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	MaxChars = 0;
 	Pfile = "";
 	pixm = ScImage();
-	pixm.imgInfo.lowResType = m_Doc->itemToolPrefs.imageLowResType;
+	pixm.imgInfo.lowResType = m_Doc->itemToolPrefs().imageLowResType;
 	Pfile2 = "";
 	Pfile3 = "";
 	oldLocalScX = LocalScX = 1;
@@ -545,12 +545,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	else
 	{
-		if (m_Doc->itemToolPrefs.shapeLineColor != CommonStrings::None)
+		if (m_Doc->itemToolPrefs().shapeLineColor != CommonStrings::None)
 		{
-			const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeLineColor];
+			const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];
 			QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-			stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
-			stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
+			stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
+			stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
 		}
 		else
 		{
@@ -563,12 +563,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 			else
 			{
-				if (m_Doc->itemToolPrefs.shapeLineColor != CommonStrings::None)
+				if (m_Doc->itemToolPrefs().shapeLineColor != CommonStrings::None)
 				{
-					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeFillColor];
+					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
 					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-					stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
-					stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
+					stroke_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
+					stroke_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
 				}
 				else if (m_Doc->PageColors.contains("Black"))
 				{
@@ -591,12 +591,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	else
 	{
-		if (m_Doc->itemToolPrefs.shapeFillColor != CommonStrings::None)
+		if (m_Doc->itemToolPrefs().shapeFillColor != CommonStrings::None)
 		{
-			const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeFillColor];
+			const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
 			QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
-			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
+			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
+			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
 		}
 		else
 		{
@@ -609,12 +609,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 			else
 			{
-				if (m_Doc->itemToolPrefs.shapeLineColor != CommonStrings::None)
+				if (m_Doc->itemToolPrefs().shapeLineColor != CommonStrings::None)
 				{
-					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeLineColor];
+					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];
 					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
-					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
-					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
+					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
+					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
 				}
 				else if (m_Doc->PageColors.contains("Black"))
 				{
@@ -653,8 +653,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	mask_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
 	mask_gradient.addStop(qcol, 1.0, 0.5, 1.0, "Black", 100);
 	firstLineOffsetP = FLOPRealGlyphHeight;
-	Cols = m_Doc->itemToolPrefs.textColumns;
-	ColGap = m_Doc->itemToolPrefs.textColumnGap;
+	Cols = m_Doc->itemToolPrefs().textColumns;
+	ColGap = m_Doc->itemToolPrefs().textColumnGap;
 	LeftLink = 0;
 	RightLink = 0;
 	TopLink = 0;
@@ -676,8 +676,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ChangedMasterItem = false;
 	isEmbedded = false;
 	OnMasterPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageName() : QString();
-	m_startArrowIndex = m_Doc->itemToolPrefs.lineStartArrow;
-	m_endArrowIndex = m_Doc->itemToolPrefs.lineEndArrow;
+	m_startArrowIndex = m_Doc->itemToolPrefs().lineStartArrow;
+	m_endArrowIndex = m_Doc->itemToolPrefs().lineEndArrow;
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
@@ -1130,8 +1130,8 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
-double PageItem::gridOffset() const { return m_Doc->guidesSettings.offsetBaselineGrid; }
-double PageItem::gridDistance() const { return m_Doc->guidesSettings.valueBaselineGrid; }
+double PageItem::gridOffset() const { return m_Doc->guidesPrefs().offsetBaselineGrid; }
+double PageItem::gridDistance() const { return m_Doc->guidesPrefs().valueBaselineGrid; }
 
 void PageItem::setGridOffset(double) { } // FIXME
 void PageItem::setGridDistance(double) { } // FIXME
@@ -1530,7 +1530,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
 		if (!isGroupControl)
 		{
-			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
+			if ((Frame) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
 			{
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
@@ -1573,7 +1573,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				p->strokePath();
 			}
 		}
-		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(Qt::lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
@@ -1608,7 +1608,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				p->restore();
 			}
 		}
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))
 		{
 			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
@@ -2225,15 +2225,15 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 	{
 		if (chst & ScStyle_Superscript)
 		{
-			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100.0;
-			layout.yoffset -= asce * m_Doc->typographicSettings.valueSuperScript / 100.0;
-			layout.scaleV = layout.scaleH = qMax(m_Doc->typographicSettings.scalingSuperScript / 100.0, 10.0 / style.fontSize());
+			retval -= asce * m_Doc->typographicPrefs().valueSuperScript / 100.0;
+			layout.yoffset -= asce * m_Doc->typographicPrefs().valueSuperScript / 100.0;
+			layout.scaleV = layout.scaleH = qMax(m_Doc->typographicPrefs().scalingSuperScript / 100.0, 10.0 / style.fontSize());
 		}
 		else if (chst & ScStyle_Subscript)
 		{
-			retval += asce * m_Doc->typographicSettings.valueSubScript / 100.0;
-			layout.yoffset += asce * m_Doc->typographicSettings.valueSubScript / 100.0;
-			layout.scaleV = layout.scaleH = qMax(m_Doc->typographicSettings.scalingSubScript / 100.0, 10.0 / style.fontSize());
+			retval += asce * m_Doc->typographicPrefs().valueSubScript / 100.0;
+			layout.yoffset += asce * m_Doc->typographicPrefs().valueSubScript / 100.0;
+			layout.scaleV = layout.scaleH = qMax(m_Doc->typographicPrefs().scalingSubScript / 100.0, 10.0 / style.fontSize());
 		}
 		else {
 			layout.scaleV = layout.scaleH = 1.0;
@@ -2246,7 +2246,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 		}
 		if (chst & ScStyle_SmallCaps)
 		{
-			double smallcapsScale = m_Doc->typographicSettings.valueSmallCaps / 100.0;
+			double smallcapsScale = m_Doc->typographicPrefs().valueSmallCaps / 100.0;
 			QChar uc = chars[0].toUpper();
 			if (uc != chars[0])
 			{
@@ -2299,7 +2299,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs)
 {
 	uint glyph = glyphs.glyph;
-	if ((m_Doc->guidesSettings.showControls) && 
+	if ((m_Doc->guidesPrefs().showControls) &&
 		(glyph == style.font().char2CMap(QChar(' ')) || glyph >=  ScFace::CONTROL_GLYPHS))
 	{
 		bool stroke = false;
@@ -2858,15 +2858,15 @@ void PageItem::setFillColor(const QString &newColor)
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					tmp = m_Doc->itemToolPrefs.imageFillColor;
+					tmp = m_Doc->itemToolPrefs().imageFillColor;
 				case TextFrame:
 				case PathText:
-					tmp = m_Doc->itemToolPrefs.textFillColor;
+					tmp = m_Doc->itemToolPrefs().textFillColor;
 					break;
 				case Line:
 				case PolyLine:
 				case Polygon:
-					tmp = m_Doc->itemToolPrefs.shapeFillColor;
+					tmp = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
 					break;
@@ -2961,17 +2961,17 @@ void PageItem::setLineColor(const QString &newColor)
 			{
 				case TextFrame:
 				case PathText:
-					tmp = m_Doc->itemToolPrefs.textLineColor;
+					tmp = m_Doc->itemToolPrefs().textLineColor;
 					break;
 				case Line:
-					tmp = m_Doc->itemToolPrefs.lineColor;
+					tmp = m_Doc->itemToolPrefs().lineColor;
 					break;
 				case PolyLine:
 				case Polygon:
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					tmp = m_Doc->itemToolPrefs.shapeLineColor;
+					tmp = m_Doc->itemToolPrefs().shapeLineColor;
 					break;
 				default:
 					break;
@@ -3082,24 +3082,24 @@ void PageItem::setLineQColor()
 			{
 				case TextFrame:
 				case PathText:
-					lineColorVal = m_Doc->itemToolPrefs.textLineColor;
+					lineColorVal = m_Doc->itemToolPrefs().textLineColor;
 					break;
 				case Line:
-					lineColorVal = m_Doc->itemToolPrefs.lineColor;
+					lineColorVal = m_Doc->itemToolPrefs().lineColor;
 					break;
 				case PolyLine:
 				case Polygon:
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					lineColorVal = m_Doc->itemToolPrefs.shapeLineColor;
+					lineColorVal = m_Doc->itemToolPrefs().shapeLineColor;
 					break;
 				default:
 					break;
 			}
 		}
 		if (!m_Doc->PageColors.contains(lineColorVal))
-			lineColorVal = m_Doc->itemToolPrefs.shapeLineColor;
+			lineColorVal = m_Doc->itemToolPrefs().shapeLineColor;
 		const ScColor& col = m_Doc->PageColors[lineColorVal];
 		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
 	}
@@ -3121,15 +3121,15 @@ void PageItem::setFillQColor()
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
-					fillColorVal = m_Doc->itemToolPrefs.imageFillColor;
+					fillColorVal = m_Doc->itemToolPrefs().imageFillColor;
 				case TextFrame:
 				case PathText:
-					fillColorVal = m_Doc->itemToolPrefs.textFillColor;
+					fillColorVal = m_Doc->itemToolPrefs().textFillColor;
 					break;
 				case Line:
 				case PolyLine:
 				case Polygon:
-					fillColorVal = m_Doc->itemToolPrefs.shapeFillColor;
+					fillColorVal = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
 					break;
@@ -5478,7 +5478,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			oldLocalScY = LocalScY = 72.0 / yres;
 			oldLocalX = LocalX = 0;
 			oldLocalY = LocalY = 0;
-			if ((m_Doc->itemToolPrefs.imageUseEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
+			if ((m_Doc->itemToolPrefs().imageUseEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
 			{
 				pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
 				clPath = pixm.imgInfo.clipPath;

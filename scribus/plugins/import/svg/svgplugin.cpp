@@ -259,7 +259,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
-	gc->FontFamily = m_Doc->itemToolPrefs.textFont;
+	gc->FontFamily = m_Doc->itemToolPrefs().textFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	m_gc.push( gc );
@@ -333,7 +333,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 			double gw = maxx - minx;
 			double gh = maxy - miny;
 			PageItem *high = m_Doc->Items->at(highestItem);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 			PageItem *neu = m_Doc->Items->takeAt(z);
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
@@ -461,7 +461,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-	gc->FontFamily = m_Doc->itemToolPrefs.textFont;
+	gc->FontFamily = m_Doc->itemToolPrefs().textFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	m_gc.push( gc );
@@ -570,7 +570,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			double gw = maxx - minx;
 			double gh = maxy - miny;
 			PageItem *high = m_Doc->Items->at(highestItem);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 			PageItem *neu = m_Doc->Items->takeAt(z);
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
@@ -1467,7 +1467,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	double h = e.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "height" ) );
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	if (!fname.isEmpty())
 	{

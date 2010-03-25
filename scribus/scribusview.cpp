@@ -286,9 +286,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
 	Doc->SubMode = -1;
-	storedFramesShown = Doc->guidesSettings.framesShown;
-	storedShowControls = Doc->guidesSettings.showControls;
-	setRulersShown(Doc->guidesSettings.rulersShown);
+	storedFramesShown = Doc->guidesPrefs().framesShown;
+	storedShowControls = Doc->guidesPrefs().showControls;
+	setRulersShown(Doc->guidesPrefs().rulersShown);
 	m_canvas->m_viewMode.viewAsPreview = false;
 	m_canvas->setPreviewVisual(-1);
 //	shiftSelItems = false;
@@ -407,10 +407,10 @@ void ScribusView::togglePreview()
 	m_canvas->m_viewMode.viewAsPreview = !m_canvas->m_viewMode.viewAsPreview;
 	if (m_canvas->m_viewMode.viewAsPreview)
 	{
-		storedFramesShown = Doc->guidesSettings.framesShown;
-		Doc->guidesSettings.framesShown = false;
-		storedShowControls = Doc->guidesSettings.showControls;
-		Doc->guidesSettings.showControls = false;
+		storedFramesShown = Doc->guidesPrefs().framesShown;
+		Doc->guidesPrefs().framesShown = false;
+		storedShowControls = Doc->guidesPrefs().showControls;
+		Doc->guidesPrefs().showControls = false;
 		// warning popping up in case colour management and out-of-gamut-display are active
 		// as from #4346: Add a preview for daltonian - PV
 		if (Doc->HasCMS && Doc->Gamut)
@@ -420,8 +420,8 @@ void ScribusView::togglePreview()
 	}
 	else
 	{
-		Doc->guidesSettings.framesShown = storedFramesShown;
-		Doc->guidesSettings.showControls = storedShowControls;
+		Doc->guidesPrefs().framesShown = storedFramesShown;
+		Doc->guidesPrefs().showControls = storedShowControls;
 	}
 	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowMargins"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
@@ -957,7 +957,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 		if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
 		{
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs.shapeLineWidth, Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			b->LayerID = Doc->activeLayer();
 			Doc->LoadPict(url.toLocalFile(), b->ItemNr);
@@ -2431,7 +2431,7 @@ void ScribusView::setRulerPos(int x, int y)
 {
 	if (m_ScMW->scriptIsRunning())
 		return;
-	if (Doc->guidesSettings.rulerMode)
+	if (Doc->guidesPrefs().rulerMode)
 	{
 		horizRuler->offs = x / m_canvas->scale() - Doc->currentPage()->xOffset();
 		vertRuler->offs = y / m_canvas->scale() - Doc->currentPage()->yOffset();
@@ -2715,7 +2715,7 @@ void ScribusView::slotZoomIn(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	double newScale = m_canvas->scale() * static_cast<double>(Doc->opToolPrefs.magStep)/100.0;
+	double newScale = m_canvas->scale() * static_cast<double>(Doc->opToolPrefs().magStep)/100.0;
 	zoom(oldX, oldY, newScale, true);
 }
 
@@ -2733,7 +2733,7 @@ void ScribusView::slotZoomOut(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	double newScale = m_canvas->scale() / (static_cast<double>(Doc->opToolPrefs.magStep)/100.0);
+	double newScale = m_canvas->scale() / (static_cast<double>(Doc->opToolPrefs().magStep)/100.0);
 	zoom(oldX, oldY, newScale, true);
 }
 
@@ -2928,7 +2928,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 	if ((clipw > 0) && (cliph > 0))
 	{
 		double sca = m_canvas->scale();
-		bool frs = Doc->guidesSettings.framesShown;
+		bool frs = Doc->guidesPrefs().framesShown;
 		double cx = Doc->minCanvasCoordinate.x();
 		double cy = Doc->minCanvasCoordinate.y();
 		Doc->minCanvasCoordinate = FPoint(0, 0);
@@ -2936,9 +2936,9 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		bool mMode = Doc->masterPageMode();
 		Doc->setMasterPageMode(true);
 		Doc->setCurrentPage(Doc->MasterPages.at(Nr));
-		bool ctrls = Doc->guidesSettings.showControls;
-		Doc->guidesSettings.showControls = false;
-		Doc->guidesSettings.framesShown = false;
+		bool ctrls = Doc->guidesPrefs().showControls;
+		Doc->guidesPrefs().showControls = false;
+		Doc->guidesPrefs().framesShown = false;
 		setScale(1.0);
 		m_canvas->m_viewMode.previewMode = true;
 		m_canvas->m_viewMode.forceRedraw = true;
@@ -2972,8 +2972,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		painter=NULL;
 		m_canvas->m_viewMode.previewMode = false;
 		m_canvas->m_viewMode.forceRedraw = false;
-		Doc->guidesSettings.framesShown = frs;
-		Doc->guidesSettings.showControls = ctrls;
+		Doc->guidesPrefs().framesShown = frs;
+		Doc->guidesPrefs().showControls = ctrls;
 		setScale(sca);
 		Doc->setMasterPageMode(mMode);
 		Doc->setCurrentPage(act);
@@ -3001,10 +3001,10 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			double cx = Doc->minCanvasCoordinate.x();
 			double cy = Doc->minCanvasCoordinate.y();
 			Doc->minCanvasCoordinate = FPoint(0, 0);
-			bool oldFramesShown  = Doc->guidesSettings.framesShown;
-			bool oldShowControls = Doc->guidesSettings.showControls;
-			Doc->guidesSettings.framesShown = false;
-			Doc->guidesSettings.showControls = false;
+			bool oldFramesShown  = Doc->guidesPrefs().framesShown;
+			bool oldShowControls = Doc->guidesPrefs().showControls;
+			Doc->guidesPrefs().framesShown = false;
+			Doc->guidesPrefs().showControls = false;
 			m_canvas->setScale(sc);
 			m_canvas->m_viewMode.previewMode = true;
 			m_canvas->m_viewMode.forceRedraw = true;
@@ -3112,8 +3112,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 				}
 			}
 
-			Doc->guidesSettings.framesShown  = oldFramesShown;
-			Doc->guidesSettings.showControls = oldShowControls;
+			Doc->guidesPrefs().framesShown  = oldFramesShown;
+			Doc->guidesPrefs().showControls = oldShowControls;
 			m_canvas->setScale(oldScale);
 			Doc->setMasterPageMode(mMode);
 			Doc->setCurrentPage(act);
@@ -3146,7 +3146,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	Doc->rulerXoffset = (py.x() + contentsX()) / m_canvas->scale() + 0*Doc->minCanvasCoordinate.x();
 	Doc->rulerYoffset = (py.y() + contentsY()) / m_canvas->scale() + 0*Doc->minCanvasCoordinate.y();
-	if (Doc->guidesSettings.rulerMode)
+	if (Doc->guidesPrefs().rulerMode)
 	{
 		Doc->rulerXoffset -= Doc->currentPage()->xOffset();
 		Doc->rulerYoffset -= Doc->currentPage()->yOffset();
@@ -3585,7 +3585,7 @@ void ScribusView::TextToPath()
 					{
 						if (chstr[0].toUpper() != chstr[0])
 						{
-							chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
+							chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicPrefs().valueSmallCaps / 100), 1);
 							chstr = chstr[0].toUpper();
 						}
 					}
@@ -3879,7 +3879,7 @@ void ScribusView::TextToPath()
 						{
 							if (chstr[0].toUpper() != chstr[0])
 							{
-								chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
+								chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicPrefs().valueSmallCaps / 100), 1);
 								chstr = chstr[0].toUpper();
 							}
 						}
@@ -4295,10 +4295,10 @@ void ScribusView::slotUpdateContents(const QRect &r) // deprecated
 void ScribusView::setScale(const double newScale)
 {
 	double Scale=newScale;
-	double v=Doc->opToolPrefs.magMin*Prefs->displayPrefs.displayScale/100.0;
+	double v=Doc->opToolPrefs().magMin*Prefs->displayPrefs.displayScale/100.0;
 	if (Scale < v)
 		Scale=v;
-	double v2=Doc->opToolPrefs.magMax*Prefs->displayPrefs.displayScale/100.0;
+	double v2=Doc->opToolPrefs().magMax*Prefs->displayPrefs.displayScale/100.0;
 	if (Scale > v2)
 		Scale=v2;
 	double v3=32*Prefs->displayPrefs.displayScale;

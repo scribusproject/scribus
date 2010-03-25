@@ -2306,7 +2306,7 @@ void PropertiesPalette::setXY(double x, double y)
 	{
 		inX -= doc->rulerXoffset;
 		inY -= doc->rulerYoffset;
-		if (doc->guidesSettings.rulerMode)
+		if (doc->guidesPrefs().rulerMode)
 		{
 			inX -= doc->currentPage()->xOffset();
 			inY -= doc->currentPage()->yOffset();
@@ -2892,7 +2892,7 @@ void PropertiesPalette::NewX()
 		base = 0;
 		x += doc->rulerXoffset;
 		y += doc->rulerYoffset;
-		if (doc->guidesSettings.rulerMode)
+		if (doc->guidesPrefs().rulerMode)
 		{
 			x += doc->currentPage()->xOffset();
 			y += doc->currentPage()->yOffset();
@@ -2923,7 +2923,7 @@ void PropertiesPalette::NewX()
 			{
 				w += doc->rulerXoffset;
 				h += doc->rulerYoffset;
-				if (doc->guidesSettings.rulerMode)
+				if (doc->guidesPrefs().rulerMode)
 				{
 					w += doc->currentPage()->xOffset();
 					h += doc->currentPage()->yOffset();
@@ -2971,7 +2971,7 @@ void PropertiesPalette::NewY()
 	base = 0;
 	x += doc->rulerXoffset;
 	y += doc->rulerYoffset;
-	if (doc->guidesSettings.rulerMode)
+	if (doc->guidesPrefs().rulerMode)
 	{
 		x += doc->currentPage()->xOffset();
 		y += doc->currentPage()->yOffset();
@@ -3002,7 +3002,7 @@ void PropertiesPalette::NewY()
 		{
 			w += doc->rulerXoffset;
 			h += doc->rulerYoffset;
-			if (doc->guidesSettings.rulerMode)
+			if (doc->guidesPrefs().rulerMode)
 			{
 				w += doc->currentPage()->xOffset();
 				h += doc->currentPage()->yOffset();
@@ -3856,7 +3856,7 @@ void PropertiesPalette::NewRotMode(int m)
 			}
 			inX -= doc->rulerXoffset;
 			inY -= doc->rulerYoffset;
-			if (doc->guidesSettings.rulerMode)
+			if (doc->guidesPrefs().rulerMode)
 			{
 				inX -= doc->currentPage()->xOffset();
 				inY -= doc->currentPage()->yOffset();
@@ -3889,7 +3889,7 @@ void PropertiesPalette::NewRotMode(int m)
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 			inX -= doc->rulerXoffset;
 			inY -= doc->rulerYoffset;
-			if (doc->guidesSettings.rulerMode)
+			if (doc->guidesPrefs().rulerMode)
 			{
 				inX -= doc->currentPage()->xOffset();
 				inY -= doc->currentPage()->yOffset();

@@ -240,7 +240,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-//	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
+//	double grabRadius = m_doc->guidesPrefs().grabRad / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	m_doc->nodeEdit.deselect();
@@ -250,7 +250,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 		int docPageCount = static_cast<int>(m_doc->Pages->count() - 1);
 		MarginStruct pageBleeds;
 		bool drawBleed = false;
-		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
+		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 			drawBleed = true;
 		for (int a = docPageCount; a > -1; a--)
 		{

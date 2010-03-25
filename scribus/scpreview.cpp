@@ -96,7 +96,7 @@ QImage ScPreview::createPreview(QString data)
 						double gw = maxx - minx;
 						double gh = maxy - miny;
 						PageItem *high = m_Doc->Items->at(highestItem);
-						int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+						int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 						PageItem *neu = m_Doc->Items->takeAt(z);
 						m_Doc->Items->insert(lowestItem, neu);
 						neu->Groups.push(m_Doc->GroupCounter);

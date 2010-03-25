@@ -561,7 +561,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-// 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+// 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRad, m->y()-m_doc->guidesPrefs().grabRad, m_doc->guidesPrefs().grabRad*2, m_doc->guidesPrefs().grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	Ryp = Myp;
 	Rxp = Mxp;
@@ -929,7 +929,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	double grabRadius = m_doc->guidesSettings.grabRadius / m_canvas->scale();
+	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
@@ -942,7 +942,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 		int docPageCount = static_cast<int>(m_doc->Pages->count() - 1);
 		MarginStruct pageBleeds;
 		bool drawBleed = false;
-		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
+		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 			drawBleed = true;
 		for (int a = docPageCount; a > -1; a--)
 		{

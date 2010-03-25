@@ -196,7 +196,7 @@ QImage XfigPlug::readThumbnail(QString fName)
 				double gw = maxx - minx;
 				double gh = maxy - miny;
 				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 				PageItem *neu = m_Doc->Items->takeAt(z);
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
@@ -463,7 +463,7 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				double gw = maxx - minx;
 				double gh = maxy - miny;
 				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 				PageItem *neu = m_Doc->Items->takeAt(z);
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
@@ -1400,7 +1400,7 @@ void XfigPlug::processText(QString data)
 	text = cleanText(text);
 	FPointArray textPath;
 	QPainterPath painterPath;
-	QString TFont = m_Doc->itemToolPrefs.textFont;
+	QString TFont(m_Doc->itemToolPrefs().textFont);
 	QFont::Weight weight = QFont::Normal;
 	bool isItalic = false;
 	if (font_flags & 4)
@@ -1557,7 +1557,7 @@ void XfigPlug::processText(QString data)
 				weight = QFont::Normal;
 				break;
 			default:
-				TFont = m_Doc->itemToolPrefs.textFont;
+				TFont = m_Doc->itemToolPrefs().textFont;
 				weight = QFont::Normal;
 				break;
 		}
@@ -1588,7 +1588,7 @@ void XfigPlug::processText(QString data)
 				weight = QFont::Normal;
 				break;
 			default:
-				TFont = m_Doc->itemToolPrefs.textFont;
+				TFont = m_Doc->itemToolPrefs().textFont;
 				weight = QFont::Normal;
 				break;
 		}

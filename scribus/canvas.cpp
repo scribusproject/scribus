@@ -213,7 +213,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
-	int radius = m_doc->guidesSettings.grabRadius;
+	int radius = m_doc->guidesPrefs().grabRadius;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
@@ -223,7 +223,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
-	int radius = m_doc->guidesSettings.grabRadius;
+	int radius = m_doc->guidesPrefs().grabRadius;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
@@ -275,7 +275,7 @@ static double length2(const QPointF& p)
 Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) const
 {
 	FrameHandle result = INSIDE;
-	const double radius = m_doc->guidesSettings.grabRadius / m_viewMode.scale;
+	const double radius = m_doc->guidesPrefs().grabRadius / m_viewMode.scale;
 	const double radius2 = radius * radius;
 	double resultDistance = radius2 * 10.0; // far off
 	
@@ -364,7 +364,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) cons
 PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool allowInGroup, bool allowMasterItems) const
 {
 	PageItem* currItem;
-	QRectF mouseArea = globalToCanvas(QRect(globalPos, QSize(2*m_doc->guidesSettings.grabRadius, 2*m_doc->guidesSettings.grabRadius)));
+	QRectF mouseArea = globalToCanvas(QRect(globalPos, QSize(2*m_doc->guidesPrefs().grabRadius, 2*m_doc->guidesPrefs().grabRadius)));
 	// look for masterpage items first
 	if (allowMasterItems && !m_doc->masterPageMode() && m_doc->currentPage()->FromMaster.count() != 0)
 	{
@@ -917,7 +917,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 			painter->beginLayer(1.0, 0);
 		
 		m_viewMode.linkedFramesToShow.clear();
-		if ((m_doc->guidesSettings.guidePlacement) && (!m_viewMode.viewAsPreview))
+		if ((m_doc->guidesPrefs().guidePlacement) && (!m_viewMode.viewAsPreview))
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
@@ -933,7 +933,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		}
 		painter->endLayer();
 //		Tcontents = tim.elapsed();
-		if ((!m_doc->guidesSettings.guidePlacement) && (!m_viewMode.viewAsPreview))
+		if ((!m_doc->guidesPrefs().guidePlacement) && (!m_viewMode.viewAsPreview))
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
@@ -960,7 +960,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		double h = m_doc->currentPage()->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
 		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-		if ((!m_doc->guidesSettings.guidePlacement) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
+		if ((!m_doc->guidesPrefs().guidePlacement) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 	}
 	if (((m_doc->m_Selection->count() != 0) || (m_viewMode.linkedFramesToShow.count() != 0))  && (!m_viewMode.viewAsPreview))
@@ -1467,7 +1467,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 				painter->setMaskMode(0);
 			currItem->savedOwnPage = currItem->OwnPage;
 			currItem->OwnPage = page->pageNr();
-			if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+			if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesPrefs().layerMarkersShown) && (m_doc->layerCount() > 1))
 			{
 				currItem->DrawObj(painter, cullingArea);
 				currItem->DrawObj_Decoration(painter);
@@ -1530,7 +1530,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 					cite->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 					cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 				}
-				if ((cullingArea.intersects(cite->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+				if ((cullingArea.intersects(cite->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesPrefs().layerMarkersShown) && (m_doc->layerCount() > 1))
 				{
 					cite->DrawObj(painter, cullingArea);
 					cite->DrawObj_Decoration(painter);
@@ -1753,7 +1753,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 				painter->endLayer();
 				painter->restore();
 				PageItem *cite = groupStack2.pop();
-				if ((cullingArea.intersects(cite->getBoundingRect())) && (((m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
+				if ((cullingArea.intersects(cite->getBoundingRect())) && (((m_doc->guidesPrefs().layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
 				{
 					cite->DrawObj(painter, cullingArea);
 					cite->DrawObj_Decoration(painter);
@@ -1824,7 +1824,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 //		painter->beginLayer(1.0, 0);
 		painter->setAntialiasing(false);
 		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
+		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 		{
 //			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
 			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
@@ -1841,7 +1841,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 			painter->drawRect(m_doc->scratch()->Left, m_doc->scratch()->Top, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 		}
 		painter->setAntialiasing(true);
-		if (m_doc->guidesSettings.guidePlacement)
+		if (m_doc->guidesPrefs().guidePlacement)
 			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 //		painter->endLayer();
 	}
@@ -1882,7 +1882,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 				double bly2 = actPg->yOffset();
 				double blw2 = actPg->width();
 				double blh2 = actPg->height();
-				if (m_doc->guidesSettings.showBleed)
+				if (m_doc->guidesPrefs().showBleed)
 				{
 					blx2 -= pageBleeds.Left;
 					bly2 -= pageBleeds.Top;
@@ -1891,7 +1891,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 				}
 //				painter->drawRect(blx2 + 5 /* m_viewMode.scale */, bly2 + 5 /* m_viewMode.scale */, blw2, blh2);
 				painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
-				if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
+				if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 				{
 					painter->setFillMode(ScPainter::None);
 					painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1913,7 +1913,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		double w = actPg->width();
 		double h = actPg->height();
 		bool drawBleed = false;
-		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesSettings.showBleed))
+		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesPrefs().showBleed))
 		{
 			drawBleed = true;
 			m_doc->getBleeds(a, pageBleeds);
@@ -2018,20 +2018,20 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->drawRect(0, 0, pageWidth, pageHeight);
 	//Draw the margins
-	if (m_doc->guidesSettings.marginsShown)
+	if (m_doc->guidesPrefs().marginsShown)
 	{
-		p->setPen(m_doc->guidesSettings.marginColor);
+		p->setPen(m_doc->guidesPrefs().marginColor);
 		if (m_doc->marginColored)
 		{
 			p->setFillMode(ScPainter::Solid);
-			p->setBrush(m_doc->guidesSettings.marginColor);
+			p->setBrush(m_doc->guidesPrefs().marginColor);
 			p->drawRect(0, 0, pageWidth, page->Margins.Top);
 			p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
 			p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
 			p->drawRect(pageWidth - page->Margins.Right, page->Margins.Top, page->Margins.Right, pageHeight-page->Margins.Top);
 			p->setFillMode(ScPainter::None);
 		}
-//		p->setPen(m_doc->guidesSettings.margColor);
+//		p->setPen(m_doc->guidesPrefs().margColor);
 		p->setFillMode(ScPainter::None);
 		p->drawRect(page->Margins.Left, page->Margins.Top, pageWidth - page->Margins.Left - page->Margins.Right, pageHeight - page->Margins.Top - page->Margins.Bottom);
 //		p->drawLine(FPoint(0, page->Margins.Top), FPoint(pageWidth, page->Margins.Top));
@@ -2040,14 +2040,14 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 //		p->drawLine(FPoint(pageWidth - page->Margins.Right, 0), FPoint(pageWidth - page->Margins.Right, pageHeight));
 	}
 	//Draw the baseline grid
-	if (m_doc->guidesSettings.baselineGridShown)
+	if (m_doc->guidesPrefs().baselineGridShown)
 	{
-		p->setPen(m_doc->guidesSettings.baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		for (double yg = m_doc->guidesSettings.offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesSettings.valueBaselineGrid)
+		p->setPen(m_doc->guidesPrefs().baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		for (double yg = m_doc->guidesPrefs().offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesPrefs().valueBaselineGrid)
 			p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
 	}
 	//Draw the grid lines
-	if (m_doc->guidesSettings.gridShown)
+	if (m_doc->guidesPrefs().gridShown)
 	{
 		double lowerBx = qMax(clip.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() - page->xOffset(), 0.0);
 		double lowerBy = qMax(clip.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y() - page->yOffset(), 0.0);
@@ -2056,8 +2056,8 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		if (m_viewMode.scale > 0.49)
 		{
 			double i,start;
-			i = m_doc->guidesSettings.majorGridSpacing;
-			p->setPen(m_doc->guidesSettings.majorGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			i = m_doc->guidesPrefs().majorGridSpacing;
+			p->setPen(m_doc->guidesPrefs().majorGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			start=floor(lowerBy/i);
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)
@@ -2070,8 +2070,8 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 			{
 				p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
 			}
-			i = m_doc->guidesSettings.minorGridSpacing;
-			p->setPen(m_doc->guidesSettings.minorGridColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			i = m_doc->guidesPrefs().minorGridSpacing;
+			p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			start=floor(lowerBy/i);
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)
@@ -2087,7 +2087,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		}
 	}
 	//Draw the guides
-	if (m_doc->guidesSettings.guidesShown)
+	if (m_doc->guidesPrefs().guidesShown)
 		page->guides.drawPage(p, m_doc, lineWidth);
 	if (m_doc->currentPage() == page)
 	{
@@ -2109,7 +2109,7 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 {
 	painter->save();
 	PageItem *currItem;
-	if ((m_doc->guidesSettings.linkShown || m_viewMode.drawFramelinksWithContents) && (m_viewMode.linkedFramesToShow.count() != 0))
+	if ((m_doc->guidesPrefs().linkShown || m_viewMode.drawFramelinksWithContents) && (m_viewMode.linkedFramesToShow.count() != 0))
 		currItem = m_viewMode.linkedFramesToShow.at(0);
 	else
 	{
@@ -2120,10 +2120,10 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 	}
 	//Draw the frame links
 	if ((((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
-		 && (currItem->itemType() == PageItem::TextFrame)) || (m_doc->guidesSettings.linkShown || m_viewMode.drawFramelinksWithContents))
+		 && (currItem->itemType() == PageItem::TextFrame)) || (m_doc->guidesPrefs().linkShown || m_viewMode.drawFramelinksWithContents))
 	{
 		PageItem *nextItem = currItem;
-		if (m_doc->guidesSettings.linkShown || m_viewMode.drawFramelinksWithContents)
+		if (m_doc->guidesPrefs().linkShown || m_viewMode.drawFramelinksWithContents)
 		{
 			for (int lks = 0; lks < m_viewMode.linkedFramesToShow.count(); ++lks)
 			{
@@ -2381,7 +2381,7 @@ void Canvas::displayXYHUD(QPoint m)
 		n = FPoint(gw, gh);
 	gx = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 	gy = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-	if (m_doc->guidesSettings.rulerMode)
+	if (m_doc->guidesPrefs().rulerMode)
 	{
 		gx -= m_doc->currentPage()->xOffset();
 		gy -= m_doc->currentPage()->yOffset();
@@ -2397,7 +2397,7 @@ void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 		return;
 	double gx = x;
 	double gy = y;
-	if (m_doc->guidesSettings.rulerMode)
+	if (m_doc->guidesPrefs().rulerMode)
 	{
 		gx -= m_doc->currentPage()->xOffset();
 		gy -= m_doc->currentPage()->yOffset();
@@ -2414,14 +2414,14 @@ void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
 	double gx = val;
 	if (isX)
 	{
-		if (m_doc->guidesSettings.rulerMode)
+		if (m_doc->guidesPrefs().rulerMode)
 			gx -= m_doc->currentPage()->xOffset();
 		gx -= m_doc->rulerXoffset;
 		QToolTip::showText(m + QPoint(5, 5), tr("X: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
 	}
 	else
 	{
-		if (m_doc->guidesSettings.rulerMode)
+		if (m_doc->guidesPrefs().rulerMode)
 			gx -= m_doc->currentPage()->yOffset();
 		gx -= m_doc->rulerYoffset;
 		QToolTip::showText(m + QPoint(5, 5), tr("Y: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);

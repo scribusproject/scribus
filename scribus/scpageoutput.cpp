@@ -1365,7 +1365,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 				{
 					const ParagraphStyle& style(item->itemText.paragraphStyle(a));
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						chs = qRound(10 * ((m_doc->guidesSettings.valueBaselineGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
+						chs = qRound(10 * ((m_doc->guidesPrefs().valueBaselineGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
 					else
 					{
 						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)

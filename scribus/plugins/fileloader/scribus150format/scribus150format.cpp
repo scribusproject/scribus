@@ -840,34 +840,34 @@ void Scribus150Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& 
 void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
 	PrefsManager* prefsManager = PrefsManager::instance();
-	doc->guidesSettings.minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
-	doc->guidesSettings.majorGridSpacing = attrs.valueAsDouble("MAJGRID", prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
-	doc->guidesSettings.gridShown    = attrs.valueAsBool("SHOWGRID", false);
-	doc->guidesSettings.guidesShown  =attrs.valueAsBool("SHOWGUIDES", true);
-	doc->guidesSettings.colBordersShown  = attrs.valueAsBool("showcolborders", false);
-	doc->guidesSettings.framesShown  = attrs.valueAsBool("SHOWFRAME", true);
-	doc->guidesSettings.layerMarkersShown = attrs.valueAsBool("SHOWLAYERM", false);
-	doc->guidesSettings.marginsShown = attrs.valueAsBool("SHOWMARGIN", true);
-	doc->guidesSettings.baselineGridShown    = attrs.valueAsBool("SHOWBASE", false);
-	doc->guidesSettings.showPic      = attrs.valueAsBool("SHOWPICT", true);
-	doc->guidesSettings.linkShown    = attrs.valueAsBool("SHOWLINK", false);
-	doc->guidesSettings.showControls = attrs.valueAsBool("SHOWControl", false);
-	doc->guidesSettings.rulerMode    = attrs.valueAsBool("rulerMode", true);
-	doc->guidesSettings.rulersShown  = attrs.valueAsBool("showrulers", true);
-	doc->guidesSettings.showBleed    = attrs.valueAsBool("showBleed", true);
+	doc->guidesPrefs().minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
+	doc->guidesPrefs().majorGridSpacing = attrs.valueAsDouble("MAJGRID", prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
+	doc->guidesPrefs().gridShown    = attrs.valueAsBool("SHOWGRID", false);
+	doc->guidesPrefs().guidesShown  =attrs.valueAsBool("SHOWGUIDES", true);
+	doc->guidesPrefs().colBordersShown  = attrs.valueAsBool("showcolborders", false);
+	doc->guidesPrefs().framesShown  = attrs.valueAsBool("SHOWFRAME", true);
+	doc->guidesPrefs().layerMarkersShown = attrs.valueAsBool("SHOWLAYERM", false);
+	doc->guidesPrefs().marginsShown = attrs.valueAsBool("SHOWMARGIN", true);
+	doc->guidesPrefs().baselineGridShown    = attrs.valueAsBool("SHOWBASE", false);
+	doc->guidesPrefs().showPic      = attrs.valueAsBool("SHOWPICT", true);
+	doc->guidesPrefs().linkShown    = attrs.valueAsBool("SHOWLINK", false);
+	doc->guidesPrefs().showControls = attrs.valueAsBool("SHOWControl", false);
+	doc->guidesPrefs().rulerMode    = attrs.valueAsBool("rulerMode", true);
+	doc->guidesPrefs().rulersShown  = attrs.valueAsBool("showrulers", true);
+	doc->guidesPrefs().showBleed    = attrs.valueAsBool("showBleed", true);
 	if (attrs.hasAttribute("MARGC"))
-		doc->guidesSettings.marginColor  = QColor(attrs.valueAsString("MARGC"));
+		doc->guidesPrefs().marginColor  = QColor(attrs.valueAsString("MARGC"));
 	if (attrs.hasAttribute("MINORC"))
-		doc->guidesSettings.minorGridColor = QColor(attrs.valueAsString("MINORC"));
+		doc->guidesPrefs().minorGridColor = QColor(attrs.valueAsString("MINORC"));
 	if (attrs.hasAttribute("MAJORC"))
-		doc->guidesSettings.majorGridColor = QColor(attrs.valueAsString("MAJORC"));
+		doc->guidesPrefs().majorGridColor = QColor(attrs.valueAsString("MAJORC"));
 	if (attrs.hasAttribute("GuideC"))
-		doc->guidesSettings.guideColor = QColor(attrs.valueAsString("GuideC"));
+		doc->guidesPrefs().guideColor = QColor(attrs.valueAsString("GuideC"));
 	if (attrs.hasAttribute("BaseC"))
-		doc->guidesSettings.baselineGridColor  = QColor(attrs.valueAsString("BaseC"));
-	doc->guidesSettings.guidePlacement   = attrs.valueAsBool("BACKG", true);
-	doc->guidesSettings.guideRad = attrs.valueAsDouble("GuideRad", 10.0);
-	doc->guidesSettings.grabRadius  = attrs.valueAsInt("GRAB", 4);
+		doc->guidesPrefs().baselineGridColor  = QColor(attrs.valueAsString("BaseC"));
+	doc->guidesPrefs().guidePlacement   = attrs.valueAsBool("BACKG", true);
+	doc->guidesPrefs().guideRad = attrs.valueAsDouble("GuideRad", 10.0);
+	doc->guidesPrefs().grabRadius  = attrs.valueAsInt("GRAB", 4);
 }
 
 void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
@@ -875,79 +875,79 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	QString textFont = attrs.valueAsString("DFONT");
 	m_AvailableFonts->findFont(textFont, doc);
 
-	doc->itemToolPrefs.textFont = textFont;
-	doc->itemToolPrefs.textSize = qRound(attrs.valueAsDouble("DSIZE", 12.0) * 10);
-	doc->itemToolPrefs.textColumns   = attrs.valueAsInt("DCOL", 1);
-	doc->itemToolPrefs.textColumnGap    = attrs.valueAsDouble("DGAP", 0.0);
+	doc->itemToolPrefs().textFont = textFont;
+	doc->itemToolPrefs().textSize = qRound(attrs.valueAsDouble("DSIZE", 12.0) * 10);
+	doc->itemToolPrefs().textColumns   = attrs.valueAsInt("DCOL", 1);
+	doc->itemToolPrefs().textColumnGap    = attrs.valueAsDouble("DGAP", 0.0);
 
-	doc->itemToolPrefs.polyCorners      = attrs.valueAsInt("POLYC", 4);
-	doc->itemToolPrefs.polyFactor = attrs.valueAsDouble("POLYF", 0.5);
-	doc->itemToolPrefs.polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
-	doc->itemToolPrefs.polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
-	doc->itemToolPrefs.polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
-	doc->itemToolPrefs.polyUseFactor    = attrs.valueAsBool("POLYS", false);
+	doc->itemToolPrefs().polyCorners      = attrs.valueAsInt("POLYC", 4);
+	doc->itemToolPrefs().polyFactor = attrs.valueAsDouble("POLYF", 0.5);
+	doc->itemToolPrefs().polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
+	doc->itemToolPrefs().polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
+	doc->itemToolPrefs().polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
+	doc->itemToolPrefs().polyUseFactor    = attrs.valueAsBool("POLYS", false);
 
-	doc->itemToolPrefs.lineStartArrow = attrs.valueAsInt("StartArrow", 0);
-	doc->itemToolPrefs.lineEndArrow   = attrs.valueAsInt("EndArrow", 0);
-	doc->itemToolPrefs.imageScaleX      = attrs.valueAsDouble("PICTSCX", 1.0);
-	doc->itemToolPrefs.imageScaleY      = attrs.valueAsDouble("PICTSCY", 1.0);
-	doc->itemToolPrefs.imageScaleType   = attrs.valueAsBool("PSCALE", true);
-	doc->itemToolPrefs.imageAspectRatio = attrs.valueAsBool("PASPECT", false);
-	doc->itemToolPrefs.imageLowResType  = attrs.valueAsInt("HalfRes", 1);
-	doc->itemToolPrefs.imageUseEmbeddedPath = attrs.valueAsBool("EmbeddedPath", false);
+	doc->itemToolPrefs().lineStartArrow = attrs.valueAsInt("StartArrow", 0);
+	doc->itemToolPrefs().lineEndArrow   = attrs.valueAsInt("EndArrow", 0);
+	doc->itemToolPrefs().imageScaleX      = attrs.valueAsDouble("PICTSCX", 1.0);
+	doc->itemToolPrefs().imageScaleY      = attrs.valueAsDouble("PICTSCY", 1.0);
+	doc->itemToolPrefs().imageScaleType   = attrs.valueAsBool("PSCALE", true);
+	doc->itemToolPrefs().imageAspectRatio = attrs.valueAsBool("PASPECT", false);
+	doc->itemToolPrefs().imageLowResType  = attrs.valueAsInt("HalfRes", 1);
+	doc->itemToolPrefs().imageUseEmbeddedPath = attrs.valueAsBool("EmbeddedPath", false);
 	if (attrs.hasAttribute("PEN"))
-		doc->itemToolPrefs.shapeLineColor = attrs.valueAsString("PEN");
+		doc->itemToolPrefs().shapeLineColor = attrs.valueAsString("PEN");
 	if (attrs.hasAttribute("BRUSH"))
-		doc->itemToolPrefs.shapeFillColor = attrs.valueAsString("BRUSH");
+		doc->itemToolPrefs().shapeFillColor = attrs.valueAsString("BRUSH");
 	if (attrs.hasAttribute("PENLINE"))
-		doc->itemToolPrefs.lineColor = attrs.valueAsString("PENLINE");
+		doc->itemToolPrefs().lineColor = attrs.valueAsString("PENLINE");
 	if (attrs.hasAttribute("PENTEXT"))
-		doc->itemToolPrefs.textColor = attrs.valueAsString("PENTEXT");
+		doc->itemToolPrefs().textColor = attrs.valueAsString("PENTEXT");
 	if (attrs.hasAttribute("StrokeText"))
-		doc->itemToolPrefs.textStrokeColor = attrs.valueAsString("StrokeText");
-	doc->itemToolPrefs.textFillColor  = attrs.valueAsString("TextBackGround", CommonStrings::None);
-	doc->itemToolPrefs.textLineColor   = attrs.valueAsString("TextLineColor", CommonStrings::None);
-	doc->itemToolPrefs.textFillColorShade =attrs.valueAsInt("TextBackGroundShade", 100);
-	doc->itemToolPrefs.textLineColorShade   = attrs.valueAsInt("TextLineShade", 100);
-	doc->itemToolPrefs.textShade    = attrs.valueAsInt("TextPenShade", 100);
-	doc->itemToolPrefs.textStrokeShade = attrs.valueAsInt("TextStrokeShade", 100);
-	doc->itemToolPrefs.shapeLineStyle    = static_cast<Qt::PenStyle>(attrs.valueAsInt("STIL"));
-	doc->itemToolPrefs.lineStyle = static_cast<Qt::PenStyle>(attrs.valueAsInt("STILLINE"));
-	doc->itemToolPrefs.shapeLineWidth      = attrs.valueAsDouble("WIDTH", 0.0);
-	doc->itemToolPrefs.lineWidth  = attrs.valueAsDouble("WIDTHLINE", 1.0);
-	doc->itemToolPrefs.shapeLineColorShade     = attrs.valueAsInt("PENSHADE", 100);
-	doc->itemToolPrefs.lineColorShade  = attrs.valueAsInt("LINESHADE", 100);
-	doc->itemToolPrefs.shapeFillColorShade      = attrs.valueAsInt("BRUSHSHADE", 100);
-	doc->opToolPrefs.magMin      = attrs.valueAsInt("MAGMIN", 1);
-	doc->opToolPrefs.magMax      = attrs.valueAsInt("MAGMAX", 3200);
-	doc->opToolPrefs.magStep     = attrs.valueAsInt("MAGSTEP", 200);
-	doc->opToolPrefs.dispX       = attrs.valueAsDouble("dispX", 10.0);
-	doc->opToolPrefs.dispY       = attrs.valueAsDouble("dispY", 10.0);
-	doc->opToolPrefs.constrain   = attrs.valueAsDouble("constrain", 15.0);
+		doc->itemToolPrefs().textStrokeColor = attrs.valueAsString("StrokeText");
+	doc->itemToolPrefs().textFillColor  = attrs.valueAsString("TextBackGround", CommonStrings::None);
+	doc->itemToolPrefs().textLineColor   = attrs.valueAsString("TextLineColor", CommonStrings::None);
+	doc->itemToolPrefs().textFillColorShade =attrs.valueAsInt("TextBackGroundShade", 100);
+	doc->itemToolPrefs().textLineColorShade   = attrs.valueAsInt("TextLineShade", 100);
+	doc->itemToolPrefs().textShade    = attrs.valueAsInt("TextPenShade", 100);
+	doc->itemToolPrefs().textStrokeShade = attrs.valueAsInt("TextStrokeShade", 100);
+	doc->itemToolPrefs().shapeLineStyle    = static_cast<Qt::PenStyle>(attrs.valueAsInt("STIL"));
+	doc->itemToolPrefs().lineStyle = static_cast<Qt::PenStyle>(attrs.valueAsInt("STILLINE"));
+	doc->itemToolPrefs().shapeLineWidth      = attrs.valueAsDouble("WIDTH", 0.0);
+	doc->itemToolPrefs().lineWidth  = attrs.valueAsDouble("WIDTHLINE", 1.0);
+	doc->itemToolPrefs().shapeLineColorShade     = attrs.valueAsInt("PENSHADE", 100);
+	doc->itemToolPrefs().lineColorShade  = attrs.valueAsInt("LINESHADE", 100);
+	doc->itemToolPrefs().shapeFillColorShade      = attrs.valueAsInt("BRUSHSHADE", 100);
+	doc->opToolPrefs().magMin      = attrs.valueAsInt("MAGMIN", 1);
+	doc->opToolPrefs().magMax      = attrs.valueAsInt("MAGMAX", 3200);
+	doc->opToolPrefs().magStep     = attrs.valueAsInt("MAGSTEP", 200);
+	doc->opToolPrefs().dispX       = attrs.valueAsDouble("dispX", 10.0);
+	doc->opToolPrefs().dispY       = attrs.valueAsDouble("dispY", 10.0);
+	doc->opToolPrefs().constrain   = attrs.valueAsDouble("constrain", 15.0);
 	//CB Reset doc zoom step value to 200% instead of old values.
-	if (doc->opToolPrefs.magStep <= 100)
-		doc->opToolPrefs.magStep = 200;
-	doc->itemToolPrefs.textTabFillChar = attrs.valueAsString("TabFill","");
-	doc->itemToolPrefs.textTabWidth   = attrs.valueAsDouble("TabWidth", 36.0);
+	if (doc->opToolPrefs().magStep <= 100)
+		doc->opToolPrefs().magStep = 200;
+	doc->itemToolPrefs().textTabFillChar = attrs.valueAsString("TabFill","");
+	doc->itemToolPrefs().textTabWidth   = attrs.valueAsDouble("TabWidth", 36.0);
 	if (attrs.hasAttribute("CPICT"))
-		doc->itemToolPrefs.imageFillColor = attrs.valueAsString("CPICT");
-	doc->itemToolPrefs.imageFillColorShade = attrs.valueAsInt("PICTSHADE", 100);
+		doc->itemToolPrefs().imageFillColor = attrs.valueAsString("CPICT");
+	doc->itemToolPrefs().imageFillColorShade = attrs.valueAsInt("PICTSHADE", 100);
 }
 
 void Scribus150Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
-	doc->typographicSettings.valueSuperScript   = attrs.valueAsInt("VHOCH");
-	doc->typographicSettings.scalingSuperScript = attrs.valueAsInt("VHOCHSC");
-	doc->typographicSettings.valueSubScript     = attrs.valueAsInt("VTIEF");
-	doc->typographicSettings.scalingSubScript   = attrs.valueAsInt("VTIEFSC");
-	doc->typographicSettings.valueSmallCaps     = attrs.valueAsInt("VKAPIT");
-	doc->guidesSettings.valueBaselineGrid      = attrs.valueAsDouble("BASEGRID", 12.0);
-	doc->guidesSettings.offsetBaselineGrid     = attrs.valueAsDouble("BASEO", 0.0);
-	doc->typographicSettings.autoLineSpacing    = attrs.valueAsInt("AUTOL", 20);
-	doc->typographicSettings.valueUnderlinePos  = attrs.valueAsInt("UnderlinePos", -1);
-	doc->typographicSettings.valueUnderlineWidth  = attrs.valueAsInt("UnderlineWidth", -1);
-	doc->typographicSettings.valueStrikeThruPos   = attrs.valueAsInt("StrikeThruPos", -1);
-	doc->typographicSettings.valueStrikeThruWidth = attrs.valueAsInt("StrikeThruWidth", -1);
+	doc->typographicPrefs().valueSuperScript   = attrs.valueAsInt("VHOCH");
+	doc->typographicPrefs().scalingSuperScript = attrs.valueAsInt("VHOCHSC");
+	doc->typographicPrefs().valueSubScript     = attrs.valueAsInt("VTIEF");
+	doc->typographicPrefs().scalingSubScript   = attrs.valueAsInt("VTIEFSC");
+	doc->typographicPrefs().valueSmallCaps     = attrs.valueAsInt("VKAPIT");
+	doc->guidesPrefs().valueBaselineGrid      = attrs.valueAsDouble("BASEGRID", 12.0);
+	doc->guidesPrefs().offsetBaselineGrid     = attrs.valueAsDouble("BASEO", 0.0);
+	doc->typographicPrefs().autoLineSpacing    = attrs.valueAsInt("AUTOL", 20);
+	doc->typographicPrefs().valueUnderlinePos  = attrs.valueAsInt("UnderlinePos", -1);
+	doc->typographicPrefs().valueUnderlineWidth  = attrs.valueAsInt("UnderlineWidth", -1);
+	doc->typographicPrefs().valueStrikeThruPos   = attrs.valueAsInt("StrikeThruPos", -1);
+	doc->typographicPrefs().valueStrikeThruWidth = attrs.valueAsInt("StrikeThruWidth", -1);
 }
 
 bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
@@ -1722,7 +1722,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->OwnPage = attrs.valueAsInt("OwnPage");
 	if (tagName == "PAGEOBJECT")
 		newItem->OnMasterPage = "";
-	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs.textFont);
+	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs().textFont);
 	m_AvailableFonts->findFont(tmpf, doc);
 
 //	newItem->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
@@ -1954,26 +1954,26 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (newItem->fill_gradient.Stops() == 0)
 	{
-		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.shapeFillColor];
-		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.shapeLineColor];
-		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.shapeFillColor, 100);
-		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
+		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs().shapeFillColor];
+		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs().shapeLineColor];
+		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs().shapeFillColor, 100);
+		newItem->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
 
 	if (newItem->stroke_gradient.Stops() == 0)
 	{
-		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.shapeFillColor];
-		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.shapeLineColor];
-		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.shapeFillColor, 100);
-		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
+		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs().shapeFillColor];
+		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs().shapeLineColor];
+		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs().shapeFillColor, 100);
+		newItem->stroke_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
 
 	if (newItem->mask_gradient.Stops() == 0)
 	{
-		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs.shapeFillColor];
-		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs.shapeLineColor];
-		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs.shapeFillColor, 100);
-		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs.shapeLineColor, 100);
+		const ScColor& col1 = doc->PageColors[doc->itemToolPrefs().shapeFillColor];
+		const ScColor& col2 = doc->PageColors[doc->itemToolPrefs().shapeLineColor];
+		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs().shapeFillColor, 100);
+		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
 
 	if (newItem->asPathText())
@@ -2299,7 +2299,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::ImageFrame:
 	case PageItem::OSGFrame:
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
-		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;

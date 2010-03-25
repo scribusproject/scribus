@@ -264,7 +264,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 #ifdef MODEDEBUG
 //	qDebug() << "nodedit move event:" << m->x() << m->y() << "canvas:" << npf.x() << npf.y() << "@" << m_canvas->scale();
 #endif
-/*	if (m_doc->guidesSettings.guidesShown)
+/*	if (m_doc->guidesPrefs().guidesShown)
 	{
 		if (MoveGY)
 		{
@@ -302,7 +302,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			if (!currItem->locked())
 			{
 				QTransform p; // = currItem->getTransform();
-				QRect mpo; // = QRect(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+				QRect mpo; // = QRect(m->globalX()-m_doc->guidesPrefs().grabRad, m->globalY()-m_doc->guidesPrefs().grabRad, m_doc->guidesPrefs().grabRad*2, m_doc->guidesPrefs().grabRad*2);
 				//				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				handleNodeEditMove(m, mpo, currItem, p);
 			}
@@ -330,15 +330,15 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			m_view->startGesture(m_rectangleSelect);
 			return;
 		}
-		if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) 
+		if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock)
 			&& (m_doc->OnPage(npf.x(), npf.y()) != -1))
 		{
 			Guides::iterator it;
 			Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
 			{
-				if ( (*it) + m_doc->currentPage()->yOffset() < npf.y() + m_doc->guidesSettings.grabRadius * sc &&
-					 (*it) + m_doc->currentPage()->yOffset() > npf.y() - m_doc->guidesSettings.grabRadius * sc )
+				if ( (*it) + m_doc->currentPage()->yOffset() < npf.y() + m_doc->guidesPrefs().grabRadius * sc &&
+					 (*it) + m_doc->currentPage()->yOffset() > npf.y() - m_doc->guidesPrefs().grabRadius * sc )
 				{
 					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
 						MoveGY = true;
@@ -354,8 +354,8 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			tmpGuides = m_doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it!= tmpGuides.end(); ++it)
 			{
-				if ( (*it) + m_doc->currentPage()->xOffset() < npf.x() + m_doc->guidesSettings.grabRadius * sc &&
-					 (*it) + m_doc->currentPage()->xOffset() > npf.x() - m_doc->guidesSettings.grabRadius * sc)
+				if ( (*it) + m_doc->currentPage()->xOffset() < npf.x() + m_doc->guidesPrefs().grabRadius * sc &&
+					 (*it) + m_doc->currentPage()->xOffset() > npf.x() - m_doc->guidesPrefs().grabRadius * sc)
 				{
 					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
 						MoveGX = true;
@@ -393,7 +393,7 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 //	npf = m_canvas->globalToCanvas(m->globalPos());
 //	Mxp = qRound(npf.x()); // WTF? FIXME:av
 //	Myp = qRound(npf.y());
-	QRect mpo; //(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	QRect mpo; //(m->globalX()-m_doc->guidesPrefs().grabRad, m->globalY()-m_doc->guidesPrefs().grabRad, m_doc->guidesPrefs().grabRad*2, m_doc->guidesPrefs().grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 /*	if (m_doc->appMode != modeEdit)
 	{
@@ -448,13 +448,13 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 //	m_view->stopDragTimer();
-/*	if (m_doc->guidesSettings.guidesShown)
+/*	if (m_doc->guidesPrefs().guidesShown)
 	{
 		bool foundGuide = false;
 		FPoint np = m_canvas->globalToCanvas(m->globalPos());
 		double nx = np.x();
 		double ny = np.y();
-		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		double grabRadScale = m_doc->guidesPrefs().grabRad / m_canvas->scale();
 		if (0 <= m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
 			|| 0 <= m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
 			foundGuide = true;
@@ -747,7 +747,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			FPoint tangent = FPoint(0, 0);
 			FPoint nearPoint = FPoint(0, 0);
 			double nearT = 0.0;
-			QRect mpo2(0, 0, m_doc->guidesSettings.grabRadius*3, m_doc->guidesSettings.grabRadius*3);
+			QRect mpo2(0, 0, m_doc->guidesPrefs().grabRadius*3, m_doc->guidesPrefs().grabRadius*3);
 			mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 			for (uint poi=0; poi<Clip.size()-3; poi += 4)
 			{
@@ -995,7 +995,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		FPoint tangent = FPoint(0, 0);
 		FPoint nearPoint = FPoint(0, 0);
 		double nearT = 0.0;
-		QRect mpo2(0, 0, m_doc->guidesSettings.grabRadius*3, m_doc->guidesSettings.grabRadius*3);
+		QRect mpo2(0, 0, m_doc->guidesPrefs().grabRadius*3, m_doc->guidesPrefs().grabRadius*3);
 		mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 		for (uint poi=0; poi<Clip.size()-3; poi += 4)
 		{

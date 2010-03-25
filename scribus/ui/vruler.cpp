@@ -70,7 +70,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 void Vruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
-	if (currDoc->guidesSettings.guidesShown)
+	if (currDoc->guidesPrefs().guidesShown)
 	{
 		qApp->changeOverrideCursor(QCursor(SPLITVC));
 		currView->startGesture(rulerGesture);

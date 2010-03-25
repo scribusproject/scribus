@@ -132,7 +132,7 @@ QImage PctPlug::readThumbnail(QString fName)
 				double gw = maxx - minx;
 				double gh = maxy - miny;
 				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 				PageItem *neu = m_Doc->Items->takeAt(z);
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
@@ -328,7 +328,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				double gw = maxx - minx;
 				double gh = maxy - miny;
 				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs.shapeFillColor, m_Doc->itemToolPrefs.shapeLineColor, true);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 				PageItem *neu = m_Doc->Items->takeAt(z);
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
@@ -1047,7 +1047,7 @@ void PctPlug::parsePict(QDataStream &ts)
 						QImage image;
 						image.loadFromData(imageData);
 						image = image.convertToFormat(QImage::Format_ARGB32);
-						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 						PageItem *ite = m_Doc->Items->at(z);
 						ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 						ite->tempImageFile->open();
@@ -1899,7 +1899,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
 			image.invertPixels();
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 		ite->tempImageFile->open();

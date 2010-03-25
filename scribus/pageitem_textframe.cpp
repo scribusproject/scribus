@@ -994,14 +994,14 @@ void PageItem_TextFrame::layout()
 //				qDebug() << QString("auto linespacing: %1").arg(style.lineSpacing());
 			}
 			else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-				style.setLineSpacing(m_Doc->guidesSettings.valueBaselineGrid);
+				style.setLineSpacing(m_Doc->guidesPrefs().valueBaselineGrid);
 
 //			qDebug() << QString("style @0: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"");
 			if (style.hasDropCap())
 			{
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					chs = qRound(m_Doc->guidesSettings.valueBaselineGrid  * style.dropCapLines() * 10);
+					chs = qRound(m_Doc->guidesPrefs().valueBaselineGrid  * style.dropCapLines() * 10);
 				else
 					chs = qRound(style.lineSpacing() * style.dropCapLines() * 10);
 			}
@@ -1050,7 +1050,7 @@ void PageItem_TextFrame::layout()
 				style.setLineSpacing(style.charStyle().font().height(style.charStyle().fontSize() / 10.0));
 			}
 			else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-				style.setLineSpacing(m_Doc->guidesSettings.valueBaselineGrid);
+				style.setLineSpacing(m_Doc->guidesPrefs().valueBaselineGrid);
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
 			{
@@ -1120,7 +1120,7 @@ void PageItem_TextFrame::layout()
 					{
 						DropLines = style.dropCapLines();
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-							DropCapDrop = m_Doc->guidesSettings.valueBaselineGrid * (DropLines-1);
+							DropCapDrop = m_Doc->guidesPrefs().valueBaselineGrid * (DropLines-1);
 						else
 						{
 							if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
@@ -1138,7 +1138,7 @@ void PageItem_TextFrame::layout()
 			{
 				// dropcap active?
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					DropCapDrop = m_Doc->guidesSettings.valueBaselineGrid * (DropLines-1);
+					DropCapDrop = m_Doc->guidesPrefs().valueBaselineGrid * (DropLines-1);
 				else
 				{
 					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
@@ -1159,8 +1159,8 @@ void PageItem_TextFrame::layout()
 					realCharAscent = fontAscent;
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				{
-					chsd = (10 * ((m_Doc->guidesSettings.valueBaselineGrid * (DropLines-1) + fontAscent) / realCharHeight));
-					chs  = (10 * ((m_Doc->guidesSettings.valueBaselineGrid * (DropLines-1) + fontAscent) / realCharAscent));
+					chsd = (10 * ((m_Doc->guidesPrefs().valueBaselineGrid * (DropLines-1) + fontAscent) / realCharHeight));
+					chs  = (10 * ((m_Doc->guidesPrefs().valueBaselineGrid * (DropLines-1) + fontAscent) / realCharAscent));
 				}
 				else
 				{
@@ -1227,7 +1227,7 @@ void PageItem_TextFrame::layout()
 						itemHeight = charStyle.font().height(style.charStyle().fontSize() / 10.0);
 					wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						asce = m_Doc->guidesSettings.valueBaselineGrid * DropLines;
+						asce = m_Doc->guidesPrefs().valueBaselineGrid * DropLines;
 					else
 					{
 						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
@@ -1301,7 +1301,7 @@ void PageItem_TextFrame::layout()
 						if (DropCmode)
 						{
 							if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-								desc2 = -charStyle.font().descent() * m_Doc->guidesSettings.valueBaselineGrid * style.dropCapLines();
+								desc2 = -charStyle.font().descent() * m_Doc->guidesPrefs().valueBaselineGrid * style.dropCapLines();
 							else
 								desc2 = -charStyle.font().descent() * style.lineSpacing() * style.dropCapLines();
 						}
@@ -1314,11 +1314,11 @@ void PageItem_TextFrame::layout()
 						double by = Ypos;
 						if (OwnPage != -1)
 							by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-						int ol1 = qRound((by + current.yPos - m_Doc->guidesSettings.offsetBaselineGrid) * 10000.0);
-						int ol2 = static_cast<int>(ol1 / m_Doc->guidesSettings.valueBaselineGrid);
+						int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+						int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 //						qDebug() << QString("baseline adjust: y=%1->%2").arg(current.yPos).arg(ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaselineGrid + m_Doc->typographicSettings.offsetBaselineGrid - by);
 
-						current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesSettings.valueBaselineGrid + m_Doc->guidesSettings.offsetBaselineGrid - by;
+						current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 					}
 				}
 				else
@@ -1349,11 +1349,11 @@ void PageItem_TextFrame::layout()
 					double by = Ypos;
 					if (OwnPage != -1)
 						by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-					int ol1 = qRound((by + current.yPos - m_Doc->guidesSettings.offsetBaselineGrid) * 10000.0);
-					int ol2 = static_cast<int>(ol1 / m_Doc->guidesSettings.valueBaselineGrid);
+					int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+					int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 //					qDebug() << QString("useBaselIneGrid: %1 * %2 + %3 - %4").arg(ol2 / 10000.0).arg(m_Doc->typographicSettings.valueBaselineGrid).arg(m_Doc->typographicSettings.offsetBaselineGrid).arg(by);
 //					qDebug() << QString("baseline adjust: y=%1->%2").arg(current.yPos).arg(ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaselineGrid + m_Doc->typographicSettings.offsetBaselineGrid - by);
-					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesSettings.valueBaselineGrid + m_Doc->guidesSettings.offsetBaselineGrid - by;
+					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 				}
 				/* this causes different spacing for first line:
 				if (current.yPos-TopOffset < 0.0)
@@ -1394,10 +1394,10 @@ void PageItem_TextFrame::layout()
 							double by = Ypos;
 							if (OwnPage != -1)
 								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-							int ol1 = qRound((by + current.yPos - m_Doc->guidesSettings.offsetBaselineGrid) * 10000.0);
-							int ol2 = static_cast<int>(ol1 / m_Doc->guidesSettings.valueBaselineGrid);
+							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 //							qDebug() << QString("baseline adjust: y=%1->%2").arg(current.yPos).arg(ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaselineGrid + m_Doc->typographicSettings.offsetBaselineGrid - by);
-							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesSettings.valueBaselineGrid + m_Doc->guidesSettings.offsetBaselineGrid - by;
+							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 						}
 						if (current.isEndOfCol())
 						{
@@ -1415,7 +1415,7 @@ void PageItem_TextFrame::layout()
 									if (DropCmode)
 									{
 										if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-											desc2 = -charStyle.font().descent() * m_Doc->guidesSettings.valueBaselineGrid * style.dropCapLines();
+											desc2 = -charStyle.font().descent() * m_Doc->guidesPrefs().valueBaselineGrid * style.dropCapLines();
 										else
 											desc2 = -charStyle.font().descent() * style.lineSpacing() * style.dropCapLines();
 									}
@@ -1428,10 +1428,10 @@ void PageItem_TextFrame::layout()
 									double by = Ypos;
 									if (OwnPage != -1)
 										by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-									int ol1 = qRound((by + current.yPos - m_Doc->guidesSettings.offsetBaselineGrid) * 10000.0);
-									int ol2 = static_cast<int>(ol1 / m_Doc->guidesSettings.valueBaselineGrid);
+									int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+									int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 //									qDebug() << QString("baseline adjust: y=%1->%2").arg(current.yPos).arg(ceil(  ol2 / 10000.0 ) * m_Doc->guideSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaselineGrid - by);
-									current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesSettings.valueBaselineGrid + m_Doc->guidesSettings.offsetBaselineGrid - by;
+									current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 								}
 							}
 							else
@@ -1494,7 +1494,7 @@ void PageItem_TextFrame::layout()
 					tTabValues = style.tabValues();
 					if (tTabValues.isEmpty())
 					{
-						double dtw=m_Doc->itemToolPrefs.textTabWidth;
+						double dtw=m_Doc->itemToolPrefs().textTabWidth;
 						if ((current.xPos - current.colLeft) != 0)
 						{
 							if (current.xPos == current.colLeft + ceil((current.xPos-current.colLeft) / dtw) * dtw)
@@ -1522,7 +1522,7 @@ void PageItem_TextFrame::layout()
 						}
 						tabs.active = (tabs.status != TabLEFT);
 						if (tCurX == oCurX-wide)
-							current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->itemToolPrefs.textTabWidth) * m_Doc->itemToolPrefs.textTabWidth;
+							current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->itemToolPrefs().textTabWidth) * m_Doc->itemToolPrefs().textTabWidth;
 						else
 							current.xPos = current.colLeft + tCurX;
 						
@@ -1677,17 +1677,17 @@ void PageItem_TextFrame::layout()
 				QPolygon tcli(4);
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				{
-					current.yPos -= m_Doc->guidesSettings.valueBaselineGrid * (DropLines-1);
+					current.yPos -= m_Doc->guidesPrefs().valueBaselineGrid * (DropLines-1);
 					double by = Ypos;
 					if (OwnPage != -1)
 						by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-					int ol1 = qRound((by + current.yPos - m_Doc->guidesSettings.offsetBaselineGrid) * 10000.0);
-					int ol2 = static_cast<int>(ol1 / m_Doc->guidesSettings.valueBaselineGrid);
+					int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+					int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 //					qDebug() << QString("baseline adjust after dropcaps: y=%1->%2").arg(current.yPos).arg(ceil(  ol2 / 10000.0 ) * m_Doc->guideSettings.valueBaselineGrid + m_Doc->typographicSettings.offsetBaselineGrid - by);
-					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesSettings.valueBaselineGrid + m_Doc->guidesSettings.offsetBaselineGrid - by;
+					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 					//FIXME: use current.colLeft instead of xOffset?
-					tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->guidesSettings.valueBaselineGrid)));
-					tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->guidesSettings.valueBaselineGrid)));
+					tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->guidesPrefs().valueBaselineGrid)));
+					tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->guidesPrefs().valueBaselineGrid)));
 				}
 				else
 				{
@@ -1779,7 +1779,7 @@ void PageItem_TextFrame::layout()
 //							qDebug() << QString("auto linespacing: %1").arg(style.lineSpacing());
 						}
 						else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-							style.setLineSpacing(m_Doc->guidesSettings.valueBaselineGrid);
+							style.setLineSpacing(m_Doc->guidesPrefs().valueBaselineGrid);
 						current.itemsInLine = a - current.line.firstItem + 1;
 //						qDebug() << QString("style outs pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent());
 //						qDebug() << QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
@@ -1868,7 +1868,7 @@ void PageItem_TextFrame::layout()
 //								qDebug() << QString("auto linespacing: %1").arg(style.lineSpacing());
 							}
 							else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-								style.setLineSpacing(m_Doc->guidesSettings.valueBaselineGrid);
+								style.setLineSpacing(m_Doc->guidesPrefs().valueBaselineGrid);
 						}
 						current.breakLine(itemText, a);
 //						qDebug() << QString("style no break pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent());
@@ -1907,7 +1907,7 @@ void PageItem_TextFrame::layout()
 //								qDebug() << QString("nextline: y=%1+%2").arg(current.yPos).arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing? m_Doc->typographicSettings.valueBaseGrid : style.lineSpacing());
 
 								if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-									current.yPos += m_Doc->guidesSettings.valueBaselineGrid;
+									current.yPos += m_Doc->guidesPrefs().valueBaselineGrid;
 								else
 									current.yPos += style.lineSpacing();
 								if (current.isEndOfCol(desc) && (current.column+1 == Cols))
@@ -1982,7 +1982,7 @@ void PageItem_TextFrame::layout()
 						{
 //							qDebug() << QString("next line (grid): y=%1+%2").arg(current.yPos).arg(m_Doc->typographicSettings.valueBaseGrid);
 
-							current.yPos += m_Doc->guidesSettings.valueBaselineGrid;
+							current.yPos += m_Doc->guidesPrefs().valueBaselineGrid;
 						}
 						else
 						{
@@ -1994,7 +1994,7 @@ void PageItem_TextFrame::layout()
 							if (pStyle.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
 								lineSpacing = pStyle.charStyle().font().height(pStyle.charStyle().fontSize() / 10.0);
 							else if (pStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-								lineSpacing = m_Doc->guidesSettings.valueBaselineGrid;
+								lineSpacing = m_Doc->guidesPrefs().valueBaselineGrid;
 							current.yPos += lineSpacing;
 						}
 						if (AbsHasDrop)
@@ -2123,7 +2123,7 @@ void PageItem_TextFrame::layout()
 				current.startOfCol = false;
 /* has no effect except setting wide, asce and desc
  				uint loopC = BuPos3;
-				if (m_Doc->guidesSettings.showControls)
+				if (m_Doc->guidesPrefs().showControls)
 					loopC++;  // ??? AV
 				for (int zc = 0; zc < loopC; ++zc)
 				{
@@ -2620,7 +2620,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				{
 					const ParagraphStyle& style(itemText.paragraphStyle(a));
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						chs = qRound(10 * ((m_Doc->guidesSettings.valueBaselineGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
+						chs = qRound(10 * ((m_Doc->guidesPrefs().valueBaselineGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
 					else
 					{
 						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
@@ -2836,7 +2836,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
 		double aestheticFactor(5.0);
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
-		if ((Frame) && (m_Doc->guidesSettings.framesShown))
+		if ((Frame) && (m_Doc->guidesPrefs().framesShown))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
@@ -2859,7 +2859,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 #endif
 			p->strokePath();
 		}
-		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(Qt::lightGray, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
@@ -2881,9 +2881,9 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			if ((!view->m_canvas->isPreviewMode()))
 				drawOverflowMarker(p);
 		}
-		if ((m_Doc->guidesSettings.colBordersShown) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesPrefs().colBordersShown) && (!view->m_canvas->isPreviewMode()))
 			drawColumnBorders(p);
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (!view->m_canvas->isPreviewMode()))
 		{
 			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);

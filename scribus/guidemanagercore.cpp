@@ -477,7 +477,7 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 {
 	Guides::iterator it;
-	QColor color(doc->guidesSettings.guideColor);
+	QColor color(doc->guidesPrefs().guideColor);
 
 	if (!m_page || ScCore->primaryMainWindow()->guidePalette->pageNr() < 0)
 		return;
@@ -518,7 +518,7 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	if (ScCore->primaryMainWindow()->guidePalette->currentIndex() == 1)
 		color = Qt::red;
 	else
-		color = doc->guidesSettings.guideColor;
+		color = doc->guidesPrefs().guideColor;
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 
 	for (it = verticalAutoG.begin(); it != verticalAutoG.end(); ++it)

@@ -658,7 +658,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 			{
 				if (chstr.toUpper() != chstr)
 				{
-					chs = qMax(static_cast<int>(hl->fontSize() * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
+					chs = qMax(static_cast<int>(hl->fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
 					chstr = chstr.toUpper();
 				}
 			}
@@ -895,7 +895,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 		{
 			if (chstr.toUpper() != chstr)
 			{
-				chs = qMax(static_cast<int>(hl->fontSize() * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
+				chs = qMax(static_cast<int>(hl->fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
 				chstr = chstr.toUpper();
 			}
 		}

@@ -105,12 +105,12 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		RulerCode = rc_none;
 		Markp = -1;
 		double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
-		if ((static_cast<int>(Pos-1) < (m->x()+currDoc->guidesSettings.grabRadius))
-				   && (static_cast<int>(Pos-1) > (m->x()-currDoc->guidesSettings.grabRadius)))
+		if ((static_cast<int>(Pos-1) < (m->x()+currDoc->guidesPrefs().grabRadius))
+				   && (static_cast<int>(Pos-1) > (m->x()-currDoc->guidesPrefs().grabRadius)))
 			RulerCode = rc_leftFrameDist;
 		Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
-		if ((static_cast<int>(Pos+1) < (m->x()+currDoc->guidesSettings.grabRadius))
-				   && (static_cast<int>(Pos+1) > (m->x()-currDoc->guidesSettings.grabRadius)))
+		if ((static_cast<int>(Pos+1) < (m->x()+currDoc->guidesPrefs().grabRadius))
+				   && (static_cast<int>(Pos+1) > (m->x()-currDoc->guidesPrefs().grabRadius)))
 			RulerCode = rc_rightFrameDist;
 		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 		QRect fpo;
@@ -172,7 +172,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			ParagraphStyle::TabRecord tb;
 			tb.tabPosition = newY / Scaling;
 			tb.tabType = 0;
-			tb.tabFillChar = currDoc->itemToolPrefs.textTabFillChar[0];
+			tb.tabFillChar = currDoc->itemToolPrefs().textTabFillChar[0];
 			TabValues.prepend(tb);
 			ActTab = 0;
 			RulerCode = rc_tab;
@@ -183,7 +183,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if (currDoc->guidesSettings.guidesShown)
+		if (currDoc->guidesPrefs().guidesShown)
 		{
 			qApp->changeOverrideCursor(QCursor(SPLITHC));
 			currView->startGesture(rulerGesture);
@@ -392,10 +392,10 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		{
 			qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
 			double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
-			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRadius)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRadius)))
+			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesPrefs().grabRadius)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesPrefs().grabRadius)))
 				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
-			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRadius)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRadius)))
+			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesPrefs().grabRadius)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesPrefs().grabRadius)))
 				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			QRect fpo;
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
@@ -819,7 +819,7 @@ void Hruler::setItem(PageItem * item)
 	currItem = item;
 	ItemPos = item->xPos();
 	ItemEndPos = ItemPos + item->width();
-	if (currDoc->guidesSettings.rulerMode)
+	if (currDoc->guidesPrefs().rulerMode)
 	{
 		ItemPos -= currDoc->currentPage()->xOffset();
 		ItemEndPos -= currDoc->currentPage()->xOffset();

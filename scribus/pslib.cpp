@@ -2578,14 +2578,14 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					if (chstr.toUpper() != chstr)
 					{
-						tsz = style.fontSize() * Doc->typographicSettings.valueSmallCaps / 100;
+						tsz = style.fontSize() * Doc->typographicPrefs().valueSmallCaps / 100;
 						chstr = chstr.toUpper();
 					}
 				}
 				if (style.effects() & 1)
-					tsz = style.fontSize() * Doc->typographicSettings.scalingSuperScript / 100;
+					tsz = style.fontSize() * Doc->typographicPrefs().scalingSuperScript / 100;
 				if (style.effects() & 2)
-					tsz = style.fontSize() * Doc->typographicSettings.scalingSuperScript / 100;
+					tsz = style.fontSize() * Doc->typographicPrefs().scalingSuperScript / 100;
 				if (style.fillColor() != CommonStrings::None)
 				{
 					SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);

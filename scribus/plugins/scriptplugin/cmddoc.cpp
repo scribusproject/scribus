@@ -133,8 +133,8 @@ PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	ScCore->primaryMainWindow()->doc->guidesSettings.valueBaselineGrid = ValueToPoint(grid);
-	ScCore->primaryMainWindow()->doc->guidesSettings.offsetBaselineGrid = ValueToPoint(offset);
+	ScCore->primaryMainWindow()->doc->guidesPrefs().valueBaselineGrid = ValueToPoint(grid);
+	ScCore->primaryMainWindow()->doc->guidesPrefs().offsetBaselineGrid = ValueToPoint(offset);
 	//ScCore->primaryMainWindow()->view->reformPages();
 	ScCore->primaryMainWindow()->doc->setModified(true);
 	//ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());

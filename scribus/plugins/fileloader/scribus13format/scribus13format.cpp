@@ -270,14 +270,14 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->PageSp = dc.attribute("AUTOSPALTEN").toInt();
 		m_Doc->PageSpa= ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
-		m_Doc->itemToolPrefs.textSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
+		m_Doc->itemToolPrefs().textSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
 		//findFont will use that if it doesnt find the font:
-		m_Doc->itemToolPrefs.textFont = prefsManager->appPrefs.itemToolPrefs.textFont;
+		m_Doc->itemToolPrefs().textFont = prefsManager->appPrefs.itemToolPrefs.textFont;
 		m_AvailableFonts->findFont(Defont, m_Doc);
-		m_Doc->itemToolPrefs.textFont = Defont;
-		m_Doc->itemToolPrefs.textColumns= dc.attribute("DCOL", "1").toInt();
-		m_Doc->itemToolPrefs.textColumnGap = ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
+		m_Doc->itemToolPrefs().textFont = Defont;
+		m_Doc->itemToolPrefs().textColumns= dc.attribute("DCOL", "1").toInt();
+		m_Doc->itemToolPrefs().textColumnGap = ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
 		m_Doc->documentInfo.setAuthor(dc.attribute("AUTHOR"));
 		m_Doc->documentInfo.setComments(dc.attribute("COMMENTS"));
 		m_Doc->documentInfo.setKeywords(dc.attribute("KEYWORDS",""));
@@ -293,18 +293,18 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->documentInfo.setCover(dc.attribute("DOCCOVER", ""));
 		m_Doc->documentInfo.setRights(dc.attribute("DOCRIGHTS", ""));
 		m_Doc->documentInfo.setContrib(dc.attribute("DOCCONTRIB", ""));
-		m_Doc->typographicSettings.valueSuperScript = dc.attribute("VHOCH").toInt();
-		m_Doc->typographicSettings.scalingSuperScript = dc.attribute("VHOCHSC").toInt();
-		m_Doc->typographicSettings.valueSubScript = dc.attribute("VTIEF").toInt();
-		m_Doc->typographicSettings.scalingSubScript = dc.attribute("VTIEFSC").toInt();
-		m_Doc->typographicSettings.valueSmallCaps = dc.attribute("VKAPIT").toInt();
-		m_Doc->guidesSettings.valueBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
-		m_Doc->guidesSettings.offsetBaselineGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
-		m_Doc->typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
-		m_Doc->typographicSettings.valueUnderlinePos = dc.attribute("UnderlinePos", "-1").toInt();
-		m_Doc->typographicSettings.valueUnderlineWidth = dc.attribute("UnderlineWidth", "-1").toInt();
-		m_Doc->typographicSettings.valueStrikeThruPos = dc.attribute("StrikeThruPos", "-1").toInt();
-		m_Doc->typographicSettings.valueStrikeThruWidth = dc.attribute("StrikeThruWidth", "-1").toInt();
+		m_Doc->typographicPrefs().valueSuperScript = dc.attribute("VHOCH").toInt();
+		m_Doc->typographicPrefs().scalingSuperScript = dc.attribute("VHOCHSC").toInt();
+		m_Doc->typographicPrefs().valueSubScript = dc.attribute("VTIEF").toInt();
+		m_Doc->typographicPrefs().scalingSubScript = dc.attribute("VTIEFSC").toInt();
+		m_Doc->typographicPrefs().valueSmallCaps = dc.attribute("VKAPIT").toInt();
+		m_Doc->guidesPrefs().valueBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
+		m_Doc->guidesPrefs().offsetBaselineGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
+		m_Doc->typographicPrefs().autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
+		m_Doc->typographicPrefs().valueUnderlinePos = dc.attribute("UnderlinePos", "-1").toInt();
+		m_Doc->typographicPrefs().valueUnderlineWidth = dc.attribute("UnderlineWidth", "-1").toInt();
+		m_Doc->typographicPrefs().valueStrikeThruPos = dc.attribute("StrikeThruPos", "-1").toInt();
+		m_Doc->typographicPrefs().valueStrikeThruWidth = dc.attribute("StrikeThruWidth", "-1").toInt();
 		m_Doc->GroupCounter = 1 /*dc.attribute("GROUPC", "1").toInt()*/;
 		//m_Doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
 		m_Doc->CMSSettings.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
@@ -342,30 +342,30 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setHyphAutomatic(static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt()));
 		m_Doc->setHyphAutoCheck(static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt()));
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
-		m_Doc->guidesSettings.minorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
-		m_Doc->guidesSettings.majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
-		m_Doc->guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
-		m_Doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
-		m_Doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
-		m_Doc->guidesSettings.framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
-		m_Doc->guidesSettings.layerMarkersShown = static_cast<bool>(dc.attribute("SHOWLAYERM", "0").toInt());
-		m_Doc->guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
-		m_Doc->guidesSettings.baselineGridShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
-		m_Doc->guidesSettings.showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
-		m_Doc->guidesSettings.linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
-		m_Doc->guidesSettings.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
-		m_Doc->guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
-		m_Doc->guidesSettings.rulersShown = static_cast<bool>(dc.attribute("showrulers", "1").toInt());
+		m_Doc->guidesPrefs().minorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MINGRID"), prefsManager->appPrefs.guidesPrefs.minorGridSpacing);
+		m_Doc->guidesPrefs().majorGridSpacing = ScCLocale::toDoubleC(dc.attribute("MAJGRID"), prefsManager->appPrefs.guidesPrefs.majorGridSpacing);
+		m_Doc->guidesPrefs().gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
+		m_Doc->guidesPrefs().guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+		m_Doc->guidesPrefs().colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
+		m_Doc->guidesPrefs().framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
+		m_Doc->guidesPrefs().layerMarkersShown = static_cast<bool>(dc.attribute("SHOWLAYERM", "0").toInt());
+		m_Doc->guidesPrefs().marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
+		m_Doc->guidesPrefs().baselineGridShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
+		m_Doc->guidesPrefs().showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
+		m_Doc->guidesPrefs().linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
+		m_Doc->guidesPrefs().showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
+		m_Doc->guidesPrefs().rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
+		m_Doc->guidesPrefs().rulersShown = static_cast<bool>(dc.attribute("showrulers", "1").toInt());
 		m_Doc->rulerXoffset = ScCLocale::toDoubleC(dc.attribute("rulerXoffset"), 0.0);
 		m_Doc->rulerYoffset = ScCLocale::toDoubleC(dc.attribute("rulerYoffset"), 0.0);
 		m_Doc->SnapGuides = static_cast<bool>(dc.attribute("SnapToGuides", "0").toInt());
 		m_Doc->useRaster = static_cast<bool>(dc.attribute("SnapToGrid", "0").toInt());
-		m_Doc->itemToolPrefs.polyCorners = dc.attribute("POLYC", "4").toInt();
-		m_Doc->itemToolPrefs.polyFactor = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
-		m_Doc->itemToolPrefs.polyRotation = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
-		m_Doc->itemToolPrefs.polyCurvature = 0.0;
-		m_Doc->itemToolPrefs.polyFactorGuiVal = dc.attribute("POLYFD", "0").toInt();
-		m_Doc->itemToolPrefs.polyUseFactor = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
+		m_Doc->itemToolPrefs().polyCorners = dc.attribute("POLYC", "4").toInt();
+		m_Doc->itemToolPrefs().polyFactor = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
+		m_Doc->itemToolPrefs().polyRotation = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);
+		m_Doc->itemToolPrefs().polyCurvature = 0.0;
+		m_Doc->itemToolPrefs().polyFactorGuiVal = dc.attribute("POLYFD", "0").toInt();
+		m_Doc->itemToolPrefs().polyUseFactor = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->setAutoSave(static_cast<bool>(dc.attribute("AutoSave", "0").toInt()));
 		m_Doc->setAutoSaveTime(dc.attribute("AutoSaveTime", "600000").toInt());
 		double leftScratch;
@@ -377,64 +377,64 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			leftScratch = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
 		m_Doc->scratch()->set(ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0), leftScratch,
 							  ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0), ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0));
-		m_Doc->itemToolPrefs.lineStartArrow = dc.attribute("StartArrow", "0").toInt();
-		m_Doc->itemToolPrefs.lineEndArrow = dc.attribute("EndArrow", "0").toInt();
-		m_Doc->itemToolPrefs.imageScaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
-		m_Doc->itemToolPrefs.imageScaleY = ScCLocale::toDoubleC(dc.attribute("PICTSCY"), 1.0);
-		m_Doc->itemToolPrefs.imageScaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
-		m_Doc->itemToolPrefs.imageAspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
-		m_Doc->itemToolPrefs.imageLowResType = dc.attribute("HalfRes", "1").toInt();
-		m_Doc->itemToolPrefs.imageUseEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
+		m_Doc->itemToolPrefs().lineStartArrow = dc.attribute("StartArrow", "0").toInt();
+		m_Doc->itemToolPrefs().lineEndArrow = dc.attribute("EndArrow", "0").toInt();
+		m_Doc->itemToolPrefs().imageScaleX = ScCLocale::toDoubleC(dc.attribute("PICTSCX"), 1.0);
+		m_Doc->itemToolPrefs().imageScaleY = ScCLocale::toDoubleC(dc.attribute("PICTSCY"), 1.0);
+		m_Doc->itemToolPrefs().imageScaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
+		m_Doc->itemToolPrefs().imageAspectRatio = static_cast<bool>(dc.attribute("PASPECT", "0").toInt());
+		m_Doc->itemToolPrefs().imageLowResType = dc.attribute("HalfRes", "1").toInt();
+		m_Doc->itemToolPrefs().imageUseEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
 		if (dc.hasAttribute("PEN"))
-			m_Doc->itemToolPrefs.shapeLineColor = dc.attribute("PEN");
+			m_Doc->itemToolPrefs().shapeLineColor = dc.attribute("PEN");
 		if (dc.hasAttribute("BRUSH"))
-			m_Doc->itemToolPrefs.shapeFillColor = dc.attribute("BRUSH");
+			m_Doc->itemToolPrefs().shapeFillColor = dc.attribute("BRUSH");
 		if (dc.hasAttribute("PENLINE"))
-			m_Doc->itemToolPrefs.lineColor = dc.attribute("PENLINE");
+			m_Doc->itemToolPrefs().lineColor = dc.attribute("PENLINE");
 		if (dc.hasAttribute("PENTEXT"))
-			m_Doc->itemToolPrefs.textColor = dc.attribute("PENTEXT");
+			m_Doc->itemToolPrefs().textColor = dc.attribute("PENTEXT");
 		if (dc.hasAttribute("StrokeText"))
-			m_Doc->itemToolPrefs.textStrokeColor = dc.attribute("StrokeText");
-		m_Doc->itemToolPrefs.textFillColor = dc.attribute("TextBackGround", CommonStrings::None);
-		m_Doc->itemToolPrefs.textLineColor = dc.attribute("TextLineColor", CommonStrings::None);
-		m_Doc->itemToolPrefs.textFillColorShade = dc.attribute("TextBackGroundShade", "100").toInt();
-		m_Doc->itemToolPrefs.textLineColorShade = dc.attribute("TextLineShade", "100").toInt();
-		m_Doc->itemToolPrefs.textShade = dc.attribute("TextPenShade", "100").toInt();
-		m_Doc->itemToolPrefs.textStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
-		m_Doc->itemToolPrefs.shapeLineStyle = static_cast<Qt::PenStyle>(dc.attribute("STIL").toInt());
-		m_Doc->itemToolPrefs.lineStyle = static_cast<Qt::PenStyle>(dc.attribute("STILLINE").toInt());
-		m_Doc->itemToolPrefs.shapeLineWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 1.0);
-		m_Doc->itemToolPrefs.lineWidth = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
-		m_Doc->itemToolPrefs.shapeLineColorShade    = dc.attribute("PENSHADE", "100").toInt();
-		m_Doc->itemToolPrefs.lineColorShade = dc.attribute("LINESHADE", "100").toInt();
-		m_Doc->itemToolPrefs.shapeFillColorShade     = dc.attribute("BRUSHSHADE", "100").toInt();
-		m_Doc->opToolPrefs.magMin     = dc.attribute("MAGMIN", "1").toInt();
-		m_Doc->opToolPrefs.magMax     = dc.attribute("MAGMAX", "3200").toInt();
-		m_Doc->opToolPrefs.magStep    = dc.attribute("MAGSTEP", "200").toInt();
+			m_Doc->itemToolPrefs().textStrokeColor = dc.attribute("StrokeText");
+		m_Doc->itemToolPrefs().textFillColor = dc.attribute("TextBackGround", CommonStrings::None);
+		m_Doc->itemToolPrefs().textLineColor = dc.attribute("TextLineColor", CommonStrings::None);
+		m_Doc->itemToolPrefs().textFillColorShade = dc.attribute("TextBackGroundShade", "100").toInt();
+		m_Doc->itemToolPrefs().textLineColorShade = dc.attribute("TextLineShade", "100").toInt();
+		m_Doc->itemToolPrefs().textShade = dc.attribute("TextPenShade", "100").toInt();
+		m_Doc->itemToolPrefs().textStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
+		m_Doc->itemToolPrefs().shapeLineStyle = static_cast<Qt::PenStyle>(dc.attribute("STIL").toInt());
+		m_Doc->itemToolPrefs().lineStyle = static_cast<Qt::PenStyle>(dc.attribute("STILLINE").toInt());
+		m_Doc->itemToolPrefs().shapeLineWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 1.0);
+		m_Doc->itemToolPrefs().lineWidth = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
+		m_Doc->itemToolPrefs().shapeLineColorShade    = dc.attribute("PENSHADE", "100").toInt();
+		m_Doc->itemToolPrefs().lineColorShade = dc.attribute("LINESHADE", "100").toInt();
+		m_Doc->itemToolPrefs().shapeFillColorShade     = dc.attribute("BRUSHSHADE", "100").toInt();
+		m_Doc->opToolPrefs().magMin     = dc.attribute("MAGMIN", "1").toInt();
+		m_Doc->opToolPrefs().magMax     = dc.attribute("MAGMAX", "3200").toInt();
+		m_Doc->opToolPrefs().magStep    = dc.attribute("MAGSTEP", "200").toInt();
 		//CB Reset doc zoom step value to 200% instead of old values.
-		if (m_Doc->opToolPrefs.magStep <= 100)
-			m_Doc->opToolPrefs.magStep = 200;
-		m_Doc->itemToolPrefs.textTabFillChar = dc.attribute("TabFill","");
-		m_Doc->itemToolPrefs.textTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
+		if (m_Doc->opToolPrefs().magStep <= 100)
+			m_Doc->opToolPrefs().magStep = 200;
+		m_Doc->itemToolPrefs().textTabFillChar = dc.attribute("TabFill","");
+		m_Doc->itemToolPrefs().textTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
 		if (dc.hasAttribute("CPICT"))
-			m_Doc->itemToolPrefs.imageFillColor = dc.attribute("CPICT");
-		m_Doc->itemToolPrefs.imageFillColorShade = ScCLocale::toDoubleC(dc.attribute("PICTSHADE"), 100.0);
+			m_Doc->itemToolPrefs().imageFillColor = dc.attribute("CPICT");
+		m_Doc->itemToolPrefs().imageFillColorShade = ScCLocale::toDoubleC(dc.attribute("PICTSHADE"), 100.0);
 		if (dc.hasAttribute("PAGEC"))
 			m_Doc->setPaperColor(QColor(dc.attribute("PAGEC")));
 		if (dc.hasAttribute("MARGC"))
-			m_Doc->guidesSettings.marginColor = QColor(dc.attribute("MARGC"));
+			m_Doc->guidesPrefs().marginColor = QColor(dc.attribute("MARGC"));
 		if (dc.hasAttribute("MINORC"))
-			m_Doc->guidesSettings.minorGridColor = QColor(dc.attribute("MINORC"));
+			m_Doc->guidesPrefs().minorGridColor = QColor(dc.attribute("MINORC"));
 		if (dc.hasAttribute("MAJORC"))
-			m_Doc->guidesSettings.majorGridColor = QColor(dc.attribute("MAJORC"));
+			m_Doc->guidesPrefs().majorGridColor = QColor(dc.attribute("MAJORC"));
 		if (dc.hasAttribute("GuideC"))
-			m_Doc->guidesSettings.guideColor = QColor(dc.attribute("GuideC"));
+			m_Doc->guidesPrefs().guideColor = QColor(dc.attribute("GuideC"));
 		if (dc.hasAttribute("BaseC"))
-			m_Doc->guidesSettings.baselineGridColor = QColor(dc.attribute("BaseC"));
+			m_Doc->guidesPrefs().baselineGridColor = QColor(dc.attribute("BaseC"));
 		m_Doc->marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
-		m_Doc->guidesSettings.guidePlacement = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
-		m_Doc->guidesSettings.guideRad = ScCLocale::toDoubleC(dc.attribute("GuideRad"), 10.0);
-		m_Doc->guidesSettings.grabRadius  = dc.attribute("GRAB", "4").toInt();
+		m_Doc->guidesPrefs().guidePlacement = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
+		m_Doc->guidesPrefs().guideRad = ScCLocale::toDoubleC(dc.attribute("GuideRad"), 10.0);
+		m_Doc->guidesPrefs().grabRadius  = dc.attribute("GRAB", "4").toInt();
 		if (dc.hasAttribute("currentProfile"))
 		{
 			m_Doc->checkerProfiles.clear();
@@ -967,10 +967,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				delete last;
 				if (Neu->fill_gradient.Stops() == 0)
 				{
-					const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeFillColor];
-					const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeLineColor];
-					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
-					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
+					const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
+					const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];
+					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
+					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
 				}
 //				Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 				Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
@@ -1203,12 +1203,12 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("AUTOSPALTEN",m_Doc->PageSp);
 	dc.setAttribute("ABSTSPALTEN",m_Doc->PageSpa);
 	dc.setAttribute("UNITS",m_Doc->unitIndex());
-	dc.setAttribute("DFONT",m_Doc->itemToolPrefs.textFont);
-	dc.setAttribute("DSIZE",m_Doc->itemToolPrefs.textSize / 10.0);
-	dc.setAttribute("DCOL",m_Doc->itemToolPrefs.textColumns);
-	dc.setAttribute("DGAP",m_Doc->itemToolPrefs.textColumnGap);
-	dc.setAttribute("TabFill",m_Doc->itemToolPrefs.textTabFillChar);
-	dc.setAttribute("TabWidth",m_Doc->itemToolPrefs.textTabWidth);
+	dc.setAttribute("DFONT",m_Doc->itemToolPrefs().textFont);
+	dc.setAttribute("DSIZE",m_Doc->itemToolPrefs().textSize / 10.0);
+	dc.setAttribute("DCOL",m_Doc->itemToolPrefs().textColumns);
+	dc.setAttribute("DGAP",m_Doc->itemToolPrefs().textColumnGap);
+	dc.setAttribute("TabFill",m_Doc->itemToolPrefs().textTabFillChar);
+	dc.setAttribute("TabWidth",m_Doc->itemToolPrefs().textTabWidth);
 	dc.setAttribute("AUTHOR",m_Doc->documentInfo.getAuthor());
 	dc.setAttribute("COMMENTS",m_Doc->documentInfo.getComments());
 	dc.setAttribute("KEYWORDS",m_Doc->documentInfo.getKeywords());
@@ -1224,18 +1224,18 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("DOCRIGHTS",m_Doc->documentInfo.getRights());
 	dc.setAttribute("DOCCONTRIB",m_Doc->documentInfo.getContrib());
 	dc.setAttribute("TITLE",m_Doc->documentInfo.getTitle());
-	dc.setAttribute("VHOCH",m_Doc->typographicSettings.valueSuperScript);
-	dc.setAttribute("VHOCHSC",m_Doc->typographicSettings.scalingSuperScript);
-	dc.setAttribute("VTIEF",m_Doc->typographicSettings.valueSubScript);
-	dc.setAttribute("VTIEFSC",m_Doc->typographicSettings.scalingSubScript);
-	dc.setAttribute("VKAPIT",m_Doc->typographicSettings.valueSmallCaps);
-	dc.setAttribute("BASEGRID",m_Doc->guidesSettings.valueBaselineGrid);
-	dc.setAttribute("BASEO", m_Doc->guidesSettings.offsetBaselineGrid);
-	dc.setAttribute("AUTOL", m_Doc->typographicSettings.autoLineSpacing);
-	dc.setAttribute("UnderlinePos", m_Doc->typographicSettings.valueUnderlinePos);
-	dc.setAttribute("UnderlineWidth", m_Doc->typographicSettings.valueUnderlineWidth);
-	dc.setAttribute("StrikeThruPos", m_Doc->typographicSettings.valueStrikeThruPos);
-	dc.setAttribute("StrikeThruWidth", m_Doc->typographicSettings.valueStrikeThruWidth);
+	dc.setAttribute("VHOCH",m_Doc->typographicPrefs().valueSuperScript);
+	dc.setAttribute("VHOCHSC",m_Doc->typographicPrefs().scalingSuperScript);
+	dc.setAttribute("VTIEF",m_Doc->typographicPrefs().valueSubScript);
+	dc.setAttribute("VTIEFSC",m_Doc->typographicPrefs().scalingSubScript);
+	dc.setAttribute("VKAPIT",m_Doc->typographicPrefs().valueSmallCaps);
+	dc.setAttribute("BASEGRID",m_Doc->guidesPrefs().valueBaselineGrid);
+	dc.setAttribute("BASEO", m_Doc->guidesPrefs().offsetBaselineGrid);
+	dc.setAttribute("AUTOL", m_Doc->typographicPrefs().autoLineSpacing);
+	dc.setAttribute("UnderlinePos", m_Doc->typographicPrefs().valueUnderlinePos);
+	dc.setAttribute("UnderlineWidth", m_Doc->typographicPrefs().valueUnderlineWidth);
+	dc.setAttribute("StrikeThruPos", m_Doc->typographicPrefs().valueStrikeThruPos);
+	dc.setAttribute("StrikeThruWidth", m_Doc->typographicPrefs().valueStrikeThruWidth);
 	dc.setAttribute("GROUPC",m_Doc->GroupCounter);
 	dc.setAttribute("HCMS", static_cast<int>(m_Doc->HasCMS));
 	dc.setAttribute("DPSo", static_cast<int>(m_Doc->CMSSettings.SoftProofOn));
@@ -1260,74 +1260,74 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("GUIDELOCK", static_cast<int>(m_Doc->GuideLock));
 	dc.setAttribute("SnapToGuides", static_cast<int>(m_Doc->SnapGuides));
 	dc.setAttribute("SnapToGrid", static_cast<int>(m_Doc->useRaster));
-	dc.setAttribute("MINGRID", m_Doc->guidesSettings.minorGridSpacing);
-	dc.setAttribute("MAJGRID", m_Doc->guidesSettings.majorGridSpacing);
-	dc.setAttribute("SHOWGRID", static_cast<int>(m_Doc->guidesSettings.gridShown));
-	dc.setAttribute("SHOWGUIDES", static_cast<int>(m_Doc->guidesSettings.guidesShown));
-	dc.setAttribute("showcolborders", static_cast<int>(m_Doc->guidesSettings.colBordersShown));
-	dc.setAttribute("SHOWFRAME", static_cast<int>(m_Doc->guidesSettings.framesShown));
-	dc.setAttribute("SHOWLAYERM", static_cast<int>(m_Doc->guidesSettings.layerMarkersShown));
-	dc.setAttribute("SHOWMARGIN", static_cast<int>(m_Doc->guidesSettings.marginsShown));
-	dc.setAttribute("SHOWBASE", static_cast<int>(m_Doc->guidesSettings.baselineGridShown));
-	dc.setAttribute("SHOWPICT", static_cast<int>(m_Doc->guidesSettings.showPic));
-	dc.setAttribute("SHOWControl", static_cast<int>(m_Doc->guidesSettings.showControls));
-	dc.setAttribute("SHOWLINK", static_cast<int>(m_Doc->guidesSettings.linkShown));
-	dc.setAttribute("rulerMode", static_cast<int>(m_Doc->guidesSettings.rulerMode));
-	dc.setAttribute("showrulers", static_cast<int>(m_Doc->guidesSettings.rulersShown));
+	dc.setAttribute("MINGRID", m_Doc->guidesPrefs().minorGridSpacing);
+	dc.setAttribute("MAJGRID", m_Doc->guidesPrefs().majorGridSpacing);
+	dc.setAttribute("SHOWGRID", static_cast<int>(m_Doc->guidesPrefs().gridShown));
+	dc.setAttribute("SHOWGUIDES", static_cast<int>(m_Doc->guidesPrefs().guidesShown));
+	dc.setAttribute("showcolborders", static_cast<int>(m_Doc->guidesPrefs().colBordersShown));
+	dc.setAttribute("SHOWFRAME", static_cast<int>(m_Doc->guidesPrefs().framesShown));
+	dc.setAttribute("SHOWLAYERM", static_cast<int>(m_Doc->guidesPrefs().layerMarkersShown));
+	dc.setAttribute("SHOWMARGIN", static_cast<int>(m_Doc->guidesPrefs().marginsShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(m_Doc->guidesPrefs().baselineGridShown));
+	dc.setAttribute("SHOWPICT", static_cast<int>(m_Doc->guidesPrefs().showPic));
+	dc.setAttribute("SHOWControl", static_cast<int>(m_Doc->guidesPrefs().showControls));
+	dc.setAttribute("SHOWLINK", static_cast<int>(m_Doc->guidesPrefs().linkShown));
+	dc.setAttribute("rulerMode", static_cast<int>(m_Doc->guidesPrefs().rulerMode));
+	dc.setAttribute("showrulers", static_cast<int>(m_Doc->guidesPrefs().rulersShown));
 	dc.setAttribute("rulerXoffset", m_Doc->rulerXoffset);
 	dc.setAttribute("rulerYoffset", m_Doc->rulerYoffset);
-	dc.setAttribute("GuideRad", m_Doc->guidesSettings.guideRad);
-	dc.setAttribute("GRAB",m_Doc->guidesSettings.grabRadius);
-	dc.setAttribute("POLYC", m_Doc->itemToolPrefs.polyCorners);
-	dc.setAttribute("POLYF", m_Doc->itemToolPrefs.polyFactor);
-	dc.setAttribute("POLYR", m_Doc->itemToolPrefs.polyRotation);
-	dc.setAttribute("POLYFD", m_Doc->itemToolPrefs.polyFactorGuiVal);
-	dc.setAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs.polyUseFactor));
+	dc.setAttribute("GuideRad", m_Doc->guidesPrefs().guideRad);
+	dc.setAttribute("GRAB",m_Doc->guidesPrefs().grabRadius);
+	dc.setAttribute("POLYC", m_Doc->itemToolPrefs().polyCorners);
+	dc.setAttribute("POLYF", m_Doc->itemToolPrefs().polyFactor);
+	dc.setAttribute("POLYR", m_Doc->itemToolPrefs().polyRotation);
+	dc.setAttribute("POLYFD", m_Doc->itemToolPrefs().polyFactorGuiVal);
+	dc.setAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs().polyUseFactor));
 	dc.setAttribute("AutoSave", static_cast<int>(m_Doc->autoSave()));
 	dc.setAttribute("AutoSaveTime", m_Doc->autoSaveTime());
 	dc.setAttribute("ScratchBottom", m_Doc->scratch()->Bottom);
 	dc.setAttribute("ScratchLeft", m_Doc->scratch()->Left);
 	dc.setAttribute("ScratchRight", m_Doc->scratch()->Right);
 	dc.setAttribute("ScratchTop", m_Doc->scratch()->Top);
-	dc.setAttribute("StartArrow", m_Doc->itemToolPrefs.lineStartArrow);
-	dc.setAttribute("EndArrow", m_Doc->itemToolPrefs.lineEndArrow);
-	dc.setAttribute("PEN",m_Doc->itemToolPrefs.shapeLineColor);
-	dc.setAttribute("BRUSH",m_Doc->itemToolPrefs.shapeFillColor);
-	dc.setAttribute("PENLINE",m_Doc->itemToolPrefs.lineColor);
-	dc.setAttribute("PENTEXT",m_Doc->itemToolPrefs.textColor);
-	dc.setAttribute("StrokeText",m_Doc->itemToolPrefs.textStrokeColor);
-	dc.setAttribute("TextBackGround", m_Doc->itemToolPrefs.textFillColor);
-	dc.setAttribute("TextLineColor", m_Doc->itemToolPrefs.textLineColor);
-	dc.setAttribute("TextBackGroundShade", m_Doc->itemToolPrefs.textFillColorShade);
-	dc.setAttribute("TextLineShade", m_Doc->itemToolPrefs.textLineColorShade);
-	dc.setAttribute("TextPenShade", m_Doc->itemToolPrefs.textShade);
-	dc.setAttribute("TextStrokeShade", m_Doc->itemToolPrefs.textStrokeShade);
-	dc.setAttribute("STIL",m_Doc->itemToolPrefs.shapeLineStyle);
-	dc.setAttribute("STILLINE",m_Doc->itemToolPrefs.lineStyle);
-	dc.setAttribute("WIDTH",m_Doc->itemToolPrefs.shapeLineWidth);
-	dc.setAttribute("WIDTHLINE",m_Doc->itemToolPrefs.lineWidth);
-	dc.setAttribute("PENSHADE",m_Doc->itemToolPrefs.shapeLineColorShade);
-	dc.setAttribute("LINESHADE",m_Doc->itemToolPrefs.lineColorShade);
-	dc.setAttribute("BRUSHSHADE",m_Doc->itemToolPrefs.shapeFillColorShade);
-	dc.setAttribute("MAGMIN",m_Doc->opToolPrefs.magMin);
-	dc.setAttribute("MAGMAX",m_Doc->opToolPrefs.magMax);
-	dc.setAttribute("MAGSTEP",m_Doc->opToolPrefs.magStep);
-	dc.setAttribute("CPICT",m_Doc->itemToolPrefs.imageFillColor);
-	dc.setAttribute("PICTSHADE",m_Doc->itemToolPrefs.imageFillColorShade);
-	dc.setAttribute("PICTSCX",m_Doc->itemToolPrefs.imageScaleX);
-	dc.setAttribute("PICTSCY",m_Doc->itemToolPrefs.imageScaleY);
-	dc.setAttribute("PSCALE", static_cast<int>(m_Doc->itemToolPrefs.imageScaleType));
-	dc.setAttribute("PASPECT", static_cast<int>(m_Doc->itemToolPrefs.imageAspectRatio));
-	dc.setAttribute("EmbeddedPath", static_cast<int>(m_Doc->itemToolPrefs.imageUseEmbeddedPath));
-	dc.setAttribute("HalfRes", m_Doc->itemToolPrefs.imageLowResType);
-	dc.setAttribute("MINORC",m_Doc->guidesSettings.minorGridColor.name());
-	dc.setAttribute("MAJORC",m_Doc->guidesSettings.majorGridColor.name());
-	dc.setAttribute("GuideC", m_Doc->guidesSettings.guideColor.name());
-	dc.setAttribute("BaseC", m_Doc->guidesSettings.baselineGridColor.name());
-	dc.setAttribute("GuideZ", m_Doc->guidesSettings.guideRad);
-	dc.setAttribute("BACKG", static_cast<int>(m_Doc->guidesSettings.guidePlacement));
+	dc.setAttribute("StartArrow", m_Doc->itemToolPrefs().lineStartArrow);
+	dc.setAttribute("EndArrow", m_Doc->itemToolPrefs().lineEndArrow);
+	dc.setAttribute("PEN",m_Doc->itemToolPrefs().shapeLineColor);
+	dc.setAttribute("BRUSH",m_Doc->itemToolPrefs().shapeFillColor);
+	dc.setAttribute("PENLINE",m_Doc->itemToolPrefs().lineColor);
+	dc.setAttribute("PENTEXT",m_Doc->itemToolPrefs().textColor);
+	dc.setAttribute("StrokeText",m_Doc->itemToolPrefs().textStrokeColor);
+	dc.setAttribute("TextBackGround", m_Doc->itemToolPrefs().textFillColor);
+	dc.setAttribute("TextLineColor", m_Doc->itemToolPrefs().textLineColor);
+	dc.setAttribute("TextBackGroundShade", m_Doc->itemToolPrefs().textFillColorShade);
+	dc.setAttribute("TextLineShade", m_Doc->itemToolPrefs().textLineColorShade);
+	dc.setAttribute("TextPenShade", m_Doc->itemToolPrefs().textShade);
+	dc.setAttribute("TextStrokeShade", m_Doc->itemToolPrefs().textStrokeShade);
+	dc.setAttribute("STIL",m_Doc->itemToolPrefs().shapeLineStyle);
+	dc.setAttribute("STILLINE",m_Doc->itemToolPrefs().lineStyle);
+	dc.setAttribute("WIDTH",m_Doc->itemToolPrefs().shapeLineWidth);
+	dc.setAttribute("WIDTHLINE",m_Doc->itemToolPrefs().lineWidth);
+	dc.setAttribute("PENSHADE",m_Doc->itemToolPrefs().shapeLineColorShade);
+	dc.setAttribute("LINESHADE",m_Doc->itemToolPrefs().lineColorShade);
+	dc.setAttribute("BRUSHSHADE",m_Doc->itemToolPrefs().shapeFillColorShade);
+	dc.setAttribute("MAGMIN",m_Doc->opToolPrefs().magMin);
+	dc.setAttribute("MAGMAX",m_Doc->opToolPrefs().magMax);
+	dc.setAttribute("MAGSTEP",m_Doc->opToolPrefs().magStep);
+	dc.setAttribute("CPICT",m_Doc->itemToolPrefs().imageFillColor);
+	dc.setAttribute("PICTSHADE",m_Doc->itemToolPrefs().imageFillColorShade);
+	dc.setAttribute("PICTSCX",m_Doc->itemToolPrefs().imageScaleX);
+	dc.setAttribute("PICTSCY",m_Doc->itemToolPrefs().imageScaleY);
+	dc.setAttribute("PSCALE", static_cast<int>(m_Doc->itemToolPrefs().imageScaleType));
+	dc.setAttribute("PASPECT", static_cast<int>(m_Doc->itemToolPrefs().imageAspectRatio));
+	dc.setAttribute("EmbeddedPath", static_cast<int>(m_Doc->itemToolPrefs().imageUseEmbeddedPath));
+	dc.setAttribute("HalfRes", m_Doc->itemToolPrefs().imageLowResType);
+	dc.setAttribute("MINORC",m_Doc->guidesPrefs().minorGridColor.name());
+	dc.setAttribute("MAJORC",m_Doc->guidesPrefs().majorGridColor.name());
+	dc.setAttribute("GuideC", m_Doc->guidesPrefs().guideColor.name());
+	dc.setAttribute("BaseC", m_Doc->guidesPrefs().baselineGridColor.name());
+	dc.setAttribute("GuideZ", m_Doc->guidesPrefs().guideRad);
+	dc.setAttribute("BACKG", static_cast<int>(m_Doc->guidesPrefs().guidePlacement));
 	dc.setAttribute("PAGEC",m_Doc->paperColor().name());
-	dc.setAttribute("MARGC",m_Doc->guidesSettings.marginColor.name());
+	dc.setAttribute("MARGC",m_Doc->guidesPrefs().marginColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
 	dc.setAttribute("currentProfile", m_Doc->curCheckProfile);
 	CheckerPrefsList::Iterator itcp;
@@ -1749,7 +1749,7 @@ const ScFace& Scribus13Format::findFont(ScribusDoc *doc, const QString& fontname
 		if ((!prefsManager->appPrefs.GFontSub.contains(fontname)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[fontname]].usable()))
 		{
 			newReplacement = true;
-			ReplacedFonts.insert(fontname, doc->itemToolPrefs.textFont);
+			ReplacedFonts.insert(fontname, doc->itemToolPrefs().textFont);
 		}
 		else
 			ReplacedFonts.insert(fontname, prefsManager->appPrefs.GFontSub[fontname]);
@@ -1758,7 +1758,7 @@ const ScFace& Scribus13Format::findFont(ScribusDoc *doc, const QString& fontname
 	}
 	else if ( !doc->UsedFonts.contains(fontname) )
 	{
-		doc->AddFont(fontname, qRound(doc->itemToolPrefs.defSize / 10.0));
+		doc->AddFont(fontname, qRound(doc->itemToolPrefs().defSize / 10.0));
 	}
 	return (*m_AvailableFonts)[fontname];
 }
@@ -1932,16 +1932,16 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.setGapBefore(ScCLocale::toDoubleC(pg.attribute("VOR"), 0.0));
 	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
 	
-	vg.charStyle().setFont(m_AvailableFonts->findFont(pg.attribute("FONT", doc->itemToolPrefs.textFont), doc));
+	vg.charStyle().setFont(m_AvailableFonts->findFont(pg.attribute("FONT", doc->itemToolPrefs().textFont), doc));
 	vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
 	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 	vg.setDropCapOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 	vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-	QString fColor = pg.attribute("FCOLOR", doc->itemToolPrefs.shapeFillColor);
+	QString fColor = pg.attribute("FCOLOR", doc->itemToolPrefs().shapeFillColor);
 	int fShade = pg.attribute("FSHADE", "100").toInt();
 	handleOldColorShade(doc, fColor, fShade);
-	QString sColor = pg.attribute("SCOLOR", doc->itemToolPrefs.shapeLineColor);
+	QString sColor = pg.attribute("SCOLOR", doc->itemToolPrefs().shapeLineColor);
 	int sShade = pg.attribute("SSHADE", "100").toInt();
 	handleOldColorShade(doc, sColor, sShade);
 	vg.charStyle().setFillColor(fColor);
@@ -2053,7 +2053,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -2258,7 +2258,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		pstyle.setParent(DoVorl[align-5]);
 	else if (align >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(align));
-	pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT", m_Doc->itemToolPrefs.textFont), m_Doc));
+	pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT", m_Doc->itemToolPrefs().textFont), m_Doc));
 	pstyle.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(obj->attribute("ISIZE"), 12.0) * 10));
 	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
 	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));
@@ -2902,10 +2902,10 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeFillColor];
-						const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs.shapeLineColor];
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeFillColor, 100);
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs.shapeLineColor, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeLineColor];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
 					}
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 //					Neu->Language = m_Doc->Language;

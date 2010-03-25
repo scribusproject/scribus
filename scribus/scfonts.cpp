@@ -594,7 +594,7 @@ const ScFace& SCFonts::findFont(const QString& fontname, ScribusDoc *doc)
 		QString replFont;
 		if ((!prefsManager->appPrefs.fontPrefs.GFontSub.contains(fontname)) || (!(*this)[prefsManager->appPrefs.fontPrefs.GFontSub[fontname]].usable()))
 		{
-			replFont = doc ? doc->itemToolPrefs.textFont : prefsManager->appPrefs.itemToolPrefs.textFont;
+			replFont = doc ? doc->itemToolPrefs().textFont : prefsManager->appPrefs.itemToolPrefs.textFont;
 		}
 		else
 			replFont = prefsManager->appPrefs.fontPrefs.GFontSub[fontname];
@@ -603,7 +603,7 @@ const ScFace& SCFonts::findFont(const QString& fontname, ScribusDoc *doc)
 	}
 	else if ( doc && !doc->UsedFonts.contains(fontname) )
 	{
-		doc->AddFont(fontname, qRound(doc->itemToolPrefs.textSize / 10.0));
+		doc->AddFont(fontname, qRound(doc->itemToolPrefs().textSize / 10.0));
 	}
 	return (*this)[fontname];	
 }

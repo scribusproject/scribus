@@ -95,10 +95,10 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 	double newAngle = xy2Deg(m_canvasCurrCoord.x() - m_rotCenter.x(), m_canvasCurrCoord.y() - m_rotCenter.y());
 	if (m_angleConstrained)
 	{
-		newAngle = constrainAngle(newAngle, m_doc->opToolPrefs.constrain);
+		newAngle = constrainAngle(newAngle, m_doc->opToolPrefs().constrain);
 		/*double oldAngle = constrainAngle(m_startAngle, m_doc->opToolPrefs.constrain);
 		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - oldAngle) : newAngle;*/
-		m_view->oldW = constrainAngle(m_view->oldW, m_doc->opToolPrefs.constrain);
+		m_view->oldW = constrainAngle(m_view->oldW, m_doc->opToolPrefs().constrain);
 		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - m_view->oldW) : newAngle;
 	}
 	else if (m_doc->m_Selection->isMultipleSelection())
@@ -208,7 +208,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
+	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 	Rxp  = m_doc->ApplyGridF(m_canvasPressCoord).x();
 	Rxpd = m_canvasPressCoord.x() - Rxp;
 	m_canvasPressCoord.setX( qRound(Rxp) );
@@ -319,8 +319,8 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 		double newW = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 		if (m->modifiers() & Qt::ControlModifier)
 		{
-			newW=constrainAngle(newW, m_doc->opToolPrefs.constrain);
-			m_view->oldW=constrainAngle(m_view->oldW, m_doc->opToolPrefs.constrain);
+			newW=constrainAngle(newW, m_doc->opToolPrefs().constrain);
+			m_view->oldW=constrainAngle(m_view->oldW, m_doc->opToolPrefs().constrain);
 			//RotateGroup uses MoveBy so its pretty hard to constrain the result
 			if (m_doc->m_Selection->isMultipleSelection())
 				m_doc->rotateGroup(newW-m_view->oldW, m_view->RCenter);
@@ -434,7 +434,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					break;
 				QTransform p;
 				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRadius, m->y()-m_doc->guidesSettings.grabRadius, m_doc->guidesSettings.grabRadius*2, m_doc->guidesSettings.grabRadius*2);
+				QRect mpo = QRect(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))
 				{
 					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));

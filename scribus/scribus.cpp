@@ -1075,7 +1075,7 @@ void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 {
 	double xn = xp;
 	double yn = yp;
-	if (doc->guidesSettings.rulerMode)
+	if (doc->guidesPrefs().rulerMode)
 	{
 		xn -= doc->currentPage()->xOffset();
 		yn -= doc->currentPage()->yOffset();
@@ -2168,19 +2168,19 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	}
 	view->setFocus();
 //	mdiArea->setScrollBarsEnabled(!(w->isMaximized()));
-	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
-	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
-	scrActions["viewShowFrames"]->setChecked(doc->guidesSettings.framesShown);
-	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesSettings.layerMarkersShown);
-	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
-	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
-	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
-	scrActions["viewShowImages"]->setChecked(doc->guidesSettings.showPic);
-	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
-	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
-	scrActions["viewShowRulers"]->setChecked(doc->guidesSettings.rulersShown);
-	scrActions["viewRulerMode"]->setChecked(doc->guidesSettings.rulerMode);
+	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
+	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
+	scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
+	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesPrefs().layerMarkersShown);
+	scrActions["viewShowGrid"]->setChecked(doc->guidesPrefs().gridShown);
+	scrActions["viewShowGuides"]->setChecked(doc->guidesPrefs().guidesShown);
+	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesPrefs().colBordersShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesPrefs().baselineGridShown);
+	scrActions["viewShowImages"]->setChecked(doc->guidesPrefs().showPic);
+	scrActions["viewShowTextChain"]->setChecked(doc->guidesPrefs().linkShown);
+	scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
+	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
+	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	if (!doc->masterPageMode())
 		pagePalette->Rebuild();
@@ -5724,11 +5724,11 @@ void ScribusMainWindow::TogglePics()
 {
 	if (doc)
 	{
-		doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
+		doc->guidesPrefs().showPic = !doc->guidesPrefs().showPic;
 		for (int b=0; b<doc->Items->count(); ++b)
 		{
 			if (doc->Items->at(b)->asImageFrame())
-				doc->Items->at(b)->setImageShown(doc->guidesSettings.showPic);
+				doc->Items->at(b)->setImageShown(doc->guidesPrefs().showPic);
 		}
 		view->DrawNew();
 	}
@@ -5742,18 +5742,18 @@ void ScribusMainWindow::ToggleAllGuides()
 	if (guidesStatus[0])
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.marginsShown = guidesStatus[1];
-		doc->guidesSettings.framesShown = guidesStatus[2];
-		doc->guidesSettings.gridShown = guidesStatus[3];
-		doc->guidesSettings.guidesShown = guidesStatus[4];
-		doc->guidesSettings.baselineGridShown = guidesStatus[5];
-		doc->guidesSettings.linkShown = guidesStatus[6];
-		doc->guidesSettings.showControls = guidesStatus[7];
-		doc->guidesSettings.rulerMode = guidesStatus[8];
-		doc->guidesSettings.rulersShown = guidesStatus[9];
-		doc->guidesSettings.colBordersShown = guidesStatus[10];
-		doc->guidesSettings.layerMarkersShown = guidesStatus[11] ;
-		doc->guidesSettings.showBleed = guidesStatus[12] ;
+		doc->guidesPrefs().marginsShown = guidesStatus[1];
+		doc->guidesPrefs().framesShown = guidesStatus[2];
+		doc->guidesPrefs().gridShown = guidesStatus[3];
+		doc->guidesPrefs().guidesShown = guidesStatus[4];
+		doc->guidesPrefs().baselineGridShown = guidesStatus[5];
+		doc->guidesPrefs().linkShown = guidesStatus[6];
+		doc->guidesPrefs().showControls = guidesStatus[7];
+		doc->guidesPrefs().rulerMode = guidesStatus[8];
+		doc->guidesPrefs().rulersShown = guidesStatus[9];
+		doc->guidesPrefs().colBordersShown = guidesStatus[10];
+		doc->guidesPrefs().layerMarkersShown = guidesStatus[11] ;
+		doc->guidesPrefs().showBleed = guidesStatus[12] ;
 		ToggleMarks();
 		ToggleFrames();
 		ToggleLayerMarkers();
@@ -5770,44 +5770,44 @@ void ScribusMainWindow::ToggleAllGuides()
 	else
 	{
 		guidesStatus[0] = true;
-		guidesStatus[1] = !doc->guidesSettings.marginsShown;
-		guidesStatus[2] = !doc->guidesSettings.framesShown;
-		guidesStatus[3] = !doc->guidesSettings.gridShown;
-		guidesStatus[4] = !doc->guidesSettings.guidesShown;
-		guidesStatus[5] = !doc->guidesSettings.baselineGridShown;
-		guidesStatus[6] = !doc->guidesSettings.linkShown;
-		guidesStatus[7] = !doc->guidesSettings.showControls;
-		guidesStatus[8] = !doc->guidesSettings.rulerMode;
-		guidesStatus[9] = !doc->guidesSettings.rulersShown;
-		guidesStatus[10] = !doc->guidesSettings.colBordersShown;
-		guidesStatus[11] = !doc->guidesSettings.layerMarkersShown;
-		guidesStatus[12] = !doc->guidesSettings.showBleed;
-		doc->guidesSettings.marginsShown = false;
-		doc->guidesSettings.framesShown = false;
-		doc->guidesSettings.gridShown = false;
-		doc->guidesSettings.guidesShown = false;
-		doc->guidesSettings.baselineGridShown = false;
-		doc->guidesSettings.linkShown = false;
-		doc->guidesSettings.showControls = false;
-		doc->guidesSettings.rulerMode = false;
-		doc->guidesSettings.rulersShown = false;
-		doc->guidesSettings.colBordersShown = false;
-		doc->guidesSettings.layerMarkersShown = false;
-		doc->guidesSettings.showBleed = false;
-		view->setRulersShown(doc->guidesSettings.rulersShown);
+		guidesStatus[1] = !doc->guidesPrefs().marginsShown;
+		guidesStatus[2] = !doc->guidesPrefs().framesShown;
+		guidesStatus[3] = !doc->guidesPrefs().gridShown;
+		guidesStatus[4] = !doc->guidesPrefs().guidesShown;
+		guidesStatus[5] = !doc->guidesPrefs().baselineGridShown;
+		guidesStatus[6] = !doc->guidesPrefs().linkShown;
+		guidesStatus[7] = !doc->guidesPrefs().showControls;
+		guidesStatus[8] = !doc->guidesPrefs().rulerMode;
+		guidesStatus[9] = !doc->guidesPrefs().rulersShown;
+		guidesStatus[10] = !doc->guidesPrefs().colBordersShown;
+		guidesStatus[11] = !doc->guidesPrefs().layerMarkersShown;
+		guidesStatus[12] = !doc->guidesPrefs().showBleed;
+		doc->guidesPrefs().marginsShown = false;
+		doc->guidesPrefs().framesShown = false;
+		doc->guidesPrefs().gridShown = false;
+		doc->guidesPrefs().guidesShown = false;
+		doc->guidesPrefs().baselineGridShown = false;
+		doc->guidesPrefs().linkShown = false;
+		doc->guidesPrefs().showControls = false;
+		doc->guidesPrefs().rulerMode = false;
+		doc->guidesPrefs().rulersShown = false;
+		doc->guidesPrefs().colBordersShown = false;
+		doc->guidesPrefs().layerMarkersShown = false;
+		doc->guidesPrefs().showBleed = false;
+		view->setRulersShown(doc->guidesPrefs().rulersShown);
 	}
-	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
-	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
-	scrActions["viewShowFrames"]->setChecked(doc->guidesSettings.framesShown);
-	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesSettings.layerMarkersShown);
-	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
-	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
-	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
-	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
-	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
-	scrActions["viewShowRulers"]->setChecked(doc->guidesSettings.rulersShown);
-	scrActions["viewRulerMode"]->setChecked(doc->guidesSettings.rulerMode);
+	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
+	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
+	scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
+	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesPrefs().layerMarkersShown);
+	scrActions["viewShowGrid"]->setChecked(doc->guidesPrefs().gridShown);
+	scrActions["viewShowGuides"]->setChecked(doc->guidesPrefs().guidesShown);
+	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesPrefs().colBordersShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesPrefs().baselineGridShown);
+	scrActions["viewShowTextChain"]->setChecked(doc->guidesPrefs().linkShown);
+	scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
+	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
+	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
 	view->DrawNew();
 }
 
@@ -5816,7 +5816,7 @@ void ScribusMainWindow::ToggleMarks()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
+		doc->guidesPrefs().marginsShown = !doc->guidesPrefs().marginsShown;
 		view->DrawNew();
 	}
 }
@@ -5826,7 +5826,7 @@ void ScribusMainWindow::ToggleBleeds()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.showBleed = !doc->guidesSettings.showBleed;
+		doc->guidesPrefs().showBleed = !doc->guidesPrefs().showBleed;
 		view->DrawNew();
 	}
 }
@@ -5836,7 +5836,7 @@ void ScribusMainWindow::ToggleFrames()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.framesShown = !doc->guidesSettings.framesShown;
+		doc->guidesPrefs().framesShown = !doc->guidesPrefs().framesShown;
 		view->DrawNew();
 	}
 }
@@ -5846,7 +5846,7 @@ void ScribusMainWindow::ToggleLayerMarkers()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.layerMarkersShown = !doc->guidesSettings.layerMarkersShown;
+		doc->guidesPrefs().layerMarkersShown = !doc->guidesPrefs().layerMarkersShown;
 		view->DrawNew();
 	}
 }
@@ -5856,7 +5856,7 @@ void ScribusMainWindow::ToggleRaster()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.gridShown = !doc->guidesSettings.gridShown;
+		doc->guidesPrefs().gridShown = !doc->guidesPrefs().gridShown;
 		view->DrawNew();
 	}
 }
@@ -5866,7 +5866,7 @@ void ScribusMainWindow::ToggleGuides()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
+		doc->guidesPrefs().guidesShown = !doc->guidesPrefs().guidesShown;
 		view->DrawNew();
 	}
 }
@@ -5876,7 +5876,7 @@ void ScribusMainWindow::ToggleColumnBorders()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.colBordersShown = !doc->guidesSettings.colBordersShown;
+		doc->guidesPrefs().colBordersShown = !doc->guidesPrefs().colBordersShown;
 		view->DrawNew();
 	}
 }
@@ -5886,7 +5886,7 @@ void ScribusMainWindow::ToggleBase()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.baselineGridShown = !doc->guidesSettings.baselineGridShown;
+		doc->guidesPrefs().baselineGridShown = !doc->guidesPrefs().baselineGridShown;
 		view->DrawNew();
 	}
 }
@@ -5896,7 +5896,7 @@ void ScribusMainWindow::ToggleTextLinks()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.linkShown = !doc->guidesSettings.linkShown;
+		doc->guidesPrefs().linkShown = !doc->guidesPrefs().linkShown;
 		view->DrawNew();
 	}
 }
@@ -5906,7 +5906,7 @@ void ScribusMainWindow::ToggleTextControls()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.showControls = !doc->guidesSettings.showControls;
+		doc->guidesPrefs().showControls = !doc->guidesPrefs().showControls;
 		view->DrawNew();
 	}
 }
@@ -5916,8 +5916,8 @@ void ScribusMainWindow::ToggleRulers()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.rulersShown = !doc->guidesSettings.rulersShown;
-		view->setRulersShown(doc->guidesSettings.rulersShown);
+		doc->guidesPrefs().rulersShown = !doc->guidesPrefs().rulersShown;
+		view->setRulersShown(doc->guidesPrefs().rulersShown);
 	}
 }
 
@@ -5926,8 +5926,8 @@ void ScribusMainWindow::ToggleRulerMode()
 	if (doc)
 	{
 		guidesStatus[0] = false;
-		doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
-		if (doc->guidesSettings.rulerMode)
+		doc->guidesPrefs().rulerMode = !doc->guidesPrefs().rulerMode;
+		if (doc->guidesPrefs().rulerMode)
 		{
 			doc->rulerXoffset = 0;
 			doc->rulerYoffset = 0;
@@ -7305,7 +7305,7 @@ void ScribusMainWindow::duplicateItem()
 	for (int b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
-		doc->MoveItem(doc->opToolPrefs.dispX, doc->opToolPrefs.dispY, doc->m_Selection->itemAt(b));
+		doc->MoveItem(doc->opToolPrefs().dispX, doc->opToolPrefs().dispY, doc->m_Selection->itemAt(b));
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
@@ -7620,23 +7620,23 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
 		view->previewQualitySwitcher->blockSignals(true);
-		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs.imageLowResType);
+		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs().imageLowResType);
 		view->previewQualitySwitcher->blockSignals(false);
 	}
 	propertiesPalette->Fonts->RebuildList(doc);
-	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
-	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
-	scrActions["viewShowFrames"]->setChecked(doc->guidesSettings.framesShown);
-	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesSettings.layerMarkersShown);
-	scrActions["viewShowGrid"]->setChecked(doc->guidesSettings.gridShown);
-	scrActions["viewShowGuides"]->setChecked(doc->guidesSettings.guidesShown);
-	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesSettings.colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesSettings.baselineGridShown);
-	scrActions["viewShowImages"]->setChecked(doc->guidesSettings.showPic);
-	scrActions["viewShowTextChain"]->setChecked(doc->guidesSettings.linkShown);
-	scrActions["viewShowTextControls"]->setChecked(doc->guidesSettings.showControls);
-	scrActions["viewShowRulers"]->setChecked(doc->guidesSettings.rulersShown);
-	scrActions["viewRulerMode"]->setChecked(doc->guidesSettings.rulerMode);
+	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
+	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
+	scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
+	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesPrefs().layerMarkersShown);
+	scrActions["viewShowGrid"]->setChecked(doc->guidesPrefs().gridShown);
+	scrActions["viewShowGuides"]->setChecked(doc->guidesPrefs().guidesShown);
+	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesPrefs().colBordersShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesPrefs().baselineGridShown);
+	scrActions["viewShowImages"]->setChecked(doc->guidesPrefs().showPic);
+	scrActions["viewShowTextChain"]->setChecked(doc->guidesPrefs().linkShown);
+	scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
+	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
+	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	view->cmsToolbarButton->setChecked(doc->HasCMS);
 	//doc emits changed() via this
@@ -9803,7 +9803,7 @@ void ScribusMainWindow::slotReplaceColors()
 		{
 			ResourceCollection colorrsc;
 			colorrsc.mapColors(dia2->replaceMap);
-			PrefsManager::replaceToolColors(doc->itemToolPrefs, colorrsc.colors());
+			PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
 			doc->replaceNamedResources(colorrsc);
 			doc->replaceLineStyleColors(dia2->replaceMap);
 			doc->recalculateColors();
@@ -9845,7 +9845,7 @@ void ScribusMainWindow::slotEditColors()
 				ResourceCollection colorrsc;
 				colorrsc.mapColors(dia->replaceMap);
 				// Update tools colors
-				PrefsManager::replaceToolColors(doc->itemToolPrefs, colorrsc.colors());
+				PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
 				// Update objects and styles colors
 				doc->replaceNamedResources(colorrsc);
 				// Temporary code until LineStyle is effectively used

@@ -80,7 +80,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		QMenu *pmen2 = NULL;
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmen->addAction( tr("Reset Rulers"), this, SLOT(resetRulers()));
-		if (currView->Doc->guidesSettings.rulerMode)
+		if (currView->Doc->guidesPrefs().rulerMode)
 		{
 			pmen2 = new QMenu();
 			if (pmen2)

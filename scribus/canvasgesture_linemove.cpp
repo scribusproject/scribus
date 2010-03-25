@@ -188,8 +188,8 @@ void LineMove::adjustBounds(QMouseEvent *m)
 	
 	if (m_doc->useRaster)
 	{
-		newX = qRound(newX / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
-		newY = qRound(newY / m_doc->guidesSettings.minorGridSpacing) * m_doc->guidesSettings.minorGridSpacing;
+		newX = qRound(newX / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
+		newY = qRound(newY / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
 	}
 	//<<#8099
 	FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
@@ -205,7 +205,7 @@ void LineMove::adjustBounds(QMouseEvent *m)
 	if (constrainRatio)
 	{
 		double newRot = rotation();
-		newRot = constrainAngle(newRot, m_doc->opToolPrefs.constrain);
+		newRot = constrainAngle(newRot, m_doc->opToolPrefs().constrain);
 		setRotation(newRot);
 	}
 

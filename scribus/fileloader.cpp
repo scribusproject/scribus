@@ -273,20 +273,20 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 bool FileLoader::LoadFile(ScribusDoc* currDoc)
 {
 	newReplacement = false;
-	currDoc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesPrefs.marginsShown;
-	currDoc->guidesSettings.framesShown = prefsManager->appPrefs.guidesPrefs.framesShown;
-	currDoc->guidesSettings.layerMarkersShown = prefsManager->appPrefs.guidesPrefs.layerMarkersShown;
-	currDoc->guidesSettings.gridShown = prefsManager->appPrefs.guidesPrefs.gridShown;
-	currDoc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesPrefs.guidesShown;
-	currDoc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesPrefs.colBordersShown;
-	currDoc->guidesSettings.baselineGridShown = prefsManager->appPrefs.guidesPrefs.baselineGridShown;
-	currDoc->guidesSettings.linkShown = prefsManager->appPrefs.guidesPrefs.linkShown;
-	currDoc->itemToolPrefs.polyCorners = prefsManager->appPrefs.itemToolPrefs.polyCorners;
-	currDoc->itemToolPrefs.polyFactor = prefsManager->appPrefs.itemToolPrefs.polyFactor;
-	currDoc->itemToolPrefs.polyRotation = prefsManager->appPrefs.itemToolPrefs.polyRotation;
-	currDoc->itemToolPrefs.polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
-	currDoc->itemToolPrefs.polyFactorGuiVal = prefsManager->appPrefs.itemToolPrefs.polyFactorGuiVal;
-	currDoc->itemToolPrefs.polyUseFactor = prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
+	currDoc->guidesPrefs().marginsShown = prefsManager->appPrefs.guidesPrefs.marginsShown;
+	currDoc->guidesPrefs().framesShown = prefsManager->appPrefs.guidesPrefs.framesShown;
+	currDoc->guidesPrefs().layerMarkersShown = prefsManager->appPrefs.guidesPrefs.layerMarkersShown;
+	currDoc->guidesPrefs().gridShown = prefsManager->appPrefs.guidesPrefs.gridShown;
+	currDoc->guidesPrefs().guidesShown = prefsManager->appPrefs.guidesPrefs.guidesShown;
+	currDoc->guidesPrefs().colBordersShown = prefsManager->appPrefs.guidesPrefs.colBordersShown;
+	currDoc->guidesPrefs().baselineGridShown = prefsManager->appPrefs.guidesPrefs.baselineGridShown;
+	currDoc->guidesPrefs().linkShown = prefsManager->appPrefs.guidesPrefs.linkShown;
+	currDoc->itemToolPrefs().polyCorners = prefsManager->appPrefs.itemToolPrefs.polyCorners;
+	currDoc->itemToolPrefs().polyFactor = prefsManager->appPrefs.itemToolPrefs.polyFactor;
+	currDoc->itemToolPrefs().polyRotation = prefsManager->appPrefs.itemToolPrefs.polyRotation;
+	currDoc->itemToolPrefs().polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
+	currDoc->itemToolPrefs().polyFactorGuiVal = prefsManager->appPrefs.itemToolPrefs.polyFactorGuiVal;
+	currDoc->itemToolPrefs().polyUseFactor = prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
 	currDoc->setAutoSave(prefsManager->appPrefs.docSetupPrefs.AutoSave);
 	currDoc->setAutoSaveTime(prefsManager->appPrefs.docSetupPrefs.AutoSaveTime);
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
@@ -398,7 +398,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(ScCLocale::toDoubleC(pg.attribute("VOR"), 0.0));
 	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
-	QString tmpf = pg.attribute("FONT", currDoc->itemToolPrefs.textFont);
+	QString tmpf(pg.attribute("FONT", currDoc->itemToolPrefs().textFont));
 	currDoc->AllFonts->findFont(tmpf, currDoc);
 		vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
 		vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
@@ -406,9 +406,9 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 		vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs.shapeFillColor));
+		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->itemToolPrefs().shapeFillColor));
 		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs.shapeLineColor));
+		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->itemToolPrefs().shapeLineColor));
 		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
 			vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);

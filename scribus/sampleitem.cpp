@@ -36,17 +36,17 @@ SampleItem::SampleItem() : QObject()
 	bgShade = 100;
 	tmpStyle.setName("(preview temporary)");
 	tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-	tmpStyle.setLineSpacing((m_Doc->itemToolPrefs.textSize / 10.0)
-		* static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100
-		+ (m_Doc->itemToolPrefs.textSize / 10.0));
+	tmpStyle.setLineSpacing((m_Doc->itemToolPrefs().textSize / 10.0)
+		* static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100
+		+ (m_Doc->itemToolPrefs().textSize / 10.0));
 	tmpStyle.setAlignment(ParagraphStyle::Leftaligned);
 	tmpStyle.setLeftMargin(0);
 	tmpStyle.setFirstIndent(0);
 	tmpStyle.setRightMargin(0);
 	tmpStyle.setGapBefore(0);
 	tmpStyle.setGapAfter(0);
-	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[m_Doc->itemToolPrefs.textFont]);
-	tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs.textSize);
+	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[m_Doc->itemToolPrefs().textFont]);
+	tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs().textSize);
 //	tmpStyle.tabValues().clear();
 	tmpStyle.setHasDropCap(false);
 	tmpStyle.setDropCapLines(0);//2;
@@ -162,7 +162,7 @@ void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 {
 	tmpStyle.charStyle().setFontSize(fontSize);
 	if (autoLineSpa)
-		tmpStyle.setLineSpacing(((fontSize / 10)  * (m_Doc->typographicSettings.autoLineSpacing / 100) + (fontSize / 10)));
+		tmpStyle.setLineSpacing(((fontSize / 10)  * (m_Doc->typographicPrefs().autoLineSpacing / 100) + (fontSize / 10)));
 }
 
 /*void SampleItem::setTabValues(QValueList<PageItem::TabRecord> tabValues)
@@ -289,7 +289,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
 
-	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->itemToolPrefs.textSize / 10.0));
+	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->itemToolPrefs().textSize / 10.0));
 
 	previewItem->FrameType = PageItem::TextFrame;
 	previewItem->itemText.clear();

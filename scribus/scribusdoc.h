@@ -181,8 +181,10 @@ public:
 	void clearTocSetups() { docPrefsData.tocPrefs.defaultToCSetups.clear(); }
 	void appendToTocSetups(const ToCSetup& ts) { docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
 
-	//->Prefs ObjAttrVector docItemAttributes;
-	//->Prefs ToCSetupVector docToCSetups;
+	TypoPrefs& typographicPrefs() { return docPrefsData.typoPrefs; }
+	GuidesPrefs& guidesPrefs() { return docPrefsData.guidesPrefs; }
+	ItemToolPrefs& itemToolPrefs() { return docPrefsData.itemToolPrefs; }
+	OperatorToolPrefs& opToolPrefs() { return docPrefsData.opToolPrefs; }
 
 	// Add, delete and move pages
 	
@@ -1061,10 +1063,10 @@ public: // Public attributes
 
 	NodeEditContext nodeEdit;
 
-	TypoPrefs typographicSettings;
-	GuidesPrefs guidesSettings;
-	ItemToolPrefs itemToolPrefs;
-	OperatorToolPrefs opToolPrefs;
+	//->Prefs TypoPrefs typographicSettings;
+	//->Prefs GuidesPrefs guidesSettings;
+	//->Prefs ItemToolPrefs itemToolPrefs;
+	//->Prefs OperatorToolPrefs opToolPrefs;
 
 	QMap<QString, CheckerPrefs> checkerProfiles;
 	QString curCheckProfile;
