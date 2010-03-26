@@ -680,6 +680,16 @@ ELSE(LIBPODOFO_FOUND)
 ENDIF(LIBPODOFO_FOUND)
 #>>PoDoFo for AI PDF import
 
+#<<Boost for 2Geom Tools
+FIND_PACKAGE(Boost)
+IF (Boost_FOUND)
+  MESSAGE("Boost Library Found OK")
+  SET(HAVE_BOOST 1)
+ELSE(Boost_FOUND)
+  MESSAGE("Boost: NOT FOUND, not building 2geomtools")
+ENDIF (Boost_FOUND)
+#>>Boost for 2Geom Tools
+
 #<<GraphicksMagick++ for image import
 IF (WANT_GRAPHICSMAGICK)
   SET(GMAGICK_DIR ${CMAKE_MODULE_PATH})

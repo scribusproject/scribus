@@ -1,19 +1,5 @@
-# PROJECT(lib2geom CXX)
 SET(2GEOM_VERSION 0.1.0)
-#CB SET(CMAKE_BACKWARDS_COMPATIBILITY 2.4)
-#CB SET(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
-#CB SET(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
-#CB SET(CMAKE_SKIP_RPATH:BOOL OFF)
-#CB SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeScripts)
-# INCLUDE(FindBoost)
-#CB INCLUDE (CheckIncludeFiles)
-
-
-# Set Compiler Flags
-# SET(CMAKE_CXX_FLAGS "${GTK2_CFLAGS} ${cairo_CFLAGS} -Wall")
-#CB SET(CMAKE_CXX_FLAGS "-Wall")
-#CB SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
 # We need to pass -fPIC only to lib2geom on amd64 - avoid it elsewhere see: http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
 IF (ARCH_X86_64 EQUAL 1)
   SET(CMAKE_CXX_FLAGS "$(CMAKE_CXX_FLAGS) -fPIC")
@@ -100,19 +86,12 @@ scribushelper.h
 scribushelper.cpp
 )
 
-# make lib for 2geom
-ADD_LIBRARY(2geom ${LIB_TYPE} ${2GEOM_SRC})
-TARGET_LINK_LIBRARIES(2geom)
-#TARGET_LINK_LIBRARIES(2geom " ${GTK2_LINK_FLAGS}")
-#INSTALL(TARGETS 2geom
-#  RUNTIME DESTINATION bin
-#  LIBRARY DESTINATION lib
-#  ARCHIVE DESTINATION lib
-#)
-#FILE(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
-#INSTALL(FILES ${files} DESTINATION include/2geom/2geom)
+SET(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
+ADD_LIBRARY(${SCRIBUS_2GEOM_LIB} STATIC ${2GEOM_SRC})
 
-#CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/2geom.pc.in
-#                ${CMAKE_BINARY_DIR}/2geom.pc @ONLY IMMEDIATE )
-#INSTALL(FILES "${CMAKE_BINARY_DIR}/2geom.pc" DESTINATION lib/pkgconfig)
-#
+# This is a convenience library that for linkage purposes is part of Scribus's
+# main API.
+SET_TARGET_PROPERTIES(${SCRIBUS_2GEOM_LIB}
+  PROPERTIES
+  COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
+  )

@@ -1,5 +1,7 @@
 #Subdirectories
-ADD_SUBDIRECTORY(2geomtools)
+IF(HAVE_BOOST)
+  ADD_SUBDIRECTORY(2geomtools)
+ENDIF(HAVE_BOOST)
 ADD_SUBDIRECTORY(lenseffects)
 ADD_SUBDIRECTORY(pathconnect)
 ADD_SUBDIRECTORY(pathcut)
