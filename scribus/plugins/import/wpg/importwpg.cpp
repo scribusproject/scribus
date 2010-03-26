@@ -47,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 #include <stdio.h>
-#include "wpg/WPGStreamImplementation.h"
+#include "third_party/wpg/WPGStreamImplementation.h"
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 

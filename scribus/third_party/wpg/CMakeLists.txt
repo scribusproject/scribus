@@ -22,5 +22,13 @@ SET(WPG_SOURCES
     WPGString.cpp
     WPGXParser.cpp
   )
-ADD_LIBRARY(wpg ${LIB_TYPE} ${WPG_SOURCES})
-TARGET_LINK_LIBRARIES(wpg)
+
+SET(SCRIBUS_WPG_LIB "scribus_wpg_lib")
+ADD_LIBRARY(${SCRIBUS_WPG_LIB} STATIC ${WPG_SOURCES})
+
+# This is a convenience library that for linkage purposes is part of Scribus's
+# main API.
+SET_TARGET_PROPERTIES(${SCRIBUS_WPG_LIB}
+  PROPERTIES
+  COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
+  )

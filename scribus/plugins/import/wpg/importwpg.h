@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTransform>
 #include <QMultiMap>
 #include <QVector>
-#include "wpg/libwpg.h"
+#include "third_party/wpg/libwpg.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
