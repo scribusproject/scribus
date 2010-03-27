@@ -289,131 +289,131 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\basic-intersection.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\basic-intersection.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier-utils.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\bezier-utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\circle-circle.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\circle-circle.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\conjugate_gradient.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\conjugate_gradient.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\convex-cover.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\convex-cover.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\crossing.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\crossing.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\d2-sbasis.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\d2-sbasis.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\geom.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\geom.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\matrix.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\matrix.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path-intersection.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\path-intersection.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\path.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\piecewise.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\piecewise.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\point.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-dk-solve.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\poly-dk-solve.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-laguerre-solve.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\poly-laguerre-solve.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\poly.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\quadtree.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\quadtree.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\region.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\region.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-2d.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-2d.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-geometric.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-geometric.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-math.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-math.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-poly.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-poly.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-roots.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-roots.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-to-bezier.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-to-bezier.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\scribushelper.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\scribushelper.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\shape.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\shape.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\solve-bezier-one-d.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\solve-bezier-one-d.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\solve-bezier-parametric.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\solve-bezier-parametric.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\svg-path.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\svg-path.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sweep.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sweep.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\transforms.cpp"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\transforms.cpp"
 				>
 			</File>
 		</Filter>
@@ -423,195 +423,195 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\angle.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\angle.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\basic-intersection.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\basic-intersection.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier-to-sbasis.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\bezier-to-sbasis.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier-utils.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\bezier-utils.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\bezier.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\choose.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\choose.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\circulator.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\circulator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\concepts.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\concepts.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\conjugate_gradient.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\conjugate_gradient.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\convex-cover.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\convex-cover.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\coord.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\coord.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\crossing.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\crossing.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\d2-sbasis.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\d2-sbasis.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\d2.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\d2.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\exception.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\exception.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\geom.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\geom.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\interval.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\interval.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\isnan.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\isnan.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\linear.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\linear.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\matrix.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\matrix.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\ord.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\ord.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path-intersection.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\path-intersection.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\path.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\piecewise.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\piecewise.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point-l.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\point-l.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point-ops.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\point-ops.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\point.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-dk-solve.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\poly-dk-solve.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-laguerre-solve.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\poly-laguerre-solve.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\poly.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\quadtree.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\quadtree.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\rect.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\rect.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\region.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\region.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-2d.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-2d.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-geometric.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-geometric.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-math.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-math.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-poly.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-poly.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-to-bezier.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis-to-bezier.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sbasis.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\scribushelper.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\scribushelper.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\shape.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\shape.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\solver.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\solver.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sturm.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sturm.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\svg-elliptical-arc.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\svg-elliptical-arc.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\svg-path.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\svg-path.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sweep.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\sweep.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\transforms.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\transforms.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\utils.h"
+				RelativePath="..\..\..\scribus\third_party\lib2geom\utils.h"
 				>
 			</File>
 		</Filter>
