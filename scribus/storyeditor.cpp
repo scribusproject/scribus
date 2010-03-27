@@ -405,7 +405,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			case Qt::Key_Return:
 			case Qt::Key_Enter:
 				{
-					insertChars(SpecialChars::PARSEP, k->text());
+					bool insLineBreak = (k->modifiers() == Qt::ShiftModifier);
+					QString txtString = insLineBreak ? SpecialChars::LINEBREAK : SpecialChars::PARSEP;
+					QString guiString = insLineBreak ? QString("*") : k->text();
+					if (insLineBreak)
+						setColor(true);
+					insertChars(txtString, guiString);
+					if (insLineBreak)
+						setColor(false);
 					emit SideBarUp(true);
 					emit SideBarUpdate();
 					return;
