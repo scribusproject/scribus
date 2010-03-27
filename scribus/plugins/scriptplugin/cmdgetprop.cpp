@@ -9,6 +9,44 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 
+/* getObjectType(name) */
+PyObject *scribus_getobjecttype(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	PageItem *item = NULL;
+	QString result = "";
+
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+
+	if(!checkHaveDocument())
+		return NULL;
+
+	item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+
+	if (item->itemType() == PageItem::TextFrame) {
+		result = "TextFrame";
+	} else if (item->itemType() == PageItem::PathText) {
+		result = "PathText";
+	} else if (item->itemType() == PageItem::ImageFrame) {
+		result = "ImageFrame";
+	} else if (item->itemType() == PageItem::Line) {
+		result = "Line";
+	} else if (item->itemType() == PageItem::Polygon) {
+		result = "Polygon";
+	} else if (item->itemType() == PageItem::PolyLine) {
+		result = "Polyline";
+	} else if (item->itemType() == PageItem::LatexFrame) {
+		result = "LatexFrame";
+	} else if (item->itemType() == PageItem::Multiple) {
+		result = "Multiple";
+	}
+
+	return PyString_FromString(result.toUtf8());
+}
+
 PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -295,5 +333,14 @@ PV */
 void cmdgetpropdocwarnings()
 {
     QStringList s;
-    s << scribus_getfillcolor__doc__ <<scribus_getfilltrans__doc__ << scribus_getfillblend__doc__ << scribus_getlinecolor__doc__ << scribus_getlinetrans__doc__ << scribus_getlineblend__doc__ << scribus_getlinewidth__doc__ << scribus_getlineshade__doc__ <<scribus_getlinejoin__doc__ <<scribus_getlineend__doc__ <<scribus_getlinestyle__doc__ <<scribus_getfillshade__doc__ <<scribus_getcornerrad__doc__ <<scribus_getimgscale__doc__ <<scribus_getimgname__doc__ <<scribus_getposi__doc__ <<scribus_getsize__doc__ <<scribus_getrotation__doc__ <<  scribus_getallobj__doc__;
+    s << scribus_getobjecttype__doc__ << scribus_getfillcolor__doc__ 
+	  << scribus_getfilltrans__doc__ << scribus_getfillblend__doc__ 
+	  << scribus_getlinecolor__doc__ << scribus_getlinetrans__doc__ 
+	  << scribus_getlineblend__doc__ << scribus_getlinewidth__doc__ 
+	  << scribus_getlineshade__doc__ << scribus_getlinejoin__doc__ 
+	  << scribus_getlineend__doc__ << scribus_getlinestyle__doc__ 
+	  << scribus_getfillshade__doc__ << scribus_getcornerrad__doc__ 
+	  << scribus_getimgscale__doc__ << scribus_getimgname__doc__ 
+	  << scribus_getposi__doc__ << scribus_getsize__doc__ 
+	  << scribus_getrotation__doc__ <<  scribus_getallobj__doc__;
 }

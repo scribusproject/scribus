@@ -373,6 +373,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("importPage"), scribus_importpage, METH_VARARGS, tr(scribus_importpage__doc__)},
 	{const_cast<char*>("getPosition"), scribus_getposi, METH_VARARGS, tr(scribus_getposi__doc__)},
 	{const_cast<char*>("getRotation"), scribus_getrotation, METH_VARARGS, tr(scribus_getrotation__doc__)},
+	{const_cast<char*>("getObjectType"), scribus_getobjecttype, METH_VARARGS, tr(scribus_getobjecttype__doc__)},
 	{const_cast<char*>("getSelectedObject"), scribus_getselobjnam, METH_VARARGS, tr(scribus_getselobjnam__doc__)},
 	{const_cast<char*>("getSize"), scribus_getsize, METH_VARARGS, tr(scribus_getsize__doc__)},
 	{const_cast<char*>("getTextColor"), scribus_getlinecolor, METH_VARARGS, tr(scribus_getlinecolor__doc__)},
