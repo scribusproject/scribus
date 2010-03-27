@@ -13,6 +13,15 @@ for which a new license (GPL+exception) is in place.
 /** Query-Functions */
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getobjecttype__doc__,
+QT_TR_NOOP("getObjectType([\"name\"]) -> string\n\
+\n\
+Get type of object \"name\" as a string.\n\
+"));
+/** Get Object Type of name. */
+PyObject *scribus_getobjecttype(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getfillcolor__doc__,
 QT_TR_NOOP("getFillColor([\"name\"]) -> string\n\
 \n\
