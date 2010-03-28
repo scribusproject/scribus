@@ -1,3 +1,8 @@
+INCLUDE_DIRECTORIES(
+${CMAKE_SOURCE_DIR}
+${CMAKE_SOURCE_DIR}/scribus
+)
+
 SET(2GEOM_VERSION 0.1.0)
 
 # We need to pass -fPIC only to lib2geom on amd64 - avoid it elsewhere see: http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
