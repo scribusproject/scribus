@@ -117,8 +117,8 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 			}
 			p->translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 			p->rotate(currItem->imageRotation());
-			p->drawRect(0, 0, currItem->pixm.qImagePtr()->width(), currItem->pixm.qImagePtr()->height());
-			p->translate(currItem->pixm.qImagePtr()->width() / 2, currItem->pixm.qImagePtr()->height() / 2);
+			p->drawRect(0, 0, currItem->OrigW*currItem->imageXScale(), currItem->OrigH*currItem->imageYScale());
+			p->translate(currItem->OrigW*currItem->imageXScale() / 2, currItem->OrigH*currItem->imageYScale() / 2);
 			p->scale(1.0 / m_canvas->scale(), 1.0 / m_canvas->scale());
 			p->setPen(QPen(Qt::blue, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(-10, 0, 10, 0);
