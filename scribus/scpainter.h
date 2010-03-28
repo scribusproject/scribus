@@ -33,9 +33,6 @@ class SCRIBUS_API ScPainter
 {
 public:
 	ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency = 1.0, int blendmode = 0 );
-#ifdef HAVE_CAIRO
-	ScPainter( QString target, unsigned int w, unsigned int h, double transparency = 1.0, int blendmode = 0 );
-#endif
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient, Pattern };
 	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = 0);

@@ -12,14 +12,6 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
-	#if defined(_WIN32)
-	#include <cairo-win32.h>
-	#elif defined(Q_WS_X11)
-	#include <cairo-xlib.h>
-	#elif defined(Q_WS_MAC)
-//	#include <cairo-quartz.h>
-	#endif
-	#include <cairo-svg.h>
 #endif
 
 #include <math.h>
@@ -67,46 +59,6 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	cairo_set_tolerance( m_cr, 0.5 );
 }
 
-/// SVG file painter
-ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double transparency, int blendmode )
-{
-	m_width = w;
-	m_height= h;
-	m_stroke = QColor(0,0,0);
-	strokeMode = 0;
-	maskMode = 0;
-	m_fill = QColor(0,0,0);
-	fill_trans = 1.0;
-	stroke_trans = 1.0;
-	m_fillRule = true;
-	fillMode = 1;
-	LineWidth = 1.0;
-	m_offset = 0;
-	m_layerTransparency = transparency;
-	m_blendMode = blendmode;
-	m_blendModeFill = 0;
-	m_blendModeStroke = 0;
-	m_array.clear();
-	mf_underline = false;
-	mf_strikeout = false;
-	mf_shadow = false;
-	mf_outlined = false;
-	PLineEnd = Qt::FlatCap;
-	PLineJoin = Qt::MiterJoin;
-	fill_gradient = VGradient(VGradient::linear);
-	stroke_gradient = VGradient(VGradient::linear);
-	m_zoomFactor = 1;
-	layeredMode = true;
-	imageMode = false;
-	svgMode = true;
-	m_matrix = QTransform();
-	cairo_surface_t *img = cairo_svg_surface_create(target.toLocal8Bit().constData(), w, h);
-	m_cr = cairo_create(img);
-	cairo_save( m_cr );
-	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
-	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-	cairo_set_tolerance( m_cr, 0.5 );
-}
 // HAVE_CAIRO
 #else
 /// image painter
