@@ -313,6 +313,15 @@ May raise ValueError if the layer name isn't acceptable.\n\
 PyObject *scribus_createlayer(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_filequit__doc__,
+QT_TR_NOOP("fileQuit()\n\
+\n\
+Quit Scribus.\n\
+"));
+/*! Quit Scribus */
+PyObject *scribus_filequit(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getlanguage__doc__,
 QT_TR_NOOP("getGuiLanguage() -> string\n\
 \n\
@@ -340,4 +349,5 @@ Moves current selection to back.\n\
 PyObject *scribus_moveselectiontoback(PyObject*);
 
 #endif
+
 

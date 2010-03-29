@@ -328,6 +328,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("docChanged"), scribus_docchanged, METH_VARARGS, tr(scribus_docchanged__doc__)},
 	{const_cast<char*>("editMasterPage"), scribus_editmasterpage, METH_VARARGS, tr(scribus_editmasterpage__doc__)},
 	{const_cast<char*>("fileDialog"), (PyCFunction)scribus_filedia, METH_VARARGS|METH_KEYWORDS, tr(scribus_filedia__doc__)},
+	{const_cast<char*>("fileQuit"), scribus_filequit, METH_VARARGS, tr(scribus_filequit__doc__)},
 	{const_cast<char*>("getActiveLayer"), (PyCFunction)scribus_getactlayer, METH_NOARGS, tr(scribus_getactlayer__doc__)},
 	{const_cast<char*>("getAllObjects"), scribus_getallobj, METH_VARARGS, tr(scribus_getallobj__doc__)},
 	{const_cast<char*>("getAllStyles"), (PyCFunction)scribus_getstylenames, METH_NOARGS, tr(scribus_getstylenames__doc__)},
