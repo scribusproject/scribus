@@ -317,7 +317,7 @@ void BarcodeGenerator::codeEdit_textChanged(const QString& s)
 
 bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 {
-	if (fileName == QString::null)
+	if (fileName.isEmpty())
 		fileName = tmpFile;
 	QString opts("barcolor=%1 showbackground backgroundcolor=%2 textcolor=%3");
 	opts = opts.arg(lnColor.name().replace('#', "")) \
