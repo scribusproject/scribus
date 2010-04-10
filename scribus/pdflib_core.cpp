@@ -6328,7 +6328,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 
 quint32 PDFLibCore::encode32dVal(double val)
 {
-	quint32 res = static_cast<quint32>(((val - (-40000.0)) / (40000.0 - (-40000.0))) * 0xFFFFFFFF);
+	quint32 res = static_cast<quint32>(((val - (-40000.0)) / 80000.0) * 0xFFFFFFFF);
 	return res;
 }
 
