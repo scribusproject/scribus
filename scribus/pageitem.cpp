@@ -1252,7 +1252,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(Qt::lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::darkGray, 1.0 / qMax(view->scale(), 1.0), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
 #ifdef HAVE_CAIRO
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
