@@ -392,15 +392,15 @@ double Selection::height() const
 void Selection::setGroupRect()
 {
 	PageItem *currItem;
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
+	double minx = 9999999.9;
+	double miny = 9999999.9;
+	double maxx = -9999999.9;
+	double maxy = -9999999.9;
 	
-	double vminx = 99999.9;
-	double vminy = 99999.9;
-	double vmaxx = -99999.9;
-	double vmaxy = -99999.9;
+	double vminx = 9999999.9;
+	double vminy = 9999999.9;
+	double vmaxx = -9999999.9;
+	double vmaxy = -9999999.9;
 	uint selectedItemCount=count();
 	for (uint gc = 0; gc < selectedItemCount; ++gc)
 	{
