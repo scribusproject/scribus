@@ -4106,6 +4106,22 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 			currItem->GrFocalY = Buffer->GrFocalY;
 			currItem->GrScale  = Buffer->GrScale;
 			currItem->GrSkew   = Buffer->GrSkew;
+			currItem->GrControl1 = Buffer->GrControl1;
+			currItem->GrControl2 = Buffer->GrControl2;
+			currItem->GrControl3 = Buffer->GrControl3;
+			currItem->GrControl4 = Buffer->GrControl4;
+			currItem->GrColorP1 = Buffer->GrColorP1;
+			currItem->GrColorP2 = Buffer->GrColorP2;
+			currItem->GrColorP3 = Buffer->GrColorP3;
+			currItem->GrColorP4 = Buffer->GrColorP4;
+			currItem->GrCol1transp = Buffer->GrCol1transp;
+			currItem->GrCol2transp = Buffer->GrCol2transp;
+			currItem->GrCol3transp = Buffer->GrCol3transp;
+			currItem->GrCol4transp = Buffer->GrCol4transp;
+			currItem->GrCol1Shade = Buffer->GrCol1Shade;
+			currItem->GrCol2Shade = Buffer->GrCol2Shade;
+			currItem->GrCol3Shade = Buffer->GrCol3Shade;
+			currItem->GrCol4Shade = Buffer->GrCol4Shade;
 		}
 	}
 	if (Buffer->GrTypeStroke >0)
@@ -5724,18 +5740,21 @@ void ScribusDoc::updateAllItemQColors()
 		PageItem *ite = DocItems.at(c);
 		ite->setLineQColor();
 		ite->setFillQColor();
+		ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
 	}
 	for (int c=0; c<MasterItems.count(); ++c)
 	{
 		PageItem *ite = MasterItems.at(c);
 		ite->setLineQColor();
 		ite->setFillQColor();
+		ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
 	}
 	for (int c=0; c<FrameItems.count(); ++c)
 	{
 		PageItem *ite = FrameItems.at(c);
 		ite->setLineQColor();
 		ite->setFillQColor();
+		ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -5746,6 +5765,7 @@ void ScribusDoc::updateAllItemQColors()
 			PageItem *ite = pa.items.at(o);
 			ite->setLineQColor();
 			ite->setFillQColor();
+			ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
 		}
 	}
 }
@@ -10919,6 +10939,10 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		gr.addPoint(bb->GrStartX, bb->GrStartY);
 		gr.addPoint(bb->GrEndX, bb->GrEndY);
 		gr.addPoint(bb->GrFocalX, bb->GrFocalY);
+		gr.addPoint(bb->GrControl1);
+		gr.addPoint(bb->GrControl2);
+		gr.addPoint(bb->GrControl3);
+		gr.addPoint(bb->GrControl4);
 		FPoint g(gx, gy);
 		FPoint b(0, 0, bb->xPos(), bb->yPos(), bb->rotation(), 1, 1);
 		b -= g;
@@ -10997,6 +11021,10 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		bb->GrEndY = gr.point(1).y();
 		bb->GrFocalX = gr.point(2).x();
 		bb->GrFocalY = gr.point(2).y();
+		bb->GrControl1 = gr.point(3);
+		bb->GrControl2 = gr.point(4);
+		bb->GrControl3 = gr.point(5);
+		bb->GrControl4 = gr.point(6);
 		bb->updateGradientVectors();
 	}
 	bb = itemSelection->itemAt(0);

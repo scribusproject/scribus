@@ -153,6 +153,9 @@ private:
 	QString drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
 	bool    PDF_PatternFillStroke(QString& output, PageItem *currItem, int kind = 0, bool forArrow = false);
+	quint32 encode32dVal(double val);
+	quint16 encode16dVal(double val);
+	bool    PDF_TensorGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_GradientFillStroke(QString& output, PageItem *currItem, bool stroke = false, bool forArrow = false);
 
 		/* deprecated */

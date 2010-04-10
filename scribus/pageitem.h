@@ -359,7 +359,7 @@ public:
 	double gYpos;
 	double gWidth;
 	double gHeight;
-	int GrType;
+	int GrType;			// used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;
@@ -368,6 +368,22 @@ public:
 	double GrFocalY;
 	double GrScale;
 	double GrSkew;
+	FPoint GrControl1;
+	FPoint GrControl2;
+	FPoint GrControl3;
+	FPoint GrControl4;
+	QString GrColorP1;
+	QString GrColorP2;
+	QString GrColorP3;
+	QString GrColorP4;
+	double GrCol1transp;
+	double GrCol2transp;
+	double GrCol3transp;
+	double GrCol4transp;
+	int GrCol1Shade;
+	int GrCol2Shade;
+	int GrCol3Shade;
+	int GrCol4Shade;
 	int Cols;
 	double ColGap;
 	double gridOffset_;
@@ -618,6 +634,13 @@ public:
 	// 0=none, 1,2,3,4=linear, 5=radial, 6=free linear, 7=free radial, 8=pattern 
 	int gradientType() const { return GrType; }
 	void setGradientType(int val) { GrType = val; }
+	void set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4);
+	void set4ColorTransparency(double t1, double t2, double t3, double t4);
+	void set4ColorShade(int t1, int t2, int t3, int t4);
+	void set4ColorColors(QString col1, QString col2, QString col3, QString col4);
+	void get4ColorGeometry(FPoint &c1, FPoint &c2, FPoint &c3, FPoint &c4);
+	void get4ColorTransparency(double &t1, double &t2, double &t3, double &t4);
+	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4);
 	void gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 
@@ -1318,6 +1341,10 @@ protected:
 	
 	QColor fillQColor;
 	QColor strokeQColor;
+	QColor GrColorP1QColor;
+	QColor GrColorP2QColor;
+	QColor GrColorP3QColor;
+	QColor GrColorP4QColor;
 	
 	/** X position on the page */
 	double Xpos;

@@ -310,9 +310,9 @@ void Tpalette::editGradientVector()
 		TGradDia->unitChange(currentDoc->unitIndex());
 		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew);
 		if ((currentItem->GrMask == 1) || (currentItem->GrMask == 4))
-			TGradDia->hideExtraWidgets();
+			TGradDia->selectLinear();
 		else
-			TGradDia->showExtraWidgets();
+			TGradDia->selectRadial();
 		TGradDia->show();
 	}
 	else

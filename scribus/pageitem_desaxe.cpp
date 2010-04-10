@@ -332,6 +332,26 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			gradientV.insert("GRSCALE", toXMLString(GrScale));
 			gradientV.insert("GRSKEW", toXMLString(GrSkew));
 			gradientV.insert("GRNAME", toXMLString(gradient()));
+			gradientV.insert("GRC1X"   , toXMLString(GrControl1.x()));
+			gradientV.insert("GRC1Y"   , toXMLString(GrControl1.y()));
+			gradientV.insert("GRCOLP1" , toXMLString(GrColorP1));
+			gradientV.insert("GRC2X"   , toXMLString(GrControl2.x()));
+			gradientV.insert("GRC2Y"   , toXMLString(GrControl2.y()));
+			gradientV.insert("GRCOLP2" , toXMLString(GrColorP2));
+			gradientV.insert("GRC3X"   , toXMLString(GrControl3.x()));
+			gradientV.insert("GRC3Y"   , toXMLString(GrControl3.y()));
+			gradientV.insert("GRCOLP3" , toXMLString(GrColorP3));
+			gradientV.insert("GRC4X"   , toXMLString(GrControl4.x()));
+			gradientV.insert("GRC4Y"   , toXMLString(GrControl4.y()));
+			gradientV.insert("GRCOLP4" , toXMLString(GrColorP4));
+			gradientV.insert("GRCOLT1", toXMLString(GrCol1transp));
+			gradientV.insert("GRCOLT2", toXMLString(GrCol2transp));
+			gradientV.insert("GRCOLT3", toXMLString(GrCol3transp));
+			gradientV.insert("GRCOLT4", toXMLString(GrCol4transp));
+			gradientV.insert("GRCOLS1", toXMLString(GrCol1Shade));
+			gradientV.insert("GRCOLS2", toXMLString(GrCol2Shade));
+			gradientV.insert("GRCOLS3", toXMLString(GrCol3Shade));
+			gradientV.insert("GRCOLS4", toXMLString(GrCol4Shade));
 			handler.begin("Gradient", gradientV);
 			QList<VColorStop*> cstops = fill_gradient.colorStops();
 			for (uint cst = 0; cst < const_cast<VGradient&>(fill_gradient).Stops(); ++cst) //FIXME make const
@@ -678,6 +698,22 @@ class Gradient_body : public Action_body
 			item->GrSkew = parseDouble(attr["GRSKEW"]);
 			item->setGradient(attr["GRNAME"]);
 			item->fill_gradient.clearStops();
+			item->GrControl1 = FPoint(parseDouble(attr["GRC1X"]), parseDouble(attr["GRC1Y"]));
+			item->GrControl2 = FPoint(parseDouble(attr["GRC2X"]), parseDouble(attr["GRC2Y"]));
+			item->GrControl3 = FPoint(parseDouble(attr["GRC3X"]), parseDouble(attr["GRC3Y"]));
+			item->GrControl4 = FPoint(parseDouble(attr["GRC4X"]), parseDouble(attr["GRC4Y"]));
+			item->GrColorP1  = attr["GRCOLP1"];
+			item->GrColorP2  = attr["GRCOLP2"];
+			item->GrColorP3  = attr["GRCOLP3"];
+			item->GrColorP4  = attr["GRCOLP4"];
+			item->GrCol1transp = parseDouble(attr["GRCOLT1"]);
+			item->GrCol2transp = parseDouble(attr["GRCOLT2"]);
+			item->GrCol3transp = parseDouble(attr["GRCOLT3"]);
+			item->GrCol4transp = parseDouble(attr["GRCOLT4"]);
+			item->GrCol1Shade = parseDouble(attr["GRCOLS1"]);
+			item->GrCol2Shade = parseDouble(attr["GRCOLS2"]);
+			item->GrCol3Shade = parseDouble(attr["GRCOLS3"]);
+			item->GrCol4Shade = parseDouble(attr["GRCOLS4"]);
 		}
 	}
 };

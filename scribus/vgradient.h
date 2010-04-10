@@ -84,7 +84,7 @@ public:
 	{
 	    linear = 0,
 	    radial = 1,
-	    conic  = 2
+	    fourcolor  = 2
 	};
 
 	enum VGradientRepeatMethod

@@ -199,6 +199,22 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 				OB->GrColor2 = "Black";
 			OB->GrShade  = attrAsInt(attrs, "GRSHADE", 100);
 			OB->GrShade2 = attrAsInt(attrs, "GRSHADE2", 100);
+			OB->GrControl1 = FPoint(attrAsDbl(attrs, "GRC1X", 0.0), attrAsDbl(attrs, "GRC1Y", 0.0));
+			OB->GrControl2 = FPoint(attrAsDbl(attrs, "GRC2X", 0.0), attrAsDbl(attrs, "GRC2Y", 0.0));
+			OB->GrControl3 = FPoint(attrAsDbl(attrs, "GRC3X", 0.0), attrAsDbl(attrs, "GRC3Y", 0.0));
+			OB->GrControl4 = FPoint(attrAsDbl(attrs, "GRC4X", 0.0), attrAsDbl(attrs, "GRC4Y", 0.0));
+			OB->GrColorP1  = attrAsString(attrs, "GRCOLP1", "Black");
+			OB->GrColorP2  = attrAsString(attrs, "GRCOLP2", "Black");
+			OB->GrColorP3  = attrAsString(attrs, "GRCOLP3", "Black");
+			OB->GrColorP4  = attrAsString(attrs, "GRCOLP4", "Black");
+			OB->GrCol1transp = attrAsDbl(attrs, "GRCOLT1", 1.0);
+			OB->GrCol2transp = attrAsDbl(attrs, "GRCOLT2", 1.0);
+			OB->GrCol3transp   = attrAsDbl(attrs, "GRCOLT3", 1.0);
+			OB->GrCol4transp   = attrAsDbl(attrs, "GRCOLT4", 1.0);
+			OB->GrCol1Shade  = attrAsInt(attrs, "GRCOLS1", 100);
+			OB->GrCol2Shade  = attrAsInt(attrs, "GRCOLS2", 100);
+			OB->GrCol3Shade  = attrAsInt(attrs, "GRCOLS3", 100);
+			OB->GrCol4Shade  = attrAsInt(attrs, "GRCOLS4", 100);
 		}
 	}
 	OB->GrTypeStroke = attrAsInt(attrs, "GRTYPS"  , 0);
@@ -2461,6 +2477,29 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRFOCALY", item->GrFocalY);
 		writer.writeAttribute("GRSCALE" , item->GrScale);
 		writer.writeAttribute("GRSKEW"  , item->GrSkew);
+		if (item->GrType == 9)
+		{
+			writer.writeAttribute("GRC1X"   , item->GrControl1.x());
+			writer.writeAttribute("GRC1Y"   , item->GrControl1.y());
+			writer.writeAttribute("GRCOLP1" , item->GrColorP1);
+			writer.writeAttribute("GRC2X"   , item->GrControl2.x());
+			writer.writeAttribute("GRC2Y"   , item->GrControl2.y());
+			writer.writeAttribute("GRCOLP2" , item->GrColorP2);
+			writer.writeAttribute("GRC3X"   , item->GrControl3.x());
+			writer.writeAttribute("GRC3Y"   , item->GrControl3.y());
+			writer.writeAttribute("GRCOLP3" , item->GrColorP3);
+			writer.writeAttribute("GRC4X"   , item->GrControl4.x());
+			writer.writeAttribute("GRC4Y"   , item->GrControl4.y());
+			writer.writeAttribute("GRCOLP4" , item->GrColorP4);
+			writer.writeAttribute("GRCOLT1" , item->GrCol1transp);
+			writer.writeAttribute("GRCOLT2" , item->GrCol2transp);
+			writer.writeAttribute("GRCOLT3" , item->GrCol3transp);
+			writer.writeAttribute("GRCOLT4" , item->GrCol4transp);
+			writer.writeAttribute("GRCOLS1" , item->GrCol1Shade);
+			writer.writeAttribute("GRCOLS2" , item->GrCol1Shade);
+			writer.writeAttribute("GRCOLS3" , item->GrCol1Shade);
+			writer.writeAttribute("GRCOLS4" , item->GrCol1Shade);
+		}
 	}
 	if (item->GrTypeStroke > 0)
 	{

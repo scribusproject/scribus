@@ -95,6 +95,22 @@ PageItem::PageItem(const PageItem & other)
 	GrFocalY(other.GrFocalY),
 	GrScale(other.GrScale),
 	GrSkew(other.GrSkew),
+	GrControl1(other.GrControl1),
+	GrControl2(other.GrControl2),
+	GrControl3(other.GrControl3),
+	GrControl4(other.GrControl4),
+	GrColorP1(other.GrColorP1),
+	GrColorP2(other.GrColorP2),
+	GrColorP3(other.GrColorP3),
+	GrColorP4(other.GrColorP4),
+	GrCol1transp(other.GrCol1transp),
+	GrCol2transp(other.GrCol2transp),
+	GrCol3transp(other.GrCol3transp),
+	GrCol4transp(other.GrCol4transp),
+	GrCol1Shade(other.GrCol1Shade),
+	GrCol2Shade(other.GrCol2Shade),
+	GrCol3Shade(other.GrCol3Shade),
+	GrCol4Shade(other.GrCol4Shade),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
 	PLineArt(other.PLineArt),
@@ -221,6 +237,10 @@ PageItem::PageItem(const PageItem & other)
 	tagged(other.tagged),
 	fillQColor(other.fillQColor),
 	strokeQColor(other.strokeQColor),
+	GrColorP1QColor(other.GrColorP1QColor),
+	GrColorP2QColor(other.GrColorP2QColor),
+	GrColorP3QColor(other.GrColorP3QColor),
+	GrColorP4QColor(other.GrColorP4QColor),
 	Xpos(other.Xpos),
 	Ypos(other.Ypos),
 	Width(other.Width),
@@ -375,6 +395,18 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrFocalY = 0;
 	GrScale = 1;
 	GrSkew = 0;
+	GrControl1 = FPoint(0,0);
+	GrControl2 = FPoint(w, 0);
+	GrControl3 = FPoint(w, h);
+	GrControl4 = FPoint(0, h);
+	GrCol1transp = 1.0;
+	GrCol2transp = 1.0;
+	GrCol3transp = 1.0;
+	GrCol4transp = 1.0;
+	GrCol1Shade = 100;
+	GrCol2Shade = 100;
+	GrCol3Shade = 100;
+	GrCol4Shade = 100;
 	gradientVal = "";
 	GrTypeStroke = 0;
 	GrStrokeStartX = 0;
@@ -588,6 +620,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 		fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, fillColorVal, 100);
 		fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, fillColorVal, 100);
+		GrColorP1 = fillColorVal;
+		GrColorP2 = fillColorVal;
+		GrColorP3 = fillColorVal;
+		GrColorP4 = fillColorVal;
 	}
 	else
 	{
@@ -597,6 +633,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
 			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeFillColor, 100);
+			GrColorP1 = m_Doc->itemToolPrefs().shapeFillColor;
+			GrColorP2 = m_Doc->itemToolPrefs().shapeFillColor;
+			GrColorP3 = m_Doc->itemToolPrefs().shapeFillColor;
+			GrColorP4 = m_Doc->itemToolPrefs().shapeFillColor;
 		}
 		else
 		{
@@ -606,6 +646,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 				QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 				fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, lineColorVal, 100);
 				fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, lineColorVal, 100);
+				GrColorP1 = lineColorVal;
+				GrColorP2 = lineColorVal;
+				GrColorP3 = lineColorVal;
+				GrColorP4 = lineColorVal;
 			}
 			else
 			{
@@ -615,6 +659,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
 					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->itemToolPrefs().shapeLineColor, 100);
+					GrColorP1 = m_Doc->itemToolPrefs().shapeLineColor;
+					GrColorP2 = m_Doc->itemToolPrefs().shapeLineColor;
+					GrColorP3 = m_Doc->itemToolPrefs().shapeLineColor;
+					GrColorP4 = m_Doc->itemToolPrefs().shapeLineColor;
 				}
 				else if (m_Doc->PageColors.contains("Black"))
 				{
@@ -622,6 +670,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
 					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, "Black", 100);
+					GrColorP1 = "Black";
+					GrColorP2 = "Black";
+					GrColorP3 = "Black";
+					GrColorP4 = "Black";
 				}
 			}
 		}
@@ -1242,37 +1294,50 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 				}
 				else
 				{
-					if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
-						gradientVal = "";
-					if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
-						fill_gradient = m_Doc->docGradients[gradientVal];
-					if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
+					if (GrType == 9)
 					{
-						if (fillColor() != CommonStrings::None)
-						{
-							p->setBrush(fillQColor);
-							p->setFillMode(ScPainter::Solid);
-						}
-						else
-							p->setFillMode(ScPainter::None);
+						p->setFillMode(ScPainter::Gradient);
+						FPoint pG1 = FPoint(0, 0);
+						FPoint pG2 = FPoint(width(), 0);
+						FPoint pG3 = FPoint(width(), height());
+						FPoint pG4 = FPoint(0, height());
+						p->set4ColorGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4);
+						p->set4ColorColors(GrColorP1QColor, GrColorP2QColor, GrColorP3QColor, GrColorP4QColor);
 					}
 					else
 					{
-						p->setFillMode(ScPainter::Gradient);
-						p->fill_gradient = fill_gradient;
-						switch (GrType)
+						if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
+							gradientVal = "";
+						if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
+							fill_gradient = m_Doc->docGradients[gradientVal];
+						if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
 						{
-							case 1:
-							case 2:
-							case 3:
-							case 4:
-							case 6:
-								p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
-								break;
-							case 5:
-							case 7:
-								p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
-								break;
+							if (fillColor() != CommonStrings::None)
+							{
+								p->setBrush(fillQColor);
+								p->setFillMode(ScPainter::Solid);
+							}
+							else
+								p->setFillMode(ScPainter::None);
+						}
+						else
+						{
+							p->setFillMode(ScPainter::Gradient);
+							p->fill_gradient = fill_gradient;
+							switch (GrType)
+							{
+								case 1:
+								case 2:
+								case 3:
+								case 4:
+								case 6:
+									p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
+									break;
+								case 5:
+								case 7:
+									p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
+									break;
+							}
 						}
 					}
 				}
@@ -2688,6 +2753,199 @@ void PageItem::setPattern(const QString &newPattern)
 		patternVal = newPattern;
 }
 
+void PageItem::set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4)
+{
+	GrControl1 = c1;
+	GrControl2 = c2;
+	GrControl3 = c3;
+	GrControl4 = c4;
+}
+
+void PageItem::set4ColorTransparency(double t1, double t2, double t3, double t4)
+{
+	GrCol1transp = t1;
+	GrCol2transp = t2;
+	GrCol3transp = t3;
+	GrCol4transp = t4;
+}
+
+void PageItem::set4ColorShade(int t1, int t2, int t3, int t4)
+{
+	GrCol1Shade = t1;
+	GrCol2Shade = t2;
+	GrCol3Shade = t3;
+	GrCol4Shade = t4;
+}
+
+void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString col4)
+{
+	GrColorP1 = col1;
+	if (GrColorP1 != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(GrColorP1))
+		{
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+				case OSGFrame:
+					GrColorP1 = m_Doc->itemToolPrefs().imageFillColor;
+				case TextFrame:
+				case PathText:
+					GrColorP1 = m_Doc->itemToolPrefs().textFillColor;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					GrColorP1 = m_Doc->itemToolPrefs().shapeFillColor;
+					break;
+				default:
+					break;
+			}
+		}
+		const ScColor& col = m_Doc->PageColors[GrColorP1];
+		GrColorP1QColor = ScColorEngine::getShadeColorProof(col, m_Doc, GrCol1Shade);
+		GrColorP1QColor.setAlphaF(GrCol1transp);
+	}
+	else
+		GrColorP1QColor = QColor(255, 255, 255, 0);
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	{
+		VisionDefectColor defect;
+		GrColorP1QColor = defect.convertDefect(GrColorP1QColor, m_Doc->view()->m_canvas->previewVisual());
+	}
+	GrColorP2 = col2;
+	if (GrColorP2 != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(GrColorP2))
+		{
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+				case OSGFrame:
+					GrColorP2 = m_Doc->itemToolPrefs().imageFillColor;
+				case TextFrame:
+				case PathText:
+					GrColorP2 = m_Doc->itemToolPrefs().textFillColor;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					GrColorP2 = m_Doc->itemToolPrefs().shapeFillColor;
+					break;
+				default:
+					break;
+			}
+		}
+		const ScColor& col = m_Doc->PageColors[GrColorP2];
+		GrColorP2QColor = ScColorEngine::getShadeColorProof(col, m_Doc, GrCol2Shade);
+		GrColorP2QColor.setAlphaF(GrCol2transp);
+	}
+	else
+		GrColorP2QColor = QColor(255, 255, 255, 0);
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	{
+		VisionDefectColor defect;
+		GrColorP2QColor = defect.convertDefect(GrColorP2QColor, m_Doc->view()->m_canvas->previewVisual());
+	}
+	GrColorP3 = col3;
+	if (GrColorP3 != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(GrColorP3))
+		{
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+				case OSGFrame:
+					GrColorP3 = m_Doc->itemToolPrefs().imageFillColor;
+				case TextFrame:
+				case PathText:
+					GrColorP3 = m_Doc->itemToolPrefs().textFillColor;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					GrColorP3 = m_Doc->itemToolPrefs().shapeFillColor;
+					break;
+				default:
+					break;
+			}
+		}
+		const ScColor& col = m_Doc->PageColors[GrColorP3];
+		GrColorP3QColor = ScColorEngine::getShadeColorProof(col, m_Doc, GrCol3Shade);
+		GrColorP3QColor.setAlphaF(GrCol3transp);
+	}
+	else
+		GrColorP3QColor = QColor(255, 255, 255, 0);
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	{
+		VisionDefectColor defect;
+		GrColorP3QColor = defect.convertDefect(GrColorP3QColor, m_Doc->view()->m_canvas->previewVisual());
+	}
+	GrColorP4 = col4;
+	if (GrColorP4 != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(GrColorP4))
+		{
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+				case OSGFrame:
+					GrColorP4 = m_Doc->itemToolPrefs().imageFillColor;
+				case TextFrame:
+				case PathText:
+					GrColorP4 = m_Doc->itemToolPrefs().textFillColor;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					GrColorP4 = m_Doc->itemToolPrefs().shapeFillColor;
+					break;
+				default:
+					break;
+			}
+		}
+		const ScColor& col = m_Doc->PageColors[GrColorP4];
+		GrColorP4QColor = ScColorEngine::getShadeColorProof(col, m_Doc, GrCol4Shade);
+		GrColorP4QColor.setAlphaF(GrCol4transp);
+	}
+	else
+		GrColorP4QColor = QColor(255, 255, 255, 0);
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	{
+		VisionDefectColor defect;
+		GrColorP4QColor = defect.convertDefect(GrColorP4QColor, m_Doc->view()->m_canvas->previewVisual());
+	}
+}
+
+void PageItem::get4ColorGeometry(FPoint &c1, FPoint &c2, FPoint &c3, FPoint &c4)
+{
+	c1 = GrControl1;
+	c2 = GrControl2;
+	c3 = GrControl3;
+	c4 = GrControl4;
+}
+
+void PageItem::get4ColorTransparency(double &t1, double &t2, double &t3, double &t4)
+{
+	t1 = GrCol1transp;
+	t2 = GrCol2transp;
+	t3 = GrCol3transp;
+	t4 = GrCol4transp;
+}
+
+void PageItem::get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4)
+{
+	col1 = GrColorP1;
+	col2 = GrColorP2;
+	col3 = GrColorP3;
+	col4 = GrColorP4;
+}
+
+
 void PageItem::gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
 {
 	startX = GrStartX;
@@ -2889,19 +3147,7 @@ void PageItem::setFillColor(const QString &newColor)
 		undoManager->action(this, ss);
 	}
 	fillColorVal = tmp;
-/*	if (GrType == 0)
-	{
-		fill_gradient = VGradient(VGradient::linear);
-		fill_gradient.clearStops();
-		if (fillColorVal != CommonStrings::None)
-		{
-			const ScColor& col = m_Doc->PageColors[fillColorVal];
-			fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, fillColorVal, 100);
-			fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, fillColorVal, 100);
-		}
-	} */
 	setFillQColor();
-//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setFillShade(double newShade)
@@ -4442,6 +4688,19 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	it = newNames.colors().find(lineColor());
 	if (it != newNames.colors().end())
 		setLineColor(*it);
+		
+	it = newNames.colors().find(GrColorP1);
+	if (it != newNames.colors().end())
+		GrColorP1 = *it;
+	it = newNames.colors().find(GrColorP2);
+	if (it != newNames.colors().end())
+		GrColorP2 = *it;
+	it = newNames.colors().find(GrColorP3);
+	if (it != newNames.colors().end())
+		GrColorP3 = *it;
+	it = newNames.colors().find(GrColorP4);
+	if (it != newNames.colors().end())
+		GrColorP4 = *it;
 
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
@@ -4649,6 +4908,13 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
+	else if (GrType == 9)
+	{
+		lists.collectColor(GrColorP1);
+		lists.collectColor(GrColorP2);
+		lists.collectColor(GrColorP3);
+		lists.collectColor(GrColorP4);
+	}
 	if (GrTypeStroke == 0)
 		lists.collectColor(lineColor());
 	else if (GrTypeStroke < 8)
@@ -4726,6 +4992,22 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->GrFocalY = GrFocalY;
 	Buffer->GrScale = GrScale;
 	Buffer->GrSkew = GrSkew;
+	Buffer->GrControl1 = GrControl1;
+	Buffer->GrControl2 = GrControl2;
+	Buffer->GrControl3 = GrControl3;
+	Buffer->GrControl4 = GrControl4;
+	Buffer->GrColorP1 = GrColorP1;
+	Buffer->GrColorP2 = GrColorP2;
+	Buffer->GrColorP3 = GrColorP3;
+	Buffer->GrColorP4 = GrColorP4;
+	Buffer->GrCol1transp = GrCol1transp;
+	Buffer->GrCol2transp = GrCol2transp;
+	Buffer->GrCol3transp = GrCol3transp;
+	Buffer->GrCol4transp = GrCol4transp;
+	Buffer->GrCol1Shade = GrCol1Shade;
+	Buffer->GrCol2Shade = GrCol2Shade;
+	Buffer->GrCol3Shade = GrCol3Shade;
+	Buffer->GrCol4Shade = GrCol4Shade;
 	Buffer->Rot = Rot;
 	Buffer->PLineArt = PLineArt;
 	Buffer->PLineEnd = PLineEnd;
@@ -6318,6 +6600,10 @@ void PageItem::updateClip()
 				gr.addPoint(GrStartX, GrStartY);
 				gr.addPoint(GrEndX, GrEndY);
 				gr.addPoint(GrFocalX, GrFocalY);
+				gr.addPoint(GrControl1);
+				gr.addPoint(GrControl2);
+				gr.addPoint(GrControl3);
+				gr.addPoint(GrControl4);
 				gr.map(ma);
 				GrStartX = gr.point(0).x();
 				GrStartY = gr.point(0).y();
@@ -6325,6 +6611,10 @@ void PageItem::updateClip()
 				GrEndY = gr.point(1).y();
 				GrFocalX = gr.point(2).x();
 				GrFocalY = gr.point(2).y();
+				GrControl1 = gr.point(3);
+				GrControl2 = gr.point(4);
+				GrControl3 = gr.point(5);
+				GrControl4 = gr.point(6);
 				FPointArray gr2;
 				gr2.addPoint(GrStrokeStartX, GrStrokeStartY);
 				gr2.addPoint(GrStrokeEndX, GrStrokeEndY);
@@ -6395,6 +6685,10 @@ void PageItem::updateClip()
 			gr.addPoint(GrStartX, GrStartY);
 			gr.addPoint(GrEndX, GrEndY);
 			gr.addPoint(GrFocalX, GrFocalY);
+			gr.addPoint(GrControl1);
+			gr.addPoint(GrControl2);
+			gr.addPoint(GrControl3);
+			gr.addPoint(GrControl4);
 			gr.map(ma);
 			GrStartX = gr.point(0).x();
 			GrStartY = gr.point(0).y();
@@ -6402,6 +6696,10 @@ void PageItem::updateClip()
 			GrEndY = gr.point(1).y();
 			GrFocalX = gr.point(2).x();
 			GrFocalY = gr.point(2).y();
+			GrControl1 = gr.point(3);
+			GrControl2 = gr.point(4);
+			GrControl3 = gr.point(5);
+			GrControl4 = gr.point(6);
 			FPointArray gr2;
 			gr2.addPoint(GrStrokeStartX, GrStrokeStartY);
 			gr2.addPoint(GrStrokeEndX, GrStrokeEndY);

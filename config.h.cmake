@@ -20,6 +20,7 @@
 #cmakedefine HAVE_XML 1
 #cmakedefine CMS_INC "lcms.h"
 #cmakedefine HAVE_CAIRO 1
+#cmakedefine HAVE_PRIVATE_CAIRO 1
 #cmakedefine HAVE_CUPS 1
 #cmakedefine HAVE_TIFF 1
 #cmakedefine HAVE_LIBZ 1

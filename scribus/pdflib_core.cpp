@@ -6326,6 +6326,323 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	return true;
 }
 
+quint32 PDFLibCore::encode32dVal(double val)
+{
+	quint32 res = static_cast<quint32>(((val - (-40000.0)) / (40000.0 - (-40000.0))) * 0xFFFFFFFF);
+	return res;
+}
+
+quint16 PDFLibCore::encode16dVal(double val)
+{
+	quint16 m = val * 0xFFFF;
+	return m;
+}
+
+bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
+{
+	QList<int> colorShades;
+	QStringList spotColorSet;
+	QStringList colorNames;
+	QStringList Gcolors;
+	bool spotMode = false;
+	bool transparencyFound = false;
+	colorNames << c->GrColorP4 << c->GrColorP1 << c->GrColorP2 << c->GrColorP3;
+	colorShades << c->GrCol4Shade << c->GrCol1Shade << c->GrCol2Shade << c->GrCol3Shade;
+	for (int cst = 0; cst < colorNames.count(); ++cst)
+	{
+		if (cst == 0)
+		{
+			if (c->GrCol4transp != 1.0)
+				transparencyFound = true;
+		}
+		else if (cst == 1)
+		{
+			if (c->GrCol1transp != 1.0)
+				transparencyFound = true;
+		}
+		else if (cst == 2)
+		{
+			if (c->GrCol2transp != 1.0)
+				transparencyFound = true;
+		}
+		else if (cst == 3)
+		{
+			if (c->GrCol3transp != 1.0)
+				transparencyFound = true;
+		}
+		if (spotMap.contains(colorNames.at(cst)))
+		{
+			if (!spotColorSet.contains(colorNames.at(cst)))
+				spotColorSet.append(colorNames.at(cst));
+		}
+		Gcolors.append(SetGradientColor(colorNames.at(cst), colorShades[cst]));
+	}
+	QString TRes("");
+	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
+	{
+		uint shadeObjectT = newObject();
+		StartObj(shadeObjectT);
+		PutDoc("<<\n");
+		PutDoc("/ShadingType 7\n");
+		PutDoc("/ColorSpace /DeviceGray\n");
+		PutDoc("/BitsPerCoordinate 32\n");
+		PutDoc("/BitsPerComponent 16\n");
+		PutDoc("/BitsPerFlag 8\n");
+		QByteArray vertStreamT;
+		QDataStream vst(&vertStreamT, QIODevice::WriteOnly);
+		vst.setByteOrder(QDataStream::BigEndian);
+		quint8 flg = 0;
+		vst << flg;
+		quint32 val = 0;
+		vst << encode32dVal(val) << encode32dVal(-c->height());
+		vst << encode32dVal(val) << encode32dVal(-c->height());
+		vst << encode32dVal(val) << encode32dVal(val);
+		vst << encode32dVal(val) << encode32dVal(val);
+		vst << encode32dVal(val) << encode32dVal(val);
+		vst << encode32dVal(c->width()) << encode32dVal(val);
+		vst << encode32dVal(c->width()) << encode32dVal(val);
+		vst << encode32dVal(c->width()) << encode32dVal(val);
+		vst << encode32dVal(c->width()) << encode32dVal(-c->height());
+		vst << encode32dVal(c->width()) << encode32dVal(-c->height());
+		vst << encode32dVal(c->width()) << encode32dVal(-c->height());
+		vst << encode32dVal(val) << encode32dVal(-c->height());
+		vst << encode32dVal(c->GrControl1.x()) << encode32dVal(-c->GrControl1.y());
+		vst << encode32dVal(c->GrControl4.x()) << encode32dVal(-c->GrControl4.y());
+		vst << encode32dVal(c->GrControl3.x()) << encode32dVal(-c->GrControl3.y());
+		vst << encode32dVal(c->GrControl2.x()) << encode32dVal(-c->GrControl2.y());
+		vst << encode16dVal(c->GrCol4transp) << encode16dVal(c->GrCol1transp) << encode16dVal(c->GrCol2transp) << encode16dVal(c->GrCol3transp);
+		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
+		QString dat = "";
+		for (int vd = 0; vd < vertStreamT.count(); vd++)
+		{
+			dat += vertStreamT[vd];
+		}
+		if (Options.Compress)
+			dat = CompressStr(&dat);
+		PutDoc("/Length "+QString::number(dat.length())+"\n");
+		if (Options.Compress)
+			PutDoc("/Filter /FlateDecode\n");
+		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream\nendobj\n");
+		uint patObject = newObject();
+		StartObj(patObject);
+		PutDoc("<<\n/Type /Pattern\n");
+		PutDoc("/PatternType 2\n");
+		PutDoc("/Shading "+QString::number(shadeObjectT)+" 0 R\n");
+		PutDoc(">>\nendobj\n");
+		Patterns.insert("Pattern"+QString::number(patObject), patObject);
+		uint formObject = newObject();
+		StartObj(formObject);
+		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
+		PutDoc("/FormType 1\n");
+		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
+		double lw = c->lineWidth();
+		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(c->width()+lw)+" "+FToStr(-(c->height()+lw))+" ]\n");
+		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+		if (Patterns.count() != 0)
+		{
+			PutDoc("/Pattern << \n");
+			QMap<QString,int>::Iterator it3p;
+			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		PutDoc(">>\n");
+		QString stre = "q\n"+SetClipPath(c)+"h\n";
+		stre += FToStr(fabs(c->lineWidth()))+" w\n";
+		stre += "/Pattern cs\n";
+		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "Q\n";
+		if (Options.Compress)
+			stre = CompressStr(&stre);
+		PutDoc("/Length "+QString::number(stre.length())+"\n");
+		if (Options.Compress)
+			PutDoc("/Filter /FlateDecode\n");
+		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
+		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+		ResCount++;
+		QString GXName = ResNam+QString::number(ResCount);
+		ResCount++;
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		TRes = GXName;
+	}
+	QString entx = "";
+	uint spotObject = 0;
+	uint shadeObject = newObject();
+	StartObj(shadeObject);
+	PutDoc("<<\n");
+	PutDoc("/ShadingType 7\n");
+	if (Options.UseRGB)
+	{
+		PutDoc("/ColorSpace /DeviceRGB\n");
+		entx = "0 1 0 1 0 1";
+	}
+	else if (Options.isGrayscale)
+	{
+		PutDoc("/ColorSpace /DeviceGray\n");
+		entx = "0 1";
+	}
+	else if ((doc.HasCMS) && (Options.UseProfiles))
+	{
+		PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
+		entx = "0 1 0 1 0 1";
+	}
+	else
+	{
+		entx = "0 1 0 1 0 1 0 1";
+		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+		{
+			spotObject = newObject();
+			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
+			for (int sc = 0; sc < spotColorSet.count(); sc++)
+			{
+				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				entx += " 0 1";
+			}
+			PutDoc(" ]\n");
+			PutDoc("/DeviceCMYK\n");
+			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc("]\n");
+			spotMode = true;
+		}
+		else
+			PutDoc("/ColorSpace /DeviceCMYK\n");
+	}
+	PutDoc("/BitsPerCoordinate 32\n");
+	PutDoc("/BitsPerComponent 16\n");
+	PutDoc("/BitsPerFlag 8\n");
+	QByteArray vertStream;
+	QDataStream vs(&vertStream, QIODevice::WriteOnly);
+	vs.setByteOrder(QDataStream::BigEndian);
+	quint8 flg = 0;
+	vs << flg;
+	quint32 val = 0;
+	vs << encode32dVal(val) << encode32dVal(-c->height());
+	vs << encode32dVal(val) << encode32dVal(-c->height());
+	vs << encode32dVal(val) << encode32dVal(val);
+	vs << encode32dVal(val) << encode32dVal(val);
+	vs << encode32dVal(val) << encode32dVal(val);
+	vs << encode32dVal(c->width()) << encode32dVal(val);
+	vs << encode32dVal(c->width()) << encode32dVal(val);
+	vs << encode32dVal(c->width()) << encode32dVal(val);
+	vs << encode32dVal(c->width()) << encode32dVal(-c->height());
+	vs << encode32dVal(c->width()) << encode32dVal(-c->height());
+	vs << encode32dVal(c->width()) << encode32dVal(-c->height());
+	vs << encode32dVal(val) << encode32dVal(-c->height());
+	vs << encode32dVal(c->GrControl1.x()) << encode32dVal(-c->GrControl1.y());
+	vs << encode32dVal(c->GrControl4.x()) << encode32dVal(-c->GrControl4.y());
+	vs << encode32dVal(c->GrControl3.x()) << encode32dVal(-c->GrControl3.y());
+	vs << encode32dVal(c->GrControl2.x()) << encode32dVal(-c->GrControl2.y());
+	for (int cc = 0; cc < colorNames.count(); cc++)
+	{
+		if (spotMode)
+		{
+			if (spotColorSet.contains(colorNames.at(cc)))
+			{
+				vs << encode16dVal(0.0) << encode16dVal(0.0) << encode16dVal(0.0) << encode16dVal(0.0);
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					if (spotColorSet.at(sc) == colorNames.at(cc))
+						vs << encode16dVal(colorShades[cc] / 100.0);
+					else
+						vs << encode16dVal(0.0);
+				}
+			}
+			else
+			{
+				QStringList gcol = Gcolors[cc].split(" ");
+				for (int gcs = 0; gcs < gcol.count(); gcs++)
+				{
+					vs << encode16dVal(gcol[gcs].toDouble());
+				}
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					vs << encode16dVal(0.0);
+				}
+			}
+		}
+		else
+		{
+			QStringList gcol = Gcolors[cc].split(" ");
+			for (int gcs = 0; gcs < gcol.count(); gcs++)
+			{
+				vs << encode16dVal(gcol[gcs].toDouble());
+			}
+		}
+	}
+	PutDoc("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
+	QString dat = "";
+	for (int vd = 0; vd < vertStream.count(); vd++)
+	{
+		dat += vertStream[vd];
+	}
+	if (Options.Compress)
+		dat = CompressStr(&dat);
+	PutDoc("/Length "+QString::number(dat.length())+"\n");
+	if (Options.Compress)
+		PutDoc("/Filter /FlateDecode\n");
+	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream\nendobj\n");
+	uint patObject = newObject();
+	StartObj(patObject);
+	PutDoc("<<\n/Type /Pattern\n");
+	PutDoc("/PatternType 2\n");
+	QTransform mpa;
+	if (inPattern == 0)
+	{
+		mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
+		mpa.rotate(-c->rotation());
+	}
+	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
+	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
+	PutDoc(">>\nendobj\n");
+	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	if (spotMode)
+	{
+		QString colorDesc;
+		StartObj(spotObject);
+		PutDoc("<<\n/FunctionType 4\n");
+		PutDoc("/Domain [0 1 0 1 0 1 0 1");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutDoc(" 0 1");
+		}
+		PutDoc("]\n");
+		colorDesc = "{\n";
+		int maxSp = spotColorSet.count() - 1;
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			int cc = 0;
+			int mc = 0;
+			int yc = 0;
+			int kc = 0;
+			CMYKColor cmykValues;
+			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
+			cmykValues.getValues(cc, mc, yc, kc);
+			if (sc == 0)
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			else
+				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
+			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+		}
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			colorDesc += "8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n";
+		}
+		colorDesc += "}\n";
+		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
+		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+	}
+	QString tmp;
+	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
+		tmp += "/"+TRes+" gs\n";
+	tmp += "/Pattern cs\n";
+	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+	output = tmp;
+	return true;
+}
+
 bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, bool stroke, bool forArrow)
 {
 	QList<double> StopVec;
@@ -6353,6 +6670,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	else
 	{
 		GType = currItem->GrType;
+		if (GType == 9)
+			return PDF_TensorGradientFill(output, currItem);
 		StartX = currItem->GrStartX;
 		StartY = currItem->GrStartY;
 		EndX = currItem->GrEndX;

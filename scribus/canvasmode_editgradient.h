@@ -56,7 +56,11 @@ private:
 		useGradientStart,
 		useGradientEnd,
 		useGradientFocal,
-		useGradientSkew
+		useGradientSkew,
+		useControl1,
+		useControl2,
+		useControl3,
+		useControl4
 	} eGradientPoint;
 
 	inline bool GetItem(PageItem** pi);

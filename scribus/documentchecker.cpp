@@ -102,13 +102,27 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(Transparency, 0);
 		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 		{
-			QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
-			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			if (currItem->GrType == 9)
 			{
-				if (colorStops[offset]->opacity != 1.0)
-				{
+				if (currItem->GrCol1transp != 1.0)
 					itemError.insert(Transparency, 0);
-					break;
+				else if (currItem->GrCol2transp != 1.0)
+					itemError.insert(Transparency, 0);
+				else if (currItem->GrCol3transp != 1.0)
+					itemError.insert(Transparency, 0);
+				else if (currItem->GrCol4transp != 1.0)
+					itemError.insert(Transparency, 0);
+			}
+			else
+			{
+				QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					if (colorStops[offset]->opacity != 1.0)
+					{
+						itemError.insert(Transparency, 0);
+						break;
+					}
 				}
 			}
 		}
@@ -328,13 +342,27 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(Transparency, 0);
 		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 		{
-			QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
-			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			if (currItem->GrType == 9)
 			{
-				if (colorStops[offset]->opacity != 1.0)
-				{
+				if (currItem->GrCol1transp != 1.0)
 					itemError.insert(Transparency, 0);
-					break;
+				else if (currItem->GrCol2transp != 1.0)
+					itemError.insert(Transparency, 0);
+				else if (currItem->GrCol3transp != 1.0)
+					itemError.insert(Transparency, 0);
+				else if (currItem->GrCol4transp != 1.0)
+					itemError.insert(Transparency, 0);
+			}
+			else
+			{
+				QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					if (colorStops[offset]->opacity != 1.0)
+					{
+						itemError.insert(Transparency, 0);
+						break;
+					}
 				}
 			}
 		}

@@ -971,6 +971,27 @@ void ScPainter::setPatternMask(ScPattern *pattern, double scaleX, double scaleY,
 	mask_patternMirrorY = mirrorY;
 }
 
+void ScPainter::set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4)
+{
+	fill_gradient.setType(VGradient::fourcolor);
+	gradPatchP1 = p1;
+	gradPatchP2 = p2;
+	gradPatchP3 = p3;
+	gradPatchP4 = p4;
+	gradControlP1 = c1;
+	gradControlP2 = c2;
+	gradControlP3 = c3;
+	gradControlP4 = c4;
+}
+
+void ScPainter::set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4)
+{
+	gradPatchColor1 = col1;
+	gradPatchColor2 = col2;
+	gradPatchColor3 = col3;
+	gradPatchColor4 = col4;
+}
+
 void ScPainter::fillTextPath()
 {
 	drawVPath( 0 );
@@ -1241,7 +1262,7 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 			imageMask = cairo_image_surface_create_for_data ((uchar*)m_maskPattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width()*4);
 		pat = cairo_pattern_create_for_surface(imageMask);
 		cairo_pattern_set_extend(pat, CAIRO_EXTEND_REPEAT);
-		cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
+		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 		cairo_matrix_t matrix;
 		QTransform qmatrix;
 		qmatrix.translate(mask_patternOffsetX, mask_patternOffsetY);
@@ -1300,54 +1321,135 @@ void ScPainter::drawVPath( int mode )
 		else if (fillMode == 2)
 		{
 			cairo_pattern_t *pat;
-			double x1 = fill_gradient.origin().x();
-			double y1 = fill_gradient.origin().y();
-			double x2 = fill_gradient.vector().x();
-			double y2 = fill_gradient.vector().y();
-			double fx = fill_gradient.focalPoint().x();
-			double fy = fill_gradient.focalPoint().y();
-			if (fill_gradient.type() == VGradient::linear)
-				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+#ifdef HAVE_PRIVATE_CAIRO
+			cairo_surface_t *img;
+			cairo_pattern_t *mpat;
+			cairo_t *cr;
+#endif
+			if (fill_gradient.type() == VGradient::fourcolor)
+			{
+#ifdef HAVE_PRIVATE_CAIRO
+				double p1x = gradPatchP1.x();
+				double p1y = gradPatchP1.y();
+				double p2x = gradPatchP2.x();
+				double p2y = gradPatchP2.y();
+				double p3x = gradPatchP3.x();
+				double p3y = gradPatchP3.y();
+				double p4x = gradPatchP4.x();
+				double p4y = gradPatchP4.y();
+				img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
+				cr = cairo_create(img);
+				cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
+				cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+				cairo_set_tolerance(cr, 0.5 );
+				double r, g, b, a;
+				mpat = cairo_pattern_create_mesh();
+				cairo_pattern_begin_patch(mpat);
+				cairo_pattern_move_to(mpat, p1x, p1y);
+				cairo_pattern_line_to(mpat, p2x, p2y);
+				cairo_pattern_line_to(mpat, p3x, p3y);
+				cairo_pattern_line_to(mpat, p4x, p4y);
+				cairo_pattern_line_to(mpat, p1x, p1y);
+				cairo_pattern_set_control_point(mpat, 0, gradControlP1.x(),  gradControlP1.y());
+				cairo_pattern_set_control_point(mpat, 1, gradControlP2.x(),  gradControlP2.y());
+				cairo_pattern_set_control_point(mpat, 2, gradControlP3.x(),  gradControlP3.y());
+				cairo_pattern_set_control_point(mpat, 3, gradControlP4.x(),  gradControlP4.y());
+				gradPatchColor1.getRgbF(&r, &g, &b, &a);
+				cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+				gradPatchColor2.getRgbF(&r, &g, &b, &a);
+				cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+				gradPatchColor3.getRgbF(&r, &g, &b, &a);
+				cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+				gradPatchColor4.getRgbF(&r, &g, &b, &a);
+				cairo_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+				cairo_pattern_end_patch(mpat);
+				cairo_pattern_set_filter(mpat, CAIRO_FILTER_GOOD);
+				cairo_set_source(cr, mpat);
+				cairo_paint_with_alpha(cr, 1.0);
+				pat = cairo_pattern_create_for_surface(img);
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
+				cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+#else
+				double r, g, b, a;
+				double acr = 0.0;
+				double acg = 0.0;
+				double acb = 0.0;
+				double aca = 0.0;
+				gradPatchColor1.getRgbF(&r, &g, &b, &a);
+				acr += r;
+				acg += g;
+				acb += b;
+				aca += a;
+				gradPatchColor2.getRgbF(&r, &g, &b, &a);
+				acr += r;
+				acg += g;
+				acb += b;
+				aca += a;
+				gradPatchColor3.getRgbF(&r, &g, &b, &a);
+				acr += r;
+				acg += g;
+				acb += b;
+				aca += a;
+				gradPatchColor4.getRgbF(&r, &g, &b, &a);
+				acr += r;
+				acg += g;
+				acb += b;
+				aca += a;
+				pat = cairo_pattern_create_rgba(acr / 4.0, acg / 4.0, acb / 4.0, aca / 4.0);
+#endif
+			}
 			else
-				pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
-			cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
-			QList<VColorStop*> colorStops = fill_gradient.colorStops();
-			QColor qStopColor;
-			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
-				qStopColor = colorStops[ offset ]->color;
-				int h, s, v, sneu, vneu;
-				int shad = colorStops[offset]->shade;
-				qStopColor.getHsv(&h, &s, &v);
-				sneu = s * shad / 100;
-				vneu = 255 - ((255 - v) * shad / 100);
-				qStopColor.setHsv(h, sneu, vneu);
-				double a = colorStops[offset]->opacity;
-				double r, g, b;
-				qStopColor.getRgbF(&r, &g, &b);
-				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+				double x1 = fill_gradient.origin().x();
+				double y1 = fill_gradient.origin().y();
+				double x2 = fill_gradient.vector().x();
+				double y2 = fill_gradient.vector().y();
+				double fx = fill_gradient.focalPoint().x();
+				double fy = fill_gradient.focalPoint().y();
+				if (fill_gradient.type() == VGradient::linear)
+					pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+				else
+					pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+				cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+				QList<VColorStop*> colorStops = fill_gradient.colorStops();
+				QColor qStopColor;
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					double a = colorStops[offset]->opacity;
+					double r, g, b;
+					qStopColor.getRgbF(&r, &g, &b);
+					cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+				}
+				cairo_matrix_t matrix;
+				QTransform qmatrix;
+				if (fill_gradient.type() == VGradient::radial)
+				{
+					double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+					qmatrix.translate(x1, y1);
+					qmatrix.rotate(rotEnd);
+					qmatrix.shear(gradientSkew, 0);
+					qmatrix.translate(0, y1 * (1.0 - gradientScale));
+					qmatrix.translate(-x1, -y1);
+					qmatrix.scale(1, gradientScale);
+				}
+				else
+				{
+					qmatrix.translate(x1, y1);
+					qmatrix.shear(-gradientSkew, 0);
+					qmatrix.translate(-x1, -y1);
+				}
+				cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+				cairo_matrix_invert(&matrix);
+				cairo_pattern_set_matrix (pat, &matrix);
 			}
-			cairo_matrix_t matrix;
-			QTransform qmatrix;
-			if (fill_gradient.type() == VGradient::radial)
-			{
-				double rotEnd = xy2Deg(x2 - x1, y2 - y1);
-				qmatrix.translate(x1, y1);
-				qmatrix.rotate(rotEnd);
-				qmatrix.shear(gradientSkew, 0);
-				qmatrix.translate(0, y1 * (1.0 - gradientScale));
-				qmatrix.translate(-x1, -y1);
-				qmatrix.scale(1, gradientScale);
-			}
-			else
-			{
-				qmatrix.translate(x1, y1);
-				qmatrix.shear(-gradientSkew, 0);
-				qmatrix.translate(-x1, -y1);
-			}
-			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
-			cairo_matrix_invert(&matrix);
-			cairo_pattern_set_matrix (pat, &matrix);
 			cairo_set_source (m_cr, pat);
 			cairo_clip_preserve (m_cr);
 			if (maskMode > 0)
@@ -1369,6 +1471,14 @@ void ScPainter::drawVPath( int mode )
 				cairo_paint_with_alpha (m_cr, fill_trans);
 			}
 			cairo_pattern_destroy (pat);
+#ifdef HAVE_PRIVATE_CAIRO
+			if (fill_gradient.type() == VGradient::fourcolor)
+			{
+				cairo_surface_destroy(img);
+				cairo_pattern_destroy(mpat);
+				cairo_destroy( cr );
+			}
+#endif
 		}
 		else if (fillMode == 3)
 		{
@@ -1376,7 +1486,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
-			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_BEST);
+			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_GOOD);
 			cairo_matrix_t matrix;
 			QTransform qmatrix;
 			qmatrix.translate(patternOffsetX, patternOffsetY);
@@ -1446,7 +1556,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
-			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_BEST);
+			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_GOOD);
 			cairo_matrix_t matrix;
 			QTransform qmatrix;
 			qmatrix.translate(-LineWidth / 2.0, -LineWidth / 2.0);
@@ -1487,6 +1597,8 @@ void ScPainter::drawVPath( int mode )
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
 				pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+			cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+			cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 			QList<VColorStop*> colorStops = stroke_gradient.colorStops();
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )

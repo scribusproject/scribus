@@ -396,6 +396,7 @@ Selection Serializer::importCollection()
 			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			currItem->setFillQColor();
 			currItem->setLineQColor();
+			currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
 			result.addItem(currItem);
 			if (currItem->Groups.count() != 0)
 			{

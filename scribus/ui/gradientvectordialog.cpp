@@ -25,53 +25,36 @@ for which a new license (GPL+exception) is in place.
 
 GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
 {
-	freeGradientLayout = new QGridLayout(this);
-	freeGradientLayout->setMargin(5);
-	freeGradientLayout->setSpacing(5);
-	GTextX1 = new QLabel("X1:", this );
-	freeGradientLayout->addWidget( GTextX1, 0, 0 );
-	GTextY1 = new QLabel("Y1:", this );
-	freeGradientLayout->addWidget( GTextY1, 0, 2 );
-	gX1 = new ScrSpinBox( -3000, 3000, this, 0);
-	freeGradientLayout->addWidget( gX1, 0, 1 );
-	gY1 = new ScrSpinBox( -3000, 3000, this, 0);
-	freeGradientLayout->addWidget( gY1, 0, 3 );
-	GTextX2 = new QLabel("X2:", this );
-	freeGradientLayout->addWidget( GTextX2, 1, 0 );
-	GTextY2 = new QLabel("Y2:", this );
-	freeGradientLayout->addWidget( GTextY2, 1, 2 );
-	gX2 = new ScrSpinBox( -3000, 3000, this, 0);
-	freeGradientLayout->addWidget( gX2, 1, 1 );
-	gY2 = new ScrSpinBox( -3000, 3000, this, 0);
-	freeGradientLayout->addWidget( gY2, 1, 3 );
-	GTextFX = new QLabel("FX:", this );
-	freeGradientLayout->addWidget( GTextFX, 2, 0 );
-	GTextFY = new QLabel("FY:", this );
-	freeGradientLayout->addWidget( GTextFY, 2, 2 );
-	gFX = new ScrSpinBox( -3000, 3000, this, 0);
-	freeGradientLayout->addWidget( gFX, 2, 1 );
-	gFY = new ScrSpinBox( -3000, 3000, this, 0);
-	freeGradientLayout->addWidget( gFY, 2, 3 );
-	GTextSK = new QLabel("Skew:", this );
-	freeGradientLayout->addWidget( GTextSK, 3, 0, 1, 2 );
-	gSk = new ScrSpinBox( -89, 89, this, 6);
-	gSk->setValue( 0 );
-	freeGradientLayout->addWidget( gSk, 3, 2, 1, 2 );
-	GTextSC = new QLabel("Factor:", this );
-	freeGradientLayout->addWidget( GTextSC, 4, 0, 1, 2 );
-	gSc = new ScrSpinBox( 0.01, 100, this, 0);
+	setupUi(this);
+	gSk->setNewUnit(6);
+	gSk->setValues(-89, 89, 2, 0);
+	gSk_2->setNewUnit(6);
+	gSk->setValues(-89, 89, 2, 0);
 	gSc->setSuffix(" %");
 	gSc->setValue( 100 );
-	freeGradientLayout->addWidget( gSc, 4, 2, 1, 2 );
-	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gSk, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gSc, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gY2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gSk,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gX1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gX2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gY1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gY2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gFX,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gFY,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gSk_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gSc,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gC1X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC1Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC2X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC2Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC3X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC3Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC4X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC4Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
 	languageChange();
+	selectLinear();
 }
 
 void GradientVectorDialog::changeEvent(QEvent *e)
@@ -84,44 +67,53 @@ void GradientVectorDialog::changeEvent(QEvent *e)
 		QWidget::changeEvent(e);
 }
 
-void GradientVectorDialog::hideExtraWidgets()
+void GradientVectorDialog::selectLinear()
 {
-	GTextFX->hide();
-	GTextFY->hide();
-	GTextSC->hide();
-	gFX->hide();
-	gFY->hide();
-	gSc->hide();
+	stackedWidget->setCurrentIndex(0);
 	resize(minimumSizeHint());
 }
 
-void GradientVectorDialog::showExtraWidgets()
+void GradientVectorDialog::selectRadial()
 {
-	GTextFX->show();
-	GTextFY->show();
-	GTextSC->show();
-	gFX->show();
-	gFY->show();
-	gSc->show();
+	stackedWidget->setCurrentIndex(1);
+	resize(minimumSizeHint());
+}
+
+void GradientVectorDialog::selectFourColor()
+{
+	stackedWidget->setCurrentIndex(2);
 	resize(minimumSizeHint());
 }
 
 void GradientVectorDialog::languageChange()
 {
-	setWindowTitle( tr( "Gradient Vector" ));
+	retranslateUi(this);
 	resize(minimumSizeHint());
 }
 
 void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
 {
-	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gSk, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gSc, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gY2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gSk,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gX1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gX2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gY1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gY2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gFX,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gFY,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gSk_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gSc,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gC1X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC1Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC2X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC2Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC3X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC3Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC4X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC4Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
 	gX1->setValue(x1);
 	gX2->setValue(x2);
 	gY1->setValue(y1);
@@ -130,39 +122,111 @@ void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2,
 	gFY->setValue(fy);
 	gSk->setValue(sk);
 	gSc->setValue(sg * 100.0);
-	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gSk, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gSc, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	gX1_2->setValue(x1);
+	gX2_2->setValue(x2);
+	gY1_2->setValue(y1);
+	gY2_2->setValue(y2);
+	gSk_2->setValue(sk);
+	gC1X->setValue(x1);
+	gC1Y->setValue(y1);
+	gC2X->setValue(x2);
+	gC2Y->setValue(y2);
+	gC3X->setValue(fx);
+	gC3Y->setValue(fy);
+	gC4X->setValue(sg);
+	gC4Y->setValue(sk);
+	connect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gY2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gSk,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gX1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gX2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gY1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gY2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gFX,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gFY,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gSk_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gSc,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gC1X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC1Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC2X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC2Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC3X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC3Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC4X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC4Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
 }
 
-void GradientVectorDialog::changeSpecial()
+void GradientVectorDialog::changeSpecialL()
 {
-	emit NewSpecial(gX1->value(), gY1->value(), gX2->value(), gY2->value(), gFX->value(), gFY->value(), gSc->value() / 100.0, gSk->value());
+	emit NewSpecial(gX1->value(), gY1->value(), gX2->value(), gY2->value(), gFX->value(), gFY->value(), 1, gSk->value());
+}
+
+void GradientVectorDialog::changeSpecialR()
+{
+	emit NewSpecial(gX1_2->value(), gY1_2->value(), gX2_2->value(), gY2_2->value(), gFX->value(), gFY->value(), gSc->value() / 100.0, gSk_2->value());
+}
+
+void GradientVectorDialog::changeSpecialF()
+{
+	emit NewSpecial(gC1X->value(), gC1Y->value(), gC2X->value(), gC2Y->value(), gC3X->value(), gC3Y->value(), gC4X->value(), gC4Y->value());
 }
 
 void GradientVectorDialog::unitChange(int unitIndex)
 {
-	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gY2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	disconnect(gX1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gX2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gY1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gY2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gFX,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gFY,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	disconnect(gC1X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC1Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC2X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC2Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC3X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC3Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC4X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	disconnect(gC4Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
 	gX1->setNewUnit(unitIndex);
 	gY1->setNewUnit(unitIndex);
 	gX2->setNewUnit(unitIndex);
 	gY2->setNewUnit(unitIndex);
 	gFX->setNewUnit(unitIndex);
 	gFY->setNewUnit(unitIndex);
-	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gFX, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gFY, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	gX1_2->setNewUnit(unitIndex);
+	gY1_2->setNewUnit(unitIndex);
+	gX2_2->setNewUnit(unitIndex);
+	gY2_2->setNewUnit(unitIndex);
+	gC1X->setNewUnit(unitIndex);
+	gC1Y->setNewUnit(unitIndex);
+	gC2X->setNewUnit(unitIndex);
+	gC2Y->setNewUnit(unitIndex);
+	gC3X->setNewUnit(unitIndex);
+	gC3Y->setNewUnit(unitIndex);
+	gC4X->setNewUnit(unitIndex);
+	gC4Y->setNewUnit(unitIndex);
+	connect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gY2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
+	connect(gX1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gX2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gY1_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gY2_2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gFX,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gFY,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialR()));
+	connect(gC1X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC1Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC2X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC2Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC3X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC3Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC4X,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
+	connect(gC4Y,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialF()));
 }

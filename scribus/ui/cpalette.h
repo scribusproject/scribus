@@ -89,6 +89,7 @@ public slots:
 	void slotGradType(int type);
 	void slotGradTypeStroke(int type);
 	void setActGradient(int typ);
+	void setGradientColors();
 	void editGradientVector();
 	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);

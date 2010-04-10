@@ -96,6 +96,18 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
 	connect(gradEditButtonStroke, SIGNAL(clicked()), this, SLOT(editGradientVectorStroke()));
 	connect(followsPath, SIGNAL(clicked()), this, SLOT(toggleStrokePattern()));
+	connect(colorPoint1, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(colorPoint3, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(colorPoint4, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(color1Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color2Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color3Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color4Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color1Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
 }
@@ -135,6 +147,18 @@ void Cpalette::updateFromItem()
 	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	disconnect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
 	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+	disconnect(colorPoint1, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	disconnect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	disconnect(colorPoint3, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	disconnect(colorPoint4, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	disconnect(color1Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color2Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color3Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color4Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color1Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	updateCList();
 	if (currentItem->doOverprint)
 		setActOverprint(1);
@@ -194,6 +218,18 @@ void Cpalette::updateFromItem()
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+	connect(colorPoint1, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(colorPoint3, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(colorPoint4, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
+	connect(color1Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color2Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color3Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color4Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color1Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 }
 
 void Cpalette::updateCList()
@@ -211,6 +247,10 @@ void Cpalette::updateCList()
 	}
 	gradEditStroke->setColors(colorList);
 	gradEdit->setColors(colorList);
+	colorPoint1->updateBox(colorList, ColorCombo::fancyPixmaps, true);
+	colorPoint2->updateBox(colorList, ColorCombo::fancyPixmaps, true);
+	colorPoint3->updateBox(colorList, ColorCombo::fancyPixmaps, true);
+	colorPoint4->updateBox(colorList, ColorCombo::fancyPixmaps, true);
 	colorListFill->insertItems(colorList, ColorListBox::fancyPixmap);
 	colorListStroke->insertItems(colorList, ColorListBox::fancyPixmap);
 	if (colorListFill->currentItem())
@@ -362,6 +402,30 @@ void Cpalette::SetGradients(QMap<QString, VGradient> *docGradients)
 	updateGradientList();
 }
 
+void Cpalette::setGradientColors()
+{
+	QString color1 = colorPoint1->currentText();
+	if (color1 == CommonStrings::tr_NoneColor)
+		color1 = CommonStrings::None;
+	QString color2 = colorPoint2->currentText();
+	if (color2 == CommonStrings::tr_NoneColor)
+		color2 = CommonStrings::None;
+	QString color3 = colorPoint3->currentText();
+	if (color3 == CommonStrings::tr_NoneColor)
+		color3 = CommonStrings::None;
+	QString color4 = colorPoint4->currentText();
+	if (color4 == CommonStrings::tr_NoneColor)
+		color4 = CommonStrings::None;
+	double t1 = color1Alpha->value() / 100.0;
+	double t2 = color2Alpha->value() / 100.0;
+	double t3 = color3Alpha->value() / 100.0;
+	double t4 = color4Alpha->value() / 100.0;
+	currentItem->set4ColorShade(color1Shade->value(), color2Shade->value(), color3Shade->value(), color4Shade->value());
+	currentItem->set4ColorTransparency(t1, t2, t3, t4);
+	currentItem->set4ColorColors(color1, color2, color3, color4);
+	currentItem->update();
+}
+
 void Cpalette::setNamedGradient(const QString &name)
 {
 	if (namedGradient->currentIndex() == 0)
@@ -378,8 +442,13 @@ void Cpalette::setNamedGradient(const QString &name)
 	}
 	if (gradientType->currentIndex() == 0)
 		emit NewGradient(6);
-	else
+	else if (gradientType->currentIndex() == 1)
 		emit NewGradient(7);
+	else if (gradientType->currentIndex() == 2)
+	{
+		setGradientColors();
+		emit NewGradient(9);
+	}
 }
 
 void Cpalette::setNamedGradientStroke(const QString &name)
@@ -546,12 +615,47 @@ void Cpalette::ChooseGrad(int number)
 	}
 	if (number == 0)
 		tabWidget->setCurrentIndex(0);
-	else if ((number > 0) && (number < 8))
+	else if (((number > 0) && (number < 8)) || (number == 9))
 	{
 		if ((number == 5) || (number == 7))
+		{
+			stackedWidget_2->setCurrentIndex(0);
 			gradientType->setCurrentIndex(1);
+		}
+		else if (number == 9)
+		{
+			stackedWidget_2->setCurrentIndex(1);
+			gradientType->setCurrentIndex(2);
+			if ((currentItem->GrColorP1 != CommonStrings::None) && (!currentItem->GrColorP1.isEmpty()))
+				setCurrentComboItem(colorPoint1, currentItem->GrColorP1);
+			else
+				colorPoint1->setCurrentIndex(0);
+			if ((currentItem->GrColorP2 != CommonStrings::None) && (!currentItem->GrColorP2.isEmpty()))
+				setCurrentComboItem(colorPoint2, currentItem->GrColorP2);
+			else
+				colorPoint2->setCurrentIndex(0);
+			if ((currentItem->GrColorP3 != CommonStrings::None) && (!currentItem->GrColorP3.isEmpty()))
+				setCurrentComboItem(colorPoint3, currentItem->GrColorP3);
+			else
+				colorPoint3->setCurrentIndex(0);
+			if ((currentItem->GrColorP4 != CommonStrings::None) && (!currentItem->GrColorP4.isEmpty()))
+				setCurrentComboItem(colorPoint4, currentItem->GrColorP4);
+			else
+				colorPoint4->setCurrentIndex(0);
+			color1Alpha->setValue(qRound(currentItem->GrCol1transp * 100));
+			color2Alpha->setValue(qRound(currentItem->GrCol2transp * 100));
+			color3Alpha->setValue(qRound(currentItem->GrCol3transp * 100));
+			color4Alpha->setValue(qRound(currentItem->GrCol4transp * 100));
+			color1Shade->setValue(currentItem->GrCol1Shade);
+			color2Shade->setValue(currentItem->GrCol2Shade);
+			color3Shade->setValue(currentItem->GrCol3Shade);
+			color4Shade->setValue(currentItem->GrCol4Shade);
+		}
 		else
+		{
+			stackedWidget_2->setCurrentIndex(0);
 			gradientType->setCurrentIndex(0);
+		}
 		tabWidget->setCurrentIndex(1);
 	}
 	else
@@ -587,9 +691,44 @@ void Cpalette::slotGrad(int number)
 			gradEdit->setGradientEditable(true);
 		}
 		if (gradientType->currentIndex() == 0)
+		{
+			stackedWidget_2->setCurrentIndex(0);
 			emit NewGradient(6);
-		else
+		}
+		else if (gradientType->currentIndex() == 1)
+		{
+			stackedWidget_2->setCurrentIndex(0);
 			emit NewGradient(7);
+		}
+		else if (gradientType->currentIndex() == 2)
+		{
+			stackedWidget_2->setCurrentIndex(1);
+			if ((currentItem->GrColorP1 != CommonStrings::None) && (!currentItem->GrColorP1.isEmpty()))
+				setCurrentComboItem(colorPoint1, currentItem->GrColorP1);
+			else
+				colorPoint1->setCurrentIndex(0);
+			if ((currentItem->GrColorP2 != CommonStrings::None) && (!currentItem->GrColorP2.isEmpty()))
+				setCurrentComboItem(colorPoint2, currentItem->GrColorP2);
+			else
+				colorPoint2->setCurrentIndex(0);
+			if ((currentItem->GrColorP3 != CommonStrings::None) && (!currentItem->GrColorP3.isEmpty()))
+				setCurrentComboItem(colorPoint3, currentItem->GrColorP3);
+			else
+				colorPoint3->setCurrentIndex(0);
+			if ((currentItem->GrColorP4 != CommonStrings::None) && (!currentItem->GrColorP4.isEmpty()))
+				setCurrentComboItem(colorPoint4, currentItem->GrColorP4);
+			else
+				colorPoint4->setCurrentIndex(0);
+			color1Alpha->setValue(qRound(currentItem->GrCol1transp * 100));
+			color2Alpha->setValue(qRound(currentItem->GrCol2transp * 100));
+			color3Alpha->setValue(qRound(currentItem->GrCol3transp * 100));
+			color4Alpha->setValue(qRound(currentItem->GrCol4transp * 100));
+			color1Shade->setValue(currentItem->GrCol1Shade);
+			color2Shade->setValue(currentItem->GrCol2Shade);
+			color3Shade->setValue(currentItem->GrCol3Shade);
+			color4Shade->setValue(currentItem->GrCol4Shade);
+			emit NewGradient(9);
+		}
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 		connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 		connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
@@ -603,9 +742,44 @@ void Cpalette::slotGrad(int number)
 void Cpalette::slotGradType(int type)
 {
 	if (type == 0)
+	{
+		stackedWidget_2->setCurrentIndex(0);
 		emit NewGradient(6);
-	else
+	}
+	else if (type == 1)
+	{
+		stackedWidget_2->setCurrentIndex(0);
 		emit NewGradient(7);
+	}
+	else if (type == 2)
+	{
+		stackedWidget_2->setCurrentIndex(1);
+		if ((currentItem->GrColorP1 != CommonStrings::None) && (!currentItem->GrColorP1.isEmpty()))
+			setCurrentComboItem(colorPoint1, currentItem->GrColorP1);
+		else
+			colorPoint1->setCurrentIndex(0);
+		if ((currentItem->GrColorP2 != CommonStrings::None) && (!currentItem->GrColorP2.isEmpty()))
+			setCurrentComboItem(colorPoint2, currentItem->GrColorP2);
+		else
+			colorPoint2->setCurrentIndex(0);
+		if ((currentItem->GrColorP3 != CommonStrings::None) && (!currentItem->GrColorP3.isEmpty()))
+			setCurrentComboItem(colorPoint3, currentItem->GrColorP3);
+		else
+			colorPoint3->setCurrentIndex(0);
+		if ((currentItem->GrColorP4 != CommonStrings::None) && (!currentItem->GrColorP4.isEmpty()))
+			setCurrentComboItem(colorPoint4, currentItem->GrColorP4);
+		else
+			colorPoint4->setCurrentIndex(0);
+		color1Alpha->setValue(qRound(currentItem->GrCol1transp * 100));
+		color2Alpha->setValue(qRound(currentItem->GrCol2transp * 100));
+		color3Alpha->setValue(qRound(currentItem->GrCol3transp * 100));
+		color4Alpha->setValue(qRound(currentItem->GrCol4transp * 100));
+		color1Shade->setValue(currentItem->GrCol1Shade);
+		color2Shade->setValue(currentItem->GrCol2Shade);
+		color3Shade->setValue(currentItem->GrCol3Shade);
+		color4Shade->setValue(currentItem->GrCol4Shade);
+		emit NewGradient(9);
+	}
 }
 
 void Cpalette::slotGradTypeStroke(int type)
@@ -628,16 +802,24 @@ void Cpalette::editGradientVector()
 		CGradDia->unitChange(currentDoc->unitIndex());
 		CGradDia->setValues(currentItem->GrStartX, currentItem->GrStartY, currentItem->GrEndX, currentItem->GrEndY, currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew);
 		if (currentItem->GrType == 6)
-			CGradDia->hideExtraWidgets();
-		else
-			CGradDia->showExtraWidgets();
+			CGradDia->selectLinear();
+		else if (currentItem->GrType == 7)
+			CGradDia->selectRadial();
+		else if (currentItem->GrType == 9)
+		{
+			CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y());
+			CGradDia->selectFourColor();
+		}
 		CGradDia->show();
 	}
 	else
 	{
 		CGradDia->hide();
 	}
-	editStrokeGradient = 0;
+	if (currentItem->GrType == 9)
+		editStrokeGradient = 3;
+	else
+		editStrokeGradient = 0;
 	emit editGradient(editStrokeGradient);
 }
 
@@ -648,9 +830,9 @@ void Cpalette::editGradientVectorStroke()
 		CGradDia->unitChange(currentDoc->unitIndex());
 		CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale, currentItem->GrStrokeSkew);
 		if (currentItem->GrTypeStroke == 6)
-			CGradDia->hideExtraWidgets();
+			CGradDia->selectLinear();
 		else
-			CGradDia->showExtraWidgets();
+			CGradDia->selectRadial();
 		CGradDia->show();
 	}
 	else

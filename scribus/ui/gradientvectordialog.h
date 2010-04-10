@@ -24,19 +24,20 @@ for which a new license (GPL+exception) is in place.
 #ifndef GRADVECTOR_H
 #define GRADVECTOR_H
 
+#include "ui_gradientvectorbase.h"
+
 #include <QWidget>
 #include <QLayout>
 #include <QLabel>
 #include <QEvent>
 #include "scribusapi.h"
 #include "ui/scrpalettebase.h"
-#include "scrspinbox.h"
 
 /**
   *@author Franz Schmid
   */
 
-class SCRIBUS_API GradientVectorDialog : public ScrPaletteBase
+class SCRIBUS_API GradientVectorDialog :  public ScrPaletteBase, Ui::GradientVectorBase
 {
 	Q_OBJECT
 
@@ -44,35 +45,20 @@ public:
 	GradientVectorDialog( QWidget* parent);
 	~GradientVectorDialog() {};
 	virtual void changeEvent(QEvent *e);
-	void hideExtraWidgets();
-	void showExtraWidgets();
+	void selectLinear();
+	void selectRadial();
+	void selectFourColor();
 
 public slots:
 	void languageChange();
 	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
-	void changeSpecial();
+	void changeSpecialL();
+	void changeSpecialR();
+	void changeSpecialF();
 	void unitChange(int unitIndex);
 
 signals:
 	void NewSpecial(double, double, double, double, double, double, double, double);
 
-protected:
-	QGridLayout* freeGradientLayout;
-	QLabel* GTextX1;
-	QLabel* GTextY1;
-	QLabel* GTextX2;
-	QLabel* GTextY2;
-	QLabel* GTextFX;
-	QLabel* GTextFY;
-	QLabel* GTextSK;
-	QLabel* GTextSC;
-	ScrSpinBox* gY1;
-	ScrSpinBox* gX2;
-	ScrSpinBox* gX1;
-	ScrSpinBox* gY2;
-	ScrSpinBox* gFX;
-	ScrSpinBox* gFY;
-	ScrSpinBox* gSk;
-	ScrSpinBox* gSc;
 };
 #endif

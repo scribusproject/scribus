@@ -2822,6 +2822,26 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			GrName = attrs.valueAsString("GRNAME","");
 			if (!GrName.isEmpty())
 				currItem->setGradient(GrName);
+			if (currItem->GrType == 9)
+			{
+				currItem->GrControl1 = FPoint(attrs.valueAsDouble("GRC1X", 0.0), attrs.valueAsDouble("GRC1Y", 0.0));
+				currItem->GrControl2 = FPoint(attrs.valueAsDouble("GRC2X", 0.0), attrs.valueAsDouble("GRC2Y", 0.0));
+				currItem->GrControl3 = FPoint(attrs.valueAsDouble("GRC3X", 0.0), attrs.valueAsDouble("GRC3Y", 0.0));
+				currItem->GrControl4 = FPoint(attrs.valueAsDouble("GRC4X", 0.0), attrs.valueAsDouble("GRC4Y", 0.0));
+				currItem->GrColorP1  = attrs.valueAsString("GRCOLP1", "Black");
+				currItem->GrColorP2  = attrs.valueAsString("GRCOLP2", "Black");
+				currItem->GrColorP3  = attrs.valueAsString("GRCOLP3", "Black");
+				currItem->GrColorP4  = attrs.valueAsString("GRCOLP4", "Black");
+				currItem->GrCol1transp  = attrs.valueAsDouble("GRCOLT1", 1.0);
+				currItem->GrCol2transp  = attrs.valueAsDouble("GRCOLT2", 1.0);
+				currItem->GrCol3transp  = attrs.valueAsDouble("GRCOLT3", 1.0);
+				currItem->GrCol4transp  = attrs.valueAsDouble("GRCOLT4", 1.0);
+				currItem->GrCol1Shade  = attrs.valueAsInt("GRCOLS1", 100);
+				currItem->GrCol2Shade  = attrs.valueAsInt("GRCOLS2", 100);
+				currItem->GrCol3Shade  = attrs.valueAsInt("GRCOLS3", 100);
+				currItem->GrCol4Shade  = attrs.valueAsInt("GRCOLS4", 100);
+				currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
+			}
 		}
 	}
 	if (((currItem->GrType != 0) && (currItem->GrType != 8)) && (currItem->gradient().isEmpty()))

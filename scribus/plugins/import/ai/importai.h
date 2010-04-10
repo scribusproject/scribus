@@ -173,6 +173,7 @@ private:
 	double meshNode4Control1X, meshNode4Control1Y;
 	double meshNode4Control2X, meshNode4Control2Y;
 	double accumColorC, accumColorM, accumColorY, accumColorK;
+	QString meshColor1, meshColor2, meshColor3, meshColor4;
 //	QPainterPath meshBoundingPath;
 	QString docCreator;
 	QString docDate;

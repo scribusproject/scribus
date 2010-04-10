@@ -72,7 +72,10 @@ public:
 	virtual void setMaskMode( int mask );
 	virtual void setGradientMask( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
 	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
-	
+
+	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4);
+	virtual void set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4);
+
 	virtual void setClipPath();
 
 	virtual void drawImage( QImage *image);
@@ -187,7 +190,7 @@ private:
 	double fill_trans;
 	bool m_fillRule;
 	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
-	int gradientMode;		// 1 = linear, 2 = radial
+	int gradientMode;		// 1 = linear, 2 = radial, 3 = 4colour
 	double patternScaleX;
 	double patternScaleY;
 	double patternOffsetX;
@@ -199,6 +202,18 @@ private:
 	bool patternMirrorY;
 	double gradientScale;
 	double gradientSkew;
+	FPoint gradPatchP1;
+	FPoint gradPatchP2;
+	FPoint gradPatchP3;
+	FPoint gradPatchP4;
+	FPoint gradControlP1;
+	FPoint gradControlP2;
+	FPoint gradControlP3;
+	FPoint gradControlP4;
+	QColor gradPatchColor1;
+	QColor gradPatchColor2;
+	QColor gradPatchColor3;
+	QColor gradPatchColor4;
 	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;

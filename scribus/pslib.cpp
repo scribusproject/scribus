@@ -2585,7 +2585,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if (style.effects() & 1)
 					tsz = style.fontSize() * Doc->typographicPrefs().scalingSuperScript / 100;
 				if (style.effects() & 2)
-					tsz = style.fontSize() * Doc->typographicPrefs().scalingSuperScript / 100;
+					tsz = style.fontSize() * Doc->typographicPrefs().scalingSubScript / 100;
 				if (style.fillColor() != CommonStrings::None)
 				{
 					SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
@@ -3652,6 +3652,128 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			if (mirrorY)
 				patternMatrix.scale(1, -1);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
+			if (fillRule)
+				PutStream("eofill\n");
+			else
+				PutStream("fill\n");
+			return;
+		}
+		else if (GType == 9)
+		{
+			QString GCol;
+			QString hs,ss,vs,ks;
+			int ch,cs,cv,ck;
+			QStringList cols;
+			QList<int> colsSh;
+			cols << c->GrColorP4 << c->GrColorP1 << c->GrColorP2 << c->GrColorP3;
+			colsSh << c->GrCol4Shade << c->GrCol1Shade << c->GrCol2Shade << c->GrCol3Shade;
+			for (int cst = 0; cst < cols.count(); ++cst)
+			{
+				if (spotMap.contains(cols.at(cst)))
+				{
+					if (!spotColorSet.contains(cols.at(cst)))
+						spotColorSet.append(cols.at(cst));
+				}
+			}
+			PutStream("<<\n");
+			PutStream("/PatternType 2\n");
+			PutStream("/Shading\n");
+			PutStream("<<\n");
+			PutStream("/ShadingType 7\n");
+			if ((DoSep) || (GraySc))
+				PutStream("/ColorSpace /DeviceGray\n");
+			else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+			{
+				PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					PutStream(" ("+spotColorSet.at(sc)+")");
+				}
+				PutStream("]\n");
+				PutStream("/DeviceCMYK\n");
+				PutStream("{\n");
+				int maxSp = spotColorSet.count() - 1;
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					int cc = 0;
+					int mc = 0;
+					int yc = 0;
+					int kc = 0;
+					CMYKColor cmykValues;
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+					if (sc == 0)
+						PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+					else
+						PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+					PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
+					PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
+					PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+				}
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					PutStream("8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n");
+				}
+				PutStream("} ]\n");
+			}
+			else
+				PutStream("/ColorSpace /DeviceCMYK\n");
+			PutStream("/DataSource [0\n");
+			PutStream("0 "+ToStr(-c->height())+" 0 "+ToStr(-c->height())+" 0 0 0 0 0 0 "+ToStr(c->width())+" 0 "+ToStr(c->width())+" 0 "+ToStr(c->width())+" 0\n");
+			PutStream(ToStr(c->width())+" "+ToStr(-c->height())+" "+ToStr(c->width())+" "+ToStr(-c->height())+" "+ToStr(c->width())+" "+ToStr(-c->height())+"\n");
+			PutStream("0 "+ToStr(-c->height())+"\n");
+			PutStream(ToStr(c->GrControl1.x())+" "+ToStr(-c->GrControl1.y())+"\n");
+			PutStream(ToStr(c->GrControl4.x())+" "+ToStr(-c->GrControl4.y())+"\n");
+			PutStream(ToStr(c->GrControl3.x())+" "+ToStr(-c->GrControl3.y())+"\n");
+			PutStream(ToStr(c->GrControl2.x())+" "+ToStr(-c->GrControl2.y())+"\n");
+			for (int ac = 0; ac < cols.count(); ac++)
+			{
+				if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+				{
+					if (spotColorSet.contains(cols.at(ac)))
+					{
+						PutStream("0 0 0 0");
+						for (int sc = 0; sc < spotColorSet.count(); sc++)
+						{
+							if (spotColorSet.at(sc) == cols.at(ac))
+								PutStream(" "+ToStr(colsSh[ac] / 100.0));
+							else
+								PutStream(" 0");
+						}
+					}
+					else
+					{
+						SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck, gcr);
+						GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+						PutStream(GCol);
+						for (int sc = 0; sc < spotColorSet.count(); sc++)
+						{
+							PutStream(" 0");
+						}
+					}
+					PutStream("\n");
+				}
+				else
+				{
+					SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck, gcr);
+					if (GraySc)
+						GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+					else
+						GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+					if (DoSep)
+					{
+						int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+						QStringList cols2 = GCol.split(" ", QString::SkipEmptyParts);
+						PutStream(ToStr(1 - ScCLocale::toDoubleC(cols2[pla]))+"\n");
+					}
+					else
+						PutStream(GCol+"\n");
+				}
+			}
+			PutStream("]\n");
+			PutStream(">>\n");
+			PutStream(">>\n");
+			PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
 			if (fillRule)
 				PutStream("eofill\n");
 			else

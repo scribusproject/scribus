@@ -369,7 +369,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				}
 			}
 		}
-		else
+		else if (m_view->editStrokeGradient == 0)
 		{
 			if (m_gradientPoint == useGradientStart)
 			{
@@ -464,6 +464,17 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				}
 			}
 		}
+		else if (m_view->editStrokeGradient == 3)
+		{
+			if (m_gradientPoint == useControl1)
+				currItem->GrControl1 -= npx;
+			else if (m_gradientPoint == useControl2)
+				currItem->GrControl2 -= npx;
+			else if (m_gradientPoint == useControl3)
+				currItem->GrControl3 -= npx;
+			else if (m_gradientPoint == useControl4)
+				currItem->GrControl4 -= npx;
+		}
 		Mxp = newX;
 		Myp = newY;
 //		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
@@ -504,7 +515,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 			upRect |= QRectF(shP, QPointF(currItem->width(), currItem->height())).normalized();
 		}
-		else
+		else if (m_view->editStrokeGradient == 0)
 		{
 			upRect = QRectF(QPointF(currItem->GrStartX, currItem->GrStartY), QPointF(currItem->GrEndX, currItem->GrEndY));
 			double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
@@ -520,6 +531,10 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			upRect |= QRectF(shP, QPointF(currItem->GrStartX, currItem->GrStartY)).normalized();
 			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 			upRect |= QRectF(shP, QPointF(currItem->width(), currItem->height())).normalized();
+		}
+		else if (m_view->editStrokeGradient == 3)
+		{
+			upRect = QRectF(QPointF(-currItem->width(), -currItem->height()), QPointF(currItem->width() * 2, currItem->height() * 2)).normalized();
 		}
 		upRect.translate(currItem->xPos(), currItem->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
@@ -619,7 +634,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		qmatrix.scale(1, currItem->GrMaskScale);
 		gradientFocal = qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY));
 	}
-	else
+	else if (m_view->editStrokeGradient == 0)
 	{
 		gradientStart = QPointF(currItem->GrStartX, currItem->GrStartY);
 		gradientEnd = QPointF(currItem->GrEndX, currItem->GrEndY);
@@ -652,18 +667,39 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		qmatrix.scale(1, currItem->GrScale);
 		gradientFocal = qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY));
 	}
+	else if (m_view->editStrokeGradient == 3)
+	{
+		gradientStart = QPointF(currItem->GrControl1.x(), currItem->GrControl1.y());
+		gradientEnd = QPointF(currItem->GrControl2.x(), currItem->GrControl2.y());
+		gradientFocal = QPointF(currItem->GrControl3.x(), currItem->GrControl3.y());
+		gradientScale = QPointF(currItem->GrControl4.x(), currItem->GrControl4.y());
+	}
 	gradientStart = itemMatrix.map(gradientStart);
 	gradientEnd = itemMatrix.map(gradientEnd);
 	gradientFocal = itemMatrix.map(gradientFocal);
 	gradientScale = itemMatrix.map(gradientScale);
-	if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
-		m_gradientPoint = useGradientStart;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
-		m_gradientPoint = useGradientEnd;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
-		m_gradientPoint = useGradientFocal;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientScale))
-		m_gradientPoint = useGradientSkew;
+	if (m_view->editStrokeGradient == 3)
+	{
+		if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
+			m_gradientPoint = useControl1;
+		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
+			m_gradientPoint = useControl2;
+		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
+			m_gradientPoint = useControl3;
+		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientScale))
+			m_gradientPoint = useControl4;
+	}
+	else
+	{
+		if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
+			m_gradientPoint = useGradientStart;
+		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
+			m_gradientPoint = useGradientEnd;
+		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
+			m_gradientPoint = useGradientFocal;
+		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientScale))
+			m_gradientPoint = useGradientSkew;
+	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 }
