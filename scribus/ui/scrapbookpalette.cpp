@@ -1680,6 +1680,6 @@ void Biblio::languageChange()
  	newButton->setToolTip( tr( "Create a new scrapbook page" ) );
  	loadButton->setToolTip( tr( "Load an existing scrapbook" ) );
  	saveAsButton->setToolTip( tr( "Save the selected scrapbook" ) );
- 	importButton->setToolTip( tr( "Import an scrapbook file from Scribus <=1.3.2" ) );
+ 	importButton->setToolTip( tr( "Import a scrapbook file from Scribus <=1.3.2" ) );
  	closeButton->setToolTip( tr( "Close the selected scrapbook" ) );
 }
