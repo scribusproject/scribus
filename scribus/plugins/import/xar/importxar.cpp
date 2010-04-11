@@ -737,6 +737,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		gc->StrokeCol = "White";
 	else if (tag == 198)
 		handleBitmap(ts);
+	else if (tag == 204)
+		handleFourColorGradient(ts);
 	else if (tag == 1000)
 		createRectangleItem(ts, true);
 	else if (tag == 1100)
@@ -970,6 +972,10 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	text.GradFillY2 = gc->GradFillY2;
 	text.GrScale = gc->GrScale;
 	text.GrSkew = gc->GrSkew;
+	text.GrColorP1 = gc->GrColorP1;
+	text.GrColorP2 = gc->GrColorP2;
+	text.GrColorP3 = gc->GrColorP3;
+	text.GrColorP4 = gc->GrColorP4;
 	text.GradMask = gc->GradMask;
 	text.MaskGradient = gc->MaskGradient;
 	text.GradMaskX1 = gc->GradMaskX1;
@@ -1036,6 +1042,10 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	text.GradFillY2 = gc->GradFillY2;
 	text.GrScale = gc->GrScale;
 	text.GrSkew = gc->GrSkew;
+	text.GrColorP1 = gc->GrColorP1;
+	text.GrColorP2 = gc->GrColorP2;
+	text.GrColorP3 = gc->GrColorP3;
+	text.GrColorP4 = gc->GrColorP4;
 	text.GradMask = gc->GradMask;
 	text.MaskGradient = gc->MaskGradient;
 	text.GradMaskX1 = gc->GradMaskX1;
@@ -1242,6 +1252,12 @@ void XarPlug::endTextLine()
 							item->fill_gradient = txDat.FillGradient;
 							item->setGradientVector(txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GradFillX2 - item->xPos(), txDat.GradFillY2 - item->yPos(), txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GrScale, txDat.GrSkew);
 						}
+						if (txDat.FillGradientType == 9)
+						{
+							item->GrType = txDat.FillGradientType;
+							item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
+							item->set4ColorColors(txDat.GrColorP1, txDat.GrColorP2, txDat.GrColorP3, txDat.GrColorP4);
+						}
 						if (txDat.GradMask > 0)
 						{
 							item->GrMask = txDat.GradMask;
@@ -1329,6 +1345,12 @@ void XarPlug::endTextLine()
 					item->GrType = txDat.FillGradientType;
 					item->fill_gradient = txDat.FillGradient;
 					item->setGradientVector(txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GradFillX2 - item->xPos(), txDat.GradFillY2 - item->yPos(), txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GrScale, txDat.GrSkew);
+				}
+				if (txDat.FillGradientType == 9)
+				{
+					item->GrType = txDat.FillGradientType;
+					item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
+					item->set4ColorColors(txDat.GrColorP1, txDat.GrColorP2, txDat.GrColorP3, txDat.GrColorP4);
 				}
 				if (txDat.GradMask > 0)
 				{
@@ -2212,6 +2234,38 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 		textData.last().GradFillY2 = gc->GradFillY2;
 		textData.last().GrScale = gc->GrScale;
 		textData.last().GrSkew = gc->GrSkew;
+	}
+}
+
+void XarPlug::handleFourColorGradient(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	double b1x, b1y, b2x, b2y, b3x, b3y;
+	qint32 colRef1, colRef2, colRef3, colRef4;
+	readCoords(ts, b1x, b1y);
+	readCoords(ts, b2x, b2y);
+	readCoords(ts, b3x, b3y);
+	ts >> colRef1 >> colRef3 >> colRef4 >> colRef3;
+	gc->GrColorP1 = "Black";
+	gc->GrColorP2 = "Black";
+	gc->GrColorP3 = "Black";
+	gc->GrColorP4 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gc->GrColorP1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gc->GrColorP2 = XarColorMap[colRef2].name;
+	if (XarColorMap.contains(colRef3))
+		gc->GrColorP3 = XarColorMap[colRef3].name;
+	if (XarColorMap.contains(colRef4))
+		gc->GrColorP4 = XarColorMap[colRef4].name;
+	gc->FillGradientType = 9;
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradientType = gc->FillGradientType;
+		textData.last().GrColorP1 = gc->GrColorP1;
+		textData.last().GrColorP2 = gc->GrColorP2;
+		textData.last().GrColorP3 = gc->GrColorP3;
+		textData.last().GrColorP4 = gc->GrColorP4;
 	}
 }
 
@@ -3359,6 +3413,12 @@ void XarPlug::popGraphicContext()
 				item->GrType = gc->FillGradientType;
 				item->fill_gradient = gc->FillGradient;
 				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GrScale, gc->GrSkew);
+			}
+			if (gc->FillGradientType == 9)
+			{
+				item->GrType = gc->FillGradientType;
+				item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
+				item->set4ColorColors(gc->GrColorP1, gc->GrColorP2, gc->GrColorP3, gc->GrColorP4);
 			}
 			if (gc->GradMask > 0)
 			{

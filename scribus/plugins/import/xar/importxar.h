@@ -110,6 +110,22 @@ public:
 		patternSkewYS(0),
 		patternSpace(0),
 		patternStrokePath(false),
+		GrControl1(FPoint()),
+		GrControl2(FPoint()),
+		GrControl3(FPoint()),
+		GrControl4(FPoint()),
+		GrColorP1(""),
+		GrColorP2(""),
+		GrColorP3(""),
+		GrColorP4(""),
+		GrCol1transp(1.0),
+		GrCol2transp(1.0),
+		GrCol3transp(1.0),
+		GrCol4transp(1.0),
+		GrCol1Shade(100),
+		GrCol2Shade(100),
+		GrCol3Shade(100),
+		GrCol4Shade(100),
 		Elements()
 		{
 		}
@@ -185,6 +201,22 @@ public:
 	double patternSkewYS;
 	double patternSpace;
 	bool   patternStrokePath;
+	FPoint GrControl1;
+	FPoint GrControl2;
+	FPoint GrControl3;
+	FPoint GrControl4;
+	QString GrColorP1;
+	QString GrColorP2;
+	QString GrColorP3;
+	QString GrColorP4;
+	double GrCol1transp;
+	double GrCol2transp;
+	double GrCol3transp;
+	double GrCol4transp;
+	int GrCol1Shade;
+	int GrCol2Shade;
+	int GrCol3Shade;
+	int GrCol4Shade;
 	QList<PageItem*> Elements;
 };
 
@@ -258,6 +290,7 @@ private:
 	void handleMultiGradient(QDataStream &ts, bool linear);
 	void handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen);
 	void handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear);
+	void handleFourColorGradient(QDataStream &ts);
 	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
 	void handleContoneBitmapFill(QDataStream &ts, quint32 dataLen);
 	void handleBitmap(QDataStream &ts);
@@ -351,6 +384,22 @@ private:
 		double GradFillY2;
 		double GrScale;
 		double GrSkew;
+		FPoint GrControl1;
+		FPoint GrControl2;
+		FPoint GrControl3;
+		FPoint GrControl4;
+		QString GrColorP1;
+		QString GrColorP2;
+		QString GrColorP3;
+		QString GrColorP4;
+		double GrCol1transp;
+		double GrCol2transp;
+		double GrCol3transp;
+		double GrCol4transp;
+		int GrCol1Shade;
+		int GrCol2Shade;
+		int GrCol3Shade;
+		int GrCol4Shade;
 		double GradStrokeX1;
 		double GradStrokeX2;
 		double GradStrokeY1;
