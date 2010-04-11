@@ -49,11 +49,11 @@ ScColorSpaceDataTempl_CMYKA<T, COLORFORMAT>::ScColorSpaceDataTempl_CMYKA(ScColor
 template<typename T, eColorFormat COLORFORMAT>
 void ScColorSpaceDataTempl_CMYKA<T, COLORFORMAT>::flattenAlpha(void* dataIn, uint numElems) const
 {
-	typename T* data   = ((T*) dataIn) + m_aIndex;
-	typename T  nLimit = std::numeric_limits<T>::max();
+	T* data   = ((T*) dataIn) + m_aIndex;
+	T  nLimit = std::numeric_limits<T>::max();
 	while (numElems > 0)
 	{
-		(*data++) = nLimit;
+		*data = nLimit;
 		data += 5;
 		--numElems;
 	};
