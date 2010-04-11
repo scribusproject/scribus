@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolormgmtstructs.h"
 #include "sccolorprofile.h"
+#include "sccolorspace.h"
 #include "sccolortransform.h"
 #include "sccolortransformpool.h"
 
@@ -61,6 +62,8 @@ public:
 	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
 											 const ScColorProfile& proofing, eRenderIntent renderIntent, 
 	                                         eRenderIntent proofingIntent, long transformFlags) = 0;
+
+	virtual ScColorSpace createColorSpace(ScColorProfile& profile, eColorFormat colorFormat);
 };
 
 #endif

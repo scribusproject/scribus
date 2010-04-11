@@ -15646,6 +15646,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_gradientvectorbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_gtfiledialog.h"
 				>
 			</File>
@@ -17533,6 +17537,54 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\gradientmanager.ui"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4_DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\gradientvectorbase.ui"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -20724,6 +20776,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\colormgmt\sccolormgmtenginedata.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\colormgmt\sccolormgmtenginedata.h"
 				>
 			</File>
@@ -20776,11 +20832,43 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspace.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspace.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\colormgmt\sccolorspacedata.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\colormgmt\sccolorspacedata.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspacedata_cmyk.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspacedata_cmyka.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspacedata_gray.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspacedata_laba.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspacedata_rgb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\colormgmt\sccolorspacedata_rgba.h"
 				>
 			</File>
 			<File

@@ -74,6 +74,11 @@ ScColorTransform ScColorMgmtEngine::createProofingTransform(const ScColorProfile
 	                                       proofingProfile, renderIntent, proofingIntent, transformFlags);
 }
 
+ScColorSpace ScColorMgmtEngine::createColorSpace(ScColorProfile& profile, eColorFormat colorFormat)
+{
+	return m_data->createColorSpace(profile, colorFormat);
+}
+
 bool ScColorMgmtEngine::operator==(const ScColorMgmtEngine& other) const
 {
 	return m_data == other.m_data;

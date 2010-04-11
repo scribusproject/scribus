@@ -45,6 +45,8 @@ public:
 	                                 const ScColorProfile& outputProfile, eColorFormat outputFormat,
 	                                 const ScColorProfile& proofingProfile, eRenderIntent renderIntent, 
 									 eRenderIntent proofingIntent, long transformFlags);
+
+	ScColorSpace createColorSpace(ScColorProfile& profile, eColorFormat colorFormat);
 									 
 	// color engine equality operator function
 	bool operator==(const ScColorMgmtEngine& other) const;

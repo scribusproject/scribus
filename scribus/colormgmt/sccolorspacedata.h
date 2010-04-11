@@ -30,8 +30,11 @@ public:
 	uint  bytesPerChannel(void) const { return colorFormatBytesPerChannel(m_colorFormat); }
 	bool  hasAlphaChannel(void) const { return colorFormatHasAlpha(m_colorFormat); }
 
+	virtual ScColorMgmtEngine& engine() { return m_profile.engine(); }
+	virtual const ScColorMgmtEngine& engine() const { return m_profile.engine(); }
+
 	// Restore full opacity of alpha channel
-	virtual void flattenAlpha(void* dataIn, uint numElems) = 0;
+	virtual void flattenAlpha(void* dataIn, uint numElems) const = 0;
 
 	// Function to create transform to a specific output color space
 	virtual ScColorTransform createTransform(const ScColorSpaceData& outputSpace, eRenderIntent renderIntent, 

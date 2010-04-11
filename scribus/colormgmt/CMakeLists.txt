@@ -6,12 +6,14 @@ ${LCMS_INCLUDE_DIR}
 
 SET(SCRIBUS_COLORMGMT_LIB_SOURCES
 	sccolormgmtengine.cpp
+	sccolormgmtenginedata.cpp
 	sccolormgmtenginefactory.cpp
 	sccolormgmtimplelem.cpp
 	sccolormgmtstructs.cpp
 	sccolorprofile.cpp
 	sccolorprofilecache.cpp
 	sccolorprofiledata.cpp
+	sccolorspace.cpp
 	sccolorspacedata.cpp
 	sccolortransform.cpp
 	sccolortransformpool.cpp
