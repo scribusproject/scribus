@@ -224,8 +224,8 @@ void ReformDoc::updateDocumentSettings()
 	int fp = tabPage->choosenLayout;
 	currDoc->setPageSetFirstPage(fp, tabPage->docLayout->firstPage->currentIndex());
 //	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
-	currDoc->setPageGapHorizontal(tabView->gapVertical->value() / currDoc->unitRatio());
-	currDoc->setPageGapVertical(tabView->gapHorizontal->value() / currDoc->unitRatio());
+	currDoc->setPageGapHorizontal(tabView->gapHorizontal->value() / currDoc->unitRatio());
+	currDoc->setPageGapVertical(tabView->gapVertical->value() / currDoc->unitRatio());
 //	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(updatedMargins, fp);
