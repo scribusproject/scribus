@@ -182,13 +182,9 @@ QObject *PageAPI::newRectangle(double x, double y, double width, double height)
 {
     return newItem(
                PageItem::Polygon, PageItem::Rectangle, x, y, width, height,
-               // @xxx: ale
-               // ScCore->primaryMainWindow()->doc->toolSettings.dWidth,
-               // ScCore->primaryMainWindow()->doc->toolSettings.dBrush,
-               // ScCore->primaryMainWindow()->doc->toolSettings.dPen
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor);
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 }
 
 
@@ -205,13 +201,9 @@ QObject *PageAPI::newEllipse(double x, double y, double width, double height)
 {
     return newItem(
                PageItem::Polygon, PageItem::Ellipse, x, y, width, height,
-               // @xxx: ale
-               // ScCore->primaryMainWindow()->doc->toolSettings.dWidth,
-               // ScCore->primaryMainWindow()->doc->toolSettings.dBrush,
-               // ScCore->primaryMainWindow()->doc->toolSettings.dPen);
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor);
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 }
 
 
@@ -231,7 +223,7 @@ QObject *PageAPI::newImage(double x, double y, double width, double height)
                1,
                // @xxx: ale
                // ScCore->primaryMainWindow()->doc->toolSettings.dBrushPict,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.imageFillColor,
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
                CommonStrings::None);
 }
 
@@ -249,12 +241,9 @@ QObject *PageAPI::newText(double x, double y, double width, double height)
 {
     return newItem(
                PageItem::TextFrame, PageItem::Unspecified, x, y, width, height,
-               // @xxx: ale
-               // ScCore->primaryMainWindow()->doc->toolSettings.dWidth,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth,
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
                CommonStrings::None,
-               // ScCore->primaryMainWindow()->doc->toolSettings.dPenText);
-               ScCore->primaryMainWindow()->doc->itemToolPrefs.textFont);
+               ScCore->primaryMainWindow()->doc->itemToolPrefs().textFont);
 }
 
 
@@ -271,13 +260,9 @@ QObject *PageAPI::newLine(double x, double y, double width, double height)
 {
     PageItem *item = (PageItem*)newItem(
                          PageItem::Line, PageItem::Unspecified, x, y, width, height,
-                         // @xxx: ale
-                         // ScCore->primaryMainWindow()->doc->toolSettings.dWidth,
-                         // ScCore->primaryMainWindow()->doc->toolSettings.dBrush,
-                         // ScCore->primaryMainWindow()->doc->toolSettings.dPen);
-                         ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineWidth,
-                         ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeFillColor,
-                         ScCore->primaryMainWindow()->doc->itemToolPrefs.shapeLineColor);
+                         ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+                         ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+                         ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
     item->setRotation(xy2Deg(width-x, height-y));
     item->setWidthHeight(sqrt(pow(x-width, 2.0) + pow(y-height, 2.0)), 1.0);
     item->Sizing = false;
