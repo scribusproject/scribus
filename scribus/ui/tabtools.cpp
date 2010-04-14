@@ -782,8 +782,8 @@ void TabTools::restoreDefaults(struct ItemToolPrefs *itemPrefsData, struct Opera
 	comboStyleLine->setCurrentIndex(static_cast<int>(itemPrefsData->lineStyle) - 1);
 	if (docu != 0)
 	{
-		startArrow->rebuildList(&docu->arrowStyles);
-		endArrow->rebuildList(&docu->arrowStyles);
+		startArrow->rebuildList(&docu->arrowStyles());
+		endArrow->rebuildList(&docu->arrowStyles());
 	}
 	else
 	{

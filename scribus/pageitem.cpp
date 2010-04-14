@@ -5294,7 +5294,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	if (m_startArrowIndex != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
 		if (itemType() == Line)
@@ -5347,7 +5347,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	if (m_endArrowIndex != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
 		if (itemType() == Line)
@@ -5452,11 +5452,11 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		*x2 = *x1 + qMax(visualWidth(), extraSpace);
 		*y2 = *y1 + qMax(visualHeight(), extraSpace);
 	}
-	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
 		if (itemType() == Line)
@@ -5509,7 +5509,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	if (m_endArrowIndex != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
 		arrowTrans.rotate(Rot);
 		if (itemType() == Line)
@@ -6024,7 +6024,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 
 void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 {
-	FPointArray arrow = m_Doc->arrowStyles.at(arrowIndex-1).points.copy();
+	FPointArray arrow = m_Doc->arrowStyles().at(arrowIndex-1).points.copy();
 	if (NamedLStyle.isEmpty())
 	{
 		if (m_lineWidth != 0.0)

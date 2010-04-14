@@ -4326,7 +4326,7 @@ QString PDFLibCore::HandleBrushPattern(PageItem* ite, QPainterPath &path, const 
 QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 {
 	QString tmp = "";
-	FPointArray arrow = doc.arrowStyles.at(arrowIndex-1).points.copy();
+	FPointArray arrow = doc.arrowStyles().at(arrowIndex-1).points.copy();
 	if (ite->NamedLStyle.isEmpty())
 	{
 		if (ite->lineWidth() != 0.0)

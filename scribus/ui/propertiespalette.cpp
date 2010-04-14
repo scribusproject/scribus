@@ -1415,8 +1415,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	paraStyleCombo->setDoc(doc);
 	charStyleCombo->setDoc(doc);
 	SetLineFormats(doc);
-	startArrow->rebuildList(&doc->arrowStyles);
-	endArrow->rebuildList(&doc->arrowStyles);
+	startArrow->rebuildList(&doc->arrowStyles());
+	endArrow->rebuildList(&doc->arrowStyles());
 
 	connect(this->Tpal, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
 	connect(this->Tpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
@@ -4880,10 +4880,10 @@ void PropertiesPalette::languageChange()
 	if (HaveDoc)
 	{
 		int arrowItem=startArrow->currentIndex();
-		startArrow->rebuildList(&doc->arrowStyles);
+		startArrow->rebuildList(&doc->arrowStyles());
 		startArrow->setCurrentIndex(arrowItem);
 		arrowItem=endArrow->currentIndex();
-		endArrow->rebuildList(&doc->arrowStyles);
+		endArrow->rebuildList(&doc->arrowStyles());
 		endArrow->setCurrentIndex(arrowItem);
 	}
 	linewidthLabel->setText( tr("Line &Width:"));

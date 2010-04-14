@@ -331,7 +331,7 @@ void Scribus150Format::writeLinestyles(ScXmlStreamWriter& docu)
 		docu.writeEndElement();
 	}
 	QList<ArrowDesc>::Iterator itar;
-	for (itar = m_Doc->arrowStyles.begin(); itar != m_Doc->arrowStyles.end(); ++itar)
+	for (itar = m_Doc->arrowStyles().begin(); itar != m_Doc->arrowStyles().end(); ++itar)
 	{
 		if ((*itar).userArrow)
 		{

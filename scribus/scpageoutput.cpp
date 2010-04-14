@@ -1414,7 +1414,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 
 void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex)
 {
-	FPointArray arrow = m_doc->arrowStyles.at(arrowIndex-1).points.copy();
+	FPointArray arrow = m_doc->arrowStyles().at(arrowIndex-1).points.copy();
 	if (item->NamedLStyle.isEmpty())
 	{
 		if (item->lineWidth() != 0.0)

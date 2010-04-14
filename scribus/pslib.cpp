@@ -4147,7 +4147,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, boo
 {
 	int h, s, v, k;
 	QVector<double> dum;
-	FPointArray arrow = m_Doc->arrowStyles.at(arrowIndex-1).points.copy();
+	FPointArray arrow = m_Doc->arrowStyles().at(arrowIndex-1).points.copy();
 	if (ite->NamedLStyle.isEmpty())
 	{
 		if (ite->lineWidth() != 0.0)

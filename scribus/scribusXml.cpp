@@ -1135,7 +1135,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	arrowID.clear();
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(QDir::homePath());
-	int startNumArrows = doc->arrowStyles.count();
+	int startNumArrows = doc->arrowStyles().count();
 	while (!sReader.atEnd() && !sReader.hasError())
 	{
 		if (sReader.readNext() != QXmlStreamReader::StartElement)
@@ -1163,8 +1163,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 					ya = ScCLocale::toDoubleC(xs);
 					arrow.points.addPoint(xa, ya);
 				}
-				doc->arrowStyles.append(arrow);
-				arrowID.insert(attIndex.toInt(), doc->arrowStyles.count());
+				doc->arrowStyles().append(arrow);
+				arrowID.insert(attIndex.toInt(), doc->arrowStyles().count());
 			}
 			else
 				arrowID.insert(attIndex.toInt(), attIndex.toInt());
@@ -2364,14 +2364,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 		int endIndex = item->endArrowIndex();
 		if (startIndex != 0)
 		{
-			arrow.points = doc->arrowStyles.at(startIndex-1).points.copy();
-			arrow.name = doc->arrowStyles.at(startIndex-1).name;
+			arrow.points = doc->arrowStyles().at(startIndex-1).points.copy();
+			arrow.name = doc->arrowStyles().at(startIndex-1).name;
 			usedArrows.insert(startIndex, arrow);
 		}
 		if (endIndex != 0)
 		{
-			arrow.points = doc->arrowStyles.at(endIndex-1).points.copy();
-			arrow.name = doc->arrowStyles.at(endIndex-1).name;
+			arrow.points = doc->arrowStyles().at(endIndex-1).points.copy();
+			arrow.name = doc->arrowStyles().at(endIndex-1).name;
 			usedArrows.insert(endIndex, arrow);
 		}
 	}

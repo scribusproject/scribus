@@ -3560,8 +3560,8 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		propertiesPalette->paraStyleCombo->setDoc(doc);
 		propertiesPalette->charStyleCombo->setDoc(doc);
 		propertiesPalette->SetLineFormats(doc);
-		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
-		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
+		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles());
+		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles());
 		if (!Mpa)
 		{
 			scanDocument();

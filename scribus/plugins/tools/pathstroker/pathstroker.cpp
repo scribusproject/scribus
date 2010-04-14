@@ -152,7 +152,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QTransform arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->startArrowIndex()-1).points.copy();
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
@@ -172,7 +172,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QTransform arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->endArrowIndex()-1).points.copy();
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
@@ -270,7 +270,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QTransform arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->startArrowIndex()-1).points.copy();
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
@@ -310,7 +310,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QTransform arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->endArrowIndex()-1).points.copy();
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());

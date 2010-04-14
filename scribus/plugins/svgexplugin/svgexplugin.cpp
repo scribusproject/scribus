@@ -1244,7 +1244,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 	if (Item->startArrowIndex() != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles.at(Item->startArrowIndex()-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(Item->startArrowIndex()-1).points.copy();
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(0, 0);
@@ -1400,7 +1400,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 	if (Item->endArrowIndex() != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles.at(Item->endArrowIndex()-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(Item->endArrowIndex()-1).points.copy();
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(Item->width(), 0);

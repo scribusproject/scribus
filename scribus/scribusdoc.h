@@ -180,6 +180,11 @@ public:
 	void setTocSetups(ToCSetupVector& tsv) { docPrefsData.tocPrefs.defaultToCSetups=tsv; }
 	void clearTocSetups() { docPrefsData.tocPrefs.defaultToCSetups.clear(); }
 	void appendToTocSetups(const ToCSetup& ts) { docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
+	void setArrowStyles(QList<ArrowDesc>& as) { docPrefsData.arrowStyles=as; }
+	QList<ArrowDesc>& arrowStyles() { return docPrefsData.arrowStyles; }
+	void appendToArrowStyles(const struct ArrowDesc& as) { docPrefsData.arrowStyles.append(as); }
+
+
 
 	TypoPrefs& typographicPrefs() { return docPrefsData.typoPrefs; }
 	GuidesPrefs& guidesPrefs() { return docPrefsData.guidesPrefs; }
@@ -1141,7 +1146,7 @@ public:
 	//->Prefs int AutoSaveTime;
 	QTimer * const autoSaveTimer;
 	QMap<QString,multiLine> MLineStyles;
-	QList<ArrowDesc> arrowStyles;
+	//->Prefs QList<ArrowDesc> arrowStyles;
 	QMap<QString, ScPattern> docPatterns;
 	QMap<QString, VGradient> docGradients;
 	QWidget* WinHan;

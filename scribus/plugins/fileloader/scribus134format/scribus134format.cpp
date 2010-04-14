@@ -1304,7 +1304,7 @@ bool Scribus134Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 		fp >> ya;
 		arrow.points.addPoint(xa, ya);
 	}
-	doc->arrowStyles.append(arrow);
+	doc->appendToArrowStyles(arrow);
 	return true;
 }
 
@@ -2470,14 +2470,14 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	UndoManager::instance()->setUndoEnabled(false);
 	currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
 	int startArrowIndex = attrs.valueAsInt("startArrowIndex", 0);
-	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
+	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus134format: invalid arrow index: %").arg(startArrowIndex);
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
 	int endArrowIndex = attrs.valueAsInt("endArrowIndex", 0);
-	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles.size())))
+	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus134format: invalid arrow index: %").arg(endArrowIndex);
 		endArrowIndex = 0;

@@ -154,8 +154,8 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	lineStyleComboBox->setCurrentIndex(static_cast<int>(prefsData->itemToolPrefs.lineStyle) - 1);
 	if (m_doc != 0)
 	{
-		lineStartArrowComboBox->rebuildList(&m_doc->arrowStyles);
-		lineEndArrowComboBox->rebuildList(&m_doc->arrowStyles);
+		lineStartArrowComboBox->rebuildList(&m_doc->arrowStyles());
+		lineEndArrowComboBox->rebuildList(&m_doc->arrowStyles());
 	}
 	else
 	{

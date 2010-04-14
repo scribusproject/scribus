@@ -598,7 +598,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					fp >> ya;
 					arrow.points.addPoint(xa, ya);
 				}
-				m_Doc->arrowStyles.append(arrow);
+				m_Doc->appendToArrowStyles(arrow);
 			}
 			if(pg.tagName()=="PDF")
 			{
@@ -1372,7 +1372,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		dc.appendChild(MuL);
 	}
 	QList<ArrowDesc>::Iterator itar;
-	for (itar = m_Doc->arrowStyles.begin(); itar != m_Doc->arrowStyles.end(); ++itar)
+	for (itar = m_Doc->arrowStyles().begin(); itar != m_Doc->arrowStyles().end(); ++itar)
 	{
 		if ((*itar).userArrow)
 		{
@@ -2222,14 +2222,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	UndoManager::instance()->setUndoEnabled(false);
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
-	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
+	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus13format: invalid arrow index: %").arg(startArrowIndex);
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
-	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles.size())))
+	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus13format: invalid arrow index: %").arg(endArrowIndex);
 		endArrowIndex = 0;
@@ -2759,7 +2759,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					fp >> ya;
 					arrow.points.addPoint(xa, ya);
 				}
-				m_Doc->arrowStyles.append(arrow);
+				m_Doc->appendToArrowStyles(arrow);
 			}
 			if (((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE")) && (pg.attribute("NUM").toInt() == pageNumber))
 			{
