@@ -1655,9 +1655,9 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		}
 		if (itemType()==ImageFrame)
 		{
-			double minres = m_Doc->checkerProfiles[m_Doc->curCheckProfile].minResolution;
-			double maxres = m_Doc->checkerProfiles[m_Doc->curCheckProfile].maxResolution;
-			bool checkres = m_Doc->checkerProfiles[m_Doc->curCheckProfile].checkResolution;
+			double minres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].minResolution;
+			double maxres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].maxResolution;
+			bool checkres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].checkResolution;
 			if  ((((72.0 / imageXScale()) < minres) 
 				|| ((72.0 / imageYScale()) < minres) 
 				|| ((72.0 / imageXScale()) > maxres) 

@@ -237,7 +237,7 @@ void CheckDocument::newScan(const QString& name)
 	clearErrorList();
 	if (m_Doc==0)
 		return;
-	m_Doc->curCheckProfile = name;
+	m_Doc->setCurCheckProfile(name);
 	DocumentChecker::checkDocument(m_Doc);
 	buildErrorList(m_Doc);
 }
@@ -368,14 +368,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	if (m_Doc==0)
 		return;
 
-	minResDPI = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
-	maxResDPI = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);
+	minResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].minResolution);
+	maxResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].maxResolution);
 	
 	CheckerPrefsList::Iterator it;
-	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
-	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
+	CheckerPrefsList::Iterator itend=doc->checkerProfiles().end();
+	for (it = doc->checkerProfiles().begin(); it != itend ; ++it)
 		curCheckProfile->addItem(it.key());
-	setCurrentComboItem(curCheckProfile, doc->curCheckProfile);
+	setCurrentComboItem(curCheckProfile, doc->curCheckProfile());
 
 	if ((doc->docItemErrors.count() == 0)
 		 && (doc->masterItemErrors.count() == 0)

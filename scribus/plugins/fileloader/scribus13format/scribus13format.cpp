@@ -431,14 +431,14 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->guidesPrefs().guideColor = QColor(dc.attribute("GuideC"));
 		if (dc.hasAttribute("BaseC"))
 			m_Doc->guidesPrefs().baselineGridColor = QColor(dc.attribute("BaseC"));
-		m_Doc->marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
+		m_Doc->setMarginColored(static_cast<bool>(dc.attribute("RANDF", "0").toInt()));
 		m_Doc->guidesPrefs().guidePlacement = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
 		m_Doc->guidesPrefs().guideRad = ScCLocale::toDoubleC(dc.attribute("GuideRad"), 10.0);
 		m_Doc->guidesPrefs().grabRadius  = dc.attribute("GRAB", "4").toInt();
 		if (dc.hasAttribute("currentProfile"))
 		{
-			m_Doc->checkerProfiles.clear();
-			m_Doc->curCheckProfile = dc.attribute("currentProfile");
+			m_Doc->clearCheckerProfiles();
+			m_Doc->setCurCheckProfile(dc.attribute("currentProfile"));
 		}
 		m_Doc->LastAuto = 0;
 		QDomNode PAGE=DOC.firstChild();
@@ -503,7 +503,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				checkerSettings.checkRasterPDF = static_cast<bool>(pg.attribute("checkRasterPDF", "1").toInt());
 				checkerSettings.checkForGIF = static_cast<bool>(pg.attribute("checkForGIF", "1").toInt());
 				checkerSettings.ignoreOffLayers = false;
-				m_Doc->checkerProfiles[pg.attribute("Name")] = checkerSettings;
+				m_Doc->set1CheckerProfile(pg.attribute("Name"), checkerSettings);
 			}
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
@@ -1328,11 +1328,11 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("BACKG", static_cast<int>(m_Doc->guidesPrefs().guidePlacement));
 	dc.setAttribute("PAGEC",m_Doc->paperColor().name());
 	dc.setAttribute("MARGC",m_Doc->guidesPrefs().marginColor.name());
-	dc.setAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
-	dc.setAttribute("currentProfile", m_Doc->curCheckProfile);
+	dc.setAttribute("RANDF", static_cast<int>(m_Doc->marginColored()));
+	dc.setAttribute("currentProfile", m_Doc->curCheckProfile());
 	CheckerPrefsList::Iterator itcp;
-	CheckerPrefsList::Iterator itcpend=m_Doc->checkerProfiles.end();
-	for (itcp = m_Doc->checkerProfiles.begin(); itcp != itcpend; ++itcp)
+	CheckerPrefsList::Iterator itcpend=m_Doc->checkerProfiles().end();
+	for (itcp = m_Doc->checkerProfiles().begin(); itcp != itcpend; ++itcp)
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());

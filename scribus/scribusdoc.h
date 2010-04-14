@@ -183,8 +183,15 @@ public:
 	void setArrowStyles(QList<ArrowDesc>& as) { docPrefsData.arrowStyles=as; }
 	QList<ArrowDesc>& arrowStyles() { return docPrefsData.arrowStyles; }
 	void appendToArrowStyles(const struct ArrowDesc& as) { docPrefsData.arrowStyles.append(as); }
-
-
+	const bool marginColored() const { return docPrefsData.displayPrefs.marginColored; }
+	void setMarginColored(bool b) { docPrefsData.displayPrefs.marginColored=b; }
+	//->Prefs QMap<QString, CheckerPrefs> checkerProfiles;
+	QMap<QString, CheckerPrefs>& checkerProfiles() { return docPrefsData.verifierPrefs.checkerPrefsList; }
+	void setCheckerProfiles(const QMap<QString, CheckerPrefs>& cl) { docPrefsData.verifierPrefs.checkerPrefsList=cl; }
+	void set1CheckerProfile(const QString profileName, const struct CheckerPrefs& cs) { docPrefsData.verifierPrefs.checkerPrefsList[profileName] = cs; }
+	void clearCheckerProfiles() { docPrefsData.verifierPrefs.checkerPrefsList.clear(); }
+	const QString& curCheckProfile() const { return docPrefsData.verifierPrefs.curCheckProfile; }
+	void setCurCheckProfile(const QString& s) { docPrefsData.verifierPrefs.curCheckProfile=s; }
 
 	TypoPrefs& typographicPrefs() { return docPrefsData.typoPrefs; }
 	GuidesPrefs& guidesPrefs() { return docPrefsData.guidesPrefs; }
@@ -1073,8 +1080,8 @@ public: // Public attributes
 	//->Prefs ItemToolPrefs itemToolPrefs;
 	//->Prefs OperatorToolPrefs opToolPrefs;
 
-	QMap<QString, CheckerPrefs> checkerProfiles;
-	QString curCheckProfile;
+	//->Prefs QMap<QString, CheckerPrefs> checkerProfiles;
+	//->Prefs QString curCheckProfile;
 	/** \brief Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
 	/** \brief Erstes Element fuer AutoTextrahmen */
@@ -1089,7 +1096,7 @@ private:
 	StyleSet<CharStyle> docCharStyles;
 public:
 	ScLayers Layers;
-	bool marginColored;
+	//bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
 

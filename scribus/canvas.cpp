@@ -2029,7 +2029,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	if (m_doc->guidesPrefs().marginsShown)
 	{
 		p->setPen(m_doc->guidesPrefs().marginColor);
-		if (m_doc->marginColored)
+		if (m_doc->marginColored())
 		{
 			p->setFillMode(ScPainter::Solid);
 			p->setBrush(m_doc->guidesPrefs().marginColor);

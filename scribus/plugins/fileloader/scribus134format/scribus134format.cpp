@@ -279,8 +279,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 			if (attrs.hasAttribute("currentProfile"))
 			{
-				m_Doc->checkerProfiles.clear();
-				m_Doc->curCheckProfile = attrs.valueAsString("currentProfile");
+				m_Doc->clearCheckerProfiles();
+				m_Doc->setCurCheckProfile(attrs.valueAsString("currentProfile"));
 			}
 		}
 		if (tagName == "CheckProfile")
@@ -783,7 +783,7 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	if (attrs.hasAttribute("PAGEC"))
 		m_Doc->setPaperColor(QColor(attrs.valueAsString("PAGEC")));
 	
-	m_Doc->marginColored = attrs.valueAsBool("RANDF", false);
+	m_Doc->setMarginColored(attrs.valueAsBool("RANDF", false));
 
 	readCMSSettings(doc, attrs);
 	readDocumentInfo(doc, attrs);
@@ -1008,7 +1008,7 @@ bool Scribus134Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 	checkerSettings.checkForGIF       = attrs.valueAsBool("checkForGIF", true);
 	checkerSettings.ignoreOffLayers   = attrs.valueAsBool("ignoreOffLayers", false);
 	checkerSettings.checkOffConflictLayers = attrs.valueAsBool("checkOffConflictLayers", false);
-	doc->checkerProfiles[profileName] = checkerSettings;
+	doc->set1CheckerProfile(profileName, checkerSettings);
 	return true;
 }
 

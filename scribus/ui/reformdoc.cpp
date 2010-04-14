@@ -87,7 +87,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabFonts = new FontPrefsTab(prefsWidgets, true, PrefsManager::instance()->preferencesLocation(), doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
-	tabDocChecker = new TabCheckDoc(prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
+	tabDocChecker = new TabCheckDoc(prefsWidgets, doc->checkerProfiles(), doc->curCheckProfile());
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	tabPDF = new TabPDFOptions( prefsWidgets, doc->pdfOptions(), PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
@@ -145,13 +145,13 @@ void ReformDoc::restoreDefaults()
 	tabView->gapHorizontal->setValue(currDoc->pageGapHorizontal()); // * unitRatio);
 	tabView->gapVertical->setValue(currDoc->pageGapVertical()); // * unitRatio);
 	tabView->setPaperColor(currDoc->paperColor());
-	tabView->setMarginColored(currDoc->marginColored);
+	tabView->setMarginColored(currDoc->marginColored());
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesPrefs(), &currDoc->typographicPrefs(), docUnitIndex);
 	tabTypo->restoreDefaults(&currDoc->typographicPrefs());
 	tabTools->restoreDefaults(&currDoc->itemToolPrefs(), &currDoc->opToolPrefs(), docUnitIndex);
 	tabFonts->restoreDefaults();
-	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
+	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles(), currDoc->curCheckProfile());
 	tabPDF->restoreDefaults(currDoc->pdfOptions(), PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->pdfOptions().PresentVals,
 							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, currDoc, false);
@@ -308,7 +308,7 @@ void ReformDoc::updateDocumentSettings()
 		item->setRedrawBounding();
 	}
 	currDoc->guidesPrefs().guidePlacement = tabGuides->inBackground->isChecked();
-	currDoc->marginColored = tabView->checkUnprintable->isChecked();
+	currDoc->setMarginColored(tabView->checkUnprintable->isChecked());
 	currDoc->setPaperColor(tabView->colorPaper);
 	currDoc->guidesPrefs().marginsShown = tabGuides->marginBox->isChecked();
 	currDoc->guidesPrefs().showBleed = tabView->checkBleed->isChecked();
@@ -330,8 +330,8 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->guidesPrefs().marginColor = tabGuides->colorMargin;
 	currDoc->guidesPrefs().guideColor = tabGuides->colorGuides;
 	currDoc->guidesPrefs().baselineGridColor = tabGuides->colorBaselineGrid;
-	currDoc->checkerProfiles = tabDocChecker->checkerProfile;
-	currDoc->curCheckProfile = tabDocChecker->curCheckProfile->currentText();
+	currDoc->setCheckerProfiles(tabDocChecker->checkerProfile);
+	currDoc->setCurCheckProfile(tabDocChecker->curCheckProfile->currentText());
 	currDoc->typographicPrefs().valueSuperScript = tabTypo->superDisplacement->value();
 	currDoc->typographicPrefs().scalingSuperScript = tabTypo->superScaling->value();
 	currDoc->typographicPrefs().valueSubScript = tabTypo->subDisplacement->value();

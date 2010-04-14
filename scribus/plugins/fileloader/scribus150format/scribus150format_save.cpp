@@ -233,8 +233,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("BACKG", static_cast<int>(m_Doc->guidesPrefs().guidePlacement));
 	docu.writeAttribute("PAGEC",m_Doc->paperColor().name());
 	docu.writeAttribute("MARGC",m_Doc->guidesPrefs().marginColor.name());
-	docu.writeAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
-	docu.writeAttribute("currentProfile", m_Doc->curCheckProfile);
+	docu.writeAttribute("RANDF", static_cast<int>(m_Doc->marginColored()));
+	docu.writeAttribute("currentProfile", m_Doc->curCheckProfile());
 
 	writeCheckerProfiles(docu);
 	writeLinestyles(docu);
@@ -285,8 +285,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu) 
 {
 	CheckerPrefsList::Iterator itcp;
-	CheckerPrefsList::Iterator itcpend=m_Doc->checkerProfiles.end();
-	for (itcp = m_Doc->checkerProfiles.begin(); itcp != itcpend; ++itcp)
+	CheckerPrefsList::Iterator itcpend=m_Doc->checkerProfiles().end();
+	for (itcp = m_Doc->checkerProfiles().begin(); itcp != itcpend; ++itcp)
 	{
 		docu.writeEmptyElement("CheckProfile");
 		docu.writeAttribute("Name",itcp.key());

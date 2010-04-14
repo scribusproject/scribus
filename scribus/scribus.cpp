@@ -3709,10 +3709,10 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		mainWindowStatusLabel->setText("");
 		mainWindowProgressBar->reset();
 		HaveDoc++;
-		if (doc->checkerProfiles.count() == 0)
+		if (doc->checkerProfiles().count() == 0)
 		{
-			prefsManager->initDefaultCheckerPrefs(&doc->checkerProfiles);
-			doc->curCheckProfile = CommonStrings::PostScript;
+			prefsManager->initDefaultCheckerPrefs(&(doc->checkerProfiles()));
+			doc->setCurCheckProfile(CommonStrings::PostScript);
 		}
 		if (doc->pdfOptions().LPISettings.count() == 0)
 		{
@@ -4563,11 +4563,11 @@ bool ScribusMainWindow::DoFileClose()
 
 void ScribusMainWindow::slotFilePrint()
 {
-	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
+	if (doc->checkerProfiles()[doc->curCheckProfile()].autoCheck)
 	{
 		if (scanDocument())
 		{
-			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
@@ -7784,11 +7784,11 @@ void ScribusMainWindow::doPrintPreview()
 
 void ScribusMainWindow::printPreview()
 {
-	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
+	if (doc->checkerProfiles()[doc->curCheckProfile()].autoCheck)
 	{
 		if (scanDocument())
 		{
-			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
@@ -7868,11 +7868,11 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 
 void ScribusMainWindow::SaveAsEps()
 {
-	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
+	if (doc->checkerProfiles()[doc->curCheckProfile()].autoCheck)
 	{
 		if (scanDocument())
 		{
-			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
@@ -7965,11 +7965,11 @@ bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, in
 
 void ScribusMainWindow::SaveAsPDF()
 {
-	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
+	if (doc->checkerProfiles()[doc->curCheckProfile()].autoCheck)
 	{
 		if (scanDocument())
 		{
-			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											tr("Detected some errors.\nConsider using the Preflight Verifier to correct them"),
