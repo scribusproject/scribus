@@ -63,7 +63,7 @@ class PythonHighlighter(QtGui.QSyntaxHighlighter):
         
         startIndex = 0
         if self.previousBlockState() != 1:
-            startIndex = text.indexOf(self.multiLineStringBegin)
+            startIndex = self.multiLineStringBegin.indexIn(text)
         
         if startIndex > -1:
             self.highlightRules(text, 0, startIndex)
@@ -72,7 +72,7 @@ class PythonHighlighter(QtGui.QSyntaxHighlighter):
         
         while startIndex >= 0:
         
-            endIndex = text.indexOf(self.multiLineStringEnd,
+            endIndex = self.multiLineStringEnd.indexIn(text,
                 startIndex + len(self.multiLineStringBegin.pattern()))
             if endIndex == -1:
                 self.setCurrentBlockState(1)
@@ -83,18 +83,18 @@ class PythonHighlighter(QtGui.QSyntaxHighlighter):
                 self.highlightRules(text, endIndex, len(text))
             
             self.setFormat(startIndex, commentLength, self.multiLineStringFormat)
-            startIndex = text.indexOf(self.multiLineStringBegin,
+            startIndex = self.multiLineStringBegin.indexIn(text,
                                       startIndex + commentLength)
     
     def highlightRules(self, text, start, finish):
     
         for expression, format in self.rules:
         
-            index = text.indexOf(expression, start)
+            index = expression.indexIn(text, start)
             while index >= start and index < finish:
                 length = expression.matchedLength()
                 self.setFormat(index, min(length, finish - index), format)
-                index = text.indexOf(expression, index + length)
+                index = expression.indexIn(text, index + length)
     
     def updateFonts(self, font):
     
