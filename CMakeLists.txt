@@ -672,34 +672,43 @@ ENDIF(NOT WIN32)
 #>>FontConfig
 
 #<<ASPELL for Speelling support
-FIND_PACKAGE(ASPELL)
-IF (ASPELL_FOUND)
-  MESSAGE("ASpell Found OK")
-  SET(HAVE_ASPELL 1)
-ELSE(ASPELL_FOUND)
-  MESSAGE("ASpell or its developer libraries NOT found - Disabling support for spell checking")
-ENDIF(ASPELL_FOUND)
+OPTION(WITH_ASPELL "Enable support for spell checking" ON)
+IF (WITH_ASPELL)
+  FIND_PACKAGE(ASPELL)
+  IF (ASPELL_FOUND)
+	MESSAGE("ASpell Found OK")
+	SET(HAVE_ASPELL 1)
+  ELSE (ASPELL_FOUND)
+	MESSAGE("ASpell or its developer libraries NOT found - Disabling support for spell checking")
+  ENDIF (ASPELL_FOUND)
+ENDIF (WITH_ASPELL)
 #>>ASPELL for Speelling support
 
 
 #<<PoDoFo for AI PDF import
-FIND_PACKAGE(LIBPODOFO)
-IF(LIBPODOFO_FOUND)
-  MESSAGE("PoDoFo found OK")
-  SET(HAVE_PODOFO 1)
-ELSE(LIBPODOFO_FOUND)
-  MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
-ENDIF(LIBPODOFO_FOUND)
+OPTION(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
+IF (WITH_PODOFO)
+  FIND_PACKAGE(LIBPODOFO)
+  IF (LIBPODOFO_FOUND)
+	MESSAGE("PoDoFo found OK")
+	SET(HAVE_PODOFO 1)
+  ELSE (LIBPODOFO_FOUND)
+	MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
+  ENDIF (LIBPODOFO_FOUND)
+ENDIF (WITH_PODOFO)
 #>>PoDoFo for AI PDF import
 
 #<<Boost for 2Geom Tools
-FIND_PACKAGE(Boost)
-IF (Boost_FOUND)
-  MESSAGE("Boost Library Found OK")
-  SET(HAVE_BOOST 1)
-ELSE(Boost_FOUND)
-  MESSAGE("Boost: NOT FOUND, not building 2geomtools")
-ENDIF (Boost_FOUND)
+OPTION(WITH_BOOST "Enable support for Boost based enhancements" ON)
+IF (WITH_BOOST)
+  FIND_PACKAGE(Boost)
+  IF (Boost_FOUND)
+	MESSAGE("Boost Library Found OK")
+	SET(HAVE_BOOST 1)
+  ELSE(Boost_FOUND)
+	MESSAGE("Boost: NOT FOUND, not building 2geomtools")
+  ENDIF (Boost_FOUND)
+ENDIF (WITH_BOOST)
 #>>Boost for 2Geom Tools
 
 #<<GraphicksMagick++ for image import
