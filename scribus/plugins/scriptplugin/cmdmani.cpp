@@ -414,6 +414,8 @@ PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
+	ScCore->primaryMainWindow()->view->Deselect();
+	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
 	ScCore->primaryMainWindow()->UnGroupObj();
 //	Py_INCREF(Py_None);
 //	return Py_None;
