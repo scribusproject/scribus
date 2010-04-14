@@ -658,24 +658,30 @@ ENDIF(NOT WIN32)
 #>>FontConfig
 
 #<<ASPELL for Speelling support
-FIND_PACKAGE(ASPELL)
-IF (ASPELL_FOUND)
-  MESSAGE("ASpell Found OK")
-  SET(HAVE_ASPELL 1)
-ELSE(ASPELL_FOUND)
-  MESSAGE("ASpell or its developer libraries NOT found - Disabling support for spell checking")
-ENDIF(ASPELL_FOUND)
+OPTION(WITH_ASPELL "Enable support for spell checking" ON)
+IF (WITH_ASPELL)
+  FIND_PACKAGE(ASPELL)
+  IF (ASPELL_FOUND)
+    MESSAGE("ASpell Found OK")
+    SET(HAVE_ASPELL 1)
+  ELSE (ASPELL_FOUND)
+    MESSAGE("ASpell or its developer libraries NOT found - Disabling support for spell checking")
+  ENDIF (ASPELL_FOUND)
+ENDIF (WITH_ASPELL)
 #>>ASPELL for Speelling support
 
 
 #<<PoDoFo for AI PDF import
-FIND_PACKAGE(LIBPODOFO)
-IF(LIBPODOFO_FOUND)
-  MESSAGE("PoDoFo found OK")
-  SET(HAVE_PODOFO 1)
-ELSE(LIBPODOFO_FOUND)
-  MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
-ENDIF(LIBPODOFO_FOUND)
+OPTION(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
+IF (WITH_PODOFO)
+  FIND_PACKAGE(LIBPODOFO)
+  IF (LIBPODOFO_FOUND)
+    MESSAGE("PoDoFo found OK")
+    SET(HAVE_PODOFO 1)
+  ELSE (LIBPODOFO_FOUND)
+    MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
+  ENDIF (LIBPODOFO_FOUND)
+ENDIF (WITH_PODOFO)
 #>>PoDoFo for AI PDF import
 
 ##############################################################################################################
