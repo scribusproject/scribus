@@ -4,6 +4,7 @@
 	Version="8,00"
 	Name="drwimport"
 	ProjectGUID="{A46C3979-E6DD-408F-BB9E-ED5EC3292AFA}"
+	RootNamespace="drwimport"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -12,6 +13,9 @@
 		/>
 	</Platforms>
 	<ToolFiles>
+		<ToolFile
+			RelativePath="..\Scribus-build.rules"
+		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
@@ -26,7 +30,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -110,7 +123,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -198,7 +220,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -282,7 +313,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -367,15 +407,15 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
+				RelativePath="drwimportdll.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\plugins\import\drw\importdrw.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\import\drw\importdrwplugin.cpp"
-				>
-			</File>
-			<File
-				RelativePath="drwimportdll.cpp"
 				>
 			</File>
 		</Filter>
@@ -390,44 +430,28 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug-arthur|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-arthur|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -438,44 +462,28 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug-arthur|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-arthur|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>

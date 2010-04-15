@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="Qt Build Rules"
+	Version="8,00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="uic.exe"
+			DisplayName="Qt UI Compiler"
+			CommandLine="$(QT4_DIR)\bin\uic.exe [inputs] -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+			Outputs="$(InputDir)\ui_$(InputName).h"
+			AdditionalDependencies="$(QT4_DIR)\bin\uic.exe"
+			FileExtensions="*.ui"
+			ExecutionDescription="Uic&apos;ing $(InputFileName)"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="moc.exe"
+			DisplayName="Qt MetaObject Compiler"
+			CommandLine="$(QT4_DIR)\bin\moc.exe [inputs] -o &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+			Outputs="$(InputDir)\moc_$(InputName).cpp"
+			AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
+			FileExtensions="*.moc"
+			ExecutionDescription="Moc&apos;ing $(InputFileName)"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="rcc.exe"
+			DisplayName="Qt Resource Compiler"
+			CommandLine="$(QT4_DIR)\bin\rcc.exe [inputs] -o &quot;$(InputDir)\rcc_$(InputName).cpp&quot;"
+			Outputs="$(InputDir)\rcc_$(InputName).cpp"
+			AdditionalDependencies="$(QT4_DIR)\bin\rcc.exe"
+			FileExtensions="*.qrc"
+			ExecutionDescription="$(InputName).qrc"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

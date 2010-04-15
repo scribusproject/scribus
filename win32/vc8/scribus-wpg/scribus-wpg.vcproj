@@ -13,6 +13,9 @@
 		/>
 	</Platforms>
 	<ToolFiles>
+		<ToolFile
+			RelativePath="..\Scribus-build.rules"
+		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
@@ -27,7 +30,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -94,7 +106,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -159,7 +180,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -226,7 +256,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="uic.exe"
+			/>
+			<Tool
+				Name="rcc.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
