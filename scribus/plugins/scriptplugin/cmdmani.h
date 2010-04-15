@@ -182,6 +182,19 @@ May raise WrongFrameTypeError if the target frame is not an image frame\n\
 PyObject *scribus_setimagescale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setimageoffset__doc__,
+QT_TR_NOOP("setImageOffset(x, y [, \"name\"])\n\
+\n\
+Sets the internal offset of the picture in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame\n\
+"));
+/*! Scale Image. */
+PyObject *scribus_setimageoffset(PyObject * /*self*/, PyObject* args);
+
+
+/*! docstring */
 PyDoc_STRVAR(scribus_lockobject__doc__,
 QT_TR_NOOP("lockObject([\"name\"]) -> bool\n\
 \n\
