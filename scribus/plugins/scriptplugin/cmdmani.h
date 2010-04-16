@@ -172,8 +172,10 @@ PyObject *scribus_scaleimage(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_setimageoffset__doc__,
 QT_TR_NOOP("setImageOffset(x, y [, \"name\"])\n\
 \n\
-Sets the internal offset of the picture in the image frame \"name\".\n\
+Sets the position of the picture in the image frame \"name\".\n\
 If \"name\" is not given the currently selected item is used.\n\
+The specified offset values are equal to the values shown on \n\
+properties palette when point unit is used.\n\
 \n\
 May raise WrongFrameTypeError if the target frame is not an image frame\n\
 "));

@@ -149,7 +149,9 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
 
 	// offset
-	ScCore->primaryMainWindow()->doc->itemSelection_SetImageOffset(x, y); //CB why when this is done above?
+	double newOffsetX = x / ((item->imageXScale() != 0.0) ? item->imageXScale() : 1);
+	double newOffsetY = y / ((item->imageYScale() != 0.0) ? item->imageYScale() : 1);
+	ScCore->primaryMainWindow()->doc->itemSelection_SetImageOffset(newOffsetX, newOffsetY); //CB why when this is done above?
 	ScCore->primaryMainWindow()->doc->updatePic();
 
 	// Now restore the selection.
