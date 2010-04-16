@@ -83,44 +83,46 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 {
-        char *Name = const_cast<char*>("");
-        double x, y;
-        if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
-                return NULL;
-        if(!checkHaveDocument())
-                return NULL;
-        PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-        if (item == NULL)
-                return NULL;
-        if (! item->asImageFrame())
-        {
-                PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
-                return NULL;
-        }
+	char *Name = const_cast<char*>("");
+	double x, y;
+	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+	if (! item->asImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
 
-        // Grab the old selection - but use it only where is there any
-        Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
-        bool hadOrigSelection = (tempSelection.count() != 0);
+	// Grab the old selection - but use it only where is there any
+	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	bool hadOrigSelection = (tempSelection.count() != 0);
 
-        ScCore->primaryMainWindow()->doc->m_Selection->clear();
-        // Clear the selection
-        ScCore->primaryMainWindow()->view->Deselect();
-        // Select the item, which will also select its group if
-        // there is one.
-        ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	// Clear the selection
+	ScCore->primaryMainWindow()->view->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
 
-        // offset
-        ScCore->primaryMainWindow()->doc->itemSelection_SetImageOffset(x, y); //CB why when this is done above?
-        ScCore->primaryMainWindow()->doc->updatePic();
-        
-        // Now restore the selection.
-        ScCore->primaryMainWindow()->view->Deselect();
-        if (hadOrigSelection)
-                *ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
-                
-//      Py_INCREF(Py_None);
-//      return Py_None;
-        Py_RETURN_NONE;
+	// offset
+	double newOffsetX = x / ((item->imageXScale() != 0.0) ? item->imageXScale() : 1);
+	double newOffsetY = y / ((item->imageYScale() != 0.0) ? item->imageYScale() : 1);
+	ScCore->primaryMainWindow()->doc->itemSelection_SetImageOffset(newOffsetX, newOffsetY); //CB why when this is done above?
+	ScCore->primaryMainWindow()->doc->updatePic();
+
+	// Now restore the selection.
+	ScCore->primaryMainWindow()->view->Deselect();
+	if (hadOrigSelection)
+		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+
+	//      Py_INCREF(Py_None);
+	//      return Py_None;
+	Py_RETURN_NONE;
 }
 
 
