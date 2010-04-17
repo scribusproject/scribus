@@ -4110,6 +4110,7 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 			currItem->GrControl2 = Buffer->GrControl2;
 			currItem->GrControl3 = Buffer->GrControl3;
 			currItem->GrControl4 = Buffer->GrControl4;
+			currItem->GrControl5 = Buffer->GrControl5;
 			currItem->GrColorP1 = Buffer->GrColorP1;
 			currItem->GrColorP2 = Buffer->GrColorP2;
 			currItem->GrColorP3 = Buffer->GrColorP3;
@@ -4640,10 +4641,10 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 {
 	PageItem *currItem;
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
+	double minx = 9999999.9;
+	double miny = 9999999.9;
+	double maxx = -9999999.9;
+	double maxy = -9999999.9;
 	uint docItemsCount=Items->count();
 	if (docItemsCount != 0)
 	{
@@ -8782,7 +8783,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newX = 99999.9;
+	double newX = 9999999.9;
 	switch ( currAlignTo )
 	{
 		case alignFirst:
@@ -8825,7 +8826,7 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newX = 99999.9;
+	double newX = 9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -8895,7 +8896,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 			newX=currentPage()->xOffset() + guidePosition;
 			break;
 		case alignSelection:
-			double minX=99999.9, maxX=-99999.9;
+			double minX=9999999.9, maxX=-9999999.9;
 			for (uint a = 0; a < alignObjectsCount; ++a)
 			{
 				minX = qMin(AObjects[a].x1, minX);
@@ -8921,7 +8922,7 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newX = -99999.9;
+	double newX = -9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -8966,7 +8967,7 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newX = -99999.9;
+	double newX = -9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -9011,7 +9012,7 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newY = 99999.9;
+	double newY = 9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -9054,7 +9055,7 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newY = 99999.9;
+	double newY = 9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -9124,7 +9125,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 			newY=currentPage()->yOffset() + guidePosition;
 			break;
 		case alignSelection:
-			double minY=99999.9, maxY=-99999.9;
+			double minY=9999999.9, maxY=-9999999.9;
 			for (uint a = 0; a < alignObjectsCount; ++a)
 			{
 				minY = qMin(AObjects[a].y1, minY);
@@ -9150,7 +9151,7 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newY = -99999.9;
+	double newY = -9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -9195,7 +9196,7 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newY = -99999.9;
+	double newY = -9999999.9;
 	switch ( currAlignTo )
 	{
 		case alignFirst:
@@ -9756,8 +9757,8 @@ void ScribusDoc::itemSelection_SwapLeft()
 	int itemIndex=itX.value(); //get our first item's index in the AObjects array
 //	bool found=false;
 //	double itXX=itX.key();
-	minY=999999.9;
-	maxY=-999999.9;
+	minY=9999999.9;
+	maxY=-9999999.9;
 	int nextItemIndex=itemIndex;
 	circleList.append(nextItemIndex);
 	++circleListCounter;
@@ -9870,8 +9871,8 @@ void ScribusDoc::itemSelection_SwapRight()
 	int itemIndex=itX.value(); //get our first item's index in the AObjects array
 //	bool found=false;
 //	double itXX=itX.key();
-	minY=999999.9;
-	maxY=-999999.9;
+	minY=9999999.9;
+	maxY=-9999999.9;
 	int nextItemIndex=itemIndex;
 	circleList.append(nextItemIndex);
 	++circleListCounter;
@@ -10943,6 +10944,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		gr.addPoint(bb->GrControl2);
 		gr.addPoint(bb->GrControl3);
 		gr.addPoint(bb->GrControl4);
+		gr.addPoint(bb->GrControl5);
 		FPoint g(gx, gy);
 		FPoint b(0, 0, bb->xPos(), bb->yPos(), bb->rotation(), 1, 1);
 		b -= g;
@@ -11025,6 +11027,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		bb->GrControl2 = gr.point(4);
 		bb->GrControl3 = gr.point(5);
 		bb->GrControl4 = gr.point(6);
+		bb->GrControl5 = gr.point(7);
 		bb->updateGradientVectors();
 	}
 	bb = itemSelection->itemAt(0);
@@ -11125,10 +11128,10 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 			lowestItem = qMin(lowestItem, currItem->ItemNr);
 			highestItem = qMax(highestItem, currItem->ItemNr);
 		}
-		double minx = 99999.9;
-		double miny = 99999.9;
-		double maxx = -99999.9;
-		double maxy = -99999.9;
+		double minx = 9999999.9;
+		double miny = 9999999.9;
+		double maxx = -9999999.9;
+		double maxy = -9999999.9;
 		for (uint ep = 0; ep < selectedItemCount; ++ep)
 		{
 			PageItem* currItem = itemSelection->itemAt(ep);

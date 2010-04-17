@@ -9669,10 +9669,10 @@ void ScribusMainWindow::PutToPatterns()
 	int ae = doc->Items->count();
 	if ((docSelectionCount > 1) && (!isGroup))
 	{
-		double minx = 99999.9;
-		double miny = 99999.9;
-		double maxx = -99999.9;
-		double maxy = -99999.9;
+		double minx = 9999999.9;
+		double miny = 9999999.9;
+		double maxx = -9999999.9;
+		double maxy = -9999999.9;
 		for (int as = ac+1; as < ae; ++as)
 		{
 			PageItem* currItem = doc->Items->at(as);

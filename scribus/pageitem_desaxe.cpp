@@ -281,6 +281,7 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		patt.insert("pSkewYS",   toXMLString(patternStrokeSkewY));
 		patt.insert("pMirrorXS", toXMLString(patternStrokeMirrorX));
 		patt.insert("pMirrorYS", toXMLString(patternStrokeMirrorY));
+		patt.insert("pSpaceS", toXMLString(patternStrokeSpace));
 		patt.insert("pAtPathS",  toXMLString(patternStrokePath));
 		handler.begin("PatternStroke", patt);
 		handler.end("PatternStroke");
@@ -343,6 +344,8 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			gradientV.insert("GRCOLP3" , toXMLString(GrColorP3));
 			gradientV.insert("GRC4X"   , toXMLString(GrControl4.x()));
 			gradientV.insert("GRC4Y"   , toXMLString(GrControl4.y()));
+			gradientV.insert("GRC5X"   , toXMLString(GrControl5.x()));
+			gradientV.insert("GRC5Y"   , toXMLString(GrControl5.y()));
 			gradientV.insert("GRCOLP4" , toXMLString(GrColorP4));
 			gradientV.insert("GRCOLT1", toXMLString(GrCol1transp));
 			gradientV.insert("GRCOLT2", toXMLString(GrCol2transp));
@@ -702,6 +705,7 @@ class Gradient_body : public Action_body
 			item->GrControl2 = FPoint(parseDouble(attr["GRC2X"]), parseDouble(attr["GRC2Y"]));
 			item->GrControl3 = FPoint(parseDouble(attr["GRC3X"]), parseDouble(attr["GRC3Y"]));
 			item->GrControl4 = FPoint(parseDouble(attr["GRC4X"]), parseDouble(attr["GRC4Y"]));
+			item->GrControl5 = FPoint(parseDouble(attr["GRC5X"]), parseDouble(attr["GRC5Y"]));
 			item->GrColorP1  = attr["GRCOLP1"];
 			item->GrColorP2  = attr["GRCOLP2"];
 			item->GrColorP3  = attr["GRCOLP3"];

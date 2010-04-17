@@ -93,7 +93,7 @@ public slots:
 	void editGradientVector();
 	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);
-	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
+	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void changePatternProps();
 	void changePatternPropsStroke();
 	void toggleStrokePattern();
@@ -110,7 +110,7 @@ signals:
 	void NewPatternS(QString);
 	void NewPatternTypeS(bool);
 	void NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool);
-	void NewSpecial(double, double, double, double, double, double, double, double);
+	void NewSpecial(double, double, double, double, double, double, double, double, double, double);
 	void NewOverprint(int);
 	void gradientChanged();
 	void strokeGradientChanged();

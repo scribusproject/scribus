@@ -60,7 +60,8 @@ private:
 		useControl1,
 		useControl2,
 		useControl3,
-		useControl4
+		useControl4,
+		useControl5
 	} eGradientPoint;
 
 	inline bool GetItem(PageItem** pi);

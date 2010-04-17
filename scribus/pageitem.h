@@ -372,6 +372,7 @@ public:
 	FPoint GrControl2;
 	FPoint GrControl3;
 	FPoint GrControl4;
+	FPoint GrControl5;
 	QString GrColorP1;
 	QString GrColorP2;
 	QString GrColorP3;
@@ -639,6 +640,7 @@ public:
 	void set4ColorShade(int t1, int t2, int t3, int t4);
 	void set4ColorColors(QString col1, QString col2, QString col3, QString col4);
 	void get4ColorGeometry(FPoint &c1, FPoint &c2, FPoint &c3, FPoint &c4);
+	void setDiamondGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
 	void get4ColorTransparency(double &t1, double &t2, double &t3, double &t4);
 	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4);
 	void gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;

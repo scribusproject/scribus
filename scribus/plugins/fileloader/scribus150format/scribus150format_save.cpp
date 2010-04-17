@@ -1194,7 +1194,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("GRFOCALY", item->GrFocalY);
 				docu.writeAttribute("GRSCALE" , item->GrScale);
 				docu.writeAttribute("GRSKEW" , item->GrSkew);
-				if (item->GrType == 9)
+				if ((item->GrType == 9) || (item->GrType == 10))
 				{
 					docu.writeAttribute("GRC1X"   , item->GrControl1.x());
 					docu.writeAttribute("GRC1Y"   , item->GrControl1.y());
@@ -1207,6 +1207,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("GRCOLP3" , item->GrColorP3);
 					docu.writeAttribute("GRC4X"   , item->GrControl4.x());
 					docu.writeAttribute("GRC4Y"   , item->GrControl4.y());
+					docu.writeAttribute("GRC5X"   , item->GrControl5.x());
+					docu.writeAttribute("GRC5Y"   , item->GrControl5.y());
 					docu.writeAttribute("GRCOLP4" , item->GrColorP4);
 					docu.writeAttribute("GRCOLT1" , item->GrCol1transp);
 					docu.writeAttribute("GRCOLT2" , item->GrCol2transp);

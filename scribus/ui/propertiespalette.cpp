@@ -1213,11 +1213,11 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect( RightLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect(colgapLabel, SIGNAL(activated(int)), this, SLOT(HandleGapSwitch()));
-	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double, double )));
+	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double, double, double, double )));
 	connect( Cpal, SIGNAL(editGradient(int)), this, SLOT(toggleGradientEdit(int)));
-	connect( Tpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradientM(double, double, double, double, double, double, double, double )));
+	connect( Tpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradientM(double, double, double, double, double, double, double, double )));
 	connect( Tpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEditM()));
-	connect( TpalGroup, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradientM(double, double, double, double, double, double, double, double )));
+	connect( TpalGroup, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradientM(double, double, double, double, double, double, double, double )));
 	connect( TpalGroup, SIGNAL(editGradient()), this, SLOT(toggleGradientEditMGroup()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -4044,7 +4044,7 @@ void PropertiesPalette::NewTDist()
 	}
 }
 
-void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
+void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -4088,6 +4088,16 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			CurItem->GrControl2 = FPoint(x2 / m_unitRatio, y2 / m_unitRatio);
 			CurItem->GrControl3 = FPoint(fx / m_unitRatio, fy / m_unitRatio);
 			CurItem->GrControl4 = FPoint(sg / m_unitRatio, sk / m_unitRatio);
+			CurItem->update();
+			upRect = QRectF(QPointF(-CurItem->width(), -CurItem->height()), QPointF(CurItem->width() * 2, CurItem->height() * 2)).normalized();
+		}
+		else if (m_ScMW->view->editStrokeGradient == 4)
+		{
+			CurItem->GrControl1 = FPoint(x1 / m_unitRatio, y1 / m_unitRatio);
+			CurItem->GrControl2 = FPoint(x2 / m_unitRatio, y2 / m_unitRatio);
+			CurItem->GrControl3 = FPoint(fx / m_unitRatio, fy / m_unitRatio);
+			CurItem->GrControl4 = FPoint(sg / m_unitRatio, sk / m_unitRatio);
+			CurItem->GrControl5 = FPoint(cx / m_unitRatio, cy / m_unitRatio);
 			CurItem->update();
 			upRect = QRectF(QPointF(-CurItem->width(), -CurItem->height()), QPointF(CurItem->width() * 2, CurItem->height() * 2)).normalized();
 		}
@@ -5083,11 +5093,13 @@ void PropertiesPalette::updateColorSpecialGradient()
 	if (currItem)
 	{
 		if (m_ScMW->view->editStrokeGradient == 0)
-			Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur, currItem->GrFocalX * dur, currItem->GrFocalY * dur, currItem->GrScale, currItem->GrSkew);
+			Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur, currItem->GrFocalX * dur, currItem->GrFocalY * dur, currItem->GrScale, currItem->GrSkew, 0, 0);
 		else if (m_ScMW->view->editStrokeGradient == 1)
-			Cpal->setSpecialGradient(currItem->GrStrokeStartX * dur, currItem->GrStrokeStartY * dur, currItem->GrStrokeEndX * dur, currItem->GrStrokeEndY * dur, currItem->GrStrokeFocalX * dur, currItem->GrStrokeFocalY * dur, currItem->GrStrokeScale, currItem->GrStrokeSkew);
+			Cpal->setSpecialGradient(currItem->GrStrokeStartX * dur, currItem->GrStrokeStartY * dur, currItem->GrStrokeEndX * dur, currItem->GrStrokeEndY * dur, currItem->GrStrokeFocalX * dur, currItem->GrStrokeFocalY * dur, currItem->GrStrokeScale, currItem->GrStrokeSkew, 0, 0);
 		else if (m_ScMW->view->editStrokeGradient == 3)
-			Cpal->setSpecialGradient(currItem->GrControl1.x() * dur, currItem->GrControl1.y() * dur, currItem->GrControl2.x() * dur, currItem->GrControl2.y() * dur, currItem->GrControl3.x() * dur, currItem->GrControl3.y() * dur, currItem->GrControl4.x() * dur, currItem->GrControl4.y() * dur);
+			Cpal->setSpecialGradient(currItem->GrControl1.x() * dur, currItem->GrControl1.y() * dur, currItem->GrControl2.x() * dur, currItem->GrControl2.y() * dur, currItem->GrControl3.x() * dur, currItem->GrControl3.y() * dur, currItem->GrControl4.x() * dur, currItem->GrControl4.y() * dur, 0, 0);
+		else if (m_ScMW->view->editStrokeGradient == 4)
+			Cpal->setSpecialGradient(currItem->GrControl1.x() * dur, currItem->GrControl1.y() * dur, currItem->GrControl2.x() * dur, currItem->GrControl2.y() * dur, currItem->GrControl3.x() * dur, currItem->GrControl3.y() * dur, currItem->GrControl4.x() * dur, currItem->GrControl4.y() * dur, currItem->GrControl5.x(), currItem->GrControl5.y());
 		else
 		{
 			if (currItem->isGroupControl)

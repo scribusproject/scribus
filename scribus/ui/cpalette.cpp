@@ -81,7 +81,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
 	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(ToggleColorDisplay()));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
-	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)));
+	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)));
 	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
@@ -615,7 +615,7 @@ void Cpalette::ChooseGrad(int number)
 	}
 	if (number == 0)
 		tabWidget->setCurrentIndex(0);
-	else if (((number > 0) && (number < 8)) || (number == 9))
+	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10))
 	{
 		if ((number == 5) || (number == 7))
 		{
@@ -650,6 +650,11 @@ void Cpalette::ChooseGrad(int number)
 			color2Shade->setValue(currentItem->GrCol2Shade);
 			color3Shade->setValue(currentItem->GrCol3Shade);
 			color4Shade->setValue(currentItem->GrCol4Shade);
+		}
+		else if (number == 10)
+		{
+			stackedWidget_2->setCurrentIndex(0);
+			gradientType->setCurrentIndex(3);
 		}
 		else
 		{
@@ -729,6 +734,11 @@ void Cpalette::slotGrad(int number)
 			color4Shade->setValue(currentItem->GrCol4Shade);
 			emit NewGradient(9);
 		}
+		else if (gradientType->currentIndex() == 3)
+		{
+			stackedWidget_2->setCurrentIndex(0);
+			emit NewGradient(10);
+		}
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 		connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 		connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
@@ -780,6 +790,11 @@ void Cpalette::slotGradType(int type)
 		color4Shade->setValue(currentItem->GrCol4Shade);
 		emit NewGradient(9);
 	}
+	else if (type == 3)
+	{
+		stackedWidget_2->setCurrentIndex(0);
+		emit NewGradient(10);
+	}
 }
 
 void Cpalette::slotGradTypeStroke(int type)
@@ -800,15 +815,20 @@ void Cpalette::editGradientVector()
 	if (gradEditButton->isChecked())
 	{
 		CGradDia->unitChange(currentDoc->unitIndex());
-		CGradDia->setValues(currentItem->GrStartX, currentItem->GrStartY, currentItem->GrEndX, currentItem->GrEndY, currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew);
+		CGradDia->setValues(currentItem->GrStartX, currentItem->GrStartY, currentItem->GrEndX, currentItem->GrEndY, currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew, 0, 0);
 		if (currentItem->GrType == 6)
 			CGradDia->selectLinear();
 		else if (currentItem->GrType == 7)
 			CGradDia->selectRadial();
 		else if (currentItem->GrType == 9)
 		{
-			CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y());
+			CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y(), 0, 0);
 			CGradDia->selectFourColor();
+		}
+		else if (currentItem->GrType == 10)
+		{
+			CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y(), currentItem->GrControl5.x(), currentItem->GrControl5.y());
+			CGradDia->selectDiamond();
 		}
 		CGradDia->show();
 	}
@@ -818,6 +838,8 @@ void Cpalette::editGradientVector()
 	}
 	if (currentItem->GrType == 9)
 		editStrokeGradient = 3;
+	else if (currentItem->GrType == 10)
+		editStrokeGradient = 4;
 	else
 		editStrokeGradient = 0;
 	emit editGradient(editStrokeGradient);
@@ -828,7 +850,7 @@ void Cpalette::editGradientVectorStroke()
 	if (gradEditButtonStroke->isChecked())
 	{
 		CGradDia->unitChange(currentDoc->unitIndex());
-		CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale, currentItem->GrStrokeSkew);
+		CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale, currentItem->GrStrokeSkew, 0, 0);
 		if (currentItem->GrTypeStroke == 6)
 			CGradDia->selectLinear();
 		else
@@ -855,10 +877,10 @@ void Cpalette::setActiveGradDia(bool active)
 	}
 }
 
-void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
+void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
 {
 	if (CGradDia)
-		CGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk);
+		CGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk, cx, cy);
 }
 
 void Cpalette::changePatternProps()

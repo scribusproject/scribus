@@ -99,6 +99,7 @@ PageItem::PageItem(const PageItem & other)
 	GrControl2(other.GrControl2),
 	GrControl3(other.GrControl3),
 	GrControl4(other.GrControl4),
+	GrControl5(other.GrControl5),
 	GrColorP1(other.GrColorP1),
 	GrColorP2(other.GrColorP2),
 	GrColorP3(other.GrColorP3),
@@ -399,6 +400,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrControl2 = FPoint(w, 0);
 	GrControl3 = FPoint(w, h);
 	GrControl4 = FPoint(0, h);
+	GrControl5 = FPoint(w / 2.0, h / 2.0);
 	GrCol1transp = 1.0;
 	GrCol2transp = 1.0;
 	GrCol3transp = 1.0;
@@ -1337,6 +1339,14 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 								case 7:
 									p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
 									break;
+								case 10:
+									p->setFillMode(ScPainter::Gradient);
+									FPoint pG1 = FPoint(0, 0);
+									FPoint pG2 = FPoint(width(), 0);
+									FPoint pG3 = FPoint(width(), height());
+									FPoint pG4 = FPoint(0, height());
+									p->setDiamondGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4, GrControl5);
+									break;
 							}
 						}
 					}
@@ -1906,7 +1916,104 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 		}
 		trans *= savWM;
 		p->setWorldMatrix(trans);
-		p->drawImage(pat.getPattern());
+		QStack<PageItem*> groupStack;
+		groupStack.clear();
+		for (int em = 0; em < pat.items.count(); ++em)
+		{
+			PageItem* embedded = pat.items.at(em);
+			if (embedded->isGroupControl)
+			{
+				p->save();
+				QTransform mm;
+				mm.translate(embedded->gXpos, embedded->gYpos);
+				mm.rotate(embedded->rotation());
+				if ((embedded->GrMask == 1) || (embedded->GrMask == 2) || (embedded->GrMask == 4) || (embedded->GrMask == 5))
+				{
+					if ((embedded->GrMask == 1) || (embedded->GrMask == 2))
+						p->setMaskMode(1);
+					else
+						p->setMaskMode(3);
+					if ((!embedded->gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(embedded->gradientMaskVal)))
+						embedded->gradientMaskVal = "";
+					if (!(embedded->gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(embedded->gradientMaskVal)))
+						embedded->mask_gradient = m_Doc->docGradients[embedded->gradientMaskVal];
+					p->mask_gradient = embedded->mask_gradient;
+					if ((embedded->GrMask == 1) || (embedded->GrMask == 4))
+						p->setGradientMask(VGradient::linear, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
+					else
+						p->setGradientMask(VGradient::radial, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskFocalX, embedded->GrMaskFocalY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
+				}
+				else if ((embedded->GrMask == 3) || (embedded->GrMask == 6))
+				{
+					if ((embedded->patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(embedded->patternMaskVal)))
+						p->setMaskMode(0);
+					else
+					{
+						p->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation + embedded->rotation(), embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
+						if (embedded->GrMask == 3)
+							p->setMaskMode(2);
+						else
+							p->setMaskMode(4);
+					}
+				}
+				else
+					p->setMaskMode(0);
+				FPointArray cl = embedded->PoLine.copy();
+				cl.map( mm );
+				p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
+				groupStack.push(embedded->groupsLastItem);
+				continue;
+			}
+			p->save();
+			p->translate(embedded->gXpos, embedded->gYpos);
+			embedded->isEmbedded = true;
+			embedded->invalid = true;
+			embedded->DrawObj(p, QRectF());
+			embedded->isEmbedded = false;
+			p->restore();
+			if (groupStack.count() != 0)
+			{
+				while (embedded == groupStack.top())
+				{
+					p->endLayer();
+					p->restore();
+					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
+				}
+			}
+		}
+		for (int em = 0; em < pat.items.count(); ++em)
+		{
+			PageItem* embedded = pat.items.at(em);
+			if (!embedded->isTableItem)
+				continue;
+			p->save();
+			p->translate(embedded->gXpos, embedded->gYpos);
+			p->rotate(embedded->rotation());
+			embedded->isEmbedded = true;
+			embedded->invalid = true;
+			if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
+			{
+				QColor tmp;
+				embedded->SetQColor(&tmp, embedded->lineColor(), embedded->lineShade());
+				if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+				{
+					p->setPen(tmp, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
+					if (embedded->TopLine)
+						p->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
+					if (embedded->RightLine)
+						p->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
+					if (embedded->BottomLine)
+						p->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
+					if (embedded->LeftLine)
+						p->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
+				}
+			}
+			embedded->isEmbedded = false;
+			p->restore();
+		}
+//		p->drawImage(pat.getPattern());
 		p->setWorldMatrix(savWM);
 		xpos += adv;
 		p->restore();
@@ -2027,10 +2134,10 @@ QImage PageItem::DrawObj_toImage()
 {
 	QList<PageItem*> emG;
 	emG.clear();
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
+	double minx = 9999999.9;
+	double miny = 9999999.9;
+	double maxx = -9999999.9;
+	double maxy = -9999999.9;
 	if (Groups.count() != 0)
 	{
 		for (int ga=0; ga<m_Doc->Items->count(); ++ga)
@@ -2759,6 +2866,15 @@ void PageItem::set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4)
 	GrControl2 = c2;
 	GrControl3 = c3;
 	GrControl4 = c4;
+}
+
+void PageItem::setDiamondGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5)
+{
+	GrControl1 = c1;
+	GrControl2 = c2;
+	GrControl3 = c3;
+	GrControl4 = c4;
+	GrControl5 = c5;
 }
 
 void PageItem::set4ColorTransparency(double t1, double t2, double t3, double t4)
@@ -4900,7 +5016,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 {
 	if (GrType == 0)
 		lists.collectColor(fillColor());
-	else if (GrType < 8)
+	else if ((GrType < 8) || (GrType == 10))
 	{
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
@@ -4996,6 +5112,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->GrControl2 = GrControl2;
 	Buffer->GrControl3 = GrControl3;
 	Buffer->GrControl4 = GrControl4;
+	Buffer->GrControl5 = GrControl5;
 	Buffer->GrColorP1 = GrColorP1;
 	Buffer->GrColorP2 = GrColorP2;
 	Buffer->GrColorP3 = GrColorP3;
@@ -5259,10 +5376,10 @@ QRectF PageItem::getVisualBoundingRect() const
 
 void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
+	double minx = 9999999.9;
+	double miny = 9999999.9;
+	double maxx = -9999999.9;
+	double maxy = -9999999.9;
 	if (Rot != 0)
 	{
 		FPointArray pb;
@@ -5401,10 +5518,10 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 
 void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
 {
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
+	double minx = 9999999.9;
+	double miny = 9999999.9;
+	double maxx = -9999999.9;
+	double maxy = -9999999.9;
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
@@ -5413,9 +5530,12 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
-			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = sqrt(ww*ww + hh*hh);
+			QTransform mat;
+			mat.rotate(patternStrokeRotation);
+			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+			QRectF p1R = QRectF(0, 0, pat->width / 2.0, pat->height / 2.0);
+			QRectF p2R = mat.map(p1R).boundingRect();
+			extraSpace = p2R.height();
 		}
 	}
 	else
@@ -5429,10 +5549,10 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	{
 		FPointArray pb;
 		pb.resize(0);
-		pb.addPoint(FPoint(-extraSpace,			-extraSpace,			xPos(), yPos(), Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(-extraSpace,				-extraSpace,			xPos(), yPos(), Rot, 1.0, 1.0));
 		pb.addPoint(FPoint(visualWidth()-extraSpace,	-extraSpace,			xPos(), yPos(), Rot, 1.0, 1.0));
 		pb.addPoint(FPoint(visualWidth()-extraSpace,	visualHeight()-extraSpace,	xPos(), yPos(), Rot, 1.0, 1.0));
-		pb.addPoint(FPoint(-extraSpace,			visualHeight()-extraSpace,	xPos(), yPos(), Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(-extraSpace, 				visualHeight()-extraSpace,	xPos(), yPos(), Rot, 1.0, 1.0));
 		for (uint pc = 0; pc < 4; ++pc)
 		{
 			minx = qMin(minx, pb.point(pc).x());
@@ -5573,9 +5693,12 @@ double PageItem::visualXPos() const
 			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 			{
 				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-				double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
-				double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-				extraSpace = sqrt(ww*ww + hh*hh);
+				QTransform mat;
+				mat.rotate(patternStrokeRotation);
+				mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+				QRectF p1R = QRectF(0, 0, pat->width / 2.0, pat->height / 2.0);
+				QRectF p2R = mat.map(p1R).boundingRect();
+				extraSpace = p2R.height();
 			}
 		}
 		else
@@ -5599,9 +5722,12 @@ double PageItem::visualYPos() const
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
-			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = sqrt(ww*ww + hh*hh);
+			QTransform mat;
+			mat.rotate(patternStrokeRotation);
+			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+			QRectF p1R = QRectF(0, 0, pat->width / 2.0, pat->height / 2.0);
+			QRectF p2R = mat.map(p1R).boundingRect();
+			extraSpace = p2R.height();
 		}
 	}
 	else
@@ -5626,9 +5752,12 @@ double PageItem::visualWidth() const
 			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 			{
 				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-				double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
-				double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-				extraSpace = sqrt(ww*ww + hh*hh);
+				QTransform mat;
+				mat.rotate(patternStrokeRotation);
+				mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+				QRectF p1R = QRectF(0, 0, pat->width, pat->height);
+				QRectF p2R = mat.map(p1R).boundingRect();
+				extraSpace = p2R.height();
 			}
 		}
 		else
@@ -5652,9 +5781,12 @@ double PageItem::visualHeight() const
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			double ww = (pat->width * patternStrokeScaleX / 100.0) / 2.0;
-			double hh = (pat->height * patternStrokeScaleY / 100.0) / 2.0;
-			extraSpace = sqrt(ww*ww + hh*hh);
+			QTransform mat;
+			mat.rotate(patternStrokeRotation);
+			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+			QRectF p1R = QRectF(0, 0, pat->width, pat->height);
+			QRectF p2R = mat.map(p1R).boundingRect();
+			extraSpace = p2R.height();
 		}
 	}
 	else
@@ -6604,6 +6736,7 @@ void PageItem::updateClip()
 				gr.addPoint(GrControl2);
 				gr.addPoint(GrControl3);
 				gr.addPoint(GrControl4);
+				gr.addPoint(GrControl5);
 				gr.map(ma);
 				GrStartX = gr.point(0).x();
 				GrStartY = gr.point(0).y();
@@ -6615,6 +6748,7 @@ void PageItem::updateClip()
 				GrControl2 = gr.point(4);
 				GrControl3 = gr.point(5);
 				GrControl4 = gr.point(6);
+				GrControl5 = gr.point(7);
 				FPointArray gr2;
 				gr2.addPoint(GrStrokeStartX, GrStrokeStartY);
 				gr2.addPoint(GrStrokeEndX, GrStrokeEndY);
@@ -6689,6 +6823,7 @@ void PageItem::updateClip()
 			gr.addPoint(GrControl2);
 			gr.addPoint(GrControl3);
 			gr.addPoint(GrControl4);
+			gr.addPoint(GrControl5);
 			gr.map(ma);
 			GrStartX = gr.point(0).x();
 			GrStartY = gr.point(0).y();
@@ -6700,6 +6835,7 @@ void PageItem::updateClip()
 			GrControl2 = gr.point(4);
 			GrControl3 = gr.point(5);
 			GrControl4 = gr.point(6);
+			GrControl5 = gr.point(7);
 			FPointArray gr2;
 			gr2.addPoint(GrStrokeStartX, GrStrokeStartY);
 			gr2.addPoint(GrStrokeEndX, GrStrokeEndY);

@@ -99,7 +99,7 @@ signals:
 	void gradientChanged();
 	void editGradient();
 	void NewGradient(int);
-	void NewSpecial(double, double, double, double, double, double, double, double);
+	void NewSpecial(double, double, double, double, double, double, double, double, double, double);
 	void NewPattern(QString);
 	void NewPatternProps(double, double, double, double, double, double, double, bool, bool);
 

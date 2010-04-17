@@ -2822,12 +2822,13 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			GrName = attrs.valueAsString("GRNAME","");
 			if (!GrName.isEmpty())
 				currItem->setGradient(GrName);
-			if (currItem->GrType == 9)
+			if ((currItem->GrType == 9) || (currItem->GrType == 10))
 			{
 				currItem->GrControl1 = FPoint(attrs.valueAsDouble("GRC1X", 0.0), attrs.valueAsDouble("GRC1Y", 0.0));
 				currItem->GrControl2 = FPoint(attrs.valueAsDouble("GRC2X", 0.0), attrs.valueAsDouble("GRC2Y", 0.0));
 				currItem->GrControl3 = FPoint(attrs.valueAsDouble("GRC3X", 0.0), attrs.valueAsDouble("GRC3Y", 0.0));
 				currItem->GrControl4 = FPoint(attrs.valueAsDouble("GRC4X", 0.0), attrs.valueAsDouble("GRC4Y", 0.0));
+				currItem->GrControl5 = FPoint(attrs.valueAsDouble("GRC5X", 0.0), attrs.valueAsDouble("GRC5Y", 0.0));
 				currItem->GrColorP1  = attrs.valueAsString("GRCOLP1", "Black");
 				currItem->GrColorP2  = attrs.valueAsString("GRCOLP2", "Black");
 				currItem->GrColorP3  = attrs.valueAsString("GRCOLP3", "Black");
@@ -2878,7 +2879,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double patternRotation = attrs.valueAsDouble("pRotationS", 0.0);
 	double patternSkewX    = attrs.valueAsDouble("pSkewXS", 0.0);
 	double patternSkewY    = attrs.valueAsDouble("pSkewYS", 0.0);
-	double patternSpace    = attrs.valueAsDouble("pSpaceS", 0.0);
+	double patternSpace    = attrs.valueAsDouble("pSpaceS", 1.0);
 	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 	bool mirrorX = attrs.valueAsBool("pMirrorXS", false);
 	bool mirrorY = attrs.valueAsBool("pMirrorYS", false);

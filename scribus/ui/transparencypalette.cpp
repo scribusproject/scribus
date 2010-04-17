@@ -50,7 +50,7 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
-	connect(TGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double)));
+	connect(TGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)));
 	connect(TGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
@@ -308,7 +308,7 @@ void Tpalette::editGradientVector()
 	if (gradEditButton->isChecked())
 	{
 		TGradDia->unitChange(currentDoc->unitIndex());
-		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew);
+		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew, 0, 0);
 		if ((currentItem->GrMask == 1) || (currentItem->GrMask == 4))
 			TGradDia->selectLinear();
 		else
@@ -334,7 +334,7 @@ void Tpalette::setActiveGradDia(bool active)
 void Tpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
 {
 	if (TGradDia)
-		TGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk);
+		TGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk, 0, 0);
 }
 
 void Tpalette::updatePatternList()

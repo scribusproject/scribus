@@ -155,13 +155,10 @@ private:
 	bool    PDF_PatternFillStroke(QString& output, PageItem *currItem, int kind = 0, bool forArrow = false);
 	quint32 encode32dVal(double val);
 	quint16 encode16dVal(double val);
+	void    encodeColor(QDataStream &vs, QString colName, int colShade, QStringList &spotColorSet, bool spotMode);
+	bool    PDF_DiamondGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_TensorGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_GradientFillStroke(QString& output, PageItem *currItem, bool stroke = false, bool forArrow = false);
-
-		/* deprecated */
-	bool    PDF_Gradient(QString& output, PageItem *currItem);
-	QString PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, QList<double> Trans, const QStringList& Colors, QStringList colorNames, QList<int> colorShades);
-
 	QString PDF_TransparenzFill(PageItem *currItem);
 	QString PDF_TransparenzStroke(PageItem *currItem);
 	bool    PDF_Annotation(PageItem *ite, uint PNr);

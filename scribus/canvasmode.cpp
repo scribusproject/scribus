@@ -262,8 +262,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->asLine() ? 0 : (currItem->lineWidth() / -2.0);
-					y = currItem->asLine() ? (h / -2.0) : (currItem->lineWidth() / -2.0);
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
 				}
 				else
 				{
@@ -306,8 +306,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				psx->setRenderHint(QPainter::Antialiasing);
 				psx->translate(currItem->xPos(), currItem->yPos());
 				psx->rotate(currItem->rotation());
-				x = currItem->asLine() ? 0 : (currItem->lineWidth() / -2.0);
-				y = currItem->asLine() ? (h / -2.0) : (currItem->lineWidth( ) / -2.0);
+				x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
+				y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
 			}
 			else
 			{

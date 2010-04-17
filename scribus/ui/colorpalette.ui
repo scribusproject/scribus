@@ -352,6 +352,11 @@
                  <string>4 Colors</string>
                 </property>
                </item>
+               <item>
+                <property name="text">
+                 <string>Diamond</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item>

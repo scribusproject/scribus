@@ -75,6 +75,7 @@ public:
 
 	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4);
 	virtual void set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4);
+	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
 
 	virtual void setClipPath();
 
@@ -210,6 +211,7 @@ private:
 	FPoint gradControlP2;
 	FPoint gradControlP3;
 	FPoint gradControlP4;
+	FPoint gradControlP5;
 	QColor gradPatchColor1;
 	QColor gradPatchColor2;
 	QColor gradPatchColor3;

@@ -2010,11 +2010,10 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				{
 					case PageItem::ImageFrame:
 					case PageItem::LatexFrame:
+						PutPage("q\n");
 						// Same functions as for ImageFrames work for LatexFrames too
 						if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 						{
-							if (ite->GrMask > 0)
-								PutPage("q\n");
 							PutPage(PDF_TransparenzFill(ite));
 						}
 						if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
@@ -2058,8 +2057,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							PutPage(tmpOut);
 						}
 						PutPage("Q\n");
-						if (ite->GrMask > 0)
-							PutPage("Q\n");
+						PutPage("Q\n");
 						if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)) && (!ite->isTableItem))
 						{
 							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
@@ -2185,10 +2183,9 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::ItemType1:
 					case PageItem::ItemType3:
 					case PageItem::Polygon:
+						PutPage("q\n");
 						if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 						{
-							if (ite->GrMask > 0)
-								PutPage("q\n");
 							PutPage(PDF_TransparenzFill(ite));
 						}
 						if (ite->GrType != 0)
@@ -2221,8 +2218,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									PutPage("h\nf\n");
 							}
 						}
-						if (ite->GrMask > 0)
-							PutPage("Q\n");
+						PutPage("Q\n");
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 						{
 							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
@@ -2278,10 +2274,9 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::PolyLine:
 						if (ite->PoLine.size() > 4) // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
+							PutPage("q\n");
 							if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 							{
-								if (ite->GrMask > 0)
-									PutPage("q\n");
 								PutPage(PDF_TransparenzFill(ite));
 							}
 							if (ite->GrType != 0)
@@ -2314,8 +2309,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 										PutPage("h\nf\n");
 								}
 							}
-							if (ite->GrMask > 0)
-								PutPage("Q\n");
+							PutPage("Q\n");
 						}
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 						{
@@ -3636,11 +3630,10 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				break;
 			}
 #endif
+			tmp += "q\n";
 			// Same functions as for ImageFrames work for LatexFrames too
 			if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4) ))
 			{
-				if (ite->GrMask > 0)
-					tmp += "q\n";
 				tmp += PDF_TransparenzFill(ite);
 			}
 			if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
@@ -3692,8 +3685,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				tmp += tmpOut;
 			}
 			tmp += "Q\n";
-			if (ite->GrMask > 0)
-				tmp += "Q\n";
+			tmp += "Q\n";
 			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)) && (!ite->isTableItem))
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4) ))
@@ -3748,18 +3740,15 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			break;
 		case PageItem::TextFrame:
-//			qDebug() << "case TextFrame";
 			if ((ite->isAnnotation()) && (Options.Version != PDFOptions::PDFVersion_X3) && (Options.Version != PDFOptions::PDFVersion_X1a) && (Options.Version != PDFOptions::PDFVersion_X4))
 			{
-//				qDebug() << "Annotation";
 				if (!PDF_Annotation(ite, PNr))
 					return false;
 				break;
 			}
+			tmp += "q\n";
 			if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4) ))
 			{
-				if (ite->GrMask > 0)
-					tmp += "q\n";
 				tmp += PDF_TransparenzFill(ite);
 			}
 			if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
@@ -3799,8 +3788,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
 			tmp += setTextSt(ite, PNr, pag);
 			tmp += "Q\n";
-			if (ite->GrMask > 0)
-				tmp += "Q\n";
+			tmp += "Q\n";
 			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)) && (!ite->isTableItem))
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4) ))
@@ -3926,10 +3914,9 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 		case PageItem::ItemType1:
 		case PageItem::ItemType3:
 		case PageItem::Polygon:
+			tmp += "q\n";
 			if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 			{
-				if (ite->GrMask > 0)
-					tmp += "q\n";
 				tmp += PDF_TransparenzFill(ite);
 			}
 			if (ite->GrType != 0)
@@ -3962,8 +3949,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						tmp += "h\nf\n";
 				}
 			}
-			if (ite->GrMask > 0)
-				tmp += "Q\n";
+			tmp += "Q\n";
 			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
@@ -4020,10 +4006,9 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 		case PageItem::PolyLine:
 			if (ite->PoLine.size() > 4)  // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 			{
+				tmp += "q\n";
 				if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 				{
-					if (ite->GrMask > 0)
-						tmp += "q\n";
 					tmp += PDF_TransparenzFill(ite);
 				}
 				if (ite->GrType != 0)
@@ -4056,8 +4041,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 							tmp += "h\nf\n";
 					}
 				}
-				if (ite->GrMask > 0)
-					tmp += "Q\n";
+				tmp += "Q\n";
 			}
 			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 			{
@@ -6338,6 +6322,463 @@ quint16 PDFLibCore::encode16dVal(double val)
 	return m;
 }
 
+void PDFLibCore::encodeColor(QDataStream &vs, QString colName, int colShade, QStringList &spotColorSet, bool spotMode)
+{
+	if (spotMode)
+	{
+		if (spotColorSet.contains(colName))
+		{
+			vs << encode16dVal(0.0) << encode16dVal(0.0) << encode16dVal(0.0) << encode16dVal(0.0);
+			for (int sc = 0; sc < spotColorSet.count(); sc++)
+			{
+				if (spotColorSet.at(sc) == colName)
+					vs << encode16dVal(colShade / 100.0);
+				else
+					vs << encode16dVal(0.0);
+			}
+		}
+		else
+		{
+			QStringList gcol = SetGradientColor(colName, colShade).split(" ");
+			for (int gcs = 0; gcs < gcol.count(); gcs++)
+			{
+				vs << encode16dVal(gcol[gcs].toDouble());
+			}
+			for (int sc = 0; sc < spotColorSet.count(); sc++)
+			{
+				vs << encode16dVal(0.0);
+			}
+		}
+	}
+	else
+	{
+		QStringList gcol = SetGradientColor(colName, colShade).split(" ");
+		for (int gcs = 0; gcs < gcol.count(); gcs++)
+		{
+			vs << encode16dVal(gcol[gcs].toDouble());
+		}
+	}
+}
+
+bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
+{
+	QList<double> StopVec;
+	QList<double> TransVec;
+	QStringList Gcolors;
+	QStringList colorNames;
+	QList<int> colorShades;
+	QStringList spotColorSet;
+	VGradient gradient;
+	bool spotMode = false;
+	bool transparencyFound = false;
+	gradient = c->fill_gradient;
+	QList<VColorStop*> cstops = gradient.colorStops();
+	StopVec.clear();
+	TransVec.clear();
+	Gcolors.clear();
+	colorNames.clear();
+	colorShades.clear();
+	for (uint cst = 0; cst < gradient.Stops(); ++cst)
+	{
+		double actualStop = cstops.at(cst)->rampPoint;
+		StopVec.append(actualStop);
+		colorNames.append(cstops.at(cst)->name);
+		colorShades.append(cstops.at(cst)->shade);
+		TransVec.append(cstops.at(cst)->opacity);
+		if (cstops.at(cst)->opacity != 1.0)
+			transparencyFound = true;
+		if (spotMap.contains(cstops.at(cst)->name))
+		{
+			if (!spotColorSet.contains(cstops.at(cst)->name))
+				spotColorSet.append(cstops.at(cst)->name);
+		}
+		Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+	}
+	QPointF cP = QPointF(c->GrControl5.x(), -c->GrControl5.y());
+	QLineF edge1 = QLineF(cP, QPointF(c->GrControl1.x(), -c->GrControl1.y()));
+	QLineF edge2 = QLineF(cP, QPointF(c->GrControl2.x(), -c->GrControl2.y()));
+	QLineF edge3 = QLineF(cP, QPointF(c->GrControl3.x(), -c->GrControl3.y()));
+	QLineF edge4 = QLineF(cP, QPointF(c->GrControl4.x(), -c->GrControl4.y()));
+	QString TRes("");
+	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
+	{
+		uint shadeObjectT = newObject();
+		StartObj(shadeObjectT);
+		PutDoc("<<\n");
+		PutDoc("/ShadingType 6\n");
+		PutDoc("/ColorSpace /DeviceGray\n");
+		PutDoc("/BitsPerCoordinate 32\n");
+		PutDoc("/BitsPerComponent 16\n");
+		PutDoc("/BitsPerFlag 8\n");
+		QByteArray vertStreamT;
+		QDataStream vst(&vertStreamT, QIODevice::WriteOnly);
+		vst.setByteOrder(QDataStream::BigEndian);
+		quint8 flg = 0;
+		for (uint offset = 1; offset < c->fill_gradient.Stops(); ++offset)
+		{
+			QLineF e1 = edge1;
+			QLineF e1s = edge1;
+			QLineF e2 = edge2;
+			QLineF e2s = edge2;
+			QLineF e3 = edge3;
+			QLineF e3s = edge3;
+			QLineF e4 = edge4;
+			QLineF e4s = edge4;
+			e1.setLength(edge1.length() * StopVec[ offset ]);
+			e2.setLength(edge2.length() * StopVec[ offset ]);
+			e3.setLength(edge3.length() * StopVec[ offset ]);
+			e4.setLength(edge4.length() * StopVec[ offset ]);
+			e1s.setLength(edge1.length() * StopVec[ offset - 1 ]);
+			e2s.setLength(edge2.length() * StopVec[ offset - 1 ]);
+			e3s.setLength(edge3.length() * StopVec[ offset - 1 ]);
+			e4s.setLength(edge4.length() * StopVec[ offset - 1 ]);
+			if (offset == 1)
+			{
+				vst << flg;
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+				vst << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+				vst << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode16dVal(TransVec[0]) << encode16dVal(TransVec[1]) << encode16dVal(TransVec[1]) << encode16dVal(TransVec[0]);
+				vst << flg;
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+				vst << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+				vst << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode16dVal(TransVec[0]) << encode16dVal(TransVec[0]) << encode16dVal(TransVec[1]) << encode16dVal(TransVec[1]);
+				vst << flg;
+				vst << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+				vst << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+				vst << encode16dVal(TransVec[1]) << encode16dVal(TransVec[0]) << encode16dVal(TransVec[0]) << encode16dVal(TransVec[1]);
+				vst << flg;
+				vst << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+				vst << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+				vst << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+				vst << encode16dVal(TransVec[1]) << encode16dVal(TransVec[1]) << encode16dVal(TransVec[0]) << encode16dVal(TransVec[0]);
+			}
+			else
+			{
+				vst << flg;
+				vst << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+				vst << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+				vst << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2());
+				vst << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2());
+				vst << encode16dVal(TransVec[offset-1]) << encode16dVal(TransVec[offset]) << encode16dVal(TransVec[offset]) << encode16dVal(TransVec[offset-1]);
+				vst << flg;
+				vst << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2());
+				vst << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+				vst << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+				vst << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2());
+				vst << encode16dVal(TransVec[offset-1]) << encode16dVal(TransVec[offset-1]) << encode16dVal(TransVec[offset]) << encode16dVal(TransVec[offset]);
+				vst << flg;
+				vst << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2());
+				vst << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2());
+				vst << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+				vst << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+				vst << encode16dVal(TransVec[offset]) << encode16dVal(TransVec[offset-1]) << encode16dVal(TransVec[offset-1]) << encode16dVal(TransVec[offset]);
+				vst << flg;
+				vst << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+				vst << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2());
+				vst << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2());
+				vst << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+				vst << encode16dVal(TransVec[offset]) << encode16dVal(TransVec[offset]) << encode16dVal(TransVec[offset-1]) << encode16dVal(TransVec[offset-1]);
+			}
+		}
+		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
+		QString dat = "";
+		for (int vd = 0; vd < vertStreamT.count(); vd++)
+		{
+			dat += vertStreamT[vd];
+		}
+		if (Options.Compress)
+			dat = CompressStr(&dat);
+		PutDoc("/Length "+QString::number(dat.length())+"\n");
+		if (Options.Compress)
+			PutDoc("/Filter /FlateDecode\n");
+		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream\nendobj\n");
+		uint patObject = newObject();
+		StartObj(patObject);
+		PutDoc("<<\n/Type /Pattern\n");
+		PutDoc("/PatternType 2\n");
+		PutDoc("/Shading "+QString::number(shadeObjectT)+" 0 R\n");
+		PutDoc(">>\nendobj\n");
+		Patterns.insert("Pattern"+QString::number(patObject), patObject);
+		uint formObject = newObject();
+		StartObj(formObject);
+		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
+		PutDoc("/FormType 1\n");
+		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
+		double lw = c->lineWidth();
+		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(c->width()+lw)+" "+FToStr(-(c->height()+lw))+" ]\n");
+		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+		if (Patterns.count() != 0)
+		{
+			PutDoc("/Pattern << \n");
+			QMap<QString,int>::Iterator it3p;
+			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		PutDoc(">>\n");
+		QString stre = "q\n"+SetClipPath(c)+"h\n";
+		stre += FToStr(fabs(c->lineWidth()))+" w\n";
+		stre += "/Pattern cs\n";
+		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "Q\n";
+		if (Options.Compress)
+			stre = CompressStr(&stre);
+		PutDoc("/Length "+QString::number(stre.length())+"\n");
+		if (Options.Compress)
+			PutDoc("/Filter /FlateDecode\n");
+		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
+		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+		ResCount++;
+		QString GXName = ResNam+QString::number(ResCount);
+		ResCount++;
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		TRes = GXName;
+	}
+	QString entx = "";
+	uint spotObject = 0;
+	uint shadeObject = newObject();
+	StartObj(shadeObject);
+	PutDoc("<<\n");
+	PutDoc("/ShadingType 6\n");
+	if (Options.UseRGB)
+	{
+		PutDoc("/ColorSpace /DeviceRGB\n");
+		entx = "0 1 0 1 0 1";
+	}
+	else if (Options.isGrayscale)
+	{
+		PutDoc("/ColorSpace /DeviceGray\n");
+		entx = "0 1";
+	}
+	else if ((doc.HasCMS) && (Options.UseProfiles))
+	{
+		PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
+		entx = "0 1 0 1 0 1";
+	}
+	else
+	{
+		entx = "0 1 0 1 0 1 0 1";
+		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+		{
+			spotObject = newObject();
+			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
+			for (int sc = 0; sc < spotColorSet.count(); sc++)
+			{
+				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				entx += " 0 1";
+			}
+			PutDoc(" ]\n");
+			PutDoc("/DeviceCMYK\n");
+			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc("]\n");
+			spotMode = true;
+		}
+		else
+			PutDoc("/ColorSpace /DeviceCMYK\n");
+	}
+	PutDoc("/BitsPerCoordinate 32\n");
+	PutDoc("/BitsPerComponent 16\n");
+	PutDoc("/BitsPerFlag 8\n");
+	QByteArray vertStream;
+	QDataStream vs(&vertStream, QIODevice::WriteOnly);
+	vs.setByteOrder(QDataStream::BigEndian);
+	quint8 flg = 0;
+	for (uint offset = 1; offset < c->fill_gradient.Stops(); ++offset)
+	{
+		QLineF e1 = edge1;
+		QLineF e1s = edge1;
+		QLineF e2 = edge2;
+		QLineF e2s = edge2;
+		QLineF e3 = edge3;
+		QLineF e3s = edge3;
+		QLineF e4 = edge4;
+		QLineF e4s = edge4;
+		e1.setLength(edge1.length() * StopVec[ offset ]);
+		e2.setLength(edge2.length() * StopVec[ offset ]);
+		e3.setLength(edge3.length() * StopVec[ offset ]);
+		e4.setLength(edge4.length() * StopVec[ offset ]);
+		e1s.setLength(edge1.length() * StopVec[ offset - 1 ]);
+		e2s.setLength(edge2.length() * StopVec[ offset - 1 ]);
+		e3s.setLength(edge3.length() * StopVec[ offset - 1 ]);
+		e4s.setLength(edge4.length() * StopVec[ offset - 1 ]);
+		if (offset == 1)
+		{
+			vs << flg;
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+			vs << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+			vs << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+			vs << flg;
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+			vs << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+			vs << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			vs << flg;
+			vs << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+			vs << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			vs << flg;
+			vs << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+			vs << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y());
+			vs << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(cP.x()) << encode32dVal(cP.y()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[1], colorShades[1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[0], colorShades[0], spotColorSet, spotMode);
+		}
+		else
+		{
+			vs << flg;
+			vs << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+			vs << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+			vs << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2());
+			vs << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2());
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+			vs << flg;
+			vs << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2());
+			vs << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e2s.x2()) << encode32dVal(e2s.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2());
+			vs << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e2.x2()) << encode32dVal(e2.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+			vs << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2());
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			vs << flg;
+			vs << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2());
+			vs << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2());
+			vs << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e3s.x2()) << encode32dVal(e3s.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2());
+			vs << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e3.x2()) << encode32dVal(e3.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			vs << flg;
+			vs << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2());
+			vs << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1.x2()) << encode32dVal(e1.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2());
+			vs << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e1s.x2()) << encode32dVal(e1s.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2());
+			vs << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e4s.x2()) << encode32dVal(e4s.y2()) << encode32dVal(e4.x2()) << encode32dVal(e4.y2());
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset], colorShades[offset], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[offset-1], colorShades[offset-1], spotColorSet, spotMode);
+		}
+	}
+	PutDoc("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
+	QString dat = "";
+	for (int vd = 0; vd < vertStream.count(); vd++)
+	{
+		dat += vertStream[vd];
+	}
+	if (Options.Compress)
+		dat = CompressStr(&dat);
+	PutDoc("/Length "+QString::number(dat.length())+"\n");
+	if (Options.Compress)
+		PutDoc("/Filter /FlateDecode\n");
+	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream\nendobj\n");
+	uint patObject = newObject();
+	StartObj(patObject);
+	PutDoc("<<\n/Type /Pattern\n");
+	PutDoc("/PatternType 2\n");
+	QTransform mpa;
+	if (inPattern == 0)
+	{
+		mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
+		mpa.rotate(-c->rotation());
+	}
+	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
+	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
+	PutDoc(">>\nendobj\n");
+	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	if (spotMode)
+	{
+		QString colorDesc;
+		StartObj(spotObject);
+		PutDoc("<<\n/FunctionType 4\n");
+		PutDoc("/Domain [0 1 0 1 0 1 0 1");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutDoc(" 0 1");
+		}
+		PutDoc("]\n");
+		colorDesc = "{\n";
+		int maxSp = spotColorSet.count() - 1;
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			int cc = 0;
+			int mc = 0;
+			int yc = 0;
+			int kc = 0;
+			CMYKColor cmykValues;
+			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
+			cmykValues.getValues(cc, mc, yc, kc);
+			if (sc == 0)
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			else
+				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
+			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+		}
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			colorDesc += "8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n";
+		}
+		colorDesc += "}\n";
+		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
+		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+	}
+	QString tmp;
+	tmp += "q\n";
+	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
+	{
+		QString ShName = ResNam+QString::number(ResCount);
+		ResCount++;
+		Transpar[ShName] = writeGState("/ca "+FToStr(TransVec[TransVec.count()-1])+"\n/SMask /None\n/AIS false\n/OPM 1\n");
+		tmp += "/"+ShName+" gs\n";
+	}
+	tmp += putColor(colorNames[colorNames.count()-1], colorShades[colorShades.count()-1], true);
+	tmp += SetClipPath(c);
+	tmp += "h\n";
+	tmp += FToStr(c->GrControl1.x())+" "+FToStr(-c->GrControl1.y())+" m\n";
+	tmp += FToStr(c->GrControl2.x())+" "+FToStr(-c->GrControl2.y())+" l\n";
+	tmp += FToStr(c->GrControl3.x())+" "+FToStr(-c->GrControl3.y())+" l\n";
+	tmp += FToStr(c->GrControl4.x())+" "+FToStr(-c->GrControl4.y())+" l\n";
+	tmp += "h\nf*\n";
+	tmp += "Q\n";
+	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
+		tmp += "/"+TRes+" gs\n";
+	tmp += "/Pattern cs\n";
+	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+	output = tmp;
+	return true;
+
+}
+
 bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 {
 	QList<int> colorShades;
@@ -6672,6 +7113,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		GType = currItem->GrType;
 		if (GType == 9)
 			return PDF_TensorGradientFill(output, currItem);
+		else if (GType == 10)
+			return PDF_DiamondGradientFill(output, currItem);
 		StartX = currItem->GrStartX;
 		StartY = currItem->GrStartY;
 		EndX = currItem->GrEndX;
@@ -7050,684 +7493,6 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	}
 	output = tmp;
 	return true;
-}
-
-bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
-{
-	if (currItem->GrType == 8)
-	{
-		QStack<PageItem*> groupStack;
-		QString tmp2 = "", tmpOut;
-		ScPattern *pat = &doc.docPatterns[currItem->pattern()];
-		for (int em = 0; em < pat->items.count(); ++em)
-		{
-			PageItem* item = pat->items.at(em);
-			if (item->isGroupControl)
-			{
-				tmp2 += "q\n";
-				FPointArray cl = item->PoLine.copy();
-				FPointArray clb = item->PoLine.copy();
-				QTransform mm;
-				mm.translate(item->gXpos, item->gYpos - pat->height);
-				mm.rotate(item->rotation());
-				cl.map( mm );
-				item->PoLine = cl;
-				tmp2 += SetClipPath(item);
-				tmp2 += "h W* n\n";
-				groupStack.push(item->groupsLastItem);
-				item->PoLine = clb.copy();
-				continue;
-			}
-			tmp2 += "q\n";
-			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
-			item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
-			inPattern++;
-			if (!PDF_ProcessItem(tmpOut, item, doc.DocPages.at(0), 0, true, true))
-				return false;
-			tmp2 += tmpOut;
-			item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
-			inPattern--;
-			tmp2 += "Q\n";
-			if (groupStack.count() != 0)
-			{
-				while (item == groupStack.top())
-				{
-					tmp2 += "Q\n";
-					groupStack.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
-		}
-		for (int em = 0; em < pat->items.count(); ++em)
-		{
-			PageItem* item = pat->items.at(em);
-			if (!item->isTableItem)
-				continue;
-			if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
-				continue;
-			tmp2 += "q\n";
-			if ((item->doOverprint) && (!Options.UseRGB))
-			{
-				QString ShName = ResNam+QString::number(ResCount);
-				ResCount++;
-				Transpar[ShName] = writeGState("/OP true\n"
-											"/op true\n"
-											"/OPM 1\n");
-				tmp2 += "/"+ShName+" gs\n";
-			}
-			if (((item->lineTransparency() != 0) || (item->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
-				tmp2 += PDF_TransparenzStroke(item);
-			if (item->lineColor() != CommonStrings::None)
-				tmp2 += putColor(item->lineColor(), item->lineShade(), false);
-			tmp2 += FToStr(fabs(item->lineWidth()))+" w\n";
-			if (item->DashValues.count() != 0)
-			{
-				tmp2 += "[ ";
-				QVector<double>::iterator it;
-				for ( it = item->DashValues.begin(); it != item->DashValues.end(); ++it )
-				{
-					int da = static_cast<int>(*it);
-					// #8758: Custom dotted lines don't export properly to pdf
-					// Null values have to be exported if line end != flat
-					if ((da != 0) || (item->lineEnd() != Qt::FlatCap))
-						tmp2 += QString::number(da)+" ";
-				}
-				tmp2 += "] "+QString::number(static_cast<int>(item->DashOffset))+" d\n";
-			}
-			else
-				tmp2 += "["+getDashString(item->PLineArt, item->lineWidth())+"] 0 d\n";
-			tmp2 += "2 J\n";
-			switch (item->PLineJoin)
-			{
-				case Qt::MiterJoin:
-					tmp2 += "0 j\n";
-					break;
-				case Qt::BevelJoin:
-					tmp2 += "2 j\n";
-					break;
-				case Qt::RoundJoin:
-					tmp2 += "1 j\n";
-					break;
-				default:
-					tmp2 += "0 j\n";
-					break;
-			}
-			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
-			if (item->rotation() != 0)
-			{
-				double sr = sin(-item->rotation()* M_PI / 180.0);
-				double cr = cos(-item->rotation()* M_PI / 180.0);
-				if ((cr * cr) < 0.000001)
-					cr = 0;
-				if ((sr * sr) < 0.000001)
-					sr = 0;
-				tmp2 += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n";
-			}
-			if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
-			{
-				if (item->TopLine)
-				{
-					tmp2 += "0 0 m\n";
-					tmp2 += FToStr(item->width())+" 0 l\n";
-				}
-				if (item->RightLine)
-				{
-					tmp2 += FToStr(item->width())+" 0 m\n";
-					tmp2 += FToStr(item->width())+" "+FToStr(-item->height())+" l\n";
-				}
-				if (item->BottomLine)
-				{
-					tmp2 += "0 "+FToStr(-item->height())+" m\n";
-					tmp2 += FToStr(item->width())+" "+FToStr(-item->height())+" l\n";
-				}
-				if (item->LeftLine)
-				{
-					tmp2 += "0 0 m\n";
-					tmp2 += "0 "+FToStr(-item->height())+" l\n";
-				}
-				tmp2 += "S\n";
-			}
-			tmp2 += "Q\n";
-		}
-		if (Options.Compress)
-			tmp2 = CompressStr(&tmp2);
-		uint patObject = newObject();
-		StartObj(patObject);
-		PutDoc("<< /Type /Pattern\n");
-		PutDoc("/PatternType 1\n");
-		PutDoc("/PaintType 1\n");
-		PutDoc("/TilingType 1\n");
-		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(pat->height)+" ]\n");
-		QTransform mpa;
-		if (inPattern == 0)
-		{
-			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-			mpa.rotate(-currItem->rotation());
-		}
-		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-		bool mirrorX, mirrorY;
-		currItem->patternFlip(mirrorX, mirrorY);
-		mpa.translate(patternOffsetX, -patternOffsetY);
-		mpa.rotate(-patternRotation);
-		mpa.shear(patternSkewX, -patternSkewY);
-		mpa.scale(pat->scaleX, pat->scaleY);
-		mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
-		if (mirrorX)
-			mpa.scale(-1, 1);
-		if (mirrorY)
-			mpa.scale(1, -1);
-		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
-		PutDoc("/XStep "+FToStr(pat->width)+"\n");
-		PutDoc("/YStep "+FToStr(pat->height)+"\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Seite.ImgObjects.count() != 0)
-		{
-			PutDoc("/XObject <<\n");
-			QMap<QString,int>::Iterator it;
-			for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-				PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		if (Seite.FObjects.count() != 0)
-		{
-			PutDoc("/Font << \n");
-			QMap<QString,int>::Iterator it2;
-			for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-				PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		if (Shadings.count() != 0)
-		{
-			PutDoc("/Shading << \n");
-			QMap<QString,int>::Iterator it3;
-			for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-				PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		if (Transpar.count() != 0)
-		{
-			PutDoc("/ExtGState << \n");
-			QMap<QString,int>::Iterator it3t;
-			for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-				PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
-		{
-			PutDoc("/ColorSpace << \n");
-			QMap<QString,ICCD>::Iterator it3c;
-			if (ICCProfiles.count() != 0)
-			{
-				for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-					PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
-			}
-			QMap<QString,SpotC>::Iterator it3sc;
-			if (spotMap.count() != 0)
-			{
-				for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-					PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
-			}
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		PutDoc("/Length "+QString::number(tmp2.length()));
-		if (Options.Compress)
-			PutDoc("\n/Filter /FlateDecode");
-		PutDoc(" >>\nstream\n"+EncStream(tmp2, patObject)+"\nendstream\nendobj\n");
-		Patterns.insert("Pattern"+QString::number(patObject), patObject);
-		QString tmp = "/Pattern cs\n";
-		tmp += "/Pattern"+QString::number(patObject)+" scn\n";
-		tmp += SetClipPath(currItem);
-		if (currItem->fillRule)
-			tmp += "h\nf*\n";
-		else
-			tmp += "h\nf\n";
-		ResCount++;
-		output = tmp;
-		return true;
-	}
-	double StartX = currItem->GrStartX;
-	double StartY = -currItem->GrStartY;
-	double EndX = currItem->GrEndX;
-	double EndY =- currItem->GrEndY;
-	QList<double> StopVec;
-	QList<double> TransVec;
-	QStringList Gcolors;
-	QStringList colorNames;
-	QList<int> colorShades;
-	QList<VColorStop*> cstops = currItem->fill_gradient.colorStops();
-	StopVec.clear();
-	TransVec.clear();
-	Gcolors.clear();
-	colorNames.clear();
-	colorShades.clear();
-	double lastStop = -1.0;
-	double actualStop = 0.0;
-	bool isFirst = true;
-	if ((currItem->GrType == 5) || (currItem->GrType == 7))
-	{
-		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
-		{
-			actualStop = cstops.at(cst)->rampPoint;
-//			if ((actualStop != lastStop) || (isFirst))
-//			{
-				isFirst = false;
-				lastStop = actualStop;
-				TransVec.prepend(cstops.at(cst)->opacity);
-				StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-				Gcolors.prepend(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
-				colorNames.prepend(cstops.at(cst)->name);
-				colorShades.prepend(cstops.at(cst)->shade);
-//			}
-		}
-	}
-	else
-	{
-		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
-		{
-			actualStop = cstops.at(cst)->rampPoint;
-//			if ((actualStop != lastStop) || (isFirst))
-//			{
-				isFirst = false;
-				lastStop = actualStop;
-				double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
-				double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
-				TransVec.append(cstops.at(cst)->opacity);
-				StopVec.append(x);
-				StopVec.append(y);
-				Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
-				colorNames.append(cstops.at(cst)->name);
-				colorShades.append(cstops.at(cst)->shade);
-//			}
-		}
-	}
-	output = PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors, colorNames, colorShades);
-	return true;
-}
-
-QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, QList<double> Trans, const QStringList& Colors, QStringList colorNames, QList<int> colorShades)
-{
-	QString tmp("");
-	bool first = true;
-	bool oneSameSpot = false;
-	bool oneSpot1 = false;
-	bool oneSpot2 = false;
-	bool twoSpot  = false;
-	bool spotMode = false;
-	uint spotObject = 0;
-	int cc, mc, yc, kc;
-	CMYKColor cmykValues;
-	double w = currItem->width();
-	double h = -currItem->height();
-	double w2 = currItem->GrStartX;
-	double h2 = -currItem->GrStartY;
-	int colorsCountm1=Colors.count()-1;
-	for (int c = 0; c < colorsCountm1; ++c)
-	{
-		bool sameCoord = false;
-		oneSameSpot = false;
-		oneSpot1 = false;
-		oneSpot2 = false;
-		twoSpot = false;
-		spotMode = false;
-		QString spot1 = colorNames[c].simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
-		QString spot2 = colorNames[c+1].simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
-		QString TRes("");
-		if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
-		{
-			uint shadingObject = newObject();
-			StartObj(shadingObject);
-			QString ShName = ResNam+QString::number(ResCount);
-			Shadings[ShName] = shadingObject;
-			ResCount++;
-			PutDoc("<<\n");
-			if ((currItem->GrType == 5) || (currItem->GrType == 7))
-				PutDoc("/ShadingType 3\n");
-			else
-				PutDoc("/ShadingType 2\n");
-			PutDoc("/ColorSpace /DeviceGray\n");
-			PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
-			if ((currItem->GrType == 5) || (currItem->GrType == 7))
-			{
-				PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(Stops.at(c+1))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(Stops.at(c))+"]\n");
-				PutDoc("/Extend [true true]\n");
-				PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-				PutDoc("/C0 ["+FToStr(Trans.at(c+1))+"]\n");
-				PutDoc("/C1 ["+FToStr(Trans.at(c))+"]\n");
-			}
-			else
-			{
-				PutDoc("/Coords ["+FToStr(Stops.at(c*2))+"  "+FToStr(Stops.at(c*2+1))+" "+FToStr(Stops.at(c*2+2))+" "+FToStr(Stops.at(c*2+3))+"]\n");
-				PutDoc("/Extend [true true]\n");
-				PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-				PutDoc("/C0 ["+FToStr(Trans.at(c))+"]\n");
-				PutDoc("/C1 ["+FToStr(Trans.at(c+1))+"]\n");
-			}
-			PutDoc("/N 1\n>>\n>>\nendobj\n");
-			uint formObject = newObject();
-			StartObj(formObject);
-			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
-			PutDoc("/FormType 1\n");
-			PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
-			PutDoc("/BBox [ 0 0 "+FToStr(currItem->width())+" "+FToStr(-currItem->height())+" ]\n");
-			PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-			if (Shadings.count() != 0)
-			{
-				PutDoc("/Shading << \n");
-				QMap<QString,int>::Iterator it3;
-				for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-					PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
-				PutDoc(">>\n");
-			}
-			PutDoc(">>\n");
-			QString stre = "";
-			stre += "q\n"+SetClipPath(currItem)+"h\nW* n\n"+"/"+ShName+" sh\nQ\n";
-			if (Options.Compress)
-				stre = CompressStr(&stre);
-			PutDoc("/Length "+QString::number(stre.length())+"\n");
-			if (Options.Compress)
-				PutDoc("/Filter /FlateDecode\n");
-			PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-			Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
-			ResCount++;
-			QString GXName = ResNam+QString::number(ResCount);
-			ResCount++;
-			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n"
-										   + "/BM /Normal\n");
-			TRes = GXName;
-		}
-		uint shadingObject2 = newObject();
-		StartObj(shadingObject2);
-		QString ShName = ResNam+QString::number(ResCount);
-		Shadings[ShName] = shadingObject2;
-		ResCount++;
-		PutDoc("<<\n");
-		if ((currItem->GrType == 5) || (currItem->GrType == 7))
-			PutDoc("/ShadingType 3\n");
-		else
-			PutDoc("/ShadingType 2\n");
-		if (Options.UseRGB)
-			PutDoc("/ColorSpace /DeviceRGB\n");
-		else
-		{
-			if (Options.isGrayscale)
-				PutDoc("/ColorSpace /DeviceGray\n");
-			else
-			{
-				if ((doc.HasCMS) && (Options.UseProfiles))
-					PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
-				else
-				{
-					if (spotMap.contains(colorNames[c]))
-						oneSpot1 = true;
-					if  (spotMap.contains(colorNames[c+1]))
-						oneSpot2 = true;
-					if (oneSpot1 && oneSpot2)
-					{
-						oneSpot1 = oneSpot2 = false;
-						oneSameSpot = (colorNames[c] == colorNames[c+1]);
-						twoSpot  = true;
-					}
-					if (((!oneSpot1) && (!oneSpot2) && (!twoSpot)) || (!Options.UseSpotColors))
-						PutDoc("/ColorSpace /DeviceCMYK\n");
-					else
-					{
-						spotMode = true;
-						spotObject = newObject();
-						PutDoc("/ColorSpace [ /DeviceN [");
-						if (oneSameSpot)
-							PutDoc(" /"+spot1+" ]\n");
-						else if (oneSpot1)
-							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot1+" ]\n");
-						else if (oneSpot2)
-							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot2+" ]\n");
-						else if (twoSpot)
-							PutDoc(" /"+spot1+" /"+spot2+" ]\n");
-						PutDoc("/DeviceCMYK\n");
-						PutDoc(QString::number(spotObject)+" 0 R\n");
-						PutDoc("]\n");
-					}
-				}
-			}
-		}
-		PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
-		if ((currItem->GrType == 5) || (currItem->GrType == 7))
-		{
-			if (Stops.at(c) == Stops.at(c+1))
-				sameCoord = true;
-			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(Stops.at(c+1))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(Stops.at(c))+"]\n");
-			if (Colors.count() == 2)
-				PutDoc("/Extend [true true]\n");
-			else
-			{
-				if (first)
-					PutDoc("/Extend [false true]\n");
-				else
-				{
-					if (c == Colors.count()-2)
-						PutDoc("/Extend [true false]\n");
-					else
-						PutDoc("/Extend [false false]\n");
-				}
-			}
-			first = false;
-			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-			if (Options.UseSpotColors)
-			{
-				if (oneSameSpot)
-				{
-					PutDoc("/C0 ["+FToStr(colorShades[c] / 100.0)+"]\n");
-					PutDoc("/C1 ["+FToStr(colorShades[c+1] / 100.0)+"]\n");
-				}
-				else if (oneSpot1)
-				{
-					PutDoc("/C1 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
-					PutDoc("/C0 ["+Colors[c+1]+" 0 ]\n");
-				}
-				else if (oneSpot2)
-				{
-					PutDoc("/C1 ["+Colors[c]+" 0 ]\n");
-					PutDoc("/C0 [0 0 0 0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
-				}
-				else if (twoSpot)
-				{
-					PutDoc("/C1 ["+FToStr(colorShades[c] / 100.0)+" 0]\n");
-					PutDoc("/C0 [0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
-				}
-				else
-				{
-					PutDoc("/C1 ["+Colors[c]+"]\n");
-					PutDoc("/C0 ["+Colors[c+1]+"]\n");
-				}
-			}
-			else
-			{
-				PutDoc("/C0 ["+Colors[c+1]+"]\n");
-				PutDoc("/C1 ["+Colors[c]+"]\n");
-			}
-		}
-		else
-		{
-			if ((Stops.at(c*2) == Stops.at(c*2+2)) && (Stops.at(c*2+1) == Stops.at(c*2+3)))
-				sameCoord = true;
-			PutDoc("/Coords ["+FToStr(Stops.at(c*2))+"  "+FToStr(Stops.at(c*2+1))+" "+FToStr(Stops.at(c*2+2))+" "+FToStr(Stops.at(c*2+3))+"]\n");
-			if (Colors.count() == 2)
-				PutDoc("/Extend [true true]\n");
-			else
-			{
-				if (first)
-					PutDoc("/Extend [true false]\n");
-				else
-				{
-					if (c == Colors.count()-2)
-						PutDoc("/Extend [false true]\n");
-					else
-						PutDoc("/Extend [false false]\n");
-				}
-			}
-			first = false;
-			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-			if (Options.UseSpotColors)
-			{
-				if (oneSameSpot)
-				{
-					PutDoc("/C0 ["+FToStr(colorShades[c] / 100.0)+"]\n");
-					PutDoc("/C1 ["+FToStr(colorShades[c+1] / 100.0)+"]\n");
-				}
-				else if (oneSpot1)
-				{
-					PutDoc("/C0 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
-					PutDoc("/C1 ["+Colors[c+1]+" 0 ]\n");
-				}
-				else if (oneSpot2)
-				{
-					PutDoc("/C0 ["+Colors[c]+" 0 ]\n");
-					PutDoc("/C1 [0 0 0 0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
-				}
-				else if (twoSpot)
-				{
-					PutDoc("/C0 ["+FToStr(colorShades[c] / 100.0)+" 0]\n");
-					PutDoc("/C1 [0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
-				}
-				else
-				{
-					PutDoc("/C0 ["+Colors[c]+"]\n");
-					PutDoc("/C1 ["+Colors[c+1]+"]\n");
-				}
-			}
-			else
-			{
-				PutDoc("/C0 ["+Colors[c]+"]\n");
-				PutDoc("/C1 ["+Colors[c+1]+"]\n");
-			}
-		}
-		PutDoc("/N 1\n>>\n>>\nendobj\n");
-		if (spotMode)
-		{
-			QString colorDesc;
-			StartObj(spotObject);
-			PutDoc("<<\n/FunctionType 4\n");
-			if (oneSameSpot)
-			{
-				PutDoc("/Domain [0.0 1.0]\n");
-				if (colorNames[c] == CommonStrings::None)
-				{
-					cc = 0;
-					mc = 0;
-					yc = 0;
-					kc = 0;
-				}
-				else
-				{
-					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
-					cmykValues.getValues(cc, mc, yc, kc);
-				}
-				colorDesc = "{\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul exch pop\n}\n";
-			}
-			else if (twoSpot)
-			{
-				PutDoc("/Domain [0.0 1.0 0.0 1.0]\n");
-				if (colorNames[c] == CommonStrings::None)
-				{
-					cc = 0;
-					mc = 0;
-					yc = 0;
-					kc = 0;
-				}
-				else
-				{
-					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
-					cmykValues.getValues(cc, mc, yc, kc);
-				}
-				colorDesc = "{\nexch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub exch\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub exch pop 5 -1 roll\n";
-				if (colorNames[c+1] == CommonStrings::None)
-				{
-					cc = 0;
-					mc = 0;
-					yc = 0;
-					kc = 0;
-				}
-				else
-				{
-					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
-					cmykValues.getValues(cc, mc, yc, kc);
-				}
-				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll mul 1.0 exch sub 5 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 1.0 exch sub 5 -1 roll mul 1.0 exch sub 4 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 1.0 exch sub 4 -1 roll mul 1.0 exch sub 3 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 1.0 exch sub 3 -1 roll mul 1.0 exch sub 2 1 roll pop\n}\n";
-			}
-			else
-			{
-				PutDoc("/Domain [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
-				if (oneSpot1)
-				{
-					if (colorNames[c] == CommonStrings::None)
-					{
-						cc = 0;
-						mc = 0;
-						yc = 0;
-						kc = 0;
-					}
-					else
-					{
-						ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
-						cmykValues.getValues(cc, mc, yc, kc);
-					}
-				}
-				else
-				{
-					if (colorNames[c+1] == CommonStrings::None)
-					{
-						cc = 0;
-						mc = 0;
-						yc = 0;
-						kc = 0;
-					}
-					else
-					{
-						ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
-						cmykValues.getValues(cc, mc, yc, kc);
-					}
-				}
-				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 1.0 exch sub 6 -1 roll 1.0 exch sub mul 1.0 exch sub 5 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)  +" mul 1.0 exch sub 5 -1 roll 1.0 exch sub mul 1.0 exch sub 4 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)  +" mul 1.0 exch sub 4 -1 roll 1.0 exch sub mul 1.0 exch sub 3 1 roll\n";
-				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)  +" mul 1.0 exch sub 3 -1 roll 1.0 exch sub mul 1.0 exch sub 2 1 roll pop\n}\n";
-			}
-			PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
-			PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
-			PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
-		}
-		if (!sameCoord)
-		{
-		tmp += "q\n";
-		if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
-			tmp += "/"+TRes+" gs\n";
-		tmp += SetClipPath(currItem);
-		tmp += "h\nW* n\n";
-		tmp += "/"+ShName+" sh\nQ\n";
-		}
-	}
-	return tmp;
 }
 
 #ifdef HAVE_OSG

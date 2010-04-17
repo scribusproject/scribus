@@ -135,6 +135,7 @@ struct CopyPasteBuffer
 	FPoint GrControl2;
 	FPoint GrControl3;
 	FPoint GrControl4;
+	FPoint GrControl5;
 	QString GrColorP1;
 	QString GrColorP2;
 	QString GrColorP3;

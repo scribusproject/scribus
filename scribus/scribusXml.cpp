@@ -203,6 +203,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 			OB->GrControl2 = FPoint(attrAsDbl(attrs, "GRC2X", 0.0), attrAsDbl(attrs, "GRC2Y", 0.0));
 			OB->GrControl3 = FPoint(attrAsDbl(attrs, "GRC3X", 0.0), attrAsDbl(attrs, "GRC3Y", 0.0));
 			OB->GrControl4 = FPoint(attrAsDbl(attrs, "GRC4X", 0.0), attrAsDbl(attrs, "GRC4Y", 0.0));
+			OB->GrControl5 = FPoint(attrAsDbl(attrs, "GRC5X", 0.0), attrAsDbl(attrs, "GRC5Y", 0.0));
 			OB->GrColorP1  = attrAsString(attrs, "GRCOLP1", "Black");
 			OB->GrColorP2  = attrAsString(attrs, "GRCOLP2", "Black");
 			OB->GrColorP3  = attrAsString(attrs, "GRCOLP3", "Black");
@@ -2477,7 +2478,7 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("GRFOCALY", item->GrFocalY);
 		writer.writeAttribute("GRSCALE" , item->GrScale);
 		writer.writeAttribute("GRSKEW"  , item->GrSkew);
-		if (item->GrType == 9)
+		if ((item->GrType == 9) || (item->GrType == 10))
 		{
 			writer.writeAttribute("GRC1X"   , item->GrControl1.x());
 			writer.writeAttribute("GRC1Y"   , item->GrControl1.y());
@@ -2499,6 +2500,8 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 			writer.writeAttribute("GRCOLS2" , item->GrCol1Shade);
 			writer.writeAttribute("GRCOLS3" , item->GrCol1Shade);
 			writer.writeAttribute("GRCOLS4" , item->GrCol1Shade);
+			writer.writeAttribute("GRC5X"   , item->GrControl5.x());
+			writer.writeAttribute("GRC5Y"   , item->GrControl5.y());
 		}
 	}
 	if (item->GrTypeStroke > 0)

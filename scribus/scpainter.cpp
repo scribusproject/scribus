@@ -992,6 +992,20 @@ void ScPainter::set4ColorColors(QColor col1, QColor col2, QColor col3, QColor co
 	gradPatchColor4 = col4;
 }
 
+void ScPainter::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5)
+{
+	fill_gradient.setType(VGradient::diamond);
+	gradPatchP1 = p1;
+	gradPatchP2 = p2;
+	gradPatchP3 = p3;
+	gradPatchP4 = p4;
+	gradControlP1 = c1;
+	gradControlP2 = c2;
+	gradControlP3 = c3;
+	gradControlP4 = c4;
+	gradControlP5 = c5;
+}
+
 void ScPainter::fillTextPath()
 {
 	drawVPath( 0 );
@@ -1398,6 +1412,197 @@ void ScPainter::drawVPath( int mode )
 				pat = cairo_pattern_create_rgba(acr / 4.0, acg / 4.0, acb / 4.0, aca / 4.0);
 #endif
 			}
+			else if (fill_gradient.type() == VGradient::diamond)
+			{
+#ifdef HAVE_PRIVATE_CAIRO
+				double p1x = gradControlP1.x();
+				double p1y = gradControlP1.y();
+				double p2x = gradControlP2.x();
+				double p2y = gradControlP2.y();
+				double p3x = gradControlP3.x();
+				double p3y = gradControlP3.y();
+				double p4x = gradControlP4.x();
+				double p4y = gradControlP4.y();
+			//	QPolygonF polygon;
+			//	polygon << QPointF(p1x, p1y) << QPointF(p2x, p2y) << QPointF(p3x, p3y) << QPointF(p4x, p4y);
+			//	QRectF polyB = polygon.boundingRect().normalized();
+			//	img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, polyB.x() + polyB.width(), polyB.y() + polyB.height());
+				img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, gradPatchP3.x(), gradPatchP3.y());
+				cr = cairo_create(img);
+				cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
+				cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+				cairo_set_tolerance(cr, 0.5 );
+				double r, g, b, a;
+				QList<VColorStop*> colorStops = fill_gradient.colorStops();
+				QList<QColor> qStopColors;
+				QColor qStopColor;
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					qStopColor.setAlphaF(colorStops[offset]->opacity);
+					qStopColors.append(qStopColor);
+				}
+				QPointF centerP = QPointF(gradControlP5.x(), gradControlP5.y());
+//				QLineF(p1x, p1y, p3x, p3y).intersect(QLineF(p4x, p4y, p2x, p2y), &centerP);
+				QLineF edge1 = QLineF(centerP, QPointF(p1x, p1y));
+				QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));
+				QLineF edge3 = QLineF(centerP, QPointF(p3x, p3y));
+				QLineF edge4 = QLineF(centerP, QPointF(p4x, p4y));
+				mpat = cairo_pattern_create_mesh();
+
+				for( int offset = 1 ; offset < colorStops.count() ; offset++ )
+				{
+					QLineF e1 = edge1;
+					QLineF e1s = edge1;
+					QLineF e2 = edge2;
+					QLineF e2s = edge2;
+					QLineF e3 = edge3;
+					QLineF e3s = edge3;
+					QLineF e4 = edge4;
+					QLineF e4s = edge4;
+					e1.setLength(edge1.length() * colorStops[ offset ]->rampPoint);
+					e2.setLength(edge2.length() * colorStops[ offset ]->rampPoint);
+					e3.setLength(edge3.length() * colorStops[ offset ]->rampPoint);
+					e4.setLength(edge4.length() * colorStops[ offset ]->rampPoint);
+					e1s.setLength(edge1.length() * colorStops[ offset - 1 ]->rampPoint);
+					e2s.setLength(edge2.length() * colorStops[ offset - 1 ]->rampPoint);
+					e3s.setLength(edge3.length() * colorStops[ offset - 1 ]->rampPoint);
+					e4s.setLength(edge4.length() * colorStops[ offset - 1 ]->rampPoint);
+					if (offset == 1)
+					{
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, centerP.x(), centerP.y());
+						cairo_pattern_line_to(mpat, e1.x2(), e1.y2());
+						cairo_pattern_line_to(mpat, e2.x2(), e2.y2());
+						cairo_pattern_line_to(mpat, centerP.x(), centerP.y());
+						qStopColors[0].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, centerP.x(), centerP.y());
+						cairo_pattern_line_to(mpat, e2.x2(), e2.y2());
+						cairo_pattern_line_to(mpat, e3.x2(), e3.y2());
+						cairo_pattern_line_to(mpat, centerP.x(), centerP.y());
+						qStopColors[0].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, centerP.x(), centerP.y());
+						cairo_pattern_line_to(mpat, e3.x2(), e3.y2());
+						cairo_pattern_line_to(mpat, e4.x2(), e4.y2());
+						cairo_pattern_line_to(mpat, centerP.x(), centerP.y());
+						qStopColors[0].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, centerP.x(), centerP.y());
+						cairo_pattern_line_to(mpat, e4.x2(), e4.y2());
+						cairo_pattern_line_to(mpat, e1.x2(), e1.y2());
+						cairo_pattern_line_to(mpat, centerP.x(), centerP.y());
+						qStopColors[0].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+					}
+					else
+					{
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, e1s.x2(), e1s.y2());
+						cairo_pattern_line_to(mpat, e1.x2(), e1.y2());
+						cairo_pattern_line_to(mpat, e2.x2(), e2.y2());
+						cairo_pattern_line_to(mpat, e2s.x2(), e2s.y2());
+						cairo_pattern_move_to(mpat, e1s.x2(), e1s.y2());
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[offset].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, e2s.x2(), e2s.y2());
+						cairo_pattern_line_to(mpat, e2.x2(), e2.y2());
+						cairo_pattern_line_to(mpat, e3.x2(), e3.y2());
+						cairo_pattern_line_to(mpat, e3s.x2(), e3s.y2());
+						cairo_pattern_move_to(mpat, e2s.x2(), e2s.y2());
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[offset].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, e3s.x2(), e3s.y2());
+						cairo_pattern_line_to(mpat, e3.x2(), e3.y2());
+						cairo_pattern_line_to(mpat, e4.x2(), e4.y2());
+						cairo_pattern_line_to(mpat, e4s.x2(), e4s.y2());
+						cairo_pattern_move_to(mpat, e3s.x2(), e3s.y2());
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[offset].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, e4s.x2(), e4s.y2());
+						cairo_pattern_line_to(mpat, e4.x2(), e4.y2());
+						cairo_pattern_line_to(mpat, e1.x2(), e1.y2());
+						cairo_pattern_line_to(mpat, e1s.x2(), e1s.y2());
+						cairo_pattern_move_to(mpat, e4s.x2(), e4s.y2());
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						qStopColors[offset].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+					}
+				}
+				cairo_pattern_set_filter(mpat, CAIRO_FILTER_GOOD);
+
+				qStopColors[qStopColors.count()-1].getRgbF(&r, &g, &b, &a);
+				cairo_set_source_rgba(cr, r, g, b, a);
+				cairo_paint_with_alpha(cr, 1.0);
+				cairo_set_operator(cr, CAIRO_OPERATOR_DEST_OUT);
+				cairo_new_path(cr);
+				cairo_move_to(cr, p1x, p1y);
+				cairo_line_to(cr, p2x, p2y);
+				cairo_line_to(cr, p3x, p3y);
+				cairo_line_to(cr, p4x, p4y);
+				cairo_close_path(cr);
+				cairo_set_source_rgba(cr, 0, 0, 0, 1);
+				cairo_fill(cr);
+				cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
+				cairo_set_source(cr, mpat);
+				cairo_paint_with_alpha(cr, 1.0);
+				pat = cairo_pattern_create_for_surface(img);
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
+				cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+#endif
+			}
 			else
 			{
 				double x1 = fill_gradient.origin().x();
@@ -1472,7 +1677,7 @@ void ScPainter::drawVPath( int mode )
 			}
 			cairo_pattern_destroy (pat);
 #ifdef HAVE_PRIVATE_CAIRO
-			if (fill_gradient.type() == VGradient::fourcolor)
+			if ((fill_gradient.type() == VGradient::fourcolor) || (fill_gradient.type() == VGradient::diamond))
 			{
 				cairo_surface_destroy(img);
 				cairo_pattern_destroy(mpat);

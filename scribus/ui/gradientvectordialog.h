@@ -48,17 +48,19 @@ public:
 	void selectLinear();
 	void selectRadial();
 	void selectFourColor();
+	void selectDiamond();
 
 public slots:
 	void languageChange();
-	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
+	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void changeSpecialL();
 	void changeSpecialR();
 	void changeSpecialF();
+	void changeSpecialD();
 	void unitChange(int unitIndex);
 
 signals:
-	void NewSpecial(double, double, double, double, double, double, double, double);
+	void NewSpecial(double, double, double, double, double, double, double, double, double, double);
 
 };
 #endif

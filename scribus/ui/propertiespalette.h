@@ -291,7 +291,7 @@ private slots:
 	void DoFlow();
 	void MakeIrre(int f, int c, qreal *vals);
 	void NewTDist();
-	void NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
+	void NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void toggleGradientEdit(int);
 	void NewSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void toggleGradientEditM();
