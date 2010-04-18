@@ -197,9 +197,9 @@ void ColorManager::saveDefaults()
 		dia->setEditText(Name, false);
 	if (dia->exec())
 	{
-		QString Fname = Cpfad+dia->getEditText();
+		QString Fname = dia->getEditText();
 		Fname.replace(" ", "_");
-		Fname += ".xml";
+		Fname  = Cpfad + Fname;
 		QFile fx(Fname);
 		if (fx.open(QIODevice::WriteOnly))
 		{
