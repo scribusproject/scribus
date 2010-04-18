@@ -1423,10 +1423,6 @@ void ScPainter::drawVPath( int mode )
 				double p3y = gradControlP3.y();
 				double p4x = gradControlP4.x();
 				double p4y = gradControlP4.y();
-			//	QPolygonF polygon;
-			//	polygon << QPointF(p1x, p1y) << QPointF(p2x, p2y) << QPointF(p3x, p3y) << QPointF(p4x, p4y);
-			//	QRectF polyB = polygon.boundingRect().normalized();
-			//	img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, polyB.x() + polyB.width(), polyB.y() + polyB.height());
 				img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, gradPatchP3.x(), gradPatchP3.y());
 				cr = cairo_create(img);
 				cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
@@ -1448,14 +1444,25 @@ void ScPainter::drawVPath( int mode )
 					qStopColor.setAlphaF(colorStops[offset]->opacity);
 					qStopColors.append(qStopColor);
 				}
+				qStopColors[qStopColors.count()-1].getRgbF(&r, &g, &b, &a);
+				cairo_set_source_rgba(cr, r, g, b, a);
+				cairo_paint_with_alpha(cr, 1.0);
+				cairo_set_operator(cr, CAIRO_OPERATOR_DEST_OUT);
+				cairo_new_path(cr);
+				cairo_move_to(cr, p1x, p1y);
+				cairo_line_to(cr, p2x, p2y);
+				cairo_line_to(cr, p3x, p3y);
+				cairo_line_to(cr, p4x, p4y);
+				cairo_close_path(cr);
+				cairo_set_source_rgba(cr, 0, 0, 0, 1);
+				cairo_fill(cr);
+				cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 				QPointF centerP = QPointF(gradControlP5.x(), gradControlP5.y());
-//				QLineF(p1x, p1y, p3x, p3y).intersect(QLineF(p4x, p4y, p2x, p2y), &centerP);
 				QLineF edge1 = QLineF(centerP, QPointF(p1x, p1y));
 				QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));
 				QLineF edge3 = QLineF(centerP, QPointF(p3x, p3y));
 				QLineF edge4 = QLineF(centerP, QPointF(p4x, p4y));
 				mpat = cairo_pattern_create_mesh();
-
 				for( int offset = 1 ; offset < colorStops.count() ; offset++ )
 				{
 					QLineF e1 = edge1;
@@ -1582,20 +1589,6 @@ void ScPainter::drawVPath( int mode )
 					}
 				}
 				cairo_pattern_set_filter(mpat, CAIRO_FILTER_GOOD);
-
-				qStopColors[qStopColors.count()-1].getRgbF(&r, &g, &b, &a);
-				cairo_set_source_rgba(cr, r, g, b, a);
-				cairo_paint_with_alpha(cr, 1.0);
-				cairo_set_operator(cr, CAIRO_OPERATOR_DEST_OUT);
-				cairo_new_path(cr);
-				cairo_move_to(cr, p1x, p1y);
-				cairo_line_to(cr, p2x, p2y);
-				cairo_line_to(cr, p3x, p3y);
-				cairo_line_to(cr, p4x, p4y);
-				cairo_close_path(cr);
-				cairo_set_source_rgba(cr, 0, 0, 0, 1);
-				cairo_fill(cr);
-				cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 				cairo_set_source(cr, mpat);
 				cairo_paint_with_alpha(cr, 1.0);
 				pat = cairo_pattern_create_for_surface(img);

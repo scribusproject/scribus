@@ -3317,13 +3317,6 @@ void PSLib::HandleDiamondGradient(PageItem* c, bool gcr)
 			colorValues.append(colorVal);
 		}
 	}
-	PS_save();
-	putColorNoDraw(colorStops.at(colorStops.count()-1)->name, colorStops.at(colorStops.count()-1)->shade, gcr);
-	if (fillRule)
-		PutStream("eofill\n");
-	else
-		PutStream("fill\n");
-	PS_restore();
 	PutStream("<<\n");
 	PutStream("/PatternType 2\n");
 	PutStream("/Shading\n");
@@ -3367,6 +3360,7 @@ void PSLib::HandleDiamondGradient(PageItem* c, bool gcr)
 	}
 	else
 		PutStream("/ColorSpace /DeviceCMYK\n");
+	PutStream("/Background ["+colorValues[colorValues.count()-1]+"]\n");
 	PutStream("/DataSource [\n");
 	QPointF centerP = QPointF(c->GrControl5.x(), -c->GrControl5.y());
 	QLineF edge1 = QLineF(centerP, QPointF(c->GrControl1.x(), -c->GrControl1.y()));
