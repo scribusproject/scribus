@@ -737,6 +737,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		gc->StrokeCol = "White";
 	else if (tag == 198)
 		handleBitmap(ts);
+	else if (tag == 200)
+		handleSimpleDiamondGradient(ts, dataLen);
 	else if (tag == 204)
 		handleFourColorGradient(ts);
 	else if (tag == 1000)
@@ -841,6 +843,8 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		createClipItem();
 	else if (tag == 4085)
 		finishClip();
+	else if (tag == 4088)
+		handleMultiDiamondGradient(ts);
 	else if (tag == 4121)
 		handleSimpleGradientSkewed(ts, dataLen);
 	else if (tag == 4122)
@@ -970,6 +974,11 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	text.GradFillY1 = gc->GradFillY1;
 	text.GradFillX2 = gc->GradFillX2;
 	text.GradFillY2 = gc->GradFillY2;
+	text.GrControl1 = gc->GrControl1;
+	text.GrControl2 = gc->GrControl2;
+	text.GrControl3 = gc->GrControl3;
+	text.GrControl4 = gc->GrControl4;
+	text.GrControl5 = gc->GrControl5;
 	text.GrScale = gc->GrScale;
 	text.GrSkew = gc->GrSkew;
 	text.GrColorP1 = gc->GrColorP1;
@@ -1040,6 +1049,11 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	text.GradFillY1 = gc->GradFillY1;
 	text.GradFillX2 = gc->GradFillX2;
 	text.GradFillY2 = gc->GradFillY2;
+	text.GrControl1 = gc->GrControl1;
+	text.GrControl2 = gc->GrControl2;
+	text.GrControl3 = gc->GrControl3;
+	text.GrControl4 = gc->GrControl4;
+	text.GrControl5 = gc->GrControl5;
 	text.GrScale = gc->GrScale;
 	text.GrSkew = gc->GrSkew;
 	text.GrColorP1 = gc->GrColorP1;
@@ -1258,6 +1272,13 @@ void XarPlug::endTextLine()
 							item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
 							item->set4ColorColors(txDat.GrColorP1, txDat.GrColorP2, txDat.GrColorP3, txDat.GrColorP4);
 						}
+						if (txDat.FillGradientType == 10)
+						{
+							item->GrType = txDat.FillGradientType;
+							item->fill_gradient = txDat.FillGradient;
+							FPoint p = FPoint(item->xPos(), item->yPos());
+							item->setDiamondGeometry(txDat.GrControl1 - p, txDat.GrControl2 - p, txDat.GrControl3 - p, txDat.GrControl4 - p, txDat.GrControl5 - p);
+						}
 						if (txDat.GradMask > 0)
 						{
 							item->GrMask = txDat.GradMask;
@@ -1351,6 +1372,13 @@ void XarPlug::endTextLine()
 					item->GrType = txDat.FillGradientType;
 					item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
 					item->set4ColorColors(txDat.GrColorP1, txDat.GrColorP2, txDat.GrColorP3, txDat.GrColorP4);
+				}
+				if (txDat.FillGradientType == 10)
+				{
+					item->GrType = txDat.FillGradientType;
+					item->fill_gradient = txDat.FillGradient;
+					FPoint p = FPoint(item->xPos(), item->yPos());
+					item->setDiamondGeometry(txDat.GrControl1 - p, txDat.GrControl2 - p, txDat.GrControl3 - p, txDat.GrControl4 - p, txDat.GrControl5 - p);
 				}
 				if (txDat.GradMask > 0)
 				{
@@ -2234,6 +2262,152 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 		textData.last().GradFillY2 = gc->GradFillY2;
 		textData.last().GrScale = gc->GrScale;
 		textData.last().GrSkew = gc->GrSkew;
+	}
+}
+
+void XarPlug::handleMultiDiamondGradient(QDataStream &ts)
+{
+	XarStyle *gc = m_gc.top();
+	double btx, bty, brx, bry, bcx, bcy;
+	qint32 colRef1, colRef2;
+	readCoords(ts, bcx, bcy);
+	readCoords(ts, brx, bry);
+	readCoords(ts, btx, bty);
+	ts >> colRef1 >> colRef2;
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
+	quint32 numCols;
+	ts >> numCols;
+	for (uint a = 0; a < numCols; a++)
+	{
+		double cpos;
+		qint32 colRef;
+		ts >> cpos;
+		ts >> colRef;
+		QString gCol = "Black";
+		if (XarColorMap.contains(colRef))
+			gCol = XarColorMap[colRef].name;
+		if (gCol != CommonStrings::None)
+		{
+			const ScColor& gradC = m_Doc->PageColors[gCol];
+			gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), cpos, 0.5, 1.0, gCol, 100 );
+		}
+		else
+			gc->FillGradient.addStop( QColor(255, 255, 255, 0), cpos, 0.5, 0.0, gCol, 100 );
+	}
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
+	gc->FillGradientType = 10;
+	gc->GrControl5 = FPoint(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF cen = QPointF(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF rig = QPointF(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF top = QPointF(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
+	QLineF rVec = QLineF(cen, rig);
+	QLineF tVec = QLineF(cen, top);
+	QLineF rNVec = tVec.translated(rVec.dx(), rVec.dy());
+	QPointF intRT = rNVec.p2();
+	gc->GrControl2 = FPoint(intRT.x(), intRT.y());
+	QLineF vg4 = QLineF(cen, intRT);
+	vg4.setAngle(vg4.angle()+180);
+	gc->GrControl4 = FPoint(vg4.x2(), vg4.y2());
+	QLineF tNVec = tVec.translated(-rVec.dx(), -rVec.dy());
+	QPointF intLT = tNVec.p2();
+	gc->GrControl1 = FPoint(intLT.x(), intLT.y());
+	QLineF vg3 = QLineF(cen, intLT);
+	vg3.setAngle(vg3.angle()+180);
+	gc->GrControl3 = FPoint(vg3.x2(), vg3.y2());
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GrControl1 = gc->GrControl1;
+		textData.last().GrControl2 = gc->GrControl2;
+		textData.last().GrControl3 = gc->GrControl3;
+		textData.last().GrControl4 = gc->GrControl4;
+		textData.last().GrControl5 = gc->GrControl5;
+	}
+}
+
+void XarPlug::handleSimpleDiamondGradient(QDataStream &ts, quint32 dataLen)
+{
+	XarStyle *gc = m_gc.top();
+	double btx, bty, brx, bry, bcx, bcy;
+	qint32 colRef1, colRef2;
+	readCoords(ts, bcx, bcy);
+	readCoords(ts, brx, bry);
+	readCoords(ts, btx, bty);
+	ts >> colRef1 >> colRef2;
+	if (dataLen == 48)
+	{
+		double p, p1;
+		ts >> p >> p1;
+	}
+	gc->FillGradient = VGradient(VGradient::linear);
+	gc->FillGradient.clearStops();
+	QString gCol1 = "Black";
+	QString gCol2 = "Black";
+	if (XarColorMap.contains(colRef1))
+		gCol1 = XarColorMap[colRef1].name;
+	if (XarColorMap.contains(colRef2))
+		gCol2 = XarColorMap[colRef2].name;
+	if (gCol1 != CommonStrings::None)
+	{
+		const ScColor& gradC1 = m_Doc->PageColors[gCol1];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 0.0, 0.5, 1.0, gCol1, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 0.0, 0.5, 0.0, gCol1, 100 );
+	if (gCol2 != CommonStrings::None)
+	{
+		const ScColor& gradC2 = m_Doc->PageColors[gCol2];
+		gc->FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gCol2, 100 );
+	}
+	else
+		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
+	gc->FillGradientType = 10;
+	gc->GrControl5 = FPoint(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF cen = QPointF(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF rig = QPointF(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF top = QPointF(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
+	QLineF rVec = QLineF(cen, rig);
+	QLineF tVec = QLineF(cen, top);
+	QLineF rNVec = tVec.translated(rVec.dx(), rVec.dy());
+	QPointF intRT = rNVec.p2();
+	gc->GrControl2 = FPoint(intRT.x(), intRT.y());
+	QLineF vg4 = QLineF(cen, intRT);
+	vg4.setAngle(vg4.angle()+180);
+	gc->GrControl4 = FPoint(vg4.x2(), vg4.y2());
+	QLineF tNVec = tVec.translated(-rVec.dx(), -rVec.dy());
+	QPointF intLT = tNVec.p2();
+	gc->GrControl1 = FPoint(intLT.x(), intLT.y());
+	QLineF vg3 = QLineF(cen, intLT);
+	vg3.setAngle(vg3.angle()+180);
+	gc->GrControl3 = FPoint(vg3.x2(), vg3.y2());
+	if (textData.count() > 0)
+	{
+		textData.last().FillGradient = gc->FillGradient;
+		textData.last().GrControl1 = gc->GrControl1;
+		textData.last().GrControl2 = gc->GrControl2;
+		textData.last().GrControl3 = gc->GrControl3;
+		textData.last().GrControl4 = gc->GrControl4;
+		textData.last().GrControl5 = gc->GrControl5;
 	}
 }
 
@@ -3419,6 +3593,13 @@ void XarPlug::popGraphicContext()
 				item->GrType = gc->FillGradientType;
 				item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
 				item->set4ColorColors(gc->GrColorP1, gc->GrColorP2, gc->GrColorP3, gc->GrColorP4);
+			}
+			if (gc->FillGradientType == 10)
+			{
+				item->GrType = gc->FillGradientType;
+				item->fill_gradient = gc->FillGradient;
+				FPoint p = FPoint(item->xPos(), item->yPos());
+				item->setDiamondGeometry(gc->GrControl1 - p, gc->GrControl2 - p, gc->GrControl3 - p, gc->GrControl4 - p, gc->GrControl5 - p);
 			}
 			if (gc->GradMask > 0)
 			{

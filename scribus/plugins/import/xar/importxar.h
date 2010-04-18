@@ -114,6 +114,7 @@ public:
 		GrControl2(FPoint()),
 		GrControl3(FPoint()),
 		GrControl4(FPoint()),
+		GrControl5(FPoint()),
 		GrColorP1(""),
 		GrColorP2(""),
 		GrColorP3(""),
@@ -205,6 +206,7 @@ public:
 	FPoint GrControl2;
 	FPoint GrControl3;
 	FPoint GrControl4;
+	FPoint GrControl5;
 	QString GrColorP1;
 	QString GrColorP2;
 	QString GrColorP3;
@@ -290,6 +292,8 @@ private:
 	void handleMultiGradient(QDataStream &ts, bool linear);
 	void handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen);
 	void handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear);
+	void handleMultiDiamondGradient(QDataStream &ts);
+	void handleSimpleDiamondGradient(QDataStream &ts, quint32 dataLen);
 	void handleFourColorGradient(QDataStream &ts);
 	void handleBitmapFill(QDataStream &ts, quint32 dataLen);
 	void handleContoneBitmapFill(QDataStream &ts, quint32 dataLen);
@@ -388,6 +392,7 @@ private:
 		FPoint GrControl2;
 		FPoint GrControl3;
 		FPoint GrControl4;
+		FPoint GrControl5;
 		QString GrColorP1;
 		QString GrColorP2;
 		QString GrColorP3;
