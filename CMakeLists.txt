@@ -4,13 +4,13 @@
 #Set our CMake minimum version
 #Require 2.4.2 for Qt finding
 #Require 2.4.3 for moc change detection and rpath updates for custom cairo install
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4.5 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0 FATAL_ERROR)
 
-IF(WIN32)
-  IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
-    MESSAGE(FATAL_ERROR "Windows builds require CMake 2.6")
-  ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
-ENDIF(WIN32)
+#IF(WIN32)
+#  IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
+#    MESSAGE(FATAL_ERROR "Windows builds require CMake 2.6")
+#  ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
+#ENDIF(WIN32)
 
 #Pretty colors
 SET(CMAKE_COLOR_MAKEFILE ON)
