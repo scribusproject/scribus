@@ -92,7 +92,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	tabPDF = new TabPDFOptions( prefsWidgets, doc->pdfOptions(), PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
 								ScCore->PDFXProfiles, doc->UsedFonts, doc->pdfOptions().PresentVals,
-								docUnitIndex, doc->pageHeight, doc->pageWidth, doc );
+								docUnitIndex, doc->pageHeight(), doc->pageWidth(), doc );
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
 
 	tabDocItemAttributes = new DocumentItemAttributes(prefsWidgets);
@@ -154,7 +154,7 @@ void ReformDoc::restoreDefaults()
 	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles(), currDoc->curCheckProfile());
 	tabPDF->restoreDefaults(currDoc->pdfOptions(), PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts,
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->pdfOptions().PresentVals,
-							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, currDoc, false);
+							docUnitIndex, currDoc->pageHeight(), currDoc->pageWidth(), currDoc, false);
 	if (ScCore->haveCMS())
 		tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
@@ -229,10 +229,10 @@ void ReformDoc::updateDocumentSettings()
 //	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(updatedMargins, fp);
-	currDoc->PageOri = tabPage->pageOrientationComboBox->currentIndex();
-	currDoc->m_pageSize = tabPage->prefsPageSizeName;
-	currDoc->pageWidth = tabPage->pageW;
-	currDoc->pageHeight = tabPage->pageH;
+	currDoc->setPageOrientation(tabPage->pageOrientationComboBox->currentIndex());
+	currDoc->setPageSize(tabPage->prefsPageSizeName);
+	currDoc->setPageWidth(tabPage->pageW);
+	currDoc->setPageHeight(tabPage->pageH);
 	currDoc->marginPreset = tabPage->marginGroup->getMarginPreset();
 	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Top;
 	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Left;
@@ -250,12 +250,12 @@ void ReformDoc::updateDocumentSettings()
 		Page *pp = currDoc->Pages->at(p);
 		if (tabPage->sizeAllPages->isChecked())
 		{
-			pp->setInitialWidth(currDoc->pageWidth);
-			pp->setInitialHeight(currDoc->pageHeight);
-			pp->setHeight(currDoc->pageHeight);
-			pp->setWidth(currDoc->pageWidth);
-			pp->m_pageSize = currDoc->m_pageSize;
-			pp->setOrientation(currDoc->PageOri);
+			pp->setInitialWidth(currDoc->pageWidth());
+			pp->setInitialHeight(currDoc->pageHeight());
+			pp->setHeight(currDoc->pageHeight());
+			pp->setWidth(currDoc->pageWidth());
+			pp->m_pageSize = currDoc->pageSize();
+			pp->setOrientation(currDoc->pageOrientation());
 		}
 		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
@@ -285,12 +285,12 @@ void ReformDoc::updateDocumentSettings()
 		Page *pp = currDoc->MasterPages.at(p);
 		if (tabPage->sizeAllMasterPages->isChecked())
 		{
-			pp->setInitialWidth(currDoc->pageWidth);
-			pp->setInitialHeight(currDoc->pageHeight);
-			pp->setHeight(currDoc->pageHeight);
-			pp->setWidth(currDoc->pageWidth);
-			pp->m_pageSize = currDoc->m_pageSize;
-			pp->setOrientation(currDoc->PageOri);
+			pp->setInitialWidth(currDoc->pageWidth());
+			pp->setInitialHeight(currDoc->pageHeight());
+			pp->setHeight(currDoc->pageHeight());
+			pp->setWidth(currDoc->pageWidth());
+			pp->m_pageSize = currDoc->pageSize();
+			pp->setOrientation(currDoc->pageOrientation());
 		}
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
 		{

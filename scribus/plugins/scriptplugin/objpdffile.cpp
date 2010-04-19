@@ -1172,13 +1172,13 @@ static PyObject *PDFfile_save(PDFfile *self)
 				if (profile.colorSpace() == ColorSpace_Cmy)
 					Components = 3;
 				ScCore->primaryMainWindow()->doc->pdfOptions().Info = PyString_AsString(self->info);
-				self->bleedt = minmaxd(self->bleedt, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				self->bleedt = minmaxd(self->bleedt, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight()*ScCore->primaryMainWindow()->view->Doc->unitRatio());
 				ScCore->primaryMainWindow()->doc->pdfOptions().bleeds.Top = self->bleedt/ScCore->primaryMainWindow()->view->Doc->unitRatio();
-				self->bleedl = minmaxd(self->bleedl, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				self->bleedl = minmaxd(self->bleedl, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth()*ScCore->primaryMainWindow()->view->Doc->unitRatio());
 				ScCore->primaryMainWindow()->doc->pdfOptions().bleeds.Left = self->bleedl/ScCore->primaryMainWindow()->view->Doc->unitRatio();
-				self->bleedr = minmaxd(self->bleedr, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				self->bleedr = minmaxd(self->bleedr, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth()*ScCore->primaryMainWindow()->view->Doc->unitRatio());
 				ScCore->primaryMainWindow()->doc->pdfOptions().bleeds.Right = self->bleedr/ScCore->primaryMainWindow()->view->Doc->unitRatio();
-				self->bleedb = minmaxd(self->bleedb, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				self->bleedb = minmaxd(self->bleedb, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight()*ScCore->primaryMainWindow()->view->Doc->unitRatio());
 				ScCore->primaryMainWindow()->doc->pdfOptions().bleeds.Bottom = self->bleedb/ScCore->primaryMainWindow()->view->Doc->unitRatio();
 				ScCore->primaryMainWindow()->doc->pdfOptions().Encrypt = false;
 				ScCore->primaryMainWindow()->doc->pdfOptions().PresentMode = false;

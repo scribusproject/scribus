@@ -80,8 +80,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 
 	docu.writeStartElement("DOCUMENT");
 	docu.writeAttribute("ANZPAGES"    , m_Doc->DocPages.count());
-	docu.writeAttribute("PAGEWIDTH"   , m_Doc->pageWidth);
-	docu.writeAttribute("PAGEHEIGHT"  , m_Doc->pageHeight);
+	docu.writeAttribute("PAGEWIDTH"   , m_Doc->pageWidth());
+	docu.writeAttribute("PAGEHEIGHT"  , m_Doc->pageHeight());
 	docu.writeAttribute("BORDERLEFT"  , m_Doc->pageMargins.Left);
 	docu.writeAttribute("BORDERRIGHT" , m_Doc->pageMargins.Right);
 	docu.writeAttribute("BORDERTOP"   , m_Doc->pageMargins.Top);
@@ -91,8 +91,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("BleedLeft"   , m_Doc->bleeds.Left);
 	docu.writeAttribute("BleedRight"  , m_Doc->bleeds.Right);
 	docu.writeAttribute("BleedBottom" , m_Doc->bleeds.Bottom);
-	docu.writeAttribute("ORIENTATION" , m_Doc->PageOri);
-	docu.writeAttribute("PAGESIZE"    , m_Doc->m_pageSize);
+	docu.writeAttribute("ORIENTATION" , m_Doc->pageOrientation());
+	docu.writeAttribute("PAGESIZE"    , m_Doc->pageSize());
 	docu.writeAttribute("FIRSTNUM"    , m_Doc->FirstPnum);
 	docu.writeAttribute("BOOK"        , m_Doc->currentPageLayout);
 	if(m_Doc->usesAutomaticTextFrames())

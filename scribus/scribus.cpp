@@ -636,7 +636,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport", false);
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File", false);
-	//scrMenuMgr->addMenuItem(scrActions["fileDocSetup150"], "File", false);
+//	scrMenuMgr->addMenuItem(scrActions["fileDocSetup150"], "File", false);
 	scrMenuMgr->addMenuItem(scrActions["filePreferences"], "File", true);
 	scrMenuMgr->addMenuItem(scrActions["filePreferences150"], "File", true);
 	scrMenuMgr->addMenuSeparator("File");
@@ -3452,7 +3452,7 @@ bool ScribusMainWindow::slotPageImport()
 				startPage = dia->getImportWherePage() + 1;
 			else
 				startPage = doc->DocPages.count() + 1;
-			addNewPages(dia->getImportWherePage(), importWhere, nrToImport, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true);
+			addNewPages(dia->getImportWherePage(), importWhere, nrToImport, doc->pageHeight(), doc->pageWidth(), doc->pageOrientation(), doc->pageSize(), true);
 		}
 		else
 		{
@@ -3473,7 +3473,7 @@ bool ScribusMainWindow::slotPageImport()
 					case 0:
 						addNewPages(doc->DocPages.count(), 2,
 									nrToImport - (doc->DocPages.count() - doc->currentPage()->pageNr()),
-									doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true);
+									doc->pageHeight(), doc->pageWidth(), doc->pageOrientation(), doc->pageSize(), true);
 						break;
 					case 1:
 						nrToImport = doc->DocPages.count() - doc->currentPage()->pageNr();
@@ -7510,7 +7510,7 @@ void ScribusMainWindow::slotPrefs150Org()
 	QString oldMonitorProfile(ScCore->monitorProfile.productDescription());
 	slotSelect();
 	struct ApplicationPrefs oldPrefs(prefsManager->appPrefs);
-	PreferencesDialog prefsDialog(this);
+	PreferencesDialog prefsDialog(this, oldPrefs);
 	int prefsResult=prefsDialog.exec();
 	if (prefsResult==QDialog::Accepted)
 	{
@@ -7673,12 +7673,56 @@ void ScribusMainWindow::slotDocSetup150()
 {
 	if (!doc)
 		return;
-	//struct ApplicationPrefs oldDocPrefs(doc->docPrefsData);
-	PreferencesDialog prefsDialog(this);
+	struct ApplicationPrefs oldDocPrefs(doc->prefsData());
+	PreferencesDialog prefsDialog(this, oldDocPrefs);
 	int prefsResult=prefsDialog.exec();
 	if (prefsResult==QDialog::Accepted)
 	{
-	//	struct ApplicationPrefs newPrefs(prefsDialog.prefs());
+		struct ApplicationPrefs newDocPrefs(prefsDialog.prefs());
+		doc->setNewPrefs(newDocPrefs);
+
+
+		slotChangeUnit(doc->unitIndex(), false);
+		//dia->updateDocumentSettings();
+		if (oldDocPrefs.itemToolPrefs.imageLowResType!=newDocPrefs.itemToolPrefs.imageLowResType)
+		{
+			setStatusBarInfoText( tr("Updating Images"));
+			mainWindowProgressBar->reset();
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			qApp->processEvents();
+			doc->recalcPicturesRes(true);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			setStatusBarInfoText("");
+			mainWindowProgressBar->reset();
+			view->previewQualitySwitcher->blockSignals(true);
+			view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs().imageLowResType);
+			view->previewQualitySwitcher->blockSignals(false);
+		}
+		propertiesPalette->Fonts->RebuildList(doc);
+		scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
+		scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
+		scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
+		scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesPrefs().layerMarkersShown);
+		scrActions["viewShowGrid"]->setChecked(doc->guidesPrefs().gridShown);
+		scrActions["viewShowGuides"]->setChecked(doc->guidesPrefs().guidesShown);
+		scrActions["viewShowColumnBorders"]->setChecked(doc->guidesPrefs().colBordersShown);
+		scrActions["viewShowBaseline"]->setChecked(doc->guidesPrefs().baselineGridShown);
+		scrActions["viewShowImages"]->setChecked(doc->guidesPrefs().showPic);
+		scrActions["viewShowTextChain"]->setChecked(doc->guidesPrefs().linkShown);
+		scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
+		scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
+		scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
+		scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+		view->cmsToolbarButton->setChecked(doc->HasCMS);
+		//doc emits changed() via this
+		doc->setMasterPageMode(true);
+		view->reformPages();
+		doc->setMasterPageMode(false);
+		view->reformPages();
+		view->GotoPage(doc->currentPage()->pageNr());
+		view->DrawNew();
+		propertiesPalette->ShowCMS();
+		pagePalette->rebuildPages();
 	}
 }
 void ScribusMainWindow::ShowSubs()
@@ -8526,7 +8570,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		}
 		else
 		{
-			addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true, &tmpl);
+			addNewPages(wo, where, 1, doc->pageHeight(), doc->pageWidth(), doc->pageOrientation(), doc->pageSize(), true, &tmpl);
 		}
 		UndoObject *tmp =
 			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages->at(pagenr - 1));
@@ -8780,7 +8824,7 @@ void ScribusMainWindow::ModifyAnnot()
 			int AnActType = currItem->annotation().ActionType();
 			QString AnAction = currItem->annotation().Action();
 			QString An_Extern = currItem->annotation().Extern();
-			Annota *dia = new Annota(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth), static_cast<int>(doc->pageHeight), view);
+			Annota *dia = new Annota(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), view);
 			if (dia->exec())
 				slotDocCh();
 			else
@@ -8794,7 +8838,7 @@ void ScribusMainWindow::ModifyAnnot()
 		}
 		else
 		{
-			Annot *dia = new Annot(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth), static_cast<int>(doc->pageHeight), doc->PageColors, view);
+			Annot *dia = new Annot(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), doc->PageColors, view);
 			if (dia->exec())
 				slotDocCh();
 			delete dia;

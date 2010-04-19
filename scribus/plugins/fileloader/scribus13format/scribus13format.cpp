@@ -245,8 +245,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	*/
 		//CB Add this in to set this in the file in memory. Its saved, why not load it.
 		//Will of course be replaced by per page settings although we still probably need a document default
-		m_Doc->m_pageSize = dc.attribute("PAGESIZE");
-		m_Doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
+		m_Doc->setPageSize(dc.attribute("PAGESIZE"));
+		m_Doc->setPageOrientation(dc.attribute("ORIENTATION", "0").toInt());
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
 		m_Doc->currentPageLayout=dc.attribute("BOOK", "0").toInt();
 		int fp;
@@ -330,10 +330,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());
 		m_Doc->setHyphConsecutiveLines(dc.attribute("HYCOUNT", "2").toInt());
 		if (dc.hasAttribute("PAGEWIDTH"))
-			m_Doc->pageWidth = ScCLocale::toDoubleC(dc.attribute("PAGEWIDTH"));
+			m_Doc->setPageWidth(ScCLocale::toDoubleC(dc.attribute("PAGEWIDTH")));
 		else
-			m_Doc->pageWidth = ScCLocale::toDoubleC(dc.attribute("PAGEWITH"));
-		m_Doc->pageHeight = ScCLocale::toDoubleC(dc.attribute("PAGEHEIGHT"));
+			m_Doc->setPageWidth(ScCLocale::toDoubleC(dc.attribute("PAGEWITH")));
+		m_Doc->setPageHeight(ScCLocale::toDoubleC(dc.attribute("PAGEHEIGHT")));
 		m_Doc->pageMargins.Left  = qMax(0.0, ScCLocale::toDoubleC("BORDERLEFT"));
 		m_Doc->pageMargins.Right = qMax(0.0, ScCLocale::toDoubleC("BORDERRIGHT"));
 		m_Doc->pageMargins.Top   = qMax(0.0, ScCLocale::toDoubleC("BORDERTOP"));
@@ -1187,15 +1187,15 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	elem.setAttribute("Version", QString(VERSION));
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",m_Doc->DocPages.count());
-	dc.setAttribute("PAGEWIDTH",m_Doc->pageWidth);
-	dc.setAttribute("PAGEHEIGHT",m_Doc->pageHeight);
+	dc.setAttribute("PAGEWIDTH",m_Doc->pageWidth());
+	dc.setAttribute("PAGEHEIGHT",m_Doc->pageHeight());
 	dc.setAttribute("BORDERLEFT",m_Doc->pageMargins.Left);
 	dc.setAttribute("BORDERRIGHT",m_Doc->pageMargins.Right);
 	dc.setAttribute("BORDERTOP",m_Doc->pageMargins.Top);
 	dc.setAttribute("BORDERBOTTOM",m_Doc->pageMargins.Bottom);
 	dc.setAttribute("PRESET",m_Doc->marginPreset);
-	dc.setAttribute("ORIENTATION",m_Doc->PageOri);
-	dc.setAttribute("PAGESIZE",m_Doc->m_pageSize);
+	dc.setAttribute("ORIENTATION",m_Doc->pageOrientation());
+	dc.setAttribute("PAGESIZE",m_Doc->pageSize());
 	dc.setAttribute("FIRSTNUM",m_Doc->FirstPnum);
 	dc.setAttribute("BOOK", m_Doc->currentPageLayout);
 	if(m_Doc->usesAutomaticTextFrames())

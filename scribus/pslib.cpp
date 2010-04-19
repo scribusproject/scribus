@@ -1566,7 +1566,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		int pgNum = pageNs[0]-1;
 		gx -= Doc->Pages->at(pgNum)->xOffset();
 		gy -= Doc->Pages->at(pgNum)->yOffset();
-		errorOccured = !PS_begin_doc(Doc, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep, farb, Ic, gcr);
+		errorOccured = !PS_begin_doc(Doc, gx, Doc->pageHeight() - (gy+gh), gx + gw, Doc->pageHeight() - gy, 1*pagemult, false, sep, farb, Ic, gcr);
 	}
 	else
 	{

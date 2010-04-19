@@ -182,7 +182,7 @@ Dimensions::Dimensions(QObject *parent) : QObject(COLLECTOR) {
  */
 double Dimensions::width()
 {
-    return ScCore->primaryMainWindow()->doc->pageWidth;
+	return ScCore->primaryMainWindow()->doc->pageWidth();
 }
 
 
@@ -194,7 +194,7 @@ double Dimensions::width()
  */
 double Dimensions::height()
 {
-    return ScCore->primaryMainWindow()->doc->pageHeight;
+	return ScCore->primaryMainWindow()->doc->pageHeight();
 }
 
 

@@ -171,8 +171,8 @@ PyObject *scribus_pagedimension(PyObject* /* self */)
 	PyObject *t;
 	t = Py_BuildValue(
 			"(dd)",
-			PointToValue(ScCore->primaryMainWindow()->doc->pageWidth), // it's just view scale... * ScCore->primaryMainWindow()->doc->Scale),
-			PointToValue(ScCore->primaryMainWindow()->doc->pageHeight)  // * ScCore->primaryMainWindow()->doc->Scale)
+			PointToValue(ScCore->primaryMainWindow()->doc->pageWidth()), // it's just view scale... * ScCore->primaryMainWindow()->doc->Scale),
+			PointToValue(ScCore->primaryMainWindow()->doc->pageHeight())  // * ScCore->primaryMainWindow()->doc->Scale)
 		);
 	return t;
 }

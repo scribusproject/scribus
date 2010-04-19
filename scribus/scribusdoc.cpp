@@ -190,11 +190,12 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	MasterNames(),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
-	pageWidth(0), pageHeight(0),
+	//->Prefs pageWidth(0), pageHeight(0),
 	//->Prefs pageSets(appPrefsData.pageSets),
 	PageSp(1), PageSpa(0),
 	currentPageLayout(0),
-	PageOri(0), m_pageSize(),
+	//->Prefs PageOri(0),
+	//->Prefs m_pageSize(),
 	FirstPnum(1),
 	useRaster(false),
 	PageColors(this, true),
@@ -261,6 +262,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	m_docUpdater(NULL)
 {
 	docUnitRatio=unitGetRatioFromIndex(docPrefsData.docSetupPrefs.docUnitIndex);
+	docPrefsData.docSetupPrefs.pageHeight=0;
+	docPrefsData.docSetupPrefs.pageWidth=0;
 	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
 	init();
 	bleeds = appPrefsData.docSetupPrefs.bleeds;
@@ -305,13 +308,14 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	MasterNames(),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
-	pageWidth(pagesize.width()), pageHeight(pagesize.height()),
+	//->Prefs pageWidth(pagesize.width()), pageHeight(pagesize.height()),
 	pageMargins(margins),
 	marginPreset(appPrefsData.docSetupPrefs.marginPreset),
-//->Prefs	pageSets(appPrefsData.pageSets),
+	//->Prefs pageSets(appPrefsData.pageSets),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	currentPageLayout(pagesSetup.pageArrangement),
-	PageOri(pagesSetup.orientation), m_pageSize(pagesize.name()),
+	//->Prefs PageOri(pagesSetup.orientation),
+	//->Prefs m_pageSize(pagesize.name()),
 	FirstPnum(pagesSetup.firstPageNumber),
 	useRaster(false),
 	PageColors(this, true),
@@ -378,6 +382,9 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_docUpdater(NULL)
 {
 	docPrefsData.docSetupPrefs.docUnitIndex=unitindex;
+	docPrefsData.docSetupPrefs.pageHeight=pagesize.height();
+	docPrefsData.docSetupPrefs.pageWidth=pagesize.width();
+	docPrefsData.docSetupPrefs.pageSize=pagesize.name();
 	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
 	setPageSetFirstPage(pagesSetup.pageArrangement, pagesSetup.firstPageLocation);
 	//->Prefs pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
@@ -385,6 +392,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	bleeds = appPrefsData.docSetupPrefs.bleeds;
 	docPrefsData.pdfPrefs.bleeds = bleeds;
 	docPrefsData.pdfPrefs.useDocBleeds = true;
+	docPrefsData.docSetupPrefs.pageOrientation=pagesSetup.orientation;
 	Print_Options.firstUse = true;
 }
 
@@ -618,8 +626,8 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	docPrefsData.docSetupPrefs.docUnitIndex=unitIndex;
 	setPageSetFirstPage(fp, firstLeft);
 	//->Prefs pageSets[fp].FirstPage = firstLeft;
-	PageOri = orientation;
-	m_pageSize = defaultPageSize;
+	docPrefsData.docSetupPrefs.pageOrientation = orientation;
+	docPrefsData.docSetupPrefs.pageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;
 	currentPageLayout = fp;
 	setName(documentName);
@@ -1531,8 +1539,8 @@ bool ScribusDoc::isModified() const
 /** sets page properties */
 void ScribusDoc::setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp)
 {
-	pageWidth = b;
-	pageHeight = h;
+	docPrefsData.docSetupPrefs.pageWidth = b;
+	docPrefsData.docSetupPrefs.pageHeight = h;
 	pageMargins.Top = t;
 	pageMargins.Left = l;
 	pageMargins.Right = r;
@@ -1726,7 +1734,7 @@ void ScribusDoc::addSymbols()
 Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	assert(masterPageMode()==false);
-	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, pageWidth, pageHeight);
+	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(docPrefsData.docSetupPrefs.pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -1736,8 +1744,8 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->initialMargins.Left = pageMargins.Left;
 	addedPage->initialMargins.Right = pageMargins.Right;
 	addedPage->setPageNr(pageIndex);
-	addedPage->m_pageSize = m_pageSize;
-	addedPage->setOrientation(PageOri);
+	addedPage->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
+	addedPage->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = marginPreset;
 	DocPages.insert(pageIndex, addedPage);
 	assert(DocPages.at(pageIndex)!=NULL);
@@ -1758,7 +1766,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 {
 	//CB We dont create master pages (yet) with a pageCount based location
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
-	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pageWidth, pageHeight);
+	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -1769,8 +1777,8 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->initialMargins.Bottom = pageMargins.Bottom;
 	addedPage->initialMargins.Left = pageMargins.Left;
 	addedPage->initialMargins.Right = pageMargins.Right;
-	addedPage->m_pageSize = m_pageSize;
-	addedPage->setOrientation(PageOri);
+	addedPage->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
+	addedPage->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = marginPreset;
 	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
@@ -1948,8 +1956,8 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 	{
 		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified,
 		                     addToPage->Margins.Left+addToPage->xOffset(),
-		                     addToPage->Margins.Top+addToPage->yOffset(), pageWidth-addToPage->Margins.Right-addToPage->Margins.Left,
-		                     pageHeight-addToPage->Margins.Bottom-addToPage->Margins.Top,
+							 addToPage->Margins.Top+addToPage->yOffset(), docPrefsData.docSetupPrefs.pageWidth-addToPage->Margins.Right-addToPage->Margins.Left,
+							 docPrefsData.docSetupPrefs.pageHeight-addToPage->Margins.Bottom-addToPage->Margins.Top,
 							 1, CommonStrings::None, docPrefsData.itemToolPrefs.shapeLineColor, true);
 		Items->at(z)->isAutoText = true;
 		Items->at(z)->Cols = qRound(PageSp);
@@ -4854,7 +4862,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 	double maxYPos=0.0, maxXPos=0.0;
 	double currentXPos=docPrefsData.displayPrefs.scratch.Left, currentYPos=docPrefsData.displayPrefs.scratch.Top, lastYPos=Pages->at(0)->initialHeight();
 //	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
-	currentXPos += (pageWidth+docPrefsData.displayPrefs.pageGapHorizontal) * counter;
+	currentXPos += (docPrefsData.docSetupPrefs.pageWidth+docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
 	lastYPos = Pages->at(0)->initialHeight();
 	Page* Seite;
@@ -5553,7 +5561,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			--destLocation;
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
-		Page* destination = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, pageWidth, pageHeight);
+		Page* destination = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(docPrefsData.docSetupPrefs.pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 		destination->setDocument(this);
 		destination->setPageNr(destLocation);
 		lastDest = destination;
@@ -12107,5 +12115,420 @@ void ScribusDoc::setPageSetFirstPage(int layout, int fp)
 	docPrefsData.pageSets[layout].FirstPage=fp;
 }
 
+void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData)
+{
+	docPrefsData=prefsData;
 
+	/*
+	MarginStruct updatedMargins(tabPage->marginGroup->margins());
+	int fp = tabPage->choosenLayout;
+	currDoc->setPageSetFirstPage(fp, tabPage->docLayout->firstPage->currentIndex());
+//	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
+	currDoc->setPageGapHorizontal(tabView->gapHorizontal->value() / currDoc->unitRatio());
+	currDoc->setPageGapVertical(tabView->gapVertical->value() / currDoc->unitRatio());
+//	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
+	//currDoc->FirstPnum = pageNumber->value();
+	currDoc->resetPage(updatedMargins, fp);
+	currDoc->PageOri = tabPage->pageOrientationComboBox->currentIndex();
+	currDoc->m_pageSize = tabPage->prefsPageSizeName;
+	currDoc->pageWidth = tabPage->pageW;
+	currDoc->pageHeight = tabPage->pageH;
+	currDoc->marginPreset = tabPage->marginGroup->getMarginPreset();
+	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Top;
+	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Left;
+	currDoc->scratch()->set(tabView->topScratch->value() / currDoc->unitRatio(), tabView->leftScratch->value() / currDoc->unitRatio(), tabView->bottomScratch->value() / currDoc->unitRatio(), tabView->rightScratch->value() / currDoc->unitRatio());
+//	currDoc->scratch.Bottom = tabView->bottomScratch->value() / currDoc->unitRatio();
+//	currDoc->scratch.Left = tabView->leftScratch->value() / currDoc->unitRatio();
+//	currDoc->scratch.Right = tabView->rightScratch->value() / currDoc->unitRatio();
+//	currDoc->scratch.Top = tabView->topScratch->value() / currDoc->unitRatio();
+	currDoc->bleeds.Bottom = tabPage->marginGroup->bottomBleed();
+	currDoc->bleeds.Top = tabPage->marginGroup->topBleed();
+	currDoc->bleeds.Left = tabPage->marginGroup->leftBleed();
+	currDoc->bleeds.Right = tabPage->marginGroup->rightBleed();
+	for (int p = 0; p < currDoc->Pages->count(); ++p)
+	{
+		Page *pp = currDoc->Pages->at(p);
+		if (tabPage->sizeAllPages->isChecked())
+		{
+			pp->setInitialWidth(currDoc->pageWidth);
+			pp->setInitialHeight(currDoc->pageHeight);
+			pp->setHeight(currDoc->pageHeight);
+			pp->setWidth(currDoc->pageWidth);
+			pp->m_pageSize = currDoc->m_pageSize;
+			pp->setOrientation(currDoc->PageOri);
+		}
+		if (tabPage->marginGroup->getMarginsForAllPages())
+		{
+			pp->initialMargins=updatedMargins;
+			pp->marginPreset=currDoc->marginPreset;
+		}
+		else
+		if (tabPage->marginGroup->getMarginsForAllMasterPages())
+		{
+			//CB #6796: find the master page (*mp) for the current page (*pp)
+			//check if *pp's margins are the same as the *mp's current margins
+			//apply new margins if same
+			const int masterPageNumber = currDoc->MasterNames[pp->MPageNam];
+			const Page* mp = currDoc->MasterPages.at(masterPageNumber);
+			if (pp->initialMargins.Left == mp->initialMargins.Left &&
+				pp->initialMargins.Right == mp->initialMargins.Right &&
+				pp->initialMargins.Top == mp->initialMargins.Top &&
+				pp->initialMargins.Bottom == mp->initialMargins.Bottom)
+			{
+				pp->initialMargins=updatedMargins;
+				pp->marginPreset=currDoc->marginPreset;
+			}
+		}
+	}
+	for (int p = 0; p < currDoc->MasterPages.count(); ++p)
+	{
+		Page *pp = currDoc->MasterPages.at(p);
+		if (tabPage->sizeAllMasterPages->isChecked())
+		{
+			pp->setInitialWidth(currDoc->pageWidth);
+			pp->setInitialHeight(currDoc->pageHeight);
+			pp->setHeight(currDoc->pageHeight);
+			pp->setWidth(currDoc->pageWidth);
+			pp->m_pageSize = currDoc->m_pageSize;
+			pp->setOrientation(currDoc->PageOri);
+		}
+		if (tabPage->marginGroup->getMarginsForAllMasterPages())
+		{
+			pp->initialMargins=updatedMargins;
+			pp->marginPreset=currDoc->marginPreset;
+		}
+		pp->setXOffset(currDoc->scratch()->Left);
+		pp->setYOffset(currDoc->scratch()->Top);
+	}
+	uint docItemsCount = currDoc->MasterItems.count();
+	for (uint ite = 0; ite < docItemsCount; ++ite)
+	{
+		PageItem *item = currDoc->MasterItems.at(ite);
+		item->moveBy(LeftD, TopD);
+		item->setRedrawBounding();
+	}
+	currDoc->guidesPrefs().guidePlacement = tabGuides->inBackground->isChecked();
+	currDoc->setMarginColored(tabView->checkUnprintable->isChecked());
+	currDoc->setPaperColor(tabView->colorPaper);
+	currDoc->guidesPrefs().marginsShown = tabGuides->marginBox->isChecked();
+	currDoc->guidesPrefs().showBleed = tabView->checkBleed->isChecked();
+	currDoc->guidesPrefs().framesShown = tabView->checkFrame->isChecked();
+	currDoc->guidesPrefs().layerMarkersShown = tabView->checkLayerM->isChecked();
+	currDoc->guidesPrefs().gridShown = tabGuides->checkGrid->isChecked();
+	currDoc->guidesPrefs().guidesShown = tabGuides->guideBox->isChecked();
+	currDoc->guidesPrefs().baselineGridShown = tabGuides->baselineBox->isChecked();
+	currDoc->guidesPrefs().showPic = tabView->checkPictures->isChecked();
+	currDoc->guidesPrefs().linkShown = tabView->checkLink->isChecked();
+	currDoc->guidesPrefs().showControls = tabView->checkControl->isChecked();
+	currDoc->guidesPrefs().rulerMode = tabView->checkRuler->isChecked();
+	currDoc->guidesPrefs().grabRadius = tabGuides->grabDistance->value();
+	currDoc->guidesPrefs().guideRad = tabGuides->snapDistance->value();
+	currDoc->guidesPrefs().minorGridSpacing = tabGuides->minorSpace->value() / currDoc->unitRatio();
+	currDoc->guidesPrefs().majorGridSpacing = tabGuides->majorSpace->value() / currDoc->unitRatio();
+	currDoc->guidesPrefs().minorGridColor = tabGuides->colorMinorGrid;
+	currDoc->guidesPrefs().majorGridColor = tabGuides->colorMajorGrid;
+	currDoc->guidesPrefs().marginColor = tabGuides->colorMargin;
+	currDoc->guidesPrefs().guideColor = tabGuides->colorGuides;
+	currDoc->guidesPrefs().baselineGridColor = tabGuides->colorBaselineGrid;
+	currDoc->setCheckerProfiles(tabDocChecker->checkerProfile);
+	currDoc->setCurCheckProfile(tabDocChecker->curCheckProfile->currentText());
+	currDoc->typographicPrefs().valueSuperScript = tabTypo->superDisplacement->value();
+	currDoc->typographicPrefs().scalingSuperScript = tabTypo->superScaling->value();
+	currDoc->typographicPrefs().valueSubScript = tabTypo->subDisplacement->value();
+	currDoc->typographicPrefs().scalingSubScript = tabTypo->subScaling->value();
+	currDoc->typographicPrefs().valueSmallCaps = tabTypo->capsScaling->value();
+	currDoc->typographicPrefs().autoLineSpacing = tabTypo->autoLine->value();
+	currDoc->guidesPrefs().valueBaselineGrid = tabGuides->baseGrid->value(); // / currDoc->unitRatio();
+	currDoc->guidesPrefs().offsetBaselineGrid = tabGuides->baseOffset->value(); // / currDoc->unitRatio();
+	currDoc->typographicPrefs().valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
+	currDoc->typographicPrefs().valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
+	currDoc->typographicPrefs().valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
+	currDoc->typographicPrefs().valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
+	currDoc->itemToolPrefs().textFont = tabTools->fontComboText->currentText();
+	currDoc->itemToolPrefs().textSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
+	currDoc->itemToolPrefs().textStrokeColor = tabTools->colorComboStrokeText->currentText();
+	switch (tabTools->tabFillCombo->currentIndex())
+	{
+		case 0:
+			currDoc->itemToolPrefs().textTabFillChar = "";
+			break;
+		case 1:
+			currDoc->itemToolPrefs().textTabFillChar = ".";
+			break;
+		case 2:
+			currDoc->itemToolPrefs().textTabFillChar = "-";
+			break;
+		case 3:
+			currDoc->itemToolPrefs().textTabFillChar = "_";
+			break;
+		case 4:
+			currDoc->itemToolPrefs().textTabFillChar = tabTools->tabFillCombo->currentText().right(1);
+			break;
+	}
+	if (currDoc->itemToolPrefs().textStrokeColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().textStrokeColor = CommonStrings::None;
+	currDoc->itemToolPrefs().textColor = tabTools->colorComboText->currentText();
+	if (currDoc->itemToolPrefs().textColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().textColor = CommonStrings::None;
+	currDoc->itemToolPrefs().textFillColor = tabTools->colorComboTextBackground->currentText();
+	if (currDoc->itemToolPrefs().textFillColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().textFillColor = CommonStrings::None;
+	currDoc->itemToolPrefs().textLineColor = tabTools->colorComboTextLine->currentText();
+	if (currDoc->itemToolPrefs().textLineColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().textLineColor = CommonStrings::None;
+	currDoc->itemToolPrefs().textFillColorShade = tabTools->shadingTextBack->value();
+	currDoc->itemToolPrefs().textLineColorShade = tabTools->shadingTextLine->value();
+	currDoc->itemToolPrefs().textShade = tabTools->shadingText->value();
+	currDoc->itemToolPrefs().textStrokeShade = tabTools->shadingTextStroke->value();
+	currDoc->itemToolPrefs().textColumns = tabTools->columnsText->value();
+	currDoc->itemToolPrefs().textColumnGap = tabTools->gapText->value() / currDoc->unitRatio();
+	currDoc->itemToolPrefs().textTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();
+	currDoc->itemToolPrefs().shapeLineColor = tabTools->colorComboLineShape->currentText();
+	if (currDoc->itemToolPrefs().shapeLineColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().shapeLineColor = CommonStrings::None;
+	currDoc->itemToolPrefs().shapeFillColor = tabTools->comboFillShape->currentText();
+	if (currDoc->itemToolPrefs().shapeFillColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().shapeFillColor = CommonStrings::None;
+	currDoc->itemToolPrefs().shapeFillColorShade = tabTools->shadingFillShape->value();
+	currDoc->itemToolPrefs().shapeLineColorShade = tabTools->shadingLineShape->value();
+	currDoc->itemToolPrefs().shapeLineStyle = static_cast<Qt::PenStyle>(tabTools->comboStyleShape->currentIndex()) + 1;
+	currDoc->itemToolPrefs().shapeLineWidth = tabTools->lineWidthShape->value();
+	currDoc->itemToolPrefs().lineStartArrow = tabTools->startArrow->currentIndex();
+	currDoc->itemToolPrefs().lineEndArrow = tabTools->endArrow->currentIndex();
+	currDoc->opToolPrefs().magMin = tabTools->minimumZoom->value();
+	currDoc->opToolPrefs().magMax = tabTools->maximumZoom->value();
+	currDoc->opToolPrefs().magStep = tabTools->zoomStep->value();
+	currDoc->itemToolPrefs().lineColor = tabTools->colorComboLine->currentText();
+	if (currDoc->itemToolPrefs().lineColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().lineColor = CommonStrings::None;
+	currDoc->itemToolPrefs().lineColorShade = tabTools->shadingLine->value();
+	currDoc->itemToolPrefs().lineStyle = static_cast<Qt::PenStyle>(tabTools->comboStyleLine->currentIndex()) + 1;
+	currDoc->itemToolPrefs().lineWidth = tabTools->lineWidthLine->value();
+	currDoc->itemToolPrefs().imageFillColor = tabTools->comboFillImage->currentText();
+	if (currDoc->itemToolPrefs().imageFillColor == CommonStrings::tr_NoneColor)
+		currDoc->itemToolPrefs().imageFillColor = CommonStrings::None;
+	currDoc->itemToolPrefs().imageFillColorShade = tabTools->shadingFillImage->value();
+	currDoc->itemToolPrefs().imageScaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
+	currDoc->itemToolPrefs().imageScaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;
+	currDoc->itemToolPrefs().imageScaleType = tabTools->buttonGroup3->isChecked();
+	currDoc->itemToolPrefs().imageAspectRatio = tabTools->checkRatioImage->isChecked();
+	currDoc->itemToolPrefs().imageUseEmbeddedPath = tabTools->embeddedPath->isChecked();
+	int haRes = 0;
+	if (tabTools->checkFullRes->isChecked())
+		haRes = 0;
+	if (tabTools->checkNormalRes->isChecked())
+		haRes = 1;
+	if (tabTools->checkHalfRes->isChecked())
+		haRes = 2;
+	if (currDoc->itemToolPrefs().imageLowResType != haRes)
+	{
+		currDoc->itemToolPrefs().imageLowResType = haRes;
+		viewToRecalcPictureRes=true;
+	}
+	else
+		viewToRecalcPictureRes=false;
+	currDoc->opToolPrefs().dispX = tabTools->genDispX->value();
+	currDoc->opToolPrefs().dispY = tabTools->genDispY->value();
+	currDoc->opToolPrefs().constrain = tabTools->genRot->value();
+	tabTools->polyWidget->getValues(&currDoc->itemToolPrefs().polyCorners,
+									&currDoc->itemToolPrefs().polyFactorGuiVal,
+									&currDoc->itemToolPrefs().polyFactor,
+									&currDoc->itemToolPrefs().polyUseFactor,
+									&currDoc->itemToolPrefs().polyRotation,
+									&currDoc->itemToolPrefs().polyCurvature);
+	currDoc->setAutoSave(tabPage->GroupAS->isChecked());
+	currDoc->setAutoSaveTime(tabPage->ASTime->value() * 60 * 1000);
+	currDoc->autoSaveTimer->stop();
+	if (currDoc->autoSave())
+		currDoc->autoSaveTimer->start(currDoc->autoSaveTime());
+*/
+/*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
+		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
+*/
+	/*
+	currDoc->setHyphLanguage(tabHyphenator->getLanguage());
+
+	currDoc->docHyphenator->slotNewSettings(tabHyphenator->getWordLen(),
+											!tabHyphenator->getVerbose(),
+											tabHyphenator->getInput(),
+											tabHyphenator->getMaxCount());
+	currDoc->docHyphenator->ignoredWords = tabHyphenator->getIgnoreList();
+	currDoc->docHyphenator->specialWords = tabHyphenator->getExceptionList();
+	if (ScCore->haveCMS())
+	{
+		bool oldCM = currDoc->CMSSettings.CMSinUse;
+		tabColorManagement->updateDocSettings(currDoc);
+		if (tabColorManagement->changed)
+		{
+			ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
+			ScMW->mainWindowProgressBar->reset();
+			int cc = currDoc->PageColors.count() + currDoc->Items->count();
+			ScMW->mainWindowProgressBar->setMaximum(cc);
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			bool newCM  = currDoc->CMSSettings.CMSinUse;
+			bool updCol = false;
+			currDoc->CMSSettings.CMSinUse = oldCM;
+			currDoc->CloseCMSProfiles();
+			currDoc->CMSSettings.CMSinUse = newCM;
+			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
+			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
+			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
+			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
+			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
+			if (!currDoc->CMSSettings.CMSinUse)
+			{
+				currDoc->HasCMS = false;
+				if	(oldCM)
+				{
+					currDoc->SetDefaultCMSParams();
+					updCol = true;
+				}
+			}
+			else if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
+			{
+				currDoc->HasCMS = true;
+				currDoc->pdfOptions().SComp = currDoc->CMSSettings.ComponentsInput2;
+				currDoc->pdfOptions().SolidProf = currDoc->CMSSettings.DefaultSolidColorRGBProfile;
+				currDoc->pdfOptions().ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
+				currDoc->pdfOptions().PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
+				currDoc->pdfOptions().Intent = currDoc->CMSSettings.DefaultIntentColors;
+				updCol = true;
+			}
+			else
+			{
+				currDoc->SetDefaultCMSParams();
+				currDoc->HasCMS = false;
+			}
+			if (updCol)
+			{
+				ScMW->recalcColors(ScMW->mainWindowProgressBar);
+				currDoc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+			}
+			ScMW->mainWindowProgressBar->setValue(cc);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			ScMW->setStatusBarInfoText("");
+			ScMW->mainWindowProgressBar->reset();
+		}
+	}
+	PrefsManager* prefsManager=PrefsManager::instance();
+// 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
+// 	for ( ; it.hasNext() ; it.next())
+// 	{
+// 		it.current().embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
+// 		it.current().usable(tabFonts->fontFlags[it.currentKey()].FlagUse);
+// 		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
+// 	}
+	uint a = 0;
+	prefsManager->appPrefs.fontPrefs.GFontSub.clear();
+	QMap<QString,QString>::Iterator itfsu;
+	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();
+	for (itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
+		prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
+	QStringList uf = currDoc->UsedFonts.keys();
+	QMap<QString,int>::Iterator it3;
+//	for (it3 = currDoc->UsedFonts.begin(); it3 != currDoc->UsedFonts.end(); ++it3)
+//		FT_Done_Face(currDoc->FFonts[it3.key()]);
+	currDoc->UsedFonts.clear();
+	QStringList::Iterator it3a;
+	QStringList::Iterator it3aend=uf.end();
+	for (it3a = uf.begin(); it3a != it3aend; ++it3a)
+		currDoc->AddFont(*it3a);
+
+	currDoc->pdfOptions().Thumbnails = tabPDF->CheckBox1->isChecked();
+	currDoc->pdfOptions().Compress = tabPDF->Compression->isChecked();
+	currDoc->pdfOptions().CompressMethod = (PDFOptions::PDFCompression) tabPDF->CMethod->currentIndex();
+	currDoc->pdfOptions().Quality = tabPDF->CQuality->currentIndex();
+	currDoc->pdfOptions().embedPDF = tabPDF->EmbedPDF->isChecked();
+	currDoc->pdfOptions().Resolution = tabPDF->Resolution->value();
+	currDoc->pdfOptions().RecalcPic = tabPDF->DSColor->isChecked();
+	currDoc->pdfOptions().PicRes = tabPDF->ValC->value();
+	currDoc->pdfOptions().Bookmarks = tabPDF->CheckBM->isChecked();
+	currDoc->pdfOptions().Binding = tabPDF->ComboBind->currentIndex();
+	currDoc->pdfOptions().MirrorH = tabPDF->MirrorH->isChecked();
+	currDoc->pdfOptions().MirrorV = tabPDF->MirrorV->isChecked();
+	currDoc->pdfOptions().RotateDeg = tabPDF->RotateDeg->currentIndex() * 90;
+	currDoc->pdfOptions().Articles = tabPDF->Article->isChecked();
+	currDoc->pdfOptions().Encrypt = tabPDF->Encry->isChecked();
+	currDoc->pdfOptions().UseLPI = tabPDF->UseLPI->isChecked();
+	currDoc->pdfOptions().useLayers = tabPDF->useLayers->isChecked();
+	currDoc->pdfOptions().UseSpotColors = !tabPDF->useSpot->isChecked();
+	currDoc->pdfOptions().doMultiFile = false;
+	currDoc->pdfOptions().bleeds.Bottom = tabPDF->BleedBottom->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().bleeds.Top = tabPDF->BleedTop->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().bleeds.Left = tabPDF->BleedLeft->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().bleeds.Right = tabPDF->BleedRight->value() / currDoc->unitRatio();
+	currDoc->pdfOptions().doClip = tabPDF->ClipMarg->isChecked();
+	currDoc->pdfOptions().openAction = "";
+	if (tabPDF->Encry->isChecked())
+	{
+		int Perm = -64;
+		if (tabPDF->PDFVersionCombo->currentIndex() == 1)
+			Perm &= ~0x00240000;
+		if (tabPDF->PrintSec->isChecked())
+			Perm += 4;
+		if (tabPDF->ModifySec->isChecked())
+			Perm += 8;
+		if (tabPDF->CopySec->isChecked())
+			Perm += 16;
+		if (tabPDF->AddSec->isChecked())
+			Perm += 32;
+		currDoc->pdfOptions().Permissions = Perm;
+		currDoc->pdfOptions().PassOwner = tabPDF->PassOwner->text();
+		currDoc->pdfOptions().PassUser = tabPDF->PassUser->text();
+	}
+	if (tabPDF->PDFVersionCombo->currentIndex() == 0)
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_13;
+	if (tabPDF->PDFVersionCombo->currentIndex() == 1)
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_14;
+	if (tabPDF->PDFVersionCombo->currentIndex() == 2)
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_15;
+	if (tabPDF->PDFVersionCombo->currentIndex() == 3)
+		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_X3;
+	if (tabPDF->OutCombo->currentIndex() == 0)
+	{
+		currDoc->pdfOptions().isGrayscale = false;
+		currDoc->pdfOptions().UseRGB = true;
+		currDoc->pdfOptions().UseProfiles = false;
+		currDoc->pdfOptions().UseProfiles2 = false;
+	}
+	else
+	{
+		if (tabPDF->OutCombo->currentIndex() == 3)
+		{
+			currDoc->pdfOptions().isGrayscale = true;
+			currDoc->pdfOptions().UseRGB = false;
+			currDoc->pdfOptions().UseProfiles = false;
+			currDoc->pdfOptions().UseProfiles2 = false;
+		}
+		else
+		{
+			currDoc->pdfOptions().isGrayscale = false;
+			currDoc->pdfOptions().UseRGB = false;
+			if (currDoc->HasCMS)
+			{
+				currDoc->pdfOptions().UseProfiles = tabPDF->EmbedProfs->isChecked();
+				currDoc->pdfOptions().UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
+				currDoc->pdfOptions().Intent = tabPDF->IntendS->currentIndex();
+				currDoc->pdfOptions().Intent2 = tabPDF->IntendI->currentIndex();
+				currDoc->pdfOptions().EmbeddedI = tabPDF->NoEmbedded->isChecked();
+				currDoc->pdfOptions().SolidProf = tabPDF->SolidPr->currentText();
+				currDoc->pdfOptions().ImageProf = tabPDF->ImageP->currentText();
+				currDoc->pdfOptions().PrintProf = tabPDF->PrintProfC->currentText();
+			}
+		}
+	}
+
+	currDoc->documentInfo = docInfos->getDocInfo();
+	currDoc->setItemAttributes(*(tabDocItemAttributes->getNewAttributes()));
+	currDoc->setTocSetups(*(tabTOCIndexPrefs->getNewToCs()));
+	currDoc->sections = tabDocSections->getNewSections();
+
+	uint itemCount=currDoc->Items->count();
+	for (uint b=0; b<itemCount; ++b)
+	{
+		if (currDoc->Items->at(b)->itemType() == PageItem::ImageFrame)
+			currDoc->Items->at(b)->setImageShown(currDoc->guidesPrefs().showPic);
+	}
+	*/
+}
 

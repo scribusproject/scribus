@@ -668,10 +668,10 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	if ((ret) || (!interactive))
 	{
 		if (width > height)
-			m_Doc->PageOri = 1;
+			m_Doc->setPageOrientation(1);
 		else
-			m_Doc->PageOri = 0;
-		m_Doc->m_pageSize = "Custom";
+			m_Doc->setPageOrientation(0);
+		m_Doc->setPageSize("Custom");
 	}
 	FPoint minSize = m_Doc->minCanvasCoordinate;
 	FPoint maxSize = m_Doc->maxCanvasCoordinate;

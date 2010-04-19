@@ -733,8 +733,8 @@ namespace {
 
 void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
-	m_Doc->m_pageSize = attrs.valueAsString("PAGESIZE");
-	m_Doc->PageOri    = attrs.valueAsInt("ORIENTATION", 0);
+	m_Doc->setPageSize(attrs.valueAsString("PAGESIZE"));
+	m_Doc->setPageOrientation(attrs.valueAsInt("ORIENTATION", 0));
 	m_Doc->FirstPnum  = attrs.valueAsInt("FIRSTNUM", 1);
 	m_Doc->currentPageLayout = attrs.valueAsInt("BOOK", 0);
 
@@ -748,10 +748,10 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->setHyphConsecutiveLines(attrs.valueAsInt("HYCOUNT", 2));
 
 	if (attrs.hasAttribute("PAGEWIDTH"))
-		m_Doc->pageWidth = attrs.valueAsDouble("PAGEWIDTH");
+		m_Doc->setPageWidth(attrs.valueAsDouble("PAGEWIDTH"));
 	else
-		m_Doc->pageWidth = attrs.valueAsDouble("PAGEWITH");
-	m_Doc->pageHeight = attrs.valueAsDouble("PAGEHEIGHT");
+		m_Doc->setPageWidth(attrs.valueAsDouble("PAGEWITH"));
+	m_Doc->setPageHeight(attrs.valueAsDouble("PAGEHEIGHT"));
 	m_Doc->pageMargins.Left  = qMax(0.0, attrs.valueAsDouble("BORDERLEFT"));
 	m_Doc->pageMargins.Right = qMax(0.0, attrs.valueAsDouble("BORDERRIGHT"));
 	m_Doc->pageMargins.Top   = qMax(0.0, attrs.valueAsDouble("BORDERTOP"));

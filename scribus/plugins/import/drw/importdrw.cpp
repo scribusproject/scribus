@@ -279,10 +279,10 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	if ((ret) || (!interactive))
 	{
 		if (docWidth > docHeight)
-			m_Doc->PageOri = 1;
+			m_Doc->setPageOrientation(1);
 		else
-			m_Doc->PageOri = 0;
-		m_Doc->m_pageSize = "Custom";
+			m_Doc->setPageOrientation(0);
+		m_Doc->setPageSize("Custom");
 	}
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;
@@ -898,11 +898,11 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			{
 				m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 				if (docWidth > docHeight)
-					m_Doc->PageOri = 1;
+					m_Doc->setPageOrientation(1);
 				else
-					m_Doc->PageOri = 0;
-				m_Doc->m_pageSize = "Custom";
-				m_Doc->changePageMargins(0, 0, 0, 0, docHeight, docWidth, docHeight, docWidth, m_Doc->PageOri, m_Doc->m_pageSize, m_Doc->currentPage()->pageNr(), 0);
+					m_Doc->setPageOrientation(0);
+				m_Doc->setPageSize("Custom");
+				m_Doc->changePageMargins(0, 0, 0, 0, docHeight, docWidth, docHeight, docWidth, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
 				cmdText = QString("DRW Page  Width %1  Height %2").arg(docWidth).arg(docHeight);
 			}
 			break;

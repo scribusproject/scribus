@@ -100,8 +100,8 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	NameLayout->addWidget( multiFile, 1, 0 );
 	PDFExportLayout->addWidget( Name );
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
-								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight,
-								currView->Doc->pageWidth, currView->Doc, true );
+								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight(),
+								currView->Doc->pageWidth(), currView->Doc, true );
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );

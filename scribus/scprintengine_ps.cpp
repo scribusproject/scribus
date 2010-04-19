@@ -50,8 +50,8 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 				// use gs to convert our PS to a lower version
 				QString tmp;
 				QStringList opts;
-				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc.pageWidth)) );
-				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc.pageHeight)) );
+				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc.pageWidth())) );
+				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc.pageHeight())) );
 				convertPS2PS(filename, filename + ".tmp", opts, options.prnEngine);
 				moveFile( filename + ".tmp", filename );
 			}

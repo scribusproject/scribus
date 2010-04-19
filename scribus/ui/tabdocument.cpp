@@ -251,24 +251,24 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	unitRatio = unitGetRatioFromIndex(prefsData->unitIndex());
 
 //	setSize(prefsData->m_pageSize);
-	if (prefsData->m_pageSize == CommonStrings::customPageSize)
+	if (prefsData->pageSize() == CommonStrings::customPageSize)
 		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
 	else
-		setCurrentComboItem(pageSizeComboBox, prefsData->m_pageSize);
-	prefsPageSizeName = prefsData->m_pageSize;
+		setCurrentComboItem(pageSizeComboBox, prefsData->pageSize());
+	prefsPageSizeName = prefsData->pageSize();
 //	setOrien(prefsData->PageOri);
 
 	docLayout->selectItem(prefsData->currentPageLayout);
 	docLayout->firstPage->setCurrentIndex(prefsData->pageSets()[prefsData->currentPageLayout].FirstPage);
-	pageOrientationComboBox->setCurrentIndex(prefsData->PageOri);
+	pageOrientationComboBox->setCurrentIndex(prefsData->pageOrientation());
 	unitCombo->setCurrentIndex(prefsData->unitIndex());
-	pageWidth->setValue(prefsData->pageWidth * unitRatio);
-	pageHeight->setValue(prefsData->pageHeight * unitRatio);
-	pageW = prefsData->pageWidth;
-	pageH = prefsData->pageHeight;
+	pageWidth->setValue(prefsData->pageWidth() * unitRatio);
+	pageHeight->setValue(prefsData->pageHeight() * unitRatio);
+	pageW = prefsData->pageWidth();
+	pageH = prefsData->pageHeight();
 	marginGroup->setNewBleeds(prefsData->bleeds);
 	marginGroup->setNewMargins(prefsData->pageMargins);
-	marginGroup->setPageWidthHeight(prefsData->pageWidth, prefsData->pageHeight);
+	marginGroup->setPageWidthHeight(prefsData->pageWidth(), prefsData->pageHeight());
 	marginGroup->setPageSize(prefsPageSizeName);
 	marginGroup->setMarginPreset(prefsData->marginPreset);
 	GroupAS->setChecked( prefsData->autoSave() );

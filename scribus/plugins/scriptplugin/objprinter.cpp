@@ -477,8 +477,8 @@ static PyObject *Printer_print(Printer *self)
 				{
 					QString tmp;
 					QStringList opts;
-					opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageWidth)) );
-					opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageHeight)) );
+					opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageWidth())) );
+					opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageHeight())) );
 					convertPS2PS(fna, fna+".tmp", opts, options.prnEngine);
 					moveFile( fna + ".tmp", fna );
 				}

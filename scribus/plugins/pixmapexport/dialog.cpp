@@ -66,8 +66,8 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 void ExportForm::computeSize()
 {
 	double pixmapSize;
-	double pw = (onePageRadio->isChecked() && m_doc->currentPage()) ? m_doc->currentPage()->width() : m_doc->pageWidth;
-	double ph = (onePageRadio->isChecked() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight;
+	double pw = (onePageRadio->isChecked() && m_doc->currentPage()) ? m_doc->currentPage()->width() : m_doc->pageWidth();
+	double ph = (onePageRadio->isChecked() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight();
 	(ph > pw) ? pixmapSize = ph : pixmapSize = pw;
 	int maxGr = qRound(pixmapSize * enlargementBox->value() * (DPIBox->value() / 72.0) / 100.0);
 	double sc = qMin(maxGr / pw, maxGr / ph);

@@ -146,8 +146,8 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	if (currentFile !=  doc->DocName)
 	{
 		satdialog* satdia = new satdialog(doc->scMW(),docName,
-                                          static_cast<int>(doc->pageWidth + 0.5),
-                                          static_cast<int>(doc->pageHeight + 0.5));
+										  static_cast<int>(doc->pageWidth() + 0.5),
+										  static_cast<int>(doc->pageHeight() + 0.5));
 		if (satdia->exec())
 		{
 			sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1),docDir);
@@ -208,8 +208,8 @@ void sat::createImages()
 {
 	QString tnsmallName = dia->nameEdit->text() + "tn.png";
 	QString tnlargeName = dia->nameEdit->text() + ".png";
-	double pageh = m_Doc->pageHeight;
-	double pagew = m_Doc->pageWidth;
+	double pageh = m_Doc->pageHeight();
+	double pagew = m_Doc->pageWidth();
 	int pageSizeSmall = 0;
 	int pageSizeLarge = 0;
 	if (pageh > pagew)

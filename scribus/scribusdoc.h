@@ -192,11 +192,22 @@ public:
 	void clearCheckerProfiles() { docPrefsData.verifierPrefs.checkerPrefsList.clear(); }
 	const QString& curCheckProfile() const { return docPrefsData.verifierPrefs.curCheckProfile; }
 	void setCurCheckProfile(const QString& s) { docPrefsData.verifierPrefs.curCheckProfile=s; }
+	int pageOrientation() const { return docPrefsData.docSetupPrefs.pageOrientation; }
+	void setPageOrientation(int o) { docPrefsData.docSetupPrefs.pageOrientation=o; }
+	double pageHeight() const { return docPrefsData.docSetupPrefs.pageHeight; }
+	double pageWidth() const { return docPrefsData.docSetupPrefs.pageWidth; }
+	const QString& pageSize() const { return docPrefsData.docSetupPrefs.pageSize; }
+	void setPageHeight(double h) { docPrefsData.docSetupPrefs.pageHeight=h; }
+	void setPageWidth(double w) { docPrefsData.docSetupPrefs.pageWidth=w; }
+	void setPageSize(const QString& s) { docPrefsData.docSetupPrefs.pageSize=s; }
 
 	TypoPrefs& typographicPrefs() { return docPrefsData.typoPrefs; }
 	GuidesPrefs& guidesPrefs() { return docPrefsData.guidesPrefs; }
 	ItemToolPrefs& itemToolPrefs() { return docPrefsData.itemToolPrefs; }
 	OperatorToolPrefs& opToolPrefs() { return docPrefsData.opToolPrefs; }
+
+	const ApplicationPrefs& prefsData() { return docPrefsData; }
+	void setNewPrefs(const ApplicationPrefs& prefsData);
 
 	// Add, delete and move pages
 	
@@ -1029,10 +1040,10 @@ public: // Public attributes
 	QList<PageItem*> DocItems;
 	QList<PageItem*> FrameItems;
 	Selection* const m_Selection;
-	/** \brief Pagewidth  */
-	double pageWidth;
-	/** \brief Pageheight */
-	double pageHeight;
+	//->Prefs /** \brief Pagewidth  */
+	//->Prefs double pageWidth;
+	//->Prefs /** \brief Pageheight */
+	//->Prefs double pageHeight;
 	/* Number of Pages */
 	// int pageCount; Disabled CR no longer required
 	/** \brief Margins */
@@ -1050,9 +1061,9 @@ public: // Public attributes
 	double PageSpa;
 	/** \brief current Pagelayout */
 	int currentPageLayout;
-	/** \brief Flag fuer Hoch- oder Querformat 0 = Hochformat */
-	int PageOri;
-	QString m_pageSize;
+	///** \brief Flag fuer Hoch- oder Querformat 0 = Hochformat */
+	//->Prefs int PageOri;
+	//->Prefs QString m_pageSize;
 	/** \brief Erste Seitennummer im Dokument */
 	int FirstPnum;
 	/** \brief Flag fuer Rasterbenutzung */

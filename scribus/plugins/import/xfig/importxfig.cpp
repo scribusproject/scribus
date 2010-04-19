@@ -400,10 +400,10 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	if ((ret) || (!interactive))
 	{
 		if (b-x > h-y)
-			m_Doc->PageOri = 1;
+			m_Doc->setPageOrientation(1);
 		else
-			m_Doc->PageOri = 0;
-		m_Doc->m_pageSize = "Custom";
+			m_Doc->setPageOrientation(0);
+		m_Doc->setPageSize("Custom");
 	}
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;

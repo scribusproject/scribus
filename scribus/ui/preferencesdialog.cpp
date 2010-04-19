@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util_icon.h"
 
-PreferencesDialog::PreferencesDialog( QWidget* parent )
+PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData)
 	: QDialog(parent),
 	counter(0)
 {
@@ -87,6 +87,7 @@ PreferencesDialog::PreferencesDialog( QWidget* parent )
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
 	connect(preferencesTypeList, SIGNAL(itemSelectionChanged()), this, SLOT(newItemSelected()));
 
+	localPrefs=prefsData;
 	initPreferenceValues();
 	setupGui();
 	addPlugins();
@@ -106,7 +107,6 @@ void PreferencesDialog::restoreDefaults()
 void PreferencesDialog::initPreferenceValues()
 {
 	prefsManager=PrefsManager::instance();
-	localPrefs=prefsManager->appPrefs;
 	mainWin = (ScribusMainWindow*)parent();
 	docUnitIndex = localPrefs.docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);

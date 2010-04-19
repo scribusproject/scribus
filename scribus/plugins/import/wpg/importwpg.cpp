@@ -81,11 +81,11 @@ void ScrPainter::startGraphics(double width, double height)
 	{
 		m_Doc->setPage(72 * width, 72 * height, 0, 0, 0, 0, 0, 0, false, false);
 		if (width > height)
-			m_Doc->PageOri = 1;
+			m_Doc->setPageOrientation(1);
 		else
-			m_Doc->PageOri = 0;
-		m_Doc->m_pageSize = "Custom";
-		m_Doc->changePageMargins(0, 0, 0, 0, 72 * height, 72 * width, 72 * height, 72 * width, m_Doc->PageOri, m_Doc->m_pageSize, m_Doc->currentPage()->pageNr(), 0);
+			m_Doc->setPageOrientation(0);
+		m_Doc->setPageSize("Custom");
+		m_Doc->changePageMargins(0, 0, 0, 0, 72 * height, 72 * width, 72 * height, 72 * width, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
 	}
 	firstLayer = true;
 }
@@ -673,10 +673,10 @@ bool WpgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	if ((ret) || (!interactive))
 	{
 		if (docWidth > docHeight)
-			m_Doc->PageOri = 1;
+			m_Doc->setPageOrientation(1);
 		else
-			m_Doc->PageOri = 0;
-		m_Doc->m_pageSize = "Custom";
+			m_Doc->setPageOrientation(0);
+		m_Doc->setPageSize("Custom");
 	}
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;

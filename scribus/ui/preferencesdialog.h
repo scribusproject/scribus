@@ -50,7 +50,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 	Q_OBJECT
 
 	public:
-		PreferencesDialog(QWidget* parent);
+		PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData);
 		~PreferencesDialog();
 
 		virtual void changeEvent(QEvent *e);
