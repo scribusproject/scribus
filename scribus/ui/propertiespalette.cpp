@@ -4670,12 +4670,22 @@ void PropertiesPalette::ManageTabs()
 		PageItem_TextFrame *i2=CurItem->asTextFrame();
 		if (i2==0)
 			return;
-		TabManager *dia = new TabManager(this, doc->unitIndex(), i2->itemText.defaultStyle().tabValues(), i2->columnWidth());
+		const ParagraphStyle& style(doc->appMode == modeEdit ? i2->currentStyle() : i2->itemText.defaultStyle());
+		TabManager *dia = new TabManager(this, doc->unitIndex(), style.tabValues(), i2->columnWidth());
 		if (dia->exec())
 		{
-			ParagraphStyle newStyle(CurItem->itemText.defaultStyle());
-			newStyle.setTabValues(dia->tmpTab);
-			CurItem->itemText.setDefaultStyle(newStyle);
+			if (doc->appMode != modeEdit)
+			{
+				ParagraphStyle newStyle(CurItem->itemText.defaultStyle());
+				newStyle.setTabValues(dia->tmpTab);
+				CurItem->itemText.setDefaultStyle(newStyle);
+			}
+			else
+			{
+				ParagraphStyle newStyle;
+				newStyle.setTabValues(dia->tmpTab);
+				doc->itemSelection_ApplyParagraphStyle(newStyle);
+			}
 			CurItem->update();
 			emit DocChanged();
 		}
