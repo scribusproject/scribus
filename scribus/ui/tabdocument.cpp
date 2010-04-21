@@ -242,37 +242,37 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitChange();
 }
 
-void TabDocument::restoreDefaults(ScribusDoc *prefsData)
+void TabDocument::restoreDefaults(ScribusDoc *doc)
 {
 	disconnect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	disconnect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	disconnect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	disconnect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
-	unitRatio = unitGetRatioFromIndex(prefsData->unitIndex());
+	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 
 //	setSize(prefsData->m_pageSize);
-	if (prefsData->pageSize() == CommonStrings::customPageSize)
+	if (doc->pageSize() == CommonStrings::customPageSize)
 		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
 	else
-		setCurrentComboItem(pageSizeComboBox, prefsData->pageSize());
-	prefsPageSizeName = prefsData->pageSize();
+		setCurrentComboItem(pageSizeComboBox, doc->pageSize());
+	prefsPageSizeName = doc->pageSize();
 //	setOrien(prefsData->PageOri);
 
-	docLayout->selectItem(prefsData->currentPageLayout);
-	docLayout->firstPage->setCurrentIndex(prefsData->pageSets()[prefsData->currentPageLayout].FirstPage);
-	pageOrientationComboBox->setCurrentIndex(prefsData->pageOrientation());
-	unitCombo->setCurrentIndex(prefsData->unitIndex());
-	pageWidth->setValue(prefsData->pageWidth() * unitRatio);
-	pageHeight->setValue(prefsData->pageHeight() * unitRatio);
-	pageW = prefsData->pageWidth();
-	pageH = prefsData->pageHeight();
-	marginGroup->setNewBleeds(prefsData->bleeds);
-	marginGroup->setNewMargins(prefsData->pageMargins);
-	marginGroup->setPageWidthHeight(prefsData->pageWidth(), prefsData->pageHeight());
+	docLayout->selectItem(doc->currentPageLayout);
+	docLayout->firstPage->setCurrentIndex(doc->pageSets()[doc->currentPageLayout].FirstPage);
+	pageOrientationComboBox->setCurrentIndex(doc->pageOrientation());
+	unitCombo->setCurrentIndex(doc->unitIndex());
+	pageWidth->setValue(doc->pageWidth() * unitRatio);
+	pageHeight->setValue(doc->pageHeight() * unitRatio);
+	pageW = doc->pageWidth();
+	pageH = doc->pageHeight();
+	marginGroup->setNewBleeds(*doc->bleeds());
+	marginGroup->setNewMargins(doc->pageMargins);
+	marginGroup->setPageWidthHeight(doc->pageWidth(), doc->pageHeight());
 	marginGroup->setPageSize(prefsPageSizeName);
-	marginGroup->setMarginPreset(prefsData->marginPreset);
-	GroupAS->setChecked( prefsData->autoSave() );
-	ASTime->setValue(prefsData->autoSaveTime() / 1000 / 60);
+	marginGroup->setMarginPreset(doc->marginPreset());
+	GroupAS->setChecked( doc->autoSave() );
+	ASTime->setValue(doc->autoSaveTime() / 1000 / 60);
 	connect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));

@@ -1699,10 +1699,7 @@ void ScribusMainWindow::startUpDialog()
 			}
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset());
 			doc->setPageSetFirstPage(facingPages, firstPage);
-			doc->bleeds.Bottom = dia->bleedBottom();
-			doc->bleeds.Top = dia->bleedTop();
-			doc->bleeds.Left = dia->bleedLeft();
-			doc->bleeds.Right = dia->bleedRight();
+			doc->bleeds()->set(dia->bleedTop(), dia->bleedLeft(), dia->bleedBottom(), dia->bleedRight());
 			HaveNewDoc();
 			doc->reformPages(true);
 			// Don's disturb user with "save?" dialog just after new doc
@@ -1781,10 +1778,7 @@ bool ScribusMainWindow::slotFileNew()
 		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset()))
 		{
 			doc->setPageSetFirstPage(facingPages, firstPage);
-			doc->bleeds.Bottom = dia->bleedBottom();
-			doc->bleeds.Top = dia->bleedTop();
-			doc->bleeds.Left = dia->bleedLeft();
-			doc->bleeds.Right = dia->bleedRight();
+			doc->bleeds()->set(dia->bleedTop(), dia->bleedLeft(), dia->bleedBottom(), dia->bleedRight());
 			mainWindowStatusLabel->setText( tr("Ready"));
 			HaveNewDoc();
 			doc->reformPages(true);
@@ -1907,7 +1901,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		recalcColors();
 	//CB NOTE should be all done now
 	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnCount, columnDistance, autoTextFrames, pageArrangement);
-	tempDoc->marginPreset = marginPreset;
+	tempDoc->setMarginPreset(marginPreset);
 	tempDoc->setMasterPageMode(false);
 	tempDoc->createDefaultMasterPages();
 	tempDoc->createNewDocPages(pageCount);
@@ -8091,7 +8085,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		QString errorMsg;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
 		if (doc->pdfOptions().useDocBleeds)
-			doc->pdfOptions().bleeds = doc->bleeds;
+			doc->pdfOptions().bleeds = *doc->bleeds();
 
 		if (doc->pdfOptions().doMultiFile)
 		{

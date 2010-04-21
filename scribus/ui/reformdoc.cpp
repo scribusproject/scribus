@@ -233,7 +233,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->setPageSize(tabPage->prefsPageSizeName);
 	currDoc->setPageWidth(tabPage->pageW);
 	currDoc->setPageHeight(tabPage->pageH);
-	currDoc->marginPreset = tabPage->marginGroup->getMarginPreset();
+	currDoc->setMarginPreset(tabPage->marginGroup->getMarginPreset());
 	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Top;
 	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->scratch()->Left;
 	currDoc->scratch()->set(tabView->topScratch->value() / currDoc->unitRatio(), tabView->leftScratch->value() / currDoc->unitRatio(), tabView->bottomScratch->value() / currDoc->unitRatio(), tabView->rightScratch->value() / currDoc->unitRatio());
@@ -241,10 +241,7 @@ void ReformDoc::updateDocumentSettings()
 //	currDoc->scratch.Left = tabView->leftScratch->value() / currDoc->unitRatio();
 //	currDoc->scratch.Right = tabView->rightScratch->value() / currDoc->unitRatio();
 //	currDoc->scratch.Top = tabView->topScratch->value() / currDoc->unitRatio();
-	currDoc->bleeds.Bottom = tabPage->marginGroup->bottomBleed();
-	currDoc->bleeds.Top = tabPage->marginGroup->topBleed();
-	currDoc->bleeds.Left = tabPage->marginGroup->leftBleed();
-	currDoc->bleeds.Right = tabPage->marginGroup->rightBleed();
+	currDoc->bleeds()->set(tabPage->marginGroup->topBleed(), tabPage->marginGroup->leftBleed(), tabPage->marginGroup->bottomBleed(), tabPage->marginGroup->rightBleed());
 	for (int p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
@@ -260,7 +257,7 @@ void ReformDoc::updateDocumentSettings()
 		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
 			pp->initialMargins=updatedMargins;
-			pp->marginPreset=currDoc->marginPreset;
+			pp->marginPreset=currDoc->marginPreset();
 		}
 		else
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
@@ -276,7 +273,7 @@ void ReformDoc::updateDocumentSettings()
 				pp->initialMargins.Bottom == mp->initialMargins.Bottom)
 			{
 				pp->initialMargins=updatedMargins;
-				pp->marginPreset=currDoc->marginPreset;
+				pp->marginPreset=currDoc->marginPreset();
 			}
 		}
 	}
@@ -295,7 +292,7 @@ void ReformDoc::updateDocumentSettings()
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
 		{
 			pp->initialMargins=updatedMargins;
-			pp->marginPreset=currDoc->marginPreset;
+			pp->marginPreset=currDoc->marginPreset();
 		}
 		pp->setXOffset(currDoc->scratch()->Left);
 		pp->setYOffset(currDoc->scratch()->Top);

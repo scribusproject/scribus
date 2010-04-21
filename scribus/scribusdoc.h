@@ -146,6 +146,7 @@ public:
 
 
 	MarginStruct* scratch() { return &docPrefsData.displayPrefs.scratch; }
+	MarginStruct* bleeds() { return &docPrefsData.docSetupPrefs.bleeds; }
 	double pageGapHorizontal() const { return docPrefsData.displayPrefs.pageGapHorizontal; }
 	double pageGapVertical() const { return docPrefsData.displayPrefs.pageGapVertical; }
 	void setPageGapHorizontal(double h) { docPrefsData.displayPrefs.pageGapHorizontal=h; }
@@ -200,6 +201,8 @@ public:
 	void setPageHeight(double h) { docPrefsData.docSetupPrefs.pageHeight=h; }
 	void setPageWidth(double w) { docPrefsData.docSetupPrefs.pageWidth=w; }
 	void setPageSize(const QString& s) { docPrefsData.docSetupPrefs.pageSize=s; }
+	int marginPreset() const { return docPrefsData.docSetupPrefs.marginPreset; }
+	void setMarginPreset(int mp) { docPrefsData.docSetupPrefs.marginPreset=mp; }
 
 	TypoPrefs& typographicPrefs() { return docPrefsData.typoPrefs; }
 	GuidesPrefs& guidesPrefs() { return docPrefsData.guidesPrefs; }
@@ -1048,9 +1051,9 @@ public: // Public attributes
 	// int pageCount; Disabled CR no longer required
 	/** \brief Margins */
 	MarginStruct pageMargins;
-	int marginPreset;
+	//->Prefs int marginPreset;
 	//->Prefs QList<PageSet> pageSets;
-	MarginStruct bleeds;
+	//->Prefs MarginStruct bleeds;
 // 	double BleedTop;
 // 	double BleedLeft;
 // 	double BleedRight;

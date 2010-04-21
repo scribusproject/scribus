@@ -483,10 +483,10 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		return;
 
 	// real painting margins including bleeds
-	double verticalFrom = 0.0 - doc->bleeds.Top;
-	double verticalTo = m_page->height() + doc->bleeds.Bottom;
-	double horizontalFrom = 0.0 - doc->bleeds.Left;
-	double horizontalTo = m_page->width() + doc->bleeds.Right;
+	double verticalFrom = 0.0 - doc->bleeds()->Top;
+	double verticalTo = m_page->height() + doc->bleeds()->Bottom;
+	double horizontalFrom = 0.0 - doc->bleeds()->Left;
+	double horizontalTo = m_page->width() + doc->bleeds()->Right;
 
 	// all standard
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);

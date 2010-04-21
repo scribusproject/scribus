@@ -751,11 +751,11 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->pageMargins.Right = qMax(0.0, attrs.valueAsDouble("BORDERRIGHT"));
 	m_Doc->pageMargins.Top   = qMax(0.0, attrs.valueAsDouble("BORDERTOP"));
 	m_Doc->pageMargins.Bottom= qMax(0.0, attrs.valueAsDouble("BORDERBOTTOM"));
-	m_Doc->marginPreset  = attrs.valueAsInt("PRESET", 0);
-	m_Doc->bleeds.Top    = attrs.valueAsDouble("BleedTop", 0.0);
-	m_Doc->bleeds.Left   = attrs.valueAsDouble("BleedLeft", 0.0);
-	m_Doc->bleeds.Right  = attrs.valueAsDouble("BleedRight", 0.0);
-	m_Doc->bleeds.Bottom = attrs.valueAsDouble("BleedBottom", 0.0);
+	m_Doc->setMarginPreset(attrs.valueAsInt("PRESET", 0));
+	m_Doc->bleeds()->Top    = attrs.valueAsDouble("BleedTop", 0.0);
+	m_Doc->bleeds()->Left   = attrs.valueAsDouble("BleedLeft", 0.0);
+	m_Doc->bleeds()->Right  = attrs.valueAsDouble("BleedRight", 0.0);
+	m_Doc->bleeds()->Bottom = attrs.valueAsDouble("BleedBottom", 0.0);
 	m_Doc->setHyphAutomatic(attrs.valueAsBool("AUTOMATIC", true));
 	m_Doc->setHyphAutoCheck(attrs.valueAsBool("AUTOCHECK", false));
 	m_Doc->GuideLock = attrs.valueAsBool("GUIDELOCK", false);

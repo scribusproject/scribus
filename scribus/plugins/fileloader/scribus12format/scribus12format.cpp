@@ -277,7 +277,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->pageMargins.Right=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERRIGHT")));
 		m_Doc->pageMargins.Top=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERTOP")));
 		m_Doc->pageMargins.Bottom=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERBOTTOM")));
-		m_Doc->marginPreset = dc.attribute("PRESET", "0").toInt();
+		m_Doc->setMarginPreset(dc.attribute("PRESET", "0").toInt());
 		m_Doc->setPageOrientation(dc.attribute("ORIENTATION", "0").toInt());
 		m_Doc->setPageSize(dc.attribute("PAGESIZE"));
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();

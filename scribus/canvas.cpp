@@ -1841,7 +1841,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 //		painter->beginLayer(1.0, 0);
 		painter->setAntialiasing(false);
 		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
+		if (m_doc->bleeds()->hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 		{
 //			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
 			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
@@ -1908,7 +1908,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 				}
 //				painter->drawRect(blx2 + 5 /* m_viewMode.scale */, bly2 + 5 /* m_viewMode.scale */, blw2, blh2);
 				painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
-				if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
+				if (m_doc->bleeds()->hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 				{
 					painter->setFillMode(ScPainter::None);
 					painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1930,7 +1930,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		double w = actPg->width();
 		double h = actPg->height();
 		bool drawBleed = false;
-		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesPrefs().showBleed))
+		if (((m_doc->bleeds()->Bottom != 0.0) || (m_doc->bleeds()->Top != 0.0) || (m_doc->bleeds()->Left != 0.0) || (m_doc->bleeds()->Right != 0.0)) && (m_doc->guidesPrefs().showBleed))
 		{
 			drawBleed = true;
 			m_doc->getBleeds(a, pageBleeds);

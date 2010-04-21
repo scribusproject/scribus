@@ -75,9 +75,9 @@ QWidget * GuidesHDelegate::createEditor(QWidget *parent,
 	Q_ASSERT_X(m_doc != 0, "GuidesHDelegate::createEditor",
 			   "No reference to the doc");
 	double uix = unitGetRatioFromIndex(m_doc->unitIndex());
-	double min = 0.0 - (m_doc->bleeds.Top * uix);
+	double min = 0.0 - (m_doc->bleeds()->Top * uix);
 	double max = (m_doc->currentPage()->height() * uix)
-	             + (m_doc->bleeds.Bottom * uix);
+				 + (m_doc->bleeds()->Bottom * uix);
 	ScrSpinBox *editor =
 			new ScrSpinBox(min,
 						   max,
@@ -99,9 +99,9 @@ QWidget * GuidesVDelegate::createEditor(QWidget *parent,
 	Q_ASSERT_X(m_doc != 0, "GuidesVDelegate::createEditor",
 			   "No reference to the doc");
 	double uix = unitGetRatioFromIndex(m_doc->unitIndex());
-	double min = 0.0 - (m_doc->bleeds.Left * uix);
+	double min = 0.0 - (m_doc->bleeds()->Left * uix);
 	double max = (m_doc->currentPage()->width() * uix)
-	             + (m_doc->bleeds.Right * uix);
+				 + (m_doc->bleeds()->Right * uix);
 	ScrSpinBox *editor =
 			new ScrSpinBox(min,
 						   max,

@@ -36,7 +36,7 @@ public:
 	TabDocument(QWidget* parent = 0, const char* name = 0, const bool reform = false);
 	~TabDocument(){};
 	void restoreDefaults(struct ApplicationPrefs *prefsData);
-	void restoreDefaults(ScribusDoc *prefsData);
+	void restoreDefaults(ScribusDoc *doc);
 	void unitChange();
 	//! \brief Hide non-needed GUI for ReformDoc
 	void hideReform();

@@ -266,8 +266,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	docPrefsData.docSetupPrefs.pageWidth=0;
 	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
 	init();
-	bleeds = appPrefsData.docSetupPrefs.bleeds;
-	docPrefsData.pdfPrefs.bleeds = bleeds;
+	//->Prefs bleeds = appPrefsData.docSetupPrefs.bleeds;
+	docPrefsData.pdfPrefs.bleeds = docPrefsData.docSetupPrefs.bleeds;
 	docPrefsData.pdfPrefs.useDocBleeds = true;
 	Print_Options.firstUse = true;
 }
@@ -310,7 +310,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_Selection(new Selection(this, true)),
 	//->Prefs pageWidth(pagesize.width()), pageHeight(pagesize.height()),
 	pageMargins(margins),
-	marginPreset(appPrefsData.docSetupPrefs.marginPreset),
+	//->Prefs marginPreset(appPrefsData.docSetupPrefs.marginPreset),
 	//->Prefs pageSets(appPrefsData.pageSets),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	currentPageLayout(pagesSetup.pageArrangement),
@@ -389,8 +389,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	setPageSetFirstPage(pagesSetup.pageArrangement, pagesSetup.firstPageLocation);
 	//->Prefs pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
-	bleeds = appPrefsData.docSetupPrefs.bleeds;
-	docPrefsData.pdfPrefs.bleeds = bleeds;
+	//->Prefs bleeds = appPrefsData.docSetupPrefs.bleeds;
+	docPrefsData.pdfPrefs.bleeds = docPrefsData.docSetupPrefs.bleeds;
 	docPrefsData.pdfPrefs.useDocBleeds = true;
 	docPrefsData.docSetupPrefs.pageOrientation=pagesSetup.orientation;
 	Print_Options.firstUse = true;
@@ -1746,7 +1746,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->setPageNr(pageIndex);
 	addedPage->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
 	addedPage->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
-	addedPage->marginPreset = marginPreset;
+	addedPage->marginPreset = docPrefsData.docSetupPrefs.marginPreset;
 	DocPages.insert(pageIndex, addedPage);
 	assert(DocPages.at(pageIndex)!=NULL);
 	setCurrentPage(addedPage);
@@ -1779,7 +1779,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->initialMargins.Right = pageMargins.Right;
 	addedPage->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
 	addedPage->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
-	addedPage->marginPreset = marginPreset;
+	addedPage->marginPreset = docPrefsData.docSetupPrefs.marginPreset;
 	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
 	addedPage->setPageNr(pageNumber);
@@ -4312,8 +4312,8 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		else
 		if (iafData.positionType==2) // Frame starts at top left of page - bleeds
 		{
-			x1=targetPage->xOffset()-bleeds.Left;
-			y1=targetPage->yOffset()-bleeds.Top;
+			x1=targetPage->xOffset()-docPrefsData.docSetupPrefs.bleeds.Left;
+			y1=targetPage->yOffset()-docPrefsData.docSetupPrefs.bleeds.Top;
 		}
 		else if (iafData.positionType==3) // Frame starts at custom position
 		{
@@ -4334,8 +4334,8 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		else
 		if (iafData.sizeType==2) // Frame is size of page + bleed 
 		{
-			w1=targetPage->width()+bleeds.Right+bleeds.Left;
-			h1=targetPage->height()+bleeds.Bottom+bleeds.Top;
+			w1=targetPage->width()+docPrefsData.docSetupPrefs.bleeds.Right+docPrefsData.docSetupPrefs.bleeds.Left;
+			h1=targetPage->height()+docPrefsData.docSetupPrefs.bleeds.Bottom+docPrefsData.docSetupPrefs.bleeds.Top;
 		}
 		else if (iafData.sizeType==3) //Frame is size of imported image, we resize below when we load it
 		{
@@ -4714,10 +4714,10 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	int retw = -1;
 	if (masterPageMode())
 	{
-		int x = static_cast<int>(currentPage()->xOffset() - bleeds.Left);
-		int y = static_cast<int>(currentPage()->yOffset() - bleeds.Top);
-		int w = static_cast<int>(currentPage()->width() + bleeds.Left + bleeds.Right);
-		int h = static_cast<int>(currentPage()->height() + bleeds.Bottom + bleeds.Top);
+		int x = static_cast<int>(currentPage()->xOffset() - docPrefsData.docSetupPrefs.bleeds.Left);
+		int y = static_cast<int>(currentPage()->yOffset() - docPrefsData.docSetupPrefs.bleeds.Top);
+		int w = static_cast<int>(currentPage()->width() + docPrefsData.docSetupPrefs.bleeds.Left + docPrefsData.docSetupPrefs.bleeds.Right);
+		int h = static_cast<int>(currentPage()->height() + docPrefsData.docSetupPrefs.bleeds.Bottom + docPrefsData.docSetupPrefs.bleeds.Top);
 		if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			retw = currentPage()->pageNr();
 	}
@@ -4754,10 +4754,10 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		int h = static_cast<int>(currentPage()->height());
 		QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
 		if (QRect(x, y, w, h).intersects(itemRect)) */
-		double x = currentPage()->xOffset() - bleeds.Left;
-		double y = currentPage()->yOffset() - bleeds.Top;
-		double w = currentPage()->width() + bleeds.Left + bleeds.Right;
-		double h1 = currentPage()->height() + bleeds.Bottom + bleeds.Top;
+		double x = currentPage()->xOffset() - docPrefsData.docSetupPrefs.bleeds.Left;
+		double y = currentPage()->yOffset() - docPrefsData.docSetupPrefs.bleeds.Top;
+		double w = currentPage()->width() + docPrefsData.docSetupPrefs.bleeds.Left + docPrefsData.docSetupPrefs.bleeds.Right;
+		double h1 = currentPage()->height() + docPrefsData.docSetupPrefs.bleeds.Bottom + docPrefsData.docSetupPrefs.bleeds.Top;
 		double x2 = currItem->BoundingX;
 		double y2 = currItem->BoundingY;
 		double w2 = currItem->BoundingW;
@@ -5025,7 +5025,7 @@ void ScribusDoc::getBleeds(int pageNumber, MarginStruct &bleedData)
 
 void ScribusDoc::getBleeds(const Page* page, MarginStruct& bleedData)
 {
-	getBleeds(page, bleeds, bleedData);
+	getBleeds(page, docPrefsData.docSetupPrefs.bleeds, bleedData);
 }
 
 void ScribusDoc::getBleeds(const Page* page, const MarginStruct& baseValues, MarginStruct& bleedData)

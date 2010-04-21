@@ -471,10 +471,7 @@ void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
 	options.useSpotColors = prefs->getBool("doSpot", true);
 	options.useICC  = m_doc->HasCMS ? prefs->getBool("ICCinUse", false) : false;
 	options.useDocBleeds  = true;
-	options.bleeds.Top    = m_doc->bleeds.Top;
-	options.bleeds.Bottom = m_doc->bleeds.Bottom;
-	options.bleeds.Right  = m_doc->bleeds.Right;
-	options.bleeds.Left   = m_doc->bleeds.Left;
+	options.bleeds=*m_doc->bleeds();
 	options.markOffset = prefs->getDouble("markOffset",0.0);
 	options.cropMarks  = prefs->getBool("cropMarks", false);
 	options.bleedMarks = prefs->getBool("bleedMarks", false);
@@ -539,10 +536,10 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 	docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
 	if (docBleeds->isChecked())
 	{
-		BleedTop->setValue(m_doc->bleeds.Top*unitRatio);
-		BleedBottom->setValue(m_doc->bleeds.Bottom*unitRatio);
-		BleedRight->setValue(m_doc->bleeds.Right*unitRatio);
-		BleedLeft->setValue(m_doc->bleeds.Left*unitRatio);
+		BleedTop->setValue(m_doc->bleeds()->Top*unitRatio);
+		BleedBottom->setValue(m_doc->bleeds()->Bottom*unitRatio);
+		BleedRight->setValue(m_doc->bleeds()->Right*unitRatio);
+		BleedLeft->setValue(m_doc->bleeds()->Left*unitRatio);
 	}
 	else
 	{
@@ -674,10 +671,10 @@ void PrintDialog::doDocBleeds()
 		prefs->set("BleedBottom", BleedBottom->value() / unitRatio);
 		prefs->set("BleedRight", BleedRight->value() / unitRatio);
 		prefs->set("BleedLeft", BleedLeft->value() / unitRatio);
-		BleedTop->setValue(m_doc->bleeds.Top*unitRatio);
-		BleedBottom->setValue(m_doc->bleeds.Bottom*unitRatio);
-		BleedRight->setValue(m_doc->bleeds.Right*unitRatio);
-		BleedLeft->setValue(m_doc->bleeds.Left*unitRatio);
+		BleedTop->setValue(m_doc->bleeds()->Top*unitRatio);
+		BleedBottom->setValue(m_doc->bleeds()->Bottom*unitRatio);
+		BleedRight->setValue(m_doc->bleeds()->Right*unitRatio);
+		BleedLeft->setValue(m_doc->bleeds()->Left*unitRatio);
 	}
 	else
 	{

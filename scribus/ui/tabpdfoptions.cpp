@@ -1499,10 +1499,10 @@ void TabPDFOptions::doDocBleeds()
 		Opts.bleeds.Bottom = BleedBottom->value() / unitRatio;
 		Opts.bleeds.Right = BleedRight->value() / unitRatio;
 		Opts.bleeds.Left = BleedLeft->value() / unitRatio;
-		BleedTop->setValue(doc->bleeds.Top*unitRatio);
-		BleedBottom->setValue(doc->bleeds.Bottom*unitRatio);
-		BleedRight->setValue(doc->bleeds.Right*unitRatio);
-		BleedLeft->setValue(doc->bleeds.Left*unitRatio);
+		BleedTop->setValue(doc->bleeds()->Top*unitRatio);
+		BleedBottom->setValue(doc->bleeds()->Bottom*unitRatio);
+		BleedRight->setValue(doc->bleeds()->Right*unitRatio);
+		BleedLeft->setValue(doc->bleeds()->Left*unitRatio);
 		BleedTop->setEnabled(false);
 		BleedBottom->setEnabled(false);
 		BleedRight->setEnabled(false);

@@ -338,7 +338,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->pageMargins.Right = qMax(0.0, ScCLocale::toDoubleC("BORDERRIGHT"));
 		m_Doc->pageMargins.Top   = qMax(0.0, ScCLocale::toDoubleC("BORDERTOP"));
 		m_Doc->pageMargins.Bottom= qMax(0.0, ScCLocale::toDoubleC("BORDERBOTTOM"));
-		m_Doc->marginPreset = dc.attribute("PRESET", "0").toInt();
+		m_Doc->setMarginPreset(dc.attribute("PRESET", "0").toInt());
 		m_Doc->setHyphAutomatic(static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt()));
 		m_Doc->setHyphAutoCheck(static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt()));
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -1193,7 +1193,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("BORDERRIGHT",m_Doc->pageMargins.Right);
 	dc.setAttribute("BORDERTOP",m_Doc->pageMargins.Top);
 	dc.setAttribute("BORDERBOTTOM",m_Doc->pageMargins.Bottom);
-	dc.setAttribute("PRESET",m_Doc->marginPreset);
+	dc.setAttribute("PRESET",m_Doc->marginPreset());
 	dc.setAttribute("ORIENTATION",m_Doc->pageOrientation());
 	dc.setAttribute("PAGESIZE",m_Doc->pageSize());
 	dc.setAttribute("FIRSTNUM",m_Doc->FirstPnum);

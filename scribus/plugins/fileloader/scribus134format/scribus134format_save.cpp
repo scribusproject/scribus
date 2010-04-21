@@ -83,11 +83,11 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("BORDERRIGHT" , m_Doc->pageMargins.Right);
 	docu.writeAttribute("BORDERTOP"   , m_Doc->pageMargins.Top);
 	docu.writeAttribute("BORDERBOTTOM", m_Doc->pageMargins.Bottom);
-	docu.writeAttribute("PRESET"      ,m_Doc->marginPreset);
-	docu.writeAttribute("BleedTop"    , m_Doc->bleeds.Top);
-	docu.writeAttribute("BleedLeft"   , m_Doc->bleeds.Left);
-	docu.writeAttribute("BleedRight"  , m_Doc->bleeds.Right);
-	docu.writeAttribute("BleedBottom" , m_Doc->bleeds.Bottom);
+	docu.writeAttribute("PRESET"      , m_Doc->marginPreset());
+	docu.writeAttribute("BleedTop"    , m_Doc->bleeds()->Top);
+	docu.writeAttribute("BleedLeft"   , m_Doc->bleeds()->Left);
+	docu.writeAttribute("BleedRight"  , m_Doc->bleeds()->Right);
+	docu.writeAttribute("BleedBottom" , m_Doc->bleeds()->Bottom);
 	docu.writeAttribute("ORIENTATION" , m_Doc->pageOrientation());
 	docu.writeAttribute("PAGESIZE"    , m_Doc->pageSize());
 	docu.writeAttribute("FIRSTNUM"    , m_Doc->FirstPnum);
