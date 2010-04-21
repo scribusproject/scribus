@@ -6,46 +6,58 @@
 	>
 	<UserMacro
 		Name="QT4_DIR"
-		Value="E:\Libs-msvc2005\qt-4.5.1"
+		Value="D:\Libraries-vc8\qt-4.6.1"
 	/>
 	<UserMacro
 		Name="BOOST_DIR"
-		Value="E:\Libs-msvc2005\boost-1.35.0"
+		Value="E:\Libraries-vc8\boost-1.35.0"
 	/>
 	<UserMacro
 		Name="CAIRO_DIR"
-		Value="E:\Libs-msvc2005\cairo-1.8.8"
+		Value="E:\Libraries-vc8\cairo-1.8.8"
 	/>
 	<UserMacro
 		Name="FREETYPE_DIR"
-		Value="E:\Libs-msvc2005\freetype-2.3.7"
+		Value="E:\Libraries-vc8\freetype-2.3.12"
 	/>
 	<UserMacro
 		Name="ICONV_DIR"
-		Value="E:\Libs-msvc2005\iconv-1.9.2"
+		Value="E:\Libraries-vc8\iconv-1.9.2"
 	/>
 	<UserMacro
 		Name="LCMS_DIR"
-		Value="E:\Libs-msvc2005\lcms-1.18"
+		Value="E:\Libraries-vc8\lcms-1.19"
 	/>
 	<UserMacro
 		Name="LIBJPEG_DIR"
-		Value="E:\Libs-msvc2005\libjpeg-6b-3"
+		Value="E:\Libraries-vc8\libjpeg-6b-3"
 	/>
 	<UserMacro
 		Name="LIBTIFF_DIR"
-		Value="E:\Libs-msvc2005\libtiff-3.8.2"
+		Value="E:\Libraries-vc8\libtiff-3.8.2"
 	/>
 	<UserMacro
 		Name="PODOFO_DIR"
-		Value="E:\Libs-msvc2005\podofo-0.7.0"
+		Value="E:\Libraries-vc8\podofo-0.7.0"
+	/>
+	<UserMacro
+		Name="LIBWPD_DIR"
+		Value="E:\Libraries-vc8\libwpd-0.8.14"
+	/>
+	<UserMacro
+		Name="LIBWPG_DIR"
+		Value="E:\Libraries-vc8\libwpg-0.1.3"
 	/>
 	<UserMacro
 		Name="LIBXML2_DIR"
-		Value="E:\Libs-msvc2005\libxml2-2.6.32+"
+		Value="E:\Libraries-vc8\libxml2-2.6.32+"
+	/>
+	<UserMacro
+		Name="OPENSCENEGRAPH_DIR"
+		Value="E:\Libraries-vc8\OpenSceneGraph-2.8.1"
 	/>
 	<UserMacro
 		Name="PYTHON_DIR"
-		Value="E:\Libs-msvc2005\Python-2.5.1"
+		Value="E:\Libraries-vc8\Python-2.5.4"
 	/>
 </VisualStudioPropertySheet>
