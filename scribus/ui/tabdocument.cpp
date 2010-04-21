@@ -266,8 +266,8 @@ void TabDocument::restoreDefaults(ScribusDoc *doc)
 	pageHeight->setValue(doc->pageHeight() * unitRatio);
 	pageW = doc->pageWidth();
 	pageH = doc->pageHeight();
-	marginGroup->setNewBleeds(*doc->bleeds());
-	marginGroup->setNewMargins(doc->pageMargins);
+	marginGroup->setNewBleeds(doc->bleedsVal());
+	marginGroup->setNewMargins(doc->marginsVal());
 	marginGroup->setPageWidthHeight(doc->pageWidth(), doc->pageHeight());
 	marginGroup->setPageSize(prefsPageSizeName);
 	marginGroup->setMarginPreset(doc->marginPreset());

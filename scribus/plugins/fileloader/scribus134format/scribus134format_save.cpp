@@ -79,10 +79,10 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("ANZPAGES"    , m_Doc->DocPages.count());
 	docu.writeAttribute("PAGEWIDTH"   , m_Doc->pageWidth());
 	docu.writeAttribute("PAGEHEIGHT"  , m_Doc->pageHeight());
-	docu.writeAttribute("BORDERLEFT"  , m_Doc->pageMargins.Left);
-	docu.writeAttribute("BORDERRIGHT" , m_Doc->pageMargins.Right);
-	docu.writeAttribute("BORDERTOP"   , m_Doc->pageMargins.Top);
-	docu.writeAttribute("BORDERBOTTOM", m_Doc->pageMargins.Bottom);
+	docu.writeAttribute("BORDERLEFT"  , m_Doc->margins()->Left);
+	docu.writeAttribute("BORDERRIGHT" , m_Doc->margins()->Right);
+	docu.writeAttribute("BORDERTOP"   , m_Doc->margins()->Top);
+	docu.writeAttribute("BORDERBOTTOM", m_Doc->margins()->Bottom);
 	docu.writeAttribute("PRESET"      , m_Doc->marginPreset());
 	docu.writeAttribute("BleedTop"    , m_Doc->bleeds()->Top);
 	docu.writeAttribute("BleedLeft"   , m_Doc->bleeds()->Left);

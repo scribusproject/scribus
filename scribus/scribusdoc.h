@@ -123,8 +123,8 @@ public:
 	void setModified(const bool);
 	bool isModified() const;
 /** Setzt die Seitenattribute */
-	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
-	void resetPage(MarginStruct& newMargins, int fp);
+	void setPage(double w, double h, double t, double l, double r, double b, double sp, double ab, bool atf, int fp);
+	void resetPage(int fp, MarginStruct* newMargins=0);
 
 	/**
 	 * @brief Return the view associated with the document
@@ -147,6 +147,9 @@ public:
 
 	MarginStruct* scratch() { return &docPrefsData.displayPrefs.scratch; }
 	MarginStruct* bleeds() { return &docPrefsData.docSetupPrefs.bleeds; }
+	MarginStruct& bleedsVal() { return docPrefsData.docSetupPrefs.bleeds; }
+	MarginStruct* margins() { return &docPrefsData.docSetupPrefs.margins; }
+	MarginStruct& marginsVal() { return docPrefsData.docSetupPrefs.margins; }
 	double pageGapHorizontal() const { return docPrefsData.displayPrefs.pageGapHorizontal; }
 	double pageGapVertical() const { return docPrefsData.displayPrefs.pageGapVertical; }
 	void setPageGapHorizontal(double h) { docPrefsData.displayPrefs.pageGapHorizontal=h; }
@@ -1049,8 +1052,8 @@ public: // Public attributes
 	//->Prefs double pageHeight;
 	/* Number of Pages */
 	// int pageCount; Disabled CR no longer required
-	/** \brief Margins */
-	MarginStruct pageMargins;
+	//->Prefs /** \brief Margins */
+	//->Prefs MarginStruct pageMargins;
 	//->Prefs int marginPreset;
 	//->Prefs QList<PageSet> pageSets;
 	//->Prefs MarginStruct bleeds;

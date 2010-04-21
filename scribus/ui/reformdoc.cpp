@@ -228,7 +228,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->setPageGapVertical(tabView->gapVertical->value() / currDoc->unitRatio());
 //	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
-	currDoc->resetPage(updatedMargins, fp);
+	currDoc->resetPage(fp, &updatedMargins);
 	currDoc->setPageOrientation(tabPage->pageOrientationComboBox->currentIndex());
 	currDoc->setPageSize(tabPage->prefsPageSizeName);
 	currDoc->setPageWidth(tabPage->pageW);

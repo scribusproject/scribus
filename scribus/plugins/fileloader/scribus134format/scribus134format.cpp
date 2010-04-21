@@ -747,10 +747,10 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	else
 		m_Doc->setPageWidth(attrs.valueAsDouble("PAGEWITH"));
 	m_Doc->setPageHeight(attrs.valueAsDouble("PAGEHEIGHT"));
-	m_Doc->pageMargins.Left  = qMax(0.0, attrs.valueAsDouble("BORDERLEFT"));
-	m_Doc->pageMargins.Right = qMax(0.0, attrs.valueAsDouble("BORDERRIGHT"));
-	m_Doc->pageMargins.Top   = qMax(0.0, attrs.valueAsDouble("BORDERTOP"));
-	m_Doc->pageMargins.Bottom= qMax(0.0, attrs.valueAsDouble("BORDERBOTTOM"));
+	m_Doc->margins()->Left  = qMax(0.0, attrs.valueAsDouble("BORDERLEFT"));
+	m_Doc->margins()->Right = qMax(0.0, attrs.valueAsDouble("BORDERRIGHT"));
+	m_Doc->margins()->Top   = qMax(0.0, attrs.valueAsDouble("BORDERTOP"));
+	m_Doc->margins()->Bottom= qMax(0.0, attrs.valueAsDouble("BORDERBOTTOM"));
 	m_Doc->setMarginPreset(attrs.valueAsInt("PRESET", 0));
 	m_Doc->bleeds()->Top    = attrs.valueAsDouble("BleedTop", 0.0);
 	m_Doc->bleeds()->Left   = attrs.valueAsDouble("BleedLeft", 0.0);

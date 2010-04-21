@@ -225,7 +225,7 @@ Margins::Margins(QObject *parent) : QObject(COLLECTOR)
  */
 double Margins::top()
 {
-    return ScCore->primaryMainWindow()->doc->pageMargins.Top;
+	return ScCore->primaryMainWindow()->doc->margins()->Top;
 }
 
 
@@ -237,7 +237,7 @@ double Margins::top()
  */
 double Margins::left()
 {
-    return ScCore->primaryMainWindow()->doc->pageMargins.Left;
+	return ScCore->primaryMainWindow()->doc->margins()->Left;
 }
 
 
@@ -248,7 +248,7 @@ double Margins::left()
  * right-margin of active document as double
  */
 double Margins::right() {
-    return ScCore->primaryMainWindow()->doc->pageMargins.Right;
+	return ScCore->primaryMainWindow()->doc->margins()->Right;
 }
 
 
@@ -259,7 +259,7 @@ double Margins::right() {
  * top-margin of active document as double
  */
 double Margins::bottom() {
-    return ScCore->primaryMainWindow()->doc->pageMargins.Bottom;
+	return ScCore->primaryMainWindow()->doc->margins()->Bottom;
 }
 
 
@@ -274,7 +274,7 @@ double Margins::bottom() {
 void Margins::set(double lr, double tpr, double btr, double rr)
 {
     MarginStruct margins(tpr, lr, btr, rr);
-    ScCore->primaryMainWindow()->doc->resetPage(margins,ScCore->primaryMainWindow()->doc->currentPageLayout);
+	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->currentPageLayout, &margins);
     ScCore->primaryMainWindow()->view->reformPages();
     ScCore->primaryMainWindow()->doc->setModified(true);
     ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());

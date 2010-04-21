@@ -273,10 +273,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->setPageWidth(ScCLocale::toDoubleC(dc.attribute("PAGEWITH")));
 		m_Doc->setPageHeight(ScCLocale::toDoubleC(dc.attribute("PAGEHEIGHT")));
-		m_Doc->pageMargins.Left=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERLEFT")));
-		m_Doc->pageMargins.Right=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERRIGHT")));
-		m_Doc->pageMargins.Top=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERTOP")));
-		m_Doc->pageMargins.Bottom=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERBOTTOM")));
+		m_Doc->margins()->Left=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERLEFT")));
+		m_Doc->margins()->Right=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERRIGHT")));
+		m_Doc->margins()->Top=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERTOP")));
+		m_Doc->margins()->Bottom=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERBOTTOM")));
 		m_Doc->setMarginPreset(dc.attribute("PRESET", "0").toInt());
 		m_Doc->setPageOrientation(dc.attribute("ORIENTATION", "0").toInt());
 		m_Doc->setPageSize(dc.attribute("PAGESIZE"));

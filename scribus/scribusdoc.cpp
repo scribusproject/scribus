@@ -309,7 +309,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
 	//->Prefs pageWidth(pagesize.width()), pageHeight(pagesize.height()),
-	pageMargins(margins),
+	//->Prefs pageMargins(margins),
 	//->Prefs marginPreset(appPrefsData.docSetupPrefs.marginPreset),
 	//->Prefs pageSets(appPrefsData.pageSets),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
@@ -385,6 +385,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	docPrefsData.docSetupPrefs.pageHeight=pagesize.height();
 	docPrefsData.docSetupPrefs.pageWidth=pagesize.width();
 	docPrefsData.docSetupPrefs.pageSize=pagesize.name();
+	docPrefsData.docSetupPrefs.margins=margins;
 	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
 	setPageSetFirstPage(pagesSetup.pageArrangement, pagesSetup.firstPageLocation);
 	//->Prefs pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
@@ -1537,14 +1538,11 @@ bool ScribusDoc::isModified() const
 
 
 /** sets page properties */
-void ScribusDoc::setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp)
+void ScribusDoc::setPage(double w, double h, double t, double l, double r, double b, double sp, double ab, bool atf, int fp)
 {
-	docPrefsData.docSetupPrefs.pageWidth = b;
+	docPrefsData.docSetupPrefs.pageWidth = w;
 	docPrefsData.docSetupPrefs.pageHeight = h;
-	pageMargins.Top = t;
-	pageMargins.Left = l;
-	pageMargins.Right = r;
-	pageMargins.Bottom = bo;
+	docPrefsData.docSetupPrefs.margins.set(t, l, b ,r);
 	PageSp = sp;
 	PageSpa = ab;
 	currentPageLayout = fp;
@@ -1557,9 +1555,10 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 //	PDF_Options.BleedBottom = pageMargins.Bottom;
 }
 
-void ScribusDoc::resetPage(MarginStruct& newMargins, int fp)
+void ScribusDoc::resetPage(int fp, MarginStruct* newMargins)
 {
-	pageMargins = newMargins;
+	if (newMargins!=0)
+		docPrefsData.docSetupPrefs.margins = *newMargins;
 	currentPageLayout = fp;
 }
 
@@ -1737,12 +1736,12 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(docPrefsData.docSetupPrefs.pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
-	addedPage->Margins.Top = pageMargins.Top;
-	addedPage->Margins.Bottom = pageMargins.Bottom;
-	addedPage->initialMargins.Top = pageMargins.Top;
-	addedPage->initialMargins.Bottom = pageMargins.Bottom;
-	addedPage->initialMargins.Left = pageMargins.Left;
-	addedPage->initialMargins.Right = pageMargins.Right;
+	addedPage->Margins.Top = docPrefsData.docSetupPrefs.margins.Top;
+	addedPage->Margins.Bottom = docPrefsData.docSetupPrefs.margins.Bottom;
+	addedPage->initialMargins.Top = docPrefsData.docSetupPrefs.margins.Top;
+	addedPage->initialMargins.Bottom = docPrefsData.docSetupPrefs.margins.Bottom;
+	addedPage->initialMargins.Left = docPrefsData.docSetupPrefs.margins.Left;
+	addedPage->initialMargins.Right = docPrefsData.docSetupPrefs.margins.Right;
 	addedPage->setPageNr(pageIndex);
 	addedPage->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
 	addedPage->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
@@ -1769,14 +1768,8 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
-	addedPage->Margins.Top = pageMargins.Top;
-	addedPage->Margins.Bottom = pageMargins.Bottom;
-	addedPage->Margins.Left = pageMargins.Left;//todo fix for layouts
-	addedPage->Margins.Right = pageMargins.Right;
-	addedPage->initialMargins.Top = pageMargins.Top;
-	addedPage->initialMargins.Bottom = pageMargins.Bottom;
-	addedPage->initialMargins.Left = pageMargins.Left;
-	addedPage->initialMargins.Right = pageMargins.Right;
+	addedPage->Margins = docPrefsData.docSetupPrefs.margins;
+	addedPage->initialMargins = docPrefsData.docSetupPrefs.margins;
 	addedPage->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
 	addedPage->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = docPrefsData.docSetupPrefs.marginPreset;

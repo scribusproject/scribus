@@ -699,7 +699,7 @@ void PagePalette::enablePalette(const bool enabled)
 void PagePalette::handlePageLayout(int layout)
 {
 	pageLayout->selectFirstP(currView->Doc->pageSets()[layout].FirstPage);
-	currView->Doc->resetPage(currView->Doc->pageMargins, layout);
+	currView->Doc->resetPage(layout);
 	currView->reformPages();
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
