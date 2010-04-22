@@ -116,7 +116,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	MarginStruct margins(ValueToPoint(tpr), ValueToPoint(lr), ValueToPoint(btr), ValueToPoint(rr));
-	ScCore->primaryMainWindow()->doc->resetPage(margins, ScCore->primaryMainWindow()->doc->currentPageLayout);
+	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->currentPageLayout, &margins);
 	ScCore->primaryMainWindow()->view->reformPages();
 	ScCore->primaryMainWindow()->doc->setModified(true);
 	ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());

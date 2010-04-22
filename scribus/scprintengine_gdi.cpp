@@ -450,8 +450,8 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions
 		QString tmp;
 		QStringList opts;
 		QString tempFilePath2 = PrefsManager::instance()->preferencesLocation() + "/tmp2.ps";
-		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth)) );
-		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight)) );
+		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth())) );
+		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight())) );
 		if ( QFile::exists( tempFilePath2 ) )
 			QFile::remove( tempFilePath2 );
 		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, options.prnEngine);

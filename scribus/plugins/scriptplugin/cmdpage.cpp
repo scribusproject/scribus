@@ -359,10 +359,10 @@ PyObject *scribus_getpagemargins(PyObject* /* self */)
 	PyObject *margins = NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Top),
-									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Left),
-									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Right),
-									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Bottom));
+	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->margins()->Top),
+									PointToValue(ScCore->primaryMainWindow()->doc->margins()->Left),
+									PointToValue(ScCore->primaryMainWindow()->doc->margins()->Right),
+									PointToValue(ScCore->primaryMainWindow()->doc->margins()->Bottom));
 	return margins;
 }
 
