@@ -211,9 +211,11 @@ public:
 	GuidesPrefs& guidesPrefs() { return docPrefsData.guidesPrefs; }
 	ItemToolPrefs& itemToolPrefs() { return docPrefsData.itemToolPrefs; }
 	OperatorToolPrefs& opToolPrefs() { return docPrefsData.opToolPrefs; }
+	ColorPrefs& colorPrefs() { return docPrefsData.colorPrefs; }
+	CMSData& cmsSettings() { return docPrefsData.colorPrefs.DCMSset; }
 
 	const ApplicationPrefs& prefsData() { return docPrefsData; }
-	void setNewPrefs(const ApplicationPrefs& prefsData);
+	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData);
 
 	// Add, delete and move pages
 	
@@ -1115,7 +1117,7 @@ public:
 	ScLayers Layers;
 	//bool marginColored;
 	int GroupCounter;
-	CMSData CMSSettings;
+	//->Prefs CMSData CMSSettings;
 
 	ScColorMgmtEngine colorEngine;
 	ScColorProfile DocInputImageRGBProf;

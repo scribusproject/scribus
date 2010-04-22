@@ -4334,7 +4334,7 @@ void PropertiesPalette::updateCmsList()
 		return;
 	if (HaveDoc)
 	{
-		if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
+		if (ScCore->haveCMS() && doc->cmsSettings().CMSinUse)
 			GroupBoxCM->show();
 		else
 		{
@@ -4430,7 +4430,7 @@ void PropertiesPalette::ShowCMS()
 	if (HaveItem)
 		updateCmsList();
 	else
-		GroupBoxCM->setVisible(ScCore->haveCMS() && doc->CMSSettings.CMSinUse);
+		GroupBoxCM->setVisible(ScCore->haveCMS() && doc->cmsSettings().CMSinUse);
 }
 
 void PropertiesPalette::newTxtFill()

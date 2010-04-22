@@ -674,7 +674,7 @@ void Prefs_PDFExport::enableLPI(int i)
 		if (!ScCore->InputProfiles.contains(tp))
 		{
 			if (m_doc != 0)
-				tp = m_doc->CMSSettings.DefaultSolidColorRGBProfile;
+				tp = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 			else
 				tp = defaultSolidColorRGBProfile;
 		}
@@ -696,7 +696,7 @@ void Prefs_PDFExport::enableLPI(int i)
 		if (!ScCore->InputProfiles.contains(tp1))
 		{
 			if (m_doc != 0)
-				tp1 = m_doc->CMSSettings.DefaultSolidColorRGBProfile;
+				tp1 = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 			else
 				tp1 = defaultSolidColorRGBProfile;
 		}

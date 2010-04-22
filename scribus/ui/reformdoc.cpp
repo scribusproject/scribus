@@ -112,7 +112,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	int cmsTab = 0;
 	if (ScCore->haveCMS())
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->cmsSettings(), &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
@@ -156,7 +156,7 @@ void ReformDoc::restoreDefaults()
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->pdfOptions().PresentVals,
 							docUnitIndex, currDoc->pageHeight(), currDoc->pageWidth(), currDoc, false);
 	if (ScCore->haveCMS())
-		tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
+		tabColorManagement->restoreDefaults(&currDoc->cmsSettings(), &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
 										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	docInfos->restoreDefaults();
@@ -452,7 +452,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->docHyphenator->specialWords = tabHyphenator->getExceptionList();
 	if (ScCore->haveCMS())
 	{
-		bool oldCM = currDoc->CMSSettings.CMSinUse;
+		bool oldCM = currDoc->cmsSettings().CMSinUse;
 		tabColorManagement->updateDocSettings(currDoc);
 		if (tabColorManagement->changed)
 		{
@@ -461,17 +461,17 @@ void ReformDoc::updateDocumentSettings()
 			int cc = currDoc->PageColors.count() + currDoc->Items->count();
 			ScMW->mainWindowProgressBar->setMaximum(cc);
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			bool newCM  = currDoc->CMSSettings.CMSinUse;
+			bool newCM  = currDoc->cmsSettings().CMSinUse;
 			bool updCol = false;
-			currDoc->CMSSettings.CMSinUse = oldCM;
+			currDoc->cmsSettings().CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
-			currDoc->CMSSettings.CMSinUse = newCM;
-			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
-			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
-			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
-			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
-			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
-			if (!currDoc->CMSSettings.CMSinUse)
+			currDoc->cmsSettings().CMSinUse = newCM;
+			currDoc->HasCMS = currDoc->cmsSettings().CMSinUse;
+			currDoc->SoftProofing = currDoc->cmsSettings().SoftProofOn;
+			currDoc->Gamut = currDoc->cmsSettings().GamutCheck;
+			currDoc->IntentColors = currDoc->cmsSettings().DefaultIntentColors;
+			currDoc->IntentImages = currDoc->cmsSettings().DefaultIntentImages;
+			if (!currDoc->cmsSettings().CMSinUse)
 			{
 				currDoc->HasCMS = false;
 				if	(oldCM)
@@ -483,11 +483,11 @@ void ReformDoc::updateDocumentSettings()
 			else if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				currDoc->HasCMS = true;
-				currDoc->pdfOptions().SComp = currDoc->CMSSettings.ComponentsInput2;
-				currDoc->pdfOptions().SolidProf = currDoc->CMSSettings.DefaultSolidColorRGBProfile;
-				currDoc->pdfOptions().ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
-				currDoc->pdfOptions().PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
-				currDoc->pdfOptions().Intent = currDoc->CMSSettings.DefaultIntentColors;
+				currDoc->pdfOptions().SComp = currDoc->cmsSettings().ComponentsInput2;
+				currDoc->pdfOptions().SolidProf = currDoc->cmsSettings().DefaultSolidColorRGBProfile;
+				currDoc->pdfOptions().ImageProf = currDoc->cmsSettings().DefaultImageRGBProfile;
+				currDoc->pdfOptions().PrintProf = currDoc->cmsSettings().DefaultPrinterProfile;
+				currDoc->pdfOptions().Intent = currDoc->cmsSettings().DefaultIntentColors;
 				updCol = true;
 			}
 			else

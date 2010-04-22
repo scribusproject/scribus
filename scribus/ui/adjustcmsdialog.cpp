@@ -19,7 +19,7 @@ AdjustCmsDialog::AdjustCmsDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( 
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setMargin(5);
 	queryLayout->setSpacing(10);
-	tabColorManagement = new CMSPrefs(this, &doc->CMSSettings, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
+	tabColorManagement = new CMSPrefs(this, &doc->cmsSettings(), &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	queryLayout->addWidget( tabColorManagement );
 	okCancelLayout = new QHBoxLayout;
 	okCancelLayout->setSpacing( 5 );

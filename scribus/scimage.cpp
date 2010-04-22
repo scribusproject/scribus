@@ -2156,7 +2156,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			Q_ASSERT(cmSettings.doc()!=0);
 			if (isCMYK)
 			{
-				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
+				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageCMYKProfile))
 				{
 					imgInfo.profileName = cmSettings.profileName();
 					inputProfIsEmbedded = true;
@@ -2166,13 +2166,13 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				else
 				{
 					inputProf = cmSettings.doc()->DocInputImageCMYKProf;
-					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile;
+					imgInfo.profileName = cmSettings.doc()->cmsSettings().DefaultImageCMYKProfile;
 					inputProfIsEmbedded = false;
 				}
 			}
 			else
 			{
-				if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageRGBProfile))
+				if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageRGBProfile))
 				{
 					imgInfo.profileName = cmSettings.profileName();
 					profilePath = ScCore->InputProfiles[imgInfo.profileName];
@@ -2182,7 +2182,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				else
 				{
 					inputProf = cmSettings.doc()->DocInputImageRGBProf;
-					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageRGBProfile;
+					imgInfo.profileName = cmSettings.doc()->cmsSettings().DefaultImageRGBProfile;
 					inputProfIsEmbedded = false;
 				}
 			}

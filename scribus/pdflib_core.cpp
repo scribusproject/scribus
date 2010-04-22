@@ -8872,8 +8872,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								profilePath = ScCore->InputProfilesCMYK[Profil];
 							else
 							{
-								profilePath = ScCore->InputProfilesCMYK[c->doc()->CMSSettings.DefaultImageCMYKProfile];
-								profInUse = c->doc()->CMSSettings.DefaultImageCMYKProfile;
+								profilePath = ScCore->InputProfilesCMYK[c->doc()->cmsSettings().DefaultImageCMYKProfile];
+								profInUse = c->doc()->cmsSettings().DefaultImageCMYKProfile;
 							}
 							loadRawBytes(profilePath, dataP);
 							components = 4;
@@ -8890,8 +8890,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								profilePath = ScCore->InputProfiles[Profil];
 							else
 							{
-								profilePath = ScCore->InputProfiles[c->doc()->CMSSettings.DefaultImageRGBProfile];
-								profInUse = c->doc()->CMSSettings.DefaultImageRGBProfile;
+								profilePath = ScCore->InputProfiles[c->doc()->cmsSettings().DefaultImageRGBProfile];
+								profInUse = c->doc()->cmsSettings().DefaultImageRGBProfile;
 							}
 							loadRawBytes(profilePath, dataP);
 							components = 3;
@@ -8934,7 +8934,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					{
 						if ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect))
 						{
-							profInUse = c->doc()->CMSSettings.DefaultImageRGBProfile;
+							profInUse = c->doc()->cmsSettings().DefaultImageRGBProfile;
 							if (!ICCProfiles.contains(profInUse))
 							{
 								int components = 3;
@@ -8942,7 +8942,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								StartObj(embeddedProfile);
 								QByteArray dataP;
 								struct ICCD dataD;
-								loadRawBytes(ScCore->InputProfiles[c->doc()->CMSSettings.DefaultImageRGBProfile], dataP);
+								loadRawBytes(ScCore->InputProfiles[c->doc()->cmsSettings().DefaultImageRGBProfile], dataP);
 								components = 3;
 								PutDoc("<<\n");
 								if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)

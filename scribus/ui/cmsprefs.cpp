@@ -134,31 +134,31 @@ void CMSPrefs::setValues()
 
 void CMSPrefs::updateDocSettings(ScribusDoc* doc)
 {
-	if ((doc->CMSSettings.DefaultImageRGBProfile != inputPRGBIm->currentText()) ||
-		(doc->CMSSettings.DefaultImageCMYKProfile != inputPCMYKIm->currentText()) ||
-		(doc->CMSSettings.DefaultSolidColorRGBProfile != inputPRGB->currentText()) ||
-		(doc->CMSSettings.DefaultSolidColorCMYKProfile != inputPCMYK->currentText()) ||
-		(doc->CMSSettings.DefaultPrinterProfile != printerP->currentText()) ||
-		(doc->CMSSettings.DefaultIntentColors != colorsI->currentIndex()) ||
-		(doc->CMSSettings.DefaultIntentImages != imagesI->currentIndex()) ||
-		(doc->CMSSettings.SoftProofOn != simulatePrinter->isChecked()) ||
-		(doc->CMSSettings.SoftProofFullOn != convertAll->isChecked()) ||
-		(doc->CMSSettings.GamutCheck != gamutCheck->isChecked()) ||
-		(doc->CMSSettings.BlackPoint != blackPoint->isChecked()) ||
-		(doc->CMSSettings.CMSinUse != checkBox1->isChecked()))
+	if ((doc->cmsSettings().DefaultImageRGBProfile != inputPRGBIm->currentText()) ||
+		(doc->cmsSettings().DefaultImageCMYKProfile != inputPCMYKIm->currentText()) ||
+		(doc->cmsSettings().DefaultSolidColorRGBProfile != inputPRGB->currentText()) ||
+		(doc->cmsSettings().DefaultSolidColorCMYKProfile != inputPCMYK->currentText()) ||
+		(doc->cmsSettings().DefaultPrinterProfile != printerP->currentText()) ||
+		(doc->cmsSettings().DefaultIntentColors != colorsI->currentIndex()) ||
+		(doc->cmsSettings().DefaultIntentImages != imagesI->currentIndex()) ||
+		(doc->cmsSettings().SoftProofOn != simulatePrinter->isChecked()) ||
+		(doc->cmsSettings().SoftProofFullOn != convertAll->isChecked()) ||
+		(doc->cmsSettings().GamutCheck != gamutCheck->isChecked()) ||
+		(doc->cmsSettings().BlackPoint != blackPoint->isChecked()) ||
+		(doc->cmsSettings().CMSinUse != checkBox1->isChecked()))
 			changed = true;
-	doc->CMSSettings.DefaultImageRGBProfile = inputPRGBIm->currentText();
-	doc->CMSSettings.DefaultImageCMYKProfile = inputPCMYKIm->currentText();
-	doc->CMSSettings.DefaultSolidColorRGBProfile = inputPRGB->currentText();
-	doc->CMSSettings.DefaultSolidColorCMYKProfile = inputPCMYK->currentText();
-	doc->CMSSettings.DefaultPrinterProfile = printerP->currentText();
-	doc->CMSSettings.DefaultIntentColors = (eRenderIntent) colorsI->currentIndex();
-	doc->CMSSettings.DefaultIntentImages = (eRenderIntent) imagesI->currentIndex();
-	doc->CMSSettings.SoftProofOn = simulatePrinter->isChecked();
-	doc->CMSSettings.SoftProofFullOn = convertAll->isChecked();
-	doc->CMSSettings.GamutCheck = gamutCheck->isChecked();
-	doc->CMSSettings.CMSinUse = checkBox1->isChecked();
-	doc->CMSSettings.BlackPoint = blackPoint->isChecked();
+	doc->cmsSettings().DefaultImageRGBProfile = inputPRGBIm->currentText();
+	doc->cmsSettings().DefaultImageCMYKProfile = inputPCMYKIm->currentText();
+	doc->cmsSettings().DefaultSolidColorRGBProfile = inputPRGB->currentText();
+	doc->cmsSettings().DefaultSolidColorCMYKProfile = inputPCMYK->currentText();
+	doc->cmsSettings().DefaultPrinterProfile = printerP->currentText();
+	doc->cmsSettings().DefaultIntentColors = (eRenderIntent) colorsI->currentIndex();
+	doc->cmsSettings().DefaultIntentImages = (eRenderIntent) imagesI->currentIndex();
+	doc->cmsSettings().SoftProofOn = simulatePrinter->isChecked();
+	doc->cmsSettings().SoftProofFullOn = convertAll->isChecked();
+	doc->cmsSettings().GamutCheck = gamutCheck->isChecked();
+	doc->cmsSettings().CMSinUse = checkBox1->isChecked();
+	doc->cmsSettings().BlackPoint = blackPoint->isChecked();
 }
 
 void CMSPrefs::slotCMSon(bool active)

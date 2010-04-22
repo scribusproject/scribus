@@ -337,21 +337,21 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->typographicPrefs().autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
 		m_Doc->GroupCounter = 1 /*dc.attribute("GROUPC", "1").toInt()*/;
 		//m_Doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
-		m_Doc->CMSSettings.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
-		m_Doc->CMSSettings.SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
-		m_Doc->CMSSettings.CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
-		m_Doc->CMSSettings.GamutCheck = static_cast<bool>(dc.attribute("DPgam", "0").toInt());
-		m_Doc->CMSSettings.BlackPoint = static_cast<bool>(dc.attribute("DPbla", "1").toInt());
-		m_Doc->CMSSettings.DefaultMonitorProfile = dc.attribute("DPMo","");
-		m_Doc->CMSSettings.DefaultPrinterProfile = dc.attribute("DPPr","");
-		m_Doc->CMSSettings.DefaultImageRGBProfile = dc.attribute("DPIn","");
-		m_Doc->CMSSettings.DefaultImageCMYKProfile = dc.attribute("DPPr",""); // Use DPPr to match 1.2.x behavior
-		m_Doc->CMSSettings.DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
-		m_Doc->CMSSettings.DefaultSolidColorCMYKProfile = dc.attribute("DPPr",""); // Use DPPr to match 1.2.x behavior
+		m_Doc->cmsSettings().SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
+		m_Doc->cmsSettings().SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
+		m_Doc->cmsSettings().CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
+		m_Doc->cmsSettings().GamutCheck = static_cast<bool>(dc.attribute("DPgam", "0").toInt());
+		m_Doc->cmsSettings().BlackPoint = static_cast<bool>(dc.attribute("DPbla", "1").toInt());
+		m_Doc->cmsSettings().DefaultMonitorProfile = dc.attribute("DPMo","");
+		m_Doc->cmsSettings().DefaultPrinterProfile = dc.attribute("DPPr","");
+		m_Doc->cmsSettings().DefaultImageRGBProfile = dc.attribute("DPIn","");
+		m_Doc->cmsSettings().DefaultImageCMYKProfile = dc.attribute("DPPr",""); // Use DPPr to match 1.2.x behavior
+		m_Doc->cmsSettings().DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
+		m_Doc->cmsSettings().DefaultSolidColorCMYKProfile = dc.attribute("DPPr",""); // Use DPPr to match 1.2.x behavior
 		//m_Doc->CMSSettings.DefaultIntentPrinter = dc.attribute("DIPr", "0").toInt();
 		//m_Doc->CMSSettings.DefaultIntentMonitor = dc.attribute("DIMo", "1").toInt();
-		m_Doc->CMSSettings.DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
-		m_Doc->CMSSettings.DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
+		m_Doc->cmsSettings().DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
+		m_Doc->cmsSettings().DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
 		activeLayer = dc.attribute("ALAYER", "0").toInt();
 		m_Doc->setHyphLanguage(dc.attribute("LANGUAGE", ""));
 		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());

@@ -51,42 +51,42 @@ bool CMSettings::useColorManagement() const
 QString CMSettings::defaultMonitorProfile() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.DefaultMonitorProfile;
+		return m_Doc->cmsSettings().DefaultMonitorProfile;
 	return QString();
 }
 
 QString CMSettings::defaultPrinterProfile() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.DefaultPrinterProfile;
+		return m_Doc->cmsSettings().DefaultPrinterProfile;
 	return QString();
 }
 
 QString CMSettings::defaultImageRGBProfile() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.DefaultImageRGBProfile;
+		return m_Doc->cmsSettings().DefaultImageRGBProfile;
 	return QString();
 }
 
 QString CMSettings::defaultImageCMYKProfile() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.DefaultImageCMYKProfile;
+		return m_Doc->cmsSettings().DefaultImageCMYKProfile;
 	return QString();
 }
 
 QString CMSettings::defaultSolidColorRGBProfile() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		return m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	return QString();
 }
 
 QString CMSettings::defaultSolidColorCMYKProfile() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.DefaultSolidColorCMYKProfile;
+		return m_Doc->cmsSettings().DefaultSolidColorCMYKProfile;
 	return QString();
 }
 
@@ -107,21 +107,21 @@ eRenderIntent CMSettings::imageRenderingIntent() const
 bool CMSettings::useBlackPoint() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.BlackPoint;
+		return m_Doc->cmsSettings().BlackPoint;
 	return false;
 }
 
 bool CMSettings::doSoftProofing() const
 {
 	if (m_Doc)
-		return (m_Doc->CMSSettings.SoftProofOn && m_softProofingAllowed);
+		return (m_Doc->cmsSettings().SoftProofOn && m_softProofingAllowed);
 	return false;
 }
 
 bool CMSettings::doGamutCheck() const
 {
 	if (m_Doc)
-		return (m_Doc->CMSSettings.GamutCheck && m_softProofingAllowed);
+		return (m_Doc->cmsSettings().GamutCheck && m_softProofingAllowed);
 	return false;
 }
 

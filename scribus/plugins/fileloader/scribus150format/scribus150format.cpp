@@ -799,22 +799,22 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 
 void Scribus150Format::readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
-	doc->CMSSettings.SoftProofOn     = attrs.valueAsBool("DPSo", false);
-	doc->CMSSettings.SoftProofFullOn = attrs.valueAsBool("DPSFo", false);
-	doc->CMSSettings.CMSinUse   = attrs.valueAsBool("DPuse", false);
-	doc->CMSSettings.GamutCheck = attrs.valueAsBool("DPgam", false);
-	doc->CMSSettings.BlackPoint = attrs.valueAsBool("DPbla", true);
-	doc->CMSSettings.DefaultMonitorProfile   = attrs.valueAsString("DPMo","");
-	doc->CMSSettings.DefaultPrinterProfile   = attrs.valueAsString("DPPr","");
-	doc->CMSSettings.DefaultImageRGBProfile  = attrs.valueAsString("DPIn","");
-	doc->CMSSettings.DefaultImageCMYKProfile = attrs.valueAsString("DPInCMYK","");
-	doc->CMSSettings.DefaultSolidColorRGBProfile = attrs.valueAsString("DPIn2","");
+	doc->cmsSettings().SoftProofOn     = attrs.valueAsBool("DPSo", false);
+	doc->cmsSettings().SoftProofFullOn = attrs.valueAsBool("DPSFo", false);
+	doc->cmsSettings().CMSinUse   = attrs.valueAsBool("DPuse", false);
+	doc->cmsSettings().GamutCheck = attrs.valueAsBool("DPgam", false);
+	doc->cmsSettings().BlackPoint = attrs.valueAsBool("DPbla", true);
+	doc->cmsSettings().DefaultMonitorProfile   = attrs.valueAsString("DPMo","");
+	doc->cmsSettings().DefaultPrinterProfile   = attrs.valueAsString("DPPr","");
+	doc->cmsSettings().DefaultImageRGBProfile  = attrs.valueAsString("DPIn","");
+	doc->cmsSettings().DefaultImageCMYKProfile = attrs.valueAsString("DPInCMYK","");
+	doc->cmsSettings().DefaultSolidColorRGBProfile = attrs.valueAsString("DPIn2","");
 	if (attrs.hasAttribute("DPIn3"))
-		doc->CMSSettings.DefaultSolidColorCMYKProfile = attrs.valueAsString("DPIn3","");
+		doc->cmsSettings().DefaultSolidColorCMYKProfile = attrs.valueAsString("DPIn3","");
 	else
-		doc->CMSSettings.DefaultSolidColorCMYKProfile = attrs.valueAsString("DPPr","");
-	doc->CMSSettings.DefaultIntentColors = (eRenderIntent) attrs.valueAsInt("DISc", 1);
-	doc->CMSSettings.DefaultIntentImages = (eRenderIntent) attrs.valueAsInt("DIIm", 0);
+		doc->cmsSettings().DefaultSolidColorCMYKProfile = attrs.valueAsString("DPPr","");
+	doc->cmsSettings().DefaultIntentColors = (eRenderIntent) attrs.valueAsInt("DISc", 1);
+	doc->cmsSettings().DefaultIntentImages = (eRenderIntent) attrs.valueAsInt("DIIm", 0);
 }
 
 void Scribus150Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& attrs)

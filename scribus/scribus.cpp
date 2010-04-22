@@ -1897,7 +1897,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		HaveDoc++;
 		DocNr++;
 	}
-	if (ScCore->haveCMS() && tempDoc->CMSSettings.CMSinUse)
+	if (ScCore->haveCMS() && tempDoc->cmsSettings().CMSinUse)
 		recalcColors();
 	//CB NOTE should be all done now
 	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnCount, columnDistance, autoTextFrames, pageArrangement);
@@ -3531,7 +3531,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 			return false;
 		}
 		delete fl;
-		if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
+		if (ScCore->haveCMS() && doc->cmsSettings().CMSinUse)
 		{
 			recalcColors();
 			doc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK);
@@ -3724,75 +3724,75 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-		if (!doc->CMSSettings.CMSinUse)
+		if (!doc->cmsSettings().CMSinUse)
 			doc->HasCMS = false;
-		if ((ScCore->haveCMS()) && (doc->CMSSettings.CMSinUse))
+		if ((ScCore->haveCMS()) && (doc->cmsSettings().CMSinUse))
 		{
 			bool cmsWarning = false;
 			QStringList missing;
 			QStringList replacement;
-			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultImageRGBProfile))
+			if (!ScCore->InputProfiles.contains(doc->cmsSettings().DefaultImageRGBProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultImageRGBProfile);
+				missing.append(doc->cmsSettings().DefaultImageRGBProfile);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
-				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				doc->cmsSettings().DefaultImageRGBProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile;
 			}
-			if (!ScCore->InputProfilesCMYK.contains(doc->CMSSettings.DefaultImageCMYKProfile))
+			if (!ScCore->InputProfilesCMYK.contains(doc->cmsSettings().DefaultImageCMYKProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultImageCMYKProfile);
+				missing.append(doc->cmsSettings().DefaultImageCMYKProfile);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile);
-				doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
+				doc->cmsSettings().DefaultImageCMYKProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 			}
-			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultSolidColorRGBProfile))
+			if (!ScCore->InputProfiles.contains(doc->cmsSettings().DefaultSolidColorRGBProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultSolidColorRGBProfile);
+				missing.append(doc->cmsSettings().DefaultSolidColorRGBProfile);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
-				doc->CMSSettings.DefaultSolidColorRGBProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				doc->cmsSettings().DefaultSolidColorRGBProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 			}
-			if (!ScCore->InputProfilesCMYK.contains(doc->CMSSettings.DefaultSolidColorCMYKProfile))
+			if (!ScCore->InputProfilesCMYK.contains(doc->cmsSettings().DefaultSolidColorCMYKProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultSolidColorCMYKProfile);
+				missing.append(doc->cmsSettings().DefaultSolidColorCMYKProfile);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
-				doc->CMSSettings.DefaultSolidColorCMYKProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
+				doc->cmsSettings().DefaultSolidColorCMYKProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile;
 			}
-			if (!ScCore->MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
+			if (!ScCore->MonitorProfiles.contains(doc->cmsSettings().DefaultMonitorProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultMonitorProfile);
+				missing.append(doc->cmsSettings().DefaultMonitorProfile);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
-				doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
+				doc->cmsSettings().DefaultMonitorProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 			}
-			if (!ScCore->PrinterProfiles.contains(doc->CMSSettings.DefaultPrinterProfile))
+			if (!ScCore->PrinterProfiles.contains(doc->cmsSettings().DefaultPrinterProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultPrinterProfile);
+				missing.append(doc->cmsSettings().DefaultPrinterProfile);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
-				doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
+				doc->cmsSettings().DefaultPrinterProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 			}
 			if (!ScCore->PrinterProfiles.contains(doc->pdfOptions().PrintProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->pdfOptions().PrintProf);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
-				doc->pdfOptions().PrintProf = doc->CMSSettings.DefaultPrinterProfile;
+				doc->pdfOptions().PrintProf = doc->cmsSettings().DefaultPrinterProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->pdfOptions().ImageProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->pdfOptions().ImageProf);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
-				doc->pdfOptions().ImageProf = doc->CMSSettings.DefaultImageRGBProfile;
+				doc->pdfOptions().ImageProf = doc->cmsSettings().DefaultImageRGBProfile;
 			}
 			if (!ScCore->InputProfiles.contains(doc->pdfOptions().SolidProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->pdfOptions().SolidProf);
 				replacement.append(prefsManager->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
-				doc->pdfOptions().SolidProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
+				doc->pdfOptions().SolidProf = doc->cmsSettings().DefaultSolidColorRGBProfile;
 			}
 			if (cmsWarning)
 			{
@@ -3804,14 +3804,14 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				}
 				QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			}
-			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
-			doc->Gamut        = doc->CMSSettings.GamutCheck;
-			doc->IntentColors = doc->CMSSettings.DefaultIntentColors;
-			doc->IntentImages = doc->CMSSettings.DefaultIntentImages;
+			doc->SoftProofing = doc->cmsSettings().SoftProofOn;
+			doc->Gamut        = doc->cmsSettings().GamutCheck;
+			doc->IntentColors = doc->cmsSettings().DefaultIntentColors;
+			doc->IntentImages = doc->cmsSettings().DefaultIntentImages;
 			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 			{
 				doc->HasCMS = true;
-				doc->pdfOptions().SComp = doc->CMSSettings.ComponentsInput2;
+				doc->pdfOptions().SComp = doc->cmsSettings().ComponentsInput2;
 			}
 			else
 			{
@@ -3826,7 +3826,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		else
 		{
-			doc->CMSSettings.CMSinUse = false;
+			doc->cmsSettings().CMSinUse = false;
 		}
 //		propertiesPalette->updateColorList();
 //		propertiesPalette->Cpal->ChooseGrad(0);
@@ -4003,8 +4003,8 @@ void ScribusMainWindow::slotGetContent()
 				currItem->EmProfile = "";
 				currItem->pixm.imgInfo.isRequest = false;
 				currItem->UseEmbedded = true;
-				currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
-				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
+				currItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
+				currItem->IRender = doc->cmsSettings().DefaultIntentImages;
 				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				doc->LoadPict(fileName, currItem->ItemNr, false, true);
@@ -4085,8 +4085,8 @@ void ScribusMainWindow::slotGetClipboardImage()
 					currItem->EmProfile = "";
 					currItem->pixm.imgInfo.isRequest = false;
 					currItem->UseEmbedded = true;
-					currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
-					currItem->IRender = doc->CMSSettings.DefaultIntentImages;
+					currItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
+					currItem->IRender = doc->cmsSettings().DefaultIntentImages;
 					qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					currItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
@@ -7673,7 +7673,7 @@ void ScribusMainWindow::slotDocSetup150()
 	if (prefsResult==QDialog::Accepted)
 	{
 		struct ApplicationPrefs newDocPrefs(prefsDialog.prefs());
-		doc->setNewPrefs(newDocPrefs);
+		doc->setNewPrefs(newDocPrefs, oldDocPrefs);
 
 
 		slotChangeUnit(doc->unitIndex(), false);
@@ -9601,8 +9601,8 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 			{
 				imageItem->EmProfile = "";
 				imageItem->pixm.imgInfo.isRequest = false;
-				imageItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
-				imageItem->IRender  = doc->CMSSettings.DefaultIntentImages;
+				imageItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
+				imageItem->IRender  = doc->cmsSettings().DefaultIntentImages;
 				imageItem->effectsInUse = contentsBuffer.effects;
 				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);

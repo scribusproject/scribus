@@ -1254,7 +1254,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	if (!ScCore->InputProfiles.contains(tp))
 	{
 		if (mdoc != 0 && exporting)
-			tp = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
+			tp = mdoc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	}
@@ -1276,7 +1276,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	if (!ScCore->InputProfiles.contains(tp1))
 	{
 		if (mdoc != 0 && exporting)
-			tp1 = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
+			tp1 = mdoc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp1 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	}
@@ -1305,7 +1305,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	if (!PDFXProfiles.contains(tp3))
 	{
 		if (mdoc != 0 && exporting)
-			tp3 = mdoc->CMSSettings.DefaultPrinterProfile;
+			tp3 = mdoc->cmsSettings().DefaultPrinterProfile;
 		else
 			tp3 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
 	}
@@ -1711,7 +1711,7 @@ void TabPDFOptions::EnableLPI(int a)
 		if (!ScCore->InputProfiles.contains(tp))
 		{
 			if (doc != 0)
-				tp = doc->CMSSettings.DefaultSolidColorRGBProfile;
+				tp = doc->cmsSettings().DefaultSolidColorRGBProfile;
 			else
 				tp = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 		}
@@ -1733,7 +1733,7 @@ void TabPDFOptions::EnableLPI(int a)
 		if (!ScCore->InputProfiles.contains(tp1))
 		{
 			if (doc != 0)
-				tp1 = doc->CMSSettings.DefaultSolidColorRGBProfile;
+				tp1 = doc->cmsSettings().DefaultSolidColorRGBProfile;
 			else
 				tp1 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 		}

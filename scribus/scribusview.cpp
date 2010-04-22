@@ -385,7 +385,7 @@ void ScribusView::adjustCMS()
 		dia->tabColorManagement->updateDocSettings(Doc);
 		if (dia->tabColorManagement->changed)
 		{
-			Doc->enableCMS(Doc->CMSSettings.CMSinUse);
+			Doc->enableCMS(Doc->cmsSettings().CMSinUse);
 			cmsToolbarButton->setChecked(Doc->HasCMS);
 			m_ScMW->propertiesPalette->ShowCMS();
 			DrawNew();
