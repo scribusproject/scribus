@@ -257,7 +257,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	if (commonMouseMove(m))
 		return;
 	m_mouseCurrentPoint = mousePointDoc;
-	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
+	bool movingOrResizing = (m_canvas->m_viewMode.operItemMoving || m_canvas->m_viewMode.operItemResizing);
+	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && (!movingOrResizing) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
 	{
 		// #9002: Resize points undraggable when object is aligned to a guide
 		// Allow item resize when guides are aligned to item while preserving
