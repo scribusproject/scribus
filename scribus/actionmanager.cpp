@@ -1502,7 +1502,7 @@ void ActionManager::languageChange()
 void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap)
 {
 	//typography
-	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Smart &Hyphen"));
+	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Soft &Hyphen"));
 	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Non Breaking Dash"));
 	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Non Breaking &Space"));
 	(*actionMap)["unicodePageNumber"]->setText( tr("Page &Number"));
