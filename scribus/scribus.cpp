@@ -836,7 +836,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("InsertChar", tr("&Character"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodePageNumber"], "InsertChar", false);
 	scrMenuMgr->addMenuItem(scrActions["unicodePageCount"], "InsertChar", false);
-	scrMenuMgr->addMenuItem(scrActions["unicodeSmartHyphen"], "InsertChar", false);
+	scrMenuMgr->addMenuItem(scrActions["unicodeSoftHyphen"], "InsertChar", false);
 	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingHyphen"], "InsertChar", false);
 	scrMenuMgr->addMenuSeparator("InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeCopyRight"], "InsertChar", false);
@@ -1150,9 +1150,9 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 //						currItem->Tinput = true;
 						currItem->update();
 					}
-					else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
+					else if (actionName=="unicodeSoftHyphen") //ignore the char as we use an attribute if the text item, for now.
 					{
-						// this code is currently dead since unicodeSmartHyphen
+						// this code is currently dead since unicodeSoftHyphen
 						// doesnt have unicodevalue == -1 any more
 						if (currItem->CPos-1>0)
 						{

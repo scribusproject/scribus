@@ -834,7 +834,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 	if (b >= line.firstItem) 
 	{
 		double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
-		QChar chr = (itemText.item(b)->effects() & ScStyle_SmartHyphenVisible) ? 
+		QChar chr = (itemText.item(b)->effects() & ScStyle_SoftHyphenVisible) ? 
 			QChar('-') : itemText.text(b);
 		double rightCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
 		if (QString("-,.`´'~").indexOf(chr) >= 0
@@ -1071,7 +1071,7 @@ void PageItem_TextFrame::layout()
 			{  // local block for 'fl'
 				StyleFlag fl = hl->effects();
 				fl &= ~ScStyle_DropCap;
-				fl &= ~ScStyle_SmartHyphenVisible;
+				fl &= ~ScStyle_SoftHyphenVisible;
 				hl->setEffects(fl);
 			}
 
@@ -1803,7 +1803,7 @@ void PageItem_TextFrame::layout()
 						{
 							// insert hyphen
 							current.hyphenCount++;
-							hl->setEffects(hl->effects() | ScStyle_SmartHyphenVisible);
+							hl->setEffects(hl->effects() | ScStyle_SoftHyphenVisible);
 							hl->glyph.grow();
 							hl->glyph.more->glyph = charStyle.font().char2CMap(QChar('-'));
 							hl->glyph.more->xadvance = charStyle.font().charWidth('-', itemText.charStyle(a).fontSize() / 10.0) * (itemText.charStyle(a).scaleH() / 1000.0);
@@ -1812,7 +1812,7 @@ void PageItem_TextFrame::layout()
 						{
 							if (hl->ch != '-')
 								current.hyphenCount = 0;
-							hl->setEffects(hl->effects() & ~ScStyle_SmartHyphenVisible);
+							hl->setEffects(hl->effects() & ~ScStyle_SoftHyphenVisible);
 							hl->glyph.shrink();
 						}
 						

@@ -202,7 +202,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			continue;
 		int len = i - cstyleStart;
 		if (len > 0) {
-			insertCharsWithSmartHyphens(pos, other.textWithSmartHyphens(cstyleStart, len));
+			insertCharsWithSoftHyphens(pos, other.textWithSoftHyphens(cstyleStart, len));
 			applyCharStyle(pos, len, otherDefault.charStyle());
 			applyCharStyle(pos, len, cstyle);
 			pos += len;
@@ -228,7 +228,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 	}
 	int len = otherEnd - cstyleStart;
 	if (len > 0) {
-		insertCharsWithSmartHyphens(pos, other.textWithSmartHyphens(cstyleStart, len));
+		insertCharsWithSoftHyphens(pos, other.textWithSoftHyphens(cstyleStart, len));
 		applyCharStyle(pos, len, otherDefault.charStyle());
 		applyCharStyle(pos, len, cstyle);
 		pos += len;
@@ -350,7 +350,7 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 	invalidate(pos, pos + txt.length());
 }
 
-void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeighbourStyle)
+void StoryText::insertCharsWithSoftHyphens(int pos, QString txt, bool applyNeighbourStyle)
 {
 	if (pos < 0)
 		pos += length()+1;
@@ -494,7 +494,7 @@ QString StoryText::text(int pos, uint len) const
 	return result;
 }
 
-QString StoryText::textWithSmartHyphens(int pos, uint len) const
+QString StoryText::textWithSoftHyphens(int pos, uint len) const
 {
 	QString result("");
 	int lastPos = pos;
@@ -1451,7 +1451,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			// something new, write pending chars
 			if  (i - lastPos > 0)
 			{
-				handler.chars(textWithSmartHyphens(lastPos, i-lastPos));
+				handler.chars(textWithSoftHyphens(lastPos, i-lastPos));
 			}
 			lastPos = i;
 		}
@@ -1516,7 +1516,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	}
 	
 	if  (length() - lastPos > 0)
-		handler.chars(textWithSmartHyphens(lastPos, length()-lastPos));
+		handler.chars(textWithSoftHyphens(lastPos, length()-lastPos));
 	handler.end("span");
 	handler.end("p");
 	

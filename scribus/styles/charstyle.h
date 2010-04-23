@@ -30,13 +30,13 @@ enum StyleFlagValue {
     ScStyle_Strikethrough = 16,
     ScStyle_AllCaps       = 32,
     ScStyle_SmallCaps     = 64,
-    ScStyle_HyphenationPossible=128, //Hyphenation possible here (Smart Hyphen)
+    ScStyle_HyphenationPossible=128, //Hyphenation possible here (Soft Hyphen)
     ScStyle_Shadowed      = 256,
     ScStyle_UnderlineWords= 512,
     ScStyle_Reserved01    = 1024, //free, not used in the moment
     ScStyle_DropCap       = 2048,
     ScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
-    ScStyle_SmartHyphenVisible=8192, //Smart Hyphen visible at line end
+    ScStyle_SoftHyphenVisible=8192, //Soft Hyphen visible at line end
     ScStyle_StartOfLine   = 16384,
 	ScStyle_UserStyles    = 1919, // == 1024 + 512 + 256 + 64 + 32 + 16 + 8 + 4 + 2 + 1
 	ScStyle_None          = 65535

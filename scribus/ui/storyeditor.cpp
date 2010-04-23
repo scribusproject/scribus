@@ -1704,7 +1704,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->createMenu("InsertChar", tr("Character"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodePageNumber"], "InsertChar", true);
 	seMenuMgr->addMenuItem(seActions["unicodePageCount"], "InsertChar", true);
-	//seMenuMgr->addMenuItem(seActions["unicodeSmartHyphen"], "InsertChar", true);
+	//seMenuMgr->addMenuItem(seActions["unicodeSoftHyphen"], "InsertChar", true);
 	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingHyphen"], "InsertChar", true);
 	seMenuMgr->addMenuSeparator("InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeCopyRight"], "InsertChar", true);
@@ -1781,7 +1781,7 @@ void StoryEditor::buildGUI()
 	smartSelection=prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
 	initActions();
 	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
-	seActions["unicodeSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
+	seActions["unicodeSoftHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
 	buildMenus();
 
 	setWindowIcon(loadIcon("AppIcon.png"));

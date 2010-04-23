@@ -940,7 +940,7 @@ void Scribus134Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 
 
 namespace { // anon
-	QString textWithSmartHyphens(StoryText& itemText, int from, int to)
+	QString textWithSoftHyphens(StoryText& itemText, int from, int to)
 	{
 		QString result("");
 		int lastPos = from;
@@ -997,7 +997,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 					putCStylePT(docu, lastStyle);
 				else*/
 				putCStyle(docu, lastStyle);
-				docu.writeAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, k));
+				docu.writeAttribute("CH", textWithSoftHyphens(item->itemText, lastPos, k));
 			}
 			lastStyle = style1;
 			lastPos = k;
@@ -1072,7 +1072,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			putCStylePT(docu, lastStyle);
 		else*/
 		putCStyle(docu, lastStyle);
-		docu.writeAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, item->itemText.length()));
+		docu.writeAttribute("CH", textWithSoftHyphens(item->itemText, lastPos, item->itemText.length()));
 	}
 	// paragraphstyle for trailing chars
 	if (item->itemText.length() == 0 || item->itemText.text(item->itemText.length()-1) != SpecialChars::PARSEP)

@@ -4480,7 +4480,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		// don't let hl2's destructor delete these!
 		hl2.glyph.more = 0;
 	}
-/*	if (cstyle.effects() & ScStyle_SmartHyphenVisible)
+/*	if (cstyle.effects() & ScStyle_SoftHyphenVisible)
 	{
 		int chs = cstyle.fontSize();
 //		double wide = cstyle.font().charWidth(chstr, chs) * (cstyle.scaleH() / 1000.0);

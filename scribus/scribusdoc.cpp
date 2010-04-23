@@ -3177,7 +3177,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				}
 				continue;
 			}
-			if (it->itemText.charStyle(e).effects() & ScStyle_SmartHyphenVisible)
+			if (it->itemText.charStyle(e).effects() & ScStyle_SoftHyphenVisible)
 			{
 				uint gl = it->itemText.charStyle(e).font().char2CMap(QChar('-'));
 				FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));

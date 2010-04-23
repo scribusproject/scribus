@@ -873,7 +873,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 {
 	QString name;
 	//typography
-	name="unicodeSmartHyphen";
+	name="unicodeSoftHyphen";
 	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::SHYPHEN.unicode(), name));
 	name="unicodeNonBreakingHyphen";
 	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::NBHYPHEN.unicode(), name));
@@ -984,7 +984,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 
 	//Spaces and special characters
 
-	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodePageCount";
+	*actionNamesList << "unicodeSoftHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodePageCount";
 	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
 	//Breaks
 	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak" << "unicodeZerowidthSpace";
@@ -1522,7 +1522,7 @@ void ActionManager::languageChange()
 void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap)
 {
 	//typography
-	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Smart &Hyphen"));
+	(*actionMap)["unicodeSoftHyphen"]->setText( tr("Soft &Hyphen"));
 	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Non Breaking Dash"));
 	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Non Breaking &Space"));
 	(*actionMap)["unicodePageNumber"]->setText( tr("Page &Number"));
@@ -1669,7 +1669,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeFrameBreak", Qt::CTRL+Qt::Key_Return);
 	defKeys.insert("unicodeColumnBreak", Qt::CTRL+Qt::SHIFT+Qt::Key_Return);
 
-	defKeys.insert("unicodeSmartHyphen", Qt::CTRL+Qt::SHIFT+Qt::Key_Minus);
+	defKeys.insert("unicodeSoftHyphen", Qt::CTRL+Qt::SHIFT+Qt::Key_Minus);
 	defKeys.insert("unicodeNonBreakingHyphen", Qt::CTRL+Qt::ALT+Qt::Key_Minus);
 	defKeys.insert("unicodeNonBreakingSpace", Qt::CTRL+Qt::Key_Space);
 	defKeys.insert("unicodePageNumber", Qt::CTRL+Qt::SHIFT+Qt::ALT+Qt::Key_P);
@@ -1786,7 +1786,7 @@ void ActionManager::createDefaultMenus()
 		<< "insertSampleText";
 
 	itmenu->second
-		<< "unicodeSmartHyphen"
+		<< "unicodeSoftHyphen"
 		<< "unicodeNonBreakingHyphen"
 		<< "unicodeNonBreakingSpace"
 		<< "unicodePageNumber"
@@ -1835,7 +1835,7 @@ void ActionManager::createDefaultMenus()
 		 << "unicodeSpaceHair";
 
 	 itmenu->second
-		 << "unicodeSmartHyphen"
+		 << "unicodeSoftHyphen"
 		 << "unicodeNonBreakingHyphen"
 		 << "unicodeNonBreakingSpace"
 		 << "unicodePageNumber"
@@ -1943,7 +1943,7 @@ void ActionManager::createDefaultNonMenuActions()
 
 	//Unicode
 	++itnmenua;
-	itnmenua->second << "unicodeSmartHyphen";
+	itnmenua->second << "unicodeSoftHyphen";
 	itnmenua->second << "unicodeNonBreakingHyphen";
 	itnmenua->second << "unicodeNonBreakingSpace";
 	itnmenua->second << "unicodePageNumber";
@@ -1989,7 +1989,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeSpaceMid";
 	itnmenua->second << "unicodeSpaceHair";
 
-	itnmenua->second << "unicodeSmartHyphen";
+	itnmenua->second << "unicodeSoftHyphen";
 	itnmenua->second << "unicodeNonBreakingHyphen";
 	itnmenua->second << "unicodeNonBreakingSpace";
 	itnmenua->second << "unicodePageNumber";

@@ -233,7 +233,7 @@ const QString CharStyle::OUTLINE = "outline";
 const QString CharStyle::SHADOWED = "shadowed";
 const QString CharStyle::ALLCAPS = "allcaps";
 const QString CharStyle::SMALLCAPS = "smallcaps";
-// This is for loading legacy docs only. Scribus 1.3.4 should write smart hyphens in another way 
+// This is for loading legacy docs only. Scribus 1.3.4 should write soft hyphens in another way 
 static const QString SHYPHEN = "shyphen";
 
 
