@@ -915,12 +915,12 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
 		//Loop through all items and see which one(s) were under the drop point on the current layer
 		//Should make a nice function for this.
+		//#9051 :  loop in reverse order so that items in front of others are prioritized
 		Doc->m_Selection->delaySignalsOn();
-		for (int i=0; i<Doc->Items->count(); ++i)
+		for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
 		{
 			if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
 			{
-//				Doc->m_Selection->delaySignalsOn();
 				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
 				{
 					Deselect(false);
@@ -929,7 +929,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					selectedItemByDrag=true;
 					break;
 				}
-//				Doc->m_Selection->delaySignalsOff();
 			}
 		}
 		Doc->m_Selection->delaySignalsOff();
