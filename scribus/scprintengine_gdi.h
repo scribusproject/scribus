@@ -77,10 +77,11 @@ protected:
 	\param printerDC the printer deice context
 	\param pageWidth width
 	\param pageHeight height
+	\parah landscape the page is to be printer in landscape mode
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool sendPSFile ( QString filePath, HDC printerDC, int pageWidth, int pageHeight );
+	bool sendPSFile ( QString filePath, HDC printerDC, int pageWidth, int pageHeight, bool landscape );
 	/*! \brief Set device params into DEVMODE structure according to print options
 	Set printing params according to options and DEVMODE structure
 	\param options print options

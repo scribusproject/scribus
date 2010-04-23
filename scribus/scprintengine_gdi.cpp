@@ -310,11 +310,11 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, Page* page, PrintOption
 	if ( options.useICC && isPostscriptPrinter(printerDC) )
 	{
 		success = false;
-		QString mProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
-		QString pProf = doc->CMSSettings.DefaultPrinterProfile;
+		QString mProf = doc->prefsData().colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+		QString pProf = doc->prefsData().colorPrefs.DCMSset.DefaultPrinterProfile;
 		if ( ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf) )
 		{
-			inputProfile  = QDir::convertSeparators(ScCore->InputProfiles[mProf]);
+			inputProfile   = QDir::convertSeparators(ScCore->InputProfiles[mProf]);
 			printerProfile = QDir::convertSeparators(ScCore->PrinterProfiles[pProf]);
 			// Avoid color transform if input and output profile are the same
 			if ( inputProfile != printerProfile )
@@ -471,7 +471,7 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions
 		double bleedH = options.bleeds.Left + options.bleeds.Right;
 		double bleedV = options.bleeds.Top  + options.bleeds.Bottom;
 		StartPage( printerDC );
-		succeed = sendPSFile( tempFilePath, printerDC, page->width() + bleedH, page->height() + bleedV);
+		succeed = sendPSFile( tempFilePath, printerDC, page->width() + bleedH, page->height() + bleedV, (page->orientation() == 1));
 		EndPage( printerDC );
 	}
 	
@@ -497,7 +497,7 @@ bool ScPrintEngine_GDI::printPage_PS_Sep( ScribusDoc* doc, Page* page, PrintOpti
 	return succeed;
 }
 
-bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int pageHeight  )
+bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int pageHeight, bool landscape )
 {
 	int  escape;
 	int  logPixelsX;
@@ -553,9 +553,30 @@ bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWid
 	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
 		return false;
 
+	// Match Postscript and GDI coordinate system
+	sprintf( (char*) sps.data, "0 %0.3f neg translate\n", (double) physicalHeight );
+	sps.numBytes = strlen( (char*) sps.data );
+	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+		return false;
+
+	// In case of landscape printing, pslib will rotate the page
+	// we must take that into account
+	if (landscape)
+	{
+		sprintf( (char*) sps.data, "-90 rotate %0.3f %0.3f translate\n", (double) -pageHeight, 0.0);
+		sps.numBytes = strlen( (char*) sps.data );
+		if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+			return false;
+		transx = ( physicalHeight - pageHeight ) / -2.0;
+		transy = ( physicalWidth  - pageWidth ) / 2.0;
+	}
+	else
+	{
+		transx = ( physicalWidth  - pageWidth ) / 2.0;
+		transy = ( physicalHeight - pageHeight ) / 2.0;
+	}
+
 	// Center the printed page in paper zone
-	transx = ( physicalWidth - pageWidth ) / 2.0;
-	transy = ( pageHeight - physicalHeight ) / 2.0 - pageHeight;
 	sprintf( (char*) sps.data, "%0.3f %0.3f translate\n", transx, transy );
 	sps.numBytes = strlen( (char*) sps.data );
 	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
