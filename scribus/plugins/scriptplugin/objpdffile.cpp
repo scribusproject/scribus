@@ -494,7 +494,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->intenti = ScCore->primaryMainWindow()->doc->pdfOptions().Intent2; // int - 0 - 3
 	QString tp = ScCore->primaryMainWindow()->doc->pdfOptions().SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
-		tp = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		tp = ScCore->primaryMainWindow()->view->Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	PyObject *solidpr = NULL;
 	solidpr = PyString_FromString(tp.toAscii());
 	if (solidpr){
@@ -506,7 +506,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 	QString tp2 = ScCore->primaryMainWindow()->doc->pdfOptions().ImageProf;
 	if (!ScCore->InputProfiles.contains(tp2))
-		tp2 = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		tp2 = ScCore->primaryMainWindow()->view->Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	PyObject *imagepr = NULL;
 	imagepr = PyString_FromString(tp2.toAscii());
 	if (imagepr){
@@ -518,7 +518,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 	QString tp3 = ScCore->primaryMainWindow()->doc->pdfOptions().PrintProf;
 	if (!ScCore->PDFXProfiles.contains(tp3))
-		tp3 = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultPrinterProfile;
+		tp3 = ScCore->primaryMainWindow()->view->Doc->cmsSettings().DefaultPrinterProfile;
 	PyObject *printprofc = NULL;
 	printprofc = PyString_FromString(tp3.toAscii());
 	if (printprofc){
