@@ -52,7 +52,7 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, qreal sz) const
 	GlyphMetrics res;
 	if (gl == 0 || gl >= CONTROL_GLYPHS)
 	{	res.width   = glyphWidth(gl, sz);
-		res.ascent  = (gl == 0? sz : 0);
+		res.ascent  = (gl == 0? ascent(sz) : 0);
 		res.descent = 0;
 		return res;
 	}
