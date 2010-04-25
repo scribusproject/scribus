@@ -46,6 +46,8 @@ for which a new license (GPL+exception) is in place.
 #include <QSpinBox>
 
 #include <cstdlib>
+#include <algorithm>
+
 #include "pslib.h"
 #include "checkDocument.h"
 #include "cmsettings.h"
@@ -618,6 +620,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 	QString tmp, tmp2, tmp3;
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
+	if (doc->Pages->at(Seite)->orientation() == 1)
+		std::swap(b, h);
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
@@ -720,6 +724,8 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	QString tmp, tmp2, tmp3;
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
+	if (doc->Pages->at(Seite)->orientation() == 1)
+		std::swap(b, h);
 
 	args1.append( "-q" );
 	args1.append( "-dNOPAUSE" );
@@ -922,6 +928,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			bool mode;
 			int w = qRound(b);
 			int h2 = qRound(h);
+			if (doc->Pages->at(Seite)->orientation() == 1)
+				std::swap(w, h2);
 			image = QImage(w, h2, QImage::Format_ARGB32);
 			QRgb clean = qRgba(0, 0, 0, 0);
 			for( int yi=0; yi < h2; ++yi )
@@ -1234,6 +1242,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 		}
 	}
+	const Page* page = doc->Pages->at(Seite);
+	if ((page->orientation() == 1) && (image.width() < image.height()))
+		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
 	if (AliasTr->isChecked())
 	{
 		Bild = QPixmap(image.width(), image.height());
