@@ -11021,1538 +11021,194 @@
 			<File
 				RelativePath="..\..\scribus\aboutplugins.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\aligndistribute.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\charselect.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\charselectenhanced.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\cmsprefsbase.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\copypagetomasterpage.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\createrange.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\docitemattrprefs.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\docsections.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\gtfiledialog.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\guidemanager.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\helpbrowser.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\hysettingsBase.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\insertaframe.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\latexeditor.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\measurementsbase.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\multipleduplicate.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\multiprogressdialog.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\nftdialog.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\nftwidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitemattributes.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\patterndialog.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\picsearch.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\picsearchoptions.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\picstatus.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pluginmanagerprefsgui.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\polygonwidgetbase.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\printdialogbase.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\replacecolors.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\replaceonecolor.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\selectobjects.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\shortcutwidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\smcstylewidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\smlinestylewidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\smpstylewidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\smreplacedia.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\smstyleimport.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\stylemanager.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tabdisplay.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tabexternaltoolswidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tabgeneral.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tabkeyboardshortcutswidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tabmiscellaneous.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tabprinter.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tabscrapbook.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tocindexprefs.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\unicodesearch.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\useprintermarginsdialog.ui"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="uic.exe"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
