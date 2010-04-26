@@ -7668,7 +7668,7 @@ void ScribusMainWindow::slotDocSetup150()
 	if (!doc)
 		return;
 	struct ApplicationPrefs oldDocPrefs(doc->prefsData());
-	PreferencesDialog prefsDialog(this, oldDocPrefs);
+	PreferencesDialog prefsDialog(this, oldDocPrefs, doc);
 	int prefsResult=prefsDialog.exec();
 	if (prefsResult==QDialog::Accepted)
 	{

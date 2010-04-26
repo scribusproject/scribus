@@ -19,12 +19,14 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "scribus.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "units.h"
 #include "util_icon.h"
 
-PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData)
+PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc)
 	: QDialog(parent),
-	counter(0)
+	counter(0),
+	m_Doc(doc)
 {
 	setupUi(this);
 	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
@@ -37,6 +39,12 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
 	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget);
 	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
+	if (doc)
+	{
+		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget);
+		addItem( tr("Document Information"), loadIcon("documentinfo32.png"), prefs_DocumentInformation);
+	}
+	else prefs_DocumentInformation=0;
 	prefs_Guides = new Prefs_Guides(prefsStackWidget);
 	addItem( tr("Guides"), loadIcon("guides.png"), prefs_Guides);
 	prefs_Typography = new Prefs_Typography(prefsStackWidget);
@@ -61,6 +69,12 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), prefs_DocumentItemAttributes);
 	prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget);
 	addItem( tr("Tables of Contents"), loadIcon("tabtocindex.png"), prefs_TableOfContents);
+	if (doc)
+	{
+		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget);
+		addItem( tr("Sections"), loadIcon("tabtocindex.png"), prefs_DocumentSections);
+	}
+	else prefs_DocumentSections=0;
 	prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("22/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
 	prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget);

@@ -18,6 +18,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui/prefs_colormanagement.h"
 #include "ui/prefs_userinterface.h"
+#include "ui/prefs_documentinformation.h"
+#include "ui/prefs_documentsections.h"
 #include "ui/prefs_documentsetup.h"
 #include "ui/prefs_display.h"
 #include "ui/prefs_guides.h"
@@ -41,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 
 class PrefsManager;
 class ScribusMainWindow;
+class ScribusDoc;
 
 
 /*! \brief The Scribus Preferences Dialog
@@ -50,7 +53,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 	Q_OBJECT
 
 	public:
-		PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData);
+		PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc *doc=NULL);
 		~PreferencesDialog();
 
 		virtual void changeEvent(QEvent *e);
@@ -81,6 +84,8 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 		Prefs_ColorManagement *prefs_ColorManagement;
 		Prefs_UserInterface *prefs_UserInterface;
+		Prefs_DocumentInformation *prefs_DocumentInformation;
+		Prefs_DocumentSections *prefs_DocumentSections;
 		Prefs_DocumentSetup *prefs_DocumentSetup;
 		Prefs_Display *prefs_Display;
 		Prefs_ExternalTools *prefs_ExternalTools;
@@ -108,7 +113,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		int docUnitIndex;
 		ScribusMainWindow* mainWin;
 		PrefsManager* prefsManager;
-
+		ScribusDoc* m_Doc;
 		ApplicationPrefs localPrefs;
 };
 
