@@ -1335,7 +1335,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\prefs_documentinformation.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\prefs_documentitemattributes.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\prefs_documentsections.cpp"
 				>
 			</File>
 			<File
@@ -7268,7 +7276,71 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\prefs_documentinformation.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\prefs_documentitemattributes.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\prefs_documentsections.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11777,7 +11849,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_prefs_documentinformationbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_prefs_documentitemattributesbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_prefs_documentsectionsbase.h"
 				>
 			</File>
 			<File
@@ -12534,7 +12614,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_prefs_documentinformation.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_prefs_documentitemattributes.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_prefs_documentsections.cpp"
 				>
 			</File>
 			<File
@@ -13159,7 +13247,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\prefs_documentinformationbase.ui"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\prefs_documentitemattributesbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\prefs_documentsectionsbase.ui"
 				>
 			</File>
 			<File
