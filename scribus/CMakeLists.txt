@@ -98,6 +98,8 @@ SET(SCRIBUS_UI_SRC
   ui/preferencesdialogbase.ui
   ui/prefs_colormanagementbase.ui
   ui/prefs_displaybase.ui
+  ui/prefs_documentinformationbase.ui
+  ui/prefs_documentsectionsbase.ui
   ui/prefs_documentsetupbase.ui
   ui/prefs_externaltoolsbase.ui
   ui/prefs_fontsbase.ui
@@ -289,6 +291,8 @@ SET(SCRIBUS_MOC_CLASSES
   ui/preferencesdialog.h
   ui/prefs_colormanagement.h
   ui/prefs_display.h
+  ui/prefs_documentinformation.h
+  ui/prefs_documentsections.h
   ui/prefs_documentsetup.h
   ui/prefs_externaltools.h
   ui/prefs_fonts.h
@@ -606,6 +610,8 @@ SET(SCRIBUS_SOURCES
   ui/preferencesdialog.cpp
   ui/prefs_colormanagement.cpp
   ui/prefs_display.cpp
+  ui/prefs_documentinformation.cpp
+  ui/prefs_documentsections.cpp
   ui/prefs_documentsetup.cpp
   ui/prefs_externaltools.cpp
   ui/prefs_fonts.cpp

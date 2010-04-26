@@ -12111,13 +12111,13 @@ void ScribusDoc::setPageSetFirstPage(int layout, int fp)
 void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData)
 {
 	docPrefsData=prefsData;
-/*
+
 	double TopD = prefsData.displayPrefs.scratch.Top - oldPrefsData.displayPrefs.scratch.Top;
 	double LeftD = prefsData.displayPrefs.scratch.Left - oldPrefsData.displayPrefs.scratch.Left;
-
-	for (int p = 0; p < currDoc->Pages->count(); ++p)
+	/* TODO: pull in the make changes to all pages bools
+	for (int p = 0; p < Pages->count(); ++p)
 	{
-		Page *pp = currDoc->Pages->at(p);
+		Page *pp = Pages->at(p);
 		if (tabPage->sizeAllPages->isChecked())
 		{
 			pp->setInitialWidth(docPrefsData.docSetupPrefs.pageWidth);
@@ -12150,6 +12150,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			}
 		}
 	}
+
 	for (int p = 0; p < MasterPages.count(); ++p)
 	{
 		Page *pp = MasterPages.at(p);
@@ -12170,6 +12171,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 		pp->setXOffset(docPrefsData.displayPrefs.scratch.Left);
 		pp->setYOffset(docPrefsData.displayPrefs.scratch.Top);
 	}
+	*/
 	uint docItemsCount = MasterItems.count();
 	for (uint ite = 0; ite < docItemsCount; ++ite)
 	{
@@ -12177,27 +12179,24 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 		item->moveBy(LeftD, TopD);
 		item->setRedrawBounding();
 	}
-	viewToRecalcPictureRes=(docPrefsData.itemToolPrefs.imageLowResType==oldPrefsData.itemToolPrefs.imageLowResType);
+	bool viewToRecalcPictureRes=(docPrefsData.itemToolPrefs.imageLowResType==oldPrefsData.itemToolPrefs.imageLowResType);
 
 	autoSaveTimer->stop();
 	if (docPrefsData.docSetupPrefs.AutoSave)
 		autoSaveTimer->start(docPrefsData.docSetupPrefs.AutoSaveTime);
-*/
+
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
 */
-/*
-	currDoc->setHyphLanguage(docPrefsData.hyphPrefs.Language);
 
-	currDoc->docHyphenator->slotNewSettings(docPrefsData.hyphPrefs.MinWordLen,
+	docHyphenator->slotNewSettings(docPrefsData.hyphPrefs.MinWordLen,
 											!docPrefsData.hyphPrefs.Automatic,
 											docPrefsData.hyphPrefs.AutoCheck,
 											docPrefsData.hyphPrefs.HyCount);
-	currDoc->docHyphenator->ignoredWords = docPrefsData.hyphPrefs.ignoredWords;
-	currDoc->docHyphenator->specialWords = docPrefsData.hyphPrefs.specialWords;
+	docHyphenator->ignoredWords = docPrefsData.hyphPrefs.ignoredWords;
+	docHyphenator->specialWords = docPrefsData.hyphPrefs.specialWords;
 	if (ScCore->haveCMS())
 	{
-		bool oldCM = currDoc->docPrefsData.colorPrefs.DCMSset.CMSinUse;
 		bool cmsChanged = (
 					(docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile != oldPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile) ||
 					(docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile != oldPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile) ||
@@ -12214,25 +12213,25 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 					);
 		if (cmsChanged)
 		{
-			ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
-			ScMW->mainWindowProgressBar->reset();
+			m_ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
+			m_ScMW->mainWindowProgressBar->reset();
 			int cc = PageColors.count() + Items->count();
-			ScMW->mainWindowProgressBar->setMaximum(cc);
+			m_ScMW->mainWindowProgressBar->setMaximum(cc);
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			bool newCM  = CMSSettings.CMSinUse;
+			bool newCM  = docPrefsData.colorPrefs.DCMSset.CMSinUse;
 			bool updCol = false;
-			CMSSettings.CMSinUse = oldCM;
+			docPrefsData.colorPrefs.DCMSset.CMSinUse = oldPrefsData.colorPrefs.DCMSset.CMSinUse;
 			CloseCMSProfiles();
-			CMSSettings.CMSinUse = newCM;
-			HasCMS = CMSSettings.CMSinUse;
-			SoftProofing = CMSSettings.SoftProofOn;
-			Gamut = CMSSettings.GamutCheck;
-			IntentColors = CMSSettings.DefaultIntentColors;
-			IntentImages = CMSSettings.DefaultIntentImages;
-			if (!CMSSettings.CMSinUse)
+			docPrefsData.colorPrefs.DCMSset.CMSinUse = newCM;
+			HasCMS = docPrefsData.colorPrefs.DCMSset.CMSinUse;
+			SoftProofing = docPrefsData.colorPrefs.DCMSset.SoftProofOn;
+			Gamut = docPrefsData.colorPrefs.DCMSset.GamutCheck;
+			IntentColors = docPrefsData.colorPrefs.DCMSset.DefaultIntentColors;
+			IntentImages = docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
+			if (!docPrefsData.colorPrefs.DCMSset.CMSinUse)
 			{
 				HasCMS = false;
-				if	(oldCM)
+				if	(oldPrefsData.colorPrefs.DCMSset.CMSinUse)
 				{
 					SetDefaultCMSParams();
 					updCol = true;
@@ -12241,11 +12240,11 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			else if ( OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				HasCMS = true;
-				docPrefsData.pdfPrefs.SComp = CMSSettings.ComponentsInput2;
-				docPrefsData.pdfPrefs.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
-				docPrefsData.pdfPrefs.ImageProf = CMSSettings.DefaultImageRGBProfile;
-				docPrefsData.pdfPrefs.PrintProf = CMSSettings.DefaultPrinterProfile;
-				docPrefsData.pdfPrefs.Intent = CMSSettings.DefaultIntentColors;
+				docPrefsData.pdfPrefs.SComp = docPrefsData.colorPrefs.DCMSset.ComponentsInput2;
+				docPrefsData.pdfPrefs.SolidProf = docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+				docPrefsData.pdfPrefs.ImageProf = docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				docPrefsData.pdfPrefs.PrintProf = docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile;
+				docPrefsData.pdfPrefs.Intent = docPrefsData.colorPrefs.DCMSset.DefaultIntentColors;
 				updCol = true;
 			}
 			else
@@ -12255,110 +12254,37 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			}
 			if (updCol)
 			{
-				ScMW->recalcColors(ScMW->mainWindowProgressBar);
-				RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+				m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
+				RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
 			}
-			ScMW->mainWindowProgressBar->setValue(cc);
+			m_ScMW->mainWindowProgressBar->setValue(cc);
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			ScMW->setStatusBarInfoText("");
-			ScMW->mainWindowProgressBar->reset();
+			m_ScMW->setStatusBarInfoText("");
+			m_ScMW->mainWindowProgressBar->reset();
 		}
 	}
 	PrefsManager* prefsManager=PrefsManager::instance();
-// 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-// 	for ( ; it.hasNext() ; it.next())
-// 	{
-// 		it.current().embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
-// 		it.current().usable(tabFonts->fontFlags[it.currentKey()].FlagUse);
-// 		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
-// 	}
-	uint a = 0;
-	prefsManager->appPrefs.fontPrefs.GFontSub.clear();
-	QMap<QString,QString>::Iterator itfsu;
-	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();
-	for (itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
-		prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
-	QStringList uf = currDoc->UsedFonts.keys();
+
+	QStringList uf(UsedFonts.keys());
 	QMap<QString,int>::Iterator it3;
-//	for (it3 = currDoc->UsedFonts.begin(); it3 != currDoc->UsedFonts.end(); ++it3)
-//		FT_Done_Face(currDoc->FFonts[it3.key()]);
-	currDoc->UsedFonts.clear();
+	UsedFonts.clear();
 	QStringList::Iterator it3a;
 	QStringList::Iterator it3aend=uf.end();
 	for (it3a = uf.begin(); it3a != it3aend; ++it3a)
-		currDoc->AddFont(*it3a);
+		AddFont(*it3a);
 
 
-	if (tabPDF->Encry->isChecked())
-	{
-		int Perm = -64;
-		if (tabPDF->PDFVersionCombo->currentIndex() == 1)
-			Perm &= ~0x00240000;
-		if (tabPDF->PrintSec->isChecked())
-			Perm += 4;
-		if (tabPDF->ModifySec->isChecked())
-			Perm += 8;
-		if (tabPDF->CopySec->isChecked())
-			Perm += 16;
-		if (tabPDF->AddSec->isChecked())
-			Perm += 32;
-		currDoc->pdfOptions().Permissions = Perm;
-		currDoc->pdfOptions().PassOwner = tabPDF->PassOwner->text();
-		currDoc->pdfOptions().PassUser = tabPDF->PassUser->text();
-	}
-	if (tabPDF->PDFVersionCombo->currentIndex() == 0)
-		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_13;
-	if (tabPDF->PDFVersionCombo->currentIndex() == 1)
-		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_14;
-	if (tabPDF->PDFVersionCombo->currentIndex() == 2)
-		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_15;
-	if (tabPDF->PDFVersionCombo->currentIndex() == 3)
-		currDoc->pdfOptions().Version = PDFOptions::PDFVersion_X3;
-	if (tabPDF->OutCombo->currentIndex() == 0)
-	{
-		currDoc->pdfOptions().isGrayscale = false;
-		currDoc->pdfOptions().UseRGB = true;
-		currDoc->pdfOptions().UseProfiles = false;
-		currDoc->pdfOptions().UseProfiles2 = false;
-	}
-	else
-	{
-		if (tabPDF->OutCombo->currentIndex() == 3)
-		{
-			currDoc->pdfOptions().isGrayscale = true;
-			currDoc->pdfOptions().UseRGB = false;
-			currDoc->pdfOptions().UseProfiles = false;
-			currDoc->pdfOptions().UseProfiles2 = false;
-		}
-		else
-		{
-			currDoc->pdfOptions().isGrayscale = false;
-			currDoc->pdfOptions().UseRGB = false;
-			if (currDoc->HasCMS)
-			{
-				currDoc->pdfOptions().UseProfiles = tabPDF->EmbedProfs->isChecked();
-				currDoc->pdfOptions().UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
-				currDoc->pdfOptions().Intent = tabPDF->IntendS->currentIndex();
-				currDoc->pdfOptions().Intent2 = tabPDF->IntendI->currentIndex();
-				currDoc->pdfOptions().EmbeddedI = tabPDF->NoEmbedded->isChecked();
-				currDoc->pdfOptions().SolidProf = tabPDF->SolidPr->currentText();
-				currDoc->pdfOptions().ImageProf = tabPDF->ImageP->currentText();
-				currDoc->pdfOptions().PrintProf = tabPDF->PrintProfC->currentText();
-			}
-		}
-	}
 
-	currDoc->documentInfo = docInfos->getDocInfo();
-	currDoc->setItemAttributes(*(tabDocItemAttributes->getNewAttributes()));
-	currDoc->setTocSetups(*(tabTOCIndexPrefs->getNewToCs()));
-	currDoc->sections = tabDocSections->getNewSections();
+//	currDoc->documentInfo = docInfos->getDocInfo();
+//	currDoc->sections = tabDocSections->getNewSections();
 
-	uint itemCount=currDoc->Items->count();
+
+	uint itemCount=Items->count();
 	for (uint b=0; b<itemCount; ++b)
 	{
-		if (currDoc->Items->at(b)->itemType() == PageItem::ImageFrame)
-			currDoc->Items->at(b)->setImageShown(currDoc->guidesPrefs().showPic);
+		if (Items->at(b)->itemType() == PageItem::ImageFrame)
+			Items->at(b)->setImageShown(docPrefsData.guidesPrefs.showPic);
 	}
-	*/
+
 }
 
