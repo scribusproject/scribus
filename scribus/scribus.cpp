@@ -229,11 +229,12 @@ for which a new license (GPL+exception) is in place.
 #include "plugins/formatidlist.h"
 #include "scimagecachemanager.h"
 
-
 #if defined(_WIN32)
 #include "scdocoutput_ps2.h"
 #include "scprintengine_gdi.h"
 #endif
+
+#include "sclimits.h"
 
 using namespace std;
 
@@ -9707,10 +9708,10 @@ void ScribusMainWindow::PutToPatterns()
 	int ae = doc->Items->count();
 	if ((docSelectionCount > 1) && (!isGroup))
 	{
-		double minx = 9999999.9;
-		double miny = 9999999.9;
-		double maxx = -9999999.9;
-		double maxy = -9999999.9;
+		double minx = std::numeric_limits<double>::max();
+		double miny = std::numeric_limits<double>::max();
+		double maxx = std::numeric_limits<double>::min();
+		double maxy = std::numeric_limits<double>::min();
 		for (int as = ac+1; as < ae; ++as)
 		{
 			PageItem* currItem = doc->Items->at(as);
