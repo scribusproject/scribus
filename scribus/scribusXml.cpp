@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_color.h"
 #include "scpattern.h"
+#include "sclimits.h"
 #include "scxmlstreamwriter.h"
 #include "scpainter.h"
 
@@ -1785,10 +1786,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	{
 		if (item->rotation() != 0)
 		{
-			double minx = 99999.9;
-			double miny = 99999.9;
-			double maxx = -99999.9;
-			double maxy = -99999.9;
+			double minx = std::numeric_limits<double>::max();
+			double miny = std::numeric_limits<double>::max();
+			double maxx = std::numeric_limits<double>::min();
+			double maxy = std::numeric_limits<double>::min();
 			double xpo = item->xPos() - doc->currentPage()->xOffset();
 			double ypo = item->yPos() - doc->currentPage()->yOffset();
 			FPointArray pb(4);

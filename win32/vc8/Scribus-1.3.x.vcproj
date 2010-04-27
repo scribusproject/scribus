@@ -7268,6 +7268,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\sclimits.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\sclistboxpixmap.h"
 				>
 			</File>
