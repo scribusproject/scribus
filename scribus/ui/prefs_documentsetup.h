@@ -18,7 +18,7 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 	Q_OBJECT
 
 	public:
-		Prefs_DocumentSetup(QWidget* parent=0);
+		Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_DocumentSetup();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

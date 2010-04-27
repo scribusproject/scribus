@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_documentitemattributes.h"
 #include "prefsstructs.h"
 
-Prefs_DocumentItemAttributes::Prefs_DocumentItemAttributes(QWidget* parent)
+Prefs_DocumentItemAttributes::Prefs_DocumentItemAttributes(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

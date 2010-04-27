@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontlistmodel.h"
 #include "fontlistview.h"
 
-Prefs_Fonts::Prefs_Fonts(QWidget* parent)
+Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
 	m_doc(NULL)
 {

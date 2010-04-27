@@ -21,7 +21,7 @@ class SCRIBUS_API Prefs_PreflightVerifier : public Prefs_Pane, Ui::Prefs_Preflig
 	Q_OBJECT
 
 	public:
-		Prefs_PreflightVerifier(QWidget* parent=0);
+		Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_PreflightVerifier();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

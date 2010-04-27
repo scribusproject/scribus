@@ -25,6 +25,29 @@ for which a new license (GPL+exception) is in place.
 
 PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc)
 	: QDialog(parent),
+	prefs_ColorManagement(0),
+	prefs_UserInterface(0),
+	prefs_DocumentInformation(0),
+	prefs_DocumentSections(0),
+	prefs_DocumentSetup(0),
+	prefs_Display(0),
+	prefs_ExternalTools(0),
+	prefs_Guides(0),
+	prefs_KeyboardShortcuts(0),
+	prefs_Paths(0),
+	prefs_Printer(0),
+	prefs_Hyphenator(0),
+	prefs_Miscellaneous(0),
+	prefs_Plugins(0),prefs_PreflightVerifier(0),
+	prefs_Scrapbook(0),
+	prefs_Typography(0),
+	prefs_ItemTools(0),
+	prefs_OperatorTools(0),
+	prefs_Fonts(0),
+	prefs_TableOfContents(0),
+	prefs_PDFExport(0),
+	prefs_DocumentItemAttributes(0),
+	prefs_ImageCache(0),
 	counter(0),
 	m_Doc(doc)
 {
@@ -33,61 +56,59 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	setupListWidget();
 	while (prefsStackWidget->currentWidget()!=0)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
-	prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget);
+	prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
 	addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
-	prefs_Paths = new Prefs_Paths(prefsStackWidget);
+	prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
 	addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
-	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget);
+	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget, m_Doc);
 	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
 	if (doc)
 	{
-		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget);
+		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget, m_Doc);
 		addItem( tr("Document Information"), loadIcon("documentinfo32.png"), prefs_DocumentInformation);
 	}
-	else prefs_DocumentInformation=0;
-	prefs_Guides = new Prefs_Guides(prefsStackWidget);
+	prefs_Guides = new Prefs_Guides(prefsStackWidget, m_Doc);
 	addItem( tr("Guides"), loadIcon("guides.png"), prefs_Guides);
-	prefs_Typography = new Prefs_Typography(prefsStackWidget);
+	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
 	addItem( tr("Typography"), loadIcon("typography.png"), prefs_Typography);
-	prefs_ItemTools = new Prefs_ItemTools(prefsStackWidget);
+	prefs_ItemTools = new Prefs_ItemTools(prefsStackWidget, m_Doc);
 	addItem( tr("Item Tools"), loadIcon("tools.png"), prefs_ItemTools);
-	prefs_OperatorTools = new Prefs_OperatorTools(prefsStackWidget);
+	prefs_OperatorTools = new Prefs_OperatorTools(prefsStackWidget, m_Doc);
 	addItem( tr("Operator Tools"), loadIcon("tools.png"), prefs_OperatorTools);
-	prefs_Hyphenator = new Prefs_Hyphenator(prefsStackWidget);
+	prefs_Hyphenator = new Prefs_Hyphenator(prefsStackWidget, m_Doc);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), prefs_Hyphenator);
-	prefs_Fonts = new Prefs_Fonts(prefsStackWidget);
+	prefs_Fonts = new Prefs_Fonts(prefsStackWidget, m_Doc);
 	addItem( tr("Fonts"), loadIcon("22/preferences-desktop-font.png"), prefs_Fonts);
-	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget);
+	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget, m_Doc);
 	addItem( tr("Color Management"), loadIcon("blend.png"), prefs_ColorManagement);
-	prefs_Printer = new Prefs_Printer(prefsStackWidget);
+	prefs_Printer = new Prefs_Printer(prefsStackWidget, m_Doc);
 	addItem( tr("Printer"), loadIcon("22/printer.png"), prefs_Printer);
-	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget);
+	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget, m_Doc);
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), prefs_PDFExport);
-	prefs_PreflightVerifier = new Prefs_PreflightVerifier(prefsStackWidget);
+	prefs_PreflightVerifier = new Prefs_PreflightVerifier(prefsStackWidget, m_Doc);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), prefs_PreflightVerifier);
-	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(prefsStackWidget);
+	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(prefsStackWidget, m_Doc);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), prefs_DocumentItemAttributes);
-	prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget);
+	prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget, m_Doc);
 	addItem( tr("Tables of Contents"), loadIcon("tabtocindex.png"), prefs_TableOfContents);
 	if (doc)
 	{
-		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget);
+		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget, m_Doc);
 		addItem( tr("Sections"), loadIcon("tabtocindex.png"), prefs_DocumentSections);
 	}
-	else prefs_DocumentSections=0;
-	prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget);
+	prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("22/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
-	prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget);
+	prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
 	addItem( tr("Scrapbook"), loadIcon("scrap.png"), prefs_Scrapbook);
-	prefs_Display = new Prefs_Display(prefsStackWidget);
+	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
 	addItem( tr("Display"), loadIcon("22/video-display.png"), prefs_Display);
-	prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget);
+	prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
 	addItem( tr("External Tools"), loadIcon("externaltools.png"), prefs_ExternalTools);
-	prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget);
+	prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget, m_Doc);
 	addItem( tr("Miscellaneous"), loadIcon("misc.png"), prefs_Miscellaneous);
-	prefs_Plugins = new Prefs_Plugins(prefsStackWidget);
+	prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
 	addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
-	prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget);
+	prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
 	addItem( tr("Image Cache"), loadIcon("22/image-x-generic.png"), prefs_ImageCache);
 	arrangeIcons();
 	if (preferencesTypeList->count()>0)
@@ -131,6 +152,8 @@ void PreferencesDialog::setupGui()
 	prefs_UserInterface->restoreDefaults(&localPrefs);
 	prefs_Paths->restoreDefaults(&localPrefs);
 	prefs_DocumentSetup->restoreDefaults(&localPrefs);
+	if (prefs_DocumentInformation)
+		prefs_DocumentInformation->restoreDefaults(&localPrefs);
 	prefs_Guides->restoreDefaults(&localPrefs);
 	prefs_Typography->restoreDefaults(&localPrefs);
 	prefs_ItemTools->restoreDefaults(&localPrefs);
@@ -143,6 +166,8 @@ void PreferencesDialog::setupGui()
 	prefs_PreflightVerifier->restoreDefaults(&localPrefs);
 	prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
 	prefs_TableOfContents->restoreDefaults(&localPrefs);
+	if (prefs_DocumentSections)
+		prefs_DocumentSections->restoreDefaults(&localPrefs);
 	prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
@@ -159,6 +184,8 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_UserInterface->saveGuiToPrefs(&localPrefs);
 	prefs_Paths->saveGuiToPrefs(&localPrefs);
 	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentInformation)
+		prefs_DocumentInformation->saveGuiToPrefs(&localPrefs);
 	prefs_Guides->saveGuiToPrefs(&localPrefs);
 	prefs_Typography->saveGuiToPrefs(&localPrefs);
 	prefs_ItemTools->saveGuiToPrefs(&localPrefs);
@@ -170,6 +197,8 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
 	prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
 	prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentSections)
+		prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
 	prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);

@@ -12,12 +12,14 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API Prefs_ImageCache : public Prefs_Pane, Ui::Prefs_ImageCache
 {
 	Q_OBJECT
 
 	public:
-		Prefs_ImageCache(QWidget* parent=0);
+		Prefs_ImageCache(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_ImageCache();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

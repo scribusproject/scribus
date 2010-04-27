@@ -9,8 +9,9 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "scribusstructs.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 
-Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent)
+Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	m_canChangeMonitorProfile = !ScCore->primaryMainWindow()->HaveDoc; 

@@ -10,8 +10,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_imagecache.h"
 #include "prefsstructs.h"
+#include "scribusdoc.h"
 
-Prefs_ImageCache::Prefs_ImageCache(QWidget* parent)
+Prefs_ImageCache::Prefs_ImageCache(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

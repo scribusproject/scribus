@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 
-Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent)
+Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

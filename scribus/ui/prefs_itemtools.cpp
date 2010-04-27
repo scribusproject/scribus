@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "sampleitem.h"
 
-Prefs_ItemTools::Prefs_ItemTools(QWidget* parent)
+Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
 	m_doc(NULL),
 	showFontPreview(false)

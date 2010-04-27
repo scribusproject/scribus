@@ -10,8 +10,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_paths.h"
 #include "prefsstructs.h"
+#include "scribusdoc.h"
 
-Prefs_Paths::Prefs_Paths(QWidget* parent)
+Prefs_Paths::Prefs_Paths(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

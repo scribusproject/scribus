@@ -13,10 +13,11 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "prefs_userinterface.h"
 #include "prefsstructs.h"
+#include "scribusdoc.h"
 #include "util.h"
 
 
-Prefs_UserInterface::Prefs_UserInterface(QWidget* parent)
+Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

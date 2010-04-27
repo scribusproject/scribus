@@ -8,10 +8,11 @@ for which a new license (GPL+exception) is in place.
 #include <QColorDialog>
 #include "ui/prefs_guides.h"
 #include "prefsstructs.h"
+#include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "units.h"
 
-Prefs_Guides::Prefs_Guides(QWidget* parent)
+Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

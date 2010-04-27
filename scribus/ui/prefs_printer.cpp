@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_printer.h"
 #include "units.h"
 
-Prefs_Printer::Prefs_Printer(QWidget* parent)
+Prefs_Printer::Prefs_Printer(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

@@ -11,11 +11,12 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "prefsstructs.h"
 #include "scribuscore.h" //FIXME: for the ScCore call (remove this call)
+#include "scribusdoc.h"
 #include "scribus.h" //FIXME: for the ScCore call (remove this call)
 #include "util_icon.h"
 #include "util.h"
 
-Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent)
+Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

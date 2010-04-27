@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 
-Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent)
+Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "util.h"
 
-Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent)
+Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 typedef QMap<QString,QString> ProfilesL;
 
 class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorManagement
@@ -19,7 +21,7 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 	Q_OBJECT
 
 	public:
-		Prefs_ColorManagement(QWidget* parent=0);
+		Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_ColorManagement();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		void setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles);

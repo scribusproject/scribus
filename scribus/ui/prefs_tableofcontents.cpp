@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "util.h"
 
-Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent)
+Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
 	currDoc(NULL)
 {

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util_icon.h"
 
-Prefs_PDFExport::Prefs_PDFExport(QWidget* parent)
+Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
 	cmsEnabled(false),
 	m_doc(NULL)

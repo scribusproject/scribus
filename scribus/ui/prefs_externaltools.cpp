@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_externaltools.h"
 
-Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent)
+Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

@@ -17,7 +17,7 @@ class SCRIBUS_API Prefs_Printer : public Prefs_Pane, Ui::Prefs_Printer
 	Q_OBJECT
 
 	public:
-		Prefs_Printer(QWidget* parent=0);
+		Prefs_Printer(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_Printer();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

@@ -15,10 +15,11 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scplugin.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "scribus.h"
 #include "commonstrings.h"
 
-Prefs_Plugins::Prefs_Plugins(QWidget* parent)
+Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

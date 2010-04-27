@@ -12,12 +12,14 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API Prefs_Hyphenator : public Prefs_Pane, Ui::Prefs_Hyphenator
 {
 	Q_OBJECT
 
 	public:
-		Prefs_Hyphenator(QWidget* parent=0);
+		Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_Hyphenator();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

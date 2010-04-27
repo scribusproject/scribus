@@ -20,7 +20,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 	Q_OBJECT
 
 	public:
-		Prefs_PDFExport(QWidget* parent=0);
+		Prefs_PDFExport(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_PDFExport();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData, ScribusDoc* doc, const ProfilesL & PDFXProfiles,

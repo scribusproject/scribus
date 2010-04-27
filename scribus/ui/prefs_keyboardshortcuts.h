@@ -26,7 +26,7 @@ class SCRIBUS_API Prefs_KeyboardShortcuts : public Prefs_Pane, Ui::Prefs_Keyboar
 	Q_OBJECT
 
 	public:
-		Prefs_KeyboardShortcuts(QWidget* parent=0);
+		Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_KeyboardShortcuts();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

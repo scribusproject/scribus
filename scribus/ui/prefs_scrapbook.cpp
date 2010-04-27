@@ -7,8 +7,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_scrapbook.h"
 #include "prefsstructs.h"
+#include "scribusdoc.h"
 
-Prefs_Scrapbook::Prefs_Scrapbook(QWidget* parent)
+Prefs_Scrapbook::Prefs_Scrapbook(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

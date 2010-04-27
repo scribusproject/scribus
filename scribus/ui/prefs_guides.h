@@ -12,12 +12,14 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API Prefs_Guides : public Prefs_Pane, Ui::Prefs_Guides
 {
 	Q_OBJECT
 
 	public:
-		Prefs_Guides(QWidget* parent=0);
+		Prefs_Guides(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_Guides();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;

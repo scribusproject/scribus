@@ -7,8 +7,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_documentsections.h"
 #include "prefsstructs.h"
+#include "scribusdoc.h"
 
-Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent)
+Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
