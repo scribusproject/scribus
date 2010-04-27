@@ -1,44 +1,42 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Scribus on OS/2 &#174; and eComStation&#8482; </title>
+	<title>Scribus on OS/2 and eComStation</title>
 </head>
 <body>
-<h2>Scribus on OS/2- Read Me</h2>
-<p>Scribus v1.3.3.7 beta for OS/2 & eComStation</p>
-<p>
-Scribus is an open-source program that brings award-winning
-professional page layout to Linux/Unix, MacOS X and Windows
-desktops with a combination of "press-ready" output and 
-new approaches to page layout.</p>
+<h2>Scribus on OS/2 and eComStation</h2>
+Thanks to Paul Smedley, the Scribus Team is happy to provide a port of Scribus to OS/2 and its successor eComStation.
 
-<p>Underneath the modern and user friendly interface, Scribus 
-supports professional publishing features, such as CMYK color,
-separations, ICC color management and versatile PDF creation.</p>
+<h2>Downloads</h2>
+<h3>Scribus 1.3.3.x Stable</h3>
+<p>The latest port of Scribus 1.3.3x is available from <a href="http://sourceforge.net/projects/scribus/files/scribus/">Sourceforge</a>. Please select the ZIP archive with "os2" in the file name for download. The archive contains a folder called "scribus," in which you find an installer called "scribus.exe".</p>
+<h3>Scribus 1.3.6+ Development</h3>
+<p>You can download a ZIP archive containing an installer for the development version either from</p>
 
-<p>The Scribus Team is very pleased to welcome a release on the OS/2 & eComStation platform. We would like to thank Paul Smedley who has taken the time to port Scribus itself, and those who have ported the other supporting libraries to OS/2. We will endeavour to find and resolve issues specific to the platform when they are discovered,specifically relating to levels of supporting libraries such as Qt.</p>
+<p><a href="http://sourceforge.net/projects/scribus/files/scribus-devel/1.3.6/scribus-1.3.6-os2-20100329.zip/download">Sourceforge</a> or <a href="http://download.smedley.info/scribus-1.3.6-os2-20100329.zip">Paul Smedley's Unix Ports for OS/2 site</a>.</p>
 
-<strong>Supports OS/2 Warp4(R) and eComStation(TM)<p></p></strong>
+<h2>Other requirements</h2>
+<p>To run Scribus you need at least OS/2 Warp 4 or eComStation. Scribus will not run on older versions of OS/2.</p>
+<p>In addition, please note that you need to install the following software:</p>
 
-<p>Requires libc061.dll - which is available from ftp://ftp.netlabs.org/pub/gcc/libc-0.6.1-csd1.zip</p>
+<ul>
+<li>A copy of libc063.dll, which can currently be downloaded from <a href="ftp://ftp.netlabs.org/pub/gcc/libc-0.6.3-csd3.zip">ftp://ftp.netlabs.org/pub/gcc/libc-0.6.3-csd3.zip</a> and gcc434.dll, which can be downloaded from <a href="http://download.smedley.info/gcc434.zip">http://download.smedley.info/gcc434.zip</a>. Both files need to copied to C:\OS2\DLL (OS/2) or C:\ECS\DLL (eComStation).</li>
 
-<p>GhostScript is a recommended installation as per the standard Scribus install instructions. Set the PostScript interpreter in Scribus' preferences to point to your installation. Example: the AFPL GhostScript executable from their gs854os2.zip is gsos2.exe. This package includes install instructions (note the GS_LIB environment variable}.</p>
+<li>Ghostscript and Python 2.6 (available from <a href="http://os2ports.smedley.info">http://os2ports.smedley.info</a>) are required to support some functionality. For instance, Python scripts won't work if Python is missing. The print preview and EPS import will not work if Ghostscript isn't available.
 
-<p>Known issues:</p>
-<ul><li>The Qt released on OS/2 is quite old and issues may arise due to
-  this fact.</li>
-<li>Printing support is not complete, but PDF export is, you can easily print
-via Acrobat Reader or another PDF viewer as a temporary workaround.</li></ul>
+If Scribus doesn't detect Ghostscript automatically, you can set the path to the GS exectutable (called "gsos2.exe") in the Scribus Preferences under "External Tools."
+</li>
 
-<p>General feedback can be provided to paul@smedley.info and via the normal Scribus communications methods (IRC, mailing list etc), bug reports should go to http://bugs.scribus.net. </p>
-<p>Porter's Note</p>
-<p>If you like this software and want to support continued OS/2 ports,
-please consider donating via PayPal via the link at http://smedley.info/os2ports,
-or via the Mensys online store at http://www.mensys.net/os2ports</p>
+<li>Scribus 1.3.6 or later also requires the Qt4 GA dll's that can be downloaded as a WarpIn package from <a href="http://svn.netlabs.org/qt4">http://svn.netlabs.org/qt4</a></li>.
+</ul>
 
-<p>Cheers,</p>
-<p>Paul Smedley<br />
-Adelaide, Australia<br />
-January, 2007<br />
+<h2>Credits</h2>
+
+<p>The Scribus Team is much obliged to Paul Smedley for taking pains over porting Scribus to the OS/2 and eComStation platforms.</p>
+<p>The Scribus Team also wants to thank <a href="http://www.serenity-systems.com/">Serenity Systems</a> for supporting development and testing of the OS/2 and eComStation port.</p>
+<br>
+<p>If you like this software and want to support continued ports, please consider donating via PayPal via the link at <a href="http://smedley.info/os2ports">http://smedley.info/os2ports</a>, or via the Mensys online store at <a href="http://www.mensys.net/os2ports">http://www.mensys.net/os2ports</a>.</p>
+
+<p>You can also sponsor/support the <a href="http://www.mensys.com/NetlabsQT4">Qt4 for OS/2 project</a> &ndash; without the Netlabs Qt4 project, this port could not exist!</p>
 </body>
 </html>
