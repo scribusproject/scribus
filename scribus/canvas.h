@@ -92,6 +92,7 @@ public:
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
+	friend class CanvasMode_EditMeshGradient;
 	friend class CanvasMode_EyeDropper;
 	friend class CanvasMode_FrameLinks;
 	friend class CanvasMode_Magnifier;
@@ -223,6 +224,7 @@ private:
 	void drawControlsMovingItemsRect(QPainter* pp);
 //	void drawControlsHighlightRect(QPainter* pp);
 	void drawControlsGradientVectors(QPainter* psx, PageItem *currItem);
+	void drawControlsMeshGradient(QPainter* pp, PageItem* currItem);
 	void drawControlsBezierCurve(QPainter* pp, PageItem* currItem);
 	void drawControlsMeasurementLine(QPainter* pp);
 	void drawControlsDrawLine(QPainter* pp);

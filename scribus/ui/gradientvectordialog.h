@@ -49,9 +49,13 @@ public:
 	void selectRadial();
 	void selectFourColor();
 	void selectDiamond();
+	void selectMesh();
 
 public slots:
 	void languageChange();
+	void handleEditButton();
+	void handleEditControlButton();
+	void handleNewMeshButton();
 	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void changeSpecialL();
 	void changeSpecialR();
@@ -61,6 +65,8 @@ public slots:
 
 signals:
 	void NewSpecial(double, double, double, double, double, double, double, double, double, double);
+	void editGradient(int);
+	void createNewMesh();
 
 };
 #endif

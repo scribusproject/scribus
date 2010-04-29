@@ -320,6 +320,38 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			handler.begin("Pattern", patt);
 			handler.end("Pattern");
 		}
+		else if (gradientType() == 11)
+		{
+			Xml_attr gradientGM;
+			gradientGM.insert("GRTYPE", toXMLString(GrType));
+			gradientGM.insert("GMAY", toXMLString(meshGradientArray[0].count()));
+			gradientGM.insert("GMAX", toXMLString(meshGradientArray.count()));
+			handler.begin("Mesh", gradientGM);
+			for (int grow = 0; grow < meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < meshGradientArray[grow].count(); gcol++)
+				{
+					Xml_attr itcm;
+					meshPoint mp = meshGradientArray[grow][gcol];
+					itcm.insert("GX", toXMLString(mp.gridPoint.x()));
+					itcm.insert("GY", toXMLString(mp.gridPoint.y()));
+					itcm.insert("CTX", toXMLString(mp.controlTop.x()));
+					itcm.insert("CTY", toXMLString(mp.controlTop.y()));
+					itcm.insert("CBX", toXMLString(mp.controlBottom.x()));
+					itcm.insert("CBY", toXMLString(mp.controlBottom.y()));
+					itcm.insert("CLX", toXMLString(mp.controlLeft.x()));
+					itcm.insert("CLY", toXMLString(mp.controlLeft.y()));
+					itcm.insert("CRX", toXMLString(mp.controlRight.x()));
+					itcm.insert("CRY", toXMLString(mp.controlRight.y()));
+					itcm.insert("NAME", toXMLString(mp.colorName));
+					itcm.insert("SHADE", toXMLString(mp.shade));
+					itcm.insert("TRANS", toXMLString(mp.transparency));
+					handler.begin("MPoints",itcm);
+					handler.end("MPoints");
+				}
+			}
+			handler.end("Mesh");
+		}
 		else
 		{
 			Xml_attr gradientV;
@@ -719,6 +751,47 @@ class Gradient_body : public Action_body
 			item->GrCol3Shade = parseDouble(attr["GRCOLS3"]);
 			item->GrCol4Shade = parseDouble(attr["GRCOLS4"]);
 		}
+		if (tagName=="MPoints")
+		{
+			PageItem* item = this->dig->top<PageItem>();
+			meshPoint mp;
+			mp.colorName     = attr["NAME"];
+			mp.shade         = parseInt(attr["SHADE"]);
+			mp.transparency  = parseDouble(attr["TRANS"]);
+			mp.gridPoint     = FPoint(parseDouble(attr["GX"]), parseDouble(attr["GY"]));
+			mp.controlTop    = FPoint(parseDouble(attr["CTX"]), parseDouble(attr["CTY"]));
+			mp.controlBottom = FPoint(parseDouble(attr["CBX"]), parseDouble(attr["CBY"]));
+			mp.controlLeft   = FPoint(parseDouble(attr["CLX"]), parseDouble(attr["CLY"]));
+			mp.controlRight  = FPoint(parseDouble(attr["CRX"]), parseDouble(attr["CRY"]));
+			mp.color         = QColor(150, 100, 50);
+			item->meshGradientArray[item->GrStartX][item->GrStartY] = mp;
+			item->GrStartY++;
+			if (item->GrStartY == item->meshGradientArray[item->GrStartX].count())
+			{
+				item->GrStartY = 0;
+				item->GrStartX++;
+			}
+		}
+		if (tagName=="Mesh")
+		{
+			PageItem* item = this->dig->top<PageItem>();
+			item->meshGradientArray.clear();
+			item->GrType = parseInt(attr["GRTYPE"]);
+			int mGArrayRows = parseInt(attr["GMAX"]);
+			int mGArrayCols = parseInt(attr["GMAY"]);
+			item->GrStartX = 0;
+			item->GrStartY = 0;
+			for (int mgr = 0; mgr < mGArrayRows; mgr++)
+			{
+				QList<meshPoint> ml;
+				for (int mgc = 0; mgc < mGArrayCols; mgc++)
+				{
+					meshPoint mp;
+					ml.append(mp);
+				}
+				item->meshGradientArray.append(ml);
+			}
+		}
 	}
 };
 
@@ -1080,6 +1153,10 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	Xml_string gradientPrefixM(Digester::concat(itemPrefix, "GradientM"));
 	ruleset.addRule(gradientPrefixM, gradientM);
 	ruleset.addRule(Digester::concat(gradientPrefixM, "M_CStop"), gradientM);
+	Gradient gradientMG;
+	Xml_string gradientPrefixMG(Digester::concat(itemPrefix, "Mesh"));
+	ruleset.addRule(gradientPrefixMG, gradientMG);
+	ruleset.addRule(Digester::concat(gradientPrefixMG, "MPoints"), gradientMG);
 		
 	ImageEffectsAndLayers effectsAndLayers;
 	ruleset.addRule(Digester::concat(itemPrefix, "ImageEffect"), effectsAndLayers);

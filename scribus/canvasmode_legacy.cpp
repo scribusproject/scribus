@@ -430,7 +430,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		BlockLeave = false;
 	} */
 
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeEditGradientVectors))
+	if (m_canvas->m_viewMode.m_MouseButtonPressed && ((m_doc->appMode == modeEditGradientVectors) || (m_doc->appMode == modeEditMeshGradient)))
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		newX = mousePointDoc.x(); //m->x();
@@ -2150,6 +2150,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeMeasurementTool:
 			m_canvas->setRenderModeFillBuffer();
 		case modeEditGradientVectors:
+		case modeEditMeshGradient:
 			if (m->button() != Qt::LeftButton)
 				break;
 			m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -2215,6 +2216,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if (m_doc->appMode == modeEditGradientVectors)
+		return;
+	if (m_doc->appMode == modeEditMeshGradient)
 		return;
 	if (m_doc->appMode == modeCopyProperties)
 		return;

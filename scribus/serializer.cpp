@@ -397,6 +397,14 @@ Selection Serializer::importCollection()
 			currItem->setFillQColor();
 			currItem->setLineQColor();
 			currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
+			for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+				{
+					meshPoint mp = currItem->meshGradientArray[grow][gcol];
+					currItem->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+				}
+			}
 			result.addItem(currItem);
 			if (currItem->Groups.count() != 0)
 			{

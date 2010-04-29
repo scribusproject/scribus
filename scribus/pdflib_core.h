@@ -156,6 +156,7 @@ private:
 	quint32 encode32dVal(double val);
 	quint16 encode16dVal(double val);
 	void    encodeColor(QDataStream &vs, QString colName, int colShade, QStringList &spotColorSet, bool spotMode);
+	bool    PDF_MeshGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_DiamondGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_TensorGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_GradientFillStroke(QString& output, PageItem *currItem, bool stroke = false, bool forArrow = false);

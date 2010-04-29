@@ -140,6 +140,9 @@ struct CopyPasteBuffer
 	QString GrColorP2;
 	QString GrColorP3;
 	QString GrColorP4;
+	QList<QList<meshPoint> > meshGradientArray;
+	int mGArrayRows;
+	int mGArrayCols;
 	QString TxtStroke;
 	QString TxtFill;
 	int ShTxtStroke;
@@ -491,7 +494,8 @@ enum AppMode
 	modeEditClip,
 	modeDrawLatex,
 	modeImportObject,
-	modeInsertPDF3DAnnotation
+	modeInsertPDF3DAnnotation,
+	modeEditMeshGradient
 };
 
 struct AlignObjs

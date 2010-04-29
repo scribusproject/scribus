@@ -1766,6 +1766,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 #endif
 	QList<ParagraphStyle::TabRecord> tabValues;
 
+	int mGArrayRows = 0;
+	int mGArrayCols = 0;
 	LastStyles * lastStyle = new LastStyles();
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -1799,6 +1801,27 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			int shade    = tAtt.valueAsInt("SHADE", 100);
 			double opa   = tAtt.valueAsDouble("TRANS", 1.0);
 			newItem->mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
+		if (tName == "MPoint")
+		{
+			meshPoint mp;
+			mp.colorName     = tAtt.valueAsString("NAME");
+			mp.shade         = tAtt.valueAsInt("SHADE", 100);
+			mp.transparency  = tAtt.valueAsDouble("TRANS", 1.0);
+			mp.gridPoint     = FPoint(tAtt.valueAsDouble("GX", 0.0), tAtt.valueAsDouble("GY", 0.0));
+			mp.controlTop    = FPoint(tAtt.valueAsDouble("CTX", 0.0), tAtt.valueAsDouble("CTY", 0.0));
+			mp.controlBottom = FPoint(tAtt.valueAsDouble("CBX", 0.0), tAtt.valueAsDouble("CBY", 0.0));
+			mp.controlLeft   = FPoint(tAtt.valueAsDouble("CLX", 0.0), tAtt.valueAsDouble("CLY", 0.0));
+			mp.controlRight  = FPoint(tAtt.valueAsDouble("CRX", 0.0), tAtt.valueAsDouble("CRY", 0.0));
+			mp.color         = SetColor(doc, mp.colorName, mp.shade);
+			mp.color.setAlphaF(mp.transparency);
+			newItem->meshGradientArray[mGArrayRows][mGArrayCols] = mp;
+			mGArrayCols++;
+			if (mGArrayCols == newItem->meshGradientArray[mGArrayRows].count())
+			{
+				mGArrayCols = 0;
+				mGArrayRows++;
+			}
 		}
 
 		if (tName == "ITEXT")
@@ -2800,6 +2823,22 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			bool mirrorX = attrs.valueAsBool("pMirrorX", false);
 			bool mirrorY = attrs.valueAsBool("pMirrorY", false);
 			currItem->setPatternFlip(mirrorX, mirrorY);
+		}
+		else if (currItem->GrType == 11)
+		{
+			currItem->meshGradientArray.clear();
+			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
+			int mGArrayCols = attrs.valueAsInt("GMAY", 1);
+			for (int mgr = 0; mgr < mGArrayRows; mgr++)
+			{
+				QList<meshPoint> ml;
+				for (int mgc = 0; mgc < mGArrayCols; mgc++)
+				{
+					meshPoint mp;
+					ml.append(mp);
+				}
+				currItem->meshGradientArray.append(ml);
+			}
 		}
 		else
 		{

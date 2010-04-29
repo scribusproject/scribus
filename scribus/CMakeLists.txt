@@ -450,6 +450,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_framelinks.cpp
   canvasmode_edit.cpp
   canvasmode_editgradient.cpp
+  canvasmode_editmeshgradient.cpp
   canvasmode_legacy.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
@@ -558,6 +559,7 @@ SET(SCRIBUS_SOURCES
   ui/measurements.cpp
   menumanager.cpp
   ui/mergedoc.cpp
+  mesh.cpp
   ui/missing.cpp
   ui/movepage.cpp
   ui/multipleduplicate.cpp

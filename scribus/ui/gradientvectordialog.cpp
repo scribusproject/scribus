@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gradientvectordialog.h"
+#include "util_icon.h"
 
 GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
 {
@@ -63,6 +64,14 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	connect(gC4YD,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialD()));
 	connect(gC5XD,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialD()));
 	connect(gC5YD,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialD()));
+	connect(editPoints, SIGNAL(clicked()), this, SLOT(handleEditButton()));
+	connect(editControlPoints, SIGNAL(clicked()), this, SLOT(handleEditControlButton()));
+	connect(buttonNewGrid, SIGNAL(clicked()), this, SLOT(handleNewMeshButton()));
+	QSize iconSize = QSize(22, 22);
+	editPoints->setIcon(QIcon(loadIcon("MoveNode.png")));
+	editPoints->setIconSize(iconSize);
+	editControlPoints->setIcon(QIcon(loadIcon("MoveKontrol.png")));
+	editControlPoints->setIconSize(iconSize);
 	languageChange();
 	selectLinear();
 }
@@ -101,10 +110,34 @@ void GradientVectorDialog::selectDiamond()
 	resize(minimumSizeHint());
 }
 
+void GradientVectorDialog::selectMesh()
+{
+	stackedWidget->setCurrentIndex(4);
+	editPoints->setChecked(true);
+	resize(minimumSizeHint());
+}
+
 void GradientVectorDialog::languageChange()
 {
 	retranslateUi(this);
 	resize(minimumSizeHint());
+}
+
+void GradientVectorDialog::handleEditButton()
+{
+	if (editPoints->isChecked())
+		emit editGradient(5);
+}
+
+void GradientVectorDialog::handleEditControlButton()
+{
+	if (editControlPoints->isChecked())
+		emit editGradient(7);
+}
+
+void GradientVectorDialog::handleNewMeshButton()
+{
+	emit createNewMesh();
 }
 
 void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)

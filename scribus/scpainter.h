@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "vgradient.h"
 #include "scpattern.h"
+#include "mesh.h"
 
 #ifdef HAVE_CAIRO
 typedef struct _cairo cairo_t;
@@ -76,6 +77,7 @@ public:
 	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4);
 	virtual void set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4);
 	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray);
 
 	virtual void setClipPath();
 
@@ -216,6 +218,7 @@ private:
 	QColor gradPatchColor2;
 	QColor gradPatchColor3;
 	QColor gradPatchColor4;
+	QList<QList<meshPoint> > meshGradientArray;
 	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;

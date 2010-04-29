@@ -132,6 +132,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
 		virtual void HandleBrushPattern(PageItem *c, QPainterPath &path, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master);
 		virtual void HandleStrokePattern(PageItem *c);
+		virtual void HandleMeshGradient(PageItem* c, bool gcr);
 		virtual void HandleDiamondGradient(PageItem* c, bool gcr);
 		virtual void HandleTensorGradient(PageItem* c, bool gcr);
 		virtual void HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke = true, bool forArrow = false);

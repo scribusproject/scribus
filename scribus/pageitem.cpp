@@ -113,6 +113,7 @@ PageItem::PageItem(const PageItem & other)
 	GrCol2Shade(other.GrCol2Shade),
 	GrCol3Shade(other.GrCol3Shade),
 	GrCol4Shade(other.GrCol4Shade),
+	meshGradientArray(other.meshGradientArray),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
 	PLineArt(other.PLineArt),
@@ -410,6 +411,9 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrCol2Shade = 100;
 	GrCol3Shade = 100;
 	GrCol4Shade = 100;
+	meshGradientArray.clear();
+	selectedMeshPointX = -1;
+	selectedMeshPointY = -1;
 	gradientVal = "";
 	GrTypeStroke = 0;
 	GrStrokeStartX = 0;
@@ -707,6 +711,73 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 	mask_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
 	mask_gradient.addStop(qcol, 1.0, 0.5, 1.0, "Black", 100);
+
+	QList<meshPoint> mgList;
+	meshPoint mgP;
+	mgP.gridPoint = FPoint(0.0, 0.0);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgP.transparency = 1.0;
+	mgP.shade = 100;
+	mgP.colorName = "Black";
+	mgP.color = qcol;
+	mgList.append(mgP);
+	mgP.gridPoint = FPoint(Width / 2.0, 0.0);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	mgP.gridPoint = FPoint(Width, 0.0);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	meshGradientArray.append(mgList);
+	mgList.clear();
+	mgP.gridPoint = FPoint(0.0, Height / 2.0);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	mgP.gridPoint = FPoint(Width / 2.0, Height / 2.0);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	mgP.gridPoint = FPoint(Width, Height / 2.0);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	meshGradientArray.append(mgList);
+	mgList.clear();
+	mgP.gridPoint = FPoint(0.0, Height);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	mgP.gridPoint = FPoint(Width / 2.0, Height);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	mgP.gridPoint = FPoint(Width, Height);
+	mgP.controlTop = mgP.gridPoint;
+	mgP.controlBottom = mgP.gridPoint;
+	mgP.controlLeft = mgP.gridPoint;
+	mgP.controlRight = mgP.gridPoint;
+	mgList.append(mgP);
+	meshGradientArray.append(mgList);
+
 	firstLineOffsetP = FLOPRealGlyphHeight;
 	Cols = m_Doc->itemToolPrefs().textColumns;
 	ColGap = m_Doc->itemToolPrefs().textColumnGap;
@@ -1313,7 +1384,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 							gradientVal = "";
 						if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
 							fill_gradient = m_Doc->docGradients[gradientVal];
-						if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
+						if ((fill_gradient.Stops() < 2) && (GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
 						{
 							if (fillColor() != CommonStrings::None)
 							{
@@ -1342,11 +1413,11 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 									break;
 								case 10:
 									p->setFillMode(ScPainter::Gradient);
-									FPoint pG1 = FPoint(0, 0);
-									FPoint pG2 = FPoint(width(), 0);
-									FPoint pG3 = FPoint(width(), height());
-									FPoint pG4 = FPoint(0, height());
-									p->setDiamondGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4, GrControl5);
+									p->setDiamondGeometry(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), GrControl1, GrControl2, GrControl3, GrControl4, GrControl5);
+									break;
+								case 11:
+									p->setFillMode(ScPainter::Gradient);
+									p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientArray);
 									break;
 							}
 						}
@@ -3062,6 +3133,114 @@ void PageItem::get4ColorColors(QString &col1, QString &col2, QString &col3, QStr
 	col4 = GrColorP4;
 }
 
+void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double transparency)
+{
+	QString MColor = color;
+	QColor MQColor;
+	if (MColor != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(MColor))
+		{
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+				case OSGFrame:
+					MColor = m_Doc->itemToolPrefs().imageFillColor;
+				case TextFrame:
+				case PathText:
+					MColor = m_Doc->itemToolPrefs().textFillColor;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					MColor = m_Doc->itemToolPrefs().shapeFillColor;
+					break;
+				default:
+					break;
+			}
+		}
+		const ScColor& col = m_Doc->PageColors[MColor];
+		MQColor = ScColorEngine::getShadeColorProof(col, m_Doc, shade);
+		MQColor.setAlphaF(transparency);
+	}
+	else
+		MQColor = QColor(255, 255, 255, 0);
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	{
+		VisionDefectColor defect;
+		MQColor = defect.convertDefect(MQColor, m_Doc->view()->m_canvas->previewVisual());
+	}
+	if ((x > -1) && (y > -1))
+	{
+		meshGradientArray[x][y].colorName = MColor;
+		meshGradientArray[x][y].color = MQColor;
+		meshGradientArray[x][y].shade = shade;
+		meshGradientArray[x][y].transparency = transparency;
+	}
+}
+
+void PageItem::createGradientMesh(int rows, int cols)
+{
+	QString MColor = fillColorVal;
+	QColor MQColor;
+	if (fillColorVal != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(fillColorVal))
+		{
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+				case OSGFrame:
+					MColor = m_Doc->itemToolPrefs().imageFillColor;
+				case TextFrame:
+				case PathText:
+					MColor = m_Doc->itemToolPrefs().textFillColor;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					MColor = m_Doc->itemToolPrefs().shapeFillColor;
+					break;
+				default:
+					break;
+			}
+		}
+		const ScColor& col = m_Doc->PageColors[MColor];
+		MQColor = ScColorEngine::getShadeColorProof(col, m_Doc, 100);
+		MQColor.setAlphaF(1.0);
+	}
+	else
+		MQColor = QColor(255, 255, 255, 0);
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	{
+		VisionDefectColor defect;
+		MQColor = defect.convertDefect(MQColor, m_Doc->view()->m_canvas->previewVisual());
+	}
+	meshGradientArray.clear();
+	double xoffs = Width / static_cast<double>(cols);
+	double yoffs = Height / static_cast<double>(rows);
+	for (int x = 0; x < rows + 1; x++)
+	{
+		QList<meshPoint> mgList;
+		for (int y = 0; y < cols + 1; y++)
+		{
+			meshPoint mgP;
+			mgP.gridPoint = FPoint(y * xoffs, x * yoffs);
+			mgP.controlTop = mgP.gridPoint;
+			mgP.controlBottom = mgP.gridPoint;
+			mgP.controlLeft = mgP.gridPoint;
+			mgP.controlRight = mgP.gridPoint;
+			mgP.transparency = 1.0;
+			mgP.shade = 100;
+			mgP.colorName = MColor;
+			mgP.color = MQColor;
+			mgList.append(mgP);
+		}
+		meshGradientArray.append(mgList);
+	}
+}
 
 void PageItem::gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
 {
@@ -4829,6 +5008,16 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 				cstops.at(cst)->name = *it;
 		}
 	}
+	for (int grow = 0; grow < meshGradientArray.count(); grow++)
+	{
+		for (int gcol = 0; gcol < meshGradientArray[grow].count(); gcol++)
+		{
+			meshPoint mp = meshGradientArray[grow][gcol];
+			it = newNames.colors().find(mp.colorName);
+			if (it != newNames.colors().end())
+				meshGradientArray[grow][gcol].colorName = *it;
+		}
+	}
 
 	cstops = stroke_gradient.colorStops();
 	for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
@@ -5032,6 +5221,16 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		lists.collectColor(GrColorP3);
 		lists.collectColor(GrColorP4);
 	}
+	else if (GrType == 11)
+	{
+		for (int grow = 0; grow < meshGradientArray.count(); grow++)
+		{
+			for (int gcol = 0; gcol < meshGradientArray[grow].count(); gcol++)
+			{
+				lists.collectColor(meshGradientArray[grow][gcol].colorName);
+			}
+		}
+	}
 	if (GrTypeStroke == 0)
 		lists.collectColor(lineColor());
 	else if (GrTypeStroke < 8)
@@ -5126,6 +5325,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->GrCol2Shade = GrCol2Shade;
 	Buffer->GrCol3Shade = GrCol3Shade;
 	Buffer->GrCol4Shade = GrCol4Shade;
+	Buffer->meshGradientArray = meshGradientArray;
 	Buffer->Rot = Rot;
 	Buffer->PLineArt = PLineArt;
 	Buffer->PLineEnd = PLineEnd;
@@ -6739,6 +6939,13 @@ void PageItem::updateClip()
 				gr.addPoint(GrControl4);
 				gr.addPoint(GrControl5);
 				gr.map(ma);
+				for (int grow = 0; grow < meshGradientArray.count(); grow++)
+				{
+					for (int gcol = 0; gcol < meshGradientArray[grow].count(); gcol++)
+					{
+						meshGradientArray[grow][gcol].transform(ma);
+					}
+				}
 				GrStartX = gr.point(0).x();
 				GrStartY = gr.point(0).y();
 				GrEndX = gr.point(1).x();
@@ -6826,6 +7033,13 @@ void PageItem::updateClip()
 			gr.addPoint(GrControl4);
 			gr.addPoint(GrControl5);
 			gr.map(ma);
+			for (int grow = 0; grow < meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < meshGradientArray[grow].count(); gcol++)
+				{
+					meshGradientArray[grow][gcol].transform(ma);
+				}
+			}
 			GrStartX = gr.point(0).x();
 			GrStartY = gr.point(0).y();
 			GrEndX = gr.point(1).x();

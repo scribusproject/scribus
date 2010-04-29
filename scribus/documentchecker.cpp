@@ -113,6 +113,17 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				else if (currItem->GrCol4transp != 1.0)
 					itemError.insert(Transparency, 0);
 			}
+			else if (currItem->GrType == 11)
+			{
+				for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+				{
+					for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+					{
+						if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
+							itemError.insert(Transparency, 0);
+					}
+				}
+			}
 			else
 			{
 				QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
@@ -352,6 +363,17 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(Transparency, 0);
 				else if (currItem->GrCol4transp != 1.0)
 					itemError.insert(Transparency, 0);
+			}
+			else if (currItem->GrType == 11)
+			{
+				for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+				{
+					for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+					{
+						if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
+							itemError.insert(Transparency, 0);
+					}
+				}
 			}
 			else
 			{

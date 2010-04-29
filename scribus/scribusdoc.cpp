@@ -4064,12 +4064,16 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 	}
 	if (Buffer->GrType != 0)
 	{
+		currItem->GrType = Buffer->GrType;
 		if (Buffer->GrType == 8)
 		{
 			currItem->setPattern(Buffer->pattern);
-			currItem->GrType = Buffer->GrType;
 			currItem->setPatternTransform(Buffer->patternScaleX, Buffer->patternScaleY, Buffer->patternOffsetX, Buffer->patternOffsetY, Buffer->patternRotation, Buffer->patternSkewX, Buffer->patternSkewY);
 			currItem->setPatternFlip(Buffer->patternMirrorX, Buffer->patternMirrorY);
+		}
+		else if (Buffer->GrType == 11)
+		{
+			currItem->meshGradientArray = Buffer->meshGradientArray;
 		}
 		else
 		{
@@ -4097,7 +4101,6 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 			}
 			else
 				currItem->fill_gradient = Buffer->fill_gradient;
-			currItem->GrType = Buffer->GrType;
 			currItem->GrStartX = Buffer->GrStartX;
 			currItem->GrStartY = Buffer->GrStartY;
 			currItem->GrEndX   = Buffer->GrEndX;
@@ -4123,9 +4126,10 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 			currItem->GrCol2Shade = Buffer->GrCol2Shade;
 			currItem->GrCol3Shade = Buffer->GrCol3Shade;
 			currItem->GrCol4Shade = Buffer->GrCol4Shade;
+			currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
 		}
 	}
-	if (Buffer->GrTypeStroke >0)
+	if (Buffer->GrTypeStroke > 0)
 	{
 		currItem->stroke_gradient = Buffer->stroke_gradient;
 		currItem->GrTypeStroke = Buffer->GrTypeStroke;
@@ -5742,6 +5746,14 @@ void ScribusDoc::updateAllItemQColors()
 		ite->setLineQColor();
 		ite->setFillQColor();
 		ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+		for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+		{
+			for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+			{
+				meshPoint mp = ite->meshGradientArray[grow][gcol];
+				ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+			}
+		}
 	}
 	for (int c=0; c<MasterItems.count(); ++c)
 	{
@@ -5749,6 +5761,14 @@ void ScribusDoc::updateAllItemQColors()
 		ite->setLineQColor();
 		ite->setFillQColor();
 		ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+		for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+		{
+			for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+			{
+				meshPoint mp = ite->meshGradientArray[grow][gcol];
+				ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+			}
+		}
 	}
 	for (int c=0; c<FrameItems.count(); ++c)
 	{
@@ -5756,6 +5776,14 @@ void ScribusDoc::updateAllItemQColors()
 		ite->setLineQColor();
 		ite->setFillQColor();
 		ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+		for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+		{
+			for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+			{
+				meshPoint mp = ite->meshGradientArray[grow][gcol];
+				ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+			}
+		}
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -5767,6 +5795,14 @@ void ScribusDoc::updateAllItemQColors()
 			ite->setLineQColor();
 			ite->setFillQColor();
 			ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+			for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+				{
+					meshPoint mp = ite->meshGradientArray[grow][gcol];
+					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+				}
+			}
 		}
 	}
 }
@@ -11018,6 +11054,13 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		ma4.rotate(oldRot);
 		ma4.scale(scx, scy);
 		gr.map(ma4);
+		for (int grow = 0; grow < bb->meshGradientArray.count(); grow++)
+		{
+			for (int gcol = 0; gcol < bb->meshGradientArray[grow].count(); gcol++)
+			{
+				bb->meshGradientArray[grow][gcol].transform(ma4);
+			}
+		}
 		bb->ContourLine.map(ma4);
 		bb->GrStartX = gr.point(0).x();
 		bb->GrStartY = gr.point(0).y();

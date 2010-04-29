@@ -4154,8 +4154,13 @@ void PropertiesPalette::toggleGradientEdit(int stroke)
 		}
 		else
 		{
-			if (Cpal->gradEditButton->isChecked())
-				m_ScMW->view->requestMode(modeEditGradientVectors);
+			if ((Cpal->gradEditButton->isChecked()) || (Cpal->editMeshColors->isChecked()))
+			{
+				if ((stroke == 5) || (stroke == 6) || (stroke == 7))
+					m_ScMW->view->requestMode(modeEditMeshGradient);
+				else
+					m_ScMW->view->requestMode(modeEditGradientVectors);
+			}
 			else
 				m_ScMW->view->requestMode(modeNormal);
 		}
@@ -5110,6 +5115,8 @@ void PropertiesPalette::updateColorSpecialGradient()
 			Cpal->setSpecialGradient(currItem->GrControl1.x() * dur, currItem->GrControl1.y() * dur, currItem->GrControl2.x() * dur, currItem->GrControl2.y() * dur, currItem->GrControl3.x() * dur, currItem->GrControl3.y() * dur, currItem->GrControl4.x() * dur, currItem->GrControl4.y() * dur, 0, 0);
 		else if (m_ScMW->view->editStrokeGradient == 4)
 			Cpal->setSpecialGradient(currItem->GrControl1.x() * dur, currItem->GrControl1.y() * dur, currItem->GrControl2.x() * dur, currItem->GrControl2.y() * dur, currItem->GrControl3.x() * dur, currItem->GrControl3.y() * dur, currItem->GrControl4.x() * dur, currItem->GrControl4.y() * dur, currItem->GrControl5.x(), currItem->GrControl5.y());
+		else if ((m_ScMW->view->editStrokeGradient == 5) || (m_ScMW->view->editStrokeGradient == 6))
+			Cpal->setMeshPoint();
 		else
 		{
 			if (currItem->isGroupControl)

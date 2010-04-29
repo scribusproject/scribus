@@ -1186,38 +1186,46 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 			else
 			{
-				docu.writeAttribute("GRSTARTX", item->GrStartX);
-				docu.writeAttribute("GRSTARTY", item->GrStartY);
-				docu.writeAttribute("GRENDX", item->GrEndX);
-				docu.writeAttribute("GRENDY", item->GrEndY);
-				docu.writeAttribute("GRFOCALX", item->GrFocalX);
-				docu.writeAttribute("GRFOCALY", item->GrFocalY);
-				docu.writeAttribute("GRSCALE" , item->GrScale);
-				docu.writeAttribute("GRSKEW" , item->GrSkew);
-				if ((item->GrType == 9) || (item->GrType == 10))
+				if (item->GrType == 11)
 				{
-					docu.writeAttribute("GRC1X"   , item->GrControl1.x());
-					docu.writeAttribute("GRC1Y"   , item->GrControl1.y());
-					docu.writeAttribute("GRCOLP1" , item->GrColorP1);
-					docu.writeAttribute("GRC2X"   , item->GrControl2.x());
-					docu.writeAttribute("GRC2Y"   , item->GrControl2.y());
-					docu.writeAttribute("GRCOLP2" , item->GrColorP2);
-					docu.writeAttribute("GRC3X"   , item->GrControl3.x());
-					docu.writeAttribute("GRC3Y"   , item->GrControl3.y());
-					docu.writeAttribute("GRCOLP3" , item->GrColorP3);
-					docu.writeAttribute("GRC4X"   , item->GrControl4.x());
-					docu.writeAttribute("GRC4Y"   , item->GrControl4.y());
-					docu.writeAttribute("GRC5X"   , item->GrControl5.x());
-					docu.writeAttribute("GRC5Y"   , item->GrControl5.y());
-					docu.writeAttribute("GRCOLP4" , item->GrColorP4);
-					docu.writeAttribute("GRCOLT1" , item->GrCol1transp);
-					docu.writeAttribute("GRCOLT2" , item->GrCol2transp);
-					docu.writeAttribute("GRCOLT3" , item->GrCol3transp);
-					docu.writeAttribute("GRCOLT4" , item->GrCol4transp);
-					docu.writeAttribute("GRCOLS1" , item->GrCol1Shade);
-					docu.writeAttribute("GRCOLS2" , item->GrCol1Shade);
-					docu.writeAttribute("GRCOLS3" , item->GrCol1Shade);
-					docu.writeAttribute("GRCOLS4" , item->GrCol1Shade);
+					docu.writeAttribute("GMAY", item->meshGradientArray[0].count());
+					docu.writeAttribute("GMAX", item->meshGradientArray.count());
+				}
+				else
+				{
+					docu.writeAttribute("GRSTARTX", item->GrStartX);
+					docu.writeAttribute("GRSTARTY", item->GrStartY);
+					docu.writeAttribute("GRENDX", item->GrEndX);
+					docu.writeAttribute("GRENDY", item->GrEndY);
+					docu.writeAttribute("GRFOCALX", item->GrFocalX);
+					docu.writeAttribute("GRFOCALY", item->GrFocalY);
+					docu.writeAttribute("GRSCALE" , item->GrScale);
+					docu.writeAttribute("GRSKEW" , item->GrSkew);
+					if ((item->GrType == 9) || (item->GrType == 10))
+					{
+						docu.writeAttribute("GRC1X"   , item->GrControl1.x());
+						docu.writeAttribute("GRC1Y"   , item->GrControl1.y());
+						docu.writeAttribute("GRCOLP1" , item->GrColorP1);
+						docu.writeAttribute("GRC2X"   , item->GrControl2.x());
+						docu.writeAttribute("GRC2Y"   , item->GrControl2.y());
+						docu.writeAttribute("GRCOLP2" , item->GrColorP2);
+						docu.writeAttribute("GRC3X"   , item->GrControl3.x());
+						docu.writeAttribute("GRC3Y"   , item->GrControl3.y());
+						docu.writeAttribute("GRCOLP3" , item->GrColorP3);
+						docu.writeAttribute("GRC4X"   , item->GrControl4.x());
+						docu.writeAttribute("GRC4Y"   , item->GrControl4.y());
+						docu.writeAttribute("GRC5X"   , item->GrControl5.x());
+						docu.writeAttribute("GRC5Y"   , item->GrControl5.y());
+						docu.writeAttribute("GRCOLP4" , item->GrColorP4);
+						docu.writeAttribute("GRCOLT1" , item->GrCol1transp);
+						docu.writeAttribute("GRCOLT2" , item->GrCol2transp);
+						docu.writeAttribute("GRCOLT3" , item->GrCol3transp);
+						docu.writeAttribute("GRCOLT4" , item->GrCol4transp);
+						docu.writeAttribute("GRCOLS1" , item->GrCol1Shade);
+						docu.writeAttribute("GRCOLS2" , item->GrCol1Shade);
+						docu.writeAttribute("GRCOLS3" , item->GrCol1Shade);
+						docu.writeAttribute("GRCOLS4" , item->GrCol1Shade);
+					}
 				}
 			}
 		}
@@ -1343,7 +1351,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("Fill", tabCh);
 			}
 		}
-		if (((item->GrType > 0) && (item->GrType != 8)) && (item->gradient().isEmpty()))
+		if (((item->GrType > 0) && (item->GrType != 8) && (item->GrType != 9) && (item->GrType != 11)) && (item->gradient().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
@@ -1377,6 +1385,31 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("NAME", cstops.at(cst)->name);
 				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
 				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+			}
+		}
+		if (item->GrType == 11)
+		{
+			for (int grow = 0; grow < item->meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < item->meshGradientArray[grow].count(); gcol++)
+				{
+					meshPoint mp = item->meshGradientArray[grow][gcol];
+					docu.writeStartElement("MPoint");
+					docu.writeAttribute("GX", mp.gridPoint.x());
+					docu.writeAttribute("GY", mp.gridPoint.y());
+					docu.writeAttribute("CTX", mp.controlTop.x());
+					docu.writeAttribute("CTY", mp.controlTop.y());
+					docu.writeAttribute("CBX", mp.controlBottom.x());
+					docu.writeAttribute("CBY", mp.controlBottom.y());
+					docu.writeAttribute("CLX", mp.controlLeft.x());
+					docu.writeAttribute("CLY", mp.controlLeft.y());
+					docu.writeAttribute("CRX", mp.controlRight.x());
+					docu.writeAttribute("CRY", mp.controlRight.y());
+					docu.writeAttribute("NAME", mp.colorName);
+					docu.writeAttribute("SHADE", mp.shade);
+					docu.writeAttribute("TRANS", mp.transparency);
+					docu.writeEndElement();
+				}
 			}
 		}
 		

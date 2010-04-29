@@ -645,98 +645,14 @@ void ScribusView::enterEvent(QEvent * e)
 {
 	m_canvasMode->enterEvent(e);
 	return;
-	/*
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-	{
-		switch (Doc->appMode)
-		{
-			case modeDrawShapes:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
-				break;
-			case modeDrawImage:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
-				break;
-			case modeDrawLatex:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
-				break;
-			case modeDrawText:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
-				break;
-			case modeDrawTable:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
-				break;
-			case modeDrawRegularPolygon:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
-				break;
-			case modeDrawLine:
-			case modeDrawBezierLine:
-				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-				break;
-			case modeDrawFreehandLine:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
-				break;
-			case modeMagnifier:
-				if (Magnify)
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
-				else
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
-				break;
-			case modePanning:
-				qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-				break;
-			case modeMeasurementTool:
-			case modeEditGradientVectors:
-			case modeInsertPDFButton:
-			case modeInsertPDFTextfield:
-			case modeInsertPDFCheckbox:
-			case modeInsertPDFCombobox:
-			case modeInsertPDFListbox:
-			case modeInsertPDFTextAnnotation:
-			case modeInsertPDFLinkAnnotation:
-				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-				break;
-			default:
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			break;
-		}
-	}*/
 }
 
 void ScribusView::leaveEvent(QEvent *e)
 {
 	m_canvasMode->leaveEvent(e);
 	return;
-
-/*	if (BlockLeave)
-		return; */
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-/*	else
-	{
-		if ((SelItem.count() != 0) && (m_canvas->m_viewMode.m_MouseButtonPressed) && (!doku->DragP) && (doku->appMode == 1))
-		{
-			PageItem *currItem = SelItem.at(0);
-			if ((b->Locked) || (b->Sizing))
-				return;
-			doku->DragP = true;
-			doku->leaveDrag = true;
-			doku->DraggedElem = b;
-			doku->DragElements.clear();
-			for (uint dre=0; dre<SelItem.count(); ++dre)
-				doku->DragElements.append(SelItem.at(dre)->ItemNr);
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			QDragObject *dr = new QTextDrag(ss->WriteElem(&SelItem, doku), this);
-			dr->setPixmap(loadIcon("DragPix.xpm"));
-			dr->drag();
-			delete ss;
-			ss=NULL;
-			doku->DragP = false;
-			doku->leaveDrag = false;
-			m_canvas->m_viewMode.m_MouseButtonPressed = false;
-			doku->DraggedElem = 0;
-			doku->DragElements.clear();
-		}
-	} */
 }
 
 void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)

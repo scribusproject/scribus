@@ -1002,7 +1002,11 @@ void Canvas::drawControls(QPainter *psx)
 	if (m_doc->appMode == modeEditGradientVectors)
 	{
 		drawControlsGradientVectors(psx, m_doc->m_Selection->itemAt(0));
-	}	
+	}
+	if (m_doc->appMode == modeEditMeshGradient)
+	{
+		drawControlsMeshGradient(psx, m_doc->m_Selection->itemAt(0));
+	}
 	if (m_viewMode.operItemMoving || m_viewMode.operItemResizing)
 	{
 		if (m_viewMode.operItemResizing)
@@ -1298,6 +1302,128 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 	}
 }
 
+void Canvas::drawControlsMeshGradient(QPainter* psx, PageItem* currItem)
+{
+	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+	psx->rotate(currItem->rotation());
+	psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	psx->setBrush(Qt::NoBrush);
+	for (int grow = 0; grow < currItem->meshGradientArray.count()-1; grow++)
+	{
+		for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count()-1; gcol++)
+		{
+			meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+			meshPoint mp2 = currItem->meshGradientArray[grow][gcol+1];
+			meshPoint mp3 = currItem->meshGradientArray[grow+1][gcol+1];
+			meshPoint mp4 = currItem->meshGradientArray[grow+1][gcol];
+			QPainterPath Bez;
+			Bez.moveTo(mp1.gridPoint.x(), mp1.gridPoint.y());
+			Bez.cubicTo(mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
+			Bez.cubicTo(mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
+			Bez.cubicTo(mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
+			Bez.cubicTo(mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+			psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			psx->drawPath(Bez);
+		}
+	}
+	for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+	{
+		for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+		{
+			meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+			if (m_view->editStrokeGradient == 5)
+			{
+				if ((currItem->selectedMeshPointX == grow) && (currItem->selectedMeshPointY == gcol))
+					psx->setPen(QPen(Qt::red, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				else
+					psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
+			}
+			else if (m_view->editStrokeGradient == 6)
+			{
+				if ((currItem->selectedMeshPointX == grow) && (currItem->selectedMeshPointY == gcol))
+					psx->setPen(QPen(Qt::red, 14.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				else
+					psx->setPen(QPen(Qt::white, 14.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
+				psx->setPen(QPen(mp1.color, 10.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
+			}
+			else if (m_view->editStrokeGradient == 7)
+			{
+				psx->setPen(QPen(Qt::blue, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
+			}
+		}
+	}
+	if ((currItem->selectedMeshPointX > -1) && (currItem->selectedMeshPointY > -1) && (m_view->editStrokeGradient == 7))
+	{
+		int grow = currItem->selectedMeshPointX;
+		int gcol = currItem->selectedMeshPointY;
+		meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+		psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		if (grow == 0)
+		{
+			if (gcol == 0)
+			{
+				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+			}
+			else if (gcol == currItem->meshGradientArray[grow].count()-1)
+			{
+				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+			}
+			else
+			{
+				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+			}
+		}
+		else if (grow == currItem->meshGradientArray.count()-1)
+		{
+			if (gcol == 0)
+			{
+				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+			}
+			else if (gcol == currItem->meshGradientArray[grow].count()-1)
+			{
+				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+			}
+			else
+			{
+				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+			}
+		}
+		else
+		{
+			if (gcol == 0)
+			{
+				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+			}
+			else if (gcol == currItem->meshGradientArray[grow].count()-1)
+			{
+				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+			}
+			else
+			{
+				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+			}
+		}
+	}
+}
 
 /**
   draws the bezier curve in edit bezier mode

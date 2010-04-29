@@ -1006,6 +1006,16 @@ void ScPainter::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, F
 	gradControlP5 = c5;
 }
 
+void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray)
+{
+	fill_gradient.setType(VGradient::mesh);
+	meshGradientArray = meshArray;
+	gradPatchP1 = p1;
+	gradPatchP2 = p2;
+	gradPatchP3 = p3;
+	gradPatchP4 = p4;
+}
+
 void ScPainter::fillTextPath()
 {
 	drawVPath( 0 );
@@ -1445,23 +1455,27 @@ void ScPainter::drawVPath( int mode )
 					qStopColors.append(qStopColor);
 				}
 				qStopColors[qStopColors.count()-1].getRgbF(&r, &g, &b, &a);
-				cairo_set_source_rgba(cr, r, g, b, a);
-				cairo_paint_with_alpha(cr, 1.0);
-				cairo_set_operator(cr, CAIRO_OPERATOR_DEST_OUT);
-				cairo_new_path(cr);
-				cairo_move_to(cr, p1x, p1y);
-				cairo_line_to(cr, p2x, p2y);
-				cairo_line_to(cr, p3x, p3y);
-				cairo_line_to(cr, p4x, p4y);
-				cairo_close_path(cr);
-				cairo_set_source_rgba(cr, 0, 0, 0, 1);
-				cairo_fill(cr);
-				cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 				QPointF centerP = QPointF(gradControlP5.x(), gradControlP5.y());
 				QLineF edge1 = QLineF(centerP, QPointF(p1x, p1y));
 				QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));
 				QLineF edge3 = QLineF(centerP, QPointF(p3x, p3y));
 				QLineF edge4 = QLineF(centerP, QPointF(p4x, p4y));
+				QPointF p1 = edge1.pointAt(colorStops[colorStops.count()-1]->rampPoint);
+				QPointF p2 = edge2.pointAt(colorStops[colorStops.count()-1]->rampPoint);
+				QPointF p3 = edge3.pointAt(colorStops[colorStops.count()-1]->rampPoint);
+				QPointF p4 = edge4.pointAt(colorStops[colorStops.count()-1]->rampPoint);
+				cairo_set_source_rgba(cr, r, g, b, a);
+				cairo_paint_with_alpha(cr, 1.0);
+				cairo_set_operator(cr, CAIRO_OPERATOR_DEST_OUT);
+				cairo_new_path(cr);
+				cairo_move_to(cr, p1.x(), p1.y());
+				cairo_line_to(cr, p2.x(), p2.y());
+				cairo_line_to(cr, p3.x(), p3.y());
+				cairo_line_to(cr, p4.x(), p4.y());
+				cairo_close_path(cr);
+				cairo_set_source_rgba(cr, 0, 0, 0, 1);
+				cairo_fill(cr);
+				cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 				mpat = cairo_pattern_create_mesh();
 				for( int offset = 1 ; offset < colorStops.count() ; offset++ )
 				{
@@ -1592,8 +1606,108 @@ void ScPainter::drawVPath( int mode )
 				cairo_set_source(cr, mpat);
 				cairo_paint_with_alpha(cr, 1.0);
 				pat = cairo_pattern_create_for_surface(img);
-				cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 				cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+#endif
+			}
+			else if (fill_gradient.type() == VGradient::mesh)
+			{
+#ifdef HAVE_PRIVATE_CAIRO
+				double p3x = gradPatchP3.x();
+				double p3y = gradPatchP3.y();
+				img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
+				cr = cairo_create(img);
+				cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
+				cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+				cairo_set_tolerance(cr, 0.5 );
+				double r, g, b, a;
+				mpat = cairo_pattern_create_mesh();
+				for (int grow = 0; grow < meshGradientArray.count()-1; grow++)
+				{
+					for (int gcol = 0; gcol < meshGradientArray[grow].count()-1; gcol++)
+					{
+						meshPoint mp1 = meshGradientArray[grow][gcol];
+						meshPoint mp2 = meshGradientArray[grow][gcol+1];
+						meshPoint mp3 = meshGradientArray[grow+1][gcol+1];
+						meshPoint mp4 = meshGradientArray[grow+1][gcol];
+						cairo_pattern_begin_patch(mpat);
+						cairo_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
+						cairo_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
+						cairo_pattern_curve_to(mpat, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
+						cairo_pattern_curve_to(mpat, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
+						cairo_pattern_curve_to(mpat, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+						mp1.color.getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+						mp2.color.getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+						mp3.color.getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+						mp4.color.getRgbF(&r, &g, &b, &a);
+						cairo_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+						cairo_pattern_end_patch(mpat);
+					}
+				}
+				cairo_pattern_set_filter(mpat, CAIRO_FILTER_BEST);
+				cairo_set_source(cr, mpat);
+				cairo_paint_with_alpha(cr, 1.0);
+				pat = cairo_pattern_create_for_surface(img);
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
+				cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
+#else
+				double p3x = gradPatchP3.x();
+				double p3y = gradPatchP3.y();
+				img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
+				cr = cairo_create(img);
+				cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
+				cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+				cairo_set_tolerance(cr, 0.5 );
+				double r, g, b, a;
+				for (int grow = 0; grow < meshGradientArray.count()-1; grow++)
+				{
+					for (int gcol = 0; gcol < meshGradientArray[grow].count()-1; gcol++)
+					{
+						meshPoint mp1 = meshGradientArray[grow][gcol];
+						meshPoint mp2 = meshGradientArray[grow][gcol+1];
+						meshPoint mp3 = meshGradientArray[grow+1][gcol+1];
+						meshPoint mp4 = meshGradientArray[grow+1][gcol];
+						cairo_new_path( cr );
+						cairo_move_to(cr, mp1.gridPoint.x(), mp1.gridPoint.y());
+						cairo_curve_to(cr, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
+						cairo_curve_to(cr, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
+						cairo_curve_to(cr, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
+						cairo_curve_to(cr, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+						cairo_close_path( cr );
+						double acr = 0.0;
+						double acg = 0.0;
+						double acb = 0.0;
+						double aca = 0.0;
+						mp1.color.getRgbF(&r, &g, &b, &a);
+						acr += r;
+						acg += g;
+						acb += b;
+						aca += a;
+						mp2.color.getRgbF(&r, &g, &b, &a);
+						acr += r;
+						acg += g;
+						acb += b;
+						aca += a;
+						mp3.color.getRgbF(&r, &g, &b, &a);
+						acr += r;
+						acg += g;
+						acb += b;
+						aca += a;
+						mp4.color.getRgbF(&r, &g, &b, &a);
+						acr += r;
+						acg += g;
+						acb += b;
+						aca += a;
+						cairo_set_source_rgba(cr, acr / 4.0, acg / 4.0, acb / 4.0, aca / 4.0);		
+						cairo_fill(cr);
+					}
+				}
+				pat = cairo_pattern_create_for_surface(img);
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
+				cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
 #endif
 			}
 			else
@@ -1670,10 +1784,16 @@ void ScPainter::drawVPath( int mode )
 			}
 			cairo_pattern_destroy (pat);
 #ifdef HAVE_PRIVATE_CAIRO
-			if ((fill_gradient.type() == VGradient::fourcolor) || (fill_gradient.type() == VGradient::diamond))
+			if ((fill_gradient.type() == VGradient::fourcolor) || (fill_gradient.type() == VGradient::diamond) || (fill_gradient.type() == VGradient::mesh))
 			{
 				cairo_surface_destroy(img);
 				cairo_pattern_destroy(mpat);
+				cairo_destroy( cr );
+			}
+#else
+			if (fill_gradient.type() == VGradient::mesh)
+			{
+				cairo_surface_destroy(img);
 				cairo_destroy( cr );
 			}
 #endif

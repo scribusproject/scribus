@@ -101,6 +101,7 @@ public:
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
+	friend class CanvasMode_EditMeshGradient;
 	friend class CanvasMode_FrameLinks;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
@@ -183,51 +184,21 @@ public:
 	 * @param m mouse event
 	 */
 	void setNewRulerOrigin(QMouseEvent *m);
-//	void FromHRuler(QMouseEvent *m);
-//	void FromVRuler(QMouseEvent *m);
-//	void SetYGuide(QMouseEvent *m, int oldIndex);
-//	void SetXGuide(QMouseEvent *m, int oldIndex);
-// 	void getClosestGuides(double xin, double yin, double *xout, double *yout);
-// 	bool ApplyGuides(double *x, double *y);
-// 	void SnapToGuides(PageItem *currItem);
 	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-//	void ToView(QPainter *p);
-//	void ToView(QTransform& m);
-// 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
-//	void Reset1Control();
-//	void ResetControl();
-//	void MoveClipPoint(PageItem *currItem, FPoint np);
-// 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-// 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-//	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
-// 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
-// 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
-//	void RotateGroup(double win);
-//	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
-// 	void RotateItem(double win, int ite);
-// 	void RotateItem(double win, PageItem *currItem);
-// 	void AdjustItemSize(PageItem *currItem);
 	bool slotSetCurs(int x, int y);
 	void HandleCurs(PageItem *currItem, QRect mpo);
-//	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
 	void SelectItemNr(uint nr, bool draw = true, bool single = false);
 	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
-//	void selectPage(QMouseEvent *m);
-//	bool SeleItem(QMouseEvent *m);
-//	void SetupDraw(int Nr);
-//	void SetupDrawNoResize(int nr);
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
-//	void QueryFarben();
 	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool groupTransactionStarted() { return m_groupTransactions > 0; }
-//	void setGroupTransactionStarted(bool isOn);
 	void startGroupTransaction(const QString &actionName = "",
 							   const QString &description = "",
 							   QPixmap *actionPixmap = 0,
@@ -301,11 +272,9 @@ public slots: // Public slots
 	void SetCPo(double x, double y);
 	void SetCCPo(double x, double y);
 	void editExtendedImageProperties();
-	//void RefreshItem(PageItem *currItem);
 	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
 	void ToggleBookmark();
 	void ToggleAnnotation();
-// 	void sentToScrap();
 	void ToBack();
 	void ToFront();
 	void LowerItem();
@@ -316,14 +285,10 @@ public slots: // Public slots
 	void ToBezierFrame();
 	void ToPathText();
 	void FromPathText();
-// 	void UniteObj();
-// 	void SplitObj();
 	void Bezier2Poly();
 	void PasteToPage();
-//	void PasteRecentToPage(int id);
 	void TextToPath();
 	void adjustCMS();
-//	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 	
 private: // Private attributes
 	int m_previousMode;
@@ -343,7 +308,6 @@ private: // Private attributes
 	int m_oldCanvasWidth;
 	UndoTransaction*  m_groupTransaction;
 	bool _isGlobalMode;
-//	bool forceRedraw;
 
 	double oldItemX;
 	double oldItemY;
@@ -413,10 +377,6 @@ signals:
 	void SetSizeValue(double);
 	void SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	void SetLocalValues(double, double, double, double);
-//	void ItemFarben(QString, QString, int, int);
-//	void ItemGradient(int);
-//	void ItemTrans(double, double);
-//	void ItemBlend(int, int);
 	void ItemTextAttr(double);
 	void ItemTextUSval(double);
 	void ItemTextCols(int, double);
@@ -433,7 +393,6 @@ signals:
 	void ItemTextStrike(double, double);
 	void ItemTextFarben(QString, QString, double, double);
 	void ItemTextStil(int);
-	//void ItemRadius(double);
 	void HasTextSel();
 	void HasNoTextSel();
 	void MVals(double, double, double, double, double, double, int);
@@ -442,7 +401,6 @@ signals:
 	void StatusPic();
 	void AppendText();
 	void DoGroup();
-	//void DoUnGroup();
 	void CutItem();
 	void CopyItem();
 	void Amode(int);
@@ -458,7 +416,6 @@ signals:
 	void EndNodeEdit();
 	void Hrule(int);
 	void Vrule(int);
-	//void EditGuides();
 	void MousePos(double, double);
 	void callGimp();
 	void signalGuideInformation(int, qreal);

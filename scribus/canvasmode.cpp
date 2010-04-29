@@ -24,6 +24,7 @@
 #include "canvasmode_drawfreehand.h"
 #include "canvasmode_edit.h"
 #include "canvasmode_editgradient.h"
+#include "canvasmode_editmeshgradient.h"
 #include "canvasmode_eyedropper.h"
 #include "canvasmode_framelinks.h"
 #include "canvasmode_legacy.h"
@@ -113,6 +114,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeEditGradientVectors:
 			result = new CanvasMode_EditGradient(view);
+			break;
+		case modeEditMeshGradient:
+			result = new CanvasMode_EditMeshGradient(view);
 			break;
 		case modeDrawBezierLine:
 			result = new BezierMode(view);
@@ -591,6 +595,7 @@ void CanvasMode::setModeCursor()
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
+		case modeEditMeshGradient:
 		case modeInsertPDFButton:
 		case modeInsertPDFTextfield:
 		case modeInsertPDFCheckbox:

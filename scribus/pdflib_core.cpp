@@ -6360,6 +6360,277 @@ void PDFLibCore::encodeColor(QDataStream &vs, QString colName, int colShade, QSt
 	}
 }
 
+bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
+{
+	QList<double> StopVec;
+	QList<double> TransVec;
+	QStringList Gcolors;
+	QStringList colorNames;
+	QList<int> colorShades;
+	QStringList spotColorSet;
+	bool spotMode = false;
+	bool transparencyFound = false;
+	StopVec.clear();
+	TransVec.clear();
+	Gcolors.clear();
+	colorNames.clear();
+	colorShades.clear();
+	for (int grow = 0; grow < c->meshGradientArray.count(); grow++)
+	{
+		for (int gcol = 0; gcol < c->meshGradientArray[grow].count(); gcol++)
+		{
+			meshPoint mp1 = c->meshGradientArray[grow][gcol];
+			colorNames.append(mp1.colorName);
+			colorShades.append(mp1.shade);
+			TransVec.append(mp1.transparency);
+			if (mp1.transparency != 1.0)
+				transparencyFound = true;
+			if (spotMap.contains(mp1.colorName))
+			{
+				if (!spotColorSet.contains(mp1.colorName))
+					spotColorSet.append(mp1.colorName);
+			}
+			Gcolors.append(SetGradientColor(mp1.colorName, mp1.shade));
+		}
+	}
+	QString TRes("");
+	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
+	{
+		uint shadeObjectT = newObject();
+		StartObj(shadeObjectT);
+		PutDoc("<<\n");
+		PutDoc("/ShadingType 6\n");
+		PutDoc("/ColorSpace /DeviceGray\n");
+		PutDoc("/BitsPerCoordinate 32\n");
+		PutDoc("/BitsPerComponent 16\n");
+		PutDoc("/BitsPerFlag 8\n");
+		QByteArray vertStreamT;
+		QDataStream vst(&vertStreamT, QIODevice::WriteOnly);
+		vst.setByteOrder(QDataStream::BigEndian);
+		quint8 flg = 0;
+		for (int grow = 0; grow < c->meshGradientArray.count()-1; grow++)
+		{
+			for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
+			{
+				meshPoint mp1 = c->meshGradientArray[grow][gcol];
+				meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+				meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+				meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+				int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
+				int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
+				int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
+				int colInd4 = (grow + 1) * c->meshGradientArray[grow].count() + gcol;
+				vst << flg;
+				vst << encode32dVal(mp4.gridPoint.x()) << encode32dVal(-mp4.gridPoint.y()) << encode32dVal(mp4.controlTop.x()) << encode32dVal(-mp4.controlTop.y()) << encode32dVal(mp1.controlBottom.x()) << encode32dVal(-mp1.controlBottom.y());
+				vst << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
+				vst << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
+				vst << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+				encodeColor(vst, colorNames[colInd4], colorShades[colInd4], spotColorSet, spotMode);
+				encodeColor(vst, colorNames[colInd1], colorShades[colInd1], spotColorSet, spotMode);
+				encodeColor(vst, colorNames[colInd2], colorShades[colInd2], spotColorSet, spotMode);
+				encodeColor(vst, colorNames[colInd3], colorShades[colInd3], spotColorSet, spotMode);
+			}
+		}
+		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
+		QString dat = "";
+		for (int vd = 0; vd < vertStreamT.count(); vd++)
+		{
+			dat += vertStreamT[vd];
+		}
+		if (Options.Compress)
+			dat = CompressStr(&dat);
+		PutDoc("/Length "+QString::number(dat.length())+"\n");
+		if (Options.Compress)
+			PutDoc("/Filter /FlateDecode\n");
+		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream\nendobj\n");
+		uint patObject = newObject();
+		StartObj(patObject);
+		PutDoc("<<\n/Type /Pattern\n");
+		PutDoc("/PatternType 2\n");
+		PutDoc("/Shading "+QString::number(shadeObjectT)+" 0 R\n");
+		PutDoc(">>\nendobj\n");
+		Patterns.insert("Pattern"+QString::number(patObject), patObject);
+		uint formObject = newObject();
+		StartObj(formObject);
+		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
+		PutDoc("/FormType 1\n");
+		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
+		double lw = c->lineWidth();
+		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(c->width()+lw)+" "+FToStr(-(c->height()+lw))+" ]\n");
+		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+		if (Patterns.count() != 0)
+		{
+			PutDoc("/Pattern << \n");
+			QMap<QString,int>::Iterator it3p;
+			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		PutDoc(">>\n");
+		QString stre = "q\n"+SetClipPath(c)+"h\n";
+		stre += FToStr(fabs(c->lineWidth()))+" w\n";
+		stre += "/Pattern cs\n";
+		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "Q\n";
+		if (Options.Compress)
+			stre = CompressStr(&stre);
+		PutDoc("/Length "+QString::number(stre.length())+"\n");
+		if (Options.Compress)
+			PutDoc("/Filter /FlateDecode\n");
+		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
+		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+		ResCount++;
+		QString GXName = ResNam+QString::number(ResCount);
+		ResCount++;
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		TRes = GXName;
+	}
+	QString entx = "";
+	uint spotObject = 0;
+	uint shadeObject = newObject();
+	StartObj(shadeObject);
+	PutDoc("<<\n");
+	PutDoc("/ShadingType 6\n");
+	if (Options.UseRGB)
+	{
+		PutDoc("/ColorSpace /DeviceRGB\n");
+		entx = "0 1 0 1 0 1";
+	}
+	else if (Options.isGrayscale)
+	{
+		PutDoc("/ColorSpace /DeviceGray\n");
+		entx = "0 1";
+	}
+	else if ((doc.HasCMS) && (Options.UseProfiles))
+	{
+		PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
+		entx = "0 1 0 1 0 1";
+	}
+	else
+	{
+		entx = "0 1 0 1 0 1 0 1";
+		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+		{
+			spotObject = newObject();
+			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
+			for (int sc = 0; sc < spotColorSet.count(); sc++)
+			{
+				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				entx += " 0 1";
+			}
+			PutDoc(" ]\n");
+			PutDoc("/DeviceCMYK\n");
+			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc("]\n");
+			spotMode = true;
+		}
+		else
+			PutDoc("/ColorSpace /DeviceCMYK\n");
+	}
+	PutDoc("/BitsPerCoordinate 32\n");
+	PutDoc("/BitsPerComponent 16\n");
+	PutDoc("/BitsPerFlag 8\n");
+	QByteArray vertStream;
+	QDataStream vs(&vertStream, QIODevice::WriteOnly);
+	vs.setByteOrder(QDataStream::BigEndian);
+	quint8 flg = 0;
+	for (int grow = 0; grow < c->meshGradientArray.count()-1; grow++)
+	{
+		for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
+		{
+			meshPoint mp1 = c->meshGradientArray[grow][gcol];
+			meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+			meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+			meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+			int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
+			int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
+			int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
+			int colInd4 = (grow + 1) * c->meshGradientArray[grow].count() + gcol;
+			vs << flg;
+			vs << encode32dVal(mp4.gridPoint.x()) << encode32dVal(-mp4.gridPoint.y()) << encode32dVal(mp4.controlTop.x()) << encode32dVal(-mp4.controlTop.y()) << encode32dVal(mp1.controlBottom.x()) << encode32dVal(-mp1.controlBottom.y());
+			vs << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
+			vs << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
+			vs << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+			encodeColor(vs, colorNames[colInd4], colorShades[colInd4], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[colInd1], colorShades[colInd1], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[colInd2], colorShades[colInd2], spotColorSet, spotMode);
+			encodeColor(vs, colorNames[colInd3], colorShades[colInd3], spotColorSet, spotMode);
+		}
+	}
+	PutDoc("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
+	QString dat = "";
+	for (int vd = 0; vd < vertStream.count(); vd++)
+	{
+		dat += vertStream[vd];
+	}
+	if (Options.Compress)
+		dat = CompressStr(&dat);
+	PutDoc("/Length "+QString::number(dat.length())+"\n");
+	if (Options.Compress)
+		PutDoc("/Filter /FlateDecode\n");
+	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream\nendobj\n");
+	uint patObject = newObject();
+	StartObj(patObject);
+	PutDoc("<<\n/Type /Pattern\n");
+	PutDoc("/PatternType 2\n");
+	QTransform mpa;
+	if (inPattern == 0)
+	{
+		mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
+		mpa.rotate(-c->rotation());
+	}
+	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
+	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
+	PutDoc(">>\nendobj\n");
+	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	if (spotMode)
+	{
+		QString colorDesc;
+		StartObj(spotObject);
+		PutDoc("<<\n/FunctionType 4\n");
+		PutDoc("/Domain [0 1 0 1 0 1 0 1");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutDoc(" 0 1");
+		}
+		PutDoc("]\n");
+		colorDesc = "{\n";
+		int maxSp = spotColorSet.count() - 1;
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			int cc = 0;
+			int mc = 0;
+			int yc = 0;
+			int kc = 0;
+			CMYKColor cmykValues;
+			ScColorEngine::getCMYKValues(doc.PageColors[spotColorSet.at(maxSp - sc)], &doc, cmykValues);
+			cmykValues.getValues(cc, mc, yc, kc);
+			if (sc == 0)
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			else
+				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
+			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
+			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
+		}
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			colorDesc += "8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n";
+		}
+		colorDesc += "}\n";
+		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
+		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+	}
+	QString tmp;
+	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
+		tmp += "/"+TRes+" gs\n";
+	tmp += "/Pattern cs\n";
+	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+	output = tmp;
+	return true;
+}
+
 bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 {
 	QList<double> StopVec;
@@ -7115,6 +7386,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			return PDF_TensorGradientFill(output, currItem);
 		else if (GType == 10)
 			return PDF_DiamondGradientFill(output, currItem);
+		else if (GType == 11)
+			return PDF_MeshGradientFill(output, currItem);
 		StartX = currItem->GrStartX;
 		StartY = currItem->GrStartY;
 		EndX = currItem->GrEndX;

@@ -3254,6 +3254,147 @@ void PSLib::HandleStrokePattern(PageItem *c)
 	PutStream("stroke\n");
 }
 
+void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
+{
+	QString GCol;
+	QString hs,ss,vs,ks;
+	int ch,cs,cv,ck;
+	QStringList cols;
+	QStringList colorValues;
+	QStringList spotColorSet;
+	QList<int> colsSh;
+	for (int grow = 0; grow < c->meshGradientArray.count(); grow++)
+	{
+		for (int gcol = 0; gcol < c->meshGradientArray[grow].count(); gcol++)
+		{
+			meshPoint mp1 = c->meshGradientArray[grow][gcol];
+			cols.append(mp1.colorName);
+			colsSh.append(mp1.shade);
+			if (spotMap.contains(mp1.colorName))
+			{
+				if (!spotColorSet.contains(mp1.colorName))
+					spotColorSet.append(mp1.colorName);
+			}
+		}
+	}
+	for (int ac = 0; ac < cols.count(); ac++)
+	{
+		QString colorVal = "";
+		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+		{
+			if (spotColorSet.contains(cols.at(ac)))
+			{
+				colorVal = "0 0 0 0";
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					if (spotColorSet.at(sc) == cols.at(ac))
+						colorVal += " "+ToStr(colsSh[ac] / 100.0);
+					else
+						colorVal += " 0";
+				}
+			}
+			else
+			{
+				SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck, gcr);
+				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					colorVal += " 0";
+				}
+			}
+			colorValues.append(colorVal);
+		}
+		else
+		{
+			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck, gcr);
+			if (GraySc)
+				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+			else
+				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			if (DoSep)
+			{
+				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
+				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
+			}
+			colorValues.append(colorVal);
+		}
+	}
+	PutStream("<<\n");
+	PutStream("/PatternType 2\n");
+	PutStream("/Shading\n");
+	PutStream("<<\n");
+	PutStream("/ShadingType 6\n");
+	if ((DoSep) || (GraySc))
+		PutStream("/ColorSpace /DeviceGray\n");
+	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+	{
+		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutStream(" ("+spotColorSet.at(sc)+")");
+		}
+		PutStream("]\n");
+		PutStream("/DeviceCMYK\n");
+		PutStream("{\n");
+		int maxSp = spotColorSet.count() - 1;
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			int cc = 0;
+			int mc = 0;
+			int yc = 0;
+			int kc = 0;
+			CMYKColor cmykValues;
+			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
+			cmykValues.getValues(cc, mc, yc, kc);
+			if (sc == 0)
+				PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+			else
+				PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+			PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
+			PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
+			PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+		}
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutStream("8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n");
+		}
+		PutStream("} ]\n");
+	}
+	else
+		PutStream("/ColorSpace /DeviceCMYK\n");
+	PutStream("/DataSource [\n");
+	for (int grow = 0; grow < c->meshGradientArray.count()-1; grow++)
+	{
+		for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
+		{
+			meshPoint mp1 = c->meshGradientArray[grow][gcol];
+			meshPoint mp2 = c->meshGradientArray[grow][gcol+1];
+			meshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
+			meshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+			int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
+			int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
+			int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
+			int colInd4 = (grow + 1) * c->meshGradientArray[grow].count() + gcol;
+			PutStream("0\n");
+			PutStream(ToStr(mp4.gridPoint.x())+" "+ToStr(-mp4.gridPoint.y())+" "+ToStr(mp4.controlTop.x())+" "+ToStr(-mp4.controlTop.y())+" "+ToStr(mp1.controlBottom.x())+" "+ToStr(-mp1.controlBottom.y())+"\n");
+			PutStream(ToStr(mp1.gridPoint.x())+" "+ToStr(-mp1.gridPoint.y())+" "+ToStr(mp1.controlRight.x())+" "+ToStr(-mp1.controlRight.y())+" "+ToStr(mp2.controlLeft.x())+" "+ToStr(-mp2.controlLeft.y())+"\n");
+			PutStream(ToStr(mp2.gridPoint.x())+" "+ToStr(-mp2.gridPoint.y())+" "+ToStr(mp2.controlBottom.x())+" "+ToStr(-mp2.controlBottom.y())+" "+ToStr(mp3.controlTop.x())+" "+ToStr(-mp3.controlTop.y())+"\n");
+			PutStream(ToStr(mp3.gridPoint.x())+" "+ToStr(-mp3.gridPoint.y())+" "+ToStr(mp3.controlLeft.x())+" "+ToStr(-mp3.controlLeft.y())+" "+ToStr(mp4.controlRight.x())+" "+ToStr(-mp4.controlRight.y())+"\n");
+			PutStream(colorValues[colInd4]+" "+colorValues[colInd1]+" "+colorValues[colInd2]+" "+colorValues[colInd3]+"\n");
+		}
+	}
+	PutStream("]\n");
+	PutStream(">>\n");
+	PutStream(">>\n");
+	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
+	if (fillRule)
+		PutStream("eofill\n");
+	else
+		PutStream("fill\n");
+	return;
+}
+
 void PSLib::HandleDiamondGradient(PageItem* c, bool gcr)
 {
 	QString GCol;
@@ -3642,6 +3783,11 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		else if (GType == 10)
 		{
 			HandleDiamondGradient(c, gcr);
+			return;
+		}
+		else if (GType == 11)
+		{
+			HandleMeshGradient(c, gcr);
 			return;
 		}
 	}

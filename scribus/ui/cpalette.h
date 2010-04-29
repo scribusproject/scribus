@@ -90,10 +90,14 @@ public slots:
 	void slotGradTypeStroke(int type);
 	void setActGradient(int typ);
 	void setGradientColors();
+	void editMeshPointColor();
+	void createNewMeshGradient();
 	void editGradientVector();
 	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
+	void setMeshPoint();
+	void updateMeshPoint();
 	void changePatternProps();
 	void changePatternPropsStroke();
 	void toggleStrokePattern();

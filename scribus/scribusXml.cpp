@@ -186,39 +186,47 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		}
 		else
 		{
-			OB->GrStartX = attrAsDbl(attrs, "GRSTARTX", 0.0);
-			OB->GrStartY = attrAsDbl(attrs, "GRSTARTY", 0.0);
-			OB->GrEndX   = attrAsDbl(attrs, "GRENDX", 0.0);
-			OB->GrEndY   = attrAsDbl(attrs, "GRENDY", 0.0);
-			OB->GrColor  = attrAsString(attrs, "GRCOLOR", "Black");
-			OB->GrFocalX = attrAsDbl(attrs, "GRFOCALX", 0.0);
-			OB->GrFocalY = attrAsDbl(attrs, "GRFOCALY", 0.0);
-			OB->GrScale  = attrAsDbl(attrs, "GRSCALE", 1.0);
-			OB->GrSkew   = attrAsDbl(attrs, "GRSKEW", 0.0);
-			if (OB->GrColor.isEmpty())
-				OB->GrColor = "Black";
-			OB->GrColor2 = attrAsString(attrs, "GRCOLOR2","Black");
-			if (OB->GrColor2.isEmpty())
-				OB->GrColor2 = "Black";
-			OB->GrShade  = attrAsInt(attrs, "GRSHADE", 100);
-			OB->GrShade2 = attrAsInt(attrs, "GRSHADE2", 100);
-			OB->GrControl1 = FPoint(attrAsDbl(attrs, "GRC1X", 0.0), attrAsDbl(attrs, "GRC1Y", 0.0));
-			OB->GrControl2 = FPoint(attrAsDbl(attrs, "GRC2X", 0.0), attrAsDbl(attrs, "GRC2Y", 0.0));
-			OB->GrControl3 = FPoint(attrAsDbl(attrs, "GRC3X", 0.0), attrAsDbl(attrs, "GRC3Y", 0.0));
-			OB->GrControl4 = FPoint(attrAsDbl(attrs, "GRC4X", 0.0), attrAsDbl(attrs, "GRC4Y", 0.0));
-			OB->GrControl5 = FPoint(attrAsDbl(attrs, "GRC5X", 0.0), attrAsDbl(attrs, "GRC5Y", 0.0));
-			OB->GrColorP1  = attrAsString(attrs, "GRCOLP1", "Black");
-			OB->GrColorP2  = attrAsString(attrs, "GRCOLP2", "Black");
-			OB->GrColorP3  = attrAsString(attrs, "GRCOLP3", "Black");
-			OB->GrColorP4  = attrAsString(attrs, "GRCOLP4", "Black");
-			OB->GrCol1transp = attrAsDbl(attrs, "GRCOLT1", 1.0);
-			OB->GrCol2transp = attrAsDbl(attrs, "GRCOLT2", 1.0);
-			OB->GrCol3transp   = attrAsDbl(attrs, "GRCOLT3", 1.0);
-			OB->GrCol4transp   = attrAsDbl(attrs, "GRCOLT4", 1.0);
-			OB->GrCol1Shade  = attrAsInt(attrs, "GRCOLS1", 100);
-			OB->GrCol2Shade  = attrAsInt(attrs, "GRCOLS2", 100);
-			OB->GrCol3Shade  = attrAsInt(attrs, "GRCOLS3", 100);
-			OB->GrCol4Shade  = attrAsInt(attrs, "GRCOLS4", 100);
+			if (OB->GrType == 11)
+			{
+				OB->mGArrayRows = attrAsInt(attrs, "GMAX", 1);
+				OB->mGArrayCols = attrAsInt(attrs, "GMAY", 1);
+			}
+			else
+			{
+				OB->GrStartX = attrAsDbl(attrs, "GRSTARTX", 0.0);
+				OB->GrStartY = attrAsDbl(attrs, "GRSTARTY", 0.0);
+				OB->GrEndX   = attrAsDbl(attrs, "GRENDX", 0.0);
+				OB->GrEndY   = attrAsDbl(attrs, "GRENDY", 0.0);
+				OB->GrColor  = attrAsString(attrs, "GRCOLOR", "Black");
+				OB->GrFocalX = attrAsDbl(attrs, "GRFOCALX", 0.0);
+				OB->GrFocalY = attrAsDbl(attrs, "GRFOCALY", 0.0);
+				OB->GrScale  = attrAsDbl(attrs, "GRSCALE", 1.0);
+				OB->GrSkew   = attrAsDbl(attrs, "GRSKEW", 0.0);
+				if (OB->GrColor.isEmpty())
+					OB->GrColor = "Black";
+				OB->GrColor2 = attrAsString(attrs, "GRCOLOR2","Black");
+				if (OB->GrColor2.isEmpty())
+					OB->GrColor2 = "Black";
+				OB->GrShade  = attrAsInt(attrs, "GRSHADE", 100);
+				OB->GrShade2 = attrAsInt(attrs, "GRSHADE2", 100);
+				OB->GrControl1 = FPoint(attrAsDbl(attrs, "GRC1X", 0.0), attrAsDbl(attrs, "GRC1Y", 0.0));
+				OB->GrControl2 = FPoint(attrAsDbl(attrs, "GRC2X", OB->Width), attrAsDbl(attrs, "GRC2Y", 0.0));
+				OB->GrControl3 = FPoint(attrAsDbl(attrs, "GRC3X", OB->Width), attrAsDbl(attrs, "GRC3Y", OB->Height));
+				OB->GrControl4 = FPoint(attrAsDbl(attrs, "GRC4X", 0.0), attrAsDbl(attrs, "GRC4Y", OB->Height));
+				OB->GrControl5 = FPoint(attrAsDbl(attrs, "GRC5X", OB->Width / 2.0), attrAsDbl(attrs, "GRC5Y", OB->Height / 2.0));
+				OB->GrColorP1  = attrAsString(attrs, "GRCOLP1", "Black");
+				OB->GrColorP2  = attrAsString(attrs, "GRCOLP2", "Black");
+				OB->GrColorP3  = attrAsString(attrs, "GRCOLP3", "Black");
+				OB->GrColorP4  = attrAsString(attrs, "GRCOLP4", "Black");
+				OB->GrCol1transp = attrAsDbl(attrs, "GRCOLT1", 1.0);
+				OB->GrCol2transp = attrAsDbl(attrs, "GRCOLT2", 1.0);
+				OB->GrCol3transp   = attrAsDbl(attrs, "GRCOLT3", 1.0);
+				OB->GrCol4transp   = attrAsDbl(attrs, "GRCOLT4", 1.0);
+				OB->GrCol1Shade  = attrAsInt(attrs, "GRCOLS1", 100);
+				OB->GrCol2Shade  = attrAsInt(attrs, "GRCOLS2", 100);
+				OB->GrCol3Shade  = attrAsInt(attrs, "GRCOLS3", 100);
+				OB->GrCol4Shade  = attrAsInt(attrs, "GRCOLS4", 100);
+			}
 		}
 	}
 	OB->GrTypeStroke = attrAsInt(attrs, "GRTYPS"  , 0);
@@ -1292,6 +1300,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	QString inlineImageExt;
 	int lowResType = 1;
 	int actualPageNumber = 0;
+	int mGArrayRows = 0;
+	int mGArrayCols = 0;
 	QString modelFile;
 	QString currentView;
 	QString gradName;
@@ -1322,6 +1332,17 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			storyText = StoryText(doc);
 			lastStyles = LastStyles();
 			GetItemProps(attrs, &OB, fileDir, newVersion);
+			OB.meshGradientArray.clear();
+			for (int mgr = 0; mgr < OB.mGArrayRows; mgr++)
+			{
+				QList<meshPoint> ml;
+				for (int mgc = 0; mgc < OB.mGArrayCols; mgc++)
+				{
+					meshPoint mp;
+					ml.append(mp);
+				}
+				OB.meshGradientArray.append(ml);
+			}
 			OB.Xpos = Xp + attrAsDbl(attrs, "XPOS", 0.0) - GrX;
 			OB.Ypos = Yp + attrAsDbl(attrs, "YPOS", 0.0) - GrY;
 			OB.startArrowIndex = arrowID[ attrAsInt(attrs, "startArrowIndex", 0) ];
@@ -1518,6 +1539,27 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			int shade    = attrAsInt(attrs, "SHADE", 100);
 			double opa   = attrAsDbl(attrs, "TRANS", 1.0);
 			OB.mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
+		if (inItem && sReader.isStartElement() && tagName == "MPoint")
+		{
+			meshPoint mp;
+			mp.colorName     = attrAsString(attrs, "NAME", "");
+			mp.shade         = attrAsInt(attrs, "SHADE", 100);
+			mp.transparency  = attrAsDbl(attrs, "TRANS", 1.0);
+			mp.gridPoint     = FPoint(attrAsDbl(attrs, "GX", 0.0), attrAsDbl(attrs, "GY", 0.0));
+			mp.controlTop    = FPoint(attrAsDbl(attrs, "CTX", 0.0), attrAsDbl(attrs, "CTY", 0.0));
+			mp.controlBottom = FPoint(attrAsDbl(attrs, "CBX", 0.0), attrAsDbl(attrs, "CBY", 0.0));
+			mp.controlLeft   = FPoint(attrAsDbl(attrs, "CLX", 0.0), attrAsDbl(attrs, "CLY", 0.0));
+			mp.controlRight  = FPoint(attrAsDbl(attrs, "CRX", 0.0), attrAsDbl(attrs, "CRY", 0.0));
+			mp.color         = SetColor(doc, mp.colorName, mp.shade);
+			mp.color.setAlphaF(mp.transparency);
+			OB.meshGradientArray[mGArrayRows][mGArrayCols] = mp;
+			mGArrayCols++;
+			if (mGArrayCols == OB.mGArrayCols)
+			{
+				mGArrayCols = 0;
+				mGArrayRows++;
+			}
 		}
 		if (inItem && sReader.isStartElement() && tagName == "Tabs")
 		{
@@ -2578,21 +2620,51 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		}
 		else
 		{
-			if (item->gradient().isEmpty())
+			if (item->GrType == 11)
 			{
-				QList<VColorStop*> cstops = item->fill_gradient.colorStops();
-				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+				writer.writeAttribute("GMAY", item->meshGradientArray[0].count());
+				writer.writeAttribute("GMAX", item->meshGradientArray.count());
+				for (int grow = 0; grow < item->meshGradientArray.count(); grow++)
 				{
-					writer.writeStartElement("CSTOP");
-					writer.writeAttribute("RAMP" , cstops.at(cst)->rampPoint);
-					writer.writeAttribute("NAME" , cstops.at(cst)->name);
-					writer.writeAttribute("SHADE", cstops.at(cst)->shade);
-					writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
-					writer.writeEndElement();
+					for (int gcol = 0; gcol < item->meshGradientArray[grow].count(); gcol++)
+					{
+						meshPoint mp = item->meshGradientArray[grow][gcol];
+						writer.writeStartElement("MPoint");
+						writer.writeAttribute("GX", mp.gridPoint.x());
+						writer.writeAttribute("GY", mp.gridPoint.y());
+						writer.writeAttribute("CTX", mp.controlTop.x());
+						writer.writeAttribute("CTY", mp.controlTop.y());
+						writer.writeAttribute("CBX", mp.controlBottom.x());
+						writer.writeAttribute("CBY", mp.controlBottom.y());
+						writer.writeAttribute("CLX", mp.controlLeft.x());
+						writer.writeAttribute("CLY", mp.controlLeft.y());
+						writer.writeAttribute("CRX", mp.controlRight.x());
+						writer.writeAttribute("CRY", mp.controlRight.y());
+						writer.writeAttribute("NAME", mp.colorName);
+						writer.writeAttribute("SHADE", mp.shade);
+						writer.writeAttribute("TRANS", mp.transparency);
+						writer.writeEndElement();
+					}
 				}
 			}
-			else
-				writer.writeAttribute("GRNAME"  , item->gradient());
+			if ((item->GrType != 9) && (item->GrType != 11))
+			{
+				if (item->gradient().isEmpty())
+				{
+					QList<VColorStop*> cstops = item->fill_gradient.colorStops();
+					for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+					{
+						writer.writeStartElement("CSTOP");
+						writer.writeAttribute("RAMP" , cstops.at(cst)->rampPoint);
+						writer.writeAttribute("NAME" , cstops.at(cst)->name);
+						writer.writeAttribute("SHADE", cstops.at(cst)->shade);
+						writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
+						writer.writeEndElement();
+					}
+				}
+				else
+					writer.writeAttribute("GRNAME"  , item->gradient());
+			}
 		}
 	}
 	if (item->GrTypeStroke > 0)

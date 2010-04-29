@@ -87,7 +87,8 @@ public:
 	    linear = 0,
 	    radial = 1,
 	    fourcolor  = 2,
-	    diamond = 3
+	    diamond = 3,
+	    mesh = 4
 	};
 
 	enum RepeatMethod
@@ -136,7 +137,7 @@ protected:
 	void inSort( VColorStopEx* d );
 
 private:
-	VGradientEx::Type         m_type			: 2;
+	VGradientEx::Type         m_type;
 	VGradientEx::RepeatMethod m_repeatMethod	: 2;
 
 	// coordinates:

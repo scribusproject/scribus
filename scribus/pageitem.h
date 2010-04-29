@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/storytext.h"
 #include "undoobject.h"
 #include "vgradient.h"
+#include "mesh.h"
 #ifdef HAVE_CONFIG_H
 #include "scconfig.h"
 #endif
@@ -359,7 +360,7 @@ public:
 	double gYpos;
 	double gWidth;
 	double gHeight;
-	int GrType;			// used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient
+	int GrType;			// used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11 = mesh gradient
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;
@@ -385,6 +386,9 @@ public:
 	int GrCol2Shade;
 	int GrCol3Shade;
 	int GrCol4Shade;
+	QList<QList<meshPoint> > meshGradientArray;
+	int selectedMeshPointX;
+	int selectedMeshPointY;
 	int Cols;
 	double ColGap;
 	double gridOffset_;
@@ -643,6 +647,8 @@ public:
 	void setDiamondGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
 	void get4ColorTransparency(double &t1, double &t2, double &t3, double &t4);
 	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4);
+	void setMeshPointColor(int x, int y, QString color, int shade, double transparency);
+	void createGradientMesh(int rows, int cols);
 	void gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 

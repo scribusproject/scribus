@@ -1314,6 +1314,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeUnlinkFrames:
 				case modeRotation:
 				case modeEditGradientVectors:
+				case modeEditMeshGradient:
 				case modeCopyProperties:
 					view->Deselect(false);
 				case modeEyeDropper:
@@ -6394,6 +6395,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				break;
 			case modeMeasurementTool:
 			case modeEditGradientVectors:
+			case modeEditMeshGradient:
 				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 				break;
 			default:

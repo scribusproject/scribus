@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "gradienteditor.h"
+#include "insertTable.h"
 #include "units.h"
 #include "page.h"
 #include "pageitem.h"
@@ -79,10 +80,13 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
 	connect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
+	connect(editMeshColors, SIGNAL(clicked()), this, SLOT(editMeshPointColor()));
 	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(ToggleColorDisplay()));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
 	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)));
 	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
+	connect(CGradDia, SIGNAL(editGradient(int)), this, SIGNAL(editGradient(int)));
+	connect(CGradDia, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
@@ -108,6 +112,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	connect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	connect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
+	connect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
+	connect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
 	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
 }
@@ -159,6 +166,9 @@ void Cpalette::updateFromItem()
 	disconnect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	disconnect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	disconnect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
+	disconnect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
+	disconnect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
 	updateCList();
 	if (currentItem->doOverprint)
 		setActOverprint(1);
@@ -211,6 +221,9 @@ void Cpalette::updateFromItem()
 		tabWidgetStroke->setCurrentIndex(1);
 	else
 		tabWidgetStroke->setCurrentIndex(0);
+	updateMeshPoint();
+	editMeshColors->setEnabled(true);
+	gradEditButton->setEnabled(true);
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
@@ -230,6 +243,9 @@ void Cpalette::updateFromItem()
 	connect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	connect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
 	connect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
+	connect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
+	connect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
 }
 
 void Cpalette::updateCList()
@@ -251,6 +267,7 @@ void Cpalette::updateCList()
 	colorPoint2->updateBox(colorList, ColorCombo::fancyPixmaps, true);
 	colorPoint3->updateBox(colorList, ColorCombo::fancyPixmaps, true);
 	colorPoint4->updateBox(colorList, ColorCombo::fancyPixmaps, true);
+	colorMeshPoint->updateBox(colorList, ColorCombo::fancyPixmaps, true);
 	colorListFill->insertItems(colorList, ColorListBox::fancyPixmap);
 	colorListStroke->insertItems(colorList, ColorListBox::fancyPixmap);
 	if (colorListFill->currentItem())
@@ -449,6 +466,10 @@ void Cpalette::setNamedGradient(const QString &name)
 		setGradientColors();
 		emit NewGradient(9);
 	}
+	else if (gradientType->currentIndex() == 3)
+		emit NewGradient(10);
+	else if (gradientType->currentIndex() == 4)
+		emit NewGradient(11);
 }
 
 void Cpalette::setNamedGradientStroke(const QString &name)
@@ -615,7 +636,7 @@ void Cpalette::ChooseGrad(int number)
 	}
 	if (number == 0)
 		tabWidget->setCurrentIndex(0);
-	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10))
+	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10) || (number == 11))
 	{
 		if ((number == 5) || (number == 7))
 		{
@@ -655,6 +676,18 @@ void Cpalette::ChooseGrad(int number)
 		{
 			stackedWidget_2->setCurrentIndex(0);
 			gradientType->setCurrentIndex(3);
+		}
+		else if (number == 11)
+		{
+			stackedWidget_2->setCurrentIndex(2);
+			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
+			{
+				meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+				setCurrentComboItem(colorMeshPoint, mp.colorName);
+				shadeMeshPoint->setValue(mp.shade);
+				transparencyMeshPoint->setValue(mp.transparency * 100);
+			}
+			gradientType->setCurrentIndex(4);
 		}
 		else
 		{
@@ -739,6 +772,18 @@ void Cpalette::slotGrad(int number)
 			stackedWidget_2->setCurrentIndex(0);
 			emit NewGradient(10);
 		}
+		else if (gradientType->currentIndex() == 4)
+		{
+			stackedWidget_2->setCurrentIndex(2);
+			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
+			{
+				meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+				setCurrentComboItem(colorMeshPoint, mp.colorName);
+				shadeMeshPoint->setValue(mp.shade);
+				transparencyMeshPoint->setValue(mp.transparency * 100);
+			}
+			emit NewGradient(11);
+		}
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 		connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 		connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
@@ -795,6 +840,18 @@ void Cpalette::slotGradType(int type)
 		stackedWidget_2->setCurrentIndex(0);
 		emit NewGradient(10);
 	}
+	else if (type == 4)
+	{
+		stackedWidget_2->setCurrentIndex(2);
+		if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
+		{
+			meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+			setCurrentComboItem(colorMeshPoint, mp.colorName);
+			shadeMeshPoint->setValue(mp.shade);
+			transparencyMeshPoint->setValue(mp.transparency * 100);
+		}
+		emit NewGradient(11);
+	}
 }
 
 void Cpalette::slotGradTypeStroke(int type)
@@ -808,6 +865,36 @@ void Cpalette::slotGradTypeStroke(int type)
 void Cpalette::setActGradient(int typ)
 {
 	ChooseGrad(typ);
+}
+
+void Cpalette::editMeshPointColor()
+{
+	if (editMeshColors->isChecked())
+	{
+		if (currentItem->GrType == 11)
+			editStrokeGradient = 6;
+		else
+			editStrokeGradient = 0;
+		gradEditButton->setEnabled(false);
+	}
+	else
+	{
+		editStrokeGradient = 0;
+		gradEditButton->setEnabled(true);
+	}
+	emit editGradient(editStrokeGradient);
+}
+
+void Cpalette::createNewMeshGradient()
+{
+	InsertTable* dia = new InsertTable(this, 255, 255);
+	dia->setWindowTitle( tr( "Create Mesh" ) );
+	if (dia->exec())
+	{
+		currentItem->createGradientMesh(dia->Rows->value(), dia->Cols->value());
+		currentItem->update();
+		currentDoc->regionsChanged()->update(QRect());
+	}
 }
 
 void Cpalette::editGradientVector()
@@ -830,16 +917,24 @@ void Cpalette::editGradientVector()
 			CGradDia->setValues(currentItem->GrControl1.x(), currentItem->GrControl1.y(), currentItem->GrControl2.x(), currentItem->GrControl2.y(), currentItem->GrControl3.x(), currentItem->GrControl3.y(), currentItem->GrControl4.x(), currentItem->GrControl4.y(), currentItem->GrControl5.x(), currentItem->GrControl5.y());
 			CGradDia->selectDiamond();
 		}
+		else if (currentItem->GrType == 11)
+		{
+			CGradDia->selectMesh();
+			editMeshColors->setEnabled(false);
+		}
 		CGradDia->show();
 	}
 	else
 	{
 		CGradDia->hide();
+		editMeshColors->setEnabled(true);
 	}
 	if (currentItem->GrType == 9)
 		editStrokeGradient = 3;
 	else if (currentItem->GrType == 10)
 		editStrokeGradient = 4;
+	else if (currentItem->GrType == 11)
+		editStrokeGradient = 5;
 	else
 		editStrokeGradient = 0;
 	emit editGradient(editStrokeGradient);
@@ -881,6 +976,36 @@ void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, do
 {
 	if (CGradDia)
 		CGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk, cx, cy);
+}
+
+void Cpalette::setMeshPoint()
+{
+	if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
+	{
+		colorMeshPoint->setEnabled(true);
+		shadeMeshPoint->setEnabled(true);
+		transparencyMeshPoint->setEnabled(true);
+		meshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
+		setCurrentComboItem(colorMeshPoint, mp.colorName);
+		shadeMeshPoint->setValue(mp.shade);
+		transparencyMeshPoint->setValue(mp.transparency * 100);
+	}
+	else
+	{
+		colorMeshPoint->setEnabled(false);
+		shadeMeshPoint->setEnabled(false);
+		transparencyMeshPoint->setEnabled(false);
+	}
+}
+
+void Cpalette::updateMeshPoint()
+{
+	QString color = colorMeshPoint->currentText();
+	if (color == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
+	double t = transparencyMeshPoint->value() / 100.0;
+	currentItem->setMeshPointColor(currentItem->selectedMeshPointX, currentItem->selectedMeshPointY, color, shadeMeshPoint->value(), t);
+	currentItem->update();
 }
 
 void Cpalette::changePatternProps()
