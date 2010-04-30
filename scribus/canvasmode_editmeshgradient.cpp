@@ -121,9 +121,6 @@ void CanvasMode_EditMeshGradient::activate(bool fromGesture)
 void CanvasMode_EditMeshGradient::deactivate(bool forGesture)
 {
 	m_view->redrawMarker->hide();
-	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	currItem->selectedMeshPointX = -1;
-	currItem->selectedMeshPointY = -1;
 	arrayX = -1;
 	arrayY = -1;
 	m_gradientPoint = noPointDefined;
