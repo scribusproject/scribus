@@ -87,6 +87,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(CGradDia, SIGNAL(editGradient(int)), this, SIGNAL(editGradient(int)));
 	connect(CGradDia, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
+	connect(CGradDia, SIGNAL(resetMesh()), this, SLOT(resetMeshGradient()));
+	connect(CGradDia, SIGNAL(meshToShape()), this, SLOT(meshGradientToShape()));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
@@ -895,6 +897,21 @@ void Cpalette::createNewMeshGradient()
 		currentItem->update();
 		currentDoc->regionsChanged()->update(QRect());
 	}
+	delete dia;
+}
+
+void Cpalette::resetMeshGradient()
+{
+	currentItem->resetGradientMesh();
+	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
+}
+
+void Cpalette::meshGradientToShape()
+{
+	currentItem->meshToShape();
+	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
 }
 
 void Cpalette::editGradientVector()
@@ -969,6 +986,7 @@ void Cpalette::setActiveGradDia(bool active)
 		else
 			gradEditButton->setChecked(false);
 		emit editGradient(editStrokeGradient);
+		editMeshColors->setEnabled(true);
 	}
 }
 

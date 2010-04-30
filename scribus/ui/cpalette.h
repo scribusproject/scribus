@@ -92,6 +92,8 @@ public slots:
 	void setGradientColors();
 	void editMeshPointColor();
 	void createNewMeshGradient();
+	void resetMeshGradient();
+	void meshGradientToShape();
 	void editGradientVector();
 	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);

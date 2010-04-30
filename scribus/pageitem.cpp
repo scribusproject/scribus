@@ -3242,6 +3242,86 @@ void PageItem::createGradientMesh(int rows, int cols)
 	}
 }
 
+void PageItem::resetGradientMesh()
+{
+	int rows = meshGradientArray.count();
+	int cols = meshGradientArray[0].count();
+	double xoffs = Width / static_cast<double>(cols-1);
+	double yoffs = Height / static_cast<double>(rows-1);
+	for (int x = 0; x < rows; x++)
+	{
+		for (int y = 0; y < cols; y++)
+		{
+			meshGradientArray[x][y].gridPoint = FPoint(y * xoffs, x * yoffs);
+			meshGradientArray[x][y].controlTop = meshGradientArray[x][y].gridPoint;
+			meshGradientArray[x][y].controlBottom = meshGradientArray[x][y].gridPoint;
+			meshGradientArray[x][y].controlLeft = meshGradientArray[x][y].gridPoint;
+			meshGradientArray[x][y].controlRight = meshGradientArray[x][y].gridPoint;
+		}
+	}
+}
+
+void PageItem::meshToShape()
+{
+	FPointArray Coords;
+	Coords.resize(0);
+	Coords.svgInit();
+	int rows = meshGradientArray.count() - 1;
+	int cols = meshGradientArray[0].count() - 1;
+	QList<meshPoint> mpList;
+	mpList = meshGradientArray[0];
+	Coords.svgMoveTo(mpList[0].gridPoint.x(), mpList[0].gridPoint.y());
+	for (int m = 0; m < mpList.count()-1; m++)
+	{
+		Coords.svgCurveToCubic(mpList[m].controlRight.x(), mpList[m].controlRight.y(),
+								mpList[m+1].controlLeft.x(), mpList[m+1].controlLeft.y(),
+								mpList[m+1].gridPoint.x(), mpList[m+1].gridPoint.y());
+	}
+	for (int m = 0; m < rows; m++)
+	{
+		Coords.svgCurveToCubic(meshGradientArray[m][cols].controlBottom.x(), meshGradientArray[m][cols].controlBottom.y(),
+								meshGradientArray[m+1][cols].controlTop.x(), meshGradientArray[m+1][cols].controlTop.y(),
+								meshGradientArray[m+1][cols].gridPoint.x(), meshGradientArray[m+1][cols].gridPoint.y());
+	}
+	mpList = meshGradientArray[rows];
+	for (int m = cols; m > 0; m--)
+	{
+		Coords.svgCurveToCubic(mpList[m].controlLeft.x(), mpList[m].controlLeft.y(),
+								mpList[m-1].controlRight.x(), mpList[m-1].controlRight.y(),
+								mpList[m-1].gridPoint.x(), mpList[m-1].gridPoint.y());
+	}
+	for (int m = rows; m > 0; m--)
+	{
+		Coords.svgCurveToCubic(meshGradientArray[m][0].controlTop.x(), meshGradientArray[m][0].controlTop.y(),
+								meshGradientArray[m-1][0].controlBottom.x(), meshGradientArray[m-1][0].controlBottom.y(),
+								meshGradientArray[m-1][0].gridPoint.x(), meshGradientArray[m-1][0].gridPoint.y());
+	}
+	
+	QList<QList<meshPoint> > meshGradientArrayOld = meshGradientArray;
+	PoLine = Coords.copy();
+	double oldX = Xpos;
+	double oldY = Ypos;
+	ClipEdited = true;
+	FrameType = 3;
+	FPoint wh = getMaxClipF(&PoLine);
+	setWidthHeight(wh.x(),wh.y());
+	m_Doc->AdjustItemSize(this);
+	OldB2 = width();
+	OldH2 = height();
+	updateClip();
+	meshGradientArray = meshGradientArrayOld;
+	double dx = oldX - Xpos;
+	double dy = oldY - Ypos;
+	for (int x = 0; x < rows+1; x++)
+	{
+		for (int y = 0; y < cols+1; y++)
+		{
+			meshGradientArray[x][y].moveRel(dx, dy);
+		}
+	}
+	ContourLine = PoLine.copy();
+}
+
 void PageItem::gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
 {
 	startX = GrStartX;

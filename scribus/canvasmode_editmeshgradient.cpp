@@ -457,11 +457,35 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 					arrayY = gcol;
 					currItem->selectedMeshPointX = arrayX;
 					currItem->selectedMeshPointY = arrayY;
+					currItem->selectedMeshControlPoint = static_cast<int>(m_gradientPoint);
 					break;
 				}
 			}
 			if (found)
 				break;
+		}
+		if (!found)
+		{
+			for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+				{
+					meshPoint mp = currItem->meshGradientArray[grow][gcol];
+					QPointF gradientPoint = QPointF(mp.gridPoint.x(), mp.gridPoint.y());
+					gradientPoint = itemMatrix.map(gradientPoint);
+					if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientPoint))
+					{
+						arrayX = grow;
+						arrayY = gcol;
+						currItem->selectedMeshPointX = arrayX;
+						currItem->selectedMeshPointY = arrayY;
+						found = true;
+						break;
+					}
+				}
+				if (found)
+					break;
+			}
 		}
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;

@@ -1366,16 +1366,29 @@ void Canvas::drawControlsMeshGradient(QPainter* psx, PageItem* currItem)
 		{
 			if (gcol == 0)
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
 				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
 			}
 			else if (gcol == currItem->meshGradientArray[grow].count()-1)
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
 				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
 			}
 			else
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
 				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
 				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
@@ -1385,16 +1398,29 @@ void Canvas::drawControlsMeshGradient(QPainter* psx, PageItem* currItem)
 		{
 			if (gcol == 0)
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
 				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
 			}
 			else if (gcol == currItem->meshGradientArray[grow].count()-1)
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
 				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
 			}
 			else
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
 				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
 				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
@@ -1404,18 +1430,34 @@ void Canvas::drawControlsMeshGradient(QPainter* psx, PageItem* currItem)
 		{
 			if (gcol == 0)
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
 				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
 				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
 			}
 			else if (gcol == currItem->meshGradientArray[grow].count()-1)
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
 				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
 				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
 			}
 			else
 			{
+				psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+				psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
 				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
 				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));

@@ -66,12 +66,18 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	connect(gC5YD,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialD()));
 	connect(editPoints, SIGNAL(clicked()), this, SLOT(handleEditButton()));
 	connect(editControlPoints, SIGNAL(clicked()), this, SLOT(handleEditControlButton()));
-	connect(buttonNewGrid, SIGNAL(clicked()), this, SLOT(handleNewMeshButton()));
+	connect(buttonNewGrid, SIGNAL(clicked()), this, SIGNAL(createNewMesh()));
+	connect(buttonResetGrid, SIGNAL(clicked()), this, SIGNAL(resetMesh()));
+	connect(buttonPoLIne, SIGNAL(clicked()), this, SIGNAL(meshToShape()));
 	QSize iconSize = QSize(22, 22);
 	editPoints->setIcon(QIcon(loadIcon("MoveNode.png")));
 	editPoints->setIconSize(iconSize);
 	editControlPoints->setIcon(QIcon(loadIcon("MoveKontrol.png")));
 	editControlPoints->setIconSize(iconSize);
+	resetControlPoint->setIcon(QIcon(loadIcon("Reset1Node.png")));
+	resetControlPoint->setIconSize(iconSize);
+	resetAllControlPoints->setIcon(QIcon(loadIcon("ResetNode.png")));
+	resetAllControlPoints->setIconSize(iconSize);
 	languageChange();
 	selectLinear();
 }
@@ -133,11 +139,6 @@ void GradientVectorDialog::handleEditControlButton()
 {
 	if (editControlPoints->isChecked())
 		emit editGradient(7);
-}
-
-void GradientVectorDialog::handleNewMeshButton()
-{
-	emit createNewMesh();
 }
 
 void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)

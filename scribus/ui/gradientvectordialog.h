@@ -55,7 +55,6 @@ public slots:
 	void languageChange();
 	void handleEditButton();
 	void handleEditControlButton();
-	void handleNewMeshButton();
 	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void changeSpecialL();
 	void changeSpecialR();
@@ -67,6 +66,8 @@ signals:
 	void NewSpecial(double, double, double, double, double, double, double, double, double, double);
 	void editGradient(int);
 	void createNewMesh();
+	void resetMesh();
+	void meshToShape();
 
 };
 #endif

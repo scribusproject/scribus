@@ -389,6 +389,7 @@ public:
 	QList<QList<meshPoint> > meshGradientArray;
 	int selectedMeshPointX;
 	int selectedMeshPointY;
+	int selectedMeshControlPoint;
 	int Cols;
 	double ColGap;
 	double gridOffset_;
@@ -649,6 +650,8 @@ public:
 	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4);
 	void setMeshPointColor(int x, int y, QString color, int shade, double transparency);
 	void createGradientMesh(int rows, int cols);
+	void resetGradientMesh();
+	void meshToShape();
 	void gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 
