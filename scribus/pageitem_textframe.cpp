@@ -335,6 +335,7 @@ struct LineControl {
 	double   colRight;
 	int      column;
 	bool     startOfCol;
+	bool     hasDropCap;
 	double   ascend;
 	double   descend;
 	double   width;
@@ -385,7 +386,8 @@ struct LineControl {
 		init fields for a new line at current position
 	 */
 	void startLine(int first)
-	{		
+	{
+		hasDropCap = false;
 		itemsInLine = 0;
 		line.x = xPos;
 		line.y = yPos;
@@ -441,7 +443,7 @@ struct LineControl {
 	}
 	
 	/// called when a mandatory break is found
-	void breakLine(const StoryText& itemText, int last)
+	void breakLine(const StoryText& itemText, const ParagraphStyle& style, FirstLineOffsetPolicy offsetPolicy, int last)
 	{
 		breakIndex = last;
 		breakXPos  = line.x;
@@ -451,6 +453,8 @@ struct LineControl {
 		// #8194, #8717 : update line ascent and descent with sensible values
 		// so that endOfLine() returns correct result
 		updateHeightMetrics(itemText);
+		// #9060 : update line offset too
+		updateLineOffset(itemText, style, offsetPolicy);
 	}
 	
 	/// use the last remembered break to set line width and itemrange
@@ -682,7 +686,45 @@ struct LineControl {
 		}
 	}
 	
-	
+	void updateLineOffset(const StoryText& itemText, const ParagraphStyle& style, FirstLineOffsetPolicy offsetPolicy)
+	{
+		if (itemsInLine <= 0)
+			return;
+		if ((!hasDropCap) && (startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
+		{
+			//FIXME: use glyphs, not chars
+			double firstasce = itemText.charStyle(line.firstItem).font().ascent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
+			double adj (0.0);
+			double currasce (this->getLineAscent(itemText));
+			if( offsetPolicy == FLOPRealGlyphHeight )
+			{
+				adj = firstasce - currasce;
+			}
+			else if( offsetPolicy == FLOPFontAscent )
+			{
+				adj = 0.0;
+			}
+			else if( offsetPolicy == FLOPLineSpacing )
+			{
+				adj = firstasce - style.lineSpacing();
+			}
+			line.ascent = currasce;
+			line.y -= adj;
+			yPos -= adj;
+		}
+		else if ((!startOfCol) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+		{
+			QChar ch = itemText.text(line.firstItem);
+			double firstasce = style.lineSpacing();
+			double currasce  = getLineHeight(itemText);						
+			double adj = firstasce - currasce;
+//			qDebug() << QString("move2 line %1.. down by %2").arg(current.line.firstItem).arg(-adj);
+			line.ascent = currasce;
+			line.y -= adj;
+			yPos -= adj;
+		}
+	}
+
 private:
 	double frameWidth;
 	double frameHeight;
@@ -919,7 +961,6 @@ void PageItem_TextFrame::layout()
 	tTabValues.clear();
 	
 	bool DropCmode = false;
-	bool AbsHasDrop = false;
 	double desc=0, asce=0, maxDY=0, desc2=0, maxDX=0;
 	double DropCapDrop = 0;
 	int    DropLines = 0;
@@ -1446,7 +1487,7 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(static_cast<int>(ceil(current.xPos)), static_cast<int>(ceil(current.yPos-TopOffset)));
 				}
 
-				if (((fBorder)) && (!AbsHasDrop))
+				if (((fBorder)) && (!current.hasDropCap))
 					current.xPos += extra.Left;
 				// indent first line of par
 				if (a > 0)
@@ -1460,7 +1501,7 @@ void PageItem_TextFrame::layout()
 						current.xPos += style.firstIndent();
 				}
 				// add left margin
-				if (!AbsHasDrop)
+				if (!current.hasDropCap)
 					current.xPos += style.leftMargin();
 				if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct) {
 					current.xPos += opticalLeftMargin(itemText, current.line);
@@ -1666,9 +1707,9 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				DropCmode = false;
-				AbsHasDrop = true;
 				DropLinesCount = 0;
 				maxDY = current.yPos;
+				current.hasDropCap = true;
 				current.xPos += style.dropCapOffset();
 				hl->glyph.xadvance += style.dropCapOffset();
 //				qDebug() << QString("dropcapoffset: %1 -> %2").arg(current.xPos-style.dropCapOffset()).arg(current.xPos);
@@ -1723,7 +1764,7 @@ void PageItem_TextFrame::layout()
 				if (SpecialChars::isBreak(hl->ch, Cols > 1))
 				{
 					// find end of line
-					current.breakLine(itemText, a);
+					current.breakLine(itemText, style, firstLineOffset(), a);
 					EndX = current.endOfLine(cl, pf2, style.rightMargin());
 					current.finishLine(EndX);
 					
@@ -1792,6 +1833,7 @@ void PageItem_TextFrame::layout()
 						}
 						
 						current.updateHeightMetrics(itemText);
+						current.updateLineOffset(itemText, style, firstLineOffset());
 						EndX = current.endOfLine(cl, pf2, style.rightMargin());
 						current.finishLine(EndX);
 
@@ -1870,7 +1912,7 @@ void PageItem_TextFrame::layout()
 							else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 								style.setLineSpacing(m_Doc->guidesPrefs().valueBaselineGrid);
 						}
-						current.breakLine(itemText, a);
+						current.breakLine(itemText, style, firstLineOffset(), a);
 //						qDebug() << QString("style no break pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent());
 //						qDebug() << QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
@@ -1888,9 +1930,9 @@ void PageItem_TextFrame::layout()
 					if (outs && !current.isEndOfLine(hl->glyph.wide() + style.rightMargin()))
 					{
 						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK) 
-							&& AbsHasDrop)
+							&& current.hasDropCap)
 						{
-							AbsHasDrop = false;
+							current.hasDropCap = false;
 							if (current.yPos < maxDY)
 								current.yPos = maxDY;
 //							qDebug() << QString("after dropcaps: y=%1 maxDY=%2").arg(current.yPos).arg(maxDY);
@@ -1917,12 +1959,12 @@ void PageItem_TextFrame::layout()
 //									qDebug() << QString("go no room 1: %1").arg(a));
 									break;
 								}
-								if (AbsHasDrop)
+								if (current.hasDropCap)
 								{
 									++DropLinesCount;
 									if (DropLinesCount >= DropLines)
 									{
-										AbsHasDrop = false;
+										current.hasDropCap = false;
 										current.xPos = current.colLeft;
 									}
 									else
@@ -1968,9 +2010,9 @@ void PageItem_TextFrame::layout()
 					else
 					{
 						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK ) 
-							&& AbsHasDrop)
+							&& current.hasDropCap)
 						{
-							AbsHasDrop = false;
+							current.hasDropCap = false;
 							if (current.yPos < maxDY)
 								current.yPos = maxDY;
 //							qDebug() << QString("after dropcap2: y=%1+%2").arg(current.yPos).arg(maxDY);
@@ -1997,12 +2039,12 @@ void PageItem_TextFrame::layout()
 								lineSpacing = m_Doc->guidesPrefs().valueBaselineGrid;
 							current.yPos += lineSpacing;
 						}
-						if (AbsHasDrop)
+						if (current.hasDropCap)
 						{
 							++DropLinesCount;
 							if (DropLinesCount >= DropLines)
 							{
-								AbsHasDrop = false;
+								current.hasDropCap = false;
 								current.xPos = current.colLeft;
 							}
 							else
@@ -2027,89 +2069,6 @@ void PageItem_TextFrame::layout()
 				// Let’s try to change into "calc. _wanted_ vertical space" - pm
 				if (current.itemsInLine != 0)
 				{
-					if ((!AbsHasDrop) && (current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
-					{
-						//FIXME: use glyphs, not chars
-						double firstasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-						double adj (0.0);
-						double currasce (current.getLineAscent(itemText));
-						if( firstLineOffset() == FLOPRealGlyphHeight )
-						{
-							adj = firstasce - currasce;
-						}
-						else if( firstLineOffset() == FLOPFontAscent )
-						{
-							adj = 0.0;
-						}
-						else if( firstLineOffset() == FLOPLineSpacing )
-						{
-							adj = firstasce - style.lineSpacing();
-						}
-// 						qDebug() << QString("firstLineOffsetP ADJ FASC CASC %1 %2 %3 %4").arg(firstLineOffsetP).arg(adj).arg(firstasce).arg(currasce).toAscii();
-							/*0;
-						if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
-							currasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-						else if (itemText.object(current.line.firstItem) != 0)
-							currasce = qMax(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
-						else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
-							currasce = itemText.charStyle(current.line.firstItem).font().realCharAscent(itemText.text(current.line.firstItem), itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-						for (int zc = 0; zc < current.itemsInLine; ++zc)
-						{
-							QChar ch = itemText.text(current.line.firstItem + zc);
-							if (ch == SpecialChars::PAGENUMBER)
-								ch = '8'; //should have highest ascender even in oldstyle
-							const CharStyle& cStyle(itemText.charStyle(current.line.firstItem + zc));
-							if ((ch == SpecialChars::TAB) || (ch == QChar(10))
-								|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
-								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::LINEBREAK)
-								|| (ch == SpecialChars::FRAMEBREAK) || (ch.isSpace()))
-								continue;
-							double asce;
-							if (itemText.object(current.line.firstItem + zc) != 0)
-								asce = (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (cStyle.scaleV() / 1000.0);
-							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
-								asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0);
-//							qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce);
-						currasce = qMax(currasce, asce);
-						}*/
-//						qDebug() << QString("move1 line %1.. down by %2").arg(current.line.firstItem).arg(-adj);
-						current.line.ascent = currasce;
-						current.line.y -= adj;
-						current.yPos -= adj;
-					}
-					else if ((!current.startOfCol) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
-					{
-						QChar ch = itemText.text(current.line.firstItem);
-						double firstasce = style.lineSpacing();
-						double currasce = current.getLineHeight(itemText);
-						/*0;
-						if (itemText.object(current.line.firstItem) != 0)
-							currasce = qMax(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
-						else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
-							currasce = itemText.charStyle(current.line.firstItem).font().height(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-						for (int zc = 0; zc < current.itemsInLine; ++zc)
-						{
-							QChar ch = itemText.text(current.line.firstItem + zc);
-							if ((ch == SpecialChars::TAB) || (ch == QChar(10))
-								|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
-								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::FRAMEBREAK)
-								|| (ch == SpecialChars::LINEBREAK) || (ch.isSpace()))
-								continue;
-							double asce;
-							if (itemText.object(current.line.firstItem + zc) != 0)
-								asce = (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem + zc).scaleV() / 1000.0);
-							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
-								asce = itemText.charStyle(current.line.firstItem + zc).font().height(itemText.charStyle(current.line.firstItem + zc).fontSize() / 10.0);
-//							qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce);
-							currasce = qMax(currasce, asce);
-						}
-						*/							
-						double adj = firstasce - currasce;
-//						qDebug() << QString("move2 line %1.. down by %2").arg(current.line.firstItem).arg(-adj);
-						current.line.ascent = currasce;
-						current.line.y -= adj;
-						current.yPos -= adj;
-					}
 					if ( itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap)
 					{
 						// put line back to top
@@ -2197,7 +2156,7 @@ void PageItem_TextFrame::layout()
 // end of itemText
 		int a = itemText.length()-1;
 		hl = a >=0 ? itemText.item(a) : NULL;
-		current.breakLine(itemText, a);
+		current.breakLine(itemText, style, firstLineOffset(), a);
 		EndX = current.endOfLine(cl, pf2, style.rightMargin());
 		current.finishLine(EndX);
 
@@ -2234,92 +2193,6 @@ void PageItem_TextFrame::layout()
 
 		if (current.itemsInLine != 0)
 		{
-			if ((!AbsHasDrop) && (current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
-			{
-				double firstasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-				double adj (0.0);
-				double currasce (current.getLineAscent(itemText));
-				if( firstLineOffset() == FLOPRealGlyphHeight )
-				{
-					adj = firstasce - currasce;
-				}
-				else if( firstLineOffset() == FLOPFontAscent )
-				{
-					adj = 0.0;
-				}
-				else if( firstLineOffset() == FLOPLineSpacing )
-				{
-					adj = firstasce - style.lineSpacing();
-				}
-				/*0;
-				double asce;
-				if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
-					asce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-				else if (itemText.object(current.line.firstItem) != 0)
-					asce = (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
-				else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
-					asce = itemText.charStyle(current.line.firstItem).font().realCharAscent(itemText.text(current.line.firstItem), itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-				qDebug() << QString("starting with ascender %1 (firstasce=%2)").arg(asce).arg(firstasce);
-				currasce = asce;
-				for (int zc = 0; zc < current.itemsInLine; ++zc)
-				{
-					QChar ch = itemText.text(current.line.firstItem+zc);
-					if (ch == SpecialChars::PAGENUMBER)
-						ch = '8'; // should have highest ascender even in oldstyle
-					if ((ch == SpecialChars::TAB) || (ch == QChar(10))
-						|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
-						|| (ch == SpecialChars::FRAMEBREAK) || (ch == SpecialChars::COLBREAK)
-						|| (ch == SpecialChars::LINEBREAK) || (ch.isSpace()))
-						continue;
-					if (itemText.object(current.line.firstItem+zc) != 0)
-						asce = (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0);
-					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
-						asce = itemText.charStyle(current.line.firstItem+zc).font().realCharAscent(itemText.text(current.line.firstItem+zc), itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
-//					qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce);
-					currasce = qMax(currasce, asce);
-				}
-				*/
-//				qDebug() << QString("move3 line %1.. down by %2 current ascender=%3").arg(current.line.firstItem).arg(-adj).arg(currasce);
-
-				current.line.ascent = currasce;
-				current.line.y -= adj;
-				current.yPos -= adj;
-			}
-			else if ((!current.startOfCol) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
-			{
-				double firstasce = style.lineSpacing();
-				double currasce = current.getLineHeight(itemText);
-				/*0;
-				if (itemText.object(current.line.firstItem) != 0)
-					currasce = qMax(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
-				else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
-					currasce = itemText.charStyle(current.line.firstItem).font().height(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-				for (int zc = 0; zc < current.itemsInLine; ++zc)
-				{
-					QChar ch = itemText.text(current.line.firstItem+zc);
-					if (ch == SpecialChars::PAGENUMBER)
-						ch = '8'; // should have highest ascender even in oldstyle
-					if ((ch == SpecialChars::TAB) || (ch == QChar(10))
-						|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
-						|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::FRAMEBREAK)
-						|| (ch == SpecialChars::LINEBREAK) || (ch.isSpace()))
-						continue;
-					double asce;
-					if (itemText.object(current.line.firstItem+zc) != 0)
-						asce = (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0);
-					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
-						asce = itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0);
-//					qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce);
-					currasce = qMax(currasce, asce);
-				}
-				*/
-				double adj = firstasce - currasce;
-//				qDebug() << QString(QString("move4 line %1.. down by %2").arg(current.line.firstItem).arg(-adj);
-
-				current.line.ascent = currasce;
-				current.line.y -= adj;
-				current.yPos -= adj;
-			}
 			if ( itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap )
 			{
 				// put line back to top
