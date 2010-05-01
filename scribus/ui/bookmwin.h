@@ -106,8 +106,8 @@ signals:
 protected:
 	void dropEvent(QDropEvent *e);
 
-	private slots:
-		void setPageItem(QTreeWidgetItem * old, QTreeWidgetItem * newItem);
+private slots:
+	void setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * previous);
 };
 
 #endif
