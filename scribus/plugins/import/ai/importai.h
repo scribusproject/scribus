@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 
 #include "fpointarray.h"
+#include "mesh.h"
 #include "sccolor.h"
 #include "text/storytext.h"
 #include "vgradient.h"
@@ -172,9 +173,8 @@ private:
 	double meshNode4PointX, meshNode4PointY;
 	double meshNode4Control1X, meshNode4Control1Y;
 	double meshNode4Control2X, meshNode4Control2Y;
-	double accumColorC, accumColorM, accumColorY, accumColorK;
 	QString meshColor1, meshColor2, meshColor3, meshColor4;
-//	QPainterPath meshBoundingPath;
+	QList<QList<meshPoint> > meshGradientArray;
 	QString docCreator;
 	QString docDate;
 	QString docTime;
