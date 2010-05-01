@@ -153,9 +153,9 @@ void BookMView::AddPageItem(PageItem* ite)
 	Last = NrItems;
 }
 
-void BookMView::setPageItem(QTreeWidgetItem * /*old*/, QTreeWidgetItem * newItem)
+void BookMView::setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * /*previous*/)
 {
-	BookMItem * i = dynamic_cast<BookMItem*>(newItem);
+	BookMItem * i = dynamic_cast<BookMItem*>(current);
 	// something weird here at 1st call...
 	if (i)
 		emit SelectElement(i->PageObject);
