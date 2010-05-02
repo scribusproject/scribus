@@ -171,59 +171,63 @@ void BookMView::dropEvent(QDropEvent *e)
 // #include <QtDebug>
 void BookMView::rebuildTree()
 {
-	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::All);
-	// level - parent : children
-	QMap<int,QMap<int,QList<BookMItem*> > > levels;
-	QMap<int,BookMItem*> items;
-
 	Last = 0;
 
-	while (*it)
+	// Reassign item ids first, some 1.3.4-1.3.7svn docs
+	// have broken items IDs
+	QTreeWidgetItemIterator it1(this, QTreeWidgetItemIterator::All);
+	while (*it1)
 	{
-		BookMItem * currItem = (BookMItem*)(*it);
+		BookMItem * currItem = (BookMItem*)(*it1);
+		currItem->ItemNr = ++Last;
+		++it1;
+	}
+
+	int topLevelCount = this->topLevelItemCount();
+	QTreeWidgetItemIterator it2(this, QTreeWidgetItemIterator::All);
+	while (*it2)
+	{
+		BookMItem * currItem = (BookMItem*)(*it2);
 		// handle parents
 		BookMItem * parent = (BookMItem*)currItem->parent();
 		currItem->Pare = parent ? parent->ItemNr : 0;
+		if (currItem->Pare == 0) // top level item
+		{
+			BookMItem *prev   = NULL, *next = NULL;
+			int topLevelIndex = this->indexOfTopLevelItem(currItem);
+			if (topLevelIndex >= 0)
+			{
+				prev = (topLevelIndex > 0) ? (BookMItem *) this->topLevelItem(topLevelIndex - 1) : NULL;
+				next = (topLevelIndex < (topLevelCount - 1)) ? (BookMItem *) this->topLevelItem(topLevelIndex + 1) : NULL;
+			}
+			currItem->Prev = prev ? prev->ItemNr : 0;
+			currItem->Next = next ? next->ItemNr : 0;
+		}
 
-		levels[currItem->level()][currItem->Pare].append(currItem);
-		items[Last] = currItem;
-		
-		currItem->ItemNr = Last;
-		++Last;
-		++it;
+		// handle children
+		currItem->First = 0;
+		currItem->Last  = 0;
+		int childCount  = currItem->childCount();
+		if (childCount > 0)
+		{
+			BookMItem * child = NULL, *prev = NULL, *next = NULL;
+			BookMItem * firstChild = (BookMItem*) currItem->child(0);
+			BookMItem * lastChild  = (BookMItem*) currItem->child(childCount - 1);
+			currItem->First = firstChild->ItemNr;
+			currItem->Last  = lastChild->ItemNr;
+			for (int i = 0; i < childCount; ++i)
+			{
+				child = (BookMItem*) currItem->child(i);
+				next  = (i < (childCount - 1)) ? (BookMItem*) currItem->child(i + 1) : NULL;
+				child->Prev = prev ? prev->ItemNr : 0;
+				child->Next = next ? next->ItemNr : 0;
+				prev = child;
+			}
+		}
+		++it2;
 	}
 
 	NrItems = Last;
-
-	foreach (int level, levels.keys())
-	{
-// 		qDebug() << "LEVEL: " << level;
-		QMapIterator<int,QList<BookMItem*> > parent(levels[level]);
-		while (parent.hasNext())
-		{
-			parent.next();
-// 			qDebug() << "PARENT: " << parent.key();
-			int cnt = parent.value().count();
-			items[parent.key()]->First = cnt > 0 ? parent.value().at(0)->ItemNr : 0;
-			items[parent.key()]->Last = cnt > 0 ? parent.value().at(cnt-1)->ItemNr : 0;
-			int prev = parent.key();
-			int ix = 0;
-			foreach (BookMItem* item, parent.value())
-			{
-// 				qDebug() << "CHILD: " << item->ItemNr;
-				item->Prev = prev;
-				prev = item->ItemNr;
-				if (ix < (cnt - 1))
-					item->Next = parent.value()[ix+1]->ItemNr;
-				++ix;
-			}
-		}
-	}
-/*
-	foreach (BookMItem* i, items.values())
-	{
-		qDebug() << i->ItemNr << " " << i->text(0).left(10) << " " << i->Prev << " " << i->Next << " " << i->Pare << " " << i->First << " " << i->Last;
-	}*/
 
 	emit MarkMoved();
 	emit changed();
