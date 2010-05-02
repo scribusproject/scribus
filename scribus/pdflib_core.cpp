@@ -9544,48 +9544,25 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
 {
 	QString tmp;
-	uint StX;
-	int Basis;
 	int ResO;
 	BookMItem* ip;
 	QTreeWidgetItem* pp;
 	QString Inhal = "";
 	QMap<int,QString> Inha;
-	Inha.clear();
-	int Bmc = 0;
-	//if ((Bvie->childCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	{
-		Basis = ObjCounter; // - 1;
+		int Basis = ObjCounter - 1;
 		Outlines.Count = Bvie->topLevelItemCount();
 		ip = (BookMItem*)Bvie->topLevelItem(0);
 		pp = Bvie->topLevelItem(0);
 		Outlines.First = ip->ItemNr+Basis;
-		while (pp)
-		{
-// 			if (!pp->nextSibling())
-			if (!Bvie->itemBelow(pp))
-			{
-				ip = (BookMItem*)pp;
-				Outlines.Last = ip->ItemNr+Basis;
-				break;
-			}
-// 			pp = pp->nextSibling();
-			pp = Bvie->itemBelow(pp);
-		}
+		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr+Basis;
 		QTreeWidgetItemIterator it(Bvie);
-// 		for ( ; it.current(); ++it)
 		while (*it)
 		{
 			ip = (BookMItem*)(*it);
-			Inhal = "";
-			Bmc++;
-			Inhal += QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
-			QString encText = "";
-			for (int telen = 0; telen < ip->Titel.length(); telen++)
-			{
-				encText += ip->Titel.at(telen);
-			}
+			QString encText = ip->Titel;
+			Inhal  = QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
 			Inhal += "<<\n/Title "+EncStringUTF16("("+encText+")", ip->ItemNr+Basis)+"\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
@@ -9599,7 +9576,6 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				Inhal += "/First "+QString::number(ip->First+Basis)+" 0 R\n";
 			if (ip->Last != 0)
 				Inhal += "/Last "+QString::number(ip->Last+Basis)+" 0 R\n";
-// 			if (ip->firstChild())
 			if (ip->childCount())
 				Inhal += "/Count -"+QString::number(ip->childCount())+"\n";
 			if ((ip->PageObject->OwnPage != -1) && PageTree.Kids.contains(ip->PageObject->OwnPage))
@@ -9608,10 +9584,11 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 			Inha[ip->ItemNr] = Inhal;
 			++it;
 		}
-		for (int b = 0; b < Bmc; ++b)
+		QMap<int,QString> ::ConstIterator contentIt;
+		for (contentIt = Inha.begin(); contentIt != Inha.end(); ++contentIt)
 		{
 			XRef.append(bytesWritten());
-			PutDoc(Inha[b]);
+			PutDoc(contentIt.value());
 			ObjCounter++;
 		}
 	}
@@ -9981,7 +9958,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc(xmpPacket);
 		PutDoc("\nendstream\nendobj\n");
 	}
-	StX = bytesWritten();
+	uint StX = bytesWritten();
 	PutDoc("xref\n");
 	PutDoc("0 "+QString::number(ObjCounter)+"\n");
 	PutDoc("0000000000 65535 f \n");
