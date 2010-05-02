@@ -688,8 +688,8 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	QList<PageItem*> Elements = parseWmfCommands();
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
-		m_Doc->documentInfo.setTitle(m_docTitle);
-		m_Doc->documentInfo.setComments(m_docDesc);
+		m_Doc->documentInfo().setTitle(m_docTitle);
+		m_Doc->documentInfo().setComments(m_docDesc);
 	}
 	m_tmpSel->clear();
 	if (Elements.count() == 0)

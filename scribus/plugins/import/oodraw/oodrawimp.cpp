@@ -565,22 +565,22 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		QDomElement mp = metaElem.namedItem( "office:meta" ).toElement();
 		mpg = mp.namedItem( "dc:title" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setTitle(mpg.toElement().text());
+			m_Doc->documentInfo().setTitle(mpg.toElement().text());
 		mpg = mp.namedItem( "meta:initial-creator" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setAuthor(mpg.toElement().text());
+			m_Doc->documentInfo().setAuthor(mpg.toElement().text());
 		mpg = mp.namedItem( "dc:description" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setComments(mpg.toElement().text());
+			m_Doc->documentInfo().setComments(mpg.toElement().text());
 		mpg = mp.namedItem( "dc:language" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setLangInfo(mpg.toElement().text());
+			m_Doc->documentInfo().setLangInfo(mpg.toElement().text());
 		mpg = mp.namedItem( "meta:creation-date" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setDate(mpg.toElement().text());
+			m_Doc->documentInfo().setDate(mpg.toElement().text());
 		mpg = mp.namedItem( "dc:creator" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setContrib(mpg.toElement().text());
+			m_Doc->documentInfo().setContrib(mpg.toElement().text());
 		mpg = mp.namedItem( "meta:keywords" );
 		if (!mpg.isNull())
 		{
@@ -590,7 +590,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 				Keys += n.toElement().text()+", ";
 			}
 			if (Keys.length() > 2)
-				m_Doc->documentInfo.setKeywords(Keys.left(Keys.length()-2));
+				m_Doc->documentInfo().setKeywords(Keys.left(Keys.length()-2));
 		}
 	}
 	FPoint minSize = m_Doc->minCanvasCoordinate;

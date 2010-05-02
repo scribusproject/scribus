@@ -103,22 +103,22 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("DGAP"        ,m_Doc->itemToolPrefs().textColumnGap);
 	docu.writeAttribute("TabFill"     ,m_Doc->itemToolPrefs().textTabFillChar);
 	docu.writeAttribute("TabWidth"    ,m_Doc->itemToolPrefs().textTabWidth);
-	docu.writeAttribute("AUTHOR"      ,m_Doc->documentInfo.getAuthor());
-	docu.writeAttribute("COMMENTS"    ,m_Doc->documentInfo.getComments());
-	docu.writeAttribute("KEYWORDS"    ,m_Doc->documentInfo.getKeywords());
-	docu.writeAttribute("PUBLISHER",m_Doc->documentInfo.getPublisher());
-	docu.writeAttribute("DOCDATE",m_Doc->documentInfo.getDate());
-	docu.writeAttribute("DOCTYPE",m_Doc->documentInfo.getType());
-	docu.writeAttribute("DOCFORMAT",m_Doc->documentInfo.getFormat());
-	docu.writeAttribute("DOCIDENT",m_Doc->documentInfo.getIdent());
-	docu.writeAttribute("DOCSOURCE",m_Doc->documentInfo.getSource());
-	docu.writeAttribute("DOCLANGINFO",m_Doc->documentInfo.getLangInfo());
-	docu.writeAttribute("DOCRELATION",m_Doc->documentInfo.getRelation());
-	docu.writeAttribute("DOCCOVER",m_Doc->documentInfo.getCover());
-	docu.writeAttribute("DOCRIGHTS",m_Doc->documentInfo.getRights());
-	docu.writeAttribute("DOCCONTRIB",m_Doc->documentInfo.getContrib());
-	docu.writeAttribute("TITLE",m_Doc->documentInfo.getTitle());
-	docu.writeAttribute("SUBJECT",m_Doc->documentInfo.getSubject());
+	docu.writeAttribute("AUTHOR"      ,m_Doc->documentInfo().author());
+	docu.writeAttribute("COMMENTS"    ,m_Doc->documentInfo().comments());
+	docu.writeAttribute("KEYWORDS"    ,m_Doc->documentInfo().keywords());
+	docu.writeAttribute("PUBLISHER",m_Doc->documentInfo().publisher());
+	docu.writeAttribute("DOCDATE",m_Doc->documentInfo().date());
+	docu.writeAttribute("DOCTYPE",m_Doc->documentInfo().type());
+	docu.writeAttribute("DOCFORMAT",m_Doc->documentInfo().format());
+	docu.writeAttribute("DOCIDENT",m_Doc->documentInfo().ident());
+	docu.writeAttribute("DOCSOURCE",m_Doc->documentInfo().source());
+	docu.writeAttribute("DOCLANGINFO",m_Doc->documentInfo().langInfo());
+	docu.writeAttribute("DOCRELATION",m_Doc->documentInfo().relation());
+	docu.writeAttribute("DOCCOVER",m_Doc->documentInfo().cover());
+	docu.writeAttribute("DOCRIGHTS",m_Doc->documentInfo().rights());
+	docu.writeAttribute("DOCCONTRIB",m_Doc->documentInfo().contrib());
+	docu.writeAttribute("TITLE",m_Doc->documentInfo().title());
+	docu.writeAttribute("SUBJECT",m_Doc->documentInfo().subject());
 	docu.writeAttribute("VHOCH"  , m_Doc->typographicPrefs().valueSuperScript);
 	docu.writeAttribute("VHOCHSC", m_Doc->typographicPrefs().scalingSuperScript);
 	docu.writeAttribute("VTIEF"  , m_Doc->typographicPrefs().valueSubScript);
@@ -787,7 +787,7 @@ void Scribus134Format::writeTOC(ScXmlStreamWriter & docu)
 void Scribus134Format::writeSections(ScXmlStreamWriter & docu) 
 {
 	docu.writeStartElement("Sections");
-	for(DocumentSectionMap::Iterator it = m_Doc->sections.begin() ; it != m_Doc->sections.end(); ++it )
+	for(DocumentSectionMap::Iterator it = m_Doc->sections().begin() ; it != m_Doc->sections().end(); ++it )
 	{
 		docu.writeEmptyElement("Section");
 		docu.writeAttribute("Number", (*it).number);

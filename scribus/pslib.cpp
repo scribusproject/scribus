@@ -1486,8 +1486,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	double gy = 0.0;
 	double gw = 0.0;
 	double gh = 0.0;;
-	PS_set_Info("Author", Doc->documentInfo.getAuthor());
-	PS_set_Info("Title", Doc->documentInfo.getTitle());
+	PS_set_Info("Author", Doc->documentInfo().author());
+	PS_set_Info("Title", Doc->documentInfo().title());
 	if (!farb)
 		PS_setGray();
 	applyICC = Ic;

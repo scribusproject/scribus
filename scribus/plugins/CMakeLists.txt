@@ -8,13 +8,13 @@ ADD_SUBDIRECTORY(gettext)
 ADD_SUBDIRECTORY(pixmapexport)
 ADD_SUBDIRECTORY(saveastemplateplugin)
 IF(NOT WANT_SCRIPTER2)
-#scripter1
-IF(NOT WIN32)
-  MESSAGE(STATUS "Building with Scripter 1")
-  ADD_SUBDIRECTORY(scriptplugin)
-ENDIF(NOT WIN32)
+  #scripter1
+  IF(NOT WIN32)
+    MESSAGE(STATUS "Building with Scripter 1")
+    ADD_SUBDIRECTORY(scriptplugin)
+  ENDIF(NOT WIN32)
 ELSE(NOT WANT_SCRIPTER2)
-#scripter2
+  #scripter2
   MESSAGE(STATUS "Building with Scripter 2")
   ADD_SUBDIRECTORY(scripter)
 ENDIF(NOT WANT_SCRIPTER2)

@@ -213,6 +213,10 @@ public:
 	OperatorToolPrefs& opToolPrefs() { return docPrefsData.opToolPrefs; }
 	ColorPrefs& colorPrefs() { return docPrefsData.colorPrefs; }
 	CMSData& cmsSettings() { return docPrefsData.colorPrefs.DCMSset; }
+	DocumentInformation& documentInfo() { return docPrefsData.docInfo; }
+	void setDocumentInfo(DocumentInformation di) { docPrefsData.docInfo=di; }
+	DocumentSectionMap& sections() { return docPrefsData.docSectionMap; }
+	void setSections(DocumentSectionMap dsm) { docPrefsData.docSectionMap=dsm; }
 
 	const ApplicationPrefs& prefsData() { return docPrefsData; }
 	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData);
@@ -1078,8 +1082,8 @@ public: // Public attributes
 	bool useRaster;
 	/** \brief Im Dokument benutzte Farben */
 	ColorList PageColors;
-	/** \brief InfoStrings fuer das aktuelle Dokument */
-	DocumentInformation documentInfo;
+	//->Prefs /** \brief InfoStrings fuer das aktuelle Dokument */
+	//->Prefs DocumentInformation documentInfo;
 	int appMode;
 	int SubMode;
 	double *ShapeValues;
@@ -1191,7 +1195,7 @@ public:
 	//Attributes to be applied to frames
 	//->Prefs ObjAttrVector docItemAttributes;
 	//->Prefs ToCSetupVector docToCSetups;
-	DocumentSectionMap sections;
+	//->Prefs DocumentSectionMap sections;
 	FPointArray symReturn;
 	FPointArray symNewLine;
 	FPointArray symTab;

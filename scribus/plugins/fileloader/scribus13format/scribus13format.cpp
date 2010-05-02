@@ -278,21 +278,23 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->itemToolPrefs().textFont = Defont;
 		m_Doc->itemToolPrefs().textColumns= dc.attribute("DCOL", "1").toInt();
 		m_Doc->itemToolPrefs().textColumnGap = ScCLocale::toDoubleC(dc.attribute("DGAP"), 0.0);
-		m_Doc->documentInfo.setAuthor(dc.attribute("AUTHOR"));
-		m_Doc->documentInfo.setComments(dc.attribute("COMMENTS"));
-		m_Doc->documentInfo.setKeywords(dc.attribute("KEYWORDS",""));
-		m_Doc->documentInfo.setTitle(dc.attribute("TITLE"));
-		m_Doc->documentInfo.setPublisher(dc.attribute("PUBLISHER", ""));
-		m_Doc->documentInfo.setDate(dc.attribute("DOCDATE", ""));
-		m_Doc->documentInfo.setType(dc.attribute("DOCTYPE", ""));
-		m_Doc->documentInfo.setFormat(dc.attribute("DOCFORMAT", ""));
-		m_Doc->documentInfo.setIdent(dc.attribute("DOCIDENT", ""));
-		m_Doc->documentInfo.setSource(dc.attribute("DOCSOURCE", ""));
-		m_Doc->documentInfo.setLangInfo(dc.attribute("DOCLANGINFO", ""));
-		m_Doc->documentInfo.setRelation(dc.attribute("DOCRELATION", ""));
-		m_Doc->documentInfo.setCover(dc.attribute("DOCCOVER", ""));
-		m_Doc->documentInfo.setRights(dc.attribute("DOCRIGHTS", ""));
-		m_Doc->documentInfo.setContrib(dc.attribute("DOCCONTRIB", ""));
+		DocumentInformation di;
+		di.setAuthor(dc.attribute("AUTHOR"));
+		di.setComments(dc.attribute("COMMENTS"));
+		di.setKeywords(dc.attribute("KEYWORDS",""));
+		di.setTitle(dc.attribute("TITLE"));
+		di.setPublisher(dc.attribute("PUBLISHER", ""));
+		di.setDate(dc.attribute("DOCDATE", ""));
+		di.setType(dc.attribute("DOCTYPE", ""));
+		di.setFormat(dc.attribute("DOCFORMAT", ""));
+		di.setIdent(dc.attribute("DOCIDENT", ""));
+		di.setSource(dc.attribute("DOCSOURCE", ""));
+		di.setLangInfo(dc.attribute("DOCLANGINFO", ""));
+		di.setRelation(dc.attribute("DOCRELATION", ""));
+		di.setCover(dc.attribute("DOCCOVER", ""));
+		di.setRights(dc.attribute("DOCRIGHTS", ""));
+		di.setContrib(dc.attribute("DOCCONTRIB", ""));
+		m_Doc->setDocumentInfo(di);
 		m_Doc->typographicPrefs().valueSuperScript = dc.attribute("VHOCH").toInt();
 		m_Doc->typographicPrefs().scalingSuperScript = dc.attribute("VHOCHSC").toInt();
 		m_Doc->typographicPrefs().valueSubScript = dc.attribute("VTIEF").toInt();
@@ -775,7 +777,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						newSection.sectionstartindex=sectionElem.attribute("Start").toInt();
 						newSection.reversed=static_cast<bool>(sectionElem.attribute("Reversed").toInt());
 						newSection.active=static_cast<bool>(sectionElem.attribute("Active").toInt());
-						m_Doc->sections.insert(newSection.number, newSection);
+						m_Doc->sections().insert(newSection.number, newSection);
 					}
 					Section = Section.nextSibling();
 				}
@@ -1209,21 +1211,21 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("DGAP",m_Doc->itemToolPrefs().textColumnGap);
 	dc.setAttribute("TabFill",m_Doc->itemToolPrefs().textTabFillChar);
 	dc.setAttribute("TabWidth",m_Doc->itemToolPrefs().textTabWidth);
-	dc.setAttribute("AUTHOR",m_Doc->documentInfo.getAuthor());
-	dc.setAttribute("COMMENTS",m_Doc->documentInfo.getComments());
-	dc.setAttribute("KEYWORDS",m_Doc->documentInfo.getKeywords());
-	dc.setAttribute("PUBLISHER",m_Doc->documentInfo.getPublisher());
-	dc.setAttribute("DOCDATE",m_Doc->documentInfo.getDate());
-	dc.setAttribute("DOCTYPE",m_Doc->documentInfo.getType());
-	dc.setAttribute("DOCFORMAT",m_Doc->documentInfo.getFormat());
-	dc.setAttribute("DOCIDENT",m_Doc->documentInfo.getIdent());
-	dc.setAttribute("DOCSOURCE",m_Doc->documentInfo.getSource());
-	dc.setAttribute("DOCLANGINFO",m_Doc->documentInfo.getLangInfo());
-	dc.setAttribute("DOCRELATION",m_Doc->documentInfo.getRelation());
-	dc.setAttribute("DOCCOVER",m_Doc->documentInfo.getCover());
-	dc.setAttribute("DOCRIGHTS",m_Doc->documentInfo.getRights());
-	dc.setAttribute("DOCCONTRIB",m_Doc->documentInfo.getContrib());
-	dc.setAttribute("TITLE",m_Doc->documentInfo.getTitle());
+	dc.setAttribute("AUTHOR",m_Doc->documentInfo().author());
+	dc.setAttribute("COMMENTS",m_Doc->documentInfo().comments());
+	dc.setAttribute("KEYWORDS",m_Doc->documentInfo().keywords());
+	dc.setAttribute("PUBLISHER",m_Doc->documentInfo().publisher());
+	dc.setAttribute("DOCDATE",m_Doc->documentInfo().date());
+	dc.setAttribute("DOCTYPE",m_Doc->documentInfo().type());
+	dc.setAttribute("DOCFORMAT",m_Doc->documentInfo().format());
+	dc.setAttribute("DOCIDENT",m_Doc->documentInfo().ident());
+	dc.setAttribute("DOCSOURCE",m_Doc->documentInfo().source());
+	dc.setAttribute("DOCLANGINFO",m_Doc->documentInfo().langInfo());
+	dc.setAttribute("DOCRELATION",m_Doc->documentInfo().relation());
+	dc.setAttribute("DOCCOVER",m_Doc->documentInfo().cover());
+	dc.setAttribute("DOCRIGHTS",m_Doc->documentInfo().rights());
+	dc.setAttribute("DOCCONTRIB",m_Doc->documentInfo().contrib());
+	dc.setAttribute("TITLE",m_Doc->documentInfo().title());
 	dc.setAttribute("VHOCH",m_Doc->typographicPrefs().valueSuperScript);
 	dc.setAttribute("VHOCHSC",m_Doc->typographicPrefs().scalingSuperScript);
 	dc.setAttribute("VTIEF",m_Doc->typographicPrefs().valueSubScript);
@@ -1620,7 +1622,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	}
 	dc.appendChild(tocElem);
 	QDomElement sectionElem = docu.createElement("Sections");
-	for(DocumentSectionMap::Iterator it = m_Doc->sections.begin() ; it != m_Doc->sections.end(); ++it )
+	for(DocumentSectionMap::Iterator it = m_Doc->sections().begin() ; it != m_Doc->sections().end(); ++it )
 	{
 		QDomElement currsection = docu.createElement("Section");
 		currsection.setAttribute("Number", (*it).number);

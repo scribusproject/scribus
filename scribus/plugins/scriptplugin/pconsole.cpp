@@ -340,25 +340,31 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 SyntaxColors::SyntaxColors()
 {
 	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
-	errorColor.setNamedColor(prefs->get("syntaxerror", "#aa0000"));
-	commentColor.setNamedColor(prefs->get("syntaxcomment", "#A0A0A0"));
-	keywordColor.setNamedColor(prefs->get("syntaxkeyword", "#00007f"));
-	signColor.setNamedColor(prefs->get("syntaxsign", "#aa00ff"));
-	numberColor.setNamedColor(prefs->get("syntaxnumber", "#ffaa00"));
-	stringColor.setNamedColor(prefs->get("syntaxstring", "#005500"));
-	textColor.setNamedColor(prefs->get("syntaxtext", "#000000"));
+	if (prefs)
+	{
+		errorColor.setNamedColor(prefs->get("syntaxerror", "#aa0000"));
+		commentColor.setNamedColor(prefs->get("syntaxcomment", "#A0A0A0"));
+		keywordColor.setNamedColor(prefs->get("syntaxkeyword", "#00007f"));
+		signColor.setNamedColor(prefs->get("syntaxsign", "#aa00ff"));
+		numberColor.setNamedColor(prefs->get("syntaxnumber", "#ffaa00"));
+		stringColor.setNamedColor(prefs->get("syntaxstring", "#005500"));
+		textColor.setNamedColor(prefs->get("syntaxtext", "#000000"));
+	}
 }
 
 SyntaxColors::~SyntaxColors()
 {
 	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
-	prefs->set("syntaxerror", qcolor2named(errorColor));
-	prefs->set("syntaxcomment", qcolor2named(commentColor));
-	prefs->set("syntaxkeyword", qcolor2named(keywordColor));
-	prefs->set("syntaxsign", qcolor2named(signColor));
-	prefs->set("syntaxnumber", qcolor2named(numberColor));
-	prefs->set("syntaxstring", qcolor2named(stringColor));
-	prefs->set("syntaxtext", qcolor2named(textColor));
+	if (prefs)
+	{
+		prefs->set("syntaxerror", qcolor2named(errorColor));
+		prefs->set("syntaxcomment", qcolor2named(commentColor));
+		prefs->set("syntaxkeyword", qcolor2named(keywordColor));
+		prefs->set("syntaxsign", qcolor2named(signColor));
+		prefs->set("syntaxnumber", qcolor2named(numberColor));
+		prefs->set("syntaxstring", qcolor2named(stringColor));
+		prefs->set("syntaxtext", qcolor2named(textColor));
+	}
 }
 
 QString SyntaxColors::qcolor2named(QColor color)

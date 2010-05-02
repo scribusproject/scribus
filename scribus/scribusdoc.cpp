@@ -3139,7 +3139,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 						if (key == -1)
 							pageNumberText = "";
 						else
-							pageNumberText = out.arg(getStringFromSequence(sections[key].type, sections[key].toindex - sections[key].fromindex + 1));
+							pageNumberText = out.arg(getStringFromSequence(docPrefsData.docSectionMap[key].type, docPrefsData.docSectionMap[key].toindex - docPrefsData.docSectionMap[key].fromindex + 1));
 					}
 					else
 					{
@@ -3154,7 +3154,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 								if (key == -1)
 									newText = "";
 								else
-									newText = out.arg(getStringFromSequence(sections[key].type, sections[key].toindex - sections[key].fromindex + 1));
+									newText = out.arg(getStringFromSequence(docPrefsData.docSectionMap[key].type, docPrefsData.docSectionMap[key].toindex - docPrefsData.docSectionMap[key].fromindex + 1));
 								for (int nti=0;nti<newText.length();++nti)
 									if (pageNumberText.indexOf(newText[nti])==-1)
 										pageNumberText+=newText[nti];
@@ -5330,7 +5330,7 @@ void ScribusDoc::addSection(const int number, const QString& name, const uint fr
 {
 	struct DocumentSection newSection;
 	uint docPageCount=DocPages.count();
-	bool empty=sections.isEmpty();
+	bool empty=docPrefsData.docSectionMap.isEmpty();
 	if (empty)
 	{
 		newSection.number=0;
@@ -5341,7 +5341,7 @@ void ScribusDoc::addSection(const int number, const QString& name, const uint fr
 		newSection.sectionstartindex=1;
 		newSection.reversed=false;
 		newSection.active=true;
-		sections.insert(newSection.number, newSection);
+		docPrefsData.docSectionMap.insert(newSection.number, newSection);
 	}
 	else if (number!=-1)
 	{
@@ -5355,22 +5355,22 @@ void ScribusDoc::addSection(const int number, const QString& name, const uint fr
 		newSection.sectionstartindex=sectionstartindex;
 		newSection.reversed=reversed;
 		newSection.active=active;
-		sections.insert(newSection.number, newSection);
+		docPrefsData.docSectionMap.insert(newSection.number, newSection);
 	}
 }
 
 
 bool ScribusDoc::deleteSection(const uint number)
 {
-	if (!sections.contains(number))
+	if (!docPrefsData.docSectionMap.contains(number))
 		return false;
-	if (sections.count()<=1)
+	if (docPrefsData.docSectionMap.count()<=1)
 		return false;
-	QMap<uint, DocumentSection>::Iterator itprev=sections.begin();
+	QMap<uint, DocumentSection>::Iterator itprev=docPrefsData.docSectionMap.begin();
 	QMap<uint, DocumentSection>::Iterator it=itprev;
 	uint currMinIndex = itprev.value().fromindex;
 	uint currMaxIndex = itprev.value().toindex;
-	for ( ; it != sections.end(); ++it )
+	for ( ; it != docPrefsData.docSectionMap.end(); ++it )
 	{
 		currMinIndex=it.value().fromindex;
 		currMaxIndex=it.value().toindex;
@@ -5388,7 +5388,7 @@ bool ScribusDoc::deleteSection(const uint number)
 		++itnext;
 		itnext.value().fromindex=it.value().fromindex;
 	}
-	sections.erase(it);
+	docPrefsData.docSectionMap.erase(it);
 	return true;
 }
 
@@ -5397,8 +5397,8 @@ int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 {
 	bool found=false;
 	int retVal=-1;
-	DocumentSectionMap::ConstIterator it = sections.begin();
-	for (; it!= sections.end(); ++it)
+	DocumentSectionMap::ConstIterator it = docPrefsData.docSectionMap.begin();
+	for (; it!= docPrefsData.docSectionMap.end(); ++it)
 	{
 		if (pageIndex>=it.value().fromindex && pageIndex<=it.value().toindex)
 		{
@@ -5419,11 +5419,11 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	if (key==-1)
 		return retVal;
 
-	uint sectionIndexOffset=pageIndex-sections[key].fromindex+sections[key].sectionstartindex;
+	uint sectionIndexOffset=pageIndex-docPrefsData.docSectionMap[key].fromindex+docPrefsData.docSectionMap[key].sectionstartindex;
 	//If a section is inactive, theres no page numbers printed
-	if (sections[key].active==false)
+	if (docPrefsData.docSectionMap[key].active==false)
 		return "";
-	retVal=getStringFromSequence(sections[key].type, sectionIndexOffset);
+	retVal=getStringFromSequence(docPrefsData.docSectionMap[key].type, sectionIndexOffset);
 	return retVal;
 }
 
@@ -5442,8 +5442,8 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 	uint searchedIndex = (otherPageIndex > 0) ? (otherPageIndex - 1) : 0;
 	if ((location == 0) && (searchedIndex > 0))
 		--searchedIndex;
-	DocumentSectionMap::Iterator it = sections.begin();
-	for (; it!= sections.end(); ++it)
+	DocumentSectionMap::Iterator it = docPrefsData.docSectionMap.begin();
+	for (; it!= docPrefsData.docSectionMap.end(); ++it)
 	{
 		fromIndex = it.value().fromindex;
 		toIndex   = it.value().toindex;
@@ -5461,19 +5461,19 @@ void ScribusDoc::removePageFromSection(const uint pageIndex)
 {
 	//Get the section of the new page index.
 	uint fromIndex, toIndex;
-	DocumentSectionMap::Iterator it = sections.begin();
-	for (; it!= sections.end(); ++it)
+	DocumentSectionMap::Iterator it = docPrefsData.docSectionMap.begin();
+	for (; it!= docPrefsData.docSectionMap.end(); ++it)
 	{
 		if (pageIndex>=it.value().fromindex && pageIndex<=it.value().toindex)
 		{
 			fromIndex = it.value().fromindex;
 			toIndex   = it.value().toindex - 1;
 			if (fromIndex > toIndex) // Remove section in that case
-				sections.remove(it.key());
+				docPrefsData.docSectionMap.remove(it.key());
 			break;
 		}
 	}
-	for (it = sections.begin(); it != sections.end(); ++it)
+	for (it = docPrefsData.docSectionMap.begin(); it != docPrefsData.docSectionMap.end(); ++it)
 	{
 		fromIndex = it.value().fromindex;
 		toIndex   = it.value().toindex;
@@ -5489,7 +5489,7 @@ void ScribusDoc::removePageFromSection(const uint pageIndex)
 
 void ScribusDoc::setFirstSectionFromFirstPageNumber()
 {
-	DocumentSectionMap::Iterator it = sections.begin();
+	DocumentSectionMap::Iterator it = docPrefsData.docSectionMap.begin();
 	it.value().sectionstartindex=FirstPnum;
 	updateSectionPageNumbersToPages();
 }

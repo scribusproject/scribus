@@ -819,22 +819,24 @@ void Scribus150Format::readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& a
 
 void Scribus150Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
-	doc->documentInfo.setAuthor(attrs.valueAsString("AUTHOR"));
-	doc->documentInfo.setComments(attrs.valueAsString("COMMENTS"));
-	doc->documentInfo.setKeywords(attrs.valueAsString("KEYWORDS",""));
-	doc->documentInfo.setTitle(attrs.valueAsString("TITLE"));
-	doc->documentInfo.setSubject(attrs.valueAsString("SUBJECT"));
-	doc->documentInfo.setPublisher(attrs.valueAsString("PUBLISHER", ""));
-	doc->documentInfo.setDate(attrs.valueAsString("DOCDATE", ""));
-	doc->documentInfo.setType(attrs.valueAsString("DOCTYPE", ""));
-	doc->documentInfo.setFormat(attrs.valueAsString("DOCFORMAT", ""));
-	doc->documentInfo.setIdent(attrs.valueAsString("DOCIDENT", ""));
-	doc->documentInfo.setSource(attrs.valueAsString("DOCSOURCE", ""));
-	doc->documentInfo.setLangInfo(attrs.valueAsString("DOCLANGINFO", ""));
-	doc->documentInfo.setRelation(attrs.valueAsString("DOCRELATION", ""));
-	doc->documentInfo.setCover(attrs.valueAsString("DOCCOVER", ""));
-	doc->documentInfo.setRights(attrs.valueAsString("DOCRIGHTS", ""));
-	doc->documentInfo.setContrib(attrs.valueAsString("DOCCONTRIB", ""));
+	DocumentInformation di;
+	di.setAuthor(attrs.valueAsString("AUTHOR"));
+	di.setComments(attrs.valueAsString("COMMENTS"));
+	di.setKeywords(attrs.valueAsString("KEYWORDS",""));
+	di.setTitle(attrs.valueAsString("TITLE"));
+	di.setSubject(attrs.valueAsString("SUBJECT"));
+	di.setPublisher(attrs.valueAsString("PUBLISHER", ""));
+	di.setDate(attrs.valueAsString("DOCDATE", ""));
+	di.setType(attrs.valueAsString("DOCTYPE", ""));
+	di.setFormat(attrs.valueAsString("DOCFORMAT", ""));
+	di.setIdent(attrs.valueAsString("DOCIDENT", ""));
+	di.setSource(attrs.valueAsString("DOCSOURCE", ""));
+	di.setLangInfo(attrs.valueAsString("DOCLANGINFO", ""));
+	di.setRelation(attrs.valueAsString("DOCRELATION", ""));
+	di.setCover(attrs.valueAsString("DOCCOVER", ""));
+	di.setRights(attrs.valueAsString("DOCRIGHTS", ""));
+	di.setContrib(attrs.valueAsString("DOCCONTRIB", ""));
+	doc->setDocumentInfo(di);
 }
 
 void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
@@ -1602,7 +1604,7 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 			newSection.sectionstartindex = attrs.valueAsInt("Start");
 			newSection.reversed = attrs.valueAsBool("Reversed");
 			newSection.active   = attrs.valueAsBool("Active");
-			doc->sections.insert(newSection.number, newSection);
+			doc->sections().insert(newSection.number, newSection);
 		}
 	}
 	return !reader.hasError();

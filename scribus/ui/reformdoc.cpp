@@ -65,7 +65,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabPage->hideReform();
 	addItem( tr("Document"), loadIcon("scribusdoc.png"), tabPage);
 
-	docInfos = new DocInfos(prefsWidgets, doc->documentInfo);
+	docInfos = new DocInfos(prefsWidgets, doc->documentInfo());
 	addItem( tr("Document Information"), loadIcon("documentinfo32.png"), docInfos);
 
 	tabGuides = new TabGuides(prefsWidgets, &doc->guidesPrefs(), &doc->typographicPrefs(), docUnitIndex);
@@ -106,7 +106,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
 
 	tabDocSections = new DocSections(prefsWidgets);
-	tabDocSections->setup(currDoc->sections, currDoc->DocPages.count()-1);
+	tabDocSections->setup(currDoc->sections(), currDoc->DocPages.count()-1);
 	addItem( tr("Sections"), loadIcon("tabtocindex.png"), tabDocSections);
 
 	int cmsTab = 0;
@@ -630,10 +630,10 @@ void ReformDoc::updateDocumentSettings()
 		}
 	}
 
-	currDoc->documentInfo = docInfos->getDocInfo();
+	currDoc->setDocumentInfo(docInfos->getDocInfo());
 	currDoc->setItemAttributes(*(tabDocItemAttributes->getNewAttributes()));
 	currDoc->setTocSetups(*(tabTOCIndexPrefs->getNewToCs()));
-	currDoc->sections = tabDocSections->getNewSections();
+	currDoc->setSections(tabDocSections->getNewSections());
 
 	uint itemCount=currDoc->Items->count();
 	for (uint b=0; b<itemCount; ++b)

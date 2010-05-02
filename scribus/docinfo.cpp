@@ -206,20 +206,20 @@ DocumentInformation DocInfos::getDocInfo()
 
 void DocInfos::restoreDefaults()
 {
-	titleEdit->setText(infos.getTitle());
-	subjectEdit->setText(infos.getSubject());
-	authorEdit->setText(infos.getAuthor());
-	descriptionEdit->setPlainText(infos.getComments());
-	keywordsEdit->setPlainText(infos.getKeywords());
-	publisherEdit->setText(infos.getPublisher());
-	dateEdit->setText(infos.getDate());
-	typeEdit->setText(infos.getType());
-	formatEdit->setText(infos.getFormat());
-	identifierEdit->setText(infos.getIdent());
-	sourceEdit->setText(infos.getSource());
-	languageEdit->setText(infos.getLangInfo());
-	relationEdit->setText(infos.getRelation());
-	coverageEdit->setText(infos.getCover());
-	rightsEdit->setText(infos.getRights());
-	contributorsEdit->setPlainText(infos.getContrib());
+	titleEdit->setText(infos.title());
+	subjectEdit->setText(infos.subject());
+	authorEdit->setText(infos.author());
+	descriptionEdit->setPlainText(infos.comments());
+	keywordsEdit->setPlainText(infos.keywords());
+	publisherEdit->setText(infos.publisher());
+	dateEdit->setText(infos.date());
+	typeEdit->setText(infos.type());
+	formatEdit->setText(infos.format());
+	identifierEdit->setText(infos.ident());
+	sourceEdit->setText(infos.source());
+	languageEdit->setText(infos.langInfo());
+	relationEdit->setText(infos.relation());
+	coverageEdit->setText(infos.cover());
+	rightsEdit->setText(infos.rights());
+	contributorsEdit->setPlainText(infos.contrib());
 }

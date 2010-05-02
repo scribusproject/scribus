@@ -858,8 +858,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	IDg += Options.fileName;
 	IDg += "Scribus "+QString(VERSION);
 	IDg += "Scribus PDF Library "+QString(VERSION);
-	IDg += doc.documentInfo.getTitle();
-	IDg += doc.documentInfo.getAuthor();
+	IDg += doc.documentInfo().title();
+	IDg += doc.documentInfo().author();
 	IDg += "/False";
 	FileID = ComputeMD5(IDg);
 	if (Options.Encrypt)
@@ -888,14 +888,14 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	StartObj(2);
 	PutDoc("<<\n/Creator "+EncString("(Scribus "+QString(VERSION)+")",2)+"\n");
 	PutDoc("/Producer "+EncString("(Scribus PDF Library "+QString(VERSION)+")",2)+"\n");
-	QString docTitle = doc.documentInfo.getTitle();
+	QString docTitle = doc.documentInfo().title();
 	if (((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4)) && (docTitle.isEmpty()))
 		PutDoc("/Title "+EncStringUTF16("("+doc.DocName+")",2)+"\n");
 	else
-		PutDoc("/Title "+EncStringUTF16("("+doc.documentInfo.getTitle()+")",2)+"\n");
-	PutDoc("/Author "+EncStringUTF16("("+doc.documentInfo.getAuthor()+")",2)+"\n");
-	PutDoc("/Subject "+EncStringUTF16("("+doc.documentInfo.getSubject()+")",2)+"\n");
-	PutDoc("/Keywords "+EncStringUTF16("("+doc.documentInfo.getKeywords()+")",2)+"\n");
+		PutDoc("/Title "+EncStringUTF16("("+doc.documentInfo().title()+")",2)+"\n");
+	PutDoc("/Author "+EncStringUTF16("("+doc.documentInfo().author()+")",2)+"\n");
+	PutDoc("/Subject "+EncStringUTF16("("+doc.documentInfo().subject()+")",2)+"\n");
+	PutDoc("/Keywords "+EncStringUTF16("("+doc.documentInfo().keywords()+")",2)+"\n");
 	PutDoc("/CreationDate "+EncString("("+Datum+")",2)+"\n");
 	PutDoc("/ModDate "+EncString("("+Datum+")",2)+"\n");
 	if (Options.Version == PDFOptions::PDFVersion_X3)
@@ -2759,7 +2759,7 @@ void PDFLibCore::PDF_End_Page()
 			QPainterPath painter1, painter2;
 			QFont   infoFont("Helvetica", 7);
 			double  startX = markOffs+bleedLeft+10.0;
-			QString docTitle = doc.documentInfo.getTitle();
+			QString docTitle = doc.documentInfo().title();
 			if (docTitle.isEmpty())
 			{
 				QFileInfo fi(doc.DocName);
@@ -10022,7 +10022,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	QString pdfNS = "http://ns.adobe.com/pdf/1.3/";
 	descPDF.setAttributeNS(pdfNS, "pdf:Producer", "Scribus PDF Library "+QString(VERSION));
 	descPDF.setAttribute("pdf:Trapped", "False");
-	descPDF.setAttribute("pdf:Keywords", doc.documentInfo.getKeywords());
+	descPDF.setAttribute("pdf:Keywords", doc.documentInfo().keywords());
 
 	QDomElement descDC = desc.cloneNode().toElement();
 	rdf.appendChild(descDC);
@@ -10035,7 +10035,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	QDomElement li1 = xmpDoc.createElement("rdf:li");
 	li1.setAttribute("xml:lang", "x-default");
 	alt1.appendChild(li1);
-	QString docTitle = doc.documentInfo.getTitle();
+	QString docTitle = doc.documentInfo().title();
 	if (((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4)) && (docTitle.isEmpty()))
 		docTitle = doc.DocName;
 	li1.appendChild(xmpDoc.createTextNode(docTitle));
@@ -10045,7 +10045,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	creator.appendChild(seq);
 	QDomElement li2 = xmpDoc.createElement("rdf:li");
 	seq.appendChild(li2);
-	li2.appendChild(xmpDoc.createTextNode(doc.documentInfo.getAuthor()));
+	li2.appendChild(xmpDoc.createTextNode(doc.documentInfo().author()));
 	// Subject's entry in Document Info dictionary is actually dc:description in XMP, not dc:subject.
 	QDomElement description = xmpDoc.createElement("dc:description");
 	descDC.appendChild(description);
@@ -10054,7 +10054,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	QDomElement li3 = xmpDoc.createElement("rdf:li");
 	li3.setAttribute("xml:lang", "x-default");
 	alt2.appendChild(li3);
-	li3.appendChild(xmpDoc.createTextNode(doc.documentInfo.getSubject()));
+	li3.appendChild(xmpDoc.createTextNode(doc.documentInfo().subject()));
 
 	if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4))
 	{

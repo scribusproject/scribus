@@ -2520,7 +2520,7 @@ void CgmPlug::alignStreamToWord(QDataStream &ts, uint len)
 void CgmPlug::handleStartMetaFile(QString value)
 {
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
-		m_Doc->documentInfo.setTitle(value);
+		m_Doc->documentInfo().setTitle(value);
 	// qDebug() << "Start Metafile" << value;
 }
 
@@ -2560,7 +2560,7 @@ void CgmPlug::handleStartPictureBody(double width, double height)
 void CgmPlug::handleMetaFileDescription(QString value)
 {
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
-		m_Doc->documentInfo.setComments(value);
+		m_Doc->documentInfo().setComments(value);
 	// qDebug() << "Metafile Description" << value;
 }
 

@@ -16,9 +16,11 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QSet>
 #include <QHash>
+#include "pagestructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
 #include "vgradient.h"
+#include "documentinformation.h"
 
 struct CheckerPrefs
 {
@@ -374,34 +376,35 @@ struct ImageCachePrefs
 	int compressionLevel; //!< Cache image compression level (see QImage)
 };
 
+
 struct ApplicationPrefs
 {
-	UIPrefs uiPrefs;
-	PathPrefs pathPrefs;
-	DocumentSetupPrefs docSetupPrefs;
-	GuidesPrefs guidesPrefs;
-	TypoPrefs typoPrefs;
-	ItemToolPrefs itemToolPrefs;
-	OperatorToolPrefs opToolPrefs;
-	HyphenatorPrefs hyphPrefs;
-	FontPrefs fontPrefs;
-	PrinterPrefs printerPrefs;
 	ColorPrefs colorPrefs;
-	PDFOptions pdfPrefs;
-	ItemAttrPrefs itemAttrPrefs;
-	TOCPrefs tocPrefs;
-	KeyboardShortcutsPrefs keyShortcutPrefs;
-	ScrapbookPrefs scrapbookPrefs;
 	DisplayPrefs displayPrefs;
+	DocumentSetupPrefs docSetupPrefs;
 	ExternalToolsPrefs extToolPrefs;
-	MiscellaneousPrefs miscPrefs;
-	PluginPrefs pluginPrefs;
-	ShortWordPrefs shortwordPrefs;
-	ScripterPrefs scripterPrefs;
-	VerifierPrefs verifierPrefs;
-	StoryEditorPrefs storyEditorPrefs;
-	PrintPreviewPrefs printPreviewPrefs;
+	FontPrefs fontPrefs;
+	GuidesPrefs guidesPrefs;
+	HyphenatorPrefs hyphPrefs;
 	ImageCachePrefs imageCachePrefs;
+	ItemAttrPrefs itemAttrPrefs;
+	ItemToolPrefs itemToolPrefs;
+	KeyboardShortcutsPrefs keyShortcutPrefs;
+	MiscellaneousPrefs miscPrefs;
+	OperatorToolPrefs opToolPrefs;
+	PDFOptions pdfPrefs;
+	PathPrefs pathPrefs;
+	PluginPrefs pluginPrefs;
+	PrintPreviewPrefs printPreviewPrefs;
+	PrinterPrefs printerPrefs;
+	ScrapbookPrefs scrapbookPrefs;
+	ScripterPrefs scripterPrefs;
+	ShortWordPrefs shortwordPrefs;
+	StoryEditorPrefs storyEditorPrefs;
+	TOCPrefs tocPrefs;
+	TypoPrefs typoPrefs;
+	UIPrefs uiPrefs;
+	VerifierPrefs verifierPrefs;
 
 	QList<ArrowDesc> arrowStyles;
 	QMap<QString, VGradient> defaultGradients;
@@ -413,6 +416,10 @@ struct ApplicationPrefs
 	//! System default QStyle name for current instance, seemingly unused
 	QString ui_SystemTheme;
 	//	bool Gcr_Mode;
+
+	//Added for Doc Only
+	DocumentInformation docInfo;
+	DocumentSectionMap docSectionMap;
 };
 
 #endif

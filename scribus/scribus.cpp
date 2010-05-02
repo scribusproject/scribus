@@ -3849,7 +3849,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (doc->MasterPages.count() == 0)
 			doc->addMasterPage(0, CommonStrings::masterPageNormal);
 		//Add doc sections if we have none
-		if (doc->sections.count()==0)
+		if (doc->sections().count()==0)
 		{
 			doc->addSection(-1);
 			doc->setFirstSectionFromFirstPageNumber();

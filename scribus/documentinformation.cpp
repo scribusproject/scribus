@@ -23,180 +23,181 @@ for which a new license (GPL+exception) is in place.
 
 DocumentInformation::DocumentInformation()
 {
-	author = "";
-	comments = "";
-	contrib = "";
-	cover = "";
-	date = "";
-	format = "";
-	ident = "";
-	keywords = "";
-	langInfo = "";
-	publisher = "";
-	relation = "";
-	rights = "";
-	source = "";
-	title = "";
-	type = "";
+	/*m_author = "";
+	m_comments = "";
+	m_contrib = "";
+	m_cover = "";
+	m_date = "";
+	m_format = "";
+	m_ident = "";
+	m_keywords = "";
+	m_langInfo = "";
+	m_publisher = "";
+	m_relation = "";
+	m_rights = "";
+	m_source = "";
+	m_title = "";
+	m_type = "";*/
 }
 
-const QString DocumentInformation::getAuthor()
+const QString& DocumentInformation::author()
 {
-	return author;
+	return m_author;
 }
 
-const QString DocumentInformation::getComments()
+const QString& DocumentInformation::comments()
 {
-	return comments;
+	return m_comments;
 }
 
-const QString DocumentInformation::getContrib()
+const QString& DocumentInformation::contrib()
 {
-	return contrib;
+	return m_contrib;
 }
 
-const QString DocumentInformation::getCover()
+const QString& DocumentInformation::cover()
 {
-	return cover;
+	return m_cover;
 }
 
-const QString DocumentInformation::getDate()
+const QString& DocumentInformation::date()
 {
-	return date;
+	return m_date;
 }
 
-const QString DocumentInformation::getFormat()
+const QString& DocumentInformation::format()
 {
-	return format;
+	return m_format;
 }
 
-const QString DocumentInformation::getIdent()
+const QString& DocumentInformation::ident()
 {
-	return ident;
+	return m_ident;
 }
 
-const QString DocumentInformation::getKeywords()
+const QString& DocumentInformation::keywords()
 {
-	return keywords;
+	return m_keywords;
 }
 
-const QString DocumentInformation::getLangInfo()
+const QString& DocumentInformation::langInfo()
 {
-	return langInfo;
+	return m_langInfo;
 }
 
-const QString DocumentInformation::getPublisher()
+const QString& DocumentInformation::publisher()
 {
-	return publisher;
+	return m_publisher;
 }
 
-const QString DocumentInformation::getRelation()
+const QString& DocumentInformation::relation()
 {
-	return relation;
+	return m_relation;
 }
 
-const QString DocumentInformation::getRights()
+const QString& DocumentInformation::rights()
 {
-	return rights;
+	return m_rights;
 }
 
-const QString DocumentInformation::getSource()
+const QString& DocumentInformation::source()
 {
-	return source;
+	return m_source;
 }
 
-const QString DocumentInformation::getSubject()
+const QString& DocumentInformation::subject()
 {
-	return subject;
+	return m_subject;
 }
 
-const QString DocumentInformation::getTitle()
+const QString& DocumentInformation::title()
 {
-	return title;
+	return m_title;
 }
 
-const QString DocumentInformation::getType()
+const QString& DocumentInformation::type()
 {
-	return type;
+	return m_type;
 }
 
 
 void DocumentInformation::setAuthor(const QString &_author)
 {
-	author=_author;
+	m_author=_author;
 }
 
 void DocumentInformation::setComments(const QString &_comments)
 {
-	comments=_comments;
+	m_comments=_comments;
 }
 
 void DocumentInformation::setContrib(const QString &_contrib)
 {
-	contrib=_contrib;
+	m_contrib=_contrib;
 }
 
 void DocumentInformation::setCover(const QString &_cover)
 {
-	cover=_cover;
+	m_cover=_cover;
 }
 
 void DocumentInformation::setDate(const QString &_date)
 {
-	date=_date;
+	m_date=_date;
 }
 
 void DocumentInformation::setFormat(const QString &_format)
 {
-	format=_format;
+	m_format=_format;
 }
 
 void DocumentInformation::setIdent(const QString &_ident)
 {
-	ident=_ident;
+	m_ident=_ident;
 }
 
 void DocumentInformation::setKeywords(const QString &_keywords)
 {
-	keywords=_keywords;
+	m_keywords=_keywords;
 }
 
 void DocumentInformation::setLangInfo(const QString &_langInfo)
 {
-	langInfo=_langInfo;
+	m_langInfo=_langInfo;
 }
 
 void DocumentInformation::setPublisher(const QString &_publisher)
 {
-	publisher=_publisher;
+	m_publisher=_publisher;
 }
 
 void DocumentInformation::setRelation(const QString &_relation)
 {
-	relation=_relation;
+	m_relation=_relation;
 }
 
 void DocumentInformation::setRights(const QString &_rights)
 {
-	rights=_rights;
+	m_rights=_rights;
 }
 
 void DocumentInformation::setSource(const QString &_source)
 {
-	source=_source;
+	m_source=_source;
 }
 
 void DocumentInformation::setSubject(const QString & _subject)
 {
-	subject = _subject;
+	m_subject = _subject;
 }
 
 void DocumentInformation::setTitle(const QString &_title)
 {
-	title=_title;
+	m_title=_title;
 }
 
 void DocumentInformation::setType(const QString &_type)
 {
-	type=_type;
+	m_type=_type;
 }
+

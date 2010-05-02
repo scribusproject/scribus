@@ -492,8 +492,8 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	QList<PageItem*> Elements = parseGroup( docElem );
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
-		m_Doc->documentInfo.setTitle(docTitle);
-		m_Doc->documentInfo.setComments(docDesc);
+		m_Doc->documentInfo().setTitle(docTitle);
+		m_Doc->documentInfo().setComments(docDesc);
 	}
 	tmpSel->clear();
 	if (Elements.count() == 0)

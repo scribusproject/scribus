@@ -2407,7 +2407,7 @@ QString PageItem::ExpandToken(uint base)
 			int key = m_Doc->getSectionKeyForPageIndex(OwnPage);
 			if (key == -1)
 				return "%";
-			chstr = out.arg(getStringFromSequence(m_Doc->sections[key].type, m_Doc->sections[key].toindex - m_Doc->sections[key].fromindex + 1));
+			chstr = out.arg(getStringFromSequence(m_Doc->sections()[key].type, m_Doc->sections()[key].toindex - m_Doc->sections()[key].fromindex + 1));
 		}
 		else
 			return "%";

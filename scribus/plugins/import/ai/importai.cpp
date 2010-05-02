@@ -450,10 +450,10 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	}
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
-		m_Doc->documentInfo.setAuthor(docCreator);
-		m_Doc->documentInfo.setPublisher(docOrganisation);
-		m_Doc->documentInfo.setTitle(docTitle);
-		m_Doc->documentInfo.setDate(docDate+" "+docTime);
+		m_Doc->documentInfo().setAuthor(docCreator);
+		m_Doc->documentInfo().setPublisher(docOrganisation);
+		m_Doc->documentInfo().setTitle(docTitle);
+		m_Doc->documentInfo().setDate(docDate+" "+docTime);
 	}
 	if ((!ret) && (interactive))
 	{

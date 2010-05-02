@@ -214,16 +214,16 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	docElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	docElement.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	docElement.setAttribute("version","1.1");
-	if (!m_Doc->documentInfo.getTitle().isEmpty())
+	if (!m_Doc->documentInfo().title().isEmpty())
 	{
-		QDomText title = docu.createTextNode(m_Doc->documentInfo.getTitle());
+		QDomText title = docu.createTextNode(m_Doc->documentInfo().title());
 		QDomElement titleElem = docu.createElement("title");
 		titleElem.appendChild(title);
 		docElement.appendChild(titleElem);
 	}
-	if (!m_Doc->documentInfo.getComments().isEmpty())
+	if (!m_Doc->documentInfo().comments().isEmpty())
 	{
-		QDomText desc = docu.createTextNode(m_Doc->documentInfo.getComments());
+		QDomText desc = docu.createTextNode(m_Doc->documentInfo().comments());
 		QDomElement descElem = docu.createElement("desc");
 		descElem.appendChild(desc);
 		docElement.appendChild(descElem);

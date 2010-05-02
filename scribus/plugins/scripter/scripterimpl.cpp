@@ -16,9 +16,9 @@ for which a new license (GPL+exception) is in place.
 
 ScripterImpl::ScripterImpl() : QObject(QApplication::instance())
 {
-    setObjectName("Scripter");
-    _instance = this;
-    qDebug() << "ScripterImpl object created";
+	setObjectName("Scripter");
+	_instance = this;
+	qDebug() << "ScripterImpl object created";
 }
 
 
