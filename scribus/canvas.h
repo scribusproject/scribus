@@ -224,7 +224,6 @@ private:
 	void drawControlsMovingItemsRect(QPainter* pp);
 //	void drawControlsHighlightRect(QPainter* pp);
 	void drawControlsGradientVectors(QPainter* psx, PageItem *currItem);
-	void drawControlsMeshGradient(QPainter* pp, PageItem* currItem);
 	void drawControlsBezierCurve(QPainter* pp, PageItem* currItem);
 	void drawControlsMeasurementLine(QPainter* pp);
 	void drawControlsDrawLine(QPainter* pp);

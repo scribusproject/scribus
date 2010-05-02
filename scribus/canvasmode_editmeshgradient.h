@@ -52,6 +52,7 @@ public:
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void drawControls(QPainter* p);
+	void drawControlsMeshGradient(QPainter* pp, PageItem* currItem);
 
 private:
 
@@ -73,6 +74,7 @@ private:
 	int arrayX;
 	int arrayY;
 	eMGradientPoint m_gradientPoint;
+	QList<QPair<int, int> > selectedMeshPoints;
 };
 
 

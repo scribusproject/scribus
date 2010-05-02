@@ -123,6 +123,13 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 
 void Cpalette::setCurrentItem(PageItem* item)
 {
+	if ((item == NULL) || (currentItem != item))
+	{
+		editStrokeGradient = 0;
+		CGradDia->hide();
+		editMeshColors->setEnabled(true);
+		gradEditButton->setEnabled(true);
+	}
 	currentItem = item;
 }
 
