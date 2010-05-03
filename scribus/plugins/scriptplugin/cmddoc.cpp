@@ -228,9 +228,9 @@ PyObject *scribus_setinfo(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	ScCore->primaryMainWindow()->doc->documentInfo.setAuthor(QString::fromUtf8(Author));
-	ScCore->primaryMainWindow()->doc->documentInfo.setTitle(QString::fromUtf8(Title));
-	ScCore->primaryMainWindow()->doc->documentInfo.setComments(QString::fromUtf8(Desc));
+	ScCore->primaryMainWindow()->doc->documentInfo().setAuthor(QString::fromUtf8(Author));
+	ScCore->primaryMainWindow()->doc->documentInfo().setTitle(QString::fromUtf8(Title));
+	ScCore->primaryMainWindow()->doc->documentInfo().setComments(QString::fromUtf8(Desc));
 	ScCore->primaryMainWindow()->slotDocCh();
 //	Py_INCREF(Py_None);
 //	return Py_None;
