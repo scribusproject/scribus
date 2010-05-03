@@ -760,8 +760,6 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if (!(m->modifiers() & Qt::ShiftModifier))
-			selectedMeshPoints.clear();
 		bool isSelected = false;
 		for (int se = 0; se < selectedMeshPoints.count(); se++)
 		{
@@ -771,6 +769,8 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 				break;
 			}
 		}
+		if ((!(m->modifiers() & Qt::ShiftModifier)) && (!isSelected))
+			selectedMeshPoints.clear();
 		if (!isSelected)
 			selectedMeshPoints.append(selPoint);
 	}
