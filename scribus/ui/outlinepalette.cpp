@@ -948,7 +948,7 @@ void OutlinePalette::createContextMenu(PageItem * currItem, double mx, double my
 	if(currItem!=NULL)
 		cmen = new ContextMenu(*(currDoc->m_Selection), m_MainWindow, currDoc);
 	else
-		cmen = new ContextMenu(m_MainWindow, currDoc, mx, my);
+		cmen = new ContextMenu(m_MainWindow, currDoc, currDoc->currentPage()->xOffset(), currDoc->currentPage()->yOffset());
 	if (cmen)
 		cmen->exec(QCursor::pos());
 	delete cmen;
