@@ -89,6 +89,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(CGradDia, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
 	connect(CGradDia, SIGNAL(resetMesh()), this, SLOT(resetMeshGradient()));
 	connect(CGradDia, SIGNAL(meshToShape()), this, SLOT(meshGradientToShape()));
+	connect(CGradDia, SIGNAL(reset1Control()), this, SLOT(resetOneControlPoint()));
+	connect(CGradDia, SIGNAL(resetAllControl()), this, SLOT(resetAllControlPoints()));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
@@ -921,6 +923,39 @@ void Cpalette::meshGradientToShape()
 	currentDoc->regionsChanged()->update(QRect());
 }
 
+void Cpalette::resetOneControlPoint()
+{
+	int grow = currentItem->selectedMeshPointX;
+	int gcol = currentItem->selectedMeshPointY;
+	int cont = currentItem->selectedMeshControlPoint;
+	if ((grow == -1) || (gcol == -1))
+		return;
+	if (cont == 1)
+		currentItem->meshGradientArray[grow][gcol].controlTop    = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	else if (cont == 2)
+		currentItem->meshGradientArray[grow][gcol].controlBottom = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	else if (cont == 3)
+		currentItem->meshGradientArray[grow][gcol].controlLeft   = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	else if (cont == 4)
+		currentItem->meshGradientArray[grow][gcol].controlRight  = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
+}
+
+void Cpalette::resetAllControlPoints()
+{
+	int grow = currentItem->selectedMeshPointX;
+	int gcol = currentItem->selectedMeshPointY;
+	if ((grow == -1) || (gcol == -1))
+		return;
+	currentItem->meshGradientArray[grow][gcol].controlTop    = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	currentItem->meshGradientArray[grow][gcol].controlLeft   = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	currentItem->meshGradientArray[grow][gcol].controlRight  = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	currentItem->meshGradientArray[grow][gcol].controlBottom = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
+}
+
 void Cpalette::editGradientVector()
 {
 	if (gradEditButton->isChecked())
@@ -1021,6 +1056,10 @@ void Cpalette::setMeshPoint()
 		shadeMeshPoint->setEnabled(false);
 		transparencyMeshPoint->setEnabled(false);
 	}
+}
+
+void Cpalette::setMeshControlPoint()
+{
 }
 
 void Cpalette::updateMeshPoint()

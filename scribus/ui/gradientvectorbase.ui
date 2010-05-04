@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>248</width>
-    <height>179</height>
+    <height>163</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -632,6 +632,9 @@
            </item>
            <item row="1" column="1">
             <widget class="QToolButton" name="resetControlPoint">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="minimumSize">
               <size>
                <width>22</width>
@@ -654,6 +657,9 @@
            </item>
            <item row="1" column="2">
             <widget class="QToolButton" name="resetAllControlPoints">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="minimumSize">
               <size>
                <width>22</width>

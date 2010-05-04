@@ -68,6 +68,8 @@ signals:
 	void createNewMesh();
 	void resetMesh();
 	void meshToShape();
+	void reset1Control();
+	void resetAllControl();
 
 };
 #endif

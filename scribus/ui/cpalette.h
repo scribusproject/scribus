@@ -94,11 +94,14 @@ public slots:
 	void createNewMeshGradient();
 	void resetMeshGradient();
 	void meshGradientToShape();
+	void resetOneControlPoint();
+	void resetAllControlPoints();
 	void editGradientVector();
 	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void setMeshPoint();
+	void setMeshControlPoint();
 	void updateMeshPoint();
 	void changePatternProps();
 	void changePatternPropsStroke();

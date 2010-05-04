@@ -487,6 +487,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	QPair<int, int> selPoint;
 	if (m_view->editStrokeGradient == 5)
 	{
+		m_gradientPoint = noPointDefined;
 		for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 		{
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
@@ -508,6 +509,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	}
 	else if (m_view->editStrokeGradient == 6)
 	{
+		m_gradientPoint = noPointDefined;
 		selectedMeshPoints.clear();
 		for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 		{
@@ -741,6 +743,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 					{
 						selPoint.first = grow;
 						selPoint.second = gcol;
+						m_gradientPoint = noPointDefined;
 						found = true;
 						break;
 					}
@@ -756,6 +759,9 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 		{
 			m_gradientPoint = noPointDefined;
 			selectedMeshPoints.clear();
+			currItem->selectedMeshPointX = -1;
+			currItem->selectedMeshPointY = -1;
+			currItem->selectedMeshControlPoint = static_cast<int>(m_gradientPoint);
 		}
 	}
 	else
@@ -773,6 +779,9 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 			selectedMeshPoints.clear();
 		if (!isSelected)
 			selectedMeshPoints.append(selPoint);
+		currItem->selectedMeshPointX = selectedMeshPoints[0].first;
+		currItem->selectedMeshPointY = selectedMeshPoints[0].second;
+		currItem->selectedMeshControlPoint = static_cast<int>(m_gradientPoint);
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();

@@ -5117,6 +5117,8 @@ void PropertiesPalette::updateColorSpecialGradient()
 			Cpal->setSpecialGradient(currItem->GrControl1.x() * dur, currItem->GrControl1.y() * dur, currItem->GrControl2.x() * dur, currItem->GrControl2.y() * dur, currItem->GrControl3.x() * dur, currItem->GrControl3.y() * dur, currItem->GrControl4.x() * dur, currItem->GrControl4.y() * dur, currItem->GrControl5.x(), currItem->GrControl5.y());
 		else if ((m_ScMW->view->editStrokeGradient == 5) || (m_ScMW->view->editStrokeGradient == 6))
 			Cpal->setMeshPoint();
+		else if (m_ScMW->view->editStrokeGradient == 7)
+			Cpal->setMeshControlPoint();
 		else
 		{
 			if (currItem->isGroupControl)

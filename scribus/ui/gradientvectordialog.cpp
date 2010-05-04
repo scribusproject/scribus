@@ -69,6 +69,8 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	connect(buttonNewGrid, SIGNAL(clicked()), this, SIGNAL(createNewMesh()));
 	connect(buttonResetGrid, SIGNAL(clicked()), this, SIGNAL(resetMesh()));
 	connect(buttonPoLIne, SIGNAL(clicked()), this, SIGNAL(meshToShape()));
+	connect(resetControlPoint, SIGNAL(clicked()), this, SIGNAL(reset1Control()));
+	connect(resetAllControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
 	QSize iconSize = QSize(22, 22);
 	editPoints->setIcon(QIcon(loadIcon("MoveNode.png")));
 	editPoints->setIconSize(iconSize);
@@ -132,13 +134,21 @@ void GradientVectorDialog::languageChange()
 void GradientVectorDialog::handleEditButton()
 {
 	if (editPoints->isChecked())
+	{
+		resetAllControlPoints->setEnabled(false);
+		resetControlPoint->setEnabled(false);
 		emit editGradient(5);
+	}
 }
 
 void GradientVectorDialog::handleEditControlButton()
 {
 	if (editControlPoints->isChecked())
+	{
+		resetAllControlPoints->setEnabled(true);
+		resetControlPoint->setEnabled(true);
 		emit editGradient(7);
+	}
 }
 
 void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
