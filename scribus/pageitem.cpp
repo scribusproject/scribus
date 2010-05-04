@@ -6699,7 +6699,6 @@ void PageItem::updateGradientVectors()
 
 void PageItem::setPolyClip(int up, int down)
 {
-	Clip.resize(0);
 	if (PoLine.size() < 4)
 		return;
 	double rot;
@@ -6715,31 +6714,35 @@ void PageItem::setPolyClip(int up, int down)
 	QPoint np, np2;
 	QPolygon cl, cl1, cl2;
 	cl = FlattenPath(PoLine, Segments);
-	for (int a = 0; a < cl.size()-1; ++a)
+	if (cl.size() > 1)
 	{
-		rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
-		QTransform ma;
-		ma.rotate(rot);
-		np = QPoint(0, -upval) * ma;
-		np2 = QPoint(0, -downval) * ma;
+		Clip.resize(0);
+		for (int a = 0; a < cl.size()-1; ++a)
+		{
+			rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
+			QTransform ma;
+			ma.rotate(rot);
+			np = QPoint(0, -upval) * ma;
+			np2 = QPoint(0, -downval) * ma;
+			cl1.resize(cl1.size()+1);
+			cl1.setPoint(cl1.size()-1, np+cl.point(a));
+			cl1.resize(cl1.size()+1);
+			cl1.setPoint(cl1.size()-1, np+cl.point(a+1));
+			cl2.resize(cl2.size()+1);
+			cl2.setPoint(cl2.size()-1, np2+cl.point(a));
+			cl2.resize(cl2.size()+1);
+			cl2.setPoint(cl2.size()-1, np2+cl.point(a+1));
+		}
 		cl1.resize(cl1.size()+1);
-		cl1.setPoint(cl1.size()-1, np+cl.point(a));
-		cl1.resize(cl1.size()+1);
-		cl1.setPoint(cl1.size()-1, np+cl.point(a+1));
+		cl1.setPoint(cl1.size()-1, np+cl.point(cl.size()-1));
 		cl2.resize(cl2.size()+1);
-		cl2.setPoint(cl2.size()-1, np2+cl.point(a));
-		cl2.resize(cl2.size()+1);
-		cl2.setPoint(cl2.size()-1, np2+cl.point(a+1));
-	}
-	cl1.resize(cl1.size()+1);
-	cl1.setPoint(cl1.size()-1, np+cl.point(cl.size()-1));
-	cl2.resize(cl2.size()+1);
-	cl2.setPoint(cl2.size()-1, np2+cl.point(cl.size()-1));
-	Clip.putPoints(Clip.size(), cl1.size(), cl1);
-	for (int a2 = cl2.size()-1; a2 > -1; a2--)
-	{
-		Clip.resize(Clip.size()+1);
-		Clip.setPoint(Clip.size()-1, cl2.point(a2));
+		cl2.setPoint(cl2.size()-1, np2+cl.point(cl.size()-1));
+		Clip.putPoints(Clip.size(), cl1.size(), cl1);
+		for (int a2 = cl2.size()-1; a2 > -1; a2--)
+		{
+			Clip.resize(Clip.size()+1);
+			Clip.setPoint(Clip.size()-1, cl2.point(a2));
+		}
 	}
 }
 
