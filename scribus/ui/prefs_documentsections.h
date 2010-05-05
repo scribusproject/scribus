@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_DOCUMENTSECTIONS_H
 
 #include "ui_prefs_documentsectionsbase.h"
+#include "pagestructs.h"
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
@@ -26,6 +27,18 @@ class SCRIBUS_API Prefs_DocumentSections : public Prefs_Pane, Ui::Prefs_Document
 
 	public slots:
 		void languageChange();
+
+	protected:
+		DocumentSectionMap localSections;
+		uint m_maxpageindex;
+		QStringList styles;
+		ScribusDoc* m_doc;
+		virtual void updateTable();
+
+	protected slots:
+		virtual void tableItemChanged(int, int);
+		virtual void addEntry();
+		virtual void deleteEntry();
 };
 
 #endif // PREFS_DOCUMENTSECTIONS_H
