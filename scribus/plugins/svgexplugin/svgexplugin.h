@@ -77,7 +77,7 @@ private:
 	\brief Process a page to export to SVG format
 	\param Seite Page *
 	*/
-	void ProcessPage(Page *Seite);
+	void ProcessPage(Page *page);
 	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
 	QDomElement processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke);
 	QDomElement processLineItem(PageItem *Item, QString trans, QString stroke);
