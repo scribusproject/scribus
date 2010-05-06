@@ -315,6 +315,8 @@ void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
 		double h2 = Item->BoundingH;
 		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
 			continue;
+		if ((!page->pageName().isEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
+			continue;
 		if (Item->isGroupControl)
 		{
 			groupStack.push(Item->groupsLastItem);
@@ -372,6 +374,8 @@ void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
 		double w2 = Item->BoundingW;
 		double h2 = Item->BoundingH;
 		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
+			continue;
+		if ((!page->pageName().isEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
 			continue;
 		if (!Item->isTableItem)
 			continue;
