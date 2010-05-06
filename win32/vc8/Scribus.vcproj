@@ -631,6 +631,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_editmeshgradient.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_eyedropper.cpp"
 				>
 			</File>
@@ -1112,6 +1116,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\mergedoc.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\mesh.cpp"
 				>
 			</File>
 			<File
@@ -2837,6 +2845,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_editgradient.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_editmeshgradient.h"
 				>
 			</File>
 			<File
@@ -5766,6 +5778,10 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\mesh.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\missing.h"
