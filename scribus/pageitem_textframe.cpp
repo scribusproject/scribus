@@ -356,6 +356,7 @@ struct LineControl {
 		lineCorr = lCorr;
 		frameWidth = w;
 		frameHeight = h;
+		hasDropCap = false;
 	}
 	
 	/// start at column 0
@@ -388,7 +389,6 @@ struct LineControl {
 	 */
 	void startLine(int first)
 	{	
-		hasDropCap = false;
 		itemsInLine = 0;
 		line.x = xPos;
 		line.y = yPos;
