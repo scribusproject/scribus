@@ -39,9 +39,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>638</width>
-        <height>578</height>
+        <y>-45</y>
+        <width>617</width>
+        <height>631</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -302,7 +302,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="monitorProfileLabel">
          <property name="font">
           <font>
            <weight>75</weight>
@@ -315,7 +315,7 @@
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_5">
+        <widget class="Line" name="monitorProfileLine">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -353,13 +353,6 @@
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
   </layout>

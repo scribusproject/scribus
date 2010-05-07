@@ -12,7 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 
 Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc)
-	: Prefs_Pane(parent)
+	: Prefs_Pane(parent),
+	m_Doc(doc)
 {
 	m_canChangeMonitorProfile = !ScCore->primaryMainWindow()->HaveDoc; 
 	setupUi(this);
@@ -21,8 +22,18 @@ Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc)
 	connect(simulatePrinterOnScreenCheckBox, SIGNAL(clicked(bool)), this, SLOT(simulatePrinter(bool)));
 	if (!m_canChangeMonitorProfile)
 	{
-		monitorProfileComboBox->setVisible(false);
-		monitorLabel->setText( tr("Monitor profiles can only be changed when no documents are currently open.") );
+		if (!m_Doc)
+		{
+			monitorProfileComboBox->setVisible(false);
+			monitorLabel->setText( tr("Monitor profiles can only be changed when no documents are open") );
+		}
+		else
+		{
+			monitorProfileLabel->setVisible(false);
+			monitorProfileLine->setVisible(false);
+			monitorProfileComboBox->setVisible(false);
+			monitorLabel->setVisible(false);
+		}
 	}
 }
 
@@ -91,11 +102,14 @@ void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, Prof
 			cmykSolidProfileComboBox->setCurrentIndex(cmykSolidProfileComboBox->count()-1);
 	}
 	monitorProfileComboBox->clear();
-	for (it = monitorProfiles->begin(); it != monitorProfiles->end(); ++it)
+	if (m_canChangeMonitorProfile && !m_Doc)
 	{
-		monitorProfileComboBox->addItem(it.key());
-		if (it.key() == prefsData->colorPrefs.DCMSset.DefaultMonitorProfile)
-			monitorProfileComboBox->setCurrentIndex(monitorProfileComboBox->count()-1);
+		for (it = monitorProfiles->begin(); it != monitorProfiles->end(); ++it)
+		{
+			monitorProfileComboBox->addItem(it.key());
+			if (it.key() == prefsData->colorPrefs.DCMSset.DefaultMonitorProfile)
+				monitorProfileComboBox->setCurrentIndex(monitorProfileComboBox->count()-1);
+		}
 	}
 	printerProfileComboBox->clear();
 	for (it = printerProfiles->begin(); it != printerProfiles->end(); ++it)
@@ -122,10 +136,8 @@ void Prefs_ColorManagement::saveGuiToPrefs(struct ApplicationPrefs *prefsData) c
 	prefsData->colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = cmykSolidProfileComboBox->currentText();
 	prefsData->colorPrefs.DCMSset.DefaultPrinterProfile = printerProfileComboBox->currentText();
 
-	if (m_canChangeMonitorProfile)
-	{
+	if (m_canChangeMonitorProfile && !m_Doc)
 		prefsData->colorPrefs.DCMSset.DefaultMonitorProfile = monitorProfileComboBox->currentText();
-	}
 }
 
 bool Prefs_ColorManagement::cmActive()
@@ -145,7 +157,8 @@ void Prefs_ColorManagement::cmActivated(bool active)
 	cmykImageProfileComboBox->setEnabled( active );
 	rgbSolidProfileComboBox->setEnabled( active );
 	cmykSolidProfileComboBox->setEnabled( active );
-	monitorProfileComboBox->setEnabled( m_canChangeMonitorProfile );
+	if (!m_Doc)
+		monitorProfileComboBox->setEnabled( m_canChangeMonitorProfile );
 	printerProfileComboBox->setEnabled( active );
 }
 

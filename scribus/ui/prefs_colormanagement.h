@@ -29,6 +29,7 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 		bool cmActive();
 	protected:
 		bool m_canChangeMonitorProfile;
+		ScribusDoc *m_Doc;
 
 	public slots:
 		void languageChange();
