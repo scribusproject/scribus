@@ -688,7 +688,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				chma3.translate(-wide, 0);
 			}
 			chma4.translate(0, Item->BaseOffs - (charStyle.fontSize() / 10.0) * hl->glyph.scaleV);
-			if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
+			if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript | ScStyle_DropCap))
 				chma6.translate(0, hl->glyph.yoffset);
 			if (hl->baselineOffset() != 0)
 				chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
@@ -953,7 +953,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				chma3.translate(-wide, 0);
 			}
 			chma4.translate(0, Item->BaseOffs - (charStyle.fontSize() / 10.0) * hl->glyph.scaleV);
-			if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
+			if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript | ScStyle_DropCap))
 				chma6.translate(0, hl->glyph.yoffset);
 			if (hl->baselineOffset() != 0)
 				chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
