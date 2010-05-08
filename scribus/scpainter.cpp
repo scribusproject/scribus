@@ -1608,6 +1608,10 @@ void ScPainter::drawVPath( int mode )
 				pat = cairo_pattern_create_for_surface(img);
 				cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 				cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+#else
+				double r, g, b;
+				m_fill.getRgbF(&r, &g, &b);
+				pat = cairo_pattern_create_rgba(r, g, b, 1.0);
 #endif
 			}
 			else if (fill_gradient.type() == VGradient::mesh)
