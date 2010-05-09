@@ -56,10 +56,19 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	setupListWidget();
 	while (prefsStackWidget->currentWidget()!=0)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
+	if(doc)
+	{
+		setWindowTitle( tr("Document Setup") );
+		exportButton->hide();
+		defaultsButton->hide();
+	}
 	prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
 	addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
-	prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
-	addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
+	if (!doc)
+	{
+		prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
+		addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
+	}
 	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget, m_Doc);
 	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
 	if (doc)
@@ -70,7 +79,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_Guides = new Prefs_Guides(prefsStackWidget, m_Doc);
 	addItem( tr("Guides"), loadIcon("guides.png"), prefs_Guides);
 	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
-	addItem( tr("Typography"), loadIcon("typography.png"), prefs_Typography);
+	addItem( tr("Typography"), loadIcon("22/draw-text.png"), prefs_Typography);
 	prefs_ItemTools = new Prefs_ItemTools(prefsStackWidget, m_Doc);
 	addItem( tr("Item Tools"), loadIcon("tools.png"), prefs_ItemTools);
 	prefs_OperatorTools = new Prefs_OperatorTools(prefsStackWidget, m_Doc);
@@ -84,7 +93,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_Printer = new Prefs_Printer(prefsStackWidget, m_Doc);
 	addItem( tr("Printer"), loadIcon("22/printer.png"), prefs_Printer);
 	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget, m_Doc);
-	addItem( tr("PDF Export"), loadIcon("acroread32.png"), prefs_PDFExport);
+	addItem( tr("PDF Export"), loadIcon("acroread22.png"), prefs_PDFExport);
 	prefs_PreflightVerifier = new Prefs_PreflightVerifier(prefsStackWidget, m_Doc);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), prefs_PreflightVerifier);
 	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(prefsStackWidget, m_Doc);
@@ -96,21 +105,30 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget, m_Doc);
 		addItem( tr("Sections"), loadIcon("tabtocindex.png"), prefs_DocumentSections);
 	}
-	prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
-	addItem( tr("Keyboard Shortcuts"), loadIcon("22/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
-	prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
-	addItem( tr("Scrapbook"), loadIcon("scrap.png"), prefs_Scrapbook);
+	if (!doc)
+	{
+		prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
+		addItem( tr("Keyboard Shortcuts"), loadIcon("22/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
+		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
+		addItem( tr("Scrapbook"), loadIcon("scrap.png"), prefs_Scrapbook);
+	}
 	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
 	addItem( tr("Display"), loadIcon("22/video-display.png"), prefs_Display);
-	prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
-	addItem( tr("External Tools"), loadIcon("externaltools.png"), prefs_ExternalTools);
-	prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget, m_Doc);
-	addItem( tr("Miscellaneous"), loadIcon("misc.png"), prefs_Miscellaneous);
-	prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
-	addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
-	prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
-	addItem( tr("Image Cache"), loadIcon("22/image-x-generic.png"), prefs_ImageCache);
+	if (!doc)
+	{
+		prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
+		addItem( tr("External Tools"), loadIcon("externaltools.png"), prefs_ExternalTools);
+		prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget, m_Doc);
+		addItem( tr("Miscellaneous"), loadIcon("misc.png"), prefs_Miscellaneous);
+		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
+		addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
+		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
+		addItem( tr("Image Cache"), loadIcon("22/image-x-generic.png"), prefs_ImageCache);
+	}
 	arrangeIcons();
+
+	//**********
+
 	if (preferencesTypeList->count()>0)
 	{
 		preferencesTypeList->item(0)->setSelected(true);
@@ -125,7 +143,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	localPrefs=prefsData;
 	initPreferenceValues();
 	setupGui();
-	addPlugins();
+	if (!doc)
+		addPlugins();
 }
 
 
@@ -150,7 +169,8 @@ void PreferencesDialog::initPreferenceValues()
 void PreferencesDialog::setupGui()
 {
 	prefs_UserInterface->restoreDefaults(&localPrefs);
-	prefs_Paths->restoreDefaults(&localPrefs);
+	if (prefs_Paths)
+		prefs_Paths->restoreDefaults(&localPrefs);
 	prefs_DocumentSetup->restoreDefaults(&localPrefs);
 	if (prefs_DocumentInformation)
 		prefs_DocumentInformation->restoreDefaults(&localPrefs);
@@ -168,21 +188,29 @@ void PreferencesDialog::setupGui()
 	prefs_TableOfContents->restoreDefaults(&localPrefs);
 	if (prefs_DocumentSections)
 		prefs_DocumentSections->restoreDefaults(&localPrefs);
-	prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
+	if (prefs_KeyboardShortcuts)
+		prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->restoreDefaults(&localPrefs);
 	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
-	prefs_Scrapbook->restoreDefaults(&localPrefs);
+	if (prefs_Scrapbook)
+		prefs_Scrapbook->restoreDefaults(&localPrefs);
 	prefs_Display->restoreDefaults(&localPrefs);
-	prefs_ExternalTools->restoreDefaults(&localPrefs);
-	prefs_Miscellaneous->restoreDefaults(&localPrefs);
-	prefs_ImageCache->restoreDefaults(&localPrefs);
+	if (prefs_ExternalTools)
+		prefs_ExternalTools->restoreDefaults(&localPrefs);
+	if (prefs_Plugins)
+		prefs_Plugins->restoreDefaults(&localPrefs);
+	if (prefs_Miscellaneous)
+		prefs_Miscellaneous->restoreDefaults(&localPrefs);
+	if (prefs_ImageCache)
+		prefs_ImageCache->restoreDefaults(&localPrefs);
 }
 
 
 void PreferencesDialog::saveGuiToPrefs()
 {
 	prefs_UserInterface->saveGuiToPrefs(&localPrefs);
-	prefs_Paths->saveGuiToPrefs(&localPrefs);
+	if (prefs_Paths)
+		prefs_Paths->saveGuiToPrefs(&localPrefs);
 	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
 	if (prefs_DocumentInformation)
 		prefs_DocumentInformation->saveGuiToPrefs(&localPrefs);
@@ -199,13 +227,20 @@ void PreferencesDialog::saveGuiToPrefs()
 	prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
 	if (prefs_DocumentSections)
 		prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
-	prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
+	if (prefs_KeyboardShortcuts)
+		prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
 	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
-	prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
+	if (prefs_Scrapbook)
+		prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	prefs_Display->saveGuiToPrefs(&localPrefs);
-	prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
-	prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
-	prefs_ImageCache->saveGuiToPrefs(&localPrefs);
+	if (prefs_ExternalTools)
+		prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
+	if (prefs_Plugins)
+		prefs_Plugins->saveGuiToPrefs(&localPrefs);
+	if (prefs_Miscellaneous)
+		prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
+	if (prefs_ImageCache)
+		prefs_ImageCache->saveGuiToPrefs(&localPrefs);
 }
 
 void PreferencesDialog::applyButtonClicked()
@@ -236,10 +271,8 @@ void PreferencesDialog::setupListWidget()
 	preferencesTypeList->setDragDropMode(QAbstractItemView::NoDragDrop);
 	//preferencesTypeList->setResizeMode(QListView::Adjust);
 	preferencesTypeList->setSelectionMode(QAbstractItemView::SingleSelection);
-
 	preferencesTypeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	preferencesTypeList->clear();
-
 }
 
 int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget* tab)

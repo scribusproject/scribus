@@ -637,7 +637,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport", false);
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File", false);
-//	scrMenuMgr->addMenuItem(scrActions["fileDocSetup150"], "File", false);
+	scrMenuMgr->addMenuItem(scrActions["fileDocSetup150"], "File", false);
 	scrMenuMgr->addMenuItem(scrActions["filePreferences"], "File", true);
 	scrMenuMgr->addMenuItem(scrActions["filePreferences150"], "File", true);
 	scrMenuMgr->addMenuSeparator("File");
