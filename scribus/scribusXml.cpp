@@ -169,6 +169,8 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->ColGap = attrAsDbl(attrs, "COLGAP" , 0.0);
 	OB->GrType = attrAsInt(attrs, "GRTYP"  , 0);
 	OB->fill_gradient.clearStops();
+	if (OB->PType == PageItem::Symbol)
+		OB->pattern = attrAsString(attrs, "pattern", "");
 	if (OB->GrType != 0)
 	{
 		if (OB->GrType == 8)
@@ -2756,6 +2758,8 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("LatexUsePreamble", QString::number(static_cast<int>(latexitem->usePreamble())));
 		writer.writeTextElement("LATEX-SOURCE", item->asLatexFrame()->formula());
 	}
+	if (item->asSymbolFrame())
+		writer.writeAttribute("pattern", item->pattern());
 #ifdef HAVE_OSG
 	if (item->asOSGFrame())
 	{

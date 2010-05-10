@@ -1784,7 +1784,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		TabStack->setItemEnabled(idShapeItem, false);
 		TabStack->setItemEnabled(idGroupItem, true);
 		TabStack->setItemEnabled(idLineItem, false);
-		TabStack->setItemEnabled(idColorsItem, true);
+		TabStack->setItemEnabled(idColorsItem, false);
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
 		if (CurItem->FrameType == 0)
@@ -1977,6 +1977,35 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		SCustom->setEnabled(false);
 	}
 #endif
+	if (CurItem->asSymbolFrame())
+	{
+		TabStack->setItemEnabled(idXYZItem, true);
+		TabStack->setItemEnabled(idShapeItem, false);
+		TabStack->setItemEnabled(idGroupItem, true);
+		TabStack->setItemEnabled(idLineItem, false);
+		TabStack->setItemEnabled(idColorsItem, false);
+		TabStack->setItemEnabled(idTextItem, false);
+		TabStack->setItemEnabled(idImageItem, false);
+		TabStack->setItemEnabled(idTransparencyItem, false);
+		if (CurItem->FrameType == 0)
+			SCustom2->setIcon(SCustom2->getIconPixmap(0));
+		if (CurItem->FrameType == 1)
+			SCustom2->setIcon(SCustom2->getIconPixmap(1));
+		if (CurItem->FrameType > 3)
+			SCustom2->setIcon(SCustom2->getIconPixmap(CurItem->FrameType-2));
+		TpalGroup->updateFromItem();
+		TpalGroup->setActPattern(i->patternMask(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
+		SCustom2->setEnabled(true);
+		EditShape2->setEnabled(true);
+		SRect2->setEnabled(true);
+		textFlowDisabled2->setEnabled(true);
+		textFlowUsesFrameShape2->setEnabled(true);
+		textFlowUsesBoundingBox2->setEnabled(true);
+		textFlowUsesContourLine2->setEnabled(true);
+		textFlowUsesImageClipping2->setEnabled(false);
+		DoGroup->setEnabled(false);
+		DoUnGroup->setEnabled(false);
+	}
 	updateSpinBoxConstants();
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
@@ -2182,6 +2211,19 @@ void PropertiesPalette::NewSel(int nr)
 			TabStack->setItemEnabled(idImageItem, false);
 			TabStack->setItemEnabled(idLineItem, true);
 			RoundRect->setEnabled(false);
+			break;
+		case PageItem::Symbol:
+			TabStack->setItemEnabled(idShapeItem, false);
+			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idImageItem, false);
+			TabStack->setItemEnabled(idLineItem, false);
+			TabStack->setItemEnabled(idGroupItem, true);
+			TabStack->setItemEnabled(idColorsItem, false);
+			TabStack->setItemEnabled(idTransparencyItem, false);
+			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
+				RoundRect->setEnabled(!i->locked());
+			else
+				RoundRect->setEnabled(false);
 			break;
 		}
 	}
@@ -4013,8 +4055,8 @@ void PropertiesPalette::MakeIrre(int f, int c, qreal *vals)
 			RoundRect->setEnabled(f == 0);
 			return;
 		}
-		CurItem->convertTo(PageItem::Polygon);
-		NewSel(6);
+//		CurItem->convertTo(PageItem::Polygon);
+//		NewSel(6);
 		RoundRect->setEnabled(f == 0);
 	}
 }

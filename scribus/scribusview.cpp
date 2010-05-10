@@ -113,6 +113,7 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "stencilreader.h"
 #include "ui/storyeditor.h"
+#include "ui/symbolpalette.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "units.h"
@@ -784,6 +785,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
 	DraggedGroupFirst = false;
+	bool selectedItemByDrag=false;
 	FPoint dropPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 	QPointF dropPosDocQ(dropPosDoc.x(), dropPosDoc.y());
 //	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
@@ -803,6 +805,50 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	{
 		url = e->mimeData()->urls().at(0);
 		text = "";
+	}
+	else if (e->mimeData()->hasFormat("text/symbol"))
+	{
+		e->acceptProposedAction();
+		activateWindow();
+		if (!m_ScMW->scriptIsRunning())
+			raise();
+		m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
+		updateContents();
+		QString patternVal = e->mimeData()->data("text/symbol");
+		Doc->m_Selection->delaySignalsOn();
+		for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
+		{
+			if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
+			{
+				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
+				{
+					Deselect(false);
+					Doc->m_Selection->addItem(Doc->Items->at(i));
+					Doc->Items->at(i)->setPattern(patternVal);
+					selectedItemByDrag=true;
+					break;
+				}
+			}
+		}
+		Doc->m_Selection->delaySignalsOff();
+		if (!selectedItemByDrag)
+		{
+			int z = Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+			PageItem *b = Doc->Items->at(z);
+			b->LayerID = Doc->activeLayer();
+			ScPattern pat = Doc->docPatterns[patternVal];
+			b->setWidth(pat.width);
+			b->setHeight(pat.height);
+			b->OldB2 = b->width();
+			b->OldH2 = b->height();
+			b->setPattern(patternVal);
+			b->updateClip();
+			Deselect(false);
+			Doc->m_Selection->addItem(b);
+		}
+		emit DocChanged();
+		update();
+		return;
 	}
 //	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
 	if (!url.isEmpty())
@@ -827,7 +873,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			ext = "JPEG";
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
 		img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesJPEG(ext) || extensionIndicatesPSD(ext));
-		bool selectedItemByDrag=false;
 //		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
 		//Loop through all items and see which one(s) were under the drop point on the current layer
 		//Should make a nice function for this.
@@ -992,6 +1037,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 									Doc->moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
 									m_ScMW->propertiesPalette->updateColorList();
+									m_ScMW->symbolPalette->updateSymbolList();
 									m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 									m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
 									m_ScMW->propertiesPalette->SetLineFormats(Doc);

@@ -503,7 +503,7 @@ QStringList PatternDialog::getUsedPatternsHelper(QString pattern, QStringList &r
 	pats.clear();
 	for (int c = 0; c < pat->items.count(); ++c)
 	{
-		if ((!results.contains(pat->items.at(c)->pattern())) && (pat->items.at(c)->GrType == 8))
+		if ((!results.contains(pat->items.at(c)->pattern())) && ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol)))
 			pats.append(pat->items.at(c)->pattern());
 	}
 	if (!pats.isEmpty())

@@ -69,6 +69,7 @@ class PageItem_PolyLine;
 class PageItem_TextFrame;
 class PageItem_PathText;
 class PageItem_LatexFrame;
+class PageItem_Symbol;
 #ifdef HAVE_OSG
 class PageItem_OSGFrame;
 #endif
@@ -163,8 +164,9 @@ public:
 		Polygon		= 6,
 		PolyLine	= 7,
 		PathText	= 8,
-		LatexFrame      = 9,
-		OSGFrame        = 10,
+		LatexFrame  = 9,
+		OSGFrame    = 10,
+		Symbol		= 11,
 		Multiple	= 99
 	};
 
@@ -191,6 +193,7 @@ public:
 #ifdef HAVE_OSG
 	virtual PageItem_OSGFrame * asOSGFrame() { return NULL; }
 #endif
+	virtual PageItem_Symbol * asSymbolFrame() { return NULL; }
 
 	virtual bool isImageFrame() const { return false; }
 	virtual bool isLine()       const { return false; }
@@ -200,6 +203,7 @@ public:
 	virtual bool isTextFrame()  const { return false; }
 	virtual bool isLatexFrame() const { return false; }
 	virtual bool isOSGFrame()   const { return false; }
+	virtual bool isSymbol()     const { return false; }
 
 	/** @brief Frame Type
 	 *

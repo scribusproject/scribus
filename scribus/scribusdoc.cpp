@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
 #endif
+#include "pageitem_symbol.h"
 #include "ui/pagepalette.h"
 #include "pagesize.h"
 #include "pagestructs.h"
@@ -2804,7 +2805,7 @@ QStringList ScribusDoc::getUsedPatterns()
 	QStringList results;
 	for (int c = 0; c < MasterItems.count(); ++c)
 	{
-		if ((!results.contains(MasterItems.at(c)->pattern())) && (MasterItems.at(c)->GrType == 8))
+		if ((!results.contains(MasterItems.at(c)->pattern())) && ((MasterItems.at(c)->GrType == 8) || (MasterItems.at(c)->itemType() == PageItem::Symbol)))
 			results.append(MasterItems.at(c)->pattern());
 		if (!MasterItems.at(c)->strokePattern().isEmpty())
 		{
@@ -2819,7 +2820,7 @@ QStringList ScribusDoc::getUsedPatterns()
 	}
 	for (int c = 0; c < DocItems.count(); ++c)
 	{
-		if ((!results.contains(DocItems.at(c)->pattern())) && (DocItems.at(c)->GrType == 8))
+		if ((!results.contains(DocItems.at(c)->pattern())) && ((DocItems.at(c)->GrType == 8) || (DocItems.at(c)->itemType() == PageItem::Symbol)))
 			results.append(DocItems.at(c)->pattern());
 		if (!DocItems.at(c)->strokePattern().isEmpty())
 		{
@@ -2834,7 +2835,7 @@ QStringList ScribusDoc::getUsedPatterns()
 	}
 	for (int c = 0; c < FrameItems.count(); ++c)
 	{
-		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->GrType == 8))
+		if ((!results.contains(FrameItems.at(c)->pattern())) && ((FrameItems.at(c)->GrType == 8) || (FrameItems.at(c)->itemType() == PageItem::Symbol)))
 			results.append(FrameItems.at(c)->pattern());
 		if (!FrameItems.at(c)->strokePattern().isEmpty())
 		{
@@ -2866,7 +2867,7 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = customSelection->itemAt(a);
-			if (currItem->GrType == 8)
+			if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
 			{
 				const QString& pat = currItem->pattern();
 				if (!pat.isEmpty() && !results.contains(pat))
@@ -2899,7 +2900,7 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	pats.clear();
 	for (int c = 0; c < pat->items.count(); ++c)
 	{
-		if (pat->items.at(c)->GrType == 8)
+		if ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol))
 		{
 			const QString& patName = pat->items.at(c)->pattern();
 			if (!patName.isEmpty() && !results.contains(patName))
@@ -3871,6 +3872,10 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 	case PageItem::PolyLine:
 		z = itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
 		break;
+	case PageItem::Symbol:
+		z = itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
+		Items->at(z)->setPattern(Buffer->pattern);
+		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
@@ -4221,6 +4226,10 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #endif
+		case PageItem::Symbol:
+			newItem = new PageItem_Symbol(this, x, y, b, h, w, CommonStrings::None, CommonStrings::None);
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+			break;
 		default:
 //			qDebug() << "unknown item type";
 			assert (false);
@@ -4447,13 +4456,14 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->ClipEdited = true;
 			break;
 		case PageItem::PathText:
+		case PageItem::Symbol:
 		//At this point, we cannot create a PathText item like this, only by conversion, do nothing
 			break;
 		default:
 			break;
 	}
 
-	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame)
+	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame || itemType==PageItem::Symbol)
 	{
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if(ScCore->usingGUI())

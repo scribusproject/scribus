@@ -109,6 +109,7 @@ class ScribusWin;
 class SimpleState;
 class StoryEditor;
 class StyleManager;
+class SymbolPalette;
 class TOCGenerator;
 class UndoManager;
 class UndoPalette;
@@ -221,6 +222,7 @@ public:
 	LayerPalette* layerPalette;
 	PagePalette *pagePalette;
 	BookPalette *bookmarkPalette;
+	SymbolPalette *symbolPalette;
 	Measurements* measurementPalette;
 	CheckDocument * docCheckerPalette;
 	UndoPalette* undoPalette;

@@ -115,6 +115,7 @@ public:
 	static QString itemType_PathText;
 	static QString itemType_LatexFrame;
 	static QString itemType_OSGFrame;
+	static QString itemType_Symbol;
 	static QString itemType_Multiple;
 
 	static QString itemSubType_PDF_PushButton;

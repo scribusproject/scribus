@@ -2642,6 +2642,50 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 #endif
 			break;
+		case PageItem::Symbol:
+			if (m_Doc->docPatterns.contains(c->pattern()))
+			{
+				ScPattern pat = m_Doc->docPatterns[c->pattern()];
+				PS_save();
+				PS_translate(0, -c->height());
+				PS_scale(c->width() / pat.width, c->height() / pat.height);
+				PS_translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
+				QStack<PageItem*> groupStack;
+				for (int em = 0; em < pat.items.count(); ++em)
+				{
+					PageItem* embedded = pat.items.at(em);
+					if (embedded->isGroupControl)
+					{
+						PS_save();
+						FPointArray cl = embedded->PoLine.copy();
+						QTransform mm;
+						mm.translate(embedded->gXpos, -(embedded->gHeight - embedded->gYpos));
+						mm.rotate(embedded->rotation());
+						cl.map( mm );
+						SetClipPath(&cl);
+						PS_closepath();
+						PS_clip(true);
+						groupStack.push(embedded->groupsLastItem);
+						continue;
+					}
+					PS_save();
+					PS_translate(embedded->gXpos, embedded->gHeight - embedded->gYpos);
+					ProcessItem(m_Doc, a, embedded, PNr, sep, farb, ic, gcr, master, true);
+					PS_restore();
+					if (groupStack.count() != 0)
+					{
+						while (embedded == groupStack.top())
+						{
+							PS_restore();
+							groupStack.pop();
+							if (groupStack.count() == 0)
+								break;
+						}
+					}
+				}
+				PS_restore();
+			}
+			break;
 		default:
 			break;
 		}

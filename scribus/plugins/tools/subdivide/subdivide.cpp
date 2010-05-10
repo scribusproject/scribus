@@ -72,6 +72,7 @@ void SubdividePlugin::languageChange()
 	m_actionInfo.subMenuName = tr("Path Tools");
 	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
 	m_actionInfo.forAppMode.append(modeEditClip);
 	m_actionInfo.needsNumObjects = 1;
 }

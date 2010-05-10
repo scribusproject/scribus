@@ -334,9 +334,10 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				QDrag* dr = new QDrag(m_view);
 				dr->setMimeData(md);
 				const QPixmap& pm = loadIcon("DragPix.xpm");
-				dr->setDragCursor(pm, Qt::CopyAction);
-				dr->setDragCursor(pm, Qt::MoveAction);
-				dr->setDragCursor(pm, Qt::LinkAction);
+				dr->setPixmap(pm);
+			//	dr->setDragCursor(pm, Qt::CopyAction);
+			//	dr->setDragCursor(pm, Qt::MoveAction);
+			//	dr->setDragCursor(pm, Qt::LinkAction);
 				dr->exec();
 				m_doc->DragP = false;
 				m_doc->leaveDrag = false;

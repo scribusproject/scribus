@@ -2471,6 +2471,76 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						break;
 					case PageItem::OSGFrame:
 						break;
+					case PageItem::Symbol:
+						if (doc.docPatterns.contains(ite->pattern()))
+						{
+							QString tmpD = "";
+							ScPattern pat = doc.docPatterns[ite->pattern()];
+							PutPage("q\n");
+							PutPage(SetClipPath(ite));
+							PutPage("h W* n\n");
+							QTransform trans;
+							trans.translate(0.0, -ite->height());
+							trans.scale(ite->width() / pat.width, ite->height() / pat.height);
+							trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
+							PutPage(FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n");
+							QStack<PageItem*> groupStack;
+							for (int em = 0; em < pat.items.count(); ++em)
+							{
+								PageItem* embedded = pat.items.at(em);
+								if (embedded->isGroupControl)
+								{
+									tmpD += "q\n";
+									FPointArray cl = embedded->PoLine.copy();
+									FPointArray clb = embedded->PoLine.copy();
+									QTransform mm;
+									mm.translate(embedded->gXpos, -(embedded->gHeight - embedded->gYpos));
+									mm.rotate(embedded->rotation());
+									cl.map( mm );
+									embedded->PoLine = cl;
+									tmpD += SetClipPath(embedded);
+									tmpD += "h W* n\n";
+									groupStack.push(embedded->groupsLastItem);
+									embedded->PoLine = clb.copy();
+									continue;
+								}
+								tmpD += "q\n";
+								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+								QString output;
+								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true))
+									return "";
+								tmpD += output;
+								tmpD += "Q\n";
+								if (groupStack.count() != 0)
+								{
+									while (embedded == groupStack.top())
+									{
+										tmpD += "Q\n";
+										groupStack.pop();
+										if (groupStack.count() == 0)
+											break;
+									}
+								}
+							}
+							for (int em = 0; em < pat.items.count(); ++em)
+							{
+								PageItem* embedded = pat.items.at(em);
+								if (!embedded->isTableItem)
+									continue;
+								if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
+									continue;
+								tmpD += "q\n";
+								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+								tmpD += PDF_ProcessTableItem(embedded, pag);
+								tmpD += "Q\n";
+							}
+							if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
+								PutPage(Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite));
+							else
+								PutPage(tmpD);
+							PutPage("Q\n");
+						}
+						break;
 					case PageItem::Multiple:
 						Q_ASSERT(false);
 						break;
@@ -4201,6 +4271,76 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			if (ite->GrMask > 0)
 				tmp += "Q\n";
 			break;
+		case PageItem::Symbol:
+			if (doc.docPatterns.contains(ite->pattern()))
+			{
+				QString tmpD = "";
+				ScPattern pat = doc.docPatterns[ite->pattern()];
+				tmp += "q\n";
+				tmp += SetClipPath(ite);
+				tmp += "h W* n\n";
+				QTransform trans;
+				trans.translate(0.0, -ite->height());
+				trans.scale(ite->width() / pat.width, ite->height() / pat.height);
+				trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
+				tmp += FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n";
+				QStack<PageItem*> groupStack;
+				for (int em = 0; em < pat.items.count(); ++em)
+				{
+					PageItem* embedded = pat.items.at(em);
+					if (embedded->isGroupControl)
+					{
+						tmpD += "q\n";
+						FPointArray cl = embedded->PoLine.copy();
+						FPointArray clb = embedded->PoLine.copy();
+						QTransform mm;
+						mm.translate(embedded->gXpos, -(embedded->gHeight - embedded->gYpos));
+						mm.rotate(embedded->rotation());
+						cl.map( mm );
+						embedded->PoLine = cl;
+						tmpD += SetClipPath(embedded);
+						tmpD += "h W* n\n";
+						groupStack.push(embedded->groupsLastItem);
+						embedded->PoLine = clb.copy();
+						continue;
+					}
+					tmpD += "q\n";
+					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+					QString output;
+					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
+						return "";
+					tmpD += output;
+					tmpD += "Q\n";
+					if (groupStack.count() != 0)
+					{
+						while (embedded == groupStack.top())
+						{
+							tmpD += "Q\n";
+							groupStack.pop();
+							if (groupStack.count() == 0)
+								break;
+						}
+					}
+				}
+				for (int em = 0; em < pat.items.count(); ++em)
+				{
+					PageItem* embedded = pat.items.at(em);
+					if (!embedded->isTableItem)
+						continue;
+					if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
+						continue;
+					tmpD += "q\n";
+					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+					tmpD += PDF_ProcessTableItem(embedded, pag);
+					tmpD += "Q\n";
+				}
+				if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
+					tmp += Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite);
+				else
+					tmp += tmpD;
+				tmp += "Q\n";
+			}
+			break;
 		case PageItem::Multiple:
 			Q_ASSERT(false);
 			break;
@@ -5773,6 +5913,14 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 	ResCount++;
 	QString tmp;
 	QString GXName;
+	double scaleX = 1.0;
+	double scaleY = 1.0;
+	if (currItem->itemType() == PageItem::Symbol)
+	{
+		ScPattern pat = doc.docPatterns[currItem->pattern()];
+		scaleX = 1.0 / (currItem->width() / pat.width);
+		scaleY = 1.0 / (currItem->height() / pat.height);
+	}
 	if ((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5))
 	{
 		QList<double> StopVec;
@@ -5795,8 +5943,17 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		TransVec.clear();
 		QTransform mpa;
 		if (currItem->isGroupControl)
+		{
 			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-		mpa.rotate(-currItem->rotation());
+			mpa.rotate(-currItem->rotation());
+		}
+		else if (currItem->itemType() == PageItem::Symbol)
+		{
+			mpa.translate(0, currItem->height() * scaleY);
+			mpa.scale(scaleX, scaleY);
+		}
+		else
+			mpa.rotate(-currItem->rotation());
 		if (Gskew == 90)
 			Gskew = 1;
 		else if (Gskew == 180)
@@ -5912,7 +6069,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = currItem->lineWidth();
-		if (currItem->isGroupControl)
+		if ((currItem->isGroupControl) || (currItem->itemType() == PageItem::Symbol))
 			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 		else
 			PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(currItem->width()+lw)+" "+FToStr(-(currItem->height()+lw))+" ]\n");
@@ -5934,6 +6091,13 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			mpa.rotate(-currItem->rotation());
 			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
 		}
+		else if (currItem->itemType() == PageItem::Symbol)
+		{
+			QTransform mpa;
+			mpa.translate(0, currItem->height() * scaleY);
+			mpa.scale(scaleX, scaleY);
+			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+		}
 		stre += SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
@@ -5949,7 +6113,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		ResCount++;
 		GXName = ResNam+QString::number(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = "/"+GXName+" gs\n";
 	}
 	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6))
@@ -5976,7 +6140,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			}
 		}
 		PutDoc(" >>\n");
-		if (currItem->isGroupControl)
+		if ((currItem->isGroupControl) || (currItem->itemType() == PageItem::Symbol))
 			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 		else
 			PutDoc("/BBox [0 0 "+FToStr(currItem->width())+" "+FToStr(-(currItem->height()))+" ]\n");
@@ -5996,6 +6160,13 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			QTransform mpa;
 			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-currItem->rotation());
+			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+		}
+		else if (currItem->itemType() == PageItem::Symbol)
+		{
+			QTransform mpa;
+			mpa.translate(0, currItem->height() * scaleY);
+			mpa.scale(scaleX, scaleY);
 			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
 		}
 		stre += SetClipPath(currItem)+"h\n";
@@ -6188,6 +6359,14 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	PutDoc("/PaintType 1\n");
 	PutDoc("/TilingType 1\n");
 	PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(pat->height)+" ]\n");
+	double scaleX = 1.0;
+	double scaleY = 1.0;
+	if (currItem->itemType() == PageItem::Symbol)
+	{
+		ScPattern pat = doc.docPatterns[currItem->pattern()];
+		scaleX = 1.0 / (currItem->width() / pat.width);
+		scaleY = 1.0 / (currItem->height() / pat.height);
+	}
 	QTransform mpa;
 	if ((inPattern == 0) && (kind != 2))
 	{
@@ -6213,13 +6392,21 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-currItem->rotation());
 		}
+		else if (currItem->itemType() == PageItem::Symbol)
+		{
+			mpa.translate(0, currItem->height() * scaleY);
+			mpa.scale(scaleX, scaleY);
+		}
 		currItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 		currItem->maskFlip(mirrorX, mirrorY);
 	}
 	if (kind == 1)
 		mpa.translate(-currItem->lineWidth() / 2.0, currItem->lineWidth() / 2.0);
 	mpa.translate(patternOffsetX, -patternOffsetY);
-	mpa.rotate(-patternRotation);
+	if (currItem->itemType() == PageItem::Symbol)
+		mpa.rotate(patternRotation);
+	else
+		mpa.rotate(-patternRotation);
 	mpa.shear(patternSkewX, -patternSkewY);
 	mpa.scale(pat->scaleX, pat->scaleY);
 	mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);

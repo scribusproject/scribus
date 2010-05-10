@@ -267,6 +267,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_pathtext.h
   pageitem_polygon.h
   pageitem_polyline.h
+  pageitem_symbol.h
   pageitem_textframe.h
   ui/pageitemattributes.h
   pageitempointer.h
@@ -381,6 +382,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/stylemanager.h
   ui/styleselect.h
   ui/styleview.h
+  ui/symbolpalette.h
   ui/tabcheckdoc.h
   ui/tabdisplay.h
   ui/tabdocument.h
@@ -585,6 +587,7 @@ SET(SCRIBUS_SOURCES
   pageitem_pathtext.cpp
   pageitem_polygon.cpp
   pageitem_polyline.cpp
+  pageitem_symbol.cpp
   pageitem_textframe.cpp
   ui/pageitemattributes.cpp
   pageitempointer.cpp
@@ -755,6 +758,7 @@ SET(SCRIBUS_SOURCES
   ui/stylemanager.cpp
   ui/styleselect.cpp
   ui/styleview.cpp
+  ui/symbolpalette.cpp
   ui/tabcheckdoc.cpp
   ui/tabdisplay.cpp
   ui/tabdocument.cpp

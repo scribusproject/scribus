@@ -543,6 +543,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		AnName = tr("PathText");
 		setUPixmap(Um::IPathText);
 		break;
+	case Symbol:
+		AnName = tr("Symbol");
+		setUPixmap(Um::IPolygon);
+		break;
 	default:
 		AnName = "Item";
 		break;
@@ -1545,7 +1549,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->endLayer();
 #endif
 			p->setMaskMode(0);
-			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
+			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line || itemType()==Symbol)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))
 			{
@@ -1877,6 +1881,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			case OSGFrame:
 			case Polygon:
 			case PathText:
+			case Symbol:
 				embedded->DrawObj_Item(p, cullingArea);
 				break;
 			case Line:

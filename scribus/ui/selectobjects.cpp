@@ -89,6 +89,8 @@ void selectDialog::getUsedAttributesValues(int &Type, QString &Fill, QString &Li
 			Type = 8;
 		else if (Type == 6)
 			Type = 9;
+		else if (Type == 7)
+			Type = 11;
 	}
 	if (useFillColor->isChecked())
 	{

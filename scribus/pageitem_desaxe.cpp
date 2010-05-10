@@ -184,7 +184,8 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	const PageItem_LatexFrame *latexframe = NULL;
 	if (item->realItemType() == PageItem::LatexFrame)
 		latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
-	
+	if (item->itemType() == PageItem::Symbol)
+		result.insert("pattern", item->pattern());
 	if ((item->itemType()==PageItem::ImageFrame || item->itemType()==PageItem::TextFrame) && (!item->externalFile().isEmpty()) && !latexframe)
 	{
 		if (item->isInlineImage)
@@ -1137,7 +1138,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasRightLine, "RightLine", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasBottomLine, "BottomLine", &parseBool ));
 	
-	ruleset.addRule(Digester::concat(itemPrefix, "Pattern"), Pattern()); 
+	ruleset.addRule(Digester::concat(itemPrefix, "Pattern"), Pattern());
 	ruleset.addRule(Digester::concat(itemPrefix, "PatternStroke"), PatternStroke());
 	ruleset.addRule(Digester::concat(itemPrefix, "PatternMask"), PatternMask());
 	
@@ -1168,6 +1169,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 
 	// TODO: obj attributes
 	
+	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setPattern, "pattern", dummy ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setExternalFile, "image-file" ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setImageInline, "isInlineImage", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setInlineExt, "inlineImageExt" ));

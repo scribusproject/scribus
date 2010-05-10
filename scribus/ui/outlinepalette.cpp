@@ -136,6 +136,9 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  						case PageItem::PathText:
 							tipText = CommonStrings::itemType_PathText;
  							break;
+ 						case PageItem::Symbol:
+							tipText = CommonStrings::itemType_Symbol;
+ 							break;
  						default:
  							break;
  					}
@@ -481,6 +484,9 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 		break;
 	case PageItem::PathText:
 		item->setIcon( 0, textIcon );
+		break;
+	case PageItem::Symbol:
+		item->setIcon( 0, polygonIcon );
 		break;
 	default:
 		break;

@@ -200,6 +200,7 @@ for which a new license (GPL+exception) is in place.
 #include "stencilreader.h"
 #include "ui/storyeditor.h"
 #include "ui/stylemanager.h"
+#include "ui/symbolpalette.h"
 #include "ui/tabcheckdoc.h"
 #include "ui/tabguides.h"
 #include "ui/tabmanager.h"
@@ -529,6 +530,14 @@ void ScribusMainWindow::initPalettes()
 	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setChecked(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
 	alignDistributePalette->installEventFilter(this);
+
+	symbolPalette = new SymbolPalette(this);
+	symbolPalette->setMainWindow(this);
+	connect( scrActions["toolsSymbols"], SIGNAL(toggled(bool)), symbolPalette, SLOT(setPaletteShown(bool)));
+	connect( symbolPalette, SIGNAL(paletteShown(bool)), scrActions["toolsSymbols"], SLOT(setChecked(bool)));
+	symbolPalette->installEventFilter(this);
+	symbolPalette->hide();
+	
 
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
@@ -1045,6 +1054,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItem(scrActions["toolsActionHistory"], "Windows", true);
 	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Windows", true);
 	scrMenuMgr->addMenuItem(scrActions["toolsAlignDistribute"], "Windows", true);
+	scrMenuMgr->addMenuItem(scrActions["toolsSymbols"], "Windows", true);
 	scrMenuMgr->addMenuSeparator("Windows");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Windows", true);
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Windows", true);
@@ -1641,6 +1651,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	alignDistributePalette->hide();
 	guidePalette->hide();
 	charPalette->hide();
+	symbolPalette->hide();
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
@@ -1946,6 +1957,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		actionManager->connectNewViewActions(tempView);
 		alignDistributePalette->setDoc(tempDoc);
 		docCheckerPalette->clearErrorList();
+		symbolPalette->setDoc(tempDoc);
 	}
 	w->setView(tempView);
 	ActWin = w;
@@ -2199,6 +2211,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	}
 	tocGenerator->setDoc(doc);
 	styleManager->setDoc(doc);
+	symbolPalette->setDoc(doc);
 	// Give plugins a chance to react on changing the current document
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
@@ -2234,6 +2247,7 @@ void ScribusMainWindow::SwitchWin()
 	guidePalette->setDoc(doc);
 	charPalette->setDoc(doc);
 	outlinePalette->setDoc(doc);
+	symbolPalette->setDoc(doc);
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
@@ -2419,6 +2433,7 @@ void ScribusMainWindow::HaveNewDoc()
 	updateActiveWindowCaption(doc->DocName);
 // 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
+	symbolPalette->setDoc(doc);
 	propertiesPalette->Cpal->ChooseGrad(0);
 //	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
@@ -2894,14 +2909,14 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemSendToPattern"]->setEnabled(true);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
-		scrActions["itemExtendedImageProperties"]->setEnabled(true);
-		scrActions["itemUpdateImage"]->setEnabled(true);
-		scrActions["itemPreviewLow"]->setEnabled(true);
-		scrActions["itemPreviewNormal"]->setEnabled(true);
+		scrActions["itemExtendedImageProperties"]->setEnabled(false);
+		scrActions["itemUpdateImage"]->setEnabled(false);
+		scrActions["itemPreviewLow"]->setEnabled(false);
+		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewFull"]->setEnabled(true);
 		scrActions["itemAttributes"]->setEnabled(true);
 		scrActions["itemPreviewLow"]->setEnabled(true);
-		if (SelectedType == 6) //Polygon
+		if (SelectedType == PageItem::Polygon) //Polygon
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
@@ -2910,7 +2925,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		}
-		else if (SelectedType == 7) //Polyline
+		else if (SelectedType == PageItem::PolyLine) //Polyline
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
@@ -2919,7 +2934,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		}
-		else if (SelectedType == 5) // Line
+		else if (SelectedType == PageItem::PolyLine) // Line
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(true);
@@ -2928,6 +2943,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		}
+		else if (SelectedType == PageItem::Symbol)
+			scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
@@ -3324,9 +3341,10 @@ void ScribusMainWindow::importVectorFile()
 			QDrag* dr = new QDrag(this);
 			dr->setMimeData(md);
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
-			dr->setDragCursor(dragCursor, Qt::CopyAction);
-			dr->setDragCursor(dragCursor, Qt::MoveAction);
-			dr->setDragCursor(dragCursor, Qt::LinkAction);
+			dr->setPixmap(dragCursor);
+		//	dr->setDragCursor(dragCursor, Qt::CopyAction);
+		//	dr->setDragCursor(dragCursor, Qt::MoveAction);
+		//	dr->setDragCursor(dragCursor, Qt::LinkAction);
 			dr->exec();
 		}
 		else
@@ -3558,6 +3576,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		propertiesPalette->SetLineFormats(doc);
 		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles());
 		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles());
+		symbolPalette->updateSymbolList();
 		if (!Mpa)
 		{
 			scanDocument();
@@ -3696,6 +3715,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				newActWin(ActWinOld->getSubWin());
 			return false;
 		}
+		symbolPalette->setDoc(doc);
 		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
 		setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
@@ -4378,6 +4398,7 @@ bool ScribusMainWindow::DoFileClose()
 	//<<Palettes
 //	propertiesPalette->NewSel(-1);
 	propertiesPalette->unsetDoc();
+	symbolPalette->unsetDoc();
 	pagePalette->setView(0);
 	pagePalette->Rebuild();
 	if (doc->appMode == modeEditClip)
@@ -4703,6 +4724,7 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 void ScribusMainWindow::slotFileQuit()
 {
 	propertiesPalette->unsetDoc();
+	symbolPalette->unsetDoc();
 	ScCore->pluginManager->savePreferences();
 	close();
 }
@@ -4954,6 +4976,8 @@ void ScribusMainWindow::slotEditPaste()
 				styleManager->setDoc(doc);
 				propertiesPalette->unsetDoc();
 				propertiesPalette->setDoc(doc);
+				symbolPalette->unsetDoc();
+				symbolPalette->setDoc(doc);
 
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
@@ -5058,6 +5082,8 @@ void ScribusMainWindow::slotEditPaste()
 				styleManager->setDoc(doc);
 				propertiesPalette->unsetDoc();
 				propertiesPalette->setDoc(doc);
+				symbolPalette->unsetDoc();
+				symbolPalette->setDoc(doc);
 
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
@@ -6037,6 +6063,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		pagePalette->setEnabled(false);
 		bookmarkPalette->setEnabled(false);
 		docCheckerPalette->setEnabled(false);
+		symbolPalette->setEnabled(false);
 		styleManager->setEnabled(false);
 		alignDistributePalette->setEnabled(false);
 		view->pageSelector->setEnabled(false);
@@ -6120,6 +6147,7 @@ void ScribusMainWindow::NoFrameEdit()
 	docCheckerPalette->setEnabled(true);
 	styleManager->setEnabled(true);
 	alignDistributePalette->setEnabled(true);
+	symbolPalette->setEnabled(true);
 	view->pageSelector->setEnabled(true);
 	view->layerMenu->setEnabled(true);
 // 	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
@@ -7749,6 +7777,7 @@ void ScribusMainWindow::ShowSubs()
 	guidePalette->startup();
 	charPalette->startup();
 	styleManager->startup();
+	symbolPalette->startup();
 
 	// init the toolbars
 // 	fileToolBar->initVisibility();
@@ -9753,6 +9782,7 @@ void ScribusMainWindow::PutToPatterns()
 	}
 	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();
+	symbolPalette->updateSymbolList();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	doc->TotalItems = oldNum;
@@ -9781,6 +9811,7 @@ void ScribusMainWindow::managePatterns()
 				doc->replaceNamedResources(colorrsc);
 			}
 			propertiesPalette->updateColorList();
+			symbolPalette->updateSymbolList();
 			view->DrawNew();
 		}
 		delete dia;

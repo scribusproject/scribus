@@ -1165,6 +1165,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		docu.writeAttribute("gYpos", item->gYpos);
 		docu.writeAttribute("gWidth", item->gWidth);
 		docu.writeAttribute("gHeight", item->gHeight);
+		if (item->itemType() == PageItem::Symbol)
+			docu.writeAttribute("pattern", item->pattern());
 		if (item->GrType != 0)
 		{
 			if (item->GrType == 8)

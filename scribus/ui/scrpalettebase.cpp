@@ -55,14 +55,14 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 {
 	if (PrefsManager::instance()->appPrefs.uiPrefs.useSmallWidgets)
 	{
-		setStyleSheet("	QToolButton { margin: 0px; padding: 0px; font-size: 10px; } \
+		setStyleSheet("	QToolButton { margin: 1px; padding: 0px; font-size: 10px; } \
 						QToolButton:pressed { padding-top: 2px; padding-left: 2px } \
-						QPushButton { margin: 0px; padding: 0px; font-size: 10px; } \
+						QPushButton { margin: 1px; padding: 0px; font-size: 10px; } \
 						QPushButton:pressed { padding-top: 2px; padding-left: 2px } \
 						QRadioButton, QComboBox, QLineEdit \
-							QListView, QLabel { margin:0px; padding: 0px; font-size: 10px; } \
+							QListView, QLabel { margin:1px; padding: 0px; font-size: 10px; } \
 						QCheckBox, QSpinBox, QDoubleSpinBox \
-							{ margin:0px; padding: 0px; font-size: 10px; } \
+							{ margin:1px; padding: 0px; font-size: 10px; } \
 						QTabWidget, QTabBar, QTableView, QGroupBox, QTreeView \
 							{ font-size: 10px ; } \
 						QToolBox::tab { font-size: 10px; padding: 0px; margin: 0px; } \
