@@ -13,12 +13,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "ui/scrspinbox.h"
 #include "units.h"
+#include "util.h"
 #include "util_icon.h"
 
 Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
 	cmsEnabled(false),
-	m_doc(NULL)
+	m_doc(doc),
+	exportingPDF(false)
 {
 	setupUi(this);
 	pageMirrorHorizontalToolButton->setIcon(QIcon(loadIcon("16/flip-object-horizontal.png")));
@@ -122,10 +124,11 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 }
 
-void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, ScribusDoc* doc, const ProfilesL & PDFXProfiles,
-									  const QMap<QString, int> & DocFonts)
+void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const ProfilesL & PDFXProfiles, bool exporting)
 {
-	m_doc=doc;
+	exportingPDF=exporting;
+	enablePDFExportTabs(exportingPDF);
+	AllFonts=prefsData->fontPrefs.AvailFonts;
 	int unitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	unitChange(unitIndex);
@@ -171,64 +174,64 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, Scribu
 	maxResolutionLimitCheckBox->setChecked(prefsData->pdfPrefs.RecalcPic);
 	maxExportResolutionSpinBox->setValue(prefsData->pdfPrefs.PicRes);
 	maxExportResolutionSpinBox->setEnabled(prefsData->pdfPrefs.RecalcPic);
-	/*
-if (mdoc != 0 && exporting)
+
+	if (m_doc != 0 && exportingPDF)
 	{
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
-		for (int c = 0; c < doc->FrameItems.count(); ++c)
+		for (int c = 0; c < m_doc->FrameItems.count(); ++c)
 		{
-			pgit = doc->FrameItems.at(c);
+			pgit=m_doc->FrameItems.at(c);
 			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
-		for (int c = 0; c < doc->MasterItems.count(); ++c)
+		for (int c = 0; c < m_doc->MasterItems.count(); ++c)
 		{
-			pgit = doc->MasterItems.at(c);
+			pgit=m_doc->MasterItems.at(c);
 			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
-		for (int c = 0; c < doc->DocItems.count(); ++c)
+		for (int c = 0; c < m_doc->DocItems.count(); ++c)
 		{
-			pgit = doc->DocItems.at(c);
+			pgit=m_doc->DocItems.at(c);
 			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
 		QMap<QString,int>::const_iterator it;
-		AvailFlist->clear();
-		for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
+		availableFontsListWidget->clear();
+		for (it = m_doc->usedFonts().constBegin(); it != m_doc->usedFonts().constEnd(); ++it)
 		{
 			if (AllFonts[it.key()].isReplacement())
-				new QListWidgetItem( QIcon(loadIcon("font_subst16.png")), it.key(), AvailFlist );
+				new QListWidgetItem( QIcon(loadIcon("font_subst16.png")), it.key(), availableFontsListWidget );
 			else if (AllFonts[it.key()].type() == ScFace::TYPE1)
-				new QListWidgetItem( QIcon(loadIcon("font_type1_16.png")), it.key(), AvailFlist );
+				new QListWidgetItem( QIcon(loadIcon("font_type1_16.png")), it.key(), availableFontsListWidget );
 			else if (AllFonts[it.key()].type() == ScFace::TTF)
-				new QListWidgetItem( QIcon(loadIcon("font_truetype16.png")), it.key(), AvailFlist );
+				new QListWidgetItem( QIcon(loadIcon("font_truetype16.png")), it.key(), availableFontsListWidget );
 			else if (AllFonts[it.key()].type() == ScFace::OTF)
-				new QListWidgetItem( QIcon(loadIcon("font_otf16.png")), it.key(), AvailFlist );
+				new QListWidgetItem( QIcon(loadIcon("font_otf16.png")), it.key(), availableFontsListWidget );
 		}
-		ToEmbed->setEnabled(false);
-		FromEmbed->setEnabled(false);
-		ToOutline->setEnabled(false);
-		FromOutline->setEnabled(false);
+		toEmbedButton->setEnabled(false);
+		fromEmbedButton->setEnabled(false);
+		toOutlineButton->setEnabled(false);
+		fromOutlineButton->setEnabled(false);
 		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
 			EmbedAll();
 		else
 		{
-			EmbedList->clear();
+			embeddedFontsListWidget->clear();
 			FontsToEmbed.clear();
 			for (int fe = 0; fe < Opts.EmbedList.count(); ++fe)
 			{
-				EmbedList->addItem(Opts.EmbedList[fe]);
+				embeddedFontsListWidget->addItem(Opts.EmbedList[fe]);
 				FontsToEmbed.append(Opts.EmbedList[fe]);
 			}
 			if (Opts.SubsetList.count() != 0)
 			{
-				OutlineList->clear();
+				outlinedFontsListWidget->clear();
 				FontsToOutline.clear();
 				for (int fe = 0; fe < Opts.SubsetList.count(); ++fe)
 				{
-					OutlineList->addItem(Opts.SubsetList[fe]);
+					outlinedFontsListWidget->addItem(Opts.SubsetList[fe]);
 					FontsToOutline.append(Opts.SubsetList[fe]);
 				}
 			}
@@ -237,28 +240,28 @@ if (mdoc != 0 && exporting)
 			{
 				if (FontsToEmbed.contains(itAnn.key()) == 0)
 				{
-					EmbedList->addItem(itAnn.key());
-					EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
+					embeddedFontsListWidget->addItem(itAnn.key());
+					embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
 					FontsToEmbed.append(itAnn.key());
 				}
 				if (FontsToOutline.contains(itAnn.key()) != 0)
 				{
 					FontsToOutline.removeAll(itAnn.key());
-					QList<QListWidgetItem *> itR = OutlineList->findItems(itAnn.key(), Qt::MatchExactly);
-					delete OutlineList->takeItem(OutlineList->row(itR.at(0)));
+					QList<QListWidgetItem *> itR = outlinedFontsListWidget->findItems(itAnn.key(), Qt::MatchExactly);
+					delete outlinedFontsListWidget->takeItem(outlinedFontsListWidget->row(itR.at(0)));
 				}
 			}
 		}
-		CheckBox10->setChecked(Opts.PresentMode);
-		PagePrev->setChecked(false);
-		Pages->clear();
+		enabledEffectsCheckBox->setChecked(Opts.PresentMode);
+		showPagePreviewsCheckBox->setChecked(false);
+		effectsPageListWidget->clear();
 		QString tmp;
 		struct PDFPresentationData ef;
 		if (EffVal.count() != 0)
 		{
-			for (int pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
+			for (int pg2 = 0; pg2 < m_doc->Pages->count(); ++pg2)
 			{
-				Pages->addItem( tr("Page")+" "+tmp.setNum(pg2+1));
+				effectsPageListWidget->addItem( tr("Page")+" "+tmp.setNum(pg2+1));
 				if (EffVal.count()-1 < pg2)
 				{
 					ef.pageEffectDuration = 1;
@@ -273,9 +276,9 @@ if (mdoc != 0 && exporting)
 		}
 		else
 		{
-			for (int pg = 0; pg < doc->Pages->count(); ++pg)
+			for (int pg = 0; pg < m_doc->Pages->count(); ++pg)
 			{
-				Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
+				effectsPageListWidget->addItem( tr("Page")+" "+tmp.setNum(pg+1));
 				ef.pageEffectDuration = 1;
 				ef.pageViewDuration = 1;
 				ef.effectType = 0;
@@ -285,41 +288,41 @@ if (mdoc != 0 && exporting)
 				EffVal.append(ef);
 			}
 		}
-		PageTime->setValue(EffVal[0].pageViewDuration);
-		EffectTime->setValue(EffVal[0].pageEffectDuration);
+		displayDurationSpinBox->setValue(EffVal[0].pageViewDuration);
+		effectDurationSpinBox->setValue(EffVal[0].pageEffectDuration);
 		bool df = true;
 		if ((Opts.displayBookmarks) || (Opts.displayFullscreen) || (Opts.displayLayers) || (Opts.displayThumbs))
 			df = false;
 		if (df)
-			useViewDefault->setChecked(df);
-		useFullScreen->setChecked(Opts.displayFullscreen);
-		useBookmarks->setChecked(Opts.displayBookmarks);
-		useThumbnails->setChecked(Opts.displayThumbs);
-		useLayers2->setChecked(Opts.displayLayers);
-		hideToolBar->setChecked(Opts.hideToolBar);
-		hideMenuBar->setChecked(Opts.hideMenuBar);
-		fitWindow->setChecked(Opts.fitWindow);
+			useViewerDefaultsRadioButton->setChecked(df);
+		useFullScreenRadioButton->setChecked(Opts.displayFullscreen);
+		useBookmarksRadioButton->setChecked(Opts.displayBookmarks);
+		useThumbnailsRadioButton->setChecked(Opts.displayThumbs);
+		useLayersRadioButton->setChecked(Opts.displayLayers);
+		hideViewerToolBarCheckBox->setChecked(Opts.hideToolBar);
+		hideViewerMenuBarCheckBox->setChecked(Opts.hideMenuBar);
+		fitViewerWindowCheckBox->setChecked(Opts.fitWindow);
 		QMap<QString,QString>::Iterator itja;
-		actionCombo->clear();
-		actionCombo->addItem( tr("No Script"));
-		for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
-			actionCombo->addItem(itja.key());
-		if (doc->JavaScripts.contains(Opts.openAction))
-			setCurrentComboItem(actionCombo, Opts.openAction);
+		startupJavascriptComboBox->clear();
+		startupJavascriptComboBox->addItem( tr("No Script"));
+		for (itja = m_doc->JavaScripts.begin(); itja != m_doc->JavaScripts.end(); ++itja)
+			startupJavascriptComboBox->addItem(itja.key());
+		if (m_doc->JavaScripts.contains(Opts.openAction))
+			setCurrentComboItem(startupJavascriptComboBox, Opts.openAction);
 		if (Opts.PageLayout == PDFOptions::SinglePage)
-			singlePage->setChecked(true);
+			singlePageRadioButton->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::OneColumn)
-			continuousPages->setChecked(true);
+			continuousPagesRadioButton->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::TwoColumnLeft)
-			doublePageLeft->setChecked(true);
+			doublePageLeftRadioButton->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
-			doublePageRight->setChecked(true);
+			doublePageRightRadioButton->setChecked(true);
 		if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
-			useLayers2->setEnabled(true);
+			useLayersRadioButton->setEnabled(true);
 		else
-			useLayers2->setEnabled(false);
+			useLayersRadioButton->setEnabled(false);
 	}
-	*/
+
 	useEncryptionCheckBox->setChecked( prefsData->pdfPrefs.Encrypt );
 	passwordOwnerLineEdit->setText(prefsData->pdfPrefs.PassOwner);
 	passwordUserLineEdit->setText(prefsData->pdfPrefs.PassUser);
@@ -371,9 +374,9 @@ if (mdoc != 0 && exporting)
 	QString tp(prefsData->pdfPrefs.SolidProf);
 	if (!ScCore->InputProfiles.contains(tp))
 	{
-/*		if (m_doc != 0 && exporting)
-			tp = m_doc->CMSSettings.DefaultSolidColorRGBProfile;
-		else*/
+		if (m_doc != 0 && exportingPDF)
+			tp = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
+		else
 			tp = defaultSolidColorRGBProfile;
 	}
 	ProfilesL::Iterator itp;
@@ -393,9 +396,9 @@ if (mdoc != 0 && exporting)
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
 	{
-/*		if (m_doc != 0 && exporting)
-			tp1 = m_doc->CMSSettings.DefaultSolidColorRGBProfile;
-		else*/
+		if (m_doc != 0 && exportingPDF)
+			tp1 = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
+		else
 			tp1 = defaultSolidColorRGBProfile;
 	}
 	ProfilesL::Iterator itp2;
@@ -423,9 +426,9 @@ if (mdoc != 0 && exporting)
 	QString tp3(Opts.PrintProf);
 	if (!PDFXProfiles.contains(tp3))
 	{
-/*		if (m_doc != 0 && exporting)
-			tp3 = m_doc->CMSSettings.DefaultPrinterProfile;
-		else*/
+		if (m_doc != 0 && exportingPDF)
+			tp3 = m_doc->cmsSettings().DefaultPrinterProfile;
+		else
 			tp3 = defaultPrinterProfile;
 	}
 	pdfx3OutputProfileComboBox->clear();
@@ -438,13 +441,13 @@ if (mdoc != 0 && exporting)
 	pdfx3InfoStringLineEdit->setText(Opts.Info);
 
 
-	/*
-	if (m_doc != 0 && exporting)
+
+	if (m_doc != 0 && exportingPDF)
 	{
-		docBleeds->setChecked(Opts.useDocBleeds);
+		useDocumentBleedsCheckBox->setChecked(Opts.useDocBleeds);
 		doDocBleeds();
 	}
-	*/
+
 	registrationMarkOffsetSpinBox->setValue(prefsData->pdfPrefs.markOffset*unitRatio);
 	printCropMarksCheckBox->setChecked(prefsData->pdfPrefs.cropMarks);
 	printBleedMarksCheckBox->setChecked(prefsData->pdfPrefs.bleedMarks);
@@ -461,52 +464,49 @@ if (mdoc != 0 && exporting)
 		enablePDFX(5);
 	else
 		enablePDFXWidgets(false);
-	/*
-	if (mdoc != 0  && exporting)
+
+	if (m_doc != 0  && exportingPDF)
 	{
-		EffectType->clear();
-		EffectType->addItem( tr("No Effect"));
-		EffectType->addItem( tr("Blinds"));
-		EffectType->addItem( tr("Box"));
-		EffectType->addItem( tr("Dissolve"));
-		EffectType->addItem( tr("Glitter"));
-		EffectType->addItem( tr("Split"));
-		EffectType->addItem( tr("Wipe"));
+		effectTypeComboBox->clear();
+		effectTypeComboBox->addItem( tr("No Effect"));
+		effectTypeComboBox->addItem( tr("Blinds"));
+		effectTypeComboBox->addItem( tr("Box"));
+		effectTypeComboBox->addItem( tr("Dissolve"));
+		effectTypeComboBox->addItem( tr("Glitter"));
+		effectTypeComboBox->addItem( tr("Split"));
+		effectTypeComboBox->addItem( tr("Wipe"));
 		if (Opts.Version == PDFOptions::PDFVersion_15)
 		{
-			EffectType->addItem( tr("Push"));
-			EffectType->addItem( tr("Cover"));
-			EffectType->addItem( tr("Uncover"));
-			EffectType->addItem( tr("Fade"));
+			effectTypeComboBox->addItem( tr("Push"));
+			effectTypeComboBox->addItem( tr("Cover"));
+			effectTypeComboBox->addItem( tr("Uncover"));
+			effectTypeComboBox->addItem( tr("Fade"));
 		}
 		PgSel = 0;
-		Pages->setCurrentRow(0);
+		effectsPageListWidget->setCurrentRow(0);
 		SetEffOpts(0);
-		Pages->setEnabled(false);
-		Effects->setEnabled(false);
-		PagePrev->setEnabled(false);
+		effectsPageListWidget->setEnabled(false);
+		enableEffects(false);
+		showPagePreviewsCheckBox->setEnabled(false);
 		DoEffects();
-		if (CheckBox10->isChecked())
+		if (enabledEffectsCheckBox->isChecked())
 		{
-			PageTime->setValue(EffVal[0].pageViewDuration);
-			EffectTime->setValue(EffVal[0].pageEffectDuration);
-			EffectType->setCurrentIndex(EffVal[0].effectType);
-			EDirection->setCurrentIndex(EffVal[0].Dm);
-			EDirection_2->setCurrentIndex(EffVal[0].M);
-			EDirection_2_2->setCurrentIndex(EffVal[0].Di);
-			SetEffOpts(EffectType->currentIndex());
+			displayDurationSpinBox->setValue(EffVal[0].pageViewDuration);
+			effectDurationSpinBox->setValue(EffVal[0].pageEffectDuration);
+			effectTypeComboBox->setCurrentIndex(EffVal[0].effectType);
+			effectMovingDirectionComboBox->setCurrentIndex(EffVal[0].Dm);
+			effectInOutComboBox->setCurrentIndex(EffVal[0].M);
+			effectDirectionComboBox->setCurrentIndex(EffVal[0].Di);
+			SetEffOpts(effectTypeComboBox->currentIndex());
 		}
-		if (mdoc->currentPageLayout != 0)
+		/* Using margin widget, is this necessary?
+		if (m_doc->currentPageLayout != 0)
 		{
 			BleedTxt3->setText( tr( "Inside:" ) );
 			BleedTxt4->setText( tr( "Outside:" ) );
 		}
-
+		*/
 	}
-	*/
-	//
-
-
 }
 
 
@@ -535,7 +535,7 @@ void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->pdfPrefs.colorMarks = printColorBarsCheckBox->isChecked();
 	prefsData->pdfPrefs.docInfoMarks = printPageInfoCheckBox->isChecked();
 	prefsData->pdfPrefs.markOffset = registrationMarkOffsetSpinBox->value() / unitRatio;
-	//TODO for export: prefsData->pdfPrefs.useDocBleeds = docBleeds->isChecked();
+	prefsData->pdfPrefs.useDocBleeds = useDocumentBleedsCheckBox->isChecked();
 	prefsData->pdfPrefs.bleeds=bleedsWidget->margins();
 	prefsData->pdfPrefs.doClip = clipToPrinterMarginsCheckBox->isChecked();
 	if (useEncryptionCheckBox->isChecked())
@@ -626,6 +626,16 @@ void Prefs_PDFExport::enableCMS(bool enabled)
 	cmsEnabled=enabled;
 	addPDFVersions(enabled);
 	enableProfiles(1);
+}
+
+void Prefs_PDFExport::enablePDFExportTabs(bool enabled)
+{
+	if (!enabled)
+	{
+		tabWidget->removeTab(tabWidget->indexOf(tabFonts));//Fonts
+		tabWidget->removeTab(tabWidget->indexOf(tabExtras));//Extras
+		tabWidget->removeTab(tabWidget->indexOf(tabViewer));//Viewer
+	}
 }
 
 void Prefs_PDFExport::createPageNumberRange()
@@ -810,48 +820,47 @@ void Prefs_PDFExport::enablePG()
 void Prefs_PDFExport::enablePDFX(int i)
 {
 	includeLayersCheckBox->setEnabled((i == 2) || (i == 5));
-	/*
-	if (useLayers2)
-		useLayers2->setEnabled((i == 2) || (i == 5));
-	if (doc != 0 && pdfExport)
+	if (useLayersRadioButton)
+		useLayersRadioButton->setEnabled((i == 2) || (i == 5));
+	if (m_doc != 0 && exportingPDF)
 	{
-		int currentEff = EffectType->currentIndex();
-		disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
-		EffectType->clear();
-		EffectType->addItem( tr("No Effect"));
-		EffectType->addItem( tr("Blinds"));
-		EffectType->addItem( tr("Box"));
-		EffectType->addItem( tr("Dissolve"));
-		EffectType->addItem( tr("Glitter"));
-		EffectType->addItem( tr("Split"));
-		EffectType->addItem( tr("Wipe"));
+		int currentEff = effectTypeComboBox->currentIndex();
+		disconnect(effectTypeComboBox, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+		effectTypeComboBox->clear();
+		effectTypeComboBox->addItem( tr("No Effect"));
+		effectTypeComboBox->addItem( tr("Blinds"));
+		effectTypeComboBox->addItem( tr("Box"));
+		effectTypeComboBox->addItem( tr("Dissolve"));
+		effectTypeComboBox->addItem( tr("Glitter"));
+		effectTypeComboBox->addItem( tr("Split"));
+		effectTypeComboBox->addItem( tr("Wipe"));
 		if (i == 2)
 		{
-			EffectType->addItem( tr("Push"));
-			EffectType->addItem( tr("Cover"));
-			EffectType->addItem( tr("Uncover"));
-			EffectType->addItem( tr("Fade"));
-			EffectType->setCurrentIndex(currentEff);
+			effectTypeComboBox->addItem( tr("Push"));
+			effectTypeComboBox->addItem( tr("Cover"));
+			effectTypeComboBox->addItem( tr("Uncover"));
+			effectTypeComboBox->addItem( tr("Fade"));
+			effectTypeComboBox->setCurrentIndex(currentEff);
 		}
 		else
 		{
 			if (currentEff > 6)
 			{
 				currentEff = 0;
-				EffectType->setCurrentIndex(0);
+				effectTypeComboBox->setCurrentIndex(0);
 				SetEffOpts(0);
-				for (int pg = 0; pg < doc->Pages->count(); ++pg)
+				for (int pg = 0; pg<m_doc->Pages->count(); ++pg)
 				{
 					if (EffVal[pg].effectType > 6)
 						EffVal[pg].effectType = 0;
 				}
 			}
 			else
-				EffectType->setCurrentIndex(currentEff);
+				effectTypeComboBox->setCurrentIndex(currentEff);
 		}
-		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+		connect(effectTypeComboBox, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	}
-	*/
+
 	if (i < 3)  // not PDF/X
 	{
 		enablePDFXWidgets(false);
@@ -859,16 +868,15 @@ void Prefs_PDFExport::enablePDFX(int i)
 		outputIntentionComboBox->setEnabled(true);
 		useImageProfileCheckBox->setEnabled(true);
 		emit hasInfo();
-		/*
-		if (m_doc != 0 && pdfExport)
+		if (m_doc != 0 && exportingPDF)
 		{
-			CheckBox10->setEnabled(true);
-			EmbedFonts->setEnabled(true);
-			if (EmbedList->count() != 0)
-				FromEmbed->setEnabled(true);
-			ToEmbed->setEnabled(true);
+			enabledEffectsCheckBox->setEnabled(true);
+			embedAllButton->setEnabled(true);
+			if (embeddedFontsListWidget->count() != 0)
+				fromEmbedButton->setEnabled(true);
+			toEmbedButton->setEnabled(true);
 		}
-		*/
+
 		return;
 	}
 	// PDF/X is selected
@@ -881,22 +889,20 @@ void Prefs_PDFExport::enablePDFX(int i)
 		useImageProfileCheckBox->setChecked(true);
 		useImageProfileCheckBox->setEnabled(false);
 	}
-	/*
-	if (m_doc != 0 && pdfExport)
+	if (m_doc != 0 && exportingPDF)
 	{
 //		EmbedFonts->setChecked(true);
 		EmbedAll();
-		CheckBox10->setChecked(false);
-		CheckBox10->setEnabled(false);
+		enabledEffectsCheckBox->setChecked(false);
+		enabledEffectsCheckBox->setEnabled(false);
 //		EmbedFonts->setEnabled(false);
-		FromEmbed->setEnabled(false);
-		ToEmbed->setEnabled(false);
-		if (InfoString->text().isEmpty())
+		fromEmbedButton->setEnabled(false);
+		toEmbedButton->setEnabled(false);
+		if (pdfx3InfoStringLineEdit->text().isEmpty())
 			emit noInfo();
 		else
 			emit hasInfo();
 	}
-	*/
 	enablePGI();
 	pdfx3OutputProfileComboBox->setEnabled(true);
 	pdfx3InfoStringLineEdit->setEnabled(true);
@@ -922,4 +928,23 @@ void Prefs_PDFExport::addPDFVersions(bool addPDFXStrings)
 		i=qMin(i,2);
 	pdfVersionComboBox->setCurrentIndex(i);
 	connect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
+}
+
+
+void Prefs_PDFExport::enableEffects(bool enabled)
+{
+	effectsPageListWidget->setEnabled(enabled);
+	showPagePreviewsCheckBox->setEnabled(enabled);
+	displayDurationSpinBox->setEnabled(enabled);
+	effectDurationSpinBox->setEnabled(enabled);
+	effectTypeComboBox->setEnabled(enabled);
+	if (enabled)
+		SetEffOpts(effectTypeComboBox->currentIndex());
+	else
+	{
+		effectMovingDirectionComboBox->setEnabled(false);
+		effectInOutComboBox->setEnabled(false);
+		effectDirectionComboBox->setEnabled(false);
+		applyEffectToAllPagesPushButton->setEnabled(false);
+	}
 }

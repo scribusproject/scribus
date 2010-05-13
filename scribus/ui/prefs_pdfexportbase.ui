@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>671</width>
-    <height>568</height>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabPages">
       <attribute name="title">
@@ -667,9 +667,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-201</y>
-            <width>601</width>
-            <height>641</height>
+            <y>0</y>
+            <width>602</width>
+            <height>638</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1114,6 +1114,13 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="useDocumentBleedsCheckBox">
+         <property name="text">
+          <string>Use Document Bleeds</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="bleedSettingsVerticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -1185,6 +1192,540 @@
           <size>
            <width>20</width>
            <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabFonts">
+      <attribute name="title">
+       <string>Fonts</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <widget class="QLabel" name="label_20">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Export Range</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_10">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <widget class="QLabel" name="availableListLabel">
+             <property name="text">
+              <string>Available Fonts</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="availableFontsListWidget"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QPushButton" name="embedAllButton">
+             <property name="text">
+              <string>Embed All</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="outlineAllButton">
+             <property name="text">
+              <string>Outline All</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="toEmbedButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="fromEmbedButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_14">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <widget class="QLabel" name="embedListLabel">
+             <property name="text">
+              <string>Fonts to Embed</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="embeddedFontsListWidget"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <spacer name="horizontalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="fromOutlineButton">
+               <property name="font">
+                <font>
+                 <stylestrategy>PreferDefault</stylestrategy>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="toOutlineButton">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="outlineListLabel">
+             <property name="text">
+              <string>Fonts to Outline</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="outlinedFontsListWidget"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabExtras">
+      <attribute name="title">
+       <string>Extras</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_17">
+       <item>
+        <widget class="QCheckBox" name="enabledEffectsCheckBox">
+         <property name="text">
+          <string>Enable Presentation Effects</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QListWidget" name="effectsPageListWidget"/>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_16">
+           <item>
+            <layout class="QFormLayout" name="formLayout_11">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_37">
+               <property name="text">
+                <string>Display Duration:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_38">
+               <property name="text">
+                <string>Effect Duration:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_39">
+               <property name="text">
+                <string>Effect Type:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="effectTypeComboBox"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_40">
+               <property name="text">
+                <string>Moving Lines:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="effectMovingDirectionComboBox"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_41">
+               <property name="text">
+                <string>From the:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QComboBox" name="effectInOutComboBox"/>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_42">
+               <property name="text">
+                <string>Direction:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QComboBox" name="effectDirectionComboBox"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="displayDurationSpinBox">
+               <property name="suffix">
+                <string> s</string>
+               </property>
+               <property name="maximum">
+                <number>3600</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="effectDurationSpinBox">
+               <property name="suffix">
+                <string> s</string>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>3600</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="applyEffectToAllPagesPushButton">
+             <property name="text">
+              <string>Apply Effect to All Pages</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_19">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showPagePreviewsCheckBox">
+         <property name="text">
+          <string>Show Page Previews</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabViewer">
+      <attribute name="title">
+       <string>Viewer</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_15">
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Document Layout</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_11">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="singlePageRadioButton">
+         <property name="text">
+          <string>Single Page</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="continuousPagesRadioButton">
+         <property name="text">
+          <string>Continuous</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="doublePageLeftRadioButton">
+         <property name="text">
+          <string>Double Page Left</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="doublePageRightRadioButton">
+         <property name="text">
+          <string>Double Page Right</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_15">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_34">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Visual Appearance</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_12">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <widget class="QRadioButton" name="useViewerDefaultsRadioButton">
+             <property name="text">
+              <string>Use Viewer's Default</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="useFullScreenRadioButton">
+             <property name="text">
+              <string>Use Full Screen Mode</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="useBookmarksRadioButton">
+             <property name="text">
+              <string>Display Bookmarks Tab</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="useThumbnailsRadioButton">
+             <property name="text">
+              <string>Display Thumbnails</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="useLayersRadioButton">
+             <property name="text">
+              <string>Display Layers Tab</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QCheckBox" name="hideViewerMenuBarCheckBox">
+             <property name="text">
+              <string>Hide Viewer's Menu Bar</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="hideViewerToolBarCheckBox">
+             <property name="text">
+              <string>Hide Viewer's Tool Bar</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="fitViewerWindowCheckBox">
+             <property name="text">
+              <string>Zoom Pages to fit Viewer Window</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_18">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_16">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_35">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Special Actions</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_13">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QFormLayout" name="formLayout_10">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_36">
+           <property name="text">
+            <string>Javascript to be executed when PDF document is opened:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="startupJavascriptComboBox"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_17">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>60</height>
           </size>
          </property>
         </spacer>

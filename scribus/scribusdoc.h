@@ -217,6 +217,7 @@ public:
 	void setDocumentInfo(DocumentInformation di) { docPrefsData.docInfo=di; }
 	DocumentSectionMap& sections() { return docPrefsData.docSectionMap; }
 	void setSections(DocumentSectionMap dsm) { docPrefsData.docSectionMap=dsm; }
+	const QMap<QString, int> & usedFonts() { return UsedFonts; }
 
 	const ApplicationPrefs& prefsData() { return docPrefsData; }
 	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData);
