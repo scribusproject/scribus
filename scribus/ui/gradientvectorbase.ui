@@ -642,7 +642,7 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>Edit Control Points</string>
+              <string>Reset selected Control Point</string>
              </property>
              <property name="text">
               <string/>
@@ -667,7 +667,7 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>Edit Control Points</string>
+              <string>Reset all Control Points</string>
              </property>
              <property name="text">
               <string/>
