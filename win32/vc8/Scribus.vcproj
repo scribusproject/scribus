@@ -1231,6 +1231,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\pageitem_symbol.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pageitem_textframe.cpp"
 				>
 			</File>
@@ -1964,6 +1968,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\styleview.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\symbolpalette.cpp"
 				>
 			</File>
 			<File
@@ -6504,6 +6512,38 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\pageitem_symbol.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pageitem_textframe.h"
 				>
 				<FileConfiguration
@@ -10740,6 +10780,38 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\symbolpalette.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\tabcheckdoc.h"
 				>
 				<FileConfiguration
@@ -12538,6 +12610,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\moc_pageitem_symbol.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\moc_pageitem_textframe.cpp"
 				>
 			</File>
@@ -12999,6 +13075,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_styleview.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_symbolpalette.cpp"
 				>
 			</File>
 			<File
