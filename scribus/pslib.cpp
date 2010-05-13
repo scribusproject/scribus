@@ -2647,6 +2647,19 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				ScPattern pat = m_Doc->docPatterns[c->pattern()];
 				PS_save();
+				SetClipPath(&c->PoLine);
+				PS_closepath();
+				PS_clip(true);
+				if (c->imageFlippedH())
+				{
+					PS_translate(c->width(), 0);
+					PS_scale(-1, 1);
+				}
+				if (c->imageFlippedV())
+				{
+					PS_translate(0, -c->height());
+					PS_scale(1, -1);
+				}
 				PS_translate(0, -c->height());
 				PS_scale(c->width() / pat.width, c->height() / pat.height);
 				PS_translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);

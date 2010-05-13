@@ -9687,6 +9687,7 @@ void ScribusMainWindow::PutToPatterns()
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
 	dia.setTestList(doc->docPatterns.keys());
+	dia.setCheckMode(true);
 	if (dia.exec())
 		patternName = dia.getEditText();
 	else
@@ -9780,6 +9781,8 @@ void ScribusMainWindow::PutToPatterns()
 		paItem->setItemName(patternName+QString("_%1").arg(as-ac));
 		pat.items.append(paItem);
 	}
+	if (doc->docPatterns.contains(patternName))
+		doc->docPatterns.remove(patternName);
 	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();
 	symbolPalette->updateSymbolList();

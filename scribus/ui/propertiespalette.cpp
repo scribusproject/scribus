@@ -2003,8 +2003,6 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		textFlowUsesBoundingBox2->setEnabled(true);
 		textFlowUsesContourLine2->setEnabled(true);
 		textFlowUsesImageClipping2->setEnabled(false);
-		DoGroup->setEnabled(false);
-		DoUnGroup->setEnabled(false);
 	}
 	updateSpinBoxConstants();
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));

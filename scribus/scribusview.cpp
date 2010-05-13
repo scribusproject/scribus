@@ -820,7 +820,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
 			{
-				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
+				if ((m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE) && (Doc->Items->at(i)->itemType() == PageItem::Symbol))
 				{
 					Deselect(false);
 					Doc->m_Selection->addItem(Doc->Items->at(i));

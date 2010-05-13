@@ -46,6 +46,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 	setMaximumSize(sizeHint());
 	answerEdit->setFocus();
 	checkList = QStringList();
+	checkMode = false;
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( Leave() ) );
@@ -64,8 +65,23 @@ void Query::Leave()
 	{
 		if (checkList.contains(answerEdit->text()))
 		{
-			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
-			return;
+			if (checkMode)
+			{
+				int ret = QMessageBox::warning(this, 
+												CommonStrings::trWarning,
+												tr("Name \"%1\" already exists.\nDo you want to replace the current contents?").arg(answerEdit->text()),
+												QMessageBox::Yes | QMessageBox::No,
+												QMessageBox::No);
+				if (ret == QMessageBox::No)
+					return;
+				else
+					accept();
+			}
+			else
+			{
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
+				return;
+			}
 		}
 		accept();
 	}
@@ -88,4 +104,9 @@ void Query::setEditText(QString newText, bool setSelected)
 void Query::setTestList(QStringList tList)
 {
 	checkList = tList;
+}
+
+void Query::setCheckMode(bool mode)
+{
+	checkMode = mode;
 }

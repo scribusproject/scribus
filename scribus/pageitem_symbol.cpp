@@ -56,6 +56,16 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		if ((!patternVal.isEmpty()) && (m_Doc->docPatterns.contains(patternVal)))
 		{
 			p->save();
+			if (imageFlippedH())
+			{
+				p->translate(Width, 0);
+				p->scale(-1, 1);
+			}
+			if (imageFlippedV())
+			{
+				p->translate(0, Height);
+				p->scale(1, -1);
+			}
 			if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
 			{
 				if ((maskType() == 1) || (maskType() == 2))
@@ -191,6 +201,25 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			}
 			p->endLayer();
 			p->restore();
+		}
+		else
+		{
+			if (m_Doc->guidesPrefs().framesShown)
+			{
+				p->save();
+				p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				p->setFont(QApplication::font());
+				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				p->drawLine(FPoint(Width, 0), FPoint(Width, Height));
+				p->drawLine(FPoint(Width, Height), FPoint(0, Height));
+				p->drawLine(FPoint(0, Height), FPoint(0, 0));
+				p->setBrush(QColor(255, 255, 255));
+				p->setBrushOpacity(0.0);
+				p->drawText(QRectF(0.0, 0.0, Width, Height), "Empty Symbol");
+				p->restore();
+			}
 		}
 	}
 }

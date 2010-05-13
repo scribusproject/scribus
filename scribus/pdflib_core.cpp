@@ -2479,6 +2479,10 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							PutPage("q\n");
 							PutPage(SetClipPath(ite));
 							PutPage("h W* n\n");
+							if (ite->imageFlippedH())
+								PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
+							if (ite->imageFlippedV())
+								PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
 							QTransform trans;
 							trans.translate(0.0, -ite->height());
 							trans.scale(ite->width() / pat.width, ite->height() / pat.height);
@@ -4279,6 +4283,10 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				tmp += "q\n";
 				tmp += SetClipPath(ite);
 				tmp += "h W* n\n";
+				if (ite->imageFlippedH())
+					tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
+				if (ite->imageFlippedV())
+					tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
 				QTransform trans;
 				trans.translate(0.0, -ite->height());
 				trans.scale(ite->width() / pat.width, ite->height() / pat.height);

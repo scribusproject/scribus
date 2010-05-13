@@ -7937,7 +7937,7 @@ void ScribusDoc::itemSelection_FlipH()
 					currItem->moveBy(ix-ix2, iy-iy2, true);
 					currItem->setRedrawBounding();
 				}
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
 					currItem->flipImageH();
 				if (currItem->itemType() != PageItem::Line)
 					MirrorPolyH(currItem);
@@ -7953,7 +7953,7 @@ void ScribusDoc::itemSelection_FlipH()
 			for (uint a = 0; a < docSelectionCount; ++a)
 			{
 				PageItem* currItem=m_Selection->itemAt(a);
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
 					currItem->flipImageH();
 				if (currItem->itemType() != PageItem::Line)
 					MirrorPolyH(currItem);
@@ -8002,7 +8002,7 @@ void ScribusDoc::itemSelection_FlipV()
 					currItem->moveBy(ix-ix2, iy-iy2, true);
 					currItem->setRedrawBounding();
 				}
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
 					currItem->flipImageV();
 				if (currItem->itemType() != PageItem::Line)
 					MirrorPolyV(currItem);
@@ -8019,7 +8019,7 @@ void ScribusDoc::itemSelection_FlipV()
 			for (uint a = 0; a < docSelectionCount; ++a)
 			{
 				PageItem* currItem=m_Selection->itemAt(a);
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
 					currItem->flipImageV();
 				if (currItem->itemType() != PageItem::Line)
 					MirrorPolyV(currItem);

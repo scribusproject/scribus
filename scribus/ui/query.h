@@ -30,6 +30,7 @@ public:
 	const QString getEditText();
 	void setEditText(QString newText, bool setSelected);
 	void setTestList(QStringList tList);
+	void setCheckMode(bool mode);
 
 public slots:
 	void Leave();
@@ -43,6 +44,7 @@ private:
 	QLineEdit* answerEdit;
 	QLabel* questionLabel;
 	QStringList checkList;
+	bool checkMode;
 };
 
 #endif // QUERY_H
