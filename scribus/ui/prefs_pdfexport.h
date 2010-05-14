@@ -50,11 +50,11 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void enablePGI2();
 		void enablePDFX(int);
 
-		void EmbedAll();
-		void OutlineAll();
-		void doDocBleeds();
-		void DoEffects();
-		void SetEffOpts(int nr);
+		void EmbedAll() {};
+		void OutlineAll() {};
+		void doDocBleeds() {};
+		void DoEffects() {};
+		void SetEffOpts(int nr) {};
 
 	protected:
 		void setCustomRenderingWidgetsShown(bool);
