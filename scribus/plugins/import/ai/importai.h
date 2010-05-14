@@ -80,6 +80,7 @@ private:
 	void getCommands(QString data, QStringList &commands);
 	void processData(QString data);
 	void processGradientData(QString data);
+	void processSymbol(QDataStream &ts);
 	void processPattern(QDataStream &ts);
 	void processRaster(QDataStream &ts);
 	void processComment(QDataStream &ts, QString comment);
@@ -193,6 +194,9 @@ private:
 	double textScaleV;
 	int startCurrentTextRange;
 	int endCurrentTextRange;
+	QString currentSymbolName;
+	QMap<QString, QPointF> importedSymbols;
+	bool symbolMode;
 
 public slots:
 	void cancelRequested() { cancel = true; }

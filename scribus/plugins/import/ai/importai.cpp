@@ -136,6 +136,10 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	parseHeader(fName, x, y, b, h);
+	if (b == 0)
+		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	if (h == 0)
+		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docX = x;
 	docY = y;
 	docWidth = b - x;
@@ -188,10 +192,10 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 			}
 			if (!isGroup)
 			{
-				double minx = 99999.9;
-				double miny = 99999.9;
-				double maxx = -99999.9;
-				double maxy = -99999.9;
+				double minx = 999999.9;
+				double miny = 999999.9;
+				double maxx = -999999.9;
+				double maxy = -999999.9;
 				uint lowestItem = 999999;
 				uint highestItem = 0;
 				for (int a = 0; a < Elements.count(); ++a)
@@ -423,6 +427,10 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 		qApp->processEvents();
 	}
 	parseHeader(fName, x, y, b, h);
+	if (b == 0)
+		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	if (h == 0)
+		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	docX = x;
 	docY = y;
 	docWidth = b - x;
@@ -535,10 +543,10 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			}
 			if (!isGroup)
 			{
-				double minx = 99999.9;
-				double miny = 99999.9;
-				double maxx = -99999.9;
-				double maxy = -99999.9;
+				double minx = 999999.9;
+				double miny = 999999.9;
+				double maxx = -999999.9;
+				double maxy = -999999.9;
 				uint lowestItem = 999999;
 				uint highestItem = 0;
 				for (int a = 0; a < Elements.count(); ++a)
@@ -887,6 +895,11 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				found = true;
 				BBox = tmp.remove("%%HiResBoundingBox:");
 			}
+		//	if (tmp.startsWith("%AI3_TileBox:"))
+		//	{
+		//		found = true;
+		//		BBox = tmp.remove("%AI3_TileBox:");
+		//	}
 			if (tmp.startsWith("%%For"))
 			{
 				QStringList res = getStrings(tmp);
@@ -1542,6 +1555,60 @@ void AIPlug::processData(QString data)
 		Cdata = da[a];
 		if (((Cdata.startsWith("%")) || (Cdata.startsWith(" %"))) && (!meshMode))
 			continue;
+		if (Cdata.contains("SymbolInstance"))
+		{
+			symbolMode = true;
+			return;
+		}
+		if (symbolMode)
+		{
+			if (Cdata.contains("SymbolRef"))
+			{
+				int an = Cdata.indexOf("(");
+				int en = Cdata.lastIndexOf(")");
+				if ((an != -1) && (en != -1))
+				{
+					currentSymbolName = Cdata.mid(an+1, en-an-1);
+					currentSymbolName.remove("\\");
+					currentSymbolName = currentSymbolName.trimmed().simplified().replace(" ", "_");
+				}
+			}
+			else if (Cdata.contains("TransformMatrix"))
+			{
+				ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
+				ts2 >> x >> y >> x1 >> y1 >> x2 >> y2;
+				QTransform symTrans = QTransform(x, y, x1, y1, x2, y2);
+				double rotation = getRotationFromMatrix(symTrans, 0.0);
+				QPointF pos = QPointF(symTrans.dx() + importedSymbols[currentSymbolName].x(), symTrans.dy() + importedSymbols[currentSymbolName].y());
+				pos += QPointF(-m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+				double xp = pos.x() - docX;
+				double yp = docHeight - (pos.y() - docY);
+				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, xp, yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+				PageItem *b = m_Doc->Items->at(z);
+				b->LayerID = m_Doc->activeLayer();
+				ScPattern pat = m_Doc->docPatterns[currentSymbolName];
+				b->setWidth(pat.width * symTrans.m11());
+				b->setHeight(pat.height * symTrans.m22());
+				b->OldB2 = b->width();
+				b->OldH2 = b->height();
+				b->setPattern(currentSymbolName);
+				double xoffset = 0.0, yoffset = 0.0;
+				if (rotation != 0.0)
+				{
+					double temp = b->height();
+					xoffset = sin(rotation) * temp;
+					yoffset = cos(rotation) * temp;
+				}
+				b->setXPos(xp + xoffset);
+				b->setYPos(yp + yoffset + b->height());
+				b->setRotation(rotation * 180 / M_PI);
+				b->setTextFlowMode(PageItem::TextFlowDisabled);
+				b->setFillTransparency(1.0 - Opacity);
+				b->setLineTransparency(1.0 - Opacity);
+				b->updateClip();
+				symbolMode = false;
+			}
+		}
 		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
 		if (da2.count() == 0)
 			return;
@@ -1704,6 +1771,10 @@ void AIPlug::processData(QString data)
 					for (int dre = 0; dre < gElements.count(); ++dre)
 					{
 						tmpSel->addItem(gElements.at(dre), true);
+						if (patternMode)
+							PatternElements.removeAll(gElements.at(dre));
+						else
+							Elements.removeAll(gElements.at(dre));
 					}
 					m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
 					ite = tmpSel->itemAt(0);
@@ -1714,10 +1785,13 @@ void AIPlug::processData(QString data)
 						ite->PoLine = clipCoords.copy();
 						ite->PoLine.translate(baseX, baseY);
 					}
-				if (patternMode)
-					PatternElements.append(ite);
-				else
-					Elements.append(ite);
+					for (int as = 0; as < tmpSel->count(); ++as)
+					{
+						if (patternMode)
+							PatternElements.append(tmpSel->itemAt(as));
+						else
+							Elements.append(tmpSel->itemAt(as));
+					}
 				}
 				if (groupStack.count() != 0)
 				{
@@ -2463,7 +2537,7 @@ void AIPlug::processData(QString data)
 /* End special Commands */
 /* Skip everything else */
 //		else
-//			qDebug(command);
+//			qDebug() << command;
 	}
 }
 
@@ -2639,6 +2713,68 @@ void AIPlug::processPattern(QDataStream &ts)
 		}
 		else
 			processData(tmp);
+	}
+	patternMode = false;
+}
+
+void AIPlug::processSymbol(QDataStream &ts)
+{
+	QString tmp = "";
+	QString tmpData = "";
+	while (!ts.atEnd())
+	{
+		tmp = removeAIPrefix(readLinefromDataStream(ts));
+		if (!patternMode)
+		{
+			int an = tmp.indexOf("(");
+			int en = tmp.lastIndexOf(")");
+			if ((an != -1) && (en != -1))
+			{
+				patternMode = true;
+				currentPatternDefName = tmp.mid(an+1, en-an-1);
+				currentPatternDefName.remove("\\");
+				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
+			}
+		}
+		else if (tmp == "EndSymbol")
+		{
+			tmpSel->clear();
+			if (PatternElements.count() > 0)
+			{
+				for (int dre = 0; dre < PatternElements.count(); ++dre)
+				{
+					tmpSel->addItem(PatternElements.at(dre), true);
+				}
+				if (PatternElements.count() > 1)
+					m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
+				ScPattern pat = ScPattern();
+				pat.setDoc(m_Doc);
+				PageItem* currItem = tmpSel->itemAt(0);
+				currItem->setItemName(currentPatternDefName);
+				currItem->AutoName = false;
+				m_Doc->DoDrawing = true;
+				pat.pattern = currItem->DrawObj_toImage();
+				pat.width = currItem->gWidth;
+				pat.height = currItem->gHeight;
+				m_Doc->DoDrawing = false;
+				for (int as = 0; as < tmpSel->count(); ++as)
+				{
+					PageItem* Neu = tmpSel->itemAt(as);
+					pat.items.append(Neu);
+				}
+				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_Doc->addPattern(currentPatternDefName, pat);
+				importedPatterns.append(currentPatternDefName);
+				importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()+currItem->height()));
+			}
+			PatternElements.clear();
+			currentPatternDefName = "";
+			break;
+		}
+		else
+		{
+			processData(tmp);
+		}
 	}
 	patternMode = false;
 }
@@ -2829,6 +2965,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			}
 			if (tmp.startsWith("BeginPattern:"))
 				processPattern(ts);
+			if (tmp == "BeginSymbol")
+				processSymbol(ts);
 			if (tmp.startsWith("End_NonPrinting"))
 				break;
 			if(progressDialog)
@@ -2870,10 +3008,12 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			}
 		}
 	}
-	else if (tmp.startsWith("BeginSymbol"))
-	{
+	else if (tmp == "BeginSymbol")
+		processSymbol(ts);
+/*	{
 		while (!ts.atEnd())
 		{
+			processSymbol(ts);
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndSymbol"))
 				break;
@@ -2883,7 +3023,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				qApp->processEvents();
 			}
 		}
-	}
+	} */
 	else if (tmp.startsWith("BeginDocumentData"))
 	{
 		while (!ts.atEnd())
@@ -2991,6 +3131,7 @@ bool AIPlug::convert(QString fn)
 	WasU = false;
 	firstLayer = true;
 	patternMode = false;
+	symbolMode = false;
 	meshMode = false;
 	itemLocked = false;
 	patternX1 = 0.0;
