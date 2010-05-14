@@ -262,10 +262,10 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			}
 			if (!isGroup)
 			{
-				double minx = 99999.9;
-				double miny = 99999.9;
-				double maxx = -99999.9;
-				double maxy = -99999.9;
+				double minx = 999999.9;
+				double miny = 999999.9;
+				double maxx = -999999.9;
+				double maxy = -999999.9;
 				uint lowestItem = 999999;
 				uint highestItem = 0;
 				for (int a = 0; a < Elements.count(); ++a)
@@ -3493,10 +3493,10 @@ void XarPlug::popGraphicContext()
 			}
 			else
 			{
-				double minx = 99999.9;
-				double miny = 99999.9;
-				double maxx = -99999.9;
-				double maxy = -99999.9;
+				double minx = 999999.9;
+				double miny = 999999.9;
+				double maxx = -999999.9;
+				double maxy = -999999.9;
 				PageItem* groupItem = Elements.at(gg.index);
 				for (int a = gg.index+1; a < Elements.count(); ++a)
 				{

@@ -4655,10 +4655,14 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 {
 	PageItem *currItem;
-	double minx = std::numeric_limits<double>::max();
-	double miny = std::numeric_limits<double>::max();
-	double maxx = std::numeric_limits<double>::min();
-	double maxy = std::numeric_limits<double>::min();
+//	double minx = std::numeric_limits<double>::max();
+//	double miny = std::numeric_limits<double>::max();
+//	double maxx = std::numeric_limits<double>::min();
+//	double maxy = std::numeric_limits<double>::min();
+	double minx = 9999999.9;
+	double miny = 9999999.9;
+	double maxx = -9999999.9;
+	double maxy = -9999999.9;
 	uint docItemsCount=Items->count();
 	if (docItemsCount != 0)
 	{
@@ -8942,8 +8946,10 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 			newX=currentPage()->xOffset() + guidePosition;
 			break;
 		case alignSelection:
-			double minX = std::numeric_limits<double>::max();
-			double maxX = std::numeric_limits<double>::min();
+		//	double minX = std::numeric_limits<double>::max();
+		//	double maxX = std::numeric_limits<double>::min();
+			double minX = 9999999.9;
+			double maxX = -9999999.9;
 			for (uint a = 0; a < alignObjectsCount; ++a)
 			{
 				minX = qMin(AObjects[a].x1, minX);
@@ -8969,7 +8975,8 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newX = std::numeric_limits<double>::min();
+//	double newX = std::numeric_limits<double>::min();
+	double newX = -9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -9014,7 +9021,8 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newX = std::numeric_limits<double>::min();
+//	double newX = std::numeric_limits<double>::min();
+	double newX = -9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -9172,8 +9180,10 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 			newY=currentPage()->yOffset() + guidePosition;
 			break;
 		case alignSelection:
-			double minY = std::numeric_limits<double>::max();
-			double maxY = std::numeric_limits<double>::min();
+		//	double minY = std::numeric_limits<double>::max();
+		//	double maxY = std::numeric_limits<double>::min();
+			double minY = 9999999.9;
+			double maxY = -9999999.9;
 			for (uint a = 0; a < alignObjectsCount; ++a)
 			{
 				minY = qMin(AObjects[a].y1, minY);
@@ -9199,7 +9209,8 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newY = std::numeric_limits<double>::min();
+//	double newY = std::numeric_limits<double>::min();
+	double newY = -9999999.9;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -9244,7 +9255,8 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount-1;
-	double newY = std::numeric_limits<double>::min();
+//	double newY = std::numeric_limits<double>::min();
+	double newY = -9999999.9;
 	switch ( currAlignTo )
 	{
 		case alignFirst:
@@ -9919,8 +9931,10 @@ void ScribusDoc::itemSelection_SwapRight()
 	int itemIndex=itX.value(); //get our first item's index in the AObjects array
 //	bool found=false;
 //	double itXX=itX.key();
-	minY = std::numeric_limits<double>::max();
-	maxY = std::numeric_limits<double>::min();
+//	minY = std::numeric_limits<double>::max();
+//	maxY = std::numeric_limits<double>::min();
+	minY = 9999999.9;
+	maxY = -9999999.9;
 	int nextItemIndex=itemIndex;
 	circleList.append(nextItemIndex);
 	++circleListCounter;
@@ -11183,10 +11197,14 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 			lowestItem = qMin(lowestItem, currItem->ItemNr);
 			highestItem = qMax(highestItem, currItem->ItemNr);
 		}
-		double minx = std::numeric_limits<double>::max();
-		double miny = std::numeric_limits<double>::max();
-		double maxx = std::numeric_limits<double>::min();
-		double maxy = std::numeric_limits<double>::min();
+//		double minx = std::numeric_limits<double>::max();
+//		double miny = std::numeric_limits<double>::max();
+//		double maxx = std::numeric_limits<double>::min();
+//		double maxy = std::numeric_limits<double>::min();
+		double minx = 9999999.9;
+		double miny = 9999999.9;
+		double maxx = -9999999.9;
+		double maxy = -9999999.9;
 		for (uint ep = 0; ep < selectedItemCount; ++ep)
 		{
 			PageItem* currItem = itemSelection->itemAt(ep);

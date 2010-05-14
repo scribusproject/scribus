@@ -1082,10 +1082,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
 				uint SubFonts = 0;
 				int glyphCount = 0;
-				double minx = 99999.9;
-				double miny = 99999.9;
-				double maxx = -99999.9;
-				double maxy = -99999.9;
+				double minx = 999999.9;
+				double miny = 999999.9;
+				double maxx = -999999.9;
+				double maxy = -999999.9;
 				QList<uint> glyphWidths;
 				QStringList charProcs;
 				QString encoding = "<< /Type /Encoding\n/Differences [ 0\n";
@@ -1196,10 +1196,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 //						glyphMapping.clear();
 						glyphCount = 0;
 						++SubFonts;
-						minx = 99999.9;
-						miny = 99999.9;
-						maxx = -99999.9;
-						maxy = -99999.9;
+						minx = 999999.9;
+						miny = 999999.9;
+						maxx = -999999.9;
+						maxy = -999999.9;
 						encoding = "<< /Type /Encoding\n/Differences [ 0\n";
 					}
 				}

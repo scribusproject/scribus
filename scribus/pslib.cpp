@@ -1526,10 +1526,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	uint docSelectionCount=Doc->m_Selection->count();
 	if ((!Art) && (docSelectionCount != 0))
 	{
-		double minx = 99999.9;
-		double miny = 99999.9;
-		double maxx = -99999.9;
-		double maxy = -99999.9;
+		double minx = 999999.9;
+		double miny = 999999.9;
+		double maxx = -999999.9;
+		double maxy = -999999.9;
 		for (uint ep = 0; ep < docSelectionCount; ++ep)
 		{
 			//PageItem* currItem = view->SelItem.at(ep);

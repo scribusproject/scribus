@@ -9740,10 +9740,14 @@ void ScribusMainWindow::PutToPatterns()
 	int ae = doc->Items->count();
 	if ((docSelectionCount > 1) && (!isGroup))
 	{
-		double minx = std::numeric_limits<double>::max();
-		double miny = std::numeric_limits<double>::max();
-		double maxx = std::numeric_limits<double>::min();
-		double maxy = std::numeric_limits<double>::min();
+//		double minx = std::numeric_limits<double>::max();
+//		double miny = std::numeric_limits<double>::max();
+//		double maxx = std::numeric_limits<double>::min();
+//		double maxy = std::numeric_limits<double>::min();
+		double minx = 9999999.9;
+		double miny = 9999999.9;
+		double maxx = -9999999.9;
+		double maxy = -9999999.9;
 		for (int as = ac+1; as < ae; ++as)
 		{
 			PageItem* currItem = doc->Items->at(as);
