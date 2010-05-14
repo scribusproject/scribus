@@ -2164,14 +2164,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	{
 		if (item->rotation() != 0)
 		{
-//			double minx = std::numeric_limits<double>::max();
-//			double miny = std::numeric_limits<double>::max();
-//			double maxx = std::numeric_limits<double>::min();
-//			double maxy = std::numeric_limits<double>::min();
-			double minx = 9999999.9;
-			double miny = 9999999.9;
-			double maxx = -9999999.9;
-			double maxy = -9999999.9;
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
 			double xpo = item->xPos() - doc->currentPage()->xOffset();
 			double ypo = item->yPos() - doc->currentPage()->yOffset();
 			FPointArray pb(4);
@@ -3283,5 +3279,6 @@ void ScriXmlDoc::ReadPStyle(QXmlStreamReader& reader, ParagraphStyle &style, Scr
 	if (tabs.count() < 0)
 		style.setTabValues(tabs);
 }
+
 
 

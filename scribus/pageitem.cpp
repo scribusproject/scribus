@@ -2211,14 +2211,10 @@ QImage PageItem::DrawObj_toImage()
 {
 	QList<PageItem*> emG;
 	emG.clear();
-//	double minx = std::numeric_limits<double>::max();
-//	double miny = std::numeric_limits<double>::max();
-//	double maxx = std::numeric_limits<double>::min();
-//	double maxy = std::numeric_limits<double>::min();
-	double minx = 9999999.9;
-	double miny = 9999999.9;
-	double maxx = -9999999.9;
-	double maxy = -9999999.9;
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
 	if (Groups.count() != 0)
 	{
 		for (int ga=0; ga<m_Doc->Items->count(); ++ga)
@@ -5666,14 +5662,10 @@ QRectF PageItem::getVisualBoundingRect() const
 
 void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
-//	double minx = std::numeric_limits<double>::max();
-//	double miny = std::numeric_limits<double>::max();
-//	double maxx = std::numeric_limits<double>::min();
-//	double maxy = std::numeric_limits<double>::min();
-	double minx = 9999999.9;
-	double miny = 9999999.9;
-	double maxx = -9999999.9;
-	double maxy = -9999999.9;
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
 	if (Rot != 0)
 	{
 		FPointArray pb;
@@ -5812,14 +5804,10 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 
 void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
 {
-//	double minx = std::numeric_limits<double>::max();
-//	double miny = std::numeric_limits<double>::max();
-//	double maxx = std::numeric_limits<double>::min();
-//	double maxy = std::numeric_limits<double>::min();
-	double minx = 9999999.9;
-	double miny = 9999999.9;
-	double maxx = -9999999.9;
-	double maxy = -9999999.9;
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
