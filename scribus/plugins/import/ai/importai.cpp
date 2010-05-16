@@ -1579,11 +1579,14 @@ void AIPlug::processData(QString data)
 				ts2 >> x >> y >> x1 >> y1 >> x2 >> y2;
 				QTransform symTrans = QTransform(x, y, x1, y1, x2, y2);
 				double rotation = getRotationFromMatrix(symTrans, 0.0);
-				QPointF pos = QPointF(symTrans.dx() + importedSymbols[currentSymbolName].x(), symTrans.dy() + importedSymbols[currentSymbolName].y());
-				pos += QPointF(-m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-				double xp = pos.x() - docX;
-				double yp = docHeight - (pos.y() - docY);
-				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, xp, yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+				QTransform symT;
+				symT.translate(x2, y2);
+				QPointF pos1 = importedSymbols[currentSymbolName];
+				pos1 = symT.map(pos1);
+				pos1 += QPointF(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+				double xp = pos1.x();
+				double yp = docHeight - pos1.y();
+				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, baseX + xp, baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 				PageItem *b = m_Doc->Items->at(z);
 				b->LayerID = m_Doc->activeLayer();
 				ScPattern pat = m_Doc->docPatterns[currentSymbolName];
@@ -1593,12 +1596,12 @@ void AIPlug::processData(QString data)
 				b->OldH2 = b->height();
 				b->setPattern(currentSymbolName);
 				double xoffset = 0.0, yoffset = 0.0;
-				if (rotation != 0.0)
-				{
-					double temp = b->height();
+			//	if (rotation != 0.0)
+			//	{
+					double temp = -b->height();
 					xoffset = sin(rotation) * temp;
 					yoffset = cos(rotation) * temp;
-				}
+			//	}
 				b->setXPos(xp + xoffset);
 				b->setYPos(yp + yoffset + b->height());
 				b->setRotation(rotation * 180 / M_PI);
@@ -2762,10 +2765,10 @@ void AIPlug::processSymbol(QDataStream &ts)
 					PageItem* Neu = tmpSel->itemAt(as);
 					pat.items.append(Neu);
 				}
-				m_Doc->itemSelection_DeleteItem(tmpSel);
-				m_Doc->addPattern(currentPatternDefName, pat);
 				importedPatterns.append(currentPatternDefName);
 				importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()+currItem->height()));
+				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_Doc->addPattern(currentPatternDefName, pat);
 			}
 			PatternElements.clear();
 			currentPatternDefName = "";
