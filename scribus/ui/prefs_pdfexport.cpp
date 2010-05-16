@@ -364,7 +364,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	doNotUseEmbeddedImageProfileCheckBox->setChecked(prefsData->pdfPrefs.EmbeddedI);
 	if ((prefsData->pdfPrefs.UseRGB) || (prefsData->pdfPrefs.isGrayscale))
 	{
-		enableSolidsImagesWidgets(false);
+		//enableSolidsImagesWidgets(false);
 		enableProfiles(0);
 	}
 	else
@@ -625,7 +625,7 @@ void Prefs_PDFExport::enableCMS(bool enabled)
 {
 	cmsEnabled=enabled;
 	addPDFVersions(enabled);
-	enableProfiles(1);
+	enableProfiles(enabled);
 }
 
 void Prefs_PDFExport::enablePDFExportTabs(bool enabled)
@@ -672,7 +672,6 @@ void Prefs_PDFExport::enableProfiles(int i)
 	bool setter = false;
 	if (i == 1 && pdfVersionComboBox->currentIndex() != 3)
 		setter = true;
-
 	enableSolidsImagesWidgets(setter);
 }
 
@@ -725,9 +724,8 @@ void Prefs_PDFExport::enableLPI(int i)
 		if (cmsEnabled)
 			imageRenderingIntentComboBox->setCurrentIndex(Opts.Intent2);
 		//Disabling vis hiding
-		//setSolidsImagesWidgetsShown(cmsEnabled);
 		enableSolidsImagesWidgets(cmsEnabled);
-		convertSpotsToProcessCheckBox->show();
+		convertSpotsToProcessCheckBox->setEnabled(true);
 		if (m_doc!=0)
 		{
 			useCustomRenderingCheckBox->show();
@@ -736,7 +734,7 @@ void Prefs_PDFExport::enableLPI(int i)
 	}
 	else
 	{
-		convertSpotsToProcessCheckBox->hide();
+		convertSpotsToProcessCheckBox->setEnabled(false);
 		useCustomRenderingCheckBox->hide();
 		enableCustomRenderingWidgets(false);
 	}
@@ -776,6 +774,8 @@ void Prefs_PDFExport::setSolidsImagesWidgetsShown(bool visible)
 }
 void Prefs_PDFExport::enableSolidsImagesWidgets(bool enabled)
 {
+	//if we want to show/hide instead
+	//setSolidsImagesWidgetsShown(enabled);
 	useSolidColorProfileCheckBox->setEnabled(enabled);
 	solidColorProfileComboBox->setEnabled(enabled);
 	solidColorRenderingIntentComboBox->setEnabled(enabled);

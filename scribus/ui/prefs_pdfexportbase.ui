@@ -29,6 +29,13 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -668,7 +675,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>602</width>
+            <width>278</width>
             <height>638</height>
            </rect>
           </property>
