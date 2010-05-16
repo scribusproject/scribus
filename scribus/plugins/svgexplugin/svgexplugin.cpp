@@ -230,6 +230,7 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	}
 	globalDefs = docu.createElement("defs");
 	writeBasePatterns();
+	writeBaseSymbols();
 	docElement.appendChild(globalDefs);
 	if (Options.exportPageBackground)
 	{
@@ -441,6 +442,9 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 		case PageItem::PathText:
 			ob = processPathTextItem(Item, trans, stroke);
 			break;
+		case PageItem::Symbol:
+			ob = processSymbolItem(Item, trans);
+			break;
 		default:
 			break;
 	}
@@ -449,6 +453,74 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 	if (!Item->AutoName)
 		ob.setAttribute("id", Item->itemName());
 	parentElem->appendChild(ob);
+}
+
+QDomElement SVGExPlug::processSymbolStroke(PageItem *Item, QString trans)
+{
+	QDomElement ob;
+	ob = docu.createElement("g");
+	ob.setAttribute("transform", trans);
+	QPainterPath path = Item->PoLine.toQPainterPath(false);
+	ScPattern pat = m_Doc->docPatterns[Item->strokePattern()];
+	double pLen = path.length() - ((pat.width / 2.0) * (Item->patternStrokeScaleX / 100.0));
+	double adv = pat.width * Item->patternStrokeScaleX / 100.0 * Item->patternStrokeSpace;
+	double xpos = Item->patternStrokeOffsetX * Item->patternStrokeScaleX / 100.0;
+	while (xpos < pLen)
+	{
+		double currPerc = path.percentAtLength(xpos);
+		double currAngle = path.angleAtPercent(currPerc);
+#if QT_VERSION  >= 0x040400
+		if (currAngle <= 180.0)
+			currAngle *= -1.0;
+		else
+			currAngle = 360.0 - currAngle;
+#endif
+		QPointF currPoint = path.pointAtPercent(currPerc);
+		QTransform trans;
+		trans.translate(currPoint.x(), currPoint.y());
+		trans.rotate(-currAngle);
+		trans.translate(0.0, Item->patternStrokeOffsetY);
+		trans.rotate(-Item->patternStrokeRotation);
+		trans.shear(Item->patternStrokeSkewX, -Item->patternStrokeSkewY);
+		trans.scale(Item->patternStrokeScaleX / 100.0, Item->patternStrokeScaleY / 100.0);
+		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
+		QDomElement obS;
+		obS = docu.createElement("use");
+		obS.setAttribute("transform", MatrixToStr(trans));
+		if (Item->patternStrokeMirrorX)
+		{
+			trans.translate(pat.width, 0);
+			trans.scale(-1, 1);
+		}
+		if (Item->patternStrokeMirrorY)
+		{
+			trans.translate(0, pat.height);
+			trans.scale(1, -1);
+		}
+		obS.setAttribute("x", "0");
+		obS.setAttribute("y", "0");
+		obS.setAttribute("width", FToStr(pat.width));
+		obS.setAttribute("height", FToStr(pat.height));
+		obS.setAttribute("xlink:href", "#S"+Item->strokePattern());
+		ob.appendChild(obS);
+		xpos += adv;
+	}
+	return ob;
+}
+
+QDomElement SVGExPlug::processSymbolItem(PageItem *Item, QString trans)
+{
+	QDomElement ob;
+	ob = docu.createElement("use");
+	ob.setAttribute("x", "0");
+	ob.setAttribute("y", "0");
+	ob.setAttribute("width", FToStr(Item->width()));
+	ob.setAttribute("height", FToStr(Item->height()));
+	ob.setAttribute("xlink:href", "#S"+Item->pattern());
+	ScPattern pat = m_Doc->docPatterns[Item->pattern()];
+	QString tr = trans + QString(" scale(%1, %2)").arg(Item->width() / pat.width).arg(Item->height() / pat.height);
+	ob.setAttribute("transform", tr);
+	return ob;
 }
 
 QDomElement SVGExPlug::processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke)
@@ -461,10 +533,23 @@ QDomElement SVGExPlug::processPolyItem(PageItem *Item, QString trans, QString fi
 		closedPath = false;
 	if (Item->NamedLStyle.isEmpty())
 	{
-		ob = docu.createElement("path");
-		ob.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
-		ob.setAttribute("transform", trans);
-		ob.setAttribute("style", fill + stroke);
+		if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
+		{
+			ob = docu.createElement("g");
+			QDomElement ob2 = docu.createElement("path");
+			ob2.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
+			ob2.setAttribute("transform", trans);
+			ob2.setAttribute("style", fill);
+			ob.appendChild(ob2);
+			ob.appendChild(processSymbolStroke(Item, trans));
+		}
+		else
+		{
+			ob = docu.createElement("path");
+			ob.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
+			ob.setAttribute("transform", trans);
+			ob.setAttribute("style", fill + stroke);
+		}
 	}
 	else
 	{
@@ -595,10 +680,24 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 	}
 	if (Item->NamedLStyle.isEmpty())
 	{
-		QDomElement ob4 = docu.createElement("path");
-		ob4.setAttribute("d", SetClipPath(&Item->PoLine, true));
-		ob4.setAttribute("style", "fill:none; "+stroke);
-		ob.appendChild(ob4);
+		if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
+		{
+			QDomElement ob4 = docu.createElement("g");
+			QDomElement ob2 = docu.createElement("path");
+			ob2.setAttribute("d", SetClipPath(&Item->PoLine, true));
+			ob2.setAttribute("transform", trans);
+			ob2.setAttribute("style", fill);
+			ob4.appendChild(ob2);
+			ob4.appendChild(processSymbolStroke(Item, trans));
+			ob.appendChild(ob4);
+		}
+		else
+		{
+			QDomElement ob4 = docu.createElement("path");
+			ob4.setAttribute("d", SetClipPath(&Item->PoLine, true));
+			ob4.setAttribute("style", "fill:none; "+stroke);
+			ob.appendChild(ob4);
+		}
 	}
 	else
 	{
@@ -829,6 +928,8 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 		QDomElement ob4 = docu.createElement("path");
 		ob4.setAttribute("d", SetClipPath(&Item->PoLine, true));
 		ob4.setAttribute("style", "fill:none; "+stroke);
+		if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
+			ob4.appendChild(processSymbolStroke(Item, trans));
 		ob.appendChild(ob4);
 	}
 	else
@@ -1158,6 +1259,9 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 				break;
 			case PageItem::PathText:
 				obE = processPathTextItem(embedded, trans, stroke);
+				break;
+			case PageItem::Symbol:
+				obE = processSymbolItem(embedded, trans);
 				break;
 			default:
 				break;
@@ -1896,6 +2000,87 @@ void SVGExPlug::writeBasePatterns()
 	}
 }
 
+void SVGExPlug::writeBaseSymbols()
+{
+	QStringList patterns = m_Doc->getUsedSymbols();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		QStack<PageItem*> groupStack;
+		QStack<QDomElement> groupStack2;
+		ScPattern pa = m_Doc->docPatterns[patterns[c]];
+		QDomElement patt = docu.createElement("symbol");
+		patt.setAttribute("id", "S"+patterns[c]);
+		patt.setAttribute("viewbox", "0 0 "+ FToStr(pa.height) + " " + FToStr(pa.width));
+		for (int em = 0; em < pa.items.count(); ++em)
+		{
+			PageItem* Item = pa.items.at(em);
+			if (Item->isGroupControl)
+			{
+				groupStack.push(Item->groupsLastItem);
+				groupStack2.push(patt);
+				patt = docu.createElement("g");
+				if (Item->fillTransparency() != 0)
+					patt.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
+				QDomElement ob = docu.createElement("clipPath");
+				ob.setAttribute("id", "Clip"+IToStr(ClipCount));
+				QDomElement cl = docu.createElement("path");
+				cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
+				QString trans = "translate("+FToStr(Item->gXpos)+", "+FToStr(Item->gYpos)+")";
+				if (Item->rotation() != 0)
+					trans += " rotate("+FToStr(Item->rotation())+")";
+				cl.setAttribute("transform", trans);
+				ob.appendChild(cl);
+				globalDefs.appendChild(ob);
+				patt.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
+				ClipCount++;
+				continue;
+			}
+			ProcessItemOnPage(Item->gXpos, Item->gYpos, Item, &patt);
+			if (groupStack.count() != 0)
+			{
+				while (Item == groupStack.top())
+				{
+					groupStack.pop();
+					groupStack2.top().appendChild(patt);
+					patt = groupStack2.pop();
+					if (groupStack.count() == 0)
+						break;
+				}
+			}
+		}
+		for (int em = 0; em < pa.items.count(); ++em)
+		{
+			PageItem* embedded = pa.items.at(em);
+			QString trans = "translate("+FToStr(embedded->gXpos)+", "+FToStr(embedded->gYpos)+")";
+			if (embedded->rotation() != 0)
+				trans += " rotate("+FToStr(embedded->rotation())+")";
+			if (!embedded->isTableItem)
+				continue;
+			if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
+				continue;
+			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+			{
+				QString stroke = getStrokeStyle(embedded);
+				QDomElement obL = docu.createElement("path");
+				obL.setAttribute("transform", trans);
+				obL.setAttribute("style", "fill:none; " + stroke);
+				QString pathAttr = "";
+				if (embedded->TopLine)
+					pathAttr += "M 0 0 L "+FToStr(embedded->width())+" 0";
+				if (embedded->RightLine)
+					pathAttr += " M " + FToStr(embedded->width()) + "0 L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
+				if (embedded->BottomLine)
+					pathAttr += " M 0 " + FToStr(embedded->height()) + " L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
+				if (embedded->LeftLine)
+					pathAttr += " M 0 0 L 0 "+FToStr(embedded->height());
+				obL.setAttribute("d", pathAttr);
+				patt.appendChild(obL);
+			}
+		}
+		globalDefs.appendChild(patt);
+	}
+}
+
 QString SVGExPlug::getStrokeStyle(PageItem *Item)
 {
 	QString stroke = "";
@@ -1960,7 +2145,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 				stroke += Da.replace(" ", ", ")+";";
 		}
 	}
-	if (!Item->strokePattern().isEmpty())
+	if ((!Item->strokePattern().isEmpty()) && (!Item->patternStrokePath))
 	{
 		QString pattID = Item->strokePattern()+IToStr(PattCount);
 		PattCount++;

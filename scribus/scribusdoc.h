@@ -614,6 +614,11 @@ public:
 	QStringList getUsedPatterns();
 	QStringList getUsedPatternsSelection(Selection* customSelection);
 	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
+	/*!
+	* @brief Builds a QStringList of the symbols used within the document
+	*/
+	QStringList getUsedSymbols();
+	QStringList getUsedSymbolsHelper(QString pattern, QStringList &results);
 	/**
 	 * @brief Set and get the document's unit index
 	 */

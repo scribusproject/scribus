@@ -2799,7 +2799,6 @@ void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 	} */
 }
 
-
 QStringList ScribusDoc::getUsedPatterns()
 {
 	QStringList results;
@@ -2892,7 +2891,6 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 		return QStringList();
 }
 
-
 QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &results)
 {
 	ScPattern *pat = &docPatterns[pattern];
@@ -2918,6 +2916,74 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 		for (int c = 0; c < pats.count(); ++c)
 		{
 			getUsedPatternsHelper(pats[c], results);
+		}
+	}
+	return pats;
+}
+
+QStringList ScribusDoc::getUsedSymbols()
+{
+	QStringList results;
+	for (int c = 0; c < MasterItems.count(); ++c)
+	{
+		if ((!results.contains(MasterItems.at(c)->pattern())) && (MasterItems.at(c)->itemType() == PageItem::Symbol) && (!MasterItems.at(c)->pattern().isEmpty()))
+			results.append(MasterItems.at(c)->pattern());
+		if ((!MasterItems.at(c)->strokePattern().isEmpty()) && (MasterItems.at(c)->patternStrokePath))
+		{
+			if (!results.contains(MasterItems.at(c)->strokePattern()))
+				results.append(MasterItems.at(c)->strokePattern());
+		}
+		if ((!results.contains(MasterItems.at(c)->strokePattern())) && ((!MasterItems.at(c)->strokePattern().isEmpty()) && (MasterItems.at(c)->patternStrokePath)))
+			results.append(MasterItems.at(c)->pattern());
+	}
+	for (int c = 0; c < DocItems.count(); ++c)
+	{
+		if ((!results.contains(DocItems.at(c)->pattern())) && (DocItems.at(c)->itemType() == PageItem::Symbol) && (!DocItems.at(c)->pattern().isEmpty()))
+			results.append(DocItems.at(c)->pattern());
+		if ((!DocItems.at(c)->strokePattern().isEmpty()) && (DocItems.at(c)->patternStrokePath))
+		{
+			if (!results.contains(DocItems.at(c)->strokePattern()))
+				results.append(DocItems.at(c)->strokePattern());
+		}
+	}
+	for (int c = 0; c < FrameItems.count(); ++c)
+	{
+		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->itemType() == PageItem::Symbol) && (!FrameItems.at(c)->pattern().isEmpty()))
+			results.append(FrameItems.at(c)->pattern());
+		if ((!FrameItems.at(c)->strokePattern().isEmpty()) && (FrameItems.at(c)->patternStrokePath))
+		{
+			if (!results.contains(FrameItems.at(c)->strokePattern()))
+				results.append(FrameItems.at(c)->strokePattern());
+		}
+	}
+	for (int c = 0; c < results.count(); ++c)
+	{
+		QStringList pats = getUsedSymbolsHelper(results[c], results);
+		if (!pats.isEmpty())
+			results += pats;
+	}
+	return results;
+}
+
+QStringList ScribusDoc::getUsedSymbolsHelper(QString pattern, QStringList &results)
+{
+	ScPattern *pat = &docPatterns[pattern];
+	QStringList pats;
+	pats.clear();
+	for (int c = 0; c < pat->items.count(); ++c)
+	{
+		if (pat->items.at(c)->itemType() == PageItem::Symbol)
+		{
+			const QString& patName = pat->items.at(c)->pattern();
+			if (!patName.isEmpty() && !results.contains(patName))
+				pats.append(patName);
+		}
+	}
+	if (!pats.isEmpty())
+	{
+		for (int c = 0; c < pats.count(); ++c)
+		{
+			getUsedSymbolsHelper(pats[c], results);
 		}
 	}
 	return pats;

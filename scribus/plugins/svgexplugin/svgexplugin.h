@@ -80,6 +80,8 @@ private:
 	*/
 	void ProcessPageLayer(Page *page, ScLayer& layer);
 	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
+	QDomElement processSymbolStroke(PageItem *Item, QString trans);
+	QDomElement processSymbolItem(PageItem *Item, QString trans);
 	QDomElement processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke);
 	QDomElement processLineItem(PageItem *Item, QString trans, QString stroke);
 	QDomElement processImageItem(PageItem *Item, QString trans, QString fill, QString stroke);
@@ -92,6 +94,7 @@ private:
 	QString getFillStyle(PageItem *Item);
 	QString getStrokeStyle(PageItem *Item);
 	void writeBasePatterns();
+	void writeBaseSymbols();
 	/*!
 	\author Franz Schmid
 	\param ite PageItem *
