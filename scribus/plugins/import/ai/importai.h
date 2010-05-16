@@ -80,7 +80,7 @@ private:
 	void getCommands(QString data, QStringList &commands);
 	void processData(QString data);
 	void processGradientData(QString data);
-	void processSymbol(QDataStream &ts);
+	void processSymbol(QDataStream &ts, bool sym);
 	void processPattern(QDataStream &ts);
 	void processRaster(QDataStream &ts);
 	void processComment(QDataStream &ts, QString comment);

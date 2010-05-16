@@ -1570,7 +1570,7 @@ void AIPlug::processData(QString data)
 				{
 					currentSymbolName = Cdata.mid(an+1, en-an-1);
 					currentSymbolName.remove("\\");
-					currentSymbolName = currentSymbolName.trimmed().simplified().replace(" ", "_");
+					currentSymbolName = "S_"+currentSymbolName.trimmed().simplified().replace(" ", "_");
 				}
 			}
 			else if (Cdata.contains("TransformMatrix"))
@@ -2644,43 +2644,46 @@ void AIPlug::processPattern(QDataStream &ts)
 					}
 					if (PatternElements.count() > 1)
 						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
-					ScPattern pat = ScPattern();
-					pat.setDoc(m_Doc);
-					PageItem* currItem = tmpSel->itemAt(0);
-					currItem->setItemName(currentPatternDefName);
-					currItem->AutoName = false;
-					m_Doc->DoDrawing = true;
-					QImage tmpImg = currItem->DrawObj_toImage();
-					QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
-					retImg.fill( qRgba(255, 255, 255, 0) );
-					QPainter p;
-					p.begin(&retImg);
-					if (PatternElements.count() > 1)
-						p.drawImage(qRound(-patternX1), qRound(-patternY1), tmpImg);
-					else
-						p.drawImage(0, 0, tmpImg);
-					p.end();
-					pat.pattern = retImg;
-//					pat.pattern = currItem->DrawObj_toImage();
-					m_Doc->DoDrawing = false;
-					//			pat.width = currItem->gWidth;
-					//			pat.height = currItem->gHeight;
-					pat.width = patternX2 - patternX1;
-					pat.height = patternY2 - patternY1;
-					pat.xoffset = -patternX1;
-					pat.yoffset = -patternY1;
-					for (int as = 0; as < tmpSel->count(); ++as)
+					if ((tmpSel->width() > 1) && (tmpSel->height() > 1))
 					{
-						PageItem* Neu = tmpSel->itemAt(as);
-						Neu->moveBy(-patternX1, -patternY1, true);
-						Neu->gXpos -= patternX1;
-						Neu->gYpos -= patternY1;
-						pat.items.append(Neu);
+						ScPattern pat = ScPattern();
+						pat.setDoc(m_Doc);
+						PageItem* currItem = tmpSel->itemAt(0);
+						currItem->setItemName(currentPatternDefName);
+						currItem->AutoName = false;
+						m_Doc->DoDrawing = true;
+						QImage tmpImg = currItem->DrawObj_toImage();
+						QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
+						retImg.fill( qRgba(255, 255, 255, 0) );
+						QPainter p;
+						p.begin(&retImg);
+						if (PatternElements.count() > 1)
+							p.drawImage(qRound(-patternX1), qRound(-patternY1), tmpImg);
+						else
+							p.drawImage(0, 0, tmpImg);
+						p.end();
+						pat.pattern = retImg;
+	//					pat.pattern = currItem->DrawObj_toImage();
+						m_Doc->DoDrawing = false;
+						//			pat.width = currItem->gWidth;
+						//			pat.height = currItem->gHeight;
+						pat.width = patternX2 - patternX1;
+						pat.height = patternY2 - patternY1;
+						pat.xoffset = -patternX1;
+						pat.yoffset = -patternY1;
+						for (int as = 0; as < tmpSel->count(); ++as)
+						{
+							PageItem* Neu = tmpSel->itemAt(as);
+							Neu->moveBy(-patternX1, -patternY1, true);
+							Neu->gXpos -= patternX1;
+							Neu->gYpos -= patternY1;
+							pat.items.append(Neu);
+						}
+						m_Doc->addPattern(currentPatternDefName, pat);
+						importedPatterns.append(currentPatternDefName);
 					}
 					m_Doc->itemSelection_DeleteItem(tmpSel);
-					m_Doc->addPattern(currentPatternDefName, pat);
 				}
-				importedPatterns.append(currentPatternDefName);
 				PatternElements.clear();
 				currentPatternDefName = "";
 				break;
@@ -2720,7 +2723,7 @@ void AIPlug::processPattern(QDataStream &ts)
 	patternMode = false;
 }
 
-void AIPlug::processSymbol(QDataStream &ts)
+void AIPlug::processSymbol(QDataStream &ts, bool sym)
 {
 	QString tmp = "";
 	QString tmpData = "";
@@ -2736,10 +2739,13 @@ void AIPlug::processSymbol(QDataStream &ts)
 				patternMode = true;
 				currentPatternDefName = tmp.mid(an+1, en-an-1);
 				currentPatternDefName.remove("\\");
-				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
+				if (sym)
+					currentPatternDefName = "S_"+currentPatternDefName.trimmed().simplified().replace(" ", "_");
+				else
+					currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
 			}
 		}
-		else if (tmp == "EndSymbol")
+		else if ((tmp == "EndSymbol") || (tmp == "EndBrushPattern"))
 		{
 			tmpSel->clear();
 			if (PatternElements.count() > 0)
@@ -2750,25 +2756,28 @@ void AIPlug::processSymbol(QDataStream &ts)
 				}
 				if (PatternElements.count() > 1)
 					m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
-				ScPattern pat = ScPattern();
-				pat.setDoc(m_Doc);
-				PageItem* currItem = tmpSel->itemAt(0);
-				currItem->setItemName(currentPatternDefName);
-				currItem->AutoName = false;
-				m_Doc->DoDrawing = true;
-				pat.pattern = currItem->DrawObj_toImage();
-				pat.width = currItem->gWidth;
-				pat.height = currItem->gHeight;
-				m_Doc->DoDrawing = false;
-				for (int as = 0; as < tmpSel->count(); ++as)
+				if ((tmpSel->width() > 1) && (tmpSel->height() > 1))
 				{
-					PageItem* Neu = tmpSel->itemAt(as);
-					pat.items.append(Neu);
+					ScPattern pat = ScPattern();
+					pat.setDoc(m_Doc);
+					PageItem* currItem = tmpSel->itemAt(0);
+					currItem->setItemName(currentPatternDefName);
+					currItem->AutoName = false;
+					m_Doc->DoDrawing = true;
+					pat.pattern = currItem->DrawObj_toImage();
+					pat.width = currItem->gWidth;
+					pat.height = currItem->gHeight;
+					m_Doc->DoDrawing = false;
+					for (int as = 0; as < tmpSel->count(); ++as)
+					{
+						PageItem* Neu = tmpSel->itemAt(as);
+						pat.items.append(Neu);
+					}
+					importedPatterns.append(currentPatternDefName);
+					importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()+currItem->height()));
+					m_Doc->addPattern(currentPatternDefName, pat);
 				}
-				importedPatterns.append(currentPatternDefName);
-				importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()+currItem->height()));
 				m_Doc->itemSelection_DeleteItem(tmpSel);
-				m_Doc->addPattern(currentPatternDefName, pat);
 			}
 			PatternElements.clear();
 			currentPatternDefName = "";
@@ -2969,7 +2978,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			if (tmp.startsWith("BeginPattern:"))
 				processPattern(ts);
 			if (tmp == "BeginSymbol")
-				processSymbol(ts);
+				processSymbol(ts, true);
+			if (tmp == "BeginBrushPattern")
+				processSymbol(ts, false);
 			if (tmp.startsWith("End_NonPrinting"))
 				break;
 			if(progressDialog)
@@ -3012,7 +3023,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 		}
 	}
 	else if (tmp == "BeginSymbol")
-		processSymbol(ts);
+		processSymbol(ts, true);
+	else if (tmp == "BeginBrushPattern")
+		processSymbol(ts, false);
 /*	{
 		while (!ts.atEnd())
 		{
