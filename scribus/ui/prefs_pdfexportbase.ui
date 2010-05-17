@@ -344,7 +344,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="embedPDFAndEPSFiles">
+          <widget class="QCheckBox" name="embedPDFAndEPSFilesCheckBox">
            <property name="text">
             <string>Embed PDF &amp;&amp; EPS Files (Experimental)</string>
            </property>
@@ -675,7 +675,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>278</width>
+            <width>602</width>
             <height>638</height>
            </rect>
           </property>
@@ -1539,7 +1539,7 @@
        <item>
         <widget class="QRadioButton" name="continuousPagesRadioButton">
          <property name="text">
-          <string>Continuous</string>
+          <string>Continuous Pages</string>
          </property>
         </widget>
        </item>

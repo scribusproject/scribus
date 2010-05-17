@@ -51,8 +51,17 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void enablePGI2();
 		void enablePDFX(int);
 		void SelLPIcol(int);
+		void DoDownsample();
+		void RemoveEmbed();
+		void PutToEmbed();
+		void RemoveOutline();
+		void PutToOutline();
+		void SelAFont(QListWidgetItem*);
+		void SelEFont(QListWidgetItem*);
+		void SelSFont(QListWidgetItem*);
 		void EmbedAll();
 		void OutlineAll();
+		void PagePr();
 		void doDocBleeds();
 		void SetEffOpts(int nr);
 
