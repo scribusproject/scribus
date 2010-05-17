@@ -30,10 +30,10 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 		/*! \brief Set the page size for margin getting from cups */
 		void setPageSize(const QString&);
 		void setNewUnitIndex(int);
-
+		void setNewValues(const MarginStruct& margs);
 		/*! \brief Setup the presetCombo without changing the margin values, only used by tabdocument */
 		void setMarginPreset(int p);
-		const MarginStruct & margins() const;
+		const MarginStruct & margins() const { return marginData; };
 
 	public slots:
 		void languageChange();

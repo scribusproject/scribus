@@ -45,16 +45,16 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void setMaximumResolution();
 		void enableProfiles(int);
 		void enableLPI(int);
+		void enableLPI2();
 		void enablePG();
 		void enablePGI();
 		void enablePGI2();
 		void enablePDFX(int);
-
-		void EmbedAll() {};
-		void OutlineAll() {};
-		void doDocBleeds() {};
-		void DoEffects() {};
-		void SetEffOpts(int nr) {};
+		void SelLPIcol(int);
+		void EmbedAll();
+		void OutlineAll();
+		void doDocBleeds();
+		void SetEffOpts(int nr);
 
 	protected:
 		void setCustomRenderingWidgetsShown(bool);
@@ -78,6 +78,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		int PgSel;
 		SCFonts AllFonts;
 		bool exportingPDF;
+		QString SelLPIcolor;
 };
 
 #endif // PREFS_PDFEXPORT_H

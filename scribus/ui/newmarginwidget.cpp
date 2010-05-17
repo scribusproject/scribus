@@ -78,6 +78,12 @@ void NewMarginWidget::languageChange()
 	bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 }
 
+void NewMarginWidget::setNewValues(const MarginStruct& margs)
+{
+	marginData=savedMarginData=margs;
+	updateMarginSpinValues();
+}
+
 void NewMarginWidget::setPageWidth(double newWidth)
 {
 	leftMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - leftMarginSpinBox->value()));
@@ -240,11 +246,6 @@ void NewMarginWidget::updateMarginSpinValues()
 	rightMarginSpinBox->blockSignals(false);
 	topMarginSpinBox->blockSignals(false);
 	bottomMarginSpinBox->blockSignals(false);
-}
-
-const MarginStruct & NewMarginWidget::margins() const
-{
-	return marginData;
 }
 
 void NewMarginWidget::slotLinkMargins()

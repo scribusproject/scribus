@@ -5,6 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QStandardItem>
+#include <QAbstractItemView>
+
 #include "ui/prefs_pdfexport.h"
 #include "ui/createrange.h"
 #include "prefsstructs.h"
@@ -31,15 +34,14 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	connect(exportChosenPagesRadioButton, SIGNAL(toggled(bool)), this, SLOT(enableRangeControls(bool)));
 	connect(exportRangeMorePushButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 	connect(maxResolutionLimitCheckBox, SIGNAL(clicked()), this, SLOT(setMaximumResolution()));
-//	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirror()));
-//	connect(MirrorV, SIGNAL(clicked()), this, SLOT(PDFMirror()));
-//	connect(RotateDeg, SIGNAL(activated(int)), this, SLOT(Rotation(int)));
 	connect(outputIntentionComboBox, SIGNAL(activated(int)), this, SLOT(enableProfiles(int)));
 	connect(useSolidColorProfileCheckBox, SIGNAL(clicked()), this, SLOT(enablePG()));
 	connect(useImageProfileCheckBox, SIGNAL(clicked()), this, SLOT(enablePGI()));
 	connect(doNotUseEmbeddedImageProfileCheckBox, SIGNAL(clicked()), this, SLOT(enablePGI2()));
 	connect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
 	connect(useEncryptionCheckBox, SIGNAL(clicked(bool)), this, SLOT(enableSecurityControls(bool)));
+	connect(useCustomRenderingCheckBox, SIGNAL(clicked()), this, SLOT(enableLPI2()));
+	connect(customRenderingColorComboBox, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
 }
 
 Prefs_PDFExport::~Prefs_PDFExport()
@@ -105,6 +107,7 @@ void Prefs_PDFExport::languageChange()
 	customRenderingSpotFunctionComboBox->addItem( tr( "Round" ) );
 	customRenderingSpotFunctionComboBox->addItem( tr( "Ellipse" ) );
 	customRenderingSpotFunctionComboBox->setCurrentIndex(i);
+	SelLPIcolor = customRenderingColorComboBox->currentText();
 
 	i = solidColorRenderingIntentComboBox->currentIndex();
 	int j=imageRenderingIntentComboBox->currentIndex();
@@ -438,9 +441,19 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		if (itp3.key() == tp3)
 			pdfx3OutputProfileComboBox->setCurrentIndex(pdfx3OutputProfileComboBox->count()-1);
 	}
-	pdfx3InfoStringLineEdit->setText(Opts.Info);
 
-
+	if (!Opts.Info.isEmpty())
+		pdfx3InfoStringLineEdit->setText(Opts.Info);
+	else
+	{
+		if (m_doc != 0 && exporting)
+		{
+			QFileInfo fi(m_doc->DocName);
+			pdfx3InfoStringLineEdit->setText(fi.fileName());
+		}
+		else
+			pdfx3InfoStringLineEdit->setText( tr("InfoString"));
+	}
 
 	if (m_doc != 0 && exportingPDF)
 	{
@@ -488,7 +501,6 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		effectsPageListWidget->setEnabled(false);
 		enableEffects(false);
 		showPagePreviewsCheckBox->setEnabled(false);
-		DoEffects();
 		if (enabledEffectsCheckBox->isChecked())
 		{
 			displayDurationSpinBox->setValue(EffVal[0].pageViewDuration);
@@ -600,6 +612,19 @@ void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 			}
 		}
 	}
+}
+
+
+void Prefs_PDFExport::SelLPIcol(int c)
+{
+	// XXX Optionen or Opts changed here
+	Opts.LPISettings[SelLPIcolor].Frequency = customRenderingFrequencySpinBox->value();
+	Opts.LPISettings[SelLPIcolor].Angle = customRenderingAngleSpinBox->value();
+	Opts.LPISettings[SelLPIcolor].SpotFunc = customRenderingSpotFunctionComboBox->currentIndex();
+	customRenderingFrequencySpinBox->setValue(Opts.LPISettings[customRenderingColorComboBox->itemText(c)].Frequency);
+	customRenderingAngleSpinBox->setValue(Opts.LPISettings[customRenderingColorComboBox->itemText(c)].Angle);
+	customRenderingSpotFunctionComboBox->setCurrentIndex(Opts.LPISettings[customRenderingColorComboBox->itemText(c)].SpotFunc);
+	SelLPIcolor = customRenderingColorComboBox->itemText(c);
 }
 
 void Prefs_PDFExport::enableRangeControls(bool enabled)
@@ -723,21 +748,28 @@ void Prefs_PDFExport::enableLPI(int i)
 		}
 		if (cmsEnabled)
 			imageRenderingIntentComboBox->setCurrentIndex(Opts.Intent2);
-		//Disabling vis hiding
+		//Disabling vs hiding
 		enableSolidsImagesWidgets(cmsEnabled);
 		convertSpotsToProcessCheckBox->setEnabled(true);
 		if (m_doc!=0)
 		{
-			useCustomRenderingCheckBox->show();
+			useCustomRenderingCheckBox->setEnabled(true);
 			enableCustomRenderingWidgets(useCustomRenderingCheckBox->isChecked());
 		}
 	}
 	else
 	{
 		convertSpotsToProcessCheckBox->setEnabled(false);
-		useCustomRenderingCheckBox->hide();
+		useCustomRenderingCheckBox->setEnabled(false);
 		enableCustomRenderingWidgets(false);
 	}
+}
+
+
+void Prefs_PDFExport::enableLPI2()
+{
+	if (m_doc!=0)
+		enableCustomRenderingWidgets(useCustomRenderingCheckBox->isChecked());
 }
 
 void Prefs_PDFExport::setCustomRenderingWidgetsShown(bool visible)
@@ -751,7 +783,6 @@ void Prefs_PDFExport::setCustomRenderingWidgetsShown(bool visible)
 
 void Prefs_PDFExport::enableCustomRenderingWidgets(bool enabled)
 {
-	useCustomRenderingCheckBox->setEnabled(enabled);
 	customRenderingColorComboBox->setEnabled(enabled);
 	customRenderingFrequencySpinBox->setEnabled(enabled);
 	customRenderingAngleSpinBox->setEnabled(enabled);
@@ -772,6 +803,7 @@ void Prefs_PDFExport::setSolidsImagesWidgetsShown(bool visible)
 	imageProfileComboBox->setShown(visible);
 	imageRenderingIntentComboBox->setShown(visible);
 }
+
 void Prefs_PDFExport::enableSolidsImagesWidgets(bool enabled)
 {
 	//if we want to show/hide instead
@@ -946,5 +978,145 @@ void Prefs_PDFExport::enableEffects(bool enabled)
 		effectInOutComboBox->setEnabled(false);
 		effectDirectionComboBox->setEnabled(false);
 		applyEffectToAllPagesPushButton->setEnabled(false);
+	}
+}
+
+void Prefs_PDFExport::EmbedAll()
+{
+	embeddedFontsListWidget->clear();
+	FontsToEmbed.clear();
+	outlinedFontsListWidget->clear();
+	FontsToOutline.clear();
+	fromEmbedButton->setEnabled(false);
+	toEmbedButton->setEnabled(false);
+	toOutlineButton->setEnabled(false);
+	fromOutlineButton->setEnabled(false);
+	for (int a=0; a < availableFontsListWidget->count(); ++a)
+	{
+		if (availableFontsListWidget->item(a)->flags() & Qt::ItemIsSelectable)
+		{
+			if (!AllFonts[availableFontsListWidget->item(a)->text()].subset())
+			{
+				FontsToEmbed.append(availableFontsListWidget->item(a)->text());
+				embeddedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
+				if (AnnotationFonts.contains(availableFontsListWidget->item(a)->text()))
+					embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
+			}
+			else
+			{
+				if (AnnotationFonts.contains(availableFontsListWidget->item(a)->text()))
+				{
+					FontsToEmbed.append(availableFontsListWidget->item(a)->text());
+					embeddedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
+					embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
+				}
+				else
+				{
+					FontsToOutline.append(availableFontsListWidget->item(a)->text());
+					outlinedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
+				}
+			}
+		}
+	}
+}
+
+void Prefs_PDFExport::OutlineAll()
+{
+	embeddedFontsListWidget->clear();
+	FontsToEmbed.clear();
+	outlinedFontsListWidget->clear();
+	FontsToOutline.clear();
+	fromEmbedButton->setEnabled(false);
+	toEmbedButton->setEnabled(false);
+	toOutlineButton->setEnabled(false);
+	fromOutlineButton->setEnabled(false);
+	for (int a=0; a < availableFontsListWidget->count(); ++a)
+	{
+		if (availableFontsListWidget->item(a)->flags() & Qt::ItemIsSelectable)
+		{
+			if (AnnotationFonts.contains(availableFontsListWidget->item(a)->text()))
+			{
+				FontsToEmbed.append(availableFontsListWidget->item(a)->text());
+				embeddedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
+				embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
+			}
+			else
+			{
+				FontsToOutline.append(availableFontsListWidget->item(a)->text());
+				outlinedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
+			}
+		}
+	}
+}
+
+void Prefs_PDFExport::doDocBleeds()
+{
+	if (useDocumentBleedsCheckBox->isChecked())
+	{
+		Opts.bleeds=bleedsWidget->margins();
+		bleedsWidget->setNewValues(m_doc->bleedsVal());
+		bleedsWidget->setEnabled(false);
+	}
+	else
+	{
+		bleedsWidget->setNewValues(Opts.bleeds);
+		bleedsWidget->setEnabled(true);
+	}
+}
+
+
+void Prefs_PDFExport::SetEffOpts(int nr)
+{
+	QStandardItem* si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(2));
+	if (si) si->setSelectable(false);
+	si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(3));
+	if (si) si->setSelectable(false);
+	si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(4));
+	if (si) si->setSelectable(false);
+	switch (nr)
+	{
+	case 0:
+	case 3:
+	case 10:
+		effectMovingDirectionComboBox->setEnabled(false);
+		effectInOutComboBox->setEnabled(false);
+		effectDirectionComboBox->setEnabled(false);
+		break;
+	case 1:
+		effectMovingDirectionComboBox->setEnabled(true);
+		effectInOutComboBox->setEnabled(false);
+		effectDirectionComboBox->setEnabled(false);
+		break;
+	case 2:
+		effectMovingDirectionComboBox->setEnabled(false);
+		effectInOutComboBox->setEnabled(true);
+		effectDirectionComboBox->setEnabled(false);
+		break;
+	case 4:
+	case 6:
+	case 7:
+	case 8:
+	case 9:
+		effectMovingDirectionComboBox->setEnabled(false);
+		effectInOutComboBox->setEnabled(false);
+		effectDirectionComboBox->setEnabled(true);
+		if (nr == 6)
+		{
+			si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(2));
+			if (si) si->setSelectable(true);
+			si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(3));
+			if (si) si->setSelectable(true);
+		}
+		else
+		{
+			si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(4));
+			if (si) si->setSelectable(true);
+		}
+		break;
+	case 5:
+		effectMovingDirectionComboBox->setEnabled(true);
+		effectInOutComboBox->setEnabled(true);
+		effectDirectionComboBox->setEnabled(false);
+		break;
 	}
 }
