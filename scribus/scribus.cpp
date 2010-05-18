@@ -7752,16 +7752,24 @@ void ScribusMainWindow::slotDocSetup150()
 }
 void ScribusMainWindow::ShowSubs()
 {
-	QString mess;
 	if (!ScCore->haveGS())
 	{
-		mess = tr("The following programs are missing:")+"\n\n";
+		QMessageBox mb(this);
+		QString msg = tr("Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.");
+		QString msg2("<qt>");
 #ifndef _WIN32
-		mess += tr("Ghostscript : You cannot use EPS images or Print Preview")+"\n\n";
+		msg2 += tr("Until this is remedied, you cannot import EPS images or use Print Preview. ")+"\n";
 #else
-		mess += tr("Ghostscript : You cannot use EPS images or PostScript Print Preview")+"\n\n";
+		msg2 += tr("Until this is remedied, you cannot import EPS images or use PostScript Print Preview. ")+"\n";
 #endif
-		QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
+		msg2 += tr("Please read our <a href=\"http://wiki.scribus.net/index.php/Ghostscript\">help and installation instructions</a>.") + "</qt>";
+		QMessageBox msgBox;
+		msgBox.addButton(QMessageBox::Ok);
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.setWindowTitle( tr("Ghostscript is missing") );
+		msgBox.setText(msg);
+		msgBox.setInformativeText(msg2);
+		msgBox.exec();
 	}
 
 	propertiesPalette->startup();

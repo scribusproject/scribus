@@ -62,10 +62,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		exportButton->hide();
 		defaultsButton->hide();
 	}
-	prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
-	addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
 	if (!doc)
 	{
+		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
+		addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
 		prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
 		addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
 	}
@@ -168,7 +168,8 @@ void PreferencesDialog::initPreferenceValues()
 
 void PreferencesDialog::setupGui()
 {
-	prefs_UserInterface->restoreDefaults(&localPrefs);
+	if (prefs_UserInterface)
+		prefs_UserInterface->restoreDefaults(&localPrefs);
 	if (prefs_Paths)
 		prefs_Paths->restoreDefaults(&localPrefs);
 	prefs_DocumentSetup->restoreDefaults(&localPrefs);
@@ -207,7 +208,8 @@ void PreferencesDialog::setupGui()
 
 void PreferencesDialog::saveGuiToPrefs()
 {
-	prefs_UserInterface->saveGuiToPrefs(&localPrefs);
+	if (prefs_UserInterface)
+		prefs_UserInterface->saveGuiToPrefs(&localPrefs);
 	if (prefs_Paths)
 		prefs_Paths->saveGuiToPrefs(&localPrefs);
 	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
