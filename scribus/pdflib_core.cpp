@@ -9756,7 +9756,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		while (*it)
 		{
 			ip = (BookMItem*)(*it);
-			QString encText = ip->Titel;
+			QString encText = ip->Title;
 			Inhal  = QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
 			Inhal += "<<\n/Title "+EncStringUTF16("("+encText+")", ip->ItemNr+Basis)+"\n";
 			if (ip->Pare == 0)

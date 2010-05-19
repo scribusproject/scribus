@@ -89,7 +89,7 @@ void BookMItem::SetUp(struct ScribusDoc::BookMa *Bm)
 	Prev = Bm->Prev;
 	Next = Bm->Next;
 	Pare = Bm->Parent;
-	Titel = Bm->Title;
+	Title = Bm->Title;
 	PageObject = Bm->PageObject;
 	setText(0, Bm->Text);
 }
@@ -237,7 +237,7 @@ void BookMView::AddItem(QString text, QString Tit, PageItem *PageObject)
 {
 	BookMItem * ite = new BookMItem(this, NrItems+1, PageObject);
 	ite->setText(0, text);
-	ite->Titel = Tit;
+	ite->Title = Tit;
 	rebuildTree();
 }
 
@@ -297,7 +297,7 @@ void BookMView::ChangeText(PageItem *currItem)
 		if (ite->PageObject == currItem)
 		{
 			ite->setText(0, bm);
-			ite->Titel = bm2;
+			ite->Title = bm2;
 			break;
 		}
 		++it;

@@ -53,7 +53,7 @@ public:
 	int ItemNr;
 	int PdfObj;
 	QString Action;
-	QString Titel;
+	QString Title;
 	int First;
 	int Last;
 	int Prev;
