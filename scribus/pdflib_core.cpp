@@ -9774,7 +9774,16 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 			if (ip->childCount())
 				Inhal += "/Count -"+QString::number(ip->childCount())+"\n";
 			if ((ip->PageObject->OwnPage != -1) && PageTree.Kids.contains(ip->PageObject->OwnPage))
-				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+ip->Action+"\n";
+			{
+				QString action = ip->Action;
+				if (action.isEmpty())
+				{
+					const Page* page = doc.DocPages.at(ip->PageObject->OwnPage);
+					double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
+					action = QString("/XYZ 0 %1 0").arg(actionPos);
+				}
+				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
+			}
 			Inhal += ">>\nendobj\n";
 			Inha[ip->ItemNr] = Inhal;
 			++it;
