@@ -414,6 +414,8 @@ void MasterPagesPalette::selectMasterPage(QListWidgetItem *item)
 		deleteButton->setEnabled(true);
 	if (currentDoc->appMode == modeEditClip)
 		currentView->requestMode(submodeEndNodeEdit);
+	else if (currentDoc->appMode == modeEdit || currentDoc->appMode == modeEditGradientVectors)
+		currentView->requestMode(modeNormal);
 	currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 }
 
