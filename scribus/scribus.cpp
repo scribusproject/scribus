@@ -7704,7 +7704,9 @@ void ScribusMainWindow::slotDocSetup150()
 	if (prefsResult==QDialog::Accepted)
 	{
 		struct ApplicationPrefs newDocPrefs(prefsDialog.prefs());
-		doc->setNewPrefs(newDocPrefs, oldDocPrefs);
+		bool resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins;
+		prefsDialog.getResizeDocumentPages(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
+		doc->setNewPrefs(newDocPrefs, oldDocPrefs, resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 
 
 		slotChangeUnit(doc->unitIndex(), false);

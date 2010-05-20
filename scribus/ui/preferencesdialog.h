@@ -58,6 +58,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 		virtual void changeEvent(QEvent *e);
 		ApplicationPrefs prefs() const { return localPrefs; }
+		void getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins);
 
 	public slots:
 		/// \brief Overridden to emit accepted(), which plugin panels use

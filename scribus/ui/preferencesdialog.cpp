@@ -364,6 +364,12 @@ void PreferencesDialog::addPlugins()
 	}
 }
 
+void PreferencesDialog::getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins)
+{
+	prefs_DocumentSetup->getResizeDocumentPages(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
+}
+
+
 void PreferencesDialog::arrangeIcons()
 {/*
 	int maxWidth = 0;

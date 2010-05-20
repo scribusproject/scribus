@@ -18,14 +18,18 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
-	: Prefs_Pane(parent)
+	: Prefs_Pane(parent),
+	m_doc(doc)
 {
 	setupUi(this);
 
-	applySizesToAllPagesCheckBox->hide();
-	applySizesToAllMasterPagesCheckBox->hide();
-	applyMarginsToAllPagesCheckBox->hide();
-	applyMarginsToAllMasterPagesCheckBox->hide();
+	if (!m_doc)
+	{
+		applySizesToAllPagesCheckBox->hide();
+		applySizesToAllMasterPagesCheckBox->hide();
+		applyMarginsToAllPagesCheckBox->hide();
+		applyMarginsToAllMasterPagesCheckBox->hide();
+	}
 
 	pageWidthSpinBox->setMaximum(16777215);
 	pageHeightSpinBox->setMaximum(16777215);
@@ -89,6 +93,16 @@ void Prefs_DocumentSetup::languageChange()
 
 	setupPageSets();
 
+	pageWidthSpinBox->setToolTip( "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
+	pageHeightSpinBox->setToolTip( "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
+	pageSizeComboBox->setToolTip( "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
+	pageOrientationComboBox->setToolTip( "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
+	pageUnitsComboBox->setToolTip( "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
+	autosaveCheckBox->setToolTip( "<qt>" + tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses" ) + "</qt>" );
+	autosaveIntervalSpinBox->setToolTip( "<qt>" + tr( "Time period between saving automatically" ) + "</qt>" );
+	undoLengthSpinBox->setToolTip( "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
+	applySizesToAllPagesCheckBox->setToolTip( "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
+	applyMarginsToAllPagesCheckBox->setToolTip( "<qt>" + tr( "Apply the page size changes to all existing master pages in the document" ) + "</qt>" );
 }
 
 void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -286,3 +300,12 @@ void Prefs_DocumentSetup::slotUndo(bool isEnabled)
 {
 	undoLengthSpinBox->setEnabled(isEnabled);
 }
+
+void Prefs_DocumentSetup::getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins)
+{
+	resizePages=applySizesToAllPagesCheckBox->isChecked();
+	resizeMasterPages=applySizesToAllMasterPagesCheckBox->isChecked();
+	resizePageMargins=applyMarginsToAllPagesCheckBox->isChecked();
+	resizeMasterPageMargins=applyMarginsToAllMasterPagesCheckBox->isChecked();
+}
+

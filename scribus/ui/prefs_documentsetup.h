@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSetup
 {
 	Q_OBJECT
@@ -22,6 +24,8 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		~Prefs_DocumentSetup();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+		void getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins);
+
 
 	public slots:
 		void languageChange();
@@ -51,9 +55,9 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		void slotUndo(bool);
 		void unitChange();
 
-	private:
+	protected:
 		void setupPageSets();
-
+		ScribusDoc* m_doc;
 
 		double unitRatio;
 		int choosenLayout;

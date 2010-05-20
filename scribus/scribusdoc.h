@@ -220,7 +220,7 @@ public:
 	const QMap<QString, int> & usedFonts() { return UsedFonts; }
 
 	const ApplicationPrefs& prefsData() { return docPrefsData; }
-	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData);
+	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData, bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
 
 	// Add, delete and move pages
 	
@@ -1004,6 +1004,8 @@ public:
 
 protected:
 	void addSymbols();
+	void applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
+
 	bool m_hasGUI;
 	ApplicationPrefs& appPrefsData;
 	ApplicationPrefs docPrefsData;

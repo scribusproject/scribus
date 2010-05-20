@@ -12228,77 +12228,21 @@ void ScribusDoc::setPageSetFirstPage(int layout, int fp)
 	docPrefsData.pageSets[layout].FirstPage=fp;
 }
 
-void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData)
+void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData, bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins)
 {
 	docPrefsData=prefsData;
+	double topDisplacement = prefsData.displayPrefs.scratch.Top - oldPrefsData.displayPrefs.scratch.Top;
+	double leftDisplacement = prefsData.displayPrefs.scratch.Left - oldPrefsData.displayPrefs.scratch.Left;
+	applyPrefsPageSizingAndMargins(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 
-	double TopD = prefsData.displayPrefs.scratch.Top - oldPrefsData.displayPrefs.scratch.Top;
-	double LeftD = prefsData.displayPrefs.scratch.Left - oldPrefsData.displayPrefs.scratch.Left;
-	/* TODO: pull in the make changes to all pages bools
-	for (int p = 0; p < Pages->count(); ++p)
-	{
-		Page *pp = Pages->at(p);
-		if (tabPage->sizeAllPages->isChecked())
-		{
-			pp->setInitialWidth(docPrefsData.docSetupPrefs.pageWidth);
-			pp->setInitialHeight(docPrefsData.docSetupPrefs.pageHeight);
-			pp->setHeight(docPrefsData.docSetupPrefs.pageHeight);
-			pp->setWidth(docPrefsData.docSetupPrefs.pageWidth);
-			pp->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
-			pp->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
-		}
-		if (tabPage->marginGroup->getMarginsForAllPages())
-		{
-			pp->initialMargins=docPrefsData.docSetupPrefs.margins;
-			pp->marginPreset=docPrefsData.docSetupPrefs.marginPreset;
-		}
-		else
-		if (tabPage->marginGroup->getMarginsForAllMasterPages())
-		{
-			//CB #6796: find the master page (*mp) for the current page (*pp)
-			//check if *pp's margins are the same as the *mp's current margins
-			//apply new margins if same
-			const int masterPageNumber = MasterNames[pp->MPageNam];
-			const Page* mp = MasterPages.at(masterPageNumber);
-			if (pp->initialMargins.Left == mp->initialMargins.Left &&
-				pp->initialMargins.Right == mp->initialMargins.Right &&
-				pp->initialMargins.Top == mp->initialMargins.Top &&
-				pp->initialMargins.Bottom == mp->initialMargins.Bottom)
-			{
-				pp->initialMargins=docPrefsData.docSetupPrefs.margins;
-				pp->marginPreset=docPrefsData.docSetupPrefs.marginPreset;
-			}
-		}
-	}
-
-	for (int p = 0; p < MasterPages.count(); ++p)
-	{
-		Page *pp = MasterPages.at(p);
-		if (tabPage->sizeAllMasterPages->isChecked())
-		{
-			pp->setInitialWidth(docPrefsData.docSetupPrefs.pageWidth);
-			pp->setInitialHeight(docPrefsData.docSetupPrefs.pageHeight);
-			pp->setHeight(docPrefsData.docSetupPrefs.pageHeight);
-			pp->setWidth(docPrefsData.docSetupPrefs.pageWidth);
-			pp->m_pageSize = docPrefsData.docSetupPrefs.pageSize;
-			pp->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
-		}
-		if (tabPage->marginGroup->getMarginsForAllMasterPages())
-		{
-			pp->initialMargins=docPrefsData.docSetupPrefs.margins;
-			pp->marginPreset=docPrefsData.docSetupPrefs.marginPreset;
-		}
-		pp->setXOffset(docPrefsData.displayPrefs.scratch.Left);
-		pp->setYOffset(docPrefsData.displayPrefs.scratch.Top);
-	}
-	*/
 	uint docItemsCount = MasterItems.count();
 	for (uint ite = 0; ite < docItemsCount; ++ite)
 	{
 		PageItem *item = MasterItems.at(ite);
-		item->moveBy(LeftD, TopD);
+		item->moveBy(leftDisplacement, topDisplacement);
 		item->setRedrawBounding();
 	}
+
 	bool viewToRecalcPictureRes=(docPrefsData.itemToolPrefs.imageLowResType==oldPrefsData.itemToolPrefs.imageLowResType);
 
 	autoSaveTimer->stop();
@@ -12408,4 +12352,62 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 
 }
 
+void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins)
+{
+	for (int p = 0; p < Pages->count(); ++p)
+	{
+		Page *pp = Pages->at(p);
+		if (resizePages)
+		{
+			pp->setInitialWidth(pageWidth());
+			pp->setInitialHeight(pageHeight());
+			pp->setHeight(pageHeight());
+			pp->setWidth(pageWidth());
+			pp->m_pageSize = pageSize();
+			pp->setOrientation(pageOrientation());
+		}
+		if (resizePageMargins)
+		{
+			pp->initialMargins=docPrefsData.docSetupPrefs.margins;
+			pp->marginPreset=docPrefsData.docSetupPrefs.marginPreset;
+		}
+		else
+		if (resizeMasterPageMargins)
+		{
+			//CB #6796: find the master page (*mp) for the current page (*pp)
+			//check if *pp's margins are the same as the *mp's current margins
+			//apply new margins if same
+			const int masterPageNumber = MasterNames[pp->MPageNam];
+			const Page* mp = MasterPages.at(masterPageNumber);
+			if (pp->initialMargins.Left == mp->initialMargins.Left &&
+				pp->initialMargins.Right == mp->initialMargins.Right &&
+				pp->initialMargins.Top == mp->initialMargins.Top &&
+				pp->initialMargins.Bottom == mp->initialMargins.Bottom)
+			{
+				pp->initialMargins=docPrefsData.docSetupPrefs.margins;
+				pp->marginPreset=docPrefsData.docSetupPrefs.marginPreset;
+			}
+		}
+	}
+	for (int p = 0; p < MasterPages.count(); ++p)
+	{
+		Page *pp = MasterPages.at(p);
+		if (resizeMasterPages)
+		{
+			pp->setInitialWidth(pageWidth());
+			pp->setInitialHeight(pageHeight());
+			pp->setHeight(pageHeight());
+			pp->setWidth(pageWidth());
+			pp->m_pageSize = pageSize();
+			pp->setOrientation(pageOrientation());
+		}
+		if (resizeMasterPageMargins)
+		{
+			pp->initialMargins=docPrefsData.docSetupPrefs.margins;
+			pp->marginPreset=docPrefsData.docSetupPrefs.marginPreset;
+		}
+		pp->setXOffset(scratch()->Left);
+		pp->setYOffset(scratch()->Top);
+	}
+}
 
