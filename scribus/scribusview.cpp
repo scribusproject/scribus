@@ -2880,6 +2880,8 @@ void ScribusView::showMasterPage(int nr)
 {
 	Deselect(false);
 	OldScale = m_canvas->scale();
+	if (!Doc->masterPageMode())
+		this->requestMode(modeNormal);
 	Doc->setMasterPageMode(true);
 	Doc->setCurrentPage(Doc->Pages->at(nr));
 	pageSelector->setEnabled(false);
@@ -2896,6 +2898,8 @@ void ScribusView::showMasterPage(int nr)
 void ScribusView::hideMasterPage()
 {
 	Deselect(true);
+	if (Doc->masterPageMode())
+		this->requestMode(modeNormal);
 	Doc->setMasterPageMode(false);
 //	Doc->currentPage = Doc->Pages->at(0);
 	pageSelector->setEnabled(true);
